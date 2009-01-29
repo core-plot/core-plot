@@ -21,6 +21,7 @@
 @synthesize observedObjectsForYValues;
 @synthesize keyPathsForXValues;
 @synthesize keyPathsForYValues;
+@synthesize hasErrorBars;
 
 
 -(void)dealloc

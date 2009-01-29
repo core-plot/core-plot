@@ -6,13 +6,20 @@
 @class CPBarPlot;
 
 
+typedef enum _CPBarPlotField {
+    CPBarPlotFieldY,
+    CPBarPlotFieldErrorMinimum,
+    CPBarPlotFieldErrorMaximum
+} CPBarPlotField;
+
+
 @protocol CPBarPlotDataSource <CPPlotDataSource>
 
 -(NSUInteger)numberOfSiblings;
 
 @optional
 
--(NSNumber *)numberForBarPlot:(CPBarPlot *)plot field:(NSString *)fieldIdentifier siblingIndex:(NSUInteger)siblingIndex recordIndex:(NSUInteger)index; 
+-(NSNumber *)numberForBarPlot:(CPBarPlot *)plot field:(NSUInteger)fieldEnum siblingIndex:(NSUInteger)siblingIndex recordIndex:(NSUInteger)index; 
 
 @end 
 
@@ -24,9 +31,11 @@
     NSMutableArray *observedObjectsForYValues;
     NSMutableArray *keyPathsForXValues;
     NSMutableArray *keyPathsForYValues;
+    BOOL hasErrorBars;
 } 
 
 @property (nonatomic, readwrite, assign) CPNumericType numericTypeForX;
 @property (nonatomic, readwrite, assign) CPNumericType numericTypeForY;
+@property (nonatomic, readwrite, assign) BOOL hasErrorBars;
 
 @end

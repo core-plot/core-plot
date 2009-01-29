@@ -22,12 +22,13 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @synthesize observedObjectForYValues;
 @synthesize keyPathForXValues;
 @synthesize keyPathForYValues;
+@synthesize hasErrorBars;
 
 
 +(void)initialize
 {
-    [self exposeBinding:@"X Values"];	
-    [self exposeBinding:@"Y Values"];	
+    [self exposeBinding:@"xValues"];	
+    [self exposeBinding:@"yValues"];	
 }
 
 -(id)init
@@ -52,12 +53,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
-    if ([binding isEqualToString:@"X Values"]) {
+    if ([binding isEqualToString:@"xValues"]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
         self.observedObjectForXValues = observable;
         self.keyPathForXValues = keyPath;
     }
-    else if ([binding isEqualToString:@"Y Values"]) {
+    else if ([binding isEqualToString:@"yValues"]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPYValuesBindingContext];
         self.observedObjectForYValues = observable;
         self.keyPathForYValues = keyPath;
@@ -71,12 +72,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)unbind:(NSString *)bindingName
 {
-    if ([bindingName isEqualToString:@"X Values"]) {
+    if ([bindingName isEqualToString:@"xValues"]) {
 		[observedObjectForXValues removeObserver:self forKeyPath:keyPathForXValues];
         self.observedObjectForXValues = nil;
         self.keyPathForXValues = nil;
     }	
-    else if ([bindingName isEqualToString:@"Y Values"]) {
+    else if ([bindingName isEqualToString:@"yValues"]) {
 		[observedObjectForYValues removeObserver:self forKeyPath:keyPathForYValues];
         self.observedObjectForYValues = nil;
         self.keyPathForYValues = nil;
