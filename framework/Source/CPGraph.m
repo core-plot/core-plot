@@ -57,8 +57,10 @@
 
 -(void)insertPlot:(CPPlot* )plot AtIndex:(NSUInteger)index 
 {
+	[plot setNeedsDisplayOnBoundsChange:YES];
+
 	// This probably needs some ordering
-	[self addSublayer:plot];
+	[plotArea addSublayer:plot];
 	
 	[plots insertObject:plot atIndex:index];
 }
