@@ -1,18 +1,11 @@
 
 #import <Foundation/Foundation.h>
 #import "CPPlotSpace.h"
+#import "CPDefinitions.h"
 
 @interface CPCartesianPlotSpace : CPPlotSpace {
-    CGPoint scale, offset;
-	NSDecimalNumber* lowerX, *lowerY, *upperX, *upperY;
+	CPPlotRange XRange, YRange;
 }
 
-@property (nonatomic, readwrite, assign) CGPoint scale, offset;
-
-- (NSArray*) XRange;
-- (void) setXRange:(NSArray*)limits;
-
-- (NSArray*) YRange;
-- (void) setYRange:(NSArray*)limits;
-
+@property (nonatomic, readwrite, assign) CPPlotRange XRange, YRange;
 @end

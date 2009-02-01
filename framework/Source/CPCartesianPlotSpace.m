@@ -1,16 +1,34 @@
 
 #import "CPCartesianPlotSpace.h"
 
+CGFloat NSDecimalFloatValue(NSDecimal dec)
+{
+	return [[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
+}
+
 @implementation CPCartesianPlotSpace
 
-@synthesize scale, offset;
-
 #pragma mark Implementation of CPPlotSpace
+
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
 	if ([decimalNumbers count] == 2)
-		return CGPointMake(([[decimalNumbers objectAtIndex:0] floatValue] - offset.x) * scale.x, 
-						   ([[decimalNumbers objectAtIndex:1] floatValue] - offset.y) * scale.y);
+	{
+		NSDecimal boundsw = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.width exponent:0 isNegative:NO] decimalValue];
+		NSDecimal boundsh = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.height exponent:0 isNegative:NO] decimalValue];
+
+		
+		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
+		NSDecimalSubtract(&x, &x, &(XRange.location), NSRoundPlain);
+		NSDecimalDivide(&x, &x, &(XRange.length), NSRoundPlain);
+		NSDecimalMultiply(&x, &x, &boundsw, NSRoundPlain);
+		NSDecimal y = [[decimalNumbers objectAtIndex:1] decimalValue];
+		NSDecimalSubtract(&y, &y, &(YRange.location), NSRoundPlain);
+		NSDecimalDivide(&y, &y, &(YRange.length), NSRoundPlain);
+		NSDecimalMultiply(&y, &y, &boundsh, NSRoundPlain);
+		
+		return CGPointMake(NSDecimalFloatValue(x), NSDecimalFloatValue(y));
+	}
 	else
 		// What do we return in this case?
 		return CGPointMake(0.f, 0.f);
@@ -18,77 +36,22 @@
 
 -(NSArray *)plotPointForViewPoint:(CGPoint)point
 {
-	NSDecimalNumber* x = [[[NSDecimalNumber alloc] initWithFloat:(point.x / scale.x) - offset.x] autorelease];
-	NSDecimalNumber* y = [[[NSDecimalNumber alloc] initWithFloat:(point.y / scale.y) - offset.y] autorelease];
-	return [NSArray arrayWithObjects:x,y,nil];
-	
-}
+	NSDecimal pointx = [[[[NSDecimalNumber alloc] initWithFloat:point.x] autorelease] decimalValue];
+	NSDecimal pointy = [[[[NSDecimalNumber alloc] initWithFloat:point.y] autorelease] decimalValue];
+	NSDecimal boundsw = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.width exponent:0 isNegative:NO] decimalValue];
+	NSDecimal boundsh = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.height exponent:0 isNegative:NO] decimalValue];
 
-- (void) updateScaleAndOffset
-{
-	scale.x = (self.bounds.size.width) / ([upperX floatValue] - [lowerX floatValue]); 
-	scale.y = (self.bounds.size.height) / ([upperY floatValue] - [lowerY floatValue]); 
-	
-	// This assumes bounds.origin = {0.0 0.0};
-	offset = CGPointMake([lowerX floatValue], [lowerY floatValue]);
-};
+	NSDecimal x;
+	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);
+	NSDecimalMultiply(&x, &x, &(XRange.length), NSRoundPlain);
+	NSDecimalAdd(&x, &x, &(XRange.location), NSRoundPlain);
 
-#pragma mark getters/setters
+	NSDecimal y;
+	NSDecimalDivide(&y, &pointy, &boundsh, NSRoundPlain);
+	NSDecimalMultiply(&y, &y, &(YRange.length), NSRoundPlain);
+	NSDecimalAdd(&y, &y, &(YRange.location), NSRoundPlain);
 
-- (void) setBounds:(CGRect)rect
-{
-	[super setBounds:rect];
-	[self updateScaleAndOffset];
-}
-
-- (NSArray*) XRange
-{
-	return [NSArray arrayWithObjects:lowerX, upperX, nil];
-}
-
-- (void) setXRange:(NSArray*)range
-{
-	[lowerX release];
-	[upperX release];
-	
-	//Add bounds checking?
-	[[range objectAtIndex:0] retain];
-	[[range objectAtIndex:1] retain];
-	
-	lowerX = [range objectAtIndex:0];
-	upperX = [range objectAtIndex:1];
-	[self updateScaleAndOffset];
-}
-
-- (NSArray*) YRange
-{
-	return [NSArray arrayWithObjects:lowerY, upperY, nil];
-}
-
-- (void) setYRange:(NSArray*)range
-{
-	[lowerY release];
-	[upperY release];
-	
-	//Add bounds checking?
-	[[range objectAtIndex:0] retain];
-	[[range objectAtIndex:1] retain];
-	
-	lowerY = [range objectAtIndex:0];
-	upperY = [range objectAtIndex:1];
-	[self updateScaleAndOffset];
-}
-
-#pragma mark init/dealloc
-
-- (void) dealloc
-{
-	[lowerX release];
-	[upperX release];
-	[lowerY release];
-	[upperY release];
-	
-	[super dealloc];
+	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x],[NSDecimalNumber decimalNumberWithDecimal:y],nil];
 }
 
 @end
