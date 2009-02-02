@@ -93,6 +93,12 @@
 	[super setBounds:rect];
 }
 
+-(void)setFrame:(CGRect)rect
+{
+	[plotArea setFrame:rect];
+	[super setFrame:rect];
+}
+
 -(void)setPlotArea:(CPPlotArea *)aPlotArea
 {
     if ( aPlotArea != plotArea ) {

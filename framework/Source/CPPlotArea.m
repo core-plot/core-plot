@@ -38,4 +38,11 @@
 	[super setBounds:rect];
 }
 
+-(void)setFrame:(CGRect)rect
+{
+    for ( CPPlotSpace* plotSpace in plotSpaces ) {
+        [plotSpace setFrame:rect];
+    }
+	[super setFrame:rect];
+}
 @end
