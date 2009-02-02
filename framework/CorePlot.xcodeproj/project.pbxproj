@@ -33,6 +33,8 @@
 		07BF0D980F2B73CA002FCEA7 /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
 		07BF0DF30F2B7BFB002FCEA7 /* CPDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
+		654EE9210F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.h in Headers */ = {isa = PBXBuildFile; fileRef = 654EE91F0F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.h */; };
+		654EE9220F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = 654EE9200F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
@@ -70,6 +72,8 @@
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
+		654EE91F0F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCartesianPlotSpaceTemp.h; sourceTree = "<group>"; };
+		654EE9200F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpaceTemp.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 			children = (
 				07BF0D7A0F2B72B0002FCEA7 /* CPPlotSpace.h */,
 				07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */,
+				654EE91F0F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.h */,
+				654EE9200F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.m */,
 				0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */,
 				90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */,
 				07983F050F2F9BA6008C8618 /* CPPolarPlotSpace.h */,
@@ -280,6 +286,7 @@
 				07983EF60F2F9A3D008C8618 /* CPXYGraph.h in Headers */,
 				07983EFF0F2F9B50008C8618 /* CPBarGraph.h in Headers */,
 				07983F070F2F9BA6008C8618 /* CPPolarPlotSpace.h in Headers */,
+				654EE9210F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +358,7 @@
 				07983F000F2F9B50008C8618 /* CPBarGraph.m in Sources */,
 				07983F080F2F9BA6008C8618 /* CPPolarPlotSpace.m in Sources */,
 				90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */,
+				654EE9220F371E7F00F881A3 /* CPCartesianPlotSpaceTemp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
