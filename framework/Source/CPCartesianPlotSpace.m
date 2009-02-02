@@ -8,6 +8,8 @@ CGFloat NSDecimalFloatValue(NSDecimal dec)
 
 @implementation CPCartesianPlotSpace
 
+@synthesize XRange, YRange;
+
 #pragma mark Implementation of CPPlotSpace
 
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
