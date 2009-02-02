@@ -18,11 +18,20 @@
 	for (CALayer* plot in [self sublayers])
 		[plot setBounds:rect];
 	
-	// Shouldn't our plotSpaces also be sublayers?
-	for (CPPlotSpace* plotSpace in plotSpaces)
-		[plotSpace setBounds:rect];
+	// Shouldn't our plotSpaces also be sublayers? They are...
+//	for (CPPlotSpace* plotSpace in plotSpaces)
+//		[plotSpace setBounds:rect];
 	
 	[super setBounds:rect];
+};
+
+
+- (void) setFrame:(CGRect)rect
+{
+	for (CALayer* plot in [self sublayers])
+		[plot setFrame:rect];
+	
+	[super setFrame:rect];
 };
 
 #pragma mark init/dealloc

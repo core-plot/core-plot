@@ -14,6 +14,7 @@
 	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPGraph" attributes:nil];
 	[tempString drawAtPoint:NSMakePoint(10.f, 10.f)];
 	[tempString release];
+
 };
 
 #pragma mark getters/setters
@@ -21,6 +22,12 @@
 {
 	[plotArea setBounds:rect];
 	[super setBounds:rect];
+};
+
+- (void) setFrame:(CGRect)rect
+{
+	[plotArea setFrame:rect];
+	[super setFrame:rect];
 };
 
 - (void) setPlotArea:(CPPlotArea*)aPlotArea
