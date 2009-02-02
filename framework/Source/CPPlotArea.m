@@ -4,38 +4,8 @@
 
 @implementation CPPlotArea
 
-// Temporary method just to show something...
-- (void)drawInContext:(CGContextRef)theContext
-{
-	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPPlotArea" attributes:nil];
-	[tempString drawAtPoint:NSMakePoint(10.f, 10.f)];
-	[tempString release];
-}
-
-#pragma mark getters/setters
-- (void) setBounds:(CGRect)rect
-{
-	for (CALayer* plot in [self sublayers])
-		[plot setBounds:rect];
-	
-	// Shouldn't our plotSpaces also be sublayers? They are...
-//	for (CPPlotSpace* plotSpace in plotSpaces)
-//		[plotSpace setBounds:rect];
-	
-	[super setBounds:rect];
-};
-
-
-- (void) setFrame:(CGRect)rect
-{
-	for (CALayer* plot in [self sublayers])
-		[plot setFrame:rect];
-	
-	[super setFrame:rect];
-};
-
-#pragma mark init/dealloc
-- (id) init
+#pragma mark Init/Dealloc
+-(id)init
 {
 	self = [super init];
 	if (self != nil) {
@@ -44,11 +14,28 @@
 	return self;
 }
 
-- (void) dealloc
+-(void)dealloc
 {
 	[plotSpaces release];
 	[super dealloc];
 }
 
+#pragma mark Drawing
+-(void)drawInContext:(CGContextRef)theContext
+{
+    // Temporary method just to show something...
+	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPPlotArea" attributes:nil];
+	[tempString drawAtPoint:NSMakePoint(10.f, 10.f)];
+	[tempString release];
+}
+
+#pragma mark Accessors
+-(void)setBounds:(CGRect)rect
+{
+    for ( CPPlotSpace* plotSpace in plotSpaces ) {
+        [plotSpace setBounds:rect];
+    }
+	[super setBounds:rect];
+}
 
 @end

@@ -26,12 +26,12 @@
 
 @interface CPPlot : CALayer {
     id <CPPlotDataSource> dataSource;
-    id <NSCopying> identifier;
+    id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
 }
 
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;
-@property (nonatomic, readwrite, copy) id <NSCopying> identifier;
+@property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 
 @end

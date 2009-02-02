@@ -14,6 +14,10 @@
     NSMutableArray *plots;
 }
 
+// Properties
+@property (nonatomic, readwrite, retain) CPAxisSet* axisSet;
+@property (nonatomic, readwrite, retain) CPPlotArea* plotArea;
+
 // Adding and removing plots
 -(void)addPlot:(CPPlot *)plot;
 -(NSArray *)allPlots;
@@ -22,9 +26,5 @@
 -(void)removePlotWithIdentifier:(id <NSCopying>)identifier;
 -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier;
 -(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot;
-
-// Properties
-@property (nonatomic, readwrite, retain) CPAxisSet* axisSet;
-@property (nonatomic, readwrite, retain) CPPlotArea* plotArea;
 
 @end

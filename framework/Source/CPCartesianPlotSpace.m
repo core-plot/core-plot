@@ -1,17 +1,14 @@
 
 #import "CPCartesianPlotSpace.h"
+#import "CPUtilities.h"
+#import "CPExceptions.h"
 
-CGFloat NSDecimalFloatValue(NSDecimal dec)
-{
-	return [[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
-}
 
 @implementation CPCartesianPlotSpace
 
 @synthesize XRange, YRange;
 
-#pragma mark Implementation of CPPlotSpace
-
+#pragma mark Point Conversion
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
 	if ([decimalNumbers count] == 2)
@@ -31,9 +28,10 @@ CGFloat NSDecimalFloatValue(NSDecimal dec)
 		
 		return CGPointMake(NSDecimalFloatValue(x), NSDecimalFloatValue(y));
 	}
-	else
-		// What do we return in this case?
-		return CGPointMake(0.f, 0.f);
+	else {
+        [NSException raise:CPDataException format:@"Wrong number of plot points supplied to viewPointForPlotPoint:"];
+    }
+    return CGPointMake(0.f, 0.f);
 }
 
 -(NSArray *)plotPointForViewPoint:(CGPoint)point
