@@ -28,10 +28,9 @@
 {
 	if ([decimalNumbers count] == 2)
 	{
-		NSDecimal boundsw = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.width exponent:0 isNegative:NO] decimalValue];
-		NSDecimal boundsh = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.height exponent:0 isNegative:NO] decimalValue];
+		NSDecimal boundsw = NSDecimalFromFloat(self.bounds.size.width);
+		NSDecimal boundsh = NSDecimalFromFloat(self.bounds.size.height);
 
-		
 		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
 		NSDecimalSubtract(&x, &x, &(XRange.location), NSRoundPlain);
 		NSDecimalDivide(&x, &x, &(XRange.length), NSRoundPlain);
@@ -51,10 +50,10 @@
 
 -(NSArray *)plotPointForViewPoint:(CGPoint)point
 {
-	NSDecimal pointx = [[[[NSDecimalNumber alloc] initWithFloat:point.x] autorelease] decimalValue];
-	NSDecimal pointy = [[[[NSDecimalNumber alloc] initWithFloat:point.y] autorelease] decimalValue];
-	NSDecimal boundsw = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.width exponent:0 isNegative:NO] decimalValue];
-	NSDecimal boundsh = [[NSDecimalNumber decimalNumberWithMantissa:self.bounds.size.height exponent:0 isNegative:NO] decimalValue];
+	NSDecimal pointx = NSDecimalFromFloat(point.x);
+	NSDecimal pointy = NSDecimalFromFloat(point.y);
+	NSDecimal boundsw = NSDecimalFromFloat(self.bounds.size.width);
+	NSDecimal boundsh = NSDecimalFromFloat(self.bounds.size.height);
 
 	NSDecimal x;
 	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);
