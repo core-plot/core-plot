@@ -105,6 +105,7 @@
         [plotArea removeFromSuperlayer];
         [plotArea release];
         plotArea = [aPlotArea retain];
+		[plotArea setFrame:[self frame]];
         [self addSublayer:plotArea];
         [plotArea setNeedsDisplayOnBoundsChange:YES];
     }
