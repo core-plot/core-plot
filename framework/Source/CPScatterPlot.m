@@ -1,5 +1,7 @@
 
 #import "CPScatterPlot.h"
+#import "CPLineStyle.h"
+#import "CPPlotSpace.h"
 
 static NSString *CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
@@ -23,7 +25,9 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @synthesize keyPathForXValues;
 @synthesize keyPathForYValues;
 @synthesize hasErrorBars;
+@synthesize dataLineStyle;
 
+#pragma mark init/dealloc
 
 +(void)initialize
 {
@@ -35,6 +39,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 {
     if (self = [super init]) {
         self.numericType = CPNumericTypeFloat;
+		self.dataLineStyle = [CPLineStyle defaultLineStyle];
     }
     return self;
 }
@@ -86,5 +91,36 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 	[self setNeedsDisplay];
 }
 
+#pragma mark Drawing
+
+- (void)drawInContext:(CGContextRef)theContext
+{
+	NSUInteger ii;
+	NSArray* xData = [self.observedObjectForXValues valueForKey:self.keyPathForXValues];
+	NSArray* yData = [self.observedObjectForYValues valueForKey:self.keyPathForYValues];
+	CGMutablePathRef dataLine = CGPathCreateMutable();
+	CGPathMoveToPoint(dataLine, NULL, 0.f, 0.f);
+	// Temporary storage for the viewPointForPlotPoint call
+	NSMutableArray* plotPoint = [NSMutableArray array];
+	CGPoint viewPoint;
+
+	// No error check your # of y points yet
+	for (ii = 0; ii < [xData count]; ii++)
+	{
+		[plotPoint insertObject:[xData objectAtIndex:ii] atIndex:0];
+		[plotPoint insertObject:[yData objectAtIndex:ii] atIndex:1];
+		viewPoint = [plotSpace viewPointForPlotPoint:plotPoint];
+		
+		CGPathAddLineToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
+		[plotPoint removeAllObjects];
+	}
+	CGContextBeginPath(theContext);
+	CGContextAddPath(theContext, dataLine);
+	[dataLineStyle CPApplyLineStyleToContext:theContext];
+    CGContextStrokePath(theContext);
+	
+	CGPathRelease(dataLine);
+		
+}
 
 @end
