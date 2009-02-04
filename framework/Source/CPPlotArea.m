@@ -32,17 +32,17 @@
 #pragma mark Accessors
 -(void)setBounds:(CGRect)rect
 {
-    for ( CPPlotSpace* plotSpace in plotSpaces ) {
-        [plotSpace setBounds:rect];
-    }
+	for (CALayer* subLayer in [self sublayers])
+		[subLayer setBounds:rect];
+
 	[super setBounds:rect];
 }
 
 -(void)setFrame:(CGRect)rect
 {
-    for ( CPPlotSpace* plotSpace in plotSpaces ) {
-        [plotSpace setFrame:rect];
-    }
+	for (CALayer* subLayer in [self sublayers])
+		[subLayer setFrame:rect];
+
 	[super setFrame:rect];
 }
 @end
