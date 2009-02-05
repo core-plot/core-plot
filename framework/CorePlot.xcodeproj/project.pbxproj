@@ -111,6 +111,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		07975C230F3B3DF200DE45DC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		07983EF20F2F9A22008C8618 /* Graphs */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +157,7 @@
 			children = (
 				906156BA0F375558001B75FC /* Drawing */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Definitions */,
+				07975C230F3B3DF200DE45DC /* Categories */,
 				07983EF20F2F9A22008C8618 /* Graphs */,
 				07BF0D8F0F2B739B002FCEA7 /* Plot Areas */,
 				07BF0D8C0F2B737A002FCEA7 /* Spaces */,

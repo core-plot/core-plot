@@ -1,7 +1,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum  {
+typedef NSInteger CPInteger;
+typedef CGFloat   CPFloat;
+typedef double    CPDouble;
+
+typedef enum  _CPNumericType {
     CPNumericTypeInteger,
     CPNumericTypeFloat,
     CPNumericTypeDouble

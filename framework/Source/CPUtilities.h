@@ -1,11 +1,11 @@
 
 #import <Foundation/Foundation.h>
+#import "CPDefinitions.h"
 
+CPInteger NSDecimalIntegerValue(NSDecimal decimalNumber);
+CPFloat   NSDecimalFloatValue(NSDecimal decimalNumber);
+CPDouble  NSDecimalDoubleValue(NSDecimal decimalNumber);
 
-int NSDecimalIntValue(NSDecimal dec);
-CGFloat NSDecimalFloatValue(NSDecimal decimalNumber);
-double NSDecimalDoubleValue(NSDecimal dec);
-
-NSDecimal NSDecimalFromInt(int i);
-NSDecimal NSDecimalFromFloat(CGFloat f);
-NSDecimal NSDecimalFromDouble(double d);
+NSDecimal NSDecimalFromInt(CPInteger i);
+NSDecimal NSDecimalFromFloat(CPFloat f);
+NSDecimal NSDecimalFromDouble(CPDouble d);

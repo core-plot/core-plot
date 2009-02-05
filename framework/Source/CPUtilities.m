@@ -1,32 +1,32 @@
 
 #import "CPUtilities.h"
 
-int NSDecimalIntValue(NSDecimal dec)
+CPInteger NSDecimalIntegerValue(NSDecimal dec)
 {
-	return [[NSDecimalNumber decimalNumberWithDecimal:dec] intValue]; 
+	return (CPInteger)[[NSDecimalNumber decimalNumberWithDecimal:dec] intValue]; 
 }
 
-CGFloat NSDecimalFloatValue(NSDecimal dec)
+CPFloat NSDecimalFloatValue(NSDecimal dec)
 {
-	return [[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
+	return (CPFloat)[[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
 }
 
-double NSDecimalDoubleValue(NSDecimal dec)
+CPDouble NSDecimalDoubleValue(NSDecimal dec)
 {
-	return [[NSDecimalNumber decimalNumberWithDecimal:dec] doubleValue]; 
+	return (CPDouble)[[NSDecimalNumber decimalNumberWithDecimal:dec] doubleValue]; 
 }
 
-NSDecimal NSDecimalFromInt(int i)
+NSDecimal NSDecimalFromInt(CPInteger i)
 {
 	return [[NSNumber numberWithInt:i] decimalValue]; 
 }
 
-NSDecimal NSDecimalFromFloat(CGFloat f)
+NSDecimal NSDecimalFromFloat(CPFloat f)
 {
 	return [[NSNumber numberWithFloat:f] decimalValue]; 
 }
 
-NSDecimal NSDecimalFromDouble(double d)
+NSDecimal NSDecimalFromDouble(CPDouble d)
 {
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
 }
