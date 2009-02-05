@@ -1,10 +1,3 @@
-//
-//  CPLineStyle.m
-//  CorePlot
-//
-//  Created by Dirkjan Krijnders on 2/2/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
 
 #import "CPLineStyle.h"
 
@@ -16,15 +9,16 @@
 
 #pragma mark init/dealloc
 
-+ (CPLineStyle*) defaultLineStyle
++(CPLineStyle*)defaultLineStyle
 {
-	return [[[CPLineStyle alloc] init] autorelease];
-};
+    static CPLineStyle *defaultLineStyle = nil;
+    if ( nil == defaultLineStyle ) defaultLineStyle = [[CPLineStyle alloc] init];
+    return defaultLineStyle;
+}
 
-- (id) init
+-(id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if ( self = [super init] ) {
 		self.lineCap = kCGLineCapButt;
 		self.lineJoin = kCGLineJoinMiter;
 		self.lineWidth = 1.f;
@@ -34,14 +28,13 @@
 	return self;
 }
 
-- (void) dealloc
+-(void)dealloc
 {
 	CGColorRelease(lineColor);
 	[super dealloc];
 }
 
-
-- (void) CPApplyLineStyleToContext:(CGContextRef)theContext
+-(void)setLineStyleInContext:(CGContextRef)theContext
 {
 	CGContextSetLineCap(theContext, lineCap);
 	CGContextSetLineJoin(theContext, lineJoin);
@@ -52,11 +45,9 @@
 }
 
 #pragma mark Allocators
-
-- (void) setLineColor:(CGColorRef)aLineColor
+-(void)setLineColor:(CGColorRef)aLineColor
 {
-	if (aLineColor != lineColor)
-	{
+	if ( aLineColor != lineColor ) {
 		CGColorRetain(aLineColor);
 		CGColorRelease(lineColor);
 		lineColor = aLineColor;

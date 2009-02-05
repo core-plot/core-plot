@@ -4,40 +4,33 @@
 #import "CPExceptions.h"
 #import "CPLineStyle.h"
 
+
 @implementation CPCartesianPlotSpace
 
-@synthesize XRange, YRange;
-@synthesize XMajorTickLocations, YMajorTickLocations;
-@synthesize majorTickLineStyle;
+@synthesize xRange, yRange;
 
-#pragma mark init/dealloc
-
-- (id) init
+#pragma mark Init/Dealloc
+-(id)init
 {
-	self = [super init];
-	if (self != nil) {
-		[self setMajorTickLineStyle:[CPLineStyle defaultLineStyle]];
-
+	if ( self = [super init] ) {
 	}
 	return self;
 }
 
 #pragma mark Point Conversion
-
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
-	if ([decimalNumbers count] == 2)
-	{
+	if ( [decimalNumbers count] == 2 ) {
 		NSDecimal boundsw = NSDecimalFromFloat(self.bounds.size.width);
 		NSDecimal boundsh = NSDecimalFromFloat(self.bounds.size.height);
 
 		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
-		NSDecimalSubtract(&x, &x, &(XRange.location), NSRoundPlain);
-		NSDecimalDivide(&x, &x, &(XRange.length), NSRoundPlain);
+		NSDecimalSubtract(&x, &x, &(xRange.location), NSRoundPlain);
+		NSDecimalDivide(&x, &x, &(xRange.length), NSRoundPlain);
 		NSDecimalMultiply(&x, &x, &boundsw, NSRoundPlain);
 		NSDecimal y = [[decimalNumbers objectAtIndex:1] decimalValue];
-		NSDecimalSubtract(&y, &y, &(YRange.location), NSRoundPlain);
-		NSDecimalDivide(&y, &y, &(YRange.length), NSRoundPlain);
+		NSDecimalSubtract(&y, &y, &(yRange.location), NSRoundPlain);
+		NSDecimalDivide(&y, &y, &(yRange.length), NSRoundPlain);
 		NSDecimalMultiply(&y, &y, &boundsh, NSRoundPlain);
 		
 		return CGPointMake(NSDecimalFloatValue(x), NSDecimalFloatValue(y));
@@ -57,65 +50,16 @@
 
 	NSDecimal x;
 	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);
-	NSDecimalMultiply(&x, &x, &(XRange.length), NSRoundPlain);
-	NSDecimalAdd(&x, &x, &(XRange.location), NSRoundPlain);
+	NSDecimalMultiply(&x, &x, &(xRange.length), NSRoundPlain);
+	NSDecimalAdd(&x, &x, &(xRange.location), NSRoundPlain);
 
 	NSDecimal y;
 	NSDecimalDivide(&y, &pointy, &boundsh, NSRoundPlain);
-	NSDecimalMultiply(&y, &y, &(YRange.length), NSRoundPlain);
-	NSDecimalAdd(&y, &y, &(YRange.location), NSRoundPlain);
+	NSDecimalMultiply(&y, &y, &(yRange.length), NSRoundPlain);
+	NSDecimalAdd(&y, &y, &(yRange.location), NSRoundPlain);
 
 	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x],[NSDecimalNumber decimalNumberWithDecimal:y],nil];
 }
 
-- (void)drawInContext:(CGContextRef)theContext
-{
-	// Temporary storage for the viewPointForPlotPoint call
-	NSMutableArray* plotPoint = [NSMutableArray array];
-	CGPoint viewPoint;
-	
-	// Cache the range limits
-	NSDecimalNumber* XLowerRange = [NSDecimalNumber decimalNumberWithDecimal:XRange.location];
-	NSDecimalNumber* XUpperRange = [XLowerRange decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:XRange.length] withBehavior:NSRoundPlain];
-	NSDecimalNumber* YLowerRange = [NSDecimalNumber decimalNumberWithDecimal:YRange.location];
-	NSDecimalNumber* YUpperRange = [YLowerRange decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:YRange.length] withBehavior:NSRoundPlain];
-
-	// One path to hold the tickLines
-	CGMutablePathRef tickLine = CGPathCreateMutable();
-
-	// Make the tick line path
-	for (NSDecimalNumber* tick in XMajorTickLocations)
-	{
-		[plotPoint insertObject:tick atIndex:0];
-		[plotPoint insertObject:YLowerRange atIndex:1];
-		viewPoint = [self viewPointForPlotPoint:plotPoint];
-		CGPathMoveToPoint(tickLine, NULL, viewPoint.x, viewPoint.y);
-		[plotPoint replaceObjectAtIndex:1 withObject:YUpperRange];
-		viewPoint = [self viewPointForPlotPoint:plotPoint];
-		CGPathAddLineToPoint(tickLine, NULL, viewPoint.x, viewPoint.y);
-		[plotPoint removeAllObjects];
-	}
-	
-	for (NSDecimalNumber* tick in YMajorTickLocations)
-	{
-		[plotPoint insertObject:XLowerRange atIndex:0];
-		[plotPoint insertObject:tick atIndex:1];
-		viewPoint = [self viewPointForPlotPoint:plotPoint];
-		CGPathMoveToPoint(tickLine, NULL, viewPoint.x, viewPoint.y);
-
-		[plotPoint replaceObjectAtIndex:0 withObject:XUpperRange];
-		viewPoint = [self viewPointForPlotPoint:plotPoint];
-		CGPathAddLineToPoint(tickLine, NULL, viewPoint.x, viewPoint.y);
-		[plotPoint removeAllObjects];
-	}
-	
-	// Draw the tick line
-	CGContextBeginPath(theContext);
-	CGContextAddPath(theContext, tickLine);
-	[self.majorTickLineStyle CPApplyLineStyleToContext:theContext];
-    CGContextStrokePath(theContext);
-
-	CGPathRelease(tickLine);
-}
 
 @end

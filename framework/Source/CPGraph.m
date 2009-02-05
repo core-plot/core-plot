@@ -1,12 +1,16 @@
 
 #import "CPGraph.h"
+#import "CPExceptions.h"
 #import "CPPlot.h"
 #import "CPPlotArea.h"
+#import "CPPlotSpace.h"
+
 
 @implementation CPGraph
 
 @synthesize axisSet;
 @synthesize plotArea;
+@synthesize defaultPlotSpace;
 
 #pragma mark Init/Dealloc
 -(id)init
@@ -14,6 +18,8 @@
 	self = [super init];
 	if (self != nil) {
 		plots = [[NSMutableArray alloc] init];
+        plotArea = [[CPPlotArea alloc] init];
+        [self addSublayer:plotArea];
 	}
 	return self;
 }
@@ -35,40 +41,15 @@
 	[tempString release];
 }
 
-#pragma mark Organizing Plots
--(void)addPlot:(CPPlot *)plot
-{
-	[plot setNeedsDisplayOnBoundsChange:YES];
-	[plotArea addSublayer:plot];	
-	[plots addObject:plot];
-}
-
+#pragma mark Retrieving Plots
 -(NSArray *)allPlots 
 {    
 	return [NSArray arrayWithArray:plots];
 }
 
--(void)removePlotAtIndex:(NSUInteger)index 
+-(CPPlot *)plotAtIndex:(NSUInteger)index
 {
-	[[plots objectAtIndex:index] removeFromSuperlayer];
-	[plots removeObjectAtIndex:index];
-}
-
--(void)insertPlot:(CPPlot* )plot AtIndex:(NSUInteger)index 
-{
-	[plot setNeedsDisplayOnBoundsChange:YES];
-
-	// This probably needs some ordering
-	[plotArea addSublayer:plot];
-	
-	[plots insertObject:plot atIndex:index];
-}
-
--(void)removePlotWithIdentifier:(id <NSCopying>)identifier 
-{
-	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
-	[plotToRemove removeFromSuperlayer];
-	[plots removeObject:plotToRemove];
+    return [plots objectAtIndex:index];
 }
 
 -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
@@ -79,6 +60,50 @@
     return nil;
 }
 
+#pragma mark Organizing Plots
+-(void)addPlot:(CPPlot *)plot
+{
+	[self addPlot:plot toPlotSpace:self.defaultPlotSpace];
+}
+
+-(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space
+{
+	[plots addObject:plot];
+    plot.plotSpace = space;
+	[space addSublayer:plot];	
+}
+
+-(void)removePlot:(CPPlot *)plot
+{
+    if ( [plots containsObject:plot] ) {
+        [plots removeObject:plot];
+        plot.plotSpace = nil;
+        [plot removeFromSuperlayer];
+    }
+    else {
+        [NSException raise:CPException format:@"Tried to remove CPPlot which did not exist."];
+    }
+}
+
+-(void)insertPlot:(CPPlot* )plot atIndex:(NSUInteger)index 
+{
+	[self insertPlot:plot atIndex:index intoPlotSpace:self.defaultPlotSpace];
+}
+
+-(void)insertPlot:(CPPlot* )plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space
+{
+	[plots insertObject:plot atIndex:index];
+    plot.plotSpace = space;
+    [space addSublayer:plot];
+}
+
+-(void)removePlotWithIdentifier:(id <NSCopying>)identifier 
+{
+	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
+	[plotToRemove removeFromSuperlayer];
+	[plots removeObjectIdenticalTo:plotToRemove];
+}
+
 -(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot 
 {
 	[(CPPlot*)[plots objectAtIndex:index] removeFromSuperlayer];
@@ -86,29 +111,30 @@
 	[plots replaceObjectAtIndex:index withObject:plot];
 }
 
-#pragma mark Accessors
+#pragma mark Retrieving Plot Spaces
+-(CPPlotSpace *)defaultPlotSpace {
+    return ( plotSpaces.count > 0 ? [plotSpaces objectAtIndex:0] : nil );
+}
+
+#pragma mark Organizing Plot Spaces
+
+
+#pragma mark Dimensions
 -(void)setBounds:(CGRect)rect
 {
-	[plotArea setBounds:rect];
+    plotArea.bounds = rect;
 	[super setBounds:rect];
 }
 
 -(void)setFrame:(CGRect)rect
 {
-	[plotArea setFrame:rect];
+    plotArea.frame = rect;
 	[super setFrame:rect];
 }
 
--(void)setPlotArea:(CPPlotArea *)aPlotArea
+-(void)setPlotAreaFrame:(CGRect)frame
 {
-    if ( aPlotArea != plotArea ) {
-        [plotArea removeFromSuperlayer];
-        [plotArea release];
-        plotArea = [aPlotArea retain];
-		[plotArea setFrame:[self frame]];
-        [self addSublayer:plotArea];
-        [plotArea setNeedsDisplayOnBoundsChange:YES];
-    }
+    plotArea.frame = frame;
 }
 
 @end

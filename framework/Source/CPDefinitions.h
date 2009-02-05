@@ -21,3 +21,10 @@ typedef enum _CPErrorBarType {
     CPErrorBarTypeConstantRatio,
     CPErrorBarTypeConstantValue
 } CPErrorBarType;
+
+typedef enum _CPScaleType {
+    CPScaleTypeLinear,
+    CPScaleTypeLogN,
+    CPScaleTypeLog10,
+    CPScaleTypeAngular
+} CPScaleType;

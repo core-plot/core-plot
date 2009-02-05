@@ -116,7 +116,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 	}
 	CGContextBeginPath(theContext);
 	CGContextAddPath(theContext, dataLine);
-	[dataLineStyle CPApplyLineStyleToContext:theContext];
+	[dataLineStyle setLineStyleInContext:theContext];
     CGContextStrokePath(theContext);
 	
 	CGPathRelease(dataLine);
