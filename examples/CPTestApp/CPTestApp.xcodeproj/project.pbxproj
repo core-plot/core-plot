@@ -283,6 +283,7 @@
 				GCC_PREFIX_HEADER = CPTestApp_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lgcov";
 				PRODUCT_NAME = CPTestApp;
 			};
 			name = Debug;
