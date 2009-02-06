@@ -1,20 +1,10 @@
-//
-//  CPGraphView.m
-//  CorePlot
-//
-//  Created by Dirkjan Krijnders on 1/30/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
 
+#import <CorePlot/CorePlot.h>
 #import "CPGraphView.h"
-#import "CorePlot/CPPlot.h"
-#import "CorePlot/CPCartesianPlotSpace.h"
-#import "CorePlot/CPPlotArea.h"
-#import "CorePlot/CPLineStyle.h"
 
 @implementation CPGraphView
 
-- (id)initWithFrame:(NSRect)frame {
+-(id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
@@ -34,17 +24,17 @@
 	x.length = [[[[NSDecimalNumber alloc] initWithInt:2] autorelease] decimalValue];
 	y.location = [[[[NSDecimalNumber alloc] initWithInt:1] autorelease] decimalValue];
 	y.length = [[[[NSDecimalNumber alloc] initWithInt:2] autorelease] decimalValue];
-	NSArray* xTicks = [[NSArray alloc] initWithObjects:
-					   [[[NSDecimalNumber alloc] initWithInt:1] autorelease],
-					   [[[NSDecimalNumber alloc] initWithFloat:1.5f] autorelease], 
-					   [[[NSDecimalNumber alloc] initWithInt:2] autorelease], 
-					   [[[NSDecimalNumber alloc] initWithFloat:2.5f] autorelease], 
-					   [[[NSDecimalNumber alloc] initWithInt:3] autorelease], nil];
+//	NSArray* xTicks = [[NSArray alloc] initWithObjects:
+//					   [[[NSDecimalNumber alloc] initWithInt:1] autorelease],
+//					   [[[NSDecimalNumber alloc] initWithFloat:1.5f] autorelease], 
+//					   [[[NSDecimalNumber alloc] initWithInt:2] autorelease], 
+//					   [[[NSDecimalNumber alloc] initWithFloat:2.5f] autorelease], 
+//					   [[[NSDecimalNumber alloc] initWithInt:3] autorelease], nil];
 	
 	[cartPlotSpace setXRange:x];
 	[cartPlotSpace setYRange:y];
-	[cartPlotSpace setXMajorTickLocations:xTicks];
-	[cartPlotSpace setYMajorTickLocations:xTicks];
+//	[cartPlotSpace setXMajorTickLocations:xTicks];
+//	[cartPlotSpace setYMajorTickLocations:xTicks];
 	[cartPlotSpace setNeedsDisplayOnBoundsChange:YES];
 	
 	[linePlot setPlotSpace:cartPlotSpace];
@@ -53,7 +43,7 @@
 	[plotArea addSublayer:cartPlotSpace];
 	[graphLayer setPlotArea:plotArea];
 	[graphLayer addPlot:linePlot];
-	cartPlotSpace.majorTickLineStyle.lineColor = CGColorGetConstantColor(kCGColorWhite);
+//	cartPlotSpace.majorTickLineStyle.lineColor = CGColorGetConstantColor(kCGColorWhite);
 	
 };
 

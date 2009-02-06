@@ -7,21 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
+		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F420F36CEFA00753D26 /* CPGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4F410F36CEFA00753D26 /* CPGraphView.m */; };
 		90AF4F440F36CF1800753D26 /* CPTestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* CPTestApp.xib */; };
-		90AF4FAE0F36D30300753D26 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90AF4F390F36CE3C00753D26 /* CorePlot.framework */; };
-		90AF4FBE0F36D3DD00753D26 /* CorePlot.framework in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F390F36CE3C00753D26 /* CorePlot.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		90AF4F380F36CE3C00753D26 /* PBXContainerItemProxy */ = {
+		076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 90AF4F330F36CE3C00753D26 /* CorePlot.xcodeproj */;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
 /* End PBXContainerItemProxy section */
@@ -33,6 +40,7 @@
 			dstPath = FrameWorks;
 			dstSubfolderSpec = 7;
 			files = (
+				076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
+		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -49,7 +59,6 @@
 		32CA4F630368D1EE00C91783 /* CPTestApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTestApp_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* CPTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		90AF4F330F36CE3C00753D26 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		90AF4F400F36CEFA00753D26 /* CPGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPGraphView.h; path = Source/CPGraphView.h; sourceTree = "<group>"; };
 		90AF4F410F36CEFA00753D26 /* CPGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPGraphView.m; path = Source/CPGraphView.m; sourceTree = "<group>"; };
 		90AF4F430F36CF1800753D26 /* CPTestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPTestApp.xib; sourceTree = "<group>"; };
@@ -60,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90AF4FAE0F36D30300753D26 /* CorePlot.framework in Frameworks */,
+				0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		076184BD0F3CAD5900A89A76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* CPTestApp.app */,
+				0761854B0F3CB3CB00A89A76 /* CorePlot.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,7 +124,7 @@
 		29B97314FDCFA39411CA2CEA /* CPTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				90AF4F330F36CE3C00753D26 /* CorePlot.xcodeproj */,
+				076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -144,14 +162,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		90AF4F340F36CE3C00753D26 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				90AF4F390F36CE3C00753D26 /* CorePlot.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,6 +177,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				076184D00F3CAE1100A89A76 /* PBXTargetDependency */,
 			);
 			name = CPTestApp;
 			productInstallPath = "$(HOME)/Applications";
@@ -179,6 +190,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = NO;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CPTestApp" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -186,8 +200,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 90AF4F340F36CE3C00753D26 /* Products */;
-					ProjectRef = 90AF4F330F36CE3C00753D26 /* CorePlot.xcodeproj */;
+					ProductGroup = 076184BD0F3CAD5900A89A76 /* Products */;
+					ProjectRef = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -198,11 +212,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		90AF4F390F36CE3C00753D26 /* CorePlot.framework */ = {
+		076184C10F3CAD5900A89A76 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
-			remoteRef = 90AF4F380F36CE3C00753D26 /* PBXContainerItemProxy */;
+			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -212,7 +226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90AF4FBE0F36D3DD00753D26 /* CorePlot.framework in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				90AF4F440F36CF1800753D26 /* CPTestApp.xib in Resources */,
 			);
@@ -232,6 +245,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		076184D00F3CAE1100A89A76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CorePlot;
+			targetProxy = 076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -248,6 +269,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -294,7 +316,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
-				SYMROOT = ../../framework/build;
 			};
 			name = Debug;
 		};
@@ -307,7 +328,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
-				SYMROOT = ../../framework/build;
 			};
 			name = Release;
 		};
