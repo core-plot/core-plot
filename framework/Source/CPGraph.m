@@ -19,6 +19,7 @@
 	if (self != nil) {
 		plots = [[NSMutableArray alloc] init];
         plotArea = [[CPPlotArea alloc] init];
+		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
 	}
 	return self;
@@ -29,6 +30,7 @@
 	self.axisSet = nil;
 	self.plotArea = nil;
 	[plots release];
+	[plotSpaces release];
 	[super dealloc];
 }
 
@@ -100,6 +102,7 @@
 -(void)removePlotWithIdentifier:(id <NSCopying>)identifier 
 {
 	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
+	[plotToRemove setPlotSpace:nil];
 	[plotToRemove removeFromSuperlayer];
 	[plots removeObjectIdenticalTo:plotToRemove];
 }
@@ -107,7 +110,18 @@
 -(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot 
 {
 	[(CPPlot*)[plots objectAtIndex:index] removeFromSuperlayer];
+	[(CPPlot*)[plots objectAtIndex:index] setPlotSpace:nil];
 	[plotArea addSublayer:plot];
+	plot.plotSpace = [self defaultPlotSpace];
+	[plots replaceObjectAtIndex:index withObject:plot];
+}
+
+-(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot inPlotSpace:(CPPlotSpace *)space
+{
+	[(CPPlot*)[plots objectAtIndex:index] removeFromSuperlayer];
+	[(CPPlot*)[plots objectAtIndex:index] setPlotSpace:nil];
+	[plotArea addSublayer:plot];
+	plot.plotSpace = space;
 	[plots replaceObjectAtIndex:index withObject:plot];
 }
 
@@ -116,20 +130,67 @@
     return ( plotSpaces.count > 0 ? [plotSpaces objectAtIndex:0] : nil );
 }
 
+-(NSArray *)allPlotSpaces
+{
+	return [NSArray arrayWithArray:plotSpaces];
+}
+
+-(CPPlotSpace *)plotSpaceAtIndex:(NSUInteger)index
+{
+	return ( plotSpaces.count > 0 ? [plotSpaces objectAtIndex:index] : nil );
+}
+
+-(CPPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier
+{
+	for (CPPlotSpace *plotSpace in plotSpaces) {
+        if ( [[plotSpace identifier] isEqual:identifier] ) return plotSpace;
+	}
+    return nil;	
+}
+
+
 #pragma mark Organizing Plot Spaces
+-(void)addPlotSpace:(CPPlotSpace *)space
+{
+	[plotSpaces addObject:space];
+	[self addSublayer:space];
+}
+
+-(void)removePlotSpace:(CPPlotSpace *)plotSpace
+{
+	if ( [plotSpaces containsObject:plotSpace] ) {
+        [plotSpaces removeObject:plotSpace];
+        [plotSpace removeFromSuperlayer];
+    }
+    else {
+        [NSException raise:CPException format:@"Tried to remove CPPlotSpace which did not exist."];
+    }
+	
+}
 
 
 #pragma mark Dimensions
 -(void)setBounds:(CGRect)rect
 {
+	for (CPPlotSpace* plotSpace in plotSpaces)
+		plotSpace.bounds = rect;
+
     plotArea.bounds = rect;
 	[super setBounds:rect];
 }
 
 -(void)setFrame:(CGRect)rect
 {
+	for (CPPlotSpace* plotSpace in plotSpaces)
+		plotSpace.frame = rect;
+	
     plotArea.frame = rect;
 	[super setFrame:rect];
+}
+
+-(CGRect)plotAreaFrame
+{
+	return plotArea.frame;
 }
 
 -(void)setPlotAreaFrame:(CGRect)frame
