@@ -21,6 +21,7 @@
         plotArea = [[CPPlotArea alloc] init];
 		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
+        self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }

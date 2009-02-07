@@ -59,6 +59,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
+    [super bind:binding toObject:observable withKeyPath:keyPath options:options];
     if ([binding isEqualToString:@"xValues"]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
         self.observedObjectForXValues = observable;
@@ -68,9 +69,6 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPYValuesBindingContext];
         self.observedObjectForYValues = observable;
         self.keyPathForYValues = keyPath;
-    }
-    else {
-        [super bind:binding toObject:observable withKeyPath:keyPath options:options];
     }
     [self setNeedsDisplay];
 }
@@ -91,6 +89,17 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 	[super unbind:bindingName];
 	[self setNeedsDisplay];
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == CPXValuesBindingContext) {
+        [self setNeedsDisplay];
+    }
+    if (context == CPYValuesBindingContext) {
+        [self setNeedsDisplay];
+    }
+}
+
 
 #pragma mark Drawing
 

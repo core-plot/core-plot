@@ -8,7 +8,7 @@
 @synthesize identifier;
 @synthesize plotSpace;
 
-- (void)drawInContext:(CGContextRef)theContext
+-(void)drawInContext:(CGContextRef)theContext
 {
 	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPPlot" attributes:nil];
 	NSDecimalNumber* x = [[[NSDecimalNumber alloc] initWithInt:2] autorelease];
@@ -19,7 +19,7 @@
 };
 
 #pragma mark init/dealloc
-- (id) init
+-(id)init
 {
 	self = [super init];
 	if (self != nil) {

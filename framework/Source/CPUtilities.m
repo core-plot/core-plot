@@ -1,32 +1,40 @@
 
 #import "CPUtilities.h"
 
-CPInteger NSDecimalIntegerValue(NSDecimal dec)
+CPInteger CPDecimalIntegerValue(NSDecimal dec)
 {
 	return (CPInteger)[[NSDecimalNumber decimalNumberWithDecimal:dec] intValue]; 
 }
 
-CPFloat NSDecimalFloatValue(NSDecimal dec)
+CPFloat CPDecimalFloatValue(NSDecimal dec)
 {
 	return (CPFloat)[[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
 }
 
-CPDouble NSDecimalDoubleValue(NSDecimal dec)
+CPDouble CPDecimalDoubleValue(NSDecimal dec)
 {
 	return (CPDouble)[[NSDecimalNumber decimalNumberWithDecimal:dec] doubleValue]; 
 }
 
-NSDecimal NSDecimalFromInt(CPInteger i)
+NSDecimal CPDecimalFromInt(CPInteger i)
 {
 	return [[NSNumber numberWithInt:i] decimalValue]; 
 }
 
-NSDecimal NSDecimalFromFloat(CPFloat f)
+NSDecimal CPDecimalFromFloat(CPFloat f)
 {
 	return [[NSNumber numberWithFloat:f] decimalValue]; 
 }
 
-NSDecimal NSDecimalFromDouble(CPDouble d)
+NSDecimal CPDecimalFromDouble(CPDouble d)
 {
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
+}
+
+CPPlotRange CPMakePlotRange(CPDouble location, CPDouble length) 
+{
+    CPPlotRange range;
+    range.location = CPDecimalFromDouble(location);
+    range.length = CPDecimalFromDouble(length);
+    return range;
 }

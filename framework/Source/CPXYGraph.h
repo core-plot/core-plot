@@ -3,6 +3,7 @@
 #import "CPGraph.h"
 #import "CPDefinitions.h"
 
+@class CPCartesianPlotSpace;
 
 @interface CPXYGraph : CPGraph {
 

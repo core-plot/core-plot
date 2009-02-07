@@ -2,10 +2,12 @@
 #import <Foundation/Foundation.h>
 #import "CPDefinitions.h"
 
-CPInteger NSDecimalIntegerValue(NSDecimal decimalNumber);
-CPFloat   NSDecimalFloatValue(NSDecimal decimalNumber);
-CPDouble  NSDecimalDoubleValue(NSDecimal decimalNumber);
+CPInteger CPDecimalIntegerValue(NSDecimal decimalNumber);
+CPFloat   CPDecimalFloatValue(NSDecimal decimalNumber);
+CPDouble  CPDecimalDoubleValue(NSDecimal decimalNumber);
 
-NSDecimal NSDecimalFromInt(CPInteger i);
-NSDecimal NSDecimalFromFloat(CPFloat f);
-NSDecimal NSDecimalFromDouble(CPDouble d);
+NSDecimal CPDecimalFromInt(CPInteger i);
+NSDecimal CPDecimalFromFloat(CPFloat f);
+NSDecimal CPDecimalFromDouble(CPDouble d);
+
+CPPlotRange CPMakePlotRange(CPDouble location, CPDouble length);

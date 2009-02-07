@@ -21,8 +21,8 @@
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
 	if ( [decimalNumbers count] == 2 ) {
-		NSDecimal boundsw = NSDecimalFromFloat(self.bounds.size.width);
-		NSDecimal boundsh = NSDecimalFromFloat(self.bounds.size.height);
+		NSDecimal boundsw = CPDecimalFromFloat(self.bounds.size.width);
+		NSDecimal boundsh = CPDecimalFromFloat(self.bounds.size.height);
 
 		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
 		NSDecimalSubtract(&x, &x, &(xRange.location), NSRoundPlain);
@@ -33,7 +33,7 @@
 		NSDecimalDivide(&y, &y, &(yRange.length), NSRoundPlain);
 		NSDecimalMultiply(&y, &y, &boundsh, NSRoundPlain);
 		
-		return CGPointMake(NSDecimalFloatValue(x), NSDecimalFloatValue(y));
+		return CGPointMake(CPDecimalFloatValue(x), CPDecimalFloatValue(y));
 	}
 	else {
         [NSException raise:CPDataException format:@"Wrong number of plot points supplied to viewPointForPlotPoint:"];
@@ -43,10 +43,10 @@
 
 -(NSArray *)plotPointForViewPoint:(CGPoint)point
 {
-	NSDecimal pointx = NSDecimalFromFloat(point.x);
-	NSDecimal pointy = NSDecimalFromFloat(point.y);
-	NSDecimal boundsw = NSDecimalFromFloat(self.bounds.size.width);
-	NSDecimal boundsh = NSDecimalFromFloat(self.bounds.size.height);
+	NSDecimal pointx = CPDecimalFromFloat(point.x);
+	NSDecimal pointy = CPDecimalFromFloat(point.y);
+	NSDecimal boundsw = CPDecimalFromFloat(self.bounds.size.width);
+	NSDecimal boundsh = CPDecimalFromFloat(self.bounds.size.height);
 
 	NSDecimal x;
 	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);

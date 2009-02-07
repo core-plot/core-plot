@@ -12,6 +12,8 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
+		077382A60F3DC004002F10E2 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 077382A40F3DC004002F10E2 /* NSDecimalNumberExtensions.h */; };
+		077382A70F3DC004002F10E2 /* NSDecimalNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382A50F3DC004002F10E2 /* NSDecimalNumberExtensions.m */; };
 		07975C430F3B816600DE45DC /* CPXYAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 07975C410F3B816600DE45DC /* CPXYAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07975C440F3B816600DE45DC /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C420F3B816600DE45DC /* CPXYAxisSet.m */; };
 		07975C490F3B818800DE45DC /* CPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 07975C470F3B818800DE45DC /* CPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,6 +57,8 @@
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
+		077382A40F3DC004002F10E2 /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
+		077382A50F3DC004002F10E2 /* NSDecimalNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDecimalNumberExtensions.m; sourceTree = "<group>"; };
 		07975C410F3B816600DE45DC /* CPXYAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxisSet.h; sourceTree = "<group>"; };
 		07975C420F3B816600DE45DC /* CPXYAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYAxisSet.m; sourceTree = "<group>"; };
 		07975C470F3B818800DE45DC /* CPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxis.h; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		07975C230F3B3DF200DE45DC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				077382A40F3DC004002F10E2 /* NSDecimalNumberExtensions.h */,
+				077382A50F3DC004002F10E2 /* NSDecimalNumberExtensions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				906156BE0F375598001B75FC /* CPLineStyle.h in Headers */,
 				07975C430F3B816600DE45DC /* CPXYAxisSet.h in Headers */,
 				07975C490F3B818800DE45DC /* CPAxis.h in Headers */,
+				077382A60F3DC004002F10E2 /* NSDecimalNumberExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +418,7 @@
 				906156BF0F375598001B75FC /* CPLineStyle.m in Sources */,
 				07975C440F3B816600DE45DC /* CPXYAxisSet.m in Sources */,
 				07975C4A0F3B818800DE45DC /* CPAxis.m in Sources */,
+				077382A70F3DC004002F10E2 /* NSDecimalNumberExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

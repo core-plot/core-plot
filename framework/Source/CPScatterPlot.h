@@ -25,6 +25,6 @@ typedef enum _CPScatterPlotField {
 
 @property (nonatomic, readwrite, assign) CPNumericType numericType;
 @property (nonatomic, readwrite, assign) BOOL hasErrorBars;
-@property (nonatomic, readwrite, retain) CPLineStyle* dataLineStyle;
+@property (nonatomic, readwrite, retain) CPLineStyle *dataLineStyle;
 
 @end

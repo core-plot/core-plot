@@ -16,7 +16,7 @@
 
 -(void)setFrame:(CGRect)rect
 {
-	for (CALayer* layer in self.sublayers)
+	for (CALayer *layer in self.sublayers)
 		[layer setFrame:rect];
 
 	[super setFrame:rect];
