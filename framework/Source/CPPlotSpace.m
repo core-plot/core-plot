@@ -7,19 +7,20 @@
 @synthesize plotArea;
 @synthesize identifier;
 
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		self.needsDisplayOnBoundsChange = YES;
+		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
+	}
+	return self;
+}
 
 -(void)dealloc
 {
     self.plotArea = nil;
     [super dealloc];
-}
-
--(void)setFrame:(CGRect)rect
-{
-	for (CALayer *layer in self.sublayers)
-		[layer setFrame:rect];
-
-	[super setFrame:rect];
 }
 
 @end

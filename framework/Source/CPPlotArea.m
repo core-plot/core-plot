@@ -10,6 +10,8 @@
 	self = [super init];
 	if (self != nil) {
 		plotSpaces = [[NSMutableArray alloc] init];
+		self.needsDisplayOnBoundsChange = YES;
+		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
 	}
 	return self;
 }
@@ -29,20 +31,4 @@
 	[tempString release];
 }
 
-#pragma mark Accessors
--(void)setBounds:(CGRect)rect
-{
-	for (CALayer* subLayer in [self sublayers])
-		[subLayer setBounds:rect];
-
-	[super setBounds:rect];
-}
-
--(void)setFrame:(CGRect)rect
-{
-	for (CALayer* subLayer in [self sublayers])
-		[subLayer setFrame:rect];
-
-	[super setFrame:rect];
-}
 @end

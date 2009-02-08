@@ -24,6 +24,7 @@
 	self = [super init];
 	if (self != nil) {
 		[self setNeedsDisplayOnBoundsChange:YES];
+		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
 	}
 	return self;
 }

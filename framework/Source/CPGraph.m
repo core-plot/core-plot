@@ -19,9 +19,11 @@
 	if (self != nil) {
 		plots = [[NSMutableArray alloc] init];
         plotArea = [[CPPlotArea alloc] init];
+		plotArea.frame = self.bounds;
 		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
         self.needsDisplayOnBoundsChange = YES;
+		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin)];
 	}
 	return self;
 }
@@ -71,6 +73,7 @@
 
 -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space
 {
+	plot.frame = space.bounds;
 	[plots addObject:plot];
     plot.plotSpace = space;
 	[space addSublayer:plot];	
@@ -153,6 +156,7 @@
 #pragma mark Organizing Plot Spaces
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
+	space.frame = self.bounds;
 	[plotSpaces addObject:space];
 	[self addSublayer:space];
 }
@@ -171,23 +175,6 @@
 
 
 #pragma mark Dimensions
--(void)setBounds:(CGRect)rect
-{
-	for (CPPlotSpace* plotSpace in plotSpaces)
-		plotSpace.bounds = rect;
-
-    plotArea.bounds = rect;
-	[super setBounds:rect];
-}
-
--(void)setFrame:(CGRect)rect
-{
-	for (CPPlotSpace* plotSpace in plotSpaces)
-		plotSpace.frame = rect;
-	
-    plotArea.frame = rect;
-	[super setFrame:rect];
-}
 
 -(CGRect)plotAreaFrame
 {
