@@ -9,8 +9,9 @@
     
     // Create graph
     CPXYGraph *graph = [[CPXYGraph alloc] initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
-	graph.frame = NSRectToCGRect(hostView.frame);
-    [hostView.layer addSublayer:graph];
+	graph.frame = NSRectToCGRect(hostView.bounds);
+    [hostView setLayer:graph];
+	[hostView setWantsLayer:YES];
     [graph release];
     
     // Setup plot space

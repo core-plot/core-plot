@@ -1101,12 +1101,11 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{20, 20}, {440, 230}}</string>
 							<reference key="NSSuperview" ref="1019331462"/>
-							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<string key="NSClassName">NSView</string>
 						</object>
 						<object class="NSScrollView" id="704632638">
 							<reference key="NSNextResponder" ref="1019331462"/>
-							<int key="NSvFlags">274</int>
+							<int key="NSvFlags">273</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSClipView" id="1066334210">
@@ -3286,8 +3285,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{157, 672}, {743, 270}}</string>
-					<string>{{157, 672}, {743, 270}}</string>
+					<string>{{157, 486}, {743, 270}}</string>
+					<string>{{157, 486}, {743, 270}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
