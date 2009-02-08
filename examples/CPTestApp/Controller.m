@@ -24,8 +24,8 @@
     linePlot.identifier = @"Test Plot";
 	linePlot.dataLineStyle.lineWidth = 2.f;
     [graph addPlot:linePlot];
-	[linePlot bind:@"xValues" toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
-	[linePlot bind:@"yValues" toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
+	[linePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
+	[linePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
     
     // Add some initial data
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.3"];

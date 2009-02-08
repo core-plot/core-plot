@@ -5,6 +5,9 @@
 
 @class CPLineStyle;
 
+extern NSString *CPScatterPlotBindingXValues;
+extern NSString *CPScatterPlotBindingYValues;
+
 typedef enum _CPScatterPlotField {
     CPScatterPlotFieldX,
     CPScatterPlotFieldY,

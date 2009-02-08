@@ -8,6 +8,7 @@
 	CPPlotRange xRange, yRange;
 }
 
-@property (nonatomic, readwrite, assign) CPPlotRange xRange, yRange;
+@property (nonatomic, readwrite, assign) CPPlotRange xRange;
+@property (nonatomic, readwrite, assign) CPPlotRange yRange;
 
 @end

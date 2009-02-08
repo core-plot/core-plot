@@ -4,6 +4,9 @@
 #import "CPPlotSpace.h"
 #import "CPExceptions.h"
 
+NSString *CPScatterPlotBindingXValues = @"xValues";
+NSString *CPScatterPlotBindingYValues = @"yValues";
+
 static NSString *CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
@@ -32,8 +35,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 +(void)initialize
 {
-    [self exposeBinding:@"xValues"];	
-    [self exposeBinding:@"yValues"];	
+    [self exposeBinding:CPScatterPlotBindingXValues];	
+    [self exposeBinding:CPScatterPlotBindingYValues];	
 }
 
 -(id)init
@@ -60,12 +63,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
     [super bind:binding toObject:observable withKeyPath:keyPath options:options];
-    if ([binding isEqualToString:@"xValues"]) {
+    if ([binding isEqualToString:CPScatterPlotBindingXValues]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
         self.observedObjectForXValues = observable;
         self.keyPathForXValues = keyPath;
     }
-    else if ([binding isEqualToString:@"yValues"]) {
+    else if ([binding isEqualToString:CPScatterPlotBindingYValues]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPYValuesBindingContext];
         self.observedObjectForYValues = observable;
         self.keyPathForYValues = keyPath;
@@ -76,12 +79,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)unbind:(NSString *)bindingName
 {
-    if ([bindingName isEqualToString:@"xValues"]) {
+    if ([bindingName isEqualToString:CPScatterPlotBindingXValues]) {
 		[observedObjectForXValues removeObserver:self forKeyPath:keyPathForXValues];
         self.observedObjectForXValues = nil;
         self.keyPathForXValues = nil;
     }	
-    else if ([bindingName isEqualToString:@"yValues"]) {
+    else if ([bindingName isEqualToString:CPScatterPlotBindingYValues]) {
 		[observedObjectForYValues removeObserver:self forKeyPath:keyPathForYValues];
         self.observedObjectForYValues = nil;
         self.keyPathForYValues = nil;
@@ -106,8 +109,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 - (void)drawInContext:(CGContextRef)theContext
 {
 	NSUInteger ii;
-	NSArray* xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
-	NSArray* yData = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
+	NSArray *xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
+	NSArray *yData = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
 	CGMutablePathRef dataLine = CGPathCreateMutable();
 
 	// Temporary storage for the viewPointForPlotPoint call
