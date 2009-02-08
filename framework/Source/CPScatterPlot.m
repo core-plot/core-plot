@@ -106,8 +106,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 - (void)drawInContext:(CGContextRef)theContext
 {
 	NSUInteger ii;
-	NSArray* xData = [self.observedObjectForXValues valueForKey:self.keyPathForXValues];
-	NSArray* yData = [self.observedObjectForYValues valueForKey:self.keyPathForYValues];
+	NSArray* xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
+	NSArray* yData = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
 	CGMutablePathRef dataLine = CGPathCreateMutable();
 
 	// Temporary storage for the viewPointForPlotPoint call
