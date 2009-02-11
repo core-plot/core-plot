@@ -1,8 +1,9 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPLayer.h"
 
-@interface CPPlotArea : CALayer {
+@interface CPPlotArea : CPLayer {
     NSMutableArray *plotSpaces;
 }
 

@@ -1,11 +1,11 @@
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import "CPLayer.h"
 
 @class CPPlotArea;
 @class CPAxis;
 
-@interface CPAxisSet : CALayer {
+@interface CPAxisSet : CPLayer {
     NSArray *axes;
     CPPlotArea *plotArea;
 }

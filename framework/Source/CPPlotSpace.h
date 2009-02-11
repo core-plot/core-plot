@@ -1,11 +1,12 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPLayer.h"
+
 
 @class CPPlotArea;
 
-
-@interface CPPlotSpace : CALayer {
+@interface CPPlotSpace : CPLayer {
     CPPlotArea *plotArea;
 	id <NSCopying, NSObject> identifier;
 }

@@ -2,14 +2,14 @@
 // Abstract class
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import "CPLayer.h"
 
 @class CPAxisSet;
 @class CPPlotArea;
 @class CPPlot;
 @class CPPlotSpace;
 
-@interface CPGraph : CALayer {
+@interface CPGraph : CPLayer {
     CPAxisSet *axisSet;
     CPPlotArea *plotArea;
     NSMutableArray *plots;

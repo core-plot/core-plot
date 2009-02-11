@@ -44,6 +44,8 @@
 		07BF0D980F2B73CA002FCEA7 /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
 		07BF0DF30F2B7BFB002FCEA7 /* CPDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
+		07E249AC0F42FB0E00EA5AD7 /* CPLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E249AA0F42FB0E00EA5AD7 /* CPLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07E249AD0F42FB0E00EA5AD7 /* CPLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E249AB0F42FB0E00EA5AD7 /* CPLayer.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -89,6 +91,8 @@
 		07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlot.m; sourceTree = "<group>"; };
 		07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDefinitions.h; sourceTree = "<group>"; };
 		07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDefinitions.m; sourceTree = "<group>"; };
+		07E249AA0F42FB0E00EA5AD7 /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayer.h; sourceTree = "<group>"; };
+		07E249AB0F42FB0E00EA5AD7 /* CPLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayer.m; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				07E249A90F42FAFE00EA5AD7 /* Root */,
 				906156BA0F375558001B75FC /* Drawing */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Definitions */,
 				07975C230F3B3DF200DE45DC /* Categories */,
@@ -242,6 +247,15 @@
 				07321BC50F37382D00F423D8 /* CPUtilities.m */,
 			);
 			name = Definitions;
+			sourceTree = "<group>";
+		};
+		07E249A90F42FAFE00EA5AD7 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				07E249AA0F42FB0E00EA5AD7 /* CPLayer.h */,
+				07E249AB0F42FB0E00EA5AD7 /* CPLayer.m */,
+			);
+			name = Root;
 			sourceTree = "<group>";
 		};
 		0867D691FE84028FC02AAC07 /* CorePlot */ = {
@@ -342,6 +356,7 @@
 				07975C430F3B816600DE45DC /* CPXYAxisSet.h in Headers */,
 				07975C490F3B818800DE45DC /* CPAxis.h in Headers */,
 				077382A60F3DC004002F10E2 /* NSDecimalNumberExtensions.h in Headers */,
+				07E249AC0F42FB0E00EA5AD7 /* CPLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +434,7 @@
 				07975C440F3B816600DE45DC /* CPXYAxisSet.m in Sources */,
 				07975C4A0F3B818800DE45DC /* CPAxis.m in Sources */,
 				077382A70F3DC004002F10E2 /* NSDecimalNumberExtensions.m in Sources */,
+				07E249AD0F42FB0E00EA5AD7 /* CPLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

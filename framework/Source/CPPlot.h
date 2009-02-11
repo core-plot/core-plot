@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CPDefinitions.h"
+#import "CPLayer.h"
 
 
 @class CPPlot;
@@ -24,7 +25,7 @@
 @end 
 
 
-@interface CPPlot : CALayer {
+@interface CPPlot : CPLayer {
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
