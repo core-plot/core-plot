@@ -15,15 +15,14 @@
 #pragma mark Init/Dealloc
 -(id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if ( self = [super init] ) {
+        self.bounds = CGRectMake(0.0, 0.0, 100.0, 100.0);
 		plots = [[NSMutableArray alloc] init];
         plotArea = [[CPPlotArea alloc] init];
-		plotArea.frame = self.bounds;
+		plotArea.frame = CGRectInset(self.bounds, 20.0, 20.0); // Replace later with true margins
 		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
-        self.needsDisplayOnBoundsChange = YES;
-		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin)];
+		self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin);
 	}
 	return self;
 }
@@ -35,15 +34,6 @@
 	[plots release];
 	[plotSpaces release];
 	[super dealloc];
-}
-
-#pragma mark Drawing
--(void)drawInContext:(CGContextRef)theContext
-{
-    // Temporary method just to show something...
-	NSAttributedString *tempString = [[NSAttributedString alloc] initWithString:@"CPGraph" attributes:nil];
-	[tempString drawAtPoint:NSMakePoint(10.f, 10.f)];
-	[tempString release];
 }
 
 #pragma mark Retrieving Plots
@@ -141,7 +131,7 @@
 
 -(CPPlotSpace *)plotSpaceAtIndex:(NSUInteger)index
 {
-	return ( plotSpaces.count > 0 ? [plotSpaces objectAtIndex:index] : nil );
+	return ( plotSpaces.count > index ? [plotSpaces objectAtIndex:index] : nil );
 }
 
 -(CPPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier
@@ -156,9 +146,9 @@
 #pragma mark Organizing Plot Spaces
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
-	space.frame = self.bounds;
+	space.frame = self.plotArea.bounds;
 	[plotSpaces addObject:space];
-	[self addSublayer:space];
+	[self.plotArea addSublayer:space];
 }
 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace
@@ -175,7 +165,6 @@
 
 
 #pragma mark Dimensions
-
 -(CGRect)plotAreaFrame
 {
 	return plotArea.frame;

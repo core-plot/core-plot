@@ -42,5 +42,11 @@
 	self.content = contentArray;
 }
 
+-(id)newObject 
+{
+	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
+	NSDecimalNumber *y1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil];
+}
 
 @end

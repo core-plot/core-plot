@@ -7,11 +7,9 @@
 #pragma mark Init/Dealloc
 -(id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if ( self = [super init] ) {
 		plotSpaces = [[NSMutableArray alloc] init];
-		self.needsDisplayOnBoundsChange = YES;
-		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
+        self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable);
 	}
 	return self;
 }
@@ -25,10 +23,9 @@
 #pragma mark Drawing
 -(void)drawInContext:(CGContextRef)theContext
 {
-    // Temporary method just to show something...
-	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPPlotArea" attributes:nil];
-	[tempString drawAtPoint:NSMakePoint(10.f, 10.f)];
-	[tempString release];
+    // Temporary: fill bounds
+    CGContextSetGrayFillColor(theContext, 0.2, 0.3);
+    CGContextFillRect(theContext, self.bounds); 
 }
 
 @end

@@ -19,6 +19,7 @@
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
+@property (nonatomic, readwrite, assign) CGRect plotAreaFrame;
 
 // Retrieving plots
 -(NSArray *)allPlots;
@@ -41,9 +42,5 @@
 // Adding and removing plot spaces
 -(void)addPlotSpace:(CPPlotSpace *)space; 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace;
-
-// Plot Area
--(CGRect)plotAreaFrame;
--(void)setPlotAreaFrame:(CGRect)frame;
 
 @end

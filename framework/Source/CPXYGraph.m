@@ -23,4 +23,12 @@
     return self;
 }
 
+#pragma mark Drawing
+-(void)drawInContext:(CGContextRef)theContext
+{
+    // Temporary: fill bounds
+    CGContextSetGrayFillColor(theContext, 1.0, 1.0);
+    CGContextFillRect(theContext, self.bounds); 
+}
+
 @end

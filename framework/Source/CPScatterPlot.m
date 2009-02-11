@@ -52,10 +52,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)dealloc
 {
-    self.keyPathForXValues = nil;
-    self.keyPathForYValues = nil;
-    self.observedObjectForXValues = nil;
-    self.observedObjectForYValues = nil;
+    if ( self.keyPathForXValues ) [self unbind:CPScatterPlotBindingXValues];
+    if ( self.keyPathForYValues ) [self unbind:CPScatterPlotBindingYValues];
     [super dealloc];
 }
 
@@ -106,7 +104,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 #pragma mark Drawing
 
-- (void)drawInContext:(CGContextRef)theContext
+-(void)drawInContext:(CGContextRef)theContext
 {
 	NSUInteger ii;
 	NSArray *xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
