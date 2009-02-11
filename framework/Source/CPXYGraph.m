@@ -14,7 +14,8 @@
             space = [[CPCartesianPlotSpace alloc] init];
         }
         else {
-            [NSException raise:CPException format:@"Unsupported scale types in initWithXScaleType:yScaleType:"];
+            NSLog(@"Unsupported scale types in initWithXScaleType:yScaleType:");
+            [self release]; self = nil;
         }
         [self addPlotSpace:space];
         [space release];
