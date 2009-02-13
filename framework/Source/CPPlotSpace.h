@@ -4,14 +4,10 @@
 #import "CPLayer.h"
 
 
-@class CPPlotArea;
-
 @interface CPPlotSpace : CPLayer {
-    CPPlotArea *plotArea;
 	id <NSCopying, NSObject> identifier;
 }
 
-@property (nonatomic, readwrite, assign) CPPlotArea *plotArea;
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 
 @end

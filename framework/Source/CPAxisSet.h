@@ -7,10 +7,8 @@
 
 @interface CPAxisSet : CPLayer {
     NSArray *axes;
-    CPPlotArea *plotArea;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
-@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 
 @end

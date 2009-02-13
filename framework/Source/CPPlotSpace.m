@@ -4,7 +4,6 @@
 
 @implementation CPPlotSpace
 
-@synthesize plotArea;
 @synthesize identifier;
 
 - (id) init
@@ -18,7 +17,6 @@
 
 -(void)dealloc
 {
-    self.plotArea = nil;
     [super dealloc];
 }
 
