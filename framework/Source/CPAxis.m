@@ -21,7 +21,7 @@
 // The following was originally in CPPlotSpace. It should be adapted for here:
 //
 //
-//-(void)drawInContext:(CGContextRef)theContext
+//-(void)renderAsVectorInContext:(CGContextRef)theContext
 //{
 //	// Temporary storage for the viewPointForPlotPoint call
 //	NSMutableArray *plotPoint = [NSMutableArray array];

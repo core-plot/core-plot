@@ -31,6 +31,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @synthesize hasErrorBars;
 @synthesize dataLineStyle;
 
+#pragma mark -
 #pragma mark init/dealloc
 
 +(void)initialize
@@ -101,10 +102,10 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
     }
 }
 
-
+#pragma mark -
 #pragma mark Drawing
 
--(void)drawInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	NSUInteger ii;
 	NSArray *xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];

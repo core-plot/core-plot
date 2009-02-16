@@ -23,11 +23,13 @@
     return self;
 }
 
+#pragma mark -
 #pragma mark Drawing
--(void)drawInContext:(CGContextRef)theContext
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
     // Temporary: fill bounds
-    CGContextSetGrayFillColor(theContext, 1.0, 1.0);
+    CGContextSetGrayFillColor(theContext, 0.7, 1.0);
     CGContextFillRect(theContext, self.bounds); 
 }
 

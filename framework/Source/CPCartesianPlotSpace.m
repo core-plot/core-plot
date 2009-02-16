@@ -9,7 +9,9 @@
 
 @synthesize xRange, yRange;
 
+#pragma mark -
 #pragma mark Init/Dealloc
+
 -(id)init
 {
 	if ( self = [super init] ) {
@@ -17,7 +19,9 @@
 	return self;
 }
 
+#pragma mark -
 #pragma mark Point Conversion
+
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
 	if ( [decimalNumbers count] == 2 ) {
@@ -58,7 +62,7 @@
 	NSDecimalMultiply(&y, &y, &(yRange.length), NSRoundPlain);
 	NSDecimalAdd(&y, &y, &(yRange.location), NSRoundPlain);
 
-	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x],[NSDecimalNumber decimalNumberWithDecimal:y],nil];
+	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x], [NSDecimalNumber decimalNumberWithDecimal:y], nil];
 }
 
 

@@ -8,7 +8,7 @@
 @synthesize identifier;
 @synthesize plotSpace;
 
--(void)drawInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	NSAttributedString* tempString = [[NSAttributedString alloc] initWithString:@"CPPlot" attributes:nil];
 	NSDecimalNumber* x = [[[NSDecimalNumber alloc] initWithInt:2] autorelease];
@@ -16,9 +16,11 @@
 	
 	[tempString drawAtPoint:NSPointFromCGPoint([plotSpace viewPointForPlotPoint:[NSArray arrayWithObjects:x,y,nil]])];
 	[tempString release];
-};
+}
 
+#pragma mark -
 #pragma mark init/dealloc
+
 -(id)init
 {
 	self = [super init];

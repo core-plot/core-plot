@@ -7,6 +7,7 @@
 
 @synthesize lineCap, lineJoin, lineWidth, patternPhase, lineColor;
 
+#pragma mark -
 #pragma mark init/dealloc
 
 +(CPLineStyle*)defaultLineStyle
@@ -44,7 +45,9 @@
 
 }
 
+#pragma mark -
 #pragma mark Allocators
+
 -(void)setLineColor:(CGColorRef)aLineColor
 {
 	if ( aLineColor != lineColor ) {

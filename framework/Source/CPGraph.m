@@ -12,7 +12,9 @@
 @synthesize plotArea;
 @synthesize defaultPlotSpace;
 
+#pragma mark -
 #pragma mark Init/Dealloc
+
 -(id)init
 {
 	if ( self = [super init] ) {
@@ -36,7 +38,9 @@
 	[super dealloc];
 }
 
+#pragma mark -
 #pragma mark Retrieving Plots
+
 -(NSArray *)allPlots 
 {    
 	return [NSArray arrayWithArray:plots];
@@ -55,7 +59,9 @@
     return nil;
 }
 
+#pragma mark -
 #pragma mark Organizing Plots
+
 -(void)addPlot:(CPPlot *)plot
 {
 	[self addPlot:plot toPlotSpace:self.defaultPlotSpace];
@@ -119,7 +125,9 @@
 	[plots replaceObjectAtIndex:index withObject:plot];
 }
 
+#pragma mark -
 #pragma mark Retrieving Plot Spaces
+
 -(CPPlotSpace *)defaultPlotSpace {
     return ( plotSpaces.count > 0 ? [plotSpaces objectAtIndex:0] : nil );
 }
@@ -142,8 +150,9 @@
     return nil;	
 }
 
-
+#pragma mark -
 #pragma mark Organizing Plot Spaces
+
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
 	space.frame = self.plotArea.bounds;
@@ -163,8 +172,9 @@
 	
 }
 
-
+#pragma mark -
 #pragma mark Dimensions
+
 -(CGRect)plotAreaFrame
 {
 	return plotArea.frame;

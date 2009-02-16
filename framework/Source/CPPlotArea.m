@@ -4,7 +4,9 @@
 
 @implementation CPPlotArea
 
+#pragma mark -
 #pragma mark Init/Dealloc
+
 -(id)init
 {
 	if ( self = [super init] ) {
@@ -20,8 +22,10 @@
 	[super dealloc];
 }
 
+#pragma mark -
 #pragma mark Drawing
--(void)drawInContext:(CGContextRef)theContext
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
     // Temporary: fill bounds
     CGContextSetGrayFillColor(theContext, 0.2, 0.3);
