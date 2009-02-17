@@ -3,5 +3,11 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
+    #include <TargetConditionals.h>
+    #if TARGET_OS_IPHONE // iPhone SDK
+        #import <Foundation/Foundation.h>
+        #import <UIKit/UIKit.h>
+    #else
+        #import <Cocoa/Cocoa.h>
+    #endif
 #endif
