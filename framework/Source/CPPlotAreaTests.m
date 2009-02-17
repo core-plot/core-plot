@@ -20,7 +20,7 @@
     [plotArea setFrame:CGRectMake(0, 0, 50, 50)];
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
     
-    GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests.testDrawInContextRendersAsExpected", @"");
+    GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected", @"");
     
     [plotArea release];
 }

@@ -5,10 +5,20 @@
 #define STANDARDLABELFONTNAME "Helvetica"
 #define USECROSSPLATFORMUNICODETEXTRENDERING
 
+@interface CPTextLayer ()
+
++ (NSString*)defaultFontName;
+
+@end
+
 @implementation CPTextLayer
 
 #pragma mark -
 #pragma mark Initialization and teardown
+
++ (NSString*)defaultFontName {
+    [[[NSString alloc] initWithUTF8String:STANDARDLABELFONTNAME] autorelease];
+}
 
 -(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize
 {
@@ -16,7 +26,7 @@
 	{	
 		self.needsDisplayOnBoundsChange = NO;
 		fontSize = newFontSize;
-        fontName = [[NSString alloc] initWithUTF8String:STANDARDLABELFONTNAME];
+        fontName = [[[self class] defaultFontName] retain];
 		fontColor = [CPTextLayer blackColor];
 		text = [newText copy];
 		[self sizeToFit];
@@ -26,8 +36,9 @@
 
 -(void)dealloc 
 {
-    self.fontName = nil;
-    self.text = nil;
+    [fontName release];
+    [text release];
+    
     [super dealloc];
 }
 
