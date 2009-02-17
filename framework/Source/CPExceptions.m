@@ -1,5 +1,5 @@
 
 #import "CPExceptions.h"
 
-NSString *CPException     = @"CPException";
-NSString *CPDataException = @"CPDataException";
+NSString * const CPException     = @"CPException";
+NSString * const CPDataException = @"CPDataException";
