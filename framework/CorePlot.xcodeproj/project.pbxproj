@@ -479,6 +479,7 @@
 		4CD7E9530F4B619C00F9BCBB /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4CD7E9620F4B625900F9BCBB /* CPUtilitiesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilitiesTests.h; sourceTree = "<group>"; };
 		4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilitiesTests.m; sourceTree = "<group>"; };
+		4CD7E9A50F4B65D000F9BCBB /* GTM_notes.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GTM_notes.rst; path = TestResources/GTM_notes.rst; sourceTree = SOURCE_ROOT; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
@@ -1135,6 +1136,7 @@
 		4C99408D0F45F71100DC824F /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				4CD7E9A50F4B65D000F9BCBB /* GTM_notes.rst */,
 				4C99408E0F45F71C00DC824F /* CPTestCase.h */,
 				4C99408F0F45F71C00DC824F /* CPTestCase.m */,
 				4C9940DF0F45FAE900DC824F /* TestResources */,
