@@ -1,5 +1,5 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *CPException;
-extern NSString *CPDataException;
+extern NSString * const CPException;
+extern NSString * const CPDataException;
