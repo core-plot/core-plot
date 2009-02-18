@@ -6,6 +6,21 @@
 #import "GTMNSObject+BindingUnitTesting.h"
 #import "GTMNSObject+UnitTesting.h"
 
+@interface CPPlotArea (UnitTesting)
+- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
+@end
+
+@implementation CPPlotArea (UnitTesting)
+
+- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+    [super gtm_unitTestEncodeState:inCoder];
+    
+    [inCoder encodeObject:plotSpaces forKey:@"PlotSpacesInstanceVariable"];
+}
+
+@end
+
+
 @implementation CPPlotAreaTests
 - (void)testBindings {
     CPPlotArea *plotArea = [[CPPlotArea alloc] init];

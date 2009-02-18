@@ -10,11 +10,11 @@
 #import "CPTextLayer.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface CPTextLayer (TestAdditions)
+@interface CPTextLayer (UnitTesting)
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
 @end
 
-@implementation CPTextLayer (TestAdditions)
+@implementation CPTextLayer (UnitTesting)
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
     [super gtm_unitTestEncodeState:inCoder];
