@@ -17,20 +17,4 @@
     
     [super invokeTest];
 }
-
-+ (void)encodeCALayerStateForLayer:(CALayer*)layer inCoder:(NSCoder*)inCoder {
-    [inCoder encodeBool:[layer isHidden] forKey:@"LayerIsHidden"];
-    [inCoder encodeBool:[layer isDoubleSided] forKey:@"LayerIsDoublesided"];
-    [inCoder encodeBool:[layer isOpaque] forKey:@"LayerIsOpaque"];
-    [inCoder encodeFloat:[layer opacity] forKey:@"LayerOpacity"];
-    // TODO: There is a ton more we can add here. What are we interested in?
-    if ([layer gtm_shouldEncodeStateForSublayers]) {
-        int i = 0;
-        for (CALayer *subLayer in [layer sublayers]) {
-            [inCoder encodeObject:subLayer 
-                           forKey:[NSString stringWithFormat:@"CALayerSubLayer %d", i]];
-            i = i + 1;
-        }
-    }
-}
 @end

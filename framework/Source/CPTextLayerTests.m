@@ -17,6 +17,8 @@
 @implementation CPTextLayer (TestAdditions)
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+    [super gtm_unitTestEncodeState:inCoder];
+    
     [inCoder encodeObject:self.text forKey:@"Text"];
     [inCoder encodeFloat:self.fontSize forKey:@"FontSize"];
     [inCoder encodeObject:self.fontName forKey:@"FontName"];
@@ -24,7 +26,6 @@
     CGRect frame = [self frame];
     [inCoder encodeRect:NSMakeRect(frame.origin.x, frame.origin.y, CGRectGetWidth(frame), CGRectGetHeight(frame)) forKey:@"FrameRect"];
     
-    [CPTestCase encodeCALayerStateForLayer:self inCoder:inCoder];
 }
 
 @end
