@@ -48,7 +48,7 @@
 
 - (void)testDrawInContext {
     
-    CPTextLayer *layer = [[CPTextLayer alloc] initWithString:@"testInit-expectedString" fontSize:12.];
+    CPTextLayer *layer = [[CPTextLayer alloc] initWithString:@"testInit-expectedString" fontSize:12];
     
     GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering1", @"Rendered image does not match");
     
@@ -62,5 +62,7 @@
     
     layer.fontSize = 100.;
     GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering4", @"Rendered image does not match");
+	
+	[layer release];
 }
 @end

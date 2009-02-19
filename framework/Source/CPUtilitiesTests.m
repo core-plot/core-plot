@@ -2,6 +2,7 @@
 #import "CPUtilities.h"
 #import "CPUtilitiesTests.h"
 #import "CPDefinitions.h"
+#import "CPUtilities.h"
 
 @implementation CPUtilitiesTests
 - (void)testCPDecimalIntegerValue {
