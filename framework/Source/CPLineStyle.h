@@ -12,7 +12,7 @@
 	CGColorRef lineColor;
 }
 
-+(CPLineStyle *)defaultLineStyle;
++(CPLineStyle *)lineStyle;
 
 @property (assign) CGLineCap lineCap;
 @property (assign) CGLineJoin lineJoin;

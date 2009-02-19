@@ -44,7 +44,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 {
     if (self = [super init]) {
         self.numericType = CPNumericTypeFloat;
-		self.dataLineStyle = [CPLineStyle defaultLineStyle];
+		self.dataLineStyle = [CPLineStyle lineStyle];
     }
     return self;
 }

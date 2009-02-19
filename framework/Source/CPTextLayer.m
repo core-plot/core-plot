@@ -2,8 +2,8 @@
 
 #import "CPTextLayer.h"
 
-#define STANDARDLABELFONTNAME "Helvetica"
 #define USECROSSPLATFORMUNICODETEXTRENDERING
+
 
 @interface CPTextLayer ()
 
@@ -11,13 +11,14 @@
 
 @end
 
+
 @implementation CPTextLayer
 
 #pragma mark -
 #pragma mark Initialization and teardown
 
-+ (NSString*)defaultFontName {
-    [[[NSString alloc] initWithUTF8String:STANDARDLABELFONTNAME] autorelease];
++(NSString *)defaultFontName {
+    return @"Helvetica";
 }
 
 -(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize

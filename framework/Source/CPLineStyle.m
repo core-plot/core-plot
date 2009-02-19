@@ -10,7 +10,7 @@
 #pragma mark -
 #pragma mark init/dealloc
 
-+(CPLineStyle*)defaultLineStyle
++(CPLineStyle*)lineStyle
 {
     static CPLineStyle *defaultLineStyle = nil;
     if ( nil == defaultLineStyle ) defaultLineStyle = [[CPLineStyle alloc] init];
@@ -46,7 +46,7 @@
 }
 
 #pragma mark -
-#pragma mark Allocators
+#pragma mark Accessors
 
 -(void)setLineColor:(CGColorRef)aLineColor
 {

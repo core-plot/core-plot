@@ -1,4 +1,5 @@
 
+#import "CPUtilities.h"
 #import "CPUtilitiesTests.h"
 #import "CPDefinitions.h"
 
@@ -33,7 +34,7 @@
     CPDouble d = 42.1;
     
     STAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"100"], [NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromInt(i)], @"CPInteger to NSDecimal conversion failed");
-    STAssertEqualObjects([NSDecimalNumber numberWithFloat:f], [NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromFloat(f)], @"CPFloat to NSDecimal conversion failed");
+    STAssertEqualsWithAccuracy([[NSDecimalNumber numberWithFloat:f] floatValue], [[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromFloat(f)] floatValue], 1.e-7, @"CPFloat to NSDecimal conversion failed");
     STAssertEqualObjects([NSDecimalNumber numberWithDouble:d], [NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromDouble(d)], @"CPDouble to NSDecimal conversion failed.");
 }
 
