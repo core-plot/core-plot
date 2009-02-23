@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CPDefinitions.h"
+#import "CPPlotRange.h"
 #import "CPLayer.h"
 
 
@@ -20,7 +21,7 @@
 -(NSArray *)numbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange; 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index; 
 
--(NSIndexSet *)recordIndexesInPlotRange:(CPPlotRange)plotRect;
+-(NSIndexSet *)recordIndexesInPlotRange:(CPPlotRange *)plotRect;
 
 @end 
 

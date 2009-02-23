@@ -46,6 +46,8 @@
 		320A9AFE0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 320A9AFD0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff */; };
 		320A9B020F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 320A9B000F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState */; };
 		320A9B030F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 320A9B010F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff */; };
+		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
 		4C32D35F0F43B38900EDFE7A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D3770F43B39F00EDFE7A /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C32D37C0F43B3CD00EDFE7A /* main.m */; };
@@ -204,6 +206,8 @@
 		320A9AFD0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		320A9B000F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		320A9B010F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff"; sourceTree = "<group>"; };
+		32484B3F0F530E8B002151AD /* CPPlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotRange.h; sourceTree = "<group>"; };
+		32484B400F530E8B002151AD /* CPPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotRange.m; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
@@ -659,6 +663,8 @@
 				07321BC50F37382D00F423D8 /* CPUtilities.m */,
 				4CD7E9620F4B625900F9BCBB /* CPUtilitiesTests.h */,
 				4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */,
+				32484B3F0F530E8B002151AD /* CPPlotRange.h */,
+				32484B400F530E8B002151AD /* CPPlotRange.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -1220,6 +1226,7 @@
 				4CD7E7E70F4B4F8200F9BCBB /* CPTextLayer.h in Headers */,
 				4CD7E7EC0F4B4F9600F9BCBB /* CPLayer.h in Headers */,
 				4CD7E7F00F4B4FA700F9BCBB /* NSDecimalNumberExtensions.h in Headers */,
+				32484B430F530E8B002151AD /* CPPlotRange.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1456,6 +1463,7 @@
 				4CD7E7E80F4B4F8200F9BCBB /* CPTextLayer.m in Sources */,
 				4CD7E7ED0F4B4F9600F9BCBB /* CPLayer.m in Sources */,
 				4CD7E7F10F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m in Sources */,
+				32484B440F530E8B002151AD /* CPPlotRange.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,14 +1,16 @@
 
 #import <Foundation/Foundation.h>
+#import "CPPlotRange.h"
 #import "CPPlotSpace.h"
 #import "CPDefinitions.h"
 
 
 @interface CPCartesianPlotSpace : CPPlotSpace {
-	CPPlotRange xRange, yRange;
+	CPPlotRange*	xRange;
+	CPPlotRange*	yRange;
 }
 
-@property (nonatomic, readwrite, assign) CPPlotRange xRange;
-@property (nonatomic, readwrite, assign) CPPlotRange yRange;
+@property (readwrite, retain) CPPlotRange* xRange;
+@property (readwrite, retain) CPPlotRange* yRange;
 
 @end

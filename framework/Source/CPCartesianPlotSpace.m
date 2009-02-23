@@ -7,7 +7,8 @@
 
 @implementation CPCartesianPlotSpace
 
-@synthesize xRange, yRange;
+@synthesize xRange;
+@synthesize yRange;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -24,17 +25,26 @@
 
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 {
-	if ( [decimalNumbers count] == 2 ) {
+	if ([decimalNumbers count] == 2) {
 		NSDecimal boundsw = CPDecimalFromFloat(self.bounds.size.width);
 		NSDecimal boundsh = CPDecimalFromFloat(self.bounds.size.height);
 
+		// get the xRange's location and length
+		NSDecimal xLocation = xRange.location.decimalValue;
+		NSDecimal xLength = xRange.length.decimalValue;
+		
 		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
-		NSDecimalSubtract(&x, &x, &(xRange.location), NSRoundPlain);
-		NSDecimalDivide(&x, &x, &(xRange.length), NSRoundPlain);
+		NSDecimalSubtract(&x, &x, &(xLocation), NSRoundPlain);
+		NSDecimalDivide(&x, &x, &(xLength), NSRoundPlain);
 		NSDecimalMultiply(&x, &x, &boundsw, NSRoundPlain);
+
+		// get the yRange's location and length
+		NSDecimal yLocation = yRange.location.decimalValue;
+		NSDecimal yLength = yRange.length.decimalValue;
+		
 		NSDecimal y = [[decimalNumbers objectAtIndex:1] decimalValue];
-		NSDecimalSubtract(&y, &y, &(yRange.location), NSRoundPlain);
-		NSDecimalDivide(&y, &y, &(yRange.length), NSRoundPlain);
+		NSDecimalSubtract(&y, &y, &(yLocation), NSRoundPlain);
+		NSDecimalDivide(&y, &y, &(yLength), NSRoundPlain);
 		NSDecimalMultiply(&y, &y, &boundsh, NSRoundPlain);
 		
 		return CGPointMake(CPDecimalFloatValue(x), CPDecimalFloatValue(y));
@@ -51,16 +61,24 @@
 	NSDecimal pointy = CPDecimalFromFloat(point.y);
 	NSDecimal boundsw = CPDecimalFromFloat(self.bounds.size.width);
 	NSDecimal boundsh = CPDecimalFromFloat(self.bounds.size.height);
-
+	
+	// get the xRange's location and length
+	NSDecimal xLocation = xRange.location.decimalValue;
+	NSDecimal xLength = xRange.length.decimalValue;
+	
 	NSDecimal x;
 	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);
-	NSDecimalMultiply(&x, &x, &(xRange.length), NSRoundPlain);
-	NSDecimalAdd(&x, &x, &(xRange.location), NSRoundPlain);
+	NSDecimalMultiply(&x, &x, &(xLength), NSRoundPlain);
+	NSDecimalAdd(&x, &x, &(xLocation), NSRoundPlain);
+
+	// get the yRange's location and length
+	NSDecimal yLocation = yRange.location.decimalValue;
+	NSDecimal yLength = yRange.length.decimalValue;
 
 	NSDecimal y;
 	NSDecimalDivide(&y, &pointy, &boundsh, NSRoundPlain);
-	NSDecimalMultiply(&y, &y, &(yRange.length), NSRoundPlain);
-	NSDecimalAdd(&y, &y, &(yRange.location), NSRoundPlain);
+	NSDecimalMultiply(&y, &y, &(yLength), NSRoundPlain);
+	NSDecimalAdd(&y, &y, &(yLocation), NSRoundPlain);
 
 	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x], [NSDecimalNumber decimalNumberWithDecimal:y], nil];
 }
