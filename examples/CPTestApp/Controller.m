@@ -16,8 +16,8 @@
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = CPMakePlotRange(1.0, 2.0);
-    plotSpace.yRange = CPMakePlotRange(1.0, 2.0);
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     
     // Create and bind plot
 	CPScatterPlot *linePlot = [[[CPScatterPlot alloc] init] autorelease];
