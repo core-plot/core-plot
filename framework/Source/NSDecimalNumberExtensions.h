@@ -4,6 +4,8 @@
 
 @interface NSDecimalNumber (CPExtensions)
 
++(NSDecimalNumber *)decimalNumberWithNumber:(NSNumber *)number;
+
 -(CGFloat)floatValue;
 
 @end

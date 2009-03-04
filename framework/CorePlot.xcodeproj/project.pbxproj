@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
 		070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC10F37370D00F423D8 /* CPExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BBF0F37370D00F423D8 /* CPExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
@@ -163,6 +165,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDecimalNumberValueTransformer.h; path = ../MacOnly/CPDecimalNumberValueTransformer.h; sourceTree = "<group>"; };
+		070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDecimalNumberValueTransformer.m; path = ../MacOnly/CPDecimalNumberValueTransformer.m; sourceTree = "<group>"; };
 		070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		07321BBF0F37370D00F423D8 /* CPExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExceptions.h; sourceTree = "<group>"; };
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
@@ -543,6 +547,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		070A73DF0F5D8D7D0014FA84 /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */,
+				070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */,
+			);
+			name = "Value Transformers";
+			sourceTree = "<group>";
+		};
 		07975C230F3B3DF200DE45DC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,7 +604,8 @@
 			children = (
 				4CD7E7E90F4B4F8700F9BCBB /* Root */,
 				906156BA0F375558001B75FC /* Drawing */,
-				07BF0DEE0F2B7BE6002FCEA7 /* Definitions */,
+				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
+				070A73DF0F5D8D7D0014FA84 /* Value Transformers */,
 				07975C230F3B3DF200DE45DC /* Categories */,
 				07983EF20F2F9A22008C8618 /* Graphs */,
 				07BF0D8F0F2B739B002FCEA7 /* Plot Areas */,
@@ -652,7 +666,7 @@
 			name = Axes;
 			sourceTree = "<group>";
 		};
-		07BF0DEE0F2B7BE6002FCEA7 /* Definitions */ = {
+		07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */ = {
 			isa = PBXGroup;
 			children = (
 				07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */,
@@ -666,7 +680,7 @@
 				32484B3F0F530E8B002151AD /* CPPlotRange.h */,
 				32484B400F530E8B002151AD /* CPPlotRange.m */,
 			);
-			name = Definitions;
+			name = "Types and Functions";
 			sourceTree = "<group>";
 		};
 		0867D691FE84028FC02AAC07 /* CorePlot */ = {
@@ -1227,6 +1241,7 @@
 				4CD7E7EC0F4B4F9600F9BCBB /* CPLayer.h in Headers */,
 				4CD7E7F00F4B4FA700F9BCBB /* NSDecimalNumberExtensions.h in Headers */,
 				32484B430F530E8B002151AD /* CPPlotRange.h in Headers */,
+				070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1464,6 +1479,7 @@
 				4CD7E7ED0F4B4F9600F9BCBB /* CPLayer.m in Sources */,
 				4CD7E7F10F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m in Sources */,
 				32484B440F530E8B002151AD /* CPPlotRange.m in Sources */,
+				070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

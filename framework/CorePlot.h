@@ -4,6 +4,7 @@
 #import <CorePlot/CPBarGraph.h>
 #import <CorePlot/CPBarPlot.h>
 #import <CorePlot/CPCartesianPlotSpace.h>
+#import <CorePlot/CPDecimalNumberValueTransformer.h>
 #import <CorePlot/CPDefinitions.h>
 #import <CorePlot/CPExceptions.h>
 #import <CorePlot/CPGraph.h>

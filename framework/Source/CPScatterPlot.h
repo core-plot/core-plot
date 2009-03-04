@@ -23,7 +23,9 @@ typedef enum _CPScatterPlotField {
     NSString *keyPathForXValues;
     NSString *keyPathForYValues;
     BOOL hasErrorBars;
-	CPLineStyle* dataLineStyle;
+	CPLineStyle *dataLineStyle;
+    NSArray *xValues;
+    NSArray *yValues;
 } 
 
 @property (nonatomic, readwrite, assign) CPNumericType numericType;

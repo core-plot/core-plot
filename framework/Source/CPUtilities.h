@@ -10,3 +10,6 @@ NSDecimal CPDecimalFromInt(CPInteger i);
 NSDecimal CPDecimalFromFloat(CPFloat f);
 NSDecimal CPDecimalFromDouble(CPDouble d);
 
+NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
+
+CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);

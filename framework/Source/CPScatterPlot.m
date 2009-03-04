@@ -3,6 +3,8 @@
 #import "CPLineStyle.h"
 #import "CPPlotSpace.h"
 #import "CPExceptions.h"
+#import "CPUtilities.h"
+#import "CPCartesianPlotSpace.h"
 
 NSString *CPScatterPlotBindingXValues = @"xValues";
 NSString *CPScatterPlotBindingYValues = @"yValues";
@@ -18,6 +20,9 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForYValues;
 
+@property (nonatomic, readwrite, retain) NSArray *xValues;
+@property (nonatomic, readwrite, retain) NSArray *yValues;
+
 @end
 
 
@@ -30,6 +35,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @synthesize keyPathForYValues;
 @synthesize hasErrorBars;
 @synthesize dataLineStyle;
+@synthesize xValues;
+@synthesize yValues;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -53,8 +60,10 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)dealloc
 {
-    if ( self.keyPathForXValues ) [self unbind:CPScatterPlotBindingXValues];
-    if ( self.keyPathForYValues ) [self unbind:CPScatterPlotBindingYValues];
+    if ( self.observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
+    if ( self.observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
+    self.xValues = nil;
+    self.yValues = nil;
     [super dealloc];
 }
 
@@ -89,16 +98,44 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
         self.keyPathForYValues = nil;
     }	
 	[super unbind:bindingName];
-	[self setNeedsDisplay];
+	[self reloadData];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == CPXValuesBindingContext) {
-        [self setNeedsDisplay];
+        [self reloadData];
     }
     if (context == CPYValuesBindingContext) {
-        [self setNeedsDisplay];
+        [self reloadData];
+    }
+}
+
+#pragma mark -
+#pragma mark Data Loading
+
+-(void)reloadData 
+{    
+    [super reloadData];
+    CPCartesianPlotSpace *cartesianPlotSpace = (CPCartesianPlotSpace *)self.plotSpace;
+    self.xValues = nil;
+    self.yValues = nil;
+    
+    if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
+        // Use bindings to retrieve data
+        self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
+        self.yValues = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
+    }
+    else if ( self.dataSource ) {
+        // Expand the index range each end, to make sure that plot lines go to offscreen points
+        NSUInteger numberOfRecords = [self.dataSource numberOfRecords];
+        NSRange indexRange = [self recordIndexRangeForPlotRange:cartesianPlotSpace.xRange];
+        NSRange expandedRange = CPExpandedRange(indexRange, 1);
+        NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
+        indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
+        
+        self.xValues = [self decimalNumbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
+        self.yValues = [self decimalNumbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
     }
 }
 
@@ -106,45 +143,36 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
-{
-	NSUInteger ii;
-	NSArray *xData = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
-	NSArray *yData = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
-	CGMutablePathRef dataLine = CGPathCreateMutable();
-
-	// Temporary storage for the viewPointForPlotPoint call
-	NSMutableArray* plotPoint = [NSMutableArray array];
-	CGPoint viewPoint;
-
-	if ([xData count] != [yData count])
+{       
+    if ( self.xValues == nil || self.yValues == nil ) return;
+    
+	if ([self.xValues count] != [self.yValues count])
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	
-	if ([xData count] > 0)
+	CGMutablePathRef dataLine = CGPathCreateMutable();
+	NSMutableArray *plotPoint = [NSMutableArray array];
+	CGPoint viewPoint;
+	NSUInteger ii;
+	for (ii = 0; ii < [xValues count]; ii++)
 	{
-		[plotPoint insertObject:[xData objectAtIndex:0] atIndex:0];
-		[plotPoint insertObject:[yData objectAtIndex:0] atIndex:1];
+		[plotPoint insertObject:[xValues objectAtIndex:ii] atIndex:0];
+		[plotPoint insertObject:[yValues objectAtIndex:ii] atIndex:1];
 		viewPoint = [plotSpace viewPointForPlotPoint:plotPoint];
 		
-		CGPathMoveToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
+        if ( ii == 0 )
+            CGPathMoveToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
+        else
+            CGPathAddLineToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
+            
 		[plotPoint removeAllObjects];
 	}
-
-	for (ii = 1; ii < [xData count]; ii++)
-	{
-		[plotPoint insertObject:[xData objectAtIndex:ii] atIndex:0];
-		[plotPoint insertObject:[yData objectAtIndex:ii] atIndex:1];
-		viewPoint = [plotSpace viewPointForPlotPoint:plotPoint];
-		
-		CGPathAddLineToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
-		[plotPoint removeAllObjects];
-	}
+    
 	CGContextBeginPath(theContext);
 	CGContextAddPath(theContext, dataLine);
 	[dataLineStyle setLineStyleInContext:theContext];
     CGContextStrokePath(theContext);
 	
 	CGPathRelease(dataLine);
-		
 }
 
 @end

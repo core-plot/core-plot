@@ -6,11 +6,11 @@
 
 
 @interface CPCartesianPlotSpace : CPPlotSpace {
-	CPPlotRange*	xRange;
-	CPPlotRange*	yRange;
+	CPPlotRange *xRange;
+	CPPlotRange *yRange;
 }
 
-@property (readwrite, retain) CPPlotRange* xRange;
-@property (readwrite, retain) CPPlotRange* yRange;
+@property (readwrite, retain) CPPlotRange *xRange;
+@property (readwrite, retain) CPPlotRange *yRange;
 
 @end

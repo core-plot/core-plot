@@ -4,28 +4,46 @@
 
 @implementation Controller
 
+-(void)dealloc 
+{
+    [graph release];
+    [super dealloc];
+}
+
 -(void)awakeFromNib {
     [super awakeFromNib];
     
+    // Setup transform
+    [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
+    
     // Create graph
-    CPXYGraph *graph = [[CPXYGraph alloc] initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
+    graph = [[CPXYGraph alloc] initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
 	graph.frame = NSRectToCGRect(hostView.bounds);
     [hostView setLayer:graph];
 	[hostView setWantsLayer:YES];
-    [graph release];
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     
-    // Create and bind plot
-	CPScatterPlot *linePlot = [[[CPScatterPlot alloc] init] autorelease];
-    linePlot.identifier = @"Test Plot";
-	linePlot.dataLineStyle.lineWidth = 2.f;
-    [graph addPlot:linePlot];
-	[linePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
-	[linePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
+    // Create one plot that uses bindings
+	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    boundLinePlot.identifier = @"Bindings Plot";
+	boundLinePlot.dataLineStyle.lineWidth = 2.f;
+    [graph addPlot:boundLinePlot];
+	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
+	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
+    
+    // Create a second plot that uses the data source method
+	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    dataSourceLinePlot.identifier = @"Data Source Plot";
+	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
+    CGColorRef redColor = CPNewCGColorFromNSColor([NSColor redColor]);
+    dataSourceLinePlot.dataLineStyle.lineColor = redColor;
+    CGColorRelease(redColor);
+    dataSourceLinePlot.dataSource = self;
+    [graph addPlot:dataSourceLinePlot];
     
     // Add some initial data
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.3"];
@@ -47,6 +65,27 @@
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
 	NSDecimalNumber *y1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil];
+}
+
+#pragma mark -
+#pragma mark Actions
+
+-(IBAction)reloadDataSourcePlot:(id)sender {
+    CPPlot *plot = [graph plotWithIdentifier:@"Data Source Plot"];
+    [plot reloadData];
+}
+
+#pragma mark -
+#pragma mark Plot Data Source Methods
+
+-(NSUInteger)numberOfRecords {
+    return [self.arrangedObjects count];
+}
+
+-(NSDecimalNumber *)decimalNumberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+    NSDecimalNumber *num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+    if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+    return num;
 }
 
 @end

@@ -12,9 +12,7 @@
 
 +(CPLineStyle*)lineStyle
 {
-    static CPLineStyle *defaultLineStyle = nil;
-    if ( nil == defaultLineStyle ) defaultLineStyle = [[CPLineStyle alloc] init];
-    return defaultLineStyle;
+    return [[[CPLineStyle alloc] init] autorelease];
 }
 
 -(id)init

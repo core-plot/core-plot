@@ -17,11 +17,10 @@
 @optional
 
 // Implement one of the following
--(NSData *)dataForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange; 
--(NSArray *)numbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange; 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index; 
+-(NSArray *)decimalNumbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange; 
+-(NSDecimalNumber *)decimalNumberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index; 
 
--(NSIndexSet *)recordIndexesInPlotRange:(CPPlotRange *)plotRect;
+-(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRect;
 
 @end 
 
@@ -30,10 +29,20 @@
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
+    BOOL dataNeedsReloading;
 }
 
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
+@property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
+
+-(void)reloadData;
+
+-(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
 
 @end
+
+
+
