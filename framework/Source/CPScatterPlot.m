@@ -5,6 +5,8 @@
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 #import "CPCartesianPlotSpace.h"
+#import "CPPlotSymbol.h"
+#import "stdlib.h"
 
 NSString *CPScatterPlotBindingXValues = @"xValues";
 NSString *CPScatterPlotBindingYValues = @"yValues";
@@ -22,6 +24,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 @property (nonatomic, readwrite, retain) NSArray *xValues;
 @property (nonatomic, readwrite, retain) NSArray *yValues;
+@property (nonatomic, readwrite, retain) NSMutableArray *plotSymbols;
 
 @end
 
@@ -37,6 +40,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 @synthesize dataLineStyle;
 @synthesize xValues;
 @synthesize yValues;
+@synthesize plotSymbols;
+@synthesize defaultPlotSymbol;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -52,11 +57,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
     if (self = [super init]) {
         self.numericType = CPNumericTypeFloat;
 		self.dataLineStyle = [CPLineStyle lineStyle];
+		self.plotSymbols = [[[NSMutableArray alloc] init] autorelease];
+		self.defaultPlotSymbol = nil;
     }
+
     return self;
 }
-
-
 
 -(void)dealloc
 {
@@ -64,6 +70,9 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
     if ( self.observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
     self.xValues = nil;
     self.yValues = nil;
+	self.plotSymbols = nil;
+	self.defaultPlotSymbol = nil;
+	
     [super dealloc];
 }
 
@@ -83,7 +92,6 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
     }
     [self setNeedsDisplay];
 }
-
 
 -(void)unbind:(NSString *)bindingName
 {
@@ -112,15 +120,39 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 }
 
 #pragma mark -
+#pragma mark Accessors
+
+-(void)setPlotSymbol:(CPPlotSymbol *)aSymbol AtIndex:(NSUInteger)index
+{
+	NSObject *newSymbol;
+	
+	if (aSymbol) {
+		newSymbol = aSymbol;
+	} else {
+		newSymbol = [NSNull null];
+	}
+	
+	if (index < [self.plotSymbols count]) {
+		[self.plotSymbols replaceObjectAtIndex:index withObject:newSymbol];	
+	} else {
+		for (NSUInteger i = [self.plotSymbols count]; i < index; i++) {
+			[self.plotSymbols addObject:[NSNull null]];
+		}
+		[self.plotSymbols addObject:newSymbol];
+	}
+}
+
+#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
 {    
     [super reloadData];
+	
     CPCartesianPlotSpace *cartesianPlotSpace = (CPCartesianPlotSpace *)self.plotSpace;
     self.xValues = nil;
     self.yValues = nil;
-    
+	
     if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
         // Use bindings to retrieve data
         self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
@@ -143,36 +175,63 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
-{       
+{
     if ( self.xValues == nil || self.yValues == nil ) return;
     
 	if ([self.xValues count] != [self.yValues count])
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
-	
-	CGMutablePathRef dataLine = CGPathCreateMutable();
-	NSMutableArray *plotPoint = [NSMutableArray array];
-	CGPoint viewPoint;
-	NSUInteger ii;
-	for (ii = 0; ii < [xValues count]; ii++)
-	{
-		[plotPoint insertObject:[xValues objectAtIndex:ii] atIndex:0];
-		[plotPoint insertObject:[yValues objectAtIndex:ii] atIndex:1];
-		viewPoint = [plotSpace viewPointForPlotPoint:plotPoint];
 		
-        if ( ii == 0 )
-            CGPathMoveToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
-        else
-            CGPathAddLineToPoint(dataLine, NULL, viewPoint.x, viewPoint.y);
-            
-		[plotPoint removeAllObjects];
+	// calculate view points
+	CGPoint viewPoints[[self.xValues count]];
+	if (self.dataLineStyle || self.defaultPlotSymbol || [self.plotSymbols count]) {
+		NSMutableArray *plotPoint = [NSMutableArray array];
+		CGPoint viewPoint;
+		
+		for (NSUInteger ii = 0; ii < [self.xValues count]; ii++)
+		{
+			[plotPoint insertObject:[self.xValues objectAtIndex:ii] atIndex:0];
+			[plotPoint insertObject:[self.yValues objectAtIndex:ii] atIndex:1];
+			viewPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+			viewPoints[ii] = viewPoint;
+			[plotPoint removeAllObjects];
+		}
 	}
-    
-	CGContextBeginPath(theContext);
-	CGContextAddPath(theContext, dataLine);
-	[dataLineStyle setLineStyleInContext:theContext];
-    CGContextStrokePath(theContext);
 	
-	CGPathRelease(dataLine);
+	// draw line
+	if (self.dataLineStyle) {
+		CGMutablePathRef dataLine = CGPathCreateMutable();
+
+		if ([self.xValues count] > 0) {
+			CGPathMoveToPoint(dataLine, NULL, viewPoints[0].x, viewPoints[0].y);
+		}
+		for (NSUInteger ii = 1; ii < [self.xValues count]; ii++)
+		{
+			CGPathAddLineToPoint(dataLine, NULL, viewPoints[ii].x, viewPoints[ii].y);
+		}
+		
+		CGContextBeginPath(theContext);
+		CGContextAddPath(theContext, dataLine);
+		[self.dataLineStyle setLineStyleInContext:theContext];
+		CGContextStrokePath(theContext);
+		
+		CGPathRelease(dataLine);
+	}
+	
+	// draw plot symbols
+	if (self.defaultPlotSymbol || [self.plotSymbols count]) {
+		for (NSUInteger ii = 0; ii < [self.xValues count]; ii++) {
+			if (ii < [self.plotSymbols count]) {
+				id <NSObject> symbol = [self.plotSymbols objectAtIndex:ii];
+				if ([symbol isKindOfClass:[CPPlotSymbol class]]) {
+					[(CPPlotSymbol *)symbol renderInContext:theContext AtPoint:viewPoints[ii]];			
+				} else {
+					[self.defaultPlotSymbol renderInContext:theContext AtPoint:viewPoints[ii]];
+				}
+			} else {
+				[self.defaultPlotSymbol renderInContext:theContext AtPoint:viewPoints[ii]];
+			}
+		}
+	}
 }
 
 @end

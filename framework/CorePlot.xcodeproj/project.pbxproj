@@ -90,6 +90,8 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
+		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -501,6 +503,8 @@
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
+		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
+		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -619,6 +623,7 @@
 		07BF0D890F2B736D002FCEA7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C331F8DA0F870F54006E4006 /* Plot Symbols */,
 				07BF0D7E0F2B72F6002FCEA7 /* CPPlot.h */,
 				07BF0D7F0F2B72F6002FCEA7 /* CPPlot.m */,
 				07BF0D950F2B73CA002FCEA7 /* CPScatterPlot.h */,
@@ -1212,6 +1217,15 @@
 			name = Drawing;
 			sourceTree = "<group>";
 		};
+		C331F8DA0F870F54006E4006 /* Plot Symbols */ = {
+			isa = PBXGroup;
+			children = (
+				C331F8F50F871087006E4006 /* CPPlotSymbol.h */,
+				C331F8F60F871087006E4006 /* CPPlotSymbol.m */,
+			);
+			name = "Plot Symbols";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1242,6 +1256,7 @@
 				4CD7E7F00F4B4FA700F9BCBB /* NSDecimalNumberExtensions.h in Headers */,
 				32484B430F530E8B002151AD /* CPPlotRange.h in Headers */,
 				070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */,
+				C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1480,6 +1495,7 @@
 				4CD7E7F10F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m in Sources */,
 				32484B440F530E8B002151AD /* CPPlotRange.m in Sources */,
 				070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */,
+				C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

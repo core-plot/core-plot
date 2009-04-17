@@ -19,6 +19,8 @@
 +(CGColorRef)blackColor; 
 
 // Initialization and teardown
++(NSString *)defaultFontName;
+
 -(id)initWithString:(NSString *)newText fontSize:(float)newFontSize;
 
 // Layout

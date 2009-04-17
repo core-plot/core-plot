@@ -23,3 +23,19 @@ typedef enum _CPScaleType {
     CPScaleTypeLog10,
     CPScaleTypeAngular
 } CPScaleType;
+
+// Plot symbols
+typedef enum _CPPlotSymbolType {
+    CPPlotSymbolTypeNone,
+    CPPlotSymbolTypeRectangle,
+    CPPlotSymbolTypeEllipse,
+    CPPlotSymbolTypeDiamond,
+	CPPlotSymbolTypeTriangle,
+	CPPlotSymbolTypeStar,
+	CPPlotSymbolTypePentagon,
+	CPPlotSymbolTypeHexagon,
+	CPPlotSymbolTypeCross,
+	CPPlotSymbolTypePlus,
+	CPPlotSymbolTypeDash,
+	CPPlotSymbolTypeSnow
+} CPPlotSymbolType;

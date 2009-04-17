@@ -34,6 +34,11 @@
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
+	// add plot symbols
+	boundLinePlot.defaultPlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
+	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
+	boundLinePlot.defaultPlotSymbol.fillColor = greenColor;
+	CGColorRelease(greenColor);
     
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -44,7 +49,7 @@
     CGColorRelease(redColor);
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
-    
+	
     // Add some initial data
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.3"];
 	NSDecimalNumber *x2 = [NSDecimalNumber decimalNumberWithString:@"1.7"];

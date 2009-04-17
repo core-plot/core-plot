@@ -12,7 +12,7 @@
 
 +(CPLineStyle*)lineStyle
 {
-    return [[[CPLineStyle alloc] init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 
 -(id)init
@@ -24,6 +24,7 @@
 		self.patternPhase = CGSizeMake(0.f, 0.f);
 		self.lineColor = CGColorGetConstantColor(kCGColorBlack);
 	}
+
 	return self;
 }
 
@@ -40,7 +41,6 @@
 	CGContextSetLineWidth(theContext, lineWidth);
 	CGContextSetPatternPhase(theContext, patternPhase);
 	CGContextSetStrokeColorWithColor(theContext, lineColor);
-
 }
 
 #pragma mark -
@@ -53,6 +53,24 @@
 		CGColorRelease(lineColor);
 		lineColor = aLineColor;
 	}
+}
+
+#pragma mark -
+#pragma mark NSCopying methods
+
+-(id)copyWithZone:(NSZone *)zone
+{
+    CPLineStyle *styleCopy = [[[self class] allocWithZone:zone] init];
+ 	
+	styleCopy.lineCap = self.lineCap;
+	styleCopy.lineJoin = self.lineJoin;
+	styleCopy.lineWidth = self.lineWidth;
+	styleCopy.patternPhase = self.patternPhase;
+	CGColorRef colorCopy = CGColorCreateCopy(self.lineColor);
+    styleCopy.lineColor = colorCopy;
+	CGColorRelease(colorCopy);
+
+    return styleCopy;
 }
 
 @end

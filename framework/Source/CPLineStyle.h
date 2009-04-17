@@ -2,7 +2,8 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CPLineStyle : NSObject {
+@interface CPLineStyle : NSObject <NSCopying> {
+	@private
 	CGLineCap lineCap;
 //	CGLineDash lineDash; // We should make a struct to keep this information
 	CGLineJoin lineJoin;
@@ -21,5 +22,6 @@
 @property (assign) CGColorRef lineColor;
 
 -(void)setLineStyleInContext:(CGContextRef)theContext;
+-(id)copyWithZone:(NSZone *)zone;
 
 @end

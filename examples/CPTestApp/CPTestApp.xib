@@ -8,7 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="463"/>
+			<integer value="501"/>
+			<integer value="446"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1250,15 +1251,15 @@
 																			</object>
 																		</object>
 																	</object>
-																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="202363603">
+																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="358970333">
 																		<int key="NS.exponent">0</int>
 																		<int key="NS.length">0</int>
 																		<bool key="NS.negative">YES</bool>
 																		<bool key="NS.compact">NO</bool>
-																		<int key="NS.mantissa.bo">1</int>
+																		<int key="NS.mantissa.bo">2</int>
 																		<bytes key="NS.mantissa">AAAAAAAAAAAAAAAAAAAAAA</bytes>
 																	</object>
-																	<reference key="NS.max" ref="202363603"/>
+																	<reference key="NS.max" ref="358970333"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1340,8 +1341,8 @@
 																		<string key="NSString">NaN</string>
 																		<reference key="NSAttributes" ref="927249761"/>
 																	</object>
-																	<reference key="NS.min" ref="202363603"/>
-																	<reference key="NS.max" ref="202363603"/>
+																	<reference key="NS.min" ref="358970333"/>
+																	<reference key="NS.max" ref="358970333"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1475,6 +1476,38 @@
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+			</object>
+			<object class="NSWindowTemplate" id="178400436">
+				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{112, 543}, {737, 567}}</string>
+				<int key="NSWTFlags">603980800</int>
+				<string key="NSWindowTitle">CPPlotSymbol Demo</string>
+				<string key="NSWindowClass">NSWindow</string>
+				<nil key="NSViewClass"/>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<object class="NSView" key="NSWindowView" id="941170837">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">274</int>
+					<object class="NSMutableArray" key="NSSubviews">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSCustomView" id="91040815">
+							<reference key="NSNextResponder" ref="941170837"/>
+							<int key="NSvFlags">274</int>
+							<string key="NSFrameSize">{737, 567}</string>
+							<reference key="NSSuperview" ref="941170837"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
+							<string key="NSClassName">NSView</string>
+						</object>
+					</object>
+					<string key="NSFrameSize">{737, 567}</string>
+					<reference key="NSSuperview"/>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
+			</object>
+			<object class="NSCustomObject" id="351314214">
+				<string key="NSClassName">CPPlotSymbolTestController</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -2055,6 +2088,14 @@
 						</object>
 					</object>
 					<int key="connectionID">500</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">hostView</string>
+						<reference key="source" ref="351314214"/>
+						<reference key="destination" ref="91040815"/>
+					</object>
+					<int key="connectionID">505</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3090,6 +3131,34 @@
 						<reference key="object" ref="459732677"/>
 						<reference key="parent" ref="519419721"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">501</int>
+						<reference key="object" ref="178400436"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="941170837"/>
+						</object>
+						<reference key="parent" ref="1049"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">502</int>
+						<reference key="object" ref="941170837"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="91040815"/>
+						</object>
+						<reference key="parent" ref="178400436"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">503</int>
+						<reference key="object" ref="91040815"/>
+						<reference key="parent" ref="941170837"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">504</int>
+						<reference key="object" ref="351314214"/>
+						<reference key="parent" ref="1049"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3308,6 +3377,12 @@
 					<string>497.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
+					<string>501.IBEditorWindowLastContentRect</string>
+					<string>501.IBWindowTemplateEditedContentRect</string>
+					<string>501.NSWindowTemplate.visibleAtLaunch</string>
+					<string>502.IBPluginDependency</string>
+					<string>503.IBPluginDependency</string>
+					<string>504.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -3534,7 +3609,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{134, 316}, {912, 526}}</string>
 					<string>{{134, 316}, {912, 526}}</string>
-					<boolean value="YES"/>
+					<boolean value="YES" id="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>Controller</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3557,6 +3632,12 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
+					<string>{{188, 491}, {737, 567}}</string>
+					<string>{{188, 491}, {737, 567}}</string>
+					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{148, 364}, {245, 183}}</string>
@@ -3613,11 +3694,31 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">500</int>
+			<int key="maxID">505</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">CPPlotSymbolTestController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">hostView</string>
+						<string key="NS.object.0">NSView</string>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">CPPlotSymbolTestController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CPPlotSymbolTestController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">Controller</string>
 					<string key="superclassName">NSArrayController</string>

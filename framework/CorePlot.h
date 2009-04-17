@@ -1,4 +1,3 @@
-
 #import <CorePlot/CPAxis.h>
 #import <CorePlot/CPAxisSet.h>
 #import <CorePlot/CPBarGraph.h>
@@ -12,6 +11,7 @@
 #import <CorePlot/CPPlotArea.h>
 #import <CorePlot/CPPlot.h>
 #import <CorePlot/CPPlotSpace.h>
+#import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPUtilities.h>
