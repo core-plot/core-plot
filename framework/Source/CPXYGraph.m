@@ -6,6 +6,7 @@
 
 @implementation CPXYGraph
 
+// Designated initializer
 -(id)initWithXScaleType:(CPScaleType)xScaleType yScaleType:(CPScaleType)yScaleType
 {
     if ( self = [super init] ) {
@@ -21,6 +22,10 @@
         [space release];
     }
     return self;
+}
+
+-(id)init {
+    return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
 }
 
 #pragma mark -
