@@ -7,7 +7,7 @@
 #import <CorePlot/CPDefinitions.h>
 #import <CorePlot/CPExceptions.h>
 #import <CorePlot/CPFillStyle.h>
-#import <CorePlot/CPGraadient.h>
+#import <CorePlot/CPGradient.h>
 #import <CorePlot/CPGraph.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPPlotArea.h>

@@ -14,7 +14,7 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
-		07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07791A490FAC8D020042803E /* CPFillStyle.h */; };
+		07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07791A490FAC8D020042803E /* CPFillStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07791A4A0FAC8D020042803E /* CPFillStyle.m */; };
 		07975C430F3B816600DE45DC /* CPXYAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 07975C410F3B816600DE45DC /* CPXYAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07975C440F3B816600DE45DC /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C420F3B816600DE45DC /* CPXYAxisSet.m */; };
@@ -46,7 +46,7 @@
 		07BF0D980F2B73CA002FCEA7 /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
 		07BF0DF30F2B7BFB002FCEA7 /* CPDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
-		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; };
+		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07CA11310FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		320A9AFC0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 320A9AFB0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff */; };
