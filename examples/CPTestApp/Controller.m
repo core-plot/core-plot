@@ -4,6 +4,10 @@
 
 @implementation Controller
 
++(void)initialize {
+    [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
+}
+
 -(void)dealloc 
 {
     [graph release];
@@ -12,10 +16,7 @@
 
 -(void)awakeFromNib {
     [super awakeFromNib];
-    
-    // Setup transform
-    [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
-    
+
     // Create graph
     graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
@@ -36,9 +37,11 @@
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
     
 	// Add plot symbols
-	boundLinePlot.defaultPlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
+	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
-	boundLinePlot.defaultPlotSymbol.fillColor = greenColor;
+	greenCirclePlotSymbol.fillColor = greenColor;
+    greenCirclePlotSymbol.size = CGSizeMake(10.0, 10.0);
+    boundLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
     // Create a second plot that uses the data source method
@@ -88,7 +91,7 @@
     return [self.arrangedObjects count];
 }
 
--(NSDecimalNumber *)decimalNumberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     NSDecimalNumber *num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
     if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
     return num;

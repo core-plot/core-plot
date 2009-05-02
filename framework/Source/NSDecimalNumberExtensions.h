@@ -1,10 +1,8 @@
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 @interface NSDecimalNumber (CPExtensions)
-
-+(NSDecimalNumber *)decimalNumberWithNumber:(NSNumber *)number;
 
 -(CGFloat)floatValue;
 

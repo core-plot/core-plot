@@ -1,6 +1,7 @@
 
 #import "CPPlot.h"
 #import "CPPlotSpace.h"
+#import "NSNumberExtensions.h"
 
 @implementation CPPlot
 
@@ -53,19 +54,22 @@
     NSArray *numbers;
     
     if ( dataSource ) {
-        if ( [dataSource respondsToSelector:@selector(decimalNumbersForPlot:field:recordIndexRange:)] ) {
-            numbers = [dataSource decimalNumbersForPlot:self field:fieldEnum recordIndexRange:indexRange];
+        if ( [dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
+            numbers = [dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange];
+            NSMutableArray *decimalNumbers = [NSMutableArray arrayWithCapacity:numbers.count];
+            for ( NSNumber *n in numbers ) {
+                [decimalNumbers addObject:[n decimalNumber]];
+            }
+            numbers = decimalNumbers;
         }
         else {
-            BOOL respondsToSingleValueSelector = [dataSource respondsToSelector:@selector(decimalNumberForPlot:field:recordIndex:)];
+            BOOL respondsToSingleValueSelector = [dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
             NSUInteger recordIndex;
             NSMutableArray *fieldValues = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
                 if ( respondsToSingleValueSelector ) {
-                    NSDecimalNumber *number = [dataSource decimalNumberForPlot:self field:fieldEnum recordIndex:recordIndex];
-                    number = [number copy];
-                    [fieldValues addObject:number];
-                    [number release];
+                    NSNumber *number = [dataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
+                    [fieldValues addObject:[number decimalNumber]];
                 }
                 else {
                     [fieldValues addObject:[NSDecimalNumber zero]];

@@ -21,7 +21,7 @@
 }
 
 +(CPFillStyle *)fillStyleWithColor:(CGColorRef)aColor {
-    return [[[CPFillStyle alloc] initWithColor:aColor] autorelease];
+    return [[(CPFillStyle *)[CPFillStyle alloc] initWithColor:aColor] autorelease];
 }
 
 +(CPFillStyle *)fillStyleWithImage:(CGImageRef)image tileInX:(BOOL)repeatsX tileInY:(BOOL)repeatsY {

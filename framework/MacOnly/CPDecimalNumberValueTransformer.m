@@ -1,7 +1,7 @@
 
 
 #import "CPDecimalNumberValueTransformer.h"
-#import "NSDecimalNumberExtensions.h"
+#import "NSNumberExtensions.h"
 
 @implementation CPDecimalNumberValueTransformer
 
@@ -20,7 +20,7 @@
 }
 
 -(id)reverseTransformedValue:(id)value {
-    return [NSDecimalNumber decimalNumberWithNumber:value];
+    return [value decimalNumber];
 }
 
 @end

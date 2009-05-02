@@ -16,6 +16,10 @@
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
 		07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07791A490FAC8D020042803E /* CPFillStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07791A4A0FAC8D020042803E /* CPFillStyle.m */; };
+		078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 078F42D90FACC075006E670B /* NSNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
+		078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
+		078F42DE0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
 		07975C430F3B816600DE45DC /* CPXYAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 07975C410F3B816600DE45DC /* CPXYAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07975C440F3B816600DE45DC /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C420F3B816600DE45DC /* CPXYAxisSet.m */; };
 		07975C490F3B818800DE45DC /* CPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 07975C470F3B818800DE45DC /* CPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -181,6 +185,8 @@
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
 		07791A490FAC8D020042803E /* CPFillStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillStyle.h; sourceTree = "<group>"; };
 		07791A4A0FAC8D020042803E /* CPFillStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillStyle.m; sourceTree = "<group>"; };
+		078F42D90FACC075006E670B /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
+		078F42DA0FACC075006E670B /* NSNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberExtensions.m; sourceTree = "<group>"; };
 		07975C410F3B816600DE45DC /* CPXYAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxisSet.h; sourceTree = "<group>"; };
 		07975C420F3B816600DE45DC /* CPXYAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYAxisSet.m; sourceTree = "<group>"; };
 		07975C470F3B818800DE45DC /* CPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxis.h; sourceTree = "<group>"; };
@@ -574,6 +580,8 @@
 			children = (
 				4CD7E7EE0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.h */,
 				4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */,
+				078F42D90FACC075006E670B /* NSNumberExtensions.h */,
+				078F42DA0FACC075006E670B /* NSNumberExtensions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1274,6 +1282,7 @@
 				C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */,
 				07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */,
 				07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */,
+				078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1461,6 +1470,7 @@
 			files = (
 				4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */,
 				4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */,
+				078F42DE0FACC075006E670B /* NSNumberExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,6 +1494,7 @@
 				4CD7E85A0F4B534400F9BCBB /* CPTextLayerTests.m in Sources */,
 				4CD7E9640F4B625900F9BCBB /* CPUtilitiesTests.m in Sources */,
 				07CA11310FAC8F85000861CE /* CPGradient.m in Sources */,
+				078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1516,6 +1527,7 @@
 				C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */,
 				07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */,
 				07CA11300FAC8F85000861CE /* CPGradient.m in Sources */,
+				078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

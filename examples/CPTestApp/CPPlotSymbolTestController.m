@@ -9,11 +9,8 @@
 }
 
 -(void)awakeFromNib {
-    // Setup transform
-    [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
-    
     // Create graph
-    graph = [[CPXYGraph alloc] initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
+    graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
     [hostView setLayer:graph];
 	[hostView setWantsLayer:YES];
@@ -59,7 +56,7 @@
     return 10;
 }
 
--(NSDecimalNumber *)decimalNumberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
 	NSDecimalNumber *num;
 	
 	switch (fieldEnum) {

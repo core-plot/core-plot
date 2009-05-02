@@ -10,6 +10,6 @@
 
 -(IBAction)reloadDataSourcePlot:(id)sender;
 -(NSUInteger)numberOfRecords;
--(NSDecimalNumber *)decimalNumberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 
 @end
