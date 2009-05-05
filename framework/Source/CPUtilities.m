@@ -55,3 +55,42 @@ CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
     [rgbColor getRed:&r green:&g blue:&b alpha:&a];
     return CGColorCreateGenericRGB(r, g, b, a);
 }
+
+CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor)
+{
+	CPRGBColor rgbColor;
+	
+    //put the components of color into the rgbColor - must make sure it is a RGB color (not Gray or CMYK) 
+    [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red
+																 green:&rgbColor.green
+																  blue:&rgbColor.blue
+																 alpha:&rgbColor.alpha];
+
+	return rgbColor;
+}
+
+CPRGBColor CPRGBColorFromCGColor(CGColorRef color)
+{
+	CPRGBColor rgbColor;
+	
+	size_t numComponents = CGColorGetNumberOfComponents(color);
+	
+	if (numComponents == 2) {
+		const CGFloat *components = CGColorGetComponents(color);
+		float all = components[0];
+		
+		rgbColor.red = all;
+		rgbColor.green = all;
+		rgbColor.blue = all;
+		rgbColor.alpha = components[1];
+	} else {
+		const CGFloat *components = CGColorGetComponents(color);
+		
+		rgbColor.red = components[0];
+		rgbColor.green = components[1];
+		rgbColor.blue = components[2];
+		rgbColor.alpha = components[3];
+	}
+
+	return rgbColor;
+}

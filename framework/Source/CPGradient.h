@@ -3,22 +3,23 @@
 // CTGradient is in public domain (Thanks Chad Weider!)
 
 #import <Foundation/Foundation.h>
+#import "CPDefinitions.h"
 
 typedef struct _CPGradientElement {
-	float red, green, blue, alpha;
+	CPRGBColor color;
 	float position;
 	
 	struct _CPGradientElement *nextElement;
 } CPGradientElement;
 
-typedef enum  _CPBlendingMode {
+typedef enum _CPBlendingMode {
 	CPLinearBlendingMode,
 	CPChromaticBlendingMode,
 	CPInverseChromaticBlendingMode
 } CPGradientBlendingMode;
 
 
-@interface CPGradient : NSObject <NSCopying, NSCoding>{
+@interface CPGradient : NSObject <NSCopying, NSCoding>  {
 	CPGradientElement *elementList;
 	CPGradientBlendingMode blendingMode;
 	CGFunctionRef gradientFunction;
@@ -27,7 +28,7 @@ typedef enum  _CPBlendingMode {
 
 @property (assign) CGFloat angle;
 
-+(id)gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end;
++(id)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end;
 
 +(id)aquaSelectedGradient;
 +(id)aquaNormalGradient;
@@ -46,13 +47,13 @@ typedef enum  _CPBlendingMode {
 
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha;
 
--(CPGradient *)addColorStop:(NSColor *)color atPosition:(float)position;	// positions given relative to [0,1]
--(CPGradient *)removeColorStopAtIndex:(unsigned)index;
+-(CPGradient *)addColorStop:(CGColorRef)color atPosition:(float)position;	// positions given relative to [0,1]
+-(CPGradient *)removeColorStopAtIndex:(NSUInteger)index;
 -(CPGradient *)removeColorStopAtPosition:(float)position;
 
 -(CPGradientBlendingMode)blendingMode;
--(NSColor *)colorStopAtIndex:(unsigned)index;
--(NSColor *)colorAtPosition:(float)position;
+-(CGColorRef)colorStopAtIndex:(NSUInteger)index;
+-(CGColorRef)colorAtPosition:(float)position;
 
 
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context;

@@ -13,3 +13,6 @@ NSDecimal CPDecimalFromDouble(CPDouble d);
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);
+
+CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor);
+CPRGBColor CPRGBColorFromCGColor(CGColorRef color);

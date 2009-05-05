@@ -39,3 +39,9 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolTypeDash,
 	CPPlotSymbolTypeSnow
 } CPPlotSymbolType;
+
+// RGB colors for CPGradient
+typedef struct _CPRGBColor {
+	float red, green, blue, alpha;
+} CPRGBColor;
+
