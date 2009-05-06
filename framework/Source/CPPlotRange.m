@@ -25,9 +25,38 @@
 
 -(void)dealloc
 {
-	self.location = nil;
-	self.length = nil;
+	[location release];
+    [length release];
+    
 	[super dealloc];
+}
+
+#pragma mark <NSCoding>
+- (void)encodeWithCoder:(NSCoder *)encoder 
+{
+    [encoder encodeObject:self.location];
+    [encoder encodeObject:self.length];
+    
+    if([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        [super encodeWithCoder:encoder];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder 
+{
+    
+    if([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        self = [super initWithCoder:decoder];
+    } else {
+        self = [super init];
+    }
+    
+    if(self) {
+        location = [[decoder decodeObject] retain];
+        length = [[decoder decodeObject] retain];
+    }
+    
+    return self;
 }
 
 @end

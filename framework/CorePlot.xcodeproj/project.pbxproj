@@ -62,6 +62,7 @@
 		4C32D35F0F43B38900EDFE7A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D3770F43B39F00EDFE7A /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C32D37C0F43B3CD00EDFE7A /* main.m */; };
+		4C422A640FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */; };
 		4C993D1A0F45E86100DC824F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
 		4C993FF40F45EE2F00DC824F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C993FF30F45EE2F00DC824F /* MainMenu.xib */; };
@@ -233,6 +234,8 @@
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C422A620FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCartesianPlotSpaceTests.h; sourceTree = "<group>"; };
+		4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpaceTests.m; sourceTree = "<group>"; };
 		4C993EA20F45ED1900DC824F /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
 		4C993EA30F45ED1900DC824F /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
 		4C993EA40F45ED1900DC824F /* GTMCarbonEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEventTest.m; sourceTree = "<group>"; };
@@ -660,6 +663,8 @@
 				07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */,
 				0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */,
 				90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */,
+				4C422A620FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.h */,
+				4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */,
 				07983F050F2F9BA6008C8618 /* CPPolarPlotSpace.h */,
 				07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */,
 			);
@@ -1495,6 +1500,7 @@
 				4CD7E9640F4B625900F9BCBB /* CPUtilitiesTests.m in Sources */,
 				07CA11310FAC8F85000861CE /* CPGradient.m in Sources */,
 				078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */,
+				4C422A640FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,6 +1587,7 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C993FA80F45ED1A00DC824F /* LoadableBundleGCSupported.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH)";

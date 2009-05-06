@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "CPDefinitions.h"
 
-@interface CPPlotRange : NSObject {
+@interface CPPlotRange : NSObject <NSCoding> {
 	@private
 	NSDecimalNumber *location;
 	NSDecimalNumber *length;
