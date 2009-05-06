@@ -1,21 +1,12 @@
 
-#import "CPTestCase.h"
+#import "CPDataSourceTestCase.h"
 #import "CPXYGraph.h"
-#import "CPPlot.h"
 
-@interface CPXYGraphTests : CPTestCase <CPPlotDataSource> {
+@interface CPXYGraphTests : CPDataSourceTestCase {
     CPXYGraph *graph;
-    
-    NSArray *xData;
-    NSArray *yData;
-    
-    NSUInteger nRecords;
+
 }
 
 @property (retain,readwrite) CPXYGraph *graph;
-
-@property (copy,readwrite) NSArray *xData;
-@property (copy,readwrite) NSArray *yData;
-@property (assign,readwrite) NSUInteger nRecords;
 
 @end

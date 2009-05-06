@@ -74,12 +74,14 @@
 		4C9940370F45F4E300DC824F /* GTMNSObject+BindingUnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F610F45ED1900DC824F /* GTMNSObject+BindingUnitTesting.m */; };
 		4C9940380F45F4E500DC824F /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F630F45ED1900DC824F /* GTMNSObject+UnitTesting.m */; };
 		4C9940390F45F4F300DC824F /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F650F45ED1900DC824F /* GTMSenTestCase.m */; };
-		4C99403A0F45F4F600DC824F /* GTMTestTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F690F45ED1900DC824F /* GTMTestTimerTest.m */; };
 		4C99403C0F45F50C00DC824F /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F740F45ED1900DC824F /* GTMUnitTestDevLog.m */; };
 		4C99403D0F45F51500DC824F /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
 		4C9940670F45F59400DC824F /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F440F45ED1900DC824F /* GTMSystemVersion.m */; };
 		4C9940680F45F59F00DC824F /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F380F45ED1900DC824F /* GTMRegex.m */; };
 		4C9940900F45F71C00DC824F /* CPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C99408F0F45F71C00DC824F /* CPTestCase.m */; };
+		4C9A745F0FB24C7200918464 /* CPDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */; };
+		4C9A74710FB24D7900918464 /* CPScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */; };
+		4C9A74FE0FB257C000918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */; };
 		4CBF25520F3CDF4C00DAE1A8 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4CD7E7E70F4B4F8200F9BCBB /* CPTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD7E7E80F4B4F8200F9BCBB /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */; };
@@ -124,7 +126,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894 /* UnitTest - AddressBook.octest */;
+			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894;
 			remoteInfo = "UnitTest - AddressBook";
 		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
@@ -508,6 +510,11 @@
 		4C9940310F45F42E00DC824F /* CPPlotAreaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotAreaTests.m; sourceTree = "<group>"; };
 		4C99408E0F45F71C00DC824F /* CPTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTestCase.h; sourceTree = "<group>"; };
 		4C99408F0F45F71C00DC824F /* CPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTestCase.m; sourceTree = "<group>"; };
+		4C9A745D0FB24C7200918464 /* CPDataSourceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDataSourceTestCase.h; sourceTree = "<group>"; };
+		4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDataSourceTestCase.m; sourceTree = "<group>"; };
+		4C9A746F0FB24D7900918464 /* CPScatterPlotTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScatterPlotTests.h; sourceTree = "<group>"; };
+		4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotTests.m; sourceTree = "<group>"; };
+		4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4CBF252C0F3CDED400DAE1A8 /* CorePlot-UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CorePlot-UnitTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CBF252D0F3CDED400DAE1A8 /* CorePlot-UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorePlot-UnitTests-Info.plist"; sourceTree = "<group>"; };
 		4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextLayer.h; sourceTree = "<group>"; };
@@ -662,6 +669,8 @@
 				07BF0D7F0F2B72F6002FCEA7 /* CPPlot.m */,
 				07BF0D950F2B73CA002FCEA7 /* CPScatterPlot.h */,
 				07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */,
+				4C9A746F0FB24D7900918464 /* CPScatterPlotTests.h */,
+				4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */,
 				0799E0930F2BB5F300790525 /* CPBarPlot.h */,
 				0799E0940F2BB5F300790525 /* CPBarPlot.m */,
 			);
@@ -1209,6 +1218,8 @@
 				4CD7E9A50F4B65D000F9BCBB /* GTM_notes.rst */,
 				4C99408E0F45F71C00DC824F /* CPTestCase.h */,
 				4C99408F0F45F71C00DC824F /* CPTestCase.m */,
+				4C9A745D0FB24C7200918464 /* CPDataSourceTestCase.h */,
+				4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */,
 				4C9940DF0F45FAE900DC824F /* TestResources */,
 			);
 			name = Testing;
@@ -1219,6 +1230,7 @@
 			isa = PBXGroup;
 			children = (
 				4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
+				4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */,
 				320A9B000F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState */,
 				320A9B010F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff */,
 				320A9AFB0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff */,
@@ -1371,6 +1383,9 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CorePlot" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -1461,6 +1476,7 @@
 				320A9B020F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState in Resources */,
 				320A9B030F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff in Resources */,
 				4C422C1B0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
+				4C9A74FE0FB257C000918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1486,7 +1502,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n\"${PROJECT_DIR}/../google-toolbox-mac-trunk/UnitTesting/RunMacOSUnitTests.sh\"\n";
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-mac-trunk/UnitTesting/RunMacOSUnitTests.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1512,7 +1528,6 @@
 				4C9940370F45F4E300DC824F /* GTMNSObject+BindingUnitTesting.m in Sources */,
 				4C9940380F45F4E500DC824F /* GTMNSObject+UnitTesting.m in Sources */,
 				4C9940390F45F4F300DC824F /* GTMSenTestCase.m in Sources */,
-				4C99403A0F45F4F600DC824F /* GTMTestTimerTest.m in Sources */,
 				4C99403C0F45F50C00DC824F /* GTMUnitTestDevLog.m in Sources */,
 				4C99403D0F45F51500DC824F /* GTMUnitTestingUtilities.m in Sources */,
 				4C9940670F45F59400DC824F /* GTMSystemVersion.m in Sources */,
@@ -1524,6 +1539,8 @@
 				078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */,
 				4C422A640FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m in Sources */,
 				4C422B290FB20882000CAA43 /* CPXYGraphTests.m in Sources */,
+				4C9A745F0FB24C7200918464 /* CPDataSourceTestCase.m in Sources */,
+				4C9A74710FB24D7900918464 /* CPScatterPlotTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
