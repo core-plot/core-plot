@@ -34,7 +34,6 @@
 		0799E0960F2BB5F300790525 /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
 		0799E0990F2BB6E800790525 /* CPCartesianPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D610F2B70B8002FCEA7 /* CoreData.framework */; };
-		07BF0D650F2B70B8002FCEA7 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D620F2B70B8002FCEA7 /* QTKit.framework */; };
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D700F2B718F002FCEA7 /* CPGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0D730F2B718F002FCEA7 /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D710F2B718F002FCEA7 /* CPGraph.m */; };
@@ -556,7 +555,6 @@
 			files = (
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */,
-				07BF0D650F2B70B8002FCEA7 /* QTKit.framework in Frameworks */,
 				07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
