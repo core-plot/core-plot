@@ -120,6 +120,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
+		4C422C570FB2321A000CAA43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894 /* UnitTest - AddressBook.octest */;
+			remoteInfo = "UnitTest - AddressBook";
+		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1187,6 +1194,7 @@
 			isa = PBXGroup;
 			children = (
 				4C993FD70F45EDA500DC824F /* GoogleToolboxForMac.framework */,
+				4C422C580FB2321A000CAA43 /* UnitTest - AddressBook.octest */,
 				4C993FD90F45EDA500DC824F /* UnitTest - AppKit.octest */,
 				4C993FDB0F45EDA500DC824F /* UnitTest - Foundation.octest */,
 				4C993FDD0F45EDA500DC824F /* UnitTest - UnitTesting.octest */,
@@ -1385,6 +1393,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4C422C580FB2321A000CAA43 /* UnitTest - AddressBook.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTest - AddressBook.octest";
+			remoteRef = 4C422C570FB2321A000CAA43 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4C993FD70F45EDA500DC824F /* GoogleToolboxForMac.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

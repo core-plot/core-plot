@@ -9,6 +9,8 @@
 #import "CPFillStyle.h"
 #import "CPPlotSymbol.h"
 
+#import "GTMTestTimer.h"
+
 @interface CPXYGraph (UnitTesting)
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
@@ -25,10 +27,16 @@
 
 @end
 
+@interface CPXYGraphTests ()
+- (void)buildData;
+- (void)addScatterPlot;
+@end
+
 @implementation CPXYGraphTests
 @synthesize graph;
 @synthesize xData;
 @synthesize yData;
+@synthesize nRecords;
 
 - (void)setUp
 {
@@ -36,18 +44,8 @@
                                              yScaleType:CPScaleTypeLinear]
                   autorelease];
     
-    NSUInteger nRecords = 100;
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:nRecords];
-    for(NSUInteger i=0; i<nRecords; i++) {
-        [arr insertObject:[NSDecimalNumber numberWithInteger:i] atIndex:i];
-    }
-    self.xData = arr;
-    
-    arr = [NSMutableArray arrayWithCapacity:nRecords];
-    for(NSUInteger i=0; i<nRecords; i++) {
-        [arr insertObject:[NSDecimalNumber numberWithFloat:sin(2*M_PI*(float)i/(float)nRecords)] atIndex:i];
-    }
-    self.yData = arr;
+    self.nRecords = 100;
+    [self buildData];
 }
 
 - (void)tearDown
@@ -57,8 +55,23 @@
     self.yData = nil;
 }
 
-- (void)testRenderScatterWithSymbol
+- (void)buildData
 {
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:nRecords];
+    for(NSUInteger i=0; i<self.nRecords; i++) {
+        [arr insertObject:[NSDecimalNumber numberWithInteger:i] atIndex:i];
+    }
+    self.xData = arr;
+    
+    arr = [NSMutableArray arrayWithCapacity:nRecords];
+    for(NSUInteger i=0; i<self.nRecords; i++) {
+        [arr insertObject:[NSDecimalNumber numberWithFloat:sin(2*M_PI*(float)i/(float)nRecords)] atIndex:i];
+    }
+    self.yData = arr;
+}
+
+- (void)addScatterPlot {
     self.graph.bounds = CGRectMake(0., 0., 400., 200.);
     
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
@@ -82,18 +95,51 @@
 	CGColorRelease(greenColor);
     
     [[self graph] addPlot:dataSourceLinePlot];
+}
+
+- (void)testRenderScatterWithSymbol
+{
+    [self addScatterPlot];
     
     GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderScatterWithSymbol", @"Should render a sine wave with green symbols.");
 }
 
+/**
+ Verify that XYGraph with single ScatterPlot can render 1e6 points in less than 1 second.
+ */
+- (void)testRenderScatterTimeLimit
+{
+    self.nRecords = 1e6;
+    [self buildData];
+    
+    [self addScatterPlot];
+    
+    //set up CGContext
+    CGContextRef ctx = GTMCreateUnitTestBitmapContextOfSizeWithData(self.graph.bounds.size, NULL);
+    
+    GTMTestTimer *t = GTMTestTimerCreate();
+    
+    // render 10 times
+    for(NSInteger i = 0; i<10; i++) {
+        GTMTestTimerStart(t);
+        [[self graph] drawInContext:ctx];
+        GTMTestTimerStop(t);
+    }
+    
+    //verify performance
+    STAssertTrue(GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t) < 1.0, @"rendering took more than 1 second for 1e6 points");
+    
+    // clean up
+    GTMTestTimerRelease(t);
+    CFRelease(ctx);
+}
+    
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecords 
 {
-    NSParameterAssert(self.xData.count == self.yData.count);
-    
-    return self.xData.count;
+    return self.nRecords;
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot 
