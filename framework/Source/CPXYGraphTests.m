@@ -36,9 +36,7 @@
 
 - (void)setUp
 {
-    self.graph = [[[CPXYGraph alloc] initWithXScaleType:CPScaleTypeLinear
-                                             yScaleType:CPScaleTypeLinear]
-                  autorelease];
+    self.graph = [[[CPXYGraph alloc] init] autorelease];
     
     self.nRecords = 100;
 }
