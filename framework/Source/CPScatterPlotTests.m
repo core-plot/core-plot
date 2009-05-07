@@ -17,10 +17,14 @@
 
 - (void)setUp
 {
-    self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    self.plot.bounds = CGRectMake(0., 0., 400., 200.);
     
     CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
+    plotSpace.bounds = CGRectMake(0., 0., 400., 200.);
+    
+    self.plot = [[[CPScatterPlot alloc] init] autorelease];
+    self.plot.bounds = plotSpace.bounds;
+    [plotSpace addSublayer:self.plot];
+    
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
                                                    length:CPDecimalFromInt(self.nRecords)];
@@ -29,7 +33,7 @@
     
     
     self.plot.plotSpace = plotSpace;
-    self.plot.identifier = @"Data Source Plot";
+    self.plot.identifier = @"Scatter Plot";
 	self.plot.dataLineStyle.lineWidth = 1.0;
     self.plot.dataSource = self;
 }
@@ -37,6 +41,14 @@
 - (void)tearDown
 {
     self.plot = nil;
+}
+
+- (void)testRenderScatter
+{
+    self.nRecords = 1e3;
+    [self buildData];
+    
+    GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
 }
 
 /**
@@ -49,8 +61,6 @@
     
     //set up CGContext
     CGContextRef ctx = GTMCreateUnitTestBitmapContextOfSizeWithData(self.plot.bounds.size, NULL);
-    CGContextSetGrayFillColor(ctx, 0.7, 1.0);
-    CGContextFillRect(ctx, self.plot.bounds); 
     
     GTMTestTimer *t = GTMTestTimerCreate();
     
@@ -58,7 +68,7 @@
     for(NSInteger i = 0; i<3; i++) {
         GTMTestTimerStart(t);
         self.plot.dataNeedsReloading = YES;
-        [[self plot] drawInContext:ctx];
+        [self.plot drawInContext:ctx];
         GTMTestTimerStop(t);
     }
     

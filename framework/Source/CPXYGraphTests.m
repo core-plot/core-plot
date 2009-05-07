@@ -58,20 +58,20 @@
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.1) 
                                                    length:CPDecimalFromFloat(2.2)];
     
-    CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
-    dataSourceLinePlot.dataSource = self;
+    CPScatterPlot *scatterPlot = [[[CPScatterPlot alloc] init] autorelease];
+    scatterPlot.identifier = @"Scatter Plot";
+	scatterPlot.dataLineStyle.lineWidth = 1.0;
+    scatterPlot.dataSource = self;
     
     // Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
 	greenCirclePlotSymbol.fillColor = greenColor;
     greenCirclePlotSymbol.size = CGSizeMake(1.0, 1.0);
-    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
+    scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
-    [[self graph] addPlot:dataSourceLinePlot];
+    [[self graph] addPlot:scatterPlot];
 }
 
 - (void)testRenderScatterWithSymbol
