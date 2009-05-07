@@ -223,12 +223,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 			if (ii < [self.plotSymbols count]) {
 				id <NSObject> symbol = [self.plotSymbols objectAtIndex:ii];
 				if ([symbol isKindOfClass:[CPPlotSymbol class]]) {
-					[(CPPlotSymbol *)symbol renderInContext:theContext AtPoint:viewPoints[ii]];			
+					[(CPPlotSymbol *)symbol renderInContext:theContext atPoint:viewPoints[ii]];			
 				} else {
-					[self.defaultPlotSymbol renderInContext:theContext AtPoint:viewPoints[ii]];
+					[self.defaultPlotSymbol renderInContext:theContext atPoint:viewPoints[ii]];
 				}
 			} else {
-				[self.defaultPlotSymbol renderInContext:theContext AtPoint:viewPoints[ii]];
+				[self.defaultPlotSymbol renderInContext:theContext atPoint:viewPoints[ii]];
 			}
 		}
 	}

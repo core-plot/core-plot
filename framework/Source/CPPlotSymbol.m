@@ -156,7 +156,7 @@
 #pragma mark -
 #pragma mark Drawing
 
--(void)renderInContext:(CGContextRef)theContext AtPoint:(CGPoint)center
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center
 {
 	if (self.lineStyle || self.fillColor) {
 		CGFloat dx, dy;

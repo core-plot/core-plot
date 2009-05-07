@@ -31,6 +31,6 @@
 //+(CPPlotSymbol *)plotSymbolWithImage:(CGImageRef)anImage;
 
 -(id)copyWithZone:(NSZone *)zone;
--(void)renderInContext:(CGContextRef)theContext AtPoint:(CGPoint)center;
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
 
 @end
