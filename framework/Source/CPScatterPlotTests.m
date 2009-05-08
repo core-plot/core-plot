@@ -19,12 +19,7 @@
 {
     
     CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
-    plotSpace.bounds = CGRectMake(0., 0., 400., 200.);
-    
-    self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    self.plot.bounds = plotSpace.bounds;
-    [plotSpace addSublayer:self.plot];
-    
+    plotSpace.bounds = CGRectMake(0., 0., 100., 100.);
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
                                                    length:CPDecimalFromInt(self.nRecords)];
@@ -32,9 +27,13 @@
                                                    length:CPDecimalFromFloat(2.2)];
     
     
+    self.plot = [[[CPScatterPlot alloc] init] autorelease];
+    self.plot.frame = plotSpace.bounds;
+    [plotSpace addSublayer:self.plot];
+    
     self.plot.plotSpace = plotSpace;
     self.plot.identifier = @"Scatter Plot";
-	self.plot.dataLineStyle.lineWidth = 1.0;
+	
     self.plot.dataSource = self;
 }
 
