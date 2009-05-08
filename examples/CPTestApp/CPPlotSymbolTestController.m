@@ -12,6 +12,14 @@
     // Create graph
     graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
+	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
+	graph.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+
+	grayColor = CGColorCreateGenericGray(0.2, 0.3);
+	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+
     [hostView setLayer:graph];
 	[hostView setWantsLayer:YES];
     
@@ -20,6 +28,10 @@
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(13.0)];
     
+	CPGradient *gradientFill = [CPGradient rainbowGradient];
+	gradientFill.gradientType = CPAxialGradientType;
+	gradientFill.angle = 90;
+	
     // Create a series of plots that uses the data source method
 	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeSnow; i++) {
 		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -33,10 +45,11 @@
 		// add plot symbols
 		CPPlotSymbol *symbol = [[[CPPlotSymbol alloc] init] autorelease];
 		symbol.symbolType = i;
-		CGColorRef blueColor = CPNewCGColorFromNSColor([NSColor blueColor]);
-		symbol.fillColor = blueColor;
-		CGColorRelease(blueColor);
-
+//		CGColorRef blueColor = CPNewCGColorFromNSColor([NSColor blueColor]);
+//		symbol.fill = [CPFill fillWithColor:blueColor];
+//		CGColorRelease(blueColor);
+		symbol.fill = [CPFill fillWithGradient:gradientFill];
+		
 		dataSourceLinePlot.defaultPlotSymbol = symbol;
 
 		for (NSUInteger j = 1; j < [self numberOfRecords]; j++) {

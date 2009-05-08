@@ -33,9 +33,7 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-    // Temporary: fill bounds
-    CGContextSetGrayFillColor(theContext, 0.7, 1.0);
-    CGContextFillRect(theContext, self.bounds); 
+	[super renderAsVectorInContext:theContext];	// draw background fill
 }
 
 @end

@@ -4,6 +4,7 @@
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
+#import "CPFill.h"
 
 
 @implementation CPGraph
@@ -11,6 +12,7 @@
 @synthesize axisSet;
 @synthesize plotArea;
 @synthesize defaultPlotSpace;
+@synthesize fill;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -25,6 +27,7 @@
 		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
 		self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin);
+		self.fill = nil;
 	}
 	return self;
 }
@@ -35,6 +38,7 @@
 	self.plotArea = nil;
 	[plots release];
 	[plotSpaces release];
+	[fill release];
 	[super dealloc];
 }
 
@@ -183,6 +187,14 @@
 -(void)setPlotAreaFrame:(CGRect)frame
 {
     plotArea.frame = frame;
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	[self.fill fillRect:self.bounds inContext:theContext];
 }
 
 @end

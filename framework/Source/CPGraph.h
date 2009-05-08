@@ -5,6 +5,7 @@
 #import "CPLayer.h"
 
 @class CPAxisSet;
+@class CPFill;
 @class CPPlotArea;
 @class CPPlot;
 @class CPPlotSpace;
@@ -14,12 +15,14 @@
     CPPlotArea *plotArea;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
+	CPFill *fill;
 }
 
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
 @property (nonatomic, readwrite, assign) CGRect plotAreaFrame;
+@property (nonatomic, readwrite, retain) CPFill *fill;
 
 // Retrieving plots
 -(NSArray *)allPlots;

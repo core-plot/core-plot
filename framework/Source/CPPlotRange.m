@@ -37,21 +37,20 @@
     [encoder encodeObject:self.location];
     [encoder encodeObject:self.length];
     
-    if([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        [super encodeWithCoder:encoder];
+    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        [(id <NSCoding>)super encodeWithCoder:encoder];
     }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder 
 {
-    
-    if([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [super initWithCoder:decoder];
+    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        self = [(id <NSCoding>)super initWithCoder:decoder];
     } else {
         self = [super init];
     }
     
-    if(self) {
+    if (self) {
         location = [[decoder decodeObject] retain];
         length = [[decoder decodeObject] retain];
     }

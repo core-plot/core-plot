@@ -2,19 +2,21 @@
 #import "CPDefinitions.h"
 
 @class CPLineStyle;
+@class CPFill;
+
 
 @interface CPPlotSymbol : NSObject <NSCopying> {
 	@private
 	CGSize size;
 	CPPlotSymbolType symbolType;
 	CPLineStyle *lineStyle;
-	CGColorRef fillColor;
+	CPFill *fill;
 }
 
 @property (assign) CGSize size;
 @property (assign) CPPlotSymbolType symbolType;
 @property (retain) CPLineStyle *lineStyle;
-@property (assign) CGColorRef fillColor;
+@property (retain) CPFill *fill;
 
 +(CPPlotSymbol *)crossPlotSymbol;
 +(CPPlotSymbol *)ellipsePlotSymbol;

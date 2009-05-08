@@ -105,6 +105,14 @@
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
+		C34260200FAE096D00072842 /* CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260210FAE096D00072842 /* CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* CPFillGradient.m */; };
+		C34260220FAE096D00072842 /* CPFill.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601A0FAE096C00072842 /* CPFill.m */; };
+		C34260230FAE096D00072842 /* CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601B0FAE096C00072842 /* CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260240FAE096D00072842 /* CPFillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601C0FAE096C00072842 /* CPFillColor.m */; };
+		C34260250FAE096D00072842 /* CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* CPFillImage.m */; };
+		C34260260FAE096D00072842 /* CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -541,6 +549,14 @@
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
+		C34260180FAE096C00072842 /* CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillImage.h; sourceTree = "<group>"; };
+		C34260190FAE096C00072842 /* CPFillGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillGradient.m; sourceTree = "<group>"; };
+		C342601A0FAE096C00072842 /* CPFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFill.m; sourceTree = "<group>"; };
+		C342601B0FAE096C00072842 /* CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillColor.h; sourceTree = "<group>"; };
+		C342601C0FAE096C00072842 /* CPFillColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillColor.m; sourceTree = "<group>"; };
+		C342601D0FAE096C00072842 /* CPFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillImage.m; sourceTree = "<group>"; };
+		C342601E0FAE096C00072842 /* CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillGradient.h; sourceTree = "<group>"; };
+		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1257,16 +1273,24 @@
 		906156BA0F375558001B75FC /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
+				C342601F0FAE096C00072842 /* CPFill.h */,
+				C342601A0FAE096C00072842 /* CPFill.m */,
+				C342601B0FAE096C00072842 /* CPFillColor.h */,
+				C342601C0FAE096C00072842 /* CPFillColor.m */,
+				C342601E0FAE096C00072842 /* CPFillGradient.h */,
+				C34260190FAE096C00072842 /* CPFillGradient.m */,
+				C34260180FAE096C00072842 /* CPFillImage.h */,
+				C342601D0FAE096C00072842 /* CPFillImage.m */,
+				07791A490FAC8D020042803E /* CPFillStyle.h */,
+				07791A4A0FAC8D020042803E /* CPFillStyle.m */,
 				07CA112D0FAC8F85000861CE /* CPGradient.h */,
 				07CA112E0FAC8F85000861CE /* CPGradient.m */,
+				906156BC0F375598001B75FC /* CPLineStyle.h */,
+				906156BD0F375598001B75FC /* CPLineStyle.m */,
 				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
 				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
 				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
-				906156BC0F375598001B75FC /* CPLineStyle.h */,
-				906156BD0F375598001B75FC /* CPLineStyle.m */,
-				07791A490FAC8D020042803E /* CPFillStyle.h */,
-				07791A4A0FAC8D020042803E /* CPFillStyle.m */,
 			);
 			name = Drawing;
 			sourceTree = "<group>";
@@ -1314,6 +1338,10 @@
 				07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */,
 				07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */,
 				078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */,
+				C34260200FAE096D00072842 /* CPFillImage.h in Headers */,
+				C34260230FAE096D00072842 /* CPFillColor.h in Headers */,
+				C34260260FAE096D00072842 /* CPFillGradient.h in Headers */,
+				C34260270FAE096D00072842 /* CPFill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1574,6 +1602,10 @@
 				07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */,
 				07CA11300FAC8F85000861CE /* CPGradient.m in Sources */,
 				078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */,
+				C34260210FAE096D00072842 /* CPFillGradient.m in Sources */,
+				C34260220FAE096D00072842 /* CPFill.m in Sources */,
+				C34260240FAE096D00072842 /* CPFillColor.m in Sources */,
+				C34260250FAE096D00072842 /* CPFillImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

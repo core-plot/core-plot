@@ -8,7 +8,7 @@
 #import "CPLineStyle.h"
 #import "CPFillStyle.h"
 #import "CPPlotSymbol.h"
-
+#import "CPFill.h"
 #import "GTMTestTimer.h"
 
 @interface CPXYGraph (UnitTesting)
@@ -64,7 +64,7 @@
     // Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
-	greenCirclePlotSymbol.fillColor = greenColor;
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
     greenCirclePlotSymbol.size = CGSizeMake(1.0, 1.0);
     scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);

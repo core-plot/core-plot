@@ -20,6 +20,14 @@
     // Create graph
     graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
+	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
+	graph.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+	
+	grayColor = CGColorCreateGenericGray(0.2, 0.3);
+	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+	
     [hostView setLayer:graph];
 	[hostView setWantsLayer:YES];
     
@@ -39,7 +47,7 @@
 	// Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
-	greenCirclePlotSymbol.fillColor = greenColor;
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
     greenCirclePlotSymbol.size = CGSizeMake(10.0, 10.0);
     boundLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);

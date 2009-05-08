@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
-#import <math.h>
 #import "CPLineStyle.h"
+#import "CPFill.h"
 #import "CPPlotSymbol.h"
 #import "CPDefinitions.h"
 
 @implementation CPPlotSymbol
 
-@synthesize size, symbolType, lineStyle, fillColor;
+@synthesize size, symbolType, lineStyle, fill;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -17,7 +17,7 @@
 		size = CGSizeMake(5.0, 5.0);
 		self.symbolType = CPPlotSymbolTypeNone;
 		self.lineStyle = [CPLineStyle lineStyle];
-		self.fillColor = CGColorGetConstantColor(kCGColorBlack);
+		self.fill = nil;
 	}
 	return self;
 }
@@ -25,21 +25,9 @@
 -(void)dealloc
 {
 	self.lineStyle = nil;
-	self.fillColor = nil;
+	self.fill = nil;
 	
 	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Accessors
-
--(void)setFillColor:(CGColorRef)aFillColor
-{
-	if ( aFillColor != fillColor ) {
-		CGColorRetain(aFillColor);
-		CGColorRelease(fillColor);
-		fillColor = aFillColor;
-	}
 }
 
 #pragma mark -
@@ -146,9 +134,7 @@
 	copy.size = self.size;
 	copy.symbolType = self.symbolType;
 	copy.lineStyle = [[self.lineStyle copy] autorelease];
-	CGColorRef fillCopy = CGColorCreateCopy(self.fillColor);
-    copy.fillColor = fillCopy;
-	CGColorRelease(fillCopy);
+    copy.fill = [self.fill copy];
 	
     return copy;
 }
@@ -158,7 +144,7 @@
 
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center
 {
-	if (self.lineStyle || self.fillColor) {
+	if (self.lineStyle || self.fill) {
 		CGFloat dx, dy;
 		CGSize symbolSize = self.size;
 		CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
@@ -262,23 +248,19 @@
 				CGPathAddLineToPoint(symbolPath, NULL, center.x + dx, center.y + dy);
 				break;
 		}
-		CGContextBeginPath(theContext);
-		CGContextAddPath(theContext, symbolPath);
 		
-		CGPathDrawingMode drawingMode;
+		if (self.fill) {
+			CGContextBeginPath(theContext);
+			CGContextAddPath(theContext, symbolPath);
+			[self.fill fillPathInContext:theContext];
+		}
+		
 		if (self.lineStyle) {
 			[self.lineStyle setLineStyleInContext:theContext];
-			if (self.fillColor) {
-				CGContextSetFillColorWithColor(theContext, self.fillColor);
-				drawingMode = kCGPathFillStroke;
-			} else {
-				drawingMode = kCGPathStroke;
-			}
-		} else {
-			CGContextSetFillColorWithColor(theContext, self.fillColor);
-			drawingMode = kCGPathFill;
+			CGContextBeginPath(theContext);
+			CGContextAddPath(theContext, symbolPath);
+			CGContextStrokePath(theContext);
 		}
-		CGContextDrawPath(theContext, drawingMode);
 		
 		CGPathRelease(symbolPath);
 	}
