@@ -4,9 +4,14 @@
 
 @interface CPGradient ()
 
+@property (assign, readonly) CGColorSpaceRef colorspace;
+@property (assign, readwrite) CPGradientBlendingMode blendingMode;
+
 -(void)_commonInit;
--(void)setBlendingMode:(CPGradientBlendingMode)mode;
 -(void)addElement:(CPGradientElement*)newElement;
+
+-(CGShadingRef)axialGradientInRect:(CGRect)rect;
+-(CGShadingRef)radialGradientInRect:(CGRect)rect context:(CGContextRef)context;
 
 -(CPGradientElement *)elementAtIndex:(NSUInteger)index;
 
@@ -26,27 +31,34 @@ static void resolveHSV(float *color1, float *color2);
 
 @implementation CPGradient
 
+@synthesize colorspace;
+@synthesize blendingMode;
 @synthesize angle;
+@synthesize gradientType;
 
 #pragma mark -
 #pragma mark Initialization
 -(id)init
 {
-    self = [super init];
-    if (self != nil) {
+    if (self = [super init]) {
         [self _commonInit];
-        [self setBlendingMode:CPLinearBlendingMode];
+		
+        self.blendingMode = CPLinearBlendingMode;
+		self.angle = 0;
+        self.gradientType = CPAxialGradientType;
     }
     return self;
 }
 
 -(void)_commonInit
 {
+	colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
     elementList = nil;
 }
 
 -(void)dealloc
 {
+	CGColorSpaceRelease(colorspace);
     CGFunctionRelease(gradientFunction);
     CPGradientElement *elementToRemove = elementList;
     while (elementList != nil) {
@@ -67,7 +79,9 @@ static void resolveHSV(float *color1, float *color2);
         currentElement = currentElement->nextElement;
     }
 	
-    [copy setBlendingMode:blendingMode];
+	copy.blendingMode = self.blendingMode;
+	copy.angle = self.angle;
+	copy.gradientType = self.gradientType;
 	
     return copy;
 }
@@ -89,37 +103,54 @@ static void resolveHSV(float *color1, float *color2);
         }
         [coder encodeInteger:count forKey:@"CPGradientElementCount"];
         [coder encodeInt:blendingMode forKey:@"CPGradientBlendingMode"];
-    } else {
+        [coder encodeFloat:angle forKey:@"CPGradientAngle"];
+        [coder encodeInt:gradientType forKey:@"CPGradientType"];
+		
+        if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+			[(id <NSCoding>)super encodeWithCoder:coder];
+		}
+	} else {
         [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
 	}
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    [self _commonInit];
-	
-    [self setBlendingMode:[coder decodeIntForKey:@"CPGradientBlendingMode"]];
-    NSUInteger count = [coder decodeIntegerForKey:@"CPGradientElementCount"];
-	
-    while (count != 0) {
-        CPGradientElement newElement;
-		
-        [coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.red)];
-        [coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.green)];
-        [coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.blue)];
-        [coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.alpha)];
-        [coder decodeValueOfObjCType:@encode(float) at:&(newElement.position)];
-		
-        count--;
-        [self addElement:&newElement];
+    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        self = [(id <NSCoding>)super initWithCoder:coder];
+    } else {
+        self = [super init];
     }
+    
+    if (self) {
+		[self _commonInit];
+		
+		self.gradientType = [coder decodeIntForKey:@"CPGradientType"];
+		self.angle = [coder decodeFloatForKey:@"CPGradientAngle"];
+		self.blendingMode = [coder decodeIntForKey:@"CPGradientBlendingMode"];
+		
+		NSUInteger count = [coder decodeIntegerForKey:@"CPGradientElementCount"];
+		
+		while (count != 0) {
+			CPGradientElement newElement;
+			
+			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.red)];
+			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.green)];
+			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.blue)];
+			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.alpha)];
+			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.position)];
+			
+			count--;
+			[self addElement:&newElement];
+		}
+	}
     return self;
 }
 
 #pragma mark -
 #pragma mark Factory Methods
-+(id)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end {
-    id newInstance = [[[self class] alloc] init];
++(CPGradient *)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end {
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     CPGradientElement color2;
@@ -136,8 +167,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)aquaSelectedGradient {
-    id newInstance = [[[self class] alloc] init];
++(CPGradient *)aquaSelectedGradient {
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.58;
@@ -175,9 +206,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)aquaNormalGradient
++(CPGradient *)aquaNormalGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.95;
@@ -207,9 +238,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)aquaPressedGradient
++(CPGradient *)aquaPressedGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.80;
@@ -239,9 +270,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)unifiedSelectedGradient
++(CPGradient *)unifiedSelectedGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.85;
@@ -259,9 +290,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)unifiedNormalGradient
++(CPGradient *)unifiedNormalGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.75;
@@ -279,9 +310,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)unifiedPressedGradient
++(CPGradient *)unifiedPressedGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.60;
@@ -299,9 +330,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)unifiedDarkGradient
++(CPGradient *)unifiedDarkGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.68;
@@ -319,9 +350,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)sourceListSelectedGradient
++(CPGradient *)sourceListSelectedGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.06;
@@ -343,9 +374,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)sourceListUnselectedGradient
++(CPGradient *)sourceListUnselectedGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.43;
@@ -367,9 +398,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-+(id)rainbowGradient
++(CPGradient *)rainbowGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 1.00;
@@ -388,32 +419,32 @@ static void resolveHSV(float *color1, float *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 	
-    [newInstance setBlendingMode:CPChromaticBlendingMode];
+    newInstance.blendingMode = CPChromaticBlendingMode;
 	
     return [newInstance autorelease];
 }
 
-+(id)hydrogenSpectrumGradient
++(CPGradient *)hydrogenSpectrumGradient
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     struct {float hue; float position; float width;} colorBands[4];
 	
     colorBands[0].hue = 22;
-    colorBands[0].position = .145;
-    colorBands[0].width = .01;
+    colorBands[0].position = 0.145;
+    colorBands[0].width = 0.01;
 	
     colorBands[1].hue = 200;
-    colorBands[1].position = .71;
-    colorBands[1].width = .008;
+    colorBands[1].position = 0.71;
+    colorBands[1].width = 0.008;
 	
     colorBands[2].hue = 253;
-    colorBands[2].position = .885;
-    colorBands[2].width = .005;
+    colorBands[2].position = 0.885;
+    colorBands[2].width = 0.005;
 	
     colorBands[3].hue = 275;
-    colorBands[3].position = .965;
-    colorBands[3].width = .003;
+    colorBands[3].position = 0.965;
+    colorBands[3].width = 0.003;
 	
     int i;
     for(i = 0; i < 4; i++) {
@@ -462,7 +493,7 @@ static void resolveHSV(float *color1, float *color2);
 		[newInstance addElement:&fadeOut];
     }
 	
-    [newInstance setBlendingMode:CPChromaticBlendingMode];
+    newInstance.blendingMode = CPChromaticBlendingMode;
 	
     return [newInstance autorelease];
 }
@@ -471,7 +502,7 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark Modification
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha
 {
-    id newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement *curElement = elementList;
     CPGradientElement tempElement;
@@ -489,7 +520,7 @@ static void resolveHSV(float *color1, float *color2);
 
 -(CPGradient *)gradientWithBlendingMode:(CPGradientBlendingMode)mode {
     CPGradient *newGradient = [self copy];  
-    [newGradient setBlendingMode:mode];
+    newGradient.blendingMode = mode;
     return [newGradient autorelease];
 }
 
@@ -537,10 +568,6 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Information
--(CPGradientBlendingMode)blendingMode
-{
-    return blendingMode;
-}
 
 // Returns color at <position> in gradient
 -(CGColorRef)colorStopAtIndex:(NSUInteger)index
@@ -589,6 +616,57 @@ static void resolveHSV(float *color1, float *color2);
 
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
 {
+	CGShadingRef myCGShading;
+	
+    CGContextSaveGState(context);
+	
+    CGContextClipToRect(context, *(CGRect *)&rect);
+	
+	switch (self.gradientType) {
+		case CPAxialGradientType:
+			myCGShading = [self axialGradientInRect:rect];
+			break;
+		case CPRadialGradientType:
+			myCGShading = [self radialGradientInRect:rect context:context];
+			break;
+	}
+	
+    CGContextDrawShading(context, myCGShading);
+	
+    CGShadingRelease(myCGShading);
+    CGContextRestoreGState(context);
+}
+
+-(void)fillPathInContext:(CGContextRef)context
+{
+	if (!CGContextIsPathEmpty(context)) {
+		CGShadingRef myCGShading;
+		
+		CGContextSaveGState(context);
+		
+		CGRect bounds = CGContextGetPathBoundingBox(context);
+		CGContextClip(context);
+		
+		switch (self.gradientType) {
+			case CPAxialGradientType:
+				myCGShading = [self axialGradientInRect:bounds];
+				break;
+			case CPRadialGradientType:
+				myCGShading = [self radialGradientInRect:bounds context:context];
+				break;
+		}
+		
+		CGContextDrawShading(context, myCGShading);
+		
+		CGShadingRelease(myCGShading);
+		CGContextRestoreGState(context);
+	}
+}
+
+#pragma mark -
+#pragma mark Private Methods
+-(CGShadingRef)axialGradientInRect:(CGRect)rect
+{
     // First Calculate where the beginning and ending points should be
     CGPoint startPoint;
     CGPoint endPoint;
@@ -600,11 +678,11 @@ static void resolveHSV(float *color1, float *color2);
         startPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect));	// bottom of rect
         endPoint   = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect));	// top    of rect
     } else { // ok, we'll do the calculations now
-        float x, y;
+        CGFloat x, y;
         float sina, cosa, tana;
 		
-        float length;
-        float deltax, deltay;
+        CGFloat length;
+        CGFloat deltax, deltay;
 		
         float rangle = self.angle * pi/180;	//convert the angle to radians
 		
@@ -641,58 +719,41 @@ static void resolveHSV(float *color1, float *color2);
     }
 	
     //Calls to CoreGraphics
-    CGContextSaveGState(context);
-    CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGShadingRef myCGShading = CGShadingCreateAxial(colorspace, startPoint, endPoint, gradientFunction, false, false);
+    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace, startPoint, endPoint, gradientFunction, false, false);
 	
-    CGContextClipToRect (context, *(CGRect *)&rect);	//This is where the action happens
-    CGContextDrawShading(context, myCGShading);
-	
-    CGShadingRelease(myCGShading);
-    CGColorSpaceRelease(colorspace );
-    CGContextRestoreGState(context);
+	return myCGShading;
 }
 
--(void)radialFillRect:(CGRect)rect inContext:(CGContextRef)context
+-(CGShadingRef)radialGradientInRect:(CGRect)rect context:(CGContextRef)context
 {
     CGPoint startPoint, endPoint;
-    float startRadius, endRadius;
-    float scalex, scaley, transx, transy;
+    CGFloat startRadius, endRadius;
+    CGFloat scalex, scaley;
 	
     startPoint = endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
 	
-    startRadius = -1;
+	startRadius = -1;
     if (CGRectGetHeight(rect)>CGRectGetWidth(rect)) {
         scalex = CGRectGetWidth(rect)/CGRectGetHeight(rect);
-        transx = (CGRectGetHeight(rect)-CGRectGetWidth(rect))/2;
+        startPoint.x /= scalex;
+        endPoint.x /= scalex;
         scaley = 1;
-        transy = 1;
         endRadius = CGRectGetHeight(rect)/2;
     } else {
         scalex = 1;
-        transx = 1;
         scaley = CGRectGetHeight(rect)/CGRectGetWidth(rect);
-        transy = (CGRectGetWidth(rect)-CGRectGetHeight(rect))/2;
+        startPoint.y /= scaley;
+        endPoint.y /= scaley;
         endRadius = CGRectGetWidth(rect)/2;
     }
 	
-    // Calls to CoreGraphics
-    CGContextSaveGState(context);
-    CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGShadingRef myCGShading = CGShadingCreateRadial(colorspace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
+	CGContextScaleCTM    (context, scalex, scaley);
 	
-    CGContextClipToRect  (context, *(CGRect *)&rect);
-    CGContextScaleCTM    (context, scalex, scaley);
-    CGContextTranslateCTM(context, transx, transy);
-    CGContextDrawShading (context, myCGShading);		//This is where the action happens
+    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
 	
-    CGShadingRelease(myCGShading);
-    CGColorSpaceRelease(colorspace);
-    CGContextRestoreGState(context);
+	return myCGShading;
 }
 
-#pragma mark -
-#pragma mark Private Methods
 -(void)setBlendingMode:(CPGradientBlendingMode)mode;
 {
     blendingMode = mode;
@@ -739,8 +800,8 @@ static void resolveHSV(float *color1, float *color2);
         CPGradientElement *curElement = elementList;
 		
         while ( curElement->nextElement != nil && 
-			  !((curElement->position <= newElement->position) && 
-				(newElement->position < curElement->nextElement->position)) ) {
+			   !((curElement->position <= newElement->position) && 
+				 (newElement->position < curElement->nextElement->position)) ) {
             curElement = curElement->nextElement;
         }
 		
@@ -881,8 +942,8 @@ void linearEvaluation (void *info, const float *in, float *out)
     //color1->green = 1; color2->green = 0;
     //color1->blue  = 1; color2->blue  = 0;
     //color1->alpha = 1; color2->alpha = 1;
-    //color1->position = .5;
-    //color2->position = .5;
+    //color1->position = 0.5;
+    //color2->position = 0.5;
     //-------------------------------------
 	
     if (position <= color1->position) {

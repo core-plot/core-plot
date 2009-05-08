@@ -18,32 +18,42 @@ typedef enum _CPBlendingMode {
 	CPInverseChromaticBlendingMode
 } CPGradientBlendingMode;
 
+typedef enum _CPGradientType {
+	CPAxialGradientType,
+	CPRadialGradientType
+} CPGradientType;
+
 
 @interface CPGradient : NSObject <NSCopying, NSCoding>  {
+@private
+	CGColorSpaceRef colorspace;
 	CPGradientElement *elementList;
 	CPGradientBlendingMode blendingMode;
 	CGFunctionRef gradientFunction;
-    CGFloat angle;
+    CGFloat angle;	// angle in degrees
+	CPGradientType gradientType;
 }
 
+@property (assign, readonly) CPGradientBlendingMode blendingMode;
 @property (assign) CGFloat angle;
+@property (assign) CPGradientType gradientType;
 
-+(id)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end;
++(CPGradient *)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end;
 
-+(id)aquaSelectedGradient;
-+(id)aquaNormalGradient;
-+(id)aquaPressedGradient;
++(CPGradient *)aquaSelectedGradient;
++(CPGradient *)aquaNormalGradient;
++(CPGradient *)aquaPressedGradient;
 
-+(id)unifiedSelectedGradient;
-+(id)unifiedNormalGradient;
-+(id)unifiedPressedGradient;
-+(id)unifiedDarkGradient;
++(CPGradient *)unifiedSelectedGradient;
++(CPGradient *)unifiedNormalGradient;
++(CPGradient *)unifiedPressedGradient;
++(CPGradient *)unifiedDarkGradient;
 
-+(id)sourceListSelectedGradient;
-+(id)sourceListUnselectedGradient;
++(CPGradient *)sourceListSelectedGradient;
++(CPGradient *)sourceListUnselectedGradient;
 
-+(id)rainbowGradient;
-+(id)hydrogenSpectrumGradient;
++(CPGradient *)rainbowGradient;
++(CPGradient *)hydrogenSpectrumGradient;
 
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha;
 
@@ -51,15 +61,11 @@ typedef enum _CPBlendingMode {
 -(CPGradient *)removeColorStopAtIndex:(NSUInteger)index;
 -(CPGradient *)removeColorStopAtPosition:(float)position;
 
--(CPGradientBlendingMode)blendingMode;
 -(CGColorRef)colorStopAtIndex:(NSUInteger)index;
 -(CGColorRef)colorAtPosition:(float)position;
 
-
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context;
--(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;	// fills rect with axial gradient
-                                                                                    // angle in degrees
--(void)radialFillRect:(CGRect)rect inContext:(CGContextRef)context;		// fills rect with radial gradient
-                                                                        // gradient from center outwards
+-(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)fillPathInContext:(CGContextRef)context;
 
 @end
