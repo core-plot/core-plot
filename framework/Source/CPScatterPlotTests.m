@@ -28,8 +28,8 @@
     
     
     self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    self.plot.frame = plotSpace.bounds;
     [plotSpace addSublayer:self.plot];
+    self.plot.frame = plotSpace.bounds;
     
     self.plot.plotSpace = plotSpace;
     self.plot.identifier = @"Scatter Plot";
