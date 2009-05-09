@@ -38,6 +38,10 @@
     [plotArea setFrame:CGRectMake(0, 0, 50, 50)];
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
     
+	grayColor = CGColorCreateGenericGray(0.2, 0.3);
+	plotArea.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+	
     GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected", @"");
     
     [plotArea release];

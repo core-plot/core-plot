@@ -7,6 +7,7 @@
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
 #import "CPFillStyle.h"
+#import "CPPlotArea.h"
 #import "CPPlotSymbol.h"
 #import "CPFill.h"
 #import "GTMTestTimer.h"
@@ -37,7 +38,15 @@
 - (void)setUp
 {
     self.graph = [[[CPXYGraph alloc] init] autorelease];
-    
+ 
+	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
+	self.graph.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+	
+	grayColor = CGColorCreateGenericGray(0.2, 0.3);
+	self.graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	CGColorRelease(grayColor);
+	
     self.nRecords = 100;
 }
 
