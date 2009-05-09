@@ -3,11 +3,11 @@
 //  CorePlot
 //
 
-#import "CPFillGradient.h"
+#import "_CPFillGradient.h"
 #import "CPGradient.h"
 
 
-@implementation CPFillGradient
+@implementation _CPFillGradient
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -47,7 +47,7 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:[self->fillGradient copy]];
+	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:[self->fillGradient copy]];
 	
 	return copy;
 }

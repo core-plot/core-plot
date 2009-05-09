@@ -4,9 +4,9 @@
 //
 
 #import "CPFill.h"
-#import "CPFillColor.h"
-#import "CPFillGradient.h"
-#import "CPFillImage.h"
+#import "_CPFillColor.h"
+#import "_CPFillGradient.h"
+#import "_CPFillImage.h"
 
 
 @implementation CPFill
@@ -16,24 +16,24 @@
 
 +(CPFill *)fillWithColor:(CGColorRef)aColor 
 {
-	return [[(CPFillColor *)[CPFillColor alloc] initWithColor: aColor] autorelease];
+	return [[(_CPFillColor *)[_CPFillColor alloc] initWithColor: aColor] autorelease];
 }
 
 +(CPFill *)fillWithGradient:(CPGradient *)aGradient 
 {
-	return [[[CPFillGradient alloc] initWithGradient: aGradient] autorelease];
+	return [[[_CPFillGradient alloc] initWithGradient: aGradient] autorelease];
 }
 
 +(CPFill *)fillWithImage:(CGImageRef)anImage 
 {
-	return [[[CPFillImage alloc] initWithImage: anImage] autorelease];
+	return [[[_CPFillImage alloc] initWithImage: anImage] autorelease];
 }
 
 -(id)initWithColor:(CGColorRef)aColor 
 {
 	[self release];
 	
-	self = [(CPFillColor *)[CPFillColor alloc] initWithColor: aColor];
+	self = [(_CPFillColor *)[_CPFillColor alloc] initWithColor: aColor];
 	
 	return self;
 }
@@ -42,7 +42,7 @@
 {
 	[self release];
 	
-	self = [[CPFillGradient alloc] initWithGradient: aGradient];
+	self = [[_CPFillGradient alloc] initWithGradient: aGradient];
 	
 	return self;
 }
@@ -51,7 +51,7 @@
 {
 	[self release];
 	
-	self = [[CPFillImage alloc] initWithImage: anImage];
+	self = [[_CPFillImage alloc] initWithImage: anImage];
 	
 	return self;
 }

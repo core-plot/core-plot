@@ -3,10 +3,10 @@
 //  CorePlot
 //
 
-#import "CPFillImage.h"
+#import "_CPFillImage.h"
 
 
-@implementation CPFillImage
+@implementation _CPFillImage
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -47,7 +47,7 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	CGImageRef fillCopy = CGImageCreateCopy(self->fillImage);
-	CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:fillCopy];
+	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:fillCopy];
 	CGImageRelease(fillCopy);
 	
 	return copy;

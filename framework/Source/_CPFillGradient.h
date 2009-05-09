@@ -8,7 +8,7 @@
 
 @class CPGradient;
 
-@interface CPFillGradient : CPFill <NSCopying> {
+@interface _CPFillGradient : CPFill <NSCopying> {
 	CPGradient *fillGradient;
 }
 

@@ -14,8 +14,6 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
-		07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07791A490FAC8D020042803E /* CPFillStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07791A4A0FAC8D020042803E /* CPFillStyle.m */; };
 		078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 078F42D90FACC075006E670B /* NSNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
 		078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
@@ -105,13 +103,13 @@
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
-		C34260200FAE096D00072842 /* CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C34260210FAE096D00072842 /* CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* CPFillGradient.m */; };
+		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260210FAE096D00072842 /* _CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* _CPFillGradient.m */; };
 		C34260220FAE096D00072842 /* CPFill.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601A0FAE096C00072842 /* CPFill.m */; };
-		C34260230FAE096D00072842 /* CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601B0FAE096C00072842 /* CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C34260240FAE096D00072842 /* CPFillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601C0FAE096C00072842 /* CPFillColor.m */; };
-		C34260250FAE096D00072842 /* CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* CPFillImage.m */; };
-		C34260260FAE096D00072842 /* CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260230FAE096D00072842 /* _CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601B0FAE096C00072842 /* _CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C34260240FAE096D00072842 /* _CPFillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601C0FAE096C00072842 /* _CPFillColor.m */; };
+		C34260250FAE096D00072842 /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
+		C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -202,8 +200,6 @@
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
-		07791A490FAC8D020042803E /* CPFillStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillStyle.h; sourceTree = "<group>"; };
-		07791A4A0FAC8D020042803E /* CPFillStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillStyle.m; sourceTree = "<group>"; };
 		078F42D90FACC075006E670B /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		078F42DA0FACC075006E670B /* NSNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberExtensions.m; sourceTree = "<group>"; };
 		07975C410F3B816600DE45DC /* CPXYAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxisSet.h; sourceTree = "<group>"; };
@@ -549,13 +545,13 @@
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
-		C34260180FAE096C00072842 /* CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillImage.h; sourceTree = "<group>"; };
-		C34260190FAE096C00072842 /* CPFillGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillGradient.m; sourceTree = "<group>"; };
+		C34260180FAE096C00072842 /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
+		C34260190FAE096C00072842 /* _CPFillGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillGradient.m; sourceTree = "<group>"; };
 		C342601A0FAE096C00072842 /* CPFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFill.m; sourceTree = "<group>"; };
-		C342601B0FAE096C00072842 /* CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillColor.h; sourceTree = "<group>"; };
-		C342601C0FAE096C00072842 /* CPFillColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillColor.m; sourceTree = "<group>"; };
-		C342601D0FAE096C00072842 /* CPFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFillImage.m; sourceTree = "<group>"; };
-		C342601E0FAE096C00072842 /* CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFillGradient.h; sourceTree = "<group>"; };
+		C342601B0FAE096C00072842 /* _CPFillColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillColor.h; sourceTree = "<group>"; };
+		C342601C0FAE096C00072842 /* _CPFillColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillColor.m; sourceTree = "<group>"; };
+		C342601D0FAE096C00072842 /* _CPFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillImage.m; sourceTree = "<group>"; };
+		C342601E0FAE096C00072842 /* _CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillGradient.h; sourceTree = "<group>"; };
 		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -600,6 +596,21 @@
 				4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0704A2100FB56B9400A09979 /* Fills */ = {
+			isa = PBXGroup;
+			children = (
+				C342601F0FAE096C00072842 /* CPFill.h */,
+				C342601A0FAE096C00072842 /* CPFill.m */,
+				C342601B0FAE096C00072842 /* _CPFillColor.h */,
+				C342601C0FAE096C00072842 /* _CPFillColor.m */,
+				C342601E0FAE096C00072842 /* _CPFillGradient.h */,
+				C34260190FAE096C00072842 /* _CPFillGradient.m */,
+				C34260180FAE096C00072842 /* _CPFillImage.h */,
+				C342601D0FAE096C00072842 /* _CPFillImage.m */,
+			);
+			name = Fills;
 			sourceTree = "<group>";
 		};
 		070A73DF0F5D8D7D0014FA84 /* Value Transformers */ = {
@@ -1273,16 +1284,7 @@
 		906156BA0F375558001B75FC /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
-				C342601F0FAE096C00072842 /* CPFill.h */,
-				C342601A0FAE096C00072842 /* CPFill.m */,
-				C342601B0FAE096C00072842 /* CPFillColor.h */,
-				C342601C0FAE096C00072842 /* CPFillColor.m */,
-				C342601E0FAE096C00072842 /* CPFillGradient.h */,
-				C34260190FAE096C00072842 /* CPFillGradient.m */,
-				C34260180FAE096C00072842 /* CPFillImage.h */,
-				C342601D0FAE096C00072842 /* CPFillImage.m */,
-				07791A490FAC8D020042803E /* CPFillStyle.h */,
-				07791A4A0FAC8D020042803E /* CPFillStyle.m */,
+				0704A2100FB56B9400A09979 /* Fills */,
 				07CA112D0FAC8F85000861CE /* CPGradient.h */,
 				07CA112E0FAC8F85000861CE /* CPGradient.m */,
 				906156BC0F375598001B75FC /* CPLineStyle.h */,
@@ -1335,12 +1337,11 @@
 				32484B430F530E8B002151AD /* CPPlotRange.h in Headers */,
 				070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */,
 				C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */,
-				07791A4B0FAC8D020042803E /* CPFillStyle.h in Headers */,
 				07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */,
 				078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */,
-				C34260200FAE096D00072842 /* CPFillImage.h in Headers */,
-				C34260230FAE096D00072842 /* CPFillColor.h in Headers */,
-				C34260260FAE096D00072842 /* CPFillGradient.h in Headers */,
+				C34260200FAE096D00072842 /* _CPFillImage.h in Headers */,
+				C34260230FAE096D00072842 /* _CPFillColor.h in Headers */,
+				C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */,
 				C34260270FAE096D00072842 /* CPFill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1599,13 +1600,12 @@
 				32484B440F530E8B002151AD /* CPPlotRange.m in Sources */,
 				070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */,
 				C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */,
-				07791A4C0FAC8D020042803E /* CPFillStyle.m in Sources */,
 				07CA11300FAC8F85000861CE /* CPGradient.m in Sources */,
 				078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */,
-				C34260210FAE096D00072842 /* CPFillGradient.m in Sources */,
+				C34260210FAE096D00072842 /* _CPFillGradient.m in Sources */,
 				C34260220FAE096D00072842 /* CPFill.m in Sources */,
-				C34260240FAE096D00072842 /* CPFillColor.m in Sources */,
-				C34260250FAE096D00072842 /* CPFillImage.m in Sources */,
+				C34260240FAE096D00072842 /* _CPFillColor.m in Sources */,
+				C34260250FAE096D00072842 /* _CPFillImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

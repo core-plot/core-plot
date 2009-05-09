@@ -6,7 +6,7 @@
 #import "CPCartesianPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
-#import "CPFillStyle.h"
+#import "CPFill.h"
 #import "CPPlotSymbol.h"
 
 #import "GTMTestTimer.h"
@@ -44,7 +44,7 @@
 
 - (void)testRenderScatter
 {
-    self.nRecords = 1e3;
+    self.nRecords = 1e2;
     [self buildData];
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
@@ -55,7 +55,7 @@
  */
 - (void)testRenderScatterTimeLimit
 {
-    self.nRecords = 1e5;
+    self.nRecords = 1e4;
     [self buildData];
     
     //set up CGContext
@@ -72,7 +72,7 @@
     }
     
     //verify performance
-    STAssertTrue(GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t) < 1.0, @"rendering took more than 1 second for 1e6 points. Avg. time = %g", GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t));
+    STAssertTrue(GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t) < 1.0, @"rendering took more than 1 second for 1e4 points. Avg. time = %g", GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t));
     
     // clean up
     GTMTestTimerRelease(t);

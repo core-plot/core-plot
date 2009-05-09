@@ -3,10 +3,10 @@
 //  CorePlot
 //
 
-#import "CPFillColor.h"
+#import "_CPFillColor.h"
 
 
-@implementation CPFillColor
+@implementation _CPFillColor
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -53,7 +53,7 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	CGColorRef fillCopy = CGColorCreateCopy(self->fillColor);
-	CPFillColor *copy = [(CPFillColor *)[[self class] allocWithZone:zone] initWithColor:fillCopy];
+	_CPFillColor *copy = [(_CPFillColor *)[[self class] allocWithZone:zone] initWithColor:fillCopy];
 	CGColorRelease(fillCopy);
 	
 	return copy;

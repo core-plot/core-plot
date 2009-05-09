@@ -1,5 +1,5 @@
 //
-//  CPFillColor.h
+//  CPFillImage.h
 //  CorePlot
 //
 
@@ -7,11 +7,11 @@
 #import "CPFill.h"
 
 
-@interface CPFillColor : CPFill <NSCopying> {
-	CGColorRef fillColor;
+@interface _CPFillImage : CPFill <NSCopying> {
+	CGImageRef fillImage;
 }
 
--(id)initWithColor:(CGColorRef)aCcolor;
+-(id)initWithImage:(CGImageRef)anImage;
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
 -(id)copyWithZone:(NSZone *)zone;

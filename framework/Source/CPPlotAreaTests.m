@@ -1,6 +1,7 @@
 
 #import "CPPlotAreaTests.h"
 #import <CorePlot/CPPlotArea.h>
+#import <CorePlot/CPFill.h>
 #import "GTMNSObject+BindingUnitTesting.h"
 #import "GTMNSObject+UnitTesting.h"
 
@@ -38,7 +39,7 @@
     [plotArea setFrame:CGRectMake(0, 0, 50, 50)];
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
     
-	grayColor = CGColorCreateGenericGray(0.2, 0.3);
+	CGColorRef grayColor = CGColorCreateGenericGray(0.2, 0.3);
 	plotArea.fill = [CPFill fillWithColor:grayColor];
 	CGColorRelease(grayColor);
 	

@@ -122,7 +122,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 #pragma mark -
 #pragma mark Accessors
 
--(void)setPlotSymbol:(CPPlotSymbol *)aSymbol AtIndex:(NSUInteger)index
+-(void)setPlotSymbol:(CPPlotSymbol *)aSymbol atIndex:(NSUInteger)index
 {
 	NSObject *newSymbol;
 	
@@ -187,8 +187,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 		NSMutableArray *plotPoint = [NSMutableArray array];
 		CGPoint viewPoint;
 		
-		for (NSUInteger ii = 0; ii < [self.xValues count]; ii++)
-		{
+		for (NSUInteger ii = 0; ii < [self.xValues count]; ii++) {
 			[plotPoint insertObject:[self.xValues objectAtIndex:ii] atIndex:0];
 			[plotPoint insertObject:[self.yValues objectAtIndex:ii] atIndex:1];
 			viewPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
@@ -204,8 +203,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 		if ([self.xValues count] > 0) {
 			CGPathMoveToPoint(dataLine, NULL, viewPoints[0].x, viewPoints[0].y);
 		}
-		for (NSUInteger ii = 1; ii < [self.xValues count]; ii++)
-		{
+		for (NSUInteger ii = 1; ii < [self.xValues count]; ii++) {
 			CGPathAddLineToPoint(dataLine, NULL, viewPoints[ii].x, viewPoints[ii].y);
 		}
 		
@@ -224,10 +222,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 				id <NSObject> symbol = [self.plotSymbols objectAtIndex:ii];
 				if ([symbol isKindOfClass:[CPPlotSymbol class]]) {
 					[(CPPlotSymbol *)symbol renderInContext:theContext atPoint:viewPoints[ii]];			
-				} else {
+				} 
+                else {
 					[self.defaultPlotSymbol renderInContext:theContext atPoint:viewPoints[ii]];
 				}
-			} else {
+			} 
+            else {
 				[self.defaultPlotSymbol renderInContext:theContext atPoint:viewPoints[ii]];
 			}
 		}
