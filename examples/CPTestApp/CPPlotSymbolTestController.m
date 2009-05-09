@@ -45,9 +45,6 @@
 		// add plot symbols
 		CPPlotSymbol *symbol = [[[CPPlotSymbol alloc] init] autorelease];
 		symbol.symbolType = i;
-//		CGColorRef blueColor = CPNewCGColorFromNSColor([NSColor blueColor]);
-//		symbol.fill = [CPFill fillWithColor:blueColor];
-//		CGColorRelease(blueColor);
 		symbol.fill = [CPFill fillWithGradient:gradientFill];
 		
 		dataSourceLinePlot.defaultPlotSymbol = symbol;
@@ -55,7 +52,7 @@
 		for (NSUInteger j = 1; j < [self numberOfRecords]; j++) {
 			symbol = [[symbol copy] autorelease];
 			symbol.size = CGSizeMake(j * 4, j * 4);
-			[dataSourceLinePlot setPlotSymbol:symbol AtIndex:j];
+			[dataSourceLinePlot setPlotSymbol:symbol atIndex:j];
 		}
 		
 		[graph addPlot:dataSourceLinePlot];

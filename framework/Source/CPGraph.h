@@ -35,7 +35,6 @@
 -(void)removePlot:(CPPlot *)plot;
 -(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index;
 -(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space;
--(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot inPlotSpace:(CPPlotSpace *)space;
 
 // Retrieving plot spaces
 -(NSArray *)allPlotSpaces;

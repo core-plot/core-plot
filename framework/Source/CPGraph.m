@@ -111,24 +111,6 @@
 	[plots removeObjectIdenticalTo:plotToRemove];
 }
 
--(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot 
-{
-	[(CPPlot*)[plots objectAtIndex:index] removeFromSuperlayer];
-	[(CPPlot*)[plots objectAtIndex:index] setPlotSpace:nil];
-	[plotArea addSublayer:plot];
-	plot.plotSpace = [self defaultPlotSpace];
-	[plots replaceObjectAtIndex:index withObject:plot];
-}
-
--(void)replacePlotAtIndex:(NSUInteger)index withPlot:(CPPlot *)plot inPlotSpace:(CPPlotSpace *)space
-{
-	[(CPPlot*)[plots objectAtIndex:index] removeFromSuperlayer];
-	[(CPPlot*)[plots objectAtIndex:index] setPlotSpace:nil];
-	[plotArea addSublayer:plot];
-	plot.plotSpace = space;
-	[plots replaceObjectAtIndex:index withObject:plot];
-}
-
 #pragma mark -
 #pragma mark Retrieving Plot Spaces
 
