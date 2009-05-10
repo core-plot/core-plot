@@ -1597,8 +1597,8 @@
 				8DC2EF4F0486A6940098B216 /* CorePlot */,
 				4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */,
 				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
-				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
 				4C2D59F50FB78DC3008275E0 /* All Tests */,
+				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
 			);
 		};
 /* End PBXProject section */
