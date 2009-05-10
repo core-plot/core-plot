@@ -73,7 +73,7 @@
  */
 - (void)testRenderScatterTimeLimit
 {
-    self.nRecords = 1e4;
+    self.nRecords = 1e5;
     [self buildData];
 	[self setPlotRanges];
     

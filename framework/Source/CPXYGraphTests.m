@@ -92,4 +92,13 @@
     GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderScatterWithSymbol", @"Should render a sine wave with green symbols.");
 }
 
+- (void)testRenderScatterStressTest {
+    
+    self.nRecords = 1e6;
+    [self buildData];
+    [self addScatterPlot];
+    
+    GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderStressTest", @"Should render a sine wave with green symbols.");
+    
+}
 @end
