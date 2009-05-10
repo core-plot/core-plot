@@ -6,7 +6,6 @@
 #import "CPCartesianPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
-#import "CPFillStyle.h"
 #import "CPPlotArea.h"
 #import "CPPlotSymbol.h"
 #import "CPFill.h"

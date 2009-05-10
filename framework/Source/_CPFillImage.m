@@ -4,26 +4,26 @@
 //
 
 #import "_CPFillImage.h"
-
+#import "CPImage.h"
 
 @implementation _CPFillImage
 
 #pragma mark -
 #pragma mark init/dealloc
 
--(id)initWithImage:(CGImageRef)anImage 
+-(id)initWithImage:(CPImage *)anImage 
 {
 	if (self = [super init]) 
 	{
 		// initialization
-		fillImage = CGImageRetain(anImage);
+		fillImage = [anImage retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	CGImageRelease(fillImage);
+	[fillImage release];
 	
 	[super dealloc];
 }
@@ -33,12 +33,18 @@
 
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	// do nothing--subclasses override to do drawing here
+	[fillImage drawInRect:theRect inContext:theContext];
 }
 
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	// do nothing--subclasses override to do drawing here
+	CGContextSaveGState(theContext);
+	
+	CGRect bounds = CGContextGetPathBoundingBox(theContext);
+	CGContextClip(theContext);
+	[fillImage drawInRect:bounds inContext:theContext];
+	
+	CGContextRestoreGState(theContext);
 }
 
 #pragma mark -
@@ -46,9 +52,7 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CGImageRef fillCopy = CGImageCreateCopy(self->fillImage);
-	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:fillCopy];
-	CGImageRelease(fillCopy);
+	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:[self->fillImage copy]];
 	
 	return copy;
 }

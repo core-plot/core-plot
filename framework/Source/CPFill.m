@@ -24,7 +24,7 @@
 	return [[[_CPFillGradient alloc] initWithGradient: aGradient] autorelease];
 }
 
-+(CPFill *)fillWithImage:(CGImageRef)anImage 
++(CPFill *)fillWithImage:(CPImage *)anImage 
 {
 	return [[[_CPFillImage alloc] initWithImage: anImage] autorelease];
 }
@@ -47,7 +47,7 @@
 	return self;
 }
 
--(id)initWithImage:(CGImageRef)anImage 
+-(id)initWithImage:(CPImage *)anImage 
 {
 	[self release];
 	

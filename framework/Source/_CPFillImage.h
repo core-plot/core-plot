@@ -6,12 +6,13 @@
 #import <Foundation/Foundation.h>
 #import "CPFill.h"
 
+@class CPImage;
 
 @interface _CPFillImage : CPFill <NSCopying> {
-	CGImageRef fillImage;
+	CPImage *fillImage;
 }
 
--(id)initWithImage:(CGImageRef)anImage;
+-(id)initWithImage:(CPImage *)anImage;
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
 -(id)copyWithZone:(NSZone *)zone;
