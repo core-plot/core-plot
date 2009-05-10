@@ -1,5 +1,5 @@
 
-#import "CPXYGraphTests.h"
+#import "CPXYGraphPerformanceTests.h"
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPScatterPlot.h"
@@ -11,30 +11,13 @@
 #import "CPFill.h"
 #import "GTMTestTimer.h"
 
-@interface CPXYGraph (UnitTesting)
-
-- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
-
-@end
-
-@implementation CPXYGraph (UnitTesting)
-
--(void)gtm_unitTestEncodeState:(NSCoder*)inCoder 
-{
-    [super gtm_unitTestEncodeState:inCoder];
-
-}
-
-@end
-
-
-@implementation CPXYGraphTests
+@implementation CPXYGraphPerformanceTests
 @synthesize graph;
 
 - (void)setUp
 {
     self.graph = [[[CPXYGraph alloc] init] autorelease];
- 
+    
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	self.graph.fill = [CPFill fillWithColor:grayColor];
 	CGColorRelease(grayColor);
@@ -77,15 +60,14 @@
     [[self graph] addPlot:scatterPlot];
 }
 
-/**
- This is really an integration test. This test verifies that a complete graph (with one scatter plot and plot symbols) renders correctly.
- */
-- (void)testRenderScatterWithSymbol
-{
-    self.nRecords = 1e4;
+
+- (void)testRenderScatterStressTest {
+    
+    self.nRecords = 1e6;
     [self buildData];
     [self addScatterPlot];
     
-    GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderScatterWithSymbol", @"Should render a sine wave with green symbols.");
+    GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderStressTest", @"Should render a sine wave with green symbols.");
+    
 }
 @end

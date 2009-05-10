@@ -58,6 +58,25 @@
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
 		4C2D58460FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C2D58440FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff */; };
 		4C2D58470FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */; };
+		4C2D58C40FB78208008275E0 /* GTMAppKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F590F45ED1900DC824F /* GTMAppKit+UnitTesting.m */; };
+		4C2D58C50FB78208008275E0 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F5B0F45ED1900DC824F /* GTMCALayer+UnitTesting.m */; };
+		4C2D58C60FB78208008275E0 /* GTMDevLogUnitTestingBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F5C0F45ED1900DC824F /* GTMDevLogUnitTestingBridge.m */; };
+		4C2D58C70FB78208008275E0 /* GTMNSObject+BindingUnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F610F45ED1900DC824F /* GTMNSObject+BindingUnitTesting.m */; };
+		4C2D58C80FB78208008275E0 /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F630F45ED1900DC824F /* GTMNSObject+UnitTesting.m */; };
+		4C2D58C90FB78208008275E0 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F650F45ED1900DC824F /* GTMSenTestCase.m */; };
+		4C2D58CA0FB78208008275E0 /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F740F45ED1900DC824F /* GTMUnitTestDevLog.m */; };
+		4C2D58CB0FB78208008275E0 /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
+		4C2D58CC0FB78208008275E0 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F440F45ED1900DC824F /* GTMSystemVersion.m */; };
+		4C2D58CD0FB78208008275E0 /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F380F45ED1900DC824F /* GTMRegex.m */; };
+		4C2D58CE0FB78208008275E0 /* CPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C99408F0F45F71C00DC824F /* CPTestCase.m */; };
+		4C2D58D20FB78208008275E0 /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
+		4C2D58D80FB78208008275E0 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
+		4C2D58D90FB78208008275E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
+		4C2D59070FB782FE008275E0 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */; };
+		4C2D59080FB78306008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */; };
+		4C2D590B0FB7831A008275E0 /* CPXYGraphPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2D590A0FB7831A008275E0 /* CPXYGraphPerformanceTests.m */; };
+		4C2D59270FB78382008275E0 /* CPScatterPlotPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2D59260FB78382008275E0 /* CPScatterPlotPerformanceTests.m */; };
+		4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */; };
 		4C32D35F0F43B38900EDFE7A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D3770F43B39F00EDFE7A /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C32D37C0F43B3CD00EDFE7A /* main.m */; };
@@ -131,6 +150,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4C2D58A20FB78208008275E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		4C2D58A40FB78208008275E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C32D3550F43B36F00EDFE7A;
+			remoteInfo = CPTestHost;
+		};
 		4C32D3490F43B34300EDFE7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -264,6 +297,12 @@
 		32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
 		4C2D58440FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff"; sourceTree = "<group>"; };
+		4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CorePlot-PerformanceTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C2D58DF0FB78208008275E0 /* CorePlot-PerformanceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorePlot-PerformanceTests-Info.plist"; sourceTree = "<group>"; };
+		4C2D59090FB7831A008275E0 /* CPXYGraphPerformanceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraphPerformanceTests.h; sourceTree = "<group>"; };
+		4C2D590A0FB7831A008275E0 /* CPXYGraphPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYGraphPerformanceTests.m; sourceTree = "<group>"; };
+		4C2D59250FB78382008275E0 /* CPScatterPlotPerformanceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScatterPlotPerformanceTests.h; sourceTree = "<group>"; };
+		4C2D59260FB78382008275E0 /* CPScatterPlotPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotPerformanceTests.m; sourceTree = "<group>"; };
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -592,6 +631,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C2D58D70FB78208008275E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2D58D80FB78208008275E0 /* CorePlot.framework in Frameworks */,
+				4C2D58D90FB78208008275E0 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C32D3540F43B36F00EDFE7A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -629,6 +677,7 @@
 				8DC2EF5B0486A6940098B216 /* CorePlot.framework */,
 				4CBF252C0F3CDED400DAE1A8 /* CorePlot-UnitTests.octest */,
 				4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */,
+				4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -677,6 +726,8 @@
 				07983EF50F2F9A3D008C8618 /* CPXYGraph.m */,
 				4C422B270FB20882000CAA43 /* CPXYGraphTests.h */,
 				4C422B280FB20882000CAA43 /* CPXYGraphTests.m */,
+				4C2D59090FB7831A008275E0 /* CPXYGraphPerformanceTests.h */,
+				4C2D590A0FB7831A008275E0 /* CPXYGraphPerformanceTests.m */,
 				07983EFD0F2F9B50008C8618 /* CPBarGraph.h */,
 				07983EFE0F2F9B50008C8618 /* CPBarGraph.m */,
 			);
@@ -733,6 +784,8 @@
 				07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */,
 				4C9A746F0FB24D7900918464 /* CPScatterPlotTests.h */,
 				4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */,
+				4C2D59250FB78382008275E0 /* CPScatterPlotPerformanceTests.h */,
+				4C2D59260FB78382008275E0 /* CPScatterPlotPerformanceTests.m */,
 				0799E0930F2BB5F300790525 /* CPBarPlot.h */,
 				0799E0940F2BB5F300790525 /* CPBarPlot.m */,
 			);
@@ -810,6 +863,7 @@
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				4CBF252D0F3CDED400DAE1A8 /* CorePlot-UnitTests-Info.plist */,
+				4C2D58DF0FB78208008275E0 /* CorePlot-PerformanceTests-Info.plist */,
 			);
 			name = CorePlot;
 			sourceTree = "<group>";
@@ -1403,6 +1457,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C2D58DB0FB78208008275E0 /* Build configuration list for PBXNativeTarget "CorePlot-PerformanceTests" */;
+			buildPhases = (
+				4C2D58A50FB78208008275E0 /* Resources */,
+				4C2D58C20FB78208008275E0 /* Sources */,
+				4C2D58D70FB78208008275E0 /* Frameworks */,
+				4C2D58DA0FB78208008275E0 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C2D58A10FB78208008275E0 /* PBXTargetDependency */,
+				4C2D58A30FB78208008275E0 /* PBXTargetDependency */,
+			);
+			name = "CorePlot-PerformanceTests";
+			productName = "CorePlot-UnitTests";
+			productReference = 4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		4C32D3550F43B36F00EDFE7A /* CPTestHarness */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C32D35B0F43B37000EDFE7A /* Build configuration list for PBXNativeTarget "CPTestHarness" */;
@@ -1485,6 +1559,7 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* CorePlot */,
 				4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */,
+				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
 				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
 			);
 		};
@@ -1536,6 +1611,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C2D58A50FB78208008275E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2D59070FB782FE008275E0 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
+				4C2D59080FB78306008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C32D3520F43B36F00EDFE7A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1590,6 +1674,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4C2D58DA0FB78208008275E0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-mac-trunk/UnitTesting/RunMacOSUnitTests.sh\"\n";
+		};
 		4CBF252A0F3CDED400DAE1A8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1606,6 +1703,28 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4C2D58C20FB78208008275E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2D58C40FB78208008275E0 /* GTMAppKit+UnitTesting.m in Sources */,
+				4C2D58C50FB78208008275E0 /* GTMCALayer+UnitTesting.m in Sources */,
+				4C2D58C60FB78208008275E0 /* GTMDevLogUnitTestingBridge.m in Sources */,
+				4C2D58C70FB78208008275E0 /* GTMNSObject+BindingUnitTesting.m in Sources */,
+				4C2D58C80FB78208008275E0 /* GTMNSObject+UnitTesting.m in Sources */,
+				4C2D58C90FB78208008275E0 /* GTMSenTestCase.m in Sources */,
+				4C2D58CA0FB78208008275E0 /* GTMUnitTestDevLog.m in Sources */,
+				4C2D58CB0FB78208008275E0 /* GTMUnitTestingUtilities.m in Sources */,
+				4C2D58CC0FB78208008275E0 /* GTMSystemVersion.m in Sources */,
+				4C2D58CD0FB78208008275E0 /* GTMRegex.m in Sources */,
+				4C2D58CE0FB78208008275E0 /* CPTestCase.m in Sources */,
+				4C2D58D20FB78208008275E0 /* NSNumberExtensions.m in Sources */,
+				4C2D590B0FB7831A008275E0 /* CPXYGraphPerformanceTests.m in Sources */,
+				4C2D59270FB78382008275E0 /* CPScatterPlotPerformanceTests.m in Sources */,
+				4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C32D3530F43B36F00EDFE7A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1682,6 +1801,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4C2D58A10FB78208008275E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
+			targetProxy = 4C2D58A20FB78208008275E0 /* PBXContainerItemProxy */;
+		};
+		4C2D58A30FB78208008275E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C32D3550F43B36F00EDFE7A /* CPTestHarness */;
+			targetProxy = 4C2D58A40FB78208008275E0 /* PBXContainerItemProxy */;
+		};
 		4C32D34A0F43B34300EDFE7A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
@@ -1802,6 +1931,72 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		4C2D58DC0FB78208008275E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C993FA60F45ED1A00DC824F /* DebugUnittest.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CPTestHarness.app/Contents/MacOS/CPTestHarness";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\\\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\\\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "CorePlot-PerformanceTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "CorePlot-PerformanceTests";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4C2D58DD0FB78208008275E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C993FA90F45ED1A00DC824F /* ReleaseUnittest.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CPTestHarness.app/Contents/MacOS/CPTestHarness";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\\\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\\\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "CorePlot-PerformanceTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "CorePlot-PerformanceTests";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -1945,6 +2140,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C2D58DB0FB78208008275E0 /* Build configuration list for PBXNativeTarget "CorePlot-PerformanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C2D58DC0FB78208008275E0 /* Debug */,
+				4C2D58DD0FB78208008275E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

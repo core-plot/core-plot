@@ -9,8 +9,6 @@
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
 
-#import "GTMTestTimer.h"
-
 
 @implementation CPScatterPlotTests
 @synthesize plot;
@@ -53,48 +51,5 @@
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
 }
-
-
-- (void)testRenderScatterStressTest {
-    
-    self.nRecords = 1e6;
-    [self buildData];
-    [self setPlotRanges];
-    
-    GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderStressTest", @"Should render a sine wave.");
-
-}
-
-
-/**
- Verify that CPScatterPlot can render 1e5 points in less than 1 second.
- */
-- (void)testRenderScatterTimeLimit
-{
-    self.nRecords = 1e5;
-    [self buildData];
-	[self setPlotRanges];
-    
-    //set up CGContext
-    CGContextRef ctx = GTMCreateUnitTestBitmapContextOfSizeWithData(self.plot.bounds.size, NULL);
-    
-    GTMTestTimer *t = GTMTestTimerCreate();
-    
-    // render several times
-    for(NSInteger i = 0; i<3; i++) {
-        GTMTestTimerStart(t);
-        self.plot.dataNeedsReloading = YES;
-        [self.plot drawInContext:ctx];
-        GTMTestTimerStop(t);
-    }
-    
-    //verify performance
-    STAssertTrue(GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t) < 1.0, @"rendering took more than 1 second for 1e4 points. Avg. time = %g", GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t));
-    
-    // clean up
-    GTMTestTimerRelease(t);
-    CFRelease(ctx);
-}
-
-    
+   
 @end

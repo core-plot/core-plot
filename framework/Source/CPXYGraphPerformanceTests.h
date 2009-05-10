@@ -2,9 +2,9 @@
 #import "CPDataSourceTestCase.h"
 #import "CPXYGraph.h"
 
-@interface CPXYGraphTests : CPDataSourceTestCase {
+@interface CPXYGraphPerformanceTests : CPDataSourceTestCase {
     CPXYGraph *graph;
-
+    
 }
 
 @property (retain,readwrite) CPXYGraph *graph;
