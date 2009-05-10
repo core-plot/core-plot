@@ -8,6 +8,5 @@
 
 @property (retain,readwrite) CPScatterPlot *plot;
 
-- (void)setUpPlotSpace;
 
 @end

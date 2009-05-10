@@ -2,12 +2,20 @@
 #import "CPDataSourceTestCase.h"
 #import "CPExceptions.h"
 #import "CPScatterPlot.h"
+#import "CPPlotRange.h"
+#import "CPUtilities.h"
+
+@interface CPDataSourceTestCase ()
+- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray;
+@end
 
 
 @implementation CPDataSourceTestCase
 @synthesize xData;
 @synthesize yData;
 @synthesize nRecords;
+@synthesize xRange;
+@synthesize yRange;
 
 - (void)tearDown
 {
@@ -28,6 +36,23 @@
         [arr insertObject:[NSDecimalNumber numberWithFloat:sin(2*M_PI*(float)i/(float)nRecords)] atIndex:i];
     }
     self.yData = arr;
+}
+
+- (CPPlotRange*)xRange {
+    return [self plotRangeForData:self.xData];
+}
+
+- (CPPlotRange*)yRange {
+    return [self plotRangeForData:self.yData];
+}
+
+- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray {
+    double min = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
+    double max = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
+    double range = max-min;
+    
+    return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min - .05*range)
+                                       length:CPDecimalFromDouble(range + .05*range)];
 }
 
 #pragma mark -

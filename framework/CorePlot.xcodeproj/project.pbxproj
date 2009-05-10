@@ -56,6 +56,8 @@
 		320A9B030F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 320A9B010F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
+		4C2D58460FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C2D58440FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff */; };
+		4C2D58470FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */; };
 		4C32D35F0F43B38900EDFE7A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D3770F43B39F00EDFE7A /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C32D37C0F43B3CD00EDFE7A /* main.m */; };
@@ -260,6 +262,8 @@
 		32484B3F0F530E8B002151AD /* CPPlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotRange.h; sourceTree = "<group>"; };
 		32484B400F530E8B002151AD /* CPPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotRange.m; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
+		4C2D58440FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff"; sourceTree = "<group>"; };
+		4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1292,6 +1296,8 @@
 				C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */,
 				C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */,
 				C3AFCA8F0FB67A0E005DFFDC /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff */,
+				4C2D58440FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff */,
+				4C2D58450FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff */,
 				4CD7E94E0F4B619C00F9BCBB /* CPTextLayerTests-testInit1.i386.10.5.6.gtmUTState */,
 				C3AFCA920FB67A0E005DFFDC /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState */,
 				320A9AFB0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff */,
@@ -1568,6 +1574,8 @@
 				C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */,
 				C3B283780FB67D0C00EAFF95 /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff in Resources */,
 				C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
+				4C2D58460FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff in Resources */,
+				4C2D58470FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,16 +15,11 @@
 @implementation CPScatterPlotTests
 @synthesize plot;
 
-- (void)setUpPlotSpace
+- (void)setUp
 {
     
     CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
     plotSpace.bounds = CGRectMake(0., 0., 100., 100.);
-    
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
-                                                   length:CPDecimalFromInt(self.nRecords)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.1) 
-                                                   length:CPDecimalFromFloat(2.2)];
     
     
     self.plot = [[[CPScatterPlot alloc] init] autorelease];
@@ -42,13 +37,35 @@
     self.plot = nil;
 }
 
+
+- (void)setPlotRanges {
+    [(CPCartesianPlotSpace*)[[self plot] plotSpace] setXRange:[self xRange]];
+    
+    /*[CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
+                                                   length:CPDecimalFromInt(self.nRecords)];*/
+    
+    [(CPCartesianPlotSpace*)[[self plot] plotSpace] setYRange:[self yRange]];
+    
+    /*[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.1) 
+                                                   length:CPDecimalFromFloat(2.2)];*/
+}
 - (void)testRenderScatter
 {
     self.nRecords = 1e2;
     [self buildData];
-	[self setUpPlotSpace];
+	[self setPlotRanges];
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
+}
+
+- (void)testRenderScatterStressTest {
+    
+    self.nRecords = 1e6;
+    [self buildData];
+    [self setPlotRanges];
+    
+    GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderStressTest", @"Should render a sine wave.");
+
 }
 
 /**
@@ -58,7 +75,7 @@
 {
     self.nRecords = 1e4;
     [self buildData];
-	[self setUpPlotSpace];
+	[self setPlotRanges];
     
     //set up CGContext
     CGContextRef ctx = GTMCreateUnitTestBitmapContextOfSizeWithData(self.plot.bounds.size, NULL);

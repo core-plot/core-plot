@@ -73,13 +73,16 @@
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
 	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
-    greenCirclePlotSymbol.size = CGSizeMake(1.0, 1.0);
+    greenCirclePlotSymbol.size = CGSizeMake(5.0, 5.0);
     scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
     [[self graph] addPlot:scatterPlot];
 }
 
+/**
+ This is really an integration test. This test verifies that a complete graph (with one scatter plot and plot symbols) renders correctly.
+ */
 - (void)testRenderScatterWithSymbol
 {
     self.nRecords = 1e4;
@@ -88,13 +91,5 @@
     
     GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderScatterWithSymbol", @"Should render a sine wave with green symbols.");
 }
-
-//- (void)testRenderStressTest {
-//    self.nRecords = 1e6;
-//    [self buildData];
-//    [self addScatterPlot];
-//    
-//    GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderStressTest", @"Should render a sine wave with green symbols.");
-//}
 
 @end
