@@ -35,7 +35,7 @@
     // Create a series of plots that uses the data source method
 	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeSnow; i++) {
 		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%ud", i];
+		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%u", i];
 		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
 		CGColorRef redColor = CPNewCGColorFromNSColor([NSColor redColor]);
 		dataSourceLinePlot.dataLineStyle.lineColor = redColor;

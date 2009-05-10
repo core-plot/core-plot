@@ -33,6 +33,10 @@
 		NSDecimal xLocation = xRange.location.decimalValue;
 		NSDecimal xLength = xRange.length.decimalValue;
 		
+		if (CPDecimalFloatValue(xLength) == 0.0) {
+			[NSException raise:CPException format:@"xLength is zero in viewPointForPlotPoint:"];
+		}
+
 		NSDecimal x = [[decimalNumbers objectAtIndex:0] decimalValue];
 		NSDecimalSubtract(&x, &x, &(xLocation), NSRoundPlain);
 		NSDecimalDivide(&x, &x, &(xLength), NSRoundPlain);
@@ -41,6 +45,10 @@
 		// get the yRange's location and length
 		NSDecimal yLocation = yRange.location.decimalValue;
 		NSDecimal yLength = yRange.length.decimalValue;
+		
+		if (CPDecimalFloatValue(yLength) == 0.0) {
+			[NSException raise:CPException format:@"yLength is zero in viewPointForPlotPoint:"];
+		}
 		
 		NSDecimal y = [[decimalNumbers objectAtIndex:1] decimalValue];
 		NSDecimalSubtract(&y, &y, &(yLocation), NSRoundPlain);

@@ -15,7 +15,7 @@
 @implementation CPScatterPlotTests
 @synthesize plot;
 
-- (void)setUp
+- (void)setUpPlotSpace
 {
     
     CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
@@ -46,17 +46,19 @@
 {
     self.nRecords = 1e2;
     [self buildData];
+	[self setUpPlotSpace];
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
 }
 
 /**
- Verify that CPScatterPlot can render 1e5 points in less than 1 second.
+ Verify that CPScatterPlot can render 1e4 points in less than 1 second.
  */
 - (void)testRenderScatterTimeLimit
 {
     self.nRecords = 1e4;
     [self buildData];
+	[self setUpPlotSpace];
     
     //set up CGContext
     CGContextRef ctx = GTMCreateUnitTestBitmapContextOfSizeWithData(self.plot.bounds.size, NULL);
