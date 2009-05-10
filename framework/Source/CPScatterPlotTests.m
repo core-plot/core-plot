@@ -32,6 +32,7 @@
     self.plot.dataSource = self;
 }
 
+
 - (void)tearDown
 {
     self.plot = nil;
@@ -40,15 +41,10 @@
 
 - (void)setPlotRanges {
     [(CPCartesianPlotSpace*)[[self plot] plotSpace] setXRange:[self xRange]];
-    
-    /*[CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
-                                                   length:CPDecimalFromInt(self.nRecords)];*/
-    
     [(CPCartesianPlotSpace*)[[self plot] plotSpace] setYRange:[self yRange]];
-    
-    /*[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.1) 
-                                                   length:CPDecimalFromFloat(2.2)];*/
 }
+
+
 - (void)testRenderScatter
 {
     self.nRecords = 1e2;
@@ -57,6 +53,7 @@
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
 }
+
 
 - (void)testRenderScatterStressTest {
     
@@ -68,8 +65,9 @@
 
 }
 
+
 /**
- Verify that CPScatterPlot can render 1e4 points in less than 1 second.
+ Verify that CPScatterPlot can render 1e5 points in less than 1 second.
  */
 - (void)testRenderScatterTimeLimit
 {
