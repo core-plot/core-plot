@@ -6,6 +6,21 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4C2D59F50FB78DC3008275E0 /* All Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4C2D5A010FB78DF4008275E0 /* Build configuration list for PBXAggregateTarget "All Tests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				4C2D59F90FB78DCE008275E0 /* PBXTargetDependency */,
+				4C2D59FB0FB78DCE008275E0 /* PBXTargetDependency */,
+			);
+			name = "All Tests";
+			productName = "All Tests";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
@@ -163,6 +178,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4C32D3550F43B36F00EDFE7A;
 			remoteInfo = CPTestHost;
+		};
+		4C2D59F80FB78DCE008275E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */;
+			remoteInfo = "CorePlot-UnitTests";
+		};
+		4C2D59FA0FB78DCE008275E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */;
+			remoteInfo = "CorePlot-PerformanceTests";
+		};
+		4C2D5A020FB78E05008275E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */;
+			remoteInfo = "CorePlot-UnitTests";
 		};
 		4C32D3490F43B34300EDFE7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1471,6 +1507,7 @@
 			dependencies = (
 				4C2D58A10FB78208008275E0 /* PBXTargetDependency */,
 				4C2D58A30FB78208008275E0 /* PBXTargetDependency */,
+				4C2D5A030FB78E05008275E0 /* PBXTargetDependency */,
 			);
 			name = "CorePlot-PerformanceTests";
 			productName = "CorePlot-UnitTests";
@@ -1561,6 +1598,7 @@
 				4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */,
 				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
 				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
+				4C2D59F50FB78DC3008275E0 /* All Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1811,6 +1849,21 @@
 			target = 4C32D3550F43B36F00EDFE7A /* CPTestHarness */;
 			targetProxy = 4C2D58A40FB78208008275E0 /* PBXContainerItemProxy */;
 		};
+		4C2D59F90FB78DCE008275E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */;
+			targetProxy = 4C2D59F80FB78DCE008275E0 /* PBXContainerItemProxy */;
+		};
+		4C2D59FB0FB78DCE008275E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */;
+			targetProxy = 4C2D59FA0FB78DCE008275E0 /* PBXContainerItemProxy */;
+		};
+		4C2D5A030FB78E05008275E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4CBF252B0F3CDED400DAE1A8 /* CorePlot-UnitTests */;
+			targetProxy = 4C2D5A020FB78E05008275E0 /* PBXContainerItemProxy */;
+		};
 		4C32D34A0F43B34300EDFE7A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
@@ -2000,6 +2053,27 @@
 			};
 			name = Release;
 		};
+		4C2D59F60FB78DC4008275E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "All Tests";
+			};
+			name = Debug;
+		};
+		4C2D59F70FB78DC4008275E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "All Tests";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		4C32D3590F43B36F00EDFE7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2149,6 +2223,15 @@
 			buildConfigurations = (
 				4C2D58DC0FB78208008275E0 /* Debug */,
 				4C2D58DD0FB78208008275E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C2D5A010FB78DF4008275E0 /* Build configuration list for PBXAggregateTarget "All Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C2D59F60FB78DC4008275E0 /* Debug */,
+				4C2D59F70FB78DC4008275E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
