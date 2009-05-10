@@ -112,6 +112,20 @@
 		C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; };
+		C3AFCA960FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */; };
+		C3B2836D0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */; };
+		C3B2836E0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */; };
+		C3B2836F0FB67CF000EAFF95 /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8F0FB67A0E005DFFDC /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff */; };
+		C3B283700FB67CF000EAFF95 /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA920FB67A0E005DFFDC /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState */; };
+		C3B283710FB67CF000EAFF95 /* CPTextLayerTests-testRendering1.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8C0FB67A0E005DFFDC /* CPTextLayerTests-testRendering1.ppc.10.5.6.tiff */; };
+		C3B283720FB67CF000EAFF95 /* CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8D0FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState */; };
+		C3B283730FB67CF000EAFF95 /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA940FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff */; };
+		C3B283740FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA890FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState */; };
+		C3B283750FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8A0FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff */; };
+		C3B283760FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8B0FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState */; };
+		C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */; };
+		C3B283780FB67D0C00EAFF95 /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA910FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */; };
+		C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -556,6 +570,20 @@
 		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
 		C3AFC9CF0FB62969005DFFDC /* CPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImage.h; sourceTree = "<group>"; };
 		C3AFC9D00FB62969005DFFDC /* CPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPImage.m; sourceTree = "<group>"; };
+		C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA890FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		C3AFCA8A0FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering3.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA8B0FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		C3AFCA8C0FB67A0E005DFFDC /* CPTextLayerTests-testRendering1.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering1.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA8D0FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA8F0FB67A0E005DFFDC /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA910FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.i386.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA920FB67A0E005DFFDC /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA940FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1259,18 +1287,32 @@
 		4C9940DF0F45FAE900DC824F /* TestResources */ = {
 			isa = PBXGroup;
 			children = (
-				4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
-				4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */,
 				320A9B000F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState */,
 				320A9B010F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff */,
-				320A9AFB0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff */,
-				320A9AFD0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff */,
+				C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */,
+				C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */,
+				C3AFCA8F0FB67A0E005DFFDC /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff */,
 				4CD7E94E0F4B619C00F9BCBB /* CPTextLayerTests-testInit1.i386.10.5.6.gtmUTState */,
+				C3AFCA920FB67A0E005DFFDC /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState */,
+				320A9AFB0F4DB9CD005E3519 /* CPTextLayerTests-testRendering1.i386.10.5.6.tiff */,
+				C3AFCA8C0FB67A0E005DFFDC /* CPTextLayerTests-testRendering1.ppc.10.5.6.tiff */,
 				4CD7E94F0F4B619C00F9BCBB /* CPTextLayerTests-testRendering2.i386.10.5.6.gtmUTState */,
+				320A9AFD0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff */,
+				C3AFCA8D0FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState */,
+				C3AFCA940FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff */,
 				4CD7E9500F4B619C00F9BCBB /* CPTextLayerTests-testRendering3.i386.10.5.6.gtmUTState */,
 				4CD7E9510F4B619C00F9BCBB /* CPTextLayerTests-testRendering3.i386.10.5.6.tiff */,
+				C3AFCA890FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState */,
+				C3AFCA8A0FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff */,
 				4CD7E9520F4B619C00F9BCBB /* CPTextLayerTests-testRendering4.i386.10.5.6.gtmUTState */,
+				C3AFCA910FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */,
+				C3AFCA8B0FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState */,
+				C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */,
+				C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
 				4CD7E9530F4B619C00F9BCBB /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */,
+				C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */,
+				4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */,
+				4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
 			);
 			path = TestResources;
 			sourceTree = SOURCE_ROOT;
@@ -1512,6 +1554,20 @@
 				320A9B030F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff in Resources */,
 				4C422C1B0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
 				4C9A74FE0FB257C000918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
+				C3AFCA960FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff in Resources */,
+				C3B2836D0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState in Resources */,
+				C3B2836E0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff in Resources */,
+				C3B2836F0FB67CF000EAFF95 /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff in Resources */,
+				C3B283700FB67CF000EAFF95 /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState in Resources */,
+				C3B283710FB67CF000EAFF95 /* CPTextLayerTests-testRendering1.ppc.10.5.6.tiff in Resources */,
+				C3B283720FB67CF000EAFF95 /* CPTextLayerTests-testRendering2.ppc.10.5.6.gtmUTState in Resources */,
+				C3B283730FB67CF000EAFF95 /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff in Resources */,
+				C3B283740FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.gtmUTState in Resources */,
+				C3B283750FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff in Resources */,
+				C3B283760FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState in Resources */,
+				C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */,
+				C3B283780FB67D0C00EAFF95 /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff in Resources */,
+				C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
