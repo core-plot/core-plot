@@ -39,7 +39,6 @@
 - (void)testInit {
     id expectedString = @"testInit-expectedString";
     CGFloat expectedFontSize = 12.;
-    id expectedFontName = [CPTextLayer defaultFontName];
     
     CPTextLayer *layer = [[CPTextLayer alloc] initWithString:expectedString fontSize:expectedFontSize];
     

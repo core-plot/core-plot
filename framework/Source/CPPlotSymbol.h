@@ -1,8 +1,22 @@
 #import <Foundation/Foundation.h>
-#import "CPDefinitions.h"
 
 @class CPLineStyle;
 @class CPFill;
+
+typedef enum _CPPlotSymbolType {
+    CPPlotSymbolTypeNone,
+    CPPlotSymbolTypeRectangle,
+    CPPlotSymbolTypeEllipse,
+    CPPlotSymbolTypeDiamond,
+	CPPlotSymbolTypeTriangle,
+	CPPlotSymbolTypeStar,
+	CPPlotSymbolTypePentagon,
+	CPPlotSymbolTypeHexagon,
+	CPPlotSymbolTypeCross,
+	CPPlotSymbolTypePlus,
+	CPPlotSymbolTypeDash,
+	CPPlotSymbolTypeSnow
+} CPPlotSymbolType;
 
 
 @interface CPPlotSymbol : NSObject <NSCopying> {
@@ -30,7 +44,6 @@
 +(CPPlotSymbol *)dashPlotSymbol;
 +(CPPlotSymbol *)snowPlotSymbol;
 //+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
-//+(CPPlotSymbol *)plotSymbolWithImage:(CGImageRef)anImage;
 
 -(id)copyWithZone:(NSZone *)zone;
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;

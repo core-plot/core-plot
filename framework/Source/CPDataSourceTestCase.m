@@ -27,7 +27,7 @@
 {
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.nRecords];
     for(NSUInteger i=0; i<self.nRecords; i++) {
-        [arr insertObject:[NSDecimalNumber numberWithInteger:i] atIndex:i];
+        [arr insertObject:[NSDecimalNumber numberWithUnsignedInteger:i] atIndex:i];
     }
     self.xData = arr;
     

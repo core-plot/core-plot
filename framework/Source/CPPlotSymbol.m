@@ -2,7 +2,6 @@
 #import "CPLineStyle.h"
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
-#import "CPDefinitions.h"
 
 @implementation CPPlotSymbol
 
@@ -14,7 +13,7 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		size = CGSizeMake(5.0, 5.0);
+		self.size = CGSizeMake(5.0, 5.0);
 		self.symbolType = CPPlotSymbolTypeNone;
 		self.lineStyle = [CPLineStyle lineStyle];
 		self.fill = nil;
@@ -122,7 +121,6 @@
 }
 
 //	+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
-//	+(CPPlotSymbol *)plotSymbolWithImage:(CGImageRef)anImage;
 
 #pragma mark -
 #pragma mark NSCopying methods

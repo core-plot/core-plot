@@ -24,22 +24,6 @@ typedef enum _CPScaleType {
     CPScaleTypeAngular
 } CPScaleType;
 
-// Plot symbols
-typedef enum _CPPlotSymbolType {
-    CPPlotSymbolTypeNone,
-    CPPlotSymbolTypeRectangle,
-    CPPlotSymbolTypeEllipse,
-    CPPlotSymbolTypeDiamond,
-	CPPlotSymbolTypeTriangle,
-	CPPlotSymbolTypeStar,
-	CPPlotSymbolTypePentagon,
-	CPPlotSymbolTypeHexagon,
-	CPPlotSymbolTypeCross,
-	CPPlotSymbolTypePlus,
-	CPPlotSymbolTypeDash,
-	CPPlotSymbolTypeSnow
-} CPPlotSymbolType;
-
 // RGB colors for CPGradient
 typedef struct _CPRGBColor {
 	float red, green, blue, alpha;

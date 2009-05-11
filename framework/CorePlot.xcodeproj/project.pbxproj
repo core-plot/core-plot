@@ -97,7 +97,6 @@
 		4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C32D37C0F43B3CD00EDFE7A /* main.m */; };
 		4C422A640FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */; };
 		4C422B290FB20882000CAA43 /* CPXYGraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422B280FB20882000CAA43 /* CPXYGraphTests.m */; };
-		4C422C1B0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */; };
 		4C993D1A0F45E86100DC824F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
 		4C993FF40F45EE2F00DC824F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C993FF30F45EE2F00DC824F /* MainMenu.xib */; };
@@ -161,6 +160,19 @@
 		C3B283760FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8B0FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState */; };
 		C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */; };
 		C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */; };
+		C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */; };
+		C3B286B20FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286A60FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff */; };
+		C3B286B30FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286A70FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff */; };
+		C3B286B40FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286A80FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff */; };
+		C3B286B50FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286A90FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff */; };
+		C3B286B60FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AA0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff */; };
+		C3B286B70FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AB0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff */; };
+		C3B286B80FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AC0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff */; };
+		C3B286B90FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AD0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff */; };
+		C3B286BA0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AE0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff */; };
+		C3B286BB0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286AF0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff */; };
+		C3B286BC0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286B00FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff */; };
+		C3B286BD0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3B286B10FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -345,7 +357,6 @@
 		4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpaceTests.m; sourceTree = "<group>"; };
 		4C422B270FB20882000CAA43 /* CPXYGraphTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraphTests.h; sourceTree = "<group>"; };
 		4C422B280FB20882000CAA43 /* CPXYGraphTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYGraphTests.m; sourceTree = "<group>"; };
-		4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4C993EA20F45ED1900DC824F /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
 		4C993EA30F45ED1900DC824F /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
 		4C993EA40F45ED1900DC824F /* GTMCarbonEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEventTest.m; sourceTree = "<group>"; };
@@ -661,6 +672,20 @@
 		C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA940FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbolTests.h; sourceTree = "<group>"; };
+		C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbolTests.m; sourceTree = "<group>"; };
+		C3B286A60FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286A70FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286A80FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286A90FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AA0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AB0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AC0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AD0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AE0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286AF0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286B00FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
+		C3B286B10FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1001,7 +1026,6 @@
 				C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
 				C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */,
 				4C9A74FD0FB257BE00918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff */,
-				4C422C1A0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
 			);
 			name = CPXYGraphTests;
 			sourceTree = "<group>";
@@ -1434,10 +1458,11 @@
 		4C9940DF0F45FAE900DC824F /* TestResources */ = {
 			isa = PBXGroup;
 			children = (
-				4C2D5A360FB79043008275E0 /* CPXYGraphTests */,
-				4C2D5A350FB7902E008275E0 /* CPTextLayerTests */,
-				4C2D5A340FB7901F008275E0 /* CPScatterPlotTests */,
 				4C2D5A2A0FB79016008275E0 /* CPPlotAreaTests */,
+				C3B286720FB7C9BA00EAFF95 /* CPPlotSymbolTests */,
+				4C2D5A340FB7901F008275E0 /* CPScatterPlotTests */,
+				4C2D5A350FB7902E008275E0 /* CPTextLayerTests */,
+				4C2D5A360FB79043008275E0 /* CPXYGraphTests */,
 			);
 			path = TestResources;
 			sourceTree = SOURCE_ROOT;
@@ -1474,8 +1499,29 @@
 			children = (
 				C331F8F50F871087006E4006 /* CPPlotSymbol.h */,
 				C331F8F60F871087006E4006 /* CPPlotSymbol.m */,
+				C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */,
+				C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */,
 			);
 			name = "Plot Symbols";
+			sourceTree = "<group>";
+		};
+		C3B286720FB7C9BA00EAFF95 /* CPPlotSymbolTests */ = {
+			isa = PBXGroup;
+			children = (
+				C3B286B10FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff */,
+				C3B286B00FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff */,
+				C3B286AD0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff */,
+				C3B286AC0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff */,
+				C3B286AB0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff */,
+				C3B286AA0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff */,
+				C3B286A90FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff */,
+				C3B286A80FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff */,
+				C3B286A70FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff */,
+				C3B286A60FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff */,
+				C3B286AF0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff */,
+				C3B286AE0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff */,
+			);
+			name = CPPlotSymbolTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1709,7 +1755,6 @@
 				320A9AFE0F4DB9E4005E3519 /* CPTextLayerTests-testRendering2.i386.10.5.6.tiff in Resources */,
 				320A9B020F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.gtmUTState in Resources */,
 				320A9B030F4DBAC8005E3519 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.i386.10.5.6.tiff in Resources */,
-				4C422C1B0FB2280A000CAA43 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
 				4C9A74FE0FB257C000918464 /* CPXYGraphTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
 				C3AFCA960FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff in Resources */,
 				C3B2836D0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState in Resources */,
@@ -1726,6 +1771,18 @@
 				C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
 				4C2D58460FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff in Resources */,
 				4C2D58470FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
+				C3B286B20FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol9.ppc.10.5.6.tiff in Resources */,
+				C3B286B30FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol8.ppc.10.5.6.tiff in Resources */,
+				C3B286B40FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol7.ppc.10.5.6.tiff in Resources */,
+				C3B286B50FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol6.ppc.10.5.6.tiff in Resources */,
+				C3B286B60FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol5.ppc.10.5.6.tiff in Resources */,
+				C3B286B70FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol4.ppc.10.5.6.tiff in Resources */,
+				C3B286B80FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol3.ppc.10.5.6.tiff in Resources */,
+				C3B286B90FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol2.ppc.10.5.6.tiff in Resources */,
+				C3B286BA0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol11.ppc.10.5.6.tiff in Resources */,
+				C3B286BB0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol10.ppc.10.5.6.tiff in Resources */,
+				C3B286BC0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol1.ppc.10.5.6.tiff in Resources */,
+				C3B286BD0FB7CA1900EAFF95 /* CPPlotSymbolTests-testSymbol0.ppc.10.5.6.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1825,6 +1882,7 @@
 				4C422B290FB20882000CAA43 /* CPXYGraphTests.m in Sources */,
 				4C9A745F0FB24C7200918464 /* CPDataSourceTestCase.m in Sources */,
 				4C9A74710FB24D7900918464 /* CPScatterPlotTests.m in Sources */,
+				C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

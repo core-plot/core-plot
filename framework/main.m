@@ -10,6 +10,9 @@
 #import <Cocoa/Cocoa.h>
 #import "GTMUnitTestingUtilities.h"
 
+void GTMRestoreColorProfile(void);
+
+
 int main(int argc, char *argv[])
 {
     //configure environment for standard unit testing
