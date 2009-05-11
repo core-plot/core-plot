@@ -160,7 +160,6 @@
 		C3B283750FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8A0FB67A0E005DFFDC /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff */; };
 		C3B283760FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8B0FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState */; };
 		C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */; };
-		C3B283780FB67D0C00EAFF95 /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA910FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */; };
 		C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */; };
 /* End PBXBuildFile section */
 
@@ -658,7 +657,6 @@
 		C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA8F0FB67A0E005DFFDC /* CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderScatter.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff"; sourceTree = "<group>"; };
-		C3AFCA910FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA920FB67A0E005DFFDC /* CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testInit1.ppc.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
 		C3AFCA940FB67A0E005DFFDC /* CPTextLayerTests-testRendering2.ppc.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.ppc.10.5.6.tiff"; sourceTree = "<group>"; };
@@ -1725,7 +1723,6 @@
 				C3B283750FB67CF000EAFF95 /* CPTextLayerTests-testRendering3.ppc.10.5.6.tiff in Resources */,
 				C3B283760FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.gtmUTState in Resources */,
 				C3B283770FB67CF000EAFF95 /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff in Resources */,
-				C3B283780FB67D0C00EAFF95 /* CPTextLayerTests-testRendering4.i386.10.5.6.tiff in Resources */,
 				C3B283790FB67D1100EAFF95 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff in Resources */,
 				4C2D58460FB76EA5008275E0 /* CPScatterPlotTests-testRenderScatter.i386.10.5.6.tiff in Resources */,
 				4C2D58470FB76EA5008275E0 /* CPScatterPlotTests-testRenderStressTest.i386.10.5.6.tiff in Resources */,
@@ -1998,6 +1995,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2011,6 +2009,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;

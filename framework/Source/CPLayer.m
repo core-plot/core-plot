@@ -42,15 +42,13 @@
 	}
 }
 
--(void)writePDFOfLayerToFile:(NSString *)fileName
+-(NSData *)dataForPDFRepresentationOfLayer;
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
+	NSMutableData *pdfData = [[NSMutableData alloc] init];
+	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
-	CFURLRef pdfURL = CFURLCreateWithFileSystemPath (NULL, (CFStringRef)[documentsDirectory stringByAppendingPathComponent:fileName], kCFURLPOSIXPathStyle, false);
-	
-	const CGRect mediaBox = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
-	CGContextRef pdfContext = CGPDFContextCreateWithURL(pdfURL, &mediaBox, NULL);
+	const CGRect mediaBox = CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height);
+	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	UIGraphicsPushContext(pdfContext);
@@ -61,12 +59,13 @@
 	
 	CGContextBeginPage(pdfContext, &mediaBox);
 	
-	CGContextSetRGBFillColor (pdfContext, 0, 0, 0, 1);
-	CGContextFillRect (pdfContext, mediaBox);
+//	CGContextSetRGBFillColor (pdfContext, 0, 0, 0, 1);
+//	CGContextFillRect (pdfContext, mediaBox);
 	
 	[self recursivelyRenderInContext:pdfContext];
 	
-	CGContextEndPage(pdfContext);	
+	CGContextEndPage(pdfContext);
+	CGPDFContextClose(pdfContext);
 	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	UIGraphicsPopContext();
@@ -74,8 +73,44 @@
 	[NSGraphicsContext setCurrentContext:oldContext];
 #endif
 	
-	CFRelease(pdfURL);
 	CGContextRelease(pdfContext);
+	
+	return [pdfData autorelease];
+}
+
+- (PLATFORMIMAGETYPE *)imageOfLayer;
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+	UIGraphicsBeginImageContext(self.bounds.size);
+	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
+	CGContextSetAllowsAntialiasing(context, true);
+	
+	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
+	CGContextScaleCTM(context, 1.0f, -1.0f);
+	
+	[self recursivelyRenderInContext:context];
+	//	[onlyEquationLayer renderInContext:UIGraphicsGetCurrentContext()];
+	UIImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
+	CGContextSetAllowsAntialiasing(context, false);
+	
+	CGContextRestoreGState(context);
+	UIGraphicsEndImageContext();
+#else
+	NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:self.bounds.size.width pixelsHigh:self.bounds.size.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(self.bounds.size.width * 4) bitsPerPixel:32];
+	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+	CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
+	
+	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height));
+	CGContextSetAllowsAntialiasing(context, true);
+	[self recursivelyRenderInContext:context];	
+	CGContextSetAllowsAntialiasing(context, false);
+	CGContextFlush(context);
+	[layerImage autorelease];
+#endif
+	
+	return layerImage;
 }
 
 @end

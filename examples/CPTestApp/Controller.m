@@ -105,4 +105,32 @@
     return num;
 }
 
+#pragma mark -
+#pragma mark PDF / image export
+
+-(IBAction)exportToPDF:(id)sender;
+{
+	NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
+	[pdfSavingDialog setRequiredFileType:@"pdf"];
+	
+	if ( [pdfSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSData *dataForPDF = [graph dataForPDFRepresentationOfLayer];
+		[dataForPDF writeToFile:[pdfSavingDialog filename] atomically:NO];
+	}		
+}
+
+-(IBAction)exportToPNG:(id)sender;
+{
+	NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
+	[pngSavingDialog setRequiredFileType:@"png"];
+	
+	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSBitmapImageRep *imageRepresentation = [graph imageOfLayer];
+		NSData *dataForPNG = [imageRepresentation representationUsingType:NSPNGFileType properties:nil];
+		[dataForPNG writeToFile:[pngSavingDialog filename] atomically:NO];
+	}		
+}
+
 @end

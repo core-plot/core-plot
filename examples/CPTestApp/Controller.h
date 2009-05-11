@@ -12,4 +12,8 @@
 -(NSUInteger)numberOfRecords;
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 
+// PDF / image export
+-(IBAction)exportToPDF:(id)sender;
+-(IBAction)exportToPNG:(id)sender;
+
 @end
