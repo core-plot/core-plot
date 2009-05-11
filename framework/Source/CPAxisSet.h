@@ -2,13 +2,16 @@
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 
-@class CPPlotArea;
-@class CPAxis;
 
-@interface CPAxisSet : CPLayer {
+@class CPPlotSpace;
+
+@interface CPAxisSet : NSObject {
     NSArray *axes;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
+
+-(void)drawInContext:(CGContextRef)theContext withPlotSpace:(CPPlotSpace*)aPlotSpace;
+
 
 @end

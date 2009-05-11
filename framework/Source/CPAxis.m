@@ -1,23 +1,29 @@
 
 
 #import "CPAxis.h"
-
+#import "CPPlotSpace.h"
 
 @implementation CPAxis
 
-@synthesize plotSpace;
 @synthesize majorTickLocations;
 @synthesize minorTickLocations;
 @synthesize minorTickLength;
 @synthesize majorTickLength;
+@synthesize range;
+@synthesize angle;
+
 
 -(void)dealloc {
-    self.plotSpace = nil;
     self.majorTickLocations = nil;
     self.minorTickLocations = nil;
     [super dealloc];
 }
 
+-(void)drawInContext:(CGContextRef)theContext withPlotSpace:(CPPlotSpace*)aPlotSpace {
+	NSLog(@"Drawing Axis");
+}
+
+//-(void)
 // The following was originally in CPPlotSpace. It should be adapted for here:
 //
 //

@@ -3,6 +3,8 @@
 #import "CPUtilities.h"
 #import "CPExceptions.h"
 #import "CPLineStyle.h"
+#import "CPXYAxisSet.h"
+#import "CPAxis.h"
 
 
 @implementation CPCartesianPlotSpace
@@ -16,6 +18,7 @@
 -(id)init
 {
 	if ( self = [super init] ) {
+		self.axisSet = [[CPXYAxisSet alloc] init];
 	}
 	return self;
 }
@@ -91,5 +94,20 @@
 	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x], [NSDecimalNumber decimalNumberWithDecimal:y], nil];
 }
 
+#pragma mark -
+#pragma mark Range management
 
+-(void)setXRange:(CPPlotRange*)range {
+	[range retain];
+	[xRange release];
+	xRange = range;
+	[[[axisSet axes] objectAtIndex:0] setRange:xRange];
+}
+
+-(void)setYRange:(CPPlotRange*)range {
+	[range retain];
+	[yRange release];
+	yRange = range;
+	[[[axisSet axes] objectAtIndex:1] setRange:yRange];
+}
 @end

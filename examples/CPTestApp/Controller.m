@@ -23,7 +23,7 @@
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPFill fillWithColor:grayColor];
 	CGColorRelease(grayColor);
-	
+		
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
 	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
 	CGColorRelease(grayColor);
