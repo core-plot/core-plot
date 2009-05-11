@@ -18,7 +18,13 @@
 	self = [super init];
 	if (self != nil) {
 		[self setNeedsDisplayOnBoundsChange:YES];
+
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		// TODO: Add code for autoresizing on iPhone
+#else
 		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
+#endif
+		
         self.dataNeedsReloading = YES;
 	}
 	return self;

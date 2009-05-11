@@ -26,7 +26,13 @@
 		plotArea.frame = CGRectInset(self.bounds, 20.0, 20.0); // Replace later with true margins
 		plotSpaces = [[NSMutableArray alloc] init];
         [self addSublayer:plotArea];
+
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		// TODO: Add resizing code for iPhone
+#else
 		self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin);
+#endif
+		
 		self.fill = nil;
 	}
 	return self;

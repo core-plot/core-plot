@@ -1,6 +1,7 @@
 
 #import "CPGradient.h"
 #import "CPUtilities.h"
+#import "CPLayer.h"
 
 @interface CPGradient ()
 
@@ -52,7 +53,7 @@ static void resolveHSV(float *color1, float *color2);
 
 -(void)_commonInit
 {
-	colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+	colorspace = [CPLayer createGenericRGBSpace];
     elementList = nil;
 }
 
@@ -575,7 +576,13 @@ static void resolveHSV(float *color1, float *color2);
     CPGradientElement *element = [self elementAtIndex:index];
 	
     if (element != nil) {
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		CGFloat colorComponents[4] = {element->color.red, element->color.green, element->color.blue, element->color.alpha};
+		return CGColorCreate(colorspace, colorComponents);
+#else
         return CGColorCreateGenericRGB(element->color.red, element->color.green, element->color.blue, element->color.alpha);
+#endif
+		
 	}
 	
     [NSException raise:NSRangeException format:@"-[%@ colorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
@@ -599,9 +606,20 @@ static void resolveHSV(float *color1, float *color2);
     
 	if (components[3] != 0) {
 		//undo premultiplication that CG requires
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		CGFloat colorComponents[4] = {components[0]/components[3], components[1]/components[3], components[2]/components[3], components[3]};
+		gradientColor = CGColorCreate(colorspace, colorComponents);
+#else
 		gradientColor = CGColorCreateGenericRGB(components[0]/components[3], components[1]/components[3], components[2]/components[3], components[3]);
+#endif
+		
 	} else {
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		CGFloat colorComponents[4] = {components[0], components[1], components[2], components[3]};
+		gradientColor = CGColorCreate(colorspace, colorComponents);
+#else
 		gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
+#endif
 	}
 	
 	return gradientColor;
@@ -684,7 +702,7 @@ static void resolveHSV(float *color1, float *color2);
         CGFloat length;
         CGFloat deltax, deltay;
 		
-        float rangle = self.angle * pi/180;	//convert the angle to radians
+        float rangle = self.angle * M_PI/180;	//convert the angle to radians
 		
         if (fabsf(tan(rangle))<=1) {  //for range [-45,45], [135,225]
             x = CGRectGetWidth(rect);
@@ -702,7 +720,7 @@ static void resolveHSV(float *color1, float *color2);
             x = CGRectGetHeight(rect);
             y = CGRectGetWidth(rect);
             
-			rangle -= pi/2;
+			rangle -= M_PI/2;
 			
             sina = sin(rangle);
             cosa = cos(rangle);

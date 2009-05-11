@@ -3,8 +3,14 @@
 //  CorePlot
 //
 
-#import <ImageIO/ImageIO.h>
 #import "CPImage.h"
+
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+// iPhone-specific image library as equivalent to ImageIO?
+#else
+#import <ImageIO/ImageIO.h>
+#endif
+
 
 @implementation CPImage
 
@@ -54,7 +60,7 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setImage(CGImageRef)anImage
+-(void)setImage:(CGImageRef)anImage
 {
 	if (anImage != image) {
 		CGImageRetain(anImage);

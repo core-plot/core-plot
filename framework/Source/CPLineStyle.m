@@ -1,6 +1,6 @@
 
 #import "CPLineStyle.h"
-
+#import "CPLayer.h"
 
 @implementation CPLineStyle
 
@@ -22,7 +22,7 @@
 		self.lineJoin = kCGLineJoinMiter;
 		self.lineWidth = 1.f;
 		self.patternPhase = CGSizeMake(0.f, 0.f);
-		self.lineColor = CGColorGetConstantColor(kCGColorBlack);
+		self.lineColor = [CPLayer blackColor];
 	}
 
 	return self;

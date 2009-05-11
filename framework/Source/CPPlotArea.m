@@ -14,7 +14,12 @@
 {
 	if ( self = [super init] ) {
 		plotSpaces = [[NSMutableArray alloc] init];
-        self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable);
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		// TODO: Add resizing code for iPhone
+#else
+		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
+#endif
+		
 		self.fill = nil;
 	}
 	return self;

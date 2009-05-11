@@ -14,6 +14,67 @@
 }
 
 #pragma mark -
+#pragma mark Colors and colorspaces
+
++ (CGColorSpaceRef)createGenericRGBSpace;
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+	return CGColorSpaceCreateDeviceRGB();
+#else
+	return CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB); 
+#endif
+} 
+
+// This caches a generic RGB colorspace for repeated use
++ (CGColorSpaceRef)genericRGBSpace;
+{ 
+	static CGColorSpaceRef space = NULL; 
+	if(NULL == space) 
+	{ 
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+		space = CGColorSpaceCreateDeviceRGB();
+#else
+		space = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB); 
+#endif
+	} 
+	return space; 
+} 
+
++ (CGColorRef)clearColor; 
+{ 
+	static CGColorRef clear = NULL; 
+	if(clear == NULL) 
+	{ 
+		CGFloat values[4] = {1.0, 1.0, 1.0, 0.0}; 
+		clear = CGColorCreate([self genericRGBSpace], values); 
+	} 
+	return clear; 
+} 
+
++ (CGColorRef)whiteColor; 
+{ 
+	static CGColorRef white = NULL; 
+	if(white == NULL) 
+	{ 
+		CGFloat values[4] = {1.0, 1.0, 1.0, 1.0}; 
+		white = CGColorCreate([self genericRGBSpace], values); 
+	} 
+	return white; 
+} 
+
++ (CGColorRef)blackColor; 
+{ 
+	static CGColorRef black = NULL; 
+	if(black == NULL) 
+	{ 
+		CGFloat values[4] = {0.0, 0.0, 0.0, 1.0}; 
+		black = CGColorCreate([self genericRGBSpace], values); 
+	} 
+	return black; 
+} 
+
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)drawInContext:(CGContextRef)context

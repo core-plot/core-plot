@@ -48,8 +48,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 +(void)initialize
 {
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#else
     [self exposeBinding:CPScatterPlotBindingXValues];	
     [self exposeBinding:CPScatterPlotBindingYValues];	
+#endif
+	
 }
 
 -(id)init
@@ -66,8 +70,12 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)dealloc
 {
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#else
     if ( self.observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
     if ( self.observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
+#endif
+	
     self.xValues = nil;
     self.yValues = nil;
 	self.plotSymbols = nil;
@@ -76,9 +84,11 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
     [super dealloc];
 }
 
-
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#else
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
+	
     [super bind:binding toObject:observable withKeyPath:keyPath options:options];
     if ([binding isEqualToString:CPScatterPlotBindingXValues]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
@@ -108,6 +118,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 	[super unbind:bindingName];
 	[self reloadData];
 }
+#endif
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

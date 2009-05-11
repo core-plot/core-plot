@@ -48,6 +48,9 @@ NSRange CPExpandedRange(NSRange range, NSInteger expandBy)
 #pragma mark -
 #pragma mark Colors
 
+
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#else
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
 {
     NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
@@ -62,12 +65,14 @@ CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor)
 	
     //put the components of color into the rgbColor - must make sure it is a RGB color (not Gray or CMYK) 
     [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red
-																 green:&rgbColor.green
-																  blue:&rgbColor.blue
-																 alpha:&rgbColor.alpha];
-
+																   green:&rgbColor.green
+																	blue:&rgbColor.blue
+																   alpha:&rgbColor.alpha];
+	
 	return rgbColor;
 }
+#endif
+
 
 CPRGBColor CPRGBColorFromCGColor(CGColorRef color)
 {

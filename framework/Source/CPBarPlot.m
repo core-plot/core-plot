@@ -33,7 +33,8 @@
     [super dealloc];
 }
 
-
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#else
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
     NSUInteger siblingIndex = 0;
@@ -51,7 +52,7 @@
     }
     [self setNeedsDisplay];
 }
-
+#endif
 
 -(void)unbind:(NSString *)bindingName
 {

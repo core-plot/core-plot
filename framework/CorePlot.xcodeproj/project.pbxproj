@@ -136,6 +136,35 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
+		BC9B821D0FB898480035D8DA /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D710F2B718F002FCEA7 /* CPGraph.m */; };
+		BC9B821E0FB898480035D8DA /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */; };
+		BC9B821F0FB898480035D8DA /* CPPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */; };
+		BC9B82200FB898480035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D7F0F2B72F6002FCEA7 /* CPPlot.m */; };
+		BC9B82210FB898480035D8DA /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D830F2B7340002FCEA7 /* CPAxisSet.m */; };
+		BC9B82220FB898480035D8DA /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
+		BC9B82230FB898480035D8DA /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
+		BC9B82240FB898480035D8DA /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
+		BC9B82250FB898480035D8DA /* CPXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EF50F2F9A3D008C8618 /* CPXYGraph.m */; };
+		BC9B82260FB898480035D8DA /* CPBarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EFE0F2F9B50008C8618 /* CPBarGraph.m */; };
+		BC9B82270FB898480035D8DA /* CPPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */; };
+		BC9B82280FB898480035D8DA /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
+		BC9B82290FB898480035D8DA /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
+		BC9B822A0FB898480035D8DA /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
+		BC9B822B0FB898480035D8DA /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
+		BC9B822C0FB898480035D8DA /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C420F3B816600DE45DC /* CPXYAxisSet.m */; };
+		BC9B822D0FB898480035D8DA /* CPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C480F3B818800DE45DC /* CPAxis.m */; };
+		BC9B822E0FB898480035D8DA /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */; };
+		BC9B822F0FB898480035D8DA /* CPLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7EB0F4B4F9600F9BCBB /* CPLayer.m */; };
+		BC9B82300FB898480035D8DA /* NSDecimalNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */; };
+		BC9B82310FB898480035D8DA /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
+		BC9B82320FB898480035D8DA /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
+		BC9B82330FB898480035D8DA /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
+		BC9B82340FB898480035D8DA /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
+		BC9B82350FB898480035D8DA /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
+		BC9B82360FB898480035D8DA /* _CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* _CPFillGradient.m */; };
+		BC9B82370FB898480035D8DA /* CPFill.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601A0FAE096C00072842 /* CPFill.m */; };
+		BC9B82380FB898480035D8DA /* _CPFillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601C0FAE096C00072842 /* _CPFillColor.m */; };
+		BC9B82390FB898480035D8DA /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
 		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -647,6 +676,7 @@
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
+		BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
 		C34260180FAE096C00072842 /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
@@ -727,6 +757,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BC9B81EF0FB897ED0035D8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -737,6 +774,7 @@
 				4CBF252C0F3CDED400DAE1A8 /* CorePlot-UnitTests.octest */,
 				4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */,
 				4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */,
+				BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1565,6 +1603,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BC9B81ED0FB897ED0035D8DA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1647,6 +1692,23 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		BC9B81F00FB897ED0035D8DA /* CorePlot-CocoaTouch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC9B81FA0FB8980C0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */;
+			buildPhases = (
+				BC9B81ED0FB897ED0035D8DA /* Headers */,
+				BC9B81EE0FB897ED0035D8DA /* Sources */,
+				BC9B81EF0FB897ED0035D8DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CorePlot-CocoaTouch";
+			productName = "CorePlot-CocoaTouch";
+			productReference = BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1674,6 +1736,7 @@
 				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
 				4C2D59F50FB78DC3008275E0 /* All Tests */,
 				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
+				BC9B81F00FB897ED0035D8DA /* CorePlot-CocoaTouch */,
 			);
 		};
 /* End PBXProject section */
@@ -1919,6 +1982,42 @@
 				C34260220FAE096D00072842 /* CPFill.m in Sources */,
 				C34260240FAE096D00072842 /* _CPFillColor.m in Sources */,
 				C34260250FAE096D00072842 /* _CPFillImage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC9B81EE0FB897ED0035D8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC9B821D0FB898480035D8DA /* CPGraph.m in Sources */,
+				BC9B821E0FB898480035D8DA /* CPPlotArea.m in Sources */,
+				BC9B821F0FB898480035D8DA /* CPPlotSpace.m in Sources */,
+				BC9B82200FB898480035D8DA /* CPPlot.m in Sources */,
+				BC9B82210FB898480035D8DA /* CPAxisSet.m in Sources */,
+				BC9B82220FB898480035D8DA /* CPScatterPlot.m in Sources */,
+				BC9B82230FB898480035D8DA /* CPDefinitions.m in Sources */,
+				BC9B82240FB898480035D8DA /* CPBarPlot.m in Sources */,
+				BC9B82250FB898480035D8DA /* CPXYGraph.m in Sources */,
+				BC9B82260FB898480035D8DA /* CPBarGraph.m in Sources */,
+				BC9B82270FB898480035D8DA /* CPPolarPlotSpace.m in Sources */,
+				BC9B82280FB898480035D8DA /* CPCartesianPlotSpace.m in Sources */,
+				BC9B82290FB898480035D8DA /* CPExceptions.m in Sources */,
+				BC9B822A0FB898480035D8DA /* CPUtilities.m in Sources */,
+				BC9B822B0FB898480035D8DA /* CPLineStyle.m in Sources */,
+				BC9B822C0FB898480035D8DA /* CPXYAxisSet.m in Sources */,
+				BC9B822D0FB898480035D8DA /* CPAxis.m in Sources */,
+				BC9B822E0FB898480035D8DA /* CPTextLayer.m in Sources */,
+				BC9B822F0FB898480035D8DA /* CPLayer.m in Sources */,
+				BC9B82300FB898480035D8DA /* NSDecimalNumberExtensions.m in Sources */,
+				BC9B82310FB898480035D8DA /* CPPlotRange.m in Sources */,
+				BC9B82320FB898480035D8DA /* CPDecimalNumberValueTransformer.m in Sources */,
+				BC9B82330FB898480035D8DA /* CPPlotSymbol.m in Sources */,
+				BC9B82340FB898480035D8DA /* CPGradient.m in Sources */,
+				BC9B82350FB898480035D8DA /* NSNumberExtensions.m in Sources */,
+				BC9B82360FB898480035D8DA /* _CPFillGradient.m in Sources */,
+				BC9B82370FB898480035D8DA /* CPFill.m in Sources */,
+				BC9B82380FB898480035D8DA /* _CPFillColor.m in Sources */,
+				BC9B82390FB898480035D8DA /* _CPFillImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2285,6 +2384,31 @@
 			};
 			name = Release;
 		};
+		BC9B81F20FB897ED0035D8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PREBINDING = NO;
+				PRODUCT_NAME = "CorePlot-CocoaTouch";
+			};
+			name = Debug;
+		};
+		BC9B81F30FB897ED0035D8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2338,6 +2462,15 @@
 			buildConfigurations = (
 				4CBF252E0F3CDED500DAE1A8 /* Debug */,
 				4CBF252F0F3CDED500DAE1A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC9B81FA0FB8980C0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC9B81F20FB897ED0035D8DA /* Debug */,
+				BC9B81F30FB897ED0035D8DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
