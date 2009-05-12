@@ -6,9 +6,8 @@
 @implementation CPAxisSet
 
 @synthesize axes;
-@synthesize plotSpace;
 
-- (id) init
+-(id)init
 {
 	self = [super init];
 	if (self != nil) {
@@ -24,15 +23,12 @@
 }
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
-	for (CPAxis* axis in self.axes)
-		[axis drawInContext:theContext withPlotSpace:self.plotSpace];
-	
+	for (CPAxis* axis in self.axes) [axis drawInContext:theContext];
 }
 
 
 -(void)dealloc {
     self.axes = nil;
-	self.plotSpace = nil;
 	[super dealloc];
 }
 

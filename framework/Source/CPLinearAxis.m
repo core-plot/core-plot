@@ -1,13 +1,11 @@
 
-
 #import "CPLinearAxis.h"
-
 
 @implementation CPLinearAxis
 
 @synthesize angle;
 
--(void)drawInContext:(CGContextRef)theContext withPlotSpace:(CPPlotSpace*)aPlotSpace {
+-(void)drawInContext:(CGContextRef)theContext {
 	NSLog(@"Drawing Axis");
 }
 
