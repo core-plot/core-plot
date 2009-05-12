@@ -59,9 +59,9 @@ CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
     return CGColorCreateGenericRGB(r, g, b, a);
 }
 
-CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor)
+CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor)
 {
-	CPRGBColor rgbColor;
+	CPRGBAColor rgbColor;
 	
     //put the components of color into the rgbColor - must make sure it is a RGB color (not Gray or CMYK) 
     [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red
@@ -74,9 +74,9 @@ CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor)
 #endif
 
 
-CPRGBColor CPRGBColorFromCGColor(CGColorRef color)
+CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
 {
-	CPRGBColor rgbColor;
+	CPRGBAColor rgbColor;
 	
 	size_t numComponents = CGColorGetNumberOfComponents(color);
 	

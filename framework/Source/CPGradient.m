@@ -159,8 +159,8 @@ static void resolveHSV(float *color1, float *color2);
     CPGradientElement color1;
     CPGradientElement color2;
 	
-	color1.color = CPRGBColorFromCGColor(begin.cgColor);
-	color2.color = CPRGBColorFromCGColor(end.cgColor);
+	color1.color = CPRGBAColorFromCGColor(begin.cgColor);
+	color2.color = CPRGBAColorFromCGColor(end.cgColor);
 	
     color1.position = 0;
     color2.position = 1;
@@ -536,7 +536,7 @@ static void resolveHSV(float *color1, float *color2);
     CPGradientElement newGradientElement;
 	
     //put the components of color into the newGradientElement - must make sure it is a RGB color (not Gray or CMYK)
-	newGradientElement.color = CPRGBColorFromCGColor(color.cgColor);
+	newGradientElement.color = CPRGBAColorFromCGColor(color.cgColor);
     newGradientElement.position = position;
 	
     //Pass it off to addElement to take care of adding it to the elementList

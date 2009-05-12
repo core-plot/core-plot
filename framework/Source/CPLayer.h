@@ -1,14 +1,7 @@
 
-
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-#import <UIKit/UIKit.h>
-#define PLATFORMIMAGETYPE UIImage
-#else
-#define PLATFORMIMAGETYPE NSBitmapImageRep
-#endif
+#import "CPPlatformSpecificDefines.h"
 
 @interface CPLayer : CALayer {
 
@@ -18,6 +11,5 @@
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
--(PLATFORMIMAGETYPE *)imageOfLayer;
 
 @end

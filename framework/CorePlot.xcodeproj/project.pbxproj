@@ -29,6 +29,18 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
+		0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
+		0789EF360FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
+		0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */; };
+		0789EF380FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
+		0789EF490FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
+		0789EF4A0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
+		0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */; };
+		0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
+		0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */; };
+		0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };
+		0789EF8D0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };
+		0789EF8E0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };
 		078F42DB0FACC075006E670B /* NSNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 078F42D90FACC075006E670B /* NSNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		078F42DC0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
 		078F42DD0FACC075006E670B /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
@@ -347,6 +359,12 @@
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
+		0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
+		0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificDefines.m; sourceTree = "<group>"; };
+		0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificCategories.h; sourceTree = "<group>"; };
+		0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificCategories.m; sourceTree = "<group>"; };
+		0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificFunctions.h; sourceTree = "<group>"; };
+		0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificFunctions.m; sourceTree = "<group>"; };
 		078F42D90FACC075006E670B /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		078F42DA0FACC075006E670B /* NSNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberExtensions.m; sourceTree = "<group>"; };
 		07975C410F3B816600DE45DC /* CPXYAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxisSet.h; sourceTree = "<group>"; };
@@ -865,28 +883,26 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		07BF0D5E0F2B6FE1002FCEA7 /* iPhone Only */ = {
+		07BF0D5F0F2B6FE1002FCEA7 /* Mac Specific */ = {
 			isa = PBXGroup;
 			children = (
+				0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */,
+				0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */,
+				0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */,
+				0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */,
+				0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */,
+				0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */,
 			);
-			name = "iPhone Only";
-			path = iPhoneOnly;
-			sourceTree = "<group>";
-		};
-		07BF0D5F0F2B6FE1002FCEA7 /* Mac Only */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Mac Only";
+			name = "Mac Specific";
 			path = MacOnly;
 			sourceTree = "<group>";
 		};
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				4CD7E7E90F4B4F8700F9BCBB /* Root */,
 				906156BA0F375558001B75FC /* Drawing */,
-				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				070A73DF0F5D8D7D0014FA84 /* Value Transformers */,
 				07975C230F3B3DF200DE45DC /* Categories */,
 				07983EF20F2F9A22008C8618 /* Graphs */,
@@ -981,8 +997,7 @@
 				4C993E9E0F45ECCA00DC824F /* GTM Source */,
 				4C99408D0F45F71100DC824F /* Testing */,
 				07BF0D600F2B6FE1002FCEA7 /* Source */,
-				07BF0D5E0F2B6FE1002FCEA7 /* iPhone Only */,
-				07BF0D5F0F2B6FE1002FCEA7 /* Mac Only */,
+				07BF0D5F0F2B6FE1002FCEA7 /* Mac Specific */,
 				4C32D37A0F43B3B400EDFE7A /* Test Host */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -1636,6 +1651,9 @@
 				079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */,
 				079FC0B50FB975500037E990 /* CPColor.h in Headers */,
 				079FC0BE0FB9762B0037E990 /* CPColorSpace.h in Headers */,
+				0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */,
+				0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */,
+				0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1950,6 +1968,7 @@
 				079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B70FB975500037E990 /* CPColor.m in Sources */,
 				079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */,
+				0789EF8E0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1963,6 +1982,8 @@
 				079FC0A60FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B40FB975500037E990 /* CPColor.m in Sources */,
 				079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */,
+				0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
+				0789EF490FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1994,6 +2015,9 @@
 				079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0BA0FB975500037E990 /* CPColor.m in Sources */,
 				079FC0C30FB9762B0037E990 /* CPColorSpace.m in Sources */,
+				0789EF360FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
+				0789EF4A0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
+				0789EF8D0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2033,6 +2057,9 @@
 				079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B60FB975500037E990 /* CPColor.m in Sources */,
 				079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */,
+				0789EF380FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
+				0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
+				0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

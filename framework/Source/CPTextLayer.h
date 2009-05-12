@@ -4,19 +4,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CPLayer.h"
 
+@class CPColor;
+
 @interface CPTextLayer : CPLayer {
 	NSString *text;
     NSString *fontName;
 	CGFloat fontSize;
-	CGColorRef fontColor;
+    CPColor *fontColor;
 }
 
 @property(readwrite, copy, nonatomic) NSString *text;
 @property(readwrite, copy, nonatomic) NSString *fontName;
-@property(readwrite, nonatomic) CGFloat fontSize;
-
-// Cached colors
-+(CGColorRef)blackColor; 
+@property(readwrite, nonatomic) CGFloat fontSize; 
 
 // Initialization and teardown
 +(NSString *)defaultFontName;

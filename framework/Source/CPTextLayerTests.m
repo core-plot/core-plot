@@ -1,10 +1,3 @@
-//
-//  CPTextLayerTests.m
-//  CorePlot
-//
-//  Created by Barry Wark on 2/17/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
-//
 
 #import "CPTextLayerTests.h"
 #import "CPTextLayer.h"

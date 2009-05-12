@@ -31,7 +31,7 @@
 	[super dealloc];
 }
 
-#pragma mark <NSCoding>
+#pragma mark NSCoding
 - (void)encodeWithCoder:(NSCoder *)encoder 
 {
     [encoder encodeObject:self.location];

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */; };
+		0789EFBF0FB9F97F00C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */; };
+		0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */; };
+		0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */; };
+		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; };
+		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
 		079FC1B60FB989200037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B20FB989200037E990 /* CPColor.h */; };
 		079FC1B70FB989200037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B30FB989200037E990 /* CPColor.m */; };
 		079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B40FB989200037E990 /* CPColorSpace.h */; };
@@ -51,6 +57,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificCategories.h; sourceTree = "<group>"; };
+		0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificCategories.m; sourceTree = "<group>"; };
+		0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
+		0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificDefines.m; sourceTree = "<group>"; };
+		0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificFunctions.h; sourceTree = "<group>"; };
+		0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificFunctions.m; sourceTree = "<group>"; };
 		079FC1B20FB989200037E990 /* CPColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPColor.h; path = Source/CPColor.h; sourceTree = "<group>"; };
 		079FC1B30FB989200037E990 /* CPColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPColor.m; path = Source/CPColor.m; sourceTree = "<group>"; };
 		079FC1B40FB989200037E990 /* CPColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPColorSpace.h; path = Source/CPColorSpace.h; sourceTree = "<group>"; };
@@ -187,6 +199,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0789EFB70FB9F97F00C0A613 /* iPhone Specific */ = {
+			isa = PBXGroup;
+			children = (
+				0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */,
+				0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */,
+				0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */,
+				0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */,
+				0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */,
+				0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */,
+			);
+			name = "iPhone Specific";
+			path = iPhoneOnly;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,7 +224,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				BC9B826B0FB89C1F0035D8DA /* iPhone Only */,
+				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				BC9B82520FB89B420035D8DA /* Source */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -240,6 +266,7 @@
 		BC9B82520FB89B420035D8DA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BC9B826E0FB89E610035D8DA /* Root */,
 				BC9B82DC0FB89E610035D8DA /* Axes */,
 				BC9B82CE0FB89E610035D8DA /* Plots */,
 				BC9B82C50FB89E610035D8DA /* Spaces */,
@@ -270,16 +297,8 @@
 				BC9B82A10FB89E610035D8DA /* CPTextLayerTests.m */,
 				BC9B82710FB89E610035D8DA /* CPLayer.h */,
 				BC9B82720FB89E610035D8DA /* CPLayer.m */,
-				BC9B826E0FB89E610035D8DA /* Root */,
 			);
 			name = Source;
-			sourceTree = "<group>";
-		};
-		BC9B826B0FB89C1F0035D8DA /* iPhone Only */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "iPhone Only";
 			sourceTree = "<group>";
 		};
 		BC9B826E0FB89E610035D8DA /* Root */ = {
@@ -476,6 +495,9 @@
 				079FC1B60FB989200037E990 /* CPColor.h in Headers */,
 				079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */,
 				079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */,
+				0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */,
+				0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */,
+				0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +576,9 @@
 				079FC1B70FB989200037E990 /* CPColor.m in Sources */,
 				079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */,
 				079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */,
+				0789EFBF0FB9F97F00C0A613 /* CPPlatformSpecificCategories.m in Sources */,
+				0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */,
+				0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

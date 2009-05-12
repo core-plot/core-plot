@@ -1,6 +1,10 @@
 
 
 #import "CPTextLayer.h"
+#import "CPPlatformSpecificFunctions.h"
+#import "CPColor.h"
+#import "CPColorSpace.h"
+
 
 #define USECROSSPLATFORMUNICODETEXTRENDERING
 
@@ -28,7 +32,7 @@
 		self.needsDisplayOnBoundsChange = NO;
 		fontSize = newFontSize;
         fontName = [[[self class] defaultFontName] retain];
-		fontColor = [CPTextLayer blackColor];
+		fontColor = [CPColor blackColor];
 		text = [newText copy];
 		[self sizeToFit];
 	}
@@ -37,42 +41,11 @@
 
 -(void)dealloc 
 {
+    [fontColor release];
     [fontName release];
     [text release];
-    
     [super dealloc];
 }
-
-#pragma mark -
-#pragma mark Cached colors
-
-+(CGColorSpaceRef)genericRGBSpace
-{ 
-	static CGColorSpaceRef space = NULL; 
-	if(NULL == space) 
-	{ 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-		space = CGColorSpaceCreateDeviceRGB();
-#else
-		space = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 
-#endif
-	} 
-	return space; 
-} 
-
-+(CGColorRef)blackColor
-{ 
-	static CGColorRef black = NULL; 
-	if(black == NULL) 
-	{ 
-		CGColorSpaceRef rgbColorspace = CGColorSpaceCreateDeviceRGB();
-		
-		CGFloat values[4] = {0.0, 0.0, 0.0, 1.0}; 
-		black = CGColorCreate(rgbColorspace, values); 
-		CGColorSpaceRelease(rgbColorspace);
-	} 
-	return black; 
-} 
 
 #pragma mark -
 #pragma mark Layout
@@ -103,16 +76,11 @@
 	
 #if defined(USECROSSPLATFORMUNICODETEXTRENDERING)
 	// Cross-platform text drawing, with Unicode support
+
+    CPPushCGContext(context);
 	
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-	UIGraphicsPushContext(context);
-#else
-	NSGraphicsContext *oldContext = [NSGraphicsContext currentContext];
-	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]];
-#endif
-	
-	CGContextSetStrokeColorWithColor(context, fontColor);	
-	CGContextSetFillColorWithColor(context, fontColor);
+	CGContextSetStrokeColorWithColor(context, fontColor.cgColor);	
+	CGContextSetFillColorWithColor(context, fontColor.cgColor);
 	CGContextSetAllowsAntialiasing(context, true);
 	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
@@ -132,11 +100,7 @@
 	
 	CGContextSetAllowsAntialiasing(context, false);
 	
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-	UIGraphicsPopContext();	
-#else
-	[NSGraphicsContext setCurrentContext:oldContext];
-#endif
+    CPPopCGContext();
 	
 #else
 	// Pure Quartz drawing:

@@ -6,7 +6,7 @@
 #import "CPDefinitions.h"
 
 typedef struct _CPGradientElement {
-	CPRGBColor color;
+	CPRGBAColor color;
 	float position;
 	
 	struct _CPGradientElement *nextElement;
@@ -27,7 +27,7 @@ typedef enum _CPGradientType {
 @class CPColor;
 
 @interface CPGradient : NSObject <NSCopying, NSCoding>  {
-@private
+    @private
 	CPColorSpace *colorspace;
 	CPGradientElement *elementList;
 	CPGradientBlendingMode blendingMode;

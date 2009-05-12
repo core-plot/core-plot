@@ -16,7 +16,7 @@ NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 #else
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);
 
-CPRGBColor CPRGBColorFromNSColor(NSColor *nsColor);
+CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor);
 #endif
 
-CPRGBColor CPRGBColorFromCGColor(CGColorRef color);
+CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);

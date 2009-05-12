@@ -24,8 +24,8 @@ typedef enum _CPScaleType {
     CPScaleTypeAngular
 } CPScaleType;
 
-// RGB colors for CPGradient
-typedef struct _CPRGBColor {
+// RGBA colors for CPGradient
+typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;
-} CPRGBColor;
+} CPRGBAColor;
 

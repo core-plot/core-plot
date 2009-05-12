@@ -7,7 +7,7 @@
 
 
 @interface CPImage : NSObject <NSCopying> {
-@private
+    @private
 	CGImageRef image;
 	BOOL tiled;
 }
