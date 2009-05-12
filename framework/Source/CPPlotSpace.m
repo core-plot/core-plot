@@ -35,26 +35,17 @@
 #pragma mark -
 #pragma mark AxisSet Management
 
-//-(void)setAxisSet:(CPAxisSet*)aAxisSet
-//{
-//	if (axisSet != aAxisSet)
-//	{
-//		[aAxisSet retain];
-//		[axisSet removeFromSuperlayer];
-//		[axisSet release];
-//		axisSet = aAxisSet;
-//		[self addSublayer:axisSet];
-//		axisSet.frame = self.bounds;
-//	}
-//}
-//
-
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)setAxisSet:(CPAxisSet*)aAxisSet
 {
-	[axisSet drawInContext:theContext withPlotSpace:self];
+	if (axisSet != aAxisSet)
+	{
+		[aAxisSet retain];
+		[axisSet removeFromSuperlayer];
+		[axisSet release];
+		axisSet = aAxisSet;
+		[self addSublayer:axisSet];
+		axisSet.frame = self.bounds;
+	}
 }
 
 @end

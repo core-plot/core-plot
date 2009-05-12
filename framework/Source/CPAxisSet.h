@@ -7,11 +7,13 @@
 
 @interface CPAxisSet : CPLayer {
     NSArray *axes;
+	CPPlotSpace* plotSpace;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
+@property (nonatomic, readwrite, retain) CPPlotSpace* plotSpace;
 
--(void)drawInContext:(CGContextRef)theContext withPlotSpace:(CPPlotSpace*)aPlotSpace;
+-(void)renderAsVectorInContext:(CGContextRef)theContext;
 
 
 @end
