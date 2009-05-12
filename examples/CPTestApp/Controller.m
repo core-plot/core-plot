@@ -125,9 +125,11 @@
 	
 	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
 	{
-		NSBitmapImageRep *imageRepresentation = [graph imageOfLayer];
-		NSData *dataForPNG = [imageRepresentation representationUsingType:NSPNGFileType properties:nil];
-		[dataForPNG writeToFile:[pngSavingDialog filename] atomically:NO];
+		NSImage *image = [graph imageOfLayer];
+        NSData *tiffData = [image TIFFRepresentation];
+        NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
+        NSData *pngData = [tiffRep representationUsingType:NSPNGFileType properties:nil];
+		[pngData writeToFile:[pngSavingDialog filename] atomically:NO];
 	}		
 }
 

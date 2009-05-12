@@ -36,15 +36,15 @@
 	graph.frame = self.view.bounds;
 	
 	CGFloat grayColorComponents[4] = {0.7, 0.7, 0.7, 1.0};
-	CGColorRef grayColor =  CGColorCreate([CPLayer genericRGBSpace], grayColorComponents);
+	CGColorRef grayColor =  CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, grayColorComponents);
 
-	graph.fill = [CPFill fillWithColor:grayColor];
+	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
 	CGFloat darkGrayColorComponents[4] = {0.2, 0.2, 0.2, 0.3};
-	grayColor =  CGColorCreate([CPLayer genericRGBSpace], darkGrayColorComponents);
+	grayColor =  CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, darkGrayColorComponents);
 	
-	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
 	[self.view.layer addSublayer:graph];
@@ -58,18 +58,15 @@
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-	CGFloat redColorComponents[4] = {1.0, 0.0, 0.0, 1.0};
-	CGColorRef redColor =  CGColorCreate([CPLayer genericRGBSpace], redColorComponents);
-    dataSourceLinePlot.dataLineStyle.lineColor = redColor;
-    CGColorRelease(redColor);
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
 	// Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGFloat greenColorComponents[4] = {0.0, 1.0, 0.0, 1.0};
-	CGColorRef greenColor =  CGColorCreate([CPLayer genericRGBSpace], greenColorComponents);
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
+	CGColorRef greenColor =  CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, greenColorComponents);
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(10.0, 10.0);
     dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);

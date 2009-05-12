@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */; };
+		0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFBF0FB9F97F00C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */; };
-		0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */; };
+		0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */; };
-		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; };
+		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
-		079FC1B60FB989200037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B20FB989200037E990 /* CPColor.h */; };
+		079FC1B60FB989200037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B20FB989200037E990 /* CPColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC1B70FB989200037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B30FB989200037E990 /* CPColor.m */; };
-		079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B40FB989200037E990 /* CPColorSpace.h */; };
+		079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B40FB989200037E990 /* CPColorSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B50FB989200037E990 /* CPColorSpace.m */; };
-		079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */; };
+		079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */; };
 		BC9B834B0FB8A1400035D8DA /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DE0FB89E610035D8DA /* CPAxisSet.m */; };
 		BC9B834C0FB8A1400035D8DA /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82E00FB89E610035D8DA /* CPXYAxisSet.m */; };
@@ -53,7 +53,7 @@
 		BC9B836F0FB8A1700035D8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		BC9B83700FB8A1700035D8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		BC9B83710FB8A1700035D8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */; };
+		BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

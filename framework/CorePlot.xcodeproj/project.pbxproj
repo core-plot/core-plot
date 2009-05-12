@@ -31,13 +31,13 @@
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
 		0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EF360FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
-		0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */; };
+		0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EF380FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EF490FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
 		0789EF4A0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
-		0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */; };
+		0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */; };
-		0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */; };
+		0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };
 		0789EF8D0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };
 		0789EF8E0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */; };

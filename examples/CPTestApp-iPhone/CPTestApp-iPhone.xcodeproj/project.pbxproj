@@ -26,14 +26,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BC9B83B00FB8A9BC0035D8DA /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		BC9B83B60FB8A9C70035D8DA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC9B83B00FB8A9BC0035D8DA /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -196,10 +196,9 @@
 		BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			name = "libCorePlot-CocoaTouch.a";
-			path = "build/Debug-iphonesimulator/libCorePlot-CocoaTouch.a";
+			path = "libCorePlot-CocoaTouch.a";
 			remoteRef = BC9B83B40FB8A9BC0035D8DA /* PBXContainerItemProxy */;
-			sourceTree = "<group>";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
 
@@ -248,6 +247,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					../../framework/iPhoneOnly,
+					../../framework/Source,
+					../../framework,
+				);
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

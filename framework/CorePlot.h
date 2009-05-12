@@ -12,6 +12,9 @@
 #import <CorePlot/CPGradient.h>
 #import <CorePlot/CPGraph.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPPlatformSpecificDefines.h>
+#import <CorePlot/CPPlatformSpecificFunctions.h>
+#import <CorePlot/CPPlatformSpecificCategories.h>
 #import <CorePlot/CPPlotArea.h>
 #import <CorePlot/CPPlot.h>
 #import <CorePlot/CPPlotSpace.h>
