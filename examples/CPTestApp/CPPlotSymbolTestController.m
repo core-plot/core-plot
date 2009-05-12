@@ -13,11 +13,11 @@
     graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-	graph.fill = [CPFill fillWithColor:grayColor];
+	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 
     [hostView setLayer:graph];
@@ -37,9 +37,7 @@
 		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
 		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-		CGColorRef redColor = CPNewCGColorFromNSColor([NSColor redColor]);
-		dataSourceLinePlot.dataLineStyle.lineColor = redColor;
-		CGColorRelease(redColor);
+		dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
 		dataSourceLinePlot.dataSource = self;
 		
 		// add plot symbols

@@ -5,7 +5,7 @@
 
 @class CPPlotSpace;
 
-@interface CPAxisSet : NSObject {
+@interface CPAxisSet : CPLayer {
     NSArray *axes;
 }
 

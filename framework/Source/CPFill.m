@@ -7,6 +7,7 @@
 #import "_CPFillColor.h"
 #import "_CPFillGradient.h"
 #import "_CPFillImage.h"
+#import "CPColor.h"
 
 
 @implementation CPFill
@@ -14,9 +15,9 @@
 #pragma mark -
 #pragma mark init/dealloc
 
-+(CPFill *)fillWithColor:(CGColorRef)aColor 
++(CPFill *)fillWithColor:(CPColor *)aColor 
 {
-	return [[(_CPFillColor *)[_CPFillColor alloc] initWithColor: aColor] autorelease];
+	return [[(_CPFillColor *)[_CPFillColor alloc] initWithColor:aColor] autorelease];
 }
 
 +(CPFill *)fillWithGradient:(CPGradient *)aGradient 
@@ -29,7 +30,7 @@
 	return [[[_CPFillImage alloc] initWithImage: anImage] autorelease];
 }
 
--(id)initWithColor:(CGColorRef)aColor 
+-(id)initWithColor:(CPColor *)aColor 
 {
 	[self release];
 	

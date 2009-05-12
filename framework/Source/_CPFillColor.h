@@ -8,10 +8,10 @@
 
 
 @interface _CPFillColor : CPFill <NSCopying> {
-	CGColorRef fillColor;
+	CPColor *fillColor;
 }
 
--(id)initWithColor:(CGColorRef)aCcolor;
+-(id)initWithColor:(CPColor *)aCcolor;
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
 -(id)copyWithZone:(NSZone *)zone;

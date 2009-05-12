@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		079FC1B60FB989200037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B20FB989200037E990 /* CPColor.h */; };
+		079FC1B70FB989200037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B30FB989200037E990 /* CPColor.m */; };
+		079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B40FB989200037E990 /* CPColorSpace.h */; };
+		079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B50FB989200037E990 /* CPColorSpace.m */; };
+		079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */; };
+		079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */; };
 		BC9B834B0FB8A1400035D8DA /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DE0FB89E610035D8DA /* CPAxisSet.m */; };
 		BC9B834C0FB8A1400035D8DA /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82E00FB89E610035D8DA /* CPXYAxisSet.m */; };
 		BC9B834D0FB8A1400035D8DA /* CPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82E20FB89E610035D8DA /* CPAxis.m */; };
@@ -45,6 +51,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		079FC1B20FB989200037E990 /* CPColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPColor.h; path = Source/CPColor.h; sourceTree = "<group>"; };
+		079FC1B30FB989200037E990 /* CPColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPColor.m; path = Source/CPColor.m; sourceTree = "<group>"; };
+		079FC1B40FB989200037E990 /* CPColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPColorSpace.h; path = Source/CPColorSpace.h; sourceTree = "<group>"; };
+		079FC1B50FB989200037E990 /* CPColorSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPColorSpace.m; path = Source/CPColorSpace.m; sourceTree = "<group>"; };
+		079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLinearAxis.h; path = Source/CPLinearAxis.h; sourceTree = "<group>"; };
+		079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLinearAxis.m; path = Source/CPLinearAxis.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -156,7 +168,7 @@
 		BC9B82E00FB89E610035D8DA /* CPXYAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYAxisSet.m; path = Source/CPXYAxisSet.m; sourceTree = SOURCE_ROOT; };
 		BC9B82E10FB89E610035D8DA /* CPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAxis.h; path = Source/CPAxis.h; sourceTree = SOURCE_ROOT; };
 		BC9B82E20FB89E610035D8DA /* CPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAxis.m; path = Source/CPAxis.m; sourceTree = SOURCE_ROOT; };
-		BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libCorePlot-CocoaTouch.a"; path = "build/Debug-iphonesimulator/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -282,6 +294,10 @@
 		BC9B82730FB89E610035D8DA /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
+				079FC1B20FB989200037E990 /* CPColor.h */,
+				079FC1B30FB989200037E990 /* CPColor.m */,
+				079FC1B40FB989200037E990 /* CPColorSpace.h */,
+				079FC1B50FB989200037E990 /* CPColorSpace.m */,
 				BC9B827D0FB89E610035D8DA /* CPGradient.h */,
 				BC9B827E0FB89E610035D8DA /* CPGradient.m */,
 				BC9B827F0FB89E610035D8DA /* CPImage.h */,
@@ -437,6 +453,8 @@
 		BC9B82DC0FB89E610035D8DA /* Axes */ = {
 			isa = PBXGroup;
 			children = (
+				079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */,
+				079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */,
 				BC9B82DD0FB89E610035D8DA /* CPAxisSet.h */,
 				BC9B82DE0FB89E610035D8DA /* CPAxisSet.m */,
 				BC9B82DF0FB89E610035D8DA /* CPXYAxisSet.h */,
@@ -455,6 +473,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */,
+				079FC1B60FB989200037E990 /* CPColor.h in Headers */,
+				079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */,
+				079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +551,9 @@
 				BC9B83670FB8A1400035D8DA /* CPLineStyle.m in Sources */,
 				BC9B83680FB8A1400035D8DA /* CPTextLayer.m in Sources */,
 				BC9B83690FB8A1400035D8DA /* CPLayer.m in Sources */,
+				079FC1B70FB989200037E990 /* CPColor.m in Sources */,
+				079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */,
+				079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,13 +14,6 @@
 
 }
 
-// Colors and colorspaces
-+ (CGColorSpaceRef)createGenericRGBSpace;
-+ (CGColorSpaceRef)genericRGBSpace;
-+ (CGColorRef)clearColor; 
-+ (CGColorRef)whiteColor; 
-+ (CGColorRef)blackColor; 
-
 // Drawing
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;

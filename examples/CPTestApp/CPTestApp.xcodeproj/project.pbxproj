@@ -57,7 +57,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */;
+			remoteGlobalIDString = BC9B81F10FB897ED0035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -347,6 +347,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "-lgcov";

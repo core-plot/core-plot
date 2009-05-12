@@ -9,6 +9,7 @@
 #import "CPPlotArea.h"
 #import "CPPlotSymbol.h"
 #import "CPFill.h"
+#import "CPColor.h"
 #import "GTMTestTimer.h"
 
 @interface CPXYGraph (UnitTesting)
@@ -36,11 +37,11 @@
     self.graph = [[[CPXYGraph alloc] init] autorelease];
  
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-	self.graph.fill = [CPFill fillWithColor:grayColor];
+	self.graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	self.graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	self.graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
     self.nRecords = 100;
@@ -69,7 +70,7 @@
     // Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(5.0, 5.0);
     scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);

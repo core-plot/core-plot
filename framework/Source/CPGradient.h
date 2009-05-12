@@ -23,10 +23,12 @@ typedef enum _CPGradientType {
 	CPRadialGradientType
 } CPGradientType;
 
+@class CPColorSpace;
+@class CPColor;
 
 @interface CPGradient : NSObject <NSCopying, NSCoding>  {
 @private
-	CGColorSpaceRef colorspace;
+	CPColorSpace *colorspace;
 	CPGradientElement *elementList;
 	CPGradientBlendingMode blendingMode;
 	CGFunctionRef gradientFunction;
@@ -38,7 +40,7 @@ typedef enum _CPGradientType {
 @property (assign) CGFloat angle;
 @property (assign) CPGradientType gradientType;
 
-+(CPGradient *)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end;
++(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end;
 
 +(CPGradient *)aquaSelectedGradient;
 +(CPGradient *)aquaNormalGradient;
@@ -57,7 +59,7 @@ typedef enum _CPGradientType {
 
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha;
 
--(CPGradient *)addColorStop:(CGColorRef)color atPosition:(float)position;	// positions given relative to [0,1]
+-(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position;	// positions given relative to [0,1]
 -(CPGradient *)removeColorStopAtIndex:(NSUInteger)index;
 -(CPGradient *)removeColorStopAtPosition:(float)position;
 

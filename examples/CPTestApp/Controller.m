@@ -21,11 +21,11 @@
     graph = [[CPXYGraph alloc] init];
 	graph.frame = NSRectToCGRect(hostView.bounds);
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-	graph.fill = [CPFill fillWithColor:grayColor];
+	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 		
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	graph.plotArea.fill = [CPFill fillWithColor:grayColor];
+	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
     [hostView setLayer:graph];
@@ -47,7 +47,7 @@
 	// Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:greenColor];
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(10.0, 10.0);
     boundLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
@@ -56,9 +56,7 @@
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    CGColorRef redColor = CPNewCGColorFromNSColor([NSColor redColor]);
-    dataSourceLinePlot.dataLineStyle.lineColor = redColor;
-    CGColorRelease(redColor);
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 	

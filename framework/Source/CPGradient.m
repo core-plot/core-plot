@@ -2,10 +2,13 @@
 #import "CPGradient.h"
 #import "CPUtilities.h"
 #import "CPLayer.h"
+#import "CPColorSpace.h"
+#import "CPColor.h"
+
 
 @interface CPGradient ()
 
-@property (assign, readonly) CGColorSpaceRef colorspace;
+@property (retain, readwrite) CPColorSpace *colorspace;
 @property (assign, readwrite) CPGradientBlendingMode blendingMode;
 
 -(void)_commonInit;
@@ -53,13 +56,13 @@ static void resolveHSV(float *color1, float *color2);
 
 -(void)_commonInit
 {
-	colorspace = [CPLayer createGenericRGBSpace];
+	colorspace = [CPColorSpace genericRGBSpace];
     elementList = nil;
 }
 
 -(void)dealloc
 {
-	CGColorSpaceRelease(colorspace);
+	self.colorspace = nil;
     CGFunctionRelease(gradientFunction);
     CPGradientElement *elementToRemove = elementList;
     while (elementList != nil) {
@@ -150,14 +153,14 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Factory Methods
-+(CPGradient *)gradientWithBeginningColor:(CGColorRef)begin endingColor:(CGColorRef)end {
++(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end {
     CPGradient *newInstance = [[[self class] alloc] init];
 	
     CPGradientElement color1;
     CPGradientElement color2;
 	
-	color1.color = CPRGBColorFromCGColor(begin);
-	color2.color = CPRGBColorFromCGColor(end);
+	color1.color = CPRGBColorFromCGColor(begin.cgColor);
+	color2.color = CPRGBColorFromCGColor(end.cgColor);
 	
     color1.position = 0;
     color2.position = 1;
@@ -527,13 +530,13 @@ static void resolveHSV(float *color1, float *color2);
 
 // Adds a color stop with <color> at <position> in elementList
 // (if two elements are at the same position then added immediately after the one that was there already)
--(CPGradient *)addColorStop:(CGColorRef)color atPosition:(float)position
+-(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position
 {
     CPGradient *newGradient = [self copy];
     CPGradientElement newGradientElement;
 	
     //put the components of color into the newGradientElement - must make sure it is a RGB color (not Gray or CMYK)
-	newGradientElement.color = CPRGBColorFromCGColor(color);
+	newGradientElement.color = CPRGBColorFromCGColor(color.cgColor);
     newGradientElement.position = position;
 	
     //Pass it off to addElement to take care of adding it to the elementList
@@ -578,7 +581,7 @@ static void resolveHSV(float *color1, float *color2);
     if (element != nil) {
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		CGFloat colorComponents[4] = {element->color.red, element->color.green, element->color.blue, element->color.alpha};
-		return CGColorCreate(colorspace, colorComponents);
+		return CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
         return CGColorCreateGenericRGB(element->color.red, element->color.green, element->color.blue, element->color.alpha);
 #endif
@@ -608,7 +611,7 @@ static void resolveHSV(float *color1, float *color2);
 		//undo premultiplication that CG requires
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		CGFloat colorComponents[4] = {components[0]/components[3], components[1]/components[3], components[2]/components[3], components[3]};
-		gradientColor = CGColorCreate(colorspace, colorComponents);
+		gradientColor = CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
 		gradientColor = CGColorCreateGenericRGB(components[0]/components[3], components[1]/components[3], components[2]/components[3], components[3]);
 #endif
@@ -616,7 +619,7 @@ static void resolveHSV(float *color1, float *color2);
 	} else {
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		CGFloat colorComponents[4] = {components[0], components[1], components[2], components[3]};
-		gradientColor = CGColorCreate(colorspace, colorComponents);
+		gradientColor = CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
 		gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
 #endif
@@ -737,7 +740,7 @@ static void resolveHSV(float *color1, float *color2);
     }
 	
     //Calls to CoreGraphics
-    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace, startPoint, endPoint, gradientFunction, false, false);
+    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
 	
 	return myCGShading;
 }
@@ -767,7 +770,7 @@ static void resolveHSV(float *color1, float *color2);
 	
 	CGContextScaleCTM    (context, scalex, scaley);
 	
-    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
+    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
 	
 	return myCGShading;
 }

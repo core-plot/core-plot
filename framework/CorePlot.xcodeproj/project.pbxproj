@@ -46,6 +46,27 @@
 		0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0930F2BB5F300790525 /* CPBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0799E0960F2BB5F300790525 /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
 		0799E0990F2BB6E800790525 /* CPCartesianPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; };
+		079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
+		079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
+		079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
+		079FC0A60FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
+		079FC0A70FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; };
+		079FC0A80FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
+		079FC0B40FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
+		079FC0B50FB975500037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0B20FB975500037E990 /* CPColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		079FC0B60FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
+		079FC0B70FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
+		079FC0B80FB975500037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0B20FB975500037E990 /* CPColor.h */; };
+		079FC0B90FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
+		079FC0BA0FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
+		079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
+		079FC0BE0FB9762B0037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0BB0FB9762B0037E990 /* CPColorSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
+		079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
+		079FC0C10FB9762B0037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0BB0FB9762B0037E990 /* CPColorSpace.h */; };
+		079FC0C20FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
+		079FC0C30FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D610F2B70B8002FCEA7 /* CoreData.framework */; };
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D700F2B718F002FCEA7 /* CPGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -341,6 +362,12 @@
 		0799E0930F2BB5F300790525 /* CPBarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarPlot.h; sourceTree = "<group>"; };
 		0799E0940F2BB5F300790525 /* CPBarPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarPlot.m; sourceTree = "<group>"; };
 		0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCartesianPlotSpace.h; sourceTree = "<group>"; };
+		079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLinearAxis.h; sourceTree = "<group>"; };
+		079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLinearAxis.m; sourceTree = "<group>"; };
+		079FC0B20FB975500037E990 /* CPColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColor.h; sourceTree = "<group>"; };
+		079FC0B30FB975500037E990 /* CPColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColor.m; sourceTree = "<group>"; };
+		079FC0BB0FB9762B0037E990 /* CPColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorSpace.h; sourceTree = "<group>"; };
+		079FC0BC0FB9762B0037E990 /* CPColorSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorSpace.m; sourceTree = "<group>"; };
 		07BF0D610F2B70B8002FCEA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		07BF0D620F2B70B8002FCEA7 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -924,6 +951,8 @@
 				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 				07975C470F3B818800DE45DC /* CPAxis.h */,
 				07975C480F3B818800DE45DC /* CPAxis.m */,
+				079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */,
+				079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -1528,6 +1557,10 @@
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
 				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
 				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
+				079FC0B20FB975500037E990 /* CPColor.h */,
+				079FC0B30FB975500037E990 /* CPColor.m */,
+				079FC0BB0FB9762B0037E990 /* CPColorSpace.h */,
+				079FC0BC0FB9762B0037E990 /* CPColorSpace.m */,
 			);
 			name = Drawing;
 			sourceTree = "<group>";
@@ -1600,6 +1633,9 @@
 				C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */,
 				C34260270FAE096D00072842 /* CPFill.h in Headers */,
 				C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */,
+				079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */,
+				079FC0B50FB975500037E990 /* CPColor.h in Headers */,
+				079FC0BE0FB9762B0037E990 /* CPColorSpace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1607,6 +1643,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079FC0A70FB96F0E0037E990 /* CPLinearAxis.h in Headers */,
+				079FC0B80FB975500037E990 /* CPColor.h in Headers */,
+				079FC0C10FB9762B0037E990 /* CPColorSpace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1908,6 +1947,9 @@
 				4C2D590B0FB7831A008275E0 /* CPXYGraphPerformanceTests.m in Sources */,
 				4C2D59270FB78382008275E0 /* CPScatterPlotPerformanceTests.m in Sources */,
 				4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */,
+				079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
+				079FC0B70FB975500037E990 /* CPColor.m in Sources */,
+				079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1918,6 +1960,9 @@
 				4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */,
 				4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */,
 				078F42DE0FACC075006E670B /* NSNumberExtensions.m in Sources */,
+				079FC0A60FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
+				079FC0B40FB975500037E990 /* CPColor.m in Sources */,
+				079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1946,6 +1991,9 @@
 				4C9A745F0FB24C7200918464 /* CPDataSourceTestCase.m in Sources */,
 				4C9A74710FB24D7900918464 /* CPScatterPlotTests.m in Sources */,
 				C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */,
+				079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
+				079FC0BA0FB975500037E990 /* CPColor.m in Sources */,
+				079FC0C30FB9762B0037E990 /* CPColorSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1982,6 +2030,9 @@
 				C34260220FAE096D00072842 /* CPFill.m in Sources */,
 				C34260240FAE096D00072842 /* _CPFillColor.m in Sources */,
 				C34260250FAE096D00072842 /* _CPFillImage.m in Sources */,
+				079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
+				079FC0B60FB975500037E990 /* CPColor.m in Sources */,
+				079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2018,6 +2069,9 @@
 				BC9B82370FB898480035D8DA /* CPFill.m in Sources */,
 				BC9B82380FB898480035D8DA /* _CPFillColor.m in Sources */,
 				BC9B82390FB898480035D8DA /* _CPFillImage.m in Sources */,
+				079FC0A80FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
+				079FC0B90FB975500037E990 /* CPColor.m in Sources */,
+				079FC0C20FB9762B0037E990 /* CPColorSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

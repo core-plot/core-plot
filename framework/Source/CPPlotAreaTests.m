@@ -1,7 +1,6 @@
 
 #import "CPPlotAreaTests.h"
-#import <CorePlot/CPPlotArea.h>
-#import <CorePlot/CPFill.h>
+#import <CorePlot/CorePlot.h>
 #import "GTMNSObject+BindingUnitTesting.h"
 #import "GTMNSObject+UnitTesting.h"
 
@@ -40,7 +39,7 @@
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
     
 	CGColorRef grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	plotArea.fill = [CPFill fillWithColor:grayColor];
+	plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
     GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected", @"");

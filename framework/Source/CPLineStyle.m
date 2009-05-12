@@ -1,9 +1,10 @@
 
 #import "CPLineStyle.h"
 #import "CPLayer.h"
+#import "CPColor.h"
+
 
 @implementation CPLineStyle
-
 
 @synthesize lineCap, lineJoin, lineWidth, patternPhase, lineColor;
 
@@ -22,7 +23,7 @@
 		self.lineJoin = kCGLineJoinMiter;
 		self.lineWidth = 1.f;
 		self.patternPhase = CGSizeMake(0.f, 0.f);
-		self.lineColor = [CPLayer blackColor];
+		self.lineColor = [CPColor blackColor];
 	}
 
 	return self;
@@ -30,7 +31,7 @@
 
 -(void)dealloc
 {
-	CGColorRelease(lineColor);
+    self.lineColor = nil;
 	[super dealloc];
 }
 
@@ -40,19 +41,7 @@
 	CGContextSetLineJoin(theContext, lineJoin);
 	CGContextSetLineWidth(theContext, lineWidth);
 	CGContextSetPatternPhase(theContext, patternPhase);
-	CGContextSetStrokeColorWithColor(theContext, lineColor);
-}
-
-#pragma mark -
-#pragma mark Accessors
-
--(void)setLineColor:(CGColorRef)aLineColor
-{
-	if ( aLineColor != lineColor ) {
-		CGColorRetain(aLineColor);
-		CGColorRelease(lineColor);
-		lineColor = aLineColor;
-	}
+	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
 #pragma mark -
@@ -66,10 +55,10 @@
 	styleCopy.lineJoin = self.lineJoin;
 	styleCopy.lineWidth = self.lineWidth;
 	styleCopy.patternPhase = self.patternPhase;
-	CGColorRef colorCopy = CGColorCreateCopy(self.lineColor);
+    CPColor *colorCopy = [self.lineColor copy];
     styleCopy.lineColor = colorCopy;
-	CGColorRelease(colorCopy);
-
+    [colorCopy release];
+    
     return styleCopy;
 }
 

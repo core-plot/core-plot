@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class CPColor;
 
 @interface CPLineStyle : NSObject <NSCopying> {
 	@private
@@ -10,7 +11,7 @@
 	CGFloat lineWidth;
 	CGSize patternPhase;
 //	StrokePattern; // We should make a struct to keep this information
-	CGColorRef lineColor;
+    CPColor *lineColor;
 }
 
 +(CPLineStyle *)lineStyle;
@@ -19,7 +20,7 @@
 @property (assign) CGLineJoin lineJoin;
 @property (assign) CGFloat lineWidth;
 @property (assign) CGSize patternPhase;
-@property (assign) CGColorRef lineColor;
+@property (retain) CPColor *lineColor;
 
 -(void)setLineStyleInContext:(CGContextRef)theContext;
 -(id)copyWithZone:(NSZone *)zone;
