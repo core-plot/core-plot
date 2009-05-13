@@ -4,9 +4,11 @@
 #import "CPAxis.h"
 
 @interface CPLinearAxis : CPAxis {
-	CGFloat angle;
+	NSInteger independentRangeIndex;
+	NSDecimalNumber* independentValue; 
 }
 
-@property (nonatomic, readwrite, assign) CGFloat angle;
+@property (nonatomic, readwrite, assign) NSInteger independentRangeIndex;
+@property (nonatomic, readwrite, retain) NSDecimalNumber* independentValue; 
 
 @end

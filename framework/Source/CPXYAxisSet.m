@@ -9,9 +9,11 @@
 	self = [super init];
 	if (self != nil) {
 		CPLinearAxis *xAxis = [[CPLinearAxis alloc] init];
-        xAxis.angle = kCPHorizontalAxisAngle;
+        xAxis.independentRangeIndex = 1;
+		xAxis.majorTickLength = 10.f;
 		CPLinearAxis *yAxis = [[CPLinearAxis alloc] init];
-        yAxis.angle = kCPVerticalAxisAngle;
+        yAxis.independentRangeIndex = 0;
+		yAxis.majorTickLength = -10.f;
 		
 		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
 	}
