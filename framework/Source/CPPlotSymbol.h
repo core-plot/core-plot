@@ -25,12 +25,13 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolType symbolType;
 	CPLineStyle *lineStyle;
 	CPFill *fill;
+	CGMutablePathRef symbolPath;
 }
 
-@property (assign) CGSize size;
-@property (assign) CPPlotSymbolType symbolType;
-@property (retain) CPLineStyle *lineStyle;
-@property (retain) CPFill *fill;
+@property (nonatomic, readwrite, assign) CGSize size;
+@property (nonatomic, readwrite, assign) CPPlotSymbolType symbolType;
+@property (nonatomic, readwrite, retain) CPLineStyle *lineStyle;
+@property (nonatomic, readwrite, retain) CPFill *fill;
 
 +(CPPlotSymbol *)crossPlotSymbol;
 +(CPPlotSymbol *)ellipsePlotSymbol;
