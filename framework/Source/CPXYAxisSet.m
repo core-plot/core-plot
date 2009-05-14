@@ -6,8 +6,7 @@
 
 - (id) init
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 		CPLinearAxis *xAxis = [[CPLinearAxis alloc] init];
         xAxis.independentRangeIndex = 1;
 		xAxis.majorTickLength = 10.f;
@@ -16,6 +15,8 @@
 		yAxis.majorTickLength = -10.f;
 		
 		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
+		[xAxis release];
+		[yAxis release];
 	}
 	return self;
 }

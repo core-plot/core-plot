@@ -56,7 +56,7 @@ static void resolveHSV(float *color1, float *color2);
 
 -(void)_commonInit
 {
-	colorspace = [CPColorSpace genericRGBSpace];
+	self.colorspace = [CPColorSpace genericRGBSpace];
     elementList = nil;
 }
 
@@ -154,7 +154,7 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Factory Methods
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     CPGradientElement color2;
@@ -172,7 +172,7 @@ static void resolveHSV(float *color1, float *color2);
 }
 
 +(CPGradient *)aquaSelectedGradient {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.58;
@@ -212,7 +212,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)aquaNormalGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.95;
@@ -244,7 +244,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)aquaPressedGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.80;
@@ -276,7 +276,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)unifiedSelectedGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.85;
@@ -296,7 +296,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)unifiedNormalGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.75;
@@ -316,7 +316,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)unifiedPressedGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.60;
@@ -336,7 +336,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)unifiedDarkGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.68;
@@ -356,7 +356,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)sourceListSelectedGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.06;
@@ -380,7 +380,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)sourceListUnselectedGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 0.43;
@@ -404,7 +404,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)rainbowGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
     color1.color.red   = 1.00;
@@ -430,7 +430,7 @@ static void resolveHSV(float *color1, float *color2);
 
 +(CPGradient *)hydrogenSpectrumGradient
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newInstance = [[self alloc] init];
 	
     struct {float hue; float position; float width;} colorBands[4];
 	
