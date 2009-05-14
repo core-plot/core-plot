@@ -7,11 +7,14 @@
 
 @synthesize axes;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 -(id)init
 {
 	self = [super init];
 	if (self != nil) {
-		
+		self.axes = [NSArray array];
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		// TODO: Add resizing code for iPhone
 #else
@@ -22,9 +25,22 @@
 	return self;
 }
 
+-(void)dealloc {
+    self.axes = nil;
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
 	for (CPAxis* axis in self.axes) [axis drawInContext:theContext];
 }
+
+#pragma mark -
+#pragma mark Dimensions
+
 
 -(void)setBounds:(CGRect)bounds {
 	// We need to stretch the bounds so our CGContext is big enough to draw outside the CPPlotSpace.
@@ -41,9 +57,5 @@
 	self.position = CGPointMake(0.0f, 0.0f);
 }
 
--(void)dealloc {
-    self.axes = nil;
-	[super dealloc];
-}
 
 @end

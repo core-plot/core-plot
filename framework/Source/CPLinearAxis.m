@@ -8,6 +8,9 @@
 @synthesize independentRangeIndex;
 @synthesize independentValue;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 - (id) init
 {
 	self = [super init];
@@ -23,6 +26,10 @@
 	self.independentValue = nil;
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Drawing
+
 
 -(void)drawInContext:(CGContextRef)theContext {
 	
