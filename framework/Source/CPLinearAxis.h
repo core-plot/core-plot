@@ -2,13 +2,14 @@
 
 #import <Foundation/Foundation.h>
 #import "CPAxis.h"
+#import "CPDefinitions.h"
 
 @interface CPLinearAxis : CPAxis {
-	NSInteger independentRangeIndex;
-	NSDecimalNumber* independentValue; 
+    CPCoordinate coordinate;
+    NSDecimal constantCoordinateValue;
 }
 
-@property (nonatomic, readwrite, assign) NSInteger independentRangeIndex;
-@property (nonatomic, readwrite, retain) NSDecimalNumber* independentValue; 
+@property (nonatomic, readwrite, assign) CPCoordinate coordinate;
+@property (nonatomic, readwrite, assign) NSDecimal constantCoordinateValue;
 
 @end

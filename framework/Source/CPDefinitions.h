@@ -24,6 +24,12 @@ typedef enum _CPScaleType {
     CPScaleTypeAngular
 } CPScaleType;
 
+typedef enum _CPCoordinate {
+    CPCoordinateX = 0,
+    CPCoordinateY = 1,
+    CPCoordinateZ = 2
+} CPCoordinate;
+
 // RGBA colors for CPGradient
 typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;

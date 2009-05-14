@@ -10,6 +10,7 @@
 
 @property (readwrite, copy) NSDecimalNumber *location;
 @property (readwrite, copy) NSDecimalNumber *length;
+@property (readonly) NSDecimalNumber *end;
 
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 

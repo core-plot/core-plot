@@ -31,7 +31,18 @@
 	[super dealloc];
 }
 
+#pragma mark -
+#pragma mark Accessors
+
+-(NSDecimalNumber *)end 
+{
+    return [self.location decimalNumberByAdding:self.length];
+}
+
+
+#pragma mark -
 #pragma mark NSCoding
+
 - (void)encodeWithCoder:(NSCoder *)encoder 
 {
     [encoder encodeObject:self.location];

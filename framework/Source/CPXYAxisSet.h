@@ -2,10 +2,12 @@
 #import <Foundation/Foundation.h>
 #import "CPAxisSet.h"
 
-#define kCPHorizontalAxisAngle 0.0f
-#define kCPVerticalAxisAngle 1.57078633f
+@class CPAxis;
 
 @interface CPXYAxisSet : CPAxisSet {
 }
+
+@property (nonatomic, readonly, retain) CPAxis *xAxis;
+@property (nonatomic, readonly, retain) CPAxis *yAxis;
 
 @end

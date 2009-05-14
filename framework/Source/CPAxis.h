@@ -7,7 +7,8 @@
 @class CPPlotSpace;
 @class CPPlotRange;
 
-@interface CPAxis : NSObject {    
+@interface CPAxis : NSObject {   
+    @private
 	CPPlotSpace *plotSpace;
 	CPPlotRange *range;
     NSArray *majorTickLocations;

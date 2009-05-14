@@ -26,13 +26,13 @@
 	self = [super init];
 	if (self != nil) {
 		self.plotSpace = nil;
-		self.range = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) length:CPDecimalFromInt(0)];
+		self.range = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) length:CPDecimalFromInt(1)];
 		self.majorTickLocations = [NSArray array];
 		self.minorTickLocations = [NSArray array];
 		self.minorTickLength = 0.f;
 		self.majorTickLength = 0.f;
-		self.majorTickLineStyle = [[CPLineStyle alloc] init];
-		self.minorTickLineStyle = [[CPLineStyle alloc] init];
+		self.majorTickLineStyle = [CPLineStyle lineStyle];
+		self.minorTickLineStyle = [CPLineStyle lineStyle];
 	}
 	return self;
 }

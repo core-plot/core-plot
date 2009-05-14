@@ -6,7 +6,6 @@
 @implementation CPPlotSpace
 
 @synthesize identifier;
-@synthesize axisSet;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -28,24 +27,7 @@
 
 -(void)dealloc
 {
-	self.axisSet = nil;
     [super dealloc];
-}
-
-#pragma mark -
-#pragma mark AxisSet Management
-
--(void)setAxisSet:(CPAxisSet*)aAxisSet
-{
-	if (axisSet != aAxisSet)
-	{
-		[aAxisSet retain];
-		[axisSet removeFromSuperlayer];
-		[axisSet release];
-		axisSet = aAxisSet;
-		[self addSublayer:axisSet];
-		axisSet.frame = self.bounds;
-	}
 }
 
 @end
