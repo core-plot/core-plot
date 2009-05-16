@@ -58,7 +58,7 @@
 		0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0930F2BB5F300790525 /* CPBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0799E0960F2BB5F300790525 /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
 		0799E0990F2BB6E800790525 /* CPCartesianPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; };
+		079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
 		079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
 		079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };

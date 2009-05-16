@@ -65,8 +65,8 @@
             terminalViewPoint.x -= self.majorTickLength;
 
         // Stroke line
-        CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
         CGContextBeginPath(theContext);
+        CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
         CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);
         CGContextStrokePath(theContext);
     }
@@ -74,8 +74,8 @@
     // Axis Line
     CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.location];
     CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.end];
-	CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
     CGContextBeginPath(theContext);
+	CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 	CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 	CGContextStrokePath(theContext);
 }

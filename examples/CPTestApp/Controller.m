@@ -35,7 +35,20 @@
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-    
+
+	CPXYAxisSet* axisSet = [[CPXYAxisSet alloc] init];
+	
+	[[axisSet xAxis] setMajorTickLocations:[NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithString:@"1.0"], [NSDecimalNumber decimalNumberWithString:@"2.0"], [NSDecimalNumber decimalNumberWithString:@"3.0"], nil]];
+    [[axisSet yAxis] setMajorTickLocations:[NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithString:@"1.0"], [NSDecimalNumber decimalNumberWithString:@"2.0"], [NSDecimalNumber decimalNumberWithString:@"3.0"], nil]];
+	[axisSet.xAxis setPlotSpace:plotSpace];
+	[axisSet.yAxis setPlotSpace:plotSpace];
+	[axisSet.xAxis setRange:plotSpace.xRange];
+	[axisSet.yAxis setRange:plotSpace.yRange];
+	[(CPLinearAxis*)axisSet.xAxis setConstantCoordinateValue:[plotSpace.yRange.location decimalValue]];
+	[(CPLinearAxis*)axisSet.yAxis setConstantCoordinateValue:[plotSpace.xRange.location decimalValue]];
+	[axisSet setBounds:plotSpace.frame];
+	[plotSpace addSublayer:axisSet];
+	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";

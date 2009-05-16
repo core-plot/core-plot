@@ -1,4 +1,5 @@
 #import <CorePlot/CPAxis.h>
+#import <CorePlot/CPLinearAxis.h>
 #import <CorePlot/CPAxisSet.h>
 #import <CorePlot/CPBarGraph.h>
 #import <CorePlot/CPBarPlot.h>
