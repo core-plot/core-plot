@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define kCPAxisExtend 20.f // Temporary "height" of the axis labels and stuff, will be replaced by a proper calculation
+#define kCPAxisExtent 20.f // Temporary "height" of the axis labels and stuff, will be replaced by a proper calculation
 
 @class CPLineStyle;
 @class CPPlotSpace;

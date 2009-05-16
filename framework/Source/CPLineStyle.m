@@ -25,7 +25,6 @@
 		self.patternPhase = CGSizeMake(0.f, 0.f);
 		self.lineColor = [CPColor blackColor];
 	}
-
 	return self;
 }
 

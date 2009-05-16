@@ -53,13 +53,6 @@
 			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
 			remoteInfo = "CorePlot-PerformanceTests";
 		};
-		BC9B85080FB8D4930035D8DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC9B81F10FB897ED0035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,9 +108,17 @@
 				4CD7E7B30F4B4F0600F9BCBB /* CorePlot-UnitTests.octest */,
 				90FFF6C30FB87D9100B42BE4 /* CorePlot-PerformanceTests.octest */,
 				4CD7E7B50F4B4F0600F9BCBB /* CPTestHarness.app */,
-				BC9B85090FB8D4930035D8DA /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0783DCC80FBEC154006C3696 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */,
+				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -125,8 +126,7 @@
 			children = (
 				077382AF0F3DC1FB002F10E2 /* Controller.h */,
 				077382B00F3DC1FB002F10E2 /* Controller.m */,
-				C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */,
-				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
+				0783DCC80FBEC154006C3696 /* Tests */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -275,13 +275,6 @@
 			fileType = wrapper.cfbundle;
 			path = "CorePlot-PerformanceTests.octest";
 			remoteRef = 90FFF6C20FB87D9100B42BE4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC9B85090FB8D4930035D8DA /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = BC9B85080FB8D4930035D8DA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

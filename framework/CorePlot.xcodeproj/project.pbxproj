@@ -29,6 +29,10 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
+		0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783DD530FBF097E006C3696 /* CPXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
+		0783DD570FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
+		0783DD580FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
 		0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EF360FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,26 +62,15 @@
 		0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0930F2BB5F300790525 /* CPBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0799E0960F2BB5F300790525 /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
 		0799E0990F2BB6E800790525 /* CPCartesianPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
-		079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
-		079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
-		079FC0A60FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
-		079FC0A70FB96F0E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */; };
-		079FC0A80FB96F0E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */; };
 		079FC0B40FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
 		079FC0B50FB975500037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0B20FB975500037E990 /* CPColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC0B60FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
 		079FC0B70FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
-		079FC0B80FB975500037E990 /* CPColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0B20FB975500037E990 /* CPColor.h */; };
-		079FC0B90FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
 		079FC0BA0FB975500037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0B30FB975500037E990 /* CPColor.m */; };
 		079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		079FC0BE0FB9762B0037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0BB0FB9762B0037E990 /* CPColorSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
-		079FC0C10FB9762B0037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC0BB0FB9762B0037E990 /* CPColorSpace.h */; };
-		079FC0C20FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		079FC0C30FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D610F2B70B8002FCEA7 /* CoreData.framework */; };
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
@@ -169,35 +162,6 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
-		BC9B821D0FB898480035D8DA /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D710F2B718F002FCEA7 /* CPGraph.m */; };
-		BC9B821E0FB898480035D8DA /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */; };
-		BC9B821F0FB898480035D8DA /* CPPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */; };
-		BC9B82200FB898480035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D7F0F2B72F6002FCEA7 /* CPPlot.m */; };
-		BC9B82210FB898480035D8DA /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D830F2B7340002FCEA7 /* CPAxisSet.m */; };
-		BC9B82220FB898480035D8DA /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
-		BC9B82230FB898480035D8DA /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
-		BC9B82240FB898480035D8DA /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799E0940F2BB5F300790525 /* CPBarPlot.m */; };
-		BC9B82250FB898480035D8DA /* CPXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EF50F2F9A3D008C8618 /* CPXYGraph.m */; };
-		BC9B82260FB898480035D8DA /* CPBarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EFE0F2F9B50008C8618 /* CPBarGraph.m */; };
-		BC9B82270FB898480035D8DA /* CPPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */; };
-		BC9B82280FB898480035D8DA /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
-		BC9B82290FB898480035D8DA /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
-		BC9B822A0FB898480035D8DA /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
-		BC9B822B0FB898480035D8DA /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
-		BC9B822C0FB898480035D8DA /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C420F3B816600DE45DC /* CPXYAxisSet.m */; };
-		BC9B822D0FB898480035D8DA /* CPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C480F3B818800DE45DC /* CPAxis.m */; };
-		BC9B822E0FB898480035D8DA /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */; };
-		BC9B822F0FB898480035D8DA /* CPLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7EB0F4B4F9600F9BCBB /* CPLayer.m */; };
-		BC9B82300FB898480035D8DA /* NSDecimalNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */; };
-		BC9B82310FB898480035D8DA /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
-		BC9B82320FB898480035D8DA /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
-		BC9B82330FB898480035D8DA /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
-		BC9B82340FB898480035D8DA /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
-		BC9B82350FB898480035D8DA /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
-		BC9B82360FB898480035D8DA /* _CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* _CPFillGradient.m */; };
-		BC9B82370FB898480035D8DA /* CPFill.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601A0FAE096C00072842 /* CPFill.m */; };
-		BC9B82380FB898480035D8DA /* _CPFillColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601C0FAE096C00072842 /* _CPFillColor.m */; };
-		BC9B82390FB898480035D8DA /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
 		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -208,7 +172,7 @@
 		C34260250FAE096D00072842 /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
 		C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; };
+		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3AFCA960FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */; };
 		C3B2836D0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA950FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.gtmUTState */; };
 		C3B2836E0FB67CF000EAFF95 /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3AFCA8E0FB67A0E005DFFDC /* CPPlotAreaTests-testDrawInContextRendersAsExpected.ppc.10.5.6.tiff */; };
@@ -359,6 +323,8 @@
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
+		0783DD530FBF097E006C3696 /* CPXYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxis.h; sourceTree = "<group>"; };
+		0783DD540FBF097E006C3696 /* CPXYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYAxis.m; sourceTree = "<group>"; };
 		0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
 		0789EF340FB9E90700C0A613 /* CPPlatformSpecificDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificDefines.m; sourceTree = "<group>"; };
 		0789EF470FB9EBD600C0A613 /* CPPlatformSpecificCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificCategories.h; sourceTree = "<group>"; };
@@ -380,8 +346,6 @@
 		0799E0930F2BB5F300790525 /* CPBarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarPlot.h; sourceTree = "<group>"; };
 		0799E0940F2BB5F300790525 /* CPBarPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarPlot.m; sourceTree = "<group>"; };
 		0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCartesianPlotSpace.h; sourceTree = "<group>"; };
-		079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLinearAxis.h; sourceTree = "<group>"; };
-		079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLinearAxis.m; sourceTree = "<group>"; };
 		079FC0B20FB975500037E990 /* CPColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColor.h; sourceTree = "<group>"; };
 		079FC0B30FB975500037E990 /* CPColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColor.m; sourceTree = "<group>"; };
 		079FC0BB0FB9762B0037E990 /* CPColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorSpace.h; sourceTree = "<group>"; };
@@ -721,7 +685,6 @@
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
-		BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
 		C34260180FAE096C00072842 /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
@@ -802,13 +765,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC9B81EF0FB897ED0035D8DA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -819,7 +775,6 @@
 				4CBF252C0F3CDED400DAE1A8 /* CorePlot-UnitTests.octest */,
 				4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */,
 				4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */,
-				BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -848,6 +803,66 @@
 			name = "Value Transformers";
 			sourceTree = "<group>";
 		};
+		076A775F0FBF0BFE003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4CD7E9620F4B625900F9BCBB /* CPUtilitiesTests.h */,
+				4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		076A77690FBF0C0B003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
+				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		076A776A0FBF0C20003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C422B270FB20882000CAA43 /* CPXYGraphTests.h */,
+				4C422B280FB20882000CAA43 /* CPXYGraphTests.m */,
+				4C2D59090FB7831A008275E0 /* CPXYGraphPerformanceTests.h */,
+				4C2D590A0FB7831A008275E0 /* CPXYGraphPerformanceTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		076A776B0FBF0C2C003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C9940300F45F42E00DC824F /* CPPlotAreaTests.h */,
+				4C9940310F45F42E00DC824F /* CPPlotAreaTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		076A776C0FBF0C36003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C422A620FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.h */,
+				4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		076A77800FBF0C41003F6D97 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */,
+				C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */,
+				4C9A746F0FB24D7900918464 /* CPScatterPlotTests.h */,
+				4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */,
+				4C2D59250FB78382008275E0 /* CPScatterPlotPerformanceTests.h */,
+				4C2D59260FB78382008275E0 /* CPScatterPlotPerformanceTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		07975C230F3B3DF200DE45DC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -866,21 +881,11 @@
 				07BF0D710F2B718F002FCEA7 /* CPGraph.m */,
 				07983EF40F2F9A3D008C8618 /* CPXYGraph.h */,
 				07983EF50F2F9A3D008C8618 /* CPXYGraph.m */,
-				4C422B270FB20882000CAA43 /* CPXYGraphTests.h */,
-				4C422B280FB20882000CAA43 /* CPXYGraphTests.m */,
-				4C2D59090FB7831A008275E0 /* CPXYGraphPerformanceTests.h */,
-				4C2D590A0FB7831A008275E0 /* CPXYGraphPerformanceTests.m */,
 				07983EFD0F2F9B50008C8618 /* CPBarGraph.h */,
 				07983EFE0F2F9B50008C8618 /* CPBarGraph.m */,
+				076A776A0FBF0C20003F6D97 /* Tests */,
 			);
 			name = Graphs;
-			sourceTree = "<group>";
-		};
-		07BF0D5D0F2B6FE1002FCEA7 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		07BF0D5F0F2B6FE1002FCEA7 /* Mac Specific */ = {
@@ -917,17 +922,15 @@
 		07BF0D890F2B736D002FCEA7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
-				C331F8DA0F870F54006E4006 /* Plot Symbols */,
+				C331F8F50F871087006E4006 /* CPPlotSymbol.h */,
+				C331F8F60F871087006E4006 /* CPPlotSymbol.m */,
 				07BF0D7E0F2B72F6002FCEA7 /* CPPlot.h */,
 				07BF0D7F0F2B72F6002FCEA7 /* CPPlot.m */,
 				07BF0D950F2B73CA002FCEA7 /* CPScatterPlot.h */,
 				07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */,
-				4C9A746F0FB24D7900918464 /* CPScatterPlotTests.h */,
-				4C9A74700FB24D7900918464 /* CPScatterPlotTests.m */,
-				4C2D59250FB78382008275E0 /* CPScatterPlotPerformanceTests.h */,
-				4C2D59260FB78382008275E0 /* CPScatterPlotPerformanceTests.m */,
 				0799E0930F2BB5F300790525 /* CPBarPlot.h */,
 				0799E0940F2BB5F300790525 /* CPBarPlot.m */,
+				076A77800FBF0C41003F6D97 /* Tests */,
 			);
 			name = Plots;
 			sourceTree = "<group>";
@@ -939,10 +942,9 @@
 				07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */,
 				0799E0970F2BB6E800790525 /* CPCartesianPlotSpace.h */,
 				90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */,
-				4C422A620FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.h */,
-				4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */,
 				07983F050F2F9BA6008C8618 /* CPPolarPlotSpace.h */,
 				07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */,
+				076A776C0FBF0C36003F6D97 /* Tests */,
 			);
 			name = Spaces;
 			sourceTree = "<group>";
@@ -952,8 +954,7 @@
 			children = (
 				07BF0D760F2B723A002FCEA7 /* CPPlotArea.h */,
 				07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */,
-				4C9940300F45F42E00DC824F /* CPPlotAreaTests.h */,
-				4C9940310F45F42E00DC824F /* CPPlotAreaTests.m */,
+				076A776B0FBF0C2C003F6D97 /* Tests */,
 			);
 			name = "Plot Areas";
 			sourceTree = "<group>";
@@ -961,14 +962,14 @@
 		07BF0D920F2B73AE002FCEA7 /* Axes */ = {
 			isa = PBXGroup;
 			children = (
+				0783DD530FBF097E006C3696 /* CPXYAxis.h */,
+				0783DD540FBF097E006C3696 /* CPXYAxis.m */,
 				07BF0D820F2B7340002FCEA7 /* CPAxisSet.h */,
 				07BF0D830F2B7340002FCEA7 /* CPAxisSet.m */,
 				07975C410F3B816600DE45DC /* CPXYAxisSet.h */,
 				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 				07975C470F3B818800DE45DC /* CPAxis.h */,
 				07975C480F3B818800DE45DC /* CPAxis.m */,
-				079FC0A00FB96F0E0037E990 /* CPLinearAxis.h */,
-				079FC0A10FB96F0E0037E990 /* CPLinearAxis.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -982,10 +983,9 @@
 				07321BC00F37370D00F423D8 /* CPExceptions.m */,
 				07321BC40F37382D00F423D8 /* CPUtilities.h */,
 				07321BC50F37382D00F423D8 /* CPUtilities.m */,
-				4CD7E9620F4B625900F9BCBB /* CPUtilitiesTests.h */,
-				4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */,
 				32484B3F0F530E8B002151AD /* CPPlotRange.h */,
 				32484B400F530E8B002151AD /* CPPlotRange.m */,
+				076A775F0FBF0BFE003F6D97 /* Tests */,
 			);
 			name = "Types and Functions";
 			sourceTree = "<group>";
@@ -1021,7 +1021,6 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07BF0D5D0F2B6FE1002FCEA7 /* Images */,
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
@@ -1570,25 +1569,13 @@
 				906156BD0F375598001B75FC /* CPLineStyle.m */,
 				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
-				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
-				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
 				079FC0B20FB975500037E990 /* CPColor.h */,
 				079FC0B30FB975500037E990 /* CPColor.m */,
 				079FC0BB0FB9762B0037E990 /* CPColorSpace.h */,
 				079FC0BC0FB9762B0037E990 /* CPColorSpace.m */,
+				076A77690FBF0C0B003F6D97 /* Tests */,
 			);
 			name = Drawing;
-			sourceTree = "<group>";
-		};
-		C331F8DA0F870F54006E4006 /* Plot Symbols */ = {
-			isa = PBXGroup;
-			children = (
-				C331F8F50F871087006E4006 /* CPPlotSymbol.h */,
-				C331F8F60F871087006E4006 /* CPPlotSymbol.m */,
-				C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */,
-				C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */,
-			);
-			name = "Plot Symbols";
 			sourceTree = "<group>";
 		};
 		C3B286720FB7C9BA00EAFF95 /* CPPlotSymbolTests */ = {
@@ -1648,22 +1635,12 @@
 				C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */,
 				C34260270FAE096D00072842 /* CPFill.h in Headers */,
 				C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */,
-				079FC0A20FB96F0E0037E990 /* CPLinearAxis.h in Headers */,
 				079FC0B50FB975500037E990 /* CPColor.h in Headers */,
 				079FC0BE0FB9762B0037E990 /* CPColorSpace.h in Headers */,
 				0789EF370FB9E90700C0A613 /* CPPlatformSpecificDefines.h in Headers */,
 				0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */,
 				0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC9B81ED0FB897ED0035D8DA /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				079FC0A70FB96F0E0037E990 /* CPLinearAxis.h in Headers */,
-				079FC0B80FB975500037E990 /* CPColor.h in Headers */,
-				079FC0C10FB9762B0037E990 /* CPColorSpace.h in Headers */,
+				0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1749,23 +1726,6 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BC9B81F00FB897ED0035D8DA /* CorePlot-CocoaTouch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BC9B81FA0FB8980C0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */;
-			buildPhases = (
-				BC9B81ED0FB897ED0035D8DA /* Headers */,
-				BC9B81EE0FB897ED0035D8DA /* Sources */,
-				BC9B81EF0FB897ED0035D8DA /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "CorePlot-CocoaTouch";
-			productName = "CorePlot-CocoaTouch";
-			productReference = BC9B81F10FB897ED0035D8DA /* libCorePlot-CocoaTouch.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1793,7 +1753,6 @@
 				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
 				4C2D59F50FB78DC3008275E0 /* All Tests */,
 				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
-				BC9B81F00FB897ED0035D8DA /* CorePlot-CocoaTouch */,
 			);
 		};
 /* End PBXProject section */
@@ -1965,10 +1924,10 @@
 				4C2D590B0FB7831A008275E0 /* CPXYGraphPerformanceTests.m in Sources */,
 				4C2D59270FB78382008275E0 /* CPScatterPlotPerformanceTests.m in Sources */,
 				4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */,
-				079FC0A50FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B70FB975500037E990 /* CPColor.m in Sources */,
 				079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF8E0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
+				0783DD580FBF097E006C3696 /* CPXYAxis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1979,7 +1938,6 @@
 				4C32D37D0F43B3CD00EDFE7A /* main.m in Sources */,
 				4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */,
 				078F42DE0FACC075006E670B /* NSNumberExtensions.m in Sources */,
-				079FC0A60FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B40FB975500037E990 /* CPColor.m in Sources */,
 				079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
@@ -2012,12 +1970,12 @@
 				4C9A745F0FB24C7200918464 /* CPDataSourceTestCase.m in Sources */,
 				4C9A74710FB24D7900918464 /* CPScatterPlotTests.m in Sources */,
 				C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */,
-				079FC0A40FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0BA0FB975500037E990 /* CPColor.m in Sources */,
 				079FC0C30FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF360FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
 				0789EF4A0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EF8D0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
+				0783DD570FBF097E006C3696 /* CPXYAxis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2054,51 +2012,12 @@
 				C34260220FAE096D00072842 /* CPFill.m in Sources */,
 				C34260240FAE096D00072842 /* _CPFillColor.m in Sources */,
 				C34260250FAE096D00072842 /* _CPFillImage.m in Sources */,
-				079FC0A30FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
 				079FC0B60FB975500037E990 /* CPColor.m in Sources */,
 				079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF380FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
 				0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BC9B81EE0FB897ED0035D8DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BC9B821D0FB898480035D8DA /* CPGraph.m in Sources */,
-				BC9B821E0FB898480035D8DA /* CPPlotArea.m in Sources */,
-				BC9B821F0FB898480035D8DA /* CPPlotSpace.m in Sources */,
-				BC9B82200FB898480035D8DA /* CPPlot.m in Sources */,
-				BC9B82210FB898480035D8DA /* CPAxisSet.m in Sources */,
-				BC9B82220FB898480035D8DA /* CPScatterPlot.m in Sources */,
-				BC9B82230FB898480035D8DA /* CPDefinitions.m in Sources */,
-				BC9B82240FB898480035D8DA /* CPBarPlot.m in Sources */,
-				BC9B82250FB898480035D8DA /* CPXYGraph.m in Sources */,
-				BC9B82260FB898480035D8DA /* CPBarGraph.m in Sources */,
-				BC9B82270FB898480035D8DA /* CPPolarPlotSpace.m in Sources */,
-				BC9B82280FB898480035D8DA /* CPCartesianPlotSpace.m in Sources */,
-				BC9B82290FB898480035D8DA /* CPExceptions.m in Sources */,
-				BC9B822A0FB898480035D8DA /* CPUtilities.m in Sources */,
-				BC9B822B0FB898480035D8DA /* CPLineStyle.m in Sources */,
-				BC9B822C0FB898480035D8DA /* CPXYAxisSet.m in Sources */,
-				BC9B822D0FB898480035D8DA /* CPAxis.m in Sources */,
-				BC9B822E0FB898480035D8DA /* CPTextLayer.m in Sources */,
-				BC9B822F0FB898480035D8DA /* CPLayer.m in Sources */,
-				BC9B82300FB898480035D8DA /* NSDecimalNumberExtensions.m in Sources */,
-				BC9B82310FB898480035D8DA /* CPPlotRange.m in Sources */,
-				BC9B82320FB898480035D8DA /* CPDecimalNumberValueTransformer.m in Sources */,
-				BC9B82330FB898480035D8DA /* CPPlotSymbol.m in Sources */,
-				BC9B82340FB898480035D8DA /* CPGradient.m in Sources */,
-				BC9B82350FB898480035D8DA /* NSNumberExtensions.m in Sources */,
-				BC9B82360FB898480035D8DA /* _CPFillGradient.m in Sources */,
-				BC9B82370FB898480035D8DA /* CPFill.m in Sources */,
-				BC9B82380FB898480035D8DA /* _CPFillColor.m in Sources */,
-				BC9B82390FB898480035D8DA /* _CPFillImage.m in Sources */,
-				079FC0A80FB96F0E0037E990 /* CPLinearAxis.m in Sources */,
-				079FC0B90FB975500037E990 /* CPColor.m in Sources */,
-				079FC0C20FB9762B0037E990 /* CPColorSpace.m in Sources */,
+				0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2465,31 +2384,6 @@
 			};
 			name = Release;
 		};
-		BC9B81F20FB897ED0035D8DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PREBINDING = NO;
-				PRODUCT_NAME = "CorePlot-CocoaTouch";
-			};
-			name = Debug;
-		};
-		BC9B81F30FB897ED0035D8DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PREBINDING = NO;
-				PRODUCT_NAME = "CorePlot-CocoaTouch";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2543,15 +2437,6 @@
 			buildConfigurations = (
 				4CBF252E0F3CDED500DAE1A8 /* Debug */,
 				4CBF252F0F3CDED500DAE1A8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BC9B81FA0FB8980C0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BC9B81F20FB897ED0035D8DA /* Debug */,
-				BC9B81F30FB897ED0035D8DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

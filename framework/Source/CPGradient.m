@@ -42,6 +42,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Initialization
+
 -(id)init
 {
     if (self = [super init]) {
@@ -153,6 +154,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Factory Methods
+
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end {
     CPGradient *newInstance = [[self alloc] init];
 	
@@ -504,6 +506,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Modification
+
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha
 {
     CPGradient *newInstance = [[[self class] alloc] init];
@@ -630,6 +633,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Drawing
+
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context
 {
     [self fillRect:rect inContext:context];
@@ -686,6 +690,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Private Methods
+
 -(CGShadingRef)axialGradientInRect:(CGRect)rect
 {
     // First Calculate where the beginning and ending points should be
@@ -935,6 +940,7 @@ static void resolveHSV(float *color1, float *color2);
 
 #pragma mark -
 #pragma mark Core Graphics
+
 void linearEvaluation (void *info, const float *in, float *out) 
 {
     float position = *in;

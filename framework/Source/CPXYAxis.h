@@ -4,7 +4,7 @@
 #import "CPAxis.h"
 #import "CPDefinitions.h"
 
-@interface CPLinearAxis : CPAxis {
+@interface CPXYAxis : CPAxis {
     CPCoordinate coordinate;
     NSDecimal constantCoordinateValue;
 }

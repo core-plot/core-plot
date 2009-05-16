@@ -11,6 +11,7 @@
 @class CPPlotSpace;
 
 @interface CPGraph : CPLayer {
+    @protected
     CPAxisSet *axisSet;
     CPPlotArea *plotArea;
     NSMutableArray *plots;

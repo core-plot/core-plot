@@ -50,8 +50,8 @@
 	[axisSet.yAxis setPlotSpace:plotSpace];
 	[axisSet.xAxis setRange:plotSpace.xRange];
 	[axisSet.yAxis setRange:plotSpace.yRange];
-	[(CPLinearAxis*)axisSet.xAxis setConstantCoordinateValue:[plotSpace.yRange.location decimalValue]];
-	[(CPLinearAxis*)axisSet.yAxis setConstantCoordinateValue:[plotSpace.xRange.location decimalValue]];
+	[(CPXYAxis *)axisSet.xAxis setConstantCoordinateValue:[plotSpace.yRange.location decimalValue]];
+	[(CPXYAxis *)axisSet.yAxis setConstantCoordinateValue:[plotSpace.xRange.location decimalValue]];
 	[axisSet setBounds:plotSpace.frame];
 	[plotSpace addSublayer:axisSet];
 	

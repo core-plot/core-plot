@@ -30,7 +30,6 @@ typedef enum _CPCoordinate {
     CPCoordinateZ = 2
 } CPCoordinate;
 
-// RGBA colors for CPGradient
 typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;
 } CPRGBAColor;

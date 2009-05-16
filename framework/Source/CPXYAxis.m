@@ -1,17 +1,18 @@
 
-#import "CPLinearAxis.h"
+#import "CPXYAxis.h"
 #import "CPPlotSpace.h"
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 
-@interface CPLinearAxis ()
+@interface CPXYAxis ()
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSArray *)locations withLength:(CGFloat)length; 
 
 @end
 
 
-@implementation CPLinearAxis
+@implementation CPXYAxis
 
 @synthesize coordinate;
 @synthesize constantCoordinateValue;
@@ -52,47 +53,36 @@
     return point;
 }
 
--(void)drawInContext:(CGContextRef)theContext {
-
-    // Major Ticks
-    for ( NSDecimalNumber *tickLocation in self.majorTickLocations ) {
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSArray *)locations withLength:(CGFloat)length 
+{
+    for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
         CGPoint terminalViewPoint = baseViewPoint;
         if ( self.coordinate == CPCoordinateX ) 
-            terminalViewPoint.y -= self.majorTickLength;
+            terminalViewPoint.y -= length;
         else
-            terminalViewPoint.x -= self.majorTickLength;
-
+            terminalViewPoint.x -= length;
+        
         // Stroke line
-        CGContextBeginPath(theContext);
         CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
+        CGContextBeginPath(theContext);
         CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);
         CGContextStrokePath(theContext);
-    }
+    }    
+}
 
-    // Minor Ticks
-    for ( NSDecimalNumber *tickLocation in self.minorTickLocations ) {
-        // Tick end points
-        CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
-        CGPoint terminalViewPoint = baseViewPoint;
-        if ( self.coordinate == CPCoordinateX ) 
-            terminalViewPoint.y -= self.minorTickLength;
-        else
-            terminalViewPoint.x -= self.minorTickLength;
-		
-        // Stroke line
-        CGContextBeginPath(theContext);
-        CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
-        CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);
-        CGContextStrokePath(theContext);
-    }
+-(void)drawInContext:(CGContextRef)theContext 
+{
+    // Ticks
+    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength];
+    [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength];
 
     // Axis Line
     CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.location];
     CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.end];
-    CGContextBeginPath(theContext);
 	CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
+    CGContextBeginPath(theContext);
 	CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 	CGContextStrokePath(theContext);
 }

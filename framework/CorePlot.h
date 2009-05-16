@@ -1,5 +1,5 @@
 #import <CorePlot/CPAxis.h>
-#import <CorePlot/CPLinearAxis.h>
+#import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPAxisSet.h>
 #import <CorePlot/CPBarGraph.h>
 #import <CorePlot/CPBarPlot.h>
@@ -24,4 +24,5 @@
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPUtilities.h>
 #import <CorePlot/CPXYAxisSet.h>
+#import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYGraph.h>

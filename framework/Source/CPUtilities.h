@@ -12,11 +12,4 @@ NSDecimal CPDecimalFromDouble(CPDouble d);
 
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-#else
-CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);
-
-CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor);
-#endif
-
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);

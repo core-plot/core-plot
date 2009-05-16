@@ -4,7 +4,7 @@
 #import "CPExceptions.h"
 #import "CPLineStyle.h"
 #import "CPXYAxisSet.h"
-#import "CPLinearAxis.h"
+#import "CPXYAxis.h"
 #import "CPAxisSet.h"
 
 

@@ -42,9 +42,9 @@
 {
 	self.axisSet = nil;
 	self.plotArea = nil;
+    self.fill = nil;
 	[plots release];
 	[plotSpaces release];
-	[fill release];
 	[super dealloc];
 }
 

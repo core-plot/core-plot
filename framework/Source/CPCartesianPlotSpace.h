@@ -4,7 +4,6 @@
 #import "CPPlotSpace.h"
 #import "CPDefinitions.h"
 
-
 @interface CPCartesianPlotSpace : CPPlotSpace {
 	CPPlotRange *xRange;
 	CPPlotRange *yRange;

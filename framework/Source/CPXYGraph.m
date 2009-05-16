@@ -24,7 +24,8 @@
     return self;
 }
 
--(id)init {
+-(id)init
+{
     return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
 }
 
