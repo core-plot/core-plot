@@ -10,10 +10,12 @@
 	if (self = [super init]) {
 		CPLinearAxis *xAxis = [[CPLinearAxis alloc] init];
 		xAxis.majorTickLength = 10.f;
+		xAxis.minorTickLength = 5.f;
 		xAxis.coordinate = CPCoordinateX;
 		
 		CPLinearAxis *yAxis = [[CPLinearAxis alloc] init];
 		yAxis.majorTickLength = 10.f;
+		yAxis.minorTickLength = 5.f;
 		yAxis.coordinate = CPCoordinateY;
 		
 		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];

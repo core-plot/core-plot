@@ -54,7 +54,7 @@
 
 -(void)drawInContext:(CGContextRef)theContext {
 
-    // Ticks
+    // Major Ticks
     for ( NSDecimalNumber *tickLocation in self.majorTickLocations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
@@ -64,6 +64,23 @@
         else
             terminalViewPoint.x -= self.majorTickLength;
 
+        // Stroke line
+        CGContextBeginPath(theContext);
+        CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
+        CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);
+        CGContextStrokePath(theContext);
+    }
+
+    // Minor Ticks
+    for ( NSDecimalNumber *tickLocation in self.minorTickLocations ) {
+        // Tick end points
+        CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
+        CGPoint terminalViewPoint = baseViewPoint;
+        if ( self.coordinate == CPCoordinateX ) 
+            terminalViewPoint.y -= self.minorTickLength;
+        else
+            terminalViewPoint.x -= self.minorTickLength;
+		
         // Stroke line
         CGContextBeginPath(theContext);
         CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
