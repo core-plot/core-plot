@@ -49,7 +49,8 @@
     CGPoint point = [self.plotSpace viewPointForPlotPoint:plotPoint];
     
     [constCoordNumber release];
-    
+    [plotPoint release];
+	
     return point;
 }
 
