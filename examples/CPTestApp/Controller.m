@@ -152,4 +152,79 @@
 	}		
 }
 
+#pragma mark -
+#pragma mark Layer exploding for illustration
+
+#define ZDISTANCEBETWEENLAYERS 20.0f
+-(IBAction)explodeLayers:(id)sender;
+{
+	CATransform3D perspectiveRotation = CATransform3DMakeRotation(-40.0 * M_PI / 180.0, 0.0, 1.0, 0.0);
+	
+	perspectiveRotation = CATransform3DRotate(perspectiveRotation, -55.0 * M_PI / 180.0, perspectiveRotation.m11, perspectiveRotation.m21, perspectiveRotation.m31);
+	
+	perspectiveRotation = CATransform3DScale(perspectiveRotation, 0.7, 0.7, 0.7);
+	hostView.layer.masksToBounds = NO;
+	
+	overlayRotationView = [[RotationView alloc] initWithFrame:hostView.frame];
+	overlayRotationView.rotationDelegate = self;
+	overlayRotationView.rotationTransform = perspectiveRotation;
+	[[hostView superview] addSubview:overlayRotationView positioned:NSWindowAbove relativeTo:hostView];
+	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:1.0f] forKey:kCATransactionAnimationDuration];		
+
+	[Controller recursivelySplitSublayersInZForLayer:graph depthLevel:0];
+	graph.transform = perspectiveRotation;
+
+	[CATransaction commit];
+}
+
++(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(unsigned int)depthLevel;
+{
+	layer.zPosition = ZDISTANCEBETWEENLAYERS * (CGFloat)depthLevel;
+	depthLevel++;
+	for (CALayer *currentLayer in layer.sublayers)
+	{
+		[Controller recursivelySplitSublayersInZForLayer:currentLayer depthLevel:depthLevel];
+	}
+}
+
+-(IBAction)reassembleLayers:(id)sender;
+{
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:1.0f] forKey:kCATransactionAnimationDuration];		
+	
+	[Controller recursivelyAssembleSublayersInZForLayer:graph];
+	graph.transform = CATransform3DIdentity;
+
+	[CATransaction commit];
+	
+	[overlayRotationView removeFromSuperview];
+	[overlayRotationView release];
+	overlayRotationView = nil;
+}
+
++(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
+{
+	layer.zPosition = 0.0;
+	for (CALayer *currentLayer in layer.sublayers)
+	{
+		[Controller recursivelyAssembleSublayersInZForLayer:currentLayer];
+	}
+	
+}
+
+#pragma mark -
+#pragma mark CPRotationDelegate delegate method
+
+- (void)rotateObjectUsingTransform:(CATransform3D)rotationTransform;
+{
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];	
+
+	graph.transform = rotationTransform;
+	
+	[CATransaction commit];
+}
+
 @end
