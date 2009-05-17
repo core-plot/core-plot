@@ -16,7 +16,6 @@
 
 - (void)setUp
 {
-    
     CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
     plotSpace.bounds = CGRectMake(0., 0., 100., 100.);
     
@@ -43,9 +42,7 @@
     [(CPCartesianPlotSpace*)[[self plot] plotSpace] setYRange:[self yRange]];
 }
 
-/**
- Verify that CPScatterPlot can render 1e5 points in less than 1 second.
- */
+// Verify that CPScatterPlot can render 1e5 points in less than 1 second.
 - (void)testRenderScatterTimeLimit
 {
     self.nRecords = 1e5;
@@ -58,15 +55,16 @@
     GTMTestTimer *t = GTMTestTimerCreate();
     
     // render several times
-    for(NSInteger i = 0; i<3; i++) {
-        GTMTestTimerStart(t);
+    for(NSUInteger i = 0; i<3; i++) {
         self.plot.dataNeedsReloading = YES;
-        [self.plot drawInContext:ctx];
+        GTMTestTimerStart(t);
+		[self.plot drawInContext:ctx];
         GTMTestTimerStop(t);
     }
     
     //verify performance
-    STAssertTrue(GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t) < 1.0, @"rendering took more than 1 second for 1e5 points. Avg. time = %g", GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t));
+	double avgTime = GTMTestTimerGetSeconds(t)/GTMTestTimerGetIterations(t);
+    STAssertTrue(avgTime < 1.0, @"Avg. time = %g sec. for %lu points.", avgTime, (unsigned long)self.nRecords);
     
     // clean up
     GTMTestTimerRelease(t);
@@ -74,12 +72,10 @@
 }
 
 - (void)testRenderScatterStressTest {
+	self.nRecords = 1e6;
+	[self buildData];
+	[self setPlotRanges];
     
-    self.nRecords = 1e6;
-    [self buildData];
-    [self setPlotRanges];
-    
-    GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderStressTest", @"Should render a sine wave.");
-    
+	GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderStressTest", @"Should render a sine wave.");
 }
 @end

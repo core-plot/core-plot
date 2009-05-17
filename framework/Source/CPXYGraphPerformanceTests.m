@@ -11,6 +11,7 @@
 #import "CPFill.h"
 #import "CPColor.h"
 #import "GTMTestTimer.h"
+#import "CPPlatformSpecificFunctions.h"
 
 @implementation CPXYGraphPerformanceTests
 @synthesize graph;
@@ -35,7 +36,8 @@
     self.graph = nil;
 }
 
-- (void)addScatterPlot {
+- (void)addScatterPlot
+{
     self.graph.bounds = CGRectMake(0., 0., 400., 200.);
     
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
@@ -61,14 +63,12 @@
     [[self graph] addPlot:scatterPlot];
 }
 
-
-- (void)testRenderScatterStressTest {
-    
-    self.nRecords = 1e6;
-    [self buildData];
-    [self addScatterPlot];
+- (void)testRenderScatterStressTest
+{
+	self.nRecords = 1e6;
+	[self buildData];
+	[self addScatterPlot];
     
     GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderStressTest", @"Should render a sine wave with green symbols.");
-    
 }
 @end

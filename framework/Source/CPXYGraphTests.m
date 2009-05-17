@@ -11,6 +11,7 @@
 #import "CPFill.h"
 #import "CPColor.h"
 #import "GTMTestTimer.h"
+#import "CPPlatformSpecificFunctions.h"
 
 @interface CPXYGraph (UnitTesting)
 
@@ -52,7 +53,8 @@
     self.graph = nil;
 }
 
-- (void)addScatterPlot {
+- (void)addScatterPlot
+{
     self.graph.bounds = CGRectMake(0., 0., 400., 200.);
     
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
