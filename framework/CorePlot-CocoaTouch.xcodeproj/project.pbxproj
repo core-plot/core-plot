@@ -17,8 +17,8 @@
 		079FC1B70FB989200037E990 /* CPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B30FB989200037E990 /* CPColor.m */; };
 		079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1B40FB989200037E990 /* CPColorSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1B50FB989200037E990 /* CPColorSpace.m */; };
-		079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */; };
+		BC8E72F50FC0AB3100DF8511 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8E72F30FC0AB3100DF8511 /* CPXYAxis.h */; };
+		BC8E72F60FC0AB3100DF8511 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8E72F40FC0AB3100DF8511 /* CPXYAxis.m */; };
 		BC9B834B0FB8A1400035D8DA /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DE0FB89E610035D8DA /* CPAxisSet.m */; };
 		BC9B834C0FB8A1400035D8DA /* CPXYAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82E00FB89E610035D8DA /* CPXYAxisSet.m */; };
 		BC9B834D0FB8A1400035D8DA /* CPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82E20FB89E610035D8DA /* CPAxis.m */; };
@@ -67,14 +67,14 @@
 		079FC1B30FB989200037E990 /* CPColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPColor.m; path = Source/CPColor.m; sourceTree = "<group>"; };
 		079FC1B40FB989200037E990 /* CPColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPColorSpace.h; path = Source/CPColorSpace.h; sourceTree = "<group>"; };
 		079FC1B50FB989200037E990 /* CPColorSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPColorSpace.m; path = Source/CPColorSpace.m; sourceTree = "<group>"; };
-		079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLinearAxis.h; path = Source/CPLinearAxis.h; sourceTree = "<group>"; };
-		079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLinearAxis.m; path = Source/CPLinearAxis.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "main-cocoatouch.m"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_CocoaTouch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
+		BC8E72F30FC0AB3100DF8511 /* CPXYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYAxis.h; path = Source/CPXYAxis.h; sourceTree = "<group>"; };
+		BC8E72F40FC0AB3100DF8511 /* CPXYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYAxis.m; path = Source/CPXYAxis.m; sourceTree = "<group>"; };
 		BC9B82690FB89BD10035D8DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC9B826F0FB89E610035D8DA /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayer.h; path = Source/CPLayer.h; sourceTree = SOURCE_ROOT; };
 		BC9B82700FB89E610035D8DA /* CPLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayer.m; path = Source/CPLayer.m; sourceTree = SOURCE_ROOT; };
@@ -472,8 +472,8 @@
 		BC9B82DC0FB89E610035D8DA /* Axes */ = {
 			isa = PBXGroup;
 			children = (
-				079FC1BC0FB9895E0037E990 /* CPLinearAxis.h */,
-				079FC1BD0FB9895E0037E990 /* CPLinearAxis.m */,
+				BC8E72F30FC0AB3100DF8511 /* CPXYAxis.h */,
+				BC8E72F40FC0AB3100DF8511 /* CPXYAxis.m */,
 				BC9B82DD0FB89E610035D8DA /* CPAxisSet.h */,
 				BC9B82DE0FB89E610035D8DA /* CPAxisSet.m */,
 				BC9B82DF0FB89E610035D8DA /* CPXYAxisSet.h */,
@@ -494,10 +494,10 @@
 				BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */,
 				079FC1B60FB989200037E990 /* CPColor.h in Headers */,
 				079FC1B80FB989200037E990 /* CPColorSpace.h in Headers */,
-				079FC1BE0FB9895E0037E990 /* CPLinearAxis.h in Headers */,
 				0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */,
 				0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */,
 				0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
+				BC8E72F50FC0AB3100DF8511 /* CPXYAxis.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,10 +575,10 @@
 				BC9B83690FB8A1400035D8DA /* CPLayer.m in Sources */,
 				079FC1B70FB989200037E990 /* CPColor.m in Sources */,
 				079FC1B90FB989200037E990 /* CPColorSpace.m in Sources */,
-				079FC1BF0FB9895E0037E990 /* CPLinearAxis.m in Sources */,
 				0789EFBF0FB9F97F00C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */,
 				0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
+				BC8E72F60FC0AB3100DF8511 /* CPXYAxis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,7 +83,13 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:[CIColor colorWithCGColor:self.cgColor]];
+	const CGFloat *colorComponents = CGColorGetComponents(self.cgColor);
+	
+	[coder encodeDouble:colorComponents[0] forKey:@"redComponent"];
+	[coder encodeDouble:colorComponents[1] forKey:@"greenComponent"];
+	[coder encodeDouble:colorComponents[2] forKey:@"blueComponent"];
+	[coder encodeDouble:colorComponents[3] forKey:@"alphaComponent"];
+//	[coder encodeObject:[CIColor colorWithCGColor:self.cgColor]]; - Only available on Mac
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -95,7 +101,13 @@
     }
     
     if (self) {
-		cgColor = CPNewCGColorFromNSColor([NSColor colorWithCIColor:[coder decodeObject]]);
+		CGFloat colorComponents[4];
+		colorComponents[0] = [coder decodeDoubleForKey:@"redComponent"];
+		colorComponents[1] = [coder decodeDoubleForKey:@"greenComponent"];
+		colorComponents[2] = [coder decodeDoubleForKey:@"blueComponent"];
+		colorComponents[3] = [coder decodeDoubleForKey:@"alphaComponent"];
+		cgColor = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, colorComponents);
+		// cgColor = CPNewCGColorFromNSColor([NSColor colorWithCIColor:[coder decodeObject]]); - Only available on Mac
 	}
     return self;
 }
