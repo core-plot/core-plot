@@ -26,3 +26,12 @@
 }
 
 @end
+
+@implementation CPColor (CPPlatformSpecificColorExtensions)
+
+-(NSColor *)nsColor
+{
+	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
+}
+
+@end

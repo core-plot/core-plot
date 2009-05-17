@@ -193,7 +193,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 		
 	// calculate view points
-	CGPoint viewPoints[[self.xValues count]];
+	CGPoint *viewPoints = malloc([self.xValues count] * sizeof(CGPoint));
+	
 	if (self.dataLineStyle || self.defaultPlotSymbol || [self.plotSymbols count]) {
 		NSMutableArray *plotPoint = [NSMutableArray array];
 		CGPoint viewPoint;
@@ -243,6 +244,8 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 			}
 		}
 	}
+	
+	free(viewPoints);
 }
 
 @end

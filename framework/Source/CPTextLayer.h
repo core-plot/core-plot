@@ -16,11 +16,12 @@
 @property(readwrite, copy, nonatomic) NSString *text;
 @property(readwrite, copy, nonatomic) NSString *fontName;
 @property(readwrite, nonatomic) CGFloat fontSize; 
+@property(readwrite, copy, nonatomic) CPColor *fontColor;
 
 // Initialization and teardown
 +(NSString *)defaultFontName;
 
--(id)initWithString:(NSString *)newText fontSize:(float)newFontSize;
+-(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize;
 
 // Layout
 -(void)sizeToFit;
