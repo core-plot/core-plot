@@ -1,6 +1,4 @@
-
 #import <Foundation/Foundation.h>
-
 
 @interface CPColor : NSObject <NSCopying> {
     CGColorRef cgColor;

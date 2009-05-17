@@ -1,7 +1,6 @@
-
 #import "CPColor.h"
 #import "CPColorSpace.h"
-
+#import "CPPlatformSpecificFunctions.h"
 
 @implementation CPColor
 
@@ -77,6 +76,28 @@
 {
     CGColorRelease(cgColor);
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:[CIColor colorWithCGColor:self.cgColor]];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        self = [(id <NSCoding>)super initWithCoder:coder];
+    } else {
+        self = [super init];
+    }
+    
+    if (self) {
+		cgColor = CPNewCGColorFromNSColor([NSColor colorWithCIColor:[coder decodeObject]]);
+	}
+    return self;
 }
 
 #pragma mark -
