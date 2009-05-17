@@ -225,6 +225,10 @@
 		C3BFC21E0FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC2160FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.tiff */; };
 		C3BFC24A0FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC2490FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.10.5.7.tiff */; };
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.10.5.7.tiff */; };
+		C3F126260FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F126220FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.tiff */; };
+		C3F126270FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3F126230FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState */; };
+		C3F126280FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3F126240FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState */; };
+		C3F126290FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F126250FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.tiff */; };
 		C3F56D7D0FBEE90E00D261EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -770,6 +774,10 @@
 		C3BFC2160FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		C3BFC2490FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C3F126220FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering5.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C3F126230FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C3F126240FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C3F126250FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering6.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1156,6 +1164,10 @@
 				C3AFCA930FB67A0E005DFFDC /* CPTextLayerTests-testRendering4.ppc.10.5.6.tiff */,
 				C3BFC2130FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.gtmUTState */,
 				C3BFC2160FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.tiff */,
+				C3F126240FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState */,
+				C3F126220FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.tiff */,
+				C3F126230FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState */,
+				C3F126250FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.tiff */,
 			);
 			name = CPTextLayerTests;
 			sourceTree = "<group>";
@@ -1960,6 +1972,10 @@
 				C3BFC21C0FBFA7EF00998EE7 /* CPTextLayerTests-testRendering2.ppc.10.5.7.tiff in Resources */,
 				C3BFC21D0FBFA7EF00998EE7 /* CPTextLayerTests-testRendering3.ppc.10.5.7.gtmUTState in Resources */,
 				C3BFC21E0FBFA7EF00998EE7 /* CPTextLayerTests-testRendering4.ppc.10.5.7.tiff in Resources */,
+				C3F126260FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.tiff in Resources */,
+				C3F126270FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.gtmUTState in Resources */,
+				C3F126280FC046DE003D3DD8 /* CPTextLayerTests-testRendering5.ppc.10.5.7.gtmUTState in Resources */,
+				C3F126290FC046DE003D3DD8 /* CPTextLayerTests-testRendering6.ppc.10.5.7.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

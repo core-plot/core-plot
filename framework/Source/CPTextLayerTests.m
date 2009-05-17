@@ -54,6 +54,12 @@
 	layer.fontSize = 100.;
     GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering4", @"Rendered image does not match");
 	
+	layer.fontColor = [CPColor redColor];
+    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering5", @"Rendered image does not match");
+	
+	layer.fontName = @"Times-BoldItalic";
+    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering6", @"Rendered image does not match");
+	
 	[layer release];
 }
 

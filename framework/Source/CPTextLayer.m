@@ -59,6 +59,21 @@
 	[self sizeToFit];
 }
 
+-(void)setFontColor:(CPColor *)newValue
+{
+	if (!newValue) {
+		return;
+	}
+	if ([fontColor isEqual:newValue]) {
+		return;
+	}
+	
+	[fontColor release];
+	fontColor = [newValue copy];
+	
+	[self setNeedsDisplay];
+}
+
 #pragma mark -
 #pragma mark Initialization and teardown
 
