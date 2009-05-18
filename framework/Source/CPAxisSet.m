@@ -37,6 +37,13 @@
 	for (CPAxis *axis in self.axes) [axis drawInContext:theContext];
 }
 
+-(void)layoutSublayers 
+{
+    for ( CPAxis *axis in self.axes ) {
+        [axis relabel];
+    }
+}
+
 //-(void)setBounds:(CGRect)bounds {
 //	// We need to stretch the bounds so our CGContext is big enough to draw outside the CPPlotSpace.
 //	bounds.origin.x = -kCPAxisExtent;

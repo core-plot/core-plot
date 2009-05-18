@@ -6,6 +6,13 @@
 #import "CPPlotRange.h"
 #import "CPLineStyle.h"
 
+@interface CPAxis ()
+
+-(NSSet *)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing;
+
+@end
+
+
 @implementation CPAxis
 
 @synthesize majorTickLocations;
@@ -61,27 +68,36 @@
 #pragma mark -
 #pragma mark Labeling
 
+-(NSSet *)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing
+{
+    NSMutableSet *tickLocations = [NSMutableSet set];
+    NSDecimalNumber *coord = beginNumber;
+    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    while ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) {
+        [tickLocations addObject:coord];
+        if ( increasing ) {
+            coord = [coord decimalNumberByAdding:self.majorIntervalLength];
+        }
+        else {
+            coord = [coord decimalNumberBySubtracting:self.majorIntervalLength];
+        }
+    }
+    return tickLocations;
+}
+
 -(void)relabel
 {
     if ( plotSpace == nil ) return;
     if ( axisLabelingPolicy == CPAxisLabelingPolicyFixedInterval ) {
         NSMutableSet *tickLocations = [NSMutableSet set];
-        CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
         
-        // Add ticks below fixed point
-        NSDecimalNumber *coord = self.fixedPoint;
-        while ( [coord isGreaterThanOrEqualTo:range.location] ) {
-            [tickLocations addObject:coord];
-            coord = [coord decimalNumberBySubtracting:self.majorIntervalLength];
-        }
-        
-        // Add ticks above fixed point
-        coord = [self.fixedPoint decimalNumberByAdding:[NSDecimalNumber minimumDecimalNumber]];;
-        while ( [coord isLessThanOrEqualTo:range.end] ) {
-            [tickLocations addObject:coord];
-            coord = [coord decimalNumberByAdding:self.majorIntervalLength];
-        }
-        
+        // Add ticks 
+        NSSet *newLocations = [self tickLocationsBeginningAt:self.fixedPoint increasing:NO];
+        [tickLocations unionSet:newLocations];  
+        NSDecimalNumber *beginNumber = [self.fixedPoint decimalNumberByAdding:self.majorIntervalLength];
+        newLocations = [self tickLocationsBeginningAt:beginNumber increasing:YES];
+        [tickLocations unionSet:newLocations];
+
         self.majorTickLocations = tickLocations;
     }
 }

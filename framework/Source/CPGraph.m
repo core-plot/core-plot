@@ -36,7 +36,8 @@
         
         // Axis set
         self.axisSet = [self createAxisSet];
-        [self addSublayer:self.axisSet];
+        
+        [self setNeedsLayout];
 	}
 	return self;
 }
@@ -86,6 +87,7 @@
 	[plots addObject:plot];
     plot.plotSpace = space;
 	[space addSublayer:plot];	
+    [self setNeedsLayout];
 }
 
 -(void)removePlot:(CPPlot *)plot
@@ -94,6 +96,7 @@
         [plots removeObject:plot];
         plot.plotSpace = nil;
         [plot removeFromSuperlayer];
+        [self setNeedsLayout];
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlot which did not exist."];
@@ -110,6 +113,7 @@
 	[plots insertObject:plot atIndex:index];
     plot.plotSpace = space;
     [space addSublayer:plot];
+    [self setNeedsLayout];
 }
 
 -(void)removePlotWithIdentifier:(id <NSCopying>)identifier 
@@ -153,6 +157,7 @@
 	space.frame = self.plotArea.bounds;
 	[plotSpaces addObject:space];
 	[self.plotArea addSublayer:space];
+    [self setNeedsLayout];
 }
 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace
@@ -167,7 +172,21 @@
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlotSpace which did not exist."];
     }
-	
+	[self setNeedsLayout];
+}
+
+#pragma mark -
+#pragma mark Axis Set
+
+-(void)setAxisSet:(CPAxisSet *)newSet
+{
+    if ( newSet != axisSet ) {
+        [axisSet release];
+        [axisSet removeFromSuperlayer];
+        axisSet = [newSet retain];
+        axisSet.frame = self.bounds;
+        if ( axisSet ) [self addSublayer:axisSet];
+    }
 }
 
 #pragma mark -
@@ -181,6 +200,7 @@
 -(void)setPlotAreaFrame:(CGRect)frame
 {
     plotArea.frame = frame;
+    [self setNeedsLayout];
 }
 
 #pragma mark -
@@ -189,6 +209,14 @@
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	[self.fill fillRect:self.bounds inContext:theContext];
+}
+
+#pragma mark -
+#pragma mark Sublayer Layout
+
+-(void)layoutSublayers 
+{
+    self.axisSet.frame = self.bounds;
 }
 
 @end

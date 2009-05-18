@@ -28,18 +28,20 @@
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
-    [hostView setLayer:graph];
+    CALayer *hostLayer = [CALayer layer];
+    [hostView setLayer:hostLayer];
 	[hostView setWantsLayer:YES];
+    [hostLayer addSublayer:graph];
     
     // Setup plot space
-    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
+    CPCartesianPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
 
     // Axes
-//	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-//    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber numberWithFloat:0.1];
-//    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber numberWithFloat:0.5];
+	CPXYAxisSet *axisSet = (id)graph.axisSet;
+    axisSet.xAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.1];
+    axisSet.yAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.5];
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];

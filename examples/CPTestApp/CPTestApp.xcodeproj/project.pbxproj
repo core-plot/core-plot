@@ -118,23 +118,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0783DCC80FBEC154006C3696 /* Tests */ = {
+		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */,
 				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
-			);
-			name = Tests;
-			sourceTree = "<group>";
-		};
-		080E96DDFE201D6D7F000001 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
 				077382AF0F3DC1FB002F10E2 /* Controller.h */,
 				077382B00F3DC1FB002F10E2 /* Controller.m */,
 				BC8E74220FC0B96000DF8511 /* RotationView.h */,
 				BC8E74230FC0B96000DF8511 /* RotationView.m */,
-				0783DCC80FBEC154006C3696 /* Tests */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
