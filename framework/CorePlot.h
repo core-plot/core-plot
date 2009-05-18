@@ -1,7 +1,9 @@
+#import <CorePlot/CPAnimation.h>
+#import <CorePlot/CPAnimationKeyFrame.h>
+#import <CorePlot/CPAnimationTransition.h>
 #import <CorePlot/CPAxis.h>
 #import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPAxisSet.h>
-#import <CorePlot/CPBarGraph.h>
 #import <CorePlot/CPBarPlot.h>
 #import <CorePlot/CPColor.h>
 #import <CorePlot/CPColorSpace.h>

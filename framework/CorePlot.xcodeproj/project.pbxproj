@@ -25,6 +25,21 @@
 		070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
 		070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		072B00EF0FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
+		072B00F00FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
+		072B00F10FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
+		072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00ED0FC149D400CC8842 /* CPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
+		072B00F60FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
+		072B00F70FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
+		072B00F80FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
+		072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
+		072B01060FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
+		072B01070FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
+		072B01080FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
+		072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
 		07321BC10F37370D00F423D8 /* CPExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BBF0F37370D00F423D8 /* CPExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,8 +70,6 @@
 		07975C4A0F3B818800DE45DC /* CPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C480F3B818800DE45DC /* CPAxis.m */; };
 		07983EF60F2F9A3D008C8618 /* CPXYGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07983EF40F2F9A3D008C8618 /* CPXYGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07983EF70F2F9A3D008C8618 /* CPXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EF50F2F9A3D008C8618 /* CPXYGraph.m */; };
-		07983EFF0F2F9B50008C8618 /* CPBarGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07983EFD0F2F9B50008C8618 /* CPBarGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07983F000F2F9B50008C8618 /* CPBarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983EFE0F2F9B50008C8618 /* CPBarGraph.m */; };
 		07983F070F2F9BA6008C8618 /* CPPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 07983F050F2F9BA6008C8618 /* CPPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07983F080F2F9BA6008C8618 /* CPPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */; };
 		0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0799E0930F2BB5F300790525 /* CPBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -343,6 +356,12 @@
 		070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDecimalNumberValueTransformer.h; path = ../MacOnly/CPDecimalNumberValueTransformer.h; sourceTree = "<group>"; };
 		070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDecimalNumberValueTransformer.m; path = ../MacOnly/CPDecimalNumberValueTransformer.m; sourceTree = "<group>"; };
 		070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
+		072B00ED0FC149D400CC8842 /* CPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimation.h; sourceTree = "<group>"; };
+		072B00EE0FC149D400CC8842 /* CPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimation.m; sourceTree = "<group>"; };
+		072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimationTransition.h; sourceTree = "<group>"; };
+		072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimationTransition.m; sourceTree = "<group>"; };
+		072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimationKeyFrame.h; sourceTree = "<group>"; };
+		072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimationKeyFrame.m; sourceTree = "<group>"; };
 		07321BBF0F37370D00F423D8 /* CPExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExceptions.h; sourceTree = "<group>"; };
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
@@ -363,8 +382,6 @@
 		07975C480F3B818800DE45DC /* CPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxis.m; sourceTree = "<group>"; };
 		07983EF40F2F9A3D008C8618 /* CPXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraph.h; sourceTree = "<group>"; };
 		07983EF50F2F9A3D008C8618 /* CPXYGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYGraph.m; sourceTree = "<group>"; };
-		07983EFD0F2F9B50008C8618 /* CPBarGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarGraph.h; sourceTree = "<group>"; };
-		07983EFE0F2F9B50008C8618 /* CPBarGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarGraph.m; sourceTree = "<group>"; };
 		07983F050F2F9BA6008C8618 /* CPPolarPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPolarPlotSpace.h; sourceTree = "<group>"; };
 		07983F060F2F9BA6008C8618 /* CPPolarPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPolarPlotSpace.m; sourceTree = "<group>"; };
 		0799E0930F2BB5F300790525 /* CPBarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarPlot.h; sourceTree = "<group>"; };
@@ -858,6 +875,19 @@
 			name = "Value Transformers";
 			sourceTree = "<group>";
 		};
+		072B00EC0FC149C700CC8842 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				072B00ED0FC149D400CC8842 /* CPAnimation.h */,
+				072B00EE0FC149D400CC8842 /* CPAnimation.m */,
+				072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */,
+				072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */,
+				072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */,
+				072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
 		076A775F0FBF0BFE003F6D97 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,8 +966,6 @@
 				07BF0D710F2B718F002FCEA7 /* CPGraph.m */,
 				07983EF40F2F9A3D008C8618 /* CPXYGraph.h */,
 				07983EF50F2F9A3D008C8618 /* CPXYGraph.m */,
-				07983EFD0F2F9B50008C8618 /* CPBarGraph.h */,
-				07983EFE0F2F9B50008C8618 /* CPBarGraph.m */,
 				076A776A0FBF0C20003F6D97 /* Tests */,
 			);
 			name = Graphs;
@@ -970,6 +998,7 @@
 				07BF0D8C0F2B737A002FCEA7 /* Spaces */,
 				07BF0D890F2B736D002FCEA7 /* Plots */,
 				07BF0D920F2B73AE002FCEA7 /* Axes */,
+				072B00EC0FC149C700CC8842 /* Animation */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1700,7 +1729,6 @@
 				0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */,
 				0799E0990F2BB6E800790525 /* CPCartesianPlotSpace.h in Headers */,
 				07983EF60F2F9A3D008C8618 /* CPXYGraph.h in Headers */,
-				07983EFF0F2F9B50008C8618 /* CPBarGraph.h in Headers */,
 				07983F070F2F9BA6008C8618 /* CPPolarPlotSpace.h in Headers */,
 				07321BC10F37370D00F423D8 /* CPExceptions.h in Headers */,
 				07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */,
@@ -1726,6 +1754,9 @@
 				0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */,
 				0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
 				0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */,
+				072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */,
+				072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */,
+				072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2042,6 +2073,9 @@
 				079FC0C00FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF8E0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 				0783DD580FBF097E006C3696 /* CPXYAxis.m in Sources */,
+				072B00F10FC149D400CC8842 /* CPAnimation.m in Sources */,
+				072B00F80FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
+				072B01080FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2056,6 +2090,9 @@
 				079FC0BD0FB9762B0037E990 /* CPColorSpace.m in Sources */,
 				0789EF350FB9E90700C0A613 /* CPPlatformSpecificDefines.m in Sources */,
 				0789EF490FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
+				072B00EF0FC149D400CC8842 /* CPAnimation.m in Sources */,
+				072B00F60FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
+				072B01060FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2090,6 +2127,9 @@
 				0789EF4A0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EF8D0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 				0783DD570FBF097E006C3696 /* CPXYAxis.m in Sources */,
+				072B00F00FC149D400CC8842 /* CPAnimation.m in Sources */,
+				072B00F70FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
+				072B01070FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2106,7 +2146,6 @@
 				07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */,
 				0799E0960F2BB5F300790525 /* CPBarPlot.m in Sources */,
 				07983EF70F2F9A3D008C8618 /* CPXYGraph.m in Sources */,
-				07983F000F2F9B50008C8618 /* CPBarGraph.m in Sources */,
 				07983F080F2F9BA6008C8618 /* CPPolarPlotSpace.m in Sources */,
 				90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */,
 				07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */,
@@ -2132,6 +2171,9 @@
 				0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 				0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */,
+				072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */,
+				072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
+				072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

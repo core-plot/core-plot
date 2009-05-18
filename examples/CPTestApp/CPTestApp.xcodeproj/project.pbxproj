@@ -132,9 +132,9 @@
 			children = (
 				077382AF0F3DC1FB002F10E2 /* Controller.h */,
 				077382B00F3DC1FB002F10E2 /* Controller.m */,
-				0783DCC80FBEC154006C3696 /* Tests */,
 				BC8E74220FC0B96000DF8511 /* RotationView.h */,
 				BC8E74230FC0B96000DF8511 /* RotationView.m */,
+				0783DCC80FBEC154006C3696 /* Tests */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
