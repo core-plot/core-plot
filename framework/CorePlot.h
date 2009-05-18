@@ -26,5 +26,4 @@
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPUtilities.h>
 #import <CorePlot/CPXYAxisSet.h>
-#import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYGraph.h>
