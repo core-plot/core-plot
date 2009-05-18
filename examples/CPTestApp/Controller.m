@@ -36,24 +36,10 @@
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
 
-	CPXYAxisSet *axisSet = [[CPXYAxisSet alloc] init];
-	NSMutableArray *minorTickLocations = [NSMutableArray arrayWithCapacity:21];
-	NSInteger minorTick = 10;
-	for (minorTick; minorTick < 30; minorTick++)
-		[minorTickLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromFloat(minorTick / 10.f)]];
-	
-	[[axisSet xAxis] setMajorTickLocations:[NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithString:@"1.0"], [NSDecimalNumber decimalNumberWithString:@"2.0"], [NSDecimalNumber decimalNumberWithString:@"3.0"], nil]];
-    [[axisSet yAxis] setMajorTickLocations:[NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithString:@"1.0"], [NSDecimalNumber decimalNumberWithString:@"2.0"], [NSDecimalNumber decimalNumberWithString:@"3.0"], nil]];
-	[[axisSet xAxis] setMinorTickLocations:minorTickLocations];
-    [[axisSet yAxis] setMinorTickLocations:minorTickLocations];
-	[axisSet.xAxis setPlotSpace:plotSpace];
-	[axisSet.yAxis setPlotSpace:plotSpace];
-	[axisSet.xAxis setRange:plotSpace.xRange];
-	[axisSet.yAxis setRange:plotSpace.yRange];
-	[(CPXYAxis *)axisSet.xAxis setConstantCoordinateValue:[plotSpace.yRange.location decimalValue]];
-	[(CPXYAxis *)axisSet.yAxis setConstantCoordinateValue:[plotSpace.xRange.location decimalValue]];
-	[axisSet setBounds:plotSpace.frame];
-	[plotSpace addSublayer:axisSet];
+    // Axes
+//	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+//    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber numberWithFloat:0.1];
+//    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber numberWithFloat:0.5];
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];

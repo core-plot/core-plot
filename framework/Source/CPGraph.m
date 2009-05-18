@@ -5,7 +5,8 @@
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
-
+#import "CPAxisSet.h"
+#import "CPAxis.h"
 
 @implementation CPGraph
 
@@ -21,19 +22,21 @@
 {
 	if ( self = [super init] ) {
         self.bounds = CGRectMake(0.0, 0.0, 100.0, 100.0);
+        self.fill = nil;
 		plots = [[NSMutableArray alloc] init];
+        
+        // Plot area
         plotArea = [[CPPlotArea alloc] init];
-		plotArea.frame = CGRectInset(self.bounds, 20.0, 20.0); // Replace later with true margins
-		plotSpaces = [[NSMutableArray alloc] init];
+		plotArea.frame = CGRectInset(self.bounds, 40.0, 40.0); // Replace later with true margins
         [self addSublayer:plotArea];
 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-		// TODO: Add resizing code for iPhone
-#else
-		self.autoresizingMask = (kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin);
-#endif
-		
-		self.fill = nil;
+        // Plot spaces
+		plotSpaces = [[NSMutableArray alloc] init];
+        [self addPlotSpace:[self createPlotSpace]];
+        
+        // Axis set
+        self.axisSet = [self createAxisSet];
+        [self addSublayer:self.axisSet];
 	}
 	return self;
 }
@@ -157,6 +160,9 @@
 	if ( [plotSpaces containsObject:plotSpace] ) {
         [plotSpaces removeObject:plotSpace];
         [plotSpace removeFromSuperlayer];
+        for ( CPAxis *axis in self.axisSet.axes ) {
+            if ( axis.plotSpace == plotSpace ) axis.plotSpace = nil;
+        }
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlotSpace which did not exist."];

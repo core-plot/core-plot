@@ -2,7 +2,6 @@
 #import <CorePlot/CPAnimationKeyFrame.h>
 #import <CorePlot/CPAnimationTransition.h>
 #import <CorePlot/CPAxis.h>
-#import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPAxisSet.h>
 #import <CorePlot/CPBarPlot.h>
 #import <CorePlot/CPColor.h>
@@ -25,5 +24,6 @@
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPUtilities.h>
+#import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYAxisSet.h>
 #import <CorePlot/CPXYGraph.h>

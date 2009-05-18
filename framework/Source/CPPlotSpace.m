@@ -10,7 +10,7 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-- (id) init
+-(id)init
 {
 	self = [super init];
 	if (self != nil) {

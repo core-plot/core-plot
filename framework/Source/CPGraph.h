@@ -47,3 +47,11 @@
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace;
 
 @end
+
+@interface CPGraph (AbstractFactoryMethods)
+
+-(CPPlotSpace *)createPlotSpace;
+-(CPAxisSet *)createAxisSet;
+
+@end
+

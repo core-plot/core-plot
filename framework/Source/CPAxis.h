@@ -1,34 +1,49 @@
 
 #import <Foundation/Foundation.h>
-
-#define kCPAxisExtent 20.f // Temporary "height" of the axis labels and stuff, will be replaced by a proper calculation
+#import "CPDefinitions.h"
 
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
 
+typedef enum _CPAxisLabelingPolicy {
+    CPAxisLabelingPolicyAdHoc,
+    CPAxisLabelingPolicyFixedInterval,
+    CPAxisLabelingPolicyLogarithmic // Not implemented
+} CPAxisLabelingPolicy;
+
 @interface CPAxis : NSObject {   
     @private
+    CPCoordinate coordinate;
 	CPPlotSpace *plotSpace;
-	CPPlotRange *range;
-    NSArray *majorTickLocations;
-    NSArray *minorTickLocations;
+    NSSet *majorTickLocations;
+    NSSet *minorTickLocations;
     CGFloat majorTickLength;
     CGFloat minorTickLength;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
+    NSDecimalNumber *fixedPoint;
+    NSDecimalNumber *majorIntervalLength;
+    NSUInteger minorTicksPerInterval;
+    CPAxisLabelingPolicy axisLabelingPolicy;
 }
 
-@property (nonatomic, readwrite, retain) NSArray *majorTickLocations;
-@property (nonatomic, readwrite, retain) NSArray *minorTickLocations;
+@property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
+@property (nonatomic, readwrite, retain) NSSet *minorTickLocations;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
-@property (nonatomic, readwrite, retain) CPPlotRange *range;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
+@property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite, retain) CPLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, retain) CPLineStyle *majorTickLineStyle;
 @property (nonatomic, readwrite, retain) CPLineStyle *minorTickLineStyle;
+@property (nonatomic, readwrite, retain) NSDecimalNumber *fixedPoint;
+@property (nonatomic, readwrite, retain) NSDecimalNumber *majorIntervalLength;
+@property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
+@property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
+
+-(void)relabel;
 
 @end
 

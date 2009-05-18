@@ -25,12 +25,12 @@
 	return self;
 }
 
--(CPAxis *)xAxis 
+-(CPXYAxis *)xAxis 
 {
     return [self.axes objectAtIndex:CPCoordinateX];
 }
 
--(CPAxis *)yAxis 
+-(CPXYAxis *)yAxis 
 {
     return [self.axes objectAtIndex:CPCoordinateY];
 }

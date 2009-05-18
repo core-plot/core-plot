@@ -14,6 +14,14 @@
 @synthesize yRange;
 
 #pragma mark -
+#pragma mark Ranges
+
+-(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate
+{
+    return ( coordinate == CPCoordinateX ? self.xRange : self.yRange );
+}
+
+#pragma mark -
 #pragma mark Point Conversion
 
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;

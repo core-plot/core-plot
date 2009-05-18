@@ -2,8 +2,10 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CPLayer.h"
+#import "CPDefinitions.h"
 
 @class CPAxisSet;
+@class CPPlotRange;
 
 @interface CPPlotSpace : CPLayer {
 	id <NSCopying, NSObject> identifier;
@@ -18,5 +20,7 @@
 
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
 -(NSArray *)plotPointForViewPoint:(CGPoint)point;
+
+-(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 
 @end

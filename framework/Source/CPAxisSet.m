@@ -33,29 +33,24 @@
 #pragma mark -
 #pragma mark Drawing
 
-
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
-	for (CPAxis* axis in self.axes) [axis drawInContext:theContext];
+	for (CPAxis *axis in self.axes) [axis drawInContext:theContext];
 }
 
-#pragma mark -
-#pragma mark Dimensions
-
-
--(void)setBounds:(CGRect)bounds {
-	// We need to stretch the bounds so our CGContext is big enough to draw outside the CPPlotSpace.
-	bounds.origin.x = -kCPAxisExtent;
-	bounds.origin.y = -kCPAxisExtent;
-	bounds.size.width += kCPAxisExtent;
-	bounds.size.height += kCPAxisExtent;
-	
-	// Make sure our origin coincides with the origin of the CPPlotSpace
-	CGPoint ori = CGPointMake(kCPAxisExtent / bounds.size.width, kCPAxisExtent /bounds.size.height);
-	self.anchorPoint = ori;
-//	NSLog(@"CPAxisSet anchorPoint: %f, %f bounds: %f, %f %fx%f", ori.x, ori.y, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-	[super setBounds:bounds];
-	self.position = CGPointMake(0.0f, 0.0f);
-}
+//-(void)setBounds:(CGRect)bounds {
+//	// We need to stretch the bounds so our CGContext is big enough to draw outside the CPPlotSpace.
+//	bounds.origin.x = -kCPAxisExtent;
+//	bounds.origin.y = -kCPAxisExtent;
+//	bounds.size.width += kCPAxisExtent;
+//	bounds.size.height += kCPAxisExtent;
+//	
+//	// Make sure our origin coincides with the origin of the CPPlotSpace
+//	CGPoint ori = CGPointMake(kCPAxisExtent / bounds.size.width, kCPAxisExtent /bounds.size.height);
+//	self.anchorPoint = ori;
+////	NSLog(@"CPAxisSet anchorPoint: %f, %f bounds: %f, %f %fx%f", ori.x, ori.y, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
+//	[super setBounds:bounds];
+//	self.position = CGPointMake(0.0f, 0.0f);
+//}
 
 
 @end

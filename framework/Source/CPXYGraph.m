@@ -2,24 +2,20 @@
 #import "CPXYGraph.h"
 #import "CPCartesianPlotSpace.h"
 #import "CPExceptions.h"
-
+#import "CPXYAxisSet.h"
+#import "CPXYAxis.h"
 
 @implementation CPXYGraph
 
-// Designated initializer
--(id)initWithXScaleType:(CPScaleType)xScaleType yScaleType:(CPScaleType)yScaleType
+#pragma mark -
+#pragma mark Init/Dealloc
+
+// Designated
+-(id)initWithXScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType
 {
+    xScaleType = newXScaleType;
+    yScaleType = newYScaleType;
     if ( self = [super init] ) {
-        CPPlotSpace *space;
-        if ( xScaleType == CPScaleTypeLinear && yScaleType == CPScaleTypeLinear ) {
-            space = [[CPCartesianPlotSpace alloc] init];
-        }
-        else {
-            NSLog(@"Unsupported scale types in initWithXScaleType:yScaleType:");
-            [self release]; self = nil;
-        }
-        [self addPlotSpace:space];
-        [space release];
     }
     return self;
 }
@@ -27,6 +23,30 @@
 -(id)init
 {
     return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
+}
+
+#pragma mark -
+#pragma mark Factory Methods
+
+-(CPPlotSpace *)createPlotSpace 
+{
+    CPPlotSpace *space;
+    if ( xScaleType == CPScaleTypeLinear && yScaleType == CPScaleTypeLinear ) {
+        space = [[CPCartesianPlotSpace alloc] init];
+    }
+    else {
+        NSLog(@"Unsupported scale types in createPlotSpace");
+        return nil;
+    }    
+    return [space autorelease];
+}
+
+-(CPAxisSet *)createAxisSet
+{
+    CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] init];
+    newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
+    newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
+    return [newAxisSet autorelease];
 }
 
 #pragma mark -

@@ -2,12 +2,12 @@
 #import <Foundation/Foundation.h>
 #import "CPAxisSet.h"
 
-@class CPAxis;
+@class CPXYAxis;
 
 @interface CPXYAxisSet : CPAxisSet {
 }
 
-@property (nonatomic, readonly, retain) CPAxis *xAxis;
-@property (nonatomic, readonly, retain) CPAxis *yAxis;
+@property (nonatomic, readonly, retain) CPXYAxis *xAxis;
+@property (nonatomic, readonly, retain) CPXYAxis *yAxis;
 
 @end

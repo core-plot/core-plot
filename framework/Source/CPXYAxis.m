@@ -7,14 +7,13 @@
 @interface CPXYAxis ()
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSArray *)locations withLength:(CGFloat)length; 
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length; 
 
 @end
 
 
 @implementation CPXYAxis
 
-@synthesize coordinate;
 @synthesize constantCoordinateValue;
 
 #pragma mark -
@@ -23,7 +22,6 @@
 -(id)init
 {
 	if (self = [super init]) {
-        self.coordinate = CPCoordinateX;
         self.constantCoordinateValue = CPDecimalFromInt(0);
 	}
 	return self;
@@ -54,7 +52,7 @@
     return point;
 }
 
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSArray *)locations withLength:(CGFloat)length 
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length 
 {
     for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
@@ -80,8 +78,9 @@
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength];
 
     // Axis Line
-    CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.location];
-    CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:self.range.end];
+    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
+    CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
     CGContextBeginPath(theContext);
 	CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 	CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
