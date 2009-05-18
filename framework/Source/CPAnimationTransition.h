@@ -19,6 +19,7 @@
 @property (nonatomic, readwrite, retain) CPAnimationKeyFrame *startKeyFrame;
 @property (nonatomic, readwrite, retain) CPAnimationKeyFrame *endKeyFrame;
 @property (nonatomic, readwrite, retain) CPAnimationTransition *continuingTransition;
+@property (nonatomic, readonly, assign) BOOL reversible;
 
 @end
 

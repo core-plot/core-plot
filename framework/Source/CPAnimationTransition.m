@@ -17,4 +17,9 @@
     [super dealloc];
 }
 
+-(BOOL)reversible 
+{
+    return NO;
+}
+
 @end
