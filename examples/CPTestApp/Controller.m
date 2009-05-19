@@ -42,7 +42,9 @@
 	CPXYAxisSet *axisSet = (id)graph.axisSet;
     axisSet.xAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.1];
     axisSet.xAxis.constantCoordinateValue = CPDecimalFromInt(1);
+    axisSet.xAxis.minorTicksPerInterval = 2;
     axisSet.yAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.5];
+    axisSet.yAxis.minorTicksPerInterval = 5;
     axisSet.yAxis.constantCoordinateValue = CPDecimalFromInt(1);
 	
     // Create one plot that uses bindings

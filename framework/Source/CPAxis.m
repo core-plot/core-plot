@@ -8,7 +8,8 @@
 
 @interface CPAxis ()
 
--(NSSet *)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing;
+-(void)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval;
 
 @end
 
@@ -68,37 +69,69 @@
 #pragma mark -
 #pragma mark Labeling
 
--(NSSet *)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing
+-(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval
 {
-    NSMutableSet *tickLocations = [NSMutableSet set];
+    if ( increasing ) {
+        return [coord decimalNumberByAdding:interval];
+    }
+    else {
+        return [coord decimalNumberBySubtracting:interval];
+    }
+}
+
+-(void)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+{
+    NSMutableSet *majorLocations = [NSMutableSet set];
+    NSMutableSet *minorLocations = [NSMutableSet set];
     NSDecimalNumber *coord = beginNumber;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     while ( (increasing && [coord isLessThanOrEqualTo:range.end]) || (!increasing && [coord isGreaterThanOrEqualTo:range.location]) ) {
-        if ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) [tickLocations addObject:coord];
-        if ( increasing ) {
-            coord = [coord decimalNumberByAdding:self.majorIntervalLength];
+    
+        // Major tick
+        if ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) {
+            [majorLocations addObject:coord];
         }
-        else {
-            coord = [coord decimalNumberBySubtracting:self.majorIntervalLength];
+        
+        // Minor ticks
+        if ( self.minorTicksPerInterval > 0 ) {
+            NSDecimalNumber *minorInterval = [self.majorIntervalLength decimalNumberByDividingBy:(id)[NSDecimalNumber numberWithInt:self.minorTicksPerInterval+1]];
+            NSDecimalNumber *minorCoord;
+            minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+            for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; ++minorTickIndex ) {
+                if ( [minorCoord isLessThanOrEqualTo:range.end] && [minorCoord isGreaterThanOrEqualTo:range.location] ) {
+                    [minorLocations addObject:minorCoord];
+                }
+                minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
+            }
         }
+        
+        coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:self.majorIntervalLength];
     }
-    return tickLocations;
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
 }
 
 -(void)relabel
 {
     if ( plotSpace == nil ) return;
     if ( axisLabelingPolicy == CPAxisLabelingPolicyFixedInterval ) {
-        NSMutableSet *tickLocations = [NSMutableSet set];
-        
-        // Add ticks 
-        NSSet *newLocations = [self tickLocationsBeginningAt:self.fixedPoint increasing:NO];
-        [tickLocations unionSet:newLocations];  
-        NSDecimalNumber *beginNumber = [self.fixedPoint decimalNumberByAdding:self.majorIntervalLength];
-        newLocations = [self tickLocationsBeginningAt:beginNumber increasing:YES];
-        [tickLocations unionSet:newLocations];
+        NSMutableSet *allNewMajorLocations = [NSMutableSet set];
+        NSMutableSet *allNewMinorLocations = [NSMutableSet set];
 
-        self.majorTickLocations = tickLocations;
+        // Add ticks in negative direction
+        NSSet *newMajorLocations, *newMinorLocations;
+        [self tickLocationsBeginningAt:self.fixedPoint increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+        [allNewMajorLocations unionSet:newMajorLocations];  
+        [allNewMinorLocations unionSet:newMinorLocations];  
+        
+        // Add ticks in positive direction
+        NSDecimalNumber *beginNumber = [self.fixedPoint decimalNumberByAdding:self.majorIntervalLength];
+        [self tickLocationsBeginningAt:beginNumber increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+        [allNewMajorLocations unionSet:newMajorLocations];  
+        [allNewMinorLocations unionSet:newMinorLocations];  
+        
+        self.majorTickLocations = allNewMajorLocations;
+        self.minorTickLocations = allNewMinorLocations;
     }
 }
 
