@@ -96,7 +96,7 @@
  */
 - (void)testRenderScatterWithSymbol
 {
-    self.nRecords = 1e4;
+    self.nRecords = 1e2;
     [self buildData];
     [self addScatterPlot];
     
@@ -105,7 +105,7 @@
 
 - (void)testRenderMultipleScatter
 {
-    self.nRecords = 1e4;
+    self.nRecords = 1e2;
     [self buildData];
     [self addScatterPlot];
     [self addScatterPlot];
