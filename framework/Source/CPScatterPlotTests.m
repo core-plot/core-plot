@@ -21,7 +21,7 @@
     
     
     self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    [plotSpace addSublayer:self.plot];
+    //[plotSpace addSublayer:self.plot];
     self.plot.frame = plotSpace.bounds;
     
     self.plot.plotSpace = plotSpace;

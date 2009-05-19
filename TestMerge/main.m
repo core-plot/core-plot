@@ -7,8 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GTMUnitTestingUtilities.h"
 
 int main(int argc, char *argv[])
 {
+    [GTMUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
+    
     return NSApplicationMain(argc,  (const char **) argv);
 }

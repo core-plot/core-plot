@@ -5,6 +5,8 @@
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 
+const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
+
 @interface CPDataSourceTestCase ()
 - (CPPlotRange*)plotRangeForData:(NSArray*)dataArray;
 @end
@@ -16,11 +18,21 @@
 @synthesize nRecords;
 @synthesize xRange;
 @synthesize yRange;
+@synthesize plots;
+
+
+- (void)dealloc {
+    self.plots = nil;
+    
+    [super dealloc];
+}
+
 
 - (void)tearDown
 {
     self.xData = nil;
     self.yData = nil;
+    [[self plots] removeAllObjects];
 }
 
 - (void)buildData
@@ -38,12 +50,28 @@
     self.yData = arr;
 }
 
+- (void)addPlot:(CPPlot*)newPlot {
+    if(nil == self.plots) {
+        self.plots = [NSMutableArray array];
+    }
+    
+    [[self plots] addObject:newPlot];
+}
+
 - (CPPlotRange*)xRange {
-    return [self plotRangeForData:self.xData];
+    [self buildData];
+    return  [self plotRangeForData:self.xData];
 }
 
 - (CPPlotRange*)yRange {
-    return [self plotRangeForData:self.yData];
+    [self buildData];
+    CPPlotRange *range = [self plotRangeForData:self.yData];
+    
+    if(self.plots.count > 1) {
+        range.length = [NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromDouble([[range length] doubleValue] + self.plots.count)];
+    }
+    
+    return range;
 }
 
 - (CPPlotRange*)plotRangeForData:(NSArray*)dataArray {
@@ -51,8 +79,8 @@
     double max = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
     double range = max-min;
     
-    return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min - .05*range)
-                                       length:CPDecimalFromDouble(range + .05*range)];
+    return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min - .1*range)
+                                       length:CPDecimalFromDouble(range + .1*range)];
 }
 
 #pragma mark -
@@ -76,6 +104,16 @@
             break;
         case CPScatterPlotFieldY:
             result = [[self yData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
+            if(self.plots.count > 1) {
+                _GTMDevAssert([[self plots] containsObject:plot], @"");
+                NSMutableArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
+                for(NSDecimalNumber *d in result) {
+                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromFloat(CPDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot]+1))]]];
+                }
+                
+                result = shiftedResult;
+            }
+            
             break;
         default:
             [NSException raise:CPDataException format:@"Unexpected fieldEnum"];

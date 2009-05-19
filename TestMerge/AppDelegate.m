@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "TMMergeController.h"
 
+#import "GTMLogger.h"
+#import "GTMLogger+ASL.h"
+
 
 @interface AppDelegate ()
 
@@ -32,7 +35,11 @@
     [super dealloc];
 }
 
-- (void)applicationDidFinishLaunching {
+- (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+    [[GTMLogger sharedLogger] setSharedLogger:[GTMLogger standardLoggerWithASL]];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.mergeController = [[[NSWindowController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
     
     self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];

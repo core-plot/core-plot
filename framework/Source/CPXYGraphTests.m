@@ -57,27 +57,38 @@
 {
     self.graph.bounds = CGRectMake(0., 0., 400., 200.);
     
-    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
-    
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
-                                                   length:CPDecimalFromInt(self.nRecords)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.1) 
-                                                   length:CPDecimalFromFloat(2.2)];
-    
     CPScatterPlot *scatterPlot = [[[CPScatterPlot alloc] init] autorelease];
     scatterPlot.identifier = @"Scatter Plot";
 	scatterPlot.dataLineStyle.lineWidth = 1.0;
     scatterPlot.dataSource = self;
+    
+    [self addPlot:scatterPlot];
     
     // Add plot symbols
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
 	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(5.0, 5.0);
+    greenCirclePlotSymbol.lineStyle.lineWidth = 0.1;
     scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
-    [[self graph] addPlot:scatterPlot];
+    CPCartesianPlotSpace *plotSpace;
+    if([[self.graph allPlotSpaces] count] == 0) {
+        plotSpace = (CPCartesianPlotSpace*)[[self graph] createPlotSpace];
+        [[self graph] addPlotSpace:plotSpace];
+    } else {
+        plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
+    }
+    
+    _GTMDevAssert(plotSpace != nil, @"");
+    
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
+                                                   length:CPDecimalFromInt(self.nRecords)];
+    plotSpace.yRange = [self yRange];
+    _GTMDevLog(@"%@", [self yRange]);
+    
+    [[self graph] addPlot:scatterPlot toPlotSpace:plotSpace];
 }
 
 /**
@@ -90,5 +101,16 @@
     [self addScatterPlot];
     
     GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderScatterWithSymbol", @"Should render a sine wave with green symbols.");
+}
+
+- (void)testRenderMultipleScatter
+{
+    self.nRecords = 1e4;
+    [self buildData];
+    [self addScatterPlot];
+    [self addScatterPlot];
+    [self addScatterPlot];
+    
+    GTMAssertObjectImageEqualToImageNamed(self.graph, @"CPXYGraphTests-testRenderMultipleScatter", @"Should render 3 offset sine waves with green symbols.");
 }
 @end

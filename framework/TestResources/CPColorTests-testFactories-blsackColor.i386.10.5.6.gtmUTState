@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>$GTMArchive</key>
+	<string>GTMUnitTestingArchive</string>
+	<key>$GTMVersion</key>
+	<integer>1</integer>
+	<key>alphaComponent</key>
+	<real>1</real>
+	<key>blueComponent</key>
+	<real>0.0</real>
+	<key>greenComponent</key>
+	<real>0.0</real>
+	<key>redComponent</key>
+	<real>0.0</real>
+</dict>
+</plist>
