@@ -3,11 +3,12 @@
 #import "CPPlotSpace.h"
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
+#import "CPLineStyle.h"
 
 @interface CPXYAxis ()
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length; 
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major; 
 
 @end
 
@@ -52,7 +53,7 @@
     return point;
 }
 
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length 
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
 {
     for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
@@ -64,6 +65,7 @@
             terminalViewPoint.x -= length;
         
         // Stroke line
+        [(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
         CGContextBeginPath(theContext);
         CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
         CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);
@@ -74,13 +76,14 @@
 -(void)drawInContext:(CGContextRef)theContext 
 {
     // Ticks
-    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength];
-    [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength];
+    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
+    [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
 
     // Axis Line
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
     CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
+    [self.axisLineStyle setLineStyleInContext:theContext];
     CGContextBeginPath(theContext);
 	CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 	CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);

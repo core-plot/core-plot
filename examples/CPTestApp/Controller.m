@@ -40,13 +40,32 @@
 
     // Axes
 	CPXYAxisSet *axisSet = (id)graph.axisSet;
+    
+    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    majorLineStyle.lineCap = kCGLineCapRound;
+    majorLineStyle.lineColor = [CPColor blueColor];
+    majorLineStyle.lineWidth = 2.0f;
+    
+    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    minorLineStyle.lineColor = [CPColor redColor];
+    minorLineStyle.lineWidth = 2.0f;
+
     axisSet.xAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.1];
     axisSet.xAxis.constantCoordinateValue = CPDecimalFromInt(1);
     axisSet.xAxis.minorTicksPerInterval = 2;
+    axisSet.xAxis.majorTickLineStyle = majorLineStyle;
+    axisSet.xAxis.minorTickLineStyle = minorLineStyle;
+    axisSet.xAxis.axisLineStyle = majorLineStyle;
+    axisSet.xAxis.minorTickLength = 7.0f;
+
     axisSet.yAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.5];
     axisSet.yAxis.minorTicksPerInterval = 5;
     axisSet.yAxis.constantCoordinateValue = CPDecimalFromInt(1);
-	
+    axisSet.yAxis.majorTickLineStyle = majorLineStyle;
+    axisSet.yAxis.minorTickLineStyle = minorLineStyle;
+    axisSet.yAxis.axisLineStyle = majorLineStyle;
+    axisSet.yAxis.minorTickLength = 7.0f;
+
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";

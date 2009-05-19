@@ -58,6 +58,19 @@
 	return color; 
 } 
 
++(CPColor *)blueColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        CGColorRef blue = NULL;
+        CGFloat values[4] = {0.0, 0.0, 1.0, 1.0}; 
+		blue = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+        color = [[CPColor alloc] initWithCGColor:blue];
+        CGColorRelease(blue);
+    }
+	return color; 
+} 
+
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor 
 {
     return [[[CPColor alloc] initWithCGColor:newCGColor] autorelease];

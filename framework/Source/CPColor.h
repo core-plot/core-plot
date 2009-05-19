@@ -10,6 +10,7 @@
 +(CPColor *)whiteColor; 
 +(CPColor *)blackColor; 
 +(CPColor *)redColor;
++(CPColor *)blueColor;
 
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor;
 
