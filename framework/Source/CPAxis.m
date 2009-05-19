@@ -73,8 +73,8 @@
     NSMutableSet *tickLocations = [NSMutableSet set];
     NSDecimalNumber *coord = beginNumber;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-    while ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) {
-        [tickLocations addObject:coord];
+    while ( (increasing && [coord isLessThanOrEqualTo:range.end]) || (!increasing && [coord isGreaterThanOrEqualTo:range.location]) ) {
+        if ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) [tickLocations addObject:coord];
         if ( increasing ) {
             coord = [coord decimalNumberByAdding:self.majorIntervalLength];
         }

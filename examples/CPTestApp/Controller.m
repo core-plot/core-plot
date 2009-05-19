@@ -41,7 +41,9 @@
     // Axes
 	CPXYAxisSet *axisSet = (id)graph.axisSet;
     axisSet.xAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.1];
+    axisSet.xAxis.constantCoordinateValue = CPDecimalFromInt(1);
     axisSet.yAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.5];
+    axisSet.yAxis.constantCoordinateValue = CPDecimalFromInt(1);
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];

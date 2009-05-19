@@ -27,7 +27,7 @@
         
         // Plot area
         plotArea = [[CPPlotArea alloc] init];
-		plotArea.frame = CGRectInset(self.bounds, 40.0, 40.0); // Replace later with true margins
+		plotArea.frame = CGRectInset(self.bounds, 20.0, 20.0); // Replace later with true margins
         [self addSublayer:plotArea];
 
         // Plot spaces
@@ -184,8 +184,8 @@
         [axisSet release];
         [axisSet removeFromSuperlayer];
         axisSet = [newSet retain];
-        axisSet.frame = self.bounds;
         if ( axisSet ) [self addSublayer:axisSet];
+        [self setNeedsLayout];
     }
 }
 
@@ -216,7 +216,14 @@
 
 -(void)layoutSublayers 
 {
-    self.axisSet.frame = self.bounds;
+    if ( self.plotArea && self.axisSet ) {
+        // Axis set coordinates must correspond to plot area
+        CGRect axisSetBounds = self.bounds;
+        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
+        self.axisSet.bounds = axisSetBounds;
+        self.axisSet.anchorPoint = CGPointZero;
+        self.axisSet.position = self.bounds.origin;
+    }
 }
 
 @end
