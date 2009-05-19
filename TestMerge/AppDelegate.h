@@ -8,14 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class TMMergeController;
+
 @interface AppDelegate : NSObject 
 {
-    IBOutlet NSWindow *window;
-    
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;
+    
+    TMMergeController *mergeController;
 }
+
+@property (retain,readonly) TMMergeController * mergeController;
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 - (NSManagedObjectModel *)managedObjectModel;

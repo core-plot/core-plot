@@ -7,11 +7,39 @@
 //
 
 #import "AppDelegate.h"
+#import "TMMergeController.h"
+
+
+@interface AppDelegate ()
+
+@property (retain,readwrite) TMMergeController * mergeController;
+
+@end
 
 @implementation AppDelegate
+@synthesize mergeController;
 
+/**
+ Implementation of dealloc, to release the retained variables.
+ */
 
+- (void) dealloc {
+    [mergeController release];
+    
+    [managedObjectContext release], managedObjectContext = nil;
+    [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
+    [managedObjectModel release], managedObjectModel = nil;
+    [super dealloc];
+}
 
+- (void)applicationDidFinishLaunching {
+    self.mergeController = [[[NSWindowController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    
+    self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];
+    self.mergeController.outputPath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"];
+    
+    [[self mergeController] showWindow:self];
+}
 
 /**
     Returns the support folder for the application, used to store the Core Data
@@ -176,19 +204,5 @@
     
     return reply;
 }
-
-
-/**
-    Implementation of dealloc, to release the retained variables.
- */
- 
-- (void) dealloc {
-
-    [managedObjectContext release], managedObjectContext = nil;
-    [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
-    [managedObjectModel release], managedObjectModel = nil;
-    [super dealloc];
-}
-
 
 @end
