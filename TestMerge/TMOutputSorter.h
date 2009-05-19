@@ -10,15 +10,17 @@
 
 @protocol TMOutputGroup <NSObject>
 
+@property (copy,readwrite) NSString * name;
 @property (copy,readwrite) NSString * referencePath;
 @property (copy,readwrite) NSString * outputPath;
 @property (copy,readwrite) NSString * outputDiffPath;
+@property (copy,readwrite) NSString * extension;
 
 @end
 
 @protocol TMOutputGroupFactory <NSObject>
 
-- (id<TMOutputGroup>)groupWithName:(NSString*)name;
+- (id<TMOutputGroup>)groupWithName:(NSString*)name extension:(NSString*)extension;
 
 @end
 

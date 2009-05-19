@@ -37,6 +37,8 @@
 		4C7D31C00FC21F0600005D98 /* _OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BD0FC21F0600005D98 /* _OutputGroup.m */; };
 		4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BF0FC21F0600005D98 /* OutputGroup.m */; };
 		4C7D325F0FC221FA00005D98 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7D325C0FC221EE00005D98 /* OCMock.framework */; };
+		4C7D32C90FC22D9E00005D98 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F740FC2010200005D98 /* GTMSystemVersion.m */; };
+		4C7D32FE0FC2306500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D32EB0FC2303500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState */; };
 		770B37ED0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */; };
 		77C8280E06725ACE000B614F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* AppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -376,6 +378,7 @@
 		4C7D31BE0FC21F0600005D98 /* OutputGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputGroup.h; sourceTree = "<group>"; };
 		4C7D31BF0FC21F0600005D98 /* OutputGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputGroup.m; sourceTree = "<group>"; };
 		4C7D32530FC221EE00005D98 /* OCMock.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OCMock.xcodeproj; path = "externals/ocmock-1.29/OCMock.xcodeproj"; sourceTree = "<group>"; };
+		4C7D32EB0FC2303500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState"; path = "TestResources/TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TestMerge_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		77C82804067257F0000B614F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		77C8280B06725ACE000B614F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -451,6 +454,7 @@
 				4C7D32530FC221EE00005D98 /* OCMock.xcodeproj */,
 				4C7D2CC60FC200A900005D98 /* GTM */,
 				7756732906782D8800D1FEB8 /* Models */,
+				4C7D32DF0FC22FEF00005D98 /* Test Resources */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -914,6 +918,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4C7D32DF0FC22FEF00005D98 /* Test Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C7D32EB0FC2303500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState */,
+			);
+			name = "Test Resources";
+			sourceTree = "<group>";
+		};
 		7756732906782D8800D1FEB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1011,6 +1023,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7D32FE0FC2306500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,6 +1112,7 @@
 				4C7D30CF0FC209DC00005D98 /* TMOutputSorter.m in Sources */,
 				4C7D31C00FC21F0600005D98 /* _OutputGroup.m in Sources */,
 				4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */,
+				4C7D32C90FC22D9E00005D98 /* GTMSystemVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

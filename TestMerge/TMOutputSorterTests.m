@@ -90,10 +90,10 @@ typedef enum _OutputType {
     SInt32 major, minor, bugFix;
     [GTMSystemVersion getMajor:&major minor:&minor bugFix:&bugFix];
     
-    NSString *actualSystem = [NSString stringWithFormat:@".%d.%d.%d", 
+    NSString *actualSystem = [NSString stringWithFormat:@"%d.%d.%d", 
                               major, minor, bugFix];
     
-    NSString *prevSystem = [NSString stringWithFormat:@".%d.%d.%d", 
+    NSString *prevSystem = [NSString stringWithFormat:@"%d.%d.%d", 
                             major, minor, bugFix-1];
     
     NSString *actualArch = [GTMSystemVersion runtimeArchitecture];
@@ -131,7 +131,7 @@ typedef enum _OutputType {
     id group = [OCMockObject mockForProtocol:@protocol(TMOutputGroup)];
     
     //expectation -- only one
-    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion"];
+    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion" extension:@"tiff"];
     [[group expect] setReferencePath:expectedRefPath];
     
     TMOutputSorter *sorter = [[TMOutputSorter alloc] initWithReferencePaths:refPaths
@@ -156,13 +156,13 @@ typedef enum _OutputType {
     SInt32 major, minor, bugFix;
     [GTMSystemVersion getMajor:&major minor:&minor bugFix:&bugFix];
     
-    NSString *actualSystem = [NSString stringWithFormat:@".%d.%d.%d", 
+    NSString *actualSystem = [NSString stringWithFormat:@"%d.%d.%d", 
                               major, minor, bugFix];
     
     
     NSString *actualArch = [GTMSystemVersion runtimeArchitecture];
     
-    NSString *expectedRefPath = [self outputFileForName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"
+    NSString *expectedRefPath = [self outputFileForName:@"failureTestsForExtension"
                                                    arch:actualArch 
                                                  system:actualSystem
                                               extension:extension
@@ -173,12 +173,12 @@ typedef enum _OutputType {
                          nil];
     
     NSArray *outputPaths = [NSArray arrayWithObjects:
-                            [self outputFileForName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"
+                            [self outputFileForName:@"failureTestsForExtension"
                                                arch:actualArch 
                                              system:actualSystem
                                           extension:extension
                                                type:Failure],
-                            [self outputFileForName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion"
+                            [self outputFileForName:@"failureTestsForExtension"
                                                arch:actualArch 
                                              system:actualSystem
                                           extension:extension
@@ -190,19 +190,19 @@ typedef enum _OutputType {
     id group = [OCMockObject mockForProtocol:@protocol(TMOutputGroup)];
     
     //expectation -- only one
-    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"];
+    [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
     
     [[group expect] setReferencePath:expectedRefPath];
     
-    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"];
-    [[group expect] setOutputPath:[self outputFileForName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"
+    [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
+    [[group expect] setOutputPath:[self outputFileForName:@"failureTestsForExtension"
                                                      arch:actualArch 
                                                    system:actualSystem
                                                 extension:extension
                                                      type:Failure]];
     
-    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"];
-    [[group expect] setOutputDiffPath:[self outputFileForName:@"testSortWithOutputGroupFactoryBuildsGroupsForImageFailures"
+    [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
+    [[group expect] setOutputDiffPath:[self outputFileForName:@"failureTestsForExtension"
                                                          arch:actualArch 
                                                        system:actualSystem
                                                     extension:extension

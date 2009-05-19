@@ -19,6 +19,24 @@
 
 
 
+- (NSString*)failureDiffPath {
+	[self willAccessValueForKey:@"failureDiffPath"];
+	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
+	[self didAccessValueForKey:@"failureDiffPath"];
+	return result;
+}
+
+- (void)setFailureDiffPath:(NSString*)value_ {
+	[self willChangeValueForKey:@"failureDiffPath"];
+	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
+	[self didChangeValueForKey:@"failureDiffPath"];
+}
+
+
+
+
+
+
 - (NSString*)referencePath {
 	[self willAccessValueForKey:@"referencePath"];
 	NSString *result = [self primitiveValueForKey:@"referencePath"];
@@ -73,28 +91,17 @@
 
 
 
-- (NSNumber*)type {
-	[self willAccessValueForKey:@"type"];
-	NSNumber *result = [self primitiveValueForKey:@"type"];
-	[self didAccessValueForKey:@"type"];
+- (NSString*)extension {
+	[self willAccessValueForKey:@"extension"];
+	NSString *result = [self primitiveValueForKey:@"extension"];
+	[self didAccessValueForKey:@"extension"];
 	return result;
 }
 
-- (void)setType:(NSNumber*)value_ {
-	[self willChangeValueForKey:@"type"];
-	[self setPrimitiveValue:value_ forKey:@"type"];
-	[self didChangeValueForKey:@"type"];
-}
-
-
-
-- (short)typeValue {
-	NSNumber *result = [self type];
-	return result ? [result shortValue] : 0;
-}
-
-- (void)setTypeValue:(short)value_ {
-	[self setType:[NSNumber numberWithShort:value_]];
+- (void)setExtension:(NSString*)value_ {
+	[self willChangeValueForKey:@"extension"];
+	[self setPrimitiveValue:value_ forKey:@"extension"];
+	[self didChangeValueForKey:@"extension"];
 }
 
 
@@ -113,24 +120,6 @@
 	[self willChangeValueForKey:@"date"];
 	[self setPrimitiveValue:value_ forKey:@"date"];
 	[self didChangeValueForKey:@"date"];
-}
-
-
-
-
-
-
-- (NSString*)failureDiffPath {
-	[self willAccessValueForKey:@"failureDiffPath"];
-	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
-	[self didAccessValueForKey:@"failureDiffPath"];
-	return result;
-}
-
-- (void)setFailureDiffPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"failureDiffPath"];
-	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
-	[self didChangeValueForKey:@"failureDiffPath"];
 }
 
 

@@ -18,11 +18,14 @@
     [super dealloc];
 }
 
-- (id<TMOutputGroup>)groupWithName:(NSString*)name {
+- (id<TMOutputGroup>)groupWithName:(NSString*)name extension:(NSString*)extension {
     NSManagedObject<TMOutputGroup> *result;
     
     NSFetchRequest *fetch = [self.context.persistentStoreCoordinator.managedObjectModel fetchRequestFromTemplateWithName:@"namedGroup"
-                             substitutionVariables:[NSDictionary dictionaryWithObject:name forKey:@"NAME"]];
+                             substitutionVariables:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                    name, @"NAME",
+                                                    extension, @"EXTENSION",
+                                                    nil]];
     
     NSError *err;
     
@@ -34,6 +37,9 @@
     } else {
         result = [NSEntityDescription insertNewObjectForEntityForName:@"OutputGroup"
                                                inManagedObjectContext:[self context]];
+        
+        result.name = name;
+        result.extension = extension;
         
         if(![[self context] save:&err]) {
             [NSApp presentError:err];
