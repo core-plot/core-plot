@@ -12,8 +12,7 @@
 
 -(id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		// TODO: Add resizing code for iPhone

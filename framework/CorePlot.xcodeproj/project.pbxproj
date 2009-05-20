@@ -160,7 +160,7 @@
 		4CAA93470FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA933C0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff */; };
 		4CAA93480FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA933D0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff */; };
 		4CAA93570FC33C8400EA5853 /* CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93520FC33C8400EA5853 /* CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState */; };
-		4CAA93580FC33C8400EA5853 /* CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState */; };
+		4CAA93580FC33C8400EA5853 /* CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState */; };
 		4CAA93590FC33C8400EA5853 /* CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93540FC33C8400EA5853 /* CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState */; };
 		4CAA935A0FC33C8400EA5853 /* CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93550FC33C8400EA5853 /* CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState */; };
 		4CAA935B0FC33C8400EA5853 /* CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA93560FC33C8400EA5853 /* CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState */; };
@@ -212,6 +212,23 @@
 		C34260250FAE096D00072842 /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
 		C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C37E9CD30FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CCE0FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState */; };
+		C37E9CD40FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CCF0FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState */; };
+		C37E9CD50FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CD00FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState */; };
+		C37E9CD60FC34F57000C8225 /* CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CD10FC34F57000C8225 /* CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState */; };
+		C37E9CD70FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CD20FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState */; };
+		C37E9CFC0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF10FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff */; };
+		C37E9CFD0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF20FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff */; };
+		C37E9CFE0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF30FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff */; };
+		C37E9CFF0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF40FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff */; };
+		C37E9D000FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF50FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff */; };
+		C37E9D010FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF60FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff */; };
+		C37E9D020FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF70FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff */; };
+		C37E9D030FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF80FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff */; };
+		C37E9D040FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CF90FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff */; };
+		C37E9D050FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CFA0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff */; };
+		C37E9D060FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CFB0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff */; };
+		C37E9D200FC373AC000C8225 /* CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C37E9D1F0FC373AC000C8225 /* CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff */; };
 		C3942AF00FBE60D30068605A /* CPPlotSymbolTests-testSymbol4.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3942AE40FBE60D30068605A /* CPPlotSymbolTests-testSymbol4.ppc.10.5.7.tiff */; };
 		C3942AF10FBE60D30068605A /* CPPlotSymbolTests-testSymbol7.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3942AE50FBE60D30068605A /* CPPlotSymbolTests-testSymbol7.ppc.10.5.7.tiff */; };
 		C3942AF20FBE60D30068605A /* CPPlotSymbolTests-testSymbol6.ppc.10.5.7.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3942AE60FBE60D30068605A /* CPPlotSymbolTests-testSymbol6.ppc.10.5.7.tiff */; };
@@ -745,7 +762,7 @@
 		4CAA933C0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4CAA933D0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff"; sourceTree = "<group>"; };
 		4CAA93520FC33C8400EA5853 /* CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
-		4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
+		4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		4CAA93540FC33C8400EA5853 /* CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		4CAA93550FC33C8400EA5853 /* CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
 		4CAA93560FC33C8400EA5853 /* CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState"; sourceTree = "<group>"; };
@@ -800,6 +817,23 @@
 		C342601D0FAE096C00072842 /* _CPFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillImage.m; sourceTree = "<group>"; };
 		C342601E0FAE096C00072842 /* _CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillGradient.h; sourceTree = "<group>"; };
 		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
+		C37E9CCE0FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C37E9CCF0FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C37E9CD00FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C37E9CD10FC34F57000C8225 /* CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C37E9CD20FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState"; sourceTree = "<group>"; };
+		C37E9CF10FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF20FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF30FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF40FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF50FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF60FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF70FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF80FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CF90FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CFA0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9CFB0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
+		C37E9D1F0FC373AC000C8225 /* CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		C3942AE40FBE60D30068605A /* CPPlotSymbolTests-testSymbol4.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol4.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		C3942AE50FBE60D30068605A /* CPPlotSymbolTests-testSymbol7.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol7.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
 		C3942AE60FBE60D30068605A /* CPPlotSymbolTests-testSymbol6.ppc.10.5.7.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol6.ppc.10.5.7.tiff"; sourceTree = "<group>"; };
@@ -1114,14 +1148,14 @@
 		07BF0D920F2B73AE002FCEA7 /* Axes */ = {
 			isa = PBXGroup;
 			children = (
-				0783DD530FBF097E006C3696 /* CPXYAxis.h */,
-				0783DD540FBF097E006C3696 /* CPXYAxis.m */,
-				07BF0D820F2B7340002FCEA7 /* CPAxisSet.h */,
-				07BF0D830F2B7340002FCEA7 /* CPAxisSet.m */,
-				07975C410F3B816600DE45DC /* CPXYAxisSet.h */,
-				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 				07975C470F3B818800DE45DC /* CPAxis.h */,
 				07975C480F3B818800DE45DC /* CPAxis.m */,
+				07BF0D820F2B7340002FCEA7 /* CPAxisSet.h */,
+				07BF0D830F2B7340002FCEA7 /* CPAxisSet.m */,
+				0783DD530FBF097E006C3696 /* CPXYAxis.h */,
+				0783DD540FBF097E006C3696 /* CPXYAxis.m */,
+				07975C410F3B816600DE45DC /* CPXYAxisSet.h */,
+				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -1276,6 +1310,7 @@
 		4C2D5A360FB79043008275E0 /* CPXYGraphTests */ = {
 			isa = PBXGroup;
 			children = (
+				C37E9D1F0FC373AC000C8225 /* CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff */,
 				4CAA93AF0FC33E5900EA5853 /* CPXYGraphTests-testRenderMultipleScatter.i386.10.5.6.tiff */,
 				C3AFCA900FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.i386.10.5.6.tiff */,
 				C3AFCA880FB67A0E005DFFDC /* CPXYGraphTests-testRenderScatterWithSymbol.ppc.10.5.6.tiff */,
@@ -1729,16 +1764,27 @@
 			isa = PBXGroup;
 			children = (
 				4CAA93330FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.i386.10.5.6.tiff */,
+				C37E9CF30FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff */,
 				4CAA93340FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.i386.10.5.6.tiff */,
+				C37E9CFB0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff */,
 				4CAA93350FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.i386.10.5.6.tiff */,
+				C37E9CF70FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff */,
 				4CAA93360FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.i386.10.5.6.tiff */,
+				C37E9CF60FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff */,
 				4CAA93370FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.i386.10.5.6.tiff */,
+				C37E9CF90FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff */,
 				4CAA93380FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.i386.10.5.6.tiff */,
+				C37E9CF50FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff */,
 				4CAA93390FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.i386.10.5.6.tiff */,
+				C37E9CF40FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff */,
 				4CAA933A0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.i386.10.5.6.tiff */,
+				C37E9CFA0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff */,
 				4CAA933B0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.i386.10.5.6.tiff */,
+				C37E9CF10FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff */,
 				4CAA933C0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff */,
+				C37E9CF80FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff */,
 				4CAA933D0FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff */,
+				C37E9CF20FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff */,
 			);
 			name = CPGradientTests;
 			sourceTree = "<group>";
@@ -1747,10 +1793,15 @@
 			isa = PBXGroup;
 			children = (
 				4CAA93520FC33C8400EA5853 /* CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState */,
-				4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState */,
+				C37E9CCF0FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState */,
+				4CAA93530FC33C8400EA5853 /* CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState */,
+				C37E9CD00FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState */,
 				4CAA93540FC33C8400EA5853 /* CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState */,
+				C37E9CCE0FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState */,
 				4CAA93550FC33C8400EA5853 /* CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState */,
+				C37E9CD10FC34F57000C8225 /* CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState */,
 				4CAA93560FC33C8400EA5853 /* CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState */,
+				C37E9CD20FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState */,
 			);
 			name = CPColorTests;
 			sourceTree = "<group>";
@@ -2136,7 +2187,7 @@
 				4CAA93470FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.i386.10.5.6.tiff in Resources */,
 				4CAA93480FC33C2600EA5853 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.i386.10.5.6.tiff in Resources */,
 				4CAA93570FC33C8400EA5853 /* CPColorTests-testCGColorRoundTrip.i386.10.5.6.gtmUTState in Resources */,
-				4CAA93580FC33C8400EA5853 /* CPColorTests-testFactories-blsackColor.i386.10.5.6.gtmUTState in Resources */,
+				4CAA93580FC33C8400EA5853 /* CPColorTests-testFactories-blackColor.i386.10.5.6.gtmUTState in Resources */,
 				4CAA93590FC33C8400EA5853 /* CPColorTests-testFactories-clearColor.i386.10.5.6.gtmUTState in Resources */,
 				4CAA935A0FC33C8400EA5853 /* CPColorTests-testFactories-redColor.i386.10.5.6.gtmUTState in Resources */,
 				4CAA935B0FC33C8400EA5853 /* CPColorTests-testFactories-whiteColor.i386.10.5.6.gtmUTState in Resources */,
@@ -2157,6 +2208,23 @@
 				4CAA93980FC33E0100EA5853 /* CPTextLayerTests-testRendering6.i386.10.5.6.gtmUTState in Resources */,
 				4CAA93990FC33E0100EA5853 /* CPTextLayerTests-testRendering6.i386.10.5.6.tiff in Resources */,
 				4CAA93B00FC33E5900EA5853 /* CPXYGraphTests-testRenderMultipleScatter.i386.10.5.6.tiff in Resources */,
+				C37E9CD30FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.10.5.7.gtmUTState in Resources */,
+				C37E9CD40FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.10.5.7.gtmUTState in Resources */,
+				C37E9CD50FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.10.5.7.gtmUTState in Resources */,
+				C37E9CD60FC34F57000C8225 /* CPColorTests-testFactories-redColor.ppc.10.5.7.gtmUTState in Resources */,
+				C37E9CD70FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.10.5.7.gtmUTState in Resources */,
+				C37E9CFC0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedNormalGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9CFD0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedSelectedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9CFE0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaNormalGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9CFF0FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListUnselectedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D000FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-sourceListSelectedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D010FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-hydrogenSpectrumGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D020FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaSelectedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D030FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedPressedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D040FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-rainbowGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D050FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-unifiedDarkGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D060FC34F95000C8225 /* CPGradientTests-testDrawSwatchRendersCorrectlyForFactoryGradients-aquaPressedGradient.ppc.10.5.7.tiff in Resources */,
+				C37E9D200FC373AC000C8225 /* CPXYGraphTests-testRenderMultipleScatter.ppc.10.5.7.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

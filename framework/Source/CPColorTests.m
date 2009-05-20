@@ -25,7 +25,7 @@
 {
     GTMAssertObjectStateEqualToStateNamed([CPColor clearColor], @"CPColorTests-testFactories-clearColor", @"");
     GTMAssertObjectStateEqualToStateNamed([CPColor whiteColor], @"CPColorTests-testFactories-whiteColor", @"");
-    GTMAssertObjectStateEqualToStateNamed([CPColor blackColor], @"CPColorTests-testFactories-blsackColor", @"");
+    GTMAssertObjectStateEqualToStateNamed([CPColor blackColor], @"CPColorTests-testFactories-blackColor", @"");
     GTMAssertObjectStateEqualToStateNamed([CPColor redColor], @"CPColorTests-testFactories-redColor", @"");
 }
 
@@ -33,12 +33,12 @@
 {
     CGFloat compValue = 0.2;
     
-    CGColorRef *expected = CGColorCreateGenericRGB(compValue, compValue, compValue, compValue);
+    CGColorRef expected = CGColorCreateGenericRGB(compValue, compValue, compValue, compValue);
     CPColor *cpColor = [[CPColor alloc] initWithCGColor:expected];
     
     GTMAssertObjectStateEqualToStateNamed(cpColor, @"CPColorTests-testCGColorRoundTrip", @"");
     
-    CGFloat *actual = CGColorGetComponents(cpColor.cgColor);
+    const CGFloat *actual = CGColorGetComponents(cpColor.cgColor);
     
     for(int i=0; i<4; i++) {
         STAssertEqualsWithAccuracy(actual[i], compValue, .001f, @"round-trip CGColor components not equal");

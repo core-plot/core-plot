@@ -1,6 +1,7 @@
 
 #import "CPCartesianPlotSpaceTests.h"
 #import "CPExceptions.h"
+#import "CPPlotRange.h"
 #import "CPUtilities.h"
 
 @interface CPCartesianPlotSpace (UnitTesting)

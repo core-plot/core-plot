@@ -16,13 +16,13 @@
 	[self recursivelyRenderInContext:context];	
 	CGContextSetAllowsAntialiasing(context, false);
 	CGContextFlush(context);
-	[layerImage autorelease];
 	
-    NSSize nsSize = NSMakeSize(self.bounds.size.width, self.bounds.size.height);
-    NSImage *image = [[[NSImage alloc] initWithSize:nsSize] autorelease];
+    NSSize nsSize = NSSizeFromCGSize(self.bounds.size);
+    NSImage *image = [[NSImage alloc] initWithSize:nsSize];
     [image addRepresentation:layerImage];
+	[layerImage release];
     
-	return image;
+	return [image autorelease];
 }
 
 @end
