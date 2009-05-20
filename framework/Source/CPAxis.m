@@ -83,9 +83,11 @@
 {
     NSMutableSet *majorLocations = [NSMutableSet set];
     NSMutableSet *minorLocations = [NSMutableSet set];
+	NSDecimalNumber *majorInterval = self.majorIntervalLength;
     NSDecimalNumber *coord = beginNumber;
-    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-    while ( (increasing && [coord isLessThanOrEqualTo:range.end]) || (!increasing && [coord isGreaterThanOrEqualTo:range.location]) ) {
+	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    
+	while ( (increasing && [coord isLessThanOrEqualTo:range.end]) || (!increasing && [coord isGreaterThanOrEqualTo:range.location]) ) {
     
         // Major tick
         if ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) {
@@ -94,10 +96,10 @@
         
         // Minor ticks
         if ( self.minorTicksPerInterval > 0 ) {
-            NSDecimalNumber *minorInterval = [self.majorIntervalLength decimalNumberByDividingBy:(id)[NSDecimalNumber numberWithInt:self.minorTicksPerInterval+1]];
+            NSDecimalNumber *minorInterval = [majorInterval decimalNumberByDividingBy:(id)[NSDecimalNumber numberWithInt:self.minorTicksPerInterval+1]];
             NSDecimalNumber *minorCoord;
             minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
-            for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; ++minorTickIndex ) {
+            for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
                 if ( [minorCoord isLessThanOrEqualTo:range.end] && [minorCoord isGreaterThanOrEqualTo:range.location] ) {
                     [minorLocations addObject:minorCoord];
                 }
@@ -105,7 +107,7 @@
             }
         }
         
-        coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:self.majorIntervalLength];
+        coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
     }
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
@@ -114,6 +116,7 @@
 -(void)relabel
 {
     if ( plotSpace == nil ) return;
+	
     if ( axisLabelingPolicy == CPAxisLabelingPolicyFixedInterval ) {
         NSMutableSet *allNewMajorLocations = [NSMutableSet set];
         NSMutableSet *allNewMinorLocations = [NSMutableSet set];
@@ -125,8 +128,8 @@
         [allNewMinorLocations unionSet:newMinorLocations];  
         
         // Add ticks in positive direction
-        NSDecimalNumber *beginNumber = [self.fixedPoint decimalNumberByAdding:self.majorIntervalLength];
-        [self tickLocationsBeginningAt:beginNumber increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+        [self tickLocationsBeginningAt:self.fixedPoint increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+		
         [allNewMajorLocations unionSet:newMajorLocations];  
         [allNewMinorLocations unionSet:newMinorLocations];  
         

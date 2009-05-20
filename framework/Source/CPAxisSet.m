@@ -12,8 +12,7 @@
 
 -(id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 		self.axes = [NSArray array];		
 	}
 	return self;
@@ -28,8 +27,13 @@
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
-	for (CPAxis *axis in self.axes) [axis drawInContext:theContext];
+	for (CPAxis *axis in self.axes) {
+		[axis drawInContext:theContext];	
+	}
 }
+
+#pragma mark -
+#pragma mark Layout
 
 -(void)layoutSublayers 
 {
@@ -37,6 +41,5 @@
         [axis relabel];
     }
 }
-
 
 @end

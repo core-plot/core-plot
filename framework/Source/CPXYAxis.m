@@ -28,11 +28,6 @@
 	return self;
 }
 
--(void)dealloc
-{
-	[super dealloc];
-}
-
 #pragma mark -
 #pragma mark Drawing
 
@@ -55,6 +50,8 @@
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
 {
+	[(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
+
     for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
@@ -65,7 +62,6 @@
             terminalViewPoint.x -= length;
         
         // Stroke line
-        [(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
         CGContextBeginPath(theContext);
         CGContextMoveToPoint(theContext, baseViewPoint.x, baseViewPoint.y);
         CGContextAddLineToPoint(theContext, terminalViewPoint.x, terminalViewPoint.y);

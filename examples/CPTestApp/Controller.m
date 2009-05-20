@@ -34,12 +34,12 @@
     [hostLayer addSublayer:graph];
     
     // Setup plot space
-    CPCartesianPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
+    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
 
     // Axes
-	CPXYAxisSet *axisSet = (id)graph.axisSet;
+	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
@@ -50,7 +50,7 @@
     minorLineStyle.lineColor = [CPColor redColor];
     minorLineStyle.lineWidth = 2.0f;
 
-    axisSet.xAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.1];
+    axisSet.xAxis.majorIntervalLength = (NSDecimalNumber *)[NSDecimalNumber numberWithFloat:0.1];
     axisSet.xAxis.constantCoordinateValue = CPDecimalFromInt(1);
     axisSet.xAxis.minorTicksPerInterval = 2;
     axisSet.xAxis.majorTickLineStyle = majorLineStyle;
@@ -58,7 +58,7 @@
     axisSet.xAxis.axisLineStyle = majorLineStyle;
     axisSet.xAxis.minorTickLength = 7.0f;
 
-    axisSet.yAxis.majorIntervalLength = (id)[NSDecimalNumber numberWithFloat:0.5];
+    axisSet.yAxis.majorIntervalLength = (NSDecimalNumber *)[NSDecimalNumber numberWithFloat:0.5];
     axisSet.yAxis.minorTicksPerInterval = 5;
     axisSet.yAxis.constantCoordinateValue = CPDecimalFromInt(1);
     axisSet.yAxis.majorTickLineStyle = majorLineStyle;
@@ -194,8 +194,7 @@
 {
 	layer.zPosition = ZDISTANCEBETWEENLAYERS * (CGFloat)depthLevel;
 	depthLevel++;
-	for (CALayer *currentLayer in layer.sublayers)
-	{
+	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelySplitSublayersInZForLayer:currentLayer depthLevel:depthLevel];
 	}
 }
@@ -218,11 +217,9 @@
 +(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
 {
 	layer.zPosition = 0.0;
-	for (CALayer *currentLayer in layer.sublayers)
-	{
+	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelyAssembleSublayersInZForLayer:currentLayer];
 	}
-	
 }
 
 #pragma mark -
