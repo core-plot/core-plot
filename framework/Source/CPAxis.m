@@ -20,6 +20,7 @@
 @synthesize minorTickLocations;
 @synthesize minorTickLength;
 @synthesize majorTickLength;
+@synthesize tickLabelOffset;
 @synthesize axisLineStyle;
 @synthesize majorTickLineStyle;
 @synthesize minorTickLineStyle;
@@ -29,6 +30,7 @@
 @synthesize majorIntervalLength;
 @synthesize minorTicksPerInterval;
 @synthesize axisLabelingPolicy;
+@synthesize tickLabelFormatter;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -42,6 +44,7 @@
 		self.minorTickLocations = [NSArray array];
 		self.minorTickLength = 0.f;
 		self.majorTickLength = 0.f;
+		self.tickLabelOffset = 0.f;
 		self.majorTickLineStyle = [CPLineStyle lineStyle];
 		self.minorTickLineStyle = [CPLineStyle lineStyle];
         self.fixedPoint = [NSDecimalNumber zero];
@@ -49,6 +52,8 @@
         self.minorTicksPerInterval = 1;
         self.coordinate = CPCoordinateX;
         self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+		self.tickLabelFormatter = [[[NSNumberFormatter allocWithZone:[self zone]] init] autorelease];
+		self.tickLabelFormatter.format = @"#0.0"; 
 	}
 	return self;
 }
@@ -63,6 +68,7 @@
     self.minorTickLineStyle = nil;
     self.fixedPoint = nil;
     self.majorIntervalLength = nil;
+	self.tickLabelFormatter = nil;
     [super dealloc];
 }
 

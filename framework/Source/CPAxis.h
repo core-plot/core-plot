@@ -20,6 +20,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSSet *minorTickLocations;
     CGFloat majorTickLength;
     CGFloat minorTickLength;
+	CGFloat tickLabelOffset;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
@@ -27,12 +28,14 @@ typedef enum _CPAxisLabelingPolicy {
     NSDecimalNumber *majorIntervalLength;
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
+	NSNumberFormatter *tickLabelFormatter;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
 @property (nonatomic, readwrite, retain) NSSet *minorTickLocations;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
+@property (nonatomic, readwrite, assign) CGFloat tickLabelOffset;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite, retain) CPLineStyle *axisLineStyle;
@@ -42,6 +45,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) NSDecimalNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
+@property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
 
 -(void)relabel;
 

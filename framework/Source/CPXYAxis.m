@@ -4,11 +4,13 @@
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
+#import "CPTextLayer.h"
 
 @interface CPXYAxis ()
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major; 
+-(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset;
 
 @end
 
@@ -69,10 +71,35 @@
     }    
 }
 
+-(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset
+{
+	for ( NSDecimalNumber *tickLocation in locations ) {
+        // Tick end points
+        CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
+        CGPoint terminalViewPoint = baseViewPoint;
+		
+		NSString *tickLabel = [NSString stringWithFormat:@"%@", [self.tickLabelFormatter stringForObjectValue:tickLocation]];
+		CPTextLayer *labelLayer = [[CPTextLayer alloc] initWithString:tickLabel fontSize:10.f];
+
+        if ( self.coordinate == CPCoordinateX ) { 
+            terminalViewPoint.y -= offset;
+			labelLayer.anchorPoint = CGPointMake(0.5f, 1.0f);
+        } else {
+            terminalViewPoint.x -= offset;
+			labelLayer.anchorPoint = CGPointMake(1.0f, 0.5f);
+		}
+		labelLayer.position = terminalViewPoint;
+		[self.plotSpace addSublayer:labelLayer];
+		
+		[labelLayer release];
+	}
+}
+
 -(void)drawInContext:(CGContextRef)theContext 
 {
     // Ticks
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
+    [self drawLabelsInContext:theContext atLocations:self.majorTickLocations withOffset:self.tickLabelOffset];
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
 
     // Axis Line
