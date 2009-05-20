@@ -8,7 +8,7 @@
 {
 	if ( self = [super init] ) {
 		self.needsDisplayOnBoundsChange = YES;
-        self.isOpaque = NO;
+        self.opaque = NO;
 	}
 	return self;
 }
