@@ -28,10 +28,8 @@
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
-    CALayer *hostLayer = [CALayer layer];
-    [hostView setLayer:hostLayer];
+    [hostView setLayer:graph];
 	[hostView setWantsLayer:YES];
-    [hostLayer addSublayer:graph];
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;

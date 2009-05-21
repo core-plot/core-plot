@@ -73,6 +73,7 @@
 
 -(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset
 {
+	// TODO: reposition existing labels instead of creating new CPTextLayers each time
 	for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
