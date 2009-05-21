@@ -29,6 +29,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	NSNumberFormatter *tickLabelFormatter;
+	NSDictionary *tickLabels;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -46,6 +47,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
+@property (nonatomic, readwrite, retain) NSDictionary *tickLabels;
 
 -(void)relabel;
 

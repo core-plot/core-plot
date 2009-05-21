@@ -74,6 +74,7 @@
 -(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset
 {
 	// TODO: reposition existing labels instead of creating new CPTextLayers each time
+	NSMutableDictionary *labels = [NSMutableDictionary dictionary];
 	for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
@@ -90,10 +91,11 @@
 			labelLayer.anchorPoint = CGPointMake(1.0f, 0.5f);
 		}
 		labelLayer.position = terminalViewPoint;
-		[self.plotSpace addSublayer:labelLayer];
+		[labels setObject:labelLayer forKey:tickLocation];
 		
 		[labelLayer release];
 	}
+	self.tickLabels = labels;
 }
 
 -(void)drawInContext:(CGContextRef)theContext 

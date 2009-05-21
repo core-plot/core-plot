@@ -5,6 +5,7 @@
 #import "CPUtilities.h"
 #import "CPPlotRange.h"
 #import "CPLineStyle.h"
+#import "CPTextLayer.h"
 
 @interface CPAxis ()
 
@@ -31,6 +32,7 @@
 @synthesize minorTicksPerInterval;
 @synthesize axisLabelingPolicy;
 @synthesize tickLabelFormatter;
+@synthesize tickLabels;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -53,7 +55,8 @@
         self.coordinate = CPCoordinateX;
         self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
 		self.tickLabelFormatter = [[[NSNumberFormatter allocWithZone:[self zone]] init] autorelease];
-		self.tickLabelFormatter.format = @"#0.0"; 
+		self.tickLabelFormatter.format = @"#0.0";
+		self.tickLabels = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
@@ -69,6 +72,7 @@
     self.fixedPoint = nil;
     self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
+	self.tickLabels = nil;
     [super dealloc];
 }
 
@@ -142,6 +146,23 @@
         self.majorTickLocations = allNewMajorLocations;
         self.minorTickLocations = allNewMinorLocations;
     }
+}
+
+# pragma mark -
+# pragma mark Label Management
+
+-(void)setTickLabels:(NSDictionary *)newLabels
+{
+	if (self.tickLabels != newLabels)
+	{
+		for (CPTextLayer *label in [self.tickLabels allValues]) [label removeFromSuperlayer];
+	
+		for (CPTextLayer *label in [newLabels allValues]) [self.plotSpace addSublayer:label];
+
+		[newLabels retain];
+		[self.tickLabels release];
+		tickLabels = newLabels;
+	}
 }
 
 @end
