@@ -71,6 +71,8 @@
     }    
 }
 
+/** Draws labels along the axis. The label contents and label location are both specified with the locations argument.
+ **/
 -(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset
 {
 	// TODO: reposition existing labels instead of creating new CPTextLayers each time

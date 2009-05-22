@@ -19,6 +19,17 @@
 			name = "All Tests";
 			productName = "All Tests";
 		};
+		9021E49E0FC5C9DC00443472 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9021E4A10FC5C9FB00443472 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				9021E49D0FC5C9DC00443472 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -775,6 +786,7 @@
 		4CD7E9A50F4B65D000F9BCBB /* GTM_notes.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GTM_notes.rst; path = TestResources/GTM_notes.rst; sourceTree = SOURCE_ROOT; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9021E5690FC69B2900443472 /* doxygen.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = doxygen.config; path = ../documentation/doxygen.config; sourceTree = SOURCE_ROOT; };
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
@@ -1131,6 +1143,7 @@
 				07BF0D600F2B6FE1002FCEA7 /* Source */,
 				07BF0D5F0F2B6FE1002FCEA7 /* Mac Specific */,
 				4C32D37A0F43B3B400EDFE7A /* Test Host */,
+				9021E4920FC5C6DD00443472 /* Documentation */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -1747,6 +1760,14 @@
 			name = Root;
 			sourceTree = "<group>";
 		};
+		9021E4920FC5C6DD00443472 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				9021E5690FC69B2900443472 /* doxygen.config */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
 		906156BA0F375558001B75FC /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1956,6 +1977,7 @@
 				4C2D58A00FB78208008275E0 /* CorePlot-PerformanceTests */,
 				4C2D59F50FB78DC3008275E0 /* All Tests */,
 				4C32D3550F43B36F00EDFE7A /* CPTestHarness */,
+				9021E49E0FC5C9DC00443472 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -2156,6 +2178,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-mac-trunk/UnitTesting/RunMacOSUnitTests.sh\"\n";
+		};
+		9021E49D0FC5C9DC00443472 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#  Build the doxygen documentation for the project and load the docset into Xcode.\n\n#  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:\n#    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen\n#    Source build install location: /usr/local/bin/doxygen\n\n#  If the config file doesn't exist, run 'doxygen -g $SOURCE_ROOT/doxygen.config' to \n#   a get default file.\n\nif ! [ -f $SOURCE_ROOT/../documentation/doxygen.config ] \nthen \n  echo doxygen config file does not exist\n  $DOXYGEN_PATH -g $SOURCE_ROOT/../documentation/doxygen.config\nfi\n\n#  Append the proper input/output directories and docset info to the config file.\n#  This works even though values are assigned higher up in the file. Easier than sed.\n\ncp $SOURCE_ROOT/../documentation/doxygen.config $TEMP_DIR/doxygen.config\n\necho \"INPUT = $SOURCE_ROOT\" >> $TEMP_DIR/doxygen.config\necho \"OUTPUT_DIRECTORY = $SOURCE_ROOT/DoxygenDocs.docset\" >> $TEMP_DIR/doxygen.config\necho \"GENERATE_DOCSET        = YES\" >> $TEMP_DIR/doxygen.config\necho \"DOCSET_BUNDLE_ID       = com.CorePlot.Framework\" >> $TEMP_DIR/doxygen.config\necho \"RECURSIVE              = YES\"  >> $TEMP_DIR/doxygen.config\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN_PATH $TEMP_DIR/doxygen.config\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\n\nmake -C $SOURCE_ROOT/DoxygenDocs.docset/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\n\nrm -f $TEMP_DIR/loadDocSet.scpt\n\necho \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\" \n     >> $TEMP_DIR/loadDocSet.scpt\necho \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n\nosascript $TEMP_DIR/loadDocSet.scpt\n\nexit 0";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2643,6 +2678,29 @@
 			};
 			name = Release;
 		};
+		9021E49F0FC5C9DD00443472 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Documentation;
+			};
+			name = Debug;
+		};
+		9021E4A00FC5C9DD00443472 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Documentation;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2696,6 +2754,15 @@
 			buildConfigurations = (
 				4CBF252E0F3CDED500DAE1A8 /* Debug */,
 				4CBF252F0F3CDED500DAE1A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9021E4A10FC5C9FB00443472 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9021E49F0FC5C9DD00443472 /* Debug */,
+				9021E4A00FC5C9DD00443472 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
