@@ -27,7 +27,7 @@
         
         // Plot area
         plotArea = [[CPPlotArea alloc] init];
-		plotArea.frame = CGRectInset(self.bounds, 20.0, 20.0); // Replace later with true margins
+		plotArea.frame = CGRectInset(self.bounds, 40.0, 40.0); // Replace later with true margins
         [self addSublayer:plotArea];
 
         // Plot spaces
