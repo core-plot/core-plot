@@ -11,14 +11,16 @@
 		CPXYAxis *xAxis = [[CPXYAxis alloc] init];
 		xAxis.majorTickLength = 10.f;
 		xAxis.minorTickLength = 5.f;
-		xAxis.tickLabelOffset = 15.f;
+		xAxis.axisLabelOffset = 20.f;
 		xAxis.coordinate = CPCoordinateX;
+        xAxis.tickDirection = CPDirectionDown;
 		
 		CPXYAxis *yAxis = [[CPXYAxis alloc] init];
 		yAxis.majorTickLength = 10.f;
 		yAxis.minorTickLength = 5.f;
-		yAxis.tickLabelOffset = 15.f;
+		yAxis.axisLabelOffset = 20.f;
 		yAxis.coordinate = CPCoordinateY;
+        yAxis.tickDirection = CPDirectionLeft;
 		
 		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
 		[xAxis release];

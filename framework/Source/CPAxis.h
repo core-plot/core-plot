@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "CPLayer.h"
 #import "CPDefinitions.h"
 
 @class CPLineStyle;
@@ -12,7 +13,7 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyLogarithmic // Not implemented
 } CPAxisLabelingPolicy;
 
-@interface CPAxis : NSObject {   
+@interface CPAxis : CPLayer {   
     @private
     CPCoordinate coordinate;
 	CPPlotSpace *plotSpace;
@@ -20,7 +21,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSSet *minorTickLocations;
     CGFloat majorTickLength;
     CGFloat minorTickLength;
-	CGFloat tickLabelOffset;
+	CGFloat axisLabelOffset;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
@@ -29,14 +30,15 @@ typedef enum _CPAxisLabelingPolicy {
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	NSNumberFormatter *tickLabelFormatter;
-	NSDictionary *tickLabels;
+	NSSet *axisLabels;
+    CPDirection tickDirection;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
 @property (nonatomic, readwrite, retain) NSSet *minorTickLocations;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
-@property (nonatomic, readwrite, assign) CGFloat tickLabelOffset;
+@property (nonatomic, readwrite, assign) CGFloat axisLabelOffset;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite, retain) CPLineStyle *axisLineStyle;
@@ -47,14 +49,18 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
-@property (nonatomic, readwrite, retain) NSDictionary *tickLabels;
+@property (nonatomic, readwrite, retain) NSSet *axisLabels;
+@property (nonatomic, readwrite, assign) CPDirection tickDirection;
 
 -(void)relabel;
+
+-(NSArray *)createAxisLabelsAtLocations:(NSArray *)locations;
 
 @end
 
 @interface CPAxis (AbstractMethods)
 
--(void)drawInContext:(CGContextRef)theContext;
+-(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber;
 
 @end
+

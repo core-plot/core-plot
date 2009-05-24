@@ -4,13 +4,11 @@
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
-#import "CPTextLayer.h"
+#import "CPAxisLabel.h"
 
 @interface CPXYAxis ()
 
--(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major; 
--(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset;
 
 @end
 
@@ -25,9 +23,15 @@
 -(id)init
 {
 	if (self = [super init]) {
-        self.constantCoordinateValue = CPDecimalFromInt(0);
+        self.constantCoordinateValue = [NSDecimalNumber zero];
 	}
 	return self;
+}
+
+-(void)dealloc 
+{
+    self.constantCoordinateValue = nil;
+    [super dealloc];
 }
 
 #pragma mark -
@@ -36,15 +40,13 @@
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber
 {
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
-    NSDecimalNumber *constCoordNumber = [[NSDecimalNumber alloc] initWithDecimal:self.constantCoordinateValue];
     
     NSMutableArray *plotPoint = [[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null], nil];
     [plotPoint replaceObjectAtIndex:self.coordinate withObject:coordinateDecimalNumber];
-    [plotPoint replaceObjectAtIndex:orthogonalCoordinate withObject:constCoordNumber];
+    [plotPoint replaceObjectAtIndex:orthogonalCoordinate withObject:self.constantCoordinateValue];
     
     CGPoint point = [self.plotSpace viewPointForPlotPoint:plotPoint];
     
-    [constCoordNumber release];
     [plotPoint release];
 	
     return point;
@@ -59,9 +61,9 @@
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
         CGPoint terminalViewPoint = baseViewPoint;
         if ( self.coordinate == CPCoordinateX ) 
-            terminalViewPoint.y -= length;
+            terminalViewPoint.y += length * ( self.tickDirection == CPDirectionRight ? 1 : -1 );
         else
-            terminalViewPoint.x -= length;
+            terminalViewPoint.x += length * ( self.tickDirection == CPDirectionUp ? 1 : -1 );
         
         // Stroke line
         CGContextBeginPath(theContext);
@@ -71,40 +73,12 @@
     }    
 }
 
-/** Draws labels along the axis. The label contents and label location are both specified with the locations argument.
- **/
--(void)drawLabelsInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withOffset:(CGFloat)offset
-{
-	// TODO: reposition existing labels instead of creating new CPTextLayers each time
-	NSMutableDictionary *labels = [NSMutableDictionary dictionary];
-	for ( NSDecimalNumber *tickLocation in locations ) {
-        // Tick end points
-        CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:tickLocation];
-        CGPoint terminalViewPoint = baseViewPoint;
-		
-		NSString *tickLabel = [NSString stringWithFormat:@"%@", [self.tickLabelFormatter stringForObjectValue:tickLocation]];
-		CPTextLayer *labelLayer = [[CPTextLayer alloc] initWithString:tickLabel fontSize:10.f];
+#pragma mark -
+#pragma mark Drawing
 
-        if ( self.coordinate == CPCoordinateX ) { 
-            terminalViewPoint.y -= offset;
-			labelLayer.anchorPoint = CGPointMake(0.5f, 1.0f);
-        } else {
-            terminalViewPoint.x -= offset;
-			labelLayer.anchorPoint = CGPointMake(1.0f, 0.5f);
-		}
-		labelLayer.position = terminalViewPoint;
-		[labels setObject:labelLayer forKey:tickLocation];
-		
-		[labelLayer release];
-	}
-	self.tickLabels = labels;
-}
-
--(void)drawInContext:(CGContextRef)theContext 
-{
+-(void)renderAsVectorInContext:(CGContextRef)theContext {
     // Ticks
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
-    [self drawLabelsInContext:theContext atLocations:self.majorTickLocations withOffset:self.tickLabelOffset];
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
 
     // Axis Line

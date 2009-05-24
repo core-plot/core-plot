@@ -1,5 +1,5 @@
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @interface CPAnimationKeyFrame : NSObject {
     id <NSCopying> identifier;

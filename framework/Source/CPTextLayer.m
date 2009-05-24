@@ -6,6 +6,8 @@
 
 #define USECROSSPLATFORMUNICODETEXTRENDERING
 
+static CGFloat kCPTextLayerMarginWidth = 1.0f;
+
 @interface CPTextLayer ()
 
 +(NSString *)defaultFontName;
@@ -98,11 +100,9 @@
 
 -(void)dealloc 
 {
-	// don't use assessors here--don't need to call sizeToFit from dealloc
 	[fontColor release];
 	[fontName release];
 	[text release];
-	
     [super dealloc];
 }
 
@@ -110,9 +110,7 @@
 #pragma mark Layout
 
 -(void)sizeToFit
-{
-	// TODO: Put a spacing inset around the edges of the text?
-	
+{	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	UIFont *theFont = [UIFont fontWithName:self.fontName size:self.fontSize];
 	CGSize textSize = [self.text sizeWithFont:theFont];
@@ -125,8 +123,13 @@
 		textSize = CGSizeMake(0.0, 0.0);
 	}
 #endif
-	CGPoint layerOrigin = self.frame.origin;
-	self.frame = CGRectMake(layerOrigin.x, layerOrigin.y, textSize.width, textSize.height);
+    // Add small margin
+    textSize.width += 2 * kCPTextLayerMarginWidth;
+    textSize.height += 2 * kCPTextLayerMarginWidth;
+    
+    CGRect newBounds = self.bounds;
+	newBounds.size = CGSizeMake(textSize.width, textSize.height);
+    self.bounds = newBounds;
 	[self setNeedsDisplay];
 }
 
@@ -151,7 +154,7 @@
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	
 	CGContextSaveGState(context);
-	CGContextTranslateCTM(context, 0.0f, self.frame.size.height);
+	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
 	
 	UIFont *theFont = [UIFont fontWithName:self.fontName size:self.fontSize];
@@ -160,7 +163,8 @@
 #else
 	NSFont *theFont = [NSFont fontWithName:self.fontName size:self.fontSize];
 	if (theFont) {
-		[self.text drawAtPoint:NSZeroPoint withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, self.fontColor.nsColor, NSForegroundColorAttributeName, nil]];
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, self.fontColor.nsColor, NSForegroundColorAttributeName, nil];
+		[self.text drawAtPoint:NSMakePoint(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth) withAttributes:attributes];
 	}
 #endif
 	

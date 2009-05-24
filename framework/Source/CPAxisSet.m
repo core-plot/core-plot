@@ -19,17 +19,8 @@
 }
 
 -(void)dealloc {
-    self.axes = nil;
+    [axes release];
 	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext {
-	for (CPAxis *axis in self.axes) {
-		[axis drawInContext:theContext];	
-	}
 }
 
 #pragma mark -
@@ -38,7 +29,27 @@
 -(void)layoutSublayers 
 {
     for ( CPAxis *axis in self.axes ) {
-        [axis relabel];
+        axis.bounds = self.bounds;
+        axis.anchorPoint = CGPointZero;
+        axis.position = self.bounds.origin;
+    }
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setAxes:(NSArray *)newAxes 
+{
+    if ( newAxes != axes ) {
+        for ( CPAxis *axis in axes ) {
+            [axis removeFromSuperlayer];
+        }
+        [axes release];
+        axes = [newAxes retain];
+        for ( CPAxis *axis in axes ) {
+            [self addSublayer:axis];
+        }
+        [self setNeedsLayout];
     }
 }
 

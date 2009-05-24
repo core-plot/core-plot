@@ -34,3 +34,9 @@ typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;
 } CPRGBAColor;
 
+typedef enum _CPDirection {
+    CPDirectionLeft,
+    CPDirectionRight,
+    CPDirectionUp,
+    CPDirectionDown
+} CPDirection;

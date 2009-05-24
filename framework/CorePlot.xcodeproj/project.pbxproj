@@ -52,6 +52,8 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
+		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; };
+		073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FB02F0FC991A3007A728E /* CPAxisLabel.m */; };
 		0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783DD530FBF097E006C3696 /* CPXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
 		0783DD570FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
@@ -393,6 +395,8 @@
 		07321BC00F37370D00F423D8 /* CPExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExceptions.m; sourceTree = "<group>"; };
 		07321BC40F37382D00F423D8 /* CPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUtilities.h; sourceTree = "<group>"; };
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
+		073FB02E0FC991A3007A728E /* CPAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisLabel.h; sourceTree = "<group>"; };
+		073FB02F0FC991A3007A728E /* CPAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisLabel.m; sourceTree = "<group>"; };
 		0783DD530FBF097E006C3696 /* CPXYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxis.h; sourceTree = "<group>"; };
 		0783DD540FBF097E006C3696 /* CPXYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYAxis.m; sourceTree = "<group>"; };
 		0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
@@ -944,6 +948,15 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		073FB0350FC99645007A728E /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
+				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
 		076A775F0FBF0BFE003F6D97 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1050,6 +1063,7 @@
 			children = (
 				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				4CD7E7E90F4B4F8700F9BCBB /* Root */,
+				073FB0350FC99645007A728E /* Text */,
 				906156BA0F375558001B75FC /* Drawing */,
 				070A73DF0F5D8D7D0014FA84 /* Value Transformers */,
 				07975C230F3B3DF200DE45DC /* Categories */,
@@ -1114,6 +1128,8 @@
 				0783DD540FBF097E006C3696 /* CPXYAxis.m */,
 				07975C410F3B816600DE45DC /* CPXYAxisSet.h */,
 				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
+				073FB02E0FC991A3007A728E /* CPAxisLabel.h */,
+				073FB02F0FC991A3007A728E /* CPAxisLabel.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -1781,8 +1797,6 @@
 				C3AFC9D00FB62969005DFFDC /* CPImage.m */,
 				906156BC0F375598001B75FC /* CPLineStyle.h */,
 				906156BD0F375598001B75FC /* CPLineStyle.m */,
-				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
-				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
 				0704A2100FB56B9400A09979 /* Fills */,
 				076A77690FBF0C0B003F6D97 /* Tests */,
 			);
@@ -1866,6 +1880,7 @@
 				072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */,
 				072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */,
 				072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */,
+				073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2313,6 +2328,7 @@
 				072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */,
 				072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
 				072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
+				073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

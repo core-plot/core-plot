@@ -1,6 +1,5 @@
 #import "Source/CPAxis.h"
 #import "Source/CPAxisSet.h"
-#import "Source/CPBarGraph.h"
 #import "Source/CPBarPlot.h"
 #import "Source/CPCartesianPlotSpace.h"
 #import "Source/CPColor.h"

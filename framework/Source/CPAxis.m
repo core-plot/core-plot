@@ -6,6 +6,7 @@
 #import "CPPlotRange.h"
 #import "CPLineStyle.h"
 #import "CPTextLayer.h"
+#import "CPAxisLabel.h"
 
 @interface CPAxis ()
 
@@ -21,7 +22,7 @@
 @synthesize minorTickLocations;
 @synthesize minorTickLength;
 @synthesize majorTickLength;
-@synthesize tickLabelOffset;
+@synthesize axisLabelOffset;
 @synthesize axisLineStyle;
 @synthesize majorTickLineStyle;
 @synthesize minorTickLineStyle;
@@ -32,7 +33,8 @@
 @synthesize minorTicksPerInterval;
 @synthesize axisLabelingPolicy;
 @synthesize tickLabelFormatter;
-@synthesize tickLabels;
+@synthesize axisLabels;
+@synthesize tickDirection;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -46,7 +48,7 @@
 		self.minorTickLocations = [NSArray array];
 		self.minorTickLength = 0.f;
 		self.majorTickLength = 0.f;
-		self.tickLabelOffset = 0.f;
+		self.axisLabelOffset = 0.f;
 		self.majorTickLineStyle = [CPLineStyle lineStyle];
 		self.minorTickLineStyle = [CPLineStyle lineStyle];
         self.fixedPoint = [NSDecimalNumber zero];
@@ -54,9 +56,10 @@
         self.minorTicksPerInterval = 1;
         self.coordinate = CPCoordinateX;
         self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-		self.tickLabelFormatter = [[[NSNumberFormatter allocWithZone:[self zone]] init] autorelease];
+		self.tickLabelFormatter = [[[NSNumberFormatter alloc] init] autorelease];
 		self.tickLabelFormatter.format = @"#0.0";
-		self.tickLabels = [NSMutableDictionary dictionary];
+		self.axisLabels = [NSSet set];
+        self.tickDirection = CPDirectionDown;
 	}
 	return self;
 }
@@ -72,12 +75,12 @@
     self.fixedPoint = nil;
     self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
-	self.tickLabels = nil;
+	self.axisLabels = nil;
     [super dealloc];
 }
 
 #pragma mark -
-#pragma mark Labeling
+#pragma mark Ticks
 
 -(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval
 {
@@ -123,6 +126,24 @@
     *newMinorLocations = minorLocations;
 }
 
+
+#pragma mark -
+#pragma mark Labels
+
+-(NSArray *)createAxisLabelsAtLocations:(NSArray *)locations
+{
+    NSMutableArray *newLabels = [NSMutableArray arrayWithCapacity:locations.count];
+	for ( NSDecimalNumber *tickLocation in locations ) {
+        NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
+        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString];
+        newLabel.tickLocation = tickLocation;
+        newLabel.offset = self.axisLabelOffset;
+        [newLabels addObject:newLabel];
+        [newLabel release];
+	}
+	return newLabels;
+}
+
 -(void)relabel
 {
     if ( plotSpace == nil ) return;
@@ -145,24 +166,40 @@
         
         self.majorTickLocations = allNewMajorLocations;
         self.minorTickLocations = allNewMinorLocations;
+        
+        // Label ticks
+        NSArray *newLabels = [self createAxisLabelsAtLocations:self.majorTickLocations.allObjects];
+        self.axisLabels = [NSSet setWithArray:newLabels];
     }
 }
 
-# pragma mark -
-# pragma mark Label Management
+#pragma mark -
+#pragma mark Sublayer Layout
 
--(void)setTickLabels:(NSDictionary *)newLabels
+-(void)layoutSublayers 
 {
-	if (self.tickLabels != newLabels)
-	{
-		for (CPTextLayer *label in [self.tickLabels allValues]) [label removeFromSuperlayer];
-	
-		for (CPTextLayer *label in [newLabels allValues]) [self.plotSpace addSublayer:label];
+    [self relabel];
+    for ( CPAxisLabel *label in axisLabels ) {
+        CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
+        [label positionRelativeToViewPoint:tickBasePoint inDirection:tickDirection];
+    }
+}
 
-		[newLabels retain];
-		[self.tickLabels release];
-		tickLabels = newLabels;
-	}
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setAxisLabels:(NSSet *)newLabels 
+{
+    if ( newLabels != axisLabels ) {
+        for ( CPAxisLabel *label in axisLabels ) {
+            [label removeFromSuperlayer];
+        }
+        [axisLabels release];
+        axisLabels = [newLabels retain];
+        for ( CPAxisLabel *label in axisLabels ) {
+            [self addSublayer:label];
+        }
+    }
 }
 
 @end
