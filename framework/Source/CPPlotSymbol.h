@@ -15,7 +15,8 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolTypeCross,
 	CPPlotSymbolTypePlus,
 	CPPlotSymbolTypeDash,
-	CPPlotSymbolTypeSnow
+	CPPlotSymbolTypeSnow,
+  CPPlotSymbolTypeCustom
 } CPPlotSymbolType;
 
 
@@ -26,13 +27,16 @@ typedef enum _CPPlotSymbolType {
 	CPLineStyle *lineStyle;
 	CPFill *fill;
 	CGMutablePathRef symbolPath;
+  CGPathRef customSymbolPath;
 }
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPPlotSymbolType symbolType;
 @property (nonatomic, readwrite, retain) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, retain) CPFill *fill;
+@property (nonatomic, readwrite) CGPathRef customSymbolPath;
 
++(CPPlotSymbol *)plotSymbol;
 +(CPPlotSymbol *)crossPlotSymbol;
 +(CPPlotSymbol *)ellipsePlotSymbol;
 +(CPPlotSymbol *)rectanglePlotSymbol;
@@ -44,6 +48,7 @@ typedef enum _CPPlotSymbolType {
 +(CPPlotSymbol *)hexagonPlotSymbol;
 +(CPPlotSymbol *)dashPlotSymbol;
 +(CPPlotSymbol *)snowPlotSymbol;
++(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath;
 //+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
 
 -(id)copyWithZone:(NSZone *)zone;

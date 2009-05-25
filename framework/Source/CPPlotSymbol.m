@@ -13,7 +13,7 @@
 
 @implementation CPPlotSymbol
 
-@synthesize size, symbolType, lineStyle, fill;
+@synthesize size, symbolType, lineStyle, fill, customSymbolPath;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -33,7 +33,8 @@
 {
 	self.lineStyle = nil;
 	self.fill = nil;
-	CGPathRelease(symbolPath);
+  CGPathRelease(symbolPath);
+  CGPathRelease(customSymbolPath);
 	
 	[super dealloc];
 }
@@ -53,8 +54,23 @@
 	[self setSymbolPath];
 }
 
+-(void)setCustomSymbolPath:(CGPathRef)aPath {
+  if (customSymbolPath != aPath) {
+    CGPathRelease(customSymbolPath);
+    customSymbolPath = CGPathRetain(aPath);
+  }
+}
+
 #pragma mark -
 #pragma mark Class methods
+
++(CPPlotSymbol *)plotSymbol
+{
+  CPPlotSymbol *symbol = [[self alloc] init];
+  symbol.symbolType = CPPlotSymbolTypeNone;
+  
+  return [symbol autorelease];
+}
 
 +(CPPlotSymbol *)crossPlotSymbol
 {
@@ -144,6 +160,15 @@
 	return [symbol autorelease];
 }
 
++(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
+{
+  CPPlotSymbol *symbol = [[self alloc] init];
+  symbol.symbolType = CPPlotSymbolTypeCustom;
+  symbol.customSymbolPath = aPath;
+  
+  return [symbol autorelease];
+}
+
 //	+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
 
 #pragma mark -
@@ -156,9 +181,10 @@
 	copy.size = self.size;
 	copy.symbolType = self.symbolType;
 	copy.lineStyle = [[self.lineStyle copy] autorelease];
-    copy.fill = [self.fill copy];
+  copy.fill = [self.fill copy];
+  copy.customSymbolPath = self.customSymbolPath;
 	
-    return copy;
+  return copy;
 }
 
 #pragma mark -
@@ -206,10 +232,12 @@
 	CGSize symbolSize = self.size;
 	CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
 	CGRect bounds = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
+	CGRect oldBounds = CGRectNull;
+  CGAffineTransform scaleTransform = CGAffineTransformIdentity;
 	
-	CGPathRelease(symbolPath);
-	symbolPath = CGPathCreateMutable();
-	
+  CGPathRelease(symbolPath);
+  symbolPath = CGPathCreateMutable();
+  
 	switch (self.symbolType) {
 		case CPPlotSymbolTypeRectangle:
 			CGPathAddRect(symbolPath, NULL, bounds);
@@ -293,6 +321,18 @@
 			CGPathMoveToPoint(symbolPath,    NULL, -dx, -dy);
 			CGPathAddLineToPoint(symbolPath, NULL,  dx,  dy);
 			break;
+    case CPPlotSymbolTypeCustom:
+      if (customSymbolPath) {
+        oldBounds = CGPathGetBoundingBox(customSymbolPath);
+        CGFloat dx1 = bounds.size.width / oldBounds.size.width;
+        CGFloat dy1 = bounds.size.height / oldBounds.size.height;
+        CGFloat f = dx1 < dy1 ? dx1 : dy1;
+        scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, f, f);
+        scaleTransform = CGAffineTransformConcat(scaleTransform,
+                                                 CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
+        CGPathAddPath(symbolPath, &scaleTransform, customSymbolPath);
+      }
+      break;
 	}	
 }
 
