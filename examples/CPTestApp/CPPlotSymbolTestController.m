@@ -27,14 +27,14 @@
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(13.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(13.0)];
     
 	CPGradient *gradientFill = [CPGradient rainbowGradient];
 	gradientFill.gradientType = CPRadialGradientType;
 	gradientFill.angle = 90;
 	
     // Create a series of plots that uses the data source method
-	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeSnow; i++) {
+	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeCustom; i++) {
 		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
 		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
@@ -44,10 +44,33 @@
 		// add plot symbols
 		CPPlotSymbol *symbol = [[[CPPlotSymbol alloc] init] autorelease];
 		symbol.symbolType = i;
-		symbol.fill = [CPFill fillWithGradient:gradientFill];
-		
+    
+    if (symbol.symbolType != CPPlotSymbolTypeCustom) {
+      symbol.fill = [CPFill fillWithGradient:gradientFill];
+		} else {
+      symbol.fill = nil;
+    }
+      
+    if (symbol.symbolType == CPPlotSymbolTypeCustom) {
+      // Creating the custom path.
+      CGMutablePathRef path = CGPathCreateMutable();
+      CGPathMoveToPoint(path, NULL, 0., 0.);
+      
+      CGPathAddEllipseInRect(path, NULL, CGRectMake(0., 0., 10., 10.));
+      CGPathAddEllipseInRect(path, NULL, CGRectMake(1.5, 4., 3., 3.));
+      CGPathAddEllipseInRect(path, NULL, CGRectMake(5.5, 4., 3., 3.));
+      CGPathMoveToPoint(path, NULL, 5.5, 2.);
+      CGPathAddArc(path, NULL, 5., 3.3, 3., 0., pi, TRUE);
+      CGPathCloseSubpath(path);
+      
+      CGPathRef p = CGPathCreateCopy(path);
+      symbol.customSymbolPath = p;
+      CGPathRelease(path);
+      CGPathRelease(p);
+    }
+    
 		dataSourceLinePlot.defaultPlotSymbol = symbol;
-
+     
 		for (NSUInteger j = 1; j < [self numberOfRecords]; j++) {
 			symbol = [[symbol copy] autorelease];
 			symbol.size = CGSizeMake(j * 4, j * 4);
