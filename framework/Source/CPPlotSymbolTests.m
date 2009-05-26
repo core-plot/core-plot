@@ -73,7 +73,21 @@
 	CPPlotSymbol *plotSymbol = [[[CPPlotSymbol alloc] init] autorelease];
     plotSymbol.size = CGSizeMake(100.0, 100.0);
 	
-	for (NSUInteger i=CPPlotSymbolTypeNone; i<=CPPlotSymbolTypeSnow; i++) {
+	// Create a custom path.
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, NULL, 0., 0.);
+	
+	CGPathAddEllipseInRect(path, NULL, CGRectMake(0., 0., 10., 10.));
+	CGPathAddEllipseInRect(path, NULL, CGRectMake(1.5, 4., 3., 3.));
+	CGPathAddEllipseInRect(path, NULL, CGRectMake(5.5, 4., 3., 3.));
+	CGPathMoveToPoint(path, NULL, 5., 2.);
+	CGPathAddArc(path, NULL, 5., 3.3, 2.8, 0., pi, TRUE);
+	CGPathCloseSubpath(path);
+	
+	plotSymbol.customSymbolPath = path;
+	CGPathRelease(path);
+	
+	for (NSUInteger i=CPPlotSymbolTypeNone; i<=CPPlotSymbolTypeCustom; i++) {
 		plotSymbol.symbolType = i;
 		self.plot.defaultPlotSymbol = plotSymbol;
 

@@ -16,25 +16,25 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolTypePlus,
 	CPPlotSymbolTypeDash,
 	CPPlotSymbolTypeSnow,
-  CPPlotSymbolTypeCustom
+	CPPlotSymbolTypeCustom
 } CPPlotSymbolType;
 
 
 @interface CPPlotSymbol : NSObject <NSCopying> {
-	@private
+@private
 	CGSize size;
 	CPPlotSymbolType symbolType;
 	CPLineStyle *lineStyle;
 	CPFill *fill;
 	CGMutablePathRef symbolPath;
-  CGPathRef customSymbolPath;
+	CGPathRef customSymbolPath;
 }
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPPlotSymbolType symbolType;
 @property (nonatomic, readwrite, retain) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, retain) CPFill *fill;
-@property (nonatomic, readwrite) CGPathRef customSymbolPath;
+@property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
 
 +(CPPlotSymbol *)plotSymbol;
 +(CPPlotSymbol *)crossPlotSymbol;

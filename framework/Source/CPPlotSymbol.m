@@ -25,6 +25,7 @@
 		self.symbolType = CPPlotSymbolTypeNone;
 		self.lineStyle = [CPLineStyle lineStyle];
 		self.fill = nil;
+		self.customSymbolPath = NULL;
 	}
 	return self;
 }
@@ -33,8 +34,8 @@
 {
 	self.lineStyle = nil;
 	self.fill = nil;
-  CGPathRelease(symbolPath);
-  CGPathRelease(customSymbolPath);
+	CGPathRelease(symbolPath);
+	CGPathRelease(customSymbolPath);
 	
 	[super dealloc];
 }
@@ -55,10 +56,11 @@
 }
 
 -(void)setCustomSymbolPath:(CGPathRef)aPath {
-  if (customSymbolPath != aPath) {
-    CGPathRelease(customSymbolPath);
-    customSymbolPath = CGPathRetain(aPath);
-  }
+	if (customSymbolPath != aPath) {
+		CGPathRelease(customSymbolPath);
+		customSymbolPath = CGPathRetain(aPath);
+		[self setSymbolPath];
+	}
 }
 
 #pragma mark -
@@ -66,10 +68,10 @@
 
 +(CPPlotSymbol *)plotSymbol
 {
-  CPPlotSymbol *symbol = [[self alloc] init];
-  symbol.symbolType = CPPlotSymbolTypeNone;
-  
-  return [symbol autorelease];
+	CPPlotSymbol *symbol = [[self alloc] init];
+	symbol.symbolType = CPPlotSymbolTypeNone;
+	
+	return [symbol autorelease];
 }
 
 +(CPPlotSymbol *)crossPlotSymbol
@@ -162,11 +164,11 @@
 
 +(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
 {
-  CPPlotSymbol *symbol = [[self alloc] init];
-  symbol.symbolType = CPPlotSymbolTypeCustom;
-  symbol.customSymbolPath = aPath;
-  
-  return [symbol autorelease];
+	CPPlotSymbol *symbol = [[self alloc] init];
+	symbol.symbolType = CPPlotSymbolTypeCustom;
+	symbol.customSymbolPath = aPath;
+	
+	return [symbol autorelease];
 }
 
 //	+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
@@ -181,10 +183,15 @@
 	copy.size = self.size;
 	copy.symbolType = self.symbolType;
 	copy.lineStyle = [[self.lineStyle copy] autorelease];
-  copy.fill = [self.fill copy];
-  copy.customSymbolPath = self.customSymbolPath;
+	copy.fill = [[self.fill copy] autorelease];
 	
-  return copy;
+	if (self.customSymbolPath) {
+		CGPathRef pathCopy = CGPathCreateCopy(self.customSymbolPath);
+		copy.customSymbolPath = pathCopy;
+		CGPathRelease(pathCopy);
+	}
+	
+	return copy;
 }
 
 #pragma mark -
@@ -233,11 +240,11 @@
 	CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
 	CGRect bounds = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 	CGRect oldBounds = CGRectNull;
-  CGAffineTransform scaleTransform = CGAffineTransformIdentity;
+	CGAffineTransform scaleTransform = CGAffineTransformIdentity;
 	
-  CGPathRelease(symbolPath);
-  symbolPath = CGPathCreateMutable();
-  
+	CGPathRelease(symbolPath);
+	symbolPath = CGPathCreateMutable();
+	
 	switch (self.symbolType) {
 		case CPPlotSymbolTypeRectangle:
 			CGPathAddRect(symbolPath, NULL, bounds);
@@ -321,18 +328,18 @@
 			CGPathMoveToPoint(symbolPath,    NULL, -dx, -dy);
 			CGPathAddLineToPoint(symbolPath, NULL,  dx,  dy);
 			break;
-    case CPPlotSymbolTypeCustom:
-      if (customSymbolPath) {
-        oldBounds = CGPathGetBoundingBox(customSymbolPath);
-        CGFloat dx1 = bounds.size.width / oldBounds.size.width;
-        CGFloat dy1 = bounds.size.height / oldBounds.size.height;
-        CGFloat f = dx1 < dy1 ? dx1 : dy1;
-        scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, f, f);
-        scaleTransform = CGAffineTransformConcat(scaleTransform,
-                                                 CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
-        CGPathAddPath(symbolPath, &scaleTransform, customSymbolPath);
-      }
-      break;
+		case CPPlotSymbolTypeCustom:
+			if (customSymbolPath) {
+				oldBounds = CGPathGetBoundingBox(customSymbolPath);
+				CGFloat dx1 = bounds.size.width / oldBounds.size.width;
+				CGFloat dy1 = bounds.size.height / oldBounds.size.height;
+				CGFloat f = dx1 < dy1 ? dx1 : dy1;
+				scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, f, f);
+				scaleTransform = CGAffineTransformConcat(scaleTransform,
+														 CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
+				CGPathAddPath(symbolPath, &scaleTransform, customSymbolPath);
+			}
+			break;
 	}	
 }
 
