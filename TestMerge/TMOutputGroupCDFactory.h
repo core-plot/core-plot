@@ -8,7 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "TMOutputSorter.h"
+#import "TMOutputGroupFactory.h"
+
+/**
+ Implementation of the TMOutputGroupFactory protocol that builds output groups
+ as Core Data OutputGroup instances.
+ */
 
 @interface TMOutputGroupCDFactory : NSObject <TMOutputGroupFactory> {
     NSManagedObjectContext *context;
