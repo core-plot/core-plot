@@ -10,3 +10,4 @@
 NSString * const TMErrorDomain = @"TMErrorDomain";
 
 const NSInteger TMPathError = 1;
+const NSInteger TMCoreDataError = 2;

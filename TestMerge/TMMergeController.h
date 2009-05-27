@@ -12,9 +12,17 @@
 @interface TMMergeController : NSWindowController {
     NSString *referencePath;
     NSString *outputPath;
+    
+    NSSet *outputGroups;
+    
+    NSManagedObjectContext *managedObjectContext;
 }
 
 @property (copy,readwrite) NSString * referencePath;
 @property (copy,readwrite) NSString * outputPath;
+@property (copy,readonly) NSSet *outputGroups;
+@property (retain,readwrite) NSManagedObjectContext *managedObjectContext;
+@property (retain,readonly) NSPredicate *groupFilterPredicate;
 
+- (NSArray*)gtmUnitTestOutputPathsFromPath:(NSString*)path;
 @end

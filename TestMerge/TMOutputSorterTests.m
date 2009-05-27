@@ -140,7 +140,6 @@ typedef enum _OutputType {
     NSSet *groups = [sorter sortedOutputWithGroupFactory:factory error:NULL];
     
     STAssertNotNil(groups, @"");
-    STAssertTrue(groups.count == refPaths.count, @"one group per path");
     
     [factory verify];
     [group verify];
@@ -197,7 +196,7 @@ typedef enum _OutputType {
     
     [[group expect] setReferencePath:expectedRefPath];
     
-    for(NSInteger i=0; i<outputPaths.count; i++) {
+    for(NSInteger i=0; i<outputPaths.count/2; i++) {
         
         [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
         [[group expect] setOutputPath:[self outputFileForName:@"failureTestsForExtension"

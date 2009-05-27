@@ -21,4 +21,6 @@
 
 @property (retain,readwrite) NSManagedObjectContext *context;
 
+- (id)initWithManagedObjectContext:(NSManagedObjectContext*)moc;
+
 @end

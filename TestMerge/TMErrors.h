@@ -11,3 +11,4 @@
 
 extern NSString * const TMErrorDomain;
 extern const NSInteger TMPathError;
+extern const NSInteger TMCoreDataError;

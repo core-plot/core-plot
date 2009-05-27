@@ -36,11 +36,11 @@
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
-    [[GTMLogger sharedLogger] setSharedLogger:[GTMLogger standardLoggerWithASL]];
+    [GTMLogger setSharedLogger:[GTMLogger standardLoggerWithASL]];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.mergeController = [[[NSWindowController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    self.mergeController = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
     
     self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];
     self.mergeController.outputPath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"];

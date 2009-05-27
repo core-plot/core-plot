@@ -19,24 +19,6 @@
 
 
 
-- (NSString*)failureDiffPath {
-	[self willAccessValueForKey:@"failureDiffPath"];
-	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
-	[self didAccessValueForKey:@"failureDiffPath"];
-	return result;
-}
-
-- (void)setFailureDiffPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"failureDiffPath"];
-	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
-	[self didChangeValueForKey:@"failureDiffPath"];
-}
-
-
-
-
-
-
 - (NSString*)referencePath {
 	[self willAccessValueForKey:@"referencePath"];
 	NSString *result = [self primitiveValueForKey:@"referencePath"];
@@ -109,17 +91,17 @@
 
 
 
-- (NSDate*)date {
-	[self willAccessValueForKey:@"date"];
-	NSDate *result = [self primitiveValueForKey:@"date"];
-	[self didAccessValueForKey:@"date"];
+- (NSString*)failureDiffPath {
+	[self willAccessValueForKey:@"failureDiffPath"];
+	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
+	[self didAccessValueForKey:@"failureDiffPath"];
 	return result;
 }
 
-- (void)setDate:(NSDate*)value_ {
-	[self willChangeValueForKey:@"date"];
-	[self setPrimitiveValue:value_ forKey:@"date"];
-	[self didChangeValueForKey:@"date"];
+- (void)setFailureDiffPath:(NSString*)value_ {
+	[self willChangeValueForKey:@"failureDiffPath"];
+	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
+	[self didChangeValueForKey:@"failureDiffPath"];
 }
 
 

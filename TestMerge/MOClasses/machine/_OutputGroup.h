@@ -14,16 +14,6 @@
 
 
 
-- (NSString*)failureDiffPath;
-- (void)setFailureDiffPath:(NSString*)value_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSString *failureDiffPath;
-#endif
-
-//- (BOOL)validateFailureDiffPath:(id*)value_ error:(NSError**)error_;
-
-
-
 - (NSString*)referencePath;
 - (void)setReferencePath:(NSString*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -64,13 +54,13 @@
 
 
 
-- (NSDate*)date;
-- (void)setDate:(NSDate*)value_;
+- (NSString*)failureDiffPath;
+- (void)setFailureDiffPath:(NSString*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSDate *date;
+@property (retain) NSString *failureDiffPath;
 #endif
 
-//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateFailureDiffPath:(id*)value_ error:(NSError**)error_;
 
 
 

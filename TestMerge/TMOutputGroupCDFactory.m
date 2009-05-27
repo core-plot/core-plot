@@ -18,6 +18,15 @@
     [super dealloc];
 }
 
+
+- (id)initWithManagedObjectContext:(NSManagedObjectContext*)moc {
+    if((self = [super init])) {
+        context = [moc retain];
+    }
+    
+    return self;
+}
+
 - (id<TMOutputGroup>)groupWithName:(NSString*)name extension:(NSString*)extension {
     NSManagedObject<TMOutputGroup> *result;
     
@@ -30,7 +39,7 @@
     NSError *err;
     
     NSArray *existingGroups = [[self context] executeFetchRequest:fetch error:&err];
-    _GTMDevAssert(existingGroups == nil || existingGroups.count == 1, @"More than one group with given name");
+    _GTMDevAssert(existingGroups.count <= 1, @"More than one group with given name");
     
     if(existingGroups.count > 0) {
         result = [existingGroups lastObject];
