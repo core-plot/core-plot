@@ -78,6 +78,7 @@
 //#endif
 	
 	CGContextRelease(pdfContext);
+	CGDataConsumerRelease(dataConsumer);
 	
 	return [pdfData autorelease];
 }
