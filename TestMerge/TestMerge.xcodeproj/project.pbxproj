@@ -41,6 +41,8 @@
 		4C7D32FE0FC2306500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D32EB0FC2303500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState */; };
 		4C7D33060FC2311B00005D98 /* TMMergeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D33050FC2311B00005D98 /* TMMergeController.m */; };
 		4C7D33160FC2329700005D98 /* MergeUI.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D33150FC2329700005D98 /* MergeUI.xib */; };
+		4C86F6DB0FCDA798008849CC /* TMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C86F6DA0FCDA798008849CC /* TMErrors.m */; };
+		4C86F6F10FCDAC5D008849CC /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2FA60FC2010200005D98 /* GTMUnitTestingUtilities.m */; };
 		770B37ED0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */; };
 		77C8280E06725ACE000B614F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* AppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -384,6 +386,10 @@
 		4C7D33040FC2311B00005D98 /* TMMergeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMergeController.h; sourceTree = "<group>"; };
 		4C7D33050FC2311B00005D98 /* TMMergeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMergeController.m; sourceTree = "<group>"; };
 		4C7D33130FC2328E00005D98 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MergeUI.xib; sourceTree = "<group>"; };
+		4C86F6D20FCDA6C4008849CC /* TMOutputGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroup.h; sourceTree = "<group>"; };
+		4C86F6D70FCDA747008849CC /* TMOutputGroupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupFactory.h; sourceTree = "<group>"; };
+		4C86F6D90FCDA798008849CC /* TMErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMErrors.h; sourceTree = "<group>"; };
+		4C86F6DA0FCDA798008849CC /* TMErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMErrors.m; sourceTree = "<group>"; };
 		770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TestMerge_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		77C82804067257F0000B614F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		77C8280B06725ACE000B614F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -415,6 +421,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4C7D30910FC203FB00005D98 /* Tests */,
+				4C86F6D10FCDA6B4008849CC /* Protocols */,
 				77C8280B06725ACE000B614F /* AppDelegate.h */,
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
 				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
@@ -423,7 +431,10 @@
 				4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */,
 				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
 				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
-				4C7D30910FC203FB00005D98 /* Tests */,
+				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
+				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
+				4C86F6D90FCDA798008849CC /* TMErrors.h */,
+				4C86F6DA0FCDA798008849CC /* TMErrors.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -890,8 +901,6 @@
 		4C7D30910FC203FB00005D98 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
-				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
 				4C7D30920FC2043000005D98 /* TMOutputSorterTests.h */,
 				4C7D30930FC2043000005D98 /* TMOutputSorterTests.m */,
 			);
@@ -932,6 +941,15 @@
 				4C7D32EB0FC2303500005D98 /* TMOutputSorterTests-testInitialState.i386.10.5.6.gtmUTState */,
 			);
 			name = "Test Resources";
+			sourceTree = "<group>";
+		};
+		4C86F6D10FCDA6B4008849CC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4C86F6D20FCDA6C4008849CC /* TMOutputGroup.h */,
+				4C86F6D70FCDA747008849CC /* TMOutputGroupFactory.h */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		7756732906782D8800D1FEB8 /* Models */ = {
@@ -1123,6 +1141,8 @@
 				4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */,
 				4C7D32C90FC22D9E00005D98 /* GTMSystemVersion.m in Sources */,
 				4C7D33060FC2311B00005D98 /* TMMergeController.m in Sources */,
+				4C86F6DB0FCDA798008849CC /* TMErrors.m in Sources */,
+				4C86F6F10FCDAC5D008849CC /* GTMUnitTestingUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

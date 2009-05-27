@@ -84,7 +84,7 @@ typedef enum _OutputType {
     GTMAssertObjectStateEqualToStateNamed(sorter, @"TMOutputSorterTests-testInitialState", @"");
 }
 
-- (void)testSortWithOutputGroupFactoryUsesCorrectSystemVersion {
+- (void)testSortedOutputWithGroupFactoryAddsRefPaths {
     //also tests group creation for successes
     
     SInt32 major, minor, bugFix;
@@ -99,14 +99,12 @@ typedef enum _OutputType {
     NSString *actualArch = [GTMSystemVersion runtimeArchitecture];
     NSString *otherArch = [actualArch isEqualToString:@"ppc"]?@"i386":@"ppc";
     
-    NSString *expectedRefPath = [self outputFileForName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion"
-                                                   arch:actualArch 
-                                                 system:actualSystem
-                                              extension:@"tiff"
-                                                   type:Success];
-    
     NSArray *refPaths = [NSArray arrayWithObjects:
-                         expectedRefPath,
+                         [self outputFileForName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion"
+                                            arch:actualArch 
+                                          system:actualSystem
+                                       extension:@"tiff"
+                                            type:Success],
                          [self outputFileForName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion"
                                             arch:otherArch 
                                           system:actualSystem
@@ -130,25 +128,30 @@ typedef enum _OutputType {
     id factory = [OCMockObject mockForProtocol:@protocol(TMOutputGroupFactory)];
     id group = [OCMockObject mockForProtocol:@protocol(TMOutputGroup)];
     
-    //expectation -- only one
-    [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion" extension:@"tiff"];
-    [[group expect] setReferencePath:expectedRefPath];
+    //expectation -- one group per output
+    for(NSInteger i=0; i<refPaths.count; i++) {
+        [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion" extension:@"tiff"];
+        [[group expect] setReferencePath:[refPaths objectAtIndex:i]];
+    }
     
     TMOutputSorter *sorter = [[TMOutputSorter alloc] initWithReferencePaths:refPaths
                                                                 outputPaths:outputPaths];
     
-    [sorter sortWithOutputGroupFactory:factory];
+    NSSet *groups = [sorter sortedOutputWithGroupFactory:factory error:NULL];
+    
+    STAssertNotNil(groups, @"");
+    STAssertTrue(groups.count == refPaths.count, @"one group per path");
     
     [factory verify];
     [group verify];
     
 }
 
-- (void)testSortWithOutputGroupFactoryBuildsGroupsForImageFailures {
+- (void)testSortedOutputWithGroupFactoryBuildsGroupsForImageFailures {
     [self failureTestsForExtension:@"tiff"];
 }
 
-- (void)testSortWithOutputGroupFactoryBuildsGroupsForStateFailures {
+- (void)testSortedOutputWithGroupFactoryBuildsGroupsForStateFailures {
     [self failureTestsForExtension:@"gtmUTState"];
 }
 
@@ -189,31 +192,36 @@ typedef enum _OutputType {
     id factory = [OCMockObject mockForProtocol:@protocol(TMOutputGroupFactory)];
     id group = [OCMockObject mockForProtocol:@protocol(TMOutputGroup)];
     
-    //expectation -- only one
+    //expectation -- combined group
     [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
     
     [[group expect] setReferencePath:expectedRefPath];
     
-    [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
-    [[group expect] setOutputPath:[self outputFileForName:@"failureTestsForExtension"
-                                                     arch:actualArch 
-                                                   system:actualSystem
-                                                extension:extension
-                                                     type:Failure]];
-    
-    [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
-    [[group expect] setOutputDiffPath:[self outputFileForName:@"failureTestsForExtension"
+    for(NSInteger i=0; i<outputPaths.count; i++) {
+        
+        [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
+        [[group expect] setOutputPath:[self outputFileForName:@"failureTestsForExtension"
                                                          arch:actualArch 
                                                        system:actualSystem
                                                     extension:extension
-                                                         type:Diff]];
-    
+                                                         type:Failure]];
+        
+        [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
+        [[group expect] setFailureDiffPath:[self outputFileForName:@"failureTestsForExtension"
+                                                             arch:actualArch 
+                                                           system:actualSystem
+                                                        extension:extension
+                                                             type:Diff]];
+    }
     
     
     TMOutputSorter *sorter = [[TMOutputSorter alloc] initWithReferencePaths:refPaths
                                                                 outputPaths:outputPaths];
     
-    [sorter sortWithOutputGroupFactory:factory];
+    NSSet *groups = [sorter sortedOutputWithGroupFactory:factory error:NULL];
+    
+    STAssertNotNil(groups, @"");
+    STAssertTrue(groups.count == 1, @"one group");
     
     [factory verify];
     [group verify];   

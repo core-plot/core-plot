@@ -7,23 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-@protocol TMOutputGroup <NSObject>
-
-@property (copy,readwrite) NSString * name;
-@property (copy,readwrite) NSString * referencePath;
-@property (copy,readwrite) NSString * outputPath;
-@property (copy,readwrite) NSString * outputDiffPath;
-@property (copy,readwrite) NSString * extension;
-
-@end
-
-@protocol TMOutputGroupFactory <NSObject>
-
-- (id<TMOutputGroup>)groupWithName:(NSString*)name extension:(NSString*)extension;
-
-@end
-
+#import "TMOutputGroupFactory.h"
 
 
 @interface TMOutputSorter : NSObject {
@@ -37,5 +21,5 @@
 - (id)initWithReferencePaths:(NSArray*)ref
                  outputPaths:(NSArray*)output;
 
-- (void)sortWithOutputGroupFactory:(id<TMOutputGroupFactory>)factory;
+- (NSSet*)sortedOutputWithGroupFactory:(id<TMOutputGroupFactory>)factory error:(NSError**)error;
 @end
