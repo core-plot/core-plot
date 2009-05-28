@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,16 +39,16 @@
 						<string key="NSFrame">{{0, 59}, {274, 374}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSViewIsLayerTreeHost">YES</bool>
-						<float key="zoomFactor">1.335938e-01</float>
+						<float key="zoomFactor">1.070312e-01</float>
 						<float key="rotationAngle">0.000000e+00</float>
-						<string key="currentToolMode">IKToolModeMove</string>
+						<string key="currentToolMode">IKToolModeNone</string>
 						<bool key="autoresizes">YES</bool>
 						<bool key="hasHorizontalScroller">NO</bool>
 						<bool key="hasVerticalScroller">NO</bool>
 						<bool key="autohidesScrollers">NO</bool>
 						<bool key="supportsDragAndDrop">NO</bool>
 						<bool key="editable">NO</bool>
-						<bool key="doubleClickOpensImageEditPanel">NO</bool>
+						<bool key="doubleClickOpensImageEditPanel">YES</bool>
 						<object class="NSColor" key="backgroundColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC41MDAwMjI4OSAwLjUwMDAyMjg5IDAuNTAwMDIyODkAA</bytes>
@@ -60,16 +60,16 @@
 						<string key="NSFrame">{{282, 59}, {274, 374}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSViewIsLayerTreeHost">YES</bool>
-						<float key="zoomFactor">9.921875e-02</float>
+						<float key="zoomFactor">1.070312e-01</float>
 						<float key="rotationAngle">0.000000e+00</float>
-						<string key="currentToolMode">IKToolModeMove</string>
+						<string key="currentToolMode">IKToolModeNone</string>
 						<bool key="autoresizes">YES</bool>
 						<bool key="hasHorizontalScroller">NO</bool>
 						<bool key="hasVerticalScroller">NO</bool>
 						<bool key="autohidesScrollers">NO</bool>
 						<bool key="supportsDragAndDrop">NO</bool>
 						<bool key="editable">NO</bool>
-						<bool key="doubleClickOpensImageEditPanel">NO</bool>
+						<bool key="doubleClickOpensImageEditPanel">YES</bool>
 						<object class="NSColor" key="backgroundColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC41MDAwMjI4OSAwLjUwMDAyMjg5IDAuNTAwMDIyODkAA</bytes>
@@ -372,7 +372,9 @@
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
+					<string>2.CustomClassName</string>
 					<string>2.IBPluginDependency</string>
+					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -405,7 +407,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.brandonwalkin.BWToolkit</string>
+					<string>TMImageView</string>
 					<string>com.apple.imagekit.ibplugin</string>
+					<string>TMImageView</string>
 					<string>com.apple.imagekit.ibplugin</string>
 					<string>com.brandonwalkin.BWToolkit</string>
 					<string>com.brandonwalkin.BWToolkit</string>
@@ -433,7 +437,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">18</int>
+			<int key="maxID">22</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -522,8 +526,16 @@
 					<reference key="sourceIdentifier" ref="1014930959"/>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">TMImageCompareController</string>
+					<string key="className">TMCompareController</string>
 					<string key="superclassName">NSViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">TMCompareController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TMImageCompareController</string>
+					<string key="superclassName">TMCompareController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
@@ -533,13 +545,21 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>IKImageView</string>
-							<string>IKImageView</string>
+							<string>TMImageView</string>
+							<string>TMImageView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">TMImageCompareController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TMImageView</string>
+					<string key="superclassName">IKImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">TMImageView.h</string>
 					</object>
 				</object>
 			</object>

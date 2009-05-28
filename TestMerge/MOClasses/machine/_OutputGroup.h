@@ -24,6 +24,19 @@
 
 
 
+- (NSNumber*)replaceReference;
+- (void)setReplaceReference:(NSNumber*)value_;
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+@property (retain) NSNumber *replaceReference;
+#endif
+
+- (BOOL)replaceReferenceValue;
+- (void)setReplaceReferenceValue:(BOOL)value_;
+
+//- (BOOL)validateReplaceReference:(id*)value_ error:(NSError**)error_;
+
+
+
 - (NSString*)outputPath;
 - (void)setOutputPath:(NSString*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5

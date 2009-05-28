@@ -9,19 +9,22 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
-@interface TMImageCompareController : NSViewController {
+#import "TMCompareController.h"
+#import "TMImageView.h"
+
+@interface TMImageCompareController : TMCompareController <TMImageViewDelegate> {
     CGFloat refZoom;
     CGFloat outputZoom;
     
-    IBOutlet IKImageView *refImageView;
-    IBOutlet IKImageView *outputImageView;
+    IBOutlet TMImageView *refImageView;
+    IBOutlet TMImageView *outputImageView;
 }
 
 @property (assign,readwrite) CGFloat refZoom;
 @property (assign,readwrite) CGFloat outputZoom;
 
-@property (retain,readwrite) IBOutlet IKImageView *refImageView;
-@property (retain,readwrite) IBOutlet IKImageView *outputImageView;
+@property (retain,readwrite) IBOutlet TMImageView *refImageView;
+@property (retain,readwrite) IBOutlet TMImageView *outputImageView;
 
 
 @end

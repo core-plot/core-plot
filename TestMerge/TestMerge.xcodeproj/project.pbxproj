@@ -16,6 +16,15 @@
 		4C6C4AF20FCDD58000D6AB30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6C4AF10FCDD58000D6AB30 /* Quartz.framework */; };
 		4C6C4AF80FCDD72400D6AB30 /* TMImageCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */; };
 		4C6C4AFB0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C4AFA0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m */; };
+		4C6C4BF00FCE0B3D00D6AB30 /* TMCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */; };
+		4C6C4C270FCF19A800D6AB30 /* TMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C4C260FCF19A800D6AB30 /* TMImageView.m */; };
+		4C6C4C2B0FCF19D400D6AB30 /* TMImageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C4C2A0FCF19D400D6AB30 /* TMImageViewTests.m */; };
+		4C6C4C4B0FCF1C0900D6AB30 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6C4AF10FCDD58000D6AB30 /* Quartz.framework */; };
+		4C6C4C5B0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderNotSelected.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4C590FCF1C9A00D6AB30 /* TMImageViewTests-testRenderNotSelected.gtmUTState */; };
+		4C6C4C5C0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderSelected.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4C5A0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderSelected.gtmUTState */; };
+		4C6C4C790FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4C770FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff */; };
+		4C6C4C7A0FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4C780FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff */; };
+		4C6C4C890FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4C880FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff */; };
 		4C7D2FDC0FC2010A00005D98 /* GTMLogger+ASL.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F230FC2010200005D98 /* GTMLogger+ASL.m */; };
 		4C7D2FDD0FC2010D00005D98 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F260FC2010200005D98 /* GTMLogger.m */; };
 		4C7D2FDE0FC2013500005D98 /* GTMNSEnumerator+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F3F0FC2010200005D98 /* GTMNSEnumerator+Filter.m */; };
@@ -143,6 +152,17 @@
 		4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMImageCompareController.m; sourceTree = "<group>"; };
 		4C6C4AF90FCDD7A600D6AB30 /* TMImageCompareControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMImageCompareControllerTests.h; sourceTree = "<group>"; };
 		4C6C4AFA0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMImageCompareControllerTests.m; sourceTree = "<group>"; };
+		4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCompareController.h; sourceTree = "<group>"; };
+		4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMCompareController.m; sourceTree = "<group>"; };
+		4C6C4C250FCF19A800D6AB30 /* TMImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMImageView.h; sourceTree = "<group>"; };
+		4C6C4C260FCF19A800D6AB30 /* TMImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMImageView.m; sourceTree = "<group>"; };
+		4C6C4C290FCF19D400D6AB30 /* TMImageViewTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMImageViewTests.h; sourceTree = "<group>"; };
+		4C6C4C2A0FCF19D400D6AB30 /* TMImageViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMImageViewTests.m; sourceTree = "<group>"; };
+		4C6C4C590FCF1C9A00D6AB30 /* TMImageViewTests-testRenderNotSelected.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMImageViewTests-testRenderNotSelected.gtmUTState"; path = "TestResources/TMImageViewTests-testRenderNotSelected.gtmUTState"; sourceTree = "<group>"; };
+		4C6C4C5A0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderSelected.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMImageViewTests-testRenderSelected.gtmUTState"; path = "TestResources/TMImageViewTests-testRenderSelected.gtmUTState"; sourceTree = "<group>"; };
+		4C6C4C770FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMImageViewTests-testRenderNotSelected.tiff"; path = "TestResources/TMImageViewTests-testRenderNotSelected.tiff"; sourceTree = "<group>"; };
+		4C6C4C780FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMImageViewTests-testRenderSelected.tiff"; path = "TestResources/TMImageViewTests-testRenderSelected.tiff"; sourceTree = "<group>"; };
+		4C6C4C880FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMImageViewTests-testRenderNilURLImage.tiff"; path = "TestResources/TMImageViewTests-testRenderNilURLImage.tiff"; sourceTree = "<group>"; };
 		4C7D2EB70FC2010200005D98 /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
 		4C7D2EB80FC2010200005D98 /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
 		4C7D2EB90FC2010200005D98 /* GTMCarbonEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEventTest.m; sourceTree = "<group>"; };
@@ -462,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C7D325F0FC221FA00005D98 /* OCMock.framework in Frameworks */,
+				4C6C4C4B0FCF1C0900D6AB30 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,10 +508,14 @@
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
 				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
 				4C7D33050FC2311B00005D98 /* TMMergeController.m */,
+				4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */,
+				4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */,
 				4C6C4AF60FCDD72400D6AB30 /* TMImageCompareController.h */,
 				4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */,
 				4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */,
 				4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */,
+				4C6C4C250FCF19A800D6AB30 /* TMImageView.h */,
+				4C6C4C260FCF19A800D6AB30 /* TMImageView.m */,
 				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
 				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
 				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
@@ -973,6 +998,8 @@
 				4C86F7930FCDAF72008849CC /* TMMergeControllerTests.m */,
 				4C6C4AF90FCDD7A600D6AB30 /* TMImageCompareControllerTests.h */,
 				4C6C4AFA0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m */,
+				4C6C4C290FCF19D400D6AB30 /* TMImageViewTests.h */,
+				4C6C4C2A0FCF19D400D6AB30 /* TMImageViewTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1008,6 +1035,11 @@
 		4C7D32DF0FC22FEF00005D98 /* Test Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4C6C4C880FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff */,
+				4C6C4C770FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff */,
+				4C6C4C780FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff */,
+				4C6C4C590FCF1C9A00D6AB30 /* TMImageViewTests-testRenderNotSelected.gtmUTState */,
+				4C6C4C5A0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderSelected.gtmUTState */,
 				4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */,
 				4C6C4AD30FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff */,
 				4C86F7E00FCDB45F008849CC /* TMMergeControllerTests-testWindowUIRendering.tiff */,
@@ -1156,6 +1188,11 @@
 				4C6C4A350FCDC5C700D6AB30 /* OutputGroupTest in Resources */,
 				4C6C4AD40FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState in Resources */,
 				4C6C4AD50FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff in Resources */,
+				4C6C4C5B0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderNotSelected.gtmUTState in Resources */,
+				4C6C4C5C0FCF1C9A00D6AB30 /* TMImageViewTests-testRenderSelected.gtmUTState in Resources */,
+				4C6C4C790FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff in Resources */,
+				4C6C4C7A0FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff in Resources */,
+				4C6C4C890FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,6 +1260,7 @@
 				4C7D30CB0FC2097A00005D98 /* NSString+UUID.m in Sources */,
 				4C86F7940FCDAF72008849CC /* TMMergeControllerTests.m in Sources */,
 				4C6C4AFB0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m in Sources */,
+				4C6C4C2B0FCF19D400D6AB30 /* TMImageViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,6 +1291,8 @@
 				4C86F6F10FCDAC5D008849CC /* GTMUnitTestingUtilities.m in Sources */,
 				4C6C49D90FCDC2D600D6AB30 /* TMOutputGroupCDFactory.m in Sources */,
 				4C6C4AF80FCDD72400D6AB30 /* TMImageCompareController.m in Sources */,
+				4C6C4BF00FCE0B3D00D6AB30 /* TMCompareController.m in Sources */,
+				4C6C4C270FCF19A800D6AB30 /* TMImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

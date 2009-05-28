@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "TMOutputGroup.h"
 
 @interface TMMergeController : NSWindowController {
     NSString *referencePath;
@@ -16,6 +16,13 @@
     NSSet *outputGroups;
     
     NSManagedObjectContext *managedObjectContext;
+    
+    IBOutlet NSArrayController *groupsController;
+    
+    IBOutlet NSBox *mergeViewContainer;
+    
+    NSDictionary *compareControllersByExtension;
+
 }
 
 @property (copy,readwrite) NSString * referencePath;
@@ -23,6 +30,11 @@
 @property (copy,readonly) NSSet *outputGroups;
 @property (retain,readwrite) NSManagedObjectContext *managedObjectContext;
 @property (retain,readonly) NSPredicate *groupFilterPredicate;
+@property (retain,readwrite) IBOutlet NSBox *mergeViewContainer;
+@property (readonly) NSArray *groupSortDescriptors;
+@property (retain,readwrite) NSDictionary *compareControllersByExtension;
+
+@property (retain,readwrite) IBOutlet NSArrayController *groupsController;
 
 - (NSArray*)gtmUnitTestOutputPathsFromPath:(NSString*)path;
 @end

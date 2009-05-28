@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "TMOutputGroupFactory.h"
 
+extern NSString * const TMGTMUnitTestStateExtension;
+extern NSString * const TMGTMUnitTestImageExtension;
 
 @interface TMOutputSorter : NSObject {
     NSArray *referencePaths;

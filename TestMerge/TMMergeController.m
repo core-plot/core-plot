@@ -10,29 +10,55 @@
 #import "TMOutputGroupCDFactory.h"
 #import "TMOutputSorter.h"
 #import "TMErrors.h"
+#import "TMCompareController.h"
 
 #import "GTMDefines.h"
 #import "GTMGarbageCollection.h"
+#import "GTMNSObject+KeyValueObserving.h"
+
+
+@interface TMMergeController ()
+
+- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
+
+@end
 
 @implementation TMMergeController
 @synthesize referencePath;
 @synthesize outputPath;
 @dynamic outputGroups;
 @dynamic groupFilterPredicate;
+@dynamic groupSortDescriptors;
 @synthesize managedObjectContext;
+@synthesize groupsController;
+@synthesize mergeViewContainer;
+@synthesize compareControllersByExtension;
 
 - (void)dealloc {
     [referencePath release];
     [outputPath release];
     [managedObjectContext release];
+    [groupsController release];
+    [mergeViewContainer release];
+    [compareControllersByExtension release];
+    
+    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
     
     [super dealloc];
 }
 
+- (void)finalize {
+    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
+    
+    [super finalize];
+}
+
 + (void)initialize {
-    [self exposeBinding:@"outputGroups"];
-    [self exposeBinding:@"referencePath"];
-    [self exposeBinding:@"outputPath"];
+    if(self == [TMMergeController class]) {
+        [self exposeBinding:@"outputGroups"];
+        [self exposeBinding:@"referencePath"];
+        [self exposeBinding:@"outputPath"];
+    }
 }
 
 + (NSSet*)keyPathsForValuesAffectingOutputGroups {
@@ -141,5 +167,36 @@
     [self.managedObjectContext setPersistentStoreCoordinator:psc];
     
     _GTMDevLog(@"TMMergeController created moc: %@", self.managedObjectContext);
+}
+
+- (void)windowDidLoad {
+    _GTMDevAssert([self groupsController] != nil, @"nil groups controller");
+    [[self groupsController] gtm_addObserver:self
+                                  forKeyPath:@"selectedObjects"
+                                    selector:@selector(observeSelectedGroupsDidChange:)
+                                    userInfo:nil
+                                     options:NSKeyValueObservingOptionNew];
+}
+
+- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
+    _GTMDevAssert([[[notification change] objectForKey:NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting, @"");
+    
+    _GTMDevAssert([[[self groupsController] selectedObjects] count] <= 1, @"too many selected objects");
+    
+    id<TMOutputGroup> newGroup = [[[self groupsController] selectedObjects] lastObject];
+    
+    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    
+//    if(controller == nil) {
+//        [NSException raise:NSInternalInconsistencyException format:@"Unexpected group extension (%@)", newGroup.extension];
+//    }
+    
+    [controller setRepresentedObject:newGroup];
+    
+    [self.mergeViewContainer setContentView:controller.view];
+}
+
+- (NSArray*)groupSortDescriptors {
+    return [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease]];
 }
 @end

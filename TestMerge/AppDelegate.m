@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "TMMergeController.h"
+#import "TMImageCompareController.h"
+#import "TMOutputSorter.h"
 
 #import "GTMLogger.h"
 #import "GTMLogger+ASL.h"
@@ -41,6 +43,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.mergeController = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    
+    self.mergeController.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [[[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]] autorelease],
+                                                          TMGTMUnitTestImageExtension,
+                                                          nil];
     
     self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];
     self.mergeController.outputPath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"];

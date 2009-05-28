@@ -37,6 +37,35 @@
 
 
 
+- (NSNumber*)replaceReference {
+	[self willAccessValueForKey:@"replaceReference"];
+	NSNumber *result = [self primitiveValueForKey:@"replaceReference"];
+	[self didAccessValueForKey:@"replaceReference"];
+	return result;
+}
+
+- (void)setReplaceReference:(NSNumber*)value_ {
+	[self willChangeValueForKey:@"replaceReference"];
+	[self setPrimitiveValue:value_ forKey:@"replaceReference"];
+	[self didChangeValueForKey:@"replaceReference"];
+}
+
+
+
+- (BOOL)replaceReferenceValue {
+	NSNumber *result = [self replaceReference];
+	return result ? [result boolValue] : 0;
+}
+
+- (void)setReplaceReferenceValue:(BOOL)value_ {
+	[self setReplaceReference:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+
 - (NSString*)outputPath {
 	[self willAccessValueForKey:@"outputPath"];
 	NSString *result = [self primitiveValueForKey:@"outputPath"];

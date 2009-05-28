@@ -8,7 +8,10 @@
 
 #import "TMMergeControllerTests.h"
 #import "TMMergeController.h"
+#import "TMImageCompareController.h"
+#import "TMOutputGroup.h"
 #import "OutputGroup.h"
+#import "TMOutputSorter.h"
 
 #import "GTMNSObject+UnitTesting.h"
 #import "GTMNSObject+BindingUnitTesting.h"
@@ -78,6 +81,32 @@
     
     GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles", @"");
     
+}
+
+- (void)testSelectsAndRendersImageCompareController {
+    NSString *groupTestRoot = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"OutputGroupTest"];
+    
+    BOOL dir;
+    STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:groupTestRoot isDirectory:&dir] && dir, @"");
+    
+    TMMergeController *controller = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    
+    controller.referencePath = [groupTestRoot stringByAppendingPathComponent:@"Reference"];
+    controller.outputPath = [groupTestRoot stringByAppendingPathComponent:@"Output"];
+    
+    controller.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                [[[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]] autorelease],
+                                                TMGTMUnitTestImageExtension,
+                                                nil];
+    
+    
+    (void)[controller window];
+    
+    STAssertTrue(controller.outputGroups.count > 0, @"");
+    
+    [controller.groupsController setSelectedObjects:[NSArray arrayWithObject:[[controller outputGroups] anyObject]]];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersImageCompareController", @"");
 }
 
 - (void)testUnitTestOutputPathsFromPath {
