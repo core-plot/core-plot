@@ -28,6 +28,7 @@ typedef enum _CPPlotSymbolType {
 	CPFill *fill;
 	CGMutablePathRef symbolPath;
 	CGPathRef customSymbolPath;
+	BOOL usesEvenOddClipRule;
 }
 
 @property (nonatomic, readwrite, assign) CGSize size;
@@ -35,6 +36,7 @@ typedef enum _CPPlotSymbolType {
 @property (nonatomic, readwrite, retain) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, retain) CPFill *fill;
 @property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
+@property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 
 +(CPPlotSymbol *)plotSymbol;
 +(CPPlotSymbol *)crossPlotSymbol;

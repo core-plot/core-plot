@@ -13,7 +13,7 @@
 
 @implementation CPPlotSymbol
 
-@synthesize size, symbolType, lineStyle, fill, customSymbolPath;
+@synthesize size, symbolType, lineStyle, fill, customSymbolPath, usesEvenOddClipRule;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -26,6 +26,7 @@
 		self.lineStyle = [CPLineStyle lineStyle];
 		self.fill = nil;
 		self.customSymbolPath = NULL;
+		self.usesEvenOddClipRule = NO;
 	}
 	return self;
 }
@@ -182,6 +183,7 @@
 	
 	copy.size = self.size;
 	copy.symbolType = self.symbolType;
+	copy.usesEvenOddClipRule = self.usesEvenOddClipRule;
 	copy.lineStyle = [[self.lineStyle copy] autorelease];
 	copy.fill = [[self.fill copy] autorelease];
 	
@@ -213,7 +215,11 @@
 				CGContextSaveGState(theContext);
 				CGContextBeginPath(theContext);
 				CGContextAddPath(theContext, symbolPath);
-				CGContextClip(theContext);
+				if (self.usesEvenOddClipRule) {
+					CGContextEOClip(theContext);
+				} else {
+					CGContextClip(theContext);
+				}
 				[self.fill fillRect:bounds inContext:theContext];
 				CGContextRestoreGState(theContext);
 			}

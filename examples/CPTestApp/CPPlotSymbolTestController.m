@@ -59,6 +59,7 @@
 			CGPathCloseSubpath(path);
 			
 			symbol.customSymbolPath = path;
+			symbol.usesEvenOddClipRule = YES;
 			CGPathRelease(path);
 		}
 		
