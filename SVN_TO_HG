@@ -1,0 +1,8 @@
+The Subversion repository for CorePlot is officially deprecated.
+For ongoing development, please visit our new Mercurial repository:
+
+http://code.google.com/p/core-plot/source/checkout
+
+i.e.:
+
+hg clone http://core-plot.googlecode.com/hg/ core-plot
