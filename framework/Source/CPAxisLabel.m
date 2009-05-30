@@ -3,6 +3,13 @@
 #import "CPTextLayer.h"
 #import "CPExceptions.h"
 
+@interface CPAxisLabel()
+
+@property (nonatomic, readwrite, copy) NSString *text;
+@property (nonatomic, readwrite, retain) CPLayer *contentLayer;
+
+@end
+
 @implementation CPAxisLabel
 
 @synthesize text;
@@ -12,61 +19,61 @@
 
 -(id)initWithText:(NSString *)newText
 {
-    text = [newText copy];
-    CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithString:newText fontSize:12.f] autorelease];
-    [newLayer sizeToFit];
-    return [self initWithContentLayer:newLayer];
+	self.text = newText;
+	CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithString:newText fontSize:12.f] autorelease];
+	[newLayer sizeToFit];
+	return [self initWithContentLayer:newLayer];
 }
 
 -(id)initWithContentLayer:(CPLayer *)layer
 {
-    if ( self = [super init] ) {
-        contentLayer = [layer retain];
-        CGRect newBounds = CGRectZero;
-        newBounds.size = layer.bounds.size;
-        self.bounds = newBounds;
-        layer.position = CGPointZero;
-        self.offset = 20.0f;
-        [self addSublayer:contentLayer];
-    }
-    return self;
+	if ( self = [super init] ) {
+		self.contentLayer = [layer retain];
+		CGRect newBounds = CGRectZero;
+		newBounds.size = layer.bounds.size;
+		self.bounds = newBounds;
+		layer.position = CGPointZero;
+		self.offset = 20.0f;
+		[self addSublayer:contentLayer];
+	}
+	return self;
 }
 
 -(void)dealloc
 {
-    [text release];
-    [contentLayer release];
-    [tickLocation release];
-    [super dealloc];
+	self.text = nil;
+	self.contentLayer = nil;
+	self.tickLocation = nil;
+	[super dealloc];
 }
 
 -(void)positionRelativeToViewPoint:(CGPoint)point inDirection:(CPDirection)direction
 {
-    CGPoint newPosition = point;
-    switch ( direction ) {
-        case CPDirectionLeft:
-            newPosition.x -= offset;
-            break;
-        case CPDirectionRight:
-            newPosition.x += offset;
-            break;
-        case CPDirectionUp:
-            newPosition.y += offset;
-            break;
-        case CPDirectionDown:
-            newPosition.y -= offset;
-            break;
-        default:
-            [NSException raise:CPException format:@"Invalid direction in positionRelativeToViewPoint:inDirection:"];
-            break;
-    }
-    self.anchorPoint = CGPointZero;
-    self.position = newPosition;
+	CGPoint newPosition = point;
+	switch ( direction ) {
+		case CPDirectionLeft:
+			newPosition.x -= offset;
+			break;
+		case CPDirectionRight:
+			newPosition.x += offset;
+			break;
+		case CPDirectionUp:
+			newPosition.y += offset;
+			break;
+		case CPDirectionDown:
+			newPosition.y -= offset;
+			break;
+		default:
+			[NSException raise:CPException format:@"Invalid direction in positionRelativeToViewPoint:inDirection:"];
+			break;
+	}
+	self.anchorPoint = CGPointZero;
+	self.position = newPosition;
 }
 
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint inDirection:(CPDirection)direction
 {
-    
+	
 }
 
 @end
