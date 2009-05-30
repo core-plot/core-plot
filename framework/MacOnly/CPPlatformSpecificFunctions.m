@@ -1,27 +1,32 @@
 
 #import "CPPlatformSpecificFunctions.h"
-#import "CPExceptions.h"
 #import "CPDefinitions.h"
 
 #pragma mark -
 #pragma mark Graphics Context
 
-static NSGraphicsContext *pushedContext = nil;
+// linked list to store saved contexts
+static CPContextNode *pushedContexts = NULL;
 
 void CPPushCGContext(CGContextRef newContext)
 {
-    if (pushedContext) {
-        [NSException raise:CPException format:@"Tried to push two CGContexts in CPPushCGContext"];
-	} 
-
-    pushedContext = [NSGraphicsContext currentContext];
-    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
+	if (newContext) {
+		CPContextNode *newNode = malloc(sizeof(CPContextNode));
+		(*newNode).context = [NSGraphicsContext currentContext];
+		[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
+		(*newNode).nextNode = pushedContexts;
+		pushedContexts = newNode;
+	}
 }
 
 void CPPopCGContext(void)
 {
-    [NSGraphicsContext setCurrentContext:pushedContext];
-    pushedContext = nil;
+	if (pushedContexts) {
+		[NSGraphicsContext setCurrentContext:(*pushedContexts).context];
+		CPContextNode *next = (*pushedContexts).nextNode;
+		free(pushedContexts);
+		pushedContexts = next;
+	}
 }
 
 #pragma mark -
@@ -29,15 +34,15 @@ void CPPopCGContext(void)
 
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
 {
-    NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
-    CGFloat r, g, b, a;
-    [rgbColor getRed:&r green:&g blue:&b alpha:&a];
-    return CGColorCreateGenericRGB(r, g, b, a);
+	NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
+	CGFloat r, g, b, a;
+	[rgbColor getRed:&r green:&g blue:&b alpha:&a];
+	return CGColorCreateGenericRGB(r, g, b, a);
 }
 
 CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor)
 {
 	CPRGBAColor rgbColor;
-    [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red green:&rgbColor.green blue:&rgbColor.blue alpha:&rgbColor.alpha];
+	[[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red green:&rgbColor.green blue:&rgbColor.blue alpha:&rgbColor.alpha];
 	return rgbColor;
 }

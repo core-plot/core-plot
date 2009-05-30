@@ -21,7 +21,9 @@ typedef enum _CPScaleType {
     CPScaleTypeLinear,
     CPScaleTypeLogN,
     CPScaleTypeLog10,
-    CPScaleTypeAngular
+    CPScaleTypeAngular,
+	CPScaleTypeDateTime,
+	CPScaleTypeCategory
 } CPScaleType;
 
 typedef enum _CPCoordinate {
@@ -40,3 +42,8 @@ typedef enum _CPDirection {
     CPDirectionUp,
     CPDirectionDown
 } CPDirection;
+
+typedef struct _CPContextNode {
+	NSGraphicsContext *context;
+	struct _CPContextNode *nextNode;
+} CPContextNode;
