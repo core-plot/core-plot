@@ -27,3 +27,4 @@
 #import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYAxisSet.h>
 #import <CorePlot/CPXYGraph.h>
+#import <CorePlot/CPLayerHostingView.h>

@@ -1,7 +1,5 @@
 
 // Abstract class
-
-#import <Foundation/Foundation.h>
 #import "CPLayer.h"
 
 @class CPAxisSet;

@@ -212,6 +212,8 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */; };
+		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		C30F523B0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C30F523A0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff */; };
 		C30F523D0FCB8D590042E2BF /* CPPlotSymbolTests-testSymbol12.i386.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C30F523C0FCB8D590042E2BF /* CPPlotSymbolTests-testSymbol12.i386.tiff */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -796,6 +798,8 @@
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpace.m; sourceTree = "<group>"; };
+		BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
+		BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		C30F523A0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol12.ppc.tiff"; sourceTree = "<group>"; };
 		C30F523C0FCB8D590042E2BF /* CPPlotSymbolTests-testSymbol12.i386.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol12.i386.tiff"; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
@@ -1057,6 +1061,8 @@
 				0789EF480FB9EBD600C0A613 /* CPPlatformSpecificCategories.m */,
 				0789EF890FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h */,
 				0789EF8A0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m */,
+				BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */,
+				BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */,
 			);
 			name = "Mac Specific";
 			path = MacOnly;
@@ -1887,6 +1893,7 @@
 				072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */,
 				072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */,
 				073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */,
+				BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2337,6 +2344,7 @@
 				072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
 				072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 				073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */,
+				BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2466,6 +2474,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = NS_BUILD_32_LIKE_64;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

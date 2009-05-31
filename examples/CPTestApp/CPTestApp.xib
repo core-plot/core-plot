@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="502"/>
 			<integer value="296"/>
-			<integer value="485"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1147,7 +1147,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="1019331462">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1444,7 +1444,6 @@
 											</object>
 											<string key="NSFrame">{{1, 17}, {343, 474}}</string>
 											<reference key="NSSuperview" ref="704632638"/>
-											<reference key="NSNextKeyView" ref="62908978"/>
 											<reference key="NSDocView" ref="62908978"/>
 											<reference key="NSBGColor" ref="969760673"/>
 											<int key="NScvFlags">4</int>
@@ -1479,7 +1478,6 @@
 											</object>
 											<string key="NSFrame">{{1, 0}, {343, 17}}</string>
 											<reference key="NSSuperview" ref="704632638"/>
-											<reference key="NSNextKeyView" ref="602970787"/>
 											<reference key="NSDocView" ref="602970787"/>
 											<reference key="NSBGColor" ref="969760673"/>
 											<int key="NScvFlags">4</int>
@@ -1488,7 +1486,6 @@
 									</object>
 									<string key="NSFrameSize">{345, 492}</string>
 									<reference key="NSSuperview" ref="975736856"/>
-									<reference key="NSNextKeyView" ref="1066334210"/>
 									<int key="NSsFlags">530</int>
 									<reference key="NSVScroller" ref="794686290"/>
 									<reference key="NSHScroller" ref="177773636"/>
@@ -1507,7 +1504,7 @@
 											<int key="NSvFlags">274</int>
 											<string key="NSFrameSize">{559, 492}</string>
 											<reference key="NSSuperview" ref="14435039"/>
-											<string key="NSClassName">NSView</string>
+											<string key="NSClassName">CPLayerHostingView</string>
 										</object>
 									</object>
 									<string key="NSFrame">{{354, 0}, {559, 492}}</string>
@@ -1522,7 +1519,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{912, 526}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -1544,27 +1540,28 @@
 			<object class="NSWindowTemplate" id="178400436">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{112, 543}, {737, 567}}</string>
+				<string key="NSWindowRect">{{112, 543}, {777, 567}}</string>
 				<int key="NSWTFlags">603980800</int>
 				<string key="NSWindowTitle">CPPlotSymbol Demo</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="941170837">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSCustomView" id="91040815">
 							<reference key="NSNextResponder" ref="941170837"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrameSize">{737, 567}</string>
+							<string key="NSFrameSize">{777, 567}</string>
 							<reference key="NSSuperview" ref="941170837"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
-							<string key="NSClassName">NSView</string>
+							<string key="NSClassName">CPLayerHostingView</string>
 						</object>
 					</object>
-					<string key="NSFrameSize">{737, 567}</string>
+					<string key="NSFrameSize">{777, 567}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -3690,13 +3687,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{109, 678}, {478, 20}}</string>
+					<string>{{45, 678}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{405, 585}, {234, 93}}</string>
+					<string>{{341, 585}, {234, 93}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3762,8 +3759,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{-97, 198}, {912, 526}}</string>
-					<string>{{-97, 198}, {912, 526}}</string>
+					<string>{{155, 118}, {912, 526}}</string>
+					<string>{{155, 118}, {912, 526}}</string>
 					<boolean value="YES" id="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>Controller</string>
@@ -3787,8 +3784,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{188, 189}, {737, 567}}</string>
-					<string>{{188, 189}, {737, 567}}</string>
+					<string>{{53, 188}, {777, 567}}</string>
+					<string>{{53, 188}, {777, 567}}</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3869,7 +3866,7 @@
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">hostView</string>
-						<string key="NS.object.0">NSView</string>
+						<string key="NS.object.0">CPLayerHostingView</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -3908,7 +3905,7 @@
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">hostView</string>
-						<string key="NS.object.0">NSView</string>
+						<string key="NS.object.0">CPLayerHostingView</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>

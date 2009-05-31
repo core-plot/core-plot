@@ -1,5 +1,4 @@
 
-#import <Foundation/Foundation.h>
 #import "CPPlotRange.h"
 #import "CPPlotSpace.h"
 #import "CPDefinitions.h"

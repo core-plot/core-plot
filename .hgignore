@@ -1,22 +1,22 @@
 syntax: glob
+# A hidden file created by the Mac OS X Finder.
+.DS_Store
 
 # Backup files left behind by the Emacs editor.
 *~
 
 # Lock files used by the Emacs editor.
-# Notice that the "#" character is quoted with a backslash.
-# This prevents it from being interpreted as starting a comment.
 .\#*
 
 # Temporary files used by the vim editor.
 .*.swp
 
-# A hidden file created by the Mac OS X Finder.
-.DS_Store
-
 # build directories
-*/build/*
+**/build/*
 
 # XCode user data
 **.pbxuser
-**.mode1v3
+**.mode?v?
+
+# Google Mac Toolbox
+google-toolbox-mac-trunk

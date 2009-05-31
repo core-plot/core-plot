@@ -38,6 +38,8 @@
 		0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
+		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
 		BC9B834E0FB8A1400035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D30FB89E610035D8DA /* CPPlot.m */; };
 		BC9B834F0FB8A1400035D8DA /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D50FB89E610035D8DA /* CPScatterPlot.m */; };
 		BC9B83500FB8A1400035D8DA /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */; };
@@ -99,6 +101,8 @@
 		29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "main-cocoatouch.m"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_CocoaTouch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
+		BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
+		BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		BC9B82690FB89BD10035D8DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC9B826F0FB89E610035D8DA /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayer.h; path = Source/CPLayer.h; sourceTree = SOURCE_ROOT; };
 		BC9B82700FB89E610035D8DA /* CPLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayer.m; path = Source/CPLayer.m; sourceTree = SOURCE_ROOT; };
@@ -203,14 +207,14 @@
 			children = (
 				070CB8390FC9DED400F3152B /* CPAxis.h */,
 				070CB83A0FC9DED400F3152B /* CPAxis.m */,
-				070CB83B0FC9DED400F3152B /* CPAxisLabel.h */,
-				070CB83C0FC9DED400F3152B /* CPAxisLabel.m */,
 				070CB83D0FC9DED400F3152B /* CPAxisSet.h */,
 				070CB83E0FC9DED400F3152B /* CPAxisSet.m */,
 				070CB83F0FC9DED400F3152B /* CPXYAxis.h */,
 				070CB8400FC9DED400F3152B /* CPXYAxis.m */,
 				070CB8410FC9DED400F3152B /* CPXYAxisSet.h */,
 				070CB8420FC9DED400F3152B /* CPXYAxisSet.m */,
+				070CB83B0FC9DED400F3152B /* CPAxisLabel.h */,
+				070CB83C0FC9DED400F3152B /* CPAxisLabel.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -237,6 +241,8 @@
 				0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */,
 				0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */,
 				0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */,
+				BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */,
+				BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */,
 			);
 			name = "iPhone Specific";
 			path = iPhoneOnly;
@@ -253,8 +259,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				BC9B82520FB89B420035D8DA /* Source */,
+				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -434,19 +440,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */,
-				0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */,
-				0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */,
-				0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
+				070CB8430FC9DED400F3152B /* CPAxis.h in Headers */,
+				070CB8470FC9DED400F3152B /* CPAxisSet.h in Headers */,
+				070CB84B0FC9DED400F3152B /* CPXYAxisSet.h in Headers */,
 				070CB8340FC9DEA800F3152B /* CPColor.h in Headers */,
 				070CB8360FC9DEA800F3152B /* CPColorSpace.h in Headers */,
-				070CB8430FC9DED400F3152B /* CPAxis.h in Headers */,
-				070CB8450FC9DED400F3152B /* CPAxisLabel.h in Headers */,
-				070CB8470FC9DED400F3152B /* CPAxisSet.h in Headers */,
+				0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */,
+				0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */,
+				0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
 				070CB8490FC9DED400F3152B /* CPXYAxis.h in Headers */,
-				070CB84B0FC9DED400F3152B /* CPXYAxisSet.h in Headers */,
 				070CB8540FC9DEF000F3152B /* CPAnimation.h in Headers */,
-				070CB8560FC9DEF000F3152B /* CPAnimationKeyFrame.h in Headers */,
 				070CB8580FC9DEF000F3152B /* CPAnimationTransition.h in Headers */,
+				070CB8560FC9DEF000F3152B /* CPAnimationKeyFrame.h in Headers */,
+				070CB8450FC9DED400F3152B /* CPAxisLabel.h in Headers */,
+				BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +538,7 @@
 				070CB8570FC9DEF000F3152B /* CPAnimationKeyFrame.m in Sources */,
 				070CB8590FC9DEF000F3152B /* CPAnimationTransition.m in Sources */,
 				070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */,
+				BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

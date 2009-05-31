@@ -32,8 +32,7 @@
 - (void)viewDidLoad 
 {
     // Create graph
-    graph = [[CPXYGraph alloc] init];
-	graph.frame = self.view.bounds;
+    graph = [[CPXYGraph alloc] initWithFrame:self.view.bounds];
 	
 	CGFloat grayColorComponents[4] = {0.7, 0.7, 0.7, 1.0};
 	CGColorRef grayColor =  CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, grayColorComponents);
@@ -47,15 +46,45 @@
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
-	[self.view.layer addSublayer:graph];
+	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerMinXMargin | kCPLayerMaxXMargin | kCPLayerHeightSizable | kCPLayerMinYMargin | kCPLayerMaxYMargin;
+	[(CPLayerHostingView *)self.view setHostedLayer:graph];
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-        
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
+
+    // Axes
+	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+    
+    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    majorLineStyle.lineCap = kCGLineCapRound;
+    majorLineStyle.lineColor = [CPColor blueColor];
+    majorLineStyle.lineWidth = 2.0f;
+    
+    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    minorLineStyle.lineColor = [CPColor redColor];
+    minorLineStyle.lineWidth = 2.0f;
+	
+    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
+    axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber one];
+    axisSet.xAxis.minorTicksPerInterval = 2;
+    axisSet.xAxis.majorTickLineStyle = majorLineStyle;
+    axisSet.xAxis.minorTickLineStyle = minorLineStyle;
+    axisSet.xAxis.axisLineStyle = majorLineStyle;
+    axisSet.xAxis.minorTickLength = 7.0f;
+	
+    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    axisSet.yAxis.minorTicksPerInterval = 5;
+    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber one];
+    axisSet.yAxis.majorTickLineStyle = majorLineStyle;
+    axisSet.yAxis.minorTickLineStyle = minorLineStyle;
+    axisSet.yAxis.axisLineStyle = majorLineStyle;
+    axisSet.yAxis.minorTickLength = 7.0f;
+	
+	
     // Create a second plot that uses the data source method
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];

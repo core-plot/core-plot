@@ -56,13 +56,14 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 	
 }
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:newFrame]) {
         self.numericType = CPNumericTypeFloat;
 		self.dataLineStyle = [CPLineStyle lineStyle];
 		self.plotSymbols = [[[NSMutableArray alloc] init] autorelease];
 		self.defaultPlotSymbol = nil;
+		self.needsDisplayOnBoundsChange = YES;
     }
 
     return self;

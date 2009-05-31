@@ -5,7 +5,7 @@
 #import "RotationView.h"
 
 @interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate> {
-    IBOutlet NSView *hostView;
+    IBOutlet CPLayerHostingView *hostView;
     CPXYGraph *graph;
 	
 	RotationView *overlayRotationView;

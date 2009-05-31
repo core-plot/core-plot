@@ -3,7 +3,7 @@
 
 
 @interface CPPlotSymbolTestController : NSObject <CPPlotDataSource> {
-    IBOutlet NSView *hostView;
+    IBOutlet CPLayerHostingView *hostView;
 	CPXYGraph *graph;
 }
 

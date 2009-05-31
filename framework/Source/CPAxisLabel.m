@@ -27,16 +27,17 @@
 
 -(id)initWithContentLayer:(CPLayer *)layer
 {
-	if ( self = [super init] ) {
-		self.contentLayer = [layer retain];
-		CGRect newBounds = CGRectZero;
-		newBounds.size = layer.bounds.size;
-		self.bounds = newBounds;
-		layer.position = CGPointZero;
-		self.offset = 20.0f;
-		[self addSublayer:contentLayer];
-	}
-	return self;
+    if ( self = [super initWithFrame:layer.bounds] ) {
+        self.contentLayer = layer;
+        CGRect newBounds = CGRectZero;
+        newBounds.size = layer.bounds.size;
+        self.bounds = newBounds;
+        layer.position = CGPointZero;
+        self.offset = 20.0f;
+        [self addSublayer:self.contentLayer];
+		self.layerAutoresizingMask = kCPLayerNotSizable;
+    }
+    return self;
 }
 
 -(void)dealloc
