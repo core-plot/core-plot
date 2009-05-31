@@ -8,7 +8,7 @@
 {
 	if ( self = [super init] ) {
 		self.needsDisplayOnBoundsChange = YES;
-        self.opaque = NO;
+		self.opaque = NO;
 	}
 	return self;
 }
@@ -29,12 +29,12 @@
 
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
+	// TODO: set up clipping for sublayers
 	[self renderAsVectorInContext:context];
 	
-	for (CPLayer *currentSublayer in self.sublayers)
-	{
+	for (CPLayer *currentSublayer in self.sublayers) {
 		CGContextSaveGState(context);
-        
+		
 		// Shift origin of context to match starting coordinate of sublayer
 		CGPoint currentSublayerOrigin = currentSublayer.frame.origin;
 		CGContextTranslateCTM (context, currentSublayerOrigin.x, currentSublayerOrigin.y);
@@ -51,31 +51,14 @@
 	const CGRect mediaBox = CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height);
 	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 	
-//#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-//	UIGraphicsPushContext(pdfContext);
-//#else
-//	NSGraphicsContext *oldContext = [NSGraphicsContext currentContext];
-//	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:pdfContext flipped:NO]];
-//#endif
-
-    CPPushCGContext(pdfContext);
+	CPPushCGContext(pdfContext);
 	
 	CGContextBeginPage(pdfContext, &mediaBox);
-	
-//	CGContextSetRGBFillColor (pdfContext, 0, 0, 0, 1);
-//	CGContextFillRect (pdfContext, mediaBox);
-	
 	[self recursivelyRenderInContext:pdfContext];
-	
 	CGContextEndPage(pdfContext);
 	CGPDFContextClose(pdfContext);
 	
-    CPPopCGContext();
-//#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-//	UIGraphicsPopContext();
-//#else
-//	[NSGraphicsContext setCurrentContext:oldContext];
-//#endif
+	CPPopCGContext();
 	
 	CGContextRelease(pdfContext);
 	CGDataConsumerRelease(dataConsumer);
