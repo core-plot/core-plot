@@ -21,5 +21,8 @@
 #import "Source/CPPolarPlotSpace.h"
 #import "Source/CPScatterPlot.h"
 #import "Source/CPUtilities.h"
+#import "Source/CPXYAxis.h"
 #import "Source/CPXYAxisSet.h"
+#import "Source/CPAxisLabel.h"
 #import "Source/CPXYGraph.h"
+#import "iPhoneOnly/CPLayerHostingView.h"

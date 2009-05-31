@@ -1,0 +1,14 @@
+syntax: glob
+.DS_Store
+framework/CorePlot.xcodeproj/*.mode2v3
+framework/CorePlot.xcodeproj/*.pbxuser
+framework/CorePlot-CocoaTouch.xcodeproj/*.mode2v3
+framework/CorePlot-CocoaTouch.xcodeproj/*.pbxuser
+examples/CPTestApp-iPhone/CPTestApp-iPhone.xcodeproj/*.mode2v3
+examples/CPTestApp-iPhone/CPTestApp-iPhone.xcodeproj/*.pbxuser
+examples/CPTestApp/CPTestApp.xcodeproj/*.mode2v3
+examples/CPTestApp/CPTestApp.xcodeproj/*.pbxuser
+google-toolbox-mac-trunk
+framework/build
+examples/CPTestApp/build
+examples/CPTestApp-iPhone/build

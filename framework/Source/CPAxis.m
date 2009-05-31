@@ -39,9 +39,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-	self = [super init];
+	self = [super initWithFrame:newFrame];
 	if (self != nil) {
 		self.plotSpace = nil;
 		self.majorTickLocations = [NSArray array];
@@ -60,6 +60,7 @@
 		self.tickLabelFormatter.format = @"#0.0";
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPDirectionDown;
+		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 	}
 	return self;
 }
@@ -196,6 +197,7 @@
         }
         [axisLabels release];
         axisLabels = [newLabels retain];
+		
         for ( CPAxisLabel *label in axisLabels ) {
             [self addSublayer:label];
         }

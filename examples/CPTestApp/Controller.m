@@ -18,8 +18,7 @@
     [super awakeFromNib];
 
     // Create graph
-    graph = [[CPXYGraph alloc] init];
-	graph.frame = NSRectToCGRect(hostView.bounds);
+    graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
@@ -28,13 +27,14 @@
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
-    [hostView setLayer:graph];
-	[hostView setWantsLayer:YES];
+	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
+
+	hostView.hostedLayer = graph;
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -65,7 +65,7 @@
     axisSet.yAxis.minorTickLength = 7.0f;
 
     // Create one plot that uses bindings
-	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
 	boundLinePlot.dataLineStyle.lineWidth = 2.f;
     [graph addPlot:boundLinePlot];
@@ -81,7 +81,7 @@
 	CGColorRelease(greenColor);
     
     // Create a second plot that uses the data source method
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];

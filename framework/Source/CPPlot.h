@@ -1,6 +1,4 @@
 
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 #import "CPDefinitions.h"
 #import "CPPlotRange.h"
 #import "CPLayer.h"

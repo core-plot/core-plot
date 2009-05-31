@@ -11,18 +11,19 @@
 #pragma mark Init/Dealloc
 
 // Designated
--(id)initWithXScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType
+-(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 {
-    xScaleType = newXScaleType;
-    yScaleType = newYScaleType;
-    if ( self = [super init] ) {
+	xScaleType = newXScaleType;
+	yScaleType = newYScaleType;
+    if ( self = [super initWithFrame:newFrame] ) {
+		self.needsDisplayOnBoundsChange = YES;
     }
     return self;
 }
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-    return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
+    return [self initWithFrame:newFrame xScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
 }
 
 #pragma mark -
@@ -32,7 +33,7 @@
 {
     CPPlotSpace *space;
     if ( xScaleType == CPScaleTypeLinear && yScaleType == CPScaleTypeLinear ) {
-        space = [[CPCartesianPlotSpace alloc] init];
+        space = [[CPCartesianPlotSpace alloc] initWithFrame:self.bounds];
     }
     else {
         NSLog(@"Unsupported scale types in createPlotSpace");
@@ -43,7 +44,7 @@
 
 -(CPAxisSet *)createAxisSet
 {
-    CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] init];
+    CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] initWithFrame:self.bounds];
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
     return [newAxisSet autorelease];

@@ -10,15 +10,17 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super init]) {
+	if (self = [super initWithFrame:newFrame]) {
+		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-		// TODO: Add resizing code for iPhone
-#else
-		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
-#endif
+
+//#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+//		// TODO: Add resizing code for iPhone
+//#else
+//		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
+//#endif
 		
 	}
 	return self;

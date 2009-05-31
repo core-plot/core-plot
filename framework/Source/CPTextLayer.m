@@ -86,7 +86,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize
 {
-	if (self = [super init]) {	
+	if (self = [super initWithFrame:CGRectZero]) {	
 		self.needsDisplayOnBoundsChange = NO;
 		fontSize = newFontSize;
 		fontName = [[[self class] defaultFontName] retain];

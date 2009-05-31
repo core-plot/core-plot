@@ -20,7 +20,7 @@
 
 -(id)initWithContentLayer:(CPLayer *)layer
 {
-    if ( self = [super init] ) {
+    if ( self = [super initWithFrame:layer.bounds] ) {
         contentLayer = [layer retain];
         CGRect newBounds = CGRectZero;
         newBounds.size = layer.bounds.size;
@@ -28,6 +28,7 @@
         layer.position = CGPointZero;
         self.offset = 20.0f;
         [self addSublayer:contentLayer];
+		self.layerAutoresizingMask = kCPLayerNotSizable;
     }
     return self;
 }

@@ -10,9 +10,8 @@
 
 -(void)awakeFromNib {
     // Create graph
-    graph = [[CPXYGraph alloc] init];
+    graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     graph.axisSet = nil;
-    graph.frame = NSRectToCGRect(hostView.bounds);
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
@@ -21,8 +20,7 @@
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
-    [hostView setLayer:graph];
-	[hostView setWantsLayer:YES];
+    hostView.hostedLayer = graph;
     
     // Setup plot space
     CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
@@ -35,7 +33,7 @@
 	
     // Create a series of plots that uses the data source method
 	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeCustom; i++) {
-		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
 		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
 		dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];

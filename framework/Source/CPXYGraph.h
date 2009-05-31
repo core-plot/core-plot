@@ -10,6 +10,6 @@
     CPScaleType yScaleType;
 }
 
--(id)initWithXScaleType:(CPScaleType)xScaleType yScaleType:(CPScaleType)yScaleType;
+-(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 
 @end

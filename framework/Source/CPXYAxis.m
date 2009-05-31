@@ -20,10 +20,11 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super init]) {
+	if (self = [super initWithFrame:newFrame]) {
         self.constantCoordinateValue = [NSDecimalNumber zero];
+		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
