@@ -81,7 +81,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 +(NSString *)defaultFontName
 {
-    return @"Helvetica";
+	return @"Helvetica";
 }
 
 -(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize
@@ -103,7 +103,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 	[fontColor release];
 	[fontName release];
 	[text release];
-    [super dealloc];
+	[super dealloc];
 }
 
 #pragma mark -
@@ -123,13 +123,13 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 		textSize = CGSizeMake(0.0, 0.0);
 	}
 #endif
-    // Add small margin
-    textSize.width += 2 * kCPTextLayerMarginWidth;
-    textSize.height += 2 * kCPTextLayerMarginWidth;
-    
-    CGRect newBounds = self.bounds;
+	// Add small margin
+	textSize.width += 2 * kCPTextLayerMarginWidth;
+	textSize.height += 2 * kCPTextLayerMarginWidth;
+	
+	CGRect newBounds = self.bounds;
 	newBounds.size = CGSizeMake(textSize.width, textSize.height);
-    self.bounds = newBounds;
+	self.bounds = newBounds;
 	[self setNeedsDisplay];
 }
 
@@ -142,17 +142,17 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 		return;
 	}
 	
+	CGColorRef textColor = self.fontColor.cgColor;
+	
+	CGContextSetStrokeColorWithColor(context, textColor);	
+	CGContextSetFillColorWithColor(context, textColor);
+	CGContextSetAllowsAntialiasing(context, true);
+
 #if defined(USECROSSPLATFORMUNICODETEXTRENDERING)
 	// Cross-platform text drawing, with Unicode support
-	
-    CPPushCGContext(context);
-	
-	CGContextSetStrokeColorWithColor(context, self.fontColor.cgColor);	
-	CGContextSetFillColorWithColor(context, self.fontColor.cgColor);
-	CGContextSetAllowsAntialiasing(context, true);
+	CPPushCGContext(context);
 	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-	
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
@@ -163,30 +163,24 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 #else
 	NSFont *theFont = [NSFont fontWithName:self.fontName size:self.fontSize];
 	if (theFont) {
-        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, self.fontColor.nsColor, NSForegroundColorAttributeName, nil];
+		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, self.fontColor.nsColor, NSForegroundColorAttributeName, nil];
 		[self.text drawAtPoint:NSMakePoint(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth) withAttributes:attributes];
 	}
 #endif
 	
-	CGContextSetAllowsAntialiasing(context, false);
-	
-    CPPopCGContext();
+	CPPopCGContext();
 	
 #else
 	// Pure Quartz drawing:
-	
-	CGContextSetStrokeColorWithColor(context, self.fontColor.cgColor);	
-	CGContextSetFillColorWithColor(context, self.fontColor.cgColor);
-	
-	CGContextSetAllowsAntialiasing(context, true);
-	CGContextSelectFont(context, STANDARDLABELFONTNAME,(self.fontSize * scale), kCGEncodingMacRoman);
+	CGContextSelectFont(context, STANDARDLABELFONTNAME, (self.fontSize * scale), kCGEncodingMacRoman);
 	CGContextSetTextDrawingMode(context, kCGTextFill);
 	CGContextSetTextPosition(context, 0.0f, round(self.fontSize / 4.0f));
 	CGContextShowText(context, [self.text UTF8String], strlen([self.text UTF8String]));
-	CGContextSetAllowsAntialiasing(context, false);
 	
-	CGContextSetShadowWithColor( context, CGSizeMake( 0.0, 0.0 ), 5.0f, self.fontColor.cgColor );
+	CGContextSetShadowWithColor( context, CGSizeMake( 0.0, 0.0 ), 5.0f, textColor );
 #endif
+
+	CGContextSetAllowsAntialiasing(context, false);
 }
 
 @end
