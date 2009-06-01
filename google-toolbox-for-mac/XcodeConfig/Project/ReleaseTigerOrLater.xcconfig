@@ -1,7 +1,8 @@
 //
 //  ReleaseTigerOrLater.xcconfig
 //
-//  Xcode configuration file for building a Release target on Tiger or later.
+//  Xcode configuration file for building a Release configuration of a project
+//  on Tiger or later.
 //
 //  This is a _Configuration_ Xcode config file for use in the "Based on" popup
 //  of the project configuration editor. Do _not_ use this as the config base
@@ -31,3 +32,6 @@
 
 // Release settings
 #include "../subconfig/Release.xcconfig"
+
+// Merge settings
+#include "../subconfig/GTMMerge.xcconfig"

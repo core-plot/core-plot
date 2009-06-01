@@ -1,8 +1,8 @@
 //
 //  LeopardOrLater.xcconfig
 //
-//  Xcode configuration file for projects targeting 10.4 Tiger or later. These
-//  settings produce a Universal binary compatible with 10.4 for PPC and Intel.
+//  Xcode configuration file for projects targeting 10.5 Leopard or later. These
+//  settings produce a Universal binary compatible with 10.5 for PPC and Intel.
 //
 //  Copyright 2006-2008 Google Inc.
 //
@@ -23,10 +23,3 @@
 SDKROOT = ${DEVELOPER_SDK_DIR}/MacOSX10.5.sdk
 MACOSX_DEPLOYMENT_TARGET = 10.5
 GCC_VERSION = 4.0
-
-// On Leopard use Obj-C fast dispatch
-GCC_FAST_OBJC_DISPATCH = YES
-
-// For Leopard, pull in 64bit support
-#include "64bit.xcconfig"
-

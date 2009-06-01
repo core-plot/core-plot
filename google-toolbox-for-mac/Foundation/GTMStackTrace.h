@@ -17,25 +17,26 @@
 //
 
 #include <CoreFoundation/CoreFoundation.h>
+#import "GTMDefines.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/// Returns a string containing a nicely formatted stack trace.
-// The caller owns the returned CFStringRef and is responsible for releasing it.
-//
-// *****************************************************************************
-// The symbolic names returned for Objective-C methods will be INCORRECT. This
-// is because dladdr() doesn't properly resolve Objective-C names. The symbol's
-// address will be CORRECT, so will be able to use atos or gdb to get a properly
-// resolved Objective-C name.  --  5/15/2007
-// TODO: write dladdr() replacement that works with Objective-C symbols.
-// *****************************************************************************
+struct GTMAddressDescriptor {
+  const void *address;  // address
+  const char *symbol;  // nearest symbol to address
+  const char *class_name;  // if it is an obj-c method, the method's class
+  BOOL is_class_method;  // if it is an obj-c method, type of method
+  const char *filename;  // file that the method came from.
+};
+
+// Returns a string containing a nicely formatted stack trace.
 // 
-// This function gets the stack trace for the current thread, and is safe to
-// use in production multi-threaded code.  Typically this function will be used
-// along with some loggins, as in the following:
+// This function gets the stack trace for the current thread. It will
+// be from the caller of GTMStackTrace upwards to the top the calling stack.
+// Typically this function will be used along with some logging, 
+// as in the following:
 //
 //   MyAppLogger(@"Should never get here:\n%@", GTMStackTrace());
 //
@@ -49,33 +50,55 @@ extern "C" {
 // #5  0x00002692 tart ()  [/Users/me/./StackLog]
 // #6  0x000025b9 tart ()  [/Users/me/./StackLog]
 //
-// If you're using this with Objective-C, you may want to use the GTMStackTrace()
-// variant that autoreleases the returned string.
+
+NSString *GTMStackTrace(void);
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+// Returns a string containing a nicely formatted stack trace from the
+// exception.  Only available on 10.5 or later, uses 
+// -[NSException callStackReturnAddresses].
 //
-CFStringRef GTMStackTraceCreate(void);
-  
-/// Wrapper that autoreleases the returned CFStringRef.
-// This is simply for the convenience of those using Objective-C.
-//
-#if __OBJC__
-#include "GTMGarbageCollection.h"
-#define GTMStackTrace() [GTMNSMakeCollectable(GTMStackTraceCreate()) autorelease]
+NSString *GTMStackTraceFromException(NSException *e);
 #endif
 
-/// Returns an array of program counters from the current thread's stack.
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+// Returns an array of program counters from the current thread's stack.
 // *** You should probably use GTMStackTrace() instead of this function ***
 // However, if you actually want all the PCs in "void *" form, then this
-// funtion is more convenient.
+// funtion is more convenient. This will include PCs of GTMStaceTrace and
+// its inner utility functions that you may want to strip out.
+//
+// You can use +[NSThread callStackReturnAddresses] in 10.5 or later.
 //
 // Args:
 //   outPcs - an array of "void *" pointers to the program counters found on the
 //            current thread's stack.
-//   size - the size of outPcs
+//   count - the number of entries in the outPcs array
 //
 // Returns:
 //   The number of program counters actually added to outPcs.
 //
-int GTMGetStackProgramCounters(void *outPcs[], int size);
+NSUInteger GTMGetStackProgramCounters(void *outPcs[], NSUInteger count);
+#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+
+// Returns an array of GTMAddressDescriptors from the current thread's stack.
+// *** You should probably use GTMStackTrace() instead of this function ***
+// However, if you actually want all the PCs with symbols, this is the way
+// to get them. There is no memory allocations done, so no clean up is required
+// except for the caller to free outDescs if they allocated it themselves.
+// This will include PCs of GTMStaceTrace and its inner utility functions that 
+// you may want to strip out.
+//
+// Args:
+//   outDescs - an array of "struct GTMAddressDescriptor" pointers corresponding
+//              to the program counters found on the current thread's stack.
+//   count - the number of entries in the outDescs array
+//
+// Returns:
+//   The number of program counters actually added to outPcs.
+//
+NSUInteger GTMGetStackAddressDescriptors(struct GTMAddressDescriptor outDescs[], 
+                                         NSUInteger count);
 
 #ifdef __cplusplus
 }

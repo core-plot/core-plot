@@ -30,9 +30,16 @@ GCC_GENERATE_DEBUGGING_SYMBOLS = NO
 // Dead code strip does not affect ObjC code but can help for C
 DEAD_CODE_STRIPPING = YES
 
-// NDEBUG is used by things like assert.h, so define it for general compat.
 // ASSERT going away in release tends to create unused vars.
-OTHER_CFLAGS = $(OTHER_CFLAGS) -DNDEBUG=1 -Wno-unused-variable
+// init-self can only be turned on when optimizations are on
+GTM_CONFIGURATION_WARNING_CFLAGS = -Wno-unused-variable -Winit-self -Wno-extra
+
+// NDEBUG is used by things like assert.h, so define it for general compat.
+GTM_CONFIGURATION_GCC_PREPROCESSOR_DEFINITIONS = NDEBUG=1
+
+// Give us warnings about uninitialized autos
+// can only be done when GCC_OPTIMIZATION_LEVEL is actually optimizing
+GCC_WARN_UNINITIALIZED_AUTOS = YES
 
 // When we strip we want to strip all symbols in release, but save externals.
 STRIP_STYLE = all

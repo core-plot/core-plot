@@ -1,7 +1,7 @@
 //
 //  SharedLibraryGCSupported.xcconfig
 //
-//  Xcode configuration file for a shared library that support garbage
+//  Xcode configuration file for a shared library target that support garbage
 //  collection.
 //
 //  This is a _Target_ config file, for use in the "Based on" popup of the

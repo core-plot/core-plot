@@ -30,11 +30,18 @@ DEAD_CODE_STRIPPING = NO
 // Debug symbols should be on obviously
 GCC_GENERATE_DEBUGGING_SYMBOLS = YES
 
-// Define the DEBUG macro in all debug builds
-OTHER_CFLAGS = $(OTHER_CFLAGS) -DDEBUG=1
+// Turn off warnings about uninitialized autos
+// can only be done when GCC_OPTIMIZATION_LEVEL is actually optimizing
+GCC_WARN_UNINITIALIZED_AUTOS = NO
 
 // Turns on special C++ STL checks to "encourage" good STL use
-GCC_PREPROCESSOR_DEFINITIONS = $(GCC_PREPROCESSOR_DEFINITIONS) _GLIBCXX_DEBUG_PEDANTIC _GLIBCXX_DEBUG _GLIBCPP_CONCEPT_CHECKS
+GTM_CONFIGURATION_GCC_PREPROCESSOR_DEFINITIONS = _GLIBCXX_DEBUG_PEDANTIC _GLIBCXX_DEBUG _GLIBCPP_CONCEPT_CHECKS DEBUG=1
 
-// Sets Debug info to DWARF
-DEBUG_INFORMATION_FORMAT = dwarf 
+// Turns on stack protection on debug builds for Leopard and above
+GTM_CONFIGURATION_OTHER_CFLAGS = -fstack-protector -fstack-protector-all
+// Stack protection doesn't exist on Tiger
+GTM_CONFIGURATION_OTHER_CFLAGS[sdk=macosx10.4*] =
+
+// And is really broken on the iPhone Device. Works on simulator though.  
+// rdar://639430 Xcode generates bad Arm code if -fstack-protector -fstack-protector-all
+GTM_CONFIGURATION_OTHER_CFLAGS[sdk=iphoneos*] =
