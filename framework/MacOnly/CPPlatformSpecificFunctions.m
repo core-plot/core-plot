@@ -1,5 +1,6 @@
 
 #import "CPPlatformSpecificFunctions.h"
+#import "CPPlatformSpecificDefines.h"
 #import "CPDefinitions.h"
 
 #pragma mark -

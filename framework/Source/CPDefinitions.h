@@ -42,8 +42,3 @@ typedef enum _CPDirection {
     CPDirectionUp,
     CPDirectionDown
 } CPDirection;
-
-typedef struct _CPContextNode {
-	NSGraphicsContext *context;
-	struct _CPContextNode *nextNode;
-} CPContextNode;
