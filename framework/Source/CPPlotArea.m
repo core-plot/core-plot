@@ -14,12 +14,6 @@
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		plotSpaces = [[NSMutableArray alloc] init];
-//#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-//		// TODO: Add resizing code for iPhone
-//#else
-//		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
-//#endif
-//		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerMinXMargin | kCPLayerMaxXMargin | kCPLayerHeightSizable | kCPLayerMinYMargin | kCPLayerMaxYMargin;
 		self.needsDisplayOnBoundsChange = YES;
 

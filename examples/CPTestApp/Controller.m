@@ -23,8 +23,9 @@
 	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 		
-	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
+    CPGradient *gradient = [CPGradient unifiedDarkGradient];
+    gradient.angle = 90.0;
+	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	CGColorRelease(grayColor);
 	
 	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
@@ -48,6 +49,7 @@
     minorLineStyle.lineColor = [CPColor redColor];
     minorLineStyle.lineWidth = 2.0f;
 
+    axisSet.xAxis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
     axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber one];
     axisSet.xAxis.minorTicksPerInterval = 2;
@@ -56,6 +58,7 @@
     axisSet.xAxis.axisLineStyle = majorLineStyle;
     axisSet.xAxis.minorTickLength = 7.0f;
 
+    axisSet.yAxis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     axisSet.yAxis.minorTicksPerInterval = 5;
     axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber one];

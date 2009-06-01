@@ -21,7 +21,6 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-//        self.bounds = CGRectMake(0.0, 0.0, 100.0, 100.0);
         self.fill = nil;
 		plots = [[NSMutableArray alloc] init];
         
@@ -199,25 +198,23 @@
 }
 
 #pragma mark -
-#pragma mark Dimensions
-
--(CGRect)plotAreaFrame
-{
-	return plotArea.frame;
-}
-
--(void)setPlotAreaFrame:(CGRect)frame
-{
-    plotArea.frame = frame;
-    [self setNeedsLayout];
-}
-
-#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	[self.fill fillRect:self.bounds inContext:theContext];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setFill:(CPFill *)newFill 
+{
+    if ( newFill != fill ) {
+        [fill release];
+        fill = [newFill retain];
+        [self setNeedsDisplay];
+    }
 }
 
 #pragma mark -

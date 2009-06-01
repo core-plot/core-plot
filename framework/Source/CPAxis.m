@@ -154,7 +154,7 @@
 	
 	switch (axisLabelingPolicy) {
 		case CPAxisLabelingPolicyAdHoc:
-			// TODO: Adhoc labeling policy
+			// Nothing to do. User sets labels.
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
 			// Add ticks in negative direction
