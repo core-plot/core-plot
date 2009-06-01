@@ -1,8 +1,8 @@
 //
 //  LoadableBundle.xcconfig
 //
-//  Xcode configuration file for a loadable bundle target. Usually a Cocoa
-//  plugin or similar.
+//  Xcode configuration file for a loadable bundle. Usually a Cocoa plugin or
+//  similar.
 //
 //  This is a _Target_ config file, for use in the "Based on" popup of the
 //  settings dialog for a target. Do not attempt to apply this as the base

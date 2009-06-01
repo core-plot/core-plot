@@ -1,8 +1,7 @@
 //
 //  DebugLeopardOrLater.xcconfig
 //
-//  Xcode configuration file for building a Debug configuration of a project
-//  on Leopard or later.
+//  Xcode configuration file for building a Debug target on Leopard or later.
 //
 //  This is a _Configuration_ Xcode config file for use in the "Based on" popup
 //  of the project configuration editor. Do _not_ use this as the config base
@@ -33,5 +32,3 @@
 // Debug settings
 #include "../subconfig/Debug.xcconfig"
 
-// Merge settings
-#include "../subconfig/GTMMerge.xcconfig"

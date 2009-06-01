@@ -1,7 +1,7 @@
 //
 //  StaticLibrary.xcconfig
 //
-//  Xcode configuration file for a static library target.
+//  Xcode configuration file for a static library.
 //
 //  This is a _Target_ config file, for use in the "Based on" popup of the
 //  settings dialog for a target. Do not attempt to apply this as the base

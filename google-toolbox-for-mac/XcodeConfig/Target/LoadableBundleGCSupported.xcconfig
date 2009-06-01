@@ -1,7 +1,7 @@
 //
 //  LoadableBundleGCSupported.xcconfig
 //
-//  Xcode configuration file for a loadable bundle target that supports garbage
+//  Xcode configuration file for a loadable bundle that supports garbage
 //  collection. Usually a Cocoa plugin or similar.
 //
 //  This is a _Target_ config file, for use in the "Based on" popup of the

@@ -279,6 +279,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4C0586B10FD4506900D029E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F42E086D0D199A5B00D5DDE0;
+			remoteInfo = GTM;
+		};
+		4C0586B30FD4506900D029E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F48FE2640D198C1E009257D2;
+			remoteInfo = "UnitTest - AppKit";
+		};
+		4C0586B50FD4506900D029E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F42E08210D19987200D5DDE0;
+			remoteInfo = "UnitTest - Foundation";
+		};
+		4C0586B70FD4506900D029E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8B45A0280DA4696C001148C5;
+			remoteInfo = "UnitTest - UnitTesting";
+		};
+		4C0586B90FD4506900D029E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8B45A28A0DA49B99001148C5;
+			remoteInfo = UIUnitTestingHarness;
+		};
 		4C2D58A20FB78208008275E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -321,54 +356,12 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		4C7D2A2A0FC1E69100005D98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894;
-			remoteInfo = "UnitTest - AddressBook";
-		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4C32D3550F43B36F00EDFE7A;
 			remoteInfo = CPTestHost;
-		};
-		4C993FD60F45EDA500DC824F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F42E086D0D199A5B00D5DDE0;
-			remoteInfo = GTM;
-		};
-		4C993FD80F45EDA500DC824F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F48FE2640D198C1E009257D2;
-			remoteInfo = "UnitTest - AppKit";
-		};
-		4C993FDA0F45EDA500DC824F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F42E08210D19987200D5DDE0;
-			remoteInfo = "UnitTest - Foundation";
-		};
-		4C993FDC0F45EDA500DC824F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B45A0280DA4696C001148C5;
-			remoteInfo = "UnitTest - UnitTesting";
-		};
-		4C993FDE0F45EDA500DC824F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B45A28A0DA49B99001148C5;
-			remoteInfo = UIUnitTestingHarness;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -634,16 +627,7 @@
 		4C993F470F45ED1900DC824F /* GTMValidatingContainers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMValidatingContainers.m; sourceTree = "<group>"; };
 		4C993F480F45ED1900DC824F /* GTMValidatingContainersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMValidatingContainersTest.m; sourceTree = "<group>"; };
 		4C993F4A0F45ED1900DC824F /* GTMHTTPFetcherTestPage.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GTMHTTPFetcherTestPage.html; sourceTree = "<group>"; };
-		4C993F4B0F45ED1900DC824F /* GTM_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTM_Prefix.pch; path = "../google-toolbox-mac-trunk/GTM_Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		4C993F4C0F45ED1900DC824F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-mac-trunk/GTMDefines.h"; sourceTree = SOURCE_ROOT; };
-		4C993F4E0F45ED1900DC824F /* GTMABAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMABAddressBook.h; sourceTree = "<group>"; };
-		4C993F4F0F45ED1900DC824F /* GTMABAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMABAddressBook.m; sourceTree = "<group>"; };
-		4C993F500F45ED1900DC824F /* GTMABAddressBook.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = GTMABAddressBook.strings; sourceTree = "<group>"; };
-		4C993F510F45ED1900DC824F /* GTMABAddressBookTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMABAddressBookTest.m; sourceTree = "<group>"; };
-		4C993F520F45ED1900DC824F /* GTMUIFont+LineHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIFont+LineHeight.h"; sourceTree = "<group>"; };
-		4C993F530F45ED1900DC824F /* GTMUIFont+LineHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIFont+LineHeight.m"; sourceTree = "<group>"; };
-		4C993F540F45ED1900DC824F /* GTMUIFont+LineHeightTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIFont+LineHeightTest.m"; sourceTree = "<group>"; };
-		4C993F560F45ED1900DC824F /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phone.png; sourceTree = "<group>"; };
+		4C993F4C0F45ED1900DC824F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-for-mac/GTMDefines.h"; sourceTree = SOURCE_ROOT; };
 		4C993F580F45ED1900DC824F /* GTMAppKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMAppKit+UnitTesting.h"; sourceTree = "<group>"; };
 		4C993F590F45ED1900DC824F /* GTMAppKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMAppKit+UnitTesting.m"; sourceTree = "<group>"; };
 		4C993F5A0F45ED1900DC824F /* GTMCALayer+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMCALayer+UnitTesting.h"; sourceTree = "<group>"; };
@@ -724,7 +708,7 @@
 		4C993FAC0F45ED1A00DC824F /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
 		4C993FAD0F45ED1A00DC824F /* StaticLibraryGCSupported.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = StaticLibraryGCSupported.xcconfig; sourceTree = "<group>"; };
 		4C993FAE0F45ED1A00DC824F /* xcconfigs-readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "xcconfigs-readme.txt"; sourceTree = "<group>"; };
-		4C993FC80F45EDA500DC824F /* GTM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTM.xcodeproj; path = "../google-toolbox-mac-trunk/GTM.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		4C993FC80F45EDA500DC824F /* GTM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTM.xcodeproj; path = "../google-toolbox-for-mac/GTM.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		4C993FF00F45EE1600DC824F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4C9940300F45F42E00DC824F /* CPPlotAreaTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotAreaTests.h; sourceTree = "<group>"; };
 		4C9940310F45F42E00DC824F /* CPPlotAreaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotAreaTests.m; sourceTree = "<group>"; };
@@ -1228,6 +1212,18 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		4C0586A70FD4506900D029E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C0586B20FD4506900D029E0 /* GoogleToolboxForMac.framework */,
+				4C0586B40FD4506900D029E0 /* UnitTest - AppKit.octest */,
+				4C0586B60FD4506900D029E0 /* UnitTest - Foundation.octest */,
+				4C0586B80FD4506900D029E0 /* UnitTest - UnitTesting.octest */,
+				4C0586BA0FD4506900D029E0 /* GTMUIUnitTestingHarness.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4C2D5A2A0FB79016008275E0 /* CPPlotAreaTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,9 +1312,7 @@
 				4C993EA10F45ED1900DC824F /* AppKit */,
 				4C993ED10F45ED1900DC824F /* DebugUtils */,
 				4C993ED90F45ED1900DC824F /* Foundation */,
-				4C993F4B0F45ED1900DC824F /* GTM_Prefix.pch */,
 				4C993F4C0F45ED1900DC824F /* GTMDefines.h */,
-				4C993F4D0F45ED1900DC824F /* iPhone */,
 				4C993F570F45ED1900DC824F /* UnitTesting */,
 				4C993F890F45ED1A00DC824F /* XcodeConfig */,
 			);
@@ -1366,7 +1360,7 @@
 				4C993EC50F45ED1900DC824F /* TestData */,
 			);
 			name = AppKit;
-			path = "../google-toolbox-mac-trunk/AppKit";
+			path = "../google-toolbox-for-mac/AppKit";
 			sourceTree = SOURCE_ROOT;
 		};
 		4C993EC50F45ED1900DC824F /* TestData */ = {
@@ -1399,7 +1393,7 @@
 				4C993ED80F45ED1900DC824F /* GTMMethodCheckTest.m */,
 			);
 			name = DebugUtils;
-			path = "../google-toolbox-mac-trunk/DebugUtils";
+			path = "../google-toolbox-for-mac/DebugUtils";
 			sourceTree = SOURCE_ROOT;
 		};
 		4C993ED90F45ED1900DC824F /* Foundation */ = {
@@ -1519,37 +1513,13 @@
 				4C993F490F45ED1900DC824F /* TestData */,
 			);
 			name = Foundation;
-			path = "../google-toolbox-mac-trunk/Foundation";
+			path = "../google-toolbox-for-mac/Foundation";
 			sourceTree = SOURCE_ROOT;
 		};
 		4C993F490F45ED1900DC824F /* TestData */ = {
 			isa = PBXGroup;
 			children = (
 				4C993F4A0F45ED1900DC824F /* GTMHTTPFetcherTestPage.html */,
-			);
-			path = TestData;
-			sourceTree = "<group>";
-		};
-		4C993F4D0F45ED1900DC824F /* iPhone */ = {
-			isa = PBXGroup;
-			children = (
-				4C993F4E0F45ED1900DC824F /* GTMABAddressBook.h */,
-				4C993F4F0F45ED1900DC824F /* GTMABAddressBook.m */,
-				4C993F500F45ED1900DC824F /* GTMABAddressBook.strings */,
-				4C993F510F45ED1900DC824F /* GTMABAddressBookTest.m */,
-				4C993F520F45ED1900DC824F /* GTMUIFont+LineHeight.h */,
-				4C993F530F45ED1900DC824F /* GTMUIFont+LineHeight.m */,
-				4C993F540F45ED1900DC824F /* GTMUIFont+LineHeightTest.m */,
-				4C993F550F45ED1900DC824F /* TestData */,
-			);
-			name = iPhone;
-			path = "../google-toolbox-mac-trunk/iPhone";
-			sourceTree = SOURCE_ROOT;
-		};
-		4C993F550F45ED1900DC824F /* TestData */ = {
-			isa = PBXGroup;
-			children = (
-				4C993F560F45ED1900DC824F /* phone.png */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -1592,7 +1562,7 @@
 				4C993F7C0F45ED1900DC824F /* TestData */,
 			);
 			name = UnitTesting;
-			path = "../google-toolbox-mac-trunk/UnitTesting";
+			path = "../google-toolbox-for-mac/UnitTesting";
 			sourceTree = SOURCE_ROOT;
 		};
 		4C993F6D0F45ED1900DC824F /* GTMUIUnitTestingHarness */ = {
@@ -1633,7 +1603,7 @@
 				4C993FAE0F45ED1A00DC824F /* xcconfigs-readme.txt */,
 			);
 			name = XcodeConfig;
-			path = "../google-toolbox-mac-trunk/XcodeConfig";
+			path = "../google-toolbox-for-mac/XcodeConfig";
 			sourceTree = SOURCE_ROOT;
 		};
 		4C993F8A0F45ED1A00DC824F /* Project */ = {
@@ -1688,19 +1658,6 @@
 				4C993FAD0F45ED1A00DC824F /* StaticLibraryGCSupported.xcconfig */,
 			);
 			path = Target;
-			sourceTree = "<group>";
-		};
-		4C993FC90F45EDA500DC824F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4C993FD70F45EDA500DC824F /* GoogleToolboxForMac.framework */,
-				4C7D2A2B0FC1E69100005D98 /* UnitTest - AddressBook.octest */,
-				4C993FD90F45EDA500DC824F /* UnitTest - AppKit.octest */,
-				4C993FDB0F45EDA500DC824F /* UnitTest - Foundation.octest */,
-				4C993FDD0F45EDA500DC824F /* UnitTest - UnitTesting.octest */,
-				4C993FDF0F45EDA500DC824F /* GTMUIUnitTestingHarness.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4C99408D0F45F71100DC824F /* Testing */ = {
@@ -1994,7 +1951,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4C993FC90F45EDA500DC824F /* Products */;
+					ProductGroup = 4C0586A70FD4506900D029E0 /* Products */;
 					ProjectRef = 4C993FC80F45EDA500DC824F /* GTM.xcodeproj */;
 				},
 			);
@@ -2011,46 +1968,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4C7D2A2B0FC1E69100005D98 /* UnitTest - AddressBook.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "UnitTest - AddressBook.octest";
-			remoteRef = 4C7D2A2A0FC1E69100005D98 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C993FD70F45EDA500DC824F /* GoogleToolboxForMac.framework */ = {
+		4C0586B20FD4506900D029E0 /* GoogleToolboxForMac.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = GoogleToolboxForMac.framework;
-			remoteRef = 4C993FD60F45EDA500DC824F /* PBXContainerItemProxy */;
+			remoteRef = 4C0586B10FD4506900D029E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C993FD90F45EDA500DC824F /* UnitTest - AppKit.octest */ = {
+		4C0586B40FD4506900D029E0 /* UnitTest - AppKit.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTest - AppKit.octest";
-			remoteRef = 4C993FD80F45EDA500DC824F /* PBXContainerItemProxy */;
+			remoteRef = 4C0586B30FD4506900D029E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C993FDB0F45EDA500DC824F /* UnitTest - Foundation.octest */ = {
+		4C0586B60FD4506900D029E0 /* UnitTest - Foundation.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTest - Foundation.octest";
-			remoteRef = 4C993FDA0F45EDA500DC824F /* PBXContainerItemProxy */;
+			remoteRef = 4C0586B50FD4506900D029E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C993FDD0F45EDA500DC824F /* UnitTest - UnitTesting.octest */ = {
+		4C0586B80FD4506900D029E0 /* UnitTest - UnitTesting.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTest - UnitTesting.octest";
-			remoteRef = 4C993FDC0F45EDA500DC824F /* PBXContainerItemProxy */;
+			remoteRef = 4C0586B70FD4506900D029E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C993FDF0F45EDA500DC824F /* GTMUIUnitTestingHarness.app */ = {
+		4C0586BA0FD4506900D029E0 /* GTMUIUnitTestingHarness.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = GTMUIUnitTestingHarness.app;
-			remoteRef = 4C993FDE0F45EDA500DC824F /* PBXContainerItemProxy */;
+			remoteRef = 4C0586B90FD4506900D029E0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
