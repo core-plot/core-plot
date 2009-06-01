@@ -79,7 +79,7 @@ NSString *const kGTMWindowSaveFileName = @"GTMUnitTestingWindow";
   // Clean up
   [NSApp setDelegate:nil];
   [appDelegate release];
-  [window close];
+  [testWindowController release];
 }
 
 - (void)testViewUnitTesting {

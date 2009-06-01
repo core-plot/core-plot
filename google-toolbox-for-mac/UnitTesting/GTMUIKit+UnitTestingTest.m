@@ -40,6 +40,13 @@
   GTMAssertObjectStateEqualToStateNamed(view, @"GTMUIViewUnitTestingTest", nil);
 }
 
+- (void)testUIImage {
+  NSString* name = @"GTMUIViewUnitTestingTest";
+  UIImage* image =
+      [UIImage imageNamed:[name stringByAppendingPathExtension:@"png"]];
+  GTMAssertObjectImageEqualToImageNamed(image, name, nil);
+}
+
 - (void)gtm_unitTestViewDrawRect:(CGRect)rect contextInfo:(void*)contextInfo {
   UIApplication *app = [UIApplication sharedApplication];
   STAssertEqualObjects(app,

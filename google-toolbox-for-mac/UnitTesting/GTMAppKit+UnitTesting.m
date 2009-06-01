@@ -22,6 +22,7 @@
 #import "GTMAppKit+UnitTesting.h"
 #import "GTMGeometryUtils.h"
 #import "GTMMethodCheck.h"
+#import "GTMGarbageCollection.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_4
  #define ENCODE_NSINTEGER(coder, i, key) [(coder) encodeInt:(i) forKey:(key)]
@@ -30,17 +31,16 @@
 #endif
 
 @implementation NSApplication (GMUnitTestingAdditions) 
-GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
+GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
   [super gtm_unitTestEncodeState:inCoder];
   ENCODE_NSINTEGER(inCoder, [[self mainWindow] windowNumber], @"ApplicationMainWindow");
    
   // Descend down into the windows allowing them to store their state
-  NSEnumerator *windowEnum = [[self windows] objectEnumerator];
   NSWindow *window = nil;
   int i = 0;
-  while ((window = [windowEnum nextObject])) {
+  GTM_FOREACH_OBJECT(window, [self windows]) {
     if ([window isVisible]) {
       // Only record visible windows because invisible windows may be closing on us
       // This appears to happen differently in 64 bit vs 32 bit, and items
@@ -63,8 +63,8 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
 
 @implementation NSWindow (GMUnitTestingAdditions) 
 
-- (CGImageRef)gtm_createUnitTestImage {  
-  return [[[self contentView] superview] gtm_createUnitTestImage];
+- (CGImageRef)gtm_unitTestImage {  
+  return [[[self contentView] superview] gtm_unitTestImage];
 }
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
@@ -96,6 +96,24 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
   [inCoder encodeObject:[self selectedCell] forKey:@"ControlSelectedCell"];
   ENCODE_NSINTEGER(inCoder, [self tag], @"ControlTag");
   [inCoder encodeBool:[self isEnabled] forKey:@"ControlIsEnabled"];
+}
+
+@end
+
+@implementation NSButton (GTMUnitTestingAdditions) 
+
+//  Encodes the state of an object in a manner suitable for comparing
+//  against a master state file so we can determine whether the
+//  object is in a suitable state.
+//
+//  Arguments:
+//    inCoder - the coder to encode our state into
+- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+  [super gtm_unitTestEncodeState:inCoder];
+  NSString *alternateTitle = [self alternateTitle];
+  if (alternateTitle) {
+    [inCoder encodeObject:alternateTitle forKey:@"ButtonAlternateTitle"];
+  }
 }
 
 @end
@@ -144,14 +162,15 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
   [inCoder encodeObject:[self name] forKey:@"ImageName"];
 }
 
-- (CGImageRef)gtm_createUnitTestImage {
+- (CGImageRef)gtm_unitTestImage {
   // Create up a context
   NSSize size = [self size];
   NSRect rect = GTMNSRectOfSize(size);
-  CGContextRef contextRef = [self gtm_createUnitTestBitmapContextOfSize:GTMNSSizeToCGSize(size)
-                                                                   data:NULL];
-  NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithGraphicsPort:contextRef
-                                                                                flipped:NO];
+  CGSize cgSize = GTMNSSizeToCGSize(size);
+  CGContextRef contextRef = GTMCreateUnitTestBitmapContextOfSizeWithData(cgSize,
+                                                                         NULL);
+  NSGraphicsContext *bitmapContext 
+    = [NSGraphicsContext graphicsContextWithGraphicsPort:contextRef flipped:NO];
   _GTMDevAssert(bitmapContext, @"Couldn't create ns bitmap context");
   
   [NSGraphicsContext saveGraphicsState];
@@ -161,7 +180,7 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
   CGImageRef image = CGBitmapContextCreateImage(contextRef);
   CFRelease(contextRef);
   [NSGraphicsContext restoreGraphicsState];
-  return image;
+  return (CGImageRef)GTMCFAutorelease(image);
 }
 
 @end
@@ -190,10 +209,12 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
     }
   }
   // Descend down into the menuitems allowing them to store their state
-  NSEnumerator *menuItemEnum = [[self itemArray] objectEnumerator];
   NSMenuItem *menuItem = nil;
-  for (int i = 0; (menuItem = [menuItemEnum nextObject]); ++i) {
-    [inCoder encodeObject:menuItem forKey:[NSString stringWithFormat:@"MenuItem %d", i]];
+  int i = 0;
+  GTM_FOREACH_OBJECT(menuItem, [self itemArray]) {
+    [inCoder encodeObject:menuItem
+                   forKey:[NSString stringWithFormat:@"MenuItem %d", i]];
+    ++i;
   }
 }
 
@@ -227,6 +248,43 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
   if ([self hasSubmenu]) {
     [inCoder encodeObject:[self submenu] forKey:@"MenuItemSubmenu"];
   }
+}
+
+@end
+
+@implementation NSTabView (GTMUnitTestingAdditions) 
+
+//  Encodes the state of an object in a manner suitable for comparing
+//  against a master state file so we can determine whether the
+//  object is in a suitable state.
+//
+//  Arguments:
+//    inCoder - the coder to encode our state into
+- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+  [super gtm_unitTestEncodeState:inCoder];
+  NSTabViewItem *tab = nil;
+  int i = 0;
+  GTM_FOREACH_OBJECT(tab, [self tabViewItems]) {
+    NSString *key = [NSString stringWithFormat:@"TabItem %d", i];
+    [inCoder encodeObject:tab forKey:key];
+    i = i + 1;
+  }
+}
+
+@end
+
+@implementation NSTabViewItem (GTMUnitTestingAdditions) 
+
+//  Encodes the state of an object in a manner suitable for comparing
+//  against a master state file so we can determine whether the
+//  object is in a suitable state.
+//
+//  Arguments:
+//    inCoder - the coder to encode our state into
+- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+  [super gtm_unitTestEncodeState:inCoder];
+  [inCoder encodeObject:[self label] forKey:@"TabLabel"];
+  [inCoder encodeObject:[self view] forKey:@"TabView"];
 }
 
 @end
@@ -278,13 +336,14 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
 //
 //  Returns:
 //    an image of the object
-- (CGImageRef)gtm_createUnitTestImage {
+- (CGImageRef)gtm_unitTestImage {
   // Create up a context
   NSRect bounds = [self bounds];
-  CGContextRef contextRef = [self gtm_createUnitTestBitmapContextOfSize:GTMNSSizeToCGSize(bounds.size)
-                                                                   data:NULL];
-  NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithGraphicsPort:contextRef
-                                                                                flipped:NO];
+  CGSize cgSize = GTMNSSizeToCGSize(bounds.size);
+  CGContextRef contextRef = GTMCreateUnitTestBitmapContextOfSizeWithData(cgSize,
+                                                                         NULL);
+  NSGraphicsContext *bitmapContext 
+    = [NSGraphicsContext graphicsContextWithGraphicsPort:contextRef flipped:NO];
   _GTMDevAssert(bitmapContext, @"Couldn't create ns bitmap context");
   
   // Save our state and turn off font smoothing and antialias.
@@ -295,7 +354,7 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
 
   CGImageRef image = CGBitmapContextCreateImage(contextRef);
   CFRelease(contextRef);
-  return image;
+  return (CGImageRef)GTMCFAutorelease(image);
 }
 
 //  Returns whether gtm_unitTestEncodeState should recurse into subviews
@@ -323,11 +382,26 @@ GTM_METHOD_CHECK(NSObject, gtm_unitTestEncodeState:);  // COV_NF_LINE
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
   [super gtm_unitTestEncodeState:inCoder];
   [inCoder encodeBool:[self isHidden] forKey:@"ViewIsHidden"];
+  [inCoder encodeObject:[self toolTip] forKey:@"ViewToolTip"];
+  NSArray *supportedAttrs = [self accessibilityAttributeNames];
+  if ([supportedAttrs containsObject:NSAccessibilityHelpAttribute]) {
+    NSString *help 
+      = [self accessibilityAttributeValue:NSAccessibilityHelpAttribute];
+    [inCoder encodeObject:help forKey:@"ViewAccessibilityHelp"];
+  }
+  if ([supportedAttrs containsObject:NSAccessibilityDescriptionAttribute]) {
+    NSString *description 
+      = [self accessibilityAttributeValue:NSAccessibilityDescriptionAttribute];
+    [inCoder encodeObject:description forKey:@"ViewAccessibilityDescription"];
+  }
+  NSMenu *menu = [self menu];
+  if (menu) {
+    [inCoder encodeObject:menu forKey:@"ViewMenu"];
+  }
   if ([self gtm_shouldEncodeStateForSubviews]) {
-    NSEnumerator *subviewEnum = [[self subviews] objectEnumerator];
     NSView *subview = nil;
     int i = 0;
-    while ((subview = [subviewEnum nextObject])) {
+    GTM_FOREACH_OBJECT(subview, [self subviews]) {
       [inCoder encodeObject:subview forKey:[NSString stringWithFormat:@"ViewSubView %d", i]];
       i = i + 1;
     }

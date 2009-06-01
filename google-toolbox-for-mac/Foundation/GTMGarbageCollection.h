@@ -18,26 +18,55 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GTMDefines.h"
+
 // This allows us to easily move our code from GC to non GC.
 // They are no-ops unless we are require Leopard or above.
 // See 
 // http://developer.apple.com/documentation/Cocoa/Conceptual/GarbageCollection/index.html
+// and
+// http://developer.apple.com/documentation/Cocoa/Conceptual/GarbageCollection/Articles/gcCoreFoundation.html#//apple_ref/doc/uid/TP40006687-SW1
 // for details.
-// General use would be
-// CFTypeRef type = ...
-// return [GTMNSMakeCollectable(type) autorelease];
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+#if (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5) && !GTM_IPHONE_SDK
+// General use would be to call this through GTMCFAutorelease
+// but there may be a reason the you want to make something collectable
+// but not autoreleased, especially in pure GC code where you don't
+// want to bother with the nop autorelease. Done as a define instead of an 
+// inline so that tools like Clang's scan-build don't report code as leaking.
+#define GTMNSMakeCollectable(cf) ((id)NSMakeCollectable(cf))
 
-FOUNDATION_STATIC_INLINE id GTMNSMakeCollectable(CFTypeRef cf) { 
-  return NSMakeCollectable(cf); 
+// GTMNSMakeUncollectable is for global maps, etc. that we don't
+// want released ever. You should still retain these in non-gc code.
+GTM_INLINE void GTMNSMakeUncollectable(id object) {
+  [[NSGarbageCollector defaultCollector] disableCollectorForPointer:object];
+}
+
+// Hopefully no code really needs this, but GTMIsGarbageCollectionEnabled is
+// a common way to check at runtime if GC is on.
+// There are some places where GC doesn't work w/ things w/in Apple's
+// frameworks, so this is here so GTM unittests and detect it, and not run
+// individual tests to work around bugs in Apple's frameworks.
+GTM_INLINE BOOL GTMIsGarbageCollectionEnabled(void) {
+  return ([NSGarbageCollector defaultCollector] != nil);
 }
 
 #else
 
-FOUNDATION_STATIC_INLINE id GTMNSMakeCollectable(CFTypeRef cf) { 
-  // NSMakeCollectable handles NULLs just fine and returns nil as expected.
-  return (id)cf;
+#define GTMNSMakeCollectable(cf) ((id)(cf))
+
+GTM_INLINE void GTMNSMakeUncollectable(id object) {
+}
+
+GTM_INLINE BOOL GTMIsGarbageCollectionEnabled(void) {
+  return NO;
 }
 
 #endif
+
+// GTMCFAutorelease makes a CF object collectable in GC mode, or adds it 
+// to the autorelease pool in non-GC mode. Either way it is taken care
+// of. Done as a define instead of an inline so that tools like Clang's
+// scan-build don't report code as leaking.
+#define GTMCFAutorelease(cf) ([GTMNSMakeCollectable(cf) autorelease])
+

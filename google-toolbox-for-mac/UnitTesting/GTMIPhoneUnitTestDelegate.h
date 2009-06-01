@@ -16,14 +16,23 @@
 //  the License.
 //
 
+#import <Foundation/Foundation.h>
+
 // Application delegate that runs all test methods in registered classes
 // extending SenTestCase. The application is terminated afterwards.
 // You can also run the tests directly from your application by invoking
-// gtm_runTests and clean up, restore data, etc. before the application
+// runTests and clean up, restore data, etc. before the application
 // terminates.
-@interface GTMIPhoneUnitTestDelegate : NSObject
+@interface GTMIPhoneUnitTestDelegate : NSObject {
+ @private
+  NSUInteger totalFailures_;
+  NSUInteger totalSuccesses_;
+}
 // Runs through all the registered classes and runs test methods on any
 // that are subclasses of SenTestCase. Prints results and run time to
 // the default output.
 - (void)runTests;
+// Fetch the number of successes or failures from the last runTests.
+- (NSUInteger)totalSuccesses;
+- (NSUInteger)totalFailures;
 @end

@@ -27,6 +27,9 @@
 // test to spit out, and it will cause any that don't match to appear as errors
 // in your unittest run output. You can match on exact strings or standard 
 // regexps.
+// Set GTM_SHOW_UNITTEST_DEVLOGS in the environment to show the logs that that
+// are expected and encountered.  Otherwise they aren't display to keep the
+// unit test results easier to read.
 
 @interface GTMUnitTestDevLog : NSObject
 // Log a message
@@ -67,4 +70,7 @@
 + (void)resetExpectedLogs;
 @end
 
-
+// Does the same as GTMUnitTestDevLog, but the logs are only expected in debug.
+// ie-the expect requests don't count in release builds.
+@interface GTMUnitTestDevLogDebug : GTMUnitTestDevLog
+@end

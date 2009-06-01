@@ -74,9 +74,9 @@
 //
 //  Returns:
 //    an image of the object
-- (CGImageRef)gtm_createUnitTestImage {
+- (CGImageRef)gtm_unitTestImage {
   CALayer* layer = [self layer];
-  return [layer gtm_createUnitTestImage];
+  return [layer gtm_unitTestImage];
 }
 
 //  Encodes the state of an object in a manner suitable for comparing
@@ -93,13 +93,11 @@
     [layer gtm_unitTestEncodeState:inCoder];
   }
   if ([self gtm_shouldEncodeStateForSubviews]) {
-    NSEnumerator *subviewEnum = [[self subviews] objectEnumerator];
-    UIView *subview = nil;
     int i = 0;
-    while ((subview = [subviewEnum nextObject])) {
+    for (UIView *subview in [self subviews]) {
       [inCoder encodeObject:subview 
                      forKey:[NSString stringWithFormat:@"ViewSubView %d", i]];
-      i = i + 1;
+      i++;
     }
   }
 }
@@ -114,5 +112,11 @@
 
 - (BOOL)gtm_shouldEncodeStateForSublayersOfLayer:(CALayer*)layer {
   return NO;
+}
+@end
+
+@implementation UIImage (GTMUnitTestingAdditions)
+- (CGImageRef)gtm_unitTestImage {
+  return [self CGImage];
 }
 @end

@@ -125,6 +125,19 @@ do { \
   GTMAssertObjectStateEqualToStateNamed(a1, a2, description, ##__VA_ARGS__); \
 } while (0)
 
+// Create a CGBitmapContextRef appropriate for using in creating a unit test 
+// image. If data is non-NULL, returns the buffer that the bitmap is
+// using for it's underlying storage. You must free this buffer using
+// free. If data is NULL, uses it's own internal storage.
+// Defined as a C function instead of an obj-c method because you have to
+// release the CGContextRef that is returned.
+//
+//  Returns:
+//    an CGContextRef of the object. Caller must release
+
+CGContextRef GTMCreateUnitTestBitmapContextOfSizeWithData(CGSize size,
+                                                          unsigned char **data);
+
 // GTMUnitTestingImaging protocol is for objects which need to save their
 // image for using with the unit testing categories
 @protocol GTMUnitTestingImaging
@@ -132,8 +145,8 @@ do { \
 // comparing against a master image. 
 //
 //  Returns:
-//    an CGImageRef of the object. Caller must release
-- (CGImageRef)gtm_createUnitTestImage;
+//    an CGImageRef of the object.
+- (CGImageRef)gtm_unitTestImage;
 @end
 
 // GTMUnitTestingEncoding protocol is for objects which need to save their
@@ -175,23 +188,6 @@ do { \
 // will save to the desktop.
 + (void)gtm_setUnitTestSaveToDirectory:(NSString*)path;
 + (NSString *)gtm_getUnitTestSaveToDirectory;
-
-// Create a CGColorSpaceRef appropriate for using in creating a unit test image
-// iPhone uses device colorspace.
-//  Returns:
-//    an CGColorSpaceRef of the object. Caller must release
-- (CGColorSpaceRef)gtm_createUnitTestColorspace;
-
-// Create a CGBitmapContextRef appropriate for using in creating a unit test 
-// image. If data is non-NULL, returns the buffer that the bitmap is
-// using for it's underlying storage. You must free this buffer using
-// free. If data is NULL, uses it's own internal storage.
-// In either case, it will be filled with transparency.
-//
-//  Returns:
-//    an CGContextRef of the object. Caller must release
-- (CGContextRef)gtm_createUnitTestBitmapContextOfSize:(CGSize)size
-                                                 data:(unsigned char **)data;
 
 // Checks to see that system settings are valid for doing an image comparison.
 // Most of these are set by our unit test app. See the unit test app main.m
@@ -283,8 +279,8 @@ do { \
 //  path: The path to the image.
 //
 // Returns:
-//  A CGImageRef that you own, or nil if no image at path
-- (CGImageRef)gtm_createImageUsingPath:(NSString*)path;
+//  An autoreleased CGImageRef own, or nil if no image at path
+- (CGImageRef)gtm_imageWithContentsOfFile:(NSString*)path;
 
 //  Generates a path for a image in the save directory, which is desktop
 //  by default.
@@ -414,8 +410,8 @@ do { \
 // notification so that objects who want to add data to the encoded objects unit
 // test state can do so. The Coder will be in the userInfo dictionary for the
 // notification under the GTMUnitTestingEncoderKey key.
-extern NSString *const GTMUnitTestingEncodedObjectNotification;
+GTM_EXTERN NSString *const GTMUnitTestingEncodedObjectNotification;
 
 // Key for finding the encoder in the userInfo dictionary for
 // GTMUnitTestingEncodedObjectNotification notifications.
-extern NSString *const GTMUnitTestingEncoderKey;
+GTM_EXTERN NSString *const GTMUnitTestingEncoderKey;

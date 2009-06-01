@@ -46,9 +46,8 @@ do { \
   NSArray *errors = nil; \
   BOOL isGood = GTMDoExposedBindingsFunctionCorrectly(a1Object, &errors); \
   if (!isGood) { \
-    NSEnumerator *errorEnum = [errors objectEnumerator]; \
     NSString *failString; \
-    while ((failString = [errorEnum nextObject])) { \
+    GTM_FOREACH_OBJECT(failString, errors) { \
       if (description) { \
         STFail(@"%@: %@", failString, STComposeString(description, ##__VA_ARGS__)); \
       } else { \
@@ -57,6 +56,23 @@ do { \
     } \
   } \
 } while(0)
+
+// Utility class for setting up Binding Tests. Basically a pair of a value to
+// set a binding to, followed by the expected return value.
+// See description of gtm_unitTestExposedBindingsTestValues: below
+// for example of usage.
+@interface GTMBindingUnitTestData : NSObject {
+ @private
+  id valueToSet_;
+  id expectedValue_;
+}
+
++ (id)testWithIdentityValue:(id)value;
++ (id)testWithValue:(id)value expecting:(id)expecting;
+- (id)initWithValue:(id)value expecting:(id)expecting;
+- (id)valueToSet;
+- (id)expectedValue;
+@end
 
 @interface NSObject (GTMBindingUnitTestingAdditions)
 // Allows you to ignore certain bindings when running GTMTestExposedBindings
@@ -76,14 +92,15 @@ do { \
 
 // Allows you to set up test values for your different bindings.
 // if you have certain values you want to test against your bindings, add
-// them to the dictionary returned by this method. The dictionary is a "value" key
-// and an "expected return" object.
+// them to the array returned by this method. The array is an array of
+// GTMBindingUnitTestData.
 //  The standard way to implement this would be:
-// - (NSMutableDictionary*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding {
-//    NSMutableDictionary *dict = [super unitTestExposedBindingsTestValues:binding];
+// - (NSMutableArray*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding {
+//    NSMutableArray *dict = [super unitTestExposedBindingsTestValues:binding];
 //    if ([binding isEqualToString:@"myBinding"]) {
-//      [dict setObject:[[[MySpecialBindingValueSet alloc] init] autorelease]
-//               forKey:[[[MySpecialBindingValueGet alloc] init] autorelease]];
+//      MySpecialBindingValueSet *value 
+//        = [[[MySpecialBindingValueSet alloc] init] autorelease];
+//      [array addObject:[GTMBindingUnitTestData testWithIdentityValue:value]];
 //      ...
 //    else if ([binding isEqualToString:@"myBinding2"]) {
 //      ...
@@ -94,7 +111,7 @@ do { \
 // gives you a reasonable set of test values to start.
 // See the implementation for the current list of bindings, and values that we
 // set for those bindings.
-- (NSMutableDictionary*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding;
+- (NSMutableArray*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding;
 
 // A special version of isEqualTo to test whether two binding values are equal
 // by default it calls directly to isEqualTo: but can be overridden for special

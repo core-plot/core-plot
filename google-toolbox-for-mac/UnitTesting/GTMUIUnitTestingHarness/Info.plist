@@ -22,6 +22,49 @@
 	<string>1.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+    <!-- The CFBundleURLTypes are in here specifically to test
+    GTMGetURLHandler. See GTMGetURLHandlerTest for details -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>GTMUIUnitTestingHarnessURL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gtmgeturlhandlertest</string>
+			</array>
+			<key>GTMBundleURLClass</key>
+			<string>GTMGetURLHandlerTest</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>GTMGetURLHandlerBadClassURL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gtmgeturlhandlerbadclasstest</string>
+			</array>
+			<key>GTMBundleURLClass</key>
+			<string>GTMGetURLHandlerBadClassWarning</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>GTMGetURLHandlerMissingClassURL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gtmgeturlhandlermissingclasstest</string>
+			</array>
+			<key>GTMBundleURLClass</key>
+			<string>GTMGetURLHandlerMissingClassWarning</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>GTMGetURLHandlerMissingHandlerURL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gtmgeturlhandlermissinghandlerurl</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

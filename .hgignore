@@ -17,6 +17,5 @@ syntax: glob
 # XCode user data
 **.pbxuser
 **.mode?v?
+**.perspectivev?
 
-# Google Mac Toolbox
-google-toolbox-mac-trunk

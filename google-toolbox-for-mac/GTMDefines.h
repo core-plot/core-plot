@@ -35,6 +35,32 @@
 # define GTM_HTTPFETCHER_ENABLE_INPUTSTREAM_LOGGING 0
 #endif // GTM_HTTPFETCHER_ENABLE_INPUTSTREAM_LOGGING
 
+// Give ourselves a consistent way to do inlines.  Apple's macros even use
+// a few different actual definitions, so we're based off of the foundation
+// one.
+#if !defined(GTM_INLINE)
+  #if defined (__GNUC__) && (__GNUC__ == 4)
+    #define GTM_INLINE static __inline__ __attribute__((always_inline))
+  #else
+    #define GTM_INLINE static __inline__
+  #endif
+#endif
+
+// Give ourselves a consistent way of doing externs that links up nicely
+// when mixing objc and objc++
+#if !defined (GTM_EXTERN)
+  #if defined __cplusplus
+    #define GTM_EXTERN extern "C"
+  #else
+    #define GTM_EXTERN extern
+  #endif
+#endif
+
+// Give ourselves a consistent way of exporting things if we have visibility
+// set to hidden.
+#if !defined (GTM_EXPORT)
+  #define GTM_EXPORT __attribute__((visibility("default")))
+#endif
 
 // _GTMDevLog & _GTMDevAssert
 //
@@ -110,6 +136,29 @@ extern void _GTMUnittestDevLog(NSString *format, ...);
 #define _GTMCompileAssert(test, msg) \
   typedef char _GTMCompileAssertSymbol(__LINE__, msg) [ ((test) ? 1 : -1) ]
 #endif // _GTMCompileAssert
+
+// Macro to allow fast enumeration when building for 10.5 or later, and
+// reliance on NSEnumerator for 10.4.  Remember, NSDictionary w/ FastEnumeration
+// does keys, so pick the right thing, nothing is done on the FastEnumeration
+// side to be sure you're getting what you wanted.
+#ifndef GTM_FOREACH_OBJECT
+  #if TARGET_OS_IPHONE || (GTM_MAC_OS_X_VERSION_MINIMUM_REQUIRED >= MAC_OS_X_VERSION_10_5)
+    #define GTM_FOREACH_ENUMEREE(element, enumeration) \
+      for (element in enumeration)
+    #define GTM_FOREACH_OBJECT(element, collection) \
+      for (element in collection)
+    #define GTM_FOREACH_KEY(element, collection) \
+      for (element in collection)
+  #else
+    #define GTM_FOREACH_ENUMEREE(element, enumeration) \
+      for (NSEnumerator *_ ## element ## _enum = enumeration; \
+           (element = [_ ## element ## _enum nextObject]) != nil; )
+    #define GTM_FOREACH_OBJECT(element, collection) \
+      GTM_FOREACH_ENUMEREE(element, [collection objectEnumerator])
+    #define GTM_FOREACH_KEY(element, collection) \
+      GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
+  #endif
+#endif
 
 // ============================================================================
 

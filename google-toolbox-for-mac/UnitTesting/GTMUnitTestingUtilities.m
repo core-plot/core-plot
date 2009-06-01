@@ -19,16 +19,19 @@
 #import "GTMUnitTestingUtilities.h"
 #import <AppKit/AppKit.h>
 #import "GTMDefines.h"
+#import "GTMGarbageCollection.h"
 
 // The Users profile before we change it on them
-static CMProfileRef gCurrentColorProfile = NULL;
+static CMProfileRef gGTMCurrentColorProfile = NULL;
 
 // Compares two color profiles
-static BOOL AreCMProfilesEqual(CMProfileRef a, CMProfileRef b);
+static BOOL GTMAreCMProfilesEqual(CMProfileRef a, CMProfileRef b);
 // Stores the user's color profile away, and changes over to generic.
-static void SetColorProfileToGenericRGB();
+static void GTMSetColorProfileToGenericRGB();
 // Restores the users profile.
-static void RestoreColorProfile(void);
+static void GTMRestoreColorProfile(void);
+
+static CGKeyCode GTMKeyCodeForCharCode(CGCharCode charCode);
 
 @implementation GTMUnitTestingUtilities
 
@@ -81,7 +84,7 @@ static void RestoreColorProfile(void);
   [defaults setFloat:.001f forKey:@"NSWindowResizeTime"];
   // Switch over the screen profile to "generic rgb". This installs an 
   // atexit handler to return our profile back when we are done.
-  SetColorProfileToGenericRGB();  
+  GTMSetColorProfileToGenericRGB();  
 }
 
 + (void)setUpForUIUnitTestsIfBeingTested {
@@ -91,10 +94,98 @@ static void RestoreColorProfile(void);
   }
   [pool release];
 }
+
++ (BOOL)isScreenSaverActive {
+  BOOL answer = NO;
+  ProcessSerialNumber psn;
+  if (GetFrontProcess(&psn) == noErr) {
+    CFDictionaryRef cfProcessInfo 
+      = ProcessInformationCopyDictionary(&psn, 
+                                         kProcessDictionaryIncludeAllInformationMask);
+    NSDictionary *processInfo = GTMCFAutorelease(cfProcessInfo);
+    
+    NSString *bundlePath = [processInfo objectForKey:@"BundlePath"];
+    // ScreenSaverEngine is the frontmost app if the screen saver is actually
+    // running Security Agent is the frontmost app if the "enter password"
+    // dialog is showing
+    NSString *bundleName = [bundlePath lastPathComponent];
+    answer = ([bundleName isEqualToString:@"ScreenSaverEngine.app"] 
+              || [bundleName isEqualToString:@"SecurityAgent.app"]);
+  }
+  return answer;
+}
+
+// Allows for posting either a keydown or a keyup with all the modifiers being 
+// applied. Passing a 'g' with NSKeyDown and NSShiftKeyMask 
+// generates two events (a shift key key down and a 'g' key keydown). Make sure
+// to balance this with a keyup, or things could get confused. Events get posted 
+// using the CGRemoteOperation events which means that it gets posted in the 
+// system event queue. Thus you can affect other applications if your app isn't
+// the active app (or in some cases, such as hotkeys, even if it is).
+//  Arguments:
+//    type - Event type. Currently accepts NSKeyDown and NSKeyUp
+//    keyChar - character on the keyboard to type. Make sure it is lower case.
+//              If you need upper case, pass in the NSShiftKeyMask in the
+//              modifiers. i.e. to generate "G" pass in 'g' and NSShiftKeyMask.
+//              to generate "+" pass in '=' and NSShiftKeyMask.
+//    cocoaModifiers - an int made up of bit masks. Handles NSAlphaShiftKeyMask,
+//                    NSShiftKeyMask, NSControlKeyMask, NSAlternateKeyMask, and
+//                    NSCommandKeyMask
++ (void)postKeyEvent:(NSEventType)type 
+           character:(CGCharCode)keyChar 
+           modifiers:(UInt32)cocoaModifiers {
+  require(![self isScreenSaverActive], CantWorkWithScreenSaver);
+  require(type == NSKeyDown || type == NSKeyUp, CantDoEvent);
+  CGKeyCode code = GTMKeyCodeForCharCode(keyChar);
+  verify(code != 256);
+  CGEventRef event = CGEventCreateKeyboardEvent(NULL, code, type == NSKeyDown);
+  require(event, CantCreateEvent);
+  CGEventSetFlags(event, cocoaModifiers);
+  CGEventPost(kCGSessionEventTap, event);
+  CFRelease(event);
+CantCreateEvent:
+CantDoEvent:
+CantWorkWithScreenSaver:
+  return;
+}
+
+// Syntactic sugar for posting a keydown immediately followed by a key up event
+// which is often what you really want. 
+//  Arguments:
+//    keyChar - character on the keyboard to type. Make sure it is lower case.
+//              If you need upper case, pass in the NSShiftKeyMask in the
+//              modifiers. i.e. to generate "G" pass in 'g' and NSShiftKeyMask.
+//              to generate "+" pass in '=' and NSShiftKeyMask.
+//    cocoaModifiers - an int made up of bit masks. Handles NSAlphaShiftKeyMask,
+//                    NSShiftKeyMask, NSControlKeyMask, NSAlternateKeyMask, and
+//                    NSCommandKeyMask
++ (void)postTypeCharacterEvent:(CGCharCode)keyChar modifiers:(UInt32)cocoaModifiers {
+  [self postKeyEvent:NSKeyDown character:keyChar modifiers:cocoaModifiers];
+  [self postKeyEvent:NSKeyUp character:keyChar modifiers:cocoaModifiers];
+}
+
+// Runs the event loop in NSDefaultRunLoopMode until date. Can be useful for
+// testing user interface responses in a controlled timed event loop. For most
+// uses using:
+// [[NSRunLoop currentRunLoop] runUntilDate:date]
+// will do. The only reason you would want to use this is if you were 
+// using the postKeyEvent:character:modifiers to send events and wanted to
+// receive user input.
+//  Arguments:
+//    date - end of execution time
++ (void)runUntilDate:(NSDate*)date {
+  NSEvent *event;
+  while ((event = [NSApp nextEventMatchingMask:NSAnyEventMask 
+                                     untilDate:date 
+                                        inMode:NSDefaultRunLoopMode 
+                                       dequeue:YES])) {
+    [NSApp sendEvent:event];
+  }
+}
+
 @end
 
-
-BOOL AreCMProfilesEqual(CMProfileRef a, CMProfileRef b) {
+BOOL GTMAreCMProfilesEqual(CMProfileRef a, CMProfileRef b) {
   BOOL equal = YES;
   if (a != b) {
     CMProfileMD5 aMD5;
@@ -102,16 +193,18 @@ BOOL AreCMProfilesEqual(CMProfileRef a, CMProfileRef b) {
     CMError aMD5Err = CMGetProfileMD5(a, aMD5);
     CMError bMD5Err = CMGetProfileMD5(b, bMD5);
     equal = (!aMD5Err && 
-            !bMD5Err && 
-            !memcmp(aMD5, bMD5, sizeof(CMProfileMD5))) ? YES : NO;
+             !bMD5Err && 
+             !memcmp(aMD5, bMD5, sizeof(CMProfileMD5))) ? YES : NO;
   }
   return equal;
 }
 
-static void RestoreColorProfile(void) {
-  if (gCurrentColorProfile) {
+void GTMRestoreColorProfile(void) {
+  if (gGTMCurrentColorProfile) {
     CGDirectDisplayID displayID = CGMainDisplayID();
-    CMError error = CMSetProfileByAVID((UInt32)displayID, gCurrentColorProfile);
+    CMError error = CMSetProfileByAVID((UInt32)displayID, 
+                                       gGTMCurrentColorProfile);
+    CMCloseProfile(gGTMCurrentColorProfile);
     if (error) {
       // COV_NF_START
       // No way to force this case in a unittest.
@@ -122,11 +215,11 @@ static void RestoreColorProfile(void) {
     } else {
       _GTMDevLog(@"Color profile restored");
     }
-    gCurrentColorProfile = NULL;
+    gGTMCurrentColorProfile = NULL;
   }
 }
 
-void SetColorProfileToGenericRGB(void) {
+void GTMSetColorProfileToGenericRGB(void) {
   NSColorSpace *genericSpace = [NSColorSpace genericRGBColorSpace];
   CMProfileRef genericProfile = (CMProfileRef)[genericSpace colorSyncProfile];
   CMProfileRef previousProfile;
@@ -142,7 +235,8 @@ void SetColorProfileToGenericRGB(void) {
     return;
     // COV_NF_END
   }
-  if (AreCMProfilesEqual(genericProfile, previousProfile)) {
+  if (GTMAreCMProfilesEqual(genericProfile, previousProfile)) {
+    CMCloseProfile(previousProfile);
     return;
   }
   CFStringRef previousProfileName;
@@ -164,9 +258,53 @@ void SetColorProfileToGenericRGB(void) {
                "a result.  (Error: %i)", genericProfileName, error);
     // COV_NF_END
   } else {
-    gCurrentColorProfile = previousProfile;
-    atexit(RestoreColorProfile);
+    gGTMCurrentColorProfile = previousProfile;
+    atexit(GTMRestoreColorProfile);
   }
   CFRelease(previousProfileName);
   CFRelease(genericProfileName);
 }
+
+// Returns a virtual key code for a given charCode. Handles all of the
+// NS*FunctionKeys as well.
+static CGKeyCode GTMKeyCodeForCharCode(CGCharCode charCode) {
+  // character map taken from http://classicteck.com/rbarticles/mackeyboard.php
+  int characters[] = { 
+    'a', 's', 'd', 'f', 'h', 'g', 'z', 'x', 'c', 'v', 256, 'b', 'q', 'w', 
+    'e', 'r', 'y', 't', '1', '2', '3', '4', '6', '5', '=', '9', '7', '-', 
+    '8', '0', ']', 'o', 'u', '[', 'i', 'p', '\n', 'l', 'j', '\'', 'k', ';', 
+    '\\', ',', '/', 'n', 'm', '.', '\t', ' ', '`', '\b', 256, '\e' 
+  };
+  
+  // function key map taken from 
+  // file:///Developer/ADC%20Reference%20Library/documentation/Cocoa/Reference/ApplicationKit/ObjC_classic/Classes/NSEvent.html
+  int functionKeys[] = { 
+    // NSUpArrowFunctionKey - NSF12FunctionKey
+    126, 125, 123, 124, 122, 120, 99, 118, 96, 97, 98, 100, 101, 109, 103, 111,   
+    // NSF13FunctionKey - NSF28FunctionKey
+    105, 107, 113, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 
+    // NSF29FunctionKey - NSScrollLockFunctionKey 
+    256, 256, 256, 256, 256, 256, 256, 256, 117, 115, 256, 119, 116, 121, 256, 256, 
+    // NSPauseFunctionKey - NSPrevFunctionKey
+    256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256,
+    // NSNextFunctionKey - NSModeSwitchFunctionKey
+    256, 256, 256, 256, 256, 256, 114, 1 
+  };  
+  
+  CGKeyCode outCode = 0;
+  
+  // Look in the function keys
+  if (charCode >= NSUpArrowFunctionKey && charCode <= NSModeSwitchFunctionKey) {
+    outCode = functionKeys[charCode - NSUpArrowFunctionKey];
+  } else {
+    // Look in our character map
+    for (size_t i = 0; i < (sizeof(characters) / sizeof (int)); i++) {
+      if (characters[i] == charCode) {
+        outCode = i;
+        break;
+      }
+    }
+  }
+  return outCode;
+}
+

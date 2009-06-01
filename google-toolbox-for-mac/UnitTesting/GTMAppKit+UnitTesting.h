@@ -37,6 +37,9 @@
 @interface NSTextField (GTMUnitTestingAdditions)
 @end
 
+@interface NSButton (GTMUnitTestingAdditions) 
+@end
+
 @interface NSCell (GTMUnitTestingAdditions)
 @end
 
@@ -47,6 +50,12 @@
 @end
 
 @interface NSMenuItem (GTMUnitTestingAdditions)
+@end
+
+@interface NSTabView (GTMUnitTestingAdditions)
+@end
+
+@interface NSTabViewItem (GTMUnitTestingAdditions)
 @end
 
 @protocol GTMUnitTestViewDrawer;

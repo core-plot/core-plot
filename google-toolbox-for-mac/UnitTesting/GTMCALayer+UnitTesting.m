@@ -21,6 +21,7 @@
 //
 
 #import "GTMCALayer+UnitTesting.h"
+#import "GTMGarbageCollection.h"
 
 @implementation CALayer (GTMUnitTestingAdditions) 
 
@@ -33,11 +34,11 @@
 //
 //  Returns:
 //    an image of the object
-- (CGImageRef)gtm_createUnitTestImage {
+- (CGImageRef)gtm_unitTestImage {
   CGRect bounds = [self bounds];
   CGSize size = CGSizeMake(CGRectGetWidth(bounds), CGRectGetHeight(bounds));
-  CGContextRef context = [self gtm_createUnitTestBitmapContextOfSize:size
-                                                                data:NULL];
+  CGContextRef context = GTMCreateUnitTestBitmapContextOfSizeWithData(size,
+                                                                      NULL);
   _GTMDevAssert(context, @"Couldn't create context");
   
   // iPhone renders are flipped
@@ -48,7 +49,7 @@
   [self renderInContext:context];
   CGImageRef image = CGBitmapContextCreateImage(context);
   CFRelease(context);
-  return image;
+  return (CGImageRef)GTMCFAutorelease(image);
 }
 
 //  Encodes the state of an object in a manner suitable for comparing

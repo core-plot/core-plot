@@ -33,9 +33,8 @@
 // Iterates through all of our subviews testing the exposed bindings
 - (void)doSubviewBindingTest:(NSView*)view {
   NSArray *subviews = [view subviews];
-  NSEnumerator *subviewEnum = [subviews objectEnumerator];
   NSView *subview;
-  while ((subview = [subviewEnum nextObject])) {
+  GTM_FOREACH_OBJECT(subview, subviews) {
     GTMTestExposedBindings(subview, @"testing %@", subview);
     [self doSubviewBindingTest:subview];
   }
@@ -91,11 +90,10 @@ NSString *const kGTMKeyThatIsntEqual = @"keyThatIsntEqual";
                                    nil];
 }
 
-- (NSMutableDictionary*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding {
-  
-  NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-  [dict setObject:kGTMKeyThatIsntEqual forKey:kGTMKeyThatIsntEqual];
-  return dict;
+- (NSArray*)gtm_unitTestExposedBindingsTestValues:(NSString*)binding {
+  GTMBindingUnitTestData *data 
+    = [GTMBindingUnitTestData testWithIdentityValue:kGTMKeyThatIsntEqual];
+  return [NSArray arrayWithObject:data];
 }
 
 - (Class)valueClassForBinding:(NSString*)binding {

@@ -57,8 +57,15 @@
 #import <SenTestingKit/SenTestingKit.h>
 #else
 #import <Foundation/Foundation.h>
-NSString *STComposeString(NSString *, ...);
+#ifdef __cplusplus
+extern "C" {
 #endif
+NSString *STComposeString(NSString *, ...);
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // !GTM_IPHONE_SDK
 
 // Generates a failure when a1 != noErr
 //  Args:
@@ -112,7 +119,7 @@ do { \
     } \
   }\
   @catch (id anException) {\
-    [self failWithException:[NSException failureInRaise:[NSString stringWithFormat:@"(%s) == noErr fails", #a1] \
+    [self failWithException:[NSException failureInRaise:[NSString stringWithFormat:@"(%s) == (%s) fails", #a1, #a2] \
                                               exception:anException \
                                                  inFile:[NSString stringWithUTF8String:__FILE__] \
                                                  atLine:__LINE__ \
@@ -179,7 +186,7 @@ do { \
   }\
 } while(0)
 
-// Generates a failure when a1 is unequal to a2. This test is for C scalars, 
+// Generates a failure when a1 is equal to a2. This test is for C scalars, 
 // structs and unions.
 //  Args:
 //    a1: argument 1
@@ -979,10 +986,6 @@ do { \
 
 // SENTE_END
 
-@interface NSObject (GTMSenTestAdditions)
-- (void)failWithException:(NSException*)exception;
-@end
-
 @interface SenTestCase : NSObject {
   SEL currentSelector_;
 }
@@ -991,9 +994,13 @@ do { \
 - (void)invokeTest;
 - (void)tearDown;
 - (void)performTest:(SEL)sel;
+- (void)failWithException:(NSException*)exception;
 @end
 
-CF_EXPORT NSString * const SenTestFailureException;
+GTM_EXTERN NSString *const SenTestFailureException;
+
+GTM_EXTERN NSString *const SenTestFilenameKey;
+GTM_EXTERN NSString *const SenTestLineNumberKey;
 
 #endif // GTM_IPHONE_SDK
 
