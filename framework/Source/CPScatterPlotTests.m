@@ -51,5 +51,9 @@
     
     GTMAssertObjectImageEqualToImageNamed(self.plot, @"CPScatterPlotTests-testRenderScatter", @"Should plot sine wave");
 }
+
+- (void)testBindings {
+    GTMDoExposedBindingsFunctionCorrectly(self.plot, NULL);
+}
    
 @end
