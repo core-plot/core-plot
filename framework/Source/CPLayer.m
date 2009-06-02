@@ -140,7 +140,9 @@
 		if ([currentLayer isKindOfClass:[CPLayer class]]) {
 			CPLayer *currentCPLayer = (CPLayer *)currentLayer;
 			CGRect sublayerFrame = currentCPLayer.frame;
-			unsigned int currentAutoresizingMask = currentCPLayer.layerAutoresizingMask;
+			NSUInteger currentAutoresizingMask = currentCPLayer.layerAutoresizingMask;
+            
+            if ( currentAutoresizingMask == kCPLayerNotSizable ) continue;
 			
 			// Align and size along X
 			if (currentAutoresizingMask & kCPLayerWidthSizable) {

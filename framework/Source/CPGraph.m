@@ -184,10 +184,7 @@
         [axisSet removeFromSuperlayer];
         axisSet = [newSet retain];
         if ( axisSet ) [self addSublayer:axisSet];
-		
-        self.axisSet.graph = self;
-
-        [self setNeedsLayout];
+        [axisSet positionInGraph:self];
     }
 }
 
@@ -197,6 +194,15 @@
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	[self.fill fillRect:self.bounds inContext:theContext];
+}
+
+#pragma mark -
+#pragma mark Layout
+
+-(void)layoutSublayers 
+{
+    [super layoutSublayers];
+    [self.axisSet positionInGraph:self];
 }
 
 #pragma mark -

@@ -8,7 +8,6 @@
 @implementation CPAxisSet
 
 @synthesize axes;
-@synthesize graph;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -24,7 +23,6 @@
 }
 
 -(void)dealloc {
-    graph = nil;
     [axes release];
 	[super dealloc];
 }
@@ -49,27 +47,19 @@
     }
 }
 
--(void)setGraph:(CPGraph *)newGraph 
-{
-    if ( newGraph != graph ) {
-        graph = newGraph;
-        [self setNeedsDisplay];
-        [self setNeedsLayout];
-    }
-}
-
 #pragma mark -
 #pragma mark Layout
 
--(void)layoutSublayers 
-{
-    // Use custom resizing, because the axis set coordinates must correspond to plot area's drawing coordinates
-    if ( self.graph.plotArea ) {
-        CGRect axisSetBounds = self.graph.bounds;
-        axisSetBounds.origin = [self convertPoint:self.graph.bounds.origin toLayer:self.graph.plotArea];
+-(void)positionInGraph:(CPGraph *)graph 
+{    
+    if ( graph.plotArea ) {
+        // Set the bounds so that the axis set coordinates coincide with the 
+        // plot area drawing coordinates.
+        CGRect axisSetBounds = graph.bounds;
+        axisSetBounds.origin = [graph convertPoint:graph.bounds.origin toLayer:graph.plotArea];
         self.bounds = axisSetBounds;
         self.anchorPoint = CGPointZero;
-        self.position = self.graph.bounds.origin;
+        self.position = graph.bounds.origin;
         
         // Set axes
         for ( CPAxis *axis in axes ) {
