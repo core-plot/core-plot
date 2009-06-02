@@ -191,9 +191,10 @@
 //        [NSException raise:NSInternalInconsistencyException format:@"Unexpected group extension (%@)", newGroup.extension];
 //    }
     
-    [controller setRepresentedObject:newGroup];
     
     [self.mergeViewContainer setContentView:controller.view];
+    
+    [controller setRepresentedObject:newGroup];
 }
 
 - (NSArray*)groupSortDescriptors {

@@ -15,6 +15,7 @@
 
 - (void)unbindViews;
 - (void)bindViews;
+- (void)updateImageViews;
 
 @end
 
@@ -35,15 +36,11 @@
     
     [[IKImageEditPanel sharedImageEditPanel] setHidesOnDeactivate:YES];
     
+    [self updateImageViews];
+}
     
-    //set up IKImageView delegates and properties
-    for(IKImageView *iv in [NSArray arrayWithObjects:self.refImageView,self.outputImageView,nil]) {
-        iv.delegate = self;
-        iv.hasHorizontalScroller = YES;
-        iv.hasVerticalScroller = YES;
-        iv.autohidesScrollers = YES;
-    }
-    
+
+- (void)updateImageViews {
     if([[self representedObject] referencePath]) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
     }
@@ -52,37 +49,39 @@
         [[self outputImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] outputPath]]];
     }
     
+    if([[self representedObject] failureDiffPath] != nil) {
+        CALayer *diffLayer = [CALayer layer];
+        
+        CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
+        
+        NSBitmapImageRep *diffRep = [[[NSBitmapImageRep alloc] initWithCIImage:diffImage] autorelease];
+        
+        diffLayer.contents = (id)[diffRep CGImage];
+        diffLayer.bounds = NSRectToCGRect([[self outputImageView] bounds]);
+        diffLayer.anchorPoint = CGPointZero;
+        diffLayer.position = CGPointZero;
+        
+        [[self outputImageView] setOverlay:diffLayer forType:IKOverlayTypeImage];
+    }
+    
+    [[self outputImageView] zoomImageToFit:self];
+    [[self refImageView] zoomImageToFit:self];   
+    
     [self unbindViews];
     [self bindViews];
-    
-//    if([[self representedObject] failureDiffPath] != nil) {
-//        CALayer *diffLayer = [CALayer layer];
-//        
-//        CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
-//        
-//        NSBitmapImageRep *diffRep = [[[NSBitmapImageRep alloc] initWithCIImage:diffImage] autorelease];
-//        
-//        diffLayer.contents = (id)[diffRep CGImage];
-//        diffLayer.bounds = NSRectToCGRect([[self outputImageView] bounds]);
-//        diffLayer.anchorPoint = CGPointZero;
-//        diffLayer.position = CGPointZero;
-//        
-//        [[self outputImageView] setOverlay:diffLayer forType:IKOverlayTypeImage];
-//    }
-    
 }
+
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    [self updateImageViews];
+}
+
+
 
 - (void)unbindViews {
     [[self refImageView] unbind:@"selected"];
     [[self outputImageView] unbind:@"selected"];
-}
-    
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-    
-    [self unbindViews];
-    [self bindViews];
 }
 
 - (void)bindViews {
