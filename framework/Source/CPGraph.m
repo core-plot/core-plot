@@ -25,7 +25,7 @@
 		plots = [[NSMutableArray alloc] init];
         
         // Plot area
-        plotArea = [[CPPlotArea alloc] initWithFrame:CGRectInset(self.bounds, 40.0, 40.0)]; // Replace later with true margins
+        plotArea = [[CPPlotArea alloc] initWithFrame:CGRectInset(self.bounds, 40.0, 40.0)]; // TODO: Replace later with true margins
         [self addSublayer:plotArea];
 
         // Plot spaces
@@ -36,7 +36,6 @@
         self.axisSet = [self createAxisSet];
         
 		self.needsDisplayOnBoundsChange = YES;
-
         [self setNeedsLayout];
 	}
 	return self;
@@ -186,12 +185,7 @@
         axisSet = [newSet retain];
         if ( axisSet ) [self addSublayer:axisSet];
 		
-        CGRect axisSetBounds = self.bounds;
-        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
-        self.axisSet.bounds = axisSetBounds;
-		
-		self.axisSet.anchorPoint = CGPointZero;
-		self.axisSet.position = self.bounds.origin;
+        self.axisSet.graph = self;
 
         [self setNeedsLayout];
     }
@@ -216,20 +210,5 @@
         [self setNeedsDisplay];
     }
 }
-
-#pragma mark -
-#pragma mark Sublayer Layout
-
-//-(void)layoutSublayers 
-//{
-//    if ( self.plotArea && self.axisSet ) {
-//        // Axis set coordinates must correspond to plot area
-//        CGRect axisSetBounds = self.bounds;
-//        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
-//        self.axisSet.bounds = axisSetBounds;
-//        self.axisSet.anchorPoint = CGPointZero;
-//        self.axisSet.position = self.bounds.origin;
-//    }
-//}
 
 @end

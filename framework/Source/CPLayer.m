@@ -12,6 +12,7 @@
 
 @synthesize layerAutoresizingMask;
 @synthesize previousBounds;
+@synthesize deallocating;
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -22,6 +23,7 @@
         self.opaque = NO;
 		self.layerAutoresizingMask = kCPLayerNotSizable;
 		self.masksToBounds = NO;
+        self.deallocating = NO;
 	}
 	return self;
 }
@@ -34,6 +36,18 @@
 
 #pragma mark -
 #pragma mark Drawing
+
+-(void)setNeedsLayout 
+{
+    if ( self.deallocating ) return;
+    [super setNeedsLayout];
+}
+
+-(void)setNeedsDisplay
+{
+    if ( self.deallocating ) return;
+    [super setNeedsDisplay];
+}
 
 -(void)drawInContext:(CGContextRef)context
 {

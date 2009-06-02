@@ -45,6 +45,7 @@
 -(CPAxisSet *)createAxisSet
 {
     CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] initWithFrame:self.bounds];
+    newAxisSet.graph = self;
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
     return [newAxisSet autorelease];
