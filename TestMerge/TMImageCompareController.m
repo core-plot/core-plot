@@ -19,8 +19,6 @@
 @end
 
 @implementation TMImageCompareController
-@synthesize refZoom;
-@synthesize outputZoom;
 @synthesize refImageView;
 @synthesize outputImageView;
 
@@ -57,7 +55,7 @@
     [self unbindViews];
     [self bindViews];
     
-//    if(nil != [[self representedObject] failureDiffPath]) {
+//    if([[self representedObject] failureDiffPath] != nil) {
 //        CALayer *diffLayer = [CALayer layer];
 //        
 //        CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
@@ -75,9 +73,8 @@
 }
 
 - (void)unbindViews {
-    for(NSView *view in [NSArray arrayWithObjects:self.refImageView, self.outputImageView, nil]) {
-        [view unbind:@"selected"];
-    }
+    [[self refImageView] unbind:@"selected"];
+    [[self outputImageView] unbind:@"selected"];
 }
     
 
