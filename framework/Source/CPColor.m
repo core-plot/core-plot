@@ -6,6 +6,9 @@
 
 @synthesize cgColor;
 
+#pragma mark -
+#pragma mark Factory Methods
+
 +(CPColor *)clearColor
 { 
     static CPColor *color = nil;
@@ -69,12 +72,41 @@
         CGColorRelease(blue);
     }
 	return color; 
-} 
+}
+
++(CPColor *)darkGrayColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        CGColorRef darkGray = NULL;
+        CGFloat values[4] = {0.4, 0.4, 0.4, 1.0}; 
+		darkGray = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+        color = [[CPColor alloc] initWithCGColor:darkGray];
+        CGColorRelease(darkGray);
+    }
+	return color; 
+}
+
++(CPColor *)lightGrayColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        CGColorRef lightGray = NULL;
+        CGFloat values[4] = {0.7, 0.7, 0.7, 1.0}; 
+		lightGray = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+        color = [[CPColor alloc] initWithCGColor:lightGray];
+        CGColorRelease(lightGray);
+    }
+	return color; 
+}
 
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor 
 {
     return [[[CPColor alloc] initWithCGColor:newCGColor] autorelease];
 }
+
+#pragma mark -
+#pragma mark Initialize/Deallocate
 
 -(id)initWithCGColor:(CGColorRef)newCGColor
 {
@@ -92,6 +124,17 @@
 }
 
 #pragma mark -
+#pragma mark Creating colors from other colors
+
+-(CPColor *)colorWithAlphaComponent:(CGFloat)alpha
+{
+    CGColorRef newCGColor = CGColorCreateCopyWithAlpha(self.cgColor, alpha);
+    CPColor *newColor = [CPColor colorWithCGColor:newCGColor];
+    CGColorRelease(newCGColor);
+    return newColor;
+}
+
+#pragma mark -
 #pragma mark NSCoding methods
 
 -(void)encodeWithCoder:(NSCoder *)coder
@@ -102,7 +145,6 @@
 	[coder encodeDouble:colorComponents[1] forKey:@"greenComponent"];
 	[coder encodeDouble:colorComponents[2] forKey:@"blueComponent"];
 	[coder encodeDouble:colorComponents[3] forKey:@"alphaComponent"];
-//	[coder encodeObject:[CIColor colorWithCGColor:self.cgColor]]; - Only available on Mac
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -120,7 +162,6 @@
 		colorComponents[2] = [coder decodeDoubleForKey:@"blueComponent"];
 		colorComponents[3] = [coder decodeDoubleForKey:@"alphaComponent"];
 		cgColor = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, colorComponents);
-		// cgColor = CPNewCGColorFromNSColor([NSColor colorWithCIColor:[coder decodeObject]]); - Only available on Mac
 	}
     return self;
 }

@@ -19,9 +19,11 @@ enum CPLayerAutoresizingMask
 	@protected
 	unsigned int layerAutoresizingMask;
 	CGRect previousBounds;
+    BOOL deallocating;
 }
 
 @property (nonatomic, readwrite) unsigned int layerAutoresizingMask;
+@property (nonatomic, readwrite) BOOL deallocating;
 
 -(id)initWithFrame:(CGRect)newFrame;
 

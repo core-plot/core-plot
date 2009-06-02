@@ -19,16 +19,13 @@
 
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
-	CGColorRelease(grayColor);
+	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
 		
-	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
-	CGColorRelease(grayColor);
+    CPGradient *gradient = [CPGradient unifiedDarkGradient];
+    gradient.angle = 90.0;
+	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	
 	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
-
 	hostView.hostedLayer = graph;
     
     // Setup plot space
@@ -41,29 +38,35 @@
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
-    majorLineStyle.lineColor = [CPColor blueColor];
+    majorLineStyle.lineColor = [CPColor darkGrayColor];
     majorLineStyle.lineWidth = 2.0f;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
-    minorLineStyle.lineColor = [CPColor redColor];
-    minorLineStyle.lineWidth = 2.0f;
+    minorLineStyle.lineColor = [CPColor darkGrayColor];
+    minorLineStyle.lineWidth = 1.0f;
 
-    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
-    axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber one];
-    axisSet.xAxis.minorTicksPerInterval = 2;
-    axisSet.xAxis.majorTickLineStyle = majorLineStyle;
-    axisSet.xAxis.minorTickLineStyle = minorLineStyle;
-    axisSet.xAxis.axisLineStyle = majorLineStyle;
-    axisSet.xAxis.minorTickLength = 7.0f;
+    CPXYAxis *x = axisSet.xAxis;
+    x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
+    x.constantCoordinateValue = [NSDecimalNumber one];
+    x.minorTicksPerInterval = 2;
+    x.majorTickLineStyle = majorLineStyle;
+    x.minorTickLineStyle = minorLineStyle;
+    x.axisLineStyle = majorLineStyle;
+    x.majorTickLength = 7.0f;
+    x.minorTickLength = 5.0f;
 
-    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    axisSet.yAxis.minorTicksPerInterval = 5;
-    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber one];
-    axisSet.yAxis.majorTickLineStyle = majorLineStyle;
-    axisSet.yAxis.minorTickLineStyle = minorLineStyle;
-    axisSet.yAxis.axisLineStyle = majorLineStyle;
-    axisSet.yAxis.minorTickLength = 7.0f;
-
+    CPXYAxis *y = axisSet.yAxis;
+    y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.minorTicksPerInterval = 5;
+    y.constantCoordinateValue = [NSDecimalNumber one];
+    y.majorTickLineStyle = majorLineStyle;
+    y.minorTickLineStyle = minorLineStyle;
+    y.axisLineStyle = majorLineStyle;
+    y.majorTickLength = 7.0f;
+    y.minorTickLength = 5.0f;
+    
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";

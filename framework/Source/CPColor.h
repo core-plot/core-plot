@@ -11,9 +11,13 @@
 +(CPColor *)blackColor; 
 +(CPColor *)redColor;
 +(CPColor *)blueColor;
++(CPColor *)darkGrayColor;
++(CPColor *)lightGrayColor;
 
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor;
 
 -(id)initWithCGColor:(CGColorRef)cgColor;
+
+-(CPColor *)colorWithAlphaComponent:(CGFloat)alpha;
 
 @end

@@ -21,12 +21,11 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-//        self.bounds = CGRectMake(0.0, 0.0, 100.0, 100.0);
         self.fill = nil;
 		plots = [[NSMutableArray alloc] init];
         
         // Plot area
-        plotArea = [[CPPlotArea alloc] initWithFrame:CGRectInset(self.bounds, 40.0, 40.0)]; // Replace later with true margins
+        plotArea = [[CPPlotArea alloc] initWithFrame:CGRectInset(self.bounds, 40.0, 40.0)]; // TODO: Replace later with true margins
         [self addSublayer:plotArea];
 
         // Plot spaces
@@ -37,7 +36,6 @@
         self.axisSet = [self createAxisSet];
         
 		self.needsDisplayOnBoundsChange = YES;
-
         [self setNeedsLayout];
 	}
 	return self;
@@ -186,30 +184,8 @@
         [axisSet removeFromSuperlayer];
         axisSet = [newSet retain];
         if ( axisSet ) [self addSublayer:axisSet];
-		
-        CGRect axisSetBounds = self.bounds;
-        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
-        self.axisSet.bounds = axisSetBounds;
-		
-		self.axisSet.anchorPoint = CGPointZero;
-		self.axisSet.position = self.bounds.origin;
-
-        [self setNeedsLayout];
+        [axisSet positionInGraph:self];
     }
-}
-
-#pragma mark -
-#pragma mark Dimensions
-
--(CGRect)plotAreaFrame
-{
-	return plotArea.frame;
-}
-
--(void)setPlotAreaFrame:(CGRect)frame
-{
-    plotArea.frame = frame;
-    [self setNeedsLayout];
 }
 
 #pragma mark -
@@ -221,18 +197,24 @@
 }
 
 #pragma mark -
-#pragma mark Sublayer Layout
+#pragma mark Layout
 
-//-(void)layoutSublayers 
-//{
-//    if ( self.plotArea && self.axisSet ) {
-//        // Axis set coordinates must correspond to plot area
-//        CGRect axisSetBounds = self.bounds;
-//        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
-//        self.axisSet.bounds = axisSetBounds;
-//        self.axisSet.anchorPoint = CGPointZero;
-//        self.axisSet.position = self.bounds.origin;
-//    }
-//}
+-(void)layoutSublayers 
+{
+    [super layoutSublayers];
+    [self.axisSet positionInGraph:self];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setFill:(CPFill *)newFill 
+{
+    if ( newFill != fill ) {
+        [fill release];
+        fill = [newFill retain];
+        [self setNeedsDisplay];
+    }
+}
 
 @end

@@ -17,13 +17,7 @@
 {
 	self = [super initWithFrame:newFrame];
 	if (self != nil) {
-//#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-//		// TODO: Add code for autoresizing on iPhone
-//#else
-//		[self setAutoresizingMask:(kCALayerHeightSizable | kCALayerWidthSizable)];
-//#endif
 		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
-		
         self.dataNeedsReloading = YES;
 	}
 	return self;

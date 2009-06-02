@@ -2,6 +2,7 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPDefinitions.h"
+#import "CPPlotArea.h"
 
 @implementation CPXYAxisSet
 
