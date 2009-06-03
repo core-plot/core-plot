@@ -35,10 +35,15 @@
                                                     name, @"NAME",
                                                     extension, @"EXTENSION",
                                                     nil]];
+//    
+//   NSFetchRequest *fetch = [self.context.persistentStoreCoordinator.managedObjectModel fetchRequestTemplateForName:@"allGroups"];
     
     NSError *err;
     
     NSArray *existingGroups = [[self context] executeFetchRequest:fetch error:&err];
+    
+//    existingGroups = [existingGroups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name LIKE %@ AND extension LIKE[c] %@", name, extension]];
+    
     _GTMDevAssert(existingGroups.count <= 1, @"More than one group with given name");
     
     if(existingGroups.count > 0) {
@@ -51,6 +56,8 @@
         result.extension = extension;
         
         if(![[self context] save:&err]) {
+            _GTMDevLog(@"Unable to save context in -[TMOutputGroupCDFactory groupWithName:extension:] (%@)", err);
+            
             [NSApp presentError:err];
         }
     }

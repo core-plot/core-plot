@@ -9,6 +9,8 @@
 #import "TMImageView.h"
 #import "GTMDefines.h"
 
+static CGFloat SelectionLineWidth = 4.0;
+
 @implementation TMImageView
 @synthesize selected;
 
@@ -39,12 +41,13 @@
     [super drawRect:dirtyRect];
     
     if(self.selected) {
+        NSRect selectionRect = self.bounds;
+        NSInsetRect(selectionRect, SelectionLineWidth/2, SelectionLineWidth/2);
         NSBezierPath *outlinePath = [NSBezierPath bezierPathWithRect:self.bounds];
-        
         
         [[NSColor selectedControlColor] set];
         
-        [outlinePath setLineWidth:4.0];
+        [outlinePath setLineWidth:SelectionLineWidth];
         [outlinePath stroke];
     }
 }
