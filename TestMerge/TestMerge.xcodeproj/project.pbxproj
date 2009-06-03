@@ -1010,7 +1010,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"";
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\nexport TM_REFERENCE_PATH=$(PROJECT_DIR)/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\n\n\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"";
 		};
 		4C7D31D20FC2209A00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

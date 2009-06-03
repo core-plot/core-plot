@@ -49,8 +49,8 @@
                                                           TMGTMUnitTestImageExtension,
                                                           nil];
     
-    self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];
-    self.mergeController.outputPath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"];
+    self.mergeController.referencePath = [[[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"] stringByExpandingTildeInPath];
+    self.mergeController.outputPath = [[[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"] stringByExpandingTildeInPath];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mergeControllerDidCommitMerge:)
