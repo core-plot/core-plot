@@ -237,8 +237,15 @@ typedef enum {
                     }
                     
                     //move outputs
+                    NSString *newRefPath;
+                    if(group.referencePath != nil) {
+                        newRefPath = group.referencePath;
+                    } else {
+                        newRefPath = [[self.referencePath stringByAppendingPathComponent:group.name] stringByAppendingPathExtension:group.extension];
+                    }
+                    
                     if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
-                                                                toPath:group.referencePath
+                                                                toPath:newRefPath
                                                                  error:&err]) {
                         _GTMDevLog(@"Error moving outputPath to referencePath: %@", err);
                         [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error

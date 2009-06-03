@@ -85,7 +85,7 @@ static const NSUInteger GroupNameIndex = 1;
         NSString *extension = [comps lastObject];
         
         //remove _Failed and _Diff from name
-        GTMRegex *nameRegex = [GTMRegex regexWithPattern:@"^([^_]+)(_Failed)+(_Diff)*$"];
+        GTMRegex *nameRegex = [GTMRegex regexWithPattern:@"^([^_]+)(_Failed)*(_Diff)*$"];
         _GTMDevLog(@"%@ => %@", nameRegex, name);
         _GTMDevAssert([nameRegex matchesString:name], @"Unable to match name with regex");
         
@@ -98,7 +98,10 @@ static const NSUInteger GroupNameIndex = 1;
         id<TMOutputGroup> group = [factory groupWithName:[nameGroups objectAtIndex:GroupNameIndex]
                                                extension:extension];
         
-        if([nameGroups lastObject] == [NSNull null]) { //_Failure
+        if([nameGroups lastObject] == [NSNull null] || //Failure
+           nameGroups.count == 2 //new image
+            ) {
+            
             group.outputPath = path;
         } else { //_Diff
             _GTMDevAssert([[nameGroups lastObject] isEqualToString:@"_Diff"], @"Unexpected last name group");

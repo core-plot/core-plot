@@ -413,6 +413,7 @@
 				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
 				4C86F6D90FCDA798008849CC /* TMErrors.h */,
 				4C86F6DA0FCDA798008849CC /* TMErrors.m */,
+				4C7D30910FC203FB00005D98 /* Tests */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -454,7 +455,6 @@
 				4C7D32DF0FC22FEF00005D98 /* Test Resources */,
 				4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				4C7D30910FC203FB00005D98 /* Tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
