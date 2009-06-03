@@ -11,6 +11,9 @@ syntax: glob
 # Temporary files used by the vim editor.
 .*.swp
 
+# Temporary files used by TestMate
+._.*
+
 # build directories
 **/build/*
 
