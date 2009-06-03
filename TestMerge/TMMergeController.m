@@ -207,9 +207,10 @@ typedef enum {
 
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
     TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
-    _GTMDevAssert(controller != nil, @"No controller for extension %@", newGroup.extension);
     
-    if([self nextResponder] != controller) {
+    if(controller != nil &&
+       [self nextResponder] != controller) {
+        
         if(self.originalNextResponder != nil) {
             [controller setNextResponder:self.originalNextResponder];
         }
