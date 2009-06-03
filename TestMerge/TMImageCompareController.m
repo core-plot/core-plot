@@ -85,22 +85,27 @@
     [[self refImageView] bind:@"selected"
                      toObject:self.representedObject
                   withKeyPath:@"replaceReference"
-                      options:[NSDictionary dictionaryWithObject:NSNegateBooleanTransformerName forKey:NSValueTransformerNameBindingOption]];
+                      options:[NSDictionary dictionaryWithObjectsAndKeys:
+                               NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
+                               [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                               nil]];
     
     [[self outputImageView] bind:@"selected"
                         toObject:self.representedObject
                      withKeyPath:@"replaceReference"
-                         options:nil];
+                         options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                  nil]];
 }
 
 - (void)mouseDownInImageView:(TMImageView*)view {
-    _GTMDevLog(@"Mouse down in %@", view);
+    //_GTMDevLog(@"Mouse down in %@", view);
     if(view == self.refImageView) {
         [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:NO];
     } else if(view == self.outputImageView) {
         [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:YES];
     }
     
-    _GTMDevLog(@"OutputGroup: %@", [self representedObject]);
+    //_GTMDevLog(@"OutputGroup: %@", [self representedObject]);
 }
 @end

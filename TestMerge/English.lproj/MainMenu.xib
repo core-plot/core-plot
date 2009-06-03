@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="422"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -605,6 +606,39 @@
 							</object>
 						</object>
 					</object>
+					<object class="NSMenuItem" id="353697226">
+						<reference key="NSMenu" ref="1055885701"/>
+						<string key="NSTitle">Merge</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="893455832"/>
+						<reference key="NSMixedImage" ref="424226900"/>
+						<string key="NSAction">submenuAction:</string>
+						<object class="NSMenu" key="NSSubmenu" id="810589954">
+							<string key="NSTitle">Merge</string>
+							<object class="NSMutableArray" key="NSMenuItems">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSMenuItem" id="400656485">
+									<reference key="NSMenu" ref="810589954"/>
+									<string key="NSTitle">Select Reference</string>
+									<string type="base64-UTF8" key="NSKeyEquiv">75yCA</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="893455832"/>
+									<reference key="NSMixedImage" ref="424226900"/>
+								</object>
+								<object class="NSMenuItem" id="384887157">
+									<reference key="NSMenu" ref="810589954"/>
+									<string key="NSTitle">Select Output</string>
+									<string type="base64-UTF8" key="NSKeyEquiv">75yDA</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="893455832"/>
+									<reference key="NSMixedImage" ref="424226900"/>
+								</object>
+							</object>
+						</object>
+					</object>
 					<object class="NSMenuItem" id="147235865">
 						<reference key="NSMenu" ref="1055885701"/>
 						<string key="NSTitle">View</string>
@@ -1006,6 +1040,22 @@
 					</object>
 					<int key="connectionID">343</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectReference:</string>
+						<reference key="source" ref="909243075"/>
+						<reference key="destination" ref="400656485"/>
+					</object>
+					<int key="connectionID">426</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectOutput:</string>
+						<reference key="source" ref="909243075"/>
+						<reference key="destination" ref="384887157"/>
+					</object>
+					<int key="connectionID">427</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1047,6 +1097,7 @@
 							<reference ref="862701806"/>
 							<reference ref="560112995"/>
 							<reference ref="147235865"/>
+							<reference ref="353697226"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">MainMenu</string>
@@ -1575,6 +1626,35 @@
 						<reference key="object" ref="39582327"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">421</int>
+						<reference key="object" ref="353697226"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="810589954"/>
+						</object>
+						<reference key="parent" ref="1055885701"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">422</int>
+						<reference key="object" ref="810589954"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="400656485"/>
+							<reference ref="384887157"/>
+						</object>
+						<reference key="parent" ref="353697226"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">423</int>
+						<reference key="object" ref="400656485"/>
+						<reference key="parent" ref="810589954"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">425</int>
+						<reference key="object" ref="384887157"/>
+						<reference key="parent" ref="810589954"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1717,6 +1797,11 @@
 					<string>340.ImportedFromIB2</string>
 					<string>341.IBPluginDependency</string>
 					<string>341.ImportedFromIB2</string>
+					<string>421.IBPluginDependency</string>
+					<string>422.IBEditorWindowLastContentRect</string>
+					<string>422.IBPluginDependency</string>
+					<string>423.IBPluginDependency</string>
+					<string>425.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -1874,7 +1959,7 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
-					<string>{{73, 964}, {375, 20}}</string>
+					<string>{{73, 964}, {436, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1886,6 +1971,11 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{266, 921}, {194, 43}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>{{85, 781}, {210, 183}}</string>
@@ -1938,7 +2028,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">420</int>
+			<int key="maxID">427</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1968,99 +2058,114 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">GTMLargeTypeWindow</string>
-					<string key="superclassName">NSPanel</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">copy:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/AppKit/GTMLargeTypeWindow.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">NSApplication</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="389443712">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="956656532">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/UnitTesting/GTMAppKit+UnitTesting.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/UnitTesting/GTMAppKit+UnitTesting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSControl</string>
-					<reference key="sourceIdentifier" ref="389443712"/>
+					<reference key="sourceIdentifier" ref="956656532"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSMenu</string>
-					<reference key="sourceIdentifier" ref="389443712"/>
+					<reference key="sourceIdentifier" ref="956656532"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSMenuItem</string>
-					<reference key="sourceIdentifier" ref="389443712"/>
+					<reference key="sourceIdentifier" ref="956656532"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/AppKit/GTMCarbonEvent.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/AppKit/GTMDelegatingTableColumn.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/AppKit/GTMDelegatingTableColumn.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/Foundation/GTMHTTPServer.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/Foundation/GTMHTTPServer.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/Foundation/GTMNSAppleEventDescriptor+Foundation.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/Foundation/GTMNSAppleEventDescriptor+Foundation.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/Foundation/GTMNSObject+KeyValueObserving.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/Foundation/GTMNSObject+KeyValueObserving.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/UnitTesting/GTMCALayer+UnitTesting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/UnitTesting/GTMCALayer+UnitTesting.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/UnitTesting/GTMNSObject+BindingUnitTesting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/UnitTesting/GTMNSObject+BindingUnitTesting.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../google-toolbox-mac-trunk/UnitTesting/GTMNSObject+UnitTesting.h</string>
+						<string key="minorKey">../google-toolbox-for-mac/UnitTesting/GTMNSObject+UnitTesting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSView</string>
-					<reference key="sourceIdentifier" ref="389443712"/>
+					<reference key="sourceIdentifier" ref="956656532"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSWindow</string>
-					<reference key="sourceIdentifier" ref="389443712"/>
+					<reference key="sourceIdentifier" ref="956656532"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TMMergeController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>selectOutput:</string>
+							<string>selectReference:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>groupsController</string>
+							<string>mergeViewContainer</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSArrayController</string>
+							<string>NSBox</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">TMMergeController.h</string>
+					</object>
 				</object>
 			</object>
 		</object>

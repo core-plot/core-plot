@@ -155,4 +155,23 @@
     GTMDoExposedBindingsFunctionCorrectly(controller, nil);
 }
 
+- (void)testCommitMerge {
+    NSString *outpuDirPath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"OutputGroupTest"];
+    
+    BOOL dir;
+    STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:outpuDirPath isDirectory:&dir] && dir, @"");
+
+    NSString *targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OutputGroupTest"];
+    
+    NSError *err;
+    STAssertTrue([[NSFileManager defaultManager] copyItemAtPath:outpuDirPath toPath:targetPath error:&err], @"%@", err);
+    
+    @try {
+        
+    }
+    @finally {
+        STAssertTrue([[NSFileManager defaultManager] removeItemAtPath:targetPath error:NULL], @"");
+    }
+}
+
 @end

@@ -37,4 +37,6 @@
 @property (retain,readwrite) IBOutlet NSArrayController *groupsController;
 
 - (NSArray*)gtmUnitTestOutputPathsFromPath:(NSString*)path;
+
+- (IBAction)commitMerge:(id)sender;
 @end

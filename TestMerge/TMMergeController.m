@@ -16,10 +16,15 @@
 #import "GTMGarbageCollection.h"
 #import "GTMNSObject+KeyValueObserving.h"
 
+typedef enum {
+    OutputChoice = YES,
+    ReferenceChoice = NO
+} TMMergeControllerChoice;
 
 @interface TMMergeController ()
 
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
+- (void)commitMergeForGroups:(NSSet*)groups;
 
 @end
 
@@ -176,6 +181,11 @@
                                     selector:@selector(observeSelectedGroupsDidChange:)
                                     userInfo:nil
                                      options:NSKeyValueObservingOptionNew];
+    
+    //make sure all compare controllers are loaded
+    for(NSViewController *controller in [[self compareControllersByExtension] allValues]) {
+        (void)[controller view];
+    }
 }
 
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
@@ -204,5 +214,13 @@
 
 - (NSArray*)groupSortDescriptors {
     return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+}
+
+- (IBAction)commitMerge:(id)sender {
+    [self commitMergeForGroups:self.outputGroups];
+}
+
+- (void)commitMergeForGroups:(NSSet*)groups {
+    
 }
 @end

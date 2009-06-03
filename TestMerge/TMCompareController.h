@@ -13,4 +13,6 @@
 
 }
 
+- (IBAction)selectReference:(id)sender;
+- (IBAction)selectOutput:(id)sender;
 @end
