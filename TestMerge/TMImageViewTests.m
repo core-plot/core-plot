@@ -54,19 +54,19 @@
 
 - (void)testRenderNotSelected {
     self.imageView.selected = NO;
-    GTMAssertObjectEqualToStateAndImageNamed(self.imageView, @"TMImageViewTests-testRenderNotSelected", @"");
+    GTMAssertObjectEqualToStateAndImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderNotSelected", @"");
 }
 
 - (void)testRenderSelected {
     self.imageView.selected = YES;
-    GTMAssertObjectEqualToStateAndImageNamed(self.imageView, @"TMImageViewTests-testRenderSelected", @"");
+    GTMAssertObjectEqualToStateAndImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderSelected", @"");
 }
 
 - (void)testRenderNilURLImage {
     self.imageView.selected = NO;
     [[self imageView] setImageWithURL:nil];
     
-    GTMAssertObjectImageEqualToImageNamed(self.imageView, @"TMImageViewTests-testRenderNilURLImage", @"");
+    GTMAssertObjectImageEqualToImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderNilURLImage", @"");
 }
 
 - (void)testDelegateCalledForMouseDown {
@@ -92,7 +92,7 @@
 }
 
 - (void)testBindings {
-    GTMDoExposedBindingsFunctionCorrectly(self.imageView, NULL);
+    GTMDoExposedBindingsFunctionCorrectly(self.imageView.layer, NULL);
 }
 
 - (void)testOverlayRendering {
@@ -108,7 +108,7 @@
     self.imageView.overlay = diffLayer;
     
     
-    GTMAssertObjectEqualToStateAndImageNamed(self.imageView, @"TMImageViewTests-testOverlayRendering", @"");
+    GTMAssertObjectEqualToStateAndImageNamed(self.imageView.layer, @"TMImageViewTests-testOverlayRendering", @"");
 }
     
 @end

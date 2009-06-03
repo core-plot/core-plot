@@ -197,9 +197,9 @@
         [self setNextResponder:controller];
     }
     
-    [self.mergeViewContainer setContentView:controller.view];
-    
     [controller setRepresentedObject:newGroup];
+    
+    [self.mergeViewContainer setContentView:controller.view];
 }
 
 - (NSArray*)groupSortDescriptors {

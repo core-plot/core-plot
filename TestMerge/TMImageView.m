@@ -11,6 +11,10 @@
 
 //static CGFloat SelectionLineWidth = 4.0;
 
+@interface TMImageView ()
+
+@end
+
 @implementation TMImageView
 @synthesize selected;
 @dynamic overlay;
@@ -34,9 +38,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.selected = NO;
+        //_GTMDevLog(@"TMImageView initWithFrame:");
     }
     return self;
 }
+    
 
 - (void)mouseDown:(NSEvent*)theEvent {
     if([[self delegate] conformsToProtocol:@protocol(TMImageViewDelegate)] &&
