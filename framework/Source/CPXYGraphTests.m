@@ -3,7 +3,7 @@
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPScatterPlot.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
@@ -73,12 +73,12 @@
     scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
-    CPCartesianPlotSpace *plotSpace;
+    CPXYPlotSpace *plotSpace;
     if([[self.graph allPlotSpaces] count] == 0) {
-        plotSpace = (CPCartesianPlotSpace*)[[self graph] createPlotSpace];
+        plotSpace = (CPXYPlotSpace*)[[self graph] createPlotSpace];
         [[self graph] addPlotSpace:plotSpace];
     } else {
-        plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
+        plotSpace = (CPXYPlotSpace*)[[self graph] defaultPlotSpace];
     }
     
     _GTMDevAssert(plotSpace != nil, @"");

@@ -5,7 +5,7 @@
  **/
 
 #import <Foundation/Foundation.h>
-
+#import <QuartzCore/QuartzCore.h>
 
 @interface CPColorSpace : NSObject {
     CGColorSpaceRef cgColorSpace; //!< Pointer to a CGColorSpaceRef

@@ -6,7 +6,6 @@
 #import <CorePlot/CPBarPlot.h>
 #import <CorePlot/CPColor.h>
 #import <CorePlot/CPColorSpace.h>
-#import <CorePlot/CPCartesianPlotSpace.h>
 #import <CorePlot/CPDecimalNumberValueTransformer.h>
 #import <CorePlot/CPDefinitions.h>
 #import <CorePlot/CPExceptions.h>
@@ -27,4 +26,5 @@
 #import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYAxisSet.h>
 #import <CorePlot/CPXYGraph.h>
+#import <CorePlot/CPXYPlotSpace.h>
 #import <CorePlot/CPLayerHostingView.h>

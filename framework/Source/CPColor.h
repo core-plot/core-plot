@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CPColor : NSObject <NSCopying, NSCoding> {
     CGColorRef cgColor;

@@ -1,11 +1,6 @@
-//
-//  CPFillColor.m
-//  CorePlot
-//
 
 #import "_CPFillColor.h"
 #import "CPColor.h"
-
 
 @implementation _CPFillColor
 

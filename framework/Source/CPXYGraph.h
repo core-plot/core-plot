@@ -3,7 +3,7 @@
 #import "CPGraph.h"
 #import "CPDefinitions.h"
 
-@class CPCartesianPlotSpace;
+@class CPXYPlotSpace;
 
 @interface CPXYGraph : CPGraph {
     CPScaleType xScaleType;

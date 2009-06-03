@@ -1,11 +1,6 @@
-//
-//  CPFillGradient.m
-//  CorePlot
-//
 
 #import "_CPFillGradient.h"
 #import "CPGradient.h"
-
 
 @implementation _CPFillGradient
 

@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 typedef NSInteger CPInteger;
 typedef CGFloat   CPFloat;

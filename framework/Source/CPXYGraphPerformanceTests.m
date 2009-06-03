@@ -3,7 +3,7 @@
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPScatterPlot.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
@@ -40,7 +40,7 @@
 {
     self.graph.bounds = CGRectMake(0., 0., 400., 200.);
     
-    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace*)[[self graph] defaultPlotSpace];
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace*)[[self graph] defaultPlotSpace];
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) 
                                                    length:CPDecimalFromInt(self.nRecords)];
