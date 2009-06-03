@@ -3,15 +3,16 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/18/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
+//  Copyright 2009 Physion Consulting LLC. All rights reserved.
 //
 
 #import "TMOutputSorter.h"
-#import "GTMRegex.h"
-#import "GTMSystemVersion.h"
+
 #import "TMOutputGroup.h"
 #import "TMErrors.h"
 
+#import "GTMRegex.h"
+#import "GTMSystemVersion.h"
 
 NSString * const TMGTMUnitTestStateExtension = @"gtmUTState";
 NSString * const TMGTMUnitTestImageExtension = @"tiff"; // !!!:barry:20090528 TODO -- get this dynamically as in GTMNSObject+UnitTesting

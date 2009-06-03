@@ -3,7 +3,7 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/27/09.
-//  Copyright 2009 Physion Consulting LLC. All rights reserved.
+//  Copyright 2009 Barry Wark. All rights reserved.
 //
 
 #import "TMImageCompareController.h"
@@ -54,11 +54,14 @@
         
         CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
         
-        NSBitmapImageRep *diffRep = [[NSBitmapImageRep alloc] initWithCIImage:diffImage];
+        NSBitmapImageRep *diffRep = [[[NSBitmapImageRep alloc] initWithCIImage:diffImage] autorelease];
         
         diffLayer.contents = (id)[diffRep CGImage];
+        diffLayer.bounds = NSRectToCGRect([[self outputImageView] bounds]);
+        diffLayer.anchorPoint = CGPointZero;
+        diffLayer.position = CGPointZero;
         
-        [[self outputImageView] setOverlay:diffLayer];
+        //[[self outputImageView] setOverlay:diffLayer];
     }
     
     [[self outputImageView] zoomImageToFit:self];
@@ -100,7 +103,5 @@
     } else if(view == self.outputImageView) {
         [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:YES];
     }
-    
-    _GTMDevLog(@"OutputGroup: %@", [self representedObject]);
 }
 @end

@@ -192,8 +192,8 @@ A</bytes>
 								<int key="NSfFlags">1044</int>
 							</object>
 							<reference key="NSControlView" ref="597405846"/>
-							<double key="NSMaxValue">3.000000e+00</double>
-							<double key="NSMinValue">0.000000e+00</double>
+							<double key="NSMaxValue">2.000000e+00</double>
+							<double key="NSMinValue">5.000000e-01</double>
 							<double key="NSValue">1.000000e+00</double>
 							<double key="NSAltIncValue">0.000000e+00</double>
 							<int key="NSNumberOfTickMarks">0</int>
@@ -267,8 +267,8 @@ A</bytes>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="681492425"/>
 							<reference key="NSControlView" ref="730806622"/>
-							<double key="NSMaxValue">3.000000e+00</double>
-							<double key="NSMinValue">0.000000e+00</double>
+							<double key="NSMaxValue">2.000000e+00</double>
+							<double key="NSMinValue">5.000000e-01</double>
 							<double key="NSValue">1.000000e+00</double>
 							<double key="NSAltIncValue">0.000000e+00</double>
 							<int key="NSNumberOfTickMarks">0</int>

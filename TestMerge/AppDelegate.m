@@ -42,10 +42,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.mergeController = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    self.mergeController = [[TMMergeController alloc] initWithWindowNibName:@"MergeUI"];
     
     self.mergeController.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                          [[[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]] autorelease],
+                                                          [[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]],
                                                           TMGTMUnitTestImageExtension,
                                                           nil];
     

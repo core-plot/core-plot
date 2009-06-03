@@ -3,7 +3,7 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/18/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
+//  Copyright 2009 Physion Consulting LLC. All rights reserved.
 //
 
 #import "TMMergeController.h"
@@ -71,7 +71,7 @@
 
 - (NSSet*)outputGroups {
     
-    TMOutputGroupCDFactory *factory = [[[TMOutputGroupCDFactory alloc] initWithManagedObjectContext:self.managedObjectContext] autorelease];
+    TMOutputGroupCDFactory *factory = [[TMOutputGroupCDFactory alloc] initWithManagedObjectContext:self.managedObjectContext];
     
     NSArray *referencePaths = [self gtmUnitTestOutputPathsFromPath:self.referencePath];
     NSArray *outputPaths = [self gtmUnitTestOutputPathsFromPath:self.outputPath];
@@ -142,7 +142,7 @@
 }
 
 - (void)windowWillLoad {
-    NSPersistentStoreCoordinator *psc = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[[NSApp delegate] managedObjectModel]] autorelease];
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[[NSApp delegate] managedObjectModel]];
     
     NSError *err;
     if(![psc addPersistentStoreWithType:NSInMemoryStoreType
@@ -163,7 +163,7 @@
         [NSApp presentError:err];
     }
     
-    self.managedObjectContext = [[[NSManagedObjectContext alloc] init] autorelease];
+    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
     [self.managedObjectContext setPersistentStoreCoordinator:psc];
     
     _GTMDevLog(@"TMMergeController created moc: %@", self.managedObjectContext);
@@ -186,11 +186,16 @@
     id<TMOutputGroup> newGroup = [[[self groupsController] selectedObjects] lastObject];
     
     TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+
+    if([self nextResponder] == controller) {
+        [self setNextResponder:[controller nextResponder]];
+    }
     
-//    if(controller == nil) {
-//        [NSException raise:NSInternalInconsistencyException format:@"Unexpected group extension (%@)", newGroup.extension];
-//    }
+    [controller setNextResponder:[self nextResponder]];
     
+    if(controller != nil) {
+        [self setNextResponder:controller];
+    }
     
     [self.mergeViewContainer setContentView:controller.view];
     
@@ -198,6 +203,6 @@
 }
 
 - (NSArray*)groupSortDescriptors {
-    return [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease]];
+    return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
 }
 @end
