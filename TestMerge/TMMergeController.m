@@ -235,11 +235,12 @@ typedef enum {
         
         if(group.replaceReferenceValue) { // move output -> reference
             //delete reference if it exists
-            if(group.referencePath != nil &&
-               ![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
-                                                           error:&err]) {
-                _GTMDevLog(@"Error removing old referencePath: %@", err);
-                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+            if(group.referencePath != nil) {
+                if(![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
+                                                               error:&err]) {
+                    _GTMDevLog(@"Error removing old referencePath: %@", err);
+                    [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                }
             }
             
             //move outputs

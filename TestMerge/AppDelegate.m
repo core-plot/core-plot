@@ -230,7 +230,7 @@
                                         defaultButton:NSLocalizedString(@"Commit",@"Commit")
                                       alternateButton:NSLocalizedString(@"Don't commit", @"Don't commit")
                                           otherButton:NSLocalizedString(@"Cancel", @"Cancel")
-                            informativeTextWithFormat:@""] 
+                            informativeTextWithFormat:NSLocalizedString(@"Don't forget to update your unit tests target by adding any new images!", @"Don't forget to update your unit tests target by adding any new images!")] 
                         runModal];
     
     switch(result) {
