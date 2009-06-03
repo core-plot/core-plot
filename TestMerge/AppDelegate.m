@@ -62,7 +62,7 @@
 }
 
 - (void)mergeControllerDidCommitMerge:(NSNotification*)notification {
-    [NSApp terminate:self];
+    //pass
 }
 
 /**
