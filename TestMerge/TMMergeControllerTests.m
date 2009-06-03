@@ -168,6 +168,32 @@
     
     @try {
         
+        TMMergeController *controller = [[TMMergeController alloc] initWithWindowNibName:@"MergeUI"];
+        (void)[controller window];
+        
+        controller.referencePath = [targetPath stringByAppendingPathComponent:@"Reference"];
+        controller.outputPath = [targetPath stringByAppendingPathComponent:@"Output"];
+        
+        NSSet *groups = [controller outputGroups];
+        
+        for(OutputGroup *group in groups) {
+            if([group.name hasPrefix:@"TM"]) {
+                [group setReplaceReferenceValue:YES];
+            }
+        }
+        
+        [controller commitMerge:self];
+        
+        
+        //test that only TM* in Reference and only CP* in Output
+        for(NSString *path in [[NSFileManager defaultManager] enumeratorAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]) {
+            STAssertTrue([[[path pathComponents] lastObject] hasPrefix:@"TM"], @"Non-TM in reference");
+        }
+        
+        for(NSString *path in [[NSFileManager defaultManager] enumeratorAtPath:[targetPath stringByAppendingPathComponent:@"Output"]]) {
+            STAssertTrue([[[path pathComponents] lastObject] hasPrefix:@"CP"], @"Non-TM in reference");
+        }
+        
     }
     @finally {
         STAssertTrue([[NSFileManager defaultManager] removeItemAtPath:targetPath error:NULL], @"");

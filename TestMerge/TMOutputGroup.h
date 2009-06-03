@@ -17,6 +17,7 @@
 @property (retain) NSString * name;
 @property (retain) NSString * outputPath;
 @property (retain) NSString * referencePath;
+@property (retain) NSNumber *replaceReference;
 @property (assign) BOOL replaceReferenceValue;
 
 @end

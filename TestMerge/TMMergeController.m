@@ -11,6 +11,7 @@
 #import "TMOutputSorter.h"
 #import "TMErrors.h"
 #import "TMCompareController.h"
+#import "TMOutputGroup.h"
 
 #import "GTMDefines.h"
 #import "GTMGarbageCollection.h"
@@ -221,6 +222,34 @@ typedef enum {
 }
 
 - (void)commitMergeForGroups:(NSSet*)groups {
+    NSError *err;
     
+    for(id<TMOutputGroup>group in groups) {
+        if(group.replaceReference != nil) { //skip groups with no user choice
+            if(group.replaceReferenceValue) { // replace reference with output
+                if(group.outputPath != nil) {
+                    if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
+                                                                toPath:group.referencePath
+                                                                 error:&err]) {
+                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                    }
+                }
+                
+
+            } else { //delete output
+                if(group.outputPath != nil) {
+                    if(![[NSFileManager defaultManager] removeItemAtPath:group.outputPath error:&err]) {
+                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                    }
+                }
+            }
+            
+            if(group.failureDiffPath != nil) { //always remove diff
+                if(![[NSFileManager defaultManager] removeItemAtPath:group.failureDiffPath error:&err]) {
+                    [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                }
+            }
+        }
+    }
 }
 @end
