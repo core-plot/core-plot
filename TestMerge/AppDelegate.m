@@ -52,7 +52,17 @@
     self.mergeController.referencePath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"];
     self.mergeController.outputPath = [[[NSProcessInfo processInfo] environment] objectForKey:@"TM_OUTPUT_PATH"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mergeControllerDidCommitMerge:)
+                                                 name:TMMergeControllerDidCommitMerge
+                                               object:self.mergeController];
+    
+    [[[self mergeController] window] center];
     [[self mergeController] showWindow:self];
+}
+
+- (void)mergeControllerDidCommitMerge:(NSNotification*)notification {
+    [NSApp terminate:self];
 }
 
 /**
@@ -214,6 +224,26 @@
         else {
             reply = NSTerminateCancel;
         }
+    }
+    
+    NSInteger result = [[NSAlert alertWithMessageText:NSLocalizedString(@"Commit merge?", @"Commit merge?")
+                                        defaultButton:NSLocalizedString(@"Commit",@"Commit")
+                                      alternateButton:NSLocalizedString(@"Don't commit", @"Don't commit")
+                                          otherButton:NSLocalizedString(@"Cancel", @"Cancel")
+                            informativeTextWithFormat:@""] 
+                        runModal];
+    
+    switch(result) {
+        case NSAlertDefaultReturn:
+            [[self mergeController] commitMerge:self];
+            result = NSTerminateNow;
+            break;
+        case NSAlertAlternateReturn:
+            result = NSTerminateNow;
+            break;
+        case NSAlertOtherReturn:
+            result = NSTerminateCancel;
+            break;
     }
     
     return reply;

@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "TMOutputGroup.h"
 
+
+extern NSString * const TMMergeControllerDidCommitMerge;
+
 @interface TMMergeController : NSWindowController {
     NSString *referencePath;
     NSString *outputPath;

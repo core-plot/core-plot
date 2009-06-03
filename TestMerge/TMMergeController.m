@@ -17,6 +17,8 @@
 #import "GTMGarbageCollection.h"
 #import "GTMNSObject+KeyValueObserving.h"
 
+NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitMerge";
+
 typedef enum {
     OutputChoice = YES,
     ReferenceChoice = NO
@@ -218,7 +220,11 @@ typedef enum {
 }
 
 - (IBAction)commitMerge:(id)sender {
+    _GTMDevLog(@"TMMergeController commiting merge for output groups: %@", self.outputGroups);
+    
     [self commitMergeForGroups:self.outputGroups];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMMergeControllerDidCommitMerge object:self];
 }
 
 - (void)commitMergeForGroups:(NSSet*)groups {

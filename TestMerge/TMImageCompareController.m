@@ -41,13 +41,14 @@
     
 
 - (void)updateImageViews {
-        [self unbindViews];
+    
+    [self unbindViews];
     
     if([[self representedObject] referencePath] != nil) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
     }
     
-    if([[self representedObject] outputPath]) {
+    if([[self representedObject] outputPath] != nil) {
         [[self outputImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] outputPath]]];
     }
     
