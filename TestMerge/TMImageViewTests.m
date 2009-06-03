@@ -34,18 +34,18 @@
 @synthesize flag;
 
 - (void)setUp {
-    self.imageView = [[[TMImageView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)] autorelease];
+    self.imageView = [[[TMImageView alloc] initWithFrame:NSMakeRect(0, 0, 400, 400)] autorelease];
     
     NSString *imagePath = [[NSBundle bundleForClass:[self class]] pathForImageResource:@"TMMergeControllerTests-testWindowUIRendering.tiff"];
     
     STAssertNotNil(imagePath, @"unable to find image");
     
-    [self.imageView setImageWithURL:[NSURL fileURLWithPath:imagePath]];
-    
     self.imageView.autoresizes = YES;
     self.imageView.autohidesScrollers = YES;
     
     self.imageView.selected = NO;
+    
+    [self.imageView setImageWithURL:[NSURL fileURLWithPath:imagePath]];
 }
 
 - (void)tearDown {
@@ -93,6 +93,22 @@
 
 - (void)testBindings {
     GTMDoExposedBindingsFunctionCorrectly(self.imageView, NULL);
+}
+
+- (void)testOverlayRendering {
+    CALayer *diffLayer = [CALayer layer];
+    NSString *imagePath = [[NSBundle bundleForClass:[self class]] pathForImageResource:@"TMMergeControllerTests-testWindowUIRendering.tiff"]; //TMMergeControllerTests-testWindowUIRendering_Failed_Diff.i386.10.5.7.tiff
+    
+    CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
+    
+    NSBitmapImageRep *diffRep = [[NSBitmapImageRep alloc] initWithCIImage:diffImage];
+    
+    diffLayer.contents = (id)[diffRep CGImage];
+    
+    self.imageView.overlay = diffLayer;
+    
+    
+    GTMAssertObjectEqualToStateAndImageNamed(self.imageView, @"TMImageViewTests-testOverlayRendering", @"");
 }
     
 @end

@@ -394,7 +394,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4C7D30910FC203FB00005D98 /* Tests */,
 				4C86F6D10FCDA6B4008849CC /* Protocols */,
 				77C8280B06725ACE000B614F /* AppDelegate.h */,
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
@@ -455,6 +454,7 @@
 				4C7D32DF0FC22FEF00005D98 /* Test Resources */,
 				4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				4C7D30910FC203FB00005D98 /* Tests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
