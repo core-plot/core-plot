@@ -15,4 +15,6 @@
 
 - (IBAction)selectReference:(id)sender;
 - (IBAction)selectOutput:(id)sender;
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 @end

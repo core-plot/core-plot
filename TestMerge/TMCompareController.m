@@ -24,6 +24,19 @@ typedef enum {
 @end
 
 @implementation TMCompareController
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    if([anItem action] == @selector(selectReference:)) {
+        return [[self representedObject] referencePath] != nil;
+    }
+    
+    if([anItem action] == @selector(selectOutput:)) {
+        return [[self representedObject] outputPath] != nil;
+    }
+    
+    return NO;
+}
+
 - (IBAction)selectReference:(id)sender {
     _GTMDevLog(@"User selected reference");
     [self setMergeChoice:ReferenceChoice];

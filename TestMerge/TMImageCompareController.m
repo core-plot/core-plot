@@ -46,10 +46,14 @@
     
     if([[self representedObject] referencePath] != nil) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
+    } else {
+        [[self refImageView] setImageWithURL:nil];
     }
     
     if([[self representedObject] outputPath] != nil) {
         [[self outputImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] outputPath]]];
+    } else {
+        [[self outputImageView] setImageWithURL:nil];
     }
     
     if([[self representedObject] failureDiffPath] != nil) {
@@ -63,9 +67,6 @@
         
         [[self outputImageView] setOverlay:diffLayer];
     }
-    
-    [[self outputImageView] zoomImageToFit:self];
-    [[self refImageView] zoomImageToFit:self];   
     
     [self bindViews];
 }
