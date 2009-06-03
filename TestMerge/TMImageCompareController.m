@@ -41,6 +41,8 @@
     
 
 - (void)updateImageViews {
+        [self unbindViews];
+    
     if([[self representedObject] referencePath]) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
     }
@@ -64,7 +66,6 @@
     [[self outputImageView] zoomImageToFit:self];
     [[self refImageView] zoomImageToFit:self];   
     
-    [self unbindViews];
     [self bindViews];
 }
 
