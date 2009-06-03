@@ -228,9 +228,19 @@ typedef enum {
         if(group.replaceReference != nil) { //skip groups with no user choice
             if(group.replaceReferenceValue) { // replace reference with output
                 if(group.outputPath != nil) {
+                    
+                    //delete reference
+                    if(![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
+                                                                   error:&err]) {
+                        _GTMDevLog(@"Error to remove old referencePath: %@", err);
+                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                    }
+                    
+                    //move outputs
                     if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
                                                                 toPath:group.referencePath
                                                                  error:&err]) {
+                        _GTMDevLog(@"Error moving outputPath to referencePath: %@", err);
                         [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
                     }
                 }
@@ -239,12 +249,13 @@ typedef enum {
             } else { //delete output
                 if(group.outputPath != nil) {
                     if(![[NSFileManager defaultManager] removeItemAtPath:group.outputPath error:&err]) {
+                        _GTMDevLog(@"Erorr deleting outputPath: %@", err);
                         [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
                     }
                 }
             }
             
-            if(group.failureDiffPath != nil) { //always remove diff
+            if(group.failureDiffPath != nil) { //always remove Failed_Diff, if present
                 if(![[NSFileManager defaultManager] removeItemAtPath:group.failureDiffPath error:&err]) {
                     [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
                 }
