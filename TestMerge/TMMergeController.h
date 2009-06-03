@@ -25,6 +25,8 @@ extern NSString * const TMMergeControllerDidCommitMerge;
     IBOutlet NSBox *mergeViewContainer;
     
     NSDictionary *compareControllersByExtension;
+    
+    NSResponder *originalNextResponder;
 
 }
 

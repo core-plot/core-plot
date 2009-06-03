@@ -26,8 +26,11 @@ typedef enum {
 
 @interface TMMergeController ()
 
+@property (retain,readwrite) NSResponder *originalNextResponder;
+
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
 - (void)commitMergeForGroups:(NSSet*)groups;
+- (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup;
 
 @end
 
@@ -41,6 +44,7 @@ typedef enum {
 @synthesize groupsController;
 @synthesize mergeViewContainer;
 @synthesize compareControllersByExtension;
+@synthesize originalNextResponder;
 
 - (void)dealloc {
     [referencePath release];
@@ -189,6 +193,8 @@ typedef enum {
     for(NSViewController *controller in [[self compareControllersByExtension] allValues]) {
         (void)[controller view];
     }
+    
+    self.originalNextResponder = [self nextResponder];
 }
 
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
@@ -196,17 +202,18 @@ typedef enum {
     
     _GTMDevAssert([[[self groupsController] selectedObjects] count] <= 1, @"too many selected objects");
     
-    id<TMOutputGroup> newGroup = [[[self groupsController] selectedObjects] lastObject];
-    
-    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    [self updateMergeViewForGroup:[[[self groupsController] selectedObjects] lastObject]];
+}
 
-    if([self nextResponder] == controller) {
-        [self setNextResponder:[controller nextResponder]];
-    }
+- (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
+    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    _GTMDevAssert(controller != nil, @"No controller for extension %@", newGroup.extension);
     
-    [controller setNextResponder:[self nextResponder]];
-    
-    if(controller != nil) {
+    if([self nextResponder] != controller) {
+        if(self.originalNextResponder != nil) {
+            [controller setNextResponder:self.originalNextResponder];
+        }
+        
         [self setNextResponder:controller];
     }
     

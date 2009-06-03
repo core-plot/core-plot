@@ -85,20 +85,22 @@
 }
 
 - (void)bindViews {
-    [[self refImageView] bind:@"selected"
-                     toObject:self.representedObject
-                  withKeyPath:@"replaceReference"
-                      options:[NSDictionary dictionaryWithObjectsAndKeys:
-                               NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
-                               [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                               nil]];
-    
-    [[self outputImageView] bind:@"selected"
-                        toObject:self.representedObject
-                     withKeyPath:@"replaceReference"
-                         options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                                  nil]];
+    if([self representedObject] != nil) {
+        [[self refImageView] bind:@"selected"
+                         toObject:self.representedObject
+                      withKeyPath:@"replaceReference"
+                          options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
+                                   [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                   nil]];
+        
+        [[self outputImageView] bind:@"selected"
+                            toObject:self.representedObject
+                         withKeyPath:@"replaceReference"
+                             options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                      nil]];
+    }
 }
 
 - (void)mouseDownInImageView:(TMImageView*)view {
