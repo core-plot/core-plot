@@ -1014,6 +1014,7 @@
 				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 				073FB02E0FC991A3007A728E /* CPAxisLabel.h */,
 				073FB02F0FC991A3007A728E /* CPAxisLabel.m */,
+				4C7D0FB60FD5DDDA00D83C0F /* Tests */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -1172,6 +1173,13 @@
 				4C993CEA0F45E78000DC824F /* Resources */,
 			);
 			name = "Test Host";
+			sourceTree = "<group>";
+		};
+		4C7D0FB60FD5DDDA00D83C0F /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		4C993CEA0F45E78000DC824F /* Resources */ = {

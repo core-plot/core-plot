@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'KTUIKit' target in the 'KTUIKit' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+    #import <InterfaceBuilderKit/InterfaceBuilderKit.h>
+#endif

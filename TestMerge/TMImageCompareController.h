@@ -13,15 +13,9 @@
 #import "TMImageView.h"
 
 @interface TMImageCompareController : TMCompareController <TMImageViewDelegate> {
-    CGFloat refZoom;
-    CGFloat outputZoom;
-    
     IBOutlet TMImageView *refImageView;
     IBOutlet TMImageView *outputImageView;
 }
-
-@property (assign,readwrite) CGFloat refZoom;
-@property (assign,readwrite) CGFloat outputZoom;
 
 @property (retain,readwrite) IBOutlet TMImageView *refImageView;
 @property (retain,readwrite) IBOutlet TMImageView *outputImageView;

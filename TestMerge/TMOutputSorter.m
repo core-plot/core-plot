@@ -47,7 +47,7 @@ static const NSUInteger GroupNameIndex = 1;
     NSMutableSet *groups = [NSMutableSet set];
     
     for(NSString *path in self.referencePaths) {
-        NSArray *comps = [path componentsSeparatedByString:@"."];
+        NSArray *comps = [[[path pathComponents] lastObject] componentsSeparatedByString:@"."];
         if(comps.count < 2) {
             if(error != NULL) {
                 *error = [NSError errorWithDomain:TMErrorDomain
@@ -107,6 +107,8 @@ static const NSUInteger GroupNameIndex = 1;
         [groups addObject:group];
     }
     
+    
+    _GTMDevLog(@"Sorted output groups: %@", groups);
     return groups;
 }
 @end
