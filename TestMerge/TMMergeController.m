@@ -225,47 +225,45 @@ typedef enum {
     NSError *err;
     
     for(id<TMOutputGroup>group in groups) {
-        if(group.replaceReference != nil) { //skip groups with no user choice
-            if(group.replaceReferenceValue) { // replace reference with output
-                if(group.outputPath != nil) {
-                    
-                    //delete reference
-                    if(![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
-                                                                   error:&err]) {
-                        _GTMDevLog(@"Error to remove old referencePath: %@", err);
-                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
-                    }
-                    
-                    //move outputs
-                    NSString *newRefPath;
-                    if(group.referencePath != nil) {
-                        newRefPath = group.referencePath;
-                    } else {
-                        newRefPath = [[self.referencePath stringByAppendingPathComponent:group.name] stringByAppendingPathExtension:group.extension];
-                    }
-                    
-                    if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
-                                                                toPath:newRefPath
-                                                                 error:&err]) {
-                        _GTMDevLog(@"Error moving outputPath to referencePath: %@", err);
-                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
-                    }
-                }
-                
-
-            } else { //delete output
-                if(group.outputPath != nil) {
-                    if(![[NSFileManager defaultManager] removeItemAtPath:group.outputPath error:&err]) {
-                        _GTMDevLog(@"Erorr deleting outputPath: %@", err);
-                        [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
-                    }
-                }
+        if(group.replaceReference == nil) continue; //skip groups with no user choice
+        
+        if(group.replaceReferenceValue) { // move output -> reference
+            //delete reference if it exists
+            if(group.referencePath != nil &&
+               ![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
+                                                           error:&err]) {
+                _GTMDevLog(@"Error removing old referencePath: %@", err);
+                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
             }
             
-            if(group.failureDiffPath != nil) { //always remove Failed_Diff, if present
-                if(![[NSFileManager defaultManager] removeItemAtPath:group.failureDiffPath error:&err]) {
+            //move outputs
+            NSString *newRefPath;
+            if(group.referencePath != nil) {
+                newRefPath = group.referencePath;
+            } else {
+                newRefPath = [[self.referencePath stringByAppendingPathComponent:group.name] stringByAppendingPathExtension:group.extension];
+            }
+            
+            if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
+                                                        toPath:newRefPath
+                                                         error:&err]) {
+                _GTMDevLog(@"Error moving outputPath to referencePath: %@", err);
+                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+            }
+        } else { // keep reference, deleting output
+            //delete output
+            if(group.outputPath != nil) {
+                if(![[NSFileManager defaultManager] removeItemAtPath:group.outputPath error:&err]) {
+                    _GTMDevLog(@"Erorr deleting outputPath: %@", err);
                     [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
                 }
+            }
+        }
+        
+        // in either case, we delete the _Failed_Diff, if present
+        if(group.failureDiffPath != nil) {
+            if(![[NSFileManager defaultManager] removeItemAtPath:group.failureDiffPath error:&err]) {
+                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
             }
         }
     }

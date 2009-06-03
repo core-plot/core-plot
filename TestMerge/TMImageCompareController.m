@@ -43,7 +43,7 @@
 - (void)updateImageViews {
         [self unbindViews];
     
-    if([[self representedObject] referencePath]) {
+    if([[self representedObject] referencePath] != nil) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
     }
     

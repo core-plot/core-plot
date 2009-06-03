@@ -120,15 +120,25 @@
     controller.referencePath = [groupTestRoot stringByAppendingPathComponent:@"Reference"];
     controller.outputPath = [groupTestRoot stringByAppendingPathComponent:@"Output"];
     
-    STAssertEqualObjects([controller gtmUnitTestOutputPathsFromPath:controller.referencePath],
-                         [NSArray arrayWithObject:[[controller referencePath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering.tiff"]], @"");
+    NSArray *expectedPaths = [[NSArray arrayWithObjects:
+                              [[controller referencePath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering.tiff"],
+                              [[controller referencePath] stringByAppendingPathComponent:@"CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff"],
+                              nil]
+                              sortedArrayUsingSelector:@selector(compare:)];
+    
+    STAssertEqualObjects([controller gtmUnitTestOutputPathsFromPath:controller.referencePath], expectedPaths, @"");
     
     
     NSArray *controllerPaths = [[controller gtmUnitTestOutputPathsFromPath:controller.outputPath] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *expectedPaths = [[NSArray arrayWithObjects:
-                            [[controller outputPath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering_Failed.i386.10.5.7.tiff"],
-                            [[controller outputPath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering_Failed_Diff.i386.10.5.7.tiff"],
+    
+    expectedPaths = [[NSArray arrayWithObjects:
+                               [[controller outputPath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering_Failed.i386.10.5.7.tiff"],
+                               [[controller outputPath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering_Failed_Diff.i386.10.5.7.tiff"],
+                               [[controller outputPath] stringByAppendingPathComponent:@"CPXYGraphTests-testRenderScatterWithSymbol_Failed.i386.10.5.7.tiff"],
+                               [[controller outputPath] stringByAppendingPathComponent:@"CPXYGraphTests-testRenderScatterWithSymbol_Failed_Diff.i386.10.5.7.tiff"],
+                               [[controller outputPath] stringByAppendingPathComponent:@"TMMergeControllerTests-testWindowUIRendering2.i386.10.5.7.tiff"],
                                nil] sortedArrayUsingSelector:@selector(compare:)];
+    
     STAssertEqualObjects(controllerPaths, expectedPaths, @"");
 }
 
@@ -164,6 +174,10 @@
     NSString *targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"OutputGroupTest"];
     
     NSError *err;
+    if([[NSFileManager defaultManager] fileExistsAtPath:targetPath]) {
+        STAssertTrue([[NSFileManager defaultManager] removeItemAtPath:targetPath error:NULL], @"");
+    }
+    
     STAssertTrue([[NSFileManager defaultManager] copyItemAtPath:outpuDirPath toPath:targetPath error:&err], @"%@", err);
     
     @try {
@@ -187,16 +201,13 @@
         [controller commitMerge:self];
         
         
-        //test that only TM* in Reference and only CP* in Output
-        for(NSString *path in [[NSFileManager defaultManager] enumeratorAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]) {
-            STAssertTrue([[[path pathComponents] lastObject] hasPrefix:@"TM"], @"Non-TM in reference");
-        }
+        //test that only CP* in Output
         
         for(NSString *path in [[NSFileManager defaultManager] enumeratorAtPath:[targetPath stringByAppendingPathComponent:@"Output"]]) {
             STAssertTrue([[[path pathComponents] lastObject] hasPrefix:@"CP"], @"Non-TM in reference");
         }
         
-        STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]] count], (NSUInteger)2, @"Including added new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]);
+        STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]] count], (NSUInteger)3, @"Including added new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]);
         
         STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Output"]] count], (NSUInteger)1, @"Removing _Diff, and new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Output"]]);
         
