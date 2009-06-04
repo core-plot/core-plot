@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "TMMergeController.h"
 #import "TMImageCompareController.h"
+#import "TMUTStateCompareController.h"
 #import "TMOutputSorter.h"
 
 #import "GTMLogger.h"
@@ -47,6 +48,8 @@
     self.mergeController.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
                                                           [[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]],
                                                           TMGTMUnitTestImageExtension,
+                                                          [[TMUTStateCompareController alloc] initWithNibName:@"UTStateCompareView" bundle:[NSBundle mainBundle]],
+                                                          TMGTMUnitTestStateExtension,
                                                           nil];
     
     self.mergeController.referencePath = [[[[NSProcessInfo processInfo] environment] objectForKey:@"TM_REFERENCE_PATH"] stringByExpandingTildeInPath];

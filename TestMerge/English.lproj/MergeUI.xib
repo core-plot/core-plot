@@ -40539,7 +40539,6 @@ ELIAAAAAAAgACAAIAAgAAQABAAEAAQ</bytes>
 					<string key="NSEntityName">OutputGroup</string>
 				</object>
 				<bool key="_NSIsUsingManagedProxy">YES</bool>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 			</object>
 		</object>
@@ -40704,7 +40703,7 @@ ELIAAAAAAAgACAAIAAgAAQABAAEAAQ</bytes>
 						<string key="label">selectionIndexes: groupSelectionIndexes</string>
 						<reference key="source" ref="399967086"/>
 						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector" id="484213097">
+						<object class="NSNibBindingConnector" key="connector" id="585612545">
 							<reference key="NSSource" ref="399967086"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">selectionIndexes: groupSelectionIndexes</string>
@@ -40727,7 +40726,7 @@ ELIAAAAAAAgACAAIAAgAAQABAAEAAQ</bytes>
 							<string key="NSLabel">sortDescriptors: groupSortDescriptors</string>
 							<string key="NSBinding">sortDescriptors</string>
 							<string key="NSKeyPath">groupSortDescriptors</string>
-							<reference key="NSPreviousConnector" ref="484213097"/>
+							<reference key="NSPreviousConnector" ref="585612545"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
