@@ -226,24 +226,30 @@
         }
     }
     
-    NSInteger result = [[NSAlert alertWithMessageText:NSLocalizedString(@"Commit merge?", @"Commit merge?")
-                                        defaultButton:NSLocalizedString(@"Commit",@"Commit")
-                                      alternateButton:NSLocalizedString(@"Don't commit", @"Don't commit")
-                                          otherButton:NSLocalizedString(@"Cancel", @"Cancel")
-                            informativeTextWithFormat:NSLocalizedString(@"Don't forget to update your unit tests target by adding any new images!", @"Don't forget to update your unit tests target by adding any new images!")] 
-                        runModal];
     
-    switch(result) {
-        case NSAlertDefaultReturn:
-            [[self mergeController] commitMerge:self];
-            result = NSTerminateNow;
-            break;
-        case NSAlertAlternateReturn:
-            result = NSTerminateNow;
-            break;
-        case NSAlertOtherReturn:
-            result = NSTerminateCancel;
-            break;
+    // if the user has selected a merge direction for any output groups, prompt to commit the merge
+    NSSet *groups = self.mergeController.outputGroups;
+    if([[[groups allObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"replaceReference=YES || replaceReference=NO"]] count] > 0) {
+        
+        NSInteger result = [[NSAlert alertWithMessageText:NSLocalizedString(@"Commit merge?", @"Commit merge?")
+                                            defaultButton:NSLocalizedString(@"Commit",@"Commit")
+                                          alternateButton:NSLocalizedString(@"Don't commit", @"Don't commit")
+                                              otherButton:NSLocalizedString(@"Cancel", @"Cancel")
+                                informativeTextWithFormat:NSLocalizedString(@"Don't forget to update your unit tests target by adding any new images!", @"Don't forget to update your unit tests target by adding any new images!")] 
+                            runModal];
+        
+        switch(result) {
+            case NSAlertDefaultReturn:
+                [[self mergeController] commitMerge:self];
+                result = NSTerminateNow;
+                break;
+            case NSAlertAlternateReturn:
+                result = NSTerminateNow;
+                break;
+            case NSAlertOtherReturn:
+                result = NSTerminateCancel;
+                break;
+        }
     }
     
     return reply;

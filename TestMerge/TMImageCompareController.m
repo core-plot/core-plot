@@ -39,9 +39,6 @@
 }
     
 
-/**
- Caller must call [self unbindViews] before calling updateImageViews.
- */
 - (void)updateImageViews {
     
     if([[self representedObject] referencePath] != nil) {

@@ -11,6 +11,7 @@
 #import "TMOutputSorter.h"
 #import "TMErrors.h"
 #import "TMCompareController.h"
+#import "TMImageCompareController.h"
 #import "TMOutputGroup.h"
 
 #import "GTMDefines.h"
@@ -23,7 +24,6 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 
 @property (retain,readwrite) TMCompareController *currentCompareController;
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
 - (void)commitMergeForGroups:(NSSet*)groups;
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup;
 
@@ -40,6 +40,7 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 @synthesize mergeViewContainer;
 @synthesize compareControllersByExtension;
 @synthesize currentCompareController;
+@synthesize groupSelectionIndexes;
 
 - (void)dealloc {
     [referencePath release];
@@ -51,16 +52,6 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
     [currentCompareController release];
     
     [super dealloc];
-}
-
-- (void)windowWillClose:(NSNotification*)notification {
-    if([notification object] == self.window) {
-        [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:NSWindowWillCloseNotification
-                                                      object:self.window];
-    }
 }
 
 + (void)initialize {
@@ -181,34 +172,32 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 
 - (void)windowDidLoad {
     _GTMDevAssert([self groupsController] != nil, @"nil groups controller");
-    [[self groupsController] gtm_addObserver:self
-                                  forKeyPath:@"selectedObjects"
-                                    selector:@selector(observeSelectedGroupsDidChange:)
-                                    userInfo:nil
-                                     options:NSKeyValueObservingOptionNew];
     
     //make sure all compare controllers are loaded
     for(NSViewController *controller in [[self compareControllersByExtension] allValues]) {
         (void)[controller view];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowWillClose:)
-                                                 name:NSWindowWillCloseNotification
-                                               object:self.window];
 }
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
-    _GTMDevAssert([[[notification change] objectForKey:NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting, @"");
-    
-    _GTMDevAssert([[[self groupsController] selectedObjects] count] <= 1, @"too many selected objects");
-    
-    [self updateMergeViewForGroup:[[[self groupsController] selectedObjects] lastObject]];
+- (void)setGroupSelectionIndexes:(NSIndexSet*)newSelectionIndexes {
+    if(newSelectionIndexes != self.groupSelectionIndexes) {
+        [groupSelectionIndexes release];
+        groupSelectionIndexes = newSelectionIndexes;
+        
+        _GTMDevAssert(self.groupSelectionIndexes.count <= 1, @"Multiple group selection");
+        
+        if(self.groupSelectionIndexes.count > 0) {
+            [self updateMergeViewForGroup:[[[self groupsController] arrangedObjects] objectAtIndex:[[self groupSelectionIndexes] firstIndex]]];
+        } else {
+            [self updateMergeViewForGroup:nil];
+        }
+    }
 }
+
 
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
     self.currentCompareController = [[self compareControllersByExtension] objectForKey:newGroup.extension];
-    
+
     [self.currentCompareController setRepresentedObject:newGroup];
     
     [self.mergeViewContainer setContentView:self.currentCompareController.view];
