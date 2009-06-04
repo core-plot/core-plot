@@ -319,6 +319,27 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
+		4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090 /* TestMerge.app */;
+			remoteInfo = TestMerge;
+		};
+		4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C7D30560FC202CD00005D98 /* TestMerge-UnitTests.octest */;
+			remoteInfo = "TestMerge-UnitTests";
+		};
+		4C3779950FD87A7A00BA848A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090 /* TestMerge */;
+			remoteInfo = TestMerge;
+		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -417,6 +438,7 @@
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestMerge.xcodeproj; path = ../TestMerge/TestMerge.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4C422A620FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCartesianPlotSpaceTests.h; sourceTree = "<group>"; };
 		4C422A630FB1FCD5000CAA43 /* CPCartesianPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCartesianPlotSpaceTests.m; sourceTree = "<group>"; };
 		4C422B270FB20882000CAA43 /* CPXYGraphTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraphTests.h; sourceTree = "<group>"; };
@@ -1038,6 +1060,7 @@
 		0867D691FE84028FC02AAC07 /* CorePlot */ = {
 			isa = PBXGroup;
 			children = (
+				4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */,
 				4C993E9E0F45ECCA00DC824F /* GTM Source */,
 				4C99408D0F45F71100DC824F /* Testing */,
 				07BF0D600F2B6FE1002FCEA7 /* Source */,
@@ -1173,6 +1196,15 @@
 				4C993CEA0F45E78000DC824F /* Resources */,
 			);
 			name = "Test Host";
+			sourceTree = "<group>";
+		};
+		4C3779790FD87A5E00BA848A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C37798F0FD87A5E00BA848A /* TestMerge.app */,
+				4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		4C7D0FB60FD5DDDA00D83C0F /* Tests */ = {
@@ -1717,12 +1749,14 @@
 				4CBF25280F3CDED400DAE1A8 /* Sources */,
 				4CBF25290F3CDED400DAE1A8 /* Frameworks */,
 				4CBF252A0F3CDED400DAE1A8 /* ShellScript */,
+				4C37799C0FD87A8B00BA848A /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4C32D34A0F43B34300EDFE7A /* PBXTargetDependency */,
 				4C993D100F45E82A00DC824F /* PBXTargetDependency */,
+				4C3779960FD87A7A00BA848A /* PBXTargetDependency */,
 			);
 			name = "CorePlot-UnitTests";
 			productName = "CorePlot-UnitTests";
@@ -1762,6 +1796,12 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* CorePlot */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4C3779790FD87A5E00BA848A /* Products */;
+					ProjectRef = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* CorePlot */,
@@ -1773,6 +1813,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4C37798F0FD87A5E00BA848A /* TestMerge.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TestMerge.app;
+			remoteRef = 4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "TestMerge-UnitTests.octest";
+			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4C2D58A50FB78208008275E0 /* Resources */ = {
@@ -1914,6 +1971,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"\n";
+		};
+		4C37799C0FD87A8B00BA848A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run TestMerge to merge GTM output, if necessary\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=${BUILT_PRODUCTS_DIR}/CorePlot-UnitTest-Output\n\n${BUILT_PRODUCTS_DIR}/TestMerge.app/Contents/MacOS/TestMerge";
 		};
 		4CBF252A0F3CDED400DAE1A8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2097,6 +2167,11 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
 			targetProxy = 4C32D35C0F43B37800EDFE7A /* PBXContainerItemProxy */;
+		};
+		4C3779960FD87A7A00BA848A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TestMerge;
+			targetProxy = 4C3779950FD87A7A00BA848A /* PBXContainerItemProxy */;
 		};
 		4C993D100F45E82A00DC824F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

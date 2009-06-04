@@ -77,6 +77,9 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
     NSArray *referencePaths = [self gtmUnitTestOutputPathsFromPath:self.referencePath];
     NSArray *outputPaths = [self gtmUnitTestOutputPathsFromPath:self.outputPath];
     
+    //quit if there's no new output
+    //if(outputPaths.count == 0) [NSApp terminate:self];
+    
     TMOutputSorter *sorter = [[[TMOutputSorter alloc] initWithReferencePaths:referencePaths
                                                                  outputPaths:outputPaths]
                               autorelease];

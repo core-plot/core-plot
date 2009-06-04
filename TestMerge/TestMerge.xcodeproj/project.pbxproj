@@ -11,6 +11,10 @@
 		4C26728A0FD6FB660091972D /* TMOutputGroupCDFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2672890FD6FB660091972D /* TMOutputGroupCDFactoryTests.m */; };
 		4C2679470FD83FC20091972D /* UTStateCompareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C2679460FD83FC20091972D /* UTStateCompareView.xib */; };
 		4C26794B0FD83FFF0091972D /* TMUTStateCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C26794A0FD83FFF0091972D /* TMUTStateCompareController.m */; };
+		4C37795D0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */; };
+		4C37795E0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */; };
+		4C37795F0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */; };
+		4C3779600FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */; };
 		4C6C49D90FCDC2D600D6AB30 /* TMOutputGroupCDFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */; };
 		4C6C4A350FCDC5C700D6AB30 /* OutputGroupTest in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */; };
 		4C6C4AD40FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */; };
@@ -146,6 +150,10 @@
 		4C2679440FD83FB80091972D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/UTStateCompareView.xib; sourceTree = "<group>"; };
 		4C2679490FD83FFF0091972D /* TMUTStateCompareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUTStateCompareController.h; sourceTree = "<group>"; };
 		4C26794A0FD83FFF0091972D /* TMUTStateCompareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUTStateCompareController.m; sourceTree = "<group>"; };
+		4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMImageViewTests-testOverlayRendering.gtmUTState"; path = "TestResources/TMImageViewTests-testOverlayRendering.gtmUTState"; sourceTree = "<group>"; };
+		4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMImageViewTests-testOverlayRendering.tiff"; path = "TestResources/TMImageViewTests-testOverlayRendering.tiff"; sourceTree = "<group>"; };
+		4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState"; sourceTree = "<group>"; };
+		4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff"; sourceTree = "<group>"; };
 		4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OutputGroupTest; path = TestResources/OutputGroupTest; sourceTree = "<group>"; };
 		4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState"; path = "TestResources/TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState"; sourceTree = "<group>"; };
 		4C6C4AD30FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff"; path = "TestResources/TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff"; sourceTree = "<group>"; };
@@ -848,6 +856,10 @@
 		4C7D32DF0FC22FEF00005D98 /* Test Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */,
+				4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */,
+				4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */,
+				4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */,
 				4C6C4C880FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff */,
 				4C6C4C770FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff */,
 				4C6C4C780FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff */,
@@ -899,6 +911,7 @@
 				4C7D30520FC202CD00005D98 /* Sources */,
 				4C7D30530FC202CD00005D98 /* Frameworks */,
 				4C7D30540FC202CD00005D98 /* ShellScript */,
+				4C37794F0FD878F000BA848A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1006,6 +1019,10 @@
 				4C6C4C790FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff in Resources */,
 				4C6C4C7A0FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff in Resources */,
 				4C6C4C890FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff in Resources */,
+				4C37795D0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState in Resources */,
+				4C37795E0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff in Resources */,
+				4C37795F0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState in Resources */,
+				4C3779600FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,6 +1041,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4C37794F0FD878F000BA848A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run TestMerge to merge GTM output, if necessary\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\n\n${BUILT_PRODUCTS_DIR}/TestMerge.app/Contents/MacOS/TestMerge";
+		};
 		4C7D30540FC202CD00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1035,7 +1065,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n#export GTM_DISABLE_ZOMBIES=1\n\nif [ !\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\" ]; then\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\nopen ${BUILT_PRODUCTS_DIR}/TestMerge.app/\nfi";
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n#export GTM_DISABLE_ZOMBIES=1\n\n${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh";
 		};
 		4C7D31D20FC2209A00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
