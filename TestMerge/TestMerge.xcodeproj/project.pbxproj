@@ -397,18 +397,14 @@
 				4C86F6D10FCDA6B4008849CC /* Protocols */,
 				77C8280B06725ACE000B614F /* AppDelegate.h */,
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
-				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
-				4C7D33050FC2311B00005D98 /* TMMergeController.m */,
-				4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */,
-				4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */,
-				4C6C4AF60FCDD72400D6AB30 /* TMImageCompareController.h */,
-				4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */,
+				4CEAB0DD0FD79AD400449E83 /* Window Controllers */,
+				4CEAB0890FD7961F00449E83 /* Comparison View Controllers */,
 				4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */,
 				4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */,
-				4C6C4C250FCF19A800D6AB30 /* TMImageView.h */,
-				4C6C4C260FCF19A800D6AB30 /* TMImageView.m */,
 				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
 				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
+				4C6C4C250FCF19A800D6AB30 /* TMImageView.h */,
+				4C6C4C260FCF19A800D6AB30 /* TMImageView.m */,
 				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
 				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
 				4C86F6D90FCDA798008849CC /* TMErrors.h */,
@@ -853,6 +849,26 @@
 				4C86F7C30FCDB211008849CC /* BWToolkitFramework.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4CEAB0890FD7961F00449E83 /* Comparison View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */,
+				4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */,
+				4C6C4AF60FCDD72400D6AB30 /* TMImageCompareController.h */,
+				4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */,
+			);
+			name = "Comparison View Controllers";
+			sourceTree = "<group>";
+		};
+		4CEAB0DD0FD79AD400449E83 /* Window Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
+				4C7D33050FC2311B00005D98 /* TMMergeController.m */,
+			);
+			name = "Window Controllers";
 			sourceTree = "<group>";
 		};
 		7756732906782D8800D1FEB8 /* Models */ = {
