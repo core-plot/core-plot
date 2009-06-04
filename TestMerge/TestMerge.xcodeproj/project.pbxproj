@@ -1050,7 +1050,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $PROJECT_DIR;\n\nmogenerator -m TestMerge_DataModel.xcdatamodel/ -O MOClasses/ -M MOClasses/machine";
+			shellScript = "cd $PROJECT_DIR;\n\nHAS_MOGENERATOR=\"`which mogenerator`\"\n\nif [ \"$HAS_MOGENERATOR\" != \"\" ]; then\n\nmogenerator -m TestMerge_DataModel.xcdatamodel/ -O MOClasses/ -M MOClasses/machine\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
