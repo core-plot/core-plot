@@ -313,21 +313,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090 /* TestMerge.app */;
+			remoteGlobalIDString = 8D1107320486CEB800E47090;
 			remoteInfo = TestMerge;
 		};
 		4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4C7D30560FC202CD00005D98 /* TestMerge-UnitTests.octest */;
+			remoteGlobalIDString = 4C7D30560FC202CD00005D98;
 			remoteInfo = "TestMerge-UnitTests";
 		};
 		4C3779950FD87A7A00BA848A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090 /* TestMerge */;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = TestMerge;
 		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
@@ -428,7 +428,7 @@
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-				4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestMerge.xcodeproj; path = ../TestMerge/TestMerge.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestMerge.xcodeproj; path = ../TestMerge/TestMerge.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4C422A620FB1FCD5000CAA43 /* CPXYPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYPlotSpaceTests.h; sourceTree = "<group>"; };
 		4C422A630FB1FCD5000CAA43 /* CPXYPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYPlotSpaceTests.m; sourceTree = "<group>"; };
 		4C422B270FB20882000CAA43 /* CPXYGraphTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraphTests.h; sourceTree = "<group>"; };
