@@ -19,14 +19,9 @@
 
 NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitMerge";
 
-typedef enum {
-    OutputChoice = YES,
-    ReferenceChoice = NO
-} TMMergeControllerChoice;
-
 @interface TMMergeController ()
 
-@property (retain,readwrite) NSResponder *originalNextResponder;
+@property (retain,readwrite) TMCompareController *currentCompareController;
 
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
 - (void)commitMergeForGroups:(NSSet*)groups;
@@ -44,7 +39,7 @@ typedef enum {
 @synthesize groupsController;
 @synthesize mergeViewContainer;
 @synthesize compareControllersByExtension;
-@synthesize originalNextResponder;
+@synthesize currentCompareController;
 
 - (void)dealloc {
     [referencePath release];
@@ -53,16 +48,19 @@ typedef enum {
     [groupsController release];
     [mergeViewContainer release];
     [compareControllersByExtension release];
-    
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
+    [currentCompareController release];
     
     [super dealloc];
 }
 
-- (void)finalize {
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
-    
-    [super finalize];
+- (void)windowWillClose:(NSNotification*)notification {
+    if([notification object] == self.window) {
+        [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSWindowWillCloseNotification
+                                                      object:self.window];
+    }
 }
 
 + (void)initialize {
@@ -194,7 +192,10 @@ typedef enum {
         (void)[controller view];
     }
     
-    self.originalNextResponder = [self nextResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowWillClose:)
+                                                 name:NSWindowWillCloseNotification
+                                               object:self.window];
 }
 
 - (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
@@ -206,21 +207,11 @@ typedef enum {
 }
 
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
-    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    self.currentCompareController = [[self compareControllersByExtension] objectForKey:newGroup.extension];
     
-    if(controller != nil &&
-       [self nextResponder] != controller) {
-        
-        if(self.originalNextResponder != nil) {
-            [controller setNextResponder:self.originalNextResponder];
-        }
-        
-        [self setNextResponder:controller];
-    }
+    [self.currentCompareController setRepresentedObject:newGroup];
     
-    [controller setRepresentedObject:newGroup];
-    
-    [self.mergeViewContainer setContentView:controller.view];
+    [self.mergeViewContainer setContentView:self.currentCompareController.view];
 }
 
 - (NSArray*)groupSortDescriptors {
@@ -282,5 +273,28 @@ typedef enum {
             }
         }
     }
+}
+
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    if([anItem action] == @selector(selectReference:)) {
+        return [[[self currentCompareController] representedObject] referencePath] != nil;
+    }
+    
+    if([anItem action] == @selector(selectOutput:)) {
+        return [[[self currentCompareController] representedObject] outputPath] != nil;
+    }
+    
+    return NO;
+}
+
+- (IBAction)selectReference:(id)sender {
+    _GTMDevLog(@"User selected reference");
+    [self.currentCompareController setMergeChoice:ReferenceChoice];
+}
+
+- (IBAction)selectOutput:(id)sender {
+    _GTMDevLog(@"User selected output");
+    [self.currentCompareController setMergeChoice:OutputChoice];
 }
 @end

@@ -9,21 +9,21 @@
 #import "TMImageView.h"
 #import "GTMDefines.h"
 
-static CGFloat SelectionLineWidth = 4.0;
+//static CGFloat SelectionLineWidth = 4.0;
 
 
-static CGColorRef CGColorCreateFromNSColor(CGColorSpaceRef colorSpace, NSColor *color) {
-    
-    NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-    
-    float components[4];
-    [deviceColor getRed:&components[0] 
-                  green:&components[1] 
-                   blue:&components[2] 
-                  alpha:&components[3]];
-    
-    return CGColorCreate (colorSpace, components);
-}
+//static CGColorRef CGColorCreateFromNSColor(CGColorSpaceRef colorSpace, NSColor *color) {
+//    
+//    NSColor *deviceColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+//    
+//    float components[4];
+//    [deviceColor getRed:&components[0] 
+//                  green:&components[1] 
+//                   blue:&components[2] 
+//                  alpha:&components[3]];
+//    
+//    return CGColorCreate (colorSpace, components);
+//}
 
 @interface TMImageView ()
 
@@ -60,8 +60,6 @@ static CGColorRef CGColorCreateFromNSColor(CGColorSpaceRef colorSpace, NSColor *
 }
 
 - (void)awakeFromNib {
-    _GTMDevLog(@"awakeFromNib");
-    
     self.selectionLayer = [CALayer layer];
     self.selectionLayer.delegate = self;
 }
@@ -92,41 +90,41 @@ static CGColorRef CGColorCreateFromNSColor(CGColorSpaceRef colorSpace, NSColor *
     }
 }
 
-- (void)displayLayer:(CALayer*)layer {
-    if(layer == self.selectionLayer) {
-        _GTMDevLog(@"Displaying %@.selectionLayer", self);
-        
-        if(self.selected) {
-            NSColor *selectionColor = [NSColor selectedControlColor];
-            
-            CGContextRef context = CGBitmapContextCreate(NULL, 
-                                                         layer.bounds.size.width, 
-                                                         layer.bounds.size.height, 
-                                                         sizeof(CGFloat)*8, //bits per component
-                                                         layer.bounds.size.width*sizeof(CGFloat)*[selectionColor numberOfComponents],
-                                                         [[selectionColor colorSpace] CGColorSpace],
-                                                         kCGImageAlphaPremultipliedLast);
-            
-            CGRect selectionRect = CGContextGetClipBoundingBox(context);
-            selectionRect = CGRectInset(selectionRect, SelectionLineWidth/2., SelectionLineWidth/2.);
-            
-            
-            CGColorRef strokeColor = CGColorCreateFromNSColor([[selectionColor colorSpace] CGColorSpace], selectionColor);
-            CGContextSetStrokeColorWithColor(context, strokeColor);
-            
-            CFRelease(strokeColor);
-            
-            CGContextSetLineWidth(context, SelectionLineWidth);
-            CGContextStrokeRect(context, selectionRect);
-            
-            CGImageRef selectionImage = CGBitmapContextCreateImage(context);
-            
-            CFRelease(context);
-            
-            layer.contents = (id)selectionImage;
-            
-            CFRelease(selectionImage);
-        }
-    }
-}
+//- (void)displayLayer:(CALayer*)layer {
+//    if(layer == self.selectionLayer) {
+//        _GTMDevLog(@"Displaying %@.selectionLayer", self);
+//        
+//        if(self.selected) {
+//            NSColor *selectionColor = [NSColor selectedControlColor];
+//            
+//            CGContextRef context = CGBitmapContextCreate(NULL, 
+//                                                         layer.bounds.size.width, 
+//                                                         layer.bounds.size.height, 
+//                                                         sizeof(CGFloat)*8, //bits per component
+//                                                         layer.bounds.size.width*sizeof(CGFloat)*[selectionColor numberOfComponents],
+//                                                         [[selectionColor colorSpace] CGColorSpace],
+//                                                         kCGImageAlphaPremultipliedLast);
+//            
+//            CGRect selectionRect = CGContextGetClipBoundingBox(context);
+//            selectionRect = CGRectInset(selectionRect, SelectionLineWidth/2., SelectionLineWidth/2.);
+//            
+//            
+//            CGColorRef strokeColor = CGColorCreateFromNSColor([[selectionColor colorSpace] CGColorSpace], selectionColor);
+//            CGContextSetStrokeColorWithColor(context, strokeColor);
+//            
+//            CFRelease(strokeColor);
+//            
+//            CGContextSetLineWidth(context, SelectionLineWidth);
+//            CGContextStrokeRect(context, selectionRect);
+//            
+//            CGImageRef selectionImage = CGBitmapContextCreateImage(context);
+//            
+//            CFRelease(context);
+//            
+//            layer.contents = (id)selectionImage;
+//            
+//            CFRelease(selectionImage);
+//        }
+//    }
+//}
 @end

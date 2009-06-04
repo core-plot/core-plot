@@ -8,13 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+    OutputChoice = YES,
+    ReferenceChoice = NO
+} TMCompareControllerChoice;
 
 @interface TMCompareController : NSViewController {
 
 }
 
-- (IBAction)selectReference:(id)sender;
-- (IBAction)selectOutput:(id)sender;
+- (void)setMergeChoice:(TMCompareControllerChoice)choice;
 
-- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 @end

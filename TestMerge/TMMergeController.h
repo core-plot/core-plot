@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "TMOutputGroup.h"
 
+@class TMCompareController;
 
 extern NSString * const TMMergeControllerDidCommitMerge;
 
@@ -26,7 +27,7 @@ extern NSString * const TMMergeControllerDidCommitMerge;
     
     NSDictionary *compareControllersByExtension;
     
-    NSResponder *originalNextResponder;
+    TMCompareController *currentCompareController;
 
 }
 
@@ -44,4 +45,9 @@ extern NSString * const TMMergeControllerDidCommitMerge;
 - (NSArray*)gtmUnitTestOutputPathsFromPath:(NSString*)path;
 
 - (IBAction)commitMerge:(id)sender;
+
+- (IBAction)selectReference:(id)sender;
+- (IBAction)selectOutput:(id)sender;
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 @end
