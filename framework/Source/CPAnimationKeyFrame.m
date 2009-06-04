@@ -4,6 +4,7 @@
 @implementation CPAnimationKeyFrame
 
 @synthesize identifier;
+@synthesize duration;
 
 -(id)initAsInitialFrame:(BOOL)isFirst
 {

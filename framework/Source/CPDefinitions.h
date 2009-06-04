@@ -6,6 +6,8 @@ typedef NSInteger CPInteger;
 typedef CGFloat   CPFloat;
 typedef double    CPDouble;
 
+extern NSTimeInterval kCPIndefiniteDuration;
+
 typedef enum  _CPNumericType {
     CPNumericTypeInteger,
     CPNumericTypeFloat,
