@@ -56,11 +56,7 @@
     if([[self representedObject] failureDiffPath] != nil) {
         CALayer *diffLayer = [CALayer layer];
         
-        CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
-        
-        NSBitmapImageRep *diffRep = [[NSBitmapImageRep alloc] initWithCIImage:diffImage];
-        
-        diffLayer.contents = (id)[diffRep CGImage];
+        diffLayer.contents = (id)[[NSBitmapImageRep imageRepWithData:[NSData dataWithContentsOfFile:[[self representedObject] failureDiffPath]]] CGImage];
         
         [[self outputImageView] setOverlay:diffLayer];
     }
