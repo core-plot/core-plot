@@ -40,8 +40,6 @@
         axes = [newAxes retain];
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
-			[axis setNeedsDisplay];
-            [axis setNeedsLayout];
         }
         [self setNeedsLayout];
     }

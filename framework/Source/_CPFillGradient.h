@@ -1,7 +1,3 @@
-//
-//  CPFillGradient.h
-//  CorePlot
-//
 
 #import <Foundation/Foundation.h>
 #import "CPFill.h"

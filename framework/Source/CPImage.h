@@ -1,10 +1,6 @@
-//
-//  CPImage.h
-//  CorePlot
-//
 
 #import <Foundation/Foundation.h>
-
+#import <QuartzCore/QuartzCore.h>
 
 @interface CPImage : NSObject <NSCopying> {
     @private

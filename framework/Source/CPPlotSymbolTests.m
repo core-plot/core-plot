@@ -8,7 +8,7 @@
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPScatterPlot.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPPlotSymbol.h"
 
@@ -20,7 +20,7 @@
 - (void)setUpPlotSpace
 {
     
-    CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
+    CPXYPlotSpace *plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
     plotSpace.bounds = CGRectMake(0.0, 0.0, 110.0, 110.0);
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(-1) 

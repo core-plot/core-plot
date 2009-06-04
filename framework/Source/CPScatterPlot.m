@@ -4,7 +4,7 @@
 #import "CPPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPPlotSymbol.h"
 #import "stdlib.h"
 
@@ -161,7 +161,7 @@ static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
 {    
     [super reloadData];
 	
-    CPCartesianPlotSpace *cartesianPlotSpace = (CPCartesianPlotSpace *)self.plotSpace;
+    CPXYPlotSpace *cartesianPlotSpace = (CPXYPlotSpace *)self.plotSpace;
     self.xValues = nil;
     self.yValues = nil;
 	

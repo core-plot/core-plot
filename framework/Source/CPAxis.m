@@ -1,5 +1,4 @@
 
-
 #import "CPAxis.h"
 #import "CPPlotSpace.h"
 #import "CPUtilities.h"
@@ -16,7 +15,6 @@
 -(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval;
 
 @end
-
 
 @implementation CPAxis
 
@@ -59,8 +57,10 @@
 		self.minorTicksPerInterval = 1;
 		self.coordinate = CPCoordinateX;
 		self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-		self.tickLabelFormatter = [[[NSNumberFormatter alloc] init] autorelease];
-		self.tickLabelFormatter.format = @"#0.0";
+		NSNumberFormatter *newFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+		newFormatter.maximumFractionDigits = 1; 
+        newFormatter.minimumFractionDigits = 1;
+        self.tickLabelFormatter = newFormatter;
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPDirectionDown;
 		self.layerAutoresizingMask = kCPLayerNotSizable;

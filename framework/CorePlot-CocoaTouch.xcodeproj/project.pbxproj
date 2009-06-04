@@ -32,6 +32,8 @@
 		070CB8580FC9DEF000F3152B /* CPAnimationTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CB8520FC9DEF000F3152B /* CPAnimationTransition.h */; };
 		070CB8590FC9DEF000F3152B /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 070CB8530FC9DEF000F3152B /* CPAnimationTransition.m */; };
 		070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B829F0FB89E610035D8DA /* CPTextLayer.m */; };
+		074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 074D7BC30FD6B65E006011BC /* CPXYPlotSpace.h */; };
+		074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */; };
 		0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFBF0FB9F97F00C0A613 /* CPPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */; };
 		0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,7 +47,6 @@
 		BC9B83500FB8A1400035D8DA /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */; };
 		BC9B83510FB8A1400035D8DA /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D10FB89E610035D8DA /* CPPlotSymbol.m */; };
 		BC9B83520FB8A1400035D8DA /* CPPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C70FB89E610035D8DA /* CPPlotSpace.m */; };
-		BC9B83530FB8A1400035D8DA /* CPCartesianPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C90FB89E610035D8DA /* CPCartesianPlotSpace.m */; };
 		BC9B83540FB8A1400035D8DA /* CPPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82CD0FB89E610035D8DA /* CPPolarPlotSpace.m */; };
 		BC9B83550FB8A1400035D8DA /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C20FB89E610035D8DA /* CPPlotArea.m */; };
 		BC9B83560FB8A1400035D8DA /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B70FB89E610035D8DA /* CPGraph.m */; };
@@ -89,6 +90,8 @@
 		070CB8510FC9DEF000F3152B /* CPAnimationKeyFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnimationKeyFrame.m; path = Source/CPAnimationKeyFrame.m; sourceTree = "<group>"; };
 		070CB8520FC9DEF000F3152B /* CPAnimationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnimationTransition.h; path = Source/CPAnimationTransition.h; sourceTree = "<group>"; };
 		070CB8530FC9DEF000F3152B /* CPAnimationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnimationTransition.m; path = Source/CPAnimationTransition.m; sourceTree = "<group>"; };
+		074D7BC30FD6B65E006011BC /* CPXYPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYPlotSpace.h; path = Source/CPXYPlotSpace.h; sourceTree = "<group>"; };
+		074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYPlotSpace.m; path = Source/CPXYPlotSpace.m; sourceTree = "<group>"; };
 		0789EFB80FB9F97F00C0A613 /* CPPlatformSpecificCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificCategories.h; sourceTree = "<group>"; };
 		0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificCategories.m; sourceTree = "<group>"; };
 		0789EFBA0FB9F97F00C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
@@ -144,8 +147,6 @@
 		BC9B82C20FB89E610035D8DA /* CPPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotArea.m; path = Source/CPPlotArea.m; sourceTree = SOURCE_ROOT; };
 		BC9B82C60FB89E610035D8DA /* CPPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSpace.h; path = Source/CPPlotSpace.h; sourceTree = SOURCE_ROOT; };
 		BC9B82C70FB89E610035D8DA /* CPPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotSpace.m; path = Source/CPPlotSpace.m; sourceTree = SOURCE_ROOT; };
-		BC9B82C80FB89E610035D8DA /* CPCartesianPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPCartesianPlotSpace.h; path = Source/CPCartesianPlotSpace.h; sourceTree = SOURCE_ROOT; };
-		BC9B82C90FB89E610035D8DA /* CPCartesianPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPCartesianPlotSpace.m; path = Source/CPCartesianPlotSpace.m; sourceTree = SOURCE_ROOT; };
 		BC9B82CC0FB89E610035D8DA /* CPPolarPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPolarPlotSpace.h; path = Source/CPPolarPlotSpace.h; sourceTree = SOURCE_ROOT; };
 		BC9B82CD0FB89E610035D8DA /* CPPolarPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPolarPlotSpace.m; path = Source/CPPolarPlotSpace.m; sourceTree = SOURCE_ROOT; };
 		BC9B82D00FB89E610035D8DA /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSymbol.h; path = Source/CPPlotSymbol.h; sourceTree = SOURCE_ROOT; };
@@ -399,10 +400,10 @@
 		BC9B82C50FB89E610035D8DA /* Spaces */ = {
 			isa = PBXGroup;
 			children = (
+				074D7BC30FD6B65E006011BC /* CPXYPlotSpace.h */,
+				074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */,
 				BC9B82C60FB89E610035D8DA /* CPPlotSpace.h */,
 				BC9B82C70FB89E610035D8DA /* CPPlotSpace.m */,
-				BC9B82C80FB89E610035D8DA /* CPCartesianPlotSpace.h */,
-				BC9B82C90FB89E610035D8DA /* CPCartesianPlotSpace.m */,
 				BC9B82CC0FB89E610035D8DA /* CPPolarPlotSpace.h */,
 				BC9B82CD0FB89E610035D8DA /* CPPolarPlotSpace.m */,
 			);
@@ -454,6 +455,7 @@
 				070CB8560FC9DEF000F3152B /* CPAnimationKeyFrame.h in Headers */,
 				070CB8450FC9DED400F3152B /* CPAxisLabel.h in Headers */,
 				BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */,
+				074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +506,6 @@
 				BC9B83500FB8A1400035D8DA /* CPBarPlot.m in Sources */,
 				BC9B83510FB8A1400035D8DA /* CPPlotSymbol.m in Sources */,
 				BC9B83520FB8A1400035D8DA /* CPPlotSpace.m in Sources */,
-				BC9B83530FB8A1400035D8DA /* CPCartesianPlotSpace.m in Sources */,
 				BC9B83540FB8A1400035D8DA /* CPPolarPlotSpace.m in Sources */,
 				BC9B83550FB8A1400035D8DA /* CPPlotArea.m in Sources */,
 				BC9B83560FB8A1400035D8DA /* CPGraph.m in Sources */,
@@ -539,6 +540,7 @@
 				070CB8590FC9DEF000F3152B /* CPAnimationTransition.m in Sources */,
 				070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */,
 				BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */,
+				074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +583,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -595,7 +597,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Release;
 		};

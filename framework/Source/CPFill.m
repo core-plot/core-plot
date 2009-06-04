@@ -1,14 +1,10 @@
-//
-//  CPFill.m
-//  CorePlot
-//
 
 #import "CPFill.h"
 #import "_CPFillColor.h"
 #import "_CPFillGradient.h"
 #import "_CPFillImage.h"
 #import "CPColor.h"
-
+#import "CPImage.h"
 
 @implementation CPFill
 
@@ -27,7 +23,7 @@
 
 +(CPFill *)fillWithImage:(CPImage *)anImage 
 {
-	return [[[_CPFillImage alloc] initWithImage: anImage] autorelease];
+	return [[[_CPFillImage alloc] initWithImage:anImage] autorelease];
 }
 
 -(id)initWithColor:(CPColor *)aColor 
