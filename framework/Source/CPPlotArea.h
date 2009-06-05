@@ -3,7 +3,6 @@
 @class CPFill;
 
 @interface CPPlotArea : CPLayer {
-    NSMutableArray *plotSpaces;
 	CPFill *fill;
 }
 
