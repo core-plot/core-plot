@@ -836,6 +836,7 @@
 			children = (
 				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
+				4CC9A36C0FD98AB200CFBE5E /* Tests */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -854,8 +855,6 @@
 			children = (
 				4C62EAC10FC1DFB200E6D443 /* CPColorTests.h */,
 				4C62EAC20FC1DFB200E6D443 /* CPColorTests.m */,
-				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
-				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
 				4C62EACE0FC1E21F00E6D443 /* CPGradientTests.h */,
 				4C62EACF0FC1E21F00E6D443 /* CPGradientTests.m */,
 			);
@@ -1545,6 +1544,15 @@
 				C37E9CD20FC34F57000C8225 /* CPColorTests-testFactories-whiteColor.ppc.gtmUTState */,
 			);
 			name = CPColorTests;
+			sourceTree = "<group>";
+		};
+		4CC9A36C0FD98AB200CFBE5E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
+				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		4CD7E7E90F4B4F8700F9BCBB /* Root */ = {
