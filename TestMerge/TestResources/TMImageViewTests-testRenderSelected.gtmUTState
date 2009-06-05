@@ -6,9 +6,35 @@
 	<string>GTMUnitTestingArchive</string>
 	<key>$GTMVersion</key>
 	<integer>1</integer>
-	<key>ViewIsHidden</key>
-	<false/>
-	<key>selected</key>
+	<key>CALayerSubLayer 0</key>
+	<dict>
+		<key>LayerIsDoublesided</key>
+		<true/>
+		<key>LayerIsHidden</key>
+		<false/>
+		<key>LayerIsOpaque</key>
+		<false/>
+		<key>LayerOpacity</key>
+		<real>1</real>
+	</dict>
+	<key>CALayerSubLayer 1</key>
+	<dict>
+		<key>LayerIsDoublesided</key>
+		<true/>
+		<key>LayerIsHidden</key>
+		<false/>
+		<key>LayerIsOpaque</key>
+		<false/>
+		<key>LayerOpacity</key>
+		<real>1</real>
+	</dict>
+	<key>LayerIsDoublesided</key>
 	<true/>
+	<key>LayerIsHidden</key>
+	<false/>
+	<key>LayerIsOpaque</key>
+	<false/>
+	<key>LayerOpacity</key>
+	<real>1</real>
 </dict>
 </plist>

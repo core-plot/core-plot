@@ -64,7 +64,7 @@ static const NSUInteger GroupNameIndex = 1;
         
         
         id<TMOutputGroup> group = [factory groupWithName:name extension:extension];
-        group.referencePath = path;
+        [group addReferencePathsObject:path];
         
         [groups addObject:group];
     }
