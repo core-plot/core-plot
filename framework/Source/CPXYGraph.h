@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPGraph.h"
 #import "CPDefinitions.h"
@@ -6,6 +5,7 @@
 @class CPXYPlotSpace;
 
 @interface CPXYGraph : CPGraph {
+@private
     CPScaleType xScaleType;
     CPScaleType yScaleType;
 }
