@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 
+@class OutputFile;
 
 @interface OutputGroupID : NSManagedObjectID {}
 @end
@@ -11,16 +12,6 @@
 @interface _OutputGroup : NSManagedObject {}
 + (id)newInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OutputGroupID*)objectID;
-
-
-
-- (NSString*)referencePath;
-- (void)setReferencePath:(NSString*)value_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSString *referencePath;
-#endif
-
-//- (BOOL)validateReferencePath:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -75,6 +66,18 @@
 
 //- (BOOL)validateFailureDiffPath:(id*)value_ error:(NSError**)error_;
 
+
+
+
+- (NSSet*)referenceFiles;
+- (void)addReferenceFiles:(NSSet*)value_;
+- (void)removeReferenceFiles:(NSSet*)value_;
+- (void)addReferenceFilesObject:(OutputFile*)value_;
+- (void)removeReferenceFilesObject:(OutputFile*)value_;
+- (NSMutableSet*)referenceFilesSet;
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+@property (retain) NSSet* referenceFiles;
+#endif
 
 
 @end

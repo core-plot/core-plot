@@ -19,24 +19,6 @@
 
 
 
-- (NSString*)referencePath {
-	[self willAccessValueForKey:@"referencePath"];
-	NSString *result = [self primitiveValueForKey:@"referencePath"];
-	[self didAccessValueForKey:@"referencePath"];
-	return result;
-}
-
-- (void)setReferencePath:(NSString*)value_ {
-	[self willChangeValueForKey:@"referencePath"];
-	[self setPrimitiveValue:value_ forKey:@"referencePath"];
-	[self didChangeValueForKey:@"referencePath"];
-}
-
-
-
-
-
-
 - (NSNumber*)replaceReference {
 	[self willAccessValueForKey:@"replaceReference"];
 	NSNumber *result = [self primitiveValueForKey:@"replaceReference"];
@@ -137,5 +119,53 @@
 
 
 
+
+	
+
+- (NSSet*)referenceFiles {
+	[self willAccessValueForKey:@"referenceFiles"];
+	NSSet *result = [self primitiveValueForKey:@"referenceFiles"];
+	[self didAccessValueForKey:@"referenceFiles"];
+	return result;
+}
+
+- (void)setReferenceFiles:(NSSet*)value_ {
+	[self willChangeValueForKey:@"referenceFiles"];
+	[self setPrimitiveValue:value_ forKey:@"referenceFiles"];
+	[self didChangeValueForKey:@"referenceFiles"];
+}
+
+- (void)addReferenceFiles:(NSSet*)value_ {
+	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value_];
+	[[self primitiveValueForKey:@"referenceFiles"] unionSet:value_];
+	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value_];
+}
+
+-(void)removeReferenceFiles:(NSSet*)value_ {
+	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value_];
+	[[self primitiveValueForKey:@"referenceFiles"] minusSet:value_];
+	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value_];
+}
+	
+- (void)addReferenceFilesObject:(OutputFile*)value_ {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value_ count:1];
+	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"referenceFiles"] addObject:value_];
+	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+	[changedObjects release];
+}
+
+- (void)removeReferenceFilesObject:(OutputFile*)value_ {
+	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value_ count:1];
+	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[[self primitiveValueForKey:@"referenceFiles"] removeObject:value_];
+	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+	[changedObjects release];
+}
+
+- (NSMutableSet*)referenceFilesSet {
+	return [self mutableSetValueForKey:@"referenceFiles"];
+}
+	
 
 @end

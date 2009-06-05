@@ -155,14 +155,14 @@
 								<key>CellTitle</key>
 								<string></string>
 								<key>CellValue</key>
-								<string>0.7599999904632568</string>
+								<string>0.5</string>
 							</dict>
 							<key>ControlTag</key>
 							<integer>0</integer>
 							<key>ControlType</key>
 							<string>BWTexturedSlider</string>
 							<key>ControlValue</key>
-							<string>0.7599999904632568</string>
+							<string>0.5</string>
 							<key>ViewIsHidden</key>
 							<false/>
 							<key>ViewSubView 0</key>
@@ -231,14 +231,14 @@
 								<key>CellTitle</key>
 								<string></string>
 								<key>CellValue</key>
-								<string>0.7574999928474426</string>
+								<string>0.5</string>
 							</dict>
 							<key>ControlTag</key>
 							<integer>0</integer>
 							<key>ControlType</key>
 							<string>BWTexturedSlider</string>
 							<key>ControlValue</key>
-							<string>0.7574999928474426</string>
+							<string>0.5</string>
 							<key>ViewIsHidden</key>
 							<false/>
 							<key>ViewSubView 0</key>
