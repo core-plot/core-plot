@@ -13,9 +13,15 @@ typedef enum {
     ReferenceChoice = NO
 } TMCompareControllerChoice;
 
-@interface TMCompareController : NSViewController {
+@class TMSelectableView;
 
+@interface TMCompareController : NSViewController {
+    IBOutlet TMSelectableView *referenceSelectionView;
+    IBOutlet TMSelectableView *outputSelectionView;
 }
+
+@property (retain,readwrite) IBOutlet TMSelectableView *referenceSelectionView;
+@property (retain,readwrite) IBOutlet TMSelectableView *outputSelectionView;
 
 - (void)setMergeChoice:(TMCompareControllerChoice)choice;
 

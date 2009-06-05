@@ -19,11 +19,8 @@
 
 
 @interface TMImageView : IKImageView {
-    BOOL selected;
-    CALayer *selectionLayer;
 }
 
-@property (assign,readwrite) BOOL selected;
 @property (readwrite) CALayer *overlay;
 
 @end

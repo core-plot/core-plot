@@ -17,6 +17,26 @@
 @end
 
 @implementation TMCompareController
+@synthesize referenceSelectionView;
+@synthesize outputSelectionView;
+
+- (void)setView:(NSView*)view {
+    [super setView:view];
+    
+    [self.referenceSelectionView unbind:@"selected"];
+    [self.outputSelectionView unbind:@"selected"];
+    
+    [[self referenceSelectionView] bind:@"selected"
+                               toObject:self
+                            withKeyPath:@"representedObject.replaceReference"
+                                options:[NSDictionary dictionaryWithObject:NSNegateBooleanTransformerName forKey:NSValueTransformerNameBindingOption]];
+    
+    [[self outputSelectionView] bind:@"selected"
+                            toObject:self
+                         withKeyPath:@"representedObject.replaceReference"
+                             options:nil];
+    
+}
 
 - (void)setMergeChoice:(TMCompareControllerChoice)choice {
     [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:choice];
