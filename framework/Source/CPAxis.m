@@ -42,8 +42,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	self = [super initWithFrame:newFrame];
-	if (self != nil) {
+	if (self = [super initWithFrame:newFrame]) {
 		self.plotSpace = nil;
 		self.majorTickLocations = [NSArray array];
 		self.minorTickLocations = [NSArray array];
@@ -63,7 +62,7 @@
         self.tickLabelFormatter = newFormatter;
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPDirectionDown;
-		self.layerAutoresizingMask = kCPLayerNotSizable;
+		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;		
         self.needsRelabel = YES;
 	}
 	return self;
