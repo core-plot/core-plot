@@ -175,11 +175,6 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 
 - (void)windowDidLoad {
     _GTMDevAssert([self groupsController] != nil, @"nil groups controller");
-    
-    //make sure all compare controllers are loaded
-    for(NSViewController *controller in [[self compareControllersByExtension] allValues]) {
-        (void)[controller view];
-    }
 }
 
 - (void)setGroupSelectionIndexes:(NSIndexSet*)newSelectionIndexes {
@@ -199,7 +194,11 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 
 
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
-    self.currentCompareController = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    NSViewController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    
+    self.currentCompareController = [[[controller class] alloc] initWithNibName:[controller nibName] bundle:[controller nibBundle]];
+    
+    (void)[self.currentCompareController view];
 
     [self.currentCompareController setRepresentedObject:newGroup];
     
@@ -277,6 +276,9 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
         return [[[self currentCompareController] representedObject] outputPath] != nil;
     }
     
+    
+    if([anItem action] == @selector(selectMergeNone:)) return YES;
+    
     return NO;
 }
 
@@ -289,4 +291,10 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
     _GTMDevLog(@"User selected output");
     [self.currentCompareController setMergeChoice:OutputChoice];
 }
+
+- (IBAction)selectMergeNone:(id)sender {
+    _GTMDevLog(@"User selected merge none");
+    [self.currentCompareController setMergeChoice:NeitherChoice];
+}
+
 @end

@@ -13,8 +13,6 @@
 
 @interface TMImageCompareController ()
 
-- (void)unbindViews;
-- (void)bindViews;
 - (void)updateImageViews;
 
 @end
@@ -26,7 +24,6 @@
 - (void)dealloc {
     [refImageView release];
     [outputImageView release];
-    [self unbindViews];
     
     [super dealloc];
 }
@@ -35,7 +32,8 @@
     [super setView:view];
     
     [[IKImageEditPanel sharedImageEditPanel] setHidesOnDeactivate:YES];
-    //[self bindViews];
+    
+    [self updateImageViews];
 }
     
 
@@ -67,30 +65,6 @@
     [super setRepresentedObject:representedObject];
 
     [self updateImageViews];
-}
-
-
-
-- (void)unbindViews {
-    [[self refImageView] unbind:@"selected"];
-    [[self outputImageView] unbind:@"selected"];
-}
-
-- (void)bindViews {
-    [[self refImageView] bind:@"selected"
-                     toObject:self
-                  withKeyPath:@"representedObject.replaceReference"
-                      options:[NSDictionary dictionaryWithObjectsAndKeys:
-                               NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
-                               [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                               nil]];
-    
-    [[self outputImageView] bind:@"selected"
-                        toObject:self
-                     withKeyPath:@"representedObject.replaceReference"
-                         options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                                  nil]];
 }
 
 - (void)mouseDownInImageView:(TMImageView*)view {

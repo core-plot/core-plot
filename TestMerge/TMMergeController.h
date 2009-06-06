@@ -51,6 +51,7 @@ extern NSString * const TMMergeControllerDidCommitMerge;
 
 - (IBAction)selectReference:(id)sender;
 - (IBAction)selectOutput:(id)sender;
+- (IBAction)selectMergeNone:(id)sender;
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 @end

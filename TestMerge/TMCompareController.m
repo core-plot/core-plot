@@ -13,32 +13,50 @@
 #import "GTMDefines.h"
 
 @interface TMCompareController ()
-
+- (void)setupBindings;
 @end
 
 @implementation TMCompareController
 @synthesize referenceSelectionView;
 @synthesize outputSelectionView;
 
-- (void)setView:(NSView*)view {
+- (void)setView:(NSView*)view {  
     [super setView:view];
     
-    [self.referenceSelectionView unbind:@"selected"];
-    [self.outputSelectionView unbind:@"selected"];
+    [self performSelector:@selector(setupBindings) withObject:nil afterDelay:0.1];
+    
+}
+
+- (void)setupBindings {
+    _GTMDevLog(@"TMCompareController binding selection views (%@ & %@).", self.referenceSelectionView, self.outputSelectionView);
     
     [[self referenceSelectionView] bind:@"selected"
                                toObject:self
                             withKeyPath:@"representedObject.replaceReference"
-                                options:[NSDictionary dictionaryWithObject:NSNegateBooleanTransformerName forKey:NSValueTransformerNameBindingOption]];
+                                options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
+                                         [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                         nil
+                                         ]];
     
     [[self outputSelectionView] bind:@"selected"
                             toObject:self
                          withKeyPath:@"representedObject.replaceReference"
-                             options:nil];
-    
+                             options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                      nil
+                                      ]];
 }
 
 - (void)setMergeChoice:(TMCompareControllerChoice)choice {
-    [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:choice];
+    switch (choice) {
+        case OutputChoice:
+        case ReferenceChoice:
+            [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:choice];       
+            break;
+        case NeitherChoice:
+            [(id<TMOutputGroup>)[self representedObject] setReplaceReference:nil];       
+            break;
+    }
 }
 @end

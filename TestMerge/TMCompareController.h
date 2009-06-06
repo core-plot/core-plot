@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 typedef enum {
+    ReferenceChoice = NO,
     OutputChoice = YES,
-    ReferenceChoice = NO
+    NeitherChoice = -1,
 } TMCompareControllerChoice;
 
 @class TMSelectableView;

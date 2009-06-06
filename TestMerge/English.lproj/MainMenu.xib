@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="428"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -194,6 +195,25 @@
 									<reference key="NSMenu" ref="810589954"/>
 									<string key="NSTitle">Select Output</string>
 									<string type="base64-UTF8" key="NSKeyEquiv">75yDA</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="893455832"/>
+									<reference key="NSMixedImage" ref="424226900"/>
+								</object>
+								<object class="NSMenuItem" id="497227938">
+									<reference key="NSMenu" ref="810589954"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="893455832"/>
+									<reference key="NSMixedImage" ref="424226900"/>
+								</object>
+								<object class="NSMenuItem" id="899960760">
+									<reference key="NSMenu" ref="810589954"/>
+									<string key="NSTitle">Select None</string>
+									<string key="NSKeyEquiv">\</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="893455832"/>
@@ -442,6 +462,14 @@
 						<reference key="destination" ref="384887157"/>
 					</object>
 					<int key="connectionID">427</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectMergeNone:</string>
+						<reference key="source" ref="909243075"/>
+						<reference key="destination" ref="899960760"/>
+					</object>
+					<int key="connectionID">431</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -699,6 +727,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="400656485"/>
 							<reference ref="384887157"/>
+							<reference ref="899960760"/>
+							<reference ref="497227938"/>
 						</object>
 						<reference key="parent" ref="353697226"/>
 					</object>
@@ -710,6 +740,16 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">425</int>
 						<reference key="object" ref="384887157"/>
+						<reference key="parent" ref="810589954"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">428</int>
+						<reference key="object" ref="899960760"/>
+						<reference key="parent" ref="810589954"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">429</int>
+						<reference key="object" ref="497227938"/>
 						<reference key="parent" ref="810589954"/>
 					</object>
 				</object>
@@ -784,6 +824,8 @@
 					<string>422.IBPluginDependency</string>
 					<string>423.IBPluginDependency</string>
 					<string>425.IBPluginDependency</string>
+					<string>428.IBPluginDependency</string>
+					<string>429.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -856,7 +898,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{180, 921}, {194, 43}}</string>
+					<string>{{180, 891}, {194, 73}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -889,7 +933,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">427</int>
+			<int key="maxID">431</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -991,12 +1035,14 @@
 					<reference key="sourceIdentifier" ref="956656532"/>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">TMCompareController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="className">TMMergeController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>commitMerge:</string>
+							<string>selectMergeNone:</string>
 							<string>selectOutput:</string>
 							<string>selectReference:</string>
 						</object>
@@ -1004,11 +1050,26 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>groupsController</string>
+							<string>mergeViewContainer</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSArrayController</string>
+							<string>NSBox</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">TMCompareController.h</string>
+						<string key="minorKey">TMMergeController.h</string>
 					</object>
 				</object>
 			</object>
