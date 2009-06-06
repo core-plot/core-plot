@@ -17,7 +17,7 @@
 	if (self = [super initWithFrame:newFrame]) {
 		self.axes = [NSArray array];
         self.needsDisplayOnBoundsChange = YES;
-		self.layerAutoresizingMask = kCPLayerNotSizable;
+		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;		
 	}
 	return self;
 }
@@ -41,7 +41,8 @@
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
         }
-        [self setNeedsLayout];
+		[self setNeedsDisplay];
+        [self setNeedsLayout];		
     }
 }
 
@@ -60,7 +61,7 @@
         self.position = graph.bounds.origin;
         
         // Set axes
-        for ( CPAxis *axis in axes ) {
+        for ( CPAxis *axis in self.axes ) {
 			axis.bounds = self.bounds;
 			axis.anchorPoint = CGPointZero;
 			axis.position = self.bounds.origin;
