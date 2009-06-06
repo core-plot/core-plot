@@ -96,6 +96,26 @@
 						<false/>
 						<key>ViewSubView 0</key>
 						<dict>
+							<key>ViewIsHidden</key>
+							<false/>
+							<key>ViewSubView 0</key>
+							<dict>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
+						</dict>
+						<key>ViewSubView 1</key>
+						<dict>
+							<key>ViewIsHidden</key>
+							<false/>
+							<key>ViewSubView 0</key>
+							<dict>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
+						</dict>
+						<key>ViewSubView 2</key>
+						<dict>
 							<key>ControlIsEnabled</key>
 							<true/>
 							<key>ControlSelectedCell</key>
@@ -118,7 +138,7 @@
 							<key>ViewIsHidden</key>
 							<false/>
 						</dict>
-						<key>ViewSubView 1</key>
+						<key>ViewSubView 3</key>
 						<dict>
 							<key>ControlIsEnabled</key>
 							<true/>
@@ -142,171 +162,157 @@
 							<key>ViewIsHidden</key>
 							<false/>
 						</dict>
-						<key>ViewSubView 2</key>
-						<dict>
-							<key>ControlIsEnabled</key>
-							<true/>
-							<key>ControlSelectedCell</key>
-							<dict>
-								<key>CellState</key>
-								<integer>1</integer>
-								<key>CellTag</key>
-								<integer>0</integer>
-								<key>CellTitle</key>
-								<string></string>
-								<key>CellValue</key>
-								<string>0.5</string>
-							</dict>
-							<key>ControlTag</key>
-							<integer>0</integer>
-							<key>ControlType</key>
-							<string>BWTexturedSlider</string>
-							<key>ControlValue</key>
-							<string>0.5</string>
-							<key>ViewIsHidden</key>
-							<false/>
-							<key>ViewSubView 0</key>
-							<dict>
-								<key>ButtonAlternateTitle</key>
-								<string></string>
-								<key>ControlIsEnabled</key>
-								<true/>
-								<key>ControlSelectedCell</key>
-								<dict>
-									<key>CellState</key>
-									<integer>0</integer>
-									<key>CellTag</key>
-									<integer>0</integer>
-									<key>CellTitle</key>
-									<string>Button</string>
-									<key>CellValue</key>
-									<string>0</string>
-								</dict>
-								<key>ControlTag</key>
-								<integer>-1</integer>
-								<key>ControlType</key>
-								<string>NSButton</string>
-								<key>ControlValue</key>
-								<string>0</string>
-								<key>ViewIsHidden</key>
-								<false/>
-							</dict>
-							<key>ViewSubView 1</key>
-							<dict>
-								<key>ButtonAlternateTitle</key>
-								<string></string>
-								<key>ControlIsEnabled</key>
-								<true/>
-								<key>ControlSelectedCell</key>
-								<dict>
-									<key>CellState</key>
-									<integer>0</integer>
-									<key>CellTag</key>
-									<integer>0</integer>
-									<key>CellTitle</key>
-									<string>Button</string>
-									<key>CellValue</key>
-									<string>0</string>
-								</dict>
-								<key>ControlTag</key>
-								<integer>-1</integer>
-								<key>ControlType</key>
-								<string>NSButton</string>
-								<key>ControlValue</key>
-								<string>0</string>
-								<key>ViewIsHidden</key>
-								<false/>
-							</dict>
-						</dict>
-						<key>ViewSubView 3</key>
-						<dict>
-							<key>ControlIsEnabled</key>
-							<true/>
-							<key>ControlSelectedCell</key>
-							<dict>
-								<key>CellState</key>
-								<integer>1</integer>
-								<key>CellTag</key>
-								<integer>0</integer>
-								<key>CellTitle</key>
-								<string></string>
-								<key>CellValue</key>
-								<string>0.5</string>
-							</dict>
-							<key>ControlTag</key>
-							<integer>0</integer>
-							<key>ControlType</key>
-							<string>BWTexturedSlider</string>
-							<key>ControlValue</key>
-							<string>0.5</string>
-							<key>ViewIsHidden</key>
-							<false/>
-							<key>ViewSubView 0</key>
-							<dict>
-								<key>ButtonAlternateTitle</key>
-								<string></string>
-								<key>ControlIsEnabled</key>
-								<true/>
-								<key>ControlSelectedCell</key>
-								<dict>
-									<key>CellState</key>
-									<integer>0</integer>
-									<key>CellTag</key>
-									<integer>0</integer>
-									<key>CellTitle</key>
-									<string>Button</string>
-									<key>CellValue</key>
-									<string>0</string>
-								</dict>
-								<key>ControlTag</key>
-								<integer>-1</integer>
-								<key>ControlType</key>
-								<string>NSButton</string>
-								<key>ControlValue</key>
-								<string>0</string>
-								<key>ViewIsHidden</key>
-								<false/>
-							</dict>
-							<key>ViewSubView 1</key>
-							<dict>
-								<key>ButtonAlternateTitle</key>
-								<string></string>
-								<key>ControlIsEnabled</key>
-								<true/>
-								<key>ControlSelectedCell</key>
-								<dict>
-									<key>CellState</key>
-									<integer>0</integer>
-									<key>CellTag</key>
-									<integer>0</integer>
-									<key>CellTitle</key>
-									<string>Button</string>
-									<key>CellValue</key>
-									<string>0</string>
-								</dict>
-								<key>ControlTag</key>
-								<integer>-1</integer>
-								<key>ControlType</key>
-								<string>NSButton</string>
-								<key>ControlValue</key>
-								<string>0</string>
-								<key>ViewIsHidden</key>
-								<false/>
-							</dict>
-						</dict>
 						<key>ViewSubView 4</key>
 						<dict>
+							<key>ControlIsEnabled</key>
+							<false/>
+							<key>ControlSelectedCell</key>
+							<dict>
+								<key>CellState</key>
+								<integer>1</integer>
+								<key>CellTag</key>
+								<integer>0</integer>
+								<key>CellTitle</key>
+								<string></string>
+								<key>CellValue</key>
+								<string>0.5</string>
+							</dict>
+							<key>ControlTag</key>
+							<integer>0</integer>
+							<key>ControlType</key>
+							<string>BWTexturedSlider</string>
+							<key>ControlValue</key>
+							<string>0.5</string>
 							<key>ViewIsHidden</key>
 							<false/>
-							<key>selected</key>
-							<false/>
+							<key>ViewSubView 0</key>
+							<dict>
+								<key>ButtonAlternateTitle</key>
+								<string></string>
+								<key>ControlIsEnabled</key>
+								<false/>
+								<key>ControlSelectedCell</key>
+								<dict>
+									<key>CellState</key>
+									<integer>0</integer>
+									<key>CellTag</key>
+									<integer>0</integer>
+									<key>CellTitle</key>
+									<string>Button</string>
+									<key>CellValue</key>
+									<string>0</string>
+								</dict>
+								<key>ControlTag</key>
+								<integer>-1</integer>
+								<key>ControlType</key>
+								<string>NSButton</string>
+								<key>ControlValue</key>
+								<string>0</string>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
+							<key>ViewSubView 1</key>
+							<dict>
+								<key>ButtonAlternateTitle</key>
+								<string></string>
+								<key>ControlIsEnabled</key>
+								<false/>
+								<key>ControlSelectedCell</key>
+								<dict>
+									<key>CellState</key>
+									<integer>0</integer>
+									<key>CellTag</key>
+									<integer>0</integer>
+									<key>CellTitle</key>
+									<string>Button</string>
+									<key>CellValue</key>
+									<string>0</string>
+								</dict>
+								<key>ControlTag</key>
+								<integer>-1</integer>
+								<key>ControlType</key>
+								<string>NSButton</string>
+								<key>ControlValue</key>
+								<string>0</string>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
 						</dict>
 						<key>ViewSubView 5</key>
 						<dict>
+							<key>ControlIsEnabled</key>
+							<true/>
+							<key>ControlSelectedCell</key>
+							<dict>
+								<key>CellState</key>
+								<integer>1</integer>
+								<key>CellTag</key>
+								<integer>0</integer>
+								<key>CellTitle</key>
+								<string></string>
+								<key>CellValue</key>
+								<string>0.7475000023841858</string>
+							</dict>
+							<key>ControlTag</key>
+							<integer>0</integer>
+							<key>ControlType</key>
+							<string>BWTexturedSlider</string>
+							<key>ControlValue</key>
+							<string>0.7475000023841858</string>
 							<key>ViewIsHidden</key>
 							<false/>
-							<key>selected</key>
-							<false/>
+							<key>ViewSubView 0</key>
+							<dict>
+								<key>ButtonAlternateTitle</key>
+								<string></string>
+								<key>ControlIsEnabled</key>
+								<true/>
+								<key>ControlSelectedCell</key>
+								<dict>
+									<key>CellState</key>
+									<integer>0</integer>
+									<key>CellTag</key>
+									<integer>0</integer>
+									<key>CellTitle</key>
+									<string>Button</string>
+									<key>CellValue</key>
+									<string>0</string>
+								</dict>
+								<key>ControlTag</key>
+								<integer>-1</integer>
+								<key>ControlType</key>
+								<string>NSButton</string>
+								<key>ControlValue</key>
+								<string>0</string>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
+							<key>ViewSubView 1</key>
+							<dict>
+								<key>ButtonAlternateTitle</key>
+								<string></string>
+								<key>ControlIsEnabled</key>
+								<true/>
+								<key>ControlSelectedCell</key>
+								<dict>
+									<key>CellState</key>
+									<integer>0</integer>
+									<key>CellTag</key>
+									<integer>0</integer>
+									<key>CellTitle</key>
+									<string>Button</string>
+									<key>CellValue</key>
+									<string>0</string>
+								</dict>
+								<key>ControlTag</key>
+								<integer>-1</integer>
+								<key>ControlType</key>
+								<string>NSButton</string>
+								<key>ControlValue</key>
+								<string>0</string>
+								<key>ViewIsHidden</key>
+								<false/>
+							</dict>
 						</dict>
 					</dict>
 				</dict>

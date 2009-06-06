@@ -11,22 +11,6 @@
 #import "GTMNSObject+UnitTesting.h"
 #import "GTMNSObject+BindingUnitTesting.h"
 
-@interface TMImageView (UnitTesting)
-
--(void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
-
-@end
-
-@implementation TMImageView (UnitTesting)
-
--(void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
-    [super gtm_unitTestEncodeState:inCoder];
-    
-    [inCoder encodeBool:self.selected forKey:@"selected"];
-}
-    
-
-@end
 
 
 @implementation TMImageViewTests
@@ -43,8 +27,6 @@
     self.imageView.autoresizes = YES;
     self.imageView.autohidesScrollers = YES;
     
-    self.imageView.selected = NO;
-    
     [self.imageView setImageWithURL:[NSURL fileURLWithPath:imagePath]];
 }
 
@@ -52,18 +34,7 @@
     self.imageView = nil;
 }
 
-- (void)testRenderNotSelected {
-    self.imageView.selected = NO;
-    GTMAssertObjectEqualToStateAndImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderNotSelected", @"");
-}
-
-- (void)testRenderSelected {
-    self.imageView.selected = YES;
-    GTMAssertObjectEqualToStateAndImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderSelected", @"");
-}
-
 - (void)testRenderNilURLImage {
-    self.imageView.selected = NO;
     [[self imageView] setImageWithURL:nil];
     
     GTMAssertObjectImageEqualToImageNamed(self.imageView.layer, @"TMImageViewTests-testRenderNilURLImage", @"");
