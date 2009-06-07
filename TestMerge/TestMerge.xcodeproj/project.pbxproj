@@ -51,7 +51,6 @@
 		4C7D309A0FC2045000005D98 /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F8C0FC2010200005D98 /* GTMNSObject+UnitTesting.m */; };
 		4C7D309C0FC2045A00005D98 /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2FA10FC2010200005D98 /* GTMUnitTestDevLog.m */; };
 		4C7D30A60FC204D700005D98 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F020FC2010200005D98 /* GTMMethodCheck.m */; };
-		4C7D30CB0FC2097A00005D98 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */; };
 		4C7D30CF0FC209DC00005D98 /* TMOutputSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */; };
 		4C7D31C00FC21F0600005D98 /* _OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BD0FC21F0600005D98 /* _OutputGroup.m */; };
 		4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BF0FC21F0600005D98 /* OutputGroup.m */; };
@@ -359,8 +358,6 @@
 		4C7D30570FC202CD00005D98 /* TestMerge-UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestMerge-UnitTests-Info.plist"; sourceTree = "<group>"; };
 		4C7D30920FC2043000005D98 /* TMOutputSorterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputSorterTests.h; sourceTree = "<group>"; };
 		4C7D30930FC2043000005D98 /* TMOutputSorterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorterTests.m; sourceTree = "<group>"; };
-		4C7D30C90FC2097A00005D98 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+UUID.h"; path = "../../BWKit/NSString+UUID.h"; sourceTree = SOURCE_ROOT; };
-		4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+UUID.m"; path = "../../BWKit/NSString+UUID.m"; sourceTree = SOURCE_ROOT; };
 		4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputSorter.h; sourceTree = "<group>"; };
 		4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorter.m; sourceTree = "<group>"; };
 		4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupCDFactory.h; sourceTree = "<group>"; };
@@ -435,8 +432,6 @@
 				4C050A6B0FD9CD79008D007B /* TMSelectableView.m */,
 				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
 				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
-				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
-				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
 				4C86F6D90FCDA798008849CC /* TMErrors.h */,
 				4C86F6DA0FCDA798008849CC /* TMErrors.m */,
 				4C7D30910FC203FB00005D98 /* Tests */,
@@ -1130,7 +1125,6 @@
 				4C7D309A0FC2045000005D98 /* GTMNSObject+UnitTesting.m in Sources */,
 				4C7D309C0FC2045A00005D98 /* GTMUnitTestDevLog.m in Sources */,
 				4C7D30A60FC204D700005D98 /* GTMMethodCheck.m in Sources */,
-				4C7D30CB0FC2097A00005D98 /* NSString+UUID.m in Sources */,
 				4C86F7940FCDAF72008849CC /* TMMergeControllerTests.m in Sources */,
 				4C6C4AFB0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m in Sources */,
 				4C6C4C2B0FCF19D400D6AB30 /* TMImageViewTests.m in Sources */,

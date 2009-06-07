@@ -8,7 +8,6 @@
 
 #import "TMOutputSorterTests.h"
 #import "TMOutputSorter.h"
-#import "NSString+UUID.h"
 
 #import "GTMNSObject+UnitTesting.h"
 #import "GTMNSString+FindFolder.h"
