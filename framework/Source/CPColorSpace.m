@@ -3,8 +3,6 @@
 
 @interface CPColorSpace ()
 
-+(CGColorSpaceRef)createGenericRGBSpace;
-
 -(void)setCGColorSpace:(CGColorSpaceRef)newSpace;
 
 @end
@@ -21,21 +19,6 @@
  @brief The CGColorSpace to wrap around **/
 @synthesize cgColorSpace;
 
-
-/** @brief Creates and returns a instance of CPColorSpace initialized with the standard RGB space
- * Creates and returns a instance of CPColorSpace initialized with the standard RGB space. 
- * For the iPhone this is CGColorSpaceCreateDeviceRGB(), for Mac OS X CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB).
- **/
-+(CGColorSpaceRef)createGenericRGBSpace;
-{
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-	return CGColorSpaceCreateDeviceRGB();
-#else
-	return CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 
-#endif
-} 
-
-// This caches a generic RGB colorspace for repeated use
 /** @brief Returns a shared instance of CPColorSpace initialized with the standard RGB space
  * Creates and returns a instance of CPColorSpace initialized with the standard RGB space. 
  * For the iPhone this is CGColorSpaceCreateDeviceRGB(), for Mac OS X CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB).
@@ -45,8 +28,7 @@
 +(CPColorSpace *)genericRGBSpace;
 { 
 	static CPColorSpace *space = nil;
-	if(nil == space) 
-	{ 
+	if (nil == space) { 
         CGColorSpaceRef cgSpace = NULL; 
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 		cgSpace = CGColorSpaceCreateDeviceRGB();
