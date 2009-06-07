@@ -6,6 +6,7 @@
 #import "CPLineStyle.h"
 #import "CPTextLayer.h"
 #import "CPAxisLabel.h"
+#import "CPPlatformSpecificCategories.h"
 
 @interface CPAxis ()
 
@@ -135,9 +136,9 @@
 #pragma mark -
 #pragma mark Labels
 
--(NSArray *)createAxisLabelsAtLocations:(NSArray *)locations
+-(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations
 {
-    NSMutableArray *newLabels = [NSMutableArray arrayWithCapacity:locations.count];
+    NSMutableArray *newLabels = [[NSMutableArray alloc] initWithCapacity:locations.count];
 	for ( NSDecimalNumber *tickLocation in locations ) {
         NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
         CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString];
@@ -187,8 +188,9 @@
 	self.minorTickLocations = allNewMinorLocations;
 	
 	// Label ticks
-	NSArray *newLabels = [self createAxisLabelsAtLocations:self.majorTickLocations.allObjects];
+	NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
 	self.axisLabels = [NSSet setWithArray:newLabels];
+    [newLabels release];
     
     [self setNeedsDisplay];
     [self setNeedsLayout];
