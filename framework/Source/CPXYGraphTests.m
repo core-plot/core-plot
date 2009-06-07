@@ -75,8 +75,9 @@
     
     CPXYPlotSpace *plotSpace;
     if([[self.graph allPlotSpaces] count] == 0) {
-        plotSpace = (CPXYPlotSpace*)[[self graph] createPlotSpace];
+        plotSpace = (CPXYPlotSpace*)[[self graph] newPlotSpace];
         [[self graph] addPlotSpace:plotSpace];
+        [plotSpace release];
     } else {
         plotSpace = (CPXYPlotSpace*)[[self graph] defaultPlotSpace];
     }

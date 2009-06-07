@@ -30,10 +30,14 @@
 
         // Plot spaces
 		plotSpaces = [[NSMutableArray alloc] init];
-        [self addPlotSpace:[self createPlotSpace]];
+        CPPlotSpace *newPlotSpace = [self newPlotSpace];
+        [self addPlotSpace:newPlotSpace];
+        [newPlotSpace release];
         
         // Axis set
-        self.axisSet = [self createAxisSet];
+        CPAxisSet *newAxisSet = [self newAxisSet];
+        self.axisSet = newAxisSet;
+        [newAxisSet release];
         
 		self.needsDisplayOnBoundsChange = YES;
         [self setNeedsLayout];
