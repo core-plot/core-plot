@@ -8,3 +8,12 @@
 -(CPNativeImage *)imageOfLayer;
 
 @end
+
+@interface NSNumber (CPPlatformSpecificExtensions)
+
+-(BOOL)isLessThan:(NSNumber *)other;
+-(BOOL)isLessThanOrEqualTo:(NSNumber *)other;
+-(BOOL)isGreaterThan:(NSNumber *)other;
+-(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other;
+
+@end
