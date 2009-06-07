@@ -16,7 +16,6 @@ typedef enum _CPScatterPlotField {
     CPScatterPlotFieldErrorMaximum
 } CPScatterPlotField;
 
-
 @interface CPScatterPlot : CPPlot {
     CPNumericType numericType;
     id observedObjectForXValues;
