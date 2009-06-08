@@ -21,10 +21,4 @@
 
 @property (retain,readonly) TMMergeController * mergeController;
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
-- (NSManagedObjectModel *)managedObjectModel;
-- (NSManagedObjectContext *)managedObjectContext;
-
-- (IBAction)saveAction:sender;
-
 @end

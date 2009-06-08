@@ -9,6 +9,7 @@
 #import "TMMergeControllerTests.h"
 #import "TMMergeController.h"
 #import "TMImageCompareController.h"
+#import "TMUTStateCompareController.h"
 #import "TMOutputGroup.h"
 #import "OutputGroup.h"
 #import "TMOutputSorter.h"
@@ -95,8 +96,10 @@
     controller.outputPath = [groupTestRoot stringByAppendingPathComponent:@"Output"];
     
     controller.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                [[[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]] autorelease],
+                                                [[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]],
                                                 TMGTMUnitTestImageExtension,
+                                                [[TMUTStateCompareController alloc] initWithNibName:@"UTStateCompareView" bundle:[NSBundle mainBundle]],
+                                                TMGTMUnitTestStateExtension,
                                                 nil];
     
     
@@ -104,9 +107,70 @@
     
     STAssertTrue(controller.outputGroups.count > 0, @"");
     
-    [controller.groupsController setSelectedObjects:[NSArray arrayWithObject:[[controller outputGroups] anyObject]]];
+    id<TMOutputGroup> group = [[[controller outputGroups] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"extension LIKE 'tiff'"]] anyObject];
+    
+    STAssertNotNil(group, @"");
+    
+    [controller.groupsController setSelectedObjects:[NSArray arrayWithObject:group]];
     
     GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersImageCompareController", @"");
+    
+    [group setReplaceReferenceValue:YES];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference", @"");
+    
+    [group setReplaceReferenceValue:NO];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference", @"");
+    
+    [group setReplaceReference:nil];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference", @"");
+}
+
+- (void)testSelectsAndRendersUTStateCompareController {
+    NSString *groupTestRoot = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"OutputGroupTest"];
+    
+    BOOL dir;
+    STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:groupTestRoot isDirectory:&dir] && dir, @"");
+    
+    TMMergeController *controller = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    
+    controller.referencePath = [groupTestRoot stringByAppendingPathComponent:@"Reference"];
+    controller.outputPath = [groupTestRoot stringByAppendingPathComponent:@"Output"];
+    
+    controller.compareControllersByExtension = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                [[TMImageCompareController alloc] initWithNibName:@"ImageCompareView" bundle:[NSBundle mainBundle]],
+                                                TMGTMUnitTestImageExtension,
+                                                [[TMUTStateCompareController alloc] initWithNibName:@"UTStateCompareView" bundle:[NSBundle mainBundle]],
+                                                TMGTMUnitTestStateExtension,
+                                                nil];
+    
+    
+    (void)[controller window];
+    
+    STAssertTrue(controller.outputGroups.count > 0, @"");
+    
+    _GTMDevLog(@"%@", [[controller outputGroups] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"extension LIKE 'gtmUTState'"]]);
+    
+    id<TMOutputGroup> group = [[[controller outputGroups] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"extension LIKE 'gtmUTState'"]] anyObject];
+    STAssertNotNil(group, @"");
+    
+    [controller.groupsController setSelectedObjects:[NSArray arrayWithObject:group]];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersUTStateCompareController", @"");
+    
+    [group setReplaceReferenceValue:YES];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference", @"");
+    
+    [group setReplaceReferenceValue:NO];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference", @"");
+    
+    [group setReplaceReference:nil];
+    
+    GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference", @"");
 }
 
 - (void)testUnitTestOutputPathsFromPath {

@@ -146,7 +146,7 @@ NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitM
 }
 
 - (void)windowWillLoad {
-    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[[NSApp delegate] managedObjectModel]];
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]]]];
     
     NSError *err;
     if(![psc addPersistentStoreWithType:NSInMemoryStoreType

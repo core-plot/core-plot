@@ -1080,7 +1080,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run TestMerge to merge GTM output, if necessary\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\n\n${BUILT_PRODUCTS_DIR}/TestMerge.app/Contents/MacOS/TestMerge";
+			shellScript = "# Run TestMerge to merge GTM output, if necessary\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\n\n# Depending on XCode preferences depedencies like TestMerge can be build in the local project directory (1) or in the dependancy's project directory. As a third option we check for a installed version in /Applications/ (3)\nTESTMERGE_LOCATIONS[1]=${BUILT_PRODUCTS_DIR}/TestMerge.app\nTESTMERGE_LOCATIONS[2]=${PROJECT_DIR}/../TestMerge/build/${BUILD_STYLE}/TestMerge.app\nTESTMERGE_LOCATIONS[3]=/Applications/TestMerge.app\n\nfor loc in ${TESTMERGE_LOCATIONS[@]}\ndo\n\techo $loc\n\tif [ -e $loc ]\n\tthen\n\t\topen $loc\n\tfi\ndone\n";
 		};
 		4C7D30540FC202CD00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
