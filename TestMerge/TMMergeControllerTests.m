@@ -271,7 +271,7 @@
             STAssertTrue([[[path pathComponents] lastObject] hasPrefix:@"CP"], @"Non-TM in reference");
         }
         
-        STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]] count], (NSUInteger)3, @"Including added new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]);
+        STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]] count], (NSUInteger)4, @"Including added new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Reference"]]);
         
         STAssertEquals([[[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Output"]] count], (NSUInteger)2, @"Removing _Diff, and new TM image: %@", [[NSFileManager defaultManager] directoryContentsAtPath:[targetPath stringByAppendingPathComponent:@"Output"]]);
         

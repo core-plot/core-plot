@@ -12,6 +12,7 @@
 #import "TMUTStateCompareController.h"
 #import "TMOutputSorter.h"
 
+#import "GTMUnitTestingUtilities.h"
 #import "GTMLogger.h"
 #import "GTMLogger+ASL.h"
 
@@ -61,7 +62,13 @@
                                                object:self.mergeController];
     
     [[[self mergeController] window] center];
-    [[self mergeController] showWindow:self];
+    
+    if([[[self mergeController] outputGroups] count] == 0 &&
+        ![GTMUnitTestingUtilities areWeBeingUnitTested]) {
+        [NSApp terminate:self];
+    } else {
+        [[self mergeController] showWindow:self];
+    }
 }
 
 - (void)mergeControllerDidCommitMerge:(NSNotification*)notification {
