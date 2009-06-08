@@ -69,4 +69,9 @@
     return self;
 }
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"CPPlotRange from %@, length %@", location, length]; 
+}
+
 @end
