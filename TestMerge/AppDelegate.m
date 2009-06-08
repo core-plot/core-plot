@@ -62,13 +62,7 @@
                                                object:self.mergeController];
     
     [[[self mergeController] window] center];
-    
-    if([[[self mergeController] outputGroups] count] == 0 &&
-        ![GTMUnitTestingUtilities areWeBeingUnitTested]) {
-        [NSApp terminate:self];
-    } else {
-        [[self mergeController] showWindow:self];
-    }
+    [[self mergeController] showWindow:self];
 }
 
 - (void)mergeControllerDidCommitMerge:(NSNotification*)notification {
