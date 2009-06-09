@@ -21,6 +21,7 @@
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8F94490FDEF56700E61485 /* libCorePlot-CocoaTouch.a */; };
+		AB8F94580FDEFA1500E61485 /* CPYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* CPYahooDataPuller.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		32CA4F630368D1EE00C91783 /* AAPLot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLot_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		AB8F94560FDEFA1500E61485 /* CPYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPYahooDataPuller.h; sourceTree = "<group>"; };
+		AB8F94570FDEFA1500E61485 /* CPYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPYahooDataPuller.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				289233A50DB2D0840083E9F9 /* MainView.m */,
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
+				AB8F94560FDEFA1500E61485 /* CPYahooDataPuller.h */,
+				AB8F94570FDEFA1500E61485 /* CPYahooDataPuller.m */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
+				AB8F94580FDEFA1500E61485 /* CPYahooDataPuller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
