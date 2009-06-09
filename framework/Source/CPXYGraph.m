@@ -23,9 +23,9 @@
 // Designated
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 {
-	self.xScaleType = newXScaleType;
-	self.yScaleType = newYScaleType;
     if ( self = [super initWithFrame:newFrame] ) {
+		self.xScaleType = newXScaleType;
+		self.yScaleType = newYScaleType;
 		self.needsDisplayOnBoundsChange = YES;
     }
     return self;
@@ -41,8 +41,7 @@
 
 -(CPPlotSpace *)createPlotSpace 
 {
-    CPXYPlotSpace *space;
-    space = [[CPXYPlotSpace alloc] initWithFrame:self.bounds];
+    CPXYPlotSpace *space = [[CPXYPlotSpace alloc] initWithFrame:[self.plotArea bounds]];
     space.xScaleType = self.xScaleType;
     space.yScaleType = self.yScaleType;
     return [space autorelease];
