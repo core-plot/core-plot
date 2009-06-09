@@ -53,7 +53,6 @@
 		BC9B83570FB8A1400035D8DA /* CPXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B90FB89E610035D8DA /* CPXYGraph.m */; };
 		BC9B835A0FB8A1400035D8DA /* NSDecimalNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B20FB89E610035D8DA /* NSDecimalNumberExtensions.m */; };
 		BC9B835B0FB8A1400035D8DA /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B40FB89E610035D8DA /* NSNumberExtensions.m */; };
-		BC9B835C0FB8A1400035D8DA /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82AF0FB89E610035D8DA /* CPDecimalNumberValueTransformer.m */; };
 		BC9B835D0FB8A1400035D8DA /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82A40FB89E610035D8DA /* CPDefinitions.m */; };
 		BC9B835E0FB8A1400035D8DA /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82A60FB89E610035D8DA /* CPExceptions.m */; };
 		BC9B835F0FB8A1400035D8DA /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82A80FB89E610035D8DA /* CPUtilities.m */; };
@@ -133,8 +132,6 @@
 		BC9B82A80FB89E610035D8DA /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPUtilities.m; path = Source/CPUtilities.m; sourceTree = SOURCE_ROOT; };
 		BC9B82AB0FB89E610035D8DA /* CPPlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotRange.h; path = Source/CPPlotRange.h; sourceTree = SOURCE_ROOT; };
 		BC9B82AC0FB89E610035D8DA /* CPPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotRange.m; path = Source/CPPlotRange.m; sourceTree = SOURCE_ROOT; };
-		BC9B82AE0FB89E610035D8DA /* CPDecimalNumberValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDecimalNumberValueTransformer.h; path = MacOnly/CPDecimalNumberValueTransformer.h; sourceTree = SOURCE_ROOT; };
-		BC9B82AF0FB89E610035D8DA /* CPDecimalNumberValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDecimalNumberValueTransformer.m; path = MacOnly/CPDecimalNumberValueTransformer.m; sourceTree = SOURCE_ROOT; };
 		BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDecimalNumberExtensions.h; path = Source/NSDecimalNumberExtensions.h; sourceTree = SOURCE_ROOT; };
 		BC9B82B20FB89E610035D8DA /* NSDecimalNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDecimalNumberExtensions.m; path = Source/NSDecimalNumberExtensions.m; sourceTree = SOURCE_ROOT; };
 		BC9B82B30FB89E610035D8DA /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSNumberExtensions.h; path = Source/NSNumberExtensions.h; sourceTree = SOURCE_ROOT; };
@@ -360,8 +357,6 @@
 		BC9B82AD0FB89E610035D8DA /* Value Transformers */ = {
 			isa = PBXGroup;
 			children = (
-				BC9B82AE0FB89E610035D8DA /* CPDecimalNumberValueTransformer.h */,
-				BC9B82AF0FB89E610035D8DA /* CPDecimalNumberValueTransformer.m */,
 			);
 			name = "Value Transformers";
 			sourceTree = SOURCE_ROOT;
@@ -512,7 +507,6 @@
 				BC9B83570FB8A1400035D8DA /* CPXYGraph.m in Sources */,
 				BC9B835A0FB8A1400035D8DA /* NSDecimalNumberExtensions.m in Sources */,
 				BC9B835B0FB8A1400035D8DA /* NSNumberExtensions.m in Sources */,
-				BC9B835C0FB8A1400035D8DA /* CPDecimalNumberValueTransformer.m in Sources */,
 				BC9B835D0FB8A1400035D8DA /* CPDefinitions.m in Sources */,
 				BC9B835E0FB8A1400035D8DA /* CPExceptions.m in Sources */,
 				BC9B835F0FB8A1400035D8DA /* CPUtilities.m in Sources */,
@@ -596,6 +590,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
 			};

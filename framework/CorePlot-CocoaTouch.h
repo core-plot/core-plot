@@ -1,3 +1,4 @@
+#import "iPhoneOnly/CPPlatformSpecificDefines.h"
 #import "Source/CPAxis.h"
 #import "Source/CPAxisLabel.h"
 #import "Source/CPAxisSet.h"
@@ -11,7 +12,6 @@
 #import "Source/CPGraph.h"
 #import "Source/CPLayer.h"
 #import "Source/CPLineStyle.h"
-#import "iPhoneOnly/CPPlatformSpecificDefines.h"
 #import "iPhoneOnly/CPPlatformSpecificFunctions.h"
 #import "iPhoneOnly/CPPlatformSpecificCategories.h"
 #import "Source/CPPlotArea.h"
