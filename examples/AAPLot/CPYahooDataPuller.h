@@ -15,7 +15,7 @@
     NSDecimalNumber *high;
     NSDecimalNumber *low;
     NSDecimalNumber *close;
-    NSUInteger *volume;
+    NSUInteger volume;
     NSDecimalNumber *adjClose;
 }
 
@@ -24,7 +24,7 @@
 @property(nonatomic, retain)NSDecimalNumber *high;
 @property(nonatomic, retain)NSDecimalNumber *low;
 @property(nonatomic, retain)NSDecimalNumber *close;
-@property(nonatomic, retain)NSUInteger *volume;
+@property(nonatomic, assign)NSUInteger volume;
 @property(nonatomic, retain)NSDecimalNumber *adjClose;
 
 //Designated init
@@ -32,24 +32,37 @@
 
 @end
 
-
 @interface CPYahooDataPuller : NSObject {
     NSString *symbol;
     
     NSDate *startDate;
     NSDate *endDate;
-    
+    id delegate;
 @private
     NSString *csvString;
     NSArray *financialData; //consists of CPFinancialData objs
+
+    //BOOL hostIsReachable;
+    BOOL loadingData;
+    NSMutableData *receivedData;
+    NSURLConnection *connection;
 }
 
+@property(nonatomic, assign)id delegate;
 @property(nonatomic, copy)NSString *symbol;
 @property(nonatomic, retain)NSDate *startDate;
 @property(nonatomic, retain)NSDate *endDate;
-@property(nonatomic, readonly)NSArray *financialData;
+@property(nonatomic, readonly, retain)NSArray *financialData;
 
 //Designated init.
 - (id)initWithSymbol:(NSString*)aSymbol startDate:(NSDate*)aStartDate endDate:(NSDate*)anEndDate;
+
+@end
+
+@protocol CPYahooDataPullerDelegate
+
+@optional
+
+-(void)dataPullerDidFinishFetch:(CPYahooDataPuller *)dp;
 
 @end

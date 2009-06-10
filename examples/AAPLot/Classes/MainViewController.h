@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CPYahooDataPuller.h"
 
-@interface MainViewController : UIViewController {
+@interface MainViewController : UIViewController <CPYahooDataPullerDelegate> {
     
+@private;
+    CPYahooDataPuller *datapuller;
 }
 
 @end
