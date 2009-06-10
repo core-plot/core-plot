@@ -6,12 +6,20 @@
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
+@class CPAxis;
 
 typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyAdHoc,
     CPAxisLabelingPolicyFixedInterval,
     CPAxisLabelingPolicyLogarithmic // TODO: Implement logarithmic labeling
 } CPAxisLabelingPolicy;
+
+@protocol CPAxisDelegate
+
+-(void)axisWillRelabel:(CPAxis *)axis;
+-(void)axisDidRelabel:(CPAxis *)axis;
+
+@end
 
 @interface CPAxis : CPLayer {   
     @private
@@ -35,6 +43,7 @@ typedef enum _CPAxisLabelingPolicy {
     BOOL needsRelabel;
 	BOOL drawsAxisLine;
 	NSArray *labelExclusionRanges;
+	id <CPAxisDelegate> delegate;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -57,6 +66,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) BOOL drawsAxisLine;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
+@property (nonatomic, readwrite, assign) id <CPAxisDelegate> delegate;
 
 -(void)relabel;
 -(void)setNeedsRelabel;

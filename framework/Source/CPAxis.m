@@ -42,6 +42,7 @@
 @synthesize needsRelabel;
 @synthesize drawsAxisLine;
 @synthesize labelExclusionRanges;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -73,6 +74,7 @@
         self.needsRelabel = YES;
 		self.drawsAxisLine = YES;
 		self.labelExclusionRanges = nil;
+		self.delegate = nil;
 	}
 	return self;
 }
@@ -91,6 +93,7 @@
 	self.tickLabelFormatter = nil;
 	self.axisLabels = nil;
 	self.labelExclusionRanges = nil;
+	self.delegate = nil;
 	[super dealloc];
 }
 
@@ -168,6 +171,8 @@
     if (!self.needsRelabel) return;
 	if (!self.plotSpace) return;
 	
+	if ( self.delegate ) [self.delegate axisWillRelabel:self];
+	
 	NSMutableSet *allNewMajorLocations = [NSMutableSet set];
 	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
 	NSSet *newMajorLocations, *newMinorLocations;
@@ -206,6 +211,8 @@
     [self setNeedsLayout];
     
     self.needsRelabel = NO;
+	
+	if ( self.delegate ) [self.delegate axisDidRelabel:self];
 }
 
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations 
