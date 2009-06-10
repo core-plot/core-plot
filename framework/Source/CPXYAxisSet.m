@@ -19,14 +19,14 @@
 		xAxis.minorTickLength = 5.f;
 		xAxis.axisLabelOffset = 20.f;
 		xAxis.coordinate = CPCoordinateX;
-        xAxis.tickDirection = CPDirectionDown;
+        xAxis.tickDirection = CPSignNegative;
 		
 		CPXYAxis *yAxis = [[CPXYAxis alloc] initWithFrame:newFrame];
 		yAxis.majorTickLength = 10.f;
 		yAxis.minorTickLength = 5.f;
 		yAxis.axisLabelOffset = 20.f;
 		yAxis.coordinate = CPCoordinateY;
-        yAxis.tickDirection = CPDirectionLeft;
+        yAxis.tickDirection = CPSignNegative;
 		
 		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
 		[xAxis release];

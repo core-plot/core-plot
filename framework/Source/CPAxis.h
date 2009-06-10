@@ -10,7 +10,7 @@
 typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyAdHoc,
     CPAxisLabelingPolicyFixedInterval,
-    CPAxisLabelingPolicyLogarithmic // Not implemented
+    CPAxisLabelingPolicyLogarithmic // TODO: Implement logarithmic labeling
 } CPAxisLabelingPolicy;
 
 @interface CPAxis : CPLayer {   
@@ -31,7 +31,7 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicy axisLabelingPolicy;
 	NSNumberFormatter *tickLabelFormatter;
 	NSSet *axisLabels;
-    CPDirection tickDirection;
+    CPSign tickDirection;
     BOOL needsRelabel;
 	BOOL drawsAxisLine;
 }
@@ -52,7 +52,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
-@property (nonatomic, readwrite, assign) CPDirection tickDirection;
+@property (nonatomic, readwrite, assign) CPSign tickDirection;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) BOOL drawsAxisLine;
 

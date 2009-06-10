@@ -58,26 +58,26 @@
     CPXYAxis *x = axisSet.xAxis;
     x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
-    x.constantCoordinateValue = [NSDecimalNumber one];
+    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 2;
     x.majorTickLineStyle = majorLineStyle;
     x.minorTickLineStyle = minorLineStyle;
     x.axisLineStyle = majorLineStyle;
     x.majorTickLength = 7.0f;
     x.minorTickLength = 5.0f;
-	x.drawsAxisLine = NO;
 
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber one];
+    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;
     y.axisLineStyle = majorLineStyle;
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
-	y.drawsAxisLine = NO;
     
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];

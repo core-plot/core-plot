@@ -7,6 +7,7 @@
 #import "CPTextLayer.h"
 #import "CPAxisLabel.h"
 #import "CPPlatformSpecificCategories.h"
+#import "CPUtilities.h"
 
 @interface CPAxis ()
 
@@ -64,7 +65,7 @@
         newFormatter.minimumFractionDigits = 1;
         self.tickLabelFormatter = newFormatter;
 		self.axisLabels = [NSSet set];
-        self.tickDirection = CPDirectionDown;
+        self.tickDirection = CPSignNegative;
 		self.layerAutoresizingMask = kCPLayerNotSizable;
         self.needsRelabel = YES;
 		self.drawsAxisLine = YES;
@@ -208,7 +209,7 @@
     if ( self.needsRelabel ) [self relabel];
     for ( CPAxisLabel *label in axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint inDirection:tickDirection];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:OrthogonalCoordinate(self.coordinate) inDirection:tickDirection];
     }
 }
 
@@ -381,7 +382,7 @@
     }
 }
 
--(void)setTickDirection:(CPDirection)newDirection 
+-(void)setTickDirection:(CPSign)newDirection 
 {
     if (newDirection != tickDirection) {
         tickDirection = newDirection;
