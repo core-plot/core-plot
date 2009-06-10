@@ -13,7 +13,6 @@
 
 @end
 
-
 @interface CPPlotSpace (AbstractMethods)
 
 -(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;

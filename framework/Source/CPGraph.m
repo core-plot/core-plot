@@ -203,6 +203,11 @@
 #pragma mark -
 #pragma mark Layout
 
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionGraph;
+}
+
 -(void)layoutSublayers 
 {
     [super layoutSublayers];

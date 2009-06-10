@@ -19,9 +19,9 @@
 
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+	graph.fill = [CPFill fillWithColor:[CPColor colorWithGenericGray:0.4]];
 		
-    CPGradient *gradient = [CPGradient unifiedDarkGradient];
+    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor darkGrayColor] endingColor:[CPColor whiteColor]];
     gradient.angle = 90.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	
@@ -37,14 +37,14 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
 	
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor darkGrayColor];
+    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.35];
     borderLineStyle.lineWidth = 4.0f;
 	
 	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
 	borderedLayer.borderLineStyle = borderLineStyle;
 	borderedLayer.cornerRadius = 10.0f;
-	axisSet.overlayLayerInsetX = -4.0f;
-	axisSet.overlayLayerInsetY = -4.0f;
+	axisSet.overlayLayerInsetX = -5.f;
+	axisSet.overlayLayerInsetY = -5.f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
@@ -94,7 +94,7 @@
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
-	boundLinePlot.dataLineStyle.lineWidth = 2.f;
+	boundLinePlot.dataLineStyle.lineWidth = 3.f;
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
@@ -110,7 +110,7 @@
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
+	dataSourceLinePlot.dataLineStyle.lineWidth = 2.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];

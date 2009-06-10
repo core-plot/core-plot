@@ -24,6 +24,7 @@
 		self.layerAutoresizingMask = kCPLayerNotSizable;
 		self.masksToBounds = NO;
         self.deallocating = NO;
+		self.zPosition = [self.class defaultZPosition];
 	}
 	return self;
 }
@@ -129,6 +130,11 @@
 
 #pragma mark -
 #pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return 0.0f;
+}
 
 -(void)layoutSublayers
 {

@@ -239,6 +239,11 @@
 #pragma mark -
 #pragma mark Sublayer Layout
 
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionAxis;
+}
+
 -(void)layoutSublayers 
 {
     if ( self.needsRelabel ) [self relabel];

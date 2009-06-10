@@ -17,6 +17,7 @@
 +(CPColor *)lightGrayColor;
 
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor;
++(CPColor *)colorWithGenericGray:(CGFloat)gray;
 
 -(id)initWithCGColor:(CGColorRef)cgColor;
 

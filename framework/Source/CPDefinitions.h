@@ -44,3 +44,15 @@ typedef enum _CPSign {
 	CPSignPositive,
 	CPSignNegative
 } CPSign;
+
+typedef enum _CPDefaultZPosition {
+	CPDefaultZPositionGraph,
+	CPDefaultZPositionPlotArea,
+	CPDefaultZPositionAxisSet,
+	CPDefaultZPositionAxis,
+	CPDefaultZPositionPlotSpace,
+	CPDefaultZPositionPlot,
+	CPDefaultZPositionAxisSetOverlay
+} CPDefaultZPosition;
+
+

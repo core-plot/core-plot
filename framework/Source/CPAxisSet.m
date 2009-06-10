@@ -67,7 +67,7 @@
 		[overlayLayer release];
 		overlayLayer = [newLayer retain];
 		overlayLayer.layerAutoresizingMask = kCPLayerNotSizable;
-		overlayLayer.zPosition = 1.0f;
+		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
 		[self addSublayer:newLayer];
 		[self positionInGraph];
 	}
@@ -75,6 +75,11 @@
 
 #pragma mark -
 #pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionAxisSet;
+}
 
 -(void)positionInGraph
 {    
