@@ -16,6 +16,8 @@
 -(void)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval;
 
+-(NSSet *)filteredTickLocations:(NSSet *)allLocations;
+
 @end
 
 @implementation CPAxis
@@ -39,6 +41,7 @@
 @synthesize tickDirection;
 @synthesize needsRelabel;
 @synthesize drawsAxisLine;
+@synthesize labelExclusionRanges;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -69,6 +72,7 @@
 		self.layerAutoresizingMask = kCPLayerNotSizable;
         self.needsRelabel = YES;
 		self.drawsAxisLine = YES;
+		self.labelExclusionRanges = nil;
 	}
 	return self;
 }
@@ -86,6 +90,7 @@
 	self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
 	self.axisLabels = nil;
+	self.labelExclusionRanges = nil;
 	[super dealloc];
 }
 
@@ -187,8 +192,10 @@
 			// TODO: logarithmic labeling policy
 			break;
 	}
-	self.majorTickLocations = allNewMajorLocations;
-	self.minorTickLocations = allNewMinorLocations;
+	
+	// Filter and set tick locations	
+	self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
+	self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
 	
 	// Label ticks
 	NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
@@ -199,6 +206,27 @@
     [self setNeedsLayout];
     
     self.needsRelabel = NO;
+}
+
+-(NSSet *)filteredTickLocations:(NSSet *)allLocations 
+{
+	NSMutableSet *filteredLocations = [allLocations mutableCopy];
+	for ( CPPlotRange *range in self.labelExclusionRanges ) {
+		for ( NSDecimalNumber *location in allLocations ) {
+			if ( [range contains:location] ) [filteredLocations removeObject:location];
+		}
+	}
+	return [filteredLocations autorelease];
+}
+
+-(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
+}
+
+-(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
 }
 
 #pragma mark -
@@ -231,6 +259,14 @@
             [self addSublayer:label];
         }
     }
+}
+
+-(void)setLabelExclusionRanges:(NSArray *)ranges {
+	if ( ranges != labelExclusionRanges ) {
+		[labelExclusionRanges release];
+		labelExclusionRanges = [ranges retain];
+		[self setNeedsRelabel];
+	}
 }
 
 -(void)setNeedsRelabel:(BOOL)newNeedsRelabel 

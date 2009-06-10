@@ -34,6 +34,7 @@ typedef enum _CPAxisLabelingPolicy {
     CPSign tickDirection;
     BOOL needsRelabel;
 	BOOL drawsAxisLine;
+	NSArray *labelExclusionRanges;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -55,11 +56,15 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) BOOL drawsAxisLine;
+@property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
 
 -(void)relabel;
 -(void)setNeedsRelabel;
 
 -(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
+
+-(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations;
+-(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations;
 
 @end
 
