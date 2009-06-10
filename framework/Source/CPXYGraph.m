@@ -39,20 +39,21 @@
 #pragma mark -
 #pragma mark Factory Methods
 
--(CPPlotSpace *)createPlotSpace 
+-(CPPlotSpace *)newPlotSpace 
 {
-    CPXYPlotSpace *space = [[CPXYPlotSpace alloc] initWithFrame:[self.plotArea bounds]];
-    space.xScaleType = self.xScaleType;
-    space.yScaleType = self.yScaleType;
-    return [space autorelease];
+    CPXYPlotSpace *space;
+    space = [[CPXYPlotSpace alloc] initWithFrame:self.bounds];
+    space.xScaleType = xScaleType;
+    space.yScaleType = yScaleType;
+    return space;
 }
 
--(CPAxisSet *)createAxisSet
+-(CPAxisSet *)newAxisSet
 {
     CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] initWithFrame:self.bounds];
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
-    return [newAxisSet autorelease];
+    return newAxisSet;
 }
 
 #pragma mark -

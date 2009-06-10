@@ -9,6 +9,8 @@
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
 
+#import "GTMNSObject+BindingUnitTesting.h"
+
 
 @implementation CPScatterPlotTests
 @synthesize plot;

@@ -3,7 +3,7 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/18/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
+//  Copyright 2009 Physion Consulting LLC. All rights reserved.
 //
 
 #import "TMMergeController.h"
@@ -11,15 +11,21 @@
 #import "TMOutputSorter.h"
 #import "TMErrors.h"
 #import "TMCompareController.h"
+#import "TMImageCompareController.h"
+#import "TMOutputGroup.h"
 
 #import "GTMDefines.h"
 #import "GTMGarbageCollection.h"
 #import "GTMNSObject+KeyValueObserving.h"
 
+NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitMerge";
 
 @interface TMMergeController ()
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
+@property (retain,readwrite) TMCompareController *currentCompareController;
+
+- (void)commitMergeForGroups:(NSSet*)groups;
+- (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup;
 
 @end
 
@@ -33,6 +39,8 @@
 @synthesize groupsController;
 @synthesize mergeViewContainer;
 @synthesize compareControllersByExtension;
+@synthesize currentCompareController;
+@synthesize groupSelectionIndexes;
 
 - (void)dealloc {
     [referencePath release];
@@ -41,16 +49,9 @@
     [groupsController release];
     [mergeViewContainer release];
     [compareControllersByExtension release];
-    
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
+    [currentCompareController release];
     
     [super dealloc];
-}
-
-- (void)finalize {
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
-    
-    [super finalize];
 }
 
 + (void)initialize {
@@ -71,10 +72,13 @@
 
 - (NSSet*)outputGroups {
     
-    TMOutputGroupCDFactory *factory = [[[TMOutputGroupCDFactory alloc] initWithManagedObjectContext:self.managedObjectContext] autorelease];
+    TMOutputGroupCDFactory *factory = [[TMOutputGroupCDFactory alloc] initWithManagedObjectContext:self.managedObjectContext];
     
     NSArray *referencePaths = [self gtmUnitTestOutputPathsFromPath:self.referencePath];
     NSArray *outputPaths = [self gtmUnitTestOutputPathsFromPath:self.outputPath];
+    
+    //quit if there's no new output
+    //if(outputPaths.count == 0) [NSApp terminate:self];
     
     TMOutputSorter *sorter = [[[TMOutputSorter alloc] initWithReferencePaths:referencePaths
                                                                  outputPaths:outputPaths]
@@ -142,7 +146,7 @@
 }
 
 - (void)windowWillLoad {
-    NSPersistentStoreCoordinator *psc = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[[NSApp delegate] managedObjectModel]] autorelease];
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]]]];
     
     NSError *err;
     if(![psc addPersistentStoreWithType:NSInMemoryStoreType
@@ -163,7 +167,7 @@
         [NSApp presentError:err];
     }
     
-    self.managedObjectContext = [[[NSManagedObjectContext alloc] init] autorelease];
+    self.managedObjectContext = [[NSManagedObjectContext alloc] init];
     [self.managedObjectContext setPersistentStoreCoordinator:psc];
     
     _GTMDevLog(@"TMMergeController created moc: %@", self.managedObjectContext);
@@ -171,33 +175,126 @@
 
 - (void)windowDidLoad {
     _GTMDevAssert([self groupsController] != nil, @"nil groups controller");
-    [[self groupsController] gtm_addObserver:self
-                                  forKeyPath:@"selectedObjects"
-                                    selector:@selector(observeSelectedGroupsDidChange:)
-                                    userInfo:nil
-                                     options:NSKeyValueObservingOptionNew];
 }
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
-    _GTMDevAssert([[[notification change] objectForKey:NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting, @"");
+- (void)setGroupSelectionIndexes:(NSIndexSet*)newSelectionIndexes {
+    if(newSelectionIndexes != self.groupSelectionIndexes) {
+        [groupSelectionIndexes release];
+        groupSelectionIndexes = newSelectionIndexes;
+        
+        _GTMDevAssert(self.groupSelectionIndexes.count <= 1, @"Multiple group selection");
+        
+        if(self.groupSelectionIndexes.count > 0) {
+            [self updateMergeViewForGroup:[[[self groupsController] arrangedObjects] objectAtIndex:[[self groupSelectionIndexes] firstIndex]]];
+        } else {
+            [self updateMergeViewForGroup:nil];
+        }
+    }
+}
+
+
+- (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
+    NSViewController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
     
-    _GTMDevAssert([[[self groupsController] selectedObjects] count] <= 1, @"too many selected objects");
+    self.currentCompareController = [[[controller class] alloc] initWithNibName:[controller nibName] bundle:[controller nibBundle]];
     
-    id<TMOutputGroup> newGroup = [[[self groupsController] selectedObjects] lastObject];
+    (void)[self.currentCompareController view];
+
+    [self.currentCompareController setRepresentedObject:newGroup];
     
-    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
-    
-//    if(controller == nil) {
-//        [NSException raise:NSInternalInconsistencyException format:@"Unexpected group extension (%@)", newGroup.extension];
-//    }
-    
-    
-    [self.mergeViewContainer setContentView:controller.view];
-    
-    [controller setRepresentedObject:newGroup];
+    [self.mergeViewContainer setContentView:self.currentCompareController.view];
 }
 
 - (NSArray*)groupSortDescriptors {
-    return [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease]];
+    return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
 }
+
+- (IBAction)commitMerge:(id)sender {
+    _GTMDevLog(@"TMMergeController commiting merge for output groups: %@", self.outputGroups);
+    
+    [self commitMergeForGroups:self.outputGroups];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TMMergeControllerDidCommitMerge object:self];
+}
+
+- (void)commitMergeForGroups:(NSSet*)groups {
+    NSError *err;
+    
+    for(id<TMOutputGroup>group in groups) {
+        if(group.replaceReference == nil) continue; //skip groups with no user choice
+        
+        if(group.replaceReferenceValue) { // move output -> reference
+            //delete reference if it exists
+            if(group.referencePath != nil) {
+                if(![[NSFileManager defaultManager] removeItemAtPath:group.referencePath
+                                                               error:&err]) {
+                    _GTMDevLog(@"Error removing old referencePath: %@", err);
+                    [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                }
+            }
+            
+            //move outputs
+            NSString *newRefPath;
+            if(group.referencePath != nil) {
+                newRefPath = group.referencePath;
+            } else {
+                newRefPath = [[self.referencePath stringByAppendingPathComponent:group.name] stringByAppendingPathExtension:group.extension];
+            }
+            
+            if(![[NSFileManager defaultManager] moveItemAtPath:group.outputPath
+                                                        toPath:newRefPath
+                                                         error:&err]) {
+                _GTMDevLog(@"Error moving outputPath to referencePath: %@", err);
+                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+            }
+        } else { // keep reference, deleting output
+            //delete output
+            if(group.outputPath != nil) {
+                if(![[NSFileManager defaultManager] removeItemAtPath:group.outputPath error:&err]) {
+                    _GTMDevLog(@"Erorr deleting outputPath: %@", err);
+                    [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+                }
+            }
+        }
+        
+        // in either case, we delete the _Failed_Diff, if present
+        if(group.failureDiffPath != nil) {
+            if(![[NSFileManager defaultManager] removeItemAtPath:group.failureDiffPath error:&err]) {
+                [NSApp presentError:err]; // !!!:barry:20090603 TODO wrap error
+            }
+        }
+    }
+}
+
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    if([anItem action] == @selector(selectReference:)) {
+        return [[[self currentCompareController] representedObject] referencePath] != nil;
+    }
+    
+    if([anItem action] == @selector(selectOutput:)) {
+        return [[[self currentCompareController] representedObject] outputPath] != nil;
+    }
+    
+    
+    if([anItem action] == @selector(selectMergeNone:)) return YES;
+    
+    return NO;
+}
+
+- (IBAction)selectReference:(id)sender {
+    _GTMDevLog(@"User selected reference");
+    [self.currentCompareController setMergeChoice:ReferenceChoice];
+}
+
+- (IBAction)selectOutput:(id)sender {
+    _GTMDevLog(@"User selected output");
+    [self.currentCompareController setMergeChoice:OutputChoice];
+}
+
+- (IBAction)selectMergeNone:(id)sender {
+    _GTMDevLog(@"User selected merge none");
+    [self.currentCompareController setMergeChoice:NeitherChoice];
+}
+
 @end

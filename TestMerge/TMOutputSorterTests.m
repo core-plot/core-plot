@@ -3,12 +3,11 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/18/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
+//  Copyright 2009 Physion Consulting LLC. All rights reserved.
 //
 
 #import "TMOutputSorterTests.h"
 #import "TMOutputSorter.h"
-#import "NSString+UUID.h"
 
 #import "GTMNSObject+UnitTesting.h"
 #import "GTMNSString+FindFolder.h"
@@ -131,7 +130,7 @@ typedef enum _OutputType {
     //expectation -- one group per output
     for(NSInteger i=0; i<refPaths.count; i++) {
         [[[factory expect] andReturn:group] groupWithName:@"testSortWithOutputGroupFactoryUsesCorrectSystemVersion" extension:@"tiff"];
-        [[group expect] setReferencePath:[refPaths objectAtIndex:i]];
+        [[group expect] addReferencePathsObject:[refPaths objectAtIndex:i]];
     }
     
     TMOutputSorter *sorter = [[TMOutputSorter alloc] initWithReferencePaths:refPaths
@@ -194,7 +193,7 @@ typedef enum _OutputType {
     //expectation -- combined group
     [[[factory expect] andReturn:group] groupWithName:@"failureTestsForExtension" extension:extension];
     
-    [[group expect] setReferencePath:expectedRefPath];
+    [[group expect] addReferencePathsObject:expectedRefPath];
     
     for(NSInteger i=0; i<outputPaths.count/2; i++) {
         

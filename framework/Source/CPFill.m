@@ -23,7 +23,7 @@
 
 +(CPFill *)fillWithImage:(CPImage *)anImage 
 {
-	return [[[_CPFillImage alloc] initWithImage:anImage] autorelease];
+	return [[(_CPFillImage *)[_CPFillImage alloc] initWithImage:anImage] autorelease];
 }
 
 -(id)initWithColor:(CPColor *)aColor 
@@ -48,7 +48,7 @@
 {
 	[self release];
 	
-	self = [[_CPFillImage alloc] initWithImage: anImage];
+	self = [(_CPFillImage *)[_CPFillImage alloc] initWithImage: anImage];
 	
 	return self;
 }

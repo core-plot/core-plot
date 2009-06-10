@@ -1,0 +1,68 @@
+// !$*UTF8*$!
+{
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 4C7D0F020FD58BB700D83C0F /* TestMerge */;
+		
+	};
+	4C7D0F020FD58BB700D83C0F /* TestMerge */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+			NO,
+		);
+		argumentStrings = (
+			"-SenTest all",
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+			{
+				active = YES;
+				name = DYLD_FALLBACK_FRAMEWORK_PATH;
+				value = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+			},
+			{
+				active = NO;
+				name = DYLD_INSERT_LIBRARIES;
+				value = "$(DEVELOPER_LIBRARY_DIR)/PrivateFrameworks/DevToolsBundleInjection.framework/DevToolsBundleInjection";
+			},
+			{
+				active = NO;
+				name = XCInjectBundle;
+				value = "$(BUILT_PRODUCTS_DIR)/TestMerge-UnitTests.octest";
+			},
+			{
+				active = NO;
+				name = XCInjectBundleInto;
+				value = "$(BUILT_PRODUCTS_DIR)/TestMerge.app/Contents/MacOS/TestMerge";
+			},
+			{
+				active = YES;
+				name = TM_OUTPUT_PATH;
+				value = "$(PROJECT_DIR)/TestResources/OutputGroupTest/Output";
+			},
+			{
+				active = YES;
+				name = TM_REFERENCE_PATH;
+				value = "$(PROJECT_DIR)/TestResources/OutputGroupTest/Reference";
+			},
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TestMerge;
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+}

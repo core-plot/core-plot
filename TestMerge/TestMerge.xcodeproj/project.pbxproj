@@ -8,6 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		2F7446990DB6B7EA00F9684A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7446970DB6B7EA00F9684A /* MainMenu.xib */; };
+		4C050A6C0FD9CD79008D007B /* TMSelectableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C050A6B0FD9CD79008D007B /* TMSelectableView.m */; };
+		4C050A930FD9D115008D007B /* TMSelectableViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C050A8F0FD9D09E008D007B /* TMSelectableViewTest.m */; };
+		4C26728A0FD6FB660091972D /* TMOutputGroupCDFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2672890FD6FB660091972D /* TMOutputGroupCDFactoryTests.m */; };
+		4C2679470FD83FC20091972D /* UTStateCompareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C2679460FD83FC20091972D /* UTStateCompareView.xib */; };
+		4C26794B0FD83FFF0091972D /* TMUTStateCompareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C26794A0FD83FFF0091972D /* TMUTStateCompareController.m */; };
+		4C37795D0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */; };
+		4C37795E0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */; };
+		4C37795F0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */; };
+		4C3779600FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */; };
+		4C5111B50FDDA28F00D4CBCF /* testmerge-image.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A30FDDA28F00D4CBCF /* testmerge-image.tiff */; };
+		4C5111B60FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A40FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState */; };
+		4C5111B70FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A50FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff */; };
+		4C5111B80FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A60FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState */; };
+		4C5111B90FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A70FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff */; };
+		4C5111BA0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A80FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState */; };
+		4C5111BB0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111A90FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff */; };
+		4C5111BC0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AA0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState */; };
+		4C5111BD0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AB0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff */; };
+		4C5111BE0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AC0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState */; };
+		4C5111BF0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AD0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff */; };
+		4C5111C00FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AE0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState */; };
+		4C5111C10FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111AF0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff */; };
+		4C5111C20FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B00FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState */; };
+		4C5111C30FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B10FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff */; };
+		4C5111C40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B20FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff */; };
+		4C5111C50FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B30FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff */; };
+		4C5111C60FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff */; };
 		4C6C49D90FCDC2D600D6AB30 /* TMOutputGroupCDFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */; };
 		4C6C4A350FCDC5C700D6AB30 /* OutputGroupTest in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */; };
 		4C6C4AD40FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */; };
@@ -42,7 +69,6 @@
 		4C7D309A0FC2045000005D98 /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F8C0FC2010200005D98 /* GTMNSObject+UnitTesting.m */; };
 		4C7D309C0FC2045A00005D98 /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2FA10FC2010200005D98 /* GTMUnitTestDevLog.m */; };
 		4C7D30A60FC204D700005D98 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D2F020FC2010200005D98 /* GTMMethodCheck.m */; };
-		4C7D30CB0FC2097A00005D98 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */; };
 		4C7D30CF0FC209DC00005D98 /* TMOutputSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */; };
 		4C7D31C00FC21F0600005D98 /* _OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BD0FC21F0600005D98 /* _OutputGroup.m */; };
 		4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31BF0FC21F0600005D98 /* OutputGroup.m */; };
@@ -57,6 +83,9 @@
 		4C86F7C60FCDB22C008849CC /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C86F7C30FCDB211008849CC /* BWToolkitFramework.framework */; };
 		4C86F7DA0FCDB33C008849CC /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4C86F7C30FCDB211008849CC /* BWToolkitFramework.framework */; };
 		4C86F7E10FCDB45F008849CC /* TMMergeControllerTests-testWindowUIRendering.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C86F7E00FCDB45F008849CC /* TMMergeControllerTests-testWindowUIRendering.tiff */; };
+		4CC9A4020FD995C100CFBE5E /* _OutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4010FD995C100CFBE5E /* _OutputFile.m */; };
+		4CC9A4050FD995D700CFBE5E /* OutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4040FD995D700CFBE5E /* OutputFile.m */; };
+		4CC9A4170FD9963C00CFBE5E /* OutputGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4160FD9963C00CFBE5E /* OutputGroupTests.m */; };
 		770B37ED0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */; };
 		77C8280E06725ACE000B614F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* AppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -137,7 +166,38 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2F7446980DB6B7EA00F9684A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* TestMerge_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMerge_Prefix.pch; sourceTree = "<group>"; };
+		4C050A6A0FD9CD79008D007B /* TMSelectableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSelectableView.h; sourceTree = "<group>"; };
+		4C050A6B0FD9CD79008D007B /* TMSelectableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSelectableView.m; sourceTree = "<group>"; };
+		4C050A8E0FD9D09E008D007B /* TMSelectableViewTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSelectableViewTest.h; sourceTree = "<group>"; };
+		4C050A8F0FD9D09E008D007B /* TMSelectableViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSelectableViewTest.m; sourceTree = "<group>"; };
 		4C05868B0FD44EA900D029E0 /* GTMStackTrace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GTMStackTrace.c; sourceTree = "<group>"; };
+		4C2672880FD6FB660091972D /* TMOutputGroupCDFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupCDFactoryTests.h; sourceTree = "<group>"; };
+		4C2672890FD6FB660091972D /* TMOutputGroupCDFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputGroupCDFactoryTests.m; sourceTree = "<group>"; };
+		4C2679440FD83FB80091972D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/UTStateCompareView.xib; sourceTree = "<group>"; };
+		4C2679490FD83FFF0091972D /* TMUTStateCompareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUTStateCompareController.h; sourceTree = "<group>"; };
+		4C26794A0FD83FFF0091972D /* TMUTStateCompareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUTStateCompareController.m; sourceTree = "<group>"; };
+		4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMImageViewTests-testOverlayRendering.gtmUTState"; path = "TestResources/TMImageViewTests-testOverlayRendering.gtmUTState"; sourceTree = "<group>"; };
+		4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMImageViewTests-testOverlayRendering.tiff"; path = "TestResources/TMImageViewTests-testOverlayRendering.tiff"; sourceTree = "<group>"; };
+		4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState"; sourceTree = "<group>"; };
+		4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff"; sourceTree = "<group>"; };
+		4C5111A30FDDA28F00D4CBCF /* testmerge-image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "testmerge-image.tiff"; path = "TestResources/testmerge-image.tiff"; sourceTree = "<group>"; };
+		4C5111A40FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111A50FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111A60FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111A70FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111A80FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111A90FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111AA0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111AB0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111AC0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111AD0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111AE0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState"; sourceTree = "<group>"; };
+		4C5111AF0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff"; sourceTree = "<group>"; };
+		4C5111B00FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState"; sourceTree = "<group>"; };
+		4C5111B10FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff"; path = "TestResources/TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff"; sourceTree = "<group>"; };
+		4C5111B20FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMSelectableViewTests-testRendering-selected-background.tiff"; path = "TestResources/TMSelectableViewTests-testRendering-selected-background.tiff"; sourceTree = "<group>"; };
+		4C5111B30FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMSelectableViewTests-testRendering-selected-nobackground.tiff"; path = "TestResources/TMSelectableViewTests-testRendering-selected-nobackground.tiff"; sourceTree = "<group>"; };
+		4C5111B40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMSelectableViewTests-testRendering-unselected-background.tiff"; path = "TestResources/TMSelectableViewTests-testRendering-unselected-background.tiff"; sourceTree = "<group>"; };
 		4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OutputGroupTest; path = TestResources/OutputGroupTest; sourceTree = "<group>"; };
 		4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState"; path = "TestResources/TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState"; sourceTree = "<group>"; };
 		4C6C4AD30FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff"; path = "TestResources/TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff"; sourceTree = "<group>"; };
@@ -334,8 +394,6 @@
 		4C7D30570FC202CD00005D98 /* TestMerge-UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestMerge-UnitTests-Info.plist"; sourceTree = "<group>"; };
 		4C7D30920FC2043000005D98 /* TMOutputSorterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputSorterTests.h; sourceTree = "<group>"; };
 		4C7D30930FC2043000005D98 /* TMOutputSorterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorterTests.m; sourceTree = "<group>"; };
-		4C7D30C90FC2097A00005D98 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+UUID.h"; path = "../../BWKit/NSString+UUID.h"; sourceTree = SOURCE_ROOT; };
-		4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+UUID.m"; path = "../../BWKit/NSString+UUID.m"; sourceTree = SOURCE_ROOT; };
 		4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputSorter.h; sourceTree = "<group>"; };
 		4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorter.m; sourceTree = "<group>"; };
 		4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupCDFactory.h; sourceTree = "<group>"; };
@@ -357,6 +415,12 @@
 		4C86F7930FCDAF72008849CC /* TMMergeControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMergeControllerTests.m; sourceTree = "<group>"; };
 		4C86F7B70FCDB211008849CC /* BWToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BWToolkit.xcodeproj; path = bwtoolkit/BWToolkit.xcodeproj; sourceTree = "<group>"; };
 		4C86F7E00FCDB45F008849CC /* TMMergeControllerTests-testWindowUIRendering.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "TMMergeControllerTests-testWindowUIRendering.tiff"; path = "TestResources/TMMergeControllerTests-testWindowUIRendering.tiff"; sourceTree = "<group>"; };
+		4CC9A4000FD995C100CFBE5E /* _OutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OutputFile.h; sourceTree = "<group>"; };
+		4CC9A4010FD995C100CFBE5E /* _OutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OutputFile.m; sourceTree = "<group>"; };
+		4CC9A4030FD995D700CFBE5E /* OutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputFile.h; sourceTree = "<group>"; };
+		4CC9A4040FD995D700CFBE5E /* OutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputFile.m; sourceTree = "<group>"; };
+		4CC9A4150FD9963C00CFBE5E /* OutputGroupTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputGroupTests.h; sourceTree = "<group>"; };
+		4CC9A4160FD9963C00CFBE5E /* OutputGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputGroupTests.m; sourceTree = "<group>"; };
 		770B37EC0679A11B001EADE2 /* TestMerge_DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = TestMerge_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		77C82804067257F0000B614F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		77C8280B06725ACE000B614F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -391,26 +455,22 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4C7D30910FC203FB00005D98 /* Tests */,
 				4C86F6D10FCDA6B4008849CC /* Protocols */,
+				4C2677E80FD830770091972D /* Comparison View Controllers */,
+				4C2677E60FD8306B0091972D /* Window Controllers */,
 				77C8280B06725ACE000B614F /* AppDelegate.h */,
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
-				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
-				4C7D33050FC2311B00005D98 /* TMMergeController.m */,
-				4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */,
-				4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */,
-				4C6C4AF60FCDD72400D6AB30 /* TMImageCompareController.h */,
-				4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */,
 				4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */,
 				4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */,
 				4C6C4C250FCF19A800D6AB30 /* TMImageView.h */,
 				4C6C4C260FCF19A800D6AB30 /* TMImageView.m */,
+				4C050A6A0FD9CD79008D007B /* TMSelectableView.h */,
+				4C050A6B0FD9CD79008D007B /* TMSelectableView.m */,
 				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
 				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
-				4C7D30C90FC2097A00005D98 /* NSString+UUID.h */,
-				4C7D30CA0FC2097A00005D98 /* NSString+UUID.m */,
 				4C86F6D90FCDA798008849CC /* TMErrors.h */,
 				4C86F6DA0FCDA798008849CC /* TMErrors.m */,
+				4C7D30910FC203FB00005D98 /* Tests */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -473,6 +533,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4C2679460FD83FC20091972D /* UTStateCompareView.xib */,
 				4C6C4AE60FCDD4DB00D6AB30 /* ImageCompareView.xib */,
 				2F7446970DB6B7EA00F9684A /* MainMenu.xib */,
 				4C7D33150FC2329700005D98 /* MergeUI.xib */,
@@ -490,6 +551,28 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C2677E60FD8306B0091972D /* Window Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C7D33040FC2311B00005D98 /* TMMergeController.h */,
+				4C7D33050FC2311B00005D98 /* TMMergeController.m */,
+			);
+			name = "Window Controllers";
+			sourceTree = "<group>";
+		};
+		4C2677E80FD830770091972D /* Comparison View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C6C4BEE0FCE0B3D00D6AB30 /* TMCompareController.h */,
+				4C6C4BEF0FCE0B3D00D6AB30 /* TMCompareController.m */,
+				4C6C4AF60FCDD72400D6AB30 /* TMImageCompareController.h */,
+				4C6C4AF70FCDD72400D6AB30 /* TMImageCompareController.m */,
+				4C2679490FD83FFF0091972D /* TMUTStateCompareController.h */,
+				4C26794A0FD83FFF0091972D /* TMUTStateCompareController.m */,
+			);
+			name = "Comparison View Controllers";
 			sourceTree = "<group>";
 		};
 		4C7D2CC60FC200A900005D98 /* GTM */ = {
@@ -784,6 +867,10 @@
 				4C6C4AFA0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m */,
 				4C6C4C290FCF19D400D6AB30 /* TMImageViewTests.h */,
 				4C6C4C2A0FCF19D400D6AB30 /* TMImageViewTests.m */,
+				4C2672880FD6FB660091972D /* TMOutputGroupCDFactoryTests.h */,
+				4C2672890FD6FB660091972D /* TMOutputGroupCDFactoryTests.m */,
+				4C050A8E0FD9D09E008D007B /* TMSelectableViewTest.h */,
+				4C050A8F0FD9D09E008D007B /* TMSelectableViewTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -794,6 +881,9 @@
 				4C7D31BB0FC21F0600005D98 /* machine */,
 				4C7D31BE0FC21F0600005D98 /* OutputGroup.h */,
 				4C7D31BF0FC21F0600005D98 /* OutputGroup.m */,
+				4CC9A4030FD995D700CFBE5E /* OutputFile.h */,
+				4CC9A4040FD995D700CFBE5E /* OutputFile.m */,
+				4CC9A4140FD995F100CFBE5E /* Tests */,
 			);
 			path = MOClasses;
 			sourceTree = "<group>";
@@ -801,6 +891,8 @@
 		4C7D31BB0FC21F0600005D98 /* machine */ = {
 			isa = PBXGroup;
 			children = (
+				4CC9A4000FD995C100CFBE5E /* _OutputFile.h */,
+				4CC9A4010FD995C100CFBE5E /* _OutputFile.m */,
 				4C7D31BC0FC21F0600005D98 /* _OutputGroup.h */,
 				4C7D31BD0FC21F0600005D98 /* _OutputGroup.m */,
 			);
@@ -819,6 +911,28 @@
 		4C7D32DF0FC22FEF00005D98 /* Test Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4C5111A30FDDA28F00D4CBCF /* testmerge-image.tiff */,
+				4C5111A40FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState */,
+				4C5111A50FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff */,
+				4C5111A60FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState */,
+				4C5111A70FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff */,
+				4C5111A80FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState */,
+				4C5111A90FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff */,
+				4C5111AA0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState */,
+				4C5111AB0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff */,
+				4C5111AC0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState */,
+				4C5111AD0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff */,
+				4C5111AE0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState */,
+				4C5111AF0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff */,
+				4C5111B00FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState */,
+				4C5111B10FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff */,
+				4C5111B20FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff */,
+				4C5111B30FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff */,
+				4C5111B40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff */,
+				4C3779590FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState */,
+				4C37795A0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff */,
+				4C37795B0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState */,
+				4C37795C0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff */,
 				4C6C4C880FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff */,
 				4C6C4C770FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff */,
 				4C6C4C780FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff */,
@@ -850,6 +964,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4CC9A4140FD995F100CFBE5E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4CC9A4150FD9963C00CFBE5E /* OutputGroupTests.h */,
+				4CC9A4160FD9963C00CFBE5E /* OutputGroupTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		7756732906782D8800D1FEB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -870,6 +993,7 @@
 				4C7D30520FC202CD00005D98 /* Sources */,
 				4C7D30530FC202CD00005D98 /* Frameworks */,
 				4C7D30540FC202CD00005D98 /* ShellScript */,
+				4C37794F0FD878F000BA848A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -977,6 +1101,28 @@
 				4C6C4C790FCF1EF700D6AB30 /* TMImageViewTests-testRenderNotSelected.tiff in Resources */,
 				4C6C4C7A0FCF1EF700D6AB30 /* TMImageViewTests-testRenderSelected.tiff in Resources */,
 				4C6C4C890FCF1F5C00D6AB30 /* TMImageViewTests-testRenderNilURLImage.tiff in Resources */,
+				4C37795D0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.gtmUTState in Resources */,
+				4C37795E0FD879E800BA848A /* TMImageViewTests-testOverlayRendering.tiff in Resources */,
+				4C37795F0FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.gtmUTState in Resources */,
+				4C3779600FD879E800BA848A /* TMMergeControllerTests-testSelectsAndRendersImageCompareController.tiff in Resources */,
+				4C5111B50FDDA28F00D4CBCF /* testmerge-image.tiff in Resources */,
+				4C5111B60FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.gtmUTState in Resources */,
+				4C5111B70FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+DoNotReplaceReference.tiff in Resources */,
+				4C5111B80FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.gtmUTState in Resources */,
+				4C5111B90FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+NilReplaceReference.tiff in Resources */,
+				4C5111BA0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.gtmUTState in Resources */,
+				4C5111BB0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersImageCompareController+ReplaceReference.tiff in Resources */,
+				4C5111BC0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.gtmUTState in Resources */,
+				4C5111BD0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+DoNotReplaceReference.tiff in Resources */,
+				4C5111BE0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.gtmUTState in Resources */,
+				4C5111BF0FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+NilReplaceReference.tiff in Resources */,
+				4C5111C00FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.gtmUTState in Resources */,
+				4C5111C10FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController+ReplaceReference.tiff in Resources */,
+				4C5111C20FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.gtmUTState in Resources */,
+				4C5111C30FDDA28F00D4CBCF /* TMMergeControllerTests-testSelectsAndRendersUTStateCompareController.tiff in Resources */,
+				4C5111C40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff in Resources */,
+				4C5111C50FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff in Resources */,
+				4C5111C60FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,12 +1134,26 @@
 				2F7446990DB6B7EA00F9684A /* MainMenu.xib in Resources */,
 				4C7D33160FC2329700005D98 /* MergeUI.xib in Resources */,
 				4C6C4AE70FCDD4DB00D6AB30 /* ImageCompareView.xib in Resources */,
+				4C2679470FD83FC20091972D /* UTStateCompareView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4C37794F0FD878F000BA848A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run TestMerge to merge GTM output, if necessary\n\nexport TM_REFERENCE_PATH=${PROJECT_DIR}/TestResources\nexport TM_OUTPUT_PATH=~/Desktop\n\n# Depending on XCode preferences depedencies like TestMerge can be build in the local project directory (1) or in the dependancy's project directory. As a third option we check for a installed version in /Applications/ (3)\nTESTMERGE_LOCATIONS[1]=${BUILT_PRODUCTS_DIR}/TestMerge.app\nTESTMERGE_LOCATIONS[2]=${PROJECT_DIR}/../TestMerge/build/${BUILD_STYLE}/TestMerge.app\nTESTMERGE_LOCATIONS[3]=/Applications/TestMerge.app\n\nfor loc in ${TESTMERGE_LOCATIONS[@]}\ndo\n\techo $loc\n\tif [ -e $loc ]\n\tthen\n\t\topen $loc\n\tfi\ndone\n";
+		};
 		4C7D30540FC202CD00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1005,7 +1165,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\nexport GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"";
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n#export GTM_DISABLE_ZOMBIES=1\n\n${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh";
 		};
 		4C7D31D20FC2209A00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1020,7 +1180,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $PROJECT_DIR;\n\nmogenerator -m TestMerge_DataModel.xcdatamodel/ -O MOClasses/ -M MOClasses/machine";
+			shellScript = "cd $PROJECT_DIR;\n\nHAS_MOGENERATOR=\"`which mogenerator`\"\n\nif [ \"$HAS_MOGENERATOR\" != \"\" ]; then\n\nmogenerator -m TestMerge_DataModel.xcdatamodel/ -O MOClasses/ -M MOClasses/machine\n\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1037,10 +1197,12 @@
 				4C7D309A0FC2045000005D98 /* GTMNSObject+UnitTesting.m in Sources */,
 				4C7D309C0FC2045A00005D98 /* GTMUnitTestDevLog.m in Sources */,
 				4C7D30A60FC204D700005D98 /* GTMMethodCheck.m in Sources */,
-				4C7D30CB0FC2097A00005D98 /* NSString+UUID.m in Sources */,
 				4C86F7940FCDAF72008849CC /* TMMergeControllerTests.m in Sources */,
 				4C6C4AFB0FCDD7A600D6AB30 /* TMImageCompareControllerTests.m in Sources */,
 				4C6C4C2B0FCF19D400D6AB30 /* TMImageViewTests.m in Sources */,
+				4C26728A0FD6FB660091972D /* TMOutputGroupCDFactoryTests.m in Sources */,
+				4CC9A4170FD9963C00CFBE5E /* OutputGroupTests.m in Sources */,
+				4C050A930FD9D115008D007B /* TMSelectableViewTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1071,6 +1233,10 @@
 				4C7D0F460FD5939500D83C0F /* GTMLogger.m in Sources */,
 				4C7D0F470FD5939600D83C0F /* GTMLogger+ASL.m in Sources */,
 				4C7D0F610FD594A000D83C0F /* GTMNSString+FindFolder.m in Sources */,
+				4C26794B0FD83FFF0091972D /* TMUTStateCompareController.m in Sources */,
+				4CC9A4020FD995C100CFBE5E /* _OutputFile.m in Sources */,
+				4CC9A4050FD995D700CFBE5E /* OutputFile.m in Sources */,
+				4C050A6C0FD9CD79008D007B /* TMSelectableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1109,6 +1275,14 @@
 				2F7446980DB6B7EA00F9684A /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		4C2679460FD83FC20091972D /* UTStateCompareView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C2679440FD83FB80091972D /* English */,
+			);
+			name = UTStateCompareView.xib;
 			sourceTree = "<group>";
 		};
 		4C6C4AE60FCDD4DB00D6AB30 /* ImageCompareView.xib */ = {
@@ -1158,7 +1332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1177,7 +1351,7 @@
 		26FC0A860875C7B200E6366F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = required;

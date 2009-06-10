@@ -94,4 +94,12 @@
 	CGContextStrokePath(theContext);
 }
 
+-(NSString*)description
+{
+    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
+    CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
+	return [NSString stringWithFormat:@"CPXYAxis from (%@, %@) viewCoordinates: (%f, %f)-(%f, %f)", range.location, range.end, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
+};
+
 @end

@@ -57,7 +57,7 @@ typedef enum _CPAxisLabelingPolicy {
 -(void)relabel;
 -(void)setNeedsRelabel;
 
--(NSArray *)createAxisLabelsAtLocations:(NSArray *)locations;
+-(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
 
 @end
 

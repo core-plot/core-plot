@@ -61,6 +61,19 @@
 	return color; 
 } 
 
++(CPColor *)greenColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        CGColorRef green = NULL;
+        CGFloat values[4] = {0.0, 1.0, 0.0, 1.0}; 
+		green = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+        color = [[CPColor alloc] initWithCGColor:green];
+        CGColorRelease(green);
+    }
+	return color; 
+}
+
 +(CPColor *)blueColor
 { 
     static CPColor *color = nil;

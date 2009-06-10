@@ -24,3 +24,27 @@
 }
 
 @end
+
+@implementation NSNumber (CPPlatformSpecificExtensions)
+
+-(BOOL)isLessThan:(NSNumber *)other 
+{
+    return ( [self compare:other] == NSOrderedAscending );
+}
+
+-(BOOL)isLessThanOrEqualTo:(NSNumber *)other 
+{
+    return ( [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedAscending );
+}
+
+-(BOOL)isGreaterThan:(NSNumber *)other 
+{
+    return ( [self compare:other] == NSOrderedDescending );
+}
+
+-(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other 
+{
+    return ( [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedDescending );
+}
+
+@end

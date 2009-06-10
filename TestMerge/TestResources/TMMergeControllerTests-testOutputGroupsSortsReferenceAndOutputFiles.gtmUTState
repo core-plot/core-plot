@@ -86,6 +86,16 @@
 			<dict>
 				<key>ViewIsHidden</key>
 				<false/>
+				<key>ViewSubView 0</key>
+				<dict>
+					<key>ViewIsHidden</key>
+					<false/>
+					<key>ViewSubView 0</key>
+					<dict>
+						<key>ViewIsHidden</key>
+						<false/>
+					</dict>
+				</dict>
 			</dict>
 		</dict>
 	</dict>

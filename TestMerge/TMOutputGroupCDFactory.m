@@ -3,11 +3,13 @@
 //  TestMerge
 //
 //  Created by Barry Wark on 5/18/09.
-//  Copyright 2009 Barry Wark. All rights reserved.
+//  Copyright 2009 Physion Consulting LLC. All rights reserved.
 //
 
 #import "TMOutputGroupCDFactory.h"
 #import "GTMDefines.h"
+
+NSString * const TMOutputGroupCDFactoryTooManyGroupsException = @"TMOutputGroupCDFactoryTooManyGroupsException";
 
 @implementation TMOutputGroupCDFactory
 @synthesize context;
@@ -35,16 +37,15 @@
                                                     name, @"NAME",
                                                     extension, @"EXTENSION",
                                                     nil]];
-//    
-//   NSFetchRequest *fetch = [self.context.persistentStoreCoordinator.managedObjectModel fetchRequestTemplateForName:@"allGroups"];
+
     
     NSError *err;
     
     NSArray *existingGroups = [[self context] executeFetchRequest:fetch error:&err];
     
-//    existingGroups = [existingGroups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name LIKE %@ AND extension LIKE[c] %@", name, extension]];
-    
-    _GTMDevAssert(existingGroups.count <= 1, @"More than one group with given name");
+    if(existingGroups.count > 1) {
+        [NSException raise:TMOutputGroupCDFactoryTooManyGroupsException format:@"More than one group with name.ext = %@.%@ in managed object context", name, extension];
+    }
     
     if(existingGroups.count > 0) {
         result = [existingGroups lastObject];
