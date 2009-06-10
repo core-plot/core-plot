@@ -187,7 +187,8 @@
         [axisSet removeFromSuperlayer];
         axisSet = [newSet retain];
         if ( axisSet ) [self addSublayer:axisSet];
-        [axisSet positionInGraph:self];
+		axisSet.graph = self;
+        [axisSet positionInGraph];
     }
 }
 
@@ -205,7 +206,7 @@
 -(void)layoutSublayers 
 {
     [super layoutSublayers];
-    [self.axisSet positionInGraph:self];
+    [self.axisSet positionInGraph];
 }
 
 #pragma mark -

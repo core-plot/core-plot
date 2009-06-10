@@ -37,6 +37,7 @@
 @synthesize axisLabels;
 @synthesize tickDirection;
 @synthesize needsRelabel;
+@synthesize drawsAxisLine;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -66,6 +67,7 @@
         self.tickDirection = CPDirectionDown;
 		self.layerAutoresizingMask = kCPLayerNotSizable;
         self.needsRelabel = YES;
+		self.drawsAxisLine = YES;
 	}
 	return self;
 }
@@ -307,6 +309,14 @@
         [axisLineStyle release];
         axisLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
+    }
+}
+
+-(void)setDrawsAxisLine:(BOOL)newDraws 
+{
+    if ( newDraws != drawsAxisLine ) {
+        drawsAxisLine = newDraws;
+		[self setNeedsDisplay];
     }
 }
 

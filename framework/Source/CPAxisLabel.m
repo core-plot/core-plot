@@ -74,7 +74,7 @@
 
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint inDirection:(CPDirection)direction
 {
-	
+	// TODO: Write implementation for positioning label between ticks
 }
 
 @end

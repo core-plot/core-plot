@@ -35,6 +35,16 @@
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+	
+	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+    borderLineStyle.lineColor = [CPColor darkGrayColor];
+    borderLineStyle.lineWidth = 4.0f;
+	
+	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
+	borderedLayer.borderLineStyle = borderLineStyle;
+	borderedLayer.cornerRadius = 10.0f;
+	axisSet.overlayLayerInsetX = -4.0f;
+	axisSet.overlayLayerInsetY = -4.0f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
@@ -55,6 +65,7 @@
     x.axisLineStyle = majorLineStyle;
     x.majorTickLength = 7.0f;
     x.minorTickLength = 5.0f;
+	x.drawsAxisLine = NO;
 
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
@@ -66,6 +77,7 @@
     y.axisLineStyle = majorLineStyle;
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
+	y.drawsAxisLine = NO;
     
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];

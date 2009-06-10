@@ -3,12 +3,17 @@
 #import "CPXYAxis.h"
 #import "CPDefinitions.h"
 #import "CPPlotArea.h"
+#import "CPBorderedLayer.h"
 
 @implementation CPXYAxisSet
 
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if (self = [super initWithFrame:newFrame]) {
+		CPBorderedLayer *newOverlayLayer = [[CPBorderedLayer alloc] init];
+		self.overlayLayer = newOverlayLayer;
+		[newOverlayLayer release];
+		
 		CPXYAxis *xAxis = [[CPXYAxis alloc] initWithFrame:newFrame];
 		xAxis.majorTickLength = 10.f;
 		xAxis.minorTickLength = 5.f;

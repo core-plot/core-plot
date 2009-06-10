@@ -11,8 +11,8 @@
 NSString *CPScatterPlotBindingXValues = @"xValues";
 NSString *CPScatterPlotBindingYValues = @"yValues";
 
-static NSString *CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString *CPYValuesBindingContext = @"CPYValuesBindingContext";
+static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
+static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 
 @interface CPScatterPlot ()

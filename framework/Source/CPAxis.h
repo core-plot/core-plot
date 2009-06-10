@@ -33,6 +33,7 @@ typedef enum _CPAxisLabelingPolicy {
 	NSSet *axisLabels;
     CPDirection tickDirection;
     BOOL needsRelabel;
+	BOOL drawsAxisLine;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -53,6 +54,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readwrite, assign) CPDirection tickDirection;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readwrite, assign) BOOL drawsAxisLine;
 
 -(void)relabel;
 -(void)setNeedsRelabel;
