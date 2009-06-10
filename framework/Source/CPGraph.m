@@ -19,7 +19,6 @@
 
 @synthesize axisSet;
 @synthesize plotArea;
-@synthesize defaultPlotSpace;
 @synthesize fill;
 @synthesize plots;
 @synthesize plotSpaces;
@@ -94,7 +93,6 @@
 		plot.bounds = space.bounds;
 		plot.anchorPoint = CGPointZero;
 		plot.position = CGPointZero;
-		plot.autoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 		[self.plots addObject:plot];
 		plot.plotSpace = space;
 		[space addSublayer:plot];	
@@ -126,7 +124,6 @@
 		plot.bounds = space.bounds;
 		plot.anchorPoint = CGPointZero;
 		plot.position = CGPointZero;
-		plot.autoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
 		[space addSublayer:plot];
@@ -206,7 +203,7 @@
         axisSet = newSet;
         if ( axisSet ) {
 			[self addSublayer:axisSet];	
-			[axisSet positionInGraph:self];
+//			[axisSet positionInGraph:self];
 		}
     }
 }
@@ -224,8 +221,19 @@
 
 -(void)layoutSublayers 
 {
-    [super layoutSublayers];
-    [self.axisSet positionInGraph:self];
+    if ( self.plotArea ) {
+		self.plotArea.frame = CGRectInset(self.bounds, 40.0, 40.0); // TODO: Replace later with true margins
+
+        // Set the bounds so that the axis set coordinates coincide with the 
+        // plot area drawing coordinates.
+        CGRect axisSetBounds = self.bounds;
+        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
+		
+		CPAxisSet *theAxisSet = self.axisSet;
+        theAxisSet.bounds = axisSetBounds;
+        theAxisSet.anchorPoint = CGPointZero;
+        theAxisSet.position = self.bounds.origin;
+    }
 }
 
 #pragma mark -

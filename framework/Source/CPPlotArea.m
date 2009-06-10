@@ -12,7 +12,6 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 		self.needsDisplayOnBoundsChange = YES;
 		
 		self.fill = nil;
@@ -22,7 +21,7 @@
 
 -(void)dealloc
 {
-	[fill release];
+	self.fill = nil;
 	[super dealloc];
 }
 

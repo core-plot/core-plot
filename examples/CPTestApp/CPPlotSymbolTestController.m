@@ -11,7 +11,7 @@
 -(void)awakeFromNib {
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	graph.autoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;	
+	graph.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;	
     graph.axisSet = nil;
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];

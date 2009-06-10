@@ -48,7 +48,7 @@
 		self.minorTickLocations = [NSArray array];
 		self.minorTickLength = 3.f;
 		self.majorTickLength = 5.f;
-		self.axisLabelOffset = 20.f;
+		self.axisLabelOffset = 2.f;
 		self.majorTickLineStyle = [CPLineStyle lineStyle];
 		self.minorTickLineStyle = [CPLineStyle lineStyle];
 		self.fixedPoint = [NSDecimalNumber zero];
@@ -62,7 +62,6 @@
         self.tickLabelFormatter = newFormatter;
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPDirectionDown;
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;		
         self.needsRelabel = YES;
 	}
 	return self;
@@ -141,7 +140,7 @@
         NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
         CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString];
         newLabel.tickLocation = tickLocation;
-        newLabel.offset = self.axisLabelOffset;
+        newLabel.offset = self.axisLabelOffset + self.majorTickLength;
         [newLabels addObject:newLabel];
         [newLabel release];
 	}
@@ -162,7 +161,7 @@
 	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
 	NSSet *newMajorLocations, *newMinorLocations;
 	
-	switch (axisLabelingPolicy) {
+	switch (self.axisLabelingPolicy) {
 		case CPAxisLabelingPolicyAdHoc:
 			// Nothing to do. User sets labels.
 			break;
@@ -189,9 +188,6 @@
 	NSArray *newLabels = [self createAxisLabelsAtLocations:self.majorTickLocations.allObjects];
 	self.axisLabels = [NSSet setWithArray:newLabels];
     
-    [self setNeedsDisplay];
-    [self setNeedsLayout];
-    
     self.needsRelabel = NO;
 }
 
@@ -201,9 +197,9 @@
 -(void)layoutSublayers 
 {
     if ( self.needsRelabel ) [self relabel];
-    for ( CPAxisLabel *label in axisLabels ) {
+    for ( CPAxisLabel *label in self.axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint inDirection:tickDirection];
+        [label positionRelativeToViewPoint:tickBasePoint inDirection:self.tickDirection];
     }
 }
 
@@ -224,7 +220,9 @@
         for ( CPAxisLabel *label in axisLabels ) {
             [self addSublayer:label];
         }
-    }
+
+		[self setNeedsDisplay];		
+	}
 }
 
 -(void)setNeedsRelabel:(BOOL)newNeedsRelabel 
@@ -233,7 +231,6 @@
         needsRelabel = newNeedsRelabel;
         if ( needsRelabel ) {
             [self setNeedsLayout];
-            [self setNeedsDisplay];
         }
     }
 }
@@ -243,7 +240,7 @@
     if ( newLocations != majorTickLocations ) {
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
-        self.needsRelabel = YES;
+		[self setNeedsDisplay];		
     }
 }
 
@@ -252,7 +249,7 @@
     if ( newLocations != majorTickLocations ) {
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
-        self.needsRelabel = YES;
+		[self setNeedsDisplay];		
     }
 }
 
@@ -276,8 +273,7 @@
 {
     if ( newOffset != axisLabelOffset ) {
         axisLabelOffset = newOffset;
-        [self setNeedsDisplay];
-        [self setNeedsLayout];
+		self.needsRelabel = YES;
     }
 }
 
@@ -372,8 +368,7 @@
 {
     if (newDirection != tickDirection) {
         tickDirection = newDirection;
-        [self setNeedsDisplay];
-        [self setNeedsLayout];
+        self.needsRelabel = YES;
     }
 }
 

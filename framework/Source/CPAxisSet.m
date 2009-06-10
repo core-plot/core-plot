@@ -17,7 +17,6 @@
 	if (self = [super initWithFrame:newFrame]) {
 		self.axes = [NSArray array];
         self.needsDisplayOnBoundsChange = YES;
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;		
 	}
 	return self;
 }
@@ -42,13 +41,12 @@
             [self addSublayer:axis];
         }
 		[self setNeedsDisplay];
-        [self setNeedsLayout];		
     }
 }
 
 #pragma mark -
 #pragma mark Layout
-
+/*
 -(void)positionInGraph:(CPGraph *)graph 
 {    
     if ( graph.plotArea ) {
@@ -66,9 +64,8 @@
 			axis.anchorPoint = CGPointZero;
 			axis.position = self.bounds.origin;
 			[axis setNeedsDisplay];
-            [axis setNeedsLayout];
         }
     }
 }
-
+*/
 @end

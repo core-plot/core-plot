@@ -120,7 +120,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 	if (theFont) {
 		textSize = NSSizeToCGSize([self.text sizeWithAttributes:[NSDictionary dictionaryWithObject:theFont forKey:NSFontAttributeName]]);
 	} else {
-		textSize = CGSizeMake(0.0, 0.0);
+		textSize = CGSizeZero;
 	}
 #endif
 	// Add small margin
@@ -128,7 +128,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
 	
 	CGRect newBounds = self.bounds;
-	newBounds.size = CGSizeMake(textSize.width, textSize.height);
+	newBounds.size = textSize;
 	self.bounds = newBounds;
 	[self setNeedsDisplay];
 }
@@ -147,7 +147,7 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 	CGContextSetStrokeColorWithColor(context, textColor);	
 	CGContextSetFillColorWithColor(context, textColor);
 	CGContextSetAllowsAntialiasing(context, true);
-
+	
 #if defined(USECROSSPLATFORMUNICODETEXTRENDERING)
 	// Cross-platform text drawing, with Unicode support
 	CPPushCGContext(context);
@@ -177,9 +177,10 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 	CGContextSetTextPosition(context, 0.0f, round(self.fontSize / 4.0f));
 	CGContextShowText(context, [self.text UTF8String], strlen([self.text UTF8String]));
 	
-	CGContextSetShadowWithColor( context, CGSizeMake( 0.0, 0.0 ), 5.0f, textColor );
+	CGContextSetShadowWithColor(context, CGSizeZero, 5.0f, textColor);
 #endif
 
+//	CGContextStrokeRectWithWidth(context, self.bounds, 1.0f);
 	CGContextSetAllowsAntialiasing(context, false);
 }
 

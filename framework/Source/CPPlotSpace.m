@@ -2,25 +2,20 @@
 #import "CPPlotSpace.h"
 #import "CPPlotArea.h"
 #import "CPAxisSet.h"
+#import "CPLineStyle.h"
 
 @implementation CPPlotSpace
 
 @synthesize identifier;
 
 #pragma mark -
-#pragma mark Init/Dealloc
+#pragma mark Drawing
 
--(id)initWithFrame:(CGRect)newFrame
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	if (self = [super initWithFrame:newFrame]) {
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;		
-	}
-	return self;
-}
-
--(void)dealloc
-{
-    [super dealloc];
+	[[CPLineStyle lineStyle] setLineStyleInContext:theContext];
+	CGContextStrokeRectWithWidth(theContext, self.bounds, 1.0f);
+	CGContextFillEllipseInRect(theContext, CGRectMake(-2, -2, 4, 4));
 }
 
 @end

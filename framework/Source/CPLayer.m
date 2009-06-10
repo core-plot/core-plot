@@ -2,26 +2,16 @@
 #import "CPLayer.h"
 #import "CPPlatformSpecificFunctions.h"
 
-@interface CPLayer()
-
-@property (nonatomic, readwrite) CGRect previousBounds;
-
-@end
-
 @implementation CPLayer
 
-@synthesize layerAutoresizingMask;
-@synthesize previousBounds;
 @synthesize deallocating;
 
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super init] ) {
 		self.frame = newFrame;
-		self.previousBounds = self.bounds;
 		self.needsDisplayOnBoundsChange = NO;
 		self.opaque = NO;
-		self.layerAutoresizingMask = kCPLayerNotSizable;
 		self.masksToBounds = NO;
         self.deallocating = NO;
 	}
@@ -32,7 +22,6 @@
 {
 	return [self initWithFrame:CGRectZero];
 }
-
 
 #pragma mark -
 #pragma mark Drawing
@@ -139,70 +128,17 @@
 
 -(void)layoutSublayers
 {
-	NSLog(@"begin layoutSublayers for %@", self);
-	
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
-	CGRect mainLayerBounds = self.bounds;
-	CGRect oldBounds = self.previousBounds;
-	CGFloat dx = mainLayerBounds.size.width - oldBounds.size.width;
-	CGFloat dy = mainLayerBounds.size.height - oldBounds.size.height;
+	// Subclasses should override to lay out their own sublayers
+	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
+	// Sublayers fill the super layer's bounds by default
+	CGRect selfBounds = self.bounds;
 	
-	for (CALayer *currentLayer in self.sublayers) {
-		// People might add normal CALayers to their hierarchy, don't lay those out
-		if ([currentLayer isKindOfClass:[CPLayer class]]) {
-			NSLog(@"currentLayer: %@", currentLayer);
-
-			CPLayer *currentCPLayer = (CPLayer *)currentLayer;
-			CGRect sublayerFrame = currentCPLayer.frame;
-			NSUInteger currentAutoresizingMask = currentCPLayer.layerAutoresizingMask;
-            
-            if ( currentAutoresizingMask == kCPLayerNotSizable ) continue;
-			
-			// Align and size along X
-			NSUInteger count = 0;
-			if (currentAutoresizingMask & kCPLayerMinXMargin) count++;
-			if (currentAutoresizingMask & kCPLayerWidthSizable) count++;
-			if (currentAutoresizingMask & kCPLayerMaxXMargin) count++;
-			
-			if (count > 0) {
-				CGFloat offset = dx / (CGFloat)count;
-				NSLog(@"x offset = %f", offset);
-				if (currentAutoresizingMask & kCPLayerMinXMargin) sublayerFrame.origin.x += offset;
-				if (currentAutoresizingMask & kCPLayerWidthSizable) sublayerFrame.size.width += offset;
-			}
-			
-			// Align and size along Y
-			count = 0;
-			if (currentAutoresizingMask & kCPLayerMinYMargin) count++;
-			if (currentAutoresizingMask & kCPLayerHeightSizable) count++;
-			if (currentAutoresizingMask & kCPLayerMaxYMargin) count++;
-			
-			if (count > 0) {
-				CGFloat offset = dy / (CGFloat)count;
-				NSLog(@"y offset = %f", offset);
-				if (currentAutoresizingMask & kCPLayerMinYMargin) sublayerFrame.origin.y += offset;
-				if (currentAutoresizingMask & kCPLayerHeightSizable) sublayerFrame.size.height += offset;
-			}
-			
-			if (!CGRectEqualToRect(sublayerFrame, currentCPLayer.frame)) {
-				currentCPLayer.previousBounds = currentCPLayer.bounds;
-				currentCPLayer.frame = sublayerFrame;
-			}
-		}
-		[currentLayer layoutSublayers];
-	}	
-	self.previousBounds = self.bounds;	
-	NSLog(@"end layoutSublayers for %@", self);
-}
-
-#pragma mark -
-#pragma mark Accessors
-
--(void)setBounds:(CGRect)newBounds;
-{
-	self.previousBounds = self.bounds;	
-	NSLog(@"%@ setBounds: %@", self, NSStringFromRect(NSRectFromCGRect(newBounds)));
-	[super setBounds:newBounds];
+	for (CALayer *subLayer in self.sublayers) {
+		subLayer.bounds = selfBounds;
+		subLayer.anchorPoint = CGPointZero;
+		subLayer.position = selfBounds.origin;
+	}
 }
 
 @end

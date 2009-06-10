@@ -12,8 +12,6 @@
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
 
--(id)initWithFrame:(CGRect)frame;
-
--(void)positionInGraph:(CPGraph *)graph;
+// -(void)positionInGraph:(CPGraph *)graph;
 
 @end
