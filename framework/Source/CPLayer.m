@@ -52,16 +52,14 @@
 {
 	// TODO: set up clipping for sublayers
 	[self renderAsVectorInContext:context];
-	CGContextStrokeRectWithWidth(context, self.bounds, 1.0f);
-	CGContextFillEllipseInRect(context, CGRectMake(-2, -2, 4, 4));
-	NSLog(@"recursivelyRenderInContext %@ in frame %@ with bounds %@", self, NSStringFromRect(NSRectFromCGRect(self.frame)), NSStringFromRect(NSRectFromCGRect(self.bounds)));
-	
+
 	for (CALayer *currentSublayer in self.sublayers) {
 		CGContextSaveGState(context);
 		
 		// Shift origin of context to match starting coordinate of sublayer
-		CGPoint currentSublayerOrigin = currentSublayer.frame.origin;
-		CGContextTranslateCTM(context, currentSublayerOrigin.x, currentSublayerOrigin.y);
+		CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
+		CGPoint currentSublayerBoundsOrigin = currentSublayer.bounds.origin;
+		CGContextTranslateCTM(context, currentSublayerFrameOrigin.x - currentSublayerBoundsOrigin.x, currentSublayerFrameOrigin.y - currentSublayerBoundsOrigin.y);
 		if ([currentSublayer isKindOfClass:[CPLayer class]]) {
 			[(CPLayer *)currentSublayer recursivelyRenderInContext:context];
 		} else {
