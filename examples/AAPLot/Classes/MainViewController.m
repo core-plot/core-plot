@@ -113,9 +113,9 @@
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     //NSDecimalNumber *high = [datapuller overallHigh];
     //NSDecimalNumber *low = [datapuller overallLow];
-    NSDecimalNumber *high = [NSDecimalNumber numberWithInt:200];
-    NSDecimalNumber *low = [NSDecimalNumber numberWithInt:100];
-    NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
+    //NSDecimalNumber *high = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:200];
+    //NSDecimalNumber *low = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:100];
+    //NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([datapuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(120.0) length:CPDecimalFromFloat(30.0)];

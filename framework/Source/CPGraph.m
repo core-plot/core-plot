@@ -12,7 +12,6 @@
 
 @synthesize axisSet;
 @synthesize plotArea;
-@synthesize defaultPlotSpace;
 @synthesize fill;
 
 #pragma mark -
