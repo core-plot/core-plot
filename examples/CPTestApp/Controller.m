@@ -19,12 +19,15 @@
 
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:[CPColor blackColor] endingColor:[CPColor whiteColor]];
-	graphGradient = [graphGradient addColorStop:[CPColor blueColor] atPosition:0.4];
-	graphGradient.gradientType = CPGradientTypeRadial;
+	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
+	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:endColor endingColor:endColor];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.3];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.3] atPosition:0.5];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.6];
+	graphGradient.angle = 90.0f;
 	graph.fill = [CPFill fillWithGradient:graphGradient];
 		
-    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor darkGrayColor] endingColor:[CPColor whiteColor]];
+    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.7] endingColor:[CPColor colorWithGenericGray:0.95]];
     gradient.angle = 90.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	
@@ -40,18 +43,18 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
 	
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.35];
-    borderLineStyle.lineWidth = 4.0f;
+    borderLineStyle.lineColor = [CPColor colorWithGenericGray:1.0];
+    borderLineStyle.lineWidth = 5.0f;
 	
 	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
 	borderedLayer.borderLineStyle = borderLineStyle;
 	borderedLayer.cornerRadius = 10.0f;
-	axisSet.overlayLayerInsetX = -5.f;
-	axisSet.overlayLayerInsetY = -5.f;
+	axisSet.overlayLayerInsetX = -4.f;
+	axisSet.overlayLayerInsetY = -4.f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
-    majorLineStyle.lineColor = [CPColor darkGrayColor];
+    majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
     majorLineStyle.lineWidth = 2.0f;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
