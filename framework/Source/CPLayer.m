@@ -60,6 +60,9 @@
 		CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
 		CGPoint currentSublayerBoundsOrigin = currentSublayer.bounds.origin;
 		CGContextTranslateCTM(context, currentSublayerFrameOrigin.x - currentSublayerBoundsOrigin.x, currentSublayerFrameOrigin.y - currentSublayerBoundsOrigin.y);
+		if (self.masksToBounds) {
+			CGContextClipToRect(context, currentSublayer.bounds);
+		}
 		if ([currentSublayer isKindOfClass:[CPLayer class]]) {
 			[(CPLayer *)currentSublayer recursivelyRenderInContext:context];
 		} else {
