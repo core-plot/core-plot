@@ -19,8 +19,8 @@ typedef enum _CPBlendingMode {
 } CPGradientBlendingMode;
 
 typedef enum _CPGradientType {
-	CPAxialGradientType,
-	CPRadialGradientType
+	CPGradientTypeAxial,
+	CPGradientTypeRadial
 } CPGradientType;
 
 @class CPColorSpace;

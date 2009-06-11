@@ -28,7 +28,7 @@
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(14.0)];
     
 	CPGradient *gradientFill = [CPGradient rainbowGradient];
-	gradientFill.gradientType = CPRadialGradientType;
+	gradientFill.gradientType = CPGradientTypeRadial;
 	gradientFill.angle = 90;
 	
     // Create a series of plots that uses the data source method

@@ -1,5 +1,6 @@
 
 #import "CPPlotRange.h"
+#import "CPPlatformSpecificCategories.h"
 
 @implementation CPPlotRange
 

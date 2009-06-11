@@ -19,7 +19,10 @@
 
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	graph.fill = [CPFill fillWithColor:[CPColor colorWithGenericGray:0.4]];
+	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:[CPColor blackColor] endingColor:[CPColor whiteColor]];
+	graphGradient = [graphGradient addColorStop:[CPColor blueColor] atPosition:0.4];
+	graphGradient.gradientType = CPGradientTypeRadial;
+	graph.fill = [CPFill fillWithGradient:graphGradient];
 		
     CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor darkGrayColor] endingColor:[CPColor whiteColor]];
     gradient.angle = 90.0;
