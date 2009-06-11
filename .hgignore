@@ -22,3 +22,5 @@ syntax: glob
 **.mode?v?
 **.perspectivev?
 
+# documentation
+**.docset/*
