@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CPYahooDataPuller.h"
+#import "CorePlot-CocoaTouch.h"
 
-@interface MainViewController : UIViewController <CPYahooDataPullerDelegate> {
-    
+@interface MainViewController : UIViewController <CPYahooDataPullerDelegate, CPPlotDataSource> {
+    CPLayerHostingView *layerHost;
 @private;
     CPYahooDataPuller *datapuller;
+    CPXYGraph *graph;
 }
+
+@property(nonatomic, retain)IBOutlet CPLayerHostingView *layerHost;
 
 @end

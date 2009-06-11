@@ -74,7 +74,7 @@ static NSDateFormatter *csvDateFormatter()
     [self setVolume:[theVolume intValue]];
     NSDecimalNumber *theAdjClose = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:6]];
     [self setAdjClose:theAdjClose];
-    NSLog(@"%@", self);
+    //NSLog(@"%@", self);
 }
 
 -(NSString *)description
@@ -112,6 +112,8 @@ static NSDateFormatter *csvDateFormatter()
 
 @property(nonatomic, copy)NSString *csvString;
 @property(nonatomic, readwrite, retain)NSArray *financialData; 
+@property(nonatomic, readwrite, retain)NSDecimalNumber *overallHigh;
+@property(nonatomic, readwrite, retain)NSDecimalNumber *overallLow;
 //@property(nonatomic, assign)BOOL hostIsReachable;
 @property(nonatomic, retain)NSMutableData *receivedData;
 @property(nonatomic, retain)NSURLConnection *connection;
@@ -152,6 +154,8 @@ static NSDateFormatter *csvDateFormatter()
 @synthesize symbol;
 @synthesize startDate;
 @synthesize endDate;
+@synthesize overallLow;
+@synthesize overallHigh;
 @synthesize csvString;
 @synthesize financialData;
 @synthesize delegate;
@@ -167,6 +171,8 @@ static NSDateFormatter *csvDateFormatter()
     if (self != nil) {
         [self setSymbol:aSymbol];
         [self setStartDate:aStartDate];
+        [self setOverallLow:[NSDecimalNumber notANumber]];
+        [self setOverallHigh:[NSDecimalNumber notANumber]];
         [self setEndDate:anEndDate];
         [self setFinancialData:[NSArray array]];
         [self setCsvString:@""];
@@ -197,14 +203,15 @@ static NSDateFormatter *csvDateFormatter()
     [gregorian release];
     
     NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self symbol]];
-    url = [url stringByAppendingFormat:@"d=%d&", [compsStart month]];
-    url = [url stringByAppendingFormat:@"e=%d&", [compsStart day]];
-    url = [url stringByAppendingFormat:@"f=%d&", [compsStart year]];
-    url = [url stringByAppendingString:@"g=d&"];
+    url = [url stringByAppendingFormat:@"a=%d&", [compsStart month]-1];
+    url = [url stringByAppendingFormat:@"b=%d&", [compsStart day]];
+    url = [url stringByAppendingFormat:@"c=%d&", [compsStart year]];
     
-    url = [url stringByAppendingFormat:@"d=%d&", [compsEnd month]];
+    url = [url stringByAppendingFormat:@"d=%d&", [compsEnd month]-1];
     url = [url stringByAppendingFormat:@"e=%d&", [compsEnd day]];
     url = [url stringByAppendingFormat:@"f=%d&", [compsEnd year]];
+    url = [url stringByAppendingString:@"g=d&"];
+
     url = [url stringByAppendingString:@"ignore=.csv"];
     
     return url;
@@ -332,7 +339,29 @@ static NSDateFormatter *csvDateFormatter()
         line = (NSString *)[csvLines objectAtIndex:i];
         currentFinancial = [[CPFinancialData alloc] initWithCSVLine:line];
         [newFinancials addObject:currentFinancial];
+        
+        NSDecimalNumber *high = [currentFinancial high];
+        NSDecimalNumber *low = [currentFinancial low];
+        
+        if([self.overallHigh isEqualTo:[NSDecimalNumber notANumber]])
+        {
+            self.overallHigh = high;
+        }
+        if([self.overallLow isEqualTo:[NSDecimalNumber notANumber]])
+        {
+            self.overallLow = low;
+        }
+        if([low compare:self.overallLow] == NSOrderedAscending)
+        {
+            self.overallLow = low;
+        }
+        if([high compare:self.overallHigh] == NSOrderedDescending)
+        {
+            self.overallHigh = high;
+        }
+        
         [currentFinancial release];
+        
     }
     [self setFinancialData:[NSArray arrayWithArray:newFinancials]];
     [self notifyPulledData];

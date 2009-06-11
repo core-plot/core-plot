@@ -16,10 +16,12 @@
 		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		289233A60DB2D0840083E9F9 /* FlipsideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* FlipsideView.m */; };
-		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
+		AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8989460FE0309E00FDC37F /* QuartzCore.framework */; };
+		AB8989C70FE055FD00FDC37F /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */; };
+		AB8989C80FE055FD00FDC37F /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */; };
 		AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8F94490FDEF56700E61485 /* libCorePlot-CocoaTouch.a */; };
 		AB8F94580FDEFA1500E61485 /* CPYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* CPYahooDataPuller.m */; };
 /* End PBXBuildFile section */
@@ -29,14 +31,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		AB8F944B0FDEF5E000E61485 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -49,12 +51,10 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		280E754A0DD40C5E005A515E /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
 		280E754B0DD40C5E005A515E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
-		280E754C0DD40C5E005A515E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		280E754C0DD40C5E005A515E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../MainWindow.xib; sourceTree = "<group>"; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A20DB2D0840083E9F9 /* FlipsideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlipsideView.h; path = Classes/FlipsideView.h; sourceTree = "<group>"; };
 		289233A30DB2D0840083E9F9 /* FlipsideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlipsideView.m; path = Classes/FlipsideView.m; sourceTree = "<group>"; };
-		289233A40DB2D0840083E9F9 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainView.h; path = Classes/MainView.h; sourceTree = "<group>"; };
-		289233A50DB2D0840083E9F9 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainView.m; path = Classes/MainView.m; sourceTree = "<group>"; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		289233AA0DB2D0DB0083E9F9 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -64,6 +64,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* AAPLot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLot_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB8989460FE0309E00FDC37F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AB8989C20FE055B800FDC37F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../../google-toolbox-for-mac/GTMDefines.h"; sourceTree = SOURCE_ROOT; };
+		AB8989C30FE055FD00FDC37F /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMObjC2Runtime.h; path = "../../google-toolbox-for-mac/Foundation/GTMObjC2Runtime.h"; sourceTree = SOURCE_ROOT; };
+		AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMObjC2Runtime.m; path = "../../google-toolbox-for-mac/Foundation/GTMObjC2Runtime.m"; sourceTree = SOURCE_ROOT; };
+		AB8989C50FE055FD00FDC37F /* GTMStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMStackTrace.h; path = "../../google-toolbox-for-mac/Foundation/GTMStackTrace.h"; sourceTree = SOURCE_ROOT; };
+		AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMStackTrace.m; path = "../../google-toolbox-for-mac/Foundation/GTMStackTrace.m"; sourceTree = SOURCE_ROOT; };
 		AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		AB8F94560FDEFA1500E61485 /* CPYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPYahooDataPuller.h; sourceTree = "<group>"; };
 		AB8F94570FDEFA1500E61485 /* CPYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPYahooDataPuller.m; sourceTree = "<group>"; };
@@ -78,6 +84,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +94,7 @@
 		080E96DDFE201D6D7F000001 /* Application Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				280E754C0DD40C5E005A515E /* MainWindow.xib */,
 				289233AA0DB2D0DB0083E9F9 /* RootViewController.h */,
 				289233AB0DB2D0DB0083E9F9 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* AAPLotAppDelegate.h */,
@@ -107,6 +115,7 @@
 		281C6CD70DB2D82200F60ACC /* Flipside View */ = {
 			isa = PBXGroup;
 			children = (
+				280E754A0DD40C5E005A515E /* FlipsideView.xib */,
 				289233A20DB2D0840083E9F9 /* FlipsideView.h */,
 				289233A30DB2D0840083E9F9 /* FlipsideView.m */,
 				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
@@ -118,8 +127,7 @@
 		289233A00DB2D0730083E9F9 /* Main View */ = {
 			isa = PBXGroup;
 			children = (
-				289233A40DB2D0840083E9F9 /* MainView.h */,
-				289233A50DB2D0840083E9F9 /* MainView.m */,
+				280E754B0DD40C5E005A515E /* MainView.xib */,
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
 				AB8F94560FDEFA1500E61485 /* CPYahooDataPuller.h */,
@@ -131,6 +139,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				AB8989C10FE0557900FDC37F /* Google Debugging Toys */,
 				AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				281C6CD70DB2D82200F60ACC /* Flipside View */,
@@ -155,9 +164,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				280E754A0DD40C5E005A515E /* FlipsideView.xib */,
-				280E754B0DD40C5E005A515E /* MainView.xib */,
-				280E754C0DD40C5E005A515E /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -166,11 +172,24 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB8989460FE0309E00FDC37F /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB8989C10FE0557900FDC37F /* Google Debugging Toys */ = {
+			isa = PBXGroup;
+			children = (
+				AB8989C30FE055FD00FDC37F /* GTMObjC2Runtime.h */,
+				AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */,
+				AB8989C50FE055FD00FDC37F /* GTMStackTrace.h */,
+				AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */,
+				AB8989C20FE055B800FDC37F /* GTMDefines.h */,
+			);
+			name = "Google Debugging Toys";
 			sourceTree = "<group>";
 		};
 		AB8F94450FDEF56700E61485 /* Products */ = {
@@ -263,11 +282,12 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AAPLotAppDelegate.m in Sources */,
 				289233A60DB2D0840083E9F9 /* FlipsideView.m in Sources */,
-				289233A70DB2D0840083E9F9 /* MainView.m in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				AB8F94580FDEFA1500E61485 /* CPYahooDataPuller.m in Sources */,
+				AB8989C70FE055FD00FDC37F /* GTMObjC2Runtime.m in Sources */,
+				AB8989C80FE055FD00FDC37F /* GTMStackTrace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +312,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AAPLot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = AAPLot;
 			};
 			name = Debug;
@@ -304,6 +328,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AAPLot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = AAPLot;
 			};
 			name = Release;
@@ -312,12 +340,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Saggau";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../../framework//**";
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EECBA949-03FD-4B30-8989-5B088E3FE98A";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
@@ -326,11 +356,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Saggau";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../../framework//**";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EECBA949-03FD-4B30-8989-5B088E3FE98A";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = Release;

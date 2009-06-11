@@ -34,10 +34,11 @@
 
 @interface CPYahooDataPuller : NSObject {
     NSString *symbol;
-    
     NSDate *startDate;
     NSDate *endDate;
     id delegate;
+    NSDecimalNumber *overallHigh;
+    NSDecimalNumber *overallLow;
 @private
     NSString *csvString;
     NSArray *financialData; //consists of CPFinancialData objs
@@ -53,6 +54,8 @@
 @property(nonatomic, retain)NSDate *startDate;
 @property(nonatomic, retain)NSDate *endDate;
 @property(nonatomic, readonly, retain)NSArray *financialData;
+@property(nonatomic, readonly, retain)NSDecimalNumber *overallHigh;
+@property(nonatomic, readonly, retain)NSDecimalNumber *overallLow;
 
 //Designated init.
 - (id)initWithSymbol:(NSString*)aSymbol startDate:(NSDate*)aStartDate endDate:(NSDate*)anEndDate;
