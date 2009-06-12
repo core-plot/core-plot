@@ -17,22 +17,10 @@
 -(void)awakeFromNib {
     [super awakeFromNib];
 
-    // Create graph
-    graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
-	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:endColor endingColor:endColor];
-	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.3];
-	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.3] atPosition:0.5];
-	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.6];
-	graphGradient.angle = 90.0f;
-	graph.fill = [CPFill fillWithGradient:graphGradient];
-		
-	// Plot area
-	graph.plotArea.frame = CGRectInset(graph.bounds, 60.0, 60.0);
-    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
-    gradient.angle = 90.0;
-	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
-	
+    // Create graph from theme
+	CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
+	graph = [theme newGraph];
+	graph.frame = hostView.bounds;
 	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
 	hostView.hostedLayer = graph;
     
@@ -43,41 +31,10 @@
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-		
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
-    borderLineStyle.lineWidth = 4.0f;
-	
-	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
-	borderedLayer.borderLineStyle = borderLineStyle;
-	borderedLayer.cornerRadius = 10.0f;
-	axisSet.overlayLayerInsetX = -4.f;
-	axisSet.overlayLayerInsetY = -4.f;
-    
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
-    majorLineStyle.lineCap = kCGLineCapRound;
-    majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
-    majorLineStyle.lineWidth = 2.0f;
-    
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
-    minorLineStyle.lineColor = [CPColor darkGrayColor];
-    minorLineStyle.lineWidth = 2.0f;
-
     CPXYAxis *x = axisSet.xAxis;
-	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
-	whiteTextStyle.color = [CPColor whiteColor];
-	whiteTextStyle.fontSize = 14.0;
-    x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
-	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 2;
-    x.majorTickLineStyle = majorLineStyle;
-    x.minorTickLineStyle = minorLineStyle;
-    x.axisLineStyle = majorLineStyle;
-    x.majorTickLength = 7.0f;
-    x.minorTickLength = 5.0f;
-	x.axisLabelTextStyle = whiteTextStyle; 
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -86,17 +43,9 @@
 	x.labelExclusionRanges = exclusionRanges;
 
     CPXYAxis *y = axisSet.yAxis;
-    y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
-	y.tickDirection = CPSignNone;
-    y.majorTickLineStyle = majorLineStyle;
-    y.minorTickLineStyle = minorLineStyle;
-    y.axisLineStyle = majorLineStyle;
-    y.majorTickLength = 7.0f;
-    y.minorTickLength = 5.0f;
-	y.axisLabelTextStyle = whiteTextStyle;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
