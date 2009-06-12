@@ -18,7 +18,7 @@
 -(id)initWithText:(NSString *)newText;
 -(id)initWithContentLayer:(CPLayer *)layer;
 
--(void)positionRelativeToViewPoint:(CGPoint)point inDirection:(CPDirection)direction;
--(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint inDirection:(CPDirection)direction;
+-(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction;
+-(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction;
 
 @end

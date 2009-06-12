@@ -8,6 +8,9 @@
 @implementation CPAxisSet
 
 @synthesize axes;
+@synthesize overlayLayer;
+@synthesize graph;
+@synthesize overlayLayerInsetX, overlayLayerInsetY;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -17,17 +20,29 @@
 	if (self = [super initWithFrame:newFrame]) {
 		self.axes = [NSArray array];
         self.needsDisplayOnBoundsChange = YES;
+		self.overlayLayerInsetX = 0.0f;
+		self.overlayLayerInsetY = 0.0f;
 	}
 	return self;
 }
 
 -(void)dealloc {
+	graph = nil;
+	[overlayLayer release];
     [axes release];
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Accessors
+
+-(void)setGraph:(CPGraph *)newGraph
+{
+	if ( graph != newGraph ) {
+		graph = newGraph;
+		[self setNeedsLayout];
+	}
+}
 
 -(void)setAxes:(NSArray *)newAxes 
 {
@@ -44,28 +59,23 @@
     }
 }
 
+-(void)setOverlayLayer:(CPLayer *)newLayer 
+{		
+	if ( newLayer != overlayLayer ) {
+		[overlayLayer removeFromSuperlayer];
+		[overlayLayer release];
+		overlayLayer = [newLayer retain];
+		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
+		[self addSublayer:newLayer];
+	}
+}
+
 #pragma mark -
 #pragma mark Layout
-/*
--(void)positionInGraph:(CPGraph *)graph 
-{    
-    if ( graph.plotArea ) {
-        // Set the bounds so that the axis set coordinates coincide with the 
-        // plot area drawing coordinates.
-        CGRect axisSetBounds = graph.bounds;
-        axisSetBounds.origin = [graph convertPoint:graph.bounds.origin toLayer:graph.plotArea];
-        self.bounds = axisSetBounds;
-        self.anchorPoint = CGPointZero;
-        self.position = graph.bounds.origin;
-        
-        // Set axes
-        for ( CPAxis *axis in self.axes ) {
-			axis.bounds = self.bounds;
-			axis.anchorPoint = CGPointZero;
-			axis.position = self.bounds.origin;
-			[axis setNeedsDisplay];
-        }
-    }
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionAxisSet;
 }
-*/
+
 @end

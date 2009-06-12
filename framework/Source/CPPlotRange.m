@@ -1,5 +1,6 @@
 
 #import "CPPlotRange.h"
+#import "CPPlatformSpecificCategories.h"
 
 @implementation CPPlotRange
 
@@ -68,6 +69,17 @@
     
     return self;
 }
+
+#pragma mark -
+#pragma mark Checking Containership
+
+-(BOOL)contains:(NSDecimalNumber *)number
+{
+	return ([number isGreaterThanOrEqualTo:location] && [number isLessThanOrEqualTo:self.end]);
+}
+
+#pragma mark -
+#pragma mark Description
 
 - (NSString*)description
 {

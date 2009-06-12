@@ -206,8 +206,8 @@
         [axisSet release];
         axisSet = newSet;
         if ( axisSet ) {
+			axisSet.graph = self;
 			[self addSublayer:axisSet];	
-//			[axisSet positionInGraph:self];
 		}
     }
 }
@@ -222,6 +222,11 @@
 
 #pragma mark -
 #pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionGraph;
+}
 
 -(void)layoutSublayers 
 {

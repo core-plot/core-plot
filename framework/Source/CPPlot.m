@@ -39,6 +39,14 @@
 }
 
 #pragma mark -
+#pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionPlot;
+}
+
+#pragma mark -
 #pragma mark Data Source
 
 -(void)reloadData {

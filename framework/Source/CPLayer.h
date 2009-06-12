@@ -22,4 +22,7 @@
 -(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerCancelled;
 
+// Z position
++(CGFloat)defaultZPosition;
+
 @end

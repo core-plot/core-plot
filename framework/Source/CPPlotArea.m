@@ -34,6 +34,14 @@
 }
 
 #pragma mark -
+#pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionPlotArea;
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setFill:(CPFill *)newFill;

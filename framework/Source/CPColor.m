@@ -91,11 +91,7 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef darkGray = NULL;
-        CGFloat values[4] = {0.4, 0.4, 0.4, 1.0}; 
-		darkGray = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:darkGray];
-        CGColorRelease(darkGray);
+        color = [[self colorWithGenericGray:0.4] retain];
     }
 	return color; 
 }
@@ -104,11 +100,7 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef lightGray = NULL;
-        CGFloat values[4] = {0.7, 0.7, 0.7, 1.0}; 
-		lightGray = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:lightGray];
-        CGColorRelease(lightGray);
+		color = [[self colorWithGenericGray:0.7] retain];
     }
 	return color; 
 }
@@ -116,6 +108,16 @@
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor 
 {
     return [[[CPColor alloc] initWithCGColor:newCGColor] autorelease];
+}
+
++(CPColor *)colorWithGenericGray:(CGFloat)gray
+{
+	CGColorRef colorRef = NULL;
+	CGFloat values[4] = {gray, gray, gray, 1.0}; 
+	colorRef = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+	CPColor *color = [[CPColor alloc] initWithCGColor:colorRef];
+	CGColorRelease(colorRef);
+	return [color autorelease];
 }
 
 #pragma mark -

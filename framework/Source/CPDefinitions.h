@@ -39,9 +39,20 @@ typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;
 } CPRGBAColor;
 
-typedef enum _CPDirection {
-    CPDirectionLeft,
-    CPDirectionRight,
-    CPDirectionUp,
-    CPDirectionDown
-} CPDirection;
+typedef enum _CPSign {
+	CPSignNone,
+	CPSignPositive,
+	CPSignNegative
+} CPSign;
+
+typedef enum _CPDefaultZPosition {
+	CPDefaultZPositionGraph,
+	CPDefaultZPositionPlotArea,
+	CPDefaultZPositionAxisSet,
+	CPDefaultZPositionAxis,
+	CPDefaultZPositionPlotSpace,
+	CPDefaultZPositionPlot,
+	CPDefaultZPositionAxisSetOverlay
+} CPDefaultZPosition;
+
+

@@ -48,39 +48,34 @@
 	[super dealloc];
 }
 
--(void)positionRelativeToViewPoint:(CGPoint)point inDirection:(CPDirection)direction
+-(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
 {
 	CGPoint newPosition = point;
+	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
 	CGPoint anchor = CGPointZero;
+
 	switch ( direction ) {
-		case CPDirectionLeft:
-			newPosition.x -= self.offset;
-			anchor = CGPointMake(1.0, 0.5);
+		case CPSignNone:
+		case CPSignNegative:
+			*value -= offset;
+			anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
 			break;
-		case CPDirectionRight:
-			newPosition.x += self.offset;
-			anchor = CGPointMake(0.0, 0.5);
-			break;
-		case CPDirectionUp:
-			newPosition.y += self.offset;
-			anchor = CGPointMake(0.5, 0.0);
-			break;
-		case CPDirectionDown:
-			newPosition.y -= self.offset;
-			anchor = CGPointMake(0.5, 1.0);
+		case CPSignPositive:
+			*value += offset;
+			anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			break;
 		default:
-			[NSException raise:CPException format:@"Invalid direction in positionRelativeToViewPoint:inDirection:"];
+			[NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
 			break;
 	}
 	self.anchorPoint = anchor;
 	self.position = newPosition;
 }
 
--(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint inDirection:(CPDirection)direction
+-(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPCoordinate)coordiante inDirection:(CPSign)direction
 {
-	// TODO: implement positionBetweenViewPoint:andViewPoint:inDirection:
-	[NSException raise:CPException format:@"positionBetweenViewPoint:andViewPoint:inDirection: not implemented"];
+	// TODO: Write implementation for positioning label between ticks
+	[NSException raise:CPException format:@"positionBetweenViewPoint:andViewPoint:forCoordinate:inDirection: not implemented"];
 }
 
 @end

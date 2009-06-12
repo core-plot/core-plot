@@ -50,7 +50,7 @@ static void resolveHSV(float *color1, float *color2);
 		
         self.blendingMode = CPLinearBlendingMode;
 		self.angle = 0;
-        self.gradientType = CPAxialGradientType;
+        self.gradientType = CPGradientTypeAxial;
     }
     return self;
 }
@@ -648,10 +648,10 @@ static void resolveHSV(float *color1, float *color2);
     CGContextClipToRect(context, *(CGRect *)&rect);
 	
 	switch (self.gradientType) {
-		case CPAxialGradientType:
+		case CPGradientTypeAxial:
 			myCGShading = [self axialGradientInRect:rect];
 			break;
-		case CPRadialGradientType:
+		case CPGradientTypeRadial:
 			myCGShading = [self radialGradientInRect:rect context:context];
 			break;
 	}
@@ -673,10 +673,10 @@ static void resolveHSV(float *color1, float *color2);
 		CGContextClip(context);
 		
 		switch (self.gradientType) {
-			case CPAxialGradientType:
+			case CPGradientTypeAxial:
 				myCGShading = [self axialGradientInRect:bounds];
 				break;
-			case CPRadialGradientType:
+			case CPGradientTypeRadial:
 				myCGShading = [self radialGradientInRect:bounds context:context];
 				break;
 		}

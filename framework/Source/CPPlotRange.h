@@ -16,4 +16,6 @@
 
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 
+-(BOOL)contains:(NSDecimalNumber *)number;
+
 @end
