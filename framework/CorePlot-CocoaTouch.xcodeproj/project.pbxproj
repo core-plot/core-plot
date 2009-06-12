@@ -44,6 +44,10 @@
 		0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
+		07A62FB50FE2234900CD765C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB30FE2234900CD765C /* CPTextStyle.h */; };
+		07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTextStyle.m */; };
+		07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */; };
+		07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */; };
 		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
 		BC9B834E0FB8A1400035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D30FB89E610035D8DA /* CPPlot.m */; };
@@ -105,6 +109,10 @@
 		0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificDefines.m; sourceTree = "<group>"; };
 		0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificFunctions.h; sourceTree = "<group>"; };
 		0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificFunctions.m; sourceTree = "<group>"; };
+		07A62FB30FE2234900CD765C /* CPTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStyle.h; path = Source/CPTextStyle.h; sourceTree = "<group>"; };
+		07A62FB40FE2234900CD765C /* CPTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStyle.m; path = Source/CPTextStyle.m; sourceTree = "<group>"; };
+		07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStylePlatformSpecific.h; path = iPhoneOnly/CPTextStylePlatformSpecific.h; sourceTree = "<group>"; };
+		07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = iPhoneOnly/CPTextStylePlatformSpecific.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -202,6 +210,10 @@
 		070CB8100FC9DDED00F3152B /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				07A62FB30FE2234900CD765C /* CPTextStyle.h */,
+				07A62FB40FE2234900CD765C /* CPTextStyle.m */,
+				07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */,
+				07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */,
 				BC9B829E0FB89E610035D8DA /* CPTextLayer.h */,
 				BC9B829F0FB89E610035D8DA /* CPTextLayer.m */,
 			);
@@ -465,6 +477,8 @@
 				074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */,
 				077F28550FE18048000BCA52 /* CPBorderedLayer.h in Headers */,
 				077F28570FE18048000BCA52 /* CPPathExtensions.h in Headers */,
+				07A62FB50FE2234900CD765C /* CPTextStyle.h in Headers */,
+				07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +565,8 @@
 				074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */,
 				077F28560FE18048000BCA52 /* CPBorderedLayer.m in Sources */,
 				077F28580FE18048000BCA52 /* CPPathExtensions.m in Sources */,
+				07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */,
+				07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

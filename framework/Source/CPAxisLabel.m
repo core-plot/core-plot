@@ -13,14 +13,16 @@
 @implementation CPAxisLabel
 
 @synthesize text;
+@synthesize textStyle;
 @synthesize contentLayer;
 @synthesize offset;
 @synthesize tickLocation;
 
--(id)initWithText:(NSString *)newText
+-(id)initWithText:(NSString *)newText textStyle:(CPTextStyle *)newStyle
 {
 	self.text = newText;
-	CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithString:newText fontSize:12.f] autorelease];
+	CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithText:newText] autorelease];
+	newLayer.textStyle = newStyle;
 	[newLayer sizeToFit];
 	return [self initWithContentLayer:newLayer];
 }
@@ -43,6 +45,7 @@
 -(void)dealloc
 {
 	self.text = nil;
+	self.textStyle = nil;
 	self.contentLayer = nil;
 	self.tickLocation = nil;
 	[super dealloc];

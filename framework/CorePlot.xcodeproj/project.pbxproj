@@ -56,7 +56,7 @@
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC70F37382D00F423D8 /* CPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC50F37382D00F423D8 /* CPUtilities.m */; };
-		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; };
+		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FB02F0FC991A3007A728E /* CPAxisLabel.m */; };
 		074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AFC9D00FB62969005DFFDC /* CPImage.m */; };
 		0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783DD530FBF097E006C3696 /* CPXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -111,6 +111,10 @@
 		07BF0D980F2B73CA002FCEA7 /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */; };
 		07BF0DF30F2B7BFB002FCEA7 /* CPDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
+		07C4679B0FE1A24C00299939 /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467990FE1A24C00299939 /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07C4679C0FE1A24C00299939 /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C4679A0FE1A24C00299939 /* CPTextStyle.m */; };
+		07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (); }; };
+		07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */; };
 		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07CA11310FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
@@ -418,6 +422,10 @@
 		07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlot.m; sourceTree = "<group>"; };
 		07BF0DF10F2B7BFB002FCEA7 /* CPDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDefinitions.h; sourceTree = "<group>"; };
 		07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDefinitions.m; sourceTree = "<group>"; };
+		07C467990FE1A24C00299939 /* CPTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextStyle.h; sourceTree = "<group>"; };
+		07C4679A0FE1A24C00299939 /* CPTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextStyle.m; sourceTree = "<group>"; };
+		07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStylePlatformSpecific.h; path = MacOnly/CPTextStylePlatformSpecific.h; sourceTree = SOURCE_ROOT; };
+		07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = MacOnly/CPTextStylePlatformSpecific.m; sourceTree = SOURCE_ROOT; };
 		07CA112D0FAC8F85000861CE /* CPGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradient.h; sourceTree = "<group>"; };
 		07CA112E0FAC8F85000861CE /* CPGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradient.m; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -855,6 +863,10 @@
 			children = (
 				4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */,
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
+				07C467990FE1A24C00299939 /* CPTextStyle.h */,
+				07C4679A0FE1A24C00299939 /* CPTextStyle.m */,
+				07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */,
+				07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */,
 				4CC9A36C0FD98AB200CFBE5E /* Tests */,
 			);
 			name = Text;
@@ -1686,6 +1698,8 @@
 				BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */,
 				070622320FDF1B250066A6C4 /* CPPathExtensions.h in Headers */,
 				0706223C0FDF215C0066A6C4 /* CPBorderedLayer.h in Headers */,
+				07C4679B0FE1A24C00299939 /* CPTextStyle.h in Headers */,
+				07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2114,6 +2128,8 @@
 				074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */,
 				070622330FDF1B250066A6C4 /* CPPathExtensions.m in Sources */,
 				0706223D0FDF215C0066A6C4 /* CPBorderedLayer.m in Sources */,
+				07C4679C0FE1A24C00299939 /* CPTextStyle.m in Sources */,
+				07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

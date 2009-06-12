@@ -1,109 +1,76 @@
+
 #import "CPTextLayer.h"
+#import "CPTextStyle.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPColor.h"
 #import "CPColorSpace.h"
 #import "CPPlatformSpecificCategories.h"
 
-#define USECROSSPLATFORMUNICODETEXTRENDERING
-
-static CGFloat kCPTextLayerMarginWidth = 1.0f;
-
-@interface CPTextLayer ()
-
-+(NSString *)defaultFontName;
-
-@end
+CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 @implementation CPTextLayer
 
-#pragma mark -
-#pragma mark Accessors
-
 @synthesize text;
-@synthesize fontSize;
-@synthesize fontName;
-@synthesize fontColor;
-
--(void)setText:(NSString *)newValue
-{
-	if ([text isEqualToString:newValue]) {
-		return;
-	}
-	
-	[text release];
-	text = [newValue copy];
-	
-	[self sizeToFit];
-}
-
--(void)setFontSize:(CGFloat)newValue
-{
-	if (fontSize == newValue) {
-		return;
-	}
-	
-	fontSize = newValue;
-	[self sizeToFit];
-}
-
--(void)setFontName:(NSString *)newValue
-{
-	if (!newValue) {
-		return;
-	}
-	if ([fontName isEqualToString:newValue]) {
-		return;
-	}
-	
-	[fontName release];
-	fontName = [newValue copy];
-	
-	[self sizeToFit];
-}
-
--(void)setFontColor:(CPColor *)newValue
-{
-	if (!newValue) {
-		return;
-	}
-	if ([fontColor isEqual:newValue]) {
-		return;
-	}
-	
-	[fontColor release];
-	fontColor = [newValue copy];
-	
-	[self setNeedsDisplay];
-}
+@synthesize textStyle;
 
 #pragma mark -
 #pragma mark Initialization and teardown
 
-+(NSString *)defaultFontName
-{
-	return @"Helvetica";
-}
-
--(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize
+-(id)initWithText:(NSString *)newText style:(CPTextStyle *)newStyle
 {
 	if (self = [super initWithFrame:CGRectZero]) {	
 		self.needsDisplayOnBoundsChange = NO;
-		fontSize = newFontSize;
-		fontName = [[[self class] defaultFontName] retain];
-		fontColor = [[CPColor blackColor] retain];
-		text = [newText copy];
+		self.textStyle = newStyle;
+		self.text = newText;
 		[self sizeToFit];
 	}
-
+	
 	return self;
+}
+
+-(id)initWithText:(NSString *)newText
+{
+	return [self initWithText:newText style:[self.class defaultTextStyle]];
 }
 
 -(void)dealloc 
 {
-	[fontColor release];
-	[fontName release];
+	[textStyle release];
 	[text release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
++(CPTextStyle *)defaultTextStyle
+{
+	static CPTextStyle *textStyle = nil;
+	if ( textStyle == nil ) {
+		textStyle = [[CPTextStyle alloc] init];
+		textStyle.fontName = @"Helvetica";
+		textStyle.fontSize = 12.0f;
+		textStyle.color = [CPColor blackColor];
+	}
+	return textStyle;
+}
+
+-(void)setText:(NSString *)newValue
+{
+	if ( text == newValue ) return;	
+	[text release];
+	text = [newValue copy];
+	[self sizeToFit];
+}
+
+-(void)setTextStyle:(CPTextStyle *)newStyle 
+{
+	if ( newStyle != textStyle ) {
+		[textStyle release];
+		textStyle = [newStyle copy];
+		[self sizeToFit];
+		[self setNeedsDisplay];
+	}
 }
 
 #pragma mark -
@@ -111,18 +78,9 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(void)sizeToFit
 {	
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-	UIFont *theFont = [UIFont fontWithName:self.fontName size:self.fontSize];
-	CGSize textSize = [self.text sizeWithFont:theFont];
-#else
-	NSFont *theFont = [NSFont fontWithName:self.fontName size:self.fontSize];
-	CGSize textSize;
-	if (theFont) {
-		textSize = NSSizeToCGSize([self.text sizeWithAttributes:[NSDictionary dictionaryWithObject:theFont forKey:NSFontAttributeName]]);
-	} else {
-		textSize = CGSizeMake(0.0, 0.0);
-	}
-#endif
+	if ( self.text == nil ) return;
+	CGSize textSize = [self.text sizeWithStyle:textStyle];
+
 	// Add small margin
 	textSize.width += 2 * kCPTextLayerMarginWidth;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
@@ -138,49 +96,15 @@ static CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	if (!self.fontColor) {
-		return;
-	}
-	
-	CGColorRef textColor = self.fontColor.cgColor;
-	
-	CGContextSetStrokeColorWithColor(context, textColor);	
-	CGContextSetFillColorWithColor(context, textColor);
-	CGContextSetAllowsAntialiasing(context, true);
-
-#if defined(USECROSSPLATFORMUNICODETEXTRENDERING)
-	// Cross-platform text drawing, with Unicode support
-	CPPushCGContext(context);
-	
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
-	
-	UIFont *theFont = [UIFont fontWithName:self.fontName size:self.fontSize];
-	[self.text drawAtPoint:CGPointZero withFont:theFont];
+#endif
+	[self.text drawAtPoint:CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth) withStyle:self.textStyle inContext:context];
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	CGContextRestoreGState(context);
-#else
-	NSFont *theFont = [NSFont fontWithName:self.fontName size:self.fontSize];
-	if (theFont) {
-		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, self.fontColor.nsColor, NSForegroundColorAttributeName, nil];
-		[self.text drawAtPoint:NSMakePoint(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth) withAttributes:attributes];
-	}
 #endif
-	
-	CPPopCGContext();
-	
-#else
-	// Pure Quartz drawing:
-	CGContextSelectFont(context, STANDARDLABELFONTNAME, (self.fontSize * scale), kCGEncodingMacRoman);
-	CGContextSetTextDrawingMode(context, kCGTextFill);
-	CGContextSetTextPosition(context, 0.0f, round(self.fontSize / 4.0f));
-	CGContextShowText(context, [self.text UTF8String], strlen([self.text UTF8String]));
-	
-	CGContextSetShadowWithColor( context, CGSizeMake( 0.0, 0.0 ), 5.0f, textColor );
-#endif
-
-	CGContextSetAllowsAntialiasing(context, false);
 }
 
 @end

@@ -32,16 +32,16 @@
     NSString *expectedString = @"testInit-expectedString";
     CGFloat expectedFontSize = 12.;
     
-    CPTextLayer *layer = [[CPTextLayer alloc] initWithString:expectedString fontSize:expectedFontSize];
+    CPTextLayer *layer = [[CPTextLayer alloc] initWithText:expectedString fontSize:expectedFontSize];
     
-    GTMAssertObjectStateEqualToStateNamed(layer, @"CPTextLayerTests-testInit1", @"state following initWithString:fontSize: is incorrect");
+    GTMAssertObjectStateEqualToStateNamed(layer, @"CPTextLayerTests-testInit1", @"state following initWithText:fontSize: is incorrect");
 	
 	[layer release];
 }
 
 -(void)testDrawInContext
 {
-    CPTextLayer *layer = [[CPTextLayer alloc] initWithString:@"testInit-expectedString" fontSize:12];
+    CPTextLayer *layer = [[CPTextLayer alloc] initWithText:@"testInit-expectedString" fontSize:12];
     
     GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering1", @"Rendered image does not match");
     
