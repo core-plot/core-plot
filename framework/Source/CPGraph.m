@@ -209,6 +209,7 @@
 			axisSet.graph = self;
 			[self addSublayer:axisSet];	
 		}
+		[self setNeedsDisplay];
     }
 }
 

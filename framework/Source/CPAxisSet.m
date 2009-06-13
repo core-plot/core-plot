@@ -67,6 +67,7 @@
 		overlayLayer = [newLayer retain];
 		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
 		[self addSublayer:newLayer];
+		[self setNeedsDisplay];
 	}
 }
 
