@@ -15,9 +15,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	self = [super initWithFrame:newFrame];
-	if (self != nil) {
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
+	if (self = [super initWithFrame:newFrame]) {
         self.dataNeedsReloading = YES;
 	}
 	return self;

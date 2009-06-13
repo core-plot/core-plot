@@ -18,8 +18,4 @@
 @property (nonatomic, readwrite, assign) CPGraph *graph;
 @property (nonatomic, readwrite, assign) CGFloat overlayLayerInsetX, overlayLayerInsetY;
 
--(id)initWithFrame:(CGRect)frame;
-
--(void)positionInGraph;
-
 @end

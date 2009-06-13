@@ -20,7 +20,6 @@
 	if (self = [super initWithFrame:newFrame]) {
 		self.axes = [NSArray array];
         self.needsDisplayOnBoundsChange = YES;
-		self.layerAutoresizingMask = kCPLayerNotSizable;
 		self.overlayLayerInsetX = 0.0f;
 		self.overlayLayerInsetY = 0.0f;
 	}
@@ -56,7 +55,7 @@
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
         }
-        [self setNeedsLayout];
+		[self setNeedsDisplay];
     }
 }
 
@@ -66,10 +65,8 @@
 		[overlayLayer removeFromSuperlayer];
 		[overlayLayer release];
 		overlayLayer = [newLayer retain];
-		overlayLayer.layerAutoresizingMask = kCPLayerNotSizable;
 		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
 		[self addSublayer:newLayer];
-		[self positionInGraph];
 	}
 }
 
@@ -79,33 +76,6 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;
-}
-
--(void)positionInGraph
-{    
-    if ( graph.plotArea ) {
-        // Set the bounds so that the axis set coordinates coincide with the 
-        // plot area drawing coordinates.
-        CGRect axisSetBounds = graph.bounds;
-        axisSetBounds.origin = [graph convertPoint:graph.bounds.origin toLayer:graph.plotArea];
-        self.bounds = axisSetBounds;
-        self.anchorPoint = CGPointZero;
-        self.position = graph.bounds.origin;
-        
-        // Set axes
-        for ( CPAxis *axis in axes ) {
-			axis.bounds = self.bounds;
-			axis.anchorPoint = CGPointZero;
-			axis.position = self.bounds.origin;
-			[axis setNeedsDisplay];
-            [axis setNeedsLayout];
-        }
-		
-		// Overlay
-		overlayLayer.bounds = CGRectInset(self.graph.plotArea.bounds, self.overlayLayerInsetX, self.overlayLayerInsetY);
-		overlayLayer.anchorPoint = CGPointZero;
-		overlayLayer.position = CGPointMake(self.overlayLayerInsetX, self.overlayLayerInsetY);
-    }
 }
 
 @end

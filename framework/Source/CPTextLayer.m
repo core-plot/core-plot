@@ -86,7 +86,7 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
 	
 	CGRect newBounds = self.bounds;
-	newBounds.size = CGSizeMake(textSize.width, textSize.height);
+	newBounds.size = textSize;
 	self.bounds = newBounds;
 	[self setNeedsDisplay];
 }

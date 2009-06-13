@@ -1,4 +1,3 @@
-
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
@@ -13,10 +12,8 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		plotSpaces = [[NSMutableArray alloc] init];
-		self.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerMinXMargin | kCPLayerMaxXMargin | kCPLayerHeightSizable | kCPLayerMinYMargin | kCPLayerMaxYMargin;
 		self.needsDisplayOnBoundsChange = YES;
-
+		
 		self.fill = nil;
 	}
 	return self;
@@ -24,8 +21,7 @@
 
 -(void)dealloc
 {
-	[plotSpaces release];
-	[fill release];
+	self.fill = nil;
 	[super dealloc];
 }
 
@@ -50,12 +46,11 @@
 
 -(void)setFill:(CPFill *)newFill;
 {
-	if (newFill == fill) {
-		return;
+	if (newFill != fill) {
+		[fill release];
+		fill = [newFill retain];
+		[self setNeedsDisplay];
 	}
-	[fill release];
-	fill = [newFill retain];
-	[self setNeedsDisplay];
 }
 
 @end

@@ -7,18 +7,19 @@
 
 -(CPNativeImage *)imageOfLayer
 {
-	NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:self.bounds.size.width pixelsHigh:self.bounds.size.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(self.bounds.size.width * 4) bitsPerPixel:32];
+	CGSize boundsSize = self.bounds.size;
+	
+	NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:boundsSize.width pixelsHigh:boundsSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(NSInteger)boundsSize.width * 4 bitsPerPixel:32];
 	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 	CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
 	
-	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height));
+	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height));
 	CGContextSetAllowsAntialiasing(context, true);
 	[self recursivelyRenderInContext:context];	
 	CGContextSetAllowsAntialiasing(context, false);
 	CGContextFlush(context);
 	
-    NSSize nsSize = NSSizeFromCGSize(self.bounds.size);
-    NSImage *image = [[NSImage alloc] initWithSize:nsSize];
+    NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
     [image addRepresentation:layerImage];
 	[layerImage release];
     

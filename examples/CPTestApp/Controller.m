@@ -33,7 +33,7 @@
     gradient.angle = 90.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	
-	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
+	graph.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
 	hostView.hostedLayer = graph;
     
     // Setup plot space
@@ -88,8 +88,8 @@
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    y.minorTicksPerInterval = 4;
 	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;
@@ -105,7 +105,7 @@
 	y.labelExclusionRanges = exclusionRanges;
     
     // Create one plot that uses bindings
-	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
 	boundLinePlot.dataLineStyle.lineWidth = 3.f;
 	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
@@ -123,7 +123,7 @@
     boundLinePlot.defaultPlotSymbol = plotSymbol;
     
     // Create a second plot that uses the data source method
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];

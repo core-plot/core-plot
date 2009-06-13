@@ -5,7 +5,17 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 
+@interface CPXYGraph()
+
+@property (nonatomic, readwrite, assign) CPScaleType xScaleType;
+@property (nonatomic, readwrite, assign) CPScaleType yScaleType;
+
+@end
+
 @implementation CPXYGraph
+
+@synthesize xScaleType;
+@synthesize yScaleType;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -13,9 +23,9 @@
 // Designated
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 {
-	xScaleType = newXScaleType;
-	yScaleType = newYScaleType;
     if ( self = [super initWithFrame:newFrame] ) {
+		self.xScaleType = newXScaleType;
+		self.yScaleType = newYScaleType;
 		self.needsDisplayOnBoundsChange = YES;
     }
     return self;

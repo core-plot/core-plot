@@ -57,6 +57,7 @@
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
 {
 	[(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
+	CGContextBeginPath(theContext);
 
     for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
@@ -92,12 +93,12 @@
 			endViewPoint.x += length * endFactor;
 		}
         
-        // Stroke line
-        CGContextBeginPath(theContext);
+        // Add tick line
         CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
         CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
-        CGContextStrokePath(theContext);
     }    
+	// Stroke tick line
+	CGContextStrokePath(theContext);
 }
 
 #pragma mark -
