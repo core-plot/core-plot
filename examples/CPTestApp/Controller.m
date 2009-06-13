@@ -107,6 +107,7 @@
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
+	boundLinePlot.dataLineStyle.miterLimit = 1.f;
 	boundLinePlot.dataLineStyle.lineWidth = 3.f;
 	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
     [graph addPlot:boundLinePlot];

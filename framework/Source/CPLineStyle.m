@@ -6,7 +6,7 @@
 
 @implementation CPLineStyle
 
-@synthesize lineCap, lineJoin, lineWidth, patternPhase, lineColor;
+@synthesize lineCap, lineJoin, miterLimit, lineWidth, patternPhase, lineColor;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -21,6 +21,7 @@
 	if ( self = [super init] ) {
 		self.lineCap = kCGLineCapButt;
 		self.lineJoin = kCGLineJoinMiter;
+		self.miterLimit = 100.f;
 		self.lineWidth = 1.f;
 		self.patternPhase = CGSizeMake(0.f, 0.f);
 		self.lineColor = [CPColor blackColor];
@@ -38,6 +39,7 @@
 {
 	CGContextSetLineCap(theContext, lineCap);
 	CGContextSetLineJoin(theContext, lineJoin);
+	CGContextSetMiterLimit(theContext, miterLimit);
 	CGContextSetLineWidth(theContext, lineWidth);
 	CGContextSetPatternPhase(theContext, patternPhase);
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
@@ -52,6 +54,7 @@
  	
 	styleCopy.lineCap = self.lineCap;
 	styleCopy.lineJoin = self.lineJoin;
+	styleCopy.miterLimit = self.miterLimit;
 	styleCopy.lineWidth = self.lineWidth;
 	styleCopy.patternPhase = self.patternPhase;
     CPColor *colorCopy = [self.lineColor copy];
