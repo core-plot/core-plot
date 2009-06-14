@@ -233,6 +233,20 @@
 		C34260250FAE096D00072842 /* _CPFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPFillImage.m */; };
 		C34260260FAE096D00072842 /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C36468200FE53CE80064B186 /* CPTextLayerTests-testInit2.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C364681F0FE53CE80064B186 /* CPTextLayerTests-testInit2.ppc.gtmUTState */; };
+		C36468230FE53CF70064B186 /* CPTextLayerTests-testInit2.i386.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C36468220FE53CF70064B186 /* CPTextLayerTests-testInit2.i386.gtmUTState */; };
+		C36468310FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C36468260FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.tiff */; };
+		C36468320FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C36468270FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.gtmUTState */; };
+		C36468330FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C36468280FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.gtmUTState */; };
+		C36468340FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C36468290FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.gtmUTState */; };
+		C36468350FE53ED40064B186 /* CPTextLayerTests-testRendering3.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C364682A0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.gtmUTState */; };
+		C36468360FE53ED40064B186 /* CPTextLayerTests-testRendering2.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C364682B0FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.tiff */; };
+		C36468370FE53ED40064B186 /* CPTextLayerTests-testRendering3.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C364682C0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.tiff */; };
+		C36468380FE53ED40064B186 /* CPTextLayerTests-testRendering1.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C364682D0FE53ED30064B186 /* CPTextLayerTests-testRendering1.ppc.tiff */; };
+		C36468390FE53ED40064B186 /* CPTextLayerTests-testRendering5.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C364682E0FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.tiff */; };
+		C364683A0FE53ED40064B186 /* CPTextLayerTests-testRendering6.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C364682F0FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.gtmUTState */; };
+		C364683B0FE53ED40064B186 /* CPTextLayerTests-testRendering6.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C36468300FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.tiff */; };
+		C36468AA0FE5533F0064B186 /* CPTextStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36468A90FE5533F0064B186 /* CPTextStyleTests.m */; };
 		C37E9CD30FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CCE0FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.gtmUTState */; };
 		C37E9CD40FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CCF0FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.gtmUTState */; };
 		C37E9CD50FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C37E9CD00FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.gtmUTState */; };
@@ -714,6 +728,21 @@
 		C342601D0FAE096C00072842 /* _CPFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillImage.m; sourceTree = "<group>"; };
 		C342601E0FAE096C00072842 /* _CPFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillGradient.h; sourceTree = "<group>"; };
 		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
+		C364681F0FE53CE80064B186 /* CPTextLayerTests-testInit2.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testInit2.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C36468220FE53CF70064B186 /* CPTextLayerTests-testInit2.i386.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testInit2.i386.gtmUTState"; sourceTree = "<group>"; };
+		C36468260FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering4.ppc.tiff"; sourceTree = "<group>"; };
+		C36468270FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering4.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C36468280FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering2.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C36468290FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering5.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C364682A0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering3.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C364682B0FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.ppc.tiff"; sourceTree = "<group>"; };
+		C364682C0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering3.ppc.tiff"; sourceTree = "<group>"; };
+		C364682D0FE53ED30064B186 /* CPTextLayerTests-testRendering1.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering1.ppc.tiff"; sourceTree = "<group>"; };
+		C364682E0FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering5.ppc.tiff"; sourceTree = "<group>"; };
+		C364682F0FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering6.ppc.gtmUTState"; sourceTree = "<group>"; };
+		C36468300FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering6.ppc.tiff"; sourceTree = "<group>"; };
+		C36468A80FE5533F0064B186 /* CPTextStyleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextStyleTests.h; sourceTree = "<group>"; };
+		C36468A90FE5533F0064B186 /* CPTextStyleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextStyleTests.m; sourceTree = "<group>"; };
 		C37E9CCE0FC34F57000C8225 /* CPColorTests-testFactories-clearColor.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-clearColor.ppc.gtmUTState"; sourceTree = "<group>"; };
 		C37E9CCF0FC34F57000C8225 /* CPColorTests-testCGColorRoundTrip.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testCGColorRoundTrip.ppc.gtmUTState"; sourceTree = "<group>"; };
 		C37E9CD00FC34F57000C8225 /* CPColorTests-testFactories-blackColor.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPColorTests-testFactories-blackColor.ppc.gtmUTState"; sourceTree = "<group>"; };
@@ -1159,6 +1188,7 @@
 			isa = PBXGroup;
 			children = (
 				4CCEAF270FC4BF9E003A68C9 /* CPTextLayerTests-testInit1.i386.gtmUTState */,
+				C36468220FE53CF70064B186 /* CPTextLayerTests-testInit2.i386.gtmUTState */,
 				4CCEAF280FC4BF9E003A68C9 /* CPTextLayerTests-testRendering1.i386.tiff */,
 				4CCEAF290FC4BF9E003A68C9 /* CPTextLayerTests-testRendering2.i386.gtmUTState */,
 				4CCEAF2A0FC4BF9F003A68C9 /* CPTextLayerTests-testRendering2.i386.tiff */,
@@ -1171,6 +1201,18 @@
 				4CCEAF310FC4BF9F003A68C9 /* CPTextLayerTests-testRendering6.i386.gtmUTState */,
 				4CCEAF320FC4BF9F003A68C9 /* CPTextLayerTests-testRendering6.i386.tiff */,
 				C3BFC20F0FBFA7EF00998EE7 /* CPTextLayerTests-testInit1.ppc.gtmUTState */,
+				C364681F0FE53CE80064B186 /* CPTextLayerTests-testInit2.ppc.gtmUTState */,
+				C364682D0FE53ED30064B186 /* CPTextLayerTests-testRendering1.ppc.tiff */,
+				C36468280FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.gtmUTState */,
+				C364682B0FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.tiff */,
+				C364682A0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.gtmUTState */,
+				C364682C0FE53ED30064B186 /* CPTextLayerTests-testRendering3.ppc.tiff */,
+				C36468270FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.gtmUTState */,
+				C36468260FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.tiff */,
+				C36468290FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.gtmUTState */,
+				C364682E0FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.tiff */,
+				C364682F0FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.gtmUTState */,
+				C36468300FE53ED30064B186 /* CPTextLayerTests-testRendering6.ppc.tiff */,
 			);
 			name = CPTextLayerTests;
 			sourceTree = "<group>";
@@ -1582,6 +1624,8 @@
 			children = (
 				4CD7E8580F4B534400F9BCBB /* CPTextLayerTests.h */,
 				4CD7E8590F4B534400F9BCBB /* CPTextLayerTests.m */,
+				C36468A80FE5533F0064B186 /* CPTextStyleTests.h */,
+				C36468A90FE5533F0064B186 /* CPTextStyleTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1938,6 +1982,19 @@
 				4CCEAF610FC4BF9F003A68C9 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff in Resources */,
 				C30F523B0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff in Resources */,
 				C30F523D0FCB8D590042E2BF /* CPPlotSymbolTests-testSymbol12.i386.tiff in Resources */,
+				C36468200FE53CE80064B186 /* CPTextLayerTests-testInit2.ppc.gtmUTState in Resources */,
+				C36468230FE53CF70064B186 /* CPTextLayerTests-testInit2.i386.gtmUTState in Resources */,
+				C36468310FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.tiff in Resources */,
+				C36468320FE53ED30064B186 /* CPTextLayerTests-testRendering4.ppc.gtmUTState in Resources */,
+				C36468330FE53ED30064B186 /* CPTextLayerTests-testRendering2.ppc.gtmUTState in Resources */,
+				C36468340FE53ED30064B186 /* CPTextLayerTests-testRendering5.ppc.gtmUTState in Resources */,
+				C36468350FE53ED40064B186 /* CPTextLayerTests-testRendering3.ppc.gtmUTState in Resources */,
+				C36468360FE53ED40064B186 /* CPTextLayerTests-testRendering2.ppc.tiff in Resources */,
+				C36468370FE53ED40064B186 /* CPTextLayerTests-testRendering3.ppc.tiff in Resources */,
+				C36468380FE53ED40064B186 /* CPTextLayerTests-testRendering1.ppc.tiff in Resources */,
+				C36468390FE53ED40064B186 /* CPTextLayerTests-testRendering5.ppc.tiff in Resources */,
+				C364683A0FE53ED40064B186 /* CPTextLayerTests-testRendering6.ppc.gtmUTState in Resources */,
+				C364683B0FE53ED40064B186 /* CPTextLayerTests-testRendering6.ppc.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2079,6 +2136,7 @@
 				072B01070FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 				4C62EAC30FC1DFB200E6D443 /* CPColorTests.m in Sources */,
 				4C62EAD00FC1E21F00E6D443 /* CPGradientTests.m in Sources */,
+				C36468AA0FE5533F0064B186 /* CPTextStyleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -193,4 +193,34 @@
     return colorCopy;
 }
 
+#pragma mark -
+#pragma mark Color comparison
+
+-(BOOL)isEqual:(id)object
+{
+	if ([object isKindOfClass:[self class]]) {
+		return CGColorEqualToColor(self.cgColor, ((CPColor *)object).cgColor);
+	} else {
+		return NO;
+	}
+}
+
+-(NSUInteger)hash
+{
+	// Equal objects must hash the same.
+	CGFloat theHash = 0.0f;
+	CGFloat multiplier = 256.0f;
+
+	CGColorRef theColor = self.cgColor;
+	size_t numberOfComponents = CGColorGetNumberOfComponents(theColor);
+	const CGFloat *colorComponents = CGColorGetComponents(theColor);
+	
+	for (NSUInteger i = 0; i < numberOfComponents; i++) {
+		theHash += multiplier * colorComponents[i];
+		multiplier *= 256.0f;
+	}
+	
+	return (NSUInteger)theHash;
+}
+
 @end

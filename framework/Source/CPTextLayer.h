@@ -11,7 +11,7 @@ extern CGFloat kCPTextLayerMarginWidth;
 }
 
 @property(readwrite, copy, nonatomic) NSString *text;
-@property(readwrite, copy, nonatomic) CPTextStyle *textStyle;
+@property(readwrite, retain, nonatomic) CPTextStyle *textStyle;
 
 // Initialization and teardown
 -(id)initWithText:(NSString *)newText;

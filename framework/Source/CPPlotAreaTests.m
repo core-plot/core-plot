@@ -17,7 +17,7 @@
 -(void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
     [super gtm_unitTestEncodeState:inCoder];
     
-    [inCoder encodeObject:plotSpaces forKey:@"PlotSpacesInstanceVariable"];
+    [inCoder encodeObject:self.fill forKey:@"FillInstanceVariable"];
 }
 
 @end

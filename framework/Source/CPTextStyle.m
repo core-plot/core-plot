@@ -29,6 +29,9 @@
 	[super dealloc];
 }
 
+#pragma mark -
+#pragma mark Factory Methods
+
 +(CPTextStyle *)defaultTextStyle
 {
 	static CPTextStyle *textStyle = nil;
