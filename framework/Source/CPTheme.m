@@ -33,7 +33,7 @@
 	return NSStringFromClass(self);
 }
 
--(CPGraph *)newGraph
+-(id)newGraph
 {
 	return nil;
 }
