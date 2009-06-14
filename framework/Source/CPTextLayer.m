@@ -30,7 +30,7 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(id)initWithText:(NSString *)newText
 {
-	return [self initWithText:newText style:[self.class defaultTextStyle]];
+	return [self initWithText:newText style:[CPTextStyle defaultTextStyle]];
 }
 
 -(void)dealloc 

@@ -23,7 +23,8 @@
 -(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context
 {	
 	if ( style.color == nil ) return;
-		
+    
+    CGContextSaveGState(context);
 	CGColorRef textColor = style.color.cgColor;
 	
 	CGContextSetStrokeColorWithColor(context, textColor);	

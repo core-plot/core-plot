@@ -79,7 +79,7 @@
         [NSException raise:CPException format:@"Scale type not yet supported in CPXYPlotSpace"];
     }
     
-    return CGPointMake(viewX, viewY);
+    return CGPointMake(floorf(viewX), floorf(viewY));
 }
 
 -(NSArray *)plotPointForViewPoint:(CGPoint)point

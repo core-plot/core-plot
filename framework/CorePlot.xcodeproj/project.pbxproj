@@ -59,6 +59,10 @@
 		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FB02F0FC991A3007A728E /* CPAxisLabel.m */; };
 		074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AFC9D00FB62969005DFFDC /* CPImage.m */; };
+		0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C9250FE2F71600EC4C16 /* CPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0772C9280FE2F71600EC4C16 /* CPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772C9260FE2F71600EC4C16 /* CPTheme.m */; };
+		0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0772C9300FE2F89000EC4C16 /* CPDarkGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */; };
 		0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783DD530FBF097E006C3696 /* CPXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
 		0783DD570FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
@@ -113,7 +117,7 @@
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
 		07C4679B0FE1A24C00299939 /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467990FE1A24C00299939 /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07C4679C0FE1A24C00299939 /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C4679A0FE1A24C00299939 /* CPTextStyle.m */; };
-		07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (); }; };
+		07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */; };
 		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
@@ -394,6 +398,10 @@
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
 		073FB02E0FC991A3007A728E /* CPAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisLabel.h; sourceTree = "<group>"; };
 		073FB02F0FC991A3007A728E /* CPAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisLabel.m; sourceTree = "<group>"; };
+		0772C9250FE2F71600EC4C16 /* CPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTheme.h; sourceTree = "<group>"; };
+		0772C9260FE2F71600EC4C16 /* CPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTheme.m; sourceTree = "<group>"; };
+		0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDarkGradientTheme.h; sourceTree = "<group>"; };
+		0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDarkGradientTheme.m; sourceTree = "<group>"; };
 		0783DD530FBF097E006C3696 /* CPXYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYAxis.h; sourceTree = "<group>"; };
 		0783DD540FBF097E006C3696 /* CPXYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYAxis.m; sourceTree = "<group>"; };
 		0789EF330FB9E90700C0A613 /* CPPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificDefines.h; sourceTree = "<group>"; };
@@ -963,6 +971,17 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		0772C91E0FE2F70000EC4C16 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				0772C9250FE2F71600EC4C16 /* CPTheme.h */,
+				0772C9260FE2F71600EC4C16 /* CPTheme.m */,
+				0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */,
+				0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */,
+			);
+			name = Themes;
+			sourceTree = "<group>";
+		};
 		07975C230F3B3DF200DE45DC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,6 +1036,7 @@
 				07BF0D890F2B736D002FCEA7 /* Plots */,
 				07BF0D920F2B73AE002FCEA7 /* Axes */,
 				072B00EC0FC149C700CC8842 /* Animation */,
+				0772C91E0FE2F70000EC4C16 /* Themes */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1744,6 +1764,8 @@
 				0706223C0FDF215C0066A6C4 /* CPBorderedLayer.h in Headers */,
 				07C4679B0FE1A24C00299939 /* CPTextStyle.h in Headers */,
 				07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */,
+				0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */,
+				0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2188,6 +2210,8 @@
 				0706223D0FDF215C0066A6C4 /* CPBorderedLayer.m in Sources */,
 				07C4679C0FE1A24C00299939 /* CPTextStyle.m in Sources */,
 				07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */,
+				0772C9280FE2F71600EC4C16 /* CPTheme.m in Sources */,
+				0772C9300FE2F89000EC4C16 /* CPDarkGradientTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
