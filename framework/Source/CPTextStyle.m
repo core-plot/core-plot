@@ -35,9 +35,6 @@
 	
 	if ( textStyle == nil ) {
 		textStyle = [[self alloc] init];
-		textStyle.fontName = @"Helvetica";
-		textStyle.fontSize = 12.0f;
-		textStyle.color = [CPColor blackColor];
 	}
 	return textStyle;
 }
@@ -52,6 +49,32 @@
 	newCopy.color = self.color;
 	newCopy.fontSize = self.fontSize;
 	return newCopy;
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.fontName forKey:@"fontName"];
+	[coder encodeDouble:self.fontSize forKey:@"fontSize"];
+	[coder encodeObject:self.color forKey:@"color"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
+        self = [(id <NSCoding>)super initWithCoder:coder];
+    } else {
+        self = [super init];
+    }
+    
+    if (self) {
+		self.fontName = [coder decodeObjectForKey:@"fontName"];
+		self.fontSize = [coder decodeDoubleForKey:@"fontSize"];
+		self.color = [coder decodeObjectForKey:@"color"];
+	}
+    return self;
 }
 
 @end
