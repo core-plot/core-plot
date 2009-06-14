@@ -14,6 +14,8 @@
 @property(readwrite, assign, nonatomic) CGFloat fontSize; 
 @property(readwrite, copy, nonatomic) CPColor *color;
 
++(CPTextStyle *)defaultTextStyle;
+
 @end
 
 @interface NSString (CPTextStyleExtensions)

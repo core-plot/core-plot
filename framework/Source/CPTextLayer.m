@@ -43,18 +43,6 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 #pragma mark -
 #pragma mark Accessors
 
-+(CPTextStyle *)defaultTextStyle
-{
-	static CPTextStyle *textStyle = nil;
-	if ( textStyle == nil ) {
-		textStyle = [[CPTextStyle alloc] init];
-		textStyle.fontName = @"Helvetica";
-		textStyle.fontSize = 12.0f;
-		textStyle.color = [CPColor blackColor];
-	}
-	return textStyle;
-}
-
 -(void)setText:(NSString *)newValue
 {
 	if ( text == newValue ) return;	

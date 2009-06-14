@@ -1,7 +1,6 @@
 
 #import "CPLayer.h"
 
-@class CPColor;
 @class CPTextStyle;
 
 extern CGFloat kCPTextLayerMarginWidth;
@@ -13,8 +12,6 @@ extern CGFloat kCPTextLayerMarginWidth;
 
 @property(readwrite, copy, nonatomic) NSString *text;
 @property(readwrite, copy, nonatomic) CPTextStyle *textStyle;
-
-+(CPTextStyle *)defaultTextStyle;
 
 // Initialization and teardown
 -(id)initWithText:(NSString *)newText;
