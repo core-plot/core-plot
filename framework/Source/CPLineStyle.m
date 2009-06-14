@@ -21,7 +21,7 @@
 	if ( self = [super init] ) {
 		self.lineCap = kCGLineCapButt;
 		self.lineJoin = kCGLineJoinMiter;
-		self.miterLimit = 100.f;
+		self.miterLimit = 10.f;
 		self.lineWidth = 1.f;
 		self.patternPhase = CGSizeMake(0.f, 0.f);
 		self.lineColor = [CPColor blackColor];
