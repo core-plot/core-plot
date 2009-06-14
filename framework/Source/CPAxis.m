@@ -175,7 +175,7 @@
     if (!self.needsRelabel) return;
 	if (!self.plotSpace) return;
 	
-	if ( self.delegate ) [self.delegate axisWillRelabel:self];
+	[self.delegate axisWillRelabel:self];
 	
 	NSMutableSet *allNewMajorLocations = [NSMutableSet set];
 	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
@@ -216,7 +216,7 @@
     
     self.needsRelabel = NO;
 	
-	if ( self.delegate ) [self.delegate axisDidRelabel:self];
+	[self.delegate axisDidRelabel:self];
 }
 
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations 
