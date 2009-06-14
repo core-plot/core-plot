@@ -48,33 +48,29 @@
 	[super dealloc];
 }
 
--(void)positionRelativeToViewPoint:(CGPoint)point inDirection:(CPDirection)direction
+-(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
 {
 	CGPoint newPosition = point;
+	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
 	switch ( direction ) {
-		case CPDirectionLeft:
-			newPosition.x -= offset;
+		case CPSignNegative:
+		case CPSignNone:
+			*value -= offset;
 			break;
-		case CPDirectionRight:
-			newPosition.x += offset;
-			break;
-		case CPDirectionUp:
-			newPosition.y += offset;
-			break;
-		case CPDirectionDown:
-			newPosition.y -= offset;
+		case CPSignPositive:
+			*value += offset;
 			break;
 		default:
-			[NSException raise:CPException format:@"Invalid direction in positionRelativeToViewPoint:inDirection:"];
+			[NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
 			break;
 	}
 	self.anchorPoint = CGPointZero;
 	self.position = newPosition;
 }
 
--(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint inDirection:(CPDirection)direction
+-(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPCoordinate)coordiante inDirection:(CPSign)direction
 {
-	
+	// TODO: Write implementation for positioning label between ticks
 }
 
 @end

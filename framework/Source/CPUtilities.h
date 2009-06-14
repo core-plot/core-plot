@@ -12,4 +12,6 @@ NSDecimal CPDecimalFromDouble(CPDouble d);
 
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 
+CPCoordinate OrthogonalCoordinate(CPCoordinate coord);
+
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);

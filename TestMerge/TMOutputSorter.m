@@ -64,7 +64,7 @@ static const NSUInteger GroupNameIndex = 1;
         
         
         id<TMOutputGroup> group = [factory groupWithName:name extension:extension];
-        group.referencePath = path;
+        [group addReferencePathsObject:path];
         
         [groups addObject:group];
     }
@@ -84,31 +84,34 @@ static const NSUInteger GroupNameIndex = 1;
         NSString *name = [comps objectAtIndex:0];
         NSString *extension = [comps lastObject];
         
-        //remove _Failed and _Diff from name
-        GTMRegex *nameRegex = [GTMRegex regexWithPattern:@"^([^_]+)(_Failed)*(_Diff)*$"];
-        _GTMDevLog(@"%@ => %@", nameRegex, name);
-        _GTMDevAssert([nameRegex matchesString:name], @"Unable to match name with regex");
-        
-        NSArray *nameGroups = [nameRegex subPatternsOfString:name];
-        
-        _GTMDevLog(@"name groups for %@: %@", name, nameGroups);
-        
-        _GTMDevLog(@"Finding group with name %@, extension %@", [nameGroups objectAtIndex:GroupNameIndex], extension);
-        
-        id<TMOutputGroup> group = [factory groupWithName:[nameGroups objectAtIndex:GroupNameIndex]
-                                               extension:extension];
-        
-        if([nameGroups lastObject] == [NSNull null] || //Failure
-           nameGroups.count == 2 //new image
-            ) {
+        if(name != nil && name.length > 0) {
+            //remove _Failed and _Diff from name
+            GTMRegex *nameRegex = [GTMRegex regexWithPattern:@"^([^_]+)(_Failed)*(_Diff)*$"];
+            _GTMDevLog(@"%@ => %@", nameRegex, name);
+            _GTMDevAssert([nameRegex matchesString:name], @"Unable to match %@ with regex", name);
             
-            group.outputPath = path;
-        } else { //_Diff
-            _GTMDevAssert([[nameGroups lastObject] isEqualToString:@"_Diff"], @"Unexpected last name group");
-            group.failureDiffPath = path;
+            NSArray *nameGroups = [nameRegex subPatternsOfString:name];
+            
+            _GTMDevLog(@"name groups for %@: %@", name, nameGroups);
+            
+            _GTMDevLog(@"Finding group with name %@, extension %@", [nameGroups objectAtIndex:GroupNameIndex], extension);
+            
+            id<TMOutputGroup> group = [factory groupWithName:[nameGroups objectAtIndex:GroupNameIndex]
+                                                   extension:extension];
+            
+            if([nameGroups lastObject] == [NSNull null] || //Failure
+               nameGroups.count == 2 //new image
+               ) {
+                
+                group.outputPath = path;
+            } else { //_Diff
+                _GTMDevAssert([[nameGroups lastObject] isEqualToString:@"_Diff"], @"Unexpected last name group");
+                group.failureDiffPath = path;
+            }
+            
+            [groups addObject:group];
+            
         }
-        
-        [groups addObject:group];
     }
     
     

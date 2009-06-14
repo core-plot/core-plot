@@ -13,8 +13,6 @@
 
 @interface TMImageCompareController ()
 
-- (void)unbindViews;
-- (void)bindViews;
 - (void)updateImageViews;
 
 @end
@@ -26,7 +24,6 @@
 - (void)dealloc {
     [refImageView release];
     [outputImageView release];
-    [self unbindViews];
     
     [super dealloc];
 }
@@ -41,8 +38,6 @@
     
 
 - (void)updateImageViews {
-    
-    [self unbindViews];
     
     if([[self representedObject] referencePath] != nil) {
         [[self refImageView] setImageWithURL:[NSURL fileURLWithPath:[[self representedObject] referencePath]]];
@@ -59,48 +54,17 @@
     if([[self representedObject] failureDiffPath] != nil) {
         CALayer *diffLayer = [CALayer layer];
         
-        CIImage *diffImage = [CIImage imageWithContentsOfURL:[NSURL fileURLWithPath:[[self representedObject] failureDiffPath]]];
-        
-        NSBitmapImageRep *diffRep = [[NSBitmapImageRep alloc] initWithCIImage:diffImage];
-        
-        diffLayer.contents = (id)[diffRep CGImage];
+        diffLayer.contents = (id)[[NSBitmapImageRep imageRepWithData:[NSData dataWithContentsOfFile:[[self representedObject] failureDiffPath]]] CGImage];
         
         [[self outputImageView] setOverlay:diffLayer];
     }
     
-    [self bindViews];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 
     [self updateImageViews];
-}
-
-
-
-- (void)unbindViews {
-    [[self refImageView] unbind:@"selected"];
-    [[self outputImageView] unbind:@"selected"];
-}
-
-- (void)bindViews {
-    if([self representedObject] != nil) {
-        [[self refImageView] bind:@"selected"
-                         toObject:self.representedObject
-                      withKeyPath:@"replaceReference"
-                          options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
-                                   [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                                   nil]];
-        
-        [[self outputImageView] bind:@"selected"
-                            toObject:self.representedObject
-                         withKeyPath:@"replaceReference"
-                             options:[NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
-                                      nil]];
-    }
 }
 
 - (void)mouseDownInImageView:(TMImageView*)view {

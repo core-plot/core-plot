@@ -12,42 +12,51 @@
 
 #import "GTMDefines.h"
 
-typedef enum {
-    OutputChoice = YES,
-    ReferenceChoice = NO
-} TMCompareControllerChoice;
-
 @interface TMCompareController ()
-
-- (void)setMergeChoice:(TMCompareControllerChoice)choice;
-
+- (void)setupBindings;
 @end
 
 @implementation TMCompareController
+@synthesize referenceSelectionView;
+@synthesize outputSelectionView;
 
-- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
-    if([anItem action] == @selector(selectReference:)) {
-        return [[self representedObject] referencePath] != nil;
-    }
+- (void)setView:(NSView*)view {  
+    [super setView:view];
     
-    if([anItem action] == @selector(selectOutput:)) {
-        return [[self representedObject] outputPath] != nil;
-    }
+    [self performSelector:@selector(setupBindings) withObject:nil afterDelay:0.1];
     
-    return NO;
 }
 
-- (IBAction)selectReference:(id)sender {
-    _GTMDevLog(@"User selected reference");
-    [self setMergeChoice:ReferenceChoice];
-}
-
-- (IBAction)selectOutput:(id)sender {
-    _GTMDevLog(@"User selected output");
-    [self setMergeChoice:OutputChoice];
+- (void)setupBindings {
+    _GTMDevLog(@"TMCompareController binding selection views (%@ & %@).", self.referenceSelectionView, self.outputSelectionView);
+    
+    [[self referenceSelectionView] bind:@"selected"
+                               toObject:self
+                            withKeyPath:@"representedObject.replaceReference"
+                                options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         NSNegateBooleanTransformerName, NSValueTransformerNameBindingOption,
+                                         [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                         nil
+                                         ]];
+    
+    [[self outputSelectionView] bind:@"selected"
+                            toObject:self
+                         withKeyPath:@"representedObject.replaceReference"
+                             options:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption,
+                                      nil
+                                      ]];
 }
 
 - (void)setMergeChoice:(TMCompareControllerChoice)choice {
-    [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:choice];
+    switch (choice) {
+        case OutputChoice:
+        case ReferenceChoice:
+            [(id<TMOutputGroup>)[self representedObject] setReplaceReferenceValue:choice];       
+            break;
+        case NeitherChoice:
+            [(id<TMOutputGroup>)[self representedObject] setReplaceReference:nil];       
+            break;
+    }
 }
 @end

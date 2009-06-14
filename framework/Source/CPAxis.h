@@ -6,12 +6,20 @@
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
+@class CPAxis;
 
 typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyAdHoc,
     CPAxisLabelingPolicyFixedInterval,
-    CPAxisLabelingPolicyLogarithmic // Not implemented
+    CPAxisLabelingPolicyLogarithmic // TODO: Implement logarithmic labeling
 } CPAxisLabelingPolicy;
+
+@protocol CPAxisDelegate
+
+-(void)axisWillRelabel:(CPAxis *)axis;
+-(void)axisDidRelabel:(CPAxis *)axis;
+
+@end
 
 @interface CPAxis : CPLayer {   
     @private
@@ -31,8 +39,11 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicy axisLabelingPolicy;
 	NSNumberFormatter *tickLabelFormatter;
 	NSSet *axisLabels;
-    CPDirection tickDirection;
+    CPSign tickDirection;
     BOOL needsRelabel;
+	BOOL drawsAxisLine;
+	NSArray *labelExclusionRanges;
+	id <CPAxisDelegate> delegate;
 }
 
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -51,13 +62,19 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
-@property (nonatomic, readwrite, assign) CPDirection tickDirection;
+@property (nonatomic, readwrite, assign) CPSign tickDirection;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readwrite, assign) BOOL drawsAxisLine;
+@property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
+@property (nonatomic, readwrite, assign) id <CPAxisDelegate> delegate;
 
 -(void)relabel;
 -(void)setNeedsRelabel;
 
--(NSArray *)createAxisLabelsAtLocations:(NSArray *)locations;
+-(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
+
+-(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations;
+-(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations;
 
 @end
 

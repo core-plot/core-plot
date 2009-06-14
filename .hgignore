@@ -12,7 +12,7 @@ syntax: glob
 .*.swp
 
 # Temporary files used by TestMate
-._.*
+._*
 
 # build directories
 **/build/*

@@ -1,8 +1,5 @@
-//
-//  CPFill.h
-//  CorePlot
-//
 
+#import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
 @class CPGradient;
@@ -20,6 +17,7 @@
 -(id)initWithColor:(CPColor *)aColor;
 -(id)initWithGradient:(CPGradient *)aGradient;
 -(id)initWithImage:(CPImage *)anImage;
+
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
 -(id)copyWithZone:(NSZone *)zone;

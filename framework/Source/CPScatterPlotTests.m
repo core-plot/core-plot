@@ -3,11 +3,13 @@
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPScatterPlot.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPLineStyle.h"
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
+
+#import "GTMNSObject+BindingUnitTesting.h"
 
 
 @implementation CPScatterPlotTests
@@ -16,7 +18,7 @@
 - (void)setUp
 {
     
-    CPCartesianPlotSpace *plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
+    CPXYPlotSpace *plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
     plotSpace.bounds = CGRectMake(0., 0., 100., 100.);
     
     
@@ -38,8 +40,8 @@
 
 
 - (void)setPlotRanges {
-    [(CPCartesianPlotSpace*)[[self plot] plotSpace] setXRange:[self xRange]];
-    [(CPCartesianPlotSpace*)[[self plot] plotSpace] setYRange:[self yRange]];
+    [(CPXYPlotSpace*)[[self plot] plotSpace] setXRange:[self xRange]];
+    [(CPXYPlotSpace*)[[self plot] plotSpace] setYRange:[self yRange]];
 }
 
 

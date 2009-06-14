@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "TMOutputGroup.h"
 
+@class TMCompareController;
 
 extern NSString * const TMMergeControllerDidCommitMerge;
 
@@ -26,7 +27,9 @@ extern NSString * const TMMergeControllerDidCommitMerge;
     
     NSDictionary *compareControllersByExtension;
     
-    NSResponder *originalNextResponder;
+    TMCompareController *currentCompareController;
+    
+    NSIndexSet *groupSelectionIndexes;
 
 }
 
@@ -38,10 +41,17 @@ extern NSString * const TMMergeControllerDidCommitMerge;
 @property (retain,readwrite) IBOutlet NSBox *mergeViewContainer;
 @property (readonly) NSArray *groupSortDescriptors;
 @property (retain,readwrite) NSDictionary *compareControllersByExtension;
+@property (retain,readwrite,nonatomic) NSIndexSet *groupSelectionIndexes;
 
 @property (retain,readwrite) IBOutlet NSArrayController *groupsController;
 
 - (NSArray*)gtmUnitTestOutputPathsFromPath:(NSString*)path;
 
 - (IBAction)commitMerge:(id)sender;
+
+- (IBAction)selectReference:(id)sender;
+- (IBAction)selectOutput:(id)sender;
+- (IBAction)selectMergeNone:(id)sender;
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 @end

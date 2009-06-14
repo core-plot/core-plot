@@ -23,4 +23,12 @@
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionPlotSpace;
+}
+
 @end

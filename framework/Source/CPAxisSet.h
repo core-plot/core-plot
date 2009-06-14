@@ -7,13 +7,19 @@
 @class CPGraph;
 
 @interface CPAxisSet : CPLayer {
+	CPLayer *overlayLayer;
+	CGFloat overlayLayerInsetX, overlayLayerInsetY;
     NSArray *axes;
+	CPGraph	*graph;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
+@property (nonatomic, readwrite, retain) CPLayer *overlayLayer;
+@property (nonatomic, readwrite, assign) CPGraph *graph;
+@property (nonatomic, readwrite, assign) CGFloat overlayLayerInsetX, overlayLayerInsetY;
 
 -(id)initWithFrame:(CGRect)frame;
 
--(void)positionInGraph:(CPGraph *)graph;
+-(void)positionInGraph;
 
 @end

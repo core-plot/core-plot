@@ -12,7 +12,6 @@
 
 @synthesize axisSet;
 @synthesize plotArea;
-@synthesize defaultPlotSpace;
 @synthesize fill;
 
 #pragma mark -
@@ -30,10 +29,14 @@
 
         // Plot spaces
 		plotSpaces = [[NSMutableArray alloc] init];
-        [self addPlotSpace:[self createPlotSpace]];
+        CPPlotSpace *newPlotSpace = [self newPlotSpace];
+        [self addPlotSpace:newPlotSpace];
+        [newPlotSpace release];
         
         // Axis set
-        self.axisSet = [self createAxisSet];
+        CPAxisSet *newAxisSet = [self newAxisSet];
+        self.axisSet = newAxisSet;
+        [newAxisSet release];
         
 		self.needsDisplayOnBoundsChange = YES;
         [self setNeedsLayout];
@@ -184,7 +187,8 @@
         [axisSet removeFromSuperlayer];
         axisSet = [newSet retain];
         if ( axisSet ) [self addSublayer:axisSet];
-        [axisSet positionInGraph:self];
+		axisSet.graph = self;
+        [axisSet positionInGraph];
     }
 }
 
@@ -199,10 +203,15 @@
 #pragma mark -
 #pragma mark Layout
 
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionGraph;
+}
+
 -(void)layoutSublayers 
 {
     [super layoutSublayers];
-    [self.axisSet positionInGraph:self];
+    [self.axisSet positionInGraph];
 }
 
 #pragma mark -

@@ -13,7 +13,7 @@
 	<key>FontSize</key>
 	<real>12</real>
 	<key>FrameRect</key>
-	<string>{{0, 0}, {121, 15}}</string>
+	<string>{{-61.5, -8.5}, {123, 17}}</string>
 	<key>LayerIsDoublesided</key>
 	<true/>
 	<key>LayerIsHidden</key>

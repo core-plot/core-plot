@@ -1,6 +1,6 @@
 
 #import "CPXYGraph.h"
-#import "CPCartesianPlotSpace.h"
+#import "CPXYPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
@@ -29,25 +29,21 @@
 #pragma mark -
 #pragma mark Factory Methods
 
--(CPPlotSpace *)createPlotSpace 
+-(CPPlotSpace *)newPlotSpace 
 {
-    CPPlotSpace *space;
-    if ( xScaleType == CPScaleTypeLinear && yScaleType == CPScaleTypeLinear ) {
-        space = [[CPCartesianPlotSpace alloc] initWithFrame:self.bounds];
-    }
-    else {
-        NSLog(@"Unsupported scale types in createPlotSpace");
-        return nil;
-    }    
-    return [space autorelease];
+    CPXYPlotSpace *space;
+    space = [[CPXYPlotSpace alloc] initWithFrame:self.bounds];
+    space.xScaleType = xScaleType;
+    space.yScaleType = yScaleType;
+    return space;
 }
 
--(CPAxisSet *)createAxisSet
+-(CPAxisSet *)newAxisSet
 {
     CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] initWithFrame:self.bounds];
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
-    return [newAxisSet autorelease];
+    return newAxisSet;
 }
 
 #pragma mark -

@@ -1,16 +1,16 @@
 
-#import "CPCartesianPlotSpaceTests.h"
+#import "CPXYPlotSpaceTests.h"
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 
-@interface CPCartesianPlotSpace (UnitTesting)
+@interface CPXYPlotSpace (UnitTesting)
 
 - (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
 
 @end
 
-@implementation CPCartesianPlotSpace (UnitTesting)
+@implementation CPXYPlotSpace (UnitTesting)
 
 -(void)gtm_unitTestEncodeState:(NSCoder*)inCoder 
 {
@@ -22,13 +22,13 @@
 
 @end
 
-@implementation CPCartesianPlotSpaceTests
+@implementation CPXYPlotSpaceTests
 
 @synthesize plotSpace;
 
 - (void)setUp 
 {
-    self.plotSpace = [[[CPCartesianPlotSpace alloc] init] autorelease];
+    self.plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
 }
 
 - (void)tearDown

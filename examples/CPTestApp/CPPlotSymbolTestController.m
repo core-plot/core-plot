@@ -23,12 +23,12 @@
     hostView.hostedLayer = graph;
     
     // Setup plot space
-    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(14.0)];
     
 	CPGradient *gradientFill = [CPGradient rainbowGradient];
-	gradientFill.gradientType = CPRadialGradientType;
+	gradientFill.gradientType = CPGradientTypeRadial;
 	gradientFill.angle = 90;
 	
     // Create a series of plots that uses the data source method

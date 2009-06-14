@@ -1,7 +1,3 @@
-//
-//  CPFillImage.m
-//  CorePlot
-//
 
 #import "_CPFillImage.h"
 #import "CPImage.h"

@@ -11,6 +11,7 @@
 #import "TMOutputSorter.h"
 #import "TMErrors.h"
 #import "TMCompareController.h"
+#import "TMImageCompareController.h"
 #import "TMOutputGroup.h"
 
 #import "GTMDefines.h"
@@ -19,16 +20,10 @@
 
 NSString * const TMMergeControllerDidCommitMerge = @"TMMergeControllerDidCommitMerge";
 
-typedef enum {
-    OutputChoice = YES,
-    ReferenceChoice = NO
-} TMMergeControllerChoice;
-
 @interface TMMergeController ()
 
-@property (retain,readwrite) NSResponder *originalNextResponder;
+@property (retain,readwrite) TMCompareController *currentCompareController;
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification;
 - (void)commitMergeForGroups:(NSSet*)groups;
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup;
 
@@ -44,7 +39,8 @@ typedef enum {
 @synthesize groupsController;
 @synthesize mergeViewContainer;
 @synthesize compareControllersByExtension;
-@synthesize originalNextResponder;
+@synthesize currentCompareController;
+@synthesize groupSelectionIndexes;
 
 - (void)dealloc {
     [referencePath release];
@@ -53,16 +49,9 @@ typedef enum {
     [groupsController release];
     [mergeViewContainer release];
     [compareControllersByExtension release];
-    
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
+    [currentCompareController release];
     
     [super dealloc];
-}
-
-- (void)finalize {
-    [[self groupsController] gtm_removeObserver:self forKeyPath:@"selectedGroup" selector:@selector(observeSelectedGroupDidChange:)];
-    
-    [super finalize];
 }
 
 + (void)initialize {
@@ -87,6 +76,9 @@ typedef enum {
     
     NSArray *referencePaths = [self gtmUnitTestOutputPathsFromPath:self.referencePath];
     NSArray *outputPaths = [self gtmUnitTestOutputPathsFromPath:self.outputPath];
+    
+    //quit if there's no new output
+    //if(outputPaths.count == 0) [NSApp terminate:self];
     
     TMOutputSorter *sorter = [[[TMOutputSorter alloc] initWithReferencePaths:referencePaths
                                                                  outputPaths:outputPaths]
@@ -154,7 +146,7 @@ typedef enum {
 }
 
 - (void)windowWillLoad {
-    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[[NSApp delegate] managedObjectModel]];
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]]]];
     
     NSError *err;
     if(![psc addPersistentStoreWithType:NSInMemoryStoreType
@@ -183,44 +175,34 @@ typedef enum {
 
 - (void)windowDidLoad {
     _GTMDevAssert([self groupsController] != nil, @"nil groups controller");
-    [[self groupsController] gtm_addObserver:self
-                                  forKeyPath:@"selectedObjects"
-                                    selector:@selector(observeSelectedGroupsDidChange:)
-                                    userInfo:nil
-                                     options:NSKeyValueObservingOptionNew];
-    
-    //make sure all compare controllers are loaded
-    for(NSViewController *controller in [[self compareControllersByExtension] allValues]) {
-        (void)[controller view];
-    }
-    
-    self.originalNextResponder = [self nextResponder];
 }
 
-- (void)observeSelectedGroupsDidChange:(GTMKeyValueChangeNotification*)notification {
-    _GTMDevAssert([[[notification change] objectForKey:NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeSetting, @"");
-    
-    _GTMDevAssert([[[self groupsController] selectedObjects] count] <= 1, @"too many selected objects");
-    
-    [self updateMergeViewForGroup:[[[self groupsController] selectedObjects] lastObject]];
+- (void)setGroupSelectionIndexes:(NSIndexSet*)newSelectionIndexes {
+    if(newSelectionIndexes != self.groupSelectionIndexes) {
+        [groupSelectionIndexes release];
+        groupSelectionIndexes = newSelectionIndexes;
+        
+        _GTMDevAssert(self.groupSelectionIndexes.count <= 1, @"Multiple group selection");
+        
+        if(self.groupSelectionIndexes.count > 0) {
+            [self updateMergeViewForGroup:[[[self groupsController] arrangedObjects] objectAtIndex:[[self groupSelectionIndexes] firstIndex]]];
+        } else {
+            [self updateMergeViewForGroup:nil];
+        }
+    }
 }
+
 
 - (void)updateMergeViewForGroup:(id<TMOutputGroup>)newGroup {
-    TMCompareController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
+    NSViewController *controller = [[self compareControllersByExtension] objectForKey:newGroup.extension];
     
-    if(controller != nil &&
-       [self nextResponder] != controller) {
-        
-        if(self.originalNextResponder != nil) {
-            [controller setNextResponder:self.originalNextResponder];
-        }
-        
-        [self setNextResponder:controller];
-    }
+    self.currentCompareController = [[[controller class] alloc] initWithNibName:[controller nibName] bundle:[controller nibBundle]];
     
-    [controller setRepresentedObject:newGroup];
+    (void)[self.currentCompareController view];
+
+    [self.currentCompareController setRepresentedObject:newGroup];
     
-    [self.mergeViewContainer setContentView:controller.view];
+    [self.mergeViewContainer setContentView:self.currentCompareController.view];
 }
 
 - (NSArray*)groupSortDescriptors {
@@ -283,4 +265,36 @@ typedef enum {
         }
     }
 }
+
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    if([anItem action] == @selector(selectReference:)) {
+        return [[[self currentCompareController] representedObject] referencePath] != nil;
+    }
+    
+    if([anItem action] == @selector(selectOutput:)) {
+        return [[[self currentCompareController] representedObject] outputPath] != nil;
+    }
+    
+    
+    if([anItem action] == @selector(selectMergeNone:)) return YES;
+    
+    return NO;
+}
+
+- (IBAction)selectReference:(id)sender {
+    _GTMDevLog(@"User selected reference");
+    [self.currentCompareController setMergeChoice:ReferenceChoice];
+}
+
+- (IBAction)selectOutput:(id)sender {
+    _GTMDevLog(@"User selected output");
+    [self.currentCompareController setMergeChoice:OutputChoice];
+}
+
+- (IBAction)selectMergeNone:(id)sender {
+    _GTMDevLog(@"User selected merge none");
+    [self.currentCompareController setMergeChoice:NeitherChoice];
+}
+
 @end

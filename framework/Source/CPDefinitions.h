@@ -1,9 +1,12 @@
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 typedef NSInteger CPInteger;
 typedef CGFloat   CPFloat;
 typedef double    CPDouble;
+
+extern NSTimeInterval kCPIndefiniteDuration;
 
 typedef enum  _CPNumericType {
     CPNumericTypeInteger,
@@ -36,9 +39,20 @@ typedef struct _CPRGBAColor {
 	float red, green, blue, alpha;
 } CPRGBAColor;
 
-typedef enum _CPDirection {
-    CPDirectionLeft,
-    CPDirectionRight,
-    CPDirectionUp,
-    CPDirectionDown
-} CPDirection;
+typedef enum _CPSign {
+	CPSignNone,
+	CPSignPositive,
+	CPSignNegative
+} CPSign;
+
+typedef enum _CPDefaultZPosition {
+	CPDefaultZPositionGraph,
+	CPDefaultZPositionPlotArea,
+	CPDefaultZPositionAxisSet,
+	CPDefaultZPositionAxis,
+	CPDefaultZPositionPlotSpace,
+	CPDefaultZPositionPlot,
+	CPDefaultZPositionAxisSetOverlay
+} CPDefaultZPosition;
+
+

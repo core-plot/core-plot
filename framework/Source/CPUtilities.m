@@ -71,3 +71,11 @@ CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
 
 	return rgbColor;
 }
+
+#pragma mark -
+#pragma mark Coordinates
+
+CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
+{
+	return ( coord == CPCoordinateX ? CPCoordinateY : CPCoordinateX );
+}

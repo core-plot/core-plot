@@ -8,6 +8,9 @@
 @implementation CPAxisSet
 
 @synthesize axes;
+@synthesize overlayLayer;
+@synthesize graph;
+@synthesize overlayLayerInsetX, overlayLayerInsetY;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -18,17 +21,29 @@
 		self.axes = [NSArray array];
         self.needsDisplayOnBoundsChange = YES;
 		self.layerAutoresizingMask = kCPLayerNotSizable;
+		self.overlayLayerInsetX = 0.0f;
+		self.overlayLayerInsetY = 0.0f;
 	}
 	return self;
 }
 
 -(void)dealloc {
+	graph = nil;
+	[overlayLayer release];
     [axes release];
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Accessors
+
+-(void)setGraph:(CPGraph *)newGraph
+{
+	if ( graph != newGraph ) {
+		graph = newGraph;
+		[self setNeedsLayout];
+	}
+}
 
 -(void)setAxes:(NSArray *)newAxes 
 {
@@ -40,17 +55,33 @@
         axes = [newAxes retain];
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
-			[axis setNeedsDisplay];
-            [axis setNeedsLayout];
         }
         [self setNeedsLayout];
     }
 }
 
+-(void)setOverlayLayer:(CPLayer *)newLayer 
+{		
+	if ( newLayer != overlayLayer ) {
+		[overlayLayer removeFromSuperlayer];
+		[overlayLayer release];
+		overlayLayer = [newLayer retain];
+		overlayLayer.layerAutoresizingMask = kCPLayerNotSizable;
+		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
+		[self addSublayer:newLayer];
+		[self positionInGraph];
+	}
+}
+
 #pragma mark -
 #pragma mark Layout
 
--(void)positionInGraph:(CPGraph *)graph 
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionAxisSet;
+}
+
+-(void)positionInGraph
 {    
     if ( graph.plotArea ) {
         // Set the bounds so that the axis set coordinates coincide with the 
@@ -69,6 +100,11 @@
 			[axis setNeedsDisplay];
             [axis setNeedsLayout];
         }
+		
+		// Overlay
+		overlayLayer.bounds = CGRectInset(self.graph.plotArea.bounds, self.overlayLayerInsetX, self.overlayLayerInsetY);
+		overlayLayer.anchorPoint = CGPointZero;
+		overlayLayer.position = CGPointMake(self.overlayLayerInsetX, self.overlayLayerInsetY);
     }
 }
 

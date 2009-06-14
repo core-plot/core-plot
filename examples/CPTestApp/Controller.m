@@ -19,9 +19,15 @@
 
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
+	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:endColor endingColor:endColor];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.3];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.3] atPosition:0.5];
+	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.6];
+	graphGradient.angle = 90.0f;
+	graph.fill = [CPFill fillWithGradient:graphGradient];
 		
-    CPGradient *gradient = [CPGradient unifiedDarkGradient];
+    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.7] endingColor:[CPColor colorWithGenericGray:0.95]];
     gradient.angle = 90.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
 	
@@ -29,16 +35,26 @@
 	hostView.hostedLayer = graph;
     
     // Setup plot space
-    CPCartesianPlotSpace *plotSpace = (CPCartesianPlotSpace *)graph.defaultPlotSpace;
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+	
+	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+    borderLineStyle.lineColor = [CPColor colorWithGenericGray:1.0];
+    borderLineStyle.lineWidth = 5.0f;
+	
+	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
+	borderedLayer.borderLineStyle = borderLineStyle;
+	borderedLayer.cornerRadius = 10.0f;
+	axisSet.overlayLayerInsetX = -4.f;
+	axisSet.overlayLayerInsetY = -4.f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
-    majorLineStyle.lineColor = [CPColor darkGrayColor];
+    majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
     majorLineStyle.lineWidth = 2.0f;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
@@ -48,29 +64,43 @@
     CPXYAxis *x = axisSet.xAxis;
     x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.1"];
-    x.constantCoordinateValue = [NSDecimalNumber one];
+    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 2;
     x.majorTickLineStyle = majorLineStyle;
     x.minorTickLineStyle = minorLineStyle;
     x.axisLineStyle = majorLineStyle;
     x.majorTickLength = 7.0f;
     x.minorTickLength = 5.0f;
+	NSArray *exclusionRanges = [NSArray arrayWithObjects:
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(2.99) length:CPDecimalFromFloat(0.02)],
+		nil];
+	x.labelExclusionRanges = exclusionRanges;
 
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber one];
+    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;
     y.axisLineStyle = majorLineStyle;
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
+	exclusionRanges = [NSArray arrayWithObjects:
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
+		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(3.99) length:CPDecimalFromFloat(0.02)],
+		nil];
+	y.labelExclusionRanges = exclusionRanges;
     
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
-	boundLinePlot.dataLineStyle.lineWidth = 2.f;
+	boundLinePlot.dataLineStyle.lineWidth = 3.f;
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
@@ -86,7 +116,7 @@
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
+	dataSourceLinePlot.dataLineStyle.lineWidth = 2.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];

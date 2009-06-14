@@ -47,8 +47,8 @@
 
 @interface CPGraph (AbstractFactoryMethods)
 
--(CPPlotSpace *)createPlotSpace;
--(CPAxisSet *)createAxisSet;
+-(CPPlotSpace *)newPlotSpace;
+-(CPAxisSet *)newAxisSet;
 
 @end
 

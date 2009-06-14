@@ -8,7 +8,7 @@
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 // iPhone-specific image library as equivalent to ImageIO?
 #else
-#import <ImageIO/ImageIO.h>
+//#import <ImageIO/ImageIO.h>
 #endif
 
 
