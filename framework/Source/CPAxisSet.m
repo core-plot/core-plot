@@ -79,4 +79,20 @@
 	return CPDefaultZPositionAxisSet;
 }
 
+-(void)layoutSublayers 
+{
+	CGRect selfBounds = self.bounds;
+	
+	for ( CPAxis *axis in self.axes ) {
+		axis.bounds = selfBounds;
+		axis.anchorPoint = CGPointZero;
+		axis.position = selfBounds.origin;
+	}
+	
+	// Overlay
+	self.overlayLayer.bounds = CGRectInset(self.graph.plotArea.bounds, self.overlayLayerInsetX, self.overlayLayerInsetY);
+	self.overlayLayer.anchorPoint = CGPointZero;
+	self.overlayLayer.position = CGPointMake(self.overlayLayerInsetX, self.overlayLayerInsetY);
+}
+
 @end
