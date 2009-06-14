@@ -9,6 +9,17 @@
 @synthesize identifier;
 
 #pragma mark -
+#pragma mark Initialize/Deallocate
+
+-(id)initWithFrame:(CGRect)newFrame
+{
+	if (self = [super initWithFrame:newFrame]) {
+		self.masksToBounds = YES;
+	}
+	return self;
+}
+
+#pragma mark -
 #pragma mark Layout
 
 +(CGFloat)defaultZPosition 
