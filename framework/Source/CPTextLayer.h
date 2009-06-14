@@ -1,23 +1,24 @@
+
 #import "CPLayer.h"
 
 @class CPColor;
+@class CPTextStyle;
+
+extern CGFloat kCPTextLayerMarginWidth;
 
 @interface CPTextLayer : CPLayer {
 	NSString *text;
-    NSString *fontName;
-	CGFloat fontSize;
-    CPColor *fontColor;
+	CPTextStyle *textStyle;
 }
 
 @property(readwrite, copy, nonatomic) NSString *text;
-@property(readwrite, copy, nonatomic) NSString *fontName;
-@property(readwrite, nonatomic) CGFloat fontSize; 
-@property(readwrite, copy, nonatomic) CPColor *fontColor;
+@property(readwrite, copy, nonatomic) CPTextStyle *textStyle;
+
++(CPTextStyle *)defaultTextStyle;
 
 // Initialization and teardown
-+(NSString *)defaultFontName;
-
--(id)initWithString:(NSString *)newText fontSize:(CGFloat)newFontSize;
+-(id)initWithText:(NSString *)newText;
+-(id)initWithText:(NSString *)newText style:(CPTextStyle *)newStyle;
 
 // Layout
 -(void)sizeToFit;

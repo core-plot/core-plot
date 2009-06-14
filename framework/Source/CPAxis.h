@@ -7,6 +7,7 @@
 @class CPPlotSpace;
 @class CPPlotRange;
 @class CPAxis;
+@class CPTextStyle;
 
 typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyAdHoc,
@@ -37,6 +38,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSDecimalNumber *majorIntervalLength;
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
+	CPTextStyle *axisLabelTextStyle;
 	NSNumberFormatter *tickLabelFormatter;
 	NSSet *axisLabels;
     CPSign tickDirection;
@@ -60,6 +62,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) NSDecimalNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
+@property (nonatomic, readwrite, copy) CPTextStyle *axisLabelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;

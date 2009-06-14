@@ -4,6 +4,7 @@
 #import "CPUtilities.h"
 #import "CPPlotRange.h"
 #import "CPLineStyle.h"
+#import "CPTextStyle.h"
 #import "CPTextLayer.h"
 #import "CPAxisLabel.h"
 #import "CPPlatformSpecificCategories.h"
@@ -36,6 +37,7 @@
 @synthesize majorIntervalLength;
 @synthesize minorTicksPerInterval;
 @synthesize axisLabelingPolicy;
+@synthesize axisLabelTextStyle;
 @synthesize tickLabelFormatter;
 @synthesize axisLabels;
 @synthesize tickDirection;
@@ -64,12 +66,13 @@
 		self.minorTicksPerInterval = 1;
 		self.coordinate = CPCoordinateX;
 		self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+		self.axisLabelTextStyle = [[[CPTextStyle alloc] init] autorelease];
 		NSNumberFormatter *newFormatter = [[[NSNumberFormatter alloc] init] autorelease];
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
         self.tickLabelFormatter = newFormatter;
 		self.axisLabels = [NSSet set];
-        self.tickDirection = CPSignNegative;
+        self.tickDirection = CPSignNone;
 		self.layerAutoresizingMask = kCPLayerNotSizable;
         self.needsRelabel = YES;
 		self.drawsAxisLine = YES;
@@ -92,6 +95,7 @@
 	self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
 	self.axisLabels = nil;
+	self.axisLabelTextStyle = nil;
 	self.labelExclusionRanges = nil;
 	self.delegate = nil;
 	[super dealloc];
@@ -152,7 +156,7 @@
     NSMutableArray *newLabels = [[NSMutableArray alloc] initWithCapacity:locations.count];
 	for ( NSDecimalNumber *tickLocation in locations ) {
         NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
-        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString];
+        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.axisLabelTextStyle];
         newLabel.tickLocation = tickLocation;
         newLabel.offset = self.axisLabelOffset;
         [newLabels addObject:newLabel];
@@ -271,6 +275,15 @@
             [self addSublayer:label];
         }
     }
+}
+
+-(void)setAxisLabelTextStyle:(CPTextStyle *)newStyle 
+{
+	if ( newStyle != axisLabelTextStyle ) {
+		[axisLabelTextStyle release];
+		axisLabelTextStyle = [newStyle copy];
+		[self setNeedsRelabel];
+	}
 }
 
 -(void)setLabelExclusionRanges:(NSArray *)ranges {
