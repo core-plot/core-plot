@@ -8,8 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="502"/>
-			<integer value="296"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -45,7 +44,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSMenuItem" id="694149608">
 						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">NewApplication</string>
+						<string key="NSTitle">CPTestApp</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<object class="NSCustomResource" key="NSOnImage" id="90941078">
@@ -58,12 +57,12 @@
 						</object>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="110575045">
-							<string key="NSTitle">NewApplication</string>
+							<string key="NSTitle">CPTestApp</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="238522557">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">About NewApplication</string>
+									<string key="NSTitle">About CPTestApp</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="90941078"/>
@@ -126,7 +125,7 @@
 								</object>
 								<object class="NSMenuItem" id="755159360">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Hide NewApplication</string>
+									<string key="NSTitle">Hide CPTestApp</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -162,7 +161,7 @@
 								</object>
 								<object class="NSMenuItem" id="632727374">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Quit NewApplication</string>
+									<string key="NSTitle">Quit CPTestApp</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -1124,7 +1123,7 @@
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="238773614">
 									<reference key="NSMenu" ref="374024848"/>
-									<string key="NSTitle">NewApplication Help</string>
+									<string key="NSTitle">CPTestApp Help</string>
 									<string key="NSKeyEquiv">?</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -1146,6 +1145,7 @@
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSWindowContentMinSize">{450, 250}</string>
 				<object class="NSView" key="NSWindowView" id="1019331462">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -1305,15 +1305,15 @@
 																			</object>
 																		</object>
 																	</object>
-																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="976775159">
+																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="142284480">
 																		<int key="NS.exponent">0</int>
 																		<int key="NS.length">0</int>
 																		<bool key="NS.negative">YES</bool>
 																		<bool key="NS.compact">NO</bool>
-																		<int key="NS.mantissa.bo">1</int>
+																		<int key="NS.mantissa.bo">2</int>
 																		<bytes key="NS.mantissa">AAAAAAAAAAAAAAAAAAAAAA</bytes>
 																	</object>
-																	<reference key="NS.max" ref="976775159"/>
+																	<reference key="NS.max" ref="142284480"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1395,8 +1395,8 @@
 																		<string key="NSString">NaN</string>
 																		<reference key="NSAttributes" ref="927249761"/>
 																	</object>
-																	<reference key="NS.min" ref="976775159"/>
-																	<reference key="NS.max" ref="976775159"/>
+																	<reference key="NS.min" ref="142284480"/>
+																	<reference key="NS.max" ref="142284480"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1521,6 +1521,7 @@
 					<string key="NSFrameSize">{912, 526}</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
+				<string key="NSMinSize">{450, 272}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 			</object>
 			<object class="NSArrayController" id="862234084">
@@ -1547,7 +1548,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="941170837">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1561,7 +1562,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{777, 567}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
@@ -3496,6 +3496,8 @@
 					<string>446.IBEditorWindowLastContentRect</string>
 					<string>446.IBWindowTemplateEditedContentRect</string>
 					<string>446.NSWindowTemplate.visibleAtLaunch</string>
+					<string>446.windowTemplate.hasMinSize</string>
+					<string>446.windowTemplate.minSize</string>
 					<string>447.IBPluginDependency</string>
 					<string>456.CustomClassName</string>
 					<string>456.IBPluginDependency</string>
@@ -3576,7 +3578,7 @@
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{514, 488}, {216, 23}}</string>
+					<string>{{427, 655}, {183, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{596, 852}, {216, 23}}</string>
@@ -3637,7 +3639,7 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{283, 268}, {243, 243}}</string>
+					<string>{{196, 435}, {243, 243}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{365, 632}, {243, 243}}</string>
@@ -3683,17 +3685,17 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{443, 438}, {197, 73}}</string>
+					<string>{{356, 605}, {197, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{45, 678}, {478, 20}}</string>
+					<string>{{45, 678}, {443, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{341, 585}, {234, 93}}</string>
+					<string>{{306, 585}, {234, 93}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3714,7 +3716,7 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{327, 468}, {86, 43}}</string>
+					<string>{{240, 635}, {86, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3759,9 +3761,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{155, 118}, {912, 526}}</string>
-					<string>{{155, 118}, {912, 526}}</string>
+					<string>{{83, 118}, {912, 526}}</string>
+					<string>{{83, 118}, {912, 526}}</string>
 					<boolean value="YES" id="5"/>
+					<reference ref="5"/>
+					<string>{450, 250}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>Controller</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3802,7 +3806,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{148, 364}, {245, 183}}</string>
+					<string>{{57, 495}, {213, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -3824,7 +3828,7 @@
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{242, 266}, {203, 253}}</string>
+					<string>{{154, 425}, {203, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{323, 672}, {199, 203}}</string>
