@@ -1,13 +1,19 @@
 #import "CPLayerHostingView.h"
 #import "CPLayer.h"
 
+@interface CPLayerHostingView()
+
+@property (nonatomic, readwrite, assign) CPLayer *layerBeingClickedOn;
+
+@end
+
 @implementation CPLayerHostingView
 
 @synthesize hostedLayer;
+@synthesize layerBeingClickedOn;
 
 -(id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
 		hostedLayer = nil;
 		layerBeingClickedOn = nil;
 		CPLayer *mainLayer = [[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
@@ -20,7 +26,8 @@
 
 - (void)dealloc
 {
-	[hostedLayer release];
+	self.hostedLayer = nil;
+	self.layerBeingClickedOn = nil;
 	[super dealloc];
 }
 
@@ -36,35 +43,35 @@
 {
 	CGPoint pointOfMouseDown = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 	CALayer *hitLayer = [self.layer hitTest:pointOfMouseDown];
-
+	
 	if ( (hitLayer != nil) && [hitLayer isKindOfClass:[CPLayer class]]) {
-		layerBeingClickedOn = (CPLayer *)hitLayer;
+		self.layerBeingClickedOn = (CPLayer *)hitLayer;
 		[(CPLayer *)hitLayer mouseOrFingerDownAtPoint:pointOfMouseDown];
 	}
 }
 
 -(void)mouseDragged:(NSEvent *)theEvent;
 {
-	if (layerBeingClickedOn == nil){
+	if (self.layerBeingClickedOn == nil) {
 		return;
 	}
 	
 	CGPoint pointOfMouseDrag = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-
-	[layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseDrag];
-	layerBeingClickedOn = nil;	
+	
+	[self.layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseDrag];
+	self.layerBeingClickedOn = nil;	
 }
 
 -(void)mouseUp:(NSEvent *)theEvent;
 {
-	if (layerBeingClickedOn == nil) {
+	if (self.layerBeingClickedOn == nil) {
 		return;		
 	}
 	
 	CGPoint pointOfMouseUp = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-
-	[layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseUp];
-	layerBeingClickedOn = nil;	
+	
+	[self.layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseUp];
+	self.layerBeingClickedOn = nil;	
 }
 
 #pragma mark -
@@ -72,14 +79,14 @@
 
 -(void)setHostedLayer:(CPLayer *)newLayer
 {
-	if (newLayer == hostedLayer) {
-		return;
+	if (newLayer != hostedLayer) {
+		[hostedLayer removeFromSuperlayer];
+		[hostedLayer release];
+		hostedLayer = [newLayer retain];
+		if (hostedLayer) {
+			[self.layer addSublayer:hostedLayer];
+		}
 	}
-	
-	[hostedLayer removeFromSuperlayer];
-	[hostedLayer release];
-	hostedLayer = [newLayer retain];
-	[self.layer addSublayer:hostedLayer];
 }
 
 @end
