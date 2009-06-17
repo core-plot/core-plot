@@ -21,10 +21,6 @@
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
 	graph = [theme newGraph];
 	hostView.hostedLayer = graph;
-    graph.paddingLeft = 0.0;
-	graph.paddingTop =  0.0;
-	graph.paddingRight = 0.0;
-	graph.paddingBottom = 0.0;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;

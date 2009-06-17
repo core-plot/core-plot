@@ -30,6 +30,10 @@
 	graph = [theme newGraph];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = graph;
+    graph.paddingLeft = 20.0;
+	graph.paddingTop = 20.0;
+	graph.paddingRight = 20.0;
+	graph.paddingBottom = 20.0;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
