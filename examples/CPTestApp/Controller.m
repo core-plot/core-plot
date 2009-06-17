@@ -18,9 +18,8 @@
     [super awakeFromNib];
 
     // Create graph from theme
-	CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
+	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
 	graph = [theme newGraph];
-	graph.frame = hostView.bounds;
 	hostView.hostedLayer = graph;
     
     // Setup plot space

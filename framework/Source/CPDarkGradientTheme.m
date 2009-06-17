@@ -17,14 +17,18 @@
 
 +(NSString *)name 
 {
-	return @"Dark Gradients";
+	return kCPDarkGradientTheme;
 }
 
 -(CPGraph *)newGraph 
 {
 	// Create graph
     CPXYGraph *graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-
+	graph.paddingLeft = 60.0;
+	graph.paddingTop = 60.0;
+	graph.paddingRight = 60.0;
+	graph.paddingBottom = 60.0;
+	
 	// Background
 	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
 	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:endColor endingColor:endColor];
@@ -35,7 +39,6 @@
 	graph.fill = [CPFill fillWithGradient:graphGradient];
 	
 	// Plot area
-	graph.plotArea.frame = CGRectInset(graph.bounds, 60.0, 60.0);
     CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
     gradient.angle = 90.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 

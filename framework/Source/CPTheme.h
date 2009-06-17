@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class CPGraph;
+extern NSString * const kCPDarkGradientTheme;
 
 @interface CPTheme : NSObject {
 

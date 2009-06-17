@@ -11,18 +11,21 @@
 -(void)awakeFromNib {
     // Create graph
     graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-	graph.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;	
+    hostView.hostedLayer = graph;
+	
+	// Remove axes
     graph.axisSet = nil;
+	
+	// Background
 	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	
+	// Plot area
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
-	
-    hostView.hostedLayer = graph;
-    
+	    
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];

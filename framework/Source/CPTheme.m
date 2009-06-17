@@ -3,6 +3,9 @@
 #import "CPExceptions.h"
 #import "CPDarkGradientTheme.h"
 
+// theme names
+NSString * const kCPDarkGradientTheme = @"Dark Gradients";
+
 @implementation CPTheme
 
 +(CPTheme *)themeNamed:(NSString *)themeName
