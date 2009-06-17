@@ -88,6 +88,14 @@
 #pragma mark -
 #pragma mark Layout
 
+-(void)setBounds:(CGRect)newBounds 
+{
+    if ( !CGRectEqualToRect(newBounds, self.bounds) ) {
+        [super setBounds:newBounds];
+        [self relabelAxes];
+    }
+}
+
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;

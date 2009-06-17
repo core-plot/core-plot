@@ -241,14 +241,6 @@
 	return CPDefaultZPositionGraph;
 }
 
--(void)setBounds:(CGRect)newBounds 
-{
-    if ( !CGRectEqualToRect(newBounds, self.bounds) ) {
-        [super setBounds:newBounds];
-        [self.axisSet relabelAxes];
-    }
-}
-
 -(void)layoutSublayers 
 {
 	[super layoutSublayers];
