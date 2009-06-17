@@ -40,6 +40,16 @@
     return [self.location decimalNumberByAdding:self.length];
 }
 
+#pragma mark -
+#pragma mark NSCopying
+
+-(id)copyWithZone:(NSZone *)zone 
+{
+    CPPlotRange *newRange = [[CPPlotRange allocWithZone:zone] init];
+    newRange.location = self.location;
+    newRange.length = self.length;
+    return newRange;
+}
 
 #pragma mark -
 #pragma mark NSCoding

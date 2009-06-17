@@ -4,6 +4,8 @@
 #import "CPAxisSet.h"
 #import "CPLineStyle.h"
 
+NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpaceCoordinateMappingDidChangeNotification";
+
 @implementation CPPlotSpace
 
 @synthesize identifier;

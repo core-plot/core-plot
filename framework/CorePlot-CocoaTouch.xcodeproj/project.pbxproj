@@ -349,6 +349,7 @@
 		BC9B82520FB89B420035D8DA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BC9B82A20FB89E610035D8DA /* Types and Functions */,
 				077F28500FE18011000BCA52 /* Layers */,
 				070CB84D0FC9DEDA00F3152B /* Animation */,
 				070CB8100FC9DDED00F3152B /* Text */,
@@ -360,7 +361,6 @@
 				BC9B82B50FB89E610035D8DA /* Graphs */,
 				BC9B82B00FB89E610035D8DA /* Categories */,
 				BC9B82AD0FB89E610035D8DA /* Value Transformers */,
-				BC9B82A20FB89E610035D8DA /* Types and Functions */,
 				072E3F980FE2FF3E00ACF62F /* Themes */,
 			);
 			name = Source;

@@ -34,6 +34,17 @@
 }
 
 #pragma mark -
+#pragma mark Labeling
+
+-(void)relabelAxes
+{
+    for ( CPAxis *axis in self.axes ) {
+        [axis setNeedsLayout];
+        [axis setNeedsRelabel];
+    }
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setGraph:(CPGraph *)newGraph

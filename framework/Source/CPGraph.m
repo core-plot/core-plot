@@ -13,6 +13,8 @@
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
 @property (nonatomic, readwrite, retain) NSMutableArray *plotSpaces;
 
+-(void)plotSpaceMappingDidChange:(NSNotification *)notif;
+
 @end
 
 @implementation CPGraph
@@ -54,6 +56,7 @@
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[axisSet release];
 	[plotArea release];
     self.fill = nil;
@@ -173,11 +176,13 @@
 	space.frame = self.plotArea.bounds;
 	[self.plotSpaces addObject:space];
 	[self.plotArea addSublayer:space];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace
 {
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
         [self.plotSpaces removeObject:plotSpace];
         [plotSpace removeFromSuperlayer];
         for ( CPAxis *axis in self.axisSet.axes ) {
@@ -186,6 +191,19 @@
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlotSpace which did not exist."];
+    }
+}
+
+
+#pragma mark -
+#pragma mark Coordinate Changes in Plot Spaces
+
+-(void)plotSpaceMappingDidChange:(NSNotification *)notif 
+{
+    [self setNeedsLayout];
+    [self.axisSet relabelAxes];
+    for ( CPPlot *plot in self.plots ) {
+        [plot setNeedsDisplay];
     }
 }
 
@@ -221,6 +239,14 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionGraph;
+}
+
+-(void)setBounds:(CGRect)newBounds 
+{
+    if ( !CGRectEqualToRect(newBounds, self.bounds) ) {
+        [super setBounds:newBounds];
+        [self.axisSet relabelAxes];
+    }
 }
 
 -(void)layoutSublayers 

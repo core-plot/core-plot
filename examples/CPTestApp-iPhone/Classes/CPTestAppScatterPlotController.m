@@ -52,7 +52,7 @@
     y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
 
-    // Create a second plot that uses the data source method
+    // Create a plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
@@ -80,6 +80,16 @@
 									[NSMutableDictionary dictionaryWithObjectsAndKeys:x3, @"x", y3, @"y", nil],
 									nil];
 	self.dataForPlot = contentArray;
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
+}
+
+-(void)changePlotRange 
+{
+    // Setup plot space
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(3.0 + 2.0*rand()/RAND_MAX)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(3.0 + 2.0*rand()/RAND_MAX)];
 }
 
 #pragma mark -

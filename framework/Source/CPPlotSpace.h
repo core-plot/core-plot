@@ -5,6 +5,8 @@
 @class CPAxisSet;
 @class CPPlotRange;
 
+extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
+
 @interface CPPlotSpace : CPLayer {
 	id <NSCopying, NSObject> identifier;
 }

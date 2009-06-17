@@ -40,6 +40,26 @@
     return ( coordinate == CPCoordinateX ? self.xRange : self.yRange );
 }
 
+-(void)setXRange:(CPPlotRange *)range 
+{
+    if ( range != xRange ) {
+        [xRange release];
+        xRange = [range copy];
+        [self setNeedsLayout];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
+    }
+}
+
+-(void)setYRange:(CPPlotRange *)range 
+{
+    if ( range != yRange ) {
+        [yRange release];
+        yRange = [range copy];
+        [self setNeedsLayout];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
+    }
+}
+
 #pragma mark -
 #pragma mark Point Conversion
 

@@ -18,4 +18,6 @@
 @property (nonatomic, readwrite, assign) CPGraph *graph;
 @property (nonatomic, readwrite, assign) CGFloat overlayLayerInsetX, overlayLayerInsetY;
 
+-(void)relabelAxes;
+
 @end
