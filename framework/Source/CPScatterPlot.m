@@ -152,6 +152,16 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 		}
 		[self.plotSymbols addObject:newSymbol];
 	}
+	[self setNeedsDisplay];
+}
+
+-(void)setDefaultPlotSymbol:(CPPlotSymbol *)aSymbol
+{
+	if (aSymbol != defaultPlotSymbol) {
+		[defaultPlotSymbol release];
+		defaultPlotSymbol = [aSymbol copy];
+		[self setNeedsDisplay];
+	}
 }
 
 #pragma mark -

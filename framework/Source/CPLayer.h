@@ -4,10 +4,16 @@
 
 @interface CPLayer : CALayer {
 @private
-    BOOL deallocating;
+	CGFloat paddingLeft;
+	CGFloat paddingTop;
+	CGFloat paddingRight;
+	CGFloat paddingBottom;
 }
 
-@property (nonatomic, readwrite) BOOL deallocating;
+@property (nonatomic, readwrite) CGFloat paddingLeft;
+@property (nonatomic, readwrite) CGFloat paddingTop;
+@property (nonatomic, readwrite) CGFloat paddingRight;
+@property (nonatomic, readwrite) CGFloat paddingBottom;
 
 -(id)initWithFrame:(CGRect)newFrame;
 

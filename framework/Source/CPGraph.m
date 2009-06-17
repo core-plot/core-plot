@@ -33,7 +33,7 @@
 		self.plots = [[NSMutableArray alloc] init];
         
         // Plot area
-        self.plotArea = [[CPPlotArea alloc] initWithFrame:CGRectInset(self.bounds, 40.0, 40.0)]; // TODO: Replace later with true margins
+        self.plotArea = [[CPPlotArea alloc] initWithFrame:self.bounds];
         [self addSublayer:self.plotArea];
 		
         // Plot spaces
@@ -54,8 +54,8 @@
 
 -(void)dealloc
 {
-	self.axisSet = nil;
-	self.plotArea = nil;
+	[axisSet release];
+	[plotArea release];
     self.fill = nil;
 	self.plots = nil;
 	self.plotSpaces = nil;
@@ -94,9 +94,6 @@
 -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space
 {
 	if (plot) {
-		plot.bounds = space.bounds;
-		plot.anchorPoint = CGPointZero;
-		plot.position = CGPointZero;
 		[self.plots addObject:plot];
 		plot.plotSpace = space;
 		[space addSublayer:plot];	
@@ -125,9 +122,6 @@
 -(void)insertPlot:(CPPlot* )plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space
 {
 	if (plot) {
-		plot.bounds = space.bounds;
-		plot.anchorPoint = CGPointZero;
-		plot.position = CGPointZero;
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
 		[space addSublayer:plot];
@@ -139,7 +133,7 @@
 {
 	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
 	if (plotToRemove) {
-		[plotToRemove setPlotSpace:nil];
+		plotToRemove.plotSpace = nil;
 		[plotToRemove removeFromSuperlayer];
 		[self.plots removeObjectIdenticalTo:plotToRemove];
 		[self setNeedsDisplay];
@@ -231,9 +225,9 @@
 
 -(void)layoutSublayers 
 {
-    if ( self.plotArea ) {
-		self.plotArea.frame = CGRectInset(self.bounds, 40.0, 40.0); // TODO: Replace later with true margins
-
+	[super layoutSublayers];
+	
+    if ( self.axisSet ) {
         // Set the bounds so that the axis set coordinates coincide with the 
         // plot area drawing coordinates.
         CGRect axisSetBounds = self.bounds;

@@ -19,6 +19,7 @@
 {
 	if (self = [super initWithFrame:newFrame]) {
 		self.axes = [NSArray array];
+		self.overlayLayer = nil;
         self.needsDisplayOnBoundsChange = YES;
 		self.overlayLayerInsetX = 0.0f;
 		self.overlayLayerInsetY = 0.0f;
@@ -27,7 +28,6 @@
 }
 
 -(void)dealloc {
-	graph = nil;
 	[overlayLayer release];
     [axes release];
 	[super dealloc];
@@ -41,6 +41,7 @@
 	if ( graph != newGraph ) {
 		graph = newGraph;
 		[self setNeedsLayout];
+		[self setNeedsDisplay];
 	}
 }
 
@@ -65,8 +66,10 @@
 		[overlayLayer removeFromSuperlayer];
 		[overlayLayer release];
 		overlayLayer = [newLayer retain];
-		overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
-		[self addSublayer:newLayer];
+		if (overlayLayer) {
+			overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
+			[self addSublayer:overlayLayer];
+		}
 		[self setNeedsDisplay];
 	}
 }

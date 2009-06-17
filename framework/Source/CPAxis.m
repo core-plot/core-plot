@@ -82,17 +82,16 @@
 
 
 -(void)dealloc {
-    self.deallocating = YES;
 	self.plotSpace = nil;
-	self.majorTickLocations = nil;
-	self.minorTickLocations = nil;
+	[majorTickLocations release];
+	[minorTickLocations release];
 	self.axisLineStyle = nil;
-	self.majorTickLineStyle = nil;
-	self.minorTickLineStyle = nil;
+	[majorTickLineStyle release];
+	[minorTickLineStyle release];
 	self.fixedPoint = nil;
 	self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
-	self.axisLabels = nil;
+	[axisLabels release];
 	self.axisLabelTextStyle = nil;
 	self.labelExclusionRanges = nil;
 	self.delegate = nil;

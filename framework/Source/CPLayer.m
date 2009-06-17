@@ -4,7 +4,10 @@
 
 @implementation CPLayer
 
-@synthesize deallocating;
+@synthesize paddingLeft;
+@synthesize paddingTop;
+@synthesize paddingRight;
+@synthesize paddingBottom;
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -13,8 +16,11 @@
 		self.needsDisplayOnBoundsChange = NO;
 		self.opaque = NO;
 		self.masksToBounds = NO;
-        self.deallocating = NO;
 		self.zPosition = [self.class defaultZPosition];
+		self.paddingLeft = 0.0;
+		self.paddingTop = 0.0;
+		self.paddingRight = 0.0;
+		self.paddingBottom = 0.0;
 	}
 	return self;
 }
@@ -26,18 +32,6 @@
 
 #pragma mark -
 #pragma mark Drawing
-
--(void)setNeedsLayout 
-{
-    if ( self.deallocating ) return;
-    [super setNeedsLayout];
-}
-
--(void)setNeedsDisplay
-{
-    if ( self.deallocating ) return;
-    [super setNeedsDisplay];
-}
 
 -(void)drawInContext:(CGContextRef)context
 {
@@ -138,13 +132,20 @@
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
 	// Subclasses should override to lay out their own sublayers
 	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
-	// Sublayers fill the super layer's bounds by default
+	// Sublayers fill the super layer's bounds minus any padding by default
 	CGRect selfBounds = self.bounds;
+	CGSize subLayerSize = selfBounds.size;
+	subLayerSize.width -= self.paddingLeft + self.paddingRight;
+	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
+	subLayerSize.height -= self.paddingTop + self.paddingBottom;
+	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
 	
 	for (CALayer *subLayer in self.sublayers) {
-		subLayer.bounds = selfBounds;
+		CGRect subLayerBounds = subLayer.bounds;
+		subLayerBounds.size = subLayerSize;
+		subLayer.bounds = subLayerBounds;
 		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = selfBounds.origin;
+		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
 	}
 }
 
