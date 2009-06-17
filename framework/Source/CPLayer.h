@@ -3,7 +3,7 @@
 #import "CPPlatformSpecificDefines.h"
 
 @interface CPLayer : CALayer {
-@private
+    @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;

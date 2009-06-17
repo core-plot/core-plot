@@ -15,28 +15,21 @@
 #pragma mark -
 #pragma mark Initialization and teardown
 
-- (void)dealloc 
+-(void)dealloc 
 {
 	[dataForPlot release];
     [super dealloc];
 }
 
-- (void)viewDidLoad 
+-(void)viewDidLoad 
 {
-    // Create graph
-    graph = [[CPXYGraph alloc] initWithFrame:self.view.bounds];
+    [super viewDidLoad];
 
-    // Background
-	graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-
-    // Plot area background
-    CPGradient *gradient = [CPGradient aquaSelectedGradient];
-    gradient.angle = 90.0;
-	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
-	
-    // Host graph layer
-	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerMinXMargin | kCPLayerMaxXMargin | kCPLayerHeightSizable | kCPLayerMinYMargin | kCPLayerMaxYMargin;
-	[(CPLayerHostingView *)self.view setHostedLayer:graph];
+    // Create graph from theme
+	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
+	graph = [theme newGraph];
+	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
+    hostingView.hostedLayer = graph;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
@@ -45,36 +38,16 @@
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+    CPXYAxis *x = axisSet.xAxis;
+    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    x.minorTicksPerInterval = 2;
     
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
-    majorLineStyle.lineCap = kCGLineCapRound;
-    majorLineStyle.lineColor = [[CPColor blueColor] colorWithAlphaComponent:0.4];
-    majorLineStyle.lineWidth = 2.0f;
-    
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
-    minorLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.4];
-    minorLineStyle.lineWidth = 2.0f;
-	
-    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.2"];
-    axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber one];
-    axisSet.xAxis.minorTicksPerInterval = 1;
-    axisSet.xAxis.majorTickLineStyle = majorLineStyle;
-    axisSet.xAxis.minorTickLineStyle = minorLineStyle;
-    axisSet.xAxis.axisLineStyle = majorLineStyle;
-    axisSet.xAxis.minorTickLength = 5.0f;
-    axisSet.xAxis.majorTickLength = 7.0f;
-    axisSet.xAxis.axisLabelOffset = 18.f;
+    CPXYAxis *y = axisSet.yAxis;
+    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.minorTicksPerInterval = 5;
+    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
 
-    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber one];
-    axisSet.yAxis.majorTickLineStyle = majorLineStyle;
-    axisSet.yAxis.minorTickLineStyle = minorLineStyle;
-    axisSet.yAxis.axisLineStyle = majorLineStyle;
-    axisSet.yAxis.minorTickLength = 5.0f;
-    axisSet.yAxis.majorTickLength = 7.0f;
-    axisSet.yAxis.axisLabelOffset = 18.f;
-	
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
@@ -103,10 +76,6 @@
 									[NSMutableDictionary dictionaryWithObjectsAndKeys:x3, @"x", y3, @"y", nil],
 									nil];
 	self.dataForPlot = contentArray;
-	
-	
-	
-    [super viewDidLoad];
 }
 
 #pragma mark -

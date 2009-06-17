@@ -25,7 +25,7 @@
 	return self;
 }
 
-- (id)init
+-(id)init
 {
 	return [self initWithFrame:CGRectZero];
 }
@@ -121,6 +121,38 @@
 
 #pragma mark -
 #pragma mark Layout
+
+-(void)setPaddingLeft:(CGFloat)newPadding 
+{
+    if ( newPadding != paddingLeft ) {
+        paddingLeft = newPadding;
+        [self setNeedsLayout];
+    }
+}
+
+-(void)setPaddingRight:(CGFloat)newPadding 
+{
+    if ( newPadding != paddingRight ) {
+        paddingRight = newPadding;
+        [self setNeedsLayout];
+    }
+}
+
+-(void)setPaddingTop:(CGFloat)newPadding 
+{
+    if ( newPadding != paddingTop ) {
+        paddingTop = newPadding;
+        [self setNeedsLayout];
+    }
+}
+
+-(void)setPaddingBottom:(CGFloat)newPadding 
+{
+    if ( newPadding != paddingBottom ) {
+        paddingBottom = newPadding;
+        [self setNeedsLayout];
+    }
+}
 
 +(CGFloat)defaultZPosition 
 {
