@@ -56,7 +56,9 @@
 
 -(id)init
 {
-    NSDate *start = [NSDate dateWithTimeIntervalSinceNow:-(60 * 60 * 24 * 14)]; // two weeks ago.
+    float weeksAgo = 12.0f;// how many weeks ago.
+    NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * weeksAgo);
+    NSDate *start = [NSDate dateWithTimeIntervalSinceNow:secondsAgo]; 
     NSDate *end = [NSDate date]; // now
     return [self initWithSymbol:@"AAPL" startDate:start endDate:end];
 }
@@ -119,7 +121,7 @@
 {
     NSString *url = [self URL];
     NSLog(@"url == %@", url);
-    [self download]; //TODO: go talk to the internetz
+    [self download];
 }
 
 #pragma mark -

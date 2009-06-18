@@ -114,10 +114,10 @@
 			isa = PBXGroup;
 			children = (
 				280E754C0DD40C5E005A515E /* MainWindow.xib */,
-				289233AA0DB2D0DB0083E9F9 /* RootViewController.h */,
-				289233AB0DB2D0DB0083E9F9 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* AAPLotAppDelegate.h */,
 				1D3623250D0F684500981E51 /* AAPLotAppDelegate.m */,
+				289233AA0DB2D0DB0083E9F9 /* RootViewController.h */,
+				289233AB0DB2D0DB0083E9F9 /* RootViewController.m */,
 			);
 			name = "Application Controllers";
 			path = Classes;

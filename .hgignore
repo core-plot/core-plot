@@ -24,3 +24,6 @@ syntax: glob
 
 # documentation
 **.docset/*
+
+# for those crazies using svn and hg at the same time
+*.svn*

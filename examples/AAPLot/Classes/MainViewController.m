@@ -44,7 +44,7 @@
 	CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
 	graph = [theme newGraph];
 	graph.frame = self.view.bounds;
-	graph.layerAutoresizingMask = kCPLayerWidthSizable | kCPLayerHeightSizable;
+    graph.transform = CATransform3DMakeRotation(M_PI, 1, 0, 0);
 	[self.view.layer addSublayer:graph];
     [super viewDidLoad];
 }
@@ -86,9 +86,13 @@
 -(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
 {
 	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)self.graph.defaultPlotSpace;
+    
+    NSDecimalNumber *high = [datapuller overallHigh];
+    NSDecimalNumber *low = [datapuller overallLow];
+    NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
+    
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([datapuller.financialData count])];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(120.0) length:CPDecimalFromFloat(30.0)];
-
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     	
