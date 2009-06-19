@@ -143,7 +143,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     NSDate *start = [NSDate dateWithTimeIntervalSinceNow:secondsAgo]; 
     
     NSDate *end = [NSDate date];
-    return [self initWithTargetSymbol:@"AAPL" targetStartDate:start targetEndDate:end];
+    return [self initWithTargetSymbol:@"GOOG" targetStartDate:start targetEndDate:end];
 }
 
 -(void)dealloc
@@ -301,6 +301,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     NSMutableArray *newFinancials = [NSMutableArray arrayWithCapacity:[csvLines count]];
     NSDictionary *currentFinancial = nil;
     NSString *line = nil;
+    
+    self.overallHigh = [NSDecimalNumber notANumber];
+    self.overallLow = [NSDecimalNumber notANumber];
+    
     for (NSUInteger i=1; i<[csvLines count]-1; i++) {
         line = (NSString *)[csvLines objectAtIndex:i];
         currentFinancial = [NSDictionary dictionaryWithCSVLine:line];

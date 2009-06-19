@@ -112,7 +112,7 @@
     NSDecimalNumber *high = [datapuller overallHigh];
     NSDecimalNumber *low = [datapuller overallLow];
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
-    
+    NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([datapuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
@@ -125,18 +125,6 @@
     axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50.0"];
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
-    
-//    [topLabel setText:[dp symbol]];
-//    
-//    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-//    [df setDateStyle:NSDateFormatterShortStyle];
-//    NSString *startString = [df stringFromDate:[dp startDate]];
-//    NSString *endString = [df stringFromDate:[dp endDate]];
-//    NSString *bottomText = [NSString stringWithFormat:@"From %@ to %@", startString, endString];
-//    [bottomLabel setText:bottomText];
-//    [df release];
-//    [layerHost bringSubviewToFront:topLabel];
-//    [layerHost bringSubviewToFront:bottomLabel];
     [graph reloadData];
 }
 
