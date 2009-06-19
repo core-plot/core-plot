@@ -48,9 +48,8 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-    CPImage *newFillImage = [fillImage copyWithZone:zone];
-	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:newFillImage];
-	[newFillImage release];
+	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:[self->fillImage copy]];
+	
 	return copy;
 }
 
