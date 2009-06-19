@@ -52,7 +52,6 @@
 	graph.frame = self.view.bounds;
 	[self.layerHost.layer addSublayer:graph];
     
-    
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;

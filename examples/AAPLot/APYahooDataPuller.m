@@ -96,11 +96,18 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     return self;
 }
 
+
 -(NSString *)pathForSymbol:(NSString *)aSymbol
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *docPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
+    return docPath;
+}
+
+-(NSString *)infallablePathForSymbol:(NSString *)aSymbol
+{
+    NSString *docPath = [self pathForSymbol:aSymbol];;
     if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
         //if there isn't one in the user's documents directory, see if we ship with this data
         docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
@@ -112,9 +119,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     return docPath;
 }
 
+//Always returns *something*
 -(NSDictionary *)dictionaryForSymbol:(NSString *)aSymbol
 {
-    NSString *path = [self pathForSymbol:aSymbol];
+    NSString *path = [self infallablePathForSymbol:aSymbol];
     NSMutableDictionary *localPlistDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     return localPlistDict;
 }
