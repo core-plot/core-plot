@@ -281,7 +281,18 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 	
     self.receivedData = nil;
     [self parseCSVAndPopulate];
-    [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
+    
+    //see if we need to write to file
+    NSDictionary *dictionaryForSymbol = [self dictionaryForSymbol:self.symbol];
+    if (![[self symbol] isEqualToString:[dictionaryForSymbol objectForKey:@"symbol"]] ||
+        [[self startDate] compare:[dictionaryForSymbol objectForKey:@"startDate"]] != NSOrderedSame ||
+        [[self endDate] compare:[dictionaryForSymbol objectForKey:@"endDate"]] != NSOrderedSame)
+    {
+        [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
+    }
+    else {
+        NSLog(@"Not writing to file");
+    }    
 }
 
 -(void)parseCSVAndPopulate;
@@ -314,6 +325,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         }
         
     }
+    self.startDate = self.targetStartDate;
+    self.endDate = self.targetEndDate;
+    self.symbol = self.targetSymbol;
+    
     [self setFinancialData:[NSArray arrayWithArray:newFinancials]];
     [self notifyPulledData];
 }
