@@ -42,7 +42,9 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:[self->fillGradient copy]];
+    CPGradient *newFillGradient = [fillGradient copyWithZone:zone];
+	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:newFillGradient];
+    [newFillGradient release];
 	
 	return copy;
 }

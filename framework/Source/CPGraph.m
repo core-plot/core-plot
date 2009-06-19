@@ -68,6 +68,13 @@
 #pragma mark -
 #pragma mark Retrieving Plots
 
+-(void)reloadData
+{
+    for (CPPlot *plot in [self allPlots]) {
+        [plot reloadData];
+    }
+}
+
 -(NSArray *)allPlots 
 {    
 	return [NSArray arrayWithArray:self.plots];
