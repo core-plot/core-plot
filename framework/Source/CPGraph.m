@@ -70,9 +70,7 @@
 
 -(void)reloadData
 {
-    for (CPPlot *plot in [self allPlots]) {
-        [plot reloadData];
-    }
+    [[self allPlots] makeObjectsPerformSelector:@selector(reloadData)];
 }
 
 -(NSArray *)allPlots 
