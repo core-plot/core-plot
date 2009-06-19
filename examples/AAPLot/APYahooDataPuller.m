@@ -2,6 +2,12 @@
 #import "APYahooDataPuller.h"
 #import "APFinancialData.h"
 
+NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
+{
+    NSTimeInterval seconds = fabs(60.0 * 60.0 * 24.0 * 7.0 * numberOfWeeks);
+    return seconds;
+}
+
 @interface APYahooDataPuller ()
 
 @property (nonatomic, copy) NSString *csvString;
@@ -16,7 +22,6 @@
 -(NSString *)URL;
 -(void)notifyPulledData;
 -(void)parseCSVAndPopulate;
--(void)download;
 
 @end
 
@@ -25,6 +30,9 @@
 @synthesize symbol;
 @synthesize startDate;
 @synthesize endDate;
+@synthesize targetStartDate;
+@synthesize targetEndDate;
+@synthesize targetSymbol;
 @synthesize overallLow;
 @synthesize overallHigh;
 @synthesize csvString;
@@ -68,7 +76,7 @@
     return success;
 }
 
--(id)initWithDictionary:(NSDictionary *)aDict;
+-(id)initWithDictionary:(NSDictionary *)aDict targetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
 {
     self = [super init];
     if (self != nil) {
@@ -78,8 +86,12 @@
         self.overallHigh = [NSDecimalNumber decimalNumberWithDecimal:[[aDict objectForKey:@"overallHigh"] decimalValue]];
         self.endDate = [aDict objectForKey:@"endDate"];
         self.financialData = [aDict objectForKey:@"financalData"];
+        
+        self.targetSymbol = aSymbol;
+        self.targetStartDate = aStartDate;
+        self.targetEndDate = anEndDate;
 		self.csvString = @"";
-        [self performSelector:@selector(fetch) withObject:nil afterDelay:0.0];
+        [self performSelector:@selector(fetch) withObject:nil afterDelay:0.01];
     }
     return self;
 }
@@ -88,8 +100,16 @@
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *localPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
-    return localPath;
+    NSString *docPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
+        //if there isn't one in the user's documents directory, see if we ship with this data
+        docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
+    }
+    if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
+        //if we don't ship with this data, load AAPL.plist
+        docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AAPL.plist"];
+    }
+    return docPath;
 }
 
 -(NSDictionary *)dictionaryForSymbol:(NSString *)aSymbol
@@ -99,14 +119,14 @@
     return localPlistDict;
 }
 
--(id)initWithSymbol:(NSString*)aSymbol startDate:(NSDate*)aStartDate endDate:(NSDate*)anEndDate;
+-(id)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
 {
     NSDictionary *cachedDictionary = [self dictionaryForSymbol:aSymbol];
     if (nil != cachedDictionary)
     {
-        return [self initWithDictionary:cachedDictionary];
+        return [self initWithDictionary:cachedDictionary targetSymbol:aSymbol targetStartDate:aStartDate targetEndDate:anEndDate];
     }
-    
+
     NSMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
     [rep setObject:aSymbol forKey:@"symbol"];
     [rep setObject:aStartDate forKey:@"startDate"];
@@ -114,16 +134,16 @@
     [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallHigh"];
     [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallLow"];
     [rep setObject:[NSArray array] forKey:@"financalData"];
-    return [self initWithDictionary:rep];
+    return [self initWithDictionary:rep targetSymbol:aSymbol targetStartDate:aStartDate targetEndDate:anEndDate];
 }
 
 -(id)init
 {
-    float weeksAgo = 12.0f;// how many weeks ago.
-    NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * weeksAgo);
+    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
     NSDate *start = [NSDate dateWithTimeIntervalSinceNow:secondsAgo]; 
-    NSDate *end = [NSDate date]; // now
-    return [self initWithSymbol:@"AAPL" startDate:start endDate:end];
+    
+    NSDate *end = [NSDate date];
+    return [self initWithTargetSymbol:@"AAPL" targetStartDate:start targetEndDate:end];
 }
 
 -(void)dealloc
@@ -153,12 +173,12 @@
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSGregorianCalendar];
     
-    NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:startDate];
-    NSDateComponents *compsEnd = [gregorian components:unitFlags fromDate:endDate];
+    NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:targetStartDate];
+    NSDateComponents *compsEnd = [gregorian components:unitFlags fromDate:targetEndDate];
     
     [gregorian release];
     
-    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self symbol]];
+    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
     url = [url stringByAppendingFormat:@"a=%d&", [compsStart month]-1];
     url = [url stringByAppendingFormat:@"b=%d&", [compsStart day]];
     url = [url stringByAppendingFormat:@"c=%d&", [compsStart year]];
@@ -180,13 +200,6 @@
     }
 }
 
--(void)fetch
-{
-    NSString *url = [self URL];
-    NSLog(@"url == %@", url);
-    [self download];
-}
-
 #pragma mark -
 #pragma mark Downloading of data
 
@@ -196,14 +209,16 @@
     return shouldDownload;
 }
 
--(void)download
+-(void)fetch
 {
     if ( self.loadingData ) return;
     
     if ([self shouldDownload])
     {                
         self.loadingData = YES;
-        NSURL *url = [NSURL URLWithString:[self URL]];
+        NSString *urlString = [self URL];
+        NSLog(@"URL = %@", urlString);
+        NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *theRequest=[NSURLRequest requestWithURL:url
                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
                                               timeoutInterval:60.0];
@@ -297,7 +312,7 @@
         if ( [high compare:self.overallHigh] == NSOrderedDescending ) {
             self.overallHigh = high;
         }
-                
+        
     }
     [self setFinancialData:[NSArray arrayWithArray:newFinancials]];
     [self notifyPulledData];
