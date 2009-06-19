@@ -27,6 +27,7 @@
     [self addSymbol:@"GOOG"];
     [self addSymbol:@"YHOO"];
     [self addSymbol:@"MSFT"];
+    [self addSymbol:@"^DJI"];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -111,11 +112,27 @@
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
-    NSString *startString = [df stringFromDate:[dp startDate]];
-    NSString *endString = [df stringFromDate:[dp endDate]];
+    NSString *startString = @"(NA)";
+    if([dp startDate])
+        startString = [df stringFromDate:[dp startDate]];
+    
+    NSString *endString = @"(NA)";
+    if ([dp endDate]) {
+        endString = [df stringFromDate:[dp endDate]];
+    }
     [df release];
-    [[cell detailTextLabel] setText: [NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, [dp overallLow], [dp overallHigh]]];
-    NSLog(@"cell = %@", cell);
+    
+    NSString *overallLow = @"(NA)";
+    if (![[NSDecimalNumber notANumber] isEqual:[dp overallLow]]) {
+        overallLow = [NSString stringWithFormat:@"%@", [dp overallLow]];
+    }
+    
+    NSString *overallHigh = @"(NA)";
+    if (![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]]) {
+        overallHigh = [NSString stringWithFormat:@"%@", [dp overallHigh]];
+    }
+    
+    [[cell detailTextLabel] setText: [NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
     return cell;
 }
 
@@ -141,7 +158,7 @@
 
 -(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
 {
-    NSLog(@"dataPullerDidFinishFetch:%@", dp);
+    //NSLog(@"dataPullerDidFinishFetch:%@", dp);
     [self.tableView reloadData];
 }
 

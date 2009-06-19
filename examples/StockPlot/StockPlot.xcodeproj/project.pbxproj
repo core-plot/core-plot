@@ -22,6 +22,10 @@
 		AB6FA4E30FEB59DB008DB04A /* NSDateFormatterExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA4DF0FEB59DB008DB04A /* NSDateFormatterExtensions.m */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
+		AB6FA60D0FEB6DAA008DB04A /* YHOO.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA6090FEB6DAA008DB04A /* YHOO.plist */; };
+		AB6FA60E0FEB6DAA008DB04A /* MSFT.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */; };
+		AB6FA60F0FEB6DAA008DB04A /* GOOG.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */; };
+		AB6FA6100FEB6DAA008DB04A /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,14 +33,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = AB6FA4960FEB5705008DB04A /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 		AB6FA49D0FEB5735008DB04A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB6FA4960FEB5705008DB04A /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -66,6 +70,10 @@
 		AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APYahooDataPullerGraph.h; sourceTree = "<group>"; };
 		AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPullerGraph.m; sourceTree = "<group>"; };
 		AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = APYahooDataPullerGraph.xib; path = Classes/APYahooDataPullerGraph.xib; sourceTree = "<group>"; };
+		AB6FA6090FEB6DAA008DB04A /* YHOO.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = YHOO.plist; sourceTree = SOURCE_ROOT; };
+		AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MSFT.plist; sourceTree = SOURCE_ROOT; };
+		AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GOOG.plist; sourceTree = SOURCE_ROOT; };
+		AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +95,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AB6FA4DB0FEB59DB008DB04A /* APYahooDataPuller.m */,
 				AB6FA4DC0FEB59DB008DB04A /* APYahooDataPuller.h */,
+				AB6FA4DB0FEB59DB008DB04A /* APYahooDataPuller.m */,
 				AB6FA4DD0FEB59DB008DB04A /* APFinancialData.m */,
 				AB6FA4DE0FEB59DB008DB04A /* APFinancialData.h */,
 				AB6FA4DF0FEB59DB008DB04A /* NSDateFormatterExtensions.m */,
@@ -137,6 +145,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AB6FA6090FEB6DAA008DB04A /* YHOO.plist */,
+				AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */,
+				AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */,
+				AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */,
 				AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
@@ -232,6 +244,10 @@
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
 				AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */,
+				AB6FA60D0FEB6DAA008DB04A /* YHOO.plist in Resources */,
+				AB6FA60E0FEB6DAA008DB04A /* MSFT.plist in Resources */,
+				AB6FA60F0FEB6DAA008DB04A /* GOOG.plist in Resources */,
+				AB6FA6100FEB6DAA008DB04A /* AAPL.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

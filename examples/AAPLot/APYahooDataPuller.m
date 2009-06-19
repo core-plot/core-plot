@@ -105,16 +105,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     return docPath;
 }
 
--(NSString *)infallablePathForSymbol:(NSString *)aSymbol
+-(NSString *)faultTolerantPathForSymbol:(NSString *)aSymbol
 {
     NSString *docPath = [self pathForSymbol:aSymbol];;
     if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
         //if there isn't one in the user's documents directory, see if we ship with this data
         docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
-    }
-    if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
-        //if we don't ship with this data, load AAPL.plist
-        docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AAPL.plist"];
     }
     return docPath;
 }
@@ -122,7 +118,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 //Always returns *something*
 -(NSDictionary *)dictionaryForSymbol:(NSString *)aSymbol
 {
-    NSString *path = [self infallablePathForSymbol:aSymbol];
+    NSString *path = [self faultTolerantPathForSymbol:aSymbol];
     NSMutableDictionary *localPlistDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     return localPlistDict;
 }
@@ -197,7 +193,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     url = [url stringByAppendingString:@"g=d&"];
     
     url = [url stringByAppendingString:@"ignore=.csv"];
-    
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return url;
 }
 
@@ -274,7 +270,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     self.loadingData = NO;
     self.receivedData = nil;
     self.connection = nil;
-    
+    NSLog(@"err = %@", [error localizedDescription]);
     //TODO:report err
 }
 
@@ -299,7 +295,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
     }
     else {
-        NSLog(@"Not writing to file");
+        NSLog(@"Not writing to file -- No Need, its data is fresh.");
     }    
 }
 
