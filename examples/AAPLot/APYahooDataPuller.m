@@ -29,29 +29,92 @@
 @synthesize overallHigh;
 @synthesize csvString;
 @synthesize financialData;
-@synthesize delegate;
 
 @synthesize receivedData;
 @synthesize connection;
 @synthesize loadingData;
 
-@synthesize overallLow;
-@synthesize overallHigh;
+-(id)delegate 
+{
+    return delegate;
+}
 
--(id)initWithSymbol:(NSString*)aSymbol startDate:(NSDate*)aStartDate endDate:(NSDate*)anEndDate;
+-(void)setDelegate:(id)aDelegate
+{
+    if(delegate != aDelegate)
+    {
+        delegate = aDelegate;
+        if([self.financialData count] > 0)
+            [self notifyPulledData]; //loads cached data onto UI
+    }
+}
+
+- (NSDictionary *)plistRep
+{
+    NSMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
+    [rep setObject:[self symbol] forKey:@"symbol"];
+    [rep setObject:[self startDate] forKey:@"startDate"];
+    [rep setObject:[self endDate] forKey:@"endDate"];
+    [rep setObject:[self overallHigh] forKey:@"overallHigh"];
+    [rep setObject:[self overallLow] forKey:@"overallLow"];
+    [rep setObject:[self financialData] forKey:@"financalData"];
+    return [NSDictionary dictionaryWithDictionary:rep];
+}
+
+- (BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag;
+{
+    NSLog(@"writeToFile:%@", path);
+    BOOL success = [[self plistRep] writeToFile:path atomically:flag];
+    return success;
+}
+
+-(id)initWithDictionary:(NSDictionary *)aDict;
 {
     self = [super init];
     if (self != nil) {
-		self.symbol = aSymbol;
-		self.startDate = aStartDate;
-        self.overallLow = [NSDecimalNumber notANumber];
-        self.overallHigh = [NSDecimalNumber notANumber];
-        self.endDate = anEndDate;
-        self.financialData = [NSArray array];
+		self.symbol = [aDict objectForKey:@"symbol"];
+		self.startDate = [aDict objectForKey:@"startDate"];
+        self.overallLow = [NSDecimalNumber decimalNumberWithDecimal:[[aDict objectForKey:@"overallLow"] decimalValue]];
+        self.overallHigh = [NSDecimalNumber decimalNumberWithDecimal:[[aDict objectForKey:@"overallHigh"] decimalValue]];
+        self.endDate = [aDict objectForKey:@"endDate"];
+        self.financialData = [aDict objectForKey:@"financalData"];
 		self.csvString = @"";
         [self performSelector:@selector(fetch) withObject:nil afterDelay:0.0];
     }
     return self;
+}
+
+-(NSString *)pathForSymbol:(NSString *)aSymbol
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *localPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
+    return localPath;
+}
+
+-(NSDictionary *)dictionaryForSymbol:(NSString *)aSymbol
+{
+    NSString *path = [self pathForSymbol:aSymbol];
+    NSMutableDictionary *localPlistDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    return localPlistDict;
+}
+
+-(id)initWithSymbol:(NSString*)aSymbol startDate:(NSDate*)aStartDate endDate:(NSDate*)anEndDate;
+{
+    NSDictionary *cachedDictionary = [self dictionaryForSymbol:aSymbol];
+    if (nil != cachedDictionary)
+    {
+        return [self initWithDictionary:cachedDictionary];
+    }
+    
+    NSMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
+    [rep setObject:aSymbol forKey:@"symbol"];
+    [rep setObject:aStartDate forKey:@"startDate"];
+    [rep setObject:anEndDate forKey:@"endDate"];
+    [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallHigh"];
+    [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallLow"];
+    [rep setObject:[NSArray array] forKey:@"financalData"];
+    return [self initWithDictionary:rep];
 }
 
 -(id)init
@@ -104,7 +167,7 @@
     url = [url stringByAppendingFormat:@"e=%d&", [compsEnd day]];
     url = [url stringByAppendingFormat:@"f=%d&", [compsEnd year]];
     url = [url stringByAppendingString:@"g=d&"];
-
+    
     url = [url stringByAppendingString:@"ignore=.csv"];
     
     return url;
@@ -188,7 +251,7 @@
     self.loadingData = NO;
     self.receivedData = nil;
     self.connection = nil;
-
+    
     //TODO:report err
 }
 
@@ -203,21 +266,22 @@
 	
     self.receivedData = nil;
     [self parseCSVAndPopulate];
+    [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
 }
 
 -(void)parseCSVAndPopulate;
 {
     NSArray *csvLines = [self.csvString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSMutableArray *newFinancials = [NSMutableArray arrayWithCapacity:[csvLines count]];
-    APFinancialData *currentFinancial = nil;
+    NSDictionary *currentFinancial = nil;
     NSString *line = nil;
     for (NSUInteger i=1; i<[csvLines count]-1; i++) {
         line = (NSString *)[csvLines objectAtIndex:i];
-        currentFinancial = [[APFinancialData alloc] initWithCSVLine:line];
+        currentFinancial = [NSDictionary dictionaryWithCSVLine:line];
         [newFinancials addObject:currentFinancial];
         
-        NSDecimalNumber *high = [currentFinancial high];
-        NSDecimalNumber *low = [currentFinancial low];
+        NSDecimalNumber *high = [currentFinancial objectForKey:@"high"];
+        NSDecimalNumber *low = [currentFinancial objectForKey:@"low"];
         
         if ( [self.overallHigh isEqual:[NSDecimalNumber notANumber]] ) {
             self.overallHigh = high;
@@ -233,9 +297,7 @@
         if ( [high compare:self.overallHigh] == NSOrderedDescending ) {
             self.overallHigh = high;
         }
-        
-        [currentFinancial release];
-        
+                
     }
     [self setFinancialData:[NSArray arrayWithArray:newFinancials]];
     [self notifyPulledData];

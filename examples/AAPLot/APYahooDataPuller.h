@@ -21,7 +21,7 @@
 
 	@private
     NSString *csvString;
-    NSArray *financialData; // consists of APFinancialData objs
+    NSArray *financialData; // consists of dictionaries
 
     BOOL loadingData;
     NSMutableData *receivedData;

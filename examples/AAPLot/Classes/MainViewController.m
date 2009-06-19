@@ -46,15 +46,32 @@
 	graph.frame = self.view.bounds;
     graph.transform = CATransform3DMakeRotation(M_PI, 1, 0, 0);
 	[self.view.layer addSublayer:graph];
+    
+    
+	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+    dataSourceLinePlot.identifier = @"Data Source Plot";
+	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
+    dataSourceLinePlot.dataSource = self;
+    [graph addPlot:dataSourceLinePlot];
+    
+	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
+	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
+    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
+    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;	
+    
+    APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
+    [self setDatapuller:dp];
+    [dp setDelegate:self];
+    [dp release];
+    
+    [graph performSelector:@selector(reloadData) withObject:nil afterDelay:0.01];
     [super viewDidLoad];
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
-        [dp setDelegate:self];
-        [self setDatapuller:dp];
-        [dp release];
+
     }
     return self;
 }
@@ -76,8 +93,9 @@
     {
         NSArray *financialData = self.datapuller.financialData;
         
-        APFinancialData *fData = (APFinancialData *)[financialData objectAtIndex:[financialData count] - index - 1];
-        num = [fData close];
+        NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
+        num = [fData objectForKey:@"close"];
+        NSAssert(nil != num, @"grrr");
     }
     return num;
 }
@@ -103,20 +121,7 @@
     axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50.0"];
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
-	
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
-    dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
-    
-	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
-    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
-    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
-	
-    [dataSourceLinePlot reloadData];
+    [graph reloadData];
 }
 
 -(APYahooDataPuller *)datapuller
