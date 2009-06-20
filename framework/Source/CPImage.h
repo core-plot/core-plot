@@ -13,9 +13,6 @@
 
 +(CPImage *)imageWithCGImage:(CGImageRef)anImage;
 
--(id)init;
--(id)copyWithZone:(NSZone *)zone;
-
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
 
 @end

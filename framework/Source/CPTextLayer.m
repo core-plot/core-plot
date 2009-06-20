@@ -55,7 +55,7 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 {
 	if ( newStyle != textStyle ) {
 		[textStyle release];
-		textStyle = [newStyle copy];
+		textStyle = [newStyle retain];
 		[self sizeToFit];
 		[self setNeedsDisplay];
 	}
