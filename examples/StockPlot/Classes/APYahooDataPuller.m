@@ -12,7 +12,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 
 @property (nonatomic, retain) NSMutableData *receivedData;
 @property (nonatomic, retain) NSURLConnection *connection;
-@property (nonatomic, assign) BOOL loadingData;
+@property (nonatomic, readwrite, assign) BOOL loadingData;
 @property (nonatomic, readwrite, retain) NSDecimalNumber *overallHigh;
 @property (nonatomic, readwrite, retain) NSDecimalNumber *overallLow;
 @property (nonatomic, readwrite, retain) NSArray *financialData;
@@ -239,18 +239,24 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 #pragma mark -
 #pragma mark Downloading of data
 
+-(BOOL)staleData
+{
+    NSTimeInterval twelveHours = 60.0f * 60.f * 12.0f;
+
+    return (0 >= self.financialData.count ||
+            ![[self targetSymbol] isEqualToString:[self symbol]] ||
+            [[self targetStartDate] timeIntervalSinceDate:[self startDate]] > twelveHours ||
+            [[self targetEndDate] timeIntervalSinceDate:[self endDate]] > twelveHours);
+}
+
 
 -(void)fetchIfNeeded
 {
     if ( self.loadingData ) return;
     
     //Check to see if cached data is stale
-    NSTimeInterval twelveHours = 60.0f * 60.f * 12.0f;
-    if (0 >= self.financialData.count ||
-        ![[self targetSymbol] isEqualToString:[self symbol]] ||
-        [[self startDate] timeIntervalSinceDate:[self targetStartDate]] > twelveHours ||
-        [[self endDate] timeIntervalSinceDate:[self targetEndDate]] > twelveHours) {
-        
+    if ([self staleData])
+    {
         self.loadingData = YES;
         NSString *urlString = [self URL];
         NSLog(@"Fetching URL %@", urlString);
@@ -303,7 +309,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     self.connection = nil;
     NSLog(@"err = %@", [error localizedDescription]);
     self.connection = nil;
-    //TODO:report err
+    if(delegate && [delegate respondsToSelector:@selector(dataPuller:downloadDidFailWithError:)])
+    {
+        [delegate performSelector:@selector(dataPuller:downloadDidFailWithError:) withObject:self withObject:error];
+    }
 }
 
 

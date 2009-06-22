@@ -11,28 +11,37 @@
 
 @implementation APYahooDataPullerGraph
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
 -(void)reloadData
 {
+    if(!graph)
+    {
+        CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
+        graph = [theme newGraph];
+        
+        
+        CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+        dataSourceLinePlot.identifier = @"Data Source Plot";
+        dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
+        dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
+        dataSourceLinePlot.dataSource = self;
+        [graph addPlot:dataSourceLinePlot];
+    }
+    
+    if([[self.layerHost.layer sublayers] indexOfObject:graph] == NSNotFound)
+        [self.layerHost.layer addSublayer:graph];
+    
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     
     NSDecimalNumber *high = [dataPuller overallHigh];
     NSDecimalNumber *low = [dataPuller overallLow];
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
+    
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([dataPuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
-	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+    CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     
     axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"10.0"];
     axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber zero];
@@ -43,6 +52,7 @@
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
     [graph reloadData];
+    
     
     [[self navigationItem] setTitle:[dataPuller symbol]];
 }
@@ -55,18 +65,6 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
-	graph = [theme newGraph];
-	[self.layerHost.layer addSublayer:graph];
-    
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
-    dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
-    
     [self reloadData];
 }
 

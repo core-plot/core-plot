@@ -8,6 +8,7 @@
 @optional
 
 -(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
+-(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error;
 
 @end
 
@@ -23,10 +24,12 @@
     id delegate;
     NSDecimalNumber *overallHigh;
     NSDecimalNumber *overallLow;
+    BOOL loadingData;
+    BOOL staleData;
     
 @private
     NSArray *financialData; // consists of dictionaries
-    BOOL loadingData;
+    
     NSMutableData *receivedData;
     NSURLConnection *connection;
 }
@@ -41,6 +44,8 @@
 @property (nonatomic, readonly, retain) NSArray *financialData;
 @property (nonatomic, readonly, retain) NSDecimalNumber *overallHigh;
 @property (nonatomic, readonly, retain) NSDecimalNumber *overallLow;
+@property (nonatomic, readonly, assign) BOOL loadingData;
+@property (nonatomic, readonly, assign) BOOL staleData;
 
 -(id)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
 -(void)fetchIfNeeded;
