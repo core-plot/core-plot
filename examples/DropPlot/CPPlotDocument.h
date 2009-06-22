@@ -11,4 +11,8 @@
 	NSMutableArray *dataPoints;
 }
 
+// PDF / image export
+-(IBAction)exportToPDF:(id)sender;
+-(IBAction)exportToPNG:(id)sender;
+
 @end

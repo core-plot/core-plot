@@ -37,8 +37,8 @@
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
 	
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -102,6 +102,9 @@
 //	self.content = contentArray;
 }
 
+#pragma mark -
+#pragma mark Data loading methods
+
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
     // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
@@ -155,7 +158,7 @@
 				maximumValueForYAxis = yValue;
 			
 			
-			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"x", [NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"y", nil]];
+			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"x", [NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:1]], @"y", nil]];
 			// Create a dictionary of the items, keyed to the header titles
 //			NSDictionary *keyedImportedItems = [[NSDictionary alloc] initWithObjects:columnValues forKeys:columnHeaders];
 			// Process this
@@ -174,6 +177,36 @@
 }
 
 #pragma mark -
+#pragma mark PDF / image export
+
+-(IBAction)exportToPDF:(id)sender;
+{
+	NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
+	[pdfSavingDialog setRequiredFileType:@"pdf"];
+	
+	if ( [pdfSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSData *dataForPDF = [graph dataForPDFRepresentationOfLayer];
+		[dataForPDF writeToFile:[pdfSavingDialog filename] atomically:NO];
+	}		
+}
+
+-(IBAction)exportToPNG:(id)sender;
+{
+	NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
+	[pngSavingDialog setRequiredFileType:@"png"];
+	
+	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSImage *image = [graph imageOfLayer];
+        NSData *tiffData = [image TIFFRepresentation];
+        NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
+        NSData *pngData = [tiffRep representationUsingType:NSPNGFileType properties:nil];
+		[pngData writeToFile:[pngSavingDialog filename] atomically:NO];
+	}		
+}
+
+#pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecords {
@@ -182,7 +215,6 @@
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-    if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
     return num;
 }
 
