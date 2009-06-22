@@ -33,8 +33,7 @@
 {
     // Create graph from theme
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = [[theme newGraph] retain]; 
-//	graph.bounds = graphView.hostedLayer.bounds;
+	graph = [theme newGraph]; 
 	graphView.hostedLayer = graph;
     
     // Setup plot space
