@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     stocks = [[NSMutableArray alloc] initWithCapacity:4];
-    symbols = [[NSMutableArray alloc] initWithCapacity:4];
     [self addSymbol:@"AAPL"];
     [self addSymbol:@"GOOG"];
     [self addSymbol:@"YHOO"];
@@ -56,7 +55,6 @@
 	// Release anything that can be recreated in viewDidLoad or on demand.
 	// e.g. self.myOutlet = nil;
     [stocks release]; stocks = nil;
-    [symbols release]; symbols = nil;
     [graph release]; graph = nil;
 }
 
@@ -93,7 +91,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [symbols count];
+    return [stocks count];
 }
 
 // Customize the appearance of table view cells.
@@ -122,20 +120,39 @@
     }
     [df release];
     
+    
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
+    [nf setDecimalSeparator:@"."];
+    [nf setGroupingSeparator:@","];
+    [nf setPositiveFormat:@"\u00A4###,##0.00"];
+    [nf setNegativeFormat:@"(\u00A4###,##0.00)"];
+
+    
     NSString *overallLow = @"(NA)";
     if (![[NSDecimalNumber notANumber] isEqual:[dp overallLow]]) {
-        overallLow = [NSString stringWithFormat:@"%@", [dp overallLow]];
+        overallLow = [nf stringFromNumber:[dp overallLow]];
     }
     
     NSString *overallHigh = @"(NA)";
     if (![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]]) {
-        overallHigh = [NSString stringWithFormat:@"%@", [dp overallHigh]];
+        overallHigh = [nf stringFromNumber:[dp overallHigh]];
     }
+    
+    [nf release];
+
     
     [[cell detailTextLabel] setText: [NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
     return cell;
 }
 
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
 
 #pragma mark -
 #pragma mark accessors
@@ -149,11 +166,14 @@
     return stocks; 
 }
 
-- (NSMutableArray *)symbols
+- (NSArray *)symbols
 {
     //NSLog(@"in -symbols, returned symbols = %@", symbols);
-    
-    return symbols; 
+    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:[stocks count]];
+    for (APYahooDataPuller *dp in stocks) {
+        [symbols addObject:[dp symbol]];
+    }
+    return [NSArray arrayWithArray:symbols]; 
 }
 
 -(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
@@ -164,13 +184,13 @@
 
 - (void)addSymbol:(NSString *)aSymbol
 {
-    [[self symbols] addObject:aSymbol];
     NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
     NSDate *start = [NSDate dateWithTimeIntervalSinceNow:secondsAgo]; 
     NSDate *end = [NSDate date];
     
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:aSymbol targetStartDate:start targetEndDate:end];
     [[self stocks] addObject:dp];
+    [dp fetchIfNeeded];
     [dp setDelegate:self];
     [dp release];
     [[self tableView] reloadData]; //TODO: should reload whole thing
@@ -178,16 +198,12 @@
 
 - (void)dealloc
 {
-    [symbols release];
     for (APYahooDataPuller *dp in stocks) {
         if (dp.delegate == self) {
             dp.delegate = nil;
         }
     }
-    [stocks release];
-    
-    symbols = nil;
-    stocks = nil;
+    [stocks release]; stocks = nil;
     
     [super dealloc];
 }
@@ -216,14 +232,6 @@
 /*
  - (void)viewDidDisappear:(BOOL)animated {
  [super viewDidDisappear:animated];
- }
- */
-
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations.
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
  }
  */
 

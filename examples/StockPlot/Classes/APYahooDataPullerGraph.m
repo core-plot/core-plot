@@ -38,17 +38,18 @@
     axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber zero];
     axisSet.xAxis.minorTicksPerInterval = 1;
     
-    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50.0"];
+    NSDecimalNumber *four = [NSDecimalNumber decimalNumberWithString:@"4"];
+    axisSet.yAxis.majorIntervalLength = [length decimalNumberByDividingBy:four];
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
-    
     [graph reloadData];
+    
     [[self navigationItem] setTitle:[dataPuller symbol]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reloadData];
+    graph.frame = self.view.bounds;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -57,7 +58,6 @@
     
     CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
 	graph = [theme newGraph];
-	graph.frame = self.view.bounds;
 	[self.layerHost.layer addSublayer:graph];
     
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
@@ -67,21 +67,29 @@
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
     
-	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
-    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
-    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;	
-        
     [self reloadData];
 }
 
-/*
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
-*/
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+{
+    //    NSLog(@"willRotateToInterfaceOrientation");
+    //[graph.axisSet relabelAxes];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation; 
+{
+    //    NSLog(@"didRotateFromInterfaceOrientation");
+    [graph.axisSet relabelAxes];
+}    
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -113,14 +121,13 @@
         
         NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
         num = [fData objectForKey:@"close"];
-        NSAssert(nil != num, @"grrr");
+        NSAssert([num isMemberOfClass:[NSDecimalNumber class]], @"grrr");
     }
     return num;
 }
 
--(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
+-(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
 {
-
     [self reloadData];
 }
 
