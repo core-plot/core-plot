@@ -158,7 +158,8 @@
 	perspectiveRotation = CATransform3DRotate(perspectiveRotation, -55.0 * M_PI / 180.0, perspectiveRotation.m11, perspectiveRotation.m21, perspectiveRotation.m31);
 	
 	perspectiveRotation = CATransform3DScale(perspectiveRotation, 0.7, 0.7, 0.7);
-	hostView.layer.masksToBounds = NO;
+	graph.masksToBounds = NO;
+	graph.superlayer.masksToBounds = NO;
 	
 	overlayRotationView = [[RotationView alloc] initWithFrame:hostView.frame];
 	overlayRotationView.rotationDelegate = self;
@@ -169,7 +170,7 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:1.0f] forKey:kCATransactionAnimationDuration];		
 
 	[Controller recursivelySplitSublayersInZForLayer:graph depthLevel:0];
-	graph.transform = perspectiveRotation;
+	graph.superlayer.sublayerTransform = perspectiveRotation;
 
 	[CATransaction commit];
 }
@@ -177,6 +178,9 @@
 +(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(unsigned int)depthLevel;
 {
 	layer.zPosition = ZDISTANCEBETWEENLAYERS * (CGFloat)depthLevel;
+	layer.borderColor = [[CPColor blueColor] cgColor];
+	layer.borderWidth = 2.0;
+
 	depthLevel++;
 	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelySplitSublayersInZForLayer:currentLayer depthLevel:depthLevel];
@@ -189,7 +193,7 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:1.0f] forKey:kCATransactionAnimationDuration];		
 	
 	[Controller recursivelyAssembleSublayersInZForLayer:graph];
-	graph.transform = CATransform3DIdentity;
+	graph.superlayer.sublayerTransform = CATransform3DIdentity;
 
 	[CATransaction commit];
 	
@@ -201,6 +205,8 @@
 +(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
 {
 	layer.zPosition = 0.0;
+	layer.borderColor = [[CPColor clearColor] cgColor];
+	layer.borderWidth = 0.0;
 	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelyAssembleSublayersInZForLayer:currentLayer];
 	}
@@ -214,7 +220,7 @@
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];	
 
-	graph.transform = rotationTransform;
+	graph.superlayer.sublayerTransform = rotationTransform;
 	
 	[CATransaction commit];
 }
