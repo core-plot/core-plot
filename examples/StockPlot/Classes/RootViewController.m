@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     stocks = [[NSMutableArray alloc] initWithCapacity:4];
-    symbols = [[NSMutableArray alloc] initWithCapacity:4];
     [self addSymbol:@"AAPL"];
     [self addSymbol:@"GOOG"];
     [self addSymbol:@"YHOO"];
@@ -56,7 +55,6 @@
 	// Release anything that can be recreated in viewDidLoad or on demand.
 	// e.g. self.myOutlet = nil;
     [stocks release]; stocks = nil;
-    [symbols release]; symbols = nil;
     [graph release]; graph = nil;
 }
 
@@ -65,24 +63,33 @@
 
 -(void)inspectStock:(APYahooDataPuller *)aStock
 {
-    if(nil == graph)
-    {
-        APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
-        self.graph = aGraph;
-        [aGraph release];
+    NSDecimalNumber *high = [aStock overallHigh];
+    NSDecimalNumber *low = [aStock overallLow];
+    if ([high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || [[aStock financialData] count] <= 0) {
+        NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [av show];
+        [av release];
     }
-    [self.graph setDataPuller:aStock];
-    [self.navigationController pushViewController:self.graph animated:YES];
+    else {
+        
+        if(nil == graph)
+        {
+            APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
+            self.graph = aGraph;
+            [aGraph release];
+        }
+        
+        [self.graph setDataPuller:aStock];
+        [self.navigationController pushViewController:self.graph animated:YES];
+    }
 }
 
 // Override to support row selection in the table view.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     APYahooDataPuller *dp = [stocks objectAtIndex:indexPath.row];
     [self inspectStock:dp];
-    // Navigation logic may go here -- for example, create and push another view controller.
-    // AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-    // [self.navigationController pushViewController:anotherViewController animated:YES];
-    // [anotherViewController release];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -93,19 +100,11 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [symbols count];
+    return [stocks count];
 }
 
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"UITableViewCellStyleSubtitle";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    NSUInteger row = indexPath.row;
+- (void)setupCell:(UITableViewCell *)cell forStockAtIndex:(NSUInteger )row 
+{
     APYahooDataPuller *dp = [stocks objectAtIndex:row];
     
 	[[cell textLabel] setText:[dp symbol]];
@@ -122,20 +121,81 @@
     }
     [df release];
     
+    
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
+    [nf setDecimalSeparator:@"."];
+    [nf setGroupingSeparator:@","];
+    [nf setPositiveFormat:@"\u00A4###,##0.00"];
+    [nf setNegativeFormat:@"(\u00A4###,##0.00)"];
+    
+    
     NSString *overallLow = @"(NA)";
     if (![[NSDecimalNumber notANumber] isEqual:[dp overallLow]]) {
-        overallLow = [NSString stringWithFormat:@"%@", [dp overallLow]];
+        overallLow = [nf stringFromNumber:[dp overallLow]];
     }
-    
     NSString *overallHigh = @"(NA)";
     if (![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]]) {
-        overallHigh = [NSString stringWithFormat:@"%@", [dp overallHigh]];
+        overallHigh = [nf stringFromNumber:[dp overallHigh]];
     }
     
+    [nf release];
+    
     [[cell detailTextLabel] setText: [NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
+    
+    UIView *accessory = [cell accessoryView];
+    if ([dp loadingData]) {
+        if (![accessory isMemberOfClass:[UIActivityIndicatorView class]]) {
+            accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [(UIActivityIndicatorView *)accessory setHidesWhenStopped:NO];
+            [cell setAccessoryView:accessory];
+            [accessory release];
+        }
+        [(UIActivityIndicatorView *) accessory startAnimating];
+    } else {
+        if ([accessory isMemberOfClass:[UIActivityIndicatorView class]]) {
+            [(UIActivityIndicatorView *) accessory stopAnimating];
+        }
+        if ([dp staleData]) {
+            if (![accessory isMemberOfClass:[UIImageView class]]) {
+                UIImage *caution = [UIImage imageNamed:@"caution.png"];
+                accessory = [[UIImageView alloc] initWithImage:caution];
+                [cell setAccessoryView:accessory];
+//                CGRect frame = accessory.frame;
+//#pragma unused (frame)
+                [accessory release];
+            }
+        }
+        else {
+            [cell setAccessoryView:nil];
+        }
+    }
+    
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"UITableViewCellStyleSubtitle";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    NSUInteger row = indexPath.row;
+    
+    [self setupCell:cell forStockAtIndex:row];
+    
     return cell;
 }
 
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
+            interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
 
 #pragma mark -
 #pragma mark accessors
@@ -149,28 +209,45 @@
     return stocks; 
 }
 
-- (NSMutableArray *)symbols
+- (NSArray *)symbols
 {
     //NSLog(@"in -symbols, returned symbols = %@", symbols);
-    
-    return symbols; 
+    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:[stocks count]];
+    for (APYahooDataPuller *dp in stocks) {
+        [symbols addObject:[dp symbol]];
+    }
+    return [NSArray arrayWithArray:symbols]; 
 }
 
--(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
+-(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error;
 {
-    //NSLog(@"dataPullerDidFinishFetch:%@", dp);
-    [self.tableView reloadData];
+    NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
+    NSUInteger idx = [stocks indexOfObject:dp];
+    NSUInteger section = 0;
+    NSIndexPath *path = [NSIndexPath indexPathForRow:idx inSection:section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    [self setupCell:cell forStockAtIndex:idx];
+}
+
+-(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
+{
+    NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
+    NSUInteger idx = [stocks indexOfObject:dp];
+    NSUInteger section = 0;
+    NSIndexPath *path = [NSIndexPath indexPathForRow:idx inSection:section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    [self setupCell:cell forStockAtIndex:idx];
 }
 
 - (void)addSymbol:(NSString *)aSymbol
 {
-    [[self symbols] addObject:aSymbol];
     NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
     NSDate *start = [NSDate dateWithTimeIntervalSinceNow:secondsAgo]; 
     NSDate *end = [NSDate date];
     
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:aSymbol targetStartDate:start targetEndDate:end];
     [[self stocks] addObject:dp];
+    [dp fetchIfNeeded];
     [dp setDelegate:self];
     [dp release];
     [[self tableView] reloadData]; //TODO: should reload whole thing
@@ -178,16 +255,12 @@
 
 - (void)dealloc
 {
-    [symbols release];
     for (APYahooDataPuller *dp in stocks) {
         if (dp.delegate == self) {
             dp.delegate = nil;
         }
     }
-    [stocks release];
-    
-    symbols = nil;
-    stocks = nil;
+    [stocks release]; stocks = nil;
     
     [super dealloc];
 }
@@ -216,14 +289,6 @@
 /*
  - (void)viewDidDisappear:(BOOL)animated {
  [super viewDidDisappear:animated];
- }
- */
-
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations.
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
  }
  */
 
