@@ -37,7 +37,10 @@
         self.bounds = newBounds;
         layer.position = CGPointZero;
         self.offset = 20.0f;
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
         [self addSublayer:self.contentLayer];
+		[CATransaction commit];
     }
     return self;
 }

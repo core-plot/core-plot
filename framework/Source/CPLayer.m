@@ -17,10 +17,10 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
-		self.paddingLeft = 0.0;
-		self.paddingTop = 0.0;
-		self.paddingRight = 0.0;
-		self.paddingBottom = 0.0;
+		self.paddingLeft = 0.0f;
+		self.paddingTop = 0.0f;
+		self.paddingRight = 0.0f;
+		self.paddingBottom = 0.0f;
 	}
 	return self;
 }
@@ -45,7 +45,6 @@
 
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
-	// TODO: set up clipping for sublayers
 	[self renderAsVectorInContext:context];
 
 	for (CALayer *currentSublayer in self.sublayers) {
@@ -171,6 +170,8 @@
 	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
 	subLayerSize.height -= self.paddingTop + self.paddingBottom;
 	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
+	
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 	
 	for (CALayer *subLayer in self.sublayers) {
 		CGRect subLayerBounds = subLayer.bounds;

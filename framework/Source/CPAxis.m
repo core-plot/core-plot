@@ -66,10 +66,11 @@
 		self.coordinate = CPCoordinateX;
 		self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
 		self.axisLabelTextStyle = [[[CPTextStyle alloc] init] autorelease];
-		NSNumberFormatter *newFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+		NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
         self.tickLabelFormatter = newFormatter;
+		[newFormatter release];
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPSignNone;
         self.needsRelabel = YES;
@@ -92,7 +93,7 @@
 	self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
 	[axisLabels release];
-	self.axisLabelTextStyle = nil;
+	[axisLabelTextStyle release];
 	self.labelExclusionRanges = nil;
 	self.delegate = nil;
 	[super dealloc];
@@ -244,7 +245,10 @@
 
 -(void)layoutSublayers 
 {
-    if ( self.needsRelabel ) [self relabel];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+
+	if ( self.needsRelabel ) [self relabel];
+	
     for ( CPAxisLabel *label in self.axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:OrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
@@ -257,6 +261,9 @@
 -(void)setAxisLabels:(NSSet *)newLabels 
 {
     if ( newLabels != axisLabels ) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+		
         for ( CPAxisLabel *label in axisLabels ) {
             [label removeFromSuperlayer];
         }
@@ -269,6 +276,8 @@
             [self addSublayer:label];
         }
 
+		[CATransaction commit];
+		
 		[self setNeedsDisplay];		
 	}
 }
@@ -278,7 +287,7 @@
 	if ( newStyle != axisLabelTextStyle ) {
 		[axisLabelTextStyle release];
 		axisLabelTextStyle = [newStyle copy];
-		[self setNeedsRelabel];
+		[self setNeedsLayout];
 	}
 }
 
@@ -338,7 +347,7 @@
 {
     if ( newOffset != axisLabelOffset ) {
         axisLabelOffset = newOffset;
-		self.needsRelabel = YES;
+		[self setNeedsLayout];
     }
 }
 
@@ -441,7 +450,7 @@
 {
     if (newDirection != tickDirection) {
         tickDirection = newDirection;
-        self.needsRelabel = YES;
+		[self setNeedsLayout];
     }
 }
 
