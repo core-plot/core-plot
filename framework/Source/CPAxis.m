@@ -172,8 +172,10 @@
 {
     if (!self.needsRelabel) return;
 	if (!self.plotSpace) return;
-	
-	[self.delegate axisWillRelabel:self];
+	if ( self.delegate && ![self.delegate axisShouldRelabel:self] ) {
+        self.needsRelabel = NO;
+        return;
+    }
 	
 	NSMutableSet *allNewMajorLocations = [NSMutableSet set];
 	NSMutableSet *allNewMinorLocations = [NSMutableSet set];

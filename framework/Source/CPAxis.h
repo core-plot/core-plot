@@ -12,12 +12,13 @@
 typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyAdHoc,
     CPAxisLabelingPolicyFixedInterval,
+    CPAxisLabelingAutomatic,        // TODO: Implement automatic labeling
     CPAxisLabelingPolicyLogarithmic // TODO: Implement logarithmic labeling
 } CPAxisLabelingPolicy;
 
 @protocol CPAxisDelegate
 
--(void)axisWillRelabel:(CPAxis *)axis;
+-(BOOL)axisShouldRelabel:(CPAxis *)axis;
 -(void)axisDidRelabel:(CPAxis *)axis;
 
 @end
