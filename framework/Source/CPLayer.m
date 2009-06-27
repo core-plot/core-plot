@@ -182,4 +182,36 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Bindings
+
+static NSString * const BindingsNotSupportedString = @"Bindings are not supported on the iPhone in Core Plot";
+
++(void)exposeBinding:(NSString *)binding 
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+    [NSException raise:CPException format:BindingsNotSupportedString];
+#else
+    [super exposeBinding:binding];
+#endif
+}
+
+-(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+    [NSException raise:CPException format:BindingsNotSupportedString];
+#else
+    [super bind:binding toObject:observable withKeyPath:keyPath options:options];
+#endif
+}
+
+-(void)unbind:(NSString *)binding
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+    [NSException raise:CPException format:BindingsNotSupportedString];
+#else
+    [super unbind:binding];
+#endif
+}
+
 @end

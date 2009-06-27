@@ -8,8 +8,8 @@
 #import "CPPlotSymbol.h"
 #import "stdlib.h"
 
-NSString *CPScatterPlotBindingXValues = @"xValues";
-NSString *CPScatterPlotBindingYValues = @"yValues";
+NSString * const CPScatterPlotBindingXValues = @"xValues";
+NSString * const CPScatterPlotBindingYValues = @"yValues";
 
 static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
@@ -17,8 +17,8 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 @interface CPScatterPlot ()
 
-@property (nonatomic, readwrite, retain) id observedObjectForXValues;
-@property (nonatomic, readwrite, retain) id observedObjectForYValues;
+@property (nonatomic, readwrite, assign) id observedObjectForXValues;
+@property (nonatomic, readwrite, assign) id observedObjectForYValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForYValues;
 
@@ -31,12 +31,10 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 @implementation CPScatterPlot
 
-@synthesize numericType;
 @synthesize observedObjectForXValues;
 @synthesize observedObjectForYValues;
 @synthesize keyPathForXValues;
 @synthesize keyPathForYValues;
-@synthesize hasErrorBars;
 @synthesize dataLineStyle;
 @synthesize xValues;
 @synthesize yValues;
@@ -48,18 +46,13 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 +(void)initialize
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-#else
     [self exposeBinding:CPScatterPlotBindingXValues];	
     [self exposeBinding:CPScatterPlotBindingYValues];	
-#endif
-	
 }
 
 -(id)initWithFrame:(CGRect)newFrame
 {
     if (self = [super initWithFrame:newFrame]) {
-        self.numericType = CPNumericTypeFloat;
 		self.dataLineStyle = [CPLineStyle lineStyle];
 		self.plotSymbols = [[[NSMutableArray alloc] init] autorelease];
 		self.defaultPlotSymbol = nil;
@@ -71,25 +64,24 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 
 -(void)dealloc
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-#else
     if ( self.observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
     if ( self.observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
-#endif
 	
+    self.observedObjectForXValues = nil;
+    self.observedObjectForYValues = nil;
+    self.keyPathForXValues = nil;
+    self.keyPathForYValues = nil;
     self.xValues = nil;
     self.yValues = nil;
 	self.plotSymbols = nil;
 	self.defaultPlotSymbol = nil;
+    self.dataLineStyle = nil;
 	
     [super dealloc];
 }
 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-#else
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
-	
     [super bind:binding toObject:observable withKeyPath:keyPath options:options];
     if ([binding isEqualToString:CPScatterPlotBindingXValues]) {
         [observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
@@ -119,7 +111,6 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 	[super unbind:bindingName];
 	[self reloadData];
 }
-#endif
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -132,46 +123,13 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 }
 
 #pragma mark -
-#pragma mark Accessors
-
--(void)setPlotSymbol:(CPPlotSymbol *)aSymbol atIndex:(NSUInteger)index
-{
-	NSObject *newSymbol;
-	
-	if (aSymbol) {
-		newSymbol = aSymbol;
-	} else {
-		newSymbol = [NSNull null];
-	}
-	
-	if (index < [self.plotSymbols count]) {
-		[self.plotSymbols replaceObjectAtIndex:index withObject:newSymbol];	
-	} else {
-		for (NSUInteger i = [self.plotSymbols count]; i < index; i++) {
-			[self.plotSymbols addObject:[NSNull null]];
-		}
-		[self.plotSymbols addObject:newSymbol];
-	}
-	[self setNeedsDisplay];
-}
-
--(void)setDefaultPlotSymbol:(CPPlotSymbol *)aSymbol
-{
-	if (aSymbol != defaultPlotSymbol) {
-		[defaultPlotSymbol release];
-		defaultPlotSymbol = [aSymbol copy];
-		[self setNeedsDisplay];
-	}
-}
-
-#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
 {    
     [super reloadData];
 	
-    CPXYPlotSpace *cartesianPlotSpace = (CPXYPlotSpace *)self.plotSpace;
+    CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
     self.xValues = nil;
     self.yValues = nil;
 	
@@ -183,7 +141,7 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
     else if ( self.dataSource ) {
         // Expand the index range each end, to make sure that plot lines go to offscreen points
         NSUInteger numberOfRecords = [self.dataSource numberOfRecords];
-        NSRange indexRange = [self recordIndexRangeForPlotRange:cartesianPlotSpace.xRange];
+        NSRange indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
         NSRange expandedRange = CPExpandedRange(indexRange, 1);
         NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
         indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
@@ -257,6 +215,47 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 	}
 	
 	free(viewPoints);
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setPlotSymbol:(CPPlotSymbol *)aSymbol atIndex:(NSUInteger)index
+{
+	NSObject *newSymbol;
+	
+	if (aSymbol) {
+		newSymbol = aSymbol;
+	} else {
+		newSymbol = [NSNull null];
+	}
+	
+	if (index < [self.plotSymbols count]) {
+		[self.plotSymbols replaceObjectAtIndex:index withObject:newSymbol];	
+	} else {
+		for (NSUInteger i = [self.plotSymbols count]; i < index; i++) {
+			[self.plotSymbols addObject:[NSNull null]];
+		}
+		[self.plotSymbols addObject:newSymbol];
+	}
+	[self setNeedsDisplay];
+}
+
+-(void)setDefaultPlotSymbol:(CPPlotSymbol *)aSymbol
+{
+	if (aSymbol != defaultPlotSymbol) {
+		[defaultPlotSymbol release];
+		defaultPlotSymbol = [aSymbol copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setDataLineStyle:(CPLineStyle *)value {
+    if (dataLineStyle != value) {
+        [dataLineStyle release];
+        dataLineStyle = [value copy];
+        [self setNeedsDisplay];
+    }
 }
 
 @end

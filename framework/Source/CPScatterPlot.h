@@ -6,23 +6,24 @@
 @class CPLineStyle;
 @class CPPlotSymbol;
 
-extern NSString *CPScatterPlotBindingXValues;
-extern NSString *CPScatterPlotBindingYValues;
+extern NSString * const CPScatterPlotBindingXValues;
+extern NSString * const CPScatterPlotBindingYValues;
 
 typedef enum _CPScatterPlotField {
     CPScatterPlotFieldX,
-    CPScatterPlotFieldY,
-    CPScatterPlotFieldErrorMinimum,
-    CPScatterPlotFieldErrorMaximum
+    CPScatterPlotFieldY
 } CPScatterPlotField;
 
+@protocol CPScatterPlotDataSource <CPPlotDataSource>
+@optional
+-(CPPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index;  // TODO: Replace setPlotSymbol:atIndex: with this data source method
+@end 
+
 @interface CPScatterPlot : CPPlot {
-    CPNumericType numericType;
     id observedObjectForXValues;
     id observedObjectForYValues;
     NSString *keyPathForXValues;
     NSString *keyPathForYValues;
-    BOOL hasErrorBars;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *defaultPlotSymbol;
     NSArray *xValues;
@@ -30,8 +31,6 @@ typedef enum _CPScatterPlotField {
     NSMutableArray *plotSymbols;
 } 
 
-@property (nonatomic, readwrite, assign) CPNumericType numericType;
-@property (nonatomic, readwrite, assign) BOOL hasErrorBars;
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPPlotSymbol *defaultPlotSymbol;
 
