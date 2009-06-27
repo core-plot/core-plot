@@ -17,8 +17,8 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @interface CPPlotSpace (AbstractMethods)
 
--(CGPoint)viewPointForPlotPoint:(NSArray *)decimalNumbers;
--(NSArray *)plotPointForViewPoint:(CGPoint)point;
+-(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)decimalNumbers;
+-(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point;
 
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 

@@ -43,14 +43,11 @@
 {
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     
-    NSMutableArray *plotPoint = [[NSMutableArray alloc] initWithObjects:[NSNull null], [NSNull null], nil];
-    [plotPoint replaceObjectAtIndex:self.coordinate withObject:coordinateDecimalNumber];
-    [plotPoint replaceObjectAtIndex:orthogonalCoordinate withObject:self.constantCoordinateValue];
-    
+    NSDecimalNumber *plotPoint[2];
+    plotPoint[self.coordinate] = coordinateDecimalNumber;
+    plotPoint[orthogonalCoordinate] = self.constantCoordinateValue;
     CGPoint point = [self.plotSpace viewPointForPlotPoint:plotPoint];
     
-    [plotPoint release];
-	
     return point;
 }
 

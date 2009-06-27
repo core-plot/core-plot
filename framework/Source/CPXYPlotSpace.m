@@ -95,23 +95,19 @@
 }
 #endif
 
--(CGPoint)viewPointForPlotPoint:(NSArray *)numbers;
+-(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)numbers
 {
-	if ([numbers count] != 2) {
-        [NSException raise:CPDataException format:@"Wrong number of plot points supplied to viewPointForPlotPoint:"];
-    }
-    
     CGFloat viewX, viewY;
     
     if ( self.xScaleType == CPScaleTypeLinear ) {
-        viewX = [self viewCoordinateForViewLength:self.bounds.size.width linearPlotRange:xRange plotCoordinateValue:[numbers objectAtIndex:CPCoordinateX]];
+        viewX = [self viewCoordinateForViewLength:self.bounds.size.width linearPlotRange:xRange plotCoordinateValue:numbers[CPCoordinateX]];
     }
     else {
         [NSException raise:CPException format:@"Scale type not yet supported in CPXYPlotSpace"];
     }
     
     if ( self.yScaleType == CPScaleTypeLinear ) {
-        viewY = [self viewCoordinateForViewLength:self.bounds.size.height linearPlotRange:yRange plotCoordinateValue:[numbers objectAtIndex:CPCoordinateY]];      
+        viewY = [self viewCoordinateForViewLength:self.bounds.size.height linearPlotRange:yRange plotCoordinateValue:numbers[CPCoordinateY]];      
     }
     else {
         [NSException raise:CPException format:@"Scale type not yet supported in CPXYPlotSpace"];
@@ -120,7 +116,7 @@
     return CGPointMake(floorf(viewX), floorf(viewY));
 }
 
--(NSArray *)plotPointForViewPoint:(CGPoint)point
+-(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point
 {
 	NSDecimal pointx = CPDecimalFromFloat(point.x);
 	NSDecimal pointy = CPDecimalFromFloat(point.y);
@@ -144,8 +140,9 @@
 	NSDecimalDivide(&y, &pointy, &boundsh, NSRoundPlain);
 	NSDecimalMultiply(&y, &y, &(yLength), NSRoundPlain);
 	NSDecimalAdd(&y, &y, &(yLocation), NSRoundPlain);
-    
-	return [NSArray arrayWithObjects:[NSDecimalNumber decimalNumberWithDecimal:x], [NSDecimalNumber decimalNumberWithDecimal:y], nil];
+
+    plotPoint[CPCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:x];
+    plotPoint[CPCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:y];
 }
 
 @end

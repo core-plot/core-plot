@@ -165,15 +165,14 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 	CGPoint *viewPoints = malloc([self.xValues count] * sizeof(CGPoint));
 	
 	if (self.dataLineStyle || self.defaultPlotSymbol || [self.plotSymbols count]) {
-		NSMutableArray *plotPoint = [NSMutableArray array];
 		CGPoint viewPoint;
 		
+        NSDecimalNumber* plotPoint[2];
 		for (NSUInteger ii = 0; ii < [self.xValues count]; ii++) {
-			[plotPoint insertObject:[self.xValues objectAtIndex:ii] atIndex:0];
-			[plotPoint insertObject:[self.yValues objectAtIndex:ii] atIndex:1];
+            plotPoint[CPCoordinateX] = (NSDecimalNumber *)[self.xValues objectAtIndex:ii];
+            plotPoint[CPCoordinateY] = (NSDecimalNumber *)[self.yValues objectAtIndex:ii];
 			viewPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
 			viewPoints[ii] = viewPoint;
-			[plotPoint removeAllObjects];
 		}
 	}
 	
