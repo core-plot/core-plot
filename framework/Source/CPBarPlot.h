@@ -4,38 +4,35 @@
 #import "CPDefinitions.h"
 
 @class CPBarPlot;
+@class CPLineStyle;
+@class CPFill;
 
+extern NSString * const CPBarPlotBindingBarLengths;
 
 typedef enum _CPBarPlotField {
-    CPBarPlotFieldY,
-    CPBarPlotFieldErrorMinimum,
-    CPBarPlotFieldErrorMaximum
+    CPBarPlotFieldBarLength
 } CPBarPlotField;
 
 
-@protocol CPBarPlotDataSource <CPPlotDataSource>
-
--(NSUInteger)numberOfSiblings;
-
-@optional
-
--(NSNumber *)numberForBarPlot:(CPBarPlot *)plot field:(NSUInteger)fieldEnum siblingIndex:(NSUInteger)siblingIndex recordIndex:(NSUInteger)index; 
-
-@end 
-
-
 @interface CPBarPlot : CPPlot {
-    CPNumericType numericTypeForX;
-    CPNumericType numericTypeForY;
-    NSMutableArray *observedObjectsForXValues;
-    NSMutableArray *observedObjectsForYValues;
-    NSMutableArray *keyPathsForXValues;
-    NSMutableArray *keyPathsForYValues;
-    BOOL hasErrorBars;
+    id observedObjectForBarLengthValues;
+    NSString *keyPathForBarLengthValues;
+    CPLineStyle *lineStyle;
+    CPFill *fill;
+    CGFloat barWidth;
+    CGFloat barOffset;
+    CGFloat cornerRadius;
+    NSDecimalNumber *baseValue;
+    NSArray *barLengths;
+    BOOL barsAreHorizontal;
 } 
 
-@property (nonatomic, readwrite, assign) CPNumericType numericTypeForX;
-@property (nonatomic, readwrite, assign) CPNumericType numericTypeForY;
-@property (nonatomic, readwrite, assign) BOOL hasErrorBars;
+@property (nonatomic, readwrite, assign) CGFloat barWidth;
+@property (nonatomic, readwrite, assign) CGFloat barOffset;     // In units of bar width
+@property (nonatomic, readwrite, assign) CGFloat cornerRadius;
+@property (nonatomic, readwrite, copy) CPLineStyle *lineStyle;
+@property (nonatomic, readwrite, copy) CPFill *fill;
+@property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
+@property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
 
 @end
