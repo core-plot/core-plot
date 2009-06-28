@@ -6,6 +6,7 @@
 @class CPBarPlot;
 @class CPLineStyle;
 @class CPFill;
+@class CPPlotRange;
 
 extern NSString * const CPBarPlotBindingBarLengths;
 
@@ -25,6 +26,7 @@ typedef enum _CPBarPlotField {
     NSDecimalNumber *baseValue;
     NSArray *barLengths;
     BOOL barsAreHorizontal;
+    CPPlotRange *plotRange;
 } 
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
@@ -34,5 +36,6 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
 @property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
+@property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 
 @end

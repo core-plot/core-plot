@@ -4,6 +4,7 @@
 #import "CPColor.h"
 #import "CPLineStyle.h"
 #import "CPFill.h"
+#import "CPPlotRange.h"
 
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";
 
@@ -31,6 +32,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @synthesize barLengths;
 @synthesize barsAreHorizontal;
 @synthesize baseValue;
+@synthesize plotRange;
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -42,6 +44,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         self.barOffset = 0.0f;
         self.lineStyle = [CPLineStyle lineStyle];
         self.fill = [CPFill fillWithColor:[CPColor blackColor]];
+        self.plotRange = nil;
 	}
 	return self;
 }
@@ -54,6 +57,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     self.fill = nil;
     self.barLengths = nil;
     self.baseValue = nil;
+    self.plotRange = nil;
     [super dealloc];
 }
 
@@ -118,13 +122,21 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     if ( self.barLengths == nil ) return;
     if ( self.lineStyle == nil && self.fill == nil ) return;
 	
+    // Determine location of bars in plot space
+    NSDecimalNumber *delta = [NSDecimalNumber one];
+    if ( plotRange && self.barLengths.count > 1 ) {
+        delta = [plotRange.length decimalNumberByDividingBy:
+            (NSDecimalNumber *)[NSDecimalNumber numberWithInt:self.barLengths.count-1]];
+    }
+    
     NSDecimalNumber *plotPoint[2];
     CGPoint tipPoint, basePoint;
     CPCoordinate independentCoord = ( barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
     for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
         // Tip point
-        plotPoint[independentCoord] = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii];
+        plotPoint[independentCoord] = [delta decimalNumberByMultiplyingBy:
+            (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
         plotPoint[dependentCoord] = [self.barLengths objectAtIndex:ii];
         tipPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         
