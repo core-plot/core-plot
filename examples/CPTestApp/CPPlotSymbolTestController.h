@@ -7,7 +7,4 @@
 	CPXYGraph *graph;
 }
 
--(NSUInteger)numberOfRecords;
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
-
 @end

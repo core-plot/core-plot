@@ -22,7 +22,7 @@
 	graph = [theme newGraph];
 	hostView.hostedLayer = graph;
     
-    // Setup plot space
+    // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
@@ -87,6 +87,48 @@
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.content = contentArray;
+    
+    // Add plot space for horizontal bar charts
+    CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
+    barPlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(200.0f)];
+    barPlotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-7.0f) length:CPDecimalFromFloat(15.0f)];
+    [graph addPlotSpace:barPlotSpace];
+    [barPlotSpace release];
+    
+    // First bar plot
+    CPBarPlot *barPlot = [[CPBarPlot alloc] init];
+    CPLineStyle *barLineStyle = [CPLineStyle lineStyle];
+    barLineStyle.lineWidth = 1.0f;
+    barLineStyle.lineColor = [CPColor blackColor];
+    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
+    barPlot.lineStyle = barLineStyle;
+    barPlot.dataSource = self;
+    barPlot.barsAreHorizontal = YES;
+    barPlot.barOffset = -0.25f;
+    barPlot.barWidth = 10.0f;
+    barPlot.cornerRadius = 2.0f;
+    barPlot.identifier = @"Bar Plot 1";
+    CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:[CPColor darkGrayColor] endingColor:[CPColor blackColor]];
+    fillGradient.angle = -90.0;
+    barPlot.fill = [CPFill fillWithGradient:fillGradient];
+    [graph addPlot:barPlot toPlotSpace:barPlotSpace];
+    [barPlot release];
+    
+    // Second bar plot
+    barPlot = [[CPBarPlot alloc] init];
+    barPlot.dataSource = self;
+    barPlot.barsAreHorizontal = YES;
+    barPlot.lineStyle = barLineStyle;
+    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
+    barPlot.barOffset = 0.25f;
+    barPlot.barWidth = 10.0f;
+    barPlot.cornerRadius = 2.0f;
+    barPlot.identifier = @"Bar Plot 2";
+    fillGradient = [CPGradient gradientWithBeginningColor:[CPColor blueColor] endingColor:[CPColor blackColor]];
+    fillGradient.angle = -90.0;
+    barPlot.fill = [CPFill fillWithGradient:fillGradient];
+    [graph addPlot:barPlot toPlotSpace:barPlotSpace];
+    [barPlot release];
 }
 
 -(id)newObject 
@@ -107,13 +149,24 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords {
-    return [self.arrangedObjects count];
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+    if ( [plot isKindOfClass:[CPBarPlot class]] ) 
+        return 8;
+    else
+        return [self.arrangedObjects count];
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    NSDecimalNumber *num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-    if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+    NSDecimalNumber *num;
+    if ( [plot isKindOfClass:[CPBarPlot class]] ) {
+        num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:(index+1)*(index+1)];
+        if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
+            num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+    }
+    else {
+        num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+        if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+    }
     return num;
 }
 

@@ -155,28 +155,50 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point1[0] = basePoint->x;
     point1[1] = basePoint->y;
     point1[widthCoordinate] += 0.5 * barWidth;
+    point1[0] = round(point1[0]);
+    point1[1] = round(point1[1]);
     
     CGFloat point2[2];
     point2[0] = tipPoint->x;
     point2[1] = tipPoint->y;
     point2[widthCoordinate] += 0.5 * barWidth;
+    point2[0] = round(point2[0]);
+    point2[1] = round(point2[1]);
     
     CGFloat point3[2];
     point3[0] = tipPoint->x;
     point3[1] = tipPoint->y;
-    
+    point3[0] = round(point3[0]);
+    point3[1] = round(point3[1]);
+
     CGFloat point4[2];
-    point4[0] = basePoint->x;
-    point4[1] = basePoint->y;
+    point4[0] = tipPoint->x;
+    point4[1] = tipPoint->y;
     point4[widthCoordinate] -= 0.5 * barWidth;
+    point4[0] = round(point4[0]);
+    point4[1] = round(point4[1]);
     
-    CGContextBeginPath(context);
-	CGContextMoveToPoint(context, point1[0], point1[1]);
-	CGContextAddArcToPoint(context, point2[0], point2[1], point3[0], point3[1], cornerRadius);
-    CGContextAddArcToPoint(context, point3[0], point3[1], point4[0], point4[1], cornerRadius);
+    CGFloat point5[2];
+    point5[0] = basePoint->x;
+    point5[1] = basePoint->y;
+    point5[widthCoordinate] -= 0.5 * barWidth;
+    point5[0] = round(point5[0]);
+    point5[1] = round(point5[1]);
+
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, point1[0], point1[1]);
+	CGPathAddArcToPoint(path, NULL, point2[0], point2[1], point3[0], point3[1], cornerRadius);
+    CGPathAddArcToPoint(path, NULL, point4[0], point4[1], point5[0], point5[1], cornerRadius);
+    CGPathAddLineToPoint(path, NULL, point5[0], point5[1]);
+    
+    CGContextAddPath(context, path);
     [self.fill fillPathInContext:context];
+
+    CGContextAddPath(context, path);
     [self.lineStyle setLineStyleInContext:context];
     CGContextStrokePath(context);
+    
+    CGPathRelease(path);
 }
 
 #pragma mark -

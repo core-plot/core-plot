@@ -10,7 +10,7 @@
 
 @protocol CPPlotDataSource <NSObject>
 
--(NSUInteger)numberOfRecords; 
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot; 
 
 @optional
 

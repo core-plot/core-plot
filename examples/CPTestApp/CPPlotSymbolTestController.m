@@ -67,7 +67,7 @@
 		
 		dataSourceLinePlot.defaultPlotSymbol = symbol;
 		
-		for (NSUInteger j = 1; j < [self numberOfRecords]; j++) {
+		for (NSUInteger j = 1; j < [self numberOfRecordsForPlot:dataSourceLinePlot]; j++) {
 			symbol = [[symbol copy] autorelease];
 			symbol.size = CGSizeMake(j * 4, j * 4);
 			[dataSourceLinePlot setPlotSymbol:symbol atIndex:j];
@@ -80,7 +80,7 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
     return 10;
 }
 

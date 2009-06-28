@@ -1,6 +1,7 @@
 
 #import "CPLayer.h"
 #import "CPPlatformSpecificFunctions.h"
+#import "CPExceptions.h"
 
 @implementation CPLayer
 
@@ -190,7 +191,6 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 +(void)exposeBinding:(NSString *)binding 
 {
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
-    [NSException raise:CPException format:BindingsNotSupportedString];
 #else
     [super exposeBinding:binding];
 #endif

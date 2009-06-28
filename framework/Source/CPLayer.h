@@ -31,4 +31,9 @@
 // Z position
 +(CGFloat)defaultZPosition;
 
+// Bindings
++(void)exposeBinding:(NSString *)binding;
+-(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options;
+-(void)unbind:(NSString *)binding;
+
 @end

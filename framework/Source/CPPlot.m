@@ -99,7 +99,7 @@
         resultRange = [dataSource recordIndexRangeForPlot:self plotRange:plotRange];
     }
     else {
-        resultRange = NSMakeRange(0, [dataSource numberOfRecords]);
+        resultRange = NSMakeRange(0, [dataSource numberOfRecordsForPlot:self]);
     }
     
     return resultRange;

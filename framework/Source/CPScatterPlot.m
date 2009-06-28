@@ -140,7 +140,7 @@ static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
     }
     else if ( self.dataSource ) {
         // Expand the index range each end, to make sure that plot lines go to offscreen points
-        NSUInteger numberOfRecords = [self.dataSource numberOfRecords];
+        NSUInteger numberOfRecords = [self.dataSource numberOfRecordsForPlot:self];
         NSRange indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
         NSRange expandedRange = CPExpandedRange(indexRange, 1);
         NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
