@@ -13,6 +13,7 @@
 #import <CorePlot/CPFill.h>
 #import <CorePlot/CPGradient.h>
 #import <CorePlot/CPGraph.h>
+#import <CorePlot/CPImage.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPPlatformSpecificDefines.h>
 #import <CorePlot/CPPlatformSpecificFunctions.h>
