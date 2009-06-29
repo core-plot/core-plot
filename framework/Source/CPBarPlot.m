@@ -203,12 +203,16 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CGPathAddArcToPoint(path, NULL, point4[0], point4[1], point5[0], point5[1], cornerRadius);
     CGPathAddLineToPoint(path, NULL, point5[0], point5[1]);
     
+    CGContextSaveGState(context);
+    CGContextBeginPath(context);
     CGContextAddPath(context, path);
     [self.fill fillPathInContext:context];
 
+    CGContextBeginPath(context);
     CGContextAddPath(context, path);
     [self.lineStyle setLineStyleInContext:context];
     CGContextStrokePath(context);
+    CGContextRestoreGState(context);
     
     CGPathRelease(path);
 }
