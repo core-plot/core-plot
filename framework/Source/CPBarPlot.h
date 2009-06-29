@@ -7,6 +7,7 @@
 @class CPLineStyle;
 @class CPFill;
 @class CPPlotRange;
+@class CPColor;
 
 extern NSString * const CPBarPlotBindingBarLengths;
 
@@ -37,5 +38,7 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
 @property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
+
++(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal;
 
 @end

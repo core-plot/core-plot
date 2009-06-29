@@ -5,6 +5,7 @@
 #import "CPLineStyle.h"
 #import "CPFill.h"
 #import "CPPlotRange.h"
+#import "CPGradient.h"
 
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";
 
@@ -33,6 +34,28 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @synthesize barsAreHorizontal;
 @synthesize baseValue;
 @synthesize plotRange;
+
+#pragma mark -
+#pragma mark Convenience Factory Methods
+
++(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal
+{
+    CPBarPlot *barPlot = [[CPBarPlot alloc] init];
+    CPLineStyle *barLineStyle = [CPLineStyle lineStyle];
+    barLineStyle.lineWidth = 1.0f;
+    barLineStyle.lineColor = [CPColor blackColor];
+    barPlot.lineStyle = barLineStyle;
+    barPlot.barsAreHorizontal = horizontal;
+    barPlot.barWidth = 10.0f;
+    barPlot.cornerRadius = 2.0f;
+    CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
+    fillGradient.angle = (horizontal ? -90.0f : 0.0f);
+    barPlot.fill = [CPFill fillWithGradient:fillGradient];
+    return [barPlot autorelease];
+}
+
+#pragma mark -
+#pragma mark Initialization
 
 -(id)initWithFrame:(CGRect)newFrame
 {

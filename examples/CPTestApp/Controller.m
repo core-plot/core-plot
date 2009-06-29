@@ -104,39 +104,21 @@
     [barPlotSpace release];
     
     // First bar plot
-    CPBarPlot *barPlot = [[CPBarPlot alloc] init];
-    CPLineStyle *barLineStyle = [CPLineStyle lineStyle];
-    barLineStyle.lineWidth = 1.0f;
-    barLineStyle.lineColor = [CPColor blackColor];
+    CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
     barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
-    barPlot.lineStyle = barLineStyle;
     barPlot.dataSource = self;
-    barPlot.barsAreHorizontal = YES;
     barPlot.barOffset = -0.25f;
-    barPlot.barWidth = 10.0f;
-    barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 1";
-    CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:[CPColor darkGrayColor] endingColor:[CPColor blackColor]];
-    fillGradient.angle = -90.0;
-    barPlot.fill = [CPFill fillWithGradient:fillGradient];
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
-    [barPlot release];
     
     // Second bar plot
-    barPlot = [[CPBarPlot alloc] init];
+    barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:YES];
     barPlot.dataSource = self;
-    barPlot.barsAreHorizontal = YES;
-    barPlot.lineStyle = barLineStyle;
     barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
     barPlot.barOffset = 0.25f;
-    barPlot.barWidth = 10.0f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
-    fillGradient = [CPGradient gradientWithBeginningColor:[CPColor blueColor] endingColor:[CPColor blackColor]];
-    fillGradient.angle = -90.0;
-    barPlot.fill = [CPFill fillWithGradient:fillGradient];
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
-    [barPlot release];
 }
 
 -(id)newObject 
