@@ -110,6 +110,11 @@
     return [[[CPColor alloc] initWithCGColor:newCGColor] autorelease];
 }
 
++(CPColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
+{
+    return [[[CPColor alloc] initWithComponentRed:red green:green blue:blue alpha:alpha] autorelease];
+}
+
 +(CPColor *)colorWithGenericGray:(CGFloat)gray
 {
 	CGColorRef colorRef = NULL;
@@ -129,6 +134,19 @@
         CGColorRetain(newCGColor);
         cgColor = newCGColor;
     }
+    return self;
+}
+
+-(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
+{
+    CGFloat colorComponents[4];
+    colorComponents[0] = red;
+    colorComponents[1] = green;
+    colorComponents[2] = blue;
+    colorComponents[3] = alpha;
+    CGColorRef color = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, colorComponents);
+    [self initWithCGColor:color];
+    CGColorRelease(color);
     return self;
 }
 
