@@ -61,6 +61,14 @@
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
     
+    // Put an area gradient under the plot above
+    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
+    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
+    areaGradient.angle = -90.0f;
+    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    boundLinePlot.areaFill = areaGradientFill;
+    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];
+    
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];

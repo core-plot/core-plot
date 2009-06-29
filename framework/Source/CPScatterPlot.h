@@ -5,6 +5,7 @@
 
 @class CPLineStyle;
 @class CPPlotSymbol;
+@class CPFill;
 
 extern NSString * const CPScatterPlotBindingXValues;
 extern NSString * const CPScatterPlotBindingYValues;
@@ -26,6 +27,8 @@ typedef enum _CPScatterPlotField {
     NSString *keyPathForYValues;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *defaultPlotSymbol;
+    CPFill *areaFill;
+    NSDecimalNumber *areaBaseValue;
     NSArray *xValues;
     NSArray *yValues;
     NSMutableArray *plotSymbols;
@@ -33,6 +36,8 @@ typedef enum _CPScatterPlotField {
 
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPPlotSymbol *defaultPlotSymbol;
+@property (nonatomic, readwrite, copy) CPFill *areaFill;
+@property (nonatomic, readwrite, copy) NSDecimalNumber *areaBaseValue;
 
 -(void)setPlotSymbol:(CPPlotSymbol *)symbol atIndex:(NSUInteger)index;
 
