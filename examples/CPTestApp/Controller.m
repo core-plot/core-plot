@@ -62,10 +62,10 @@
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
     
     // Put an area gradient under the plot above
-    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
-    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
-    areaGradient.angle = -90.0f;
-    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    NSString *pathToFillImage = [[NSBundle mainBundle] pathForResource:@"BlueTexture" ofType:@"png"];
+    CPImage *fillImage = [CPImage imageForPNGFile:pathToFillImage];
+    fillImage.tiled = YES;
+    CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
     boundLinePlot.areaFill = areaGradientFill;
     boundLinePlot.areaBaseValue = [NSDecimalNumber zero];
     
@@ -85,6 +85,14 @@
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
+    
+    // Put an area gradient under the plot above
+    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
+    areaGradient.angle = -90.0f;
+    areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    dataSourceLinePlot.areaFill = areaGradientFill;
+    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"1.75"];    
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
