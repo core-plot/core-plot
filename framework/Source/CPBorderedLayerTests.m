@@ -14,7 +14,9 @@
     layer.bounds = CGRectMake(0, 0, 100, 100);
 
     layer.borderLineStyle = [CPLineStyle lineStyle];
-    layer.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+    layer.borderLineStyle.lineColor = [CPColor blackColor];
+    layer.borderLineStyle.lineWidth = 3.0f;
+    layer.fill = [CPFill fillWithColor:[CPColor blueColor]];
     
     layer.cornerRadius = 10;
     GTMAssertObjectImageEqualToImageNamed(layer, @"CPBorderedLayerTests-testRenderingCornerRadius-10", @"");

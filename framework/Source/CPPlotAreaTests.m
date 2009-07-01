@@ -38,11 +38,9 @@
     [plotArea setFrame:CGRectMake(0, 0, 50, 50)];
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
     
-	CGColorRef grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
-	CGColorRelease(grayColor);
+	plotArea.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	
-    GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected", @"");
+    GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected-blueFill", @"");
     
     [plotArea release];
 }

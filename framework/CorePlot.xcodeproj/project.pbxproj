@@ -210,6 +210,7 @@
 		4CCEAF600FC4BF9F003A68C9 /* CPXYGraphTests-testRenderMultipleScatter.i386.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CCEAF330FC4BF9F003A68C9 /* CPXYGraphTests-testRenderMultipleScatter.i386.tiff */; };
 		4CCEAF610FC4BF9F003A68C9 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CCEAF340FC4BF9F003A68C9 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff */; };
 		4CD23F550FFA7CFC00ADD2E2 /* CPBorderedLayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD23F540FFA7CFC00ADD2E2 /* CPBorderedLayerTests.m */; };
+		4CD23FFC0FFBE78400ADD2E2 /* CPAxisLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */; };
 		4CD7E7E70F4B4F8200F9BCBB /* CPTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD7E7E80F4B4F8200F9BCBB /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */; };
 		4CD7E7EC0F4B4F9600F9BCBB /* CPLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7EA0F4B4F9600F9BCBB /* CPLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -708,6 +709,8 @@
 		4CCEAF340FC4BF9F003A68C9 /* CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.i386.tiff"; sourceTree = "<group>"; };
 		4CD23F530FFA7CFC00ADD2E2 /* CPBorderedLayerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBorderedLayerTests.h; sourceTree = "<group>"; };
 		4CD23F540FFA7CFC00ADD2E2 /* CPBorderedLayerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBorderedLayerTests.m; sourceTree = "<group>"; };
+		4CD23FFA0FFBE78400ADD2E2 /* CPAxisLabelTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisLabelTests.h; sourceTree = "<group>"; };
+		4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisLabelTests.m; sourceTree = "<group>"; };
 		4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextLayer.h; sourceTree = "<group>"; };
 		4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextLayer.m; sourceTree = "<group>"; };
 		4CD7E7EA0F4B4F9600F9BCBB /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayer.h; sourceTree = "<group>"; };
@@ -1274,6 +1277,8 @@
 		4C7D0FB60FD5DDDA00D83C0F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4CD23FFA0FFBE78400ADD2E2 /* CPAxisLabelTests.h */,
+				4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2173,6 +2178,7 @@
 				4C62EAD00FC1E21F00E6D443 /* CPGradientTests.m in Sources */,
 				C36468AA0FE5533F0064B186 /* CPTextStyleTests.m in Sources */,
 				4CD23F550FFA7CFC00ADD2E2 /* CPBorderedLayerTests.m in Sources */,
+				4CD23FFC0FFBE78400ADD2E2 /* CPAxisLabelTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
