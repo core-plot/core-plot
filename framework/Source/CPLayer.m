@@ -214,4 +214,14 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 #endif
 }
 
+-(Class)valueClassForBinding:(NSString *)binding
+{
+#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+    [NSException raise:CPException format:BindingsNotSupportedString];
+    return Nil;
+#else
+    return [super valueClassForBinding:binding];
+#endif
+}
+
 @end

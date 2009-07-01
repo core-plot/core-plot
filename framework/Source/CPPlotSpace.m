@@ -29,4 +29,10 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	return CPDefaultZPositionPlotSpace;
 }
 
+-(void)setBounds:(CGRect)newBounds {
+    BOOL notify = !CGRectEqualToRect(newBounds, self.bounds);
+    [super setBounds:newBounds];
+    if ( notify ) [[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
+}
+
 @end

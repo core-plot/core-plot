@@ -64,7 +64,7 @@
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(10.0, 10.0);
-    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;
+    dataSourceLinePlot.plotSymbol = greenCirclePlotSymbol;
 	
     // Add some initial data
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.3"];

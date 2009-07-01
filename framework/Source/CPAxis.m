@@ -317,6 +317,7 @@
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];		
+        [self setNeedsRelabel];
     }
 }
 
@@ -326,6 +327,7 @@
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];		
+        [self setNeedsRelabel];
     }
 }
 
