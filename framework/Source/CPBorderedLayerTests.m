@@ -37,7 +37,7 @@
     layer.bounds = CGRectMake(0, 0, 100, 100);
     
     layer.cornerRadius = 5;
-    layer.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+    layer.fill = [CPFill fillWithColor:[CPColor blueColor]];
     
     CPLineStyle *lineStyle = [CPLineStyle lineStyle];
     

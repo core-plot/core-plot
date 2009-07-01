@@ -3,6 +3,9 @@
 #import "CPAxisLabel.h"
 #import "CPTextStyle.h"
 #import "CPFill.h"
+#import "CPBorderedLayer.h"
+#import "CPColor.h"
+#import "CPExceptions.h"
 
 @implementation CPAxisLabelTests
 
@@ -26,8 +29,8 @@
     
     @try {
         CPBorderedLayer *contentLayer = [CPBorderedLayer layer];
-        layer.fill = [CPFill fillWithColor:[CPColor blueColor]];
-        layer.bounds = CGRectMake(0, 0, 20, 20);
+        contentLayer.fill = [CPFill fillWithColor:[CPColor blueColor]];
+        contentLayer.bounds = CGRectMake(0, 0, 20, 20);
         
         label = [[CPAxisLabel alloc] initWithContentLayer:contentLayer];
         label.offset = 20.0f;
