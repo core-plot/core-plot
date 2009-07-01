@@ -11,9 +11,7 @@
 	
 	STAssertEqualObjects(@"Helvetica", textStyle.fontName, @"Default font name is not Helvetica");
 	STAssertEquals(12.0f, textStyle.fontSize, @"Default font size is not 12.0");
-	STAssertEqualObjects([CPColor blackColor], textStyle.color, @"Default color is [CPColor blackColor]");
-	
-	[textStyle release];
+	STAssertEqualObjects([CPColor blackColor], textStyle.color, @"Default color is not [CPColor blackColor]");
 }
 
 @end

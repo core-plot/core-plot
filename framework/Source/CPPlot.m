@@ -1,7 +1,14 @@
 
 #import "CPPlot.h"
 #import "CPPlotSpace.h"
+#import "CPPlotRange.h"
 #import "NSNumberExtensions.h"
+
+@interface CPPlot()
+
+@property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
+
+@end
 
 @implementation CPPlot
 
@@ -49,7 +56,8 @@
 #pragma mark -
 #pragma mark Data Source
 
--(void)reloadData {
+-(void)reloadData
+{
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
 }
@@ -58,9 +66,9 @@
 {
     NSArray *numbers;
     
-    if ( dataSource ) {
-        if ( [dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
-            numbers = [dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange];
+    if ( self.dataSource ) {
+        if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
+            numbers = [self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange];
             NSMutableArray *decimalNumbers = [NSMutableArray arrayWithCapacity:numbers.count];
             for ( NSNumber *n in numbers ) {
                 [decimalNumbers addObject:[n decimalNumber]];
@@ -68,12 +76,12 @@
             numbers = decimalNumbers;
         }
         else {
-            BOOL respondsToSingleValueSelector = [dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
+            BOOL respondsToSingleValueSelector = [self.dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
             NSUInteger recordIndex;
             NSMutableArray *fieldValues = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
                 if ( respondsToSingleValueSelector ) {
-                    NSNumber *number = [dataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
+                    NSNumber *number = [self.dataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
                     [fieldValues addObject:[number decimalNumber]];
                 }
                 else {
@@ -92,14 +100,14 @@
 
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange 
 {
-    if ( nil == dataSource ) return NSMakeRange(0, 0);
+    if ( nil == self.dataSource ) return NSMakeRange(0, 0);
     
     NSRange resultRange;
-    if ( [dataSource respondsToSelector:@selector(recordIndexRangeForPlot:plotRange:)] ) {
-        resultRange = [dataSource recordIndexRangeForPlot:self plotRange:plotRange];
+    if ( [self.dataSource respondsToSelector:@selector(recordIndexRangeForPlot:plotRange:)] ) {
+        resultRange = [self.dataSource recordIndexRangeForPlot:self plotRange:plotRange];
     }
     else {
-        resultRange = NSMakeRange(0, [dataSource numberOfRecordsForPlot:self]);
+        resultRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);
     }
     
     return resultRange;
@@ -114,6 +122,11 @@
         dataSource = newSource;
         self.dataNeedsReloading = YES;
     }
+}
+
+-(void)setDataNeedsReloading
+{
+	self.dataNeedsReloading = YES;
 }
 
 @end

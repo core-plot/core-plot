@@ -3,7 +3,6 @@
 #import "CPPlot.h"
 #import "CPDefinitions.h"
 
-@class CPBarPlot;
 @class CPLineStyle;
 @class CPFill;
 @class CPPlotRange;

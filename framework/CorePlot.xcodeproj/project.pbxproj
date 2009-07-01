@@ -289,6 +289,7 @@
 		C3BFC2170FBFA7EF00998EE7 /* CPTextLayerTests-testInit1.ppc.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC20F0FBFA7EF00998EE7 /* CPTextLayerTests-testInit1.ppc.gtmUTState */; };
 		C3BFC24A0FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC2490FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.tiff */; };
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */; };
+		C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff */; };
 		C3F56D7D0FBEE90E00D261EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -791,6 +792,7 @@
 		C3BFC20F0FBFA7EF00998EE7 /* CPTextLayerTests-testInit1.ppc.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testInit1.ppc.gtmUTState"; sourceTree = "<group>"; };
 		C3BFC2490FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.ppc.tiff"; sourceTree = "<group>"; };
 		C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.ppc.tiff"; sourceTree = "<group>"; };
+		C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.i386.tiff"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1199,6 +1201,7 @@
 			children = (
 				4CCEAF260FC4BF9E003A68C9 /* CPScatterPlotTests-testRenderScatter.i386.tiff */,
 				C3942B220FBE620F0068605A /* CPScatterPlotTests-testRenderScatter.ppc.tiff */,
+				C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff */,
 				C3BFC2490FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.tiff */,
 			);
 			name = CPScatterPlotTests;
@@ -1262,7 +1265,7 @@
 			isa = PBXGroup;
 			children = (
 				4C37798F0FD87A5E00BA848A /* TestMerge.app */,
-				4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */,
+				4C3779910FD87A5E00BA848A /* Untitled.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1892,10 +1895,10 @@
 			remoteRef = 4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
+		4C3779910FD87A5E00BA848A /* Untitled.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "TestMerge-UnitTests.octest";
+			path = Untitled.octest;
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1908,6 +1911,7 @@
 			files = (
 				C3BFC24A0FBFABFE00998EE7 /* CPScatterPlotTests-testRenderStressTest.ppc.tiff in Resources */,
 				C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */,
+				C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,10 +3,9 @@
 #import "CPPlotRange.h"
 #import "CPLayer.h"
 
-
 @class CPPlot;
 @class CPPlotSpace;
-
+@class CPPlotRange;
 
 @protocol CPPlotDataSource <NSObject>
 
@@ -22,7 +21,6 @@
 
 @end 
 
-
 @interface CPPlot : CPLayer {
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
@@ -33,8 +31,9 @@
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
-@property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
 
+-(void)setDataNeedsReloading;
 -(void)reloadData;
 
 -(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;

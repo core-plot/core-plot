@@ -50,7 +50,8 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     self.yData = arr;
 }
 
-- (void)addPlot:(CPPlot*)newPlot {
+- (void)addPlot:(CPPlot*)newPlot
+{
     if(nil == self.plots) {
         self.plots = [NSMutableArray array];
     }
@@ -58,12 +59,14 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     [[self plots] addObject:newPlot];
 }
 
-- (CPPlotRange*)xRange {
+- (CPPlotRange*)xRange
+{
     [self buildData];
     return  [self plotRangeForData:self.xData];
 }
 
-- (CPPlotRange*)yRange {
+- (CPPlotRange*)yRange
+{
     [self buildData];
     CPPlotRange *range = [self plotRangeForData:self.yData];
     
@@ -74,19 +77,20 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     return range;
 }
 
-- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray {
+- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray
+{
     double min = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
     double max = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
     double range = max-min;
     
-    return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min - .1*range)
-                                       length:CPDecimalFromDouble(range + .1*range)];
+    return [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(min - 0.05*range)
+                                       length:CPDecimalFromDouble(range + 0.1*range)];
 }
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords 
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
 {
     return self.nRecords;
 }
@@ -95,7 +99,6 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
                      field:(NSUInteger)fieldEnum 
           recordIndexRange:(NSRange)indexRange
 {
-    
     NSArray *result;
     
     switch(fieldEnum) {

@@ -76,7 +76,7 @@
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	plotSymbol.lineStyle = symbolLineStyle;
     plotSymbol.size = CGSizeMake(10.0, 10.0);
-    boundLinePlot.defaultPlotSymbol = plotSymbol;
+    boundLinePlot.plotSymbol = plotSymbol;
     
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];

@@ -89,7 +89,7 @@
 	
 	for (NSUInteger i=CPPlotSymbolTypeNone; i<=CPPlotSymbolTypeCustom; i++) {
 		plotSymbol.symbolType = i;
-		self.plot.defaultPlotSymbol = plotSymbol;
+		self.plot.plotSymbol = plotSymbol;
 
 		NSString *plotName = [NSString stringWithFormat:@"CPPlotSymbolTests-testSymbol%lu", (unsigned long)i];
 		NSString *errorMessage = [NSString stringWithFormat:@"Should plot symbol #%lu", (unsigned long)i];
@@ -102,7 +102,7 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords 
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
 {
 	NSUInteger n = self.nRecords;
     return n*n;

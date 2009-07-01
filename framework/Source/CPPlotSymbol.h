@@ -38,6 +38,7 @@ typedef enum _CPPlotSymbolType {
 @property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 
+// Plot symbols
 +(CPPlotSymbol *)plotSymbol;
 +(CPPlotSymbol *)crossPlotSymbol;
 +(CPPlotSymbol *)ellipsePlotSymbol;
@@ -53,7 +54,7 @@ typedef enum _CPPlotSymbolType {
 +(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath;
 //+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
 
--(id)copyWithZone:(NSZone *)zone;
+// Drawing
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
 
 @end

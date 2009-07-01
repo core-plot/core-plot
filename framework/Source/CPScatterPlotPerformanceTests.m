@@ -56,7 +56,7 @@
     
     // render several times
     for(NSUInteger i = 0; i<3; i++) {
-        self.plot.dataNeedsReloading = YES;
+        [self.plot setDataNeedsReloading];
         GTMTestTimerStart(t);
 		[self.plot drawInContext:ctx];
         GTMTestTimerStop(t);

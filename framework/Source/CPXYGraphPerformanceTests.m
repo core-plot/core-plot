@@ -57,7 +57,7 @@
 	CGColorRef greenColor = CPNewCGColorFromNSColor([NSColor greenColor]);
 	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(5.0, 5.0);
-    scatterPlot.defaultPlotSymbol = greenCirclePlotSymbol;
+    scatterPlot.plotSymbol = greenCirclePlotSymbol;
 	CGColorRelease(greenColor);
     
     [[self graph] addPlot:scatterPlot];

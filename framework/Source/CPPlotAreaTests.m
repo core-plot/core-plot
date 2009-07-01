@@ -14,7 +14,8 @@
 
 @implementation CPPlotArea (UnitTesting)
 
--(void)gtm_unitTestEncodeState:(NSCoder*)inCoder {
+-(void)gtm_unitTestEncodeState:(NSCoder*)inCoder
+{
     [super gtm_unitTestEncodeState:inCoder];
     
     [inCoder encodeObject:self.fill forKey:@"FillInstanceVariable"];
@@ -25,7 +26,8 @@
 
 @implementation CPPlotAreaTests
 
--(void)testBindings {
+-(void)testBindings
+{
     CPPlotArea *plotArea = [[CPPlotArea alloc] init];
     NSArray *errors;
     STAssertTrue(GTMDoExposedBindingsFunctionCorrectly(plotArea, &errors), @"CPPlotArea bindings do not work as expected: %@", errors);
@@ -33,7 +35,8 @@
     [plotArea release];
 }
 
--(void)testDrawInContextRendersAsExpected {
+-(void)testDrawInContextRendersAsExpected
+{
     CPPlotArea *plotArea = [[CPPlotArea alloc] init];
     [plotArea setFrame:CGRectMake(0, 0, 50, 50)];
     [plotArea setBounds:CGRectMake(0, 0, 50, 50)];
