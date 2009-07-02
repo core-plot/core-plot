@@ -31,11 +31,18 @@
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
     CGFloat inset = round(self.borderLineStyle.lineWidth*0.5 + 1.0f);
-    CGContextBeginPath(context);
-    AddRoundedRectPath(context, CGRectInset(self.bounds, inset, inset), self.cornerRadius);
-    [self.fill fillPathInContext:context];
+	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
+	CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+	
+	if ( self.fill ) {
+		CGContextBeginPath(context);
+		AddRoundedRectPath(context, selfBounds, radius);
+		[self.fill fillPathInContext:context];
+	}
     if ( self.borderLineStyle ) {
-        [self.borderLineStyle setLineStyleInContext:context];
+		CGContextBeginPath(context);
+		AddRoundedRectPath(context, selfBounds, radius);
+		[self.borderLineStyle setLineStyleInContext:context];
         CGContextStrokePath(context);
     }
 }
@@ -48,6 +55,14 @@
 	if ( newLineStyle != borderLineStyle ) {
 		[borderLineStyle release];
 		borderLineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setCornerRadius:(CGFloat)newRadius
+{
+	if ( newRadius != cornerRadius ) {
+		cornerRadius = ABS(newRadius);
 		[self setNeedsDisplay];
 	}
 }
