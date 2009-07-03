@@ -12,6 +12,8 @@
 #import "CPColor.h"
 #import "GTMTestTimer.h"
 #import "CPPlatformSpecificFunctions.h"
+#import "CPXYAxisSet.h"
+#import "CPXYAxis.h"
 
 @interface CPXYGraph (UnitTesting)
 
