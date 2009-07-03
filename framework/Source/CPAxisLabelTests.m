@@ -57,6 +57,20 @@
     }
 }
 
+- (void)testPositionBetweenViewPointImplemented
+{
+    CPAxisLabel *label;
+    
+    @try {
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionBetweenViewPointImplemented" textStyle:[CPTextStyle defaultTextStyle]];
+        
+        STAssertNoThrow([label positionBetweenViewPoint:CGPointZero andViewPoint:CGPointMake(1.0, 1.0) forCoordinate:CPCoordinateX inDirection:CPSignNone], @"Current implementation throws CPException. When implemented, revise this test");
+    }
+    @finally {
+        [label release];
+    }
+}
+
 - (void)testPositionRelativeToViewPointPositionsForXCoordinate
 {
     CPAxisLabel *label;
