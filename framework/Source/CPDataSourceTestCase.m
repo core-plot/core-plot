@@ -28,6 +28,13 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
 }
 
 
+- (void)setUp
+{
+    //check CPDataSource conformance
+    STAssertTrue([self conformsToProtocol:@protocol(CPPlotDataSource)], @"CPDataSourceTestCase should conform to <CPPlotDataSource>");
+}
+
+
 - (void)tearDown
 {
     self.xData = nil;

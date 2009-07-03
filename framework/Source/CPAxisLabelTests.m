@@ -93,7 +93,7 @@
                                inDirection:CPSignPositive];
         
         STAssertEquals(label.position, CGPointMake(start+label.offset, start), @"Should add positive offset");
-        STAssertEquals(label.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (0,0.5)");
+        STAssertEquals(label.anchorPoint, CGPointMake(0., 0.5), @"Should anchor at (0,0.5)");
     }
     @finally {
         [label release];
