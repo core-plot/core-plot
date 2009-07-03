@@ -55,19 +55,20 @@
     GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering1", @"Rendered image does not match");
     
     layer.text = @"testInit-expectedString2";
-    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering2", @"Rendered image does not match");
+    GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering2", @"Rendered image does not match");
+    
 	layer.text = @"testInit-expectedString3";
 	layer.textStyle.fontSize = 10.;
-    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering3", @"Rendered image does not match");
+    GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering3", @"Rendered image does not match");
     
 	layer.textStyle.fontSize = 100.;
-    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering4", @"Rendered image does not match");
+    GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering4", @"Rendered image does not match");
 	
 	layer.textStyle.color = [CPColor redColor];
-    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering5", @"Rendered image does not match");
+    GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering5", @"Rendered image does not match");
 	
 	layer.textStyle.fontName = @"Times-BoldItalic";
-    GTMAssertObjectEqualToStateAndImageNamed(layer, @"CPTextLayerTests-testRendering6", @"Rendered image does not match");
+    GTMAssertObjectImageEqualToImageNamed(layer, @"CPTextLayerTests-testRendering6", @"Rendered image does not match");
 	
 	[layer release];
 }

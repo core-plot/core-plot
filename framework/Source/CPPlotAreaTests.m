@@ -43,7 +43,7 @@
     
 	plotArea.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	
-    GTMAssertObjectEqualToStateAndImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected-blueFill", @"");
+    GTMAssertObjectImageEqualToImageNamed(plotArea, @"CPPlotAreaTests-testDrawInContextRendersAsExpected-blueFill", @"");
     
     [plotArea release];
 }
