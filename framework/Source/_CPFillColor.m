@@ -2,7 +2,15 @@
 #import "_CPFillColor.h"
 #import "CPColor.h"
 
+@interface _CPFillColor()
+
+@property (nonatomic, readwrite, copy) CPColor *fillColor;
+
+@end
+
 @implementation _CPFillColor
+
+@synthesize fillColor;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -10,14 +18,14 @@
 -(id)initWithColor:(CPColor *)aColor 
 {
 	if (self = [super init]) {
-        fillColor = [aColor copy];
+        self.fillColor = aColor;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    [fillColor release];
+    self.fillColor = nil;
 	[super dealloc];
 }
 
@@ -27,7 +35,7 @@
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);
-	CGContextSetFillColorWithColor(theContext, fillColor.cgColor);
+	CGContextSetFillColorWithColor(theContext, self.fillColor.cgColor);
 	CGContextFillRect(theContext, theRect);
 	CGContextRestoreGState(theContext);
 }
@@ -35,7 +43,7 @@
 -(void)fillPathInContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);
-	CGContextSetFillColorWithColor(theContext, fillColor.cgColor);
+	CGContextSetFillColorWithColor(theContext, self.fillColor.cgColor);
 	CGContextFillPath(theContext);
 	CGContextRestoreGState(theContext);
 }
@@ -45,11 +53,25 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPColor *colorCopy = [fillColor copyWithZone:zone];
-	_CPFillColor *copy = [(_CPFillColor *)[[self class] allocWithZone:zone] initWithColor:colorCopy];
-	[colorCopy release];
+	_CPFillColor *copy = [(_CPFillColor *)[[self class] allocWithZone:zone] initWithColor:[self.fillColor copyWithZone:zone]];
 	
 	return copy;
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.fillColor forKey:@"fillColor"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( self = [super init] ) {
+		fillColor = [[coder decodeObjectForKey:@"fillColor"] retain];
+	}
+    return self;
 }
 
 @end

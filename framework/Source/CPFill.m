@@ -75,4 +75,18 @@
 	return nil;
 }
 
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	// do nothing--implemented in subclasses
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	// do nothing--implemented in subclasses
+	return nil;
+}
+
 @end
