@@ -64,6 +64,11 @@
 #pragma mark -
 #pragma mark NSCoding methods
 
+-(Class)classForCoder
+{
+	return [CPFill class];
+}
+
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeObject:self.fillImage forKey:@"fillImage"];
