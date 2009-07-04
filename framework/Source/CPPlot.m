@@ -127,6 +127,7 @@
 -(void)setDataNeedsReloading
 {
 	self.dataNeedsReloading = YES;
+    [self setNeedsDisplay];
 }
 
 @end

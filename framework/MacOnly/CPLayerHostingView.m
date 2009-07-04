@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)dealloc
+-(void)dealloc
 {
 	self.hostedLayer = nil;
 	self.layerBeingClickedOn = nil;
@@ -34,7 +34,7 @@
 #pragma mark -
 #pragma mark Mouse handling
 
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
+-(BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
 {
 	return YES;
 }
