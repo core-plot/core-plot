@@ -14,12 +14,11 @@
 
 -(id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-		hostedLayer = nil;
-		layerBeingClickedOn = nil;
-		CPLayer *mainLayer = [[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
-		self.layer = mainLayer;
-		[mainLayer release];
-		[self setWantsLayer:YES];
+        hostedLayer = nil;
+        layerBeingClickedOn = nil;
+        CPLayer *mainLayer = [[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
+        self.layer = mainLayer;
+        [mainLayer release];
     }
     return self;
 }
@@ -80,6 +79,7 @@
 -(void)setHostedLayer:(CPLayer *)newLayer
 {
 	if (newLayer != hostedLayer) {
+        self.wantsLayer = YES;
 		[hostedLayer removeFromSuperlayer];
 		[hostedLayer release];
 		hostedLayer = [newLayer retain];

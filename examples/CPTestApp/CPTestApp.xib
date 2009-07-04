@@ -8,7 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="57"/>
+			<integer value="446"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1147,7 +1148,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{450, 250}</string>
 				<object class="NSView" key="NSWindowView" id="1019331462">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1305,15 +1306,15 @@
 																			</object>
 																		</object>
 																	</object>
-																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="142284480">
+																	<object class="NSDecimalNumberPlaceholder" key="NS.min" id="637384672">
 																		<int key="NS.exponent">0</int>
 																		<int key="NS.length">0</int>
 																		<bool key="NS.negative">YES</bool>
 																		<bool key="NS.compact">NO</bool>
-																		<int key="NS.mantissa.bo">2</int>
+																		<int key="NS.mantissa.bo">1</int>
 																		<bytes key="NS.mantissa">AAAAAAAAAAAAAAAAAAAAAA</bytes>
 																	</object>
-																	<reference key="NS.max" ref="142284480"/>
+																	<reference key="NS.max" ref="637384672"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1395,8 +1396,8 @@
 																		<string key="NSString">NaN</string>
 																		<reference key="NSAttributes" ref="927249761"/>
 																	</object>
-																	<reference key="NS.min" ref="142284480"/>
-																	<reference key="NS.max" ref="142284480"/>
+																	<reference key="NS.min" ref="637384672"/>
+																	<reference key="NS.max" ref="637384672"/>
 																	<object class="NSDecimalNumberHandler" key="NS.rounding">
 																		<int key="NS.roundingmode">3</int>
 																		<bool key="NS.raise.overflow">YES</bool>
@@ -1509,7 +1510,6 @@
 									</object>
 									<string key="NSFrame">{{354, 0}, {559, 492}}</string>
 									<reference key="NSSuperview" ref="975736856"/>
-									<bool key="NSViewIsLayerTreeHost">YES</bool>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
@@ -1519,6 +1519,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{912, 526}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{450, 272}</string>
@@ -3761,8 +3762,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{83, 118}, {912, 526}}</string>
-					<string>{{83, 118}, {912, 526}}</string>
+					<string>{{50, 118}, {912, 526}}</string>
+					<string>{{50, 118}, {912, 526}}</string>
 					<boolean value="YES" id="5"/>
 					<reference ref="5"/>
 					<string>{450, 250}</string>
