@@ -34,12 +34,7 @@
 
 +(CPTextStyle *)defaultTextStyle
 {
-	static CPTextStyle *textStyle = nil;
-	
-	if ( textStyle == nil ) {
-		textStyle = [[self alloc] init];
-	}
-	return textStyle;
+	return [[[self alloc] init] autorelease];
 }
 
 #pragma mark -
