@@ -6,6 +6,8 @@
 	<string>GTMUnitTestingArchive</string>
 	<key>$GTMVersion</key>
 	<integer>1</integer>
+	<key>FrameRect</key>
+	<string>{{-65, -8.5}, {130, 17}}</string>
 	<key>LayerIsDoublesided</key>
 	<true/>
 	<key>LayerIsHidden</key>
@@ -14,8 +16,22 @@
 	<false/>
 	<key>LayerOpacity</key>
 	<real>1</real>
-	<key>PlotSpacesInstanceVariable</key>
-	<string>(
-)</string>
+	<key>Text</key>
+	<string>testInit-expectedString3</string>
+	<key>color</key>
+	<dict>
+		<key>alphaComponent</key>
+		<real>1</real>
+		<key>blueComponent</key>
+		<real>0.0</real>
+		<key>greenComponent</key>
+		<real>0.0</real>
+		<key>redComponent</key>
+		<real>0.0</real>
+	</dict>
+	<key>fontName</key>
+	<string>Helvetica</string>
+	<key>fontSize</key>
+	<real>10</real>
 </dict>
 </plist>

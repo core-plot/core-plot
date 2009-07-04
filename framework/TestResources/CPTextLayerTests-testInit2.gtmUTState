@@ -6,14 +6,8 @@
 	<string>GTMUnitTestingArchive</string>
 	<key>$GTMVersion</key>
 	<integer>1</integer>
-	<key>FontColor</key>
-	<string>(1 0 0 1)</string>
-	<key>FontName</key>
-	<string>Times-BoldItalic</string>
-	<key>FontSize</key>
-	<real>100</real>
 	<key>FrameRect</key>
-	<string>{{-492.65, -61}, {985.301, 122}}</string>
+	<string>{{-61.5, -8.5}, {123, 17}}</string>
 	<key>LayerIsDoublesided</key>
 	<true/>
 	<key>LayerIsHidden</key>
@@ -23,6 +17,21 @@
 	<key>LayerOpacity</key>
 	<real>1</real>
 	<key>Text</key>
-	<string>testInit-expectedString3</string>
+	<string>testInit-expectedString</string>
+	<key>color</key>
+	<dict>
+		<key>alphaComponent</key>
+		<real>1</real>
+		<key>blueComponent</key>
+		<real>0.0</real>
+		<key>greenComponent</key>
+		<real>0.0</real>
+		<key>redComponent</key>
+		<real>0.0</real>
+	</dict>
+	<key>fontName</key>
+	<string>Helvetica</string>
+	<key>fontSize</key>
+	<real>12</real>
 </dict>
 </plist>

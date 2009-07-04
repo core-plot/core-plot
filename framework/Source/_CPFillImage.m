@@ -2,7 +2,15 @@
 #import "_CPFillImage.h"
 #import "CPImage.h"
 
+@interface _CPFillImage()
+
+@property (nonatomic, readwrite, copy) CPImage *fillImage;
+
+@end
+
 @implementation _CPFillImage
+
+@synthesize fillImage;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -12,14 +20,14 @@
 	if (self = [super init]) 
 	{
 		// initialization
-		fillImage = [anImage retain];
+		self.fillImage = anImage;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	[fillImage release];
+	self.fillImage = nil;
 	
 	[super dealloc];
 }
@@ -29,7 +37,7 @@
 
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	[fillImage drawInRect:theRect inContext:theContext];
+	[self.fillImage drawInRect:theRect inContext:theContext];
 }
 
 -(void)fillPathInContext:(CGContextRef)theContext
@@ -38,7 +46,7 @@
 	
 	CGRect bounds = CGContextGetPathBoundingBox(theContext);
 	CGContextClip(theContext);
-	[fillImage drawInRect:bounds inContext:theContext];
+	[self.fillImage drawInRect:bounds inContext:theContext];
 	
 	CGContextRestoreGState(theContext);
 }
@@ -48,9 +56,30 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPFillImage *copy = [[[self class] allocWithZone:zone] initWithImage:[self->fillImage copy]];
+	_CPFillImage *copy = [(_CPFillImage *)[[self class] allocWithZone:zone] initWithImage:[self.fillImage copyWithZone:zone]];
 	
 	return copy;
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(Class)classForCoder
+{
+	return [CPFill class];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.fillImage forKey:@"fillImage"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( self = [super init] ) {
+		fillImage = [[coder decodeObjectForKey:@"fillImage"] retain];
+	}
+    return self;
 }
 
 @end

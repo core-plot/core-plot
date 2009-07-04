@@ -4,14 +4,15 @@
 
 @class CPImage;
 
-@interface _CPFillImage : CPFill <NSCopying> {
+@interface _CPFillImage : CPFill <NSCopying, NSCoding> {
 	CPImage *fillImage;
 }
 
+// Init
 -(id)initWithImage:(CPImage *)anImage;
 
+// Drawing
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
--(id)copyWithZone:(NSZone *)zone;
 
 @end

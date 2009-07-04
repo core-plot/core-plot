@@ -2,7 +2,15 @@
 #import "_CPFillGradient.h"
 #import "CPGradient.h"
 
+@interface _CPFillGradient()
+
+@property (nonatomic, readwrite, copy) CPGradient *fillGradient;
+
+@end
+
 @implementation _CPFillGradient
+
+@synthesize fillGradient;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -12,14 +20,14 @@
 	if (self = [super init]) 
 	{
 		// initialization
-		fillGradient = [aGradient retain];
+		self.fillGradient = aGradient;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	[fillGradient release];
+	self.fillGradient = nil;
 	
 	[super dealloc];
 }
@@ -29,12 +37,12 @@
 
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	[fillGradient fillRect:theRect inContext:theContext];
+	[self.fillGradient fillRect:theRect inContext:theContext];
 }
 
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	[fillGradient fillPathInContext:theContext];
+	[self.fillGradient fillPathInContext:theContext];
 }
 
 #pragma mark -
@@ -42,11 +50,30 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-    CPGradient *newFillGradient = [fillGradient copyWithZone:zone];
-	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:newFillGradient];
-    [newFillGradient release];
+	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:[self.fillGradient copyWithZone:zone]];
 	
 	return copy;
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(Class)classForCoder
+{
+	return [CPFill class];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.fillGradient forKey:@"fillGradient"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	if ( self = [super init] ) {
+		fillGradient = [[coder decodeObjectForKey:@"fillGradient"] retain];
+	}
+	return self;
 }
 
 @end

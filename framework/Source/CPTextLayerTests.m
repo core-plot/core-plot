@@ -15,7 +15,7 @@
 	[super gtm_unitTestEncodeState:inCoder];
 	
 	[inCoder encodeObject:self.text forKey:@"Text"];
-	[inCoder encodeObject:self.textStyle forKey:@"TextStyle"];
+	[self.textStyle encodeWithCoder:inCoder];
 	[inCoder encodeRect:NSRectFromCGRect([self frame]) forKey:@"FrameRect"];
 }
 

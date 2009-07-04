@@ -4,13 +4,15 @@
 
 @class CPGradient;
 
-@interface _CPFillGradient : CPFill <NSCopying> {
+@interface _CPFillGradient : CPFill <NSCopying, NSCoding> {
 	CPGradient *fillGradient;
 }
 
+// Init
 -(id)initWithGradient:(CPGradient *)aGradient;
+
+// Drawing
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
--(id)copyWithZone:(NSZone *)zone;
 
 @end
