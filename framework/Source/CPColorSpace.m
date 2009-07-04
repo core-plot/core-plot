@@ -42,9 +42,10 @@
 	return space; 
 } 
 
-/** @brief Initializes a newly allocated colorspace object with the specified colorSpace.
+/** @brief Initializes a newly allocated colorspace object with the specified color space.
  *  This is the designated initializer.
  *
+ *	@param colorSpace The color space.
  *  @return The initialized CPColorSpace object.
  **/
 -(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace {
