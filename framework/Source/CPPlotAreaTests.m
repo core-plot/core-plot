@@ -18,7 +18,13 @@
 {
     [super gtm_unitTestEncodeState:inCoder];
     
-    [inCoder encodeObject:self.fill forKey:@"FillInstanceVariable"];
+	NSLog(@"CPPlotArea gtm_unitTestEncodeState %@", self.fill);
+	@try {
+		[self.fill encodeWithCoder:inCoder];
+	}
+	@catch (NSException *exception) {
+		NSLog(@"gtm_unitTestEncodeState: Caught %@: %@", [exception name], [exception  reason]);
+	}
 }
 
 @end
