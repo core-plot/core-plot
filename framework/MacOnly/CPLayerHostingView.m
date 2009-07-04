@@ -80,18 +80,13 @@
 -(void)setHostedLayer:(CPLayer *)newLayer
 {
 	if (newLayer != hostedLayer) {
-		[CATransaction begin];
-		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
 		[hostedLayer removeFromSuperlayer];
 		[hostedLayer release];
 		hostedLayer = [newLayer retain];
 		if (hostedLayer) {
 			[self.layer addSublayer:hostedLayer];
 		}
-		
-		[CATransaction commit];
-	}
+    }
 }
 
 @end

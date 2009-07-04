@@ -247,8 +247,6 @@
 
 -(void)layoutSublayers 
 {
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
 	if ( self.needsRelabel ) [self relabel];
 	
     for ( CPAxisLabel *label in self.axisLabels ) {
@@ -263,9 +261,6 @@
 -(void)setAxisLabels:(NSSet *)newLabels 
 {
     if ( newLabels != axisLabels ) {
-		[CATransaction begin];
-		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-		
         for ( CPAxisLabel *label in axisLabels ) {
             [label removeFromSuperlayer];
         }
@@ -277,9 +272,7 @@
         for ( CPAxisLabel *label in axisLabels ) {
             [self addSublayer:label];
         }
-
-		[CATransaction commit];
-		
+        		
 		[self setNeedsDisplay];		
 	}
 }

@@ -22,6 +22,9 @@
 		self.paddingTop = 0.0f;
 		self.paddingRight = 0.0f;
 		self.paddingBottom = 0.0f;
+        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", [NSNull null], @"sublayers", nil];
+        self.actions = actionsDict;
+        [actionsDict release];
 	}
 	return self;
 }
@@ -171,9 +174,7 @@
 	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
 	subLayerSize.height -= self.paddingTop + self.paddingBottom;
 	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
-	
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-	
+		
 	for (CALayer *subLayer in self.sublayers) {
 		CGRect subLayerBounds = subLayer.bounds;
 		subLayerBounds.size = subLayerSize;

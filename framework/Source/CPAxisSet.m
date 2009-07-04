@@ -59,9 +59,6 @@
 -(void)setAxes:(NSArray *)newAxes 
 {
     if ( newAxes != axes ) {
-		[CATransaction begin];
-		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
         for ( CPAxis *axis in axes ) {
             [axis removeFromSuperlayer];
         }
@@ -70,9 +67,6 @@
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
         }
-		
-		[CATransaction commit];
-		
 		[self setNeedsDisplay];
     }
 }
@@ -80,9 +74,6 @@
 -(void)setOverlayLayer:(CPLayer *)newLayer 
 {		
 	if ( newLayer != overlayLayer ) {
-		[CATransaction begin];
-		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
 		[overlayLayer removeFromSuperlayer];
 		[overlayLayer release];
 		overlayLayer = [newLayer retain];
@@ -90,9 +81,6 @@
 			overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
 			[self addSublayer:overlayLayer];
 		}
-		
-		[CATransaction commit];
-		
 		[self setNeedsDisplay];
 	}
 }
@@ -109,8 +97,6 @@
 {
 	CGRect selfBounds = self.bounds;
 	
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
 	for ( CPAxis *axis in self.axes ) {
 		axis.bounds = selfBounds;
 		axis.anchorPoint = CGPointZero;
