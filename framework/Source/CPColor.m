@@ -2,13 +2,27 @@
 #import "CPColorSpace.h"
 #import "CPPlatformSpecificFunctions.h"
 
+/** @brief Wrapper around CGColorRef
+ *
+ *  A wrapper class around CGColorRef
+ *
+ * @todo More documentation needed 
+ **/
+
 @implementation CPColor
 
+/** @property cgColor
+ *  @brief The CGColor to wrap around.
+ **/
 @synthesize cgColor;
 
 #pragma mark -
 #pragma mark Factory Methods
 
+/** @brief Returns a shared instance of CPColor initialized with a fully transparent color.
+ *
+ *  @return A shared CPColor object initialized with a fully transparent color.
+ **/
 +(CPColor *)clearColor
 { 
     static CPColor *color = nil;
@@ -22,6 +36,10 @@
 	return color; 
 } 
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque white color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque white color.
+ **/
 +(CPColor *)whiteColor
 { 
     static CPColor *color = nil;
@@ -35,6 +53,10 @@
 	return color; 
 } 
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque black color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque black color.
+ **/
 +(CPColor *)blackColor
 { 
     static CPColor *color = nil;
@@ -48,6 +70,10 @@
 	return color; 
 } 
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque red color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque red color.
+ **/
 +(CPColor *)redColor
 { 
     static CPColor *color = nil;
@@ -61,6 +87,10 @@
 	return color; 
 } 
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque green color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque green color.
+ **/
 +(CPColor *)greenColor
 { 
     static CPColor *color = nil;
@@ -74,6 +104,10 @@
 	return color; 
 }
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque blue color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque blue color.
+ **/
 +(CPColor *)blueColor
 { 
     static CPColor *color = nil;
@@ -87,6 +121,10 @@
 	return color; 
 }
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque 40% gray color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque 40% gray color.
+ **/
 +(CPColor *)darkGrayColor
 { 
     static CPColor *color = nil;
@@ -96,6 +134,10 @@
 	return color; 
 }
 
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque 70% gray color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque 70% gray color.
+ **/
 +(CPColor *)lightGrayColor
 { 
     static CPColor *color = nil;
@@ -105,16 +147,31 @@
 	return color; 
 }
 
+/** @brief Creates and returns a new CPColor instance initialized with the provided CGColorRef.
+ *  @param newCGColor The color to wrap.
+ *  @return A new CPColor instance initialized with the provided CGColorRef.
+ **/
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor 
 {
     return [[[CPColor alloc] initWithCGColor:newCGColor] autorelease];
 }
 
+/** @brief Creates and returns a new CPColor instance initialized with the provided RGBA color components.
+ *  @param red The red component (0 ≤ red ≤ 1).
+ *  @param green The green component (0 ≤ green ≤ 1).
+ *  @param blue The blue component (0 ≤ blue ≤ 1).
+ *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  @return A new CPColor instance initialized with the provided RGBA color components.
+ **/
 +(CPColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
     return [[[CPColor alloc] initWithComponentRed:red green:green blue:blue alpha:alpha] autorelease];
 }
 
+/** @brief Creates and returns a new CPColor instance initialized with the provided gray level.
+ *  @param gray The gray level (0 ≤ gray ≤ 1).
+ *  @return A new CPColor instance initialized with the provided gray level.
+ **/
 +(CPColor *)colorWithGenericGray:(CGFloat)gray
 {
 	CGColorRef colorRef = NULL;
@@ -128,6 +185,11 @@
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
+/** @brief Initializes a newly allocated CPColor object with the provided CGColorRef.
+ *
+ *	@param newCGColor The color to wrap.
+ *  @return The initialized CPColor object.
+ **/
 -(id)initWithCGColor:(CGColorRef)newCGColor
 {
     if ( self = [super init] ) {            
@@ -137,6 +199,14 @@
     return self;
 }
 
+/** @brief Initializes a newly allocated CPColor object with the provided RGBA color components.
+ *
+ *  @param red The red component (0 ≤ red ≤ 1).
+ *  @param green The green component (0 ≤ green ≤ 1).
+ *  @param blue The blue component (0 ≤ blue ≤ 1).
+ *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  @return The initialized CPColor object.
+ **/
 -(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
     CGFloat colorComponents[4];
@@ -159,6 +229,11 @@
 #pragma mark -
 #pragma mark Creating colors from other colors
 
+/** @brief Creates and returns a new CPColor instance having color components identical to the current object
+ *	but having the provided alpha component.
+ *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  @return A new CPColor instance having the provided alpha component.
+ **/
 -(CPColor *)colorWithAlphaComponent:(CGFloat)alpha
 {
     CGColorRef newCGColor = CGColorCreateCopyWithAlpha(self.cgColor, alpha);
