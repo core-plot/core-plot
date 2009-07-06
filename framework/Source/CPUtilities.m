@@ -4,31 +4,61 @@
 #pragma mark -
 #pragma mark Decimal Numbers
 
-CPInteger CPDecimalIntegerValue(NSDecimal dec)
+/**
+ *	@brief Converts an NSDecimal value to a CPInteger.
+ *	@param decimalNumber The NSDecimal value.
+ *	@return The converted value.
+ **/
+CPInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
 {
-	return (CPInteger)[[NSDecimalNumber decimalNumberWithDecimal:dec] intValue]; 
+	return (CPInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue]; 
 }
 
-CPFloat CPDecimalFloatValue(NSDecimal dec)
+/**
+ *	@brief Converts an NSDecimal value to a CPFloat.
+ *	@param decimalNumber The NSDecimal value.
+ *	@return The converted value.
+ **/
+CPFloat CPDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (CPFloat)[[NSDecimalNumber decimalNumberWithDecimal:dec] floatValue]; 
+	return (CPFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
 }
 
-CPDouble CPDecimalDoubleValue(NSDecimal dec)
+/**
+ *	@brief Converts an NSDecimal value to a CPDouble.
+ *	@param decimalNumber The NSDecimal value.
+ *	@return The converted value.
+ **/
+CPDouble CPDecimalDoubleValue(NSDecimal decimalNumber)
 {
-	return (CPDouble)[[NSDecimalNumber decimalNumberWithDecimal:dec] doubleValue]; 
+	return (CPDouble)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
 }
 
+/**
+ *	@brief Converts a CPInteger value to an NSDecimal.
+ *	@param i The CPInteger value.
+ *	@return The converted value.
+ **/
 NSDecimal CPDecimalFromInt(CPInteger i)
 {
 	return [[NSNumber numberWithInt:i] decimalValue]; 
 }
 
+/**
+ *	@brief Converts a CPFloat value to an NSDecimal.
+ *	@param f The CPFloat value.
+ *	@return The converted value.
+ **/
 NSDecimal CPDecimalFromFloat(CPFloat f)
 {
 	return [[NSNumber numberWithFloat:f] decimalValue]; 
 }
 
+/**
+ *	@brief Converts a CPDouble value to an NSDecimal.
+ *	@param d The CPDouble value.
+ *	@return The converted value.
+ **/
 NSDecimal CPDecimalFromDouble(CPDouble d)
 {
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
@@ -37,6 +67,15 @@ NSDecimal CPDecimalFromDouble(CPDouble d)
 #pragma mark -
 #pragma mark Ranges
 
+/**
+ *	@brief Expands an NSRange by the given amount.
+ *
+ *	The <tt>location</tt> of the resulting NSRange will be non-negative.
+ *
+ *	@param range The NSRange to expand.
+ *	@param expandBy The amount the expand the range by.
+ *	@return The expanded range.
+ **/
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy) 
 {
     NSInteger loc = MAX(0, (int)range.location - expandBy);
@@ -48,6 +87,14 @@ NSRange CPExpandedRange(NSRange range, NSInteger expandBy)
 #pragma mark -
 #pragma mark Colors
 
+/**
+ *	@brief Extracts the color information from a CGColorRef and returns it as a CPRGBAColor.
+ *
+ *	Supports RGBA and grayscale colorspaces.
+ *
+ *	@param color The color.
+ *	@return The RGBA components of the color.
+ **/
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
 {
 	CPRGBAColor rgbColor;
@@ -75,6 +122,14 @@ CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
 #pragma mark -
 #pragma mark Coordinates
 
+/**
+ *	@brief Determines the CPCoordinate that is orthogonal to the one provided.
+ *
+ *	The current implementation is two-dimensional--X is orthogonal to Y and Y is orthogonal to X.
+ *
+ *	@param coord The CPCoordinate.
+ *	@return The orthogonal CPCoordinate.
+ **/
 CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
 {
 	return ( coord == CPCoordinateX ? CPCoordinateY : CPCoordinateX );
