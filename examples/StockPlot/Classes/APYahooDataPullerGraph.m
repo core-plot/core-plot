@@ -162,5 +162,8 @@
     [super dealloc];
 }
 
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+	return [self numberOfRecords];
+}
 
 @end
