@@ -15,7 +15,6 @@
 		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
-		AB03631C0FEF3042007B09A9 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB03631B0FEF303D007B09A9 /* libCorePlot-CocoaTouch.a */; };
 		AB0363AA0FEF3681007B09A9 /* YHOO.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA6090FEB6DAA008DB04A /* YHOO.plist */; };
 		AB0363AB0FEF3684007B09A9 /* MSFT.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */; };
 		AB0363AC0FEF3687007B09A9 /* GOOG.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */; };
@@ -26,21 +25,22 @@
 		AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
+		F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB03631A0FEF303D007B09A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AB0363130FEF303D007B09A9 /* CorePlot-CocoaTouch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
 		AB03631D0FEF304A007B09A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB0363130FEF303D007B09A9 /* CorePlot-CocoaTouch.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		F7AE27920FFFBB7A001F26F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0363130FEF303D007B09A9 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
@@ -80,11 +80,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */,
-				AB03631C0FEF3042007B09A9 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,7 @@
 		AB0363140FEF303D007B09A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AB03631B0FEF303D007B09A9 /* libCorePlot-CocoaTouch.a */,
+				F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,11 +225,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		AB03631B0FEF303D007B09A9 /* libCorePlot-CocoaTouch.a */ = {
+		F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = AB03631A0FEF303D007B09A9 /* PBXContainerItemProxy */;
+			remoteRef = F7AE27920FFFBB7A001F26F0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

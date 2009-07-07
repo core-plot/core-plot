@@ -17,7 +17,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @property (nonatomic, readwrite, copy) NSString *keyPathForBarLengthValues;
 @property (nonatomic, readwrite, retain) NSArray *barLengths;
 
--(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint;
+-(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint recordIndex:(NSUInteger)index;
 
 @end
 
@@ -149,7 +149,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     NSDecimalNumber *delta = [NSDecimalNumber one];
     if ( plotRange && self.barLengths.count > 1 ) {
         delta = [plotRange.length decimalNumberByDividingBy:
-            (NSDecimalNumber *)[NSDecimalNumber numberWithInt:self.barLengths.count-1]];
+				 (NSDecimalNumber *)[NSDecimalNumber numberWithInt:self.barLengths.count-1]];
     }
     
     NSDecimalNumber *plotPoint[2];
@@ -159,7 +159,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
         // Tip point
         plotPoint[independentCoord] = [delta decimalNumberByMultiplyingBy:
-            (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
+									   (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
         plotPoint[dependentCoord] = [self.barLengths objectAtIndex:ii];
         tipPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         
@@ -179,11 +179,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         }
         
         // Draw
-        [self drawBarInContext:theContext fromBasePoint:&basePoint toTipPoint:&tipPoint];
+        [self drawBarInContext:theContext fromBasePoint:&basePoint toTipPoint:&tipPoint recordIndex:ii];
     }	
 }
 
--(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint 
+-(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint recordIndex:(NSUInteger)index
 {
     CPCoordinate widthCoordinate = ( barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CGFloat point1[2];
@@ -205,7 +205,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point3[1] = tipPoint->y;
     point3[0] = round(point3[0]);
     point3[1] = round(point3[1]);
-
+	
     CGFloat point4[2];
     point4[0] = tipPoint->x;
     point4[1] = tipPoint->y;
@@ -219,7 +219,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point5[widthCoordinate] -= 0.5 * barWidth;
     point5[0] = round(point5[0]);
     point5[1] = round(point5[1]);
-
+	
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, point1[0], point1[1]);
 	CGPathAddArcToPoint(path, NULL, point2[0], point2[1], point3[0], point3[1], cornerRadius);
@@ -229,8 +229,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CGContextSaveGState(context);
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
-    [self.fill fillPathInContext:context];
-
+	
+	
+	CPFill *currentBarFill = (CPFill *) [self.dataSource 
+         performSelector:@selector(barFillForBarPlot:recordIndex:) withObject:self withObject:[NSNumber numberWithInt:index]];
+	if (currentBarFill!= nil) {
+		[currentBarFill fillPathInContext:context]; 
+	} else {
+		[self.fill fillPathInContext:context];
+	}
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
     [self.lineStyle setLineStyleInContext:context];
