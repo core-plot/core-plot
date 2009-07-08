@@ -246,6 +246,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -262,6 +263,7 @@
 					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -269,6 +271,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
@@ -279,6 +282,7 @@
 					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
@@ -294,7 +298,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -311,7 +315,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "500DAB97-6B23-43B6-9993-DF558595C088";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};

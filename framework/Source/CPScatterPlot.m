@@ -252,9 +252,11 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
     CGMutablePathRef dataLinePath = NULL;
     if ( self.dataLineStyle || self.areaFill ) {
         dataLinePath = CGPathCreateMutable();
-        CGPathMoveToPoint(dataLinePath, NULL, viewPoints[0].x, viewPoints[0].y);
+		CGPoint alignedPoint = alignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
+        CGPathMoveToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
 		for (NSUInteger i = 1; i < self.xValues.count; i++) {
-			CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+			alignedPoint = alignPointToUserSpace(theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y));
+			CGPathAddLineToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
 		}        
     }
     
@@ -269,8 +271,10 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
         
         CGPoint baseViewPoint1 = viewPoints[self.xValues.count-1];
         baseViewPoint1.y = baseLineYValue;
+		baseViewPoint1 = alignPointToUserSpace(theContext, baseViewPoint1);
         CGPoint baseViewPoint2 = viewPoints[0];
         baseViewPoint2.y = baseLineYValue;
+		baseViewPoint2 = alignPointToUserSpace(theContext, baseViewPoint2);
         
         CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
         CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
@@ -300,7 +304,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 				if (i < self.plotSymbols.count) {
 					id <NSObject> currentSymbol = [self.plotSymbols objectAtIndex:i];
 					if ([currentSymbol isKindOfClass:[CPPlotSymbol class]]) {
-						[(CPPlotSymbol *)currentSymbol renderInContext:theContext atPoint:viewPoints[i]];			
+						[(CPPlotSymbol *)currentSymbol renderInContext:theContext atPoint:alignPointToUserSpace(theContext, viewPoints[i])];			
 					} 
 				} 
 			}
@@ -308,7 +312,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		else {
 			CPPlotSymbol *theSymbol = self.plotSymbol;
 			for (NSUInteger i = 0; i < self.xValues.count; i++) {
-				[theSymbol renderInContext:theContext atPoint:viewPoints[i]];
+				[theSymbol renderInContext:theContext atPoint:alignPointToUserSpace(theContext,viewPoints[i])];
 			}
 		}
 	}

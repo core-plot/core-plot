@@ -172,7 +172,7 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
     return [dataPoints count];
 }
 

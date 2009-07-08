@@ -90,6 +90,9 @@
 			endViewPoint.x += length * endFactor;
 		}
         
+		startViewPoint = alignPointToUserSpace(theContext, startViewPoint);
+		endViewPoint = alignPointToUserSpace(theContext, endViewPoint);
+		
         // Add tick line
         CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
         CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
@@ -109,8 +112,8 @@
     // Axis Line
 	if ( self.drawsAxisLine ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-		CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
-		CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
+		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
+		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
 		[self.axisLineStyle setLineStyleInContext:theContext];
 		CGContextBeginPath(theContext);
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);

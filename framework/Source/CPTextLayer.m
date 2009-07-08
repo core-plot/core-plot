@@ -5,6 +5,7 @@
 #import "CPColor.h"
 #import "CPColorSpace.h"
 #import "CPPlatformSpecificCategories.h"
+#import "CPUtilities.h"
 
 CGFloat kCPTextLayerMarginWidth = 1.0f;
 
@@ -88,7 +89,7 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
 #endif
-	[self.text drawAtPoint:CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth) withStyle:self.textStyle inContext:context];
+	[self.text drawAtPoint:alignPointToUserSpace(context, CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth)) withStyle:self.textStyle inContext:context];
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	CGContextRestoreGState(context);
 #endif

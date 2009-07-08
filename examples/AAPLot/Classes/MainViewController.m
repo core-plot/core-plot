@@ -62,7 +62,7 @@
 	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
 	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
     greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
-    dataSourceLinePlot.defaultPlotSymbol = greenCirclePlotSymbol;	
+    dataSourceLinePlot.plotSymbol = greenCirclePlotSymbol;	
     
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
     [self setDatapuller:dp];
@@ -82,7 +82,7 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
     return self.datapuller.financialData.count;;
 }
 

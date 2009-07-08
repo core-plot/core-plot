@@ -168,6 +168,11 @@
     return num;
 }
 
+-(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index; 
+{
+	return nil;
+}
+
 #pragma mark -
 #pragma mark PDF / image export
 

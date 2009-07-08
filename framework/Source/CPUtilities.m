@@ -79,3 +79,48 @@ CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
 {
 	return ( coord == CPCoordinateX ? CPCoordinateY : CPCoordinateX );
 }
+
+#pragma mark -
+#pragma mark Quartz pixel-alignment functions
+
+CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p)
+{
+    // Compute the coordinates of the point in device space.
+    p = CGContextConvertPointToDeviceSpace(context, p);
+    // Ensure that coordinates are at exactly the corner
+    // of a device pixel.
+    p.x = floor(p.x);
+    p.y = floor(p.y);
+    // Convert the device aligned coordinate back to user space.
+    return CGContextConvertPointToUserSpace(context, p);
+}
+
+CGSize alignSizeToUserSpace(CGContextRef context, CGSize s)
+{
+    // Compute the size in device space.
+    s = CGContextConvertSizeToDeviceSpace(context, s);
+    // Ensure that size is an integer multiple of device pixels.
+    s.width = floor(s.width);
+    s.height = floor(s.height);
+    // Convert back to user space.
+    return CGContextConvertSizeToUserSpace(context, s);
+}
+
+CGRect alignRectToUserSpace(CGContextRef context, CGRect r)
+{
+    // Compute the coordinates of the rectangle in device space.
+    r = CGContextConvertRectToDeviceSpace(context, r);
+    // Ensure that the x and y coordinates are at a pixel corner.
+    r.origin.x = floor(r.origin.x);
+    r.origin.y = floor(r.origin.y);
+    // Ensure that the width and height are an integer number of
+    // device pixels. Note that this produces a width and height
+    // that is less than or equal to the original width. Another
+    // approach is to use ceil to ensure that the new rectangle
+    // encloses the original one.
+    r.size.width = floor(r.size.width);
+    r.size.height = floor(r.size.height);
+    
+    // Convert back to user space.
+    return CGContextConvertRectToUserSpace(context, r);
+}

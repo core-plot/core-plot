@@ -341,6 +341,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = AAPLot;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -357,6 +358,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = AAPLot;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
