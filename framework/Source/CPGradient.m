@@ -5,8 +5,7 @@
 #import "CPColorSpace.h"
 #import "CPColor.h"
 
-
-@interface CPGradient ()
+@interface CPGradient()
 
 @property (retain, readwrite) CPColorSpace *colorspace;
 @property (assign, readwrite) CPGradientBlendingMode blendingMode;
@@ -25,19 +24,40 @@
 @end
 
 // C Fuctions for color blending
-static void linearEvaluation   (void *info, const float *in, float *out);
+static void linearEvaluation(void *info, const float *in, float *out);
 static void chromaticEvaluation(void *info, const float *in, float *out);
 static void inverseChromaticEvaluation(void *info, const float *in, float *out);
 static void transformRGB_HSV(float *components);
 static void transformHSV_RGB(float *components);
 static void resolveHSV(float *color1, float *color2);
 
-
+/** @brief Draws color gradient fills.
+ *
+ *	Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
+ *	CTGradient is in public domain (Thanks Chad Weider!)
+ *
+ *	@todo More documentation needed 
+ **/
 @implementation CPGradient
 
+/** @property colorspace 
+ *  @brief The colorspace for the gradient colors.
+ **/
 @synthesize colorspace;
+
+/** @property blendingMode
+ *  @brief The color blending mode used to create the gradient.
+ **/
 @synthesize blendingMode;
+
+/** @property angle
+ *  @brief The axis angle of an axial graident, expressed in degrees.
+ **/
 @synthesize angle;
+
+/** @property gradientType 
+ *  @brief The gradient type.
+ **/
 @synthesize gradientType;
 
 #pragma mark -
@@ -155,6 +175,11 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Factory Methods
 
+/** @brief Creates and returns a new CPGradient instance initialized with an axial linear gradient between two given colors.
+ *  @param begin The beginning color.
+ *  @param end The ending color.
+ *  @return A new CPGradient instance initialized with an axial linear gradient between the two given colors.
+ **/
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end {
     CPGradient *newInstance = [[self alloc] init];
 	
@@ -173,6 +198,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua selected graident.
+ *  @return A new CPGradient instance initialized with the Aqua selected graident.
+ **/
 +(CPGradient *)aquaSelectedGradient {
     CPGradient *newInstance = [[self alloc] init];
 	
@@ -212,6 +240,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua normal graident.
+ *  @return A new CPGradient instance initialized with the Aqua normal graident.
+ **/
 +(CPGradient *)aquaNormalGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -244,6 +275,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua pressed graident.
+ *  @return A new CPGradient instance initialized with the Aqua pressed graident.
+ **/
 +(CPGradient *)aquaPressedGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -276,6 +310,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the unified selected graident.
+ *  @return A new CPGradient instance initialized with the unified selected graident.
+ **/
 +(CPGradient *)unifiedSelectedGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -296,6 +333,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the unified normal graident.
+ *  @return A new CPGradient instance initialized with the unified normal graident.
+ **/
 +(CPGradient *)unifiedNormalGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -316,6 +356,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the unified pressed graident.
+ *  @return A new CPGradient instance initialized with the unified pressed graident.
+ **/
 +(CPGradient *)unifiedPressedGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -336,6 +379,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the unified dark graident.
+ *  @return A new CPGradient instance initialized with the unified dark graident.
+ **/
 +(CPGradient *)unifiedDarkGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -356,6 +402,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the source list selected graident.
+ *  @return A new CPGradient instance initialized with the source list selected graident.
+ **/
 +(CPGradient *)sourceListSelectedGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -380,6 +429,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with the source list unselected graident.
+ *  @return A new CPGradient instance initialized with the source list unselected graident.
+ **/
 +(CPGradient *)sourceListUnselectedGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -404,6 +456,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with a rainbow graident.
+ *  @return A new CPGradient instance initialized with a rainbow graident.
+ **/
 +(CPGradient *)rainbowGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -430,6 +485,9 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+/** @brief Creates and returns a new CPGradient instance initialized with a hydrogen spectrum graident.
+ *  @return A new CPGradient instance initialized with a hydrogen spectrum graident.
+ **/
 +(CPGradient *)hydrogenSpectrumGradient
 {
     CPGradient *newInstance = [[self alloc] init];
@@ -507,9 +565,13 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Modification
 
+/** @brief Copies the current gradient and sets a new alpha value.
+ *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *	@return A copy of the current gradient with the new alpha value.
+ **/
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha
 {
-    CPGradient *newInstance = [[[self class] alloc] init];
+    CPGradient *newGradient = [[[self class] alloc] init];
 	
     CPGradientElement *curElement = elementList;
     CPGradientElement tempElement;
@@ -517,22 +579,38 @@ static void resolveHSV(float *color1, float *color2);
     while (curElement != nil) {
         tempElement = *curElement;
         tempElement.color.alpha = alpha;
-        [newInstance addElement:&tempElement];
+        [newGradient addElement:&tempElement];
 		
         curElement = curElement->nextElement;
     }
 	
-    return [newInstance autorelease];
+	newGradient.blendingMode = self.blendingMode;
+	newGradient.angle = self.angle;
+	newGradient.gradientType = self.gradientType;
+
+    return [newGradient autorelease];
 }
 
--(CPGradient *)gradientWithBlendingMode:(CPGradientBlendingMode)mode {
+/** @brief Copies the current gradient and sets a new blending mode.
+ *  @param mode The blending mode.
+ *	@return A copy of the current gradient with the new blending mode.
+ **/
+-(CPGradient *)gradientWithBlendingMode:(CPGradientBlendingMode)mode
+{
     CPGradient *newGradient = [self copy];  
     newGradient.blendingMode = mode;
     return [newGradient autorelease];
 }
 
-// Adds a color stop with <color> at <position> in elementList
-// (if two elements are at the same position then added immediately after the one that was there already)
+/** @brief Copies the current gradient and adds a color stop.
+ *
+ *	Adds a color stop with <tt>color</tt> at <tt>position</tt> in elementList.
+ *	If two elements are at the same position then it is added immediately after the one that was there already.
+ *
+ *  @param color The color.
+ *  @param position The color stop position (0 ≤ position ≤ 1).
+ *	@return A copy of the current gradient with the new color stop.
+ **/
 -(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position
 {
     CPGradient *newGradient = [self copy];
@@ -548,7 +626,10 @@ static void resolveHSV(float *color1, float *color2);
     return [newGradient autorelease];
 }
 
-// Removes the color stop at <position> from elementList
+/** @brief Copies the current gradient and removes the color stop at <tt>position</tt> from elementList.
+ *  @param position The color stop position (0 ≤ position ≤ 1).
+ *	@return A copy of the current gradient with the color stop removed.
+ **/
 -(CPGradient *)removeColorStopAtPosition:(float)position
 {
     CPGradient *newGradient = [self copy];
@@ -561,6 +642,10 @@ static void resolveHSV(float *color1, float *color2);
     return [newGradient autorelease];
 }
 
+/** @brief Copies the current gradient and removes the color stop at <tt>index</tt> from elementList.
+ *  @param index The color stop index.
+ *	@return A copy of the current gradient with the color stop removed.
+ **/
 -(CPGradient *)removeColorStopAtIndex:(NSUInteger)index
 {
     CPGradient *newGradient = [self copy];
@@ -576,7 +661,10 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Information
 
-// Returns color at <position> in gradient
+/** @brief Gets the color at color stop <tt>index</tt> from elementList.
+ *  @param index The color stop index.
+ *  @return The color at color stop <tt>index</tt>.
+ **/
 -(CGColorRef)colorStopAtIndex:(NSUInteger)index
 {
     CPGradientElement *element = [self elementAtIndex:index];
@@ -596,6 +684,10 @@ static void resolveHSV(float *color1, float *color2);
     return NULL;
 }
 
+/** @brief Gets the color at an arbitrary position in the gradient.
+ *  @param position The color stop position (0 ≤ position ≤ 1).
+ *  @return The  color at <tt>position</tt> in gradient.
+ **/
 -(CGColorRef)colorAtPosition:(float)position
 {
     float components[4];
@@ -634,11 +726,19 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Drawing
 
+/** @brief Draws the gradient into the given graphics context inside the provided rectangle.
+ *  @param rect The rectangle to draw into.
+ *  @param context The graphics context to draw into.
+ **/
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context
 {
     [self fillRect:rect inContext:context];
 }
 
+/** @brief Draws the gradient into the given graphics context inside the provided rectangle.
+ *  @param rect The rectangle to draw into.
+ *  @param context The graphics context to draw into.
+ **/
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
 {
 	CGShadingRef myCGShading;
@@ -662,6 +762,9 @@ static void resolveHSV(float *color1, float *color2);
     CGContextRestoreGState(context);
 }
 
+/** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
+ *  @param context The graphics context to draw into.
+ **/
 -(void)fillPathInContext:(CGContextRef)context
 {
 	if (!CGContextIsPathEmpty(context)) {
@@ -744,7 +847,7 @@ static void resolveHSV(float *color1, float *color2);
         endPoint   = CGPointMake(CGRectGetMidX(rect)+deltax, CGRectGetMidY(rect)+deltay);
     }
 	
-    //Calls to CoreGraphics
+    // Calls to CoreGraphics
     CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
 	
 	return myCGShading;
