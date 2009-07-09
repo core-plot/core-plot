@@ -138,6 +138,16 @@ CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
 #pragma mark -
 #pragma mark Quartz pixel-alignment functions
 
+/**
+ *	@brief Aligns a point in user space to integral coordinates in device space.
+ *
+ *	Ensures that the x and y coordinates are at a pixel corner in device space.
+ *	Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
+ *
+ *	@param context The graphics context.
+ *	@param p The point in user space.
+ *	@return The device aligned point in user space.
+ **/
 CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p)
 {
     // Compute the coordinates of the point in device space.
@@ -150,6 +160,16 @@ CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p)
     return CGContextConvertPointToUserSpace(context, p);
 }
 
+/**
+ *	@brief Adjusts a size in user space to integral dimensions in device space.
+ *
+ *	Ensures that the width and height are an integer number of device pixels.
+ *	Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
+ *
+ *	@param context The graphics context.
+ *	@param s The size in user space.
+ *	@return The device aligned size in user space.
+ **/
 CGSize alignSizeToUserSpace(CGContextRef context, CGSize s)
 {
     // Compute the size in device space.
@@ -161,6 +181,19 @@ CGSize alignSizeToUserSpace(CGContextRef context, CGSize s)
     return CGContextConvertSizeToUserSpace(context, s);
 }
 
+/**
+ *	@brief Aligns a rectangle in user space to integral coordinates in device space.
+ *
+ *	Ensures that the x and y coordinates are at a pixel corner in device space
+ *	and the width and height are an integer number of device pixels.
+ *	Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
+ *
+ *	@note This function produces a width and height
+ *	that is less than or equal to the original width.
+ *	@param context The graphics context.
+ *	@param r The rectangle in user space.
+ *	@return The device aligned rectangle in user space.
+ **/
 CGRect alignRectToUserSpace(CGContextRef context, CGRect r)
 {
     // Compute the coordinates of the rectangle in device space.
