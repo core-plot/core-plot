@@ -2,37 +2,48 @@
 // Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/)
 // CTGradient is in public domain (Thanks Chad Weider!)
 
+/// @file
+
 #import <Foundation/Foundation.h>
 #import "CPDefinitions.h"
 
+/**
+ *	@brief A structure representing one node in a linked list of RGBA colors.
+ **/
 typedef struct _CPGradientElement {
-	CPRGBAColor color;
-	float position;
+	CPRGBAColor color;	///< Color
+	float position;		///< Gradient position (0 ≤ position ≤ 1)
 	
-	struct _CPGradientElement *nextElement;
+	struct _CPGradientElement *nextElement;	///< Pointer to the next CPGradientElement in the list (last element == NULL)
 } CPGradientElement;
 
+/**
+ *	@brief Enumeration of blending modes
+ **/
 typedef enum _CPBlendingMode {
-	CPLinearBlendingMode,
-	CPChromaticBlendingMode,
-	CPInverseChromaticBlendingMode
+	CPLinearBlendingMode,			///< Linear blending mode
+	CPChromaticBlendingMode,		///< Chromatic blending mode
+	CPInverseChromaticBlendingMode	///< Inverse chromatic blending mode
 } CPGradientBlendingMode;
 
+/**
+ *	@brief Enumeration of gradient types
+ **/
 typedef enum _CPGradientType {
-	CPGradientTypeAxial,
-	CPGradientTypeRadial
+	CPGradientTypeAxial,	///< Axial gradient
+	CPGradientTypeRadial	///< Radial gradient
 } CPGradientType;
 
 @class CPColorSpace;
 @class CPColor;
 
-@interface CPGradient : NSObject <NSCopying, NSCoding>  {
-    @private
+@interface CPGradient : NSObject <NSCopying, NSCoding> {
+@private
 	CPColorSpace *colorspace;
 	CPGradientElement *elementList;
 	CPGradientBlendingMode blendingMode;
 	CGFunctionRef gradientFunction;
-    CGFloat angle;	// angle in degrees
+	CGFloat angle;	// angle in degrees
 	CPGradientType gradientType;
 }
 
@@ -40,6 +51,8 @@ typedef enum _CPGradientType {
 @property (assign) CGFloat angle;
 @property (assign) CPGradientType gradientType;
 
+/// @name Factory Methods
+/// @{
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end;
 
 +(CPGradient *)aquaSelectedGradient;
@@ -56,18 +69,29 @@ typedef enum _CPGradientType {
 
 +(CPGradient *)rainbowGradient;
 +(CPGradient *)hydrogenSpectrumGradient;
+///	@}
 
+/// @name Modification
+/// @{
 -(CPGradient *)gradientWithAlphaComponent:(float)alpha;
+-(CPGradient *)gradientWithBlendingMode:(CPGradientBlendingMode)mode;
 
 -(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position;	// positions given relative to [0,1]
 -(CPGradient *)removeColorStopAtIndex:(NSUInteger)index;
 -(CPGradient *)removeColorStopAtPosition:(float)position;
+///	@}
 
+/// @name Information
+/// @{
 -(CGColorRef)colorStopAtIndex:(NSUInteger)index;
 -(CGColorRef)colorAtPosition:(float)position;
+///	@}
 
+/// @name Drawing
+/// @{
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context;
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
 -(void)fillPathInContext:(CGContextRef)context;
+///	@}
 
 @end

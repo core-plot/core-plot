@@ -33,7 +33,13 @@
 #pragma mark -
 #pragma mark Initialization
 
-// Designated
+/** @brief Initializes a CPImage instance with the provided CGImageRef.
+ *
+ *	This is the designated initializer.
+ *
+ *  @param anImage The image to wrap.
+ *  @return A CPImage instance initialized with the provided CGImageRef.
+ **/
 -(id)initWithCGImage:(CGImageRef)anImage
 {
 	if ( self = [super init] ) {
@@ -48,6 +54,10 @@
 	return [self initWithCGImage:NULL];
 }
 
+/** @brief Initializes a CPImage instance with the contents of a PNG file.
+ *  @param path The file system path of the file.
+ *  @return A CPImage instance initialized with the contents of the PNG file.
+ **/
 -(id)initForPNGFile:(NSString *)path 
 {
     CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -94,6 +104,10 @@
 	return [[[self alloc] initWithCGImage:anImage] autorelease];
 }
 
+/** @brief Creates and returns a new CPImage instance initialized with the contents of a PNG file.
+ *  @param path The file system path of the file.
+ *  @return A new CPImage instance initialized with the contents of the PNG file.
+ **/
 +(CPImage *)imageForPNGFile:(NSString *)path
 {
 	return [[[self alloc] initForPNGFile:path] autorelease];
@@ -116,7 +130,7 @@
 
 /** @brief Draws the image into the given graphics context.
  *
- *  If the tiled property is TRUE, the image is repeated drawn to fill the clipping region, otherwise the image is
+ *  If the tiled property is TRUE, the image is repeatedly drawn to fill the clipping region, otherwise the image is
  *  scaled to fit in rect.
  *  
  *  @param rect The rectangle to draw into.
