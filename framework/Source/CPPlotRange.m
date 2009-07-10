@@ -2,19 +2,44 @@
 #import "CPPlotRange.h"
 #import "CPPlatformSpecificCategories.h"
 
+/** @brief Defines a range of plot data
+ **/
+
 @implementation CPPlotRange
 
+/** @property location
+ *  @brief The starting value of the range.
+ **/
 @synthesize location;
+
+/** @property length
+ *  @brief The length of the range.
+ **/
 @synthesize length;
+
+/** @property end
+ *  @brief The ending value of the range.
+ **/
+@dynamic end;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/** @brief Creates and returns a new CPPlotRange instance initialized with the provided location and length.
+ *  @param loc The starting location of the range.
+ *  @param len The length of the range.
+ *  @return A new CPPlotRange instance initialized with the provided location and length.
+ **/
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
 	return [[[CPPlotRange alloc] initWithLocation:loc length:len] autorelease];
 }
 
+/** @brief Initializes a newly allocated CPPlotRange object with the provided location and length.
+ *  @param loc The starting location of the range.
+ *  @param len The length of the range.
+ *  @return The initialized CPPlotRange object.
+ **/
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
 	if (self = [super init]) {
@@ -83,6 +108,10 @@
 #pragma mark -
 #pragma mark Checking Containership
 
+/** @brief Determines whether a given number is inside the range.
+ *  @param number The number to check.
+ *  @return True if <tt>location</tt> ≤ <tt>number</tt> ≤ <tt>end</tt>.
+ **/
 -(BOOL)contains:(NSDecimalNumber *)number
 {
 	return ([number isGreaterThanOrEqualTo:location] && [number isLessThanOrEqualTo:self.end]);
