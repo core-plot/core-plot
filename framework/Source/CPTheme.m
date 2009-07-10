@@ -2,9 +2,15 @@
 #import "CPTheme.h"
 #import "CPExceptions.h"
 #import "CPDarkGradientTheme.h"
+#import "CPPlainBlackTheme.h"
+#import "CPPlainWhiteTheme.h"
+#import "CPStocksTheme.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";
+NSString * const kCPPlainWhiteTheme = @"Plain White";
+NSString * const kCPPlainBlackTheme = @"Plain Black";
+NSString * const kCPStocksTheme = @"Stocks";
 
 @implementation CPTheme
 
@@ -18,7 +24,7 @@ NSString * const kCPDarkGradientTheme = @"Dark Gradients";
 	
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
-		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], nil];
+		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
 	}
 	
 	for ( Class themeClass in themeClasses ) {

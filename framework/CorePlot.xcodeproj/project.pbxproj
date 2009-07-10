@@ -229,6 +229,12 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPXYPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPXYPlotSpace.m */; };
+		BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */; };
+		BC55023310059F22005DF982 /* CPPlainBlackTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */; };
+		BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */; };
+		BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */; };
+		BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55023010059F22005DF982 /* CPStocksTheme.h */; };
+		BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55023110059F22005DF982 /* CPStocksTheme.m */; };
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		C30F523B0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C30F523A0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff */; };
@@ -743,6 +749,12 @@
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPXYPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYPlotSpace.m; sourceTree = "<group>"; };
+		BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlainBlackTheme.h; sourceTree = "<group>"; };
+		BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlainBlackTheme.m; sourceTree = "<group>"; };
+		BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlainWhiteTheme.h; sourceTree = "<group>"; };
+		BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlainWhiteTheme.m; sourceTree = "<group>"; };
+		BC55023010059F22005DF982 /* CPStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStocksTheme.h; sourceTree = "<group>"; };
+		BC55023110059F22005DF982 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStocksTheme.m; sourceTree = "<group>"; };
 		BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		C30F523A0FCB8D4C0042E2BF /* CPPlotSymbolTests-testSymbol12.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol12.ppc.tiff"; sourceTree = "<group>"; };
@@ -996,6 +1008,12 @@
 		0772C91E0FE2F70000EC4C16 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
+				BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */,
+				BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */,
+				BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */,
+				BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */,
+				BC55023010059F22005DF982 /* CPStocksTheme.h */,
+				BC55023110059F22005DF982 /* CPStocksTheme.m */,
 				0772C9250FE2F71600EC4C16 /* CPTheme.h */,
 				0772C9260FE2F71600EC4C16 /* CPTheme.m */,
 				0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */,
@@ -1824,6 +1842,9 @@
 				07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */,
 				0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */,
 				0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */,
+				BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */,
+				BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */,
+				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1953,7 +1974,7 @@
 		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = Untitled.octest;
+			path = "TestMerge-UnitTests.octest";
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2278,6 +2299,9 @@
 				07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */,
 				0772C9280FE2F71600EC4C16 /* CPTheme.m in Sources */,
 				0772C9300FE2F89000EC4C16 /* CPDarkGradientTheme.m in Sources */,
+				BC55023310059F22005DF982 /* CPPlainBlackTheme.m in Sources */,
+				BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */,
+				BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
