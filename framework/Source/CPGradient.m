@@ -51,7 +51,7 @@ static void resolveHSV(float *color1, float *color2);
 @synthesize blendingMode;
 
 /** @property angle
- *  @brief The axis angle of an axial graident, expressed in degrees.
+ *  @brief The axis angle of an axial gradient, expressed in degrees.
  **/
 @synthesize angle;
 
@@ -210,8 +210,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the Aqua selected graident.
- *  @return A new CPGradient instance initialized with the Aqua selected graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua selected gradient.
+ *  @return A new CPGradient instance initialized with the Aqua selected gradient.
  **/
 +(CPGradient *)aquaSelectedGradient {
     CPGradient *newInstance = [[self alloc] init];
@@ -252,8 +252,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the Aqua normal graident.
- *  @return A new CPGradient instance initialized with the Aqua normal graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua normal gradient.
+ *  @return A new CPGradient instance initialized with the Aqua normal gradient.
  **/
 +(CPGradient *)aquaNormalGradient
 {
@@ -287,8 +287,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the Aqua pressed graident.
- *  @return A new CPGradient instance initialized with the Aqua pressed graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the Aqua pressed gradient.
+ *  @return A new CPGradient instance initialized with the Aqua pressed gradient.
  **/
 +(CPGradient *)aquaPressedGradient
 {
@@ -322,8 +322,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the unified selected graident.
- *  @return A new CPGradient instance initialized with the unified selected graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the unified selected gradient.
+ *  @return A new CPGradient instance initialized with the unified selected gradient.
  **/
 +(CPGradient *)unifiedSelectedGradient
 {
@@ -345,8 +345,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the unified normal graident.
- *  @return A new CPGradient instance initialized with the unified normal graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the unified normal gradient.
+ *  @return A new CPGradient instance initialized with the unified normal gradient.
  **/
 +(CPGradient *)unifiedNormalGradient
 {
@@ -368,8 +368,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the unified pressed graident.
- *  @return A new CPGradient instance initialized with the unified pressed graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the unified pressed gradient.
+ *  @return A new CPGradient instance initialized with the unified pressed gradient.
  **/
 +(CPGradient *)unifiedPressedGradient
 {
@@ -391,8 +391,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the unified dark graident.
- *  @return A new CPGradient instance initialized with the unified dark graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the unified dark gradient.
+ *  @return A new CPGradient instance initialized with the unified dark gradient.
  **/
 +(CPGradient *)unifiedDarkGradient
 {
@@ -414,8 +414,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the source list selected graident.
- *  @return A new CPGradient instance initialized with the source list selected graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the source list selected gradient.
+ *  @return A new CPGradient instance initialized with the source list selected gradient.
  **/
 +(CPGradient *)sourceListSelectedGradient
 {
@@ -441,8 +441,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with the source list unselected graident.
- *  @return A new CPGradient instance initialized with the source list unselected graident.
+/** @brief Creates and returns a new CPGradient instance initialized with the source list unselected gradient.
+ *  @return A new CPGradient instance initialized with the source list unselected gradient.
  **/
 +(CPGradient *)sourceListUnselectedGradient
 {
@@ -468,8 +468,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with a rainbow graident.
- *  @return A new CPGradient instance initialized with a rainbow graident.
+/** @brief Creates and returns a new CPGradient instance initialized with a rainbow gradient.
+ *  @return A new CPGradient instance initialized with a rainbow gradient.
  **/
 +(CPGradient *)rainbowGradient
 {
@@ -497,8 +497,8 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
-/** @brief Creates and returns a new CPGradient instance initialized with a hydrogen spectrum graident.
- *  @return A new CPGradient instance initialized with a hydrogen spectrum graident.
+/** @brief Creates and returns a new CPGradient instance initialized with a hydrogen spectrum gradient.
+ *  @return A new CPGradient instance initialized with a hydrogen spectrum gradient.
  **/
 +(CPGradient *)hydrogenSpectrumGradient
 {
