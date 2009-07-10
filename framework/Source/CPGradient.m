@@ -181,6 +181,18 @@ static void resolveHSV(float *color1, float *color2);
  *  @return A new CPGradient instance initialized with an axial linear gradient between the two given colors.
  **/
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end {
+	return [self gradientWithBeginningColor:begin endingColor:end beginningPosition:0.0 endingPosition:1.0];
+}
+
+/** @brief Creates and returns a new CPGradient instance initialized with an axial linear gradient between two given colors, at two given normalized positions.
+ *  @param begin The beginning color.
+ *  @param end The ending color.
+ *  @param beginningPosition The beginning position (0 ≤ beginningPosition ≤ 1).
+ *  @param endingPosition The ending position (0 ≤ endingPosition ≤ 1).
+ *  @return A new CPGradient instance initialized with an axial linear gradient between the two given colors, at two given normalized positions.
+ **/
++(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
+{
     CPGradient *newInstance = [[self alloc] init];
 	
     CPGradientElement color1;
@@ -189,8 +201,8 @@ static void resolveHSV(float *color1, float *color2);
 	color1.color = CPRGBAColorFromCGColor(begin.cgColor);
 	color2.color = CPRGBAColorFromCGColor(end.cgColor);
 	
-    color1.position = 0;
-    color2.position = 1;
+    color1.position = beginningPosition;
+    color2.position = endingPosition;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];

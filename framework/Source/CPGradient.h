@@ -54,6 +54,7 @@ typedef enum _CPGradientType {
 /// @name Factory Methods
 /// @{
 +(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end;
++(CPGradient *)gradientWithBeginningColor:(CPColor *)begin endingColor:(CPColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition;
 
 +(CPGradient *)aquaSelectedGradient;
 +(CPGradient *)aquaNormalGradient;

@@ -78,6 +78,12 @@
 		BC9B83700FB8A1700035D8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		BC9B83710FB8A1700035D8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCC7EA451006BF5700B39451 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA3F1006BF5700B39451 /* CPPlainBlackTheme.h */; };
+		BCC7EA461006BF5700B39451 /* CPPlainBlackTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA401006BF5700B39451 /* CPPlainBlackTheme.m */; };
+		BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA411006BF5700B39451 /* CPPlainWhiteTheme.h */; };
+		BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */; };
+		BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPStocksTheme.h */; };
+		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +186,12 @@
 		BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPBarPlot.m; path = Source/CPBarPlot.m; sourceTree = SOURCE_ROOT; };
 		BC9B83470FB8A0A40035D8DA /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = SOURCE_ROOT; };
+		BCC7EA3F1006BF5700B39451 /* CPPlainBlackTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlainBlackTheme.h; path = Source/CPPlainBlackTheme.h; sourceTree = "<group>"; };
+		BCC7EA401006BF5700B39451 /* CPPlainBlackTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlainBlackTheme.m; path = Source/CPPlainBlackTheme.m; sourceTree = "<group>"; };
+		BCC7EA411006BF5700B39451 /* CPPlainWhiteTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlainWhiteTheme.h; path = Source/CPPlainWhiteTheme.h; sourceTree = "<group>"; };
+		BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlainWhiteTheme.m; path = Source/CPPlainWhiteTheme.m; sourceTree = "<group>"; };
+		BCC7EA431006BF5700B39451 /* CPStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPStocksTheme.h; path = Source/CPStocksTheme.h; sourceTree = "<group>"; };
+		BCC7EA441006BF5700B39451 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPStocksTheme.m; path = Source/CPStocksTheme.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +273,12 @@
 		072E3F980FE2FF3E00ACF62F /* Themes */ = {
 			isa = PBXGroup;
 			children = (
+				BCC7EA3F1006BF5700B39451 /* CPPlainBlackTheme.h */,
+				BCC7EA401006BF5700B39451 /* CPPlainBlackTheme.m */,
+				BCC7EA411006BF5700B39451 /* CPPlainWhiteTheme.h */,
+				BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */,
+				BCC7EA431006BF5700B39451 /* CPStocksTheme.h */,
+				BCC7EA441006BF5700B39451 /* CPStocksTheme.m */,
 				072E3F990FE2FF7300ACF62F /* CPDarkGradientTheme.h */,
 				072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */,
 				072E3F9B0FE2FF7300ACF62F /* CPTheme.h */,
@@ -501,6 +519,9 @@
 				07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */,
 				072E3F9D0FE2FF7300ACF62F /* CPDarkGradientTheme.h in Headers */,
 				072E3F9F0FE2FF7300ACF62F /* CPTheme.h in Headers */,
+				BCC7EA451006BF5700B39451 /* CPPlainBlackTheme.h in Headers */,
+				BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */,
+				BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +612,9 @@
 				07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */,
 				072E3F9E0FE2FF7300ACF62F /* CPDarkGradientTheme.m in Sources */,
 				072E3FA00FE2FF7300ACF62F /* CPTheme.m in Sources */,
+				BCC7EA461006BF5700B39451 /* CPPlainBlackTheme.m in Sources */,
+				BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */,
+				BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

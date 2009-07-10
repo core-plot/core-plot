@@ -47,22 +47,32 @@
 
 -(void)viewDidLoad 
 {    
-	CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
+	CPTheme *theme = [CPTheme themeNamed:kCPStocksTheme];
 	graph = [theme newGraph];
 	graph.frame = self.view.bounds;
 	[self.layerHost.layer addSublayer:graph];
     
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
+	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0f;
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor whiteColor];
     dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
+
+	[graph addPlot:dataSourceLinePlot];
+	
+	CPColor *areaColor = [CPColor colorWithComponentRed:1.0 green:1.0 blue:1.0 alpha:0.6];
+    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
+    areaGradient.angle = -90.0f;
+	CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    dataSourceLinePlot.areaFill = areaGradientFill;
+    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"320.0"];    
+
+
     
-	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
-	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
-    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
-    dataSourceLinePlot.plotSymbol = greenCirclePlotSymbol;	
+//	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
+//	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
+//    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
+//    dataSourceLinePlot.plotSymbol = greenCirclePlotSymbol;	
     
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
     [self setDatapuller:dp];
@@ -118,12 +128,12 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     	
     axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"10.0"];
-    axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber zero];
+    axisSet.xAxis.constantCoordinateValue = [[datapuller overallLow] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"5"]];
     axisSet.xAxis.minorTicksPerInterval = 1;
     
     axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50.0"];
     axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
+    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"3.0"];
     [graph reloadData];
 }
 
