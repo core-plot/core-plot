@@ -133,6 +133,16 @@
 		majorIntervalLengthForX = (maximumValueForXAxis - minimumValueForXAxis) / 10.0;
 		majorIntervalLengthForY = (maximumValueForYAxis - minimumValueForYAxis) / 10.0;
 
+		CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+    	
+		axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
+		axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
+		axisSet.xAxis.minorTicksPerInterval = 1;
+    
+		axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
+		axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
+		axisSet.yAxis.minorTicksPerInterval = 4;
+
 		[fileContents release];
 	}
 
