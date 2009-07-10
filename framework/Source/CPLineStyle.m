@@ -3,15 +3,50 @@
 #import "CPLayer.h"
 #import "CPColor.h"
 
+/** @brief Wrapper for various line drawing properties.
+ *
+ *	@see See the Quartz 2D and CGContext documentation for more information about each of these properties.
+ **/
 
 @implementation CPLineStyle
 
-@synthesize lineCap, lineJoin, miterLimit, lineWidth, patternPhase, lineColor;
+/** @property lineCap
+ *  @brief Sets the style for the endpoints of lines drawn in a graphics context.
+ **/
+@synthesize lineCap;
+
+/** @property lineJoin
+ *  @brief Sets the style for the joins of connected lines in a graphics context.
+ **/
+@synthesize lineJoin;
+
+/** @property miterLimit
+ *  @brief Sets the miter limit for the joins of connected lines in a graphics context.
+ **/
+@synthesize miterLimit;
+
+/** @property lineWidth
+ *  @brief Sets the line width for a graphics context.
+ **/
+@synthesize lineWidth;
+
+/** @property patternPhase
+ *  @brief Sets the pattern phase of a context.
+ **/
+@synthesize patternPhase;
+
+/** @property lineColor
+ *  @brief Sets the current stroke color in a context.
+ **/
+@synthesize lineColor;
 
 #pragma mark -
 #pragma mark init/dealloc
 
-+(CPLineStyle*)lineStyle
+/** @brief Creates and returns a new CPLineStyle instance.
+ *  @return A new CPLineStyle instance.
+ **/
++(CPLineStyle *)lineStyle
 {
     return [[[self alloc] init] autorelease];
 }
@@ -35,6 +70,9 @@
 	[super dealloc];
 }
 
+/** @brief Sets all of the line drawing properties in the given graphics context.
+ *  @param theContext The graphics context.
+ **/
 -(void)setLineStyleInContext:(CGContextRef)theContext
 {
 	CGContextSetLineCap(theContext, lineCap);
