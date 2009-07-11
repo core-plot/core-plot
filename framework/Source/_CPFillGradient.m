@@ -8,13 +8,25 @@
 
 @end
 
+/** @brief Draws CPGradient area fills.
+ *
+ *	Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
+ **/
+
 @implementation _CPFillGradient
 
+/** @property fillGradient
+ *  @brief The fill gradient.
+ **/
 @synthesize fillGradient;
 
 #pragma mark -
 #pragma mark init/dealloc
 
+/** @brief Initializes a newly allocated _CPFillGradient object with the provided gradient.
+ *  @param aGradient The gradient.
+ *  @return The initialized _CPFillGradient object.
+ **/
 -(id)initWithGradient:(CPGradient *)aGradient 
 {
 	if (self = [super init]) 
@@ -35,11 +47,18 @@
 #pragma mark -
 #pragma mark Drawing
 
+/** @brief Draws the gradient into the given graphics context inside the provided rectangle.
+ *  @param theRect The rectangle to draw into.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
 	[self.fillGradient fillRect:theRect inContext:theContext];
 }
 
+/** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
 	[self.fillGradient fillPathInContext:theContext];

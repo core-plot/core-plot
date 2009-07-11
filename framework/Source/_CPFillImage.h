@@ -8,11 +8,15 @@
 	CPImage *fillImage;
 }
 
-// Init
+/// @name Initialization
+/// @{
 -(id)initWithImage:(CPImage *)anImage;
+///	@}
 
-// Drawing
+/// @name Drawing
+/// @{
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
+///	@}
 
 @end

@@ -7,11 +7,15 @@
 	CPColor *fillColor;
 }
 
-// Init
+/// @name Initialization
+/// @{
 -(id)initWithColor:(CPColor *)aCcolor;
+///	@}
 
-// Drawing
+/// @name Drawing
+/// @{
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
+///	@}
 
 @end

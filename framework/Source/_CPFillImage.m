@@ -8,13 +8,25 @@
 
 @end
 
+/** @brief Draws CPImage area fills.
+ *
+ *	Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
+ **/
+
 @implementation _CPFillImage
 
+/** @property fillImage
+ *  @brief The fill image.
+ **/
 @synthesize fillImage;
 
 #pragma mark -
 #pragma mark init/dealloc
 
+/** @brief Initializes a newly allocated _CPFillImage object with the provided image.
+ *  @param anImage The image.
+ *  @return The initialized _CPFillImage object.
+ **/
 -(id)initWithImage:(CPImage *)anImage 
 {
 	if (self = [super init]) 
@@ -35,11 +47,18 @@
 #pragma mark -
 #pragma mark Drawing
 
+/** @brief Draws the image into the given graphics context inside the provided rectangle.
+ *  @param theRect The rectangle to draw into.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
 	[self.fillImage drawInRect:theRect inContext:theContext];
 }
 
+/** @brief Draws the image into the given graphics context clipped to the current drawing path.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);
