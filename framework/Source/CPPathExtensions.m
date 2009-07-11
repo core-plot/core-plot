@@ -1,6 +1,12 @@
 
 #import "CPPathExtensions.h"
 
+/** @brief Adds a rectangular path with rounded corners to a graphics context.
+ *
+ *	@param context The graphics context.
+ *	@param rect The bounding rectangle for the path.
+ *	@param cornerRadius The radius of the rounded corners.
+ **/
 void AddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat cornerRadius) {
 	// In order to draw a rounded rectangle, we will take advantage of the fact that
 	// CGContextAddArcToPoint will draw straight lines past the start and end of the arc
