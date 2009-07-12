@@ -32,50 +32,59 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
     // Create graph from theme
-//	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
+	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
 //	CPTheme *theme = [CPTheme themeNamed:kCPPlainBlackTheme];
-	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
+//	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
 //	CPTheme *theme = [CPTheme themeNamed:kCPStocksTheme];
 	graph = [theme newGraph]; 
 	graphView.hostedLayer = graph;
-    
+	
+//	graph.paddingLeft = 10.0;
+	graph.paddingTop = 40.0;
+	graph.paddingRight = 40.0;
+	graph.paddingBottom = 40.0;
+
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-//    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
-//    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
-	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(600000.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(1000.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
 
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
 	CPXYAxis *x = axisSet.xAxis;
 	x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-//	    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis + (maximumValueForXAxis - minimumValueForXAxis) / 2.0]];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"300000"];
-	//x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
+	x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
 	x.minorTicksPerInterval = 5;
 	
 	CPXYAxis *y = axisSet.yAxis;
 	y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
 	y.minorTicksPerInterval = 5;
-//	y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis + (maximumValueForYAxis - minimumValueForYAxis) / 2.0]];
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
-	//y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
+	y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
 	
-	//		axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-	//		axisSet.xAxis.minorTicksPerInterval = 1;
-    
-	//		axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
-	//		axisSet.yAxis.minorTicksPerInterval = 4;
+		CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
+    borderLineStyle.lineWidth = 0.0f;
 	
-	
+	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
+	borderedLayer.borderLineStyle = borderLineStyle;
+	borderedLayer.cornerRadius = 0.0f;
+
     // Create the main plot for the delimited data
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor blackColor];
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor whiteColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
-	
+
+	// Add plot symbols
+//	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+//	symbolLineStyle.lineColor = [CPColor whiteColor];
+//	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
+//	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
+//	plotSymbol.lineStyle = symbolLineStyle;
+//    plotSymbol.size = CGSizeMake(10.0, 10.0);
+//    dataSourceLinePlot.plotSymbol = plotSymbol;
+
 	[graph reloadData];
 }
 

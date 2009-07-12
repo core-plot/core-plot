@@ -115,7 +115,6 @@
 		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
 		[self.axisLineStyle setLineStyleInContext:theContext];
-		NSLog(@"Draw axis from %f, %f to %f, %f", startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y);
 		CGContextBeginPath(theContext);
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
