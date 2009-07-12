@@ -41,23 +41,34 @@
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
-	
-    // Axes
+//    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForXAxis) length:CPDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
+//    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(minimumValueForYAxis) length:CPDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
+	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(600000.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(1000.0)];
+
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+	CPXYAxis *x = axisSet.xAxis;
+	x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
+//	    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis + (maximumValueForXAxis - minimumValueForXAxis) / 2.0]];
+    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"300000"];
+	//x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
+	x.minorTicksPerInterval = 5;
+	
+	CPXYAxis *y = axisSet.yAxis;
+	y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
+	y.minorTicksPerInterval = 5;
+//	y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis + (maximumValueForYAxis - minimumValueForYAxis) / 2.0]];
+    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+	//y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
+	
+	//		axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
+	//		axisSet.xAxis.minorTicksPerInterval = 1;
     
-    CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis + (maximumValueForXAxis - minimumValueForXAxis) / 2.0]];
-    x.minorTicksPerInterval = 5;
+	//		axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
+	//		axisSet.yAxis.minorTicksPerInterval = 4;
 	
-    CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
-    y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis + (maximumValueForYAxis - minimumValueForYAxis) / 2.0]];
 	
-    // Create a second plot that uses the data source method
+    // Create the main plot for the delimited data
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
@@ -132,17 +143,7 @@
 		
 		majorIntervalLengthForX = (maximumValueForXAxis - minimumValueForXAxis) / 10.0;
 		majorIntervalLengthForY = (maximumValueForYAxis - minimumValueForYAxis) / 10.0;
-
-		CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-    	
-		axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-		axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
-		axisSet.xAxis.minorTicksPerInterval = 1;
-    
-		axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
-		axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
-		axisSet.yAxis.minorTicksPerInterval = 4;
-
+		
 		[fileContents release];
 	}
 

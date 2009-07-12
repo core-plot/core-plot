@@ -1294,7 +1294,7 @@
 			isa = PBXGroup;
 			children = (
 				4C37798F0FD87A5E00BA848A /* TestMerge.app */,
-				4C3779910FD87A5E00BA848A /* Untitled.octest */,
+				4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1971,10 +1971,10 @@
 			remoteRef = 4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C3779910FD87A5E00BA848A /* Untitled.octest */ = {
+		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = Untitled.octest;
+			path = "TestMerge-UnitTests.octest";
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
