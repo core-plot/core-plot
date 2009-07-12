@@ -13,13 +13,21 @@
 #import "CPTextStyle.h"
 #import "CPBorderedLayer.h"
 
+/** @brief Creates a CPXYGraph instance formatted with a gradient background and white lines.
+ **/
 @implementation CPStocksTheme
 
+/**	@brief The name of the theme.
+ *	@return The name.
+ **/
 +(NSString *)name 
 {
 	return kCPStocksTheme;
 }
 
+/** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
+ *  @return A new CPXYGraph instance formatted with the theme.
+ **/
 -(CPGraph *)newGraph 
 {
 	// Create graph
