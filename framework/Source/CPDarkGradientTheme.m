@@ -40,7 +40,7 @@
 /** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
  *  @return A new CPXYGraph instance formatted with the theme.
  **/
--(CPGraph *)newGraph 
+-(id)newGraph 
 {
     CPXYGraph *graph = [self createNewGraph];	
 	[self applyThemeToBackground:graph];

@@ -27,6 +27,6 @@ extern NSString * const kCPStocksTheme;
 
 @interface CPTheme(AbstractMethods)
 
--(CPGraph *)newGraph;
+-(id)newGraph;
 
 @end
