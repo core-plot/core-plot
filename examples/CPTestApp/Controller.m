@@ -19,7 +19,7 @@
 
     // Create graph from theme
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = [theme newGraph];
+	graph = (CPXYGraph *)[theme newGraph];
 	hostView.hostedLayer = graph;
     
     // Setup scatter plot space
