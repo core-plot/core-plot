@@ -71,7 +71,7 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 /** @brief Creates and returns a new CPGraph instance formatted with the theme.
  *  @return A new CPGraph instance formatted with the theme.
  **/
--(CPGraph *)newGraph
+-(id)newGraph
 {
 	return nil;
 }

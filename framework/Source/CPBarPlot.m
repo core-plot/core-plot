@@ -230,14 +230,17 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
 	
-	
-	CPFill *currentBarFill = (CPFill *) [self.dataSource 
-         performSelector:@selector(barFillForBarPlot:recordIndex:) withObject:self withObject:[NSNumber numberWithInt:index]];
-	if (currentBarFill!= nil) {
-		[currentBarFill fillPathInContext:context]; 
-	} else {
-		[self.fill fillPathInContext:context];
-	}
+    // If data source returns nil, default fill is used.
+    // If data source returns NSNull object, no fill is drawn.
+    CPFill *currentBarFill = self.fill;
+    if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+        CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
+        if ( nil != dataSourceFill ) currentBarFill = dataSourceFill;
+    }
+    if ( currentBarFill != nil && ![currentBarFill isKindOfClass:[NSNull class]] ) {
+        [currentBarFill fillPathInContext:context]; 
+    }
+    
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
     [self.lineStyle setLineStyleInContext:context];

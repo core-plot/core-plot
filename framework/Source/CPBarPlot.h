@@ -9,8 +9,6 @@
 @class CPColor;
 @class CPBarPlot;
 
-
-
 extern NSString * const CPBarPlotBindingBarLengths;
 
 typedef enum _CPBarPlotField {
@@ -19,7 +17,7 @@ typedef enum _CPBarPlotField {
 
 @protocol CPBarPlotDataSource <CPPlotDataSource> 
 @optional 
--(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index; 
+-(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 @end 
 
 @interface CPBarPlot : CPPlot {

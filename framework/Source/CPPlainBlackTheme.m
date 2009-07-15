@@ -28,7 +28,7 @@
 /** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
  *  @return A new CPXYGraph instance formatted with the theme.
  **/
--(CPGraph *)newGraph 
+-(id)newGraph 
 {
 	// Create graph
     CPXYGraph *graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
