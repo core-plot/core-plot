@@ -62,18 +62,12 @@
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
     
     // Put an area gradient under the plot above
-//    NSString *pathToFillImage = [[NSBundle mainBundle] pathForResource:@"BlueTexture" ofType:@"png"];
-//    CPImage *fillImage = [CPImage imageForPNGFile:pathToFillImage];
-//    fillImage.tiled = YES;
-//    CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
-//    boundLinePlot.areaFill = areaGradientFill;
-//    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];
-    CPColor *areaColor1 = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
-    CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
-    areaGradient1.angle = -90.0f;
-    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
+    NSString *pathToFillImage = [[NSBundle mainBundle] pathForResource:@"BlueTexture" ofType:@"png"];
+    CPImage *fillImage = [CPImage imageForPNGFile:pathToFillImage];
+    fillImage.tiled = YES;
+    CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
     boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];    
+    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];
     
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
@@ -110,7 +104,7 @@
 	}
 	self.content = contentArray;
     
-/*    // Add plot space for horizontal bar charts
+    // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
     barPlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(200.0f)];
     barPlotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-7.0f) length:CPDecimalFromFloat(15.0f)];
@@ -132,7 +126,7 @@
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
-    [graph addPlot:barPlot toPlotSpace:barPlotSpace];*/
+    [graph addPlot:barPlot toPlotSpace:barPlotSpace];
 }
 
 -(id)newObject 
