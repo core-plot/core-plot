@@ -8,13 +8,25 @@
 
 @end
 
+/** @brief Draws CPColor area fills.
+ *
+ *	Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
+ **/
+
 @implementation _CPFillColor
 
+/** @property fillColor
+ *  @brief The fill color.
+ **/
 @synthesize fillColor;
 
 #pragma mark -
 #pragma mark init/dealloc
 
+/** @brief Initializes a newly allocated _CPFillColor object with the provided color.
+ *  @param aColor The color.
+ *  @return The initialized _CPFillColor object.
+ **/
 -(id)initWithColor:(CPColor *)aColor 
 {
 	if (self = [super init]) {
@@ -32,6 +44,10 @@
 #pragma mark -
 #pragma mark Drawing
 
+/** @brief Draws the color into the given graphics context inside the provided rectangle.
+ *  @param theRect The rectangle to draw into.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);
@@ -40,6 +56,9 @@
 	CGContextRestoreGState(theContext);
 }
 
+/** @brief Draws the color into the given graphics context clipped to the current drawing path.
+ *  @param theContext The graphics context to draw into.
+ **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);

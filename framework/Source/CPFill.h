@@ -7,20 +7,31 @@
 @class CPColor;
 
 @interface CPFill : NSObject <NSCopying, NSCoding> {
-
+	
 }
 
-// Init
+/// @name Factory Methods
+/// @{
 +(CPFill *)fillWithColor:(CPColor *)aColor;
 +(CPFill *)fillWithGradient:(CPGradient *)aGradient;
 +(CPFill *)fillWithImage:(CPImage *)anImage;
+///	@}
 
+/// @name Initialization
+/// @{
 -(id)initWithColor:(CPColor *)aColor;
 -(id)initWithGradient:(CPGradient *)aGradient;
 -(id)initWithImage:(CPImage *)anImage;
+///	@}
 
-// Drawing
+@end
+
+@interface CPFill(AbstractMethods)
+
+/// @name Drawing
+/// @{
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
+///	@}
 
 @end

@@ -8,11 +8,15 @@
 	CPGradient *fillGradient;
 }
 
-// Init
+/// @name Initialization
+/// @{
 -(id)initWithGradient:(CPGradient *)aGradient;
+///	@}
 
-// Drawing
+/// @name Drawing
+/// @{
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
 -(void)fillPathInContext:(CGContextRef)theContext;
+///	@}
 
 @end

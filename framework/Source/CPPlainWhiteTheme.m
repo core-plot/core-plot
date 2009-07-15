@@ -13,13 +13,21 @@
 #import "CPTextStyle.h"
 #import "CPBorderedLayer.h"
 
+/** @brief Creates a CPXYGraph instance formatted with white backgrounds and black lines.
+ **/
 @implementation CPPlainWhiteTheme
 
+/**	@brief The name of the theme.
+ *	@return The name.
+ **/
 +(NSString *)name 
 {
 	return kCPPlainWhiteTheme;
 }
 
+/** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
+ *  @return A new CPXYGraph instance formatted with the theme.
+ **/
 -(CPGraph *)newGraph 
 {
 	// Create graph
