@@ -7,7 +7,6 @@
 
 #import "CPTestAppScatterPlotController.h"
 
-
 @implementation CPTestAppScatterPlotController
 
 @synthesize dataForPlot;
@@ -27,7 +26,7 @@
 
     // Create graph from theme
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = [theme newGraph];	
+	graph = (CPXYGraph *)[theme newGraph];	
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = graph;
 	

@@ -6,6 +6,7 @@
 #import "CPPlainWhiteTheme.h"
 #import "CPStocksTheme.h"
 #import "CPGraph.h"
+#import "CPXYGraph.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
@@ -19,6 +20,16 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
  **/
 
 @implementation CPTheme
+
+@synthesize graphClass;
+
++(NSArray *)themes {
+	static NSArray *themeClasses = nil;
+	if ( themeClasses == nil ) {
+		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
+	}
+	return themeClasses;
+}
 
 /// @defgroup CPTheme CPTheme Methods
 /// @{
@@ -35,14 +46,10 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	CPTheme *theme = [themes objectForKey:themeName];
 	if ( theme ) return theme;
 	
-	static NSArray *themeClasses = nil;
-	if ( themeClasses == nil ) {
-		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
-	}
-	
-	for ( Class themeClass in themeClasses ) {
+	for ( Class themeClass in [CPTheme themes] ) {
 		if ( [themeName isEqualToString:[themeClass name]] ) {
 			theme = [[themeClass alloc] init];
+			[themes setObject:theme forKey:themeName];
 			break;
 		}
 	}
@@ -58,6 +65,15 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	return NSStringFromClass(self);
 }
 
+
+-(void)setGraphClass:(Class)newGraphClass 
+{
+	if ( newGraphClass && ![newGraphClass isSubclassOfClass:[CPXYGraph class]] ) {
+		[NSException raise:CPException format:@"newGraphClass must be a subclass of CPXYGraph"];
+	}
+	
+	graphClass = newGraphClass;
+}
 ///	@}
 
 @end

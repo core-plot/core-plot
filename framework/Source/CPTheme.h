@@ -14,11 +14,14 @@ extern NSString * const kCPStocksTheme;
 /// @}
 
 @interface CPTheme : NSObject {
-
+	Class graphClass;
 }
 
++(NSArray *)themes;
 +(CPTheme *)themeNamed:(NSString *)theme;
 +(NSString *)name;
+
+@property (nonatomic, assign) Class graphClass;
 
 @end
 

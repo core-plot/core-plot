@@ -13,6 +13,18 @@
 #import "CPTextStyle.h"
 #import "CPBorderedLayer.h"
 
+@interface CPDarkGradientTheme ()
+-(CPXYGraph *)createNewGraph;
+-(void)applyThemeToBackground:(CPXYGraph *)graph;
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;
+-(void)applyThemeToPlotSpace:(CPXYPlotSpace *)plotSpace;
+-(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet;
+-(void)applyThemeToAxis:(CPXYAxis *)axis 
+	usingMajorLineStyle:(CPLineStyle *)majorLineStyle 
+	  andMinorLineStyle:(CPLineStyle *)minorLineStyle 
+		   andTextStyle:(CPTextStyle *)textStyle;
+@end
+
 /** @brief Creates a CPXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
  **/
 @implementation CPDarkGradientTheme
@@ -30,14 +42,36 @@
  **/
 -(CPGraph *)newGraph 
 {
-	// Create graph
-    CPXYGraph *graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+    CPXYGraph *graph = [self createNewGraph];	
+	[self applyThemeToBackground:graph];
+	[self applyThemeToPlotArea:graph.plotArea];
+	[self applyThemeToPlotSpace:(CPXYPlotSpace *)graph.defaultPlotSpace];
+    [self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];
+           
+	return graph;
+}
+
+#pragma mark -
+#pragma mark Implementation private methods
+
+-(CPXYGraph *)createNewGraph {
+	CPXYGraph *graph;
+	if ([self graphClass]) {
+		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	else {
+		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	
 	graph.paddingLeft = 60.0;
 	graph.paddingTop = 60.0;
 	graph.paddingRight = 60.0;
 	graph.paddingBottom = 60.0;
-	
-	// Background
+	return graph;
+}
+
+-(void)applyThemeToBackground:(CPXYGraph *)graph 
+{
 	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
 	CPGradient *graphGradient = [CPGradient gradientWithBeginningColor:endColor endingColor:endColor];
 	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.3];
@@ -45,20 +79,22 @@
 	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.6];
 	graphGradient.angle = 90.0f;
 	graph.fill = [CPFill fillWithGradient:graphGradient];
-	
-	// Plot area
-    CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
+}
+
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
+{
+	CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
     gradient.angle = 90.0;
-	graph.plotArea.fill = [CPFill fillWithGradient:gradient]; 
-	
-    // Setup plot space
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+	plotArea.fill = [CPFill fillWithGradient:gradient]; 
+}
+
+-(void)applyThemeToPlotSpace:(CPXYPlotSpace *)plotSpace
+{
+	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-	
-    // Axes
-	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-	
+}
+
+-(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
     borderLineStyle.lineWidth = 4.0f;
@@ -78,36 +114,27 @@
     minorLineStyle.lineColor = [CPColor darkGrayColor];
     minorLineStyle.lineWidth = 2.0f;
 	
-    CPXYAxis *x = axisSet.xAxis;
 	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
-    x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
-	x.tickDirection = CPSignNone;
-    x.minorTicksPerInterval = 4;
-    x.majorTickLineStyle = majorLineStyle;
-    x.minorTickLineStyle = minorLineStyle;
-    x.axisLineStyle = majorLineStyle;
-    x.majorTickLength = 7.0f;
-    x.minorTickLength = 5.0f;
-	x.axisLabelTextStyle = whiteTextStyle; 
 	
-    CPXYAxis *y = axisSet.yAxis;
-    y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    y.minorTicksPerInterval = 4;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
-	y.tickDirection = CPSignNone;
-    y.majorTickLineStyle = majorLineStyle;
-    y.minorTickLineStyle = minorLineStyle;
-    y.axisLineStyle = majorLineStyle;
-    y.majorTickLength = 7.0f;
-    y.minorTickLength = 5.0f;
-	y.axisLabelTextStyle = whiteTextStyle;
-        
-	return graph;
+	[self applyThemeToAxis:axisSet.xAxis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
+	[self applyThemeToAxis:axisSet.yAxis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
+}
+
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
+{
+	axis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+    axis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    axis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+	axis.tickDirection = CPSignNone;
+    axis.minorTicksPerInterval = 4;
+    axis.majorTickLineStyle = majorLineStyle;
+    axis.minorTickLineStyle = minorLineStyle;
+    axis.axisLineStyle = majorLineStyle;
+    axis.majorTickLength = 7.0f;
+    axis.minorTickLength = 5.0f;
+	axis.axisLabelTextStyle = textStyle; 
 }
 
 @end
