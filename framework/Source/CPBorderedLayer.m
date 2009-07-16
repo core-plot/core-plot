@@ -30,28 +30,27 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-    CGFloat inset = round(self.borderLineStyle.lineWidth*0.5 + 1.0f);
-	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
-	CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
-	
+    CGPathRef roundedPath = [self newMaskingPath];
 	if ( self.fill ) {
 		CGContextBeginPath(context);
-		AddRoundedRectPath(context, selfBounds, radius);
+        CGContextAddPath(context, roundedPath);
 		[self.fill fillPathInContext:context];
 	}
     if ( self.borderLineStyle ) {
 		CGContextBeginPath(context);
-		AddRoundedRectPath(context, selfBounds, radius);
-		[self.borderLineStyle setLineStyleInContext:context];
+        CGContextAddPath(context, roundedPath);
+        [self.borderLineStyle setLineStyleInContext:context];
         CGContextStrokePath(context);
     }
+    CGPathRelease(roundedPath);
 }
 
 -(CGPathRef)newMaskingPath 
 {
-    CGMutablePathRef path;
-    
-    return path;
+    CGFloat inset = round(self.borderLineStyle.lineWidth*0.5 + 1.0f);
+	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
+    CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+    return CreateRoundedRectPath(selfBounds, radius);
 }
 
 #pragma mark -
