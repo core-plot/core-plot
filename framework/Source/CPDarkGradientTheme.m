@@ -56,8 +56,8 @@
 
 -(CPXYGraph *)createNewGraph {
 	CPXYGraph *graph;
-	if ([self graphClass]) {
-		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	if (self.graphClass) {
+		graph = [[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
 	}
 	else {
 		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];

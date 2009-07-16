@@ -21,8 +21,17 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 @implementation CPTheme
 
+/// @defgroup CPTheme CPTheme
+/// @{
+
+/**	@property graphClass
+ *	@brief The class of the graph object to create.
+ **/
 @synthesize graphClass;
 
+/**	@brief Gets an array of theme classes.
+ *	@return An NSArray of the classes of each available theme.
+ **/
 +(NSArray *)themes {
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
@@ -30,9 +39,6 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	}
 	return themeClasses;
 }
-
-/// @defgroup CPTheme CPTheme Methods
-/// @{
 
 /**	@brief Gets a named theme.
  *	@param themeName The name of the desired theme.
@@ -81,7 +87,7 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 ///	@brief CPTheme abstract methods—must be overridden by subclasses
 @implementation CPTheme(AbstractMethods)
 
-/// @addtogroup CPTheme CPTheme Methods
+/// @addtogroup CPTheme
 /// @{
 
 /** @brief Creates and returns a new CPGraph instance formatted with the theme.
