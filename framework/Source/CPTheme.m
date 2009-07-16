@@ -23,8 +23,6 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 @synthesize graphClass;
 
-
-
 /// @defgroup CPTheme CPTheme Methods
 /// @{
 
@@ -97,6 +95,10 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 -(id)newGraph
 {
 	return nil;
+}
+
+-(void)applyThemeToGraph:(CPXYGraph *)graph
+{
 }
 
 ///	@}

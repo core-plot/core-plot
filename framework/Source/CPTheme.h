@@ -2,6 +2,13 @@
 #import <Foundation/Foundation.h>
 
 @class CPGraph;
+@class CPXYGraph;
+@class CPPlotArea;
+@class CPXYPlotSpace;
+@class CPAxisSet;
+@class CPLineStyle;
+@class CPTextStyle;
+@class CPXYAxis;
 
 /// @file
 
@@ -26,7 +33,6 @@ extern NSString * const kCPStocksTheme;
 @end
 
 @interface CPTheme(AbstractMethods)
-
 -(id)newGraph;
-
+-(void)applyThemeToGraph:(CPXYGraph *)graph;
 @end

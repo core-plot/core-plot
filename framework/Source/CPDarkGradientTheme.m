@@ -15,14 +15,7 @@
 
 @interface CPDarkGradientTheme ()
 -(CPXYGraph *)createNewGraph;
--(void)applyThemeToBackground:(CPXYGraph *)graph;
--(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;
--(void)applyThemeToPlotSpace:(CPXYPlotSpace *)plotSpace;
--(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet;
--(void)applyThemeToAxis:(CPXYAxis *)axis 
-	usingMajorLineStyle:(CPLineStyle *)majorLineStyle 
-	  andMinorLineStyle:(CPLineStyle *)minorLineStyle 
-		   andTextStyle:(CPTextStyle *)textStyle;
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle;
 @end
 
 /** @brief Creates a CPXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
@@ -43,31 +36,15 @@
 -(id)newGraph 
 {
     CPXYGraph *graph = [self createNewGraph];	
-	[self applyThemeToBackground:graph];
-	[self applyThemeToPlotArea:graph.plotArea];
-	[self applyThemeToPlotSpace:(CPXYPlotSpace *)graph.defaultPlotSpace];
-    [self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];
-           
+    [self applyThemeToGraph:graph];
 	return graph;
 }
 
-#pragma mark -
-#pragma mark Implementation private methods
-
--(CPXYGraph *)createNewGraph {
-	CPXYGraph *graph;
-	if ([self graphClass]) {
-		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	
-	graph.paddingLeft = 60.0;
-	graph.paddingTop = 60.0;
-	graph.paddingRight = 60.0;
-	graph.paddingBottom = 60.0;
-	return graph;
+-(void)applyThemeToGraph:(CPXYGraph *)graph
+{
+	[self applyThemeToBackground:graph];
+	[self applyThemeToPlotArea:graph.plotArea];
+	[self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];    
 }
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph 
@@ -86,12 +63,6 @@
 	CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
     gradient.angle = 90.0;
 	plotArea.fill = [CPFill fillWithGradient:gradient]; 
-}
-
--(void)applyThemeToPlotSpace:(CPXYPlotSpace *)plotSpace
-{
-	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
@@ -118,8 +89,33 @@
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
 	
-	[self applyThemeToAxis:axisSet.xAxis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
-	[self applyThemeToAxis:axisSet.yAxis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
+    for (CPXYAxis *axis in axisSet.axes) {
+        [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
+    }
+}
+
+#pragma mark -
+#pragma mark Implementation private methods
+
+-(CPXYGraph *)createNewGraph {
+	CPXYGraph *graph;
+	if ([self graphClass]) {
+		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	else {
+		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	
+	graph.paddingLeft = 60.0;
+	graph.paddingTop = 60.0;
+	graph.paddingRight = 60.0;
+	graph.paddingBottom = 60.0;
+    
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    
+	return graph;
 }
 
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
@@ -136,5 +132,6 @@
     axis.minorTickLength = 5.0f;
 	axis.axisLabelTextStyle = textStyle; 
 }
+
 
 @end
