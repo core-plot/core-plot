@@ -17,7 +17,7 @@ extern NSString * const kCPStocksTheme;
 	Class graphClass;
 }
 
-+(NSArray *)themes;
++(NSArray *)themeClasses;
 +(CPTheme *)themeNamed:(NSString *)theme;
 +(NSString *)name;
 

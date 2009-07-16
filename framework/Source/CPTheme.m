@@ -23,16 +23,21 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 @synthesize graphClass;
 
-+(NSArray *)themes {
+
+
+/// @defgroup CPTheme CPTheme Methods
+/// @{
+
+/**	@brief List of the available themes
+ *	@return An NSArray with all available themes
+ **/
++(NSArray *)themeClasses {
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
 		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
 	}
 	return themeClasses;
 }
-
-/// @defgroup CPTheme CPTheme Methods
-/// @{
 
 /**	@brief Gets a named theme.
  *	@param themeName The name of the desired theme.
@@ -46,7 +51,7 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	CPTheme *theme = [themes objectForKey:themeName];
 	if ( theme ) return theme;
 	
-	for ( Class themeClass in [CPTheme themes] ) {
+	for ( Class themeClass in [CPTheme themeClasses] ) {
 		if ( [themeName isEqualToString:[themeClass name]] ) {
 			theme = [[themeClass alloc] init];
 			[themes setObject:theme forKey:themeName];
@@ -65,7 +70,9 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	return NSStringFromClass(self);
 }
 
-
+/**	@brief Sets the class used when creating a new graph
+ *	@param newGraphClass the type of class, must inherit from CPXYGraph
+ **/
 -(void)setGraphClass:(Class)newGraphClass 
 {
 	if ( newGraphClass && ![newGraphClass isSubclassOfClass:[CPXYGraph class]] ) {

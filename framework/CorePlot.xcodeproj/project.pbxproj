@@ -304,6 +304,9 @@
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */; };
 		C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff */; };
 		C3F56D7D0FBEE90E00D261EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
+		E1620CBE100F03A100A84E77 /* CPThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPThemeTests.m */; };
+		E1FE6052100F27EF00895A91 /* CPDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPDarkGradientThemeTests.m */; };
+		E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPDerivedXYGraph.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -826,6 +829,12 @@
 		C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.i386.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.i386.tiff"; sourceTree = "<group>"; };
 		C3FF6EF00FFFA51D00AF0496 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E1620CBC100F03A100A84E77 /* CPThemeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPThemeTests.h; sourceTree = "<group>"; };
+		E1620CBD100F03A100A84E77 /* CPThemeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPThemeTests.m; sourceTree = "<group>"; };
+		E1FE6050100F27EF00895A91 /* CPDarkGradientThemeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDarkGradientThemeTests.h; sourceTree = "<group>"; };
+		E1FE6051100F27EF00895A91 /* CPDarkGradientThemeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDarkGradientThemeTests.m; sourceTree = "<group>"; };
+		E1FE6119100F3FB700895A91 /* CPDerivedXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDerivedXYGraph.h; sourceTree = "<group>"; };
+		E1FE611A100F3FB700895A91 /* CPDerivedXYGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDerivedXYGraph.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1009,6 +1018,7 @@
 		0772C91E0FE2F70000EC4C16 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
+				E1620CBB100F034700A84E77 /* Tests */,
 				BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */,
 				BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */,
 				BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */,
@@ -1790,6 +1800,19 @@
 			name = CPPlotSymbolTests;
 			sourceTree = "<group>";
 		};
+		E1620CBB100F034700A84E77 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E1620CBC100F03A100A84E77 /* CPThemeTests.h */,
+				E1620CBD100F03A100A84E77 /* CPThemeTests.m */,
+				E1FE6050100F27EF00895A91 /* CPDarkGradientThemeTests.h */,
+				E1FE6051100F27EF00895A91 /* CPDarkGradientThemeTests.m */,
+				E1FE6119100F3FB700895A91 /* CPDerivedXYGraph.h */,
+				E1FE611A100F3FB700895A91 /* CPDerivedXYGraph.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2248,6 +2271,9 @@
 				C36468AA0FE5533F0064B186 /* CPTextStyleTests.m in Sources */,
 				4CD23F550FFA7CFC00ADD2E2 /* CPBorderedLayerTests.m in Sources */,
 				4CD23FFC0FFBE78400ADD2E2 /* CPAxisLabelTests.m in Sources */,
+				E1620CBE100F03A100A84E77 /* CPThemeTests.m in Sources */,
+				E1FE6052100F27EF00895A91 /* CPDarkGradientThemeTests.m in Sources */,
+				E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
