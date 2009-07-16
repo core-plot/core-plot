@@ -7,6 +7,7 @@
 #import <CorePlot/CPBorderedLayer.h>
 #import <CorePlot/CPColor.h>
 #import <CorePlot/CPColorSpace.h>
+#import <CorePlot/CPDarkGradientTheme.h>
 #import <CorePlot/CPDecimalNumberValueTransformer.h>
 #import <CorePlot/CPDefinitions.h>
 #import <CorePlot/CPExceptions.h>
@@ -15,6 +16,9 @@
 #import <CorePlot/CPGraph.h>
 #import <CorePlot/CPImage.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPMasking.h>
+#import <CorePlot/CPPlainBlackTheme.h>
+#import <CorePlot/CPPlainWhiteTheme.h>
 #import <CorePlot/CPPlatformSpecificDefines.h>
 #import <CorePlot/CPPlatformSpecificFunctions.h>
 #import <CorePlot/CPPlatformSpecificCategories.h>
@@ -24,6 +28,7 @@
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPScatterPlot.h>
+#import <CorePlot/CPStocksTheme.h>
 #import <CorePlot/CPTextLayer.h>
 #import <CorePlot/CPTextStyle.h>
 #import <CorePlot/CPTheme.h>

@@ -47,6 +47,13 @@
     }
 }
 
+-(CGPathRef)newMaskingPath 
+{
+    CGMutablePathRef path;
+    
+    return path;
+}
+
 #pragma mark -
 #pragma mark Accessors
 
