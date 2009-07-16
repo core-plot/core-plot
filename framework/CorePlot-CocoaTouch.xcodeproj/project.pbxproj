@@ -52,6 +52,7 @@
 		07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTextStyle.m */; };
 		07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */; };
+		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; };
 		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
 		BC9B834E0FB8A1400035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D30FB89E610035D8DA /* CPPlot.m */; };
@@ -498,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */,
+				BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */,
 				070CB8430FC9DED400F3152B /* CPAxis.h in Headers */,
 				070CB8470FC9DED400F3152B /* CPAxisSet.h in Headers */,
 				070CB84B0FC9DED400F3152B /* CPXYAxisSet.h in Headers */,
@@ -628,6 +630,10 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 			};
@@ -640,6 +646,10 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				ZERO_LINK = NO;
@@ -655,8 +665,13 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-falign-loops=16";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
 			};
@@ -671,8 +686,13 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-falign-loops=16";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
 			};

@@ -1,6 +1,7 @@
 
 #import "CPPlotRange.h"
 #import "CPPlatformSpecificCategories.h"
+#import "NSDecimalNumberExtensions.h"
 
 /** @brief Defines a range of plot data
  **/

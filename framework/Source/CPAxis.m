@@ -9,6 +9,7 @@
 #import "CPAxisLabel.h"
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
+#import "NSDecimalNumberExtensions.h"
 
 @interface CPAxis ()
 

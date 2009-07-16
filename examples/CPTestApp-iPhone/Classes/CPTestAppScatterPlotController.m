@@ -107,7 +107,6 @@
     dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"1.75"];    
 	
     // Add some initial data
-   // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {

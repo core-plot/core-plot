@@ -262,6 +262,10 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
 				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				SDKROOT = iphonesimulator3.0;
 			};
@@ -280,6 +284,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				SDKROOT = iphoneos3.0;
