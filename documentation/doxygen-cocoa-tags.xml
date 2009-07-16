@@ -21,6 +21,10 @@
 			<anchor>//apple_ref/occ/intfm/NSCoding/encodeWithCoder:</anchor>
 		</member>
 	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSColor</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSColor_Class/Reference/Reference.html</filename>
+	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSCopying-p</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html</filename>
