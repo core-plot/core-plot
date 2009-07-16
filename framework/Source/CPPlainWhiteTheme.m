@@ -102,4 +102,12 @@
 	return graph;
 }
 
+/**	@brief A subclass of CPGraph that the graphClass must descend from.
+ *	@return The required subclass.
+ **/
++(Class)requiredGraphSubclass
+{
+    return [CPXYGraph class];
+}
+
 @end

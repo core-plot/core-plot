@@ -12,6 +12,7 @@
 #import "CPLineStyle.h"
 #import "CPTextStyle.h"
 #import "CPBorderedLayer.h"
+#import "CPExceptions.h"
 
 @interface CPDarkGradientTheme ()
 -(CPXYGraph *)createNewGraph;
@@ -135,6 +136,14 @@
     axis.majorTickLength = 7.0f;
     axis.minorTickLength = 5.0f;
 	axis.axisLabelTextStyle = textStyle; 
+}
+
+/**	@brief A subclass of CPGraph that the graphClass must descend from.
+ *	@return The required subclass.
+ **/
++(Class)requiredGraphSubclass
+{
+    return [CPXYGraph class];
 }
 
 @end

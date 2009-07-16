@@ -23,8 +23,6 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 @synthesize graphClass;
 
-
-
 /// @defgroup CPTheme CPTheme Methods
 /// @{
 
@@ -70,16 +68,25 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	return NSStringFromClass(self);
 }
 
+/**	@brief A subclass of CPGraph that the graphClass must descend from.
+ *	@return The required subclass.
+ **/
++(Class)requiredGraphSubclass
+{
+    return [CPGraph class];
+}
+
 /**	@brief Sets the class used when creating a new graph
- *	@param newGraphClass the type of class, must inherit from CPXYGraph
+ *	@param newGraphClass the type of class, must inherit from CPGraph
  **/
 -(void)setGraphClass:(Class)newGraphClass 
 {
-	if ( newGraphClass && ![newGraphClass isSubclassOfClass:[CPXYGraph class]] ) {
-		[NSException raise:CPException format:@"newGraphClass must be a subclass of CPXYGraph"];
+	if ( newGraphClass != Nil && ![newGraphClass isSubclassOfClass:[[self class] requiredGraphSubclass]] ) {
+		[NSException raise:CPException format:@"newGraphClass must be a subclass of %@", [[self class] requiredGraphSubclass]];
 	}
-	
-	graphClass = newGraphClass;
+	if ( graphClass != newGraphClass ) {
+        graphClass = newGraphClass;
+    }
 }
 ///	@}
 

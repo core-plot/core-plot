@@ -12,6 +12,7 @@
 #import "CPLineStyle.h"
 #import "CPTextStyle.h"
 #import "CPBorderedLayer.h"
+#import "CPExceptions.h"
 
 /** @brief Creates a CPXYGraph instance formatted with black backgrounds and white lines.
  **/
@@ -100,6 +101,14 @@
 	y.axisLabelTextStyle = whiteTextStyle;
         
 	return graph;
+}
+
+/**	@brief A subclass of CPGraph that the graphClass must descend from.
+ *	@return The required subclass.
+ **/
++(Class)requiredGraphSubclass
+{
+    return [CPXYGraph class];
 }
 
 @end

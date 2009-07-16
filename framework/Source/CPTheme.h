@@ -23,6 +23,8 @@ extern NSString * const kCPStocksTheme;
 
 @property (nonatomic, assign) Class graphClass;
 
++(Class)requiredGraphSubclass;
+
 @end
 
 @interface CPTheme(AbstractMethods)
