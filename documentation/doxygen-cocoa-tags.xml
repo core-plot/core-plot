@@ -109,6 +109,10 @@
 		<filename>http://developer.apple.com/documentation/GraphicsImaging/Reference/CGImage/Reference/reference.html#//apple_ref/doc/c_ref/CGImageRef</filename>
 	</compound>
 	<compound kind="struct">
+		<name>CGPathRef</name>
+		<filename>http://developer.apple.com/documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html#//apple_ref/doc/c_ref/CGPathRef</filename>
+	</compound>
+	<compound kind="struct">
 		<name>CGPoint</name>
 		<filename>http://developer.apple.com/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGPoint</filename>
 	</compound>
