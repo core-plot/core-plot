@@ -61,7 +61,7 @@
 		074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AFC9D00FB62969005DFFDC /* CPImage.m */; };
 		0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C9250FE2F71600EC4C16 /* CPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0772C9280FE2F71600EC4C16 /* CPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772C9260FE2F71600EC4C16 /* CPTheme.m */; };
-		0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0772C9300FE2F89000EC4C16 /* CPDarkGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */; };
 		0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 0783DD530FBF097E006C3696 /* CPXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783DD540FBF097E006C3696 /* CPXYAxis.m */; };
@@ -117,11 +117,13 @@
 		07BF0DF40F2B7BFB002FCEA7 /* CPDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPDefinitions.m */; };
 		07C4679B0FE1A24C00299939 /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467990FE1A24C00299939 /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07C4679C0FE1A24C00299939 /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C4679A0FE1A24C00299939 /* CPTextStyle.m */; };
-		07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		07C467B80FE1A96E00299939 /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (); }; };
 		07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */; };
 		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07CA11310FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
+		07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FA30CA100F9E5F00FD6418 /* CPMasking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07FA30CD100F9E5F00FD6418 /* CPMasking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA30CB100F9E5F00FD6418 /* CPMasking.m */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
 		4C2D58C40FB78208008275E0 /* GTMAppKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F590F45ED1900DC824F /* GTMAppKit+UnitTesting.m */; };
@@ -229,11 +231,11 @@
 		906156BE0F375598001B75FC /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 906156BC0F375598001B75FC /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		906156BF0F375598001B75FC /* CPLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 906156BD0F375598001B75FC /* CPLineStyle.m */; };
 		90AF4FBA0F36D39700753D26 /* CPXYPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AF4FB90F36D39700753D26 /* CPXYPlotSpace.m */; };
-		BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */; };
+		BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC55023310059F22005DF982 /* CPPlainBlackTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */; };
-		BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */; };
+		BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */; };
-		BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55023010059F22005DF982 /* CPStocksTheme.h */; };
+		BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55023010059F22005DF982 /* CPStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55023110059F22005DF982 /* CPStocksTheme.m */; };
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
@@ -477,6 +479,8 @@
 		07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = MacOnly/CPTextStylePlatformSpecific.m; sourceTree = SOURCE_ROOT; };
 		07CA112D0FAC8F85000861CE /* CPGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradient.h; sourceTree = "<group>"; };
 		07CA112E0FAC8F85000861CE /* CPGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradient.m; sourceTree = "<group>"; };
+		07FA30CA100F9E5F00FD6418 /* CPMasking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMasking.h; sourceTree = "<group>"; };
+		07FA30CB100F9E5F00FD6418 /* CPMasking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMasking.m; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -928,11 +932,11 @@
 		070622650FDF29B40066A6C4 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				4CD23F520FFA7CD900ADD2E2 /* Tests */,
 				4CD7E7EA0F4B4F9600F9BCBB /* CPLayer.h */,
 				4CD7E7EB0F4B4F9600F9BCBB /* CPLayer.m */,
 				0706223A0FDF215C0066A6C4 /* CPBorderedLayer.h */,
 				0706223B0FDF215C0066A6C4 /* CPBorderedLayer.m */,
-				4CD23F520FFA7CD900ADD2E2 /* Tests */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -1325,7 +1329,7 @@
 			isa = PBXGroup;
 			children = (
 				4C37798F0FD87A5E00BA848A /* TestMerge.app */,
-				4C3779910FD87A5E00BA848A /* Untitled.octest */,
+				4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1782,6 +1786,8 @@
 				906156BD0F375598001B75FC /* CPLineStyle.m */,
 				070622300FDF1B250066A6C4 /* CPPathExtensions.h */,
 				070622310FDF1B250066A6C4 /* CPPathExtensions.m */,
+				07FA30CA100F9E5F00FD6418 /* CPMasking.h */,
+				07FA30CB100F9E5F00FD6418 /* CPMasking.m */,
 				0704A2100FB56B9400A09979 /* Fills */,
 				076A77690FBF0C0B003F6D97 /* Tests */,
 			);
@@ -1908,6 +1914,7 @@
 				BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */,
 				BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */,
 				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
+				07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2034,10 +2041,10 @@
 			remoteRef = 4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C3779910FD87A5E00BA848A /* Untitled.octest */ = {
+		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = Untitled.octest;
+			path = "TestMerge-UnitTests.octest";
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2378,6 +2385,7 @@
 				BC55023310059F22005DF982 /* CPPlainBlackTheme.m in Sources */,
 				BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */,
 				BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */,
+				07FA30CD100F9E5F00FD6418 /* CPMasking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,4 +4,5 @@
 
 /// @file
 
+CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
 void AddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat cornerRadius);

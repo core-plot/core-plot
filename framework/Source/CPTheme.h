@@ -24,17 +24,19 @@ extern NSString * const kCPStocksTheme;
 	Class graphClass;
 }
 
+@property (nonatomic, assign) Class graphClass;
+
 +(NSArray *)themeClasses;
 +(CPTheme *)themeNamed:(NSString *)theme;
 +(NSString *)name;
 
-@property (nonatomic, assign) Class graphClass;
++(Class)requiredGraphSubclass;
 
 @end
 
 @interface CPTheme(AbstractMethods)
 
 -(id)newGraph;
--(void)applyThemeToGraph:(CPXYGraph *)graph;
+-(void)applyThemeToGraph:(CPGraph *)graph;
 
 @end

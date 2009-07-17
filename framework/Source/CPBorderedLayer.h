@@ -1,11 +1,12 @@
 
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
+#import "CPMasking.h"
 
 @class CPLineStyle;
 @class CPFill;
 
-@interface CPBorderedLayer : CPLayer {
+@interface CPBorderedLayer : CPLayer <CPMasking> {
 	CPLineStyle *borderLineStyle;
     CPFill *fill;
 	CGFloat cornerRadius;
