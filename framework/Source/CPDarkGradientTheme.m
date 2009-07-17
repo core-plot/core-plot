@@ -14,9 +14,13 @@
 #import "CPBorderedLayer.h"
 
 @interface CPDarkGradientTheme ()
+
 -(CPXYGraph *)createNewGraph;
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle;
+
 @end
+
+#pragma mark -
 
 /** @brief Creates a CPXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
  **/
@@ -46,6 +50,9 @@
 	[self applyThemeToPlotArea:graph.plotArea];
 	[self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];    
 }
+
+#pragma mark -
+#pragma mark Implementation private methods
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph 
 {

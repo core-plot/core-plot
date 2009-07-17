@@ -33,6 +33,8 @@ extern NSString * const kCPStocksTheme;
 @end
 
 @interface CPTheme(AbstractMethods)
+
 -(id)newGraph;
 -(void)applyThemeToGraph:(CPXYGraph *)graph;
+
 @end

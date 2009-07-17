@@ -1,24 +1,27 @@
 #import <Foundation/Foundation.h>
 
+/// @file
+
 @class CPLineStyle;
 @class CPFill;
 
+/**	@brief Plot symbol types.
+ **/
 typedef enum _CPPlotSymbolType {
-    CPPlotSymbolTypeNone,
-    CPPlotSymbolTypeRectangle,
-    CPPlotSymbolTypeEllipse,
-    CPPlotSymbolTypeDiamond,
-	CPPlotSymbolTypeTriangle,
-	CPPlotSymbolTypeStar,
-	CPPlotSymbolTypePentagon,
-	CPPlotSymbolTypeHexagon,
-	CPPlotSymbolTypeCross,
-	CPPlotSymbolTypePlus,
-	CPPlotSymbolTypeDash,
-	CPPlotSymbolTypeSnow,
-	CPPlotSymbolTypeCustom
+    CPPlotSymbolTypeNone,		///< No symbol.
+    CPPlotSymbolTypeRectangle,	///< Rectangle symbol.
+    CPPlotSymbolTypeEllipse,	///< Elliptical symbol.
+    CPPlotSymbolTypeDiamond,	///< Diamond symbol.
+	CPPlotSymbolTypeTriangle,	///< Triangle symbol.
+	CPPlotSymbolTypeStar,		///< 5-point star symbol.
+	CPPlotSymbolTypePentagon,	///< Pentagon symbol.
+	CPPlotSymbolTypeHexagon,	///< Hexagon symbol.
+	CPPlotSymbolTypeCross,		///< X symbol.
+	CPPlotSymbolTypePlus,		///< Plus symbol.
+	CPPlotSymbolTypeDash,		///< Dash symbol.
+	CPPlotSymbolTypeSnow,		///< Snowflake symbol.
+	CPPlotSymbolTypeCustom		///< Custom symbol.
 } CPPlotSymbolType;
-
 
 @interface CPPlotSymbol : NSObject <NSCopying> {
 @private
@@ -38,7 +41,8 @@ typedef enum _CPPlotSymbolType {
 @property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 
-// Plot symbols
+/// @name Factory Methods
+/// @{
 +(CPPlotSymbol *)plotSymbol;
 +(CPPlotSymbol *)crossPlotSymbol;
 +(CPPlotSymbol *)ellipsePlotSymbol;
@@ -53,8 +57,11 @@ typedef enum _CPPlotSymbolType {
 +(CPPlotSymbol *)snowPlotSymbol;
 +(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath;
 //+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
+///	@}
 
-// Drawing
+/// @name Drawing
+/// @{
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
+///	@}
 
 @end

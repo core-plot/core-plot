@@ -11,9 +11,42 @@
 
 #pragma mark -
 
+/**	@brief Plot symbols for CPScatterPlot.
+ */
 @implementation CPPlotSymbol
 
-@synthesize size, symbolType, lineStyle, fill, customSymbolPath, usesEvenOddClipRule;
+/** @property size 
+ *  @brief The symbol size.
+ **/
+@synthesize size;
+
+/** @property symbolType 
+ *  @brief The symbol type.
+ **/
+@synthesize symbolType;
+
+/** @property lineStyle 
+ *  @brief The line style for the border of the symbol.
+ *	If nil, the border is not drawn.
+ **/
+@synthesize lineStyle;
+
+/** @property fill 
+ *  @brief The fill for the interior of the symbol.
+ *	If nil, the symbol is not filled.
+ **/
+@synthesize fill;
+
+/** @property customSymbolPath 
+ *  @brief The drawing path for a custom plot symbol. It will be scaled to size before being drawn.
+ **/
+@synthesize customSymbolPath;
+
+/** @property usesEvenOddClipRule 
+ *  @brief If YES, the even-odd rule is used to draw the symbol, otherwise the nonzero winding number rule is used.
+ *	@see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
+ **/
+@synthesize usesEvenOddClipRule;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -67,6 +100,9 @@
 #pragma mark -
 #pragma mark Class methods
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeNone.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeNone.
+ **/
 +(CPPlotSymbol *)plotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -75,6 +111,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeCross.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeCross.
+ **/
 +(CPPlotSymbol *)crossPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -83,6 +122,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeEllipse.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeEllipse.
+ **/
 +(CPPlotSymbol *)ellipsePlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -91,6 +133,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeRectangle.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeRectangle.
+ **/
 +(CPPlotSymbol *)rectanglePlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -99,6 +144,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypePlus.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypePlus.
+ **/
 +(CPPlotSymbol *)plusPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -107,6 +155,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeStar.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeStar.
+ **/
 +(CPPlotSymbol *)starPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -115,6 +166,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeDiamond.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeDiamond.
+ **/
 +(CPPlotSymbol *)diamondPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -123,6 +177,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeTriangle.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeTriangle.
+ **/
 +(CPPlotSymbol *)trianglePlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -131,6 +188,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypePentagon.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypePentagon.
+ **/
 +(CPPlotSymbol *)pentagonPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -139,6 +199,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeHexagon.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeHexagon.
+ **/
 +(CPPlotSymbol *)hexagonPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -147,6 +210,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeDash.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeDash.
+ **/
 +(CPPlotSymbol *)dashPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -155,6 +221,9 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeSnow.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeSnow.
+ **/
 +(CPPlotSymbol *)snowPlotSymbol
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -163,6 +232,10 @@
 	return [symbol autorelease];
 }
 
+/** @brief Creates and returns a new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeCustom.
+ *	@param aPath The bounding path for the custom symbol.
+ *  @return A new CPPlotSymbol instance initialized with a symbol type of CPPlotSymbolTypeCustom.
+ **/
 +(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
 {
 	CPPlotSymbol *symbol = [[self alloc] init];
@@ -199,6 +272,10 @@
 #pragma mark -
 #pragma mark Drawing
 
+/** @brief Draws the plot symbol into the given graphics context centered at the provided point.
+ *  @param theContext The graphics context to draw into.
+ *  @param center The center point of the symbol.
+ **/
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center
 {
 	if (self.symbolType != CPPlotSymbolTypeNone) {
@@ -239,6 +316,9 @@
 #pragma mark -
 #pragma mark Private methods
 
+/**	@internal
+ *	@brief Creates a drawing path for the selected symbol shape and stores it in symbolPath.
+ **/
 -(void)setSymbolPath
 {
 	CGFloat dx, dy;

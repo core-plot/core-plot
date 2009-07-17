@@ -15,7 +15,7 @@
 
 @implementation CPFill
 
-/// @defgroup CPFill CPFill Methods
+/// @defgroup CPFill CPFill
 /// @{
 
 #pragma mark -
@@ -117,7 +117,7 @@
 ///	@brief CPFill abstract methods—must be overridden by subclasses
 @implementation CPFill(AbstractMethods)
 
-/// @addtogroup CPFill CPFill Methods
+/// @addtogroup CPFill
 /// @{
 
 #pragma mark -
