@@ -932,11 +932,11 @@
 		070622650FDF29B40066A6C4 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				4CD23F520FFA7CD900ADD2E2 /* Tests */,
 				4CD7E7EA0F4B4F9600F9BCBB /* CPLayer.h */,
 				4CD7E7EB0F4B4F9600F9BCBB /* CPLayer.m */,
 				0706223A0FDF215C0066A6C4 /* CPBorderedLayer.h */,
 				0706223B0FDF215C0066A6C4 /* CPBorderedLayer.m */,
+				4CD23F520FFA7CD900ADD2E2 /* Tests */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -970,8 +970,7 @@
 				4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */,
 				07C467990FE1A24C00299939 /* CPTextStyle.h */,
 				07C4679A0FE1A24C00299939 /* CPTextStyle.m */,
-				07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */,
-				07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */,
+				C3A959D210116FE100BF9739 /* Mac Specific */,
 				4CC9A36C0FD98AB200CFBE5E /* Tests */,
 			);
 			name = Text;
@@ -1811,6 +1810,15 @@
 			name = CPDarkGradientThemeTests;
 			sourceTree = "<group>";
 		};
+		C3A959D210116FE100BF9739 /* Mac Specific */ = {
+			isa = PBXGroup;
+			children = (
+				07C467B60FE1A96E00299939 /* CPTextStylePlatformSpecific.h */,
+				07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */,
+			);
+			name = "Mac Specific";
+			sourceTree = "<group>";
+		};
 		C3B286720FB7C9BA00EAFF95 /* CPPlotSymbolTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2044,7 +2052,7 @@
 		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "TestMerge-UnitTests.octest";
+			path = TestMerge-UnitTests.octest;
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
