@@ -7,12 +7,17 @@
 
 const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
 
+///	@cond
 @interface CPDataSourceTestCase ()
+
 - (CPPlotRange*)plotRangeForData:(NSArray*)dataArray;
+
 @end
+///	@endcond
 
 
 @implementation CPDataSourceTestCase
+
 @synthesize xData;
 @synthesize yData;
 @synthesize nRecords;

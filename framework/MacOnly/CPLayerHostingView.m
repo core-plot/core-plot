@@ -1,11 +1,13 @@
 #import "CPLayerHostingView.h"
 #import "CPLayer.h"
 
+///	@cond
 @interface CPLayerHostingView()
 
 @property (nonatomic, readwrite, assign) CPLayer *layerBeingClickedOn;
 
 @end
+///	@endcond
 
 @implementation CPLayerHostingView
 

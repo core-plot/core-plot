@@ -2,11 +2,13 @@
 #import "_CPFillImage.h"
 #import "CPImage.h"
 
+///	@cond
 @interface _CPFillImage()
 
 @property (nonatomic, readwrite, copy) CPImage *fillImage;
 
 @end
+///	@endcond
 
 /** @brief Draws CPImage area fills.
  *

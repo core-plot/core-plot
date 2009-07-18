@@ -2,11 +2,13 @@
 #import "_CPFillColor.h"
 #import "CPColor.h"
 
+///	@cond
 @interface _CPFillColor()
 
 @property (nonatomic, readwrite, copy) CPColor *fillColor;
 
 @end
+///	@endcond
 
 /** @brief Draws CPColor area fills.
  *

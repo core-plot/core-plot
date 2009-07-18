@@ -11,6 +11,7 @@
 #import "CPUtilities.h"
 #import "NSDecimalNumberExtensions.h"
 
+///	@cond
 @interface CPAxis ()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
@@ -21,6 +22,7 @@
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 
 @end
+///	@endcond
 
 @implementation CPAxis
 

@@ -8,6 +8,7 @@
 #import "CPAxisSet.h"
 #import "CPAxis.h"
 
+///	@cond
 @interface CPGraph()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
@@ -16,6 +17,7 @@
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif;
 
 @end
+///	@endcond
 
 @implementation CPGraph
 

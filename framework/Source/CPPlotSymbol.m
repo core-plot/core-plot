@@ -3,11 +3,13 @@
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
 
+///	@cond
 @interface CPPlotSymbol()
 
 -(void)setSymbolPath;
 
 @end
+///	@endcond
 
 #pragma mark -
 

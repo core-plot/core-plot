@@ -4,11 +4,13 @@
 #import "CPPlotRange.h"
 #import "NSNumberExtensions.h"
 
+///	@cond
 @interface CPPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
 
 @end
+///	@endcond
 
 @implementation CPPlot
 

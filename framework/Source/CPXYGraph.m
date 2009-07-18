@@ -5,12 +5,14 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 
+///	@cond
 @interface CPXYGraph()
 
 @property (nonatomic, readwrite, assign) CPScaleType xScaleType;
 @property (nonatomic, readwrite, assign) CPScaleType yScaleType;
 
 @end
+///	@endcond
 
 @implementation CPXYGraph
 

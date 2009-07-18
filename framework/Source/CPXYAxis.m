@@ -6,12 +6,13 @@
 #import "CPLineStyle.h"
 #import "CPAxisLabel.h"
 
+///	@cond
 @interface CPXYAxis ()
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major; 
 
 @end
-
+///	@endcond
 
 @implementation CPXYAxis
 

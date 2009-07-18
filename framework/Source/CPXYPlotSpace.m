@@ -7,11 +7,13 @@
 #import "CPXYAxis.h"
 #import "CPAxisSet.h"
 
+///	@cond
 @interface CPXYPlotSpace ()
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSNumber *)plotCoord;
 
 @end
+///	@endcond
 
 @implementation CPXYPlotSpace
 

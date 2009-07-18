@@ -5,6 +5,7 @@
 #import "CPColorSpace.h"
 #import "CPColor.h"
 
+///	@cond
 @interface CPGradient()
 
 @property (retain, readwrite) CPColorSpace *colorspace;
@@ -22,6 +23,7 @@
 -(CPGradientElement)removeElementAtPosition:(float)position;
 
 @end
+///	@endcond
 
 // C Fuctions for color blending
 static void linearEvaluation(void *info, const float *in, float *out);

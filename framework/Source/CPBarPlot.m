@@ -11,6 +11,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";
 
 static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContext";
 
+///	@cond
 @interface CPBarPlot ()
 
 @property (nonatomic, readwrite, assign) id observedObjectForBarLengthValues;
@@ -20,6 +21,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 -(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint recordIndex:(NSUInteger)index;
 
 @end
+///	@endcond
 
 @implementation CPBarPlot
 

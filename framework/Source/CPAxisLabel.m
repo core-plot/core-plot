@@ -4,12 +4,14 @@
 #import "CPExceptions.h"
 #import "CPLineStyle.h"
 
+///	@cond
 @interface CPAxisLabel()
 
 @property (nonatomic, readwrite, copy) NSString *text;
 @property (nonatomic, readwrite, retain) CPLayer *contentLayer;
 
 @end
+///	@endcond
 
 @implementation CPAxisLabel
 

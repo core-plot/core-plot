@@ -18,6 +18,7 @@ static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
 static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
 
+///	@cond
 @interface CPScatterPlot ()
 
 @property (nonatomic, readwrite, assign) id observedObjectForXValues;
@@ -33,6 +34,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @property (nonatomic, readwrite, retain) NSArray *plotSymbols;
 
 @end
+///	@endcond
 
 @implementation CPScatterPlot
 

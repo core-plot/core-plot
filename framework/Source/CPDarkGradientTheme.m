@@ -14,12 +14,14 @@
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
+///	@cond
 @interface CPDarkGradientTheme ()
 
 -(CPXYGraph *)createNewGraph;
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle;
 
 @end
+///	@endcond
 
 #pragma mark -
 
