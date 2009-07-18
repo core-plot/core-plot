@@ -54,9 +54,9 @@
 	[self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];    
 }
 
-#pragma mark -
-#pragma mark Implementation private methods
-
+/**	@brief Applies the background theme to the provided graph.
+ *	@param graph The graph to style.
+ **/
 -(void)applyThemeToBackground:(CPXYGraph *)graph 
 {
 	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
@@ -68,6 +68,9 @@
 	graph.fill = [CPFill fillWithGradient:graphGradient];
 }
 
+/**	@brief Applies the theme to the provided plot area.
+ *	@param plotArea The plot area to style.
+ **/
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
 {
 	CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
@@ -75,6 +78,9 @@
 	plotArea.fill = [CPFill fillWithGradient:gradient]; 
 }
 
+/**	@brief Applies the theme to the provided axis set.
+ *	@param axisSet The axis set to style.
+ **/
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];

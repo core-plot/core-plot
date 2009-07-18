@@ -1041,17 +1041,17 @@
 		0772C91E0FE2F70000EC4C16 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
-				E1620CBB100F034700A84E77 /* Tests */,
+				0772C9250FE2F71600EC4C16 /* CPTheme.h */,
+				0772C9260FE2F71600EC4C16 /* CPTheme.m */,
+				0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */,
+				0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */,
 				BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */,
 				BC55022D10059F22005DF982 /* CPPlainBlackTheme.m */,
 				BC55022E10059F22005DF982 /* CPPlainWhiteTheme.h */,
 				BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */,
 				BC55023010059F22005DF982 /* CPStocksTheme.h */,
 				BC55023110059F22005DF982 /* CPStocksTheme.m */,
-				0772C9250FE2F71600EC4C16 /* CPTheme.h */,
-				0772C9260FE2F71600EC4C16 /* CPTheme.m */,
-				0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */,
-				0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */,
+				E1620CBB100F034700A84E77 /* Tests */,
 			);
 			name = Themes;
 			sourceTree = "<group>";

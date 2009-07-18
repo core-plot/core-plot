@@ -109,6 +109,9 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	return nil;
 }
 
+/**	@brief Applies the theme to the provided graph.
+ *	@param graph The graph to style.
+ **/
 -(void)applyThemeToGraph:(CPGraph *)graph
 {
 }
