@@ -4,10 +4,26 @@
 #import "CPLineStyle.h"
 #import "CPFill.h"
 
+/** @brief A layer with rounded corners.
+ **/
+
 @implementation CPBorderedLayer
 
+/** @property borderLineStyle 
+ *  @brief The line style for the layer border.
+ *	If nil, the border is not drawn.
+ **/
 @synthesize borderLineStyle;
+
+/** @property cornerRadius 
+ *  @brief Radius for the rounded corners of the layer.
+ **/
 @synthesize cornerRadius;
+
+/** @property fill 
+ *  @brief The fill for the layer background.
+ *	If nil, the layer background is not filled.
+ **/
 @synthesize fill;
 
 -(id)initWithFrame:(CGRect)newFrame
@@ -44,6 +60,9 @@
     }
     CGPathRelease(roundedPath);
 }
+
+#pragma mark -
+#pragma mark <CPMasking>
 
 -(CGPathRef)newMaskingPath 
 {
