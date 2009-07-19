@@ -3,13 +3,50 @@
 #import "CPPlatformSpecificFunctions.h"
 #import "CPExceptions.h"
 
+/** @brief Base class for all Core Animation layers in Core Plot.
+ *
+ *	Default animations for changes in position, bounds, and sublayers are turned off.
+ *	The default layer is not opaque and does not mask to bounds.
+ *
+ *	@todo More documentation needed 
+ **/
+
 @implementation CPLayer
 
+/** @property paddingLeft
+ *  @brief Amount to inset the left side of each sublayer.
+ **/
 @synthesize paddingLeft;
+
+/** @property paddingTop
+ *  @brief Amount to inset the top of each sublayer.
+ **/
 @synthesize paddingTop;
+
+/** @property paddingRight
+ *  @brief Amount to inset the right side of each sublayer.
+ **/
 @synthesize paddingRight;
+
+/** @property paddingBottom
+ *  @brief Amount to inset the bottom of each sublayer.
+ **/
 @synthesize paddingBottom;
 
+/** @brief Initializes a newly allocated CPLayer object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties that
+ *	are different than a CALayer:
+ *	- needsDisplayOnBoundsChange = NO
+ *	- opaque = NO
+ *	- masksToBounds = NO
+ *	- zPosition = defaultZPosition
+ *	- padding = 0 on all four sides
+ *	- Default animations for changes in position, bounds, and sublayers are turned off.
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPLayer object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super init] ) {
@@ -42,11 +79,23 @@
 	[self renderAsVectorInContext:context];
 }
 
+/**	@brief Draws layer content into the provided graphics context.
+ *
+ *	This method replaces the drawInContext: method to ensure that layer content is always draw as vectors
+ *	and objects rather than as a cached bitmapped image representation.
+ *	Subclasses should do all drawing here.
+ *
+ *	@param context The graphics context to draw into.
+ **/
 -(void)renderAsVectorInContext:(CGContextRef)context;
 {
 	// This is where subclasses do their drawing
 }
 
+/**	@brief Draws layer content and the content of all sublayers into the provided graphics context.
+ *
+ *	@param context The graphics context to draw into.
+ **/
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
 	[self renderAsVectorInContext:context];
@@ -70,6 +119,10 @@
 	}
 }
 
+/**	@brief Draws layer content and the content of all sublayers into a PDF document.
+ *
+ *	@return PDF representation of the layer content.
+ **/
 -(NSData *)dataForPDFRepresentationOfLayer;
 {
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
@@ -102,21 +155,32 @@
 	return NO;
 }
 
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *	@param interactionPoint The coordinates of the event.
+ **/
 -(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
 {
 	// Subclasses should handle mouse or touch interactions here
 }
 
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+ *	@param interactionPoint The coordinates of the event.
+ **/
 -(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
 {
 	// Subclasses should handle mouse or touch interactions here
 }
 
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+ *	@param interactionPoint The coordinates of the event.
+ **/
 -(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
 {
 	// Subclasses should handle mouse or touch interactions here
 }
 
+/**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ **/
 -(void)mouseOrFingerCancelled
 {
 	// Subclasses should handle mouse or touch interactions here
@@ -157,6 +221,9 @@
     }
 }
 
+/**	@brief The default z-position for the layer.
+ *	@return The z-position.
+ **/
 +(CGFloat)defaultZPosition 
 {
 	return 0.0f;

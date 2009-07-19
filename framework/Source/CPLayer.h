@@ -3,7 +3,7 @@
 #import "CPPlatformSpecificDefines.h"
 
 @interface CPLayer : CALayer {
-    @private
+@private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;
@@ -15,26 +15,29 @@
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
 
+/// @name Initialization
+/// @{
 -(id)initWithFrame:(CGRect)newFrame;
+///	@}
 
-// Drawing
+/// @name Drawing
+/// @{
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
+///	@}
 
-// User interaction
+/// @name User Interaction
+/// @{
 -(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerCancelled;
+///	@}
 
-// Z position
+/// @name Layout
+/// @{
 +(CGFloat)defaultZPosition;
-
-// Bindings
-+(void)exposeBinding:(NSString *)binding;
--(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options;
--(void)unbind:(NSString *)binding;
--(Class)valueClassForBinding:(NSString *)binding;
+///	@}
 
 @end

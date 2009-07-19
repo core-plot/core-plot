@@ -2052,7 +2052,7 @@
 		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = TestMerge-UnitTests.octest;
+			path = "TestMerge-UnitTests.octest";
 			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

@@ -33,6 +33,63 @@
 			<anchor>//apple_ref/occ/intfm/NSCopying/copyWithZone:</anchor>
 		</member>
 	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSData</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSMutableCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSDictionary</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/Reference/Reference.html</filename>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSFastEnumeration-p</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/NSFastEnumeration_protocol/Reference/NSFastEnumeration.html#//apple_ref/occ/intf/NSFastEnumeration</filename>
+		<member kind="function">
+			<name>countByEnumeratingWithState:objects:count:</name>
+			<anchor>//apple_ref/occ/intfm/NSFastEnumeration/countByEnumeratingWithState:objects:count:</anchor>
+		</member>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSKeyValueBindingCreation-p</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Protocols/NSKeyValueBindingCreation_Protocol/Reference/Reference.html</filename>
+		<member kind="function" static="yes">
+			<name>exposeBinding:</name>
+			<anchor>//apple_ref/occ/clm/NSObject/exposeBinding:</anchor>
+		</member>
+		<member kind="function">
+			<name>exposedBindings</name>
+			<anchor>//apple_ref/occ/instm/NSObject/exposedBindings</anchor>
+		</member>
+		<member kind="function">
+			<name>valueClassForBinding:</name>
+			<anchor>//apple_ref/occ/instm/NSObject/valueClassForBinding:</anchor>
+		</member>
+		<member kind="function">
+			<name>bind:toObject:withKeyPath:options:</name>
+			<anchor>//apple_ref/occ/instm/NSObject/bind:toObject:withKeyPath:options:</anchor>
+		</member>
+		<member kind="function">
+			<name>optionDescriptionsForBinding:</name>
+			<anchor>//apple_ref/occ/instm/NSObject/optionDescriptionsForBinding:</anchor>
+		</member>
+		<member kind="function">
+			<name>infoForBinding:</name>
+			<anchor>//apple_ref/occ/instm/NSObject/infoForBinding:</anchor>
+		</member>
+		<member kind="function">
+			<name>unbind:</name>
+			<anchor>//apple_ref/occ/instm/NSObject/unbind:</anchor>
+		</member>
+	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSMutableCopying-p</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html</filename>
@@ -45,6 +102,7 @@
 		<name>NSObject</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html</filename>
 		<base>NSObject-p</base>
+		<base>NSKeyValueBindingCreation-p</base>
 		<member kind="function">
 			<name>init</name>
 			<anchor>//apple_ref/occ/instm/NSObject/init</anchor>
@@ -136,6 +194,18 @@
 		<base>NSObject</base>
 		<base>NSCoding-p</base>
 		<base>CAMediaTiming-p</base>
+		<member kind="function">
+			<name>containsPoint:</name>
+			<anchor>//apple_ref/occ/instm/CALayer/containsPoint:</anchor>
+		</member>
+		<member kind="function">
+			<name>drawInContext:</name>
+			<anchor>//apple_ref/occ/instm/CALayer/drawInContext:</anchor>
+		</member>
+		<member kind="function">
+			<name>layoutSublayers</name>
+			<anchor>//apple_ref/occ/instm/CALayer/layoutSublayers</anchor>
+		</member>
 	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>CAMediaTiming-p</name>
