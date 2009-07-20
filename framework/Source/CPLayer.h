@@ -40,4 +40,13 @@
 +(CGFloat)defaultZPosition;
 ///	@}
 
+
+/// @name Bindings
+/// @{
++(void)exposeBinding:(NSString *)binding;		
+-(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options;		
+-(void)unbind:(NSString *)binding;		
+-(Class)valueClassForBinding:(NSString *)binding;
+///	@}
+
 @end
