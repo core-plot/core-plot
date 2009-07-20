@@ -93,11 +93,12 @@
 	axisSet.overlayLayerInsetY = -4.f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
-    majorLineStyle.lineCap = kCGLineCapRound;
+    majorLineStyle.lineCap = kCGLineCapButt;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
     majorLineStyle.lineWidth = 2.0f;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    minorLineStyle.lineCap = kCGLineCapButt;
     minorLineStyle.lineColor = [CPColor darkGrayColor];
     minorLineStyle.lineWidth = 2.0f;
 	

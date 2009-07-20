@@ -115,7 +115,7 @@
         [NSException raise:CPException format:@"Scale type not yet supported in CPXYPlotSpace"];
     }
     
-    return CGPointMake(round(viewX), round(viewY));
+    return CGPointMake(viewX, viewY);
 }
 
 -(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point

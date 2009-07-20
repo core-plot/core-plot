@@ -32,9 +32,9 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
     // Create graph from theme
-	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
+//	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
 //	CPTheme *theme = [CPTheme themeNamed:kCPPlainBlackTheme];
-//	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
+	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
 //	CPTheme *theme = [CPTheme themeNamed:kCPStocksTheme];
 	graph = [theme newGraph]; 
 	graphView.hostedLayer = graph;
@@ -72,7 +72,7 @@
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor whiteColor];
+    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor blackColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
