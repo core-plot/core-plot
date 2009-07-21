@@ -3,10 +3,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CPDefinitions.h"
 
-// Graphics Context
+///	@file
+
+/// @name Graphics Context Save Stack
+/// @{
 void CPPushCGContext(CGContextRef context);
 void CPPopCGContext(void);
+///	@}
 
-// Colors
+/// @name Color Conversion
+/// @{
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);
 CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor);
+///	@}

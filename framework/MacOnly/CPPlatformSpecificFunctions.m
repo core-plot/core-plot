@@ -9,6 +9,9 @@
 // linked list to store saved contexts
 static CPContextNode *pushedContexts = NULL;
 
+/**	@brief Pushes the current AppKit graphics context onto a stack and replaces it with the given Core Graphics context.
+ *	@param newContext The graphics context.
+ **/
 void CPPushCGContext(CGContextRef newContext)
 {
 	if (newContext) {
@@ -20,6 +23,8 @@ void CPPushCGContext(CGContextRef newContext)
 	}
 }
 
+/**	@brief Pops the top context off the stack and restores it to the AppKit graphics context.
+ **/
 void CPPopCGContext(void)
 {
 	if (pushedContexts) {
@@ -33,6 +38,13 @@ void CPPopCGContext(void)
 #pragma mark -
 #pragma mark Colors
 
+/**	@brief Creates a CGColorRef from an NSColor.
+ *
+ *	The caller must release the returned CGColorRef. Pattern colors are not supported.
+ *
+ *	@param nsColor The NSColor.
+ *	@return The CGColorRef.
+ **/
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
 {
 	NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
@@ -41,6 +53,13 @@ CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
 	return CGColorCreateGenericRGB(r, g, b, a);
 }
 
+/**	@brief Creates a CPRGBAColor from an NSColor.
+ *
+ *	Pattern colors are not supported.
+ *
+ *	@param nsColor The NSColor.
+ *	@return The CPRGBAColor.
+ **/
 CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor)
 {
 	CPRGBAColor rgbColor;

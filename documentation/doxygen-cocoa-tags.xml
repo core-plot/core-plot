@@ -58,6 +58,13 @@
 			<anchor>//apple_ref/occ/intfm/NSFastEnumeration/countByEnumeratingWithState:objects:count:</anchor>
 		</member>
 	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSImage</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSImage_Class/Reference/Reference.html</filename>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSKeyValueBindingCreation-p</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Protocols/NSKeyValueBindingCreation_Protocol/Reference/Reference.html</filename>
