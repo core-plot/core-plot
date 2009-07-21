@@ -7,6 +7,8 @@
 
 @property (nonatomic, readonly, assign) CGColorRef cgColor;
 
+/// @name Factory Methods
+/// @{
 +(CPColor *)clearColor; 
 +(CPColor *)whiteColor; 
 +(CPColor *)blackColor; 
@@ -19,10 +21,14 @@
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor;
 +(CPColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 +(CPColor *)colorWithGenericGray:(CGFloat)gray;
+///	@}
 
+/// @name Initialization
+/// @{
 -(id)initWithCGColor:(CGColorRef)cgColor;
 -(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 
 -(CPColor *)colorWithAlphaComponent:(CGFloat)alpha;
+///	@}
 
 @end

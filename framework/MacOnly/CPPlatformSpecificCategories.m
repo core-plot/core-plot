@@ -3,8 +3,16 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 
-@implementation CPLayer (CPPlatformSpecificLayerExtensions)
+/**	@brief Platform-specific extensions to CPLayer.
+ **/
+@implementation CPLayer(CPPlatformSpecificLayerExtensions)
 
+/// @addtogroup CPLayer
+/// @{
+
+/**	@brief Gets an image of the layer contents.
+ *	@return A native image representation of the layer content.
+ **/
 -(CPNativeImage *)imageOfLayer
 {
 	CGSize boundsSize = self.bounds.size;
@@ -26,13 +34,25 @@
 	return [image autorelease];
 }
 
+///	@}
+
 @end
 
-@implementation CPColor (CPPlatformSpecificColorExtensions)
+/**	@brief Platform-specific extensions to CPColor.
+ **/
+@implementation CPColor(CPPlatformSpecificColorExtensions)
 
+/// @addtogroup CPColor
+/// @{
+
+/**	@property nsColor
+ *	@brief Gets the color value as an NSColor.
+ **/
 -(NSColor *)nsColor
 {
 	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
+
+///	@}
 
 @end

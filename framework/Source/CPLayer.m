@@ -13,6 +13,9 @@
 
 @implementation CPLayer
 
+/// @defgroup CPLayer CPLayer
+/// @{
+
 /** @property paddingLeft
  *  @brief Amount to inset the left side of each sublayer.
  **/
@@ -291,5 +294,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
     return [super valueClassForBinding:binding];
 #endif
 }
+
+///	@}
 
 @end

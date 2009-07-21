@@ -10,10 +10,13 @@
 	CGFloat paddingBottom;
 }
 
+/// @name Padding
+/// @{
 @property (nonatomic, readwrite) CGFloat paddingLeft;
 @property (nonatomic, readwrite) CGFloat paddingTop;
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
+///	@}
 
 /// @name Initialization
 /// @{

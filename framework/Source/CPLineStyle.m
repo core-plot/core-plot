@@ -5,7 +5,9 @@
 
 /** @brief Wrapper for various line drawing properties.
  *
- *	@see See the Quartz 2D and CGContext documentation for more information about each of these properties.
+ *	@see See Apple's <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF105">Quartz 2D</a>
+ *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a> 
+ *	documentation for more information about each of these properties.
  **/
 
 @implementation CPLineStyle
@@ -69,6 +71,9 @@
     self.lineColor = nil;
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Drawing
 
 /** @brief Sets all of the line drawing properties in the given graphics context.
  *  @param theContext The graphics context.

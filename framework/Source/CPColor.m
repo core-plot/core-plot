@@ -11,6 +11,9 @@
 
 @implementation CPColor
 
+/// @defgroup CPColor CPColor
+/// @{
+
 /** @property cgColor
  *  @brief The CGColor to wrap around.
  **/
@@ -315,5 +318,7 @@
 	
 	return (NSUInteger)theHash;
 }
+
+///	@}
 
 @end

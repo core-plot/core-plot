@@ -5,7 +5,7 @@
 @class CPColor;
 
 @interface CPLineStyle : NSObject <NSCopying> {
-	@private
+@private
 	CGLineCap lineCap;
 //	CGLineDash lineDash; // We should make a struct to keep this information
 	CGLineJoin lineJoin;
@@ -16,8 +16,6 @@
     CPColor *lineColor;
 }
 
-+(CPLineStyle *)lineStyle;
-
 @property (assign) CGLineCap lineCap;
 @property (assign) CGLineJoin lineJoin;
 @property (assign) CGFloat miterLimit;
@@ -25,6 +23,14 @@
 @property (assign) CGSize patternPhase;
 @property (retain) CPColor *lineColor;
 
+/// @name Factory Methods
+/// @{
++(CPLineStyle *)lineStyle;
+///	@}
+
+/// @name Drawing
+/// @{
 -(void)setLineStyleInContext:(CGContextRef)theContext;
+///	@}
 
 @end
