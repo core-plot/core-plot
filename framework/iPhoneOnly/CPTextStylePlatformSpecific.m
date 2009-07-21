@@ -5,7 +5,7 @@
 #import "CPPlatformSpecificFunctions.h"
 #import "CPColor.h"
 
-@implementation NSString (CPTextStyleExtensions)
+@implementation NSString(CPTextStyleExtensions)
 
 #pragma mark -
 #pragma mark Layout

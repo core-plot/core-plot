@@ -2,11 +2,24 @@
 #import "CPTextStyle.h"
 #import "CPColor.h"
 
+/** @brief Wrapper for various text style properties.
+ **/
 
 @implementation CPTextStyle
 
+/** @property fontSize
+ *  @brief Sets the font size.
+ **/
 @synthesize fontSize;
+
+/** @property fontName
+ *  @brief Sets the font name.
+ **/
 @synthesize fontName;
+
+/** @property color
+ *  @brief Sets the current text color.
+ **/
 @synthesize color;
 
 #pragma mark -
@@ -32,6 +45,9 @@
 #pragma mark -
 #pragma mark Factory Methods
 
+/** @brief Creates and returns a new CPTextStyle instance.
+ *  @return A new CPTextStyle instance.
+ **/
 +(CPTextStyle *)defaultTextStyle
 {
 	return [[[self alloc] init] autorelease];

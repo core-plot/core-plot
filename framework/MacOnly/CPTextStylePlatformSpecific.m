@@ -4,11 +4,18 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPPlatformSpecificFunctions.h"
 
-@implementation NSString (CPTextStyleExtensions)
+/**	@brief NSString extensions for drawing styled text.
+ **/
+
+@implementation NSString(CPTextStyleExtensions)
 
 #pragma mark -
 #pragma mark Layout
 
+/**	@brief Determines the size of text drawn with the given style.
+ *	@param style The text style.
+ *	@return The size of the text when drawn with the given style.
+ **/
 -(CGSize)sizeWithStyle:(CPTextStyle *)style
 {	
 	NSFont *theFont = [NSFont fontWithName:style.fontName size:style.fontSize];
@@ -24,8 +31,13 @@
 }
 
 #pragma mark -
-#pragma mark Drawing of Text
+#pragma mark Drawing
 
+/** @brief Draws the text into the given graphics context using the given style.
+ *  @param point The origin of the drawing position.
+ *	@param style The text style.
+ *  @param context The graphics context to draw into.
+ **/
 -(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context
 {	
 	if ( style.color == nil ) return;

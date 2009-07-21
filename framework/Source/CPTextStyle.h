@@ -14,14 +14,23 @@
 @property(readwrite, assign, nonatomic) CGFloat fontSize; 
 @property(readwrite, copy, nonatomic) CPColor *color;
 
+/// @name Factory Methods
+/// @{
 +(CPTextStyle *)defaultTextStyle;
+///	@}
 
 @end
 
-@interface NSString (CPTextStyleExtensions)
+@interface NSString(CPTextStyleExtensions)
 
+/// @name Measurement
+/// @{
 -(CGSize)sizeWithStyle:(CPTextStyle *)style;
+///	@}
 
+/// @name Drawing
+/// @{
 -(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context;
+///	@}
 
 @end
