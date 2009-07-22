@@ -3,6 +3,8 @@
 #import "CPDecimalNumberValueTransformer.h"
 #import "NSNumberExtensions.h"
 
+/**	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
+ **/
 @implementation CPDecimalNumberValueTransformer
 
 +(BOOL)allowsReverseTransformation 

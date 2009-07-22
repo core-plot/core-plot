@@ -1,8 +1,6 @@
-
 #import <Foundation/Foundation.h>
 
-
-@interface NSNumber (CPExtensions)
+@interface NSNumber(CPExtensions)
 
 -(NSDecimalNumber *)decimalNumber;
 
