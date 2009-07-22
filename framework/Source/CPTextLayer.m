@@ -9,14 +9,28 @@
 
 CGFloat kCPTextLayerMarginWidth = 1.0f;
 
+/**	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
+ **/
 @implementation CPTextLayer
 
+/**	@property text
+ *	@brief The text to display.
+ **/
 @synthesize text;
+
+/**	@property textStyle
+ *	@brief The text style used to draw the text.
+ **/
 @synthesize textStyle;
 
 #pragma mark -
 #pragma mark Initialization and teardown
 
+/** @brief Initializes a newly allocated CPTextLayer object with the provided text and style.
+ *  @param newText The text to display.
+ *  @param newStyle The text style used to draw the text.
+ *  @return The initialized CPTextLayer object.
+ **/
 -(id)initWithText:(NSString *)newText style:(CPTextStyle *)newStyle
 {
 	if (self = [super initWithFrame:CGRectZero]) {	
@@ -29,6 +43,10 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 	return self;
 }
 
+/** @brief Initializes a newly allocated CPTextLayer object with the provided text and the default text style.
+ *  @param newText The text to display.
+ *  @return The initialized CPTextLayer object.
+ **/
 -(id)initWithText:(NSString *)newText
 {
 	return [self initWithText:newText style:[CPTextStyle defaultTextStyle]];
@@ -64,6 +82,8 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 #pragma mark -
 #pragma mark Layout
 
+/**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+ **/
 -(void)sizeToFit
 {	
 	if ( self.text == nil ) return;
