@@ -265,6 +265,9 @@
 		C3F9FE481017E8EC009D5DFB /* CPTextLayerTests-testRendering2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F9FE421017E8EC009D5DFB /* CPTextLayerTests-testRendering2.tiff */; };
 		C3F9FE751017E92F009D5DFB /* CPXYGraphTests-testRenderScatterWithSymbol.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F9FE731017E92E009D5DFB /* CPXYGraphTests-testRenderScatterWithSymbol.tiff */; };
 		C3F9FE761017E92F009D5DFB /* CPXYGraphTests-testRenderMultipleScatter.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F9FE741017E92F009D5DFB /* CPXYGraphTests-testRenderMultipleScatter.tiff */; };
+		C3F9FE811017F1BF009D5DFB /* CPBorderedLayerTests-testRenderingFill-Blue-Red-Gradient.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CD240350FFBFF5800ADD2E2 /* CPBorderedLayerTests-testRenderingFill-Blue-Red-Gradient.tiff */; };
+		C3F9FE821017F1C5009D5DFB /* CPBorderedLayerTests-testRenderingFill-Red.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CD240360FFBFF5800ADD2E2 /* CPBorderedLayerTests-testRenderingFill-Red.tiff */; };
+		C3F9FE8C1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F9FE8B1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff */; };
 		E1620CBE100F03A100A84E77 /* CPThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPThemeTests.m */; };
 		E1FE6052100F27EF00895A91 /* CPDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPDarkGradientThemeTests.m */; };
 		E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPDerivedXYGraph.m */; };
@@ -749,6 +752,7 @@
 		C3F9FE421017E8EC009D5DFB /* CPTextLayerTests-testRendering2.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPTextLayerTests-testRendering2.tiff"; sourceTree = "<group>"; };
 		C3F9FE731017E92E009D5DFB /* CPXYGraphTests-testRenderScatterWithSymbol.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderScatterWithSymbol.tiff"; sourceTree = "<group>"; };
 		C3F9FE741017E92F009D5DFB /* CPXYGraphTests-testRenderMultipleScatter.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderMultipleScatter.tiff"; sourceTree = "<group>"; };
+		C3F9FE8B1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPPlotSymbolTests-testSymbol0.tiff"; sourceTree = "<group>"; };
 		C3FF6EF00FFFA51D00AF0496 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		E1620CBC100F03A100A84E77 /* CPThemeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPThemeTests.h; sourceTree = "<group>"; };
@@ -1683,6 +1687,7 @@
 		C3B286720FB7C9BA00EAFF95 /* CPPlotSymbolTests */ = {
 			isa = PBXGroup;
 			children = (
+				C3F9FE8B1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff */,
 				C3F9FDFA1017E6FE009D5DFB /* CPPlotSymbolTests-testSymbol1.tiff */,
 				C3F9FDFE1017E6FE009D5DFB /* CPPlotSymbolTests-testSymbol2.tiff */,
 				C3F9FDFD1017E6FE009D5DFB /* CPPlotSymbolTests-testSymbol3.tiff */,
@@ -1986,6 +1991,9 @@
 				C3F9FE481017E8EC009D5DFB /* CPTextLayerTests-testRendering2.tiff in Resources */,
 				C3F9FE751017E92F009D5DFB /* CPXYGraphTests-testRenderScatterWithSymbol.tiff in Resources */,
 				C3F9FE761017E92F009D5DFB /* CPXYGraphTests-testRenderMultipleScatter.tiff in Resources */,
+				C3F9FE811017F1BF009D5DFB /* CPBorderedLayerTests-testRenderingFill-Blue-Red-Gradient.tiff in Resources */,
+				C3F9FE821017F1C5009D5DFB /* CPBorderedLayerTests-testRenderingFill-Red.tiff in Resources */,
+				C3F9FE8C1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
