@@ -15,11 +15,17 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @end
 
-@interface CPPlotSpace (AbstractMethods)
+@interface CPPlotSpace(AbstractMethods)
 
+/// @name Coordinate Space Conversions
+/// @{
 -(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)decimalNumbers;
 -(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point;
+///	@}
 
+/// @name Coordinate Range
+/// @{
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
+///	@}
 
 @end

@@ -15,11 +15,28 @@
 @end
 ///	@endcond
 
+/**	@brief A plot space using a two-dimensional cartesian coordinate system.
+ **/
 @implementation CPXYPlotSpace
 
+/**	@property xRange
+ *	@brief The range of the x-axis.
+ **/
 @synthesize xRange;
+
+/**	@property yRange
+ *	@brief The range of the y-axis.
+ **/
 @synthesize yRange;
+
+/**	@property xScaleType
+ *	@brief The scale type of the x-axis.
+ **/
 @synthesize xScaleType;
+
+/**	@property yScaleType
+ *	@brief The scale type of the y-axis.
+ **/
 @synthesize yScaleType;
 
 #pragma mark -
