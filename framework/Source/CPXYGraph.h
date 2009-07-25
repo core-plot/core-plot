@@ -2,14 +2,15 @@
 #import "CPGraph.h"
 #import "CPDefinitions.h"
 
-@class CPXYPlotSpace;
-
 @interface CPXYGraph : CPGraph {
 @private
     CPScaleType xScaleType;
     CPScaleType yScaleType;
 }
 
+/// @name Initialization
+/// @{
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
+///	@}
 
 @end

@@ -14,6 +14,8 @@
 @end
 ///	@endcond
 
+/**	@brief A graph using a cartesian (X-Y) plot space.
+ **/
 @implementation CPXYGraph
 
 @synthesize xScaleType;
@@ -22,7 +24,15 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-// Designated
+/** @brief Initializes a newly allocated CPXYGraph object with the provided frame rectangle and scale types.
+ *
+ *	This is the designated initializer.
+ *
+ *	@param newFrame The frame rectangle.
+ *	@param newXScaleType The scale type for the x-axis.
+ *	@param newYScaleType The scale type for the y-axis.
+ *  @return The initialized CPXYGraph object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 {
     if ( self = [super initWithFrame:newFrame] ) {

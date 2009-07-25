@@ -24,6 +24,9 @@
  **/
 @implementation CPGraph
 
+/// @defgroup CPGraph CPGraph
+/// @{
+
 /**	@property axisSet
  *	@brief The axis set.
  **/
@@ -356,5 +359,31 @@
         [self setNeedsDisplay];
     }
 }
+///	@}
+
+@end
+
+///	@brief CPGraph abstract methods—must be overridden by subclasses
+@implementation CPGraph(AbstractFactoryMethods)
+
+/// @addtogroup CPGraph
+/// @{
+
+/**	@brief Creates a new plot space for the graph.
+ *	@return A new plot space.
+ **/
+-(CPPlotSpace *)newPlotSpace
+{
+	return nil;
+}
+
+/**	@brief Creates a new axis set for the graph.
+ *	@return A new axis set.
+ **/
+-(CPAxisSet *)newAxisSet
+{
+	return nil;
+}
+///	@}
 
 @end
