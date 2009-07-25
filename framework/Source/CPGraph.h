@@ -9,7 +9,7 @@
 @class CPPlotSpace;
 
 @interface CPGraph : CPLayer {
-    @protected
+@private
     CPAxisSet *axisSet;
     CPPlotArea *plotArea;
     NSMutableArray *plots;
@@ -22,35 +22,47 @@
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
 @property (nonatomic, readwrite, retain) CPFill *fill;
 
+/// @name Data Source
+/// @{
 -(void)reloadData;
+///	@}
 
-// Retrieving plots
+/// @name Retrieving Plots
+/// @{
 -(NSArray *)allPlots;
 -(CPPlot *)plotAtIndex:(NSUInteger)index;
 -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier;
+///	@}
 
-// Organizing plots
+/// @name Adding and Removing Plots
+/// @{
 -(void)addPlot:(CPPlot *)plot; 
 -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space;
 -(void)removePlot:(CPPlot *)plot;
--(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index;
--(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space;
+-(void)insertPlot:(CPPlot *)plot atIndex:(NSUInteger)index;
+-(void)insertPlot:(CPPlot *)plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space;
+///	@}
 
-// Retrieving plot spaces
+/// @name Retrieving Plot Spaces
+/// @{
 -(NSArray *)allPlotSpaces;
 -(CPPlotSpace *)plotSpaceAtIndex:(NSUInteger)index;
 -(CPPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier;
+///	@}
 
-// Adding and removing plot spaces
+/// @name Adding and Removing Plot Spaces
+/// @{
 -(void)addPlotSpace:(CPPlotSpace *)space; 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace;
+///	@}
 
 @end
 
-@interface CPGraph (AbstractFactoryMethods)
+///	@cond
+@interface CPGraph(AbstractFactoryMethods)
 
 -(CPPlotSpace *)newPlotSpace;
 -(CPAxisSet *)newAxisSet;
 
 @end
-
+///	@endcond

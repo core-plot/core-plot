@@ -19,13 +19,40 @@
 @end
 ///	@endcond
 
+/**	@brief An abstract graph class.
+ *	@todo More documentation needed 
+ **/
 @implementation CPGraph
 
+/**	@property axisSet
+ *	@brief The axis set.
+ **/
 @synthesize axisSet;
+
+/**	@property plotArea
+ *	@brief The plot area.
+ **/
 @synthesize plotArea;
+
+/**	@property fill
+ *	@brief The background fill.
+ **/
 @synthesize fill;
+
+/**	@property plots
+ *	@brief An array of all plots associated with the graph.
+ **/
 @synthesize plots;
+
+/**	@property plotSpaces
+ *	@brief An array of all plot spaces associated with the graph.
+ **/
 @synthesize plotSpaces;
+
+/**	@property defaultPlotSpace
+ *	@brief The default plot space.
+ **/
+@dynamic defaultPlotSpace;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -70,21 +97,34 @@
 #pragma mark -
 #pragma mark Retrieving Plots
 
+/**	@brief Makes all plots reload their data.
+ **/
 -(void)reloadData
 {
     [[self allPlots] makeObjectsPerformSelector:@selector(reloadData)];
 }
 
+/**	@brief All plots associated with the graph.
+ *	@return An array of all plots associated with the graph. 
+ **/
 -(NSArray *)allPlots 
 {    
 	return [NSArray arrayWithArray:self.plots];
 }
 
+/**	@brief Gets the plot at the given index in the plot array.
+ *	@param index An index within the bounds of the plot array.
+ *	@return The plot at the given index.
+ **/
 -(CPPlot *)plotAtIndex:(NSUInteger)index
 {
     return [self.plots objectAtIndex:index];
 }
 
+/**	@brief Gets the plot with the given identifier.
+ *	@param identifier A plot identifier.
+ *	@return The plot with the given identifier.
+ **/
 -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
 {
 	for (CPPlot *plot in self.plots) {
@@ -96,11 +136,18 @@
 #pragma mark -
 #pragma mark Organizing Plots
 
+/**	@brief Add a plot to the default plot space.
+ *	@param plot The plot.
+ **/
 -(void)addPlot:(CPPlot *)plot
 {
 	[self addPlot:plot toPlotSpace:self.defaultPlotSpace];
 }
 
+/**	@brief Add a plot to the given plot space.
+ *	@param plot The plot.
+ *	@param space The plot space.
+ **/
 -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space
 {
 	if (plot) {
@@ -111,6 +158,9 @@
 	}
 }
 
+/**	@brief Remove a plot from the graph.
+ *	@param plot The plot to remove.
+ **/
 -(void)removePlot:(CPPlot *)plot
 {
     if ( [self.plots containsObject:plot] ) {
@@ -124,11 +174,20 @@
     }
 }
 
+/**	@brief Add a plot to the default plot space at the given index in the plot array.
+ *	@param plot The plot.
+ *	@param index An index within the bounds of the plot array.
+ **/
 -(void)insertPlot:(CPPlot* )plot atIndex:(NSUInteger)index 
 {
 	[self insertPlot:plot atIndex:index intoPlotSpace:self.defaultPlotSpace];
 }
 
+/**	@brief Add a plot to the given plot space at the given index in the plot array.
+ *	@param plot The plot.
+ *	@param index An index within the bounds of the plot array.
+ *	@param space The plot space.
+ **/
 -(void)insertPlot:(CPPlot* )plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space
 {
 	if (plot) {
@@ -139,6 +198,9 @@
 	}
 }
 
+/**	@brief Remove a plot from the graph.
+ *	@param identifier The identifier of the plot to remove.
+ **/
 -(void)removePlotWithIdentifier:(id <NSCopying>)identifier 
 {
 	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
@@ -157,16 +219,27 @@
     return ( self.plotSpaces.count > 0 ? [self.plotSpaces objectAtIndex:0] : nil );
 }
 
+/**	@brief All plot spaces associated with the graph.
+ *	@return An array of all plot spaces associated with the graph. 
+ **/
 -(NSArray *)allPlotSpaces
 {
 	return [NSArray arrayWithArray:self.plotSpaces];
 }
 
+/**	@brief Gets the plot space at the given index in the plot space array.
+ *	@param index An index within the bounds of the plot space array.
+ *	@return The plot space at the given index.
+ **/
 -(CPPlotSpace *)plotSpaceAtIndex:(NSUInteger)index
 {
 	return ( self.plotSpaces.count > index ? [self.plotSpaces objectAtIndex:index] : nil );
 }
 
+/**	@brief Gets the plot space with the given identifier.
+ *	@param identifier A plot space identifier.
+ *	@return The plot space with the given identifier.
+ **/
 -(CPPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier
 {
 	for (CPPlotSpace *plotSpace in self.plotSpaces) {
@@ -178,6 +251,9 @@
 #pragma mark -
 #pragma mark Organizing Plot Spaces
 
+/**	@brief Add a plot space to the graph.
+ *	@param space The plot space.
+ **/
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
 	space.frame = self.plotArea.bounds;
@@ -186,6 +262,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
+/**	@brief Remove a plot space from the graph.
+ *	@param plotSpace The plot space.
+ **/
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace
 {
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
