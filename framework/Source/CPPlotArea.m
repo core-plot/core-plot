@@ -2,8 +2,14 @@
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 
+/**	@brief A layer drawn on top of the graph layer and behind all plot elements.
+ **/
 @implementation CPPlotArea
 
+/** @property fill 
+ *  @brief The fill for the layer background.
+ *	If nil, the layer background is not filled.
+ **/
 @synthesize fill;
 
 #pragma mark -
