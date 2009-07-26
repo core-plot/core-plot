@@ -12,11 +12,30 @@
 @end
 ///	@endcond
 
+/**	@brief An abstract plot class.
+ *
+ *	Each data series on the graph is represented by a plot.
+ **/
 @implementation CPPlot
 
+/**	@property dataSource
+ *	@brief The data source for the plot.
+ **/
 @synthesize dataSource;
+
+/**	@property identifier
+ *	@brief An object used to identify the plot in collections.
+ **/
 @synthesize identifier;
+
+/**	@property plotSpace
+ *	@brief The plot space for the plot.
+ **/
 @synthesize plotSpace;
+
+/**	@property dataNeedsReloading
+ *	@brief If YES, the plot data will be reloaded from the data source before the layer content is drawn.
+ **/
 @synthesize dataNeedsReloading;
 
 #pragma mark -
@@ -58,12 +77,19 @@
 #pragma mark -
 #pragma mark Data Source
 
+/**	@brief Reload data from the data source.
+ **/
 -(void)reloadData
 {
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
 }
 
+/**	@brief Gets a range of plot data for the given plot and field.
+ *	@param fieldEnum The field index.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of data points.
+ **/
 -(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
 {
     NSArray *numbers;
@@ -100,6 +126,11 @@
     return numbers;
 }
 
+/**	@brief Determines the record index range corresponding to a given range of data.
+ *	This method is optional.
+ *	@param plotRange The range expressed in data values.
+ *	@return The range of record indexes.
+ **/
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange 
 {
     if ( nil == self.dataSource ) return NSMakeRange(0, 0);
@@ -123,9 +154,12 @@
     if ( newSource != dataSource ) {
         dataSource = newSource;
         self.dataNeedsReloading = YES;
+		[self setNeedsDisplay];
     }
 }
 
+/**	@brief Marks the receiver as needing the data source reloaded before the content is next drawn.
+ **/
 -(void)setDataNeedsReloading
 {
 	self.dataNeedsReloading = YES;

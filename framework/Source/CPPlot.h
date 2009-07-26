@@ -7,17 +7,45 @@
 @class CPPlotSpace;
 @class CPPlotRange;
 
+/**	@brief A plot data source.
+ **/
 @protocol CPPlotDataSource <NSObject>
-
+/**	@brief The number of data points for the plot.
+ *	@param plot The plot.
+ *	@return The number of data points for the plot.
+ **/
 -(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot; 
 
 @optional
 
-// Implement one of the following
--(NSArray *)numbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange; 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index; 
+/// @name Implement one of the following
+/// @{
 
--(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRect;
+/**	@brief Gets a range of plot data for the given plot and field.
+ *	@param plot The plot.
+ *	@param fieldEnum The field index.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of data points.
+ **/
+-(NSArray *)numbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+
+/**	@brief Gets a plot data value for the given plot and field.
+ *	@param plot The plot.
+ *	@param fieldEnum The field index.
+ *	@param index The data index of interest.
+ *	@return A data point.
+ **/
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+
+///	@}
+
+/**	@brief Determines the record index range corresponding to a given range of data.
+ *	This method is optional.
+ *	@param plot The plot.
+ *	@param plotRange The range expressed in data values.
+ *	@return The range of record indexes.
+ **/
+-(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRange;
 
 @end 
 
@@ -33,11 +61,17 @@
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 @property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
 
+/// @name Data Loading
+/// @{
 -(void)setDataNeedsReloading;
 -(void)reloadData;
+///	@}
 
+/// @name Plot Data
+/// @{
 -(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
+///	@}
 
 @end
 

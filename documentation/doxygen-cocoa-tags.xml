@@ -153,6 +153,10 @@
 			<anchor>//apple_ref/occ/intfm/NSObject/isEqual:</anchor>
 		</member>
 	</compound>
+	<compound kind="struct">
+		<name>NSRange</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/c/tdef/NSRange</filename>
+	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSResponder</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSResponder_Class/Reference/Reference.html</filename>
