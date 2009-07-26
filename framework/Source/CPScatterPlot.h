@@ -3,30 +3,56 @@
 #import "CPPlot.h"
 #import "CPDefinitions.h"
 
+///	@file
+
 @class CPLineStyle;
 @class CPPlotSymbol;
 @class CPScatterPlot;
 @class CPFill;
 
+/// @name Binding Identifiers
+/// @{
 extern NSString * const CPScatterPlotBindingXValues;
 extern NSString * const CPScatterPlotBindingYValues;
 extern NSString * const CPScatterPlotBindingPlotSymbols;
+///	@}
 
+/**	@brief Enumeration of scatter plot data source field types
+ **/
 typedef enum _CPScatterPlotField {
-    CPScatterPlotFieldX,
-    CPScatterPlotFieldY
+    CPScatterPlotFieldX,	///< X values.
+    CPScatterPlotFieldY		///< Y values.
 } CPScatterPlotField;
 
+/**	@brief A scatter plot data source.
+ **/
 @protocol CPScatterPlotDataSource <CPPlotDataSource>
 
 @optional
-// Implement one of the following to add plot symbols
--(NSArray *)symbolsForScatterPlot:(CPScatterPlot *)plot;
+
+/// @name Implement one of the following to add plot symbols
+/// @{
+
+/**	@brief Gets a range of plot symbols for the given scatter plot.
+ *	@param plot The scatter plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of plot symbols.
+ **/
+-(NSArray *)symbolsForScatterPlot:(CPScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
+
+/**	@brief Gets a plot symbol for the given scatter plot.
+ *	@param plot The scatter plot.
+ *	@param index The data index of interest.
+ *	@return The plot symbol to show for the point with the given index.
+ **/
 -(CPPlotSymbol *)symbolForScatterPlot:(CPScatterPlot *)plot recordIndex:(NSUInteger)index;
+
+///	@}
 
 @end 
 
 @interface CPScatterPlot : CPPlot {
+@private
     id observedObjectForXValues;
     id observedObjectForYValues;
     id observedObjectForPlotSymbols;

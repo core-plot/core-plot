@@ -10,9 +10,9 @@
 #import "CPFill.h"
 
 
-NSString * const CPScatterPlotBindingXValues = @"xValues";
-NSString * const CPScatterPlotBindingYValues = @"yValues";
-NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";
+NSString * const CPScatterPlotBindingXValues = @"xValues";			///< X values.
+NSString * const CPScatterPlotBindingYValues = @"yValues";			///< Y values.
+NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";	///< Plot symbols.
 
 static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
@@ -36,6 +36,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @end
 ///	@endcond
 
+/**	@brief A two-dimensional scatter plot.
+ **/
 @implementation CPScatterPlot
 
 @synthesize observedObjectForXValues;
@@ -44,12 +46,34 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @synthesize keyPathForXValues;
 @synthesize keyPathForYValues;
 @synthesize keyPathForPlotSymbols;
-@synthesize dataLineStyle;
 @synthesize xValues;
 @synthesize yValues;
 @synthesize plotSymbols;
+
+/**	@property dataLineStyle
+ *  @brief The line style for the data line.
+ *	If nil, the line is not drawn.
+ **/
+@synthesize dataLineStyle;
+
+/**	@property plotSymbol
+ *	@brief The plot symbol drawn at each point if the data source does not provide symbols.
+ *	If nil, no symbol is drawn.
+ **/
 @synthesize plotSymbol;
+
+/** @property areaFill 
+ *  @brief The fill style for the area underneath the data line.
+ *	If nil, the area is not filled.
+ **/
 @synthesize areaFill;
+
+/**	@property areaBaseValue
+ *	@brief The Y coordinate of the straight boundary of the area fill.
+ *	If nil, the area is not filled.
+ *
+ *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
+ **/
 @synthesize areaBaseValue;
 
 #pragma mark -
@@ -207,8 +231,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
         self.yValues = [self decimalNumbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
 		
 		// Plot symbols
-        if ( [self.dataSource respondsToSelector:@selector(symbolsForScatterPlot:)] ) {
-            self.plotSymbols = [(id <CPScatterPlotDataSource>)self.dataSource symbolsForScatterPlot:self];
+        if ( [self.dataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
+            self.plotSymbols = [(id <CPScatterPlotDataSource>)self.dataSource symbolsForScatterPlot:self recordIndexRange:indexRange];
         }
         else if ([self.dataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)]) {
             NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:indexRange.length];
