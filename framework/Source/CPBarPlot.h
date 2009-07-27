@@ -3,24 +3,41 @@
 #import "CPPlot.h"
 #import "CPDefinitions.h"
 
+///	@file
+
 @class CPLineStyle;
 @class CPFill;
 @class CPPlotRange;
 @class CPColor;
 @class CPBarPlot;
 
+/// @name Binding Identifiers
+/// @{
 extern NSString * const CPBarPlotBindingBarLengths;
+///	@}
 
+/**	@brief Enumeration of bar plot data source field types
+ **/
 typedef enum _CPBarPlotField {
-    CPBarPlotFieldBarLength
+    CPBarPlotFieldBarLength		///< Bar length.
 } CPBarPlotField;
 
+/**	@brief A bar plot data source.
+ **/
 @protocol CPBarPlotDataSource <CPPlotDataSource> 
 @optional 
+
+/**	@brief Gets a bar fill for the given bar plot. This method is optional.
+ *	@param barPlot The bar plot.
+ *	@param index The data index of interest.
+ *	@return The bar fill for the point with the given index.
+ **/
 -(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index; 
+
 @end 
 
 @interface CPBarPlot : CPPlot {
+@private
     id observedObjectForBarLengthValues;
     NSString *keyPathForBarLengthValues;
     CPLineStyle *lineStyle;
@@ -43,6 +60,9 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 
+/// @name Factory Methods
+/// @{
 +(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal;
+///	@}
 
 @end

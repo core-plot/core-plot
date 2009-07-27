@@ -7,7 +7,7 @@
 #import "CPPlotRange.h"
 #import "CPGradient.h"
 
-NSString * const CPBarPlotBindingBarLengths = @"barLengths";
+NSString * const CPBarPlotBindingBarLengths = @"barLengths";	///< Bar lengths.
 
 static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContext";
 
@@ -23,23 +23,67 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @end
 ///	@endcond
 
+/**	@brief A two-dimensional bar plot.
+ **/
 @implementation CPBarPlot
 
 @synthesize observedObjectForBarLengthValues;
 @synthesize keyPathForBarLengthValues;
-@synthesize cornerRadius;
-@synthesize barOffset;
-@synthesize barWidth;
-@synthesize lineStyle;
-@synthesize fill;
 @synthesize barLengths;
+
+/**	@property cornerRadius
+ *	@brief The corner radius for the end of the bars.
+ **/
+@synthesize cornerRadius;
+
+/**	@property barOffset
+ *	@brief The starting offset of the first bar in units of bar width.
+ **/
+@synthesize barOffset;
+
+/**	@property barWidth
+ *	@brief The width of each bar.
+ **/
+@synthesize barWidth;
+
+/**	@property lineStyle
+ *  @brief The line style for the bar outline.
+ *	If nil, the outline is not drawn.
+ **/
+@synthesize lineStyle;
+
+/** @property fill 
+ *  @brief The fill style for the bars.
+ *	If nil, the bars are not filled.
+ **/
+@synthesize fill;
+
+/**	@property barsAreHorizontal
+ *	@brief If YES, the bars will have a horizontal orientation, otherwise they will be vertical.
+ **/
 @synthesize barsAreHorizontal;
+
+/**	@property baseValue
+ *	@brief The coordinate value of the fixed end of the bars.
+ **/
 @synthesize baseValue;
+
+/**	@property plotRange
+ *	@brief Sets the plot range for the independent axis.
+ *
+ *	The bars are spaced evenly throughout the plot range. If plotRange is nil, the first bar will be placed
+ *	at zero (0) and subsequent bars will be at successive positive integer coordinates.
+ **/
 @synthesize plotRange;
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
+/** @brief Creates and returns a new CPBarPlot instance initialized with a bar fill consisting of a linear gradient between black and the given color.
+ *  @param color The beginning color.
+ *  @param horizontal If YES, the bars will have a horizontal orientation, otherwise they will be vertical.
+ *  @return A new CPBarPlot instance initialized with a linear gradient bar fill.
+ **/
 +(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal
 {
     CPBarPlot *barPlot = [[CPBarPlot alloc] init];
@@ -149,8 +193,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	
     // Determine location of bars in plot space
     NSDecimalNumber *delta = [NSDecimalNumber one];
-    if ( plotRange && self.barLengths.count > 1 ) {
-        delta = [plotRange.length decimalNumberByDividingBy:
+    if ( self.plotRange && self.barLengths.count > 1 ) {
+        delta = [self.plotRange.length decimalNumberByDividingBy:
 				 (NSDecimalNumber *)[NSDecimalNumber numberWithInt:self.barLengths.count-1]];
     }
     
@@ -159,9 +203,13 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CPCoordinate independentCoord = ( barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
     for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
+		// Independent coordinate
+        plotPoint[independentCoord] = [delta decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
+		if ( self.plotRange ) {
+			plotPoint[independentCoord] = [plotPoint[independentCoord] decimalNumberByAdding:self.plotRange.location];			
+		}
+		
         // Tip point
-        plotPoint[independentCoord] = [delta decimalNumberByMultiplyingBy:
-									   (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
         plotPoint[dependentCoord] = [self.barLengths objectAtIndex:ii];
         tipPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         
@@ -170,8 +218,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         basePoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         
         // Offset
-        CGFloat viewOffset = barOffset * barWidth;
-        if ( barsAreHorizontal ) {
+        CGFloat viewOffset = self.barOffset * barWidth;
+        if ( self.barsAreHorizontal ) {
             basePoint.y += viewOffset;
             tipPoint.y += viewOffset;
         }
@@ -229,8 +277,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CGPathAddLineToPoint(path, NULL, point5[0], point5[1]);
     
     CGContextSaveGState(context);
-    CGContextBeginPath(context);
-    CGContextAddPath(context, path);
 	
     // If data source returns nil, default fill is used.
     // If data source returns NSNull object, no fill is drawn.
@@ -240,13 +286,18 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         if ( nil != dataSourceFill ) currentBarFill = dataSourceFill;
     }
     if ( currentBarFill != nil && ![currentBarFill isKindOfClass:[NSNull class]] ) {
+		CGContextBeginPath(context);
+		CGContextAddPath(context, path);
         [currentBarFill fillPathInContext:context]; 
     }
     
-    CGContextBeginPath(context);
-    CGContextAddPath(context, path);
-    [self.lineStyle setLineStyleInContext:context];
-    CGContextStrokePath(context);
+	if ( self.lineStyle ) {
+		CGContextBeginPath(context);
+		CGContextAddPath(context, path);
+		[self.lineStyle setLineStyleInContext:context];
+		CGContextStrokePath(context);
+	}
+
     CGContextRestoreGState(context);
     
     CGPathRelease(path);
@@ -306,7 +357,5 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         [self setNeedsDisplay];
     }
 }
-
-
 
 @end
