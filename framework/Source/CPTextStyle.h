@@ -16,7 +16,7 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTextStyle *)defaultTextStyle;
++(CPTextStyle *)textStyle;
 ///	@}
 
 @end

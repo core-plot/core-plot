@@ -48,7 +48,7 @@
 /** @brief Creates and returns a new CPTextStyle instance.
  *  @return A new CPTextStyle instance.
  **/
-+(CPTextStyle *)defaultTextStyle
++(CPTextStyle *)textStyle
 {
 	return [[[self alloc] init] autorelease];
 }
