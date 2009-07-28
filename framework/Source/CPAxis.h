@@ -10,9 +10,9 @@
 @class CPTextStyle;
 
 typedef enum _CPAxisLabelingPolicy {
-    CPAxisLabelingPolicyAdHoc,
+    CPAxisLabelingPolicyNone,       // User sets labels
     CPAxisLabelingPolicyFixedInterval,
-    CPAxisLabelingAutomatic,        // TODO: Implement automatic labeling
+    CPAxisLabelingPolicyAutomatic,  // TODO: Implement automatic labeling
     CPAxisLabelingPolicyLogarithmic // TODO: Implement logarithmic labeling
 } CPAxisLabelingPolicy;
 

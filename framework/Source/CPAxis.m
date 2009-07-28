@@ -185,8 +185,10 @@
 	NSSet *newMajorLocations, *newMinorLocations;
 	
 	switch (self.axisLabelingPolicy) {
-		case CPAxisLabelingPolicyAdHoc:
-			// Nothing to do. User sets labels.
+		case CPAxisLabelingPolicyNone:
+            // Assume locations are set by user
+            allNewMajorLocations = [[self.majorTickLocations mutableCopy] autorelease];
+            allNewMinorLocations = [[self.minorTickLocations mutableCopy] autorelease];
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
 			// Add ticks in negative direction
@@ -199,6 +201,9 @@
 			[allNewMajorLocations unionSet:newMajorLocations];
 			[allNewMinorLocations unionSet:newMinorLocations];
 			
+			break;
+        case CPAxisLabelingPolicyAutomatic:
+			// TODO: automatic labeling policy
 			break;
 		case CPAxisLabelingPolicyLogarithmic:
 			// TODO: logarithmic labeling policy
