@@ -17,7 +17,6 @@
 ///	@cond
 @interface CPDarkGradientTheme ()
 
--(CPXYGraph *)createNewGraph;
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle;
 
 @end
@@ -42,7 +41,23 @@
  **/
 -(id)newGraph 
 {
-    CPXYGraph *graph = [self createNewGraph];	
+    CPXYGraph *graph;
+	if ([self graphClass]) {
+		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	else {
+		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+	}
+	
+	graph.paddingLeft = 60.0;
+	graph.paddingTop = 60.0;
+	graph.paddingRight = 60.0;
+	graph.paddingBottom = 60.0;
+    
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    
     [self applyThemeToGraph:graph];
 	return graph;
 }
@@ -53,6 +68,37 @@
 	[self applyThemeToPlotArea:graph.plotArea];
 	[self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];    
 }
+
+
+#pragma mark -
+#pragma mark Implementation private methods
+
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
+{
+	axis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+    axis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    axis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+	axis.tickDirection = CPSignNone;
+    axis.minorTicksPerInterval = 4;
+    axis.majorTickLineStyle = majorLineStyle;
+    axis.minorTickLineStyle = minorLineStyle;
+    axis.axisLineStyle = majorLineStyle;
+    axis.majorTickLength = 7.0f;
+    axis.minorTickLength = 5.0f;
+	axis.axisLabelTextStyle = textStyle; 
+}
+
+/**	@brief A subclass of CPGraph that the graphClass must descend from.
+ *	@return The required subclass.
+ **/
++(Class)requiredGraphSubclass
+{
+    return [CPXYGraph class];
+}
+
+@end
+
+@implementation CPDarkGradientTheme (Protected)
 
 /**	@brief Applies the background theme to the provided graph.
  *	@param graph The graph to style.
@@ -109,53 +155,6 @@
     for (CPXYAxis *axis in axisSet.axes) {
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
     }
-}
-
-#pragma mark -
-#pragma mark Implementation private methods
-
--(CPXYGraph *)createNewGraph {
-	CPXYGraph *graph;
-	if ([self graphClass]) {
-		graph = [[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	
-	graph.paddingLeft = 60.0;
-	graph.paddingTop = 60.0;
-	graph.paddingRight = 60.0;
-	graph.paddingBottom = 60.0;
-    
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    
-	return graph;
-}
-
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
-{
-	axis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    axis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    axis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
-	axis.tickDirection = CPSignNone;
-    axis.minorTicksPerInterval = 4;
-    axis.majorTickLineStyle = majorLineStyle;
-    axis.minorTickLineStyle = minorLineStyle;
-    axis.axisLineStyle = majorLineStyle;
-    axis.majorTickLength = 7.0f;
-    axis.minorTickLength = 5.0f;
-	axis.axisLabelTextStyle = textStyle; 
-}
-
-/**	@brief A subclass of CPGraph that the graphClass must descend from.
- *	@return The required subclass.
- **/
-+(Class)requiredGraphSubclass
-{
-    return [CPXYGraph class];
 }
 
 @end

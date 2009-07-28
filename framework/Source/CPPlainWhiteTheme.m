@@ -42,17 +42,23 @@
 	graph.paddingTop = 60.0;
 	graph.paddingRight = 60.0;
 	graph.paddingBottom = 60.0;
-	
-	// Background
-	graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-	
-	// Plot area
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
-	
+    
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    
+	
+    
+	return graph;
+}
+
+- (void)applyThemeToGraph:(CPXYGraph *)graph {
+    // Background
+	graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	
+	// Plot area
+	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
 	
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -105,8 +111,7 @@
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = blackTextStyle;
-        
-	return graph;
+    
 }
 
 /**	@brief A subclass of CPGraph that the graphClass must descend from.

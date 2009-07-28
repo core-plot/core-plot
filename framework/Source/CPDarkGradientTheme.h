@@ -9,6 +9,10 @@
 
 }
 
+@end
+
+@interface CPDarkGradientTheme (Protected)
+
 -(void)applyThemeToBackground:(CPXYGraph *)graph;
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet; 

@@ -43,12 +43,22 @@
 	graph.paddingTop = 0.0;
 	graph.paddingRight = 0.0;
 	graph.paddingBottom = 0.0;
-//	graph.paddingLeft = 14.0;
-//	graph.paddingTop = 14.0;
-//	graph.paddingRight = 14.0;
-//	graph.paddingBottom = 14.0;
+    //	graph.paddingLeft = 14.0;
+    //	graph.paddingTop = 14.0;
+    //	graph.paddingRight = 14.0;
+    //	graph.paddingBottom = 14.0;
+    
+    // Setup plot space
+    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
 	
-	// Background
+    
+	return graph;
+}
+
+- (void)applyThemeToGraph:(CPXYGraph *)graph {
+    // Background
 	graph.fill = [CPFill fillWithColor:[CPColor blackColor]];
 	
 	// Plot area
@@ -59,12 +69,9 @@
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882f green:0.13333f blue:0.33333f alpha:1.0f] atPosition:1.0f];
     stocksBackgroundGradient.angle = 270.0;
 	graph.plotArea.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
-//	[stocksBackgroundGradient release];
+    //	[stocksBackgroundGradient release];
 	
-    // Setup plot space
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    
 	
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -116,8 +123,7 @@
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = whiteTextStyle;
-        
-	return graph;
+    
 }
 
 /**	@brief A subclass of CPGraph that the graphClass must descend from.
