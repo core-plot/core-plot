@@ -14,7 +14,7 @@
     CPAxisLabel *label;
     
     @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testRenderText" textStyle:[CPTextStyle defaultTextStyle]];
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testRenderText" textStyle:[CPTextStyle textStyle]];
         label.offset = 20.0f;
         GTMAssertObjectImageEqualToImageNamed(label, @"CPAxisLabelTests-testRenderText", @"");
     }
@@ -47,7 +47,7 @@
     CPAxisLabel *label;
     
     @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointRaisesForInvalidDirection" textStyle:[CPTextStyle defaultTextStyle]];
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointRaisesForInvalidDirection" textStyle:[CPTextStyle textStyle]];
         
         STAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPCoordinateX inDirection:INT_MAX], NSException, CPException, @"Should raise CPException for invalid direction (type CPSign)");
         
@@ -62,7 +62,7 @@
     CPAxisLabel *label;
     
     @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionBetweenViewPointImplemented" textStyle:[CPTextStyle defaultTextStyle]];
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionBetweenViewPointImplemented" textStyle:[CPTextStyle textStyle]];
         
         STAssertNoThrow([label positionBetweenViewPoint:CGPointZero andViewPoint:CGPointMake(1.0, 1.0) forCoordinate:CPCoordinateX inDirection:CPSignNone], @"Current implementation throws CPException. When implemented, revise this test");
     }
@@ -77,7 +77,7 @@
     CGFloat start = 100.0f;
     
     @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForXCoordinate" textStyle:[CPTextStyle defaultTextStyle]];
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForXCoordinate" textStyle:[CPTextStyle textStyle]];
         label.offset = 20.0f;
         
         CGPoint viewPoint = CGPointMake(start,start);
@@ -120,7 +120,7 @@
     CGFloat start = 100.0f;
     
     @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForYCoordinate" textStyle:[CPTextStyle defaultTextStyle]];
+        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForYCoordinate" textStyle:[CPTextStyle textStyle]];
         label.offset = 20.0f;
         
         CGPoint viewPoint = CGPointMake(start,start);
