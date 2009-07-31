@@ -24,30 +24,130 @@
 @end
 ///	@endcond
 
+/**	@brief An abstract axis class.
+ **/
 @implementation CPAxis
 
-@synthesize majorTickLocations;
-@synthesize minorTickLocations;
-@synthesize minorTickLength;
-@synthesize majorTickLength;
-@synthesize axisLabelOffset;
+/// @defgroup CPAxis CPAxis
+/// @{
+
+// Axis
+
+/**	@property axisLineStyle
+ *  @brief The line style for the axis line.
+ *	If nil, the line is not drawn.
+ **/
 @synthesize axisLineStyle;
-@synthesize majorTickLineStyle;
-@synthesize minorTickLineStyle;
-@synthesize plotSpace;
+
+/**	@property coordinate
+ *	@brief The axis coordinate.
+ **/
 @synthesize coordinate;
+
+/**	@property fixedPoint
+ *	@brief The axis origin.
+ **/
 @synthesize fixedPoint;
-@synthesize majorIntervalLength;
-@synthesize minorTicksPerInterval;
-@synthesize axisLabelingPolicy;
-@synthesize axisLabelTextStyle;
-@synthesize tickLabelFormatter;
-@synthesize axisLabels;
+
+/**	@property tickDirection
+ *	@brief The tick direction.
+ **/
 @synthesize tickDirection;
+
+// Plot space
+
+/**	@property plotSpace
+ *	@brief The plot space for the axis.
+ **/
+@synthesize plotSpace;
+
+// Labels
+
+/**	@property axisLabelingPolicy
+ *	@brief The axis labeling policy.
+ **/
+@synthesize axisLabelingPolicy;
+
+/**	@property axisLabelOffset
+ *	@brief The offset distance between the tick marks and labels.
+ **/
+@synthesize axisLabelOffset;
+
+/**	@property axisLabelTextStyle
+ *	@brief The text style used to draw the label text.
+ **/
+@synthesize axisLabelTextStyle;
+
+/**	@property tickLabelFormatter
+ *	@brief The number formatter used to format the label text.
+ **/
+@synthesize tickLabelFormatter;
+
+/**	@property axisLabels
+ *	@brief The set of axis labels.
+ **/
+@synthesize axisLabels;
+
+/**	@property needsRelabel
+ *	@brief If YES, the axis needs to be relabeled before the layer content is drawn.
+ **/
 @synthesize needsRelabel;
-@synthesize drawsAxisLine;
+
+/**	@property labelExclusionRanges
+ *	@brief An array of CPPlotRange objects. Any tick marks and labels falling inside any of the ranges in the array will not be drawn.
+ **/
 @synthesize labelExclusionRanges;
+
+/**	@property delegate
+ *	@brief The axis delegate.
+ **/
 @synthesize delegate;
+
+// Major ticks
+
+/**	@property majorIntervalLength
+ *	@brief The distance between major tick marks expressed in data coordinates.
+ **/
+@synthesize majorIntervalLength;
+
+/**	@property majorTickLineStyle
+ *  @brief The line style for the major tick marks.
+ *	If nil, the major ticks are not drawn.
+ **/
+@synthesize majorTickLineStyle;
+
+/**	@property majorTickLength
+ *	@brief The length of the major tick marks.
+ **/
+@synthesize majorTickLength;
+
+/**	@property majorTickLocations
+ *	@brief A set of axis coordinates for all major tick marks.
+ **/
+@synthesize majorTickLocations;
+
+// Minor ticks
+
+/**	@property minorTicksPerInterval
+ *	@brief The number of minor tick marks drawn in each major tick interval.
+ **/
+@synthesize minorTicksPerInterval;
+
+/**	@property minorTickLineStyle
+ *  @brief The line style for the minor tick marks.
+ *	If nil, the minor ticks are not drawn.
+ **/
+@synthesize minorTickLineStyle;
+
+/**	@property minorTickLength
+ *	@brief The length of the minor tick marks.
+ **/
+@synthesize minorTickLength;
+
+/**	@property minorTickLocations
+ *	@brief A set of axis coordinates for all minor tick marks.
+ **/
+@synthesize minorTickLocations;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -77,7 +177,6 @@
 		self.axisLabels = [NSSet set];
         self.tickDirection = CPSignNone;
         self.needsRelabel = YES;
-		self.drawsAxisLine = YES;
 		self.labelExclusionRanges = nil;
 		self.delegate = nil;
 	}
@@ -152,6 +251,10 @@
 #pragma mark -
 #pragma mark Labels
 
+/**	@brief Creates new axis labels at the given locations.
+ *	@param locations An array of NSDecimalNumber label locations.
+ *	@return An array of CPAxisLabels positioned at the given locations.
+ **/
 -(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations
 {
     NSMutableArray *newLabels = [[NSMutableArray alloc] initWithCapacity:locations.count];
@@ -166,11 +269,15 @@
 	return newLabels;
 }
 
+/**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
+ **/
 -(void)setNeedsRelabel
 {
     self.needsRelabel = YES;
 }
 
+/**	@brief Updates the axis labels.
+ **/
 -(void)relabel
 {
     if (!self.needsRelabel) return;
@@ -235,11 +342,19 @@
 	return [filteredLocations autorelease];
 }
 
+/**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of major tick locations.
+ *	@return The filted set.
+ **/
 -(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
 {
 	return [self filteredTickLocations:allLocations];
 }
 
+/**	@brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of minor tick locations.
+ *	@return The filted set.
+ **/
 -(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
 {
 	return [self filteredTickLocations:allLocations];
@@ -382,14 +497,6 @@
     }
 }
 
--(void)setDrawsAxisLine:(BOOL)newDraws 
-{
-    if ( newDraws != drawsAxisLine ) {
-        drawsAxisLine = newDraws;
-		[self setNeedsDisplay];
-    }
-}
-
 -(void)setMajorTickLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != majorTickLineStyle ) {
@@ -458,5 +565,26 @@
 		[self setNeedsLayout];
     }
 }
+
+///	@}
+
+@end
+
+///	@brief CPAxis abstract methods—must be overridden by subclasses
+@implementation CPAxis(AbstractMethods)
+
+/// @addtogroup CPAxis
+/// @{
+
+/**	@brief Converts a position on the axis to drawing coordinates.
+ *	@param coordinateDecimalNumber The axis value in data coordinate space.
+ *	@return The drawing coordinates of the point.
+ **/
+-(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber
+{
+	return CGPointMake(0.0f, 0.0f);
+}
+
+///	@}
 
 @end

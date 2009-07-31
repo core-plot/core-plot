@@ -4,10 +4,16 @@
 	<compound kind="class" objc="yes">
 		<name>NSArray</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSCoder</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
+		<base>NSObject</base>
 	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSCoding-p</name>
@@ -24,6 +30,10 @@
 	<compound kind="class" objc="yes">
 		<name>NSColor</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSColor_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSObject-p</base>
 	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSCopying-p</name>
@@ -36,10 +46,10 @@
 	<compound kind="class" objc="yes">
 		<name>NSData</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
 		<base>NSCoding-p</base>
 		<base>NSCopying-p</base>
 		<base>NSMutableCopying-p</base>
-		<base>NSObject-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSDecimalNumber</name>
@@ -51,11 +61,11 @@
 	<compound kind="class" objc="yes">
 		<name>NSDictionary</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
 		<base>NSCoding-p</base>
 		<base>NSCopying-p</base>
 		<base>NSFastEnumeration-p</base>
 		<base>NSMutableCopying-p</base>
-		<base>NSObject-p</base>
 	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSFastEnumeration-p</name>
@@ -68,9 +78,9 @@
 	<compound kind="class" objc="yes">
 		<name>NSImage</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSImage_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
 		<base>NSCoding-p</base>
 		<base>NSCopying-p</base>
-		<base>NSObject-p</base>
 	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSKeyValueBindingCreation-p</name>
@@ -120,6 +130,18 @@
 		<base>NSCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSNumberFormatter</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSNumberFormatter_Class/Reference/Reference.html</filename>
+		<base>NSFormatter</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSFormatter</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSFormatter_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSObject</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html</filename>
 		<base>NSObject-p</base>
@@ -155,13 +177,22 @@
 	</compound>
 	<compound kind="struct">
 		<name>NSRange</name>
-		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/c/tdef/NSRange</filename>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSRange</filename>
 	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSResponder</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSResponder_Class/Reference/Reference.html</filename>
 		<base>NSObject</base>
 		<base>NSCoding-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSSet</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSString</name>
@@ -187,7 +218,6 @@
 		<name>NSView</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSView_Class/Reference/NSView.html</filename>
 		<base>NSResponder</base>
-		<base>NSCoding-p</base>
 	</compound>
 	<compound kind="struct">
 		<name>NSZone</name>
