@@ -11,7 +11,7 @@
 
 @end
 
-@interface CPDarkGradientTheme (Protected)
+@interface CPDarkGradientTheme(Protected)
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph;
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;

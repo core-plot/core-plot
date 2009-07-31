@@ -28,6 +28,9 @@
  **/
 @implementation CPDarkGradientTheme
 
+/// @defgroup CPDarkGradientTheme CPDarkGradientTheme
+/// @{
+
 /**	@brief The name of the theme.
  *	@return The name.
  **/
@@ -96,9 +99,16 @@
     return [CPXYGraph class];
 }
 
+///	@}
+
 @end
 
-@implementation CPDarkGradientTheme (Protected)
+/** @brief Protected methods for CPDarkGradientTheme.
+ **/
+@implementation CPDarkGradientTheme(Protected)
+
+/// @addtogroup CPDarkGradientTheme
+/// @{
 
 /**	@brief Applies the background theme to the provided graph.
  *	@param graph The graph to style.
@@ -156,5 +166,7 @@
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle andMinorLineStyle:minorLineStyle andTextStyle:whiteTextStyle];
     }
 }
+
+///	@}
 
 @end
