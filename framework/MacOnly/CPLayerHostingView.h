@@ -3,7 +3,7 @@
 @class CPLayer;
 
 @interface CPLayerHostingView : NSView {
-	@protected
+@private
 	CPLayer *hostedLayer, *layerBeingClickedOn;
 }
 

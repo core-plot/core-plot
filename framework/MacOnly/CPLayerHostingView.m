@@ -9,12 +9,18 @@
 @end
 ///	@endcond
 
+/**	@brief A container view for displaying a CPLayer.
+ **/
 @implementation CPLayerHostingView
 
+/**	@property hostedLayer
+ *	@brief The CPLayer hosted inside this view.
+ **/
 @synthesize hostedLayer;
 @synthesize layerBeingClickedOn;
 
--(id)initWithFrame:(NSRect)frame {
+-(id)initWithFrame:(NSRect)frame
+{
     if (self = [super initWithFrame:frame]) {
         hostedLayer = nil;
         layerBeingClickedOn = nil;
@@ -35,12 +41,12 @@
 #pragma mark -
 #pragma mark Mouse handling
 
--(BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
+-(BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
 	return YES;
 }
 
--(void)mouseDown:(NSEvent *)theEvent;
+-(void)mouseDown:(NSEvent *)theEvent
 {
 	CGPoint pointOfMouseDown = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 	CALayer *hitLayer = [self.layer hitTest:pointOfMouseDown];
@@ -51,7 +57,7 @@
 	}
 }
 
--(void)mouseDragged:(NSEvent *)theEvent;
+-(void)mouseDragged:(NSEvent *)theEvent
 {
 	if (self.layerBeingClickedOn == nil) {
 		return;
@@ -63,7 +69,7 @@
 	self.layerBeingClickedOn = nil;	
 }
 
--(void)mouseUp:(NSEvent *)theEvent;
+-(void)mouseUp:(NSEvent *)theEvent
 {
 	if (self.layerBeingClickedOn == nil) {
 		return;		
