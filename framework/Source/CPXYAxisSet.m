@@ -5,7 +5,22 @@
 #import "CPPlotArea.h"
 #import "CPBorderedLayer.h"
 
+/**	@brief A set of cartesian (X-Y) axes.
+ **/
 @implementation CPXYAxisSet
+
+/**	@property xAxis
+ *	@brief The x-axis.
+ **/
+@dynamic xAxis;
+
+/**	@property yAxis
+ *	@brief The y-axis.
+ **/
+@dynamic yAxis;
+
+#pragma mark -
+#pragma mark Init/Dealloc
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -28,6 +43,9 @@
 	}
 	return self;
 }
+
+#pragma mark -
+#pragma mark Accessors
 
 -(CPXYAxis *)xAxis 
 {

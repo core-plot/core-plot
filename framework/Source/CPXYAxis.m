@@ -14,8 +14,13 @@
 @end
 ///	@endcond
 
+/**	@brief A 2-dimensional cartesian (X-Y) axis class.
+ **/
 @implementation CPXYAxis
 
+/**	@property constantCoordinateValue
+ *	@brief The data coordinate value where the axis crosses the orthogonal axis.
+ **/
 @synthesize constantCoordinateValue;
 
 #pragma mark -
