@@ -107,11 +107,11 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
     // Ticks
-    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
+    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
 
     // Axis Line
-	if ( self.drawsAxisLine ) {
+	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);

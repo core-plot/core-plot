@@ -5,12 +5,34 @@
 #import "CPPlotArea.h"
 #import "CPGraph.h"
 
+/**	@brief A container layer for the set of axes for a graph.
+ **/
 @implementation CPAxisSet
 
+/**	@property axes
+ *	@brief The axes in the axis set.
+ **/
 @synthesize axes;
+
+/**	@property overlayLayer
+ *	@brief An overlay that is positioned on top of all of the graph content.
+ **/
 @synthesize overlayLayer;
+
+/**	@property graph
+ *	@brief The graph for the axis set.
+ **/
 @synthesize graph;
-@synthesize overlayLayerInsetX, overlayLayerInsetY;
+
+/**	@property overlayLayerInsetX
+ *	@brief The amount to inset the overlay layer in the x-direction.
+ **/
+@synthesize overlayLayerInsetX;
+
+/**	@property overlayLayerInsetY
+ *	@brief The amount to inset the overlay layer in the y-direction.
+ **/
+@synthesize overlayLayerInsetY;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -36,6 +58,8 @@
 #pragma mark -
 #pragma mark Labeling
 
+/**	@brief Updates the axis labels for each axis in the axis set.
+ **/
 -(void)relabelAxes
 {
     for ( CPAxis *axis in self.axes ) {
