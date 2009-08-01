@@ -111,7 +111,7 @@
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
 
     // Axis Line
-	if ( self.drawsAxisLine ) {
+/*	if ( self.drawsAxisLine ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
@@ -120,7 +120,7 @@
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 		CGContextStrokePath(theContext);
-	}
+	}*/
 }
 
 -(NSString *)description

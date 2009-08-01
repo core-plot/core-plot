@@ -2,6 +2,7 @@
 #import "CPLayer.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPExceptions.h"
+#import "CorePlotProbes.h"
 
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
@@ -296,5 +297,20 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 }
 
 ///	@}
+
+- (void)setPosition:(CGPoint)newPosition;
+{
+	[super setPosition:newPosition];
+	if (COREPLOT_LAYER_POSITION_CHANGE_ENABLED())
+	{
+		CGRect currentFrame = self.frame;
+		if (!CGRectEqualToRect(currentFrame, CGRectIntegral(self.frame)))
+			COREPLOT_LAYER_POSITION_CHANGE((char *)[[self className] UTF8String],
+										   (int)ceil(currentFrame.origin.x * 1000.0), 
+										   (int)ceil(currentFrame.origin.y * 1000.0),
+										   (int)ceil(currentFrame.size.width * 1000.0),
+										   (int)ceil(currentFrame.size.height * 1000.0));
+	}
+}
 
 @end
