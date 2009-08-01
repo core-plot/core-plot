@@ -55,6 +55,7 @@
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; };
 		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
+		BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A7991024AB19009D5261 /* CorePlotProbes.d */; };
 		BC9B834E0FB8A1400035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D30FB89E610035D8DA /* CPPlot.m */; };
 		BC9B834F0FB8A1400035D8DA /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D50FB89E610035D8DA /* CPScatterPlot.m */; };
 		BC9B83500FB8A1400035D8DA /* CPBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */; };
@@ -136,6 +137,7 @@
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
 		BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
+		BC89A7991024AB19009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = "<group>"; };
 		BC9B82690FB89BD10035D8DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC9B826F0FB89E610035D8DA /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayer.h; path = Source/CPLayer.h; sourceTree = "<group>"; };
 		BC9B82700FB89E610035D8DA /* CPLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayer.m; path = Source/CPLayer.m; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BC89A7991024AB19009D5261 /* CorePlotProbes.d */,
 				BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */,
 				32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */,
@@ -617,6 +620,7 @@
 				BCC7EA461006BF5700B39451 /* CPPlainBlackTheme.m in Sources */,
 				BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */,
 				BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */,
+				BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
