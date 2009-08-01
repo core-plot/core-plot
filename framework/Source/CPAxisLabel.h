@@ -19,10 +19,16 @@
 @property (nonatomic, readwrite, assign) CGFloat offset;
 @property (nonatomic, readwrite, copy) NSDecimalNumber *tickLocation;
 
+/// @name Initialization
+/// @{
 -(id)initWithText:(NSString *)newText textStyle:(CPTextStyle *)style;
 -(id)initWithContentLayer:(CPLayer *)layer;
+///	@}
 
+/// @name Layout
+/// @{
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction;
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction;
+///	@}
 
 @end

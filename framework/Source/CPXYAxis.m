@@ -14,8 +14,13 @@
 @end
 ///	@endcond
 
+/**	@brief A 2-dimensional cartesian (X-Y) axis class.
+ **/
 @implementation CPXYAxis
 
+/**	@property constantCoordinateValue
+ *	@brief The data coordinate value where the axis crosses the orthogonal axis.
+ **/
 @synthesize constantCoordinateValue;
 
 #pragma mark -
@@ -107,11 +112,11 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
     // Ticks
-    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
+    [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
 
     // Axis Line
-/*	if ( self.drawsAxisLine ) {
+	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
@@ -120,7 +125,7 @@
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 		CGContextStrokePath(theContext);
-	}*/
+	}
 }
 
 -(NSString *)description
