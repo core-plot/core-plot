@@ -154,13 +154,14 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super initWithFrame:newFrame]) {
+	if ( self = [super initWithFrame:newFrame] ) {
 		self.plotSpace = nil;
 		self.majorTickLocations = [NSArray array];
 		self.minorTickLocations = [NSArray array];
 		self.minorTickLength = 3.f;
 		self.majorTickLength = 5.f;
 		self.axisLabelOffset = 2.f;
+		self.axisLineStyle = [CPLineStyle lineStyle];
 		self.majorTickLineStyle = [CPLineStyle lineStyle];
 		self.minorTickLineStyle = [CPLineStyle lineStyle];
 		self.fixedPoint = [NSDecimalNumber zero];
@@ -183,8 +184,8 @@
 	return self;
 }
 
-
--(void)dealloc {
+-(void)dealloc
+{
 	self.plotSpace = nil;
 	[majorTickLocations release];
 	[minorTickLocations release];
