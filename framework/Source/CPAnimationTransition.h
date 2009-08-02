@@ -11,6 +11,7 @@
     CPAnimationTransition *continuingTransition;
     NSTimeInterval duration;
     CPAnimation *animation;
+	BOOL reversible;
 }
 
 @property (nonatomic, readwrite, copy) id <NSCopying> identifier;

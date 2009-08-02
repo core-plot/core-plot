@@ -494,7 +494,9 @@
     if ( newLineStyle != axisLineStyle ) {
         [axisLineStyle release];
         axisLineStyle = [newLineStyle copy];
-        [self setNeedsDisplay];
+		if (axisLineStyle != nil){
+			[self setNeedsDisplay];			
+		}
     }
 }
 
