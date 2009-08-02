@@ -3,11 +3,32 @@
 #import "CPAnimationTransition.h"
 #import "CPAnimationKeyFrame.h"
 
+/**	@brief An animation.
+ *	@note Not implemented.
+ *	@todo
+ *	- Implement CPAnimation.
+ *	- Add documentation for CPAnimation.
+ **/
 @implementation CPAnimation
 
+/**	@property graph
+ *	@todo Needs documentation.
+ **/
 @synthesize graph;
+
+/**	@property animationKeyFrames
+ *	@todo Needs documentation.
+ **/
 @synthesize animationKeyFrames = mutableKeyFrames;
+
+/**	@property animationTransitions
+ *	@todo Needs documentation.
+ **/
 @synthesize animationTransitions = mutableTransitions;
+
+/**	@property currentKeyFrame
+ *	@todo Needs documentation.
+ **/
 @synthesize currentKeyFrame;
 
 #pragma mark -

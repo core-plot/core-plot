@@ -3,9 +3,51 @@
 #import "CPAnimationKeyFrame.h"
 #import "CPAnimation.h"
 
+/**	@brief An animation transition.
+ *	@note Not implemented.
+ *	@todo
+ *	- Implement CPAnimationTransition.
+ *	- Add documentation for CPAnimationTransition.
+ **/
 @implementation CPAnimationTransition
 
-@synthesize duration, identifier, animation, startKeyFrame, endKeyFrame, continuingTransition;
+/// @defgroup CPAnimationTransition CPAnimationTransition
+/// @{
+
+/**	@property identifier
+ *	@todo Needs documentation.
+ **/
+@synthesize identifier;
+
+/**	@property duration
+ *	@todo Needs documentation.
+ **/
+@synthesize duration;
+
+/**	@property reversible
+ *	@todo Needs documentation.
+ **/
+@synthesize reversible;
+
+/**	@property animation
+ *	@todo Needs documentation.
+ **/
+@synthesize animation;
+
+/**	@property startKeyFrame
+ *	@todo Needs documentation.
+ **/
+@synthesize startKeyFrame;
+
+/**	@property endKeyFrame
+ *	@todo Needs documentation.
+ **/
+@synthesize endKeyFrame;
+
+/**	@property continuingTransition
+ *	@todo Needs documentation.
+ **/
+@synthesize continuingTransition;
 
 -(void)dealloc 
 {
@@ -21,5 +63,24 @@
 {
     return NO;
 }
+
+///	@}
+
+@end
+
+///	@brief CPAnimationTransition abstract methods—must be overridden by subclasses
+@implementation CPAnimationTransition(AbstractMethods)
+
+/// @addtogroup CPAnimationTransition
+/// @{
+
+/**	@todo Needs documentation.
+ **/
+-(void)performTransition
+{
+	
+}
+
+///	@}
 
 @end

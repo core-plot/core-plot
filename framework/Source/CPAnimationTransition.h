@@ -13,17 +13,17 @@
     CPAnimation *animation;
 }
 
-@property (nonatomic, readwrite, assign) NSTimeInterval duration;
 @property (nonatomic, readwrite, copy) id <NSCopying> identifier;
+@property (nonatomic, readwrite, assign) NSTimeInterval duration;
+@property (nonatomic, readonly, assign) BOOL reversible;
 @property (nonatomic, readwrite, assign) CPAnimation *animation;
 @property (nonatomic, readwrite, retain) CPAnimationKeyFrame *startKeyFrame;
 @property (nonatomic, readwrite, retain) CPAnimationKeyFrame *endKeyFrame;
 @property (nonatomic, readwrite, retain) CPAnimationTransition *continuingTransition;
-@property (nonatomic, readonly, assign) BOOL reversible;
 
 @end
 
-@interface CPAnimationTransition (AbstractMethods)
+@interface CPAnimationTransition(AbstractMethods)
 
 -(void)performTransition;
 
