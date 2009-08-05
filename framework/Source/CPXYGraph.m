@@ -54,7 +54,7 @@
 -(CPPlotSpace *)newPlotSpace 
 {
     CPXYPlotSpace *space;
-    space = [[CPXYPlotSpace alloc] initWithFrame:self.bounds];
+    space = [(CPXYPlotSpace *)[CPXYPlotSpace alloc] initWithFrame:self.bounds];
     space.xScaleType = xScaleType;
     space.yScaleType = yScaleType;
     return space;
@@ -62,7 +62,7 @@
 
 -(CPAxisSet *)newAxisSet
 {
-    CPXYAxisSet *newAxisSet = [[CPXYAxisSet alloc] initWithFrame:self.bounds];
+    CPXYAxisSet *newAxisSet = [(CPXYAxisSet *)[CPXYAxisSet alloc] initWithFrame:self.bounds];
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
     return newAxisSet;

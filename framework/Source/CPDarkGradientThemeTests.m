@@ -34,7 +34,7 @@
 
 -(CPXYGraph *)createTestGraph
 {
-    CPXYGraph *graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+    CPXYGraph *graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
 	graph.paddingLeft = 20.0;
 	graph.paddingTop = 20.0;
 	graph.paddingRight = 20.0;

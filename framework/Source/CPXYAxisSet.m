@@ -29,11 +29,11 @@
 		self.overlayLayer = newOverlayLayer;
 		[newOverlayLayer release];
 		
-		CPXYAxis *xAxis = [[CPXYAxis alloc] initWithFrame:newFrame];
+		CPXYAxis *xAxis = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:newFrame];
 		xAxis.coordinate = CPCoordinateX;
         xAxis.tickDirection = CPSignNegative;
 		
-		CPXYAxis *yAxis = [[CPXYAxis alloc] initWithFrame:newFrame];
+		CPXYAxis *yAxis = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:newFrame];
 		yAxis.coordinate = CPCoordinateY;
         yAxis.tickDirection = CPSignNegative;
 		

@@ -24,7 +24,7 @@
     if (self = [super initWithFrame:frame]) {
         hostedLayer = nil;
         layerBeingClickedOn = nil;
-        CPLayer *mainLayer = [[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
+        CPLayer *mainLayer = [(CPLayer *)[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;
         [mainLayer release];
     }

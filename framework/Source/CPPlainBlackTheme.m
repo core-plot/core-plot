@@ -34,10 +34,10 @@
 	// Create graph
 	CPXYGraph *graph;
 	if (self.graphClass) {
-		graph = [[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+		graph = [(CPXYGraph *)[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
 	}
 	else {
-		graph = [[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+		graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
 	}
 	graph.paddingLeft = 60.0;
 	graph.paddingTop = 60.0;

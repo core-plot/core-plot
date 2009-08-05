@@ -62,7 +62,15 @@ CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor)
  **/
 CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor)
 {
+	CGFloat red, green, blue, alpha;
+	
+	[[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&red green:&green blue:&blue alpha:&alpha];
+	
 	CPRGBAColor rgbColor;
-	[[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&rgbColor.red green:&rgbColor.green blue:&rgbColor.blue alpha:&rgbColor.alpha];
+	rgbColor.red = red;
+	rgbColor.green = green;
+	rgbColor.blue = blue;
+	rgbColor.alpha = alpha;
+	
 	return rgbColor;
 }

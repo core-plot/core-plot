@@ -67,7 +67,7 @@
 		self.plots = [[NSMutableArray alloc] init];
         
         // Plot area
-        self.plotArea = [[CPPlotArea alloc] initWithFrame:self.bounds];
+        self.plotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
         [self addSublayer:self.plotArea];
 		
         // Plot spaces
