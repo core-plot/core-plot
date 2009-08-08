@@ -32,6 +32,7 @@
 #import <CorePlot/CPTextLayer.h>
 #import <CorePlot/CPTextStyle.h>
 #import <CorePlot/CPTheme.h>
+#import <CorePlot/CPTimeFormatter.h>
 #import <CorePlot/CPUtilities.h>
 #import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYAxisSet.h>

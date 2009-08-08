@@ -28,6 +28,7 @@
 #import "Source/CPScatterPlot.h"
 #import "Source/CPStocksTheme.h"
 #import "Source/CPTheme.h"
+#import "Source/CPTimeFormatter.h"
 #import "Source/CPUtilities.h"
 #import "Source/CPXYAxis.h"
 #import "Source/CPXYAxisSet.h"

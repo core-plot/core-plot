@@ -80,6 +80,9 @@
 
 /**	@property tickLabelFormatter
  *	@brief The number formatter used to format the label text.
+ *  If you need a non-numerical label, such as a date, you can use a formatter than turns
+ *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
+ *  The CPTimeFormatter is useful for this purpose.
  **/
 @synthesize tickLabelFormatter;
 
@@ -148,6 +151,8 @@
  *	@brief A set of axis coordinates for all minor tick marks.
  **/
 @synthesize minorTickLocations;
+
+// Grid Lines
 
 /**	@property majorGridLineStyle
  *  @brief The line style for the major grid lines.

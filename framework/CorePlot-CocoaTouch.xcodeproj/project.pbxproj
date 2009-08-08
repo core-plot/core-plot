@@ -48,11 +48,13 @@
 		0789EFC10FB9F97F00C0A613 /* CPPlatformSpecificDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */; };
 		0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
+		07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A2E71C102DFAD300809BC5 /* CPTimeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07A2E71F102DFAD300809BC5 /* CPTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E71D102DFAD300809BC5 /* CPTimeFormatter.m */; };
 		07A62FB50FE2234900CD765C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB30FE2234900CD765C /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTextStyle.m */; };
 		07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */; };
-		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; };
+		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
 		BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A7991024AB19009D5261 /* CorePlotProbes.d */; };
@@ -80,11 +82,11 @@
 		BC9B83700FB8A1700035D8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		BC9B83710FB8A1700035D8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		BC9B83C30FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCC7EA451006BF5700B39451 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA3F1006BF5700B39451 /* CPPlainBlackTheme.h */; };
+		BCC7EA451006BF5700B39451 /* CPPlainBlackTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA3F1006BF5700B39451 /* CPPlainBlackTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA461006BF5700B39451 /* CPPlainBlackTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA401006BF5700B39451 /* CPPlainBlackTheme.m */; };
-		BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA411006BF5700B39451 /* CPPlainWhiteTheme.h */; };
+		BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA411006BF5700B39451 /* CPPlainWhiteTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */; };
-		BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPStocksTheme.h */; };
+		BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +127,8 @@
 		0789EFBB0FB9F97F00C0A613 /* CPPlatformSpecificDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificDefines.m; sourceTree = "<group>"; };
 		0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlatformSpecificFunctions.h; sourceTree = "<group>"; };
 		0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlatformSpecificFunctions.m; sourceTree = "<group>"; };
+		07A2E71C102DFAD300809BC5 /* CPTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTimeFormatter.h; path = Source/CPTimeFormatter.h; sourceTree = "<group>"; };
+		07A2E71D102DFAD300809BC5 /* CPTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTimeFormatter.m; path = Source/CPTimeFormatter.m; sourceTree = "<group>"; };
 		07A62FB30FE2234900CD765C /* CPTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStyle.h; path = Source/CPTextStyle.h; sourceTree = "<group>"; };
 		07A62FB40FE2234900CD765C /* CPTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStyle.m; path = Source/CPTextStyle.m; sourceTree = "<group>"; };
 		07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStylePlatformSpecific.h; path = iPhoneOnly/CPTextStylePlatformSpecific.h; sourceTree = "<group>"; };
@@ -317,6 +321,15 @@
 			path = iPhoneOnly;
 			sourceTree = "<group>";
 		};
+		07A2E717102DF9A500809BC5 /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				07A2E71C102DFAD300809BC5 /* CPTimeFormatter.h */,
+				07A2E71D102DFAD300809BC5 /* CPTimeFormatter.m */,
+			);
+			name = Formatting;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +389,7 @@
 				070CB84D0FC9DEDA00F3152B /* Animation */,
 				070CB8100FC9DDED00F3152B /* Text */,
 				070CB80F0FC9DDD500F3152B /* Drawing */,
+				07A2E717102DF9A500809BC5 /* Formatting */,
 				BC9B82CE0FB89E610035D8DA /* Plots */,
 				070CB8380FC9DEB900F3152B /* Axes */,
 				BC9B82C50FB89E610035D8DA /* Spaces */,
@@ -527,6 +541,7 @@
 				BCC7EA451006BF5700B39451 /* CPPlainBlackTheme.h in Headers */,
 				BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */,
 				BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */,
+				07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +636,7 @@
 				BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */,
 				BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */,
 				BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */,
+				07A2E71F102DFAD300809BC5 /* CPTimeFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
