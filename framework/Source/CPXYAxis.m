@@ -10,6 +10,9 @@
 @interface CPXYAxis ()
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major; 
+-(void)drawGridLinesInContext:(CGContextRef)theContext atLocations:(NSSet *)locations isMajor:(BOOL)major;
+
+-(void)terminalPointsForGridLineWithCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber startPoint:(CGPoint *)startPoint endPoint:(CGPoint *)endPoint;
 
 @end
 ///	@endcond
@@ -107,6 +110,48 @@
 	CGContextStrokePath(theContext);
 }
 
+-(void)terminalPointsForGridLineWithCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber startPoint:(CGPoint *)startPoint endPoint:(CGPoint *)endPoint
+{
+    CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+    CPPlotRange *orthogonalRange = [self.plotSpace plotRangeForCoordinate:orthogonalCoordinate];
+    
+    // Start point
+    NSDecimalNumber *plotPoint[2];
+    plotPoint[self.coordinate] = coordinateDecimalNumber;
+    plotPoint[orthogonalCoordinate] = orthogonalRange.location;
+    *startPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+    
+    // End point
+    plotPoint[orthogonalCoordinate] = orthogonalRange.end;
+    *endPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+}
+
+-(void)drawGridLinesInContext:(CGContextRef)theContext atLocations:(NSSet *)locations isMajor:(BOOL)major
+{
+	if ( major && !self.majorGridLineStyle ) return;
+    if ( !major && !self.minorGridLineStyle ) return; 
+    
+	[(major ? self.majorGridLineStyle : self.minorGridLineStyle) setLineStyleInContext:theContext];
+	CGContextBeginPath(theContext);
+	
+    for ( NSDecimalNumber *location in locations ) {
+        CGPoint startViewPoint;
+        CGPoint endViewPoint;
+        [self terminalPointsForGridLineWithCoordinateDecimalNumber:location startPoint:&startViewPoint endPoint:&endViewPoint];
+        
+        // Align to pixels
+        startViewPoint = alignPointToUserSpace(theContext, startViewPoint);
+        endViewPoint = alignPointToUserSpace(theContext, endViewPoint);
+        
+        // Add grid line 
+        CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
+        CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
+    }
+    
+	// Stroke grid line
+	CGContextStrokePath(theContext);
+}
+
 #pragma mark -
 #pragma mark Drawing
 
@@ -114,6 +159,10 @@
     // Ticks
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
+    
+    // Grid Lines
+    [self drawGridLinesInContext:theContext atLocations:self.majorTickLocations isMajor:YES];
+    [self drawGridLinesInContext:theContext atLocations:self.minorTickLocations isMajor:NO];
 
     // Axis Line
 	if ( self.axisLineStyle ) {

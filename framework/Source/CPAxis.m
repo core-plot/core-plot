@@ -149,6 +149,18 @@
  **/
 @synthesize minorTickLocations;
 
+/**	@property majorGridLineStyle
+ *  @brief The line style for the major grid lines.
+ *	If nil, the major grid lines are not drawn.
+ **/
+@synthesize majorGridLineStyle;
+
+/**	@property minorGridLineStyle
+ *  @brief The line style for the minor grid lines.
+ *	If nil, the minor grid lines are not drawn.
+ **/
+@synthesize minorGridLineStyle;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -192,6 +204,8 @@
 	self.axisLineStyle = nil;
 	[majorTickLineStyle release];
 	[minorTickLineStyle release];
+    [majorGridLineStyle release];
+    [minorGridLineStyle release];
 	self.fixedPoint = nil;
 	self.majorIntervalLength = nil;
 	self.tickLabelFormatter = nil;
