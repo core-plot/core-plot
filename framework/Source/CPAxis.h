@@ -57,6 +57,8 @@ typedef enum _CPAxisLabelingPolicy {
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
+    CPLineStyle *majorGridLineStyle;
+    CPLineStyle *minorGridLineStyle;
     NSDecimalNumber *fixedPoint;
     NSDecimalNumber *majorIntervalLength;
     NSUInteger minorTicksPerInterval;
@@ -105,6 +107,13 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPLineStyle *minorTickLineStyle;
 @property (nonatomic, readwrite, retain) NSSet *minorTickLocations;
 ///	@}
+
+/// @name Grid Lines
+/// @{
+@property (nonatomic, readwrite, copy) CPLineStyle *majorGridLineStyle;
+@property (nonatomic, readwrite, copy) CPLineStyle *minorGridLineStyle;
+///	@}
+
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 
 /// @name Labels

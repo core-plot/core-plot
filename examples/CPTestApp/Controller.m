@@ -26,6 +26,15 @@
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
+    
+    // Grid line styles
+    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    majorGridLineStyle.lineWidth = 0.75;
+    majorGridLineStyle.lineColor = [[CPColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    
+    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    minorGridLineStyle.lineWidth = 0.25;
+    minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
 
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -33,6 +42,8 @@
     x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
     x.minorTicksPerInterval = 2;
+    x.majorGridLineStyle = majorGridLineStyle;
+    x.minorGridLineStyle = minorGridLineStyle;
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -44,6 +55,8 @@
     y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
     y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    y.majorGridLineStyle = majorGridLineStyle;
+    y.minorGridLineStyle = minorGridLineStyle;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
