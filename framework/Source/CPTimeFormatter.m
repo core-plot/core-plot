@@ -30,7 +30,10 @@
  **/
 -(id)init
 {
-	return [self initWithDateFormatter:[[[NSDateFormatter alloc] init] autorelease]];
+    NSDateFormatter *newDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
+    return [self initWithDateFormatter:newDateFormatter];
 }
 
 /**	@brief Initializes new instance with the date formatter passed.
