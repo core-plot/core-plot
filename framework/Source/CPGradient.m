@@ -527,7 +527,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	
     int i;
     for(i = 0; i < 4; i++) {
-		float color[4];
+		CGFloat color[4];
 		color[0] = colorBands[i].hue - 180*colorBands[i].width;
 		color[1] = 1;
 		color[2] = 0.001;
