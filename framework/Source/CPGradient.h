@@ -12,7 +12,7 @@
  **/
 typedef struct _CPGradientElement {
 	CPRGBAColor color;	///< Color
-	float position;		///< Gradient position (0 ≤ position ≤ 1)
+	CGFloat position;		///< Gradient position (0 ≤ position ≤ 1)
 	
 	struct _CPGradientElement *nextElement;	///< Pointer to the next CPGradientElement in the list (last element == NULL)
 } CPGradientElement;
@@ -74,18 +74,18 @@ typedef enum _CPGradientType {
 
 /// @name Modification
 /// @{
--(CPGradient *)gradientWithAlphaComponent:(float)alpha;
+-(CPGradient *)gradientWithAlphaComponent:(CGFloat)alpha;
 -(CPGradient *)gradientWithBlendingMode:(CPGradientBlendingMode)mode;
 
--(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position;	// positions given relative to [0,1]
+-(CPGradient *)addColorStop:(CPColor *)color atPosition:(CGFloat)position;	// positions given relative to [0,1]
 -(CPGradient *)removeColorStopAtIndex:(NSUInteger)index;
--(CPGradient *)removeColorStopAtPosition:(float)position;
+-(CPGradient *)removeColorStopAtPosition:(CGFloat)position;
 ///	@}
 
 /// @name Information
 /// @{
 -(CGColorRef)colorStopAtIndex:(NSUInteger)index;
--(CGColorRef)colorAtPosition:(float)position;
+-(CGColorRef)colorAtPosition:(CGFloat)position;
 ///	@}
 
 /// @name Drawing

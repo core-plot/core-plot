@@ -4,6 +4,7 @@
 #import "CPLayer.h"
 #import "CPColorSpace.h"
 #import "CPColor.h"
+#import <tgmath.h>
 
 ///	@cond
 @interface CPGradient()
@@ -26,12 +27,12 @@
 ///	@endcond
 
 // C Fuctions for color blending
-static void linearEvaluation(void *info, const float *in, float *out);
-static void chromaticEvaluation(void *info, const float *in, float *out);
-static void inverseChromaticEvaluation(void *info, const float *in, float *out);
-static void transformRGB_HSV(float *components);
-static void transformHSV_RGB(float *components);
-static void resolveHSV(float *color1, float *color2);
+static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void transformRGB_HSV(CGFloat *components);
+static void transformHSV_RGB(CGFloat *components);
+static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Draws color gradient fills.
  *
@@ -576,6 +577,7 @@ static void resolveHSV(float *color1, float *color2);
     return [newInstance autorelease];
 }
 
+
 #pragma mark -
 #pragma mark Modification
 
@@ -583,7 +585,7 @@ static void resolveHSV(float *color1, float *color2);
  *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
  *	@return A copy of the current gradient with the new alpha value.
  **/
--(CPGradient *)gradientWithAlphaComponent:(float)alpha
+-(CPGradient *)gradientWithAlphaComponent:(CGFloat)alpha
 {
     CPGradient *newGradient = [[[self class] alloc] init];
 	
@@ -625,7 +627,7 @@ static void resolveHSV(float *color1, float *color2);
  *  @param position The color stop position (0 ≤ position ≤ 1).
  *	@return A copy of the current gradient with the new color stop.
  **/
--(CPGradient *)addColorStop:(CPColor *)color atPosition:(float)position
+-(CPGradient *)addColorStop:(CPColor *)color atPosition:(CGFloat)position
 {
     CPGradient *newGradient = [self copy];
     CPGradientElement newGradientElement;
@@ -644,7 +646,7 @@ static void resolveHSV(float *color1, float *color2);
  *  @param position The color stop position (0 ≤ position ≤ 1).
  *	@return A copy of the current gradient with the color stop removed.
  **/
--(CPGradient *)removeColorStopAtPosition:(float)position
+-(CPGradient *)removeColorStopAtPosition:(CGFloat)position
 {
     CPGradient *newGradient = [self copy];
     CPGradientElement removedElement = [newGradient removeElementAtPosition:position];
@@ -702,9 +704,9 @@ static void resolveHSV(float *color1, float *color2);
  *  @param position The color stop position (0 ≤ position ≤ 1).
  *  @return The  color at <tt>position</tt> in gradient.
  **/
--(CGColorRef)colorAtPosition:(float)position
+-(CGColorRef)colorAtPosition:(CGFloat)position
 {
-    float components[4];
+    CGFloat components[4];
 	CGColorRef gradientColor;
 	
     switch (blendingMode) {
@@ -822,14 +824,14 @@ static void resolveHSV(float *color1, float *color2);
         endPoint   = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect));	// top    of rect
     } else { // ok, we'll do the calculations now
         CGFloat x, y;
-        float sina, cosa, tana;
+        CGFloat sina, cosa, tana;
 		
         CGFloat length;
         CGFloat deltax, deltay;
 		
-        float rangle = self.angle * M_PI/180;	//convert the angle to radians
+        CGFloat rangle = self.angle * M_PI/180;	//convert the angle to radians
 		
-        if (fabsf(tan(rangle))<=1) {  //for range [-45,45], [135,225]
+        if (fabs(tan(rangle))<=1) {  //for range [-45,45], [135,225]
             x = CGRectGetWidth(rect);
             y = CGRectGetHeight(rect);
             
@@ -837,7 +839,7 @@ static void resolveHSV(float *color1, float *color2);
             cosa = cos(rangle);
             tana = tan(rangle);
             
-            length = x/fabsf(cosa)+(y-x*fabsf(tana))*fabsf(sina);
+            length = x/fabs(cosa)+(y-x*fabs(tana))*fabs(sina);
             
             deltax = length*cosa/2;
             deltay = length*sina/2;
@@ -851,7 +853,7 @@ static void resolveHSV(float *color1, float *color2);
             cosa = cos(rangle);
             tana = tan(rangle);
             
-            length = x/fabsf(cosa)+(y-x*fabsf(tana))*fabsf(sina);
+            length = x/fabs(cosa)+(y-x*fabs(tana))*fabs(sina);
             
             deltax = -length*sina/2;
             deltay = length*cosa/2;
@@ -1058,9 +1060,9 @@ static void resolveHSV(float *color1, float *color2);
 #pragma mark -
 #pragma mark Core Graphics
 
-void linearEvaluation (void *info, const float *in, float *out) 
+void linearEvaluation (void *info, const CGFloat *in, CGFloat *out) 
 {
-    float position = *in;
+    CGFloat position = *in;
 	
     if (*(CPGradientElement **)info == nil) {
         out[0] = out[1] = out[2] = out[3] = 1;
@@ -1125,9 +1127,9 @@ void linearEvaluation (void *info, const float *in, float *out)
 //	this we will add to the hue's angle (if we subtract we'll be doing the inverse
 //	chromatic...scroll down more for that). All we need to do is keep adding to the hue
 //  until we wrap around the colorwheel and get to color2.
-void chromaticEvaluation(void *info, const float *in, float *out)
+void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
-    float position = *in;
+    CGFloat position = *in;
 	
     if (*(CPGradientElement **)info == nil) {
         out[0] = out[1] = out[2] = out[3] = 1;
@@ -1138,8 +1140,8 @@ void chromaticEvaluation(void *info, const float *in, float *out)
     CPGradientElement *color1 = *(CPGradientElement **)info;
     CPGradientElement *color2 = color1->nextElement;
 	
-    float c1[4];
-    float c2[4];
+    CGFloat c1[4];
+    CGFloat c2[4];
 	
     // make sure first color and second color are on other sides of position
     while (color2 != nil && color2->position < position) {
@@ -1204,9 +1206,9 @@ void chromaticEvaluation(void *info, const float *in, float *out)
 //	is strictly decreasing, that is we need to get from color1 to color2 by decreasing
 //	the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
 //	which is equivalent to 180º mod 360º
-void inverseChromaticEvaluation(void *info, const float *in, float *out)
+void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
-    float position = *in;
+    CGFloat position = *in;
 	
     if (*(CPGradientElement **)info == nil) {
         out[0] = out[1] = out[2] = out[3] = 1;
@@ -1217,8 +1219,8 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
     CPGradientElement *color1 = *(CPGradientElement **)info;
     CPGradientElement *color2 = color1->nextElement;
 	
-    float c1[4];
-    float c2[4];
+    CGFloat c1[4];
+    CGFloat c2[4];
 	
     //make sure first color and second color are on other sides of position
     while (color2 != nil && color2->position < position) {
@@ -1279,15 +1281,15 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
     out[2] *= out[3];
 }
 
-void transformRGB_HSV(float *components) //H,S,B -> R,G,B
+void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 {
-    float H, S, V;
-    float R = components[0],
+    CGFloat H, S, V;
+    CGFloat R = components[0],
 	G = components[1],
 	B = components[2];
 	
-    float MAX = R > G ? (R > B ? R : B) : (G > B ? G : B);
-	float MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
+    CGFloat MAX = R > G ? (R > B ? R : B) : (G > B ? G : B);
+	CGFloat MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
 	
     if (MAX == MIN) {
         H = NAN;
@@ -1311,18 +1313,18 @@ void transformRGB_HSV(float *components) //H,S,B -> R,G,B
     components[2] = V;
 }
 
-void transformHSV_RGB(float *components) //H,S,B -> R,G,B
+void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
-	float R, G, B;
-	float H = fmodf(components[0],359);	//map to [0,360)
-	float S = components[1];
-	float V = components[2];
+	CGFloat R, G, B;
+	CGFloat H = fmod(components[0],359);	//map to [0,360)
+	CGFloat S = components[1];
+	CGFloat V = components[2];
 	
-	int   Hi = (int)floorf(H/60.) % 6;
-	float f  = H/60-Hi;
-	float p  = V*(1-S);
-	float q  = V*(1-f*S);
-	float t  = V*(1-(1-f)*S);
+	int   Hi = (int)floor(H/60.) % 6;
+	CGFloat f  = H/60-Hi;
+	CGFloat p  = V*(1-S);
+	CGFloat q  = V*(1-f*S);
+	CGFloat t  = V*(1-(1-f)*S);
 	
 	switch (Hi) {
 		case 0:	R=V;G=t;B=p;	break;
@@ -1338,7 +1340,7 @@ void transformHSV_RGB(float *components) //H,S,B -> R,G,B
 	components[2] = B;
 }
 
-void resolveHSV(float *color1, float *color2)	// H value may be undefined (i.e. graycale color)
+void resolveHSV(CGFloat *color1, CGFloat *color2)	// H value may be undefined (i.e. graycale color)
 {                                               //	we want to fill it with a sensible value
 	if (isnan(color1[0]) && isnan(color2[0])) {
 		color1[0] = color2[0] = 0;
