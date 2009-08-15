@@ -7,7 +7,6 @@
 @interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate> {
     IBOutlet CPLayerHostingView *hostView;
     CPXYGraph *graph;
-	
 	RotationView *overlayRotationView;
 }
 

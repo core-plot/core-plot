@@ -156,14 +156,14 @@
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
+    // Grid Lines
+    [self drawGridLinesInContext:theContext atLocations:self.minorTickLocations isMajor:NO];
+    [self drawGridLinesInContext:theContext atLocations:self.majorTickLocations isMajor:YES];
+	
     // Ticks
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
     
-    // Grid Lines
-    [self drawGridLinesInContext:theContext atLocations:self.majorTickLocations isMajor:YES];
-    [self drawGridLinesInContext:theContext atLocations:self.minorTickLocations isMajor:NO];
-
     // Axis Line
 	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
