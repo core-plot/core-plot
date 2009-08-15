@@ -21,7 +21,7 @@
 -(CPGradientElement *)elementAtIndex:(NSUInteger)index;
 
 -(CPGradientElement)removeElementAtIndex:(NSUInteger)index;
--(CPGradientElement)removeElementAtPosition:(float)position;
+-(CPGradientElement)removeElementAtPosition:(CGFloat)position;
 
 @end
 ///	@endcond
@@ -120,11 +120,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         NSUInteger count = 0;
         CPGradientElement *currentElement = elementList;
         while (currentElement != nil) {
-            [coder encodeValueOfObjCType:@encode(float) at:&(currentElement->color.red)];
-            [coder encodeValueOfObjCType:@encode(float) at:&(currentElement->color.green)];
-            [coder encodeValueOfObjCType:@encode(float) at:&(currentElement->color.blue)];
-            [coder encodeValueOfObjCType:@encode(float) at:&(currentElement->color.alpha)];
-            [coder encodeValueOfObjCType:@encode(float) at:&(currentElement->position)];
+            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.red)];
+            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.green)];
+            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.blue)];
+            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.alpha)];
+            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->position)];
             
             count++;
             currentElement = currentElement->nextElement;
@@ -162,11 +162,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 		while (count != 0) {
 			CPGradientElement newElement;
 			
-			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.red)];
-			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.green)];
-			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.blue)];
-			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.color.alpha)];
-			[coder decodeValueOfObjCType:@encode(float) at:&(newElement.position)];
+			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.red)];
+			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.green)];
+			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.blue)];
+			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.alpha)];
+			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.position)];
 			
 			count--;
 			[self addElement:&newElement];
@@ -507,7 +507,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CPGradient *newInstance = [[self alloc] init];
 	
-    struct {float hue; float position; float width;} colorBands[4];
+    struct {CGFloat hue; CGFloat position; CGFloat width;} colorBands[4];
 	
     colorBands[0].hue = 22;
     colorBands[0].position = 0.145;
@@ -1001,7 +1001,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return removedElement;
 }
 
--(CPGradientElement)removeElementAtPosition:(float)position {
+-(CPGradientElement)removeElementAtPosition:(CGFloat)position {
     CPGradientElement removedElement;
 	
     if (elementList != nil) {
@@ -1097,7 +1097,7 @@ void linearEvaluation (void *info, const CGFloat *in, CGFloat *out)
         out[1] = color1->color.green;
         out[2] = color1->color.blue;
         out[3] = color1->color.alpha;
-    } else if (position >= color2->position)	{
+    } else if (position >= color2->position) {
         out[0] = color2->color.red; 
         out[1] = color2->color.green;
         out[2] = color2->color.blue;

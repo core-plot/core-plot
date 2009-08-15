@@ -103,7 +103,7 @@ CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
 	
 	if (numComponents == 2) {
 		const CGFloat *components = CGColorGetComponents(color);
-		float all = components[0];
+		CGFloat all = components[0];
 		rgbColor.red = all;
 		rgbColor.green = all;
 		rgbColor.blue = all;

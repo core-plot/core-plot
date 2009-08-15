@@ -63,10 +63,10 @@ typedef enum _CPCoordinate {
  *	@brief RGBA color for gradients
  **/
 typedef struct _CPRGBAColor {
-	float red;		///< The red component (0 ≤ red ≤ 1).
-	float green;	///< The green component (0 ≤ green ≤ 1).
-	float blue;		///< The blue component (0 ≤ blue ≤ 1).
-	float alpha;	///< The alpha component (0 ≤ alpha ≤ 1).
+	CGFloat red;	///< The red component (0 ≤ red ≤ 1).
+	CGFloat green;	///< The green component (0 ≤ green ≤ 1).
+	CGFloat blue;	///< The blue component (0 ≤ blue ≤ 1).
+	CGFloat alpha;	///< The alpha component (0 ≤ alpha ≤ 1).
 } CPRGBAColor;
 
 /**
