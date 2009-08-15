@@ -2,9 +2,12 @@
 #import "Controller.h"
 #import <CorePlot/CorePlot.h>
 
+static const CGFloat kZDistanceBetweenLayers = 20.0f;
+
 @implementation Controller
 
-+(void)initialize {
++(void)initialize
+{
     [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
 }
 
@@ -14,7 +17,8 @@
     [super dealloc];
 }
 
--(void)awakeFromNib {
+-(void)awakeFromNib
+{
     [super awakeFromNib];
 
     // Create graph from theme
@@ -152,7 +156,8 @@
 #pragma mark -
 #pragma mark Actions
 
--(IBAction)reloadDataSourcePlot:(id)sender {
+-(IBAction)reloadDataSourcePlot:(id)sender
+{
     CPPlot *plot = [graph plotWithIdentifier:@"Data Source Plot"];
     [plot reloadData];
 }
@@ -160,14 +165,16 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
+{
     if ( [plot isKindOfClass:[CPBarPlot class]] ) 
         return 8;
     else
         return [self.arrangedObjects count];
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
     NSDecimalNumber *num;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
         num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:(index+1)*(index+1)];
@@ -181,7 +188,7 @@
     return num;
 }
 
--(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index; 
+-(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index
 {
 	return nil;
 }
@@ -189,7 +196,7 @@
 #pragma mark -
 #pragma mark PDF / image export
 
--(IBAction)exportToPDF:(id)sender;
+-(IBAction)exportToPDF:(id)sender
 {
 	NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
 	[pdfSavingDialog setRequiredFileType:@"pdf"];
@@ -201,13 +208,12 @@
 	}		
 }
 
--(IBAction)exportToPNG:(id)sender;
+-(IBAction)exportToPNG:(id)sender
 {
 	NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
 	[pngSavingDialog setRequiredFileType:@"png"];
 	
-	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
-	{
+	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton ) {
 		NSImage *image = [graph imageOfLayer];
         NSData *tiffData = [image TIFFRepresentation];
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
@@ -219,20 +225,21 @@
 #pragma mark -
 #pragma mark Layer exploding for illustration
 
-#define ZDISTANCEBETWEENLAYERS 20.0f
--(IBAction)explodeLayers:(id)sender;
+-(IBAction)explodeLayers:(id)sender
 {
 	CATransform3D perspectiveRotation = CATransform3DMakeRotation(-40.0 * M_PI / 180.0, 0.0, 1.0, 0.0);
 	
 	perspectiveRotation = CATransform3DRotate(perspectiveRotation, -55.0 * M_PI / 180.0, perspectiveRotation.m11, perspectiveRotation.m21, perspectiveRotation.m31);
 	
 	perspectiveRotation = CATransform3DScale(perspectiveRotation, 0.7, 0.7, 0.7);
+	
 	graph.masksToBounds = NO;
 	graph.superlayer.masksToBounds = NO;
 	
-	overlayRotationView = [[RotationView alloc] initWithFrame:hostView.frame];
+	overlayRotationView = [(RotationView *)[RotationView alloc] initWithFrame:hostView.frame];
 	overlayRotationView.rotationDelegate = self;
 	overlayRotationView.rotationTransform = perspectiveRotation;
+	[overlayRotationView setAutoresizingMask:[hostView autoresizingMask]];
 	[[hostView superview] addSubview:overlayRotationView positioned:NSWindowAbove relativeTo:hostView];
 	
 	[CATransaction begin];
@@ -244,19 +251,19 @@
 	[CATransaction commit];
 }
 
-+(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(unsigned int)depthLevel;
++(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(NSUInteger)depthLevel
 {
-	layer.zPosition = ZDISTANCEBETWEENLAYERS * (CGFloat)depthLevel;
-	layer.borderColor = [[CPColor blueColor] cgColor];
+	layer.zPosition = kZDistanceBetweenLayers * (CGFloat)depthLevel;
+	layer.borderColor = [CPColor blueColor].cgColor;
 	layer.borderWidth = 2.0;
-
+	
 	depthLevel++;
 	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelySplitSublayersInZForLayer:currentLayer depthLevel:depthLevel];
 	}
 }
 
--(IBAction)reassembleLayers:(id)sender;
+-(IBAction)reassembleLayers:(id)sender
 {
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:1.0f] forKey:kCATransactionAnimationDuration];		
@@ -271,10 +278,10 @@
 	overlayRotationView = nil;
 }
 
-+(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
++(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer
 {
 	layer.zPosition = 0.0;
-	layer.borderColor = [[CPColor clearColor] cgColor];
+	layer.borderColor = [CPColor clearColor].cgColor;
 	layer.borderWidth = 0.0;
 	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelyAssembleSublayersInZForLayer:currentLayer];
@@ -284,7 +291,7 @@
 #pragma mark -
 #pragma mark CPRotationDelegate delegate method
 
--(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform;
+-(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform
 {
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];	

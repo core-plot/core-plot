@@ -8,7 +8,8 @@
     [super dealloc];
 }
 
--(void)awakeFromNib {
+-(void)awakeFromNib
+{
     // Create graph
     graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     hostView.hostedLayer = graph;
@@ -46,11 +47,13 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
+{
     return 10;
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
 	NSDecimalNumber *num;
 	
 	switch (fieldEnum) {
