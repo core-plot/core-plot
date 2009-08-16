@@ -12,7 +12,7 @@
  **/
 typedef struct _CPGradientElement {
 	CPRGBAColor color;	///< Color
-	CGFloat position;		///< Gradient position (0 ≤ position ≤ 1)
+	CGFloat position;	///< Gradient position (0 ≤ position ≤ 1)
 	
 	struct _CPGradientElement *nextElement;	///< Pointer to the next CPGradientElement in the list (last element == NULL)
 } CPGradientElement;

@@ -8,9 +8,10 @@
     [super dealloc];
 }
 
--(void)awakeFromNib {
+-(void)awakeFromNib
+{
     // Create graph
-    graph = [[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     hostView.hostedLayer = graph;
 	
 	// Remove axes
@@ -33,7 +34,7 @@
     
     // Create a series of plots that uses the data source method
 	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeCustom; i++) {
-		CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+		CPScatterPlot *dataSourceLinePlot = [[(CPScatterPlot *)[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
 		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
 		dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
@@ -46,11 +47,13 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+-(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
+{
     return 10;
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
 	NSDecimalNumber *num;
 	
 	switch (fieldEnum) {

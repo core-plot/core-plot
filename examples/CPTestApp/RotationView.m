@@ -5,15 +5,16 @@
 
 #import "RotationView.h"
 
+static const CGFloat kMouseMovementScaleFactorForRotation = 1.0f;
 
 @implementation RotationView
 
 #pragma mark -
 #pragma mark Initialization and teardown
 
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
+- (id)initWithFrame:(NSRect)frame
+{
+    if ( self = [super initWithFrame:frame] ) {
 		rotationTransform = CATransform3DIdentity;
         // Initialization code here.
     }
@@ -23,24 +24,22 @@
 #pragma mark -
 #pragma mark Mouse handling methods
 
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
 	return YES;
 }
 
-- (void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseDown:(NSEvent *)theEvent
 {
 	previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 }
 
-#define MOUSEMOVEMENTSCALEFACTORFORROTATION 1.0
-
-- (void)mouseDragged:(NSEvent *)theEvent;
+- (void)mouseDragged:(NSEvent *)theEvent
 {
 	NSPoint currentLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
-	CGFloat displacementInX = MOUSEMOVEMENTSCALEFACTORFORROTATION * (currentLocation.x - previousLocation.x);
-	CGFloat displacementInY = MOUSEMOVEMENTSCALEFACTORFORROTATION * (previousLocation.y - currentLocation.y);
+	CGFloat displacementInX = kMouseMovementScaleFactorForRotation * (currentLocation.x - previousLocation.x);
+	CGFloat displacementInY = kMouseMovementScaleFactorForRotation * (previousLocation.y - currentLocation.y);
 	
 	CGFloat totalRotation = sqrt(displacementInX * displacementInX + displacementInY * displacementInY);
 	
@@ -53,7 +52,7 @@
 
 }
 
-- (void)mouseUp:(NSEvent *)theEvent;
+- (void)mouseUp:(NSEvent *)theEvent
 {
 	previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 }
