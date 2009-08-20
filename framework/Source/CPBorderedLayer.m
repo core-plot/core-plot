@@ -36,8 +36,9 @@
 
 -(void)dealloc
 {
-	self.borderLineStyle = nil;
-    self.fill = nil;
+	[self.borderLineStyle release];
+    [self.fill release];
+	
 	[super dealloc];
 }
 

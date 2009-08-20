@@ -89,11 +89,13 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	[axisSet release];
 	[plotArea release];
-    self.fill = nil;
-	self.plots = nil;
-	self.plotSpaces = nil;
+    [fill release];
+	[plots release];
+	[plotSpaces release];
+	
 	[super dealloc];
 }
 

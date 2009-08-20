@@ -45,35 +45,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
 		BC21A9801035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8 /* CorePlot-UnitTests.octest */;
+			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8;
 			remoteInfo = "CorePlot-UnitTests";
 		};
 		BC21A9821035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4C2D58DE0FB78208008275E0 /* CorePlot-PerformanceTests.octest */;
+			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
 			remoteInfo = "CorePlot-PerformanceTests";
 		};
 		BC21A9841035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */;
+			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A;
 			remoteInfo = CPTestHarness;
 		};
 		BC21A99B1035BF8600FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* CorePlot */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
 /* End PBXContainerItemProxy section */

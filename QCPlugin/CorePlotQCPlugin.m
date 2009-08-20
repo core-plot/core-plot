@@ -69,7 +69,9 @@ Dynamic accessors for the static PlugIn inputs
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
+@dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
+@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
@@ -196,6 +198,11 @@ Synthesized accessors for internal PlugIn settings
 			@"inputAxisColor", 
 			@"inputAxisLineWidth",
 			
+			@"inputLeftMargin",
+			@"inputRightMargin",
+			@"inputTopMargin",
+			@"inputBottomMargin",
+			
 			@"inputXMin", 
 			@"inputXMax", 
 			@"inputYMin", 
@@ -242,32 +249,56 @@ Synthesized accessors for internal PlugIn settings
 				@"Y Range Max", QCPortAttributeNameKey,
 				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
 				nil];
+
+	if ([key isEqualToString:@"inputLeftMargin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Left Margin", QCPortAttributeNameKey,
+				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
+				nil];
+
+	if ([key isEqualToString:@"inputRightMargin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Right Margin", QCPortAttributeNameKey,
+				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
+				nil];
+
+	if ([key isEqualToString:@"inputTopMargin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Top Margin", QCPortAttributeNameKey,
+				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
+				nil];
+
+	if ([key isEqualToString:@"inputBottomMargin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Bottom Margin", QCPortAttributeNameKey,
+				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
+				nil];
 	
 	if ([key isEqualToString:@"inputXMajorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"X Major Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:5], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
 				[NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMajorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Y Major Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:7], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
 				[NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputXMinorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"X Minor Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:7], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
 				[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMinorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Y Minor Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:5], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
 				[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
 				nil];
 	
@@ -312,10 +343,24 @@ Synthesized accessors for internal PlugIn settings
 				[NSNumber numberWithDouble:3.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
+	if ([key isEqualToString:@"inputMajorGridLineWidth"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Major Grid Line Width", QCPortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
+				nil];
+	
+	if ([key isEqualToString:@"inputMinorGridLineWidth"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Minor Grid Line Width", QCPortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:0.0], QCPortAttributeDefaultValueKey,
+				nil];
+	
 	if ([key isEqualToString:@"inputBorderColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Border Color", QCPortAttributeNameKey,
-				CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0), QCPortAttributeDefaultValueKey,
+				CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.0), QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputBackgroundColor"])
@@ -362,12 +407,13 @@ Synthesized accessors for internal PlugIn settings
 		// Create graph from theme
 		CPTheme *theme = [CPTheme themeNamed:kCPPlainBlackTheme];
 		graph = (CPXYGraph *)[theme newGraph];
-		
+				
 		// Setup scatter plot space
 		CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
 		[plotSpace setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(1.0)];
 		plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+		
 		
 		// Axes
 		CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -383,7 +429,6 @@ Synthesized accessors for internal PlugIn settings
 		y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
 		y.minorTicksPerInterval = 5;
 		y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
-		
 	}		
 }
 
@@ -461,6 +506,38 @@ Synthesized accessors for internal PlugIn settings
 	set.xAxis.majorTickLength = self.inputAxisMajorTickLength;
 	set.yAxis.majorTickLength = self.inputAxisMajorTickLength;
 	
+	if ([self didValueForInputKeyChange:@"inputMajorGridLineWidth"])
+	{
+		CPLineStyle *majorGridLineStyle;
+		if (self.inputMajorGridLineWidth == 0.0)
+			majorGridLineStyle = nil;
+		else
+		{
+			majorGridLineStyle = [CPLineStyle lineStyle];
+			majorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+			majorGridLineStyle.lineWidth = self.inputMajorGridLineWidth;
+		}
+		
+		set.xAxis.majorGridLineStyle = majorGridLineStyle;
+		set.yAxis.majorGridLineStyle = majorGridLineStyle;
+	}
+
+	if ([self didValueForInputKeyChange:@"inputMinorGridLineWidth"])
+	{
+		CPLineStyle *minorGridLineStyle;
+		if (self.inputMinorGridLineWidth == 0.0)
+			minorGridLineStyle = nil;
+		else
+		{
+			minorGridLineStyle = [CPLineStyle lineStyle];
+			minorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+			minorGridLineStyle.lineWidth = self.inputMinorGridLineWidth;
+		}
+		
+		set.xAxis.minorGridLineStyle = minorGridLineStyle;
+		set.yAxis.minorGridLineStyle = minorGridLineStyle;
+	}
+	
 	return YES;
 }	
 
@@ -531,21 +608,37 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	// Create a CG bitmap for drawing.  The image data is released when QC calls _BufferReleaseCallback
 	CGSize boundsSize = graph.bounds.size;
 	NSUInteger bitsPerComponent = 8;
-	NSUInteger bytesPerRow = boundsSize.width*4;
 	NSUInteger rowBytes = (NSInteger)boundsSize.width * 4;
+	if(rowBytes % 16)
+		rowBytes = ((rowBytes / 16) + 1) * 16;
 	
 	if (!imageData)
 	{
-		imageData = valloc( bytesPerRow * boundsSize.height );
+		imageData = valloc( rowBytes * boundsSize.height );
 		bitmapContext = CGBitmapContextCreate(imageData, 
 											  boundsSize.width,
 											  boundsSize.height, 
 											  bitsPerComponent, 
-											  bytesPerRow, 
+											  rowBytes, 
 											  [context colorSpace], 
 											  kCGImageAlphaPremultipliedFirst);
 	}
-	
+	if (!imageData)
+	{
+		NSLog(@"Couldn't allocate memory for image data");
+		return;
+	}
+	if (!bitmapContext)
+	{
+		free(imageData);
+		imageData = nil;
+		NSLog(@"Couldn't create bitmap context");
+		return;
+	}
+
+	if(rowBytes % 16)
+		rowBytes = ((rowBytes / 16) + 1) * 16;
+		
 	// Note: I don't have a PPC to test on so this may or may not cause some color issues
 	#if __BIG_ENDIAN__
 	imageProvider = [context outputImageProviderFromBufferWithPixelFormat:QCPlugInPixelFormatBGRA8
@@ -633,7 +726,7 @@ static void _BufferReleaseCallback(const void* address, void* context)
 }
 
 #pragma mark -
-#pragma markSubclass methods
+#pragma mark Subclass methods
 
 - (void) addPlotWithIndex:(NSUInteger)index
 {
@@ -665,8 +758,13 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	*/
 	
 	// Configure the graph area
-	CGRect frame = CGRectMake(0.0, 0.0, MAX(200, self.inputPixelsWide), MAX(200, self.inputPixelsHigh));	
+	CGRect frame = CGRectMake(0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh));	
 	[graph setBounds:frame];
+	
+	graph.paddingLeft = self.inputLeftMargin;
+	graph.paddingRight = self.inputRightMargin;
+	graph.paddingTop = self.inputTopMargin;
+	graph.paddingBottom = self.inputBottomMargin;
 	
 	// Perform some sanity checks.  If there is a configuration error set the error flag so that a message is displayed
 	if (self.inputXMax <= self.inputXMin || self.inputYMax <= self.inputYMin)

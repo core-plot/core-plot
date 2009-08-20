@@ -42,7 +42,8 @@
 -(void)dealloc 
 {
     self.constantCoordinateValue = nil;
-    [super dealloc];
+    
+	[super dealloc];
 }
 
 #pragma mark -

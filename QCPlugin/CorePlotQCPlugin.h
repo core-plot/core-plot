@@ -17,7 +17,7 @@
 	void *imageData;
 	CGContextRef bitmapContext;
 	id<QCPlugInOutputImageProvider> imageProvider;
-	CPXYGraph *graph;
+	CPGraph *graph;
 }
 
 /*
@@ -34,6 +34,11 @@ You can access their values in the appropriate plug-in methods using self.inputF
 @property(assign) NSUInteger inputPixelsWide;
 @property(assign) NSUInteger inputPixelsHigh;
 
+@property(assign) NSUInteger inputTopMargin;
+@property(assign) NSUInteger inputBottomMargin;
+@property(assign) NSUInteger inputLeftMargin;
+@property(assign) NSUInteger inputRightMargin;
+
 @property(assign) CGColorRef inputBackgroundColor;
 @property(assign) CGColorRef inputPlotAreaColor;
 @property(assign) CGColorRef inputBorderColor;
@@ -44,6 +49,8 @@ You can access their values in the appropriate plug-in methods using self.inputF
 @property(assign) double inputAxisMinorTickWidth;
 @property(assign) double inputAxisMajorTickLength;
 @property(assign) double inputAxisMinorTickLength;
+@property(assign) double inputMajorGridLineWidth;
+@property(assign) double inputMinorGridLineWidth;
 
 @property(assign) NSUInteger inputXMajorIntervals;
 @property(assign) NSUInteger inputYMajorIntervals;

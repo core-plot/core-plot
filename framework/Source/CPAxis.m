@@ -203,21 +203,23 @@
 
 -(void)dealloc
 {
-	self.plotSpace = nil;
+	[plotSpace release];	
 	[majorTickLocations release];
 	[minorTickLocations release];
-	self.axisLineStyle = nil;
+	[axisLineStyle release];
 	[majorTickLineStyle release];
 	[minorTickLineStyle release];
     [majorGridLineStyle release];
     [minorGridLineStyle release];
-	self.fixedPoint = nil;
-	self.majorIntervalLength = nil;
-	self.tickLabelFormatter = nil;
+	[fixedPoint release];
+	[majorIntervalLength release];
+	[tickLabelFormatter release];
 	[axisLabels release];
 	[axisLabelTextStyle release];
-	self.labelExclusionRanges = nil;
+	[labelExclusionRanges release];
+	
 	self.delegate = nil;
+	
 	[super dealloc];
 }
 

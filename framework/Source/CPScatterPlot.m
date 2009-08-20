@@ -108,7 +108,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
     if ( self.observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
     if ( self.observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
     if ( self.observedObjectForPlotSymbols ) [self unbind:CPScatterPlotBindingPlotSymbols];
-	
+
     self.observedObjectForXValues = nil;
     self.observedObjectForYValues = nil;
     self.observedObjectForPlotSymbols = nil;
@@ -121,7 +121,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	self.plotSymbol = nil;
     self.dataLineStyle = nil;
     self.areaFill = nil;
-    self.areaBaseValue = nil;
+    self.areaBaseValue = nil;	
 	
     [super dealloc];
 }

@@ -26,7 +26,9 @@
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
+@dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
+@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
@@ -116,20 +118,6 @@
 								[NSNumber numberWithInt:1.0], QCPortAttributeDefaultValueKey,
 								[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 								nil]];
-	
-	// NOTE: For some reason QC is crashing when adding more than one popup menu item.  So I haven't even bothered to implement
-	// the data symbols.  I don't know what the problem is >:/
-	/*
-	[self addInputPortWithType:QCPortTypeIndex
-						forKey:[NSString stringWithFormat:@"plotDataSymbols%i",  index]
-				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Data Symbols %i", index+1], QCPortAttributeNameKey,
-								QCPortTypeIndex, QCPortAttributeTypeKey,
-								[NSArray arrayWithObjects:@"None", @"Circle", @"Square", @"Triangle", nil], QCPortAttributeMenuItemsKey,
-								[NSNumber numberWithInt:0], QCPortAttributeDefaultValueKey,
-								[NSNumber numberWithInt:3], QCPortAttributeMaximumValueKey,
-								nil]];
-	*/
 	
 	// Add the new plot to the graph
 	CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor greenColor] horizontalBars:NO];

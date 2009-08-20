@@ -26,7 +26,9 @@
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
+@dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
+@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 + (NSDictionary*) attributes
@@ -185,7 +187,18 @@
 	
 	NSDictionary *dict = [self valueForInputKey:key];
 	
-	return [dict valueForKey:[NSString stringWithFormat:@"%i", index]];
+	NSString *dictionaryKey = [NSString stringWithFormat:@"%i", index];
+	
+	NSNumber *number = [dict valueForKey:dictionaryKey];
+	
+	if (number == nil)
+	{
+		NSLog(@"No value for key: %@", dictionaryKey);
+		NSLog(@"Dict: %@", dict);
+	}
+	
+	return number;
+	
 }
 
 @end
