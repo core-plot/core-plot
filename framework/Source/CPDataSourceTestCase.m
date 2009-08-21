@@ -83,7 +83,7 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     CPPlotRange *range = [self plotRangeForData:self.yData];
     
     if(self.plots.count > 1) {
-        range.length = CPDecimalFromDouble([[range length] doubleValue] + self.plots.count);
+        range.length = CPDecimalAdd([range length], CPDecimalFromDouble(self.plots.count));
     }
     
     return range;
