@@ -65,7 +65,7 @@
     areaGradient.angle = -90.0f;
 	CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"320.0"];    
+    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"320.0");
 
 
     
@@ -127,13 +127,13 @@
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     	
-    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"10.0"];
-    axisSet.xAxis.constantCoordinateValue = [[datapuller overallLow] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"5"]];
+    axisSet.xAxis.majorIntervalLength = CPDecimalFromString(@"10.0");
+    axisSet.xAxis.constantCoordinateValue = CPDecimalAdd([[datapuller overallLow] decimalValue], CPDecimalFromString(@"5"));
     axisSet.xAxis.minorTicksPerInterval = 1;
     
-    axisSet.yAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50.0"];
+    axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"50.0");
     axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"3.0"];
+    axisSet.yAxis.constantCoordinateValue = CPDecimalFromString(@"3.0");
     [graph reloadData];
 }
 

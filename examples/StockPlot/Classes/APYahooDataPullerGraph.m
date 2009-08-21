@@ -43,14 +43,14 @@
     // Axes
     CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     
-    axisSet.xAxis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"10.0"];
-    axisSet.xAxis.constantCoordinateValue = [NSDecimalNumber zero];
+    axisSet.xAxis.majorIntervalLength = CPDecimalFromString(@"10.0");
+    axisSet.xAxis.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
     axisSet.xAxis.minorTicksPerInterval = 1;
     
     NSDecimalNumber *four = [NSDecimalNumber decimalNumberWithString:@"4"];
-    axisSet.yAxis.majorIntervalLength = [length decimalNumberByDividingBy:four];
+    axisSet.yAxis.majorIntervalLength = CPDecimalDivide([length decimalValue], [four decimalValue]);
     axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = [NSDecimalNumber zero];
+    axisSet.yAxis.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
     [graph reloadData];
     
     

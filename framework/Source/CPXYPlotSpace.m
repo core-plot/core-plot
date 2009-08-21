@@ -107,7 +107,7 @@
         [NSException raise:CPException format:@"range length is zero in viewCoordinateForViewLength:..."];
     }
     
-	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] doubleValue];
+	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] floatValue];
     
     return viewCoordinate;
 }

@@ -51,14 +51,14 @@
 
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
 	CPXYAxis *x = axisSet.xAxis;
-	x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-	x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
+	x.majorIntervalLength = CPDecimalFromDouble(majorIntervalLengthForX);
+	x.constantCoordinateValue = CPDecimalFromDouble(minimumValueForYAxis);
 	x.minorTicksPerInterval = 5;
 	
 	CPXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
+	y.majorIntervalLength = CPDecimalFromDouble(majorIntervalLengthForY);
 	y.minorTicksPerInterval = 5;
-	y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
+	y.constantCoordinateValue = CPDecimalFromDouble(minimumValueForXAxis);
 	
 		CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
