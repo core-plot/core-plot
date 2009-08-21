@@ -64,6 +64,132 @@ NSDecimal CPDecimalFromDouble(CPDouble d)
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
 }
 
+/**
+ *	@brief Adds two NSDecimals together.
+ *	@param leftOperand The left-hand side of the addition operation.
+ *	@param rightOperand The right-hand side of the addition operation.
+ *	@return The result of the addition.
+ **/
+NSDecimal CPDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	NSDecimal result;
+	NSDecimalAdd(&result, &leftOperand, &rightOperand, NSRoundBankers);
+	return result;
+}
+
+/**
+ *	@brief Subtracts one NSDecimal from another.
+ *	@param leftOperand The left-hand side of the subtraction operation.
+ *	@param rightOperand The right-hand side of the subtraction operation.
+ *	@return The result of the subtraction.
+ **/
+NSDecimal CPDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	NSDecimal result;
+	NSDecimalSubtract(&result, &leftOperand, &rightOperand, NSRoundBankers);
+	return result;
+}
+
+/**
+ *	@brief Multiplies two NSDecimals together.
+ *	@param leftOperand The left-hand side of the multiplication operation.
+ *	@param rightOperand The right-hand side of the multiplication operation.
+ *	@return The result of the multiplication.
+ **/
+NSDecimal CPDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	NSDecimal result;
+	NSDecimalMultiply(&result, &leftOperand, &rightOperand, NSRoundBankers);
+	return result;
+}
+
+/**
+ *	@brief Divides one NSDecimal by another.
+ *	@param numerator The numerator of the multiplication operation.
+ *	@param denominator The denominator of the multiplication operation.
+ *	@return The result of the division.
+ **/
+NSDecimal CPDecimalDivide(NSDecimal numerator, NSDecimal denominator)
+{
+	NSDecimal result;
+	NSDecimalDivide(&result, &numerator, &denominator, NSRoundBankers);
+	return result;
+}
+
+/**
+ *	@brief Checks to see if one NSDecimal is greater than another.
+ *	@param leftOperand The left side of the comparison.
+ *	@param rightOperand The right side of the comparison.
+ *	@return YES if the left operand is greater than the right, NO otherwise.
+ **/
+BOOL CPDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	return (NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending);
+}
+
+/**
+ *	@brief Checks to see if one NSDecimal is greater than or equal to another.
+ *	@param leftOperand The left side of the comparison.
+ *	@param rightOperand The right side of the comparison.
+ *	@return YES if the left operand is greater than or equal to the right, NO otherwise.
+ **/
+BOOL CPDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	return (NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedAscending);
+}
+
+/**
+ *	@brief Checks to see if one NSDecimal is less than another.
+ *	@param leftOperand The left side of the comparison.
+ *	@param rightOperand The right side of the comparison.
+ *	@return YES if the left operand is less than the right, NO otherwise.
+ **/
+BOOL CPDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	return (NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending);
+}
+
+/**
+ *	@brief Checks to see if one NSDecimal is less than or equal to another.
+ *	@param leftOperand The left side of the comparison.
+ *	@param rightOperand The right side of the comparison.
+ *	@return YES if the left operand is less than or equal to the right, NO otherwise.
+ **/
+BOOL CPDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	return (NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedDescending);
+}
+
+/**
+ *	@brief Checks to see if one NSDecimal is equal to another.
+ *	@param leftOperand The left side of the comparison.
+ *	@param rightOperand The right side of the comparison.
+ *	@return YES if the left operand is equal to the right, NO otherwise.
+ **/
+BOOL CPDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+	return (NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedSame);	
+}
+
+
+NSDecimal CPDecimalFromString(NSString *stringRepresentation)
+{
+	// The following NSDecimalNumber-based creation of NSDecimals from strings is slower than 
+	// the NSScanner-based method: (307000 operations per second vs. 582000 operations per second for NSScanner)
+	
+/*	NSDecimalNumber *newNumber = [[NSDecimalNumber alloc] initWithString:@"1.0" locale:[NSLocale currentLocale]];
+	newDecimal = [newNumber decimalValue];
+	[newNumber release];*/
+	
+	NSDecimal result;
+	NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
+	[theScanner scanDecimal:&result];
+	[theScanner release];
+	
+	return result;
+}
+
+
 #pragma mark -
 #pragma mark Ranges
 

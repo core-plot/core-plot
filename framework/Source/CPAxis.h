@@ -59,8 +59,8 @@ typedef enum _CPAxisLabelingPolicy {
     CPLineStyle *minorTickLineStyle;
     CPLineStyle *majorGridLineStyle;
     CPLineStyle *minorGridLineStyle;
-    NSDecimalNumber *fixedPoint;
-    NSDecimalNumber *majorIntervalLength;
+    NSDecimal fixedPoint;
+    NSDecimal majorIntervalLength;
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	CPTextStyle *axisLabelTextStyle;
@@ -76,7 +76,7 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
-@property (nonatomic, readwrite, copy) NSDecimalNumber *fixedPoint;
+@property (nonatomic, readwrite) NSDecimal fixedPoint;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
 ///	@}
 
@@ -94,7 +94,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Major Ticks
 /// @{
-@property (nonatomic, readwrite, copy) NSDecimalNumber *majorIntervalLength;
+@property (nonatomic, readwrite) NSDecimal majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy) CPLineStyle *majorTickLineStyle;
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -136,7 +136,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber;
+-(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber;
 ///	@}
 
 @end

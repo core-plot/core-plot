@@ -98,7 +98,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		self.plotSymbol = nil;
 		self.needsDisplayOnBoundsChange = YES;
         self.areaFill = nil;
-        self.areaBaseValue = [NSDecimalNumber zero];
+        self.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
     }
     return self;
 }
@@ -121,7 +121,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	self.plotSymbol = nil;
     self.dataLineStyle = nil;
     self.areaFill = nil;
-    self.areaBaseValue = nil;	
 	
     [super dealloc];
 }
@@ -265,11 +264,11 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	
 	if ( self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count ) {
-        NSDecimalNumber* plotPoint[2];
+        NSDecimal plotPoint[2];
 
 		for (NSUInteger i = 0; i < [self.xValues count]; i++) {
-            plotPoint[CPCoordinateX] = (NSDecimalNumber *)[self.xValues objectAtIndex:i];
-            plotPoint[CPCoordinateY] = (NSDecimalNumber *)[self.yValues objectAtIndex:i];
+            plotPoint[CPCoordinateX] = [[self.xValues objectAtIndex:i] decimalValue];
+            plotPoint[CPCoordinateY] = [[self.yValues objectAtIndex:i] decimalValue];
 			viewPoints[i] = [self.plotSpace viewPointForPlotPoint:plotPoint];
 		}
 	}
@@ -287,11 +286,11 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
     }
     
     // draw fill
-    if ( self.areaFill && self.areaBaseValue ) {
-        NSDecimalNumber* plotPoint[2];
+    if ( self.areaFill && (!CPDecimalEquals(self.areaBaseValue, [[NSDecimalNumber zero] decimalValue])) ) {
+        NSDecimal plotPoint[2];
 		
-        plotPoint[CPCoordinateX] = (NSDecimalNumber *)[self.xValues objectAtIndex:0];
-        plotPoint[CPCoordinateY] = (NSDecimalNumber *)self.areaBaseValue;
+        plotPoint[CPCoordinateX] = [[self.xValues objectAtIndex:0] decimalValue];
+        plotPoint[CPCoordinateY] = self.areaBaseValue;
         CGPoint baseLinePoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         CGFloat baseLineYValue = baseLinePoint.y;
         

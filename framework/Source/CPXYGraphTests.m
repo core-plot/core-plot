@@ -107,14 +107,14 @@
 {
     CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    x.majorIntervalLength = CPDecimalFromString(@"0.5");
+    x.constantCoordinateValue = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 2;
     
     CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    y.constantCoordinateValue = CPDecimalFromString(@"2");
 }
 
 /**

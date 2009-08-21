@@ -16,8 +16,8 @@
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 
--(void)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
--(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval;
+-(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval;
 
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 
@@ -181,8 +181,8 @@
 		self.axisLineStyle = [CPLineStyle lineStyle];
 		self.majorTickLineStyle = [CPLineStyle lineStyle];
 		self.minorTickLineStyle = [CPLineStyle lineStyle];
-		self.fixedPoint = [NSDecimalNumber zero];
-		self.majorIntervalLength = [NSDecimalNumber one];
+		self.fixedPoint = [[NSDecimalNumber zero] decimalValue];
+		self.majorIntervalLength = [[NSDecimalNumber one] decimalValue];
 		self.minorTicksPerInterval = 1;
 		self.coordinate = CPCoordinateX;
 		self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
@@ -211,8 +211,6 @@
 	[minorTickLineStyle release];
     [majorGridLineStyle release];
     [minorGridLineStyle release];
-	[fixedPoint release];
-	[majorIntervalLength release];
 	[tickLabelFormatter release];
 	[axisLabels release];
 	[axisLabelTextStyle release];
@@ -226,38 +224,38 @@
 #pragma mark -
 #pragma mark Ticks
 
--(NSDecimalNumber *)nextLocationFromCoordinateValue:(NSDecimalNumber *)coord increasing:(BOOL)increasing interval:(NSDecimalNumber *)interval
+-(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval
 {
 	if ( increasing ) {
-		return [coord decimalNumberByAdding:interval];
+		return CPDecimalAdd(coord, interval);
 	} else {
-		return [coord decimalNumberBySubtracting:interval];
+		return CPDecimalSubtract(coord, interval);
 	}
 }
 
--(void)tickLocationsBeginningAt:(NSDecimalNumber *)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	NSMutableSet *majorLocations = [NSMutableSet set];
 	NSMutableSet *minorLocations = [NSMutableSet set];
-	NSDecimalNumber *majorInterval = self.majorIntervalLength;
-	NSDecimalNumber *coord = beginNumber;
+	NSDecimal majorInterval = self.majorIntervalLength;
+	NSDecimal coord = beginNumber;
 	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
-	while ( (increasing && [coord isLessThanOrEqualTo:range.end]) || (!increasing && [coord isGreaterThanOrEqualTo:range.location]) ) {
+	while ( (increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
 		
 		// Major tick
-		if ( [coord isLessThanOrEqualTo:range.end] && [coord isGreaterThanOrEqualTo:range.location] ) {
-			[majorLocations addObject:coord];
+		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
+			[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
 		}
 		
 		// Minor ticks
 		if ( self.minorTicksPerInterval > 0 ) {
-			NSDecimalNumber *minorInterval = [majorInterval decimalNumberByDividingBy:(id)[NSDecimalNumber numberWithInt:self.minorTicksPerInterval+1]];
-			NSDecimalNumber *minorCoord;
+			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromInt(self.minorTicksPerInterval+1));
+			NSDecimal minorCoord;
 			minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
 			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
-				if ( [minorCoord isLessThanOrEqualTo:range.end] && [minorCoord isGreaterThanOrEqualTo:range.location] ) {
-					[minorLocations addObject:minorCoord];
+				if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
+					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
 				}
 				minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
 			}
@@ -283,7 +281,7 @@
 	for ( NSDecimalNumber *tickLocation in locations ) {
         NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
         CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.axisLabelTextStyle];
-        newLabel.tickLocation = tickLocation;
+        newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset = self.axisLabelOffset + self.majorTickLength;
         [newLabels addObject:newLabel];
         [newLabel release];
@@ -358,7 +356,7 @@
 	NSMutableSet *filteredLocations = [allLocations mutableCopy];
 	for ( CPPlotRange *range in self.labelExclusionRanges ) {
 		for ( NSDecimalNumber *location in allLocations ) {
-			if ( [range contains:location] ) [filteredLocations removeObject:location];
+			if ( [range contains:[location decimalValue]] ) [filteredLocations removeObject:location];
 		}
 	}
 	return [filteredLocations autorelease];
@@ -539,22 +537,22 @@
     }
 }
 
--(void)setFixedPoint:(NSDecimalNumber *)newFixedPoint 
+-(void)setFixedPoint:(NSDecimal)newFixedPoint 
 {
-    if ( newFixedPoint != fixedPoint ) {
-        [fixedPoint release];
-        fixedPoint = [newFixedPoint copy];
-        self.needsRelabel = YES;
-    }
+	if (CPDecimalEquals(fixedPoint, newFixedPoint)) {
+		return;
+	}
+	fixedPoint = newFixedPoint;
+	self.needsRelabel = YES;
 }
 
--(void)setMajorIntervalLength:(NSDecimalNumber *)newIntervalLength 
+-(void)setMajorIntervalLength:(NSDecimal)newIntervalLength 
 {
-    if ( newIntervalLength != majorIntervalLength ) {
-        [majorIntervalLength release];
-        majorIntervalLength = [newIntervalLength copy];
-        self.needsRelabel = YES;
-    }
+	if (CPDecimalEquals(majorIntervalLength, newIntervalLength)) {
+		return;
+	}
+	majorIntervalLength = newIntervalLength;
+	self.needsRelabel = YES;
 }
 
 -(void)setMinorTicksPerInterval:(NSUInteger)newMinorTicksPerInterval 
@@ -604,7 +602,7 @@
  *	@param coordinateDecimalNumber The axis value in data coordinate space.
  *	@return The drawing coordinates of the point.
  **/
--(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimalNumber
+-(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
 {
 	return CGPointMake(0.0f, 0.0f);
 }

@@ -4,18 +4,18 @@
 
 @interface CPPlotRange : NSObject <NSCoding, NSCopying> {
 	@private
-	NSDecimalNumber *location;
-	NSDecimalNumber *length;
+	NSDecimal location;
+	NSDecimal length;
 }
 
-@property (readwrite, copy) NSDecimalNumber *location;
-@property (readwrite, copy) NSDecimalNumber *length;
-@property (readonly) NSDecimalNumber *end;
+@property (readwrite) NSDecimal location;
+@property (readwrite) NSDecimal length;
+@property (readonly) NSDecimal end;
 
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 
--(BOOL)contains:(NSDecimalNumber *)number;
+-(BOOL)contains:(NSDecimal)number;
 
 @end

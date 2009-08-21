@@ -6,6 +6,7 @@
 #import "CPFill.h"
 #import "CPPlotRange.h"
 #import "CPGradient.h"
+#import "CPUtilities.h"
 
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";	///< Bar lengths.
 
@@ -107,7 +108,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 {
 	if (self = [super initWithFrame:newFrame]) {
         self.barsAreHorizontal = NO;
-        self.baseValue = [NSDecimalNumber zero];
+        self.baseValue = [[NSDecimalNumber zero] decimalValue];
         self.barWidth = 10.0f;
         self.cornerRadius = 0.0f;
         self.barOffset = 0.0f;
@@ -125,7 +126,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     self.lineStyle = nil;
     self.fill = nil;
     self.barLengths = nil;
-    self.baseValue = nil;
     self.plotRange = nil;
     [super dealloc];
 }
@@ -192,25 +192,24 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     if ( self.lineStyle == nil && self.fill == nil ) return;
 	
     // Determine location of bars in plot space
-    NSDecimalNumber *delta = [NSDecimalNumber one];
+    NSDecimal delta = [[NSDecimalNumber one] decimalValue];
     if ( self.plotRange && self.barLengths.count > 1 ) {
-        delta = [self.plotRange.length decimalNumberByDividingBy:
-				 (NSDecimalNumber *)[NSDecimalNumber numberWithInt:self.barLengths.count-1]];
+        delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromInt(self.barLengths.count - 1));
     }
     
-    NSDecimalNumber *plotPoint[2];
+    NSDecimal plotPoint[2];
     CGPoint tipPoint, basePoint;
     CPCoordinate independentCoord = ( barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
     for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
 		// Independent coordinate
-        plotPoint[independentCoord] = [delta decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInt:ii]];
+		plotPoint[independentCoord] = CPDecimalMultiply(delta, CPDecimalFromInt(ii));
 		if ( self.plotRange ) {
-			plotPoint[independentCoord] = [plotPoint[independentCoord] decimalNumberByAdding:self.plotRange.location];			
+			plotPoint[independentCoord] = CPDecimalAdd(plotPoint[independentCoord], self.plotRange.location);			
 		}
 		
         // Tip point
-        plotPoint[dependentCoord] = [self.barLengths objectAtIndex:ii];
+        plotPoint[dependentCoord] = [[self.barLengths objectAtIndex:ii] decimalValue];
         tipPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
         
         // Base point
@@ -343,12 +342,13 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     }
 }
 
--(void)setBaseValue:(NSDecimalNumber *)value {
-    if (baseValue != value) {
-        [baseValue release];
-        baseValue = [value copy];
-        [self setNeedsDisplay];
-    }
+-(void)setBaseValue:(NSDecimal)value {
+	if (CPDecimalEquals(baseValue, value))
+	{
+		return;
+	}
+	baseValue = value;
+	[self setNeedsDisplay];
 }
 
 -(void)setBarsAreHorizontal:(BOOL)value {

@@ -83,7 +83,7 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     CPPlotRange *range = [self plotRangeForData:self.yData];
     
     if(self.plots.count > 1) {
-        range.length = [NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromDouble([[range length] doubleValue] + self.plots.count)];
+        range.length = CPDecimalFromDouble([[range length] doubleValue] + self.plots.count);
     }
     
     return range;

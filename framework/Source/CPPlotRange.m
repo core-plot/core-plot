@@ -2,6 +2,7 @@
 #import "CPPlotRange.h"
 #import "CPPlatformSpecificCategories.h"
 #import "NSDecimalNumberExtensions.h"
+#import "CPUtilities.h"
 
 /** @brief Defines a range of plot data
  **/
@@ -44,26 +45,23 @@
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
 	if (self = [super init]) {
-		self.location = [NSDecimalNumber decimalNumberWithDecimal:loc];
-		self.length = [NSDecimalNumber decimalNumberWithDecimal:len];
+		self.location = loc;
+		self.length = len;
 	}
 	return self;	
 }
 
 -(void)dealloc
 {
-	[location release];
-    [length release];
-    
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(NSDecimalNumber *)end 
+-(NSDecimal)end 
 {
-    return [self.location decimalNumberByAdding:self.length];
+    return CPDecimalAdd(self.location, self.length);
 }
 
 #pragma mark -
@@ -82,8 +80,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder 
 {
-    [encoder encodeObject:self.location];
-    [encoder encodeObject:self.length];
+    [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.location]];
+    [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.length]];
     
     if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
         [(id <NSCoding>)super encodeWithCoder:encoder];
@@ -99,8 +97,8 @@
     }
     
     if (self) {
-        location = [[decoder decodeObject] retain];
-        length = [[decoder decodeObject] retain];
+        location = [[decoder decodeObject] decimalValue];
+        length = [[decoder decodeObject] decimalValue];
     }
     
     return self;
@@ -113,9 +111,9 @@
  *  @param number The number to check.
  *  @return True if <tt>location</tt> ≤ <tt>number</tt> ≤ <tt>end</tt>.
  **/
--(BOOL)contains:(NSDecimalNumber *)number
+-(BOOL)contains:(NSDecimal)number
 {
-	return ([number isGreaterThanOrEqualTo:location] && [number isLessThanOrEqualTo:self.end]);
+	return (CPDecimalGreaterThanOrEqualTo(number, location) && CPDecimalLessThanOrEqualTo(number, self.end));
 }
 
 #pragma mark -
@@ -123,7 +121,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"CPPlotRange from %@, length %@", location, length]; 
+	return [NSString stringWithFormat:@"CPPlotRange from %@, length %@", NSDecimalString(&location, [NSLocale currentLocale]), NSDecimalString(&length, [NSLocale currentLocale])]; 
 }
 
 @end

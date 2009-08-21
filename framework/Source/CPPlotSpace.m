@@ -61,7 +61,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param decimalNumbers A c-style array of data point coordinates.
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)decimalNumbers
+-(CGPoint)viewPointForPlotPoint:(NSDecimal *)decimalNumbers
 {
 	return CGPointMake(0.0f, 0.0f);
 }
@@ -70,7 +70,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plotPoint A c-style array of data point coordinates.
  *	@param point The drawing coordinates of the data point.
  **/
--(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point
+-(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point
 {
 }
 

@@ -10,14 +10,14 @@
 	CPTextStyle *textStyle;
     CPLayer *contentLayer;
     CGFloat offset;
-    NSDecimalNumber *tickLocation;
+    NSDecimal tickLocation;
 }
 
 @property (nonatomic, readonly, copy) NSString *text;
 @property (nonatomic, readwrite, copy) CPTextStyle *textStyle;
 @property (nonatomic, readonly, retain) CPLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;
-@property (nonatomic, readwrite, copy) NSDecimalNumber *tickLocation;
+@property (nonatomic, readwrite) NSDecimal tickLocation;
 
 /// @name Initialization
 /// @{
