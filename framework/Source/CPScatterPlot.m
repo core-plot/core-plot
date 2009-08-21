@@ -70,11 +70,19 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 
 /**	@property areaBaseValue
  *	@brief The Y coordinate of the straight boundary of the area fill.
- *	If nil, the area is not filled.
+ *	If not a number, the area is not filled.
  *
  *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
  **/
 @synthesize areaBaseValue;
+
+/**	@property doublePrecisionAreaBaseValue
+ *	@brief The Y coordinate of the straight boundary of the area fill, as a double.
+ *	If nil, the area is not filled.
+ *
+ *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
+ **/
+@synthesize doublePrecisionAreaBaseValue;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -98,7 +106,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		self.plotSymbol = nil;
 		self.needsDisplayOnBoundsChange = YES;
         self.areaFill = nil;
-        self.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
+        self.areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
     }
     return self;
 }
@@ -226,8 +234,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
         NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
         indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
         
-        self.xValues = [self decimalNumbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
-        self.yValues = [self decimalNumbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
+        self.xValues = [self numbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
+        self.yValues = [self numbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
 		
 		// Plot symbols
         if ( [self.dataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
@@ -264,12 +272,26 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	
 	if ( self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count ) {
-        NSDecimal plotPoint[2];
-
 		for (NSUInteger i = 0; i < [self.xValues count]; i++) {
-            plotPoint[CPCoordinateX] = [[self.xValues objectAtIndex:i] decimalValue];
-            plotPoint[CPCoordinateY] = [[self.yValues objectAtIndex:i] decimalValue];
-			viewPoints[i] = [self.plotSpace viewPointForPlotPoint:plotPoint];
+			id xValue = [self.xValues objectAtIndex:i];
+			id yValue = [self.yValues objectAtIndex:i];
+			
+			if ([xValue isKindOfClass:[NSDecimalNumber class]] && [yValue isKindOfClass:[NSDecimalNumber class]])
+			{
+				// Do higher-precision NSDecimal calculations
+				NSDecimal plotPoint[2];
+				plotPoint[CPCoordinateX] = [xValue decimalValue];
+				plotPoint[CPCoordinateY] = [yValue decimalValue];
+				viewPoints[i] = [self.plotSpace viewPointForPlotPoint:plotPoint];
+			}
+			else
+			{
+				// Go floating-point route for calculations
+				double doublePrecisionPlotPoint[2];
+				doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
+				doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
+				viewPoints[i] = [self.plotSpace viewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+			}
 		}
 	}
 
@@ -286,12 +308,29 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
     }
     
     // draw fill
-    if ( self.areaFill && (!CPDecimalEquals(self.areaBaseValue, [[NSDecimalNumber zero] decimalValue])) ) {
-        NSDecimal plotPoint[2];
+	NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
+	
+    if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {
+		id xValue = [self.xValues objectAtIndex:0];
 		
-        plotPoint[CPCoordinateX] = [[self.xValues objectAtIndex:0] decimalValue];
-        plotPoint[CPCoordinateY] = self.areaBaseValue;
-        CGPoint baseLinePoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+		CGPoint baseLinePoint;
+		if ([xValue isKindOfClass:[NSDecimalNumber class]])
+		{
+			// Do higher-precision NSDecimal calculations
+			NSDecimal plotPoint[2];
+			plotPoint[CPCoordinateX] = [xValue decimalValue];
+			plotPoint[CPCoordinateY] = self.areaBaseValue;
+			baseLinePoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+		}
+		else
+		{
+			// Go floating-point route for calculations
+			double doublePrecisionPlotPoint[2];
+			doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
+			doublePrecisionPlotPoint[CPCoordinateY] = self.doublePrecisionAreaBaseValue;
+			baseLinePoint = [self.plotSpace viewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+		}
+		
         CGFloat baseLineYValue = baseLinePoint.y;
         
         CGPoint baseViewPoint1 = viewPoints[self.xValues.count-1];
@@ -363,6 +402,16 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
         dataLineStyle = [value copy];
         [self setNeedsDisplay];
     }
+}
+
+-(void)setAreaBaseValue:(NSDecimal)newAreaBaseValue
+{
+	if (CPDecimalEquals(areaBaseValue, newAreaBaseValue))
+	{
+		return;
+	}
+	areaBaseValue = newAreaBaseValue;
+	doublePrecisionAreaBaseValue = [[NSDecimalNumber decimalNumberWithDecimal:areaBaseValue] doubleValue];
 }
 
 @end

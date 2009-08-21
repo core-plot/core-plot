@@ -69,7 +69,7 @@
 
 /// @name Plot Data
 /// @{
--(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(NSArray *)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
 ///	@}
 

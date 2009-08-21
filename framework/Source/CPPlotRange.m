@@ -24,6 +24,21 @@
  **/
 @dynamic end;
 
+/** @property doublePrecisionLocation
+ *  @brief The starting value of the range, as a double.
+ **/
+@synthesize doublePrecisionLocation;
+
+/** @property doublePrecisionLength
+ *  @brief The length of the range, as a double.
+ **/
+@synthesize doublePrecisionLength;
+
+/** @property doublePrecisionEnd
+ *  @brief The ending value of the range, as a double.
+ **/
+@dynamic doublePrecisionEnd;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -59,9 +74,36 @@
 #pragma mark -
 #pragma mark Accessors
 
+-(void)setLocation:(NSDecimal)newLocation;
+{
+	if (CPDecimalEquals(location, newLocation))
+	{
+		return;
+	}
+	
+	location = newLocation;
+	doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
+}
+
+-(void)setLength:(NSDecimal)newLength;
+{
+	if (CPDecimalEquals(length, newLength))
+	{
+		return;
+	}
+	
+	length = newLength;
+	doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
+}
+
 -(NSDecimal)end 
 {
     return CPDecimalAdd(self.location, self.length);
+}
+
+-(double)doublePrecisionEnd 
+{
+	return (self.doublePrecisionLocation + self.doublePrecisionLength);
 }
 
 #pragma mark -
@@ -97,8 +139,8 @@
     }
     
     if (self) {
-        location = [[decoder decodeObject] decimalValue];
-        length = [[decoder decodeObject] decimalValue];
+        self.location = [[decoder decodeObject] decimalValue];
+        self.length = [[decoder decodeObject] decimalValue];
     }
     
     return self;

@@ -147,8 +147,8 @@
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithFloat:1+i*0.05];
-		id y = [NSDecimalNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
+		id x = [NSNumber numberWithFloat:1+i*0.05];
+		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForChart = contentArray;

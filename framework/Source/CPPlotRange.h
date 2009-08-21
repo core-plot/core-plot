@@ -6,11 +6,16 @@
 	@private
 	NSDecimal location;
 	NSDecimal length;
+	double doublePrecisionLocation;
+	double doublePrecisionLength;
 }
 
 @property (readwrite) NSDecimal location;
 @property (readwrite) NSDecimal length;
 @property (readonly) NSDecimal end;
+@property (readwrite) double doublePrecisionLocation;
+@property (readwrite) double doublePrecisionLength;
+@property (readonly) double doublePrecisionEnd;
 
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 

@@ -110,8 +110,8 @@
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithFloat:1+i*0.05];
-		id y = [NSDecimalNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
+		id x = [NSNumber numberWithFloat:1+i*0.05];
+		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForPlot = contentArray;
@@ -138,12 +138,12 @@
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
 {
-    NSDecimalNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
 	// Green plot gets shifted above the blue
 	if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
 	{
 		if ( fieldEnum == CPScatterPlotFieldY ) 
-			num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+			num = [NSNumber numberWithDouble:[num doubleValue] + 1.0];
 	}
     return num;
 }

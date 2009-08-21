@@ -3,6 +3,8 @@
 
 @implementation CPPlotDocument
 
+//#define USE_NSDECIMAL
+
 +(void)initialize {
     [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
 }
@@ -143,8 +145,11 @@
 			if (yValue > maximumValueForYAxis)
 				maximumValueForYAxis = yValue;
 			
-			
+#ifdef USE_NSDECIMAL			
 			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"x", [NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:1]], @"y", nil]];
+#else
+			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:xValue], @"x", [NSNumber numberWithDouble:yValue], @"y", nil]];
+#endif
 			// Create a dictionary of the items, keyed to the header titles
 //			NSDictionary *keyedImportedItems = [[NSDictionary alloc] initWithObjects:columnValues forKeys:columnHeaders];
 			// Process this
@@ -200,7 +205,11 @@
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+#ifdef USE_NSDECIMAL
     NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+#else
+    NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+#endif
     return num;
 }
 
