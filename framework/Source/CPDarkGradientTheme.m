@@ -31,50 +31,10 @@
 /// @defgroup CPDarkGradientTheme CPDarkGradientTheme
 /// @{
 
-/**	@brief The name of the theme.
- *	@return The name.
- **/
 +(NSString *)name 
 {
 	return kCPDarkGradientTheme;
 }
-
-/** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
- *  @return A new CPXYGraph instance formatted with the theme.
- **/
--(id)newGraph 
-{
-    CPXYGraph *graph;
-	if ([self graphClass]) {
-		graph = [(CPXYGraph *)[graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	
-	graph.paddingLeft = 60.0;
-	graph.paddingTop = 60.0;
-	graph.paddingRight = 60.0;
-	graph.paddingBottom = 60.0;
-    
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    
-    [self applyThemeToGraph:graph];
-	return graph;
-}
-
--(void)applyThemeToGraph:(CPXYGraph *)graph
-{
-	[self applyThemeToBackground:graph];
-	[self applyThemeToPlotArea:graph.plotArea];
-	[self applyThemeToAxisSet:(CPXYAxisSet *)graph.axisSet];    
-}
-
-
-#pragma mark -
-#pragma mark Implementation private methods
 
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
 {
@@ -91,28 +51,6 @@
 	axis.axisLabelTextStyle = textStyle; 
 }
 
-/**	@brief A subclass of CPGraph that the graphClass must descend from.
- *	@return The required subclass.
- **/
-+(Class)requiredGraphSubclass
-{
-    return [CPXYGraph class];
-}
-
-///	@}
-
-@end
-
-/** @brief Protected methods for CPDarkGradientTheme.
- **/
-@implementation CPDarkGradientTheme(Protected)
-
-/// @addtogroup CPDarkGradientTheme
-/// @{
-
-/**	@brief Applies the background theme to the provided graph.
- *	@param graph The graph to style.
- **/
 -(void)applyThemeToBackground:(CPXYGraph *)graph 
 {
 	CPColor *endColor = [CPColor colorWithGenericGray:0.1];
@@ -124,9 +62,6 @@
 	graph.fill = [CPFill fillWithGradient:graphGradient];
 }
 
-/**	@brief Applies the theme to the provided plot area.
- *	@param plotArea The plot area to style.
- **/
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
 {
 	CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
@@ -134,9 +69,6 @@
 	plotArea.fill = [CPFill fillWithGradient:gradient]; 
 }
 
-/**	@brief Applies the theme to the provided axis set.
- *	@param axisSet The axis set to style.
- **/
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];

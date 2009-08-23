@@ -32,11 +32,11 @@ extern NSString * const kCPStocksTheme;
 
 +(Class)requiredGraphSubclass;
 
-@end
-
-@interface CPTheme(AbstractMethods)
-
 -(id)newGraph;
+
 -(void)applyThemeToGraph:(CPGraph *)graph;
+-(void)applyThemeToBackground:(CPGraph *)graph;
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;
+-(void)applyThemeToAxisSet:(CPAxisSet *)axisSet; 
 
 @end

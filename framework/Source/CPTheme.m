@@ -91,28 +91,43 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
         graphClass = newGraphClass;
     }
 }
-///	@}
-
-@end
-
-///	@brief CPTheme abstract methods—must be overridden by subclasses
-@implementation CPTheme(AbstractMethods)
-
-/// @addtogroup CPTheme
-/// @{
 
 /** @brief Creates and returns a new CPGraph instance formatted with the theme.
  *  @return A new CPGraph instance formatted with the theme.
  **/
--(id)newGraph
+-(id)newGraph 
 {
-	return nil;
+    return nil;
 }
 
 /**	@brief Applies the theme to the provided graph.
  *	@param graph The graph to style.
  **/
 -(void)applyThemeToGraph:(CPGraph *)graph
+{
+	[self applyThemeToBackground:graph];
+	[self applyThemeToPlotArea:graph.plotArea];
+	[self applyThemeToAxisSet:graph.axisSet];    
+}
+
+/**	@brief Applies the background theme to the provided graph.
+ *	@param graph The graph to style.
+ **/
+-(void)applyThemeToBackground:(CPGraph *)graph 
+{
+}
+
+/**	@brief Applies the theme to the provided plot area.
+ *	@param plotArea The plot area to style.
+ **/
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea
+{
+}
+
+/**	@brief Applies the theme to the provided axis set.
+ *	@param axisSet The axis set to style.
+ **/
+-(void)applyThemeToAxisSet:(CPAxisSet *)axisSet
 {
 }
 

@@ -17,53 +17,24 @@
  **/
 @implementation CPPlainWhiteTheme
 
-/**	@brief The name of the theme.
- *	@return The name.
- **/
 +(NSString *)name 
 {
 	return kCPPlainWhiteTheme;
 }
 
-/** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
- *  @return A new CPXYGraph instance formatted with the theme.
- **/
--(id)newGraph 
+-(void)applyThemeToBackground:(CPXYGraph *)graph 
 {
-	// Create graph
-	CPXYGraph *graph;
-	if (self.graphClass) {
-		graph = [(CPXYGraph *)[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	graph.paddingLeft = 60.0;
-	graph.paddingTop = 60.0;
-	graph.paddingRight = 60.0;
-	graph.paddingBottom = 60.0;
-    
-    // Setup plot space
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    
-	
-    
-	return graph;
+    graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
 }
-
-- (void)applyThemeToGraph:(CPXYGraph *)graph {
-    // Background
-	graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
 	
-	// Plot area
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
+{	
+    plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
+}
 	
-    // Axes
-	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-	
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+-(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
+{	
+    CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor blackColor];
     borderLineStyle.lineWidth = 1.0f;
 	
@@ -112,14 +83,6 @@
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = blackTextStyle;
     
-}
-
-/**	@brief A subclass of CPGraph that the graphClass must descend from.
- *	@return The required subclass.
- **/
-+(Class)requiredGraphSubclass
-{
-    return [CPXYGraph class];
 }
 
 @end

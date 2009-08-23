@@ -18,64 +18,45 @@
  **/
 @implementation CPStocksTheme
 
-/**	@brief The name of the theme.
- *	@return The name.
- **/
 +(NSString *)name 
 {
 	return kCPStocksTheme;
 }
 
-/** @brief Creates and returns a new CPXYGraph instance formatted with the theme.
- *  @return A new CPXYGraph instance formatted with the theme.
- **/
 -(id)newGraph 
 {
-	// Create graph
-	CPXYGraph *graph;
-	if (self.graphClass) {
-		graph = [(CPXYGraph *)[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
+	CPXYGraph *graph = [super newGraph];
+    
 	graph.paddingLeft = 0.0;
 	graph.paddingTop = 0.0;
 	graph.paddingRight = 0.0;
 	graph.paddingBottom = 0.0;
-    //	graph.paddingLeft = 14.0;
-    //	graph.paddingTop = 14.0;
-    //	graph.paddingRight = 14.0;
-    //	graph.paddingBottom = 14.0;
     
-    // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
 	
-    
 	return graph;
 }
 
-- (void)applyThemeToGraph:(CPXYGraph *)graph {
-    // Background
-	graph.fill = [CPFill fillWithColor:[CPColor blackColor]];
+-(void)applyThemeToBackground:(CPXYGraph *)graph 
+{	
+    graph.fill = [CPFill fillWithColor:[CPColor blackColor]];
+}
 	
-	// Plot area
-	CPGradient *stocksBackgroundGradient = [[[CPGradient alloc] init] autorelease];
-	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.21569f green:0.28627f blue:0.44706f alpha:1.0f] atPosition:0.0f];
+-(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
+{	
+    CPGradient *stocksBackgroundGradient = [[[CPGradient alloc] init] autorelease];
+    stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.21569f green:0.28627f blue:0.44706f alpha:1.0f] atPosition:0.0f];
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.09412f green:0.17255f blue:0.36078f alpha:1.0f] atPosition:0.5f];
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882f green:0.13333f blue:0.33333f alpha:1.0f] atPosition:0.5f];
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882f green:0.13333f blue:0.33333f alpha:1.0f] atPosition:1.0f];
     stocksBackgroundGradient.angle = 270.0;
-	graph.plotArea.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
-    //	[stocksBackgroundGradient release];
-	
-    
-	
-    // Axes
-	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-	
+	plotArea.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
+}
+
+-(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
+{	
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
     borderLineStyle.lineWidth = 0.0f;
@@ -124,14 +105,6 @@
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = whiteTextStyle;
     
-}
-
-/**	@brief A subclass of CPGraph that the graphClass must descend from.
- *	@return The required subclass.
- **/
-+(Class)requiredGraphSubclass
-{
-    return [CPXYGraph class];
 }
 
 @end
