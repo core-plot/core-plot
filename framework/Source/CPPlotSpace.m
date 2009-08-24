@@ -58,19 +58,36 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /// @{
 
 /**	@brief Converts a data point to drawing coordinates.
- *	@param decimalNumbers A c-style array of data point coordinates.
+ *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)decimalNumbers
+-(CGPoint)viewPointForPlotPoint:(NSDecimal *)plotPoint
+{
+	return CGPointMake(0.0f, 0.0f);
+}
+
+/**	@brief Converts a data point to drawing coordinates.
+ *	@param plotPoint A c-style array of data point coordinates (as doubles).
+ *	@return The drawing coordinates of the data point.
+ **/
+-(CGPoint)viewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 {
 	return CGPointMake(0.0f, 0.0f);
 }
 
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
- *	@param plotPoint A c-style array of data point coordinates.
+ *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@param point The drawing coordinates of the data point.
  **/
--(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point
+-(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point
+{
+}
+
+/**	@brief Converts a point given in drawing coordinates to the data coordinate space.
+ *	@param plotPoint A c-style array of data point coordinates (as doubles).
+ *	@param point The drawing coordinates of the data point.
+ **/
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point;
 {
 }
 

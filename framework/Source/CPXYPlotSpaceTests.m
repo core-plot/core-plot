@@ -46,9 +46,9 @@
     
 //    GTMAssertObjectStateEqualToStateNamed(self.plotSpace, @"CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1", @"");
     
-    NSDecimalNumber *plotPoint[2];
-	plotPoint[CPCoordinateX] = [NSDecimalNumber decimalNumberWithString:@"5.0"];
-	plotPoint[CPCoordinateY] = [NSDecimalNumber decimalNumberWithString:@"5.0"];
+    NSDecimal plotPoint[2];
+	plotPoint[CPCoordinateX] = CPDecimalFromString(@"5.0");
+	plotPoint[CPCoordinateY] = CPDecimalFromString(@"5.0");
     
     CGPoint viewPoint = [[self plotSpace] viewPointForPlotPoint:plotPoint];
     
@@ -78,13 +78,13 @@
     
 //    GTMAssertObjectStateEqualToStateNamed(self.plotSpace, @"CPCartesianPlotSpaceTests-testPlotPointForViewPoint", @"");
     
-    NSDecimalNumber *plotPoint[2];
+    NSDecimal plotPoint[2];
     CGPoint viewPoint = CGPointMake(50., 25.);
     
 	[[self plotSpace] plotPoint:plotPoint forViewPoint:viewPoint];
-  
-    STAssertEqualObjects(plotPoint[CPCoordinateX], [NSDecimalNumber decimalNumberWithString:@"5.0"], @"");
-    STAssertEqualObjects(plotPoint[CPCoordinateY], [NSDecimalNumber decimalNumberWithString:@"5.0"], @"");
+	
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateX], CPDecimalFromString(@"5.0")), @"");
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateY], CPDecimalFromString(@"5.0")), @"");
 }
 
 @end

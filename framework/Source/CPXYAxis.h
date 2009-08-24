@@ -5,9 +5,9 @@
 #import "CPDefinitions.h"
 
 @interface CPXYAxis : CPAxis {
-    NSDecimalNumber *constantCoordinateValue; 
+    NSDecimal constantCoordinateValue; 
 }
 
-@property (nonatomic, readwrite, copy) NSDecimalNumber *constantCoordinateValue;
+@property (nonatomic, readwrite) NSDecimal constantCoordinateValue;
 
 @end

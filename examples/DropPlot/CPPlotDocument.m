@@ -3,6 +3,8 @@
 
 @implementation CPPlotDocument
 
+//#define USE_NSDECIMAL
+
 +(void)initialize {
     [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
 }
@@ -51,14 +53,14 @@
 
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
 	CPXYAxis *x = axisSet.xAxis;
-	x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForX]];
-	x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForYAxis]];
+	x.majorIntervalLength = CPDecimalFromDouble(majorIntervalLengthForX);
+	x.constantCoordinateValue = CPDecimalFromDouble(minimumValueForYAxis);
 	x.minorTicksPerInterval = 5;
 	
 	CPXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", majorIntervalLengthForY]];
+	y.majorIntervalLength = CPDecimalFromDouble(majorIntervalLengthForY);
 	y.minorTicksPerInterval = 5;
-	y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", minimumValueForXAxis]];
+	y.constantCoordinateValue = CPDecimalFromDouble(minimumValueForXAxis);
 	
 		CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
@@ -143,8 +145,11 @@
 			if (yValue > maximumValueForYAxis)
 				maximumValueForYAxis = yValue;
 			
-			
+#ifdef USE_NSDECIMAL			
 			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"x", [NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:1]], @"y", nil]];
+#else
+			[dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:xValue], @"x", [NSNumber numberWithDouble:yValue], @"y", nil]];
+#endif
 			// Create a dictionary of the items, keyed to the header titles
 //			NSDictionary *keyedImportedItems = [[NSDictionary alloc] initWithObjects:columnValues forKeys:columnHeaders];
 			// Process this
@@ -200,7 +205,11 @@
 }
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+#ifdef USE_NSDECIMAL
     NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+#else
+    NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+#endif
     return num;
 }
 

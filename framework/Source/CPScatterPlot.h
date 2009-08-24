@@ -62,7 +62,8 @@ typedef enum _CPScatterPlotField {
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
-    NSDecimalNumber *areaBaseValue;
+    NSDecimal areaBaseValue;
+	double doublePrecisionAreaBaseValue;
     NSArray *xValues;
     NSArray *yValues;
     NSArray *plotSymbols;
@@ -71,6 +72,7 @@ typedef enum _CPScatterPlotField {
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
-@property (nonatomic, readwrite, copy) NSDecimalNumber *areaBaseValue;
+@property (nonatomic, readwrite) NSDecimal areaBaseValue;
+@property (nonatomic, readwrite) double doublePrecisionAreaBaseValue;
 
 @end

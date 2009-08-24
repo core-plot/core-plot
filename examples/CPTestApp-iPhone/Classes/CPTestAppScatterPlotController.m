@@ -43,8 +43,8 @@
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    x.majorIntervalLength = CPDecimalFromString(@"0.5");
+    x.constantCoordinateValue = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 2;
  	NSArray *exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
@@ -54,9 +54,9 @@
 	x.labelExclusionRanges = exclusionRanges;
    
     CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    y.constantCoordinateValue = CPDecimalFromString(@"2");
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -79,7 +79,7 @@
     areaGradient1.angle = -90.0f;
     CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
     boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];    
+    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
  
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
@@ -104,14 +104,14 @@
     areaGradient.angle = -90.0f;
     areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"1.75"];    
+    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithFloat:1+i*0.05];
-		id y = [NSDecimalNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
+		id x = [NSNumber numberWithFloat:1+i*0.05];
+		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForPlot = contentArray;
@@ -138,12 +138,12 @@
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
 {
-    NSDecimalNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
 	// Green plot gets shifted above the blue
 	if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
 	{
 		if ( fieldEnum == CPScatterPlotFieldY ) 
-			num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+			num = [NSNumber numberWithDouble:[num doubleValue] + 1.0];
 	}
     return num;
 }

@@ -19,8 +19,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointForPlotPoint:(NSDecimalNumber **)decimalNumbers;
--(void)plotPoint:(NSDecimalNumber **)plotPoint forViewPoint:(CGPoint)point;
+-(CGPoint)viewPointForPlotPoint:(NSDecimal *)plotPoint;
+-(CGPoint)viewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
+-(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point;
 ///	@}
 
 /// @name Coordinate Range

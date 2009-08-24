@@ -39,8 +39,8 @@
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle andMinorLineStyle:(CPLineStyle *)minorLineStyle andTextStyle:(CPTextStyle *)textStyle
 {
 	axis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    axis.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    axis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+    axis.majorIntervalLength = CPDecimalFromString(@"0.5");
+    axis.constantCoordinateValue = CPDecimalFromString(@"0");
 	axis.tickDirection = CPSignNone;
     axis.minorTicksPerInterval = 4;
     axis.majorTickLineStyle = majorLineStyle;

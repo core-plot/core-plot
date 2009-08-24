@@ -81,8 +81,8 @@
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
     x.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+    x.majorIntervalLength = CPDecimalFromString(@"0.5");
+    x.constantCoordinateValue = CPDecimalFromString(@"0");
 	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 4;
     x.majorTickLineStyle = majorLineStyle;
@@ -94,9 +94,9 @@
 	
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 4;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+    y.constantCoordinateValue = CPDecimalFromString(@"0");
 	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;

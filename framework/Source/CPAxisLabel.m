@@ -83,7 +83,6 @@
 	self.text = nil;
 	self.textStyle = nil;
 	self.contentLayer = nil;
-	self.tickLocation = nil;
 	[super dealloc];
 }
 

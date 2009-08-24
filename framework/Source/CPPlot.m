@@ -90,18 +90,13 @@
  *	@param indexRange The range of the data indexes of interest.
  *	@return An array of data points.
  **/
--(NSArray *)decimalNumbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
+-(NSArray *)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
 {
     NSArray *numbers;
     
     if ( self.dataSource ) {
         if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
-            numbers = [self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange];
-            NSMutableArray *decimalNumbers = [NSMutableArray arrayWithCapacity:numbers.count];
-            for ( NSNumber *n in numbers ) {
-                [decimalNumbers addObject:[n decimalNumber]];
-            }
-            numbers = decimalNumbers;
+            numbers = [NSArray arrayWithArray:[self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
         }
         else {
             BOOL respondsToSingleValueSelector = [self.dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
@@ -110,7 +105,7 @@
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
                 if ( respondsToSingleValueSelector ) {
                     NSNumber *number = [self.dataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
-                    [fieldValues addObject:[number decimalNumber]];
+                    [fieldValues addObject:number];
                 }
                 else {
                     [fieldValues addObject:[NSDecimalNumber zero]];

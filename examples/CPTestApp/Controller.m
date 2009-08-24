@@ -43,8 +43,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    x.majorIntervalLength = CPDecimalFromString(@"0.5");
+    x.constantCoordinateValue = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 2;
     x.majorGridLineStyle = majorGridLineStyle;
     x.minorGridLineStyle = minorGridLineStyle;
@@ -56,9 +56,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	x.labelExclusionRanges = exclusionRanges;
 
     CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+    y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
+    y.constantCoordinateValue = CPDecimalFromString(@"2");
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
 	exclusionRanges = [NSArray arrayWithObjects:
@@ -84,7 +84,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     fillImage.tiled = YES;
     CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
     boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];
+    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
     
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
@@ -109,7 +109,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     areaGradient.angle = -90.0f;
     areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"1.75"];    
+    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
@@ -130,7 +130,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
+    barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
@@ -139,7 +139,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:YES];
     barPlot.dataSource = self;
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"20"];
+    barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";

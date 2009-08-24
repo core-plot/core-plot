@@ -44,18 +44,18 @@
 	
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
     CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"5"];
-    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"5"];
+    x.majorIntervalLength = CPDecimalFromString(@"5");
+    x.constantCoordinateValue = CPDecimalFromString(@"5");
     x.minorTicksPerInterval = 2;
 
 	CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"50"];
+    y.majorIntervalLength = CPDecimalFromString(@"50");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"-1.5"];
+    y.constantCoordinateValue = CPDecimalFromString(@"-1.5");
 
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"5"];
+    barPlot.baseValue = CPDecimalFromString(@"5");
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
@@ -64,7 +64,7 @@
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
     barPlot.dataSource = self;
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithString:@"5"];
+    barPlot.baseValue = CPDecimalFromString(@"5");
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
@@ -147,8 +147,8 @@
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithFloat:1+i*0.05];
-		id y = [NSDecimalNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
+		id x = [NSNumber numberWithFloat:1+i*0.05];
+		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForChart = contentArray;
