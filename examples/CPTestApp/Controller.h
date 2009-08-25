@@ -18,7 +18,7 @@
 
 // Layer exploding for illustration
 -(IBAction)explodeLayers:(id)sender;
-+(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(unsigned int)depthLevel;
++(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(NSUInteger)depthLevel;
 -(IBAction)reassembleLayers:(id)sender;
 +(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
 
