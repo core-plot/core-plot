@@ -266,41 +266,36 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point1[0] = basePoint->x;
     point1[1] = basePoint->y;
     point1[widthCoordinate] += 0.5 * barWidth;
-    point1[0] = round(point1[0]);
-    point1[1] = round(point1[1]);
+	CGPoint alignedPoint1 = alignPointToUserSpace(context, CGPointMake(point1[0], point1[1]));
     
     CGFloat point2[2];
     point2[0] = tipPoint->x;
     point2[1] = tipPoint->y;
     point2[widthCoordinate] += 0.5 * barWidth;
-    point2[0] = round(point2[0]);
-    point2[1] = round(point2[1]);
+	CGPoint alignedPoint2 = alignPointToUserSpace(context, CGPointMake(point2[0], point2[1]));
     
     CGFloat point3[2];
     point3[0] = tipPoint->x;
     point3[1] = tipPoint->y;
-    point3[0] = round(point3[0]);
-    point3[1] = round(point3[1]);
+	CGPoint alignedPoint3 = alignPointToUserSpace(context, CGPointMake(point3[0], point3[1]));
 	
     CGFloat point4[2];
     point4[0] = tipPoint->x;
     point4[1] = tipPoint->y;
     point4[widthCoordinate] -= 0.5 * barWidth;
-    point4[0] = round(point4[0]);
-    point4[1] = round(point4[1]);
+	CGPoint alignedPoint4 = alignPointToUserSpace(context, CGPointMake(point4[0], point4[1]));
     
     CGFloat point5[2];
     point5[0] = basePoint->x;
     point5[1] = basePoint->y;
     point5[widthCoordinate] -= 0.5 * barWidth;
-    point5[0] = round(point5[0]);
-    point5[1] = round(point5[1]);
+	CGPoint alignedPoint5 = alignPointToUserSpace(context, CGPointMake(point5[0], point5[1]));
 	
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, point1[0], point1[1]);
-	CGPathAddArcToPoint(path, NULL, point2[0], point2[1], point3[0], point3[1], cornerRadius);
-    CGPathAddArcToPoint(path, NULL, point4[0], point4[1], point5[0], point5[1], cornerRadius);
-    CGPathAddLineToPoint(path, NULL, point5[0], point5[1]);
+    CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
+	CGPathAddArcToPoint(path, NULL, alignedPoint2.x, alignedPoint2.y, alignedPoint3.x, alignedPoint3.y, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, cornerRadius);
+    CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
     
     CGContextSaveGState(context);
 	

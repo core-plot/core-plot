@@ -72,7 +72,7 @@
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
-    borderLineStyle.lineWidth = 4.0f;
+    borderLineStyle.lineWidth = 3.0f;
 	
 	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
 	borderedLayer.borderLineStyle = borderLineStyle;
@@ -81,14 +81,14 @@
 	axisSet.overlayLayerInsetY = -4.f;
     
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
-    majorLineStyle.lineCap = kCGLineCapButt;
+    majorLineStyle.lineCap = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
-    majorLineStyle.lineWidth = 2.0f;
+    majorLineStyle.lineWidth = 3.0f;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
-    minorLineStyle.lineCap = kCGLineCapButt;
+    minorLineStyle.lineCap = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPColor darkGrayColor];
-    minorLineStyle.lineWidth = 2.0f;
+    minorLineStyle.lineWidth = 3.0f;
 	
 	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
