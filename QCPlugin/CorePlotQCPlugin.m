@@ -421,14 +421,14 @@ Synthesized accessors for internal PlugIn settings
 		axisSet.overlayLayerInsetY = -0.f;
 		
 		CPXYAxis *x = axisSet.xAxis;
-		x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-		x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+		x.majorIntervalLength = CPDecimalFromString(@"0.5");
+		x.constantCoordinateValue = CPDecimalFromString(@"0.0");
 		x.minorTicksPerInterval = 2;
 		
 		CPXYAxis *y = axisSet.yAxis;
-		y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
+		y.majorIntervalLength = CPDecimalFromString(@"0.5");
 		y.minorTicksPerInterval = 5;
-		y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+		y.constantCoordinateValue = CPDecimalFromString(@"0.0");
 	}		
 }
 
@@ -483,14 +483,14 @@ Synthesized accessors for internal PlugIn settings
 	set.yAxis.axisLabelTextStyle.color = axisColor;
 	
 	double xrange = self.inputXMax - self.inputXMin;
-	set.xAxis.majorIntervalLength = (NSDecimalNumber *)[NSDecimalNumber numberWithFloat:xrange / (self.inputXMajorIntervals)];
+	set.xAxis.majorIntervalLength = CPDecimalFromDouble(xrange / (self.inputXMajorIntervals));
 	set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
-	set.xAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+	set.xAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
 	
 	double yrange = self.inputYMax - self.inputYMin;
-	set.yAxis.majorIntervalLength = (NSDecimalNumber *)[NSDecimalNumber numberWithFloat:yrange / (self.inputYMajorIntervals)];
+	set.yAxis.majorIntervalLength = CPDecimalFromDouble(yrange / (self.inputYMajorIntervals));
 	set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
-	set.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0"];
+	set.yAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
 
 	set.xAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
 	set.yAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
@@ -783,8 +783,8 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	
 	CPXYAxisSet *set = (CPXYAxisSet *)graph.axisSet;
 	[[(CPBorderedLayer *)set.overlayLayer borderLineStyle] setLineColor:[CPColor colorWithCGColor:self.inputBorderColor]];
-	set.xAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0.0"];
-	set.yAxis.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"0.0"];
+	set.xAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
+	set.yAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
 	
 	[self configureAxis];	
 

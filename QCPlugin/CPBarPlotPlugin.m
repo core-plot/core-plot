@@ -156,7 +156,7 @@
 		plot.lineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
 		plot.lineStyle.lineWidth = [self dataLineWidth:index];
 		
-		plot.baseValue = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:self.inputBaseValue];
+		plot.baseValue = CPDecimalFromDouble(self.inputBaseValue);
 		plot.barWidth = barWidth;
 		plot.barOffset = ((index) / count) * unitWidth / barWidth + 0.5 + self.inputBarOffset;
 		
