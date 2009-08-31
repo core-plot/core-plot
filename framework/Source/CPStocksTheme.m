@@ -53,20 +53,17 @@
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882f green:0.13333f blue:0.33333f alpha:1.0f] atPosition:1.0f];
     stocksBackgroundGradient.angle = 270.0;
 	plotArea.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
+
+	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
+	borderLineStyle.lineWidth = 0.0f;
+	
+	plotArea.borderLineStyle = borderLineStyle;
+	plotArea.cornerRadius = 14.0f;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
 {	
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
-    borderLineStyle.lineWidth = 0.0f;
-	
-	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
-	borderedLayer.borderLineStyle = borderLineStyle;
-	borderedLayer.cornerRadius = 14.0f;
-	axisSet.overlayLayerInsetX = 0.0f;
-	axisSet.overlayLayerInsetY = 0.0f;
-    
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
     majorLineStyle.lineColor = [CPColor whiteColor];

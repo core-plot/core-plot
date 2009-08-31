@@ -43,7 +43,6 @@
 +(CGFloat)defaultZPosition;
 ///	@}
 
-
 /// @name Bindings
 /// @{
 +(void)exposeBinding:(NSString *)binding;		

@@ -172,31 +172,30 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		self.plotSpace = nil;
-		self.majorTickLocations = [NSArray array];
-		self.minorTickLocations = [NSArray array];
-		self.minorTickLength = 3.f;
-		self.majorTickLength = 5.f;
-		self.axisLabelOffset = 2.f;
-		self.axisLineStyle = [CPLineStyle lineStyle];
-		self.majorTickLineStyle = [CPLineStyle lineStyle];
-		self.minorTickLineStyle = [CPLineStyle lineStyle];
-		self.fixedPoint = [[NSDecimalNumber zero] decimalValue];
-		self.majorIntervalLength = [[NSDecimalNumber one] decimalValue];
-		self.minorTicksPerInterval = 1;
-		self.coordinate = CPCoordinateX;
-		self.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-		self.axisLabelTextStyle = [[[CPTextStyle alloc] init] autorelease];
+		plotSpace = nil;
+		majorTickLocations = [[NSArray array] retain];
+		minorTickLocations = [[NSArray array] retain];
+		minorTickLength = 3.f;
+		majorTickLength = 5.f;
+		axisLabelOffset = 2.f;
+		axisLineStyle = [[CPLineStyle alloc] init];
+		majorTickLineStyle = [[CPLineStyle alloc] init];
+		minorTickLineStyle = [[CPLineStyle alloc] init];
+		fixedPoint = [[NSDecimalNumber zero] decimalValue];
+		majorIntervalLength = [[NSDecimalNumber one] decimalValue];
+		minorTicksPerInterval = 1;
+		coordinate = CPCoordinateX;
+		axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+		axisLabelTextStyle = [[CPTextStyle alloc] init];
 		NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
-        self.tickLabelFormatter = newFormatter;
-		[newFormatter release];
-		self.axisLabels = [NSSet set];
-        self.tickDirection = CPSignNone;
+        tickLabelFormatter = newFormatter;
+		axisLabels = [[NSSet set] retain];
+        tickDirection = CPSignNone;
         self.needsRelabel = YES;
-		self.labelExclusionRanges = nil;
-		self.delegate = nil;
+		labelExclusionRanges = nil;
+		delegate = nil;
 	}
 	return self;
 }
@@ -215,8 +214,6 @@
 	[axisLabels release];
 	[axisLabelTextStyle release];
 	[labelExclusionRanges release];
-	
-	self.delegate = nil;
 	
 	[super dealloc];
 }

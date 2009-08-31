@@ -67,19 +67,16 @@
 	CPGradient *gradient = [CPGradient gradientWithBeginningColor:[CPColor colorWithGenericGray:0.1] endingColor:[CPColor colorWithGenericGray:0.3]];
     gradient.angle = 90.0;
 	plotArea.fill = [CPFill fillWithGradient:gradient]; 
+
+	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
+	borderLineStyle.lineWidth = 4.0f;
+	
+	plotArea.borderLineStyle = borderLineStyle;
+	plotArea.cornerRadius = 10.0f;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
-    borderLineStyle.lineWidth = 4.0f;
-	
-	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
-	borderedLayer.borderLineStyle = borderLineStyle;
-	borderedLayer.cornerRadius = 10.0f;
-	axisSet.overlayLayerInsetX = -4.f;
-	axisSet.overlayLayerInsetY = -4.f;
-    
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapButt;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];

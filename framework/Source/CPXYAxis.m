@@ -31,7 +31,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super initWithFrame:newFrame]) {
+	if ( self = [super initWithFrame:newFrame] ) {
         self.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
 		self.needsDisplayOnBoundsChange = YES;
 		self.tickDirection = CPSignNone;
@@ -54,7 +54,7 @@
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = self.constantCoordinateValue;
-    CGPoint point = [self.plotSpace viewPointForPlotPoint:plotPoint];
+    CGPoint point = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
     
     return point;
 }
@@ -118,11 +118,11 @@
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = orthogonalRange.location;
-    *startPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+    *startPoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
     
     // End point
     plotPoint[orthogonalCoordinate] = orthogonalRange.end;
-    *endPoint = [self.plotSpace viewPointForPlotPoint:plotPoint];
+    *endPoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
 }
 
 -(void)drawGridLinesInContext:(CGContextRef)theContext atLocations:(NSSet *)locations isMajor:(BOOL)major
@@ -151,10 +151,8 @@
 	CGContextStrokePath(theContext);
 }
 
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext {
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
     // Grid Lines
     [self drawGridLinesInContext:theContext atLocations:self.minorTickLocations isMajor:NO];
     [self drawGridLinesInContext:theContext atLocations:self.majorTickLocations isMajor:YES];

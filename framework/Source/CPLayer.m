@@ -55,15 +55,16 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super init] ) {
+		paddingLeft = 0.0f;
+		paddingTop = 0.0f;
+		paddingRight = 0.0f;
+		paddingBottom = 0.0f;
+
 		self.frame = newFrame;
 		self.needsDisplayOnBoundsChange = NO;
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
-		self.paddingLeft = 0.0f;
-		self.paddingTop = 0.0f;
-		self.paddingRight = 0.0f;
-		self.paddingBottom = 0.0f;
         NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", [NSNull null], @"sublayers", nil];
         self.actions = actionsDict;
         [actionsDict release];

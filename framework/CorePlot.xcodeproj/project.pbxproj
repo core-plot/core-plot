@@ -242,6 +242,8 @@
 		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */; };
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */; };
+		C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31DE71045EB470058520A /* CPPlotGroup.m */; };
+		C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F31DE81045EB470058520A /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff */; };
 		C3F56D7D0FBEE90E00D261EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		C3F9FDDF1017E5F6009D5DFB /* CPDarkGradientThemeTests-testRenderGraphWithNoTheme.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F9FDDA1017E5F6009D5DFB /* CPDarkGradientThemeTests-testRenderGraphWithNoTheme.tiff */; };
@@ -735,6 +737,8 @@
 		C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbolTests.h; sourceTree = "<group>"; };
 		C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbolTests.m; sourceTree = "<group>"; };
 		C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.ppc.tiff"; sourceTree = "<group>"; };
+		C3F31DE71045EB470058520A /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotGroup.m; sourceTree = "<group>"; };
+		C3F31DE81045EB470058520A /* CPPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotGroup.h; sourceTree = "<group>"; };
 		C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.tiff"; sourceTree = "<group>"; };
 		C3F9FDDA1017E5F6009D5DFB /* CPDarkGradientThemeTests-testRenderGraphWithNoTheme.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPDarkGradientThemeTests-testRenderGraphWithNoTheme.tiff"; sourceTree = "<group>"; };
 		C3F9FDDB1017E5F6009D5DFB /* CPDarkGradientThemeTests-testApplyThemeToAxisSet.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPDarkGradientThemeTests-testApplyThemeToAxisSet.tiff"; sourceTree = "<group>"; };
@@ -1042,6 +1046,8 @@
 		07BF0D890F2B736D002FCEA7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C3F31DE81045EB470058520A /* CPPlotGroup.h */,
+				C3F31DE71045EB470058520A /* CPPlotGroup.m */,
 				C331F8F50F871087006E4006 /* CPPlotSymbol.h */,
 				C331F8F60F871087006E4006 /* CPPlotSymbol.m */,
 				07BF0D7E0F2B72F6002FCEA7 /* CPPlot.h */,
@@ -1800,6 +1806,7 @@
 				07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
 				0776F2221041BCDE0013EB11 /* CPXYTheme.h in Headers */,
+				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2226,6 +2233,7 @@
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
 				0776F2231041BCDE0013EB11 /* CPXYTheme.m in Sources */,
+				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

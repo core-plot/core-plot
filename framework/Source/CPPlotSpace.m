@@ -1,5 +1,6 @@
 
 #import "CPPlotSpace.h"
+#import "CPLayer.h"
 #import "CPPlotArea.h"
 #import "CPAxisSet.h"
 #import "CPLineStyle.h"
@@ -26,12 +27,18 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
--(id)initWithFrame:(CGRect)newFrame
+-(id)init
 {
-	if (self = [super initWithFrame:newFrame]) {
-		self.masksToBounds = YES;
+	if ( self = [super init] ) {
+		identifier = nil;
 	}
 	return self;
+}
+
+-(void)dealloc
+{
+	[identifier release];
+	[super dealloc];
 }
 
 #pragma mark -
@@ -42,11 +49,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	return CPDefaultZPositionPlotSpace;
 }
 
--(void)setBounds:(CGRect)newBounds {
-    BOOL notify = !CGRectEqualToRect(newBounds, self.bounds);
-    [super setBounds:newBounds];
-    if ( notify ) [[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
-}
 ///	@}
 
 @end
@@ -61,7 +63,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointForPlotPoint:(NSDecimal *)plotPoint
+-(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint
 {
 	return CGPointMake(0.0f, 0.0f);
 }
@@ -70,7 +72,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
+-(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint;
 {
 	return CGPointMake(0.0f, 0.0f);
 }
@@ -79,7 +81,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@param point The drawing coordinates of the data point.
  **/
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point
+-(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
 {
 }
 
@@ -87,7 +89,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@param point The drawing coordinates of the data point.
  **/
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
 {
 }
 

@@ -43,17 +43,20 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super initWithFrame:newFrame]) {
-        self.dataNeedsReloading = YES;
+	if ( self = [super initWithFrame:newFrame] ) {
+		dataSource = nil;
+		identifier = nil;
+		plotSpace = nil;
+        dataNeedsReloading = YES;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    self.dataSource = nil;
-    self.identifier = nil;
-    self.plotSpace = nil;
+    [dataSource release];
+    [identifier release];
+    [plotSpace release];
     [super dealloc];
 }
 

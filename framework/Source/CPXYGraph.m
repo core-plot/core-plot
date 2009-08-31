@@ -18,7 +18,14 @@
  **/
 @implementation CPXYGraph
 
+/**	@property xScaleType
+ *	@brief The scale type for the x-axis.
+ **/
 @synthesize xScaleType;
+
+/**	@property yScaleType
+ *	@brief The scale type for the y-axis.
+ **/
 @synthesize yScaleType;
 
 #pragma mark -
@@ -36,9 +43,8 @@
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPScaleType)newXScaleType yScaleType:(CPScaleType)newYScaleType;
 {
     if ( self = [super initWithFrame:newFrame] ) {
-		self.xScaleType = newXScaleType;
-		self.yScaleType = newYScaleType;
-		self.needsDisplayOnBoundsChange = YES;
+		xScaleType = newXScaleType;
+		yScaleType = newYScaleType;
     }
     return self;
 }
@@ -54,9 +60,9 @@
 -(CPPlotSpace *)newPlotSpace 
 {
     CPXYPlotSpace *space;
-    space = [(CPXYPlotSpace *)[CPXYPlotSpace alloc] initWithFrame:self.bounds];
-    space.xScaleType = xScaleType;
-    space.yScaleType = yScaleType;
+    space = [[CPXYPlotSpace alloc] init];
+    space.xScaleType = self.xScaleType;
+    space.yScaleType = self.yScaleType;
     return space;
 }
 
@@ -66,14 +72,6 @@
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
     return newAxisSet;
-}
-
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext
-{
-	[super renderAsVectorInContext:theContext];	// draw background fill
 }
 
 @end

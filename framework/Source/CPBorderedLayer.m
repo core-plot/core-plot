@@ -29,15 +29,20 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
+		borderLineStyle = nil;
+		fill = nil;
+		cornerRadius = 0.0f;
+
 		self.needsDisplayOnBoundsChange = YES;
+		self.masksToBounds = YES;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	[self.borderLineStyle release];
-    [self.fill release];
+	[borderLineStyle release];
+    [fill release];
 	
 	[super dealloc];
 }
@@ -63,14 +68,49 @@
 }
 
 #pragma mark -
+#pragma mark Layout
+
+-(void)layoutSublayers
+{
+	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
+	// Subclasses should override to lay out their own sublayers
+	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
+	// Sublayers fill the super layer's bounds minus any padding by default
+	CGRect selfBounds = self.bounds;
+	CGSize subLayerSize = selfBounds.size;
+	CGFloat lineWidth = self.borderLineStyle.lineWidth;
+	
+	subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
+	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
+	subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
+	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
+	
+	for (CALayer *subLayer in self.sublayers) {
+		CGRect subLayerBounds = subLayer.bounds;
+		subLayerBounds.size = subLayerSize;
+		subLayer.bounds = subLayerBounds;
+		subLayer.anchorPoint = CGPointZero;
+		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
+	}
+}
+
+#pragma mark -
 #pragma mark <CPMasking>
 
 -(CGPathRef)newMaskingPath 
 {
-    CGFloat inset = round(self.borderLineStyle.lineWidth*0.5 + 1.0f);
+	CGFloat inset = round(self.borderLineStyle.lineWidth / 2.0f);
 	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
-    CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
-    return CreateRoundedRectPath(selfBounds, radius);
+
+	if ( self.cornerRadius > 0.0f ) {
+		CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		return CreateRoundedRectPath(selfBounds, radius);
+	}
+	else {
+		CGMutablePathRef path = CGPathCreateMutable();
+		CGPathAddRect(path, NULL, selfBounds);
+		return path;
+	}
 }
 
 #pragma mark -

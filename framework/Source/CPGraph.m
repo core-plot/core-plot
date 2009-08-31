@@ -30,17 +30,12 @@
 /**	@property axisSet
  *	@brief The axis set.
  **/
-@synthesize axisSet;
+@dynamic axisSet;
 
 /**	@property plotArea
  *	@brief The plot area.
  **/
 @synthesize plotArea;
-
-/**	@property fill
- *	@brief The background fill.
- **/
-@synthesize fill;
 
 /**	@property plots
  *	@brief An array of all plots associated with the graph.
@@ -63,24 +58,21 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		self.fill = nil;
-		self.plots = [[NSMutableArray alloc] init];
+		plots = [[NSMutableArray alloc] init];
         
         // Plot area
-        self.plotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
-        [self addSublayer:self.plotArea];
-		
+        plotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
+        [self addSublayer:plotArea];
+
         // Plot spaces
-		self.plotSpaces = [[NSMutableArray alloc] init];
+		plotSpaces = [[NSMutableArray alloc] init];
         CPPlotSpace *newPlotSpace = [self newPlotSpace];
         [self addPlotSpace:newPlotSpace];
         [newPlotSpace release];
-        
+
         // Axis set
-        CPAxisSet *newAxisSet = [self newAxisSet];
-        self.axisSet = newAxisSet;
-        [newAxisSet release];
-        		
+		self.axisSet = [self newAxisSet];
+
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -90,9 +82,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[axisSet release];
 	[plotArea release];
-    [fill release];
 	[plots release];
 	[plotSpaces release];
 	
@@ -155,11 +145,10 @@
  **/
 -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space
 {
-	if (plot) {
+	if ( plot ) {
 		[self.plots addObject:plot];
 		plot.plotSpace = space;
-		[space addSublayer:plot];		
-		[self setNeedsDisplay];
+		[self.plotArea.plotGroup addPlot:plot];
 	}
 }
 
@@ -171,8 +160,7 @@
     if ( [self.plots containsObject:plot] ) {
 		[self.plots removeObject:plot];
         plot.plotSpace = nil;
-        [plot removeFromSuperlayer];		
-		[self setNeedsDisplay];
+		[self.plotArea.plotGroup removePlot:plot];
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlot which did not exist."];
@@ -198,8 +186,7 @@
 	if (plot) {
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
-		[space addSublayer:plot];
-		[self setNeedsDisplay];
+		[self.plotArea.plotGroup addPlot:plot];
 	}
 }
 
@@ -211,9 +198,8 @@
 	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
 	if (plotToRemove) {
 		plotToRemove.plotSpace = nil;
-		[plotToRemove removeFromSuperlayer];
+		[self.plotArea.plotGroup removePlot:plotToRemove];
 		[self.plots removeObjectIdenticalTo:plotToRemove];
-		[self setNeedsDisplay];
 	}
 }
 
@@ -261,9 +247,7 @@
  **/
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
-	space.frame = self.plotArea.bounds;
 	[self.plotSpaces addObject:space];
-	[self.plotArea addSublayer:space];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
@@ -275,7 +259,6 @@
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
 		[self.plotSpaces removeObject:plotSpace];
-        [plotSpace removeFromSuperlayer];
         for ( CPAxis *axis in self.axisSet.axes ) {
             if ( axis.plotSpace == plotSpace ) axis.plotSpace = nil;
         }
@@ -284,7 +267,6 @@
         [NSException raise:CPException format:@"Tried to remove CPPlotSpace which did not exist."];
     }
 }
-
 
 #pragma mark -
 #pragma mark Coordinate Changes in Plot Spaces
@@ -301,19 +283,15 @@
 #pragma mark -
 #pragma mark Axis Set
 
+-(CPAxisSet *)axisSet
+{
+	return self.plotArea.axisSet;
+}
+
 -(void)setAxisSet:(CPAxisSet *)newSet
 {
-    if ( newSet != axisSet ) {
-		[axisSet removeFromSuperlayer];
-		[newSet retain];
-        [axisSet release];
-        axisSet = newSet;
-        if ( axisSet ) {
-			axisSet.graph = self;
-			[self addSublayer:axisSet];	
-		}
-		[self setNeedsDisplay];
-    }
+	newSet.graph = self;
+	self.plotArea.axisSet = newSet;
 }
 
 #pragma mark -
@@ -332,35 +310,8 @@
 	return CPDefaultZPositionGraph;
 }
 
--(void)layoutSublayers 
-{
-	[super layoutSublayers];
-	
-    if ( self.axisSet ) {
-        // Set the bounds so that the axis set coordinates coincide with the 
-        // plot area drawing coordinates.
-        CGRect axisSetBounds = self.bounds;
-        axisSetBounds.origin = [self convertPoint:self.bounds.origin toLayer:self.plotArea];
-		
-		CPAxisSet *theAxisSet = self.axisSet;
-        theAxisSet.bounds = axisSetBounds;
-        theAxisSet.anchorPoint = CGPointZero;
-        theAxisSet.position = self.bounds.origin;
-    }
-}
-
 #pragma mark -
 #pragma mark Accessors
-
--(void)setFill:(CPFill *)newFill 
-{
-    if ( newFill != fill ) {
-		[newFill retain];
-        [fill release];
-        fill = newFill;
-        [self setNeedsDisplay];
-    }
-}
 ///	@}
 
 @end

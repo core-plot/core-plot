@@ -1,16 +1,22 @@
 #import "CPPlotArea.h"
-#import "CPPlotSpace.h"
-#import "CPFill.h"
+#import "CPAxisSet.h"
+#import "CPPlotGroup.h"
+#import "CPDefinitions.h"
+#import "CPLineStyle.h"
 
-/**	@brief A layer drawn on top of the graph layer and behind all plot elements.
+/** @brief A layer drawn on top of the graph layer and behind all plot elements.
  **/
 @implementation CPPlotArea
 
-/** @property fill 
- *  @brief The fill for the layer background.
- *	If nil, the layer background is not filled.
+/** @property axisSet
+ *	@brief The axis set.
  **/
-@synthesize fill;
+@synthesize axisSet;
+
+/** @property plotArea
+ *	@brief The plot group.
+ **/
+@synthesize plotGroup;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -18,25 +24,23 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		self.needsDisplayOnBoundsChange = YES;
+		axisSet = nil;
+		plotGroup = nil;
 		
-		self.fill = nil;
-	}
+		CPPlotGroup *newPlotGroup = [[CPPlotGroup alloc] init];
+		self.plotGroup = newPlotGroup;
+		[newPlotGroup release];
+
+		self.needsDisplayOnBoundsChange = YES;
+}
 	return self;
 }
 
 -(void)dealloc
 {
-	self.fill = nil;
+	[axisSet release];
+	[plotGroup release];
 	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext
-{
-	[self.fill fillRect:self.bounds inContext:theContext];
 }
 
 #pragma mark -
@@ -47,16 +51,57 @@
 	return CPDefaultZPositionPlotArea;
 }
 
+-(void)layoutSublayers 
+{
+	[super layoutSublayers];
+	
+	CGFloat inset = self.borderLineStyle.lineWidth;
+	CGRect sublayerBounds = CGRectInset(self.bounds, inset, inset);
+
+	CPAxisSet *theAxisSet = self.axisSet;
+	if ( theAxisSet ) {
+		// Set the bounds so that the axis set coordinates coincide with the 
+		// plot area drawing coordinates.
+		theAxisSet.bounds =	 sublayerBounds;
+		theAxisSet.anchorPoint = CGPointZero;
+		theAxisSet.position = sublayerBounds.origin;
+	}
+	
+	CPPlotGroup *thePlotGroup = self.plotGroup;
+	if ( thePlotGroup ) {
+		// Set the bounds so that the plot group coordinates coincide with the 
+		// plot area drawing coordinates.
+		thePlotGroup.bounds = sublayerBounds;
+		thePlotGroup.anchorPoint = CGPointZero;
+		thePlotGroup.position = sublayerBounds.origin;
+	}
+}
+
 #pragma mark -
 #pragma mark Accessors
 
--(void)setFill:(CPFill *)newFill;
+-(void)setAxisSet:(CPAxisSet *)newAxisSet
 {
-	if (newFill != fill) {
-		[fill release];
-		fill = [newFill retain];
-		[self setNeedsDisplay];
-	}
+	if ( newAxisSet != axisSet ) {
+		[axisSet removeFromSuperlayer];
+		[axisSet release];
+		if ( newAxisSet ) {
+			axisSet = [newAxisSet retain];
+			[self insertSublayer:axisSet atIndex:0];
+		}
+	}	
+}
+
+-(void)setPlotGroup:(CPPlotGroup *)newPlotGroup
+{
+	if ( newPlotGroup != plotGroup ) {
+		[plotGroup removeFromSuperlayer];
+		[plotGroup release];
+		if ( newPlotGroup ) {
+			plotGroup = [newPlotGroup retain];
+			[self insertSublayer:plotGroup below:self.axisSet];
+		}
+	}	
 }
 
 @end

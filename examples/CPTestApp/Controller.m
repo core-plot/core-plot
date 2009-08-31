@@ -125,7 +125,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
     barPlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(200.0f)];
     barPlotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-7.0f) length:CPDecimalFromFloat(15.0f)];
-    [graph addPlotSpace:barPlotSpace];
+	[graph addPlotSpace:barPlotSpace];
     [barPlotSpace release];
     
     // First bar plot

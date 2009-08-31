@@ -1,11 +1,15 @@
-#import "CPLayer.h"
+#import "CPBorderedLayer.h"
 
-@class CPFill;
+@class CPAxisSet;
+@class CPPlotGroup;
 
-@interface CPPlotArea : CPLayer {
-	CPFill *fill;
+@interface CPPlotArea : CPBorderedLayer {
+@private
+    CPAxisSet *axisSet;
+    CPPlotGroup *plotGroup;
 }
 
-@property (nonatomic, readwrite, retain) CPFill *fill;
+@property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
+@property (nonatomic, readwrite, retain) CPPlotGroup *plotGroup;
 
 @end
