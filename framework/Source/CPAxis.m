@@ -337,15 +337,17 @@
 			break;
 	}
 	
-	// Filter and set tick locations	
-	self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
-	self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
-	
-	// Label ticks
-	NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
-	self.axisLabels = [NSSet setWithArray:newLabels];
-    [newLabels release];
-    
+    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone ) {
+        // Filter and set tick locations	
+        self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
+        self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
+        
+        // Label ticks
+        NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
+        self.axisLabels = [NSSet setWithArray:newLabels];
+        [newLabels release];
+    }
+
     self.needsRelabel = NO;
 	
 	[self.delegate axisDidRelabel:self];
