@@ -313,6 +313,7 @@
 	
 	switch (self.axisLabelingPolicy) {
 		case CPAxisLabelingPolicyNone:
+        case CPAxisLabelingPolicyLocationsProvided:
             // Assume locations are set by user
             allNewMajorLocations = [[self.majorTickLocations mutableCopy] autorelease];
             allNewMinorLocations = [[self.minorTickLocations mutableCopy] autorelease];
@@ -337,11 +338,14 @@
 			break;
 	}
 	
-    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone ) {
+    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone &&
+    	 self.axisLabelingPolicy != CPAxisLabelingPolicyLocationsProvided ) {
         // Filter and set tick locations	
         self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
         self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
+    }
         
+    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone ) {
         // Label ticks
         NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
         self.axisLabels = [NSSet setWithArray:newLabels];

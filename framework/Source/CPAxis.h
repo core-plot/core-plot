@@ -14,12 +14,13 @@
 /**	@brief Enumeration of labeling policies
  **/
 typedef enum _CPAxisLabelingPolicy {
-    CPAxisLabelingPolicyNone,			///< No labels provided; user sets labels.
-    CPAxisLabelingPolicyFixedInterval,	///< Fixed interval labeling policy.
+    CPAxisLabelingPolicyNone,					///< No labels provided; user sets labels and locations.
+    CPAxisLabelingPolicyLocationsProvided,		///< User sets locations; class makes labels.
+    CPAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
     // TODO: Implement automatic labeling
-	CPAxisLabelingPolicyAutomatic,		///< Automatic labeling policy (not implemented).
+	CPAxisLabelingPolicyAutomatic,				///< Automatic labeling policy (not implemented).
 	// TODO: Implement logarithmic labeling
-    CPAxisLabelingPolicyLogarithmic		///< logarithmic labeling policy (not implemented). 
+    CPAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
 } CPAxisLabelingPolicy;
 
 /**	@brief Axis labeling delegate.
