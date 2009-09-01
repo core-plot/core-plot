@@ -1,11 +1,11 @@
 #import <Cocoa/Cocoa.h>
 
 typedef enum {
-    BWUndefinedDataType = 0,
-    BWIntegerDataType,
-    BWUnsignedIntegerDataType,
-    BWFloatingPointDataType,
-    BWComplexFloatingPointDataType
+    CPUndefinedDataType = 0,
+    CPIntegerDataType,
+    CPUnsignedIntegerDataType,
+    CPFloatingPointDataType,
+    CPComplexFloatingPointDataType
 } CPDataType;
 
 /*!

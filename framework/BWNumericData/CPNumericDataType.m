@@ -60,19 +60,19 @@
     }
     
     switch (dataType) {
-        case BWFloatingPointDataType:
+        case CPFloatingPointDataType:
             typeString = @"f";
             break;
-        case BWIntegerDataType:
+        case CPIntegerDataType:
             typeString = @"i";
             break;
-        case BWUnsignedIntegerDataType:
+        case CPUnsignedIntegerDataType:
             typeString = @"u";
             break;
-        case BWComplexFloatingPointDataType:
+        case CPComplexFloatingPointDataType:
             typeString = @"c";
             break;
-        case BWUndefinedDataType:
+        case CPUndefinedDataType:
             [NSException raiseGenericFormat:@"Unsupported data type"];
     }
     
@@ -88,16 +88,16 @@
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
     switch ([[dtypeString lowercaseString] characterAtIndex:1]) {
         case 'f':
-            result = BWFloatingPointDataType;
+            result = CPFloatingPointDataType;
             break;
         case 'i':
-            result = BWIntegerDataType;
+            result = CPIntegerDataType;
             break;
         case 'u':
-            result = BWUnsignedIntegerDataType;
+            result = CPUnsignedIntegerDataType;
             break;
         case 'c':
-            result = BWComplexFloatingPointDataType;
+            result = CPComplexFloatingPointDataType;
             break;
         default:
             [NSException raiseGenericFormat:@"Unknown type in dtypestring"];

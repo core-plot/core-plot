@@ -22,14 +22,14 @@
     
     
     switch([self dataType]) {
-        case BWUndefinedDataType:
-            [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (BWUndefinedDataType)"];
+        case CPUndefinedDataType:
+            [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
             break;
-        case BWIntegerDataType:
+        case CPIntegerDataType:
             switch([self sampleBytes]) {
                 case sizeof(char):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<char,char>(self, [self byteOrder], newByteOrder);
@@ -42,7 +42,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<char,char>(self, [self byteOrder], newByteOrder);
@@ -55,7 +55,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<char,char>(self, [self byteOrder], newByteOrder);
@@ -68,7 +68,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<char,char>(self, [self byteOrder], newByteOrder);
@@ -81,7 +81,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<char,char>(self, [self byteOrder], newByteOrder);
@@ -98,7 +98,7 @@
                     break;
                 case sizeof(short):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<short,char>(self, [self byteOrder], newByteOrder);
@@ -111,7 +111,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<short,char>(self, [self byteOrder], newByteOrder);
@@ -124,7 +124,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<short,char>(self, [self byteOrder], newByteOrder);
@@ -137,7 +137,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<short,char>(self, [self byteOrder], newByteOrder);
@@ -150,7 +150,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<short,char>(self, [self byteOrder], newByteOrder);
@@ -167,7 +167,7 @@
                     break;
                 case sizeof(NSInteger):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<NSInteger,char>(self, [self byteOrder], newByteOrder);
@@ -180,7 +180,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<NSInteger,char>(self, [self byteOrder], newByteOrder);
@@ -193,7 +193,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<NSInteger,char>(self, [self byteOrder], newByteOrder);
@@ -206,7 +206,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<NSInteger,char>(self, [self byteOrder], newByteOrder);
@@ -219,7 +219,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(char):
                                     result = coreplot::convert_numeric_data_type<NSInteger,char>(self, [self byteOrder], newByteOrder);
@@ -236,11 +236,11 @@
                     break;
             }
             break;
-        case BWUnsignedIntegerDataType:
+        case CPUnsignedIntegerDataType:
             switch([self sampleBytes]) {
                 case sizeof(unsigned char):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned char,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -253,7 +253,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned char,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -266,7 +266,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned char,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -279,7 +279,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned char,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -292,7 +292,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned char,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -309,7 +309,7 @@
                     break;
                 case sizeof(unsigned short):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned short,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -322,7 +322,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned short,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -335,7 +335,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned short,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -348,7 +348,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned short,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -361,7 +361,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<unsigned short,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -378,7 +378,7 @@
                     break;
                 case sizeof(NSUInteger):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<NSUInteger,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -391,7 +391,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<NSUInteger,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -404,7 +404,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<NSUInteger,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -417,7 +417,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<NSUInteger,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -430,7 +430,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(unsigned char):
                                     result = coreplot::convert_numeric_data_type<NSUInteger,unsigned char>(self, [self byteOrder], newByteOrder);
@@ -447,11 +447,11 @@
                     break;
             }
             break;
-        case BWFloatingPointDataType:
+        case CPFloatingPointDataType:
             switch([self sampleBytes]) {
                 case sizeof(float):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<float,float>(self, [self byteOrder], newByteOrder);
@@ -461,7 +461,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<float,float>(self, [self byteOrder], newByteOrder);
@@ -471,7 +471,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<float,float>(self, [self byteOrder], newByteOrder);
@@ -481,7 +481,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<float,float>(self, [self byteOrder], newByteOrder);
@@ -491,7 +491,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<float,float>(self, [self byteOrder], newByteOrder);
@@ -505,7 +505,7 @@
                     break;
                 case sizeof(double):
                     switch(newDataType) {
-                        case BWUndefinedDataType:
+                        case CPUndefinedDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<double,float>(self, [self byteOrder], newByteOrder);
@@ -515,7 +515,7 @@
                                     break;
                             }
                             break;
-                        case BWIntegerDataType:
+                        case CPIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<double,float>(self, [self byteOrder], newByteOrder);
@@ -525,7 +525,7 @@
                                     break;
                             }
                             break;
-                        case BWUnsignedIntegerDataType:
+                        case CPUnsignedIntegerDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<double,float>(self, [self byteOrder], newByteOrder);
@@ -535,7 +535,7 @@
                                     break;
                             }
                             break;
-                        case BWFloatingPointDataType:
+                        case CPFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<double,float>(self, [self byteOrder], newByteOrder);
@@ -545,7 +545,7 @@
                                     break;
                             }
                             break;
-                        case BWComplexFloatingPointDataType:
+                        case CPComplexFloatingPointDataType:
                             switch(newSampleBytes) {
                                 case sizeof(float):
                                     result = coreplot::convert_numeric_data_type<double,float>(self, [self byteOrder], newByteOrder);
@@ -559,8 +559,8 @@
                     break;
             }
             break;
-        case BWComplexFloatingPointDataType:
-            [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (BWComplexFloatingPointDataType)"];
+        case CPComplexFloatingPointDataType:
+            [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPComplexFloatingPointDataType)"];
             break;
     }
     

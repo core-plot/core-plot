@@ -4,39 +4,39 @@
 
 @implementation TestCPNumericDataType
 - (void)testEqualToDataType {
-    id match = [CPNumericDataType dataType:BWIntegerDataType
+    id match = [CPNumericDataType dataType:CPIntegerDataType
                                sampleBytes:sizeof(NSInteger)
                                  byteOrder:NSHostByteOrder()];
     
     STAssertEqualObjects(match, match, @"match equal to match");
     
     STAssertTrue([match isEqualToDataType:
-                  [CPNumericDataType dataType:BWIntegerDataType
+                  [CPNumericDataType dataType:CPIntegerDataType
                                   sampleBytes:sizeof(NSInteger)
                                     byteOrder:NSHostByteOrder()]],
                  @"equal types");
     
     STAssertFalse([match isEqualToDataType:
-                   [CPNumericDataType dataType:BWUnsignedIntegerDataType
+                   [CPNumericDataType dataType:CPUnsignedIntegerDataType
                                    sampleBytes:sizeof(NSInteger)
                                      byteOrder:NSHostByteOrder()]],
                   @"unequal types");
     
     STAssertFalse([match isEqualToDataType:
-                   [CPNumericDataType dataType:BWIntegerDataType
+                   [CPNumericDataType dataType:CPIntegerDataType
                                    sampleBytes:sizeof(short)
                                      byteOrder:NSHostByteOrder()]],
                   @"unequal types");
     
     STAssertFalse([match isEqualToDataType:
-                   [CPNumericDataType dataType:BWIntegerDataType
+                   [CPNumericDataType dataType:CPIntegerDataType
                                    sampleBytes:sizeof(NSInteger)
                                      byteOrder:NSHostByteOrder()==NS_LittleEndian?NS_BigEndian:NS_LittleEndian]],
                   @"unequal types");
 }
 
 - (void)testCopyEqual {
-    id match = [CPNumericDataType dataType:BWIntegerDataType
+    id match = [CPNumericDataType dataType:CPIntegerDataType
                                sampleBytes:sizeof(NSInteger)
                                  byteOrder:NSHostByteOrder()];
     STAssertFalse(match == [[match copy] autorelease],
@@ -47,7 +47,7 @@
 
 - (void)testArchivingRoundTrip {
     
-    CPNumericDataType* match = [CPNumericDataType dataType:BWIntegerDataType
+    CPNumericDataType* match = [CPNumericDataType dataType:CPIntegerDataType
                                sampleBytes:sizeof(NSInteger)
                                  byteOrder:NSHostByteOrder()];
     CPNumericDataType* test = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:match]];

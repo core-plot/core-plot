@@ -29,7 +29,7 @@
     
     NSUInteger nElems = 2*2*2;
     CPNumericData *nd = [[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:shape];
@@ -65,7 +65,7 @@
                 (id)nil];
     NSUInteger nElems = 5;
     STAssertThrowsSpecificNamed([[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(NSUInteger)]
-                                                              dtype:[CPNumericDataType dataType:BWUnsignedIntegerDataType
+                                                              dtype:[CPNumericDataType dataType:CPUnsignedIntegerDataType
                                                                                     sampleBytes:sizeof(NSUInteger)
                                                                                       byteOrder:NSHostByteOrder()]
                                                  shape:shape],
@@ -97,7 +97,7 @@
     }
     
     CPNumericData* nd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWIntegerDataType
+                                                      dtype:[CPNumericDataType dataType:CPIntegerDataType
                                                                             sampleBytes:sizeof(NSInteger)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
@@ -118,7 +118,7 @@
     }
     
     CPNumericData *nd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
@@ -142,7 +142,7 @@
     }
     
     CPNumericData *nd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
@@ -157,7 +157,7 @@
     }
     
     nd = [[CPNumericData alloc] initWithData:data
-                                       dtype:[CPNumericDataType dataType:BWIntegerDataType
+                                       dtype:[CPNumericDataType dataType:CPIntegerDataType
                                                              sampleBytes:sizeof(char)
                                                                byteOrder:NSHostByteOrder()]
                                        shape:nil];
@@ -174,12 +174,12 @@
     }
     
     CPNumericData *nd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
     
-    STAssertEquals([nd dataType], BWFloatingPointDataType, @"dataType");
+    STAssertEquals([nd dataType], CPFloatingPointDataType, @"dataType");
     STAssertEquals([nd sampleBytes], ((NSUInteger)sizeof(float)), @"sampleBytes");
     STAssertEquals([nd byteOrder], NSHostByteOrder(), @"byteOrder");
 }
@@ -193,12 +193,12 @@
     }
     
     CPNumericData *fd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
     
-    CPNumericData *dd = [fd dataByConvertingToType:BWFloatingPointDataType
+    CPNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
                                        sampleBytes:sizeof(double)
                                          byteOrder:NSHostByteOrder()];
     
@@ -216,7 +216,7 @@
     }
     
     CPNumericData *fd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];
@@ -236,7 +236,7 @@
     }
     
     CPNumericData *fd = [[CPNumericData alloc] initWithData:data
-                                                      dtype:[CPNumericDataType dataType:BWFloatingPointDataType
+                                                      dtype:[CPNumericDataType dataType:CPFloatingPointDataType
                                                                             sampleBytes:sizeof(float)
                                                                               byteOrder:NSHostByteOrder()]
                                                       shape:nil];

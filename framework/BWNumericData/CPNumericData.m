@@ -136,10 +136,10 @@ NSString *CPNumericDataException = @"CPNumericDataException";
     NSNumber *result=nil;
     
     switch([self dataType]) {
-        case BWUndefinedDataType:
+        case CPUndefinedDataType:
             [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (BWUndefinedDataType)"];
             break;
-        case BWIntegerDataType:
+        case CPIntegerDataType:
             switch([self sampleBytes]) {
                 case sizeof(char):
                     result = [NSNumber numberWithChar:*(char*)[self samplePointer:sample]];
@@ -152,7 +152,7 @@ NSString *CPNumericDataException = @"CPNumericDataException";
                     break;
             }
             break;
-        case BWUnsignedIntegerDataType:
+        case CPUnsignedIntegerDataType:
             switch([self sampleBytes]) {
                 case sizeof(unsigned char):
                     result = [NSNumber numberWithUnsignedChar:*(unsigned char*)[self samplePointer:sample]];
@@ -165,7 +165,7 @@ NSString *CPNumericDataException = @"CPNumericDataException";
                     break;
             }
             break;
-        case BWFloatingPointDataType:
+        case CPFloatingPointDataType:
             switch([self sampleBytes]) {
                 case sizeof(float):
                     result = [NSNumber numberWithFloat:*(float*)[self samplePointer:sample]];
@@ -175,7 +175,7 @@ NSString *CPNumericDataException = @"CPNumericDataException";
                     break;
             }
             break;
-        case BWComplexFloatingPointDataType:
+        case CPComplexFloatingPointDataType:
             [NSException raise:NSInvalidArgumentException format:@"Unsupported data type (BWComplexFloatingPointDataType)"];
             break;
     }
