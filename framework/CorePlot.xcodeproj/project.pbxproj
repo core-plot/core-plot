@@ -153,6 +153,25 @@
 		4C422B290FB20882000CAA43 /* CPXYGraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422B280FB20882000CAA43 /* CPXYGraphTests.m */; };
 		4C62EAC30FC1DFB200E6D443 /* CPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C62EAC20FC1DFB200E6D443 /* CPColorTests.m */; };
 		4C62EAD00FC1E21F00E6D443 /* CPGradientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C62EACF0FC1E21F00E6D443 /* CPGradientTests.m */; };
+		4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */; };
+		4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */; };
+		4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */; };
+		4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFA104D80C400B554F9 /* CPNumericData.h */; };
+		4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFB104D80C400B554F9 /* CPNumericData.m */; };
+		4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */; };
+		4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */; };
+		4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */; };
+		4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */; };
+		4C97EF0D104D80D400B554F9 /* TestCPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */; };
+		4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */; };
+		4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF10104D819100B554F9 /* CPMutableNumericData.h */; };
+		4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF11104D819100B554F9 /* CPMutableNumericData.m */; };
+		4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */; };
+		4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */; };
+		4C97EF1C104D824900B554F9 /* TestNSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */; };
+		4C97EF1E104D83B900B554F9 /* GTMLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C993EF90F45ED1900DC824F /* GTMLogger.h */; };
+		4C97EF1F104D83BA00B554F9 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993EFA0F45ED1900DC824F /* GTMLogger.m */; };
+		4C97EF4D104D843E00B554F9 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EF4C104D843E00B554F9 /* license.txt */; };
 		4C993D1A0F45E86100DC824F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
 		4C993FF40F45EE2F00DC824F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C993FF30F45EE2F00DC824F /* MainMenu.xib */; };
@@ -467,6 +486,27 @@
 		4C62EAC20FC1DFB200E6D443 /* CPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorTests.m; sourceTree = "<group>"; };
 		4C62EACE0FC1E21F00E6D443 /* CPGradientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradientTests.h; sourceTree = "<group>"; };
 		4C62EACF0FC1E21F00E6D443 /* CPGradientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradientTests.m; sourceTree = "<group>"; };
+		4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPNumericData+TypeConversion.h"; path = "BWNumericData/CPNumericData+TypeConversion.h"; sourceTree = SOURCE_ROOT; };
+		4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "CPNumericData+TypeConversion.mm"; path = "BWNumericData/CPNumericData+TypeConversion.mm"; sourceTree = SOURCE_ROOT; };
+		4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "BWNumericData+TypeConversions_Generation.py"; path = "BWNumericData/BWNumericData+TypeConversions_Generation.py"; sourceTree = SOURCE_ROOT; };
+		4C97EEFA104D80C400B554F9 /* CPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericData.h; path = BWNumericData/CPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFB104D80C400B554F9 /* CPNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericData.m; path = BWNumericData/CPNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataType.h; path = BWNumericData/CPNumericDataType.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericDataType.m; path = BWNumericData/CPNumericDataType.m; sourceTree = SOURCE_ROOT; };
+		4C97EF05104D80D400B554F9 /* TestCPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericData.h; path = BWNumericData/TestCPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericData.mm; path = BWNumericData/TestCPNumericData.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataConversion.h; path = BWNumericData/TestCPNumericDataConversion.h; sourceTree = SOURCE_ROOT; };
+		4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericDataConversion.mm; path = BWNumericData/TestCPNumericDataConversion.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF09104D80D400B554F9 /* TestCPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataType.h; path = BWNumericData/TestCPNumericDataType.h; sourceTree = SOURCE_ROOT; };
+		4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestCPNumericDataType.m; path = BWNumericData/TestCPNumericDataType.m; sourceTree = SOURCE_ROOT; };
+		4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumericDataTypeConversions.h; path = BWNumericData/NumericDataTypeConversions.h; sourceTree = SOURCE_ROOT; };
+		4C97EF10104D819100B554F9 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = BWNumericData/CPMutableNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF11104D819100B554F9 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = BWNumericData/CPMutableNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF4C104D843E00B554F9 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
 		4C993EA50F45ED1900DC824F /* GTMDelegatingTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDelegatingTableColumn.h; sourceTree = "<group>"; };
 		4C993EA60F45ED1900DC824F /* GTMDelegatingTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMDelegatingTableColumn.m; sourceTree = "<group>"; };
 		4C993EAF0F45ED1900DC824F /* GTMLinearRGBShading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLinearRGBShading.h; sourceTree = "<group>"; };
@@ -977,6 +1017,9 @@
 				4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */,
 				078F42D90FACC075006E670B /* NSNumberExtensions.h */,
 				078F42DA0FACC075006E670B /* NSNumberExtensions.m */,
+				4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */,
+				4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */,
+				4C97EF18104D822700B554F9 /* Tests */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1021,6 +1064,7 @@
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4C97EEF5104D80A700B554F9 /* Numeric Data */,
 				070622650FDF29B40066A6C4 /* Layers */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				073FB0350FC99645007A728E /* Text */,
@@ -1252,6 +1296,47 @@
 			children = (
 				4CD23FFA0FFBE78400ADD2E2 /* CPAxisLabelTests.h */,
 				4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EEF5104D80A700B554F9 /* Numeric Data */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF4C104D843E00B554F9 /* license.txt */,
+				4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */,
+				4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */,
+				4C97EEFA104D80C400B554F9 /* CPNumericData.h */,
+				4C97EEFB104D80C400B554F9 /* CPNumericData.m */,
+				4C97EF10104D819100B554F9 /* CPMutableNumericData.h */,
+				4C97EF11104D819100B554F9 /* CPMutableNumericData.m */,
+				4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */,
+				4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */,
+				4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */,
+				4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */,
+				4C97EF19104D822D00B554F9 /* Tests */,
+			);
+			name = "Numeric Data";
+			sourceTree = "<group>";
+		};
+		4C97EF18104D822700B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */,
+				4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EF19104D822D00B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF05104D80D400B554F9 /* TestCPNumericData.h */,
+				4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */,
+				4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */,
+				4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */,
+				4C97EF09104D80D400B554F9 /* TestCPNumericDataType.h */,
+				4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1800,6 +1885,13 @@
 				07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
 				0776F2221041BCDE0013EB11 /* CPXYTheme.h in Headers */,
+				4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */,
+				4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */,
+				4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */,
+				4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */,
+				4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */,
+				4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */,
+				4C97EF1E104D83B900B554F9 /* GTMLogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2027,6 +2119,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */,
+				4C97EF4D104D843E00B554F9 /* license.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2166,6 +2260,10 @@
 				E1620CBE100F03A100A84E77 /* CPThemeTests.m in Sources */,
 				E1FE6052100F27EF00895A91 /* CPDarkGradientThemeTests.m in Sources */,
 				E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */,
+				4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */,
+				4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */,
+				4C97EF0D104D80D400B554F9 /* TestCPNumericDataType.m in Sources */,
+				4C97EF1C104D824900B554F9 /* TestNSExceptionExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2226,6 +2324,12 @@
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
 				0776F2231041BCDE0013EB11 /* CPXYTheme.m in Sources */,
+				4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */,
+				4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */,
+				4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */,
+				4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */,
+				4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */,
+				4C97EF1F104D83BA00B554F9 /* GTMLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
