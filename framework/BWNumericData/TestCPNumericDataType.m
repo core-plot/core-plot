@@ -24,7 +24,7 @@
     
     STAssertFalse([match isEqualToDataType:
                    [CPNumericDataType dataType:BWIntegerDataType
-                                   sampleBytes:sizeof(long long)
+                                   sampleBytes:sizeof(short)
                                      byteOrder:NSHostByteOrder()]],
                   @"unequal types");
     

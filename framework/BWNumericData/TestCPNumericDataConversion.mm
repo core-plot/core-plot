@@ -98,7 +98,7 @@
     NSData *endData = swap_numeric_data_byte_order<NSUInteger>(startData);
     
     NSUInteger end = *(NSUInteger*)[endData bytes];
-    STAssertEquals(start, NSSwapInt(end), @"bytes swapped");
+    STAssertEquals(start, (NSUInteger)NSSwapLong(end), @"bytes swapped");
     
     STAssertEqualObjects(startData, swap_numeric_data_byte_order<NSUInteger>(endData), @"Round trip");
     
