@@ -17,14 +17,16 @@
 
 + (CPNumericDataType*)dataType:(CPDataType)theType
                    sampleBytes:(NSUInteger)theSampleBytes
-                     byteOrder:(CFByteOrder)theByteOrder {
+                     byteOrder:(CFByteOrder)theByteOrder 
+{
     return [[[self alloc] initWithDataType:theType
                                sampleBytes:theSampleBytes
                                  byteOrder:theByteOrder]
             autorelease];
 }
 
-+ (CPNumericDataType*)dataTypeWithDtypeString:(NSString*)dtypeString {
++ (CPNumericDataType*)dataTypeWithDtypeString:(NSString*)dtypeString 
+{
     return [self dataType:[self dataTypeForDtypeString:dtypeString]
               sampleBytes:[self sampleBytesForDtypeString:dtypeString]
                 byteOrder:[self byteOrderForDtypeString:dtypeString]];
@@ -32,7 +34,8 @@
     
 - (id)initWithDataType:(CPDataType)theType
            sampleBytes:(NSUInteger)theSampleBytes
-             byteOrder:(CFByteOrder)theByteOrder {
+             byteOrder:(CFByteOrder)theByteOrder 
+{
     
     if( (self = [super init]) ) {
         self.dataType = theType;
@@ -45,7 +48,8 @@
 
 + (NSString*)dtypeStringForDataType:(CPDataType)dataType
                         sampleBytes:(NSUInteger)sampleBytes
-                          byteOrder:(CFByteOrder)byteOrder {
+                          byteOrder:(CFByteOrder)byteOrder 
+{
     
     NSString *byteOrderString = nil;
     NSString *typeString = nil;
@@ -82,7 +86,8 @@
             sampleBytes];
 }
 
-+ (CPDataType)dataTypeForDtypeString:(NSString*)dtypeString {
++ (CPDataType)dataTypeForDtypeString:(NSString*)dtypeString
+{
     CPDataType result;
     
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
@@ -106,18 +111,21 @@
     return result;
 }
 
-- (NSString*)dtypeString {
+- (NSString*)dtypeString 
+{
     return [[self class] dtypeStringForDataType:self.dataType
                                     sampleBytes:self.sampleBytes
                                       byteOrder:self.byteOrder];
 }
 
-+ (NSUInteger)sampleBytesForDtypeString:(NSString*)dtypeString {
++ (NSUInteger)sampleBytesForDtypeString:(NSString*)dtypeString 
+{
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
     return [[dtypeString substringFromIndex:2] intValue];
 }
 
-+ (CFByteOrder)byteOrderForDtypeString:(NSString*)dtypeString {
++ (CFByteOrder)byteOrderForDtypeString:(NSString*)dtypeString 
+{
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
     CFByteOrder result;
     
@@ -138,26 +146,30 @@
     return result;
 }
 
-- (BOOL)isEqualToDataType:(CPNumericDataType*)otherDType {
+- (BOOL)isEqualToDataType:(CPNumericDataType*)otherDType 
+{
     
     return (self.dataType == otherDType.dataType &&
             self.sampleBytes == otherDType.sampleBytes &&
             self.byteOrder == otherDType.byteOrder);
 }
 
-- (NSString*)description {
+- (NSString*)description 
+{
     return [NSString stringWithFormat:@"dtype(%@)", self.dtypeString];
 }
 
 #pragma mark NSCopying
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone 
+{
     return [[[self class] allocWithZone:zone] initWithDataType:self.dataType
                                                    sampleBytes:self.sampleBytes
                                                      byteOrder:self.byteOrder];
 }
 
 #pragma mark NSCoding
-- (void)encodeWithCoder:(NSCoder *)encoder {
+- (void)encodeWithCoder:(NSCoder *)encoder 
+{
     //[super encodeWithCoder:encoder];
     
     if([encoder allowsKeyedCoding]) {
@@ -167,7 +179,8 @@
     }
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {    
+- (id)initWithCoder:(NSCoder *)decoder 
+{    
     self = [super init]; //initWithCoder:decoder];
     NSString *dtypeString;
     

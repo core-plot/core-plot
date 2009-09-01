@@ -3,7 +3,7 @@
 #import "CPNumericData.h"
 #import "NSExceptionExtensions.h"
 
-@interface BWSerializedMutableNumericData : NSObject <NSCoding> {
+@interface CPSerializedMutableNumericData : NSObject <NSCoding> {
     NSMutableData *data;
     CPNumericDataType *dtype;
     NSArray *shape;
@@ -36,7 +36,8 @@
 
 - (id)initWithData:(NSMutableData*)_data
              dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)_shape {
+             shape:(NSArray*)_shape 
+{
     
     if( (self = [super init]) ) {
         [self commonInitWithData:_data
@@ -49,7 +50,8 @@
 
 - (void)commonInitWithData:(NSMutableData*)_data
                      dtype:(CPNumericDataType*)_dtype
-                     shape:(NSArray*)_shape {
+                     shape:(NSArray*)_shape 
+{
     self.data = _data;
     self.dtype = _dtype;
     
@@ -72,59 +74,69 @@
 }
 
 
-- (void)dealloc {
-    self.data = nil;
-    self.dtype = nil;
-    self.shape = nil;
+- (void)dealloc 
+{
+    [data release];
+    [dtype release];
+    [shape release];
+    
     [super dealloc];
 }
 
-- (NSUInteger)ndims {
+- (NSUInteger)ndims 
+{
     return [[self shape] count];
 }
 
-- (const void *)bytes {
+- (const void *)bytes 
+{
     return [[self data] bytes];
 }
 
-- (void*)mutableBytes {
+- (void*)mutableBytes 
+{
     return [[self data] mutableBytes];
 }
 
-- (NSUInteger)length {
+- (NSUInteger)length 
+{
     return [[self data] length];
 }
 
 #pragma mark NSCopying and NSMutableCopying
-- (id)mutableCopyWithZone:(NSZone *)zone {
+- (id)mutableCopyWithZone:(NSZone *)zone 
+{
     return [[[self class] allocWithZone:zone] initWithData:self.data
                                                      dtype:self.dtype
                                                      shape:self.shape];
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone 
+{
     return [[[self class] allocWithZone:zone] initWithData:self.data
                                                      dtype:self.dtype
                                                      shape:self.shape];
 }
 
 #pragma mark NSCoding
-- (id)replacementObjectForArchiver:(NSArchiver*)archiver {
-    return [[[BWSerializedMutableNumericData alloc] initWithData:self.data
+- (id)replacementObjectForArchiver:(NSArchiver*)archiver 
+{
+    return [[[CPSerializedMutableNumericData alloc] initWithData:self.data
                                                            dtype:self.dtype
                                                            shape:self.shape]
             autorelease];
 }
 @end
 
-@implementation BWSerializedMutableNumericData
+@implementation CPSerializedMutableNumericData
 @synthesize data;
 @synthesize dtype;
 @synthesize shape;
 
 - (id)initWithData:(NSMutableData*)d
              dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)s {
+             shape:(NSArray*)s 
+{
     if( (self = [super init]) ) {
         self.data = d;
         self.dtype = _dtype;
@@ -134,7 +146,8 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
+- (void)encodeWithCoder:(NSCoder *)encoder 
+{
     if([encoder allowsKeyedCoding]) {
         [encoder encodeObject:self.data forKey:@"data"];
         [encoder encodeObject:self.dtype forKey:@"dtype"];
@@ -146,7 +159,8 @@
     }
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {    
+- (id)initWithCoder:(NSCoder *)decoder 
+{    
     self = [super init];
     
     if([decoder allowsKeyedCoding]) {
@@ -162,7 +176,8 @@
     return self;
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder *)decoder {
+- (id)awakeAfterUsingCoder:(NSCoder *)decoder 
+{
     CPMutableNumericData *replacement = [[CPMutableNumericData alloc] initWithData:self.data
                                                                              dtype:self.dtype
                                                                              shape:self.shape];
@@ -172,10 +187,12 @@
     return replacement;
 }
 
-- (void)dealloc {
-    self.data = nil;
-    self.dtype = nil;
-    self.shape = nil;
+- (void)dealloc 
+{
+    [data release];
+    [dtype release];
+    [shape release];
+    
     [super dealloc];
 }
 

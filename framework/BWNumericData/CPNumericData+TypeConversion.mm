@@ -10,7 +10,8 @@
 // :barry:20080430 Code generated with "NSData+TypeConversions_Generation.py"
 - (CPNumericData*)dataByConvertingToType:(CPDataType)newDataType
                              sampleBytes:(NSUInteger)newSampleBytes
-                               byteOrder:(CFByteOrder)newByteOrder {
+                               byteOrder:(CFByteOrder)newByteOrder 
+{
     
     NSData *result = nil;
     
