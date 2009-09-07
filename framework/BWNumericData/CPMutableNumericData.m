@@ -2,6 +2,7 @@
 #import "CPMutableNumericData.h"
 #import "CPNumericData.h"
 #import "NSExceptionExtensions.h"
+#import "CPExceptions.h"
 
 @interface CPSerializedMutableNumericData : NSObject <NSCoding> {
     NSMutableData *data;
@@ -65,7 +66,7 @@
         }
         
         if(prod != [self.data length]/sampleBytes) {
-            [NSException raise:CPNumericDataException 
+            [NSException raise:CPDataException 
                         format:@"Shape product (%u) does not match data size (%u)",prod,[self.data length]/sampleBytes];
         }
         

@@ -2,16 +2,16 @@
 #import <Cocoa/Cocoa.h>
 #import "CPNumericDataType.h"
 
-OBJC_EXPORT NSString *CPNumericDataException;
+extern const NSString *CPNumericDataException;
 
 @interface CPNumericData : NSData {
     NSData *data;
     CPNumericDataType *dtype;
-    NSArray *shape; //array of dimension shapes (NSNumber<unsigned>)
+    NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
 }
 
-@property (retain,readonly) CPNumericDataType* dtype;
-@property (copy,readonly) NSArray* shape;
+@property (retain,readonly) CPNumericDataType *dtype;
+@property (copy,readonly) NSArray *shape;
 @property (readonly) NSUInteger ndims;
 @property (readonly) NSUInteger nSamples; //number of samples of dtype
 @property (readonly) CPDataType dataType;

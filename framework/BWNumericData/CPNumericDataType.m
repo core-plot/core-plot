@@ -4,18 +4,20 @@
 #import "GTMLogger.h"
 
 @interface CPNumericDataType ()
+
 @property (assign,readwrite) CPDataType dataType;
 @property (assign,readwrite) NSUInteger sampleBytes;
 @property (assign,readwrite) CFByteOrder byteOrder;
+
 @end
 
 @implementation CPNumericDataType
+
 @synthesize dataType;
 @synthesize sampleBytes;
 @synthesize byteOrder;
-@synthesize dtypeString;
 
-+ (CPNumericDataType*)dataType:(CPDataType)theType
++(CPNumericDataType*)dataType:(CPDataType)theType
                    sampleBytes:(NSUInteger)theSampleBytes
                      byteOrder:(CFByteOrder)theByteOrder 
 {
@@ -25,14 +27,14 @@
             autorelease];
 }
 
-+ (CPNumericDataType*)dataTypeWithDtypeString:(NSString*)dtypeString 
++(CPNumericDataType *)dataTypeWithDtypeString:(NSString *)dtypeString 
 {
     return [self dataType:[self dataTypeForDtypeString:dtypeString]
               sampleBytes:[self sampleBytesForDtypeString:dtypeString]
                 byteOrder:[self byteOrderForDtypeString:dtypeString]];
 }
     
-- (id)initWithDataType:(CPDataType)theType
+-(id)initWithDataType:(CPDataType)theType
            sampleBytes:(NSUInteger)theSampleBytes
              byteOrder:(CFByteOrder)theByteOrder 
 {
@@ -46,7 +48,7 @@
     return self;
 }
 
-+ (NSString*)dtypeStringForDataType:(CPDataType)dataType
++(NSString *)dtypeStringForDataType:(CPDataType)dataType
                         sampleBytes:(NSUInteger)sampleBytes
                           byteOrder:(CFByteOrder)byteOrder 
 {
@@ -86,7 +88,7 @@
             sampleBytes];
 }
 
-+ (CPDataType)dataTypeForDtypeString:(NSString*)dtypeString
++(CPDataType)dataTypeForDtypeString:(NSString *)dtypeString
 {
     CPDataType result;
     
@@ -111,20 +113,20 @@
     return result;
 }
 
-- (NSString*)dtypeString 
+-(NSString *)dtypeString 
 {
     return [[self class] dtypeStringForDataType:self.dataType
                                     sampleBytes:self.sampleBytes
                                       byteOrder:self.byteOrder];
 }
 
-+ (NSUInteger)sampleBytesForDtypeString:(NSString*)dtypeString 
++(NSUInteger)sampleBytesForDtypeString:(NSString *)dtypeString 
 {
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
     return [[dtypeString substringFromIndex:2] intValue];
 }
 
-+ (CFByteOrder)byteOrderForDtypeString:(NSString*)dtypeString 
++(CFByteOrder)byteOrderForDtypeString:(NSString *)dtypeString 
 {
     NSAssert([dtypeString length] >= 3, @"dtypeString is too short");
     CFByteOrder result;
@@ -146,7 +148,7 @@
     return result;
 }
 
-- (BOOL)isEqualToDataType:(CPNumericDataType*)otherDType 
+-(BOOL)isEqualToDataType:(CPNumericDataType *)otherDType 
 {
     
     return (self.dataType == otherDType.dataType &&
@@ -154,13 +156,14 @@
             self.byteOrder == otherDType.byteOrder);
 }
 
-- (NSString*)description 
+-(NSString *)description 
 {
     return [NSString stringWithFormat:@"dtype(%@)", self.dtypeString];
 }
 
 #pragma mark NSCopying
-- (id)copyWithZone:(NSZone *)zone 
+
+-(id)copyWithZone:(NSZone *)zone 
 {
     return [[[self class] allocWithZone:zone] initWithDataType:self.dataType
                                                    sampleBytes:self.sampleBytes
@@ -168,7 +171,8 @@
 }
 
 #pragma mark NSCoding
-- (void)encodeWithCoder:(NSCoder *)encoder 
+
+-(void)encodeWithCoder:(NSCoder *)encoder 
 {
     //[super encodeWithCoder:encoder];
     
@@ -179,11 +183,11 @@
     }
 }
 
-- (id)initWithCoder:(NSCoder *)decoder 
+-(id)initWithCoder:(NSCoder *)decoder 
 {    
     self = [super init]; //initWithCoder:decoder];
-    NSString *dtypeString;
     
+    NSString *dtypeString;
     if([decoder allowsKeyedCoding]) {
         dtypeString = [decoder decodeObjectForKey:@"dtypeString"];
     } else {
@@ -196,4 +200,5 @@
     
     return self;
 }
+
 @end

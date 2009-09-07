@@ -1,8 +1,9 @@
 #import "CPNumericData.h"
 #import "CPMutableNumericData.h"
 #import "GTMLogger.h"
+#import "CPExceptions.h"
 
-NSString *CPNumericDataException = @"CPNumericDataException";
+const NSString *CPNumericDataException = @"CPNumericDataException";
 
 @interface CPSerializedNumericData : NSObject <NSCoding> {
     NSData *data;
@@ -35,7 +36,7 @@ NSString *CPNumericDataException = @"CPNumericDataException";
 @dynamic ndims;
 @dynamic nSamples;
 
-+ (CPNumericData*)numericDataWithData:(NSData*)theData
++(CPNumericData*)numericDataWithData:(NSData*)theData
                                 dtype:(CPNumericDataType*)_dtype
                                 shape:(NSArray*)shapeArray 
 {
@@ -47,15 +48,15 @@ NSString *CPNumericDataException = @"CPNumericDataException";
 }
 
 
-- (id)initWithData:(NSData*)_data
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)_shape 
+-(id)initWithData:(NSData *)_data
+        	dtype:(CPNumericDataType *)newDType
+            shape:(NSArray *)newShape 
 {
     
     if( (self = [super init]) ) {
         [self commonInitWithData:_data
-                           dtype:_dtype
-                           shape:_shape];
+                           dtype:newDType
+                           shape:newShape];
     }
     
     return self;
@@ -88,7 +89,7 @@ NSString *CPNumericDataException = @"CPNumericDataException";
         }
         
         if(prod != self.nSamples) {
-            [NSException raise:CPNumericDataException 
+            [NSException raise:CPDataException 
                         format:@"Shape product (%u) does not match data size (%u)",prod,self.nSamples];
         }
         
