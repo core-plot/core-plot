@@ -10,7 +10,7 @@ typedef enum {
 
 typedef struct {
     CPDataTypeFormat dataType;
-    NSUInteger sampleBytes;
+    NSInteger sampleBytes;
     CFByteOrder byteOrder;
 } CPNumericDataType;
 
@@ -18,7 +18,7 @@ typedef struct {
 extern "C" {
 #endif
     
-    CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder);
+    CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder);
     CPNumericDataType CPDataTypeWithDataTypeString(NSString * dtypeString);
     NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype);
     

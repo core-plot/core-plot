@@ -4,11 +4,11 @@
 #import "GTMLogger.h"
 
 static CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString);
-static NSUInteger SampleBytesForDtypeString(NSString* dtypeString);
+static NSInteger SampleBytesForDtypeString(NSString* dtypeString);
 static CFByteOrder ByteOrderForDtypeString(NSString* dtypeString);
 
 
-CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder)
+CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder)
 {
     CPNumericDataType result;
     
@@ -99,7 +99,7 @@ CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString)
 }
 
 
-NSUInteger SampleBytesForDtypeString(NSString* dtypeString)
+NSInteger SampleBytesForDtypeString(NSString* dtypeString)
 {
     NSCAssert([dtypeString length] >= 3, @"dtypeString is too short");
     NSInteger result = [[dtypeString substringFromIndex:2] integerValue];

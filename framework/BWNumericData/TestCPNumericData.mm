@@ -119,7 +119,9 @@
     CPNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
     
     STAssertTrue([nd isEqualToData:nd2], @"equal data");
-    STAssertEquals(nd.dtype, nd2.dtype, @"dtypeStrings equal");
+    STAssertEquals(nd.dtype.dataType, nd2.dtype.dataType, @"dtype.dataType equal");
+    STAssertEquals(nd.dtype.sampleBytes, nd2.dtype.sampleBytes, @"dtype.sampleBytes equal");
+    STAssertEquals(nd.dtype.byteOrder, nd2.dtype.byteOrder, @"dtype.byteOrder equal");
     STAssertEqualObjects(nd.shape, nd2.shape, @"shapes equal");
     
     [nd release];

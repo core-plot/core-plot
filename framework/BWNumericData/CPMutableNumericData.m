@@ -150,18 +150,21 @@
 {
     //[super encodeWithCoder:encoder];
     
-    CPNumericDataType _type = self.dtype;
-    
     if([encoder allowsKeyedCoding]) {
         [encoder encodeObject:self.data forKey:@"data"];
-        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
-                                             objCType:@encode(CPNumericDataType)]
-                       forKey:@"dtype"];
+        [encoder encodeInteger:self.dtype.dataType forKey:@"dtype.dataType"];
+        [encoder encodeInteger:self.dtype.sampleBytes forKey:@"dtype.sampleBytes"];
+        [encoder encodeInteger:self.dtype.byteOrder forKey:@"dtype.byteOrder"];
+        
         [encoder encodeObject:self.shape forKey:@"shape"];
     } else {
-        [encoder encodeDataObject:self.data];
-        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
-                                             objCType:@encode(CPNumericDataType)]];
+        CPNumericDataType _type = self.dtype;
+        
+        [encoder encodeObject:self.data];
+        [encoder encodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(_type.dataType)];
+        [encoder encodeValueOfObjCType:@encode(NSInteger) at:&(_type.sampleBytes)];
+        [encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(_type.byteOrder)];
+        
         [encoder encodeObject:self.shape];
     }
 }
@@ -173,26 +176,29 @@
     if([decoder allowsKeyedCoding]) {
         self.data = [decoder decodeObjectForKey:@"data"];
         
-        NSValue *dtypeValue = [decoder decodeObjectForKey:@"dtype"];
-        CPNumericDataType _dtype;
-        [dtypeValue getValue:&_dtype];
-        self.dtype = _dtype;
+        
+        
+        self.dtype = CPDataType([decoder decodeIntegerForKey:@"dtype.dataType"],
+                                [decoder decodeIntegerForKey:@"dtype.sampleBytes"],
+                                [decoder decodeIntegerForKey:@"dtype.byteOrder"]);
         
         self.shape = [decoder decodeObjectForKey:@"shape"];
     } else {
         self.data = [decoder decodeObject];
         
-        NSValue *dtypeValue = [decoder decodeObject];
-        CPNumericDataType _dtype;
-        [dtypeValue getValue:&_dtype];
-        self.dtype = _dtype;
+        CPNumericDataType _type;
+        [decoder decodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(_type.dataType)];
+        [decoder decodeValueOfObjCType:@encode(NSInteger) at:&(_type.sampleBytes)];
+        [decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(_type.byteOrder)];
         
+        self.dtype = _type;
         
         self.shape = [decoder decodeObject];
     }
     
     return self;
 }
+
 
 -(id)awakeAfterUsingCoder:(NSCoder *)decoder 
 {
