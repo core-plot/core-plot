@@ -14,7 +14,14 @@ typedef struct {
     CFByteOrder byteOrder;
 } CPNumericDataType;
 
-
-CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder);
-CPNumericDataType CPDataTypeWithDataTypeString(NSString * dtypeString);
-NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype);
+#if __cplusplus
+extern "C" {
+#endif
+    
+    CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder);
+    CPNumericDataType CPDataTypeWithDataTypeString(NSString * dtypeString);
+    NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype);
+    
+#if __cplusplus
+}
+#endif

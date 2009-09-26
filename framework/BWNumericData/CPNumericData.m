@@ -81,11 +81,11 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
     self.dtype = _dtype;
     
     if(_shape == nil) {
-        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:self.nSamples]];
+        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.nSamples]];
     } else {
         NSUInteger prod = 1;
         for(NSNumber *cNum in _shape) {
-            prod *= [cNum unsignedIntValue];
+            prod *= [cNum unsignedIntegerValue];
         }
         
         if(prod != self.nSamples) {

@@ -70,7 +70,6 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype)
             dtype.sampleBytes];
 }
 
-    
 
 CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString)
 {

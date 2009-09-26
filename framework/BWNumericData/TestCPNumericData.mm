@@ -62,6 +62,7 @@
                 [NSNumber numberWithUnsignedInt:2],
                 (id)nil];
     NSUInteger nElems = 5;
+    
     STAssertThrowsSpecificNamed([[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(NSUInteger)]
                                                               dtype:CPDataType(CPUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder())
                                                               shape:shape],
