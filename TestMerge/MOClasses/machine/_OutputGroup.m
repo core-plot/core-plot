@@ -19,6 +19,24 @@
 
 
 
+- (NSString*)name {
+	[self willAccessValueForKey:@"name"];
+	NSString *result = [self primitiveValueForKey:@"name"];
+	[self didAccessValueForKey:@"name"];
+	return result;
+}
+
+- (void)setName:(NSString*)value_ {
+	[self willChangeValueForKey:@"name"];
+	[self setPrimitiveValue:value_ forKey:@"name"];
+	[self didChangeValueForKey:@"name"];
+}
+
+
+
+
+
+
 - (NSNumber*)replaceReference {
 	[self willAccessValueForKey:@"replaceReference"];
 	NSNumber *result = [self primitiveValueForKey:@"replaceReference"];
@@ -48,6 +66,24 @@
 
 
 
+- (NSString*)failureDiffPath {
+	[self willAccessValueForKey:@"failureDiffPath"];
+	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
+	[self didAccessValueForKey:@"failureDiffPath"];
+	return result;
+}
+
+- (void)setFailureDiffPath:(NSString*)value_ {
+	[self willChangeValueForKey:@"failureDiffPath"];
+	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
+	[self didChangeValueForKey:@"failureDiffPath"];
+}
+
+
+
+
+
+
 - (NSString*)outputPath {
 	[self willAccessValueForKey:@"outputPath"];
 	NSString *result = [self primitiveValueForKey:@"outputPath"];
@@ -66,24 +102,6 @@
 
 
 
-- (NSString*)name {
-	[self willAccessValueForKey:@"name"];
-	NSString *result = [self primitiveValueForKey:@"name"];
-	[self didAccessValueForKey:@"name"];
-	return result;
-}
-
-- (void)setName:(NSString*)value_ {
-	[self willChangeValueForKey:@"name"];
-	[self setPrimitiveValue:value_ forKey:@"name"];
-	[self didChangeValueForKey:@"name"];
-}
-
-
-
-
-
-
 - (NSString*)extension {
 	[self willAccessValueForKey:@"extension"];
 	NSString *result = [self primitiveValueForKey:@"extension"];
@@ -95,24 +113,6 @@
 	[self willChangeValueForKey:@"extension"];
 	[self setPrimitiveValue:value_ forKey:@"extension"];
 	[self didChangeValueForKey:@"extension"];
-}
-
-
-
-
-
-
-- (NSString*)failureDiffPath {
-	[self willAccessValueForKey:@"failureDiffPath"];
-	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
-	[self didAccessValueForKey:@"failureDiffPath"];
-	return result;
-}
-
-- (void)setFailureDiffPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"failureDiffPath"];
-	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
-	[self didChangeValueForKey:@"failureDiffPath"];
 }
 
 

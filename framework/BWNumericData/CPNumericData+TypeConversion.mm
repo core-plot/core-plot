@@ -7,8 +7,15 @@
 
 @implementation CPNumericData (TypeConversion)
 
+- (CPNumericData*)dataByConvertingToDataType:(CPNumericDataType)newDataType
+{
+    return [self dataByConvertingToType:newDataType.dataType
+                            sampleBytes:newDataType.sampleBytes
+                              byteOrder:newDataType.byteOrder];
+}
+
 // :barry:20080430 Code generated with "NSData+TypeConversions_Generation.py"
-- (CPNumericData*)dataByConvertingToType:(CPDataType)newDataType
+- (CPNumericData*)dataByConvertingToType:(CPDataTypeFormat)newDataType
                              sampleBytes:(NSUInteger)newSampleBytes
                                byteOrder:(CFByteOrder)newByteOrder 
 {
@@ -570,9 +577,7 @@
     }
     
     return [CPNumericData numericDataWithData:result
-                                  dtype:[CPNumericDataType dataType:newDataType
-                                                        sampleBytes:newSampleBytes
-                                                          byteOrder:newByteOrder]
+                                  dtype:CPDataType(newDataType, newSampleBytes, newByteOrder)
                                         shape:self.shape];
 }
 

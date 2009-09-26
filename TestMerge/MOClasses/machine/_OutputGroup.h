@@ -15,6 +15,16 @@
 
 
 
+- (NSString*)name;
+- (void)setName:(NSString*)value_;
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+@property (retain) NSString *name;
+#endif
+
+//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
 - (NSNumber*)replaceReference;
 - (void)setReplaceReference:(NSNumber*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -28,6 +38,16 @@
 
 
 
+- (NSString*)failureDiffPath;
+- (void)setFailureDiffPath:(NSString*)value_;
+#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+@property (retain) NSString *failureDiffPath;
+#endif
+
+//- (BOOL)validateFailureDiffPath:(id*)value_ error:(NSError**)error_;
+
+
+
 - (NSString*)outputPath;
 - (void)setOutputPath:(NSString*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -38,16 +58,6 @@
 
 
 
-- (NSString*)name;
-- (void)setName:(NSString*)value_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSString *name;
-#endif
-
-//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
-
-
-
 - (NSString*)extension;
 - (void)setExtension:(NSString*)value_;
 #if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -55,16 +65,6 @@
 #endif
 
 //- (BOOL)validateExtension:(id*)value_ error:(NSError**)error_;
-
-
-
-- (NSString*)failureDiffPath;
-- (void)setFailureDiffPath:(NSString*)value_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSString *failureDiffPath;
-#endif
-
-//- (BOOL)validateFailureDiffPath:(id*)value_ error:(NSError**)error_;
 
 
 

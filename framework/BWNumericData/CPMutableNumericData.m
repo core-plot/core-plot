@@ -6,26 +6,26 @@
 
 @interface CPSerializedMutableNumericData : NSObject <NSCoding> {
     NSMutableData *data;
-    CPNumericDataType *dtype;
+    CPNumericDataType dtype;
     NSArray *shape;
 }
-@property (retain,readwrite) CPNumericDataType *dtype;
+@property (assign,readwrite) CPNumericDataType dtype;
 @property (retain,readwrite) NSMutableData *data;
 @property (retain,readwrite) NSArray *shape;
 
-- (id)initWithData:(NSMutableData*)d
-             dtype:(CPNumericDataType*)dtype
-             shape:(NSArray*)s;
+-(id)initWithData:(NSMutableData *)d
+            dtype:(CPNumericDataType)dtype
+            shape:(NSArray *)s;
 @end
 
 @interface CPMutableNumericData ()
-@property (retain,readwrite) CPNumericDataType *dtype;
+@property (assign,readwrite) CPNumericDataType dtype;
 @property (retain,readwrite) NSMutableData *data;
 @property (copy,readwrite) NSArray *shape;
 
-- (void)commonInitWithData:(NSMutableData*)_data
-                     dtype:(CPNumericDataType*)dtype
-                     shape:(NSArray*)_shape;
+-(void)commonInitWithData:(NSMutableData *)_data
+                    dtype:(CPNumericDataType)dtype
+                    shape:(NSArray *)_shape;
 @end
 
 @implementation CPMutableNumericData
@@ -35,9 +35,9 @@
 @synthesize shape;
 @dynamic ndims;
 
-- (id)initWithData:(NSMutableData*)_data
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)_shape 
+-(id)initWithData:(NSMutableData *)_data
+            dtype:(CPNumericDataType)_dtype
+            shape:(NSArray *)_shape 
 {
     
     if( (self = [super init]) ) {
@@ -49,9 +49,9 @@
     return self;
 }
 
-- (void)commonInitWithData:(NSMutableData*)_data
-                     dtype:(CPNumericDataType*)_dtype
-                     shape:(NSArray*)_shape 
+-(void)commonInitWithData:(NSMutableData *)_data
+                    dtype:(CPNumericDataType)_dtype
+                    shape:(NSArray *)_shape 
 {
     self.data = _data;
     self.dtype = _dtype;
@@ -75,44 +75,43 @@
 }
 
 
-- (void)dealloc 
+-(void)dealloc 
 {
     [data release];
-    [dtype release];
     [shape release];
     
     [super dealloc];
 }
 
-- (NSUInteger)ndims 
+-(NSUInteger)ndims 
 {
     return [[self shape] count];
 }
 
-- (const void *)bytes 
+-(const void *)bytes 
 {
     return [[self data] bytes];
 }
 
-- (void*)mutableBytes 
+-(void*)mutableBytes 
 {
     return [[self data] mutableBytes];
 }
 
-- (NSUInteger)length 
+-(NSUInteger)length 
 {
     return [[self data] length];
 }
 
 #pragma mark NSCopying and NSMutableCopying
-- (id)mutableCopyWithZone:(NSZone *)zone 
+-(id)mutableCopyWithZone:(NSZone *)zone 
 {
     return [[[self class] allocWithZone:zone] initWithData:self.data
                                                      dtype:self.dtype
                                                      shape:self.shape];
 }
 
-- (id)copyWithZone:(NSZone *)zone 
+-(id)copyWithZone:(NSZone *)zone 
 {
     return [[[self class] allocWithZone:zone] initWithData:self.data
                                                      dtype:self.dtype
@@ -120,7 +119,7 @@
 }
 
 #pragma mark NSCoding
-- (id)replacementObjectForArchiver:(NSArchiver*)archiver 
+-(id)replacementObjectForArchiver:(NSArchiver*)archiver 
 {
     return [[[CPSerializedMutableNumericData alloc] initWithData:self.data
                                                            dtype:self.dtype
@@ -134,9 +133,9 @@
 @synthesize dtype;
 @synthesize shape;
 
-- (id)initWithData:(NSMutableData*)d
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)s 
+-(id)initWithData:(NSMutableData *)d
+            dtype:(CPNumericDataType)_dtype
+            shape:(NSArray *)s 
 {
     if( (self = [super init]) ) {
         self.data = d;
@@ -147,37 +146,55 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder 
+-(void)encodeWithCoder:(NSCoder *)encoder 
 {
+    //[super encodeWithCoder:encoder];
+    
+    CPNumericDataType _type = self.dtype;
+    
     if([encoder allowsKeyedCoding]) {
         [encoder encodeObject:self.data forKey:@"data"];
-        [encoder encodeObject:self.dtype forKey:@"dtype"];
+        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
+                                             objCType:@encode(CPNumericDataType)]
+                       forKey:@"dtype"];
         [encoder encodeObject:self.shape forKey:@"shape"];
     } else {
-        [encoder encodeObject:self.data];
-        [encoder encodeObject:self.dtype];
+        [encoder encodeDataObject:self.data];
+        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
+                                             objCType:@encode(CPNumericDataType)]];
         [encoder encodeObject:self.shape];
     }
 }
 
-- (id)initWithCoder:(NSCoder *)decoder 
+-(id)initWithCoder:(NSCoder *)decoder 
 {    
-    self = [super init];
+    self = [super init]; //initWithCoder:decoder];
     
     if([decoder allowsKeyedCoding]) {
         self.data = [decoder decodeObjectForKey:@"data"];
-        self.dtype = [decoder decodeObjectForKey:@"dtype"];
+        
+        NSValue *dtypeValue = [decoder decodeObjectForKey:@"dtype"];
+        CPNumericDataType _dtype;
+        [dtypeValue getValue:&_dtype];
+        self.dtype = _dtype;
+        
         self.shape = [decoder decodeObjectForKey:@"shape"];
     } else {
         self.data = [decoder decodeObject];
-        self.dtype = [decoder decodeObject];
+        
+        NSValue *dtypeValue = [decoder decodeObject];
+        CPNumericDataType _dtype;
+        [dtypeValue getValue:&_dtype];
+        self.dtype = _dtype;
+        
+        
         self.shape = [decoder decodeObject];
     }
     
     return self;
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder *)decoder 
+-(id)awakeAfterUsingCoder:(NSCoder *)decoder 
 {
     CPMutableNumericData *replacement = [[CPMutableNumericData alloc] initWithData:self.data
                                                                              dtype:self.dtype
@@ -188,10 +205,9 @@
     return replacement;
 }
 
-- (void)dealloc 
+-(void)dealloc 
 {
     [data release];
-    [dtype release];
     [shape release];
     
     [super dealloc];

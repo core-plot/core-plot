@@ -3,30 +3,30 @@
 #import "GTMLogger.h"
 #import "CPExceptions.h"
 
-const NSString *CPNumericDataException = @"CPNumericDataException";
+NSString * const CPNumericDataException = @"CPNumericDataException";
 
 @interface CPSerializedNumericData : NSObject <NSCoding> {
     NSData *data;
-    CPNumericDataType *dtype;
+    CPNumericDataType dtype;
     NSArray *shape;
 }
-@property (retain,readwrite) CPNumericDataType *dtype;
-@property (retain,readwrite) NSData *data;
+@property (assign,readwrite) CPNumericDataType dtype;
+@property (copy,readwrite) NSData *data;
 @property (retain,readwrite) NSArray *shape;
 
-- (id)initWithData:(NSData*)d
-             dtype:(CPNumericDataType*)dtype
-             shape:(NSArray*)s;
+-(id)initWithData:(NSData *)d
+            dtype:(CPNumericDataType)dtype
+            shape:(NSArray *)s;
 @end
 
 @interface CPNumericData ()
-@property (retain,readwrite) CPNumericDataType *dtype;
+@property (assign,readwrite) CPNumericDataType dtype;
 @property (copy,readwrite) NSData *data;
 @property (copy,readwrite) NSArray *shape;
 
-- (void)commonInitWithData:(NSData*)_data
-                     dtype:(CPNumericDataType*)_dtype
-                     shape:(NSArray*)_shape;
+-(void)commonInitWithData:(NSData *)_data
+                    dtype:(CPNumericDataType)_dtype
+                    shape:(NSArray *)_shape;
 @end
 
 @implementation CPNumericData
@@ -36,9 +36,9 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
 @dynamic ndims;
 @dynamic nSamples;
 
-+(CPNumericData*)numericDataWithData:(NSData*)theData
-                                dtype:(CPNumericDataType*)_dtype
-                                shape:(NSArray*)shapeArray 
++(CPNumericData *)numericDataWithData:(NSData *)theData
+                                dtype:(CPNumericDataType)_dtype
+                                shape:(NSArray *)shapeArray 
 {
     
     return [[[CPNumericData alloc] initWithData:theData
@@ -49,7 +49,7 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
 
 
 -(id)initWithData:(NSData *)_data
-        	dtype:(CPNumericDataType *)newDType
+        	dtype:(CPNumericDataType)newDType
             shape:(NSArray *)newShape 
 {
     
@@ -62,19 +62,19 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
     return self;
 }
 
-- (id)initWithData:(NSData*)theData
-       dtypeString:(NSString*)dtypeString
-             shape:(NSArray*)shapeArray 
+-(id)initWithData:(NSData *)theData
+      dtypeString:(NSString *)dtypeString
+            shape:(NSArray *)shapeArray 
 {
     
     return [self initWithData:theData
-                        dtype:[CPNumericDataType dataTypeWithDtypeString:dtypeString]
+                        dtype:CPDataTypeWithDataTypeString(dtypeString)
                         shape:shapeArray];
 }
 
-- (void)commonInitWithData:(NSData*)_data
-                     dtype:(CPNumericDataType*)_dtype
-                     shape:(NSArray*)_shape 
+-(void)commonInitWithData:(NSData *)_data
+                    dtype:(CPNumericDataType)_dtype
+                    shape:(NSArray *)_shape 
 {
     
     self.data = _data;
@@ -97,56 +97,51 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
     }
 }
 
-- (void)dealloc 
+-(void)dealloc 
 {
     [data release];
-    [dtype release];
     [shape release];
     
     [super dealloc];
 }
 
-- (NSUInteger)ndims 
+-(NSUInteger)ndims 
 {
     return [[self shape] count];
 }
 
-- (const void *)bytes 
+-(const void *)bytes 
 {
     return [[self data] bytes];
 }
 
-- (NSUInteger)length
+-(NSUInteger)length
 {
     return [[self data] length];
 }
 
-- (NSUInteger)nSamples
+-(NSUInteger)nSamples
 {
     return ([self length]/self.dtype.sampleBytes);
 }
 
-//- (NSString*)description {
-//    return [NSString stringWithFormat:@"%@ <dtype=%@, shape=(%@)>",self.data,self.dtype.dtypeString,self.shape];
-//}
-
-- (CPDataType)dataType 
+-(CPDataTypeFormat)dataType 
 {
     return self.dtype.dataType;
 }
 
-- (NSUInteger)sampleBytes 
+-(NSUInteger)sampleBytes 
 {
     return self.dtype.sampleBytes;
 }
 
-- (CFByteOrder)byteOrder
+-(CFByteOrder)byteOrder
 {
     return self.dtype.byteOrder;
 }
 
 // Implementation generated with CPNumericData+TypeConversion_Generation.py
-- (NSNumber*)sampleValue:(NSUInteger)sample 
+-(NSNumber *)sampleValue:(NSUInteger)sample 
 {
     NSNumber *result=nil;
     
@@ -198,13 +193,13 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
     return result;
 }
 
-- (void*)samplePointer:(NSUInteger)sample 
+-(void *)samplePointer:(NSUInteger)sample 
 {
     NSParameterAssert(sample < self.nSamples);
     return (void*) ((char*)[self bytes] + sample*[self sampleBytes]);
 }
 
-- (NSString*)description 
+-(NSString *)description 
 {
     NSMutableString *s = [NSMutableString stringWithCapacity:self.nSamples];
     [s appendFormat:@"["];
@@ -217,7 +212,7 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
 }
 
 #pragma mark NSCopying and NSMutableCopying
-- (id)mutableCopyWithZone:(NSZone *)zone 
+-(id)mutableCopyWithZone:(NSZone *)zone 
 {
     if(NSShouldRetainWithZone(self, zone)) {
         return [self retain];
@@ -228,7 +223,7 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
                                                              shape:self.shape];
 }
 
-- (id)copyWithZone:(NSZone *)zone
+-(id)copyWithZone:(NSZone *)zone
 {
     return [[[self class] allocWithZone:zone] initWithData:self.data
                                                      dtype:self.dtype
@@ -236,7 +231,7 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
 }
 
 #pragma mark NSCoding
-- (id)replacementObjectForArchiver:(NSArchiver*)archiver {
+-(id)replacementObjectForArchiver:(NSArchiver*)archiver {
     return [[[CPSerializedNumericData alloc] initWithData:self.data
                                                     dtype:self.dtype
                                                     shape:self.shape]
@@ -249,9 +244,9 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
 @synthesize dtype;
 @synthesize shape;
 
-- (id)initWithData:(NSData*)d
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)s 
+-(id)initWithData:(NSData *)d
+            dtype:(CPNumericDataType)_dtype
+            shape:(NSArray *)s 
 {
     if( (self = [super init]) ) {
         self.data = d;
@@ -262,39 +257,55 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder 
+-(void)encodeWithCoder:(NSCoder *)encoder 
 {
     //[super encodeWithCoder:encoder];
     
+    CPNumericDataType _type = self.dtype;
+    
     if([encoder allowsKeyedCoding]) {
         [encoder encodeObject:self.data forKey:@"data"];
-        [encoder encodeObject:self.dtype forKey:@"dtype"];
+        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
+                                             objCType:@encode(CPNumericDataType)]
+                       forKey:@"dtype"];
         [encoder encodeObject:self.shape forKey:@"shape"];
     } else {
         [encoder encodeDataObject:self.data];
-        [encoder encodeObject:self.dtype];
+        [encoder encodeObject:[NSValue valueWithBytes:&(_type)
+                                             objCType:@encode(CPNumericDataType)]];
         [encoder encodeObject:self.shape];
     }
 }
 
-- (id)initWithCoder:(NSCoder *)decoder 
+-(id)initWithCoder:(NSCoder *)decoder 
 {    
     self = [super init]; //initWithCoder:decoder];
     
     if([decoder allowsKeyedCoding]) {
         self.data = [decoder decodeObjectForKey:@"data"];
-        self.dtype = [decoder decodeObjectForKey:@"dtype"];
+        
+        NSValue *dtypeValue = [decoder decodeObjectForKey:@"dtype"];
+        CPNumericDataType _dtype;
+        [dtypeValue getValue:&_dtype];
+        self.dtype = _dtype;
+        
         self.shape = [decoder decodeObjectForKey:@"shape"];
     } else {
         self.data = [decoder decodeDataObject];
-        self.dtype = [decoder decodeObject];
+        
+        NSValue *dtypeValue = [decoder decodeObject];
+        CPNumericDataType _dtype;
+        [dtypeValue getValue:&_dtype];
+        self.dtype = _dtype;
+        
+        
         self.shape = [decoder decodeObject];
     }
     
     return self;
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder *)decoder 
+-(id)awakeAfterUsingCoder:(NSCoder *)decoder 
 {
     CPNumericData *replacement = [[CPNumericData alloc] initWithData:self.data
                                                                dtype:self.dtype
@@ -305,10 +316,9 @@ const NSString *CPNumericDataException = @"CPNumericDataException";
     return replacement;
 }
 
-- (void)dealloc 
+-(void)dealloc 
 {
     [data release];
-    [dtype release];
     [shape release];
     
     [super dealloc];

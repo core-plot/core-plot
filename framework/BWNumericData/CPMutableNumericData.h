@@ -4,11 +4,11 @@
 
 @interface CPMutableNumericData : NSMutableData {
     NSMutableData *data;
-    CPNumericDataType *dtype;
+    CPNumericDataType dtype;
     NSArray *shape; //array of dimension shapes (NSNumber<unsigned>)
 }
 
-@property (retain,readonly) CPNumericDataType *dtype;
+@property (assign,readonly) CPNumericDataType dtype;
 @property (copy,readonly) NSArray* shape;
 @property (readonly) NSUInteger ndims;
 
@@ -20,7 +20,7 @@
  the data size (length/sampleBytes(dtype)).
  */
 
-- (id)initWithData:(NSMutableData*)_data
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)_shape;
+-(id)initWithData:(NSMutableData *)_data
+            dtype:(CPNumericDataType)_dtype
+            shape:(NSArray *)_shape;
 @end

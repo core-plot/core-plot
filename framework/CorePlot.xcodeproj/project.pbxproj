@@ -162,7 +162,6 @@
 		4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */; };
 		4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */; };
 		4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */; };
-		4C97EF0D104D80D400B554F9 /* TestCPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */; };
 		4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */; };
 		4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF10104D819100B554F9 /* CPMutableNumericData.h */; };
 		4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF11104D819100B554F9 /* CPMutableNumericData.m */; };
@@ -497,8 +496,6 @@
 		4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericData.mm; path = BWNumericData/TestCPNumericData.mm; sourceTree = SOURCE_ROOT; };
 		4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataConversion.h; path = BWNumericData/TestCPNumericDataConversion.h; sourceTree = SOURCE_ROOT; };
 		4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericDataConversion.mm; path = BWNumericData/TestCPNumericDataConversion.mm; sourceTree = SOURCE_ROOT; };
-		4C97EF09104D80D400B554F9 /* TestCPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataType.h; path = BWNumericData/TestCPNumericDataType.h; sourceTree = SOURCE_ROOT; };
-		4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestCPNumericDataType.m; path = BWNumericData/TestCPNumericDataType.m; sourceTree = SOURCE_ROOT; };
 		4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumericDataTypeConversions.h; path = BWNumericData/NumericDataTypeConversions.h; sourceTree = SOURCE_ROOT; };
 		4C97EF10104D819100B554F9 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = BWNumericData/CPMutableNumericData.h; sourceTree = SOURCE_ROOT; };
 		4C97EF11104D819100B554F9 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = BWNumericData/CPMutableNumericData.m; sourceTree = SOURCE_ROOT; };
@@ -1335,8 +1332,6 @@
 				4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */,
 				4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */,
 				4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */,
-				4C97EF09104D80D400B554F9 /* TestCPNumericDataType.h */,
-				4C97EF0A104D80D400B554F9 /* TestCPNumericDataType.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2262,7 +2257,6 @@
 				E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */,
 				4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */,
 				4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */,
-				4C97EF0D104D80D400B554F9 /* TestCPNumericDataType.m in Sources */,
 				4C97EF1C104D824900B554F9 /* TestNSExceptionExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

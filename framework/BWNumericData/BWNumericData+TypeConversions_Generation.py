@@ -1,10 +1,10 @@
-dataTypes=["BWUndefinedDataType","BWIntegerDataType","BWUnsignedIntegerDataType","BWFloatingPointDataType","BWComplexFloatingPointDataType"]
+dataTypes=["CPUndefinedDataType","CPIntegerDataType","CPUnsignedIntegerDataType","CPFloatingPointDataType","CPComplexFloatingPointDataType"]
 
-types = { "BWUndefinedDataType" : [],
-        "BWIntegerDataType" : ["char","short","NSInteger"], #,"long"],
-        "BWUnsignedIntegerDataType" : ["unsigned char","unsigned short","NSUInteger"], # ,"unsigned long"],
-        "BWFloatingPointDataType" : ["float","double"],
-        "BWComplexFloatingPointDataType" : [] }
+types = { "CPUndefinedDataType" : [],
+        "CPIntegerDataType" : ["char","short","NSInteger"], #,"long"],
+        "CPUnsignedIntegerDataType" : ["unsigned char","unsigned short","NSUInteger"], # ,"unsigned long"],
+        "CPFloatingPointDataType" : ["float","double"],
+        "CPComplexFloatingPointDataType" : [] }
 
 nsnumber_factory = { "char" : "Char",
                     "short" : "Short",

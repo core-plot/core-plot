@@ -2,26 +2,26 @@
 #import <Cocoa/Cocoa.h>
 #import "CPNumericDataType.h"
 
-extern const NSString *CPNumericDataException;
+extern NSString * const CPNumericDataException;
 
 @interface CPNumericData : NSData {
     NSData *data;
-    CPNumericDataType *dtype;
+    CPNumericDataType dtype;
     NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
 }
 
-@property (retain,readonly) CPNumericDataType *dtype;
+@property (assign,readonly) CPNumericDataType dtype;
 @property (copy,readonly) NSArray *shape;
 @property (readonly) NSUInteger ndims;
 @property (readonly) NSUInteger nSamples; //number of samples of dtype
-@property (readonly) CPDataType dataType;
+@property (readonly) CPDataTypeFormat dataType;
 @property (readonly) NSUInteger sampleBytes;
 @property (readonly) CFByteOrder byteOrder;
 
 
-+ (CPNumericData*)numericDataWithData:(NSData*)theData
-                                dtype:(CPNumericDataType*)_dtype
-                                shape:(NSArray*)shapeArray;
++(CPNumericData *)numericDataWithData:(NSData *)theData
+                                dtype:(CPNumericDataType)_dtype
+                                shape:(NSArray *)shapeArray;
 
 /*!
  @method     
@@ -38,20 +38,20 @@ extern const NSString *CPNumericDataException;
  @param shapeArray data shape (ala numpy) (copied). may be nil for 1-D data.
 */
 
-- (id)initWithData:(NSData*)theData
-             dtype:(CPNumericDataType*)_dtype
-             shape:(NSArray*)shapeArray;
+-(id)initWithData:(NSData *)theData
+            dtype:(CPNumericDataType)_dtype
+            shape:(NSArray *)shapeArray;
 
-- (id)initWithData:(NSData*)theData
-             dtypeString:(NSString*)dtypeString
-             shape:(NSArray*)shapeArray;
+-(id)initWithData:(NSData *)theData
+      dtypeString:(NSString *)dtypeString
+            shape:(NSArray *)shapeArray;
 
-- (NSUInteger)nSamples;
-- (CPDataType)dataType;
-- (NSUInteger)sampleBytes;
-- (CFByteOrder)byteOrder;
+-(NSUInteger)nSamples;
+-(CPDataTypeFormat)dataType;
+-(NSUInteger)sampleBytes;
+-(CFByteOrder)byteOrder;
 
 
-- (void*)samplePointer:(NSUInteger)sample;
-- (NSNumber*)sampleValue:(NSUInteger)sample;
+-(void *)samplePointer:(NSUInteger)sample;
+-(NSNumber *)sampleValue:(NSUInteger)sample;
 @end
