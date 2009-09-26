@@ -13,7 +13,7 @@
  **/
 @synthesize axisSet;
 
-/** @property plotArea
+/** @property plotGroup
  *	@brief The plot group.
  **/
 @synthesize plotGroup;

@@ -4,6 +4,8 @@
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 
+/** @brief Creates a CPXYGraph instance formatted with padding of 60 on each side and X and Y plot ranges of +/- 1.
+ **/
 @implementation CPXYTheme
 
 -(id)newGraph 

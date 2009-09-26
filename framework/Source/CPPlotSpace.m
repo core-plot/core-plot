@@ -60,6 +60,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /// @{
 
 /**	@brief Converts a data point to drawing coordinates.
+ *	@param layer The layer containing the point to convert.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@return The drawing coordinates of the data point.
  **/
@@ -69,6 +70,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 }
 
 /**	@brief Converts a data point to drawing coordinates.
+ *	@param layer The layer containing the point to convert.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@return The drawing coordinates of the data point.
  **/
@@ -80,6 +82,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@param point The drawing coordinates of the data point.
+ *	@param layer The layer containing the point to convert.
  **/
 -(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
 {
@@ -88,6 +91,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@param point The drawing coordinates of the data point.
+ *	@param layer The layer containing the point to convert.
  **/
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
 {
