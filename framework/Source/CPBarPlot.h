@@ -19,6 +19,7 @@ extern NSString * const CPBarPlotBindingBarLengths;
 /**	@brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPBarPlotField {
+    CPBarPlotFieldBarLocation,  ///< Bar location on independent coordinate axis.
     CPBarPlotFieldBarLength		///< Bar length.
 } CPBarPlotField;
 
@@ -46,8 +47,6 @@ typedef enum _CPBarPlotField {
     CGFloat barOffset;
     CGFloat cornerRadius;
     NSDecimal baseValue;
-	double doublePrecisionBaseValue;
-    NSArray *barLengths;
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
 } 
@@ -59,7 +58,6 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
 @property (nonatomic, readwrite) NSDecimal baseValue;
-@property (nonatomic, readwrite) double doublePrecisionBaseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 
 /// @name Factory Methods

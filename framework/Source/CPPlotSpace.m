@@ -99,6 +99,12 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	return nil;
 }
+
+/**	@brief Scales the plot ranges so that the plots just fit in the visible space.
+ *	@param plots An array of the plots that have to fit in the visible area.
+ **/
+-(void)scaleToFitPlots:(NSArray *)plots {
+}
 ///	@}
 
 @end

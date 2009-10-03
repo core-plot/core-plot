@@ -6,13 +6,13 @@
 
 /// @name NSDecimal Utilities
 /// @{
-CPInteger CPDecimalIntegerValue(NSDecimal decimalNumber);
-CPFloat   CPDecimalFloatValue(NSDecimal decimalNumber);
-CPDouble  CPDecimalDoubleValue(NSDecimal decimalNumber);
+NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber);
+float   CPDecimalFloatValue(NSDecimal decimalNumber);
+double  CPDecimalDoubleValue(NSDecimal decimalNumber);
 
-NSDecimal CPDecimalFromInt(CPInteger i);
-NSDecimal CPDecimalFromFloat(CPFloat f);
-NSDecimal CPDecimalFromDouble(CPDouble d);
+NSDecimal CPDecimalFromInt(NSInteger i);
+NSDecimal CPDecimalFromFloat(float f);
+NSDecimal CPDecimalFromDouble(double d);
 
 NSDecimal CPDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand);
@@ -30,13 +30,13 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation);
 
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 
-CPCoordinate OrthogonalCoordinate(CPCoordinate coord);
+CPCoordinate CPOrthogonalCoordinate(CPCoordinate coord);
 
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);
 
 /// @name Quartz Pixel-Alignment Functions
 /// @{
-CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p);
-CGSize alignSizeToUserSpace(CGContextRef context, CGSize s);
-CGRect alignRectToUserSpace(CGContextRef context, CGRect r);
+CGPoint CPAlignPointToUserSpace(CGContextRef context, CGPoint p);
+CGSize CPAlignSizeToUserSpace(CGContextRef context, CGSize s);
+CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r);
 /// @}

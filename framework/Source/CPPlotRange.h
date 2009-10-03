@@ -23,4 +23,6 @@
 
 -(BOOL)contains:(NSDecimal)number;
 
+-(void)unionPlotRange:(CPPlotRange *)otherRange;
+
 @end

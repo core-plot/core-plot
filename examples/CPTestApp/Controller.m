@@ -28,8 +28,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
+//    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
+//    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
     
     // Grid line styles
     CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
@@ -120,6 +120,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.content = contentArray;
+    
+    // Auto scale the plot space to fit the plot data
+    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
     
     // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];

@@ -5,61 +5,61 @@
 #pragma mark Decimal Numbers
 
 /**
- *	@brief Converts an NSDecimal value to a CPInteger.
+ *	@brief Converts an NSDecimal value to a NSInteger.
  *	@param decimalNumber The NSDecimal value.
  *	@return The converted value.
  **/
-CPInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
+NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
 {
-	return (CPInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue]; 
+	return (NSInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue]; 
 }
 
 /**
- *	@brief Converts an NSDecimal value to a CPFloat.
+ *	@brief Converts an NSDecimal value to a float.
  *	@param decimalNumber The NSDecimal value.
  *	@return The converted value.
  **/
-CPFloat CPDecimalFloatValue(NSDecimal decimalNumber)
+float CPDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (CPFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
+	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
 }
 
 /**
- *	@brief Converts an NSDecimal value to a CPDouble.
+ *	@brief Converts an NSDecimal value to a double.
  *	@param decimalNumber The NSDecimal value.
  *	@return The converted value.
  **/
-CPDouble CPDecimalDoubleValue(NSDecimal decimalNumber)
+double CPDecimalDoubleValue(NSDecimal decimalNumber)
 {
-	return (CPDouble)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
+	return (double)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
 }
 
 /**
- *	@brief Converts a CPInteger value to an NSDecimal.
- *	@param i The CPInteger value.
+ *	@brief Converts a NSInteger value to an NSDecimal.
+ *	@param i The NSInteger value.
  *	@return The converted value.
  **/
-NSDecimal CPDecimalFromInt(CPInteger i)
+NSDecimal CPDecimalFromInt(NSInteger i)
 {
 	return [[NSNumber numberWithInt:i] decimalValue]; 
 }
 
 /**
- *	@brief Converts a CPFloat value to an NSDecimal.
- *	@param f The CPFloat value.
+ *	@brief Converts a float value to an NSDecimal.
+ *	@param f The float value.
  *	@return The converted value.
  **/
-NSDecimal CPDecimalFromFloat(CPFloat f)
+NSDecimal CPDecimalFromFloat(float f)
 {
 	return [[NSNumber numberWithFloat:f] decimalValue]; 
 }
 
 /**
- *	@brief Converts a CPDouble value to an NSDecimal.
- *	@param d The CPDouble value.
+ *	@brief Converts a double value to an NSDecimal.
+ *	@param d The double value.
  *	@return The converted value.
  **/
-NSDecimal CPDecimalFromDouble(CPDouble d)
+NSDecimal CPDecimalFromDouble(double d)
 {
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
 }
@@ -256,7 +256,7 @@ CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color)
  *	@param coord The CPCoordinate.
  *	@return The orthogonal CPCoordinate.
  **/
-CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
+CPCoordinate CPOrthogonalCoordinate(CPCoordinate coord)
 {
 	return ( coord == CPCoordinateX ? CPCoordinateY : CPCoordinateX );
 }
@@ -274,7 +274,7 @@ CPCoordinate OrthogonalCoordinate(CPCoordinate coord)
  *	@param p The point in user space.
  *	@return The device aligned point in user space.
  **/
-CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p)
+CGPoint CPAlignPointToUserSpace(CGContextRef context, CGPoint p)
 {
     // Compute the coordinates of the point in device space.
     p = CGContextConvertPointToDeviceSpace(context, p);
@@ -296,7 +296,7 @@ CGPoint alignPointToUserSpace(CGContextRef context, CGPoint p)
  *	@param s The size in user space.
  *	@return The device aligned size in user space.
  **/
-CGSize alignSizeToUserSpace(CGContextRef context, CGSize s)
+CGSize CPAlignSizeToUserSpace(CGContextRef context, CGSize s)
 {
     // Compute the size in device space.
     s = CGContextConvertSizeToDeviceSpace(context, s);
@@ -320,7 +320,7 @@ CGSize alignSizeToUserSpace(CGContextRef context, CGSize s)
  *	@param r The rectangle in user space.
  *	@return The device aligned rectangle in user space.
  **/
-CGRect alignRectToUserSpace(CGContextRef context, CGRect r)
+CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r)
 {
     // Compute the coordinates of the rectangle in device space.
     r = CGContextConvertRectToDeviceSpace(context, r);

@@ -30,4 +30,9 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 ///	@}
 
+/// @name Adjusting Ranges to Plot Data
+/// @{
+-(void)scaleToFitPlots:(NSArray *)plots;
+///	@}
+
 @end

@@ -4,22 +4,6 @@
 
 /// @file
 
-/// @name Numeric Types
-/// @{
-/**
- *	@brief Standard integer type
- **/
-typedef NSInteger CPInteger;
-/**
- *	@brief Standard float type
- **/
-typedef CGFloat   CPFloat;
-/**
- *	@brief Standard double type
- **/
-typedef double    CPDouble;
-/// @}
-
 /**
  *	@brief Enumeration of numeric types
  **/

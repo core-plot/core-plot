@@ -6,6 +6,7 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPAxisSet.h"
+#import "CPPlot.h"
 
 ///	@cond
 @interface CPXYPlotSpace ()
@@ -78,6 +79,22 @@
         [self setNeedsLayout];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
     }
+}
+
+-(void)scaleToFitPlots:(NSArray *)plots {
+	if ( plots.count == 0 ) return;
+    
+	// Determine union of ranges
+	CPPlotRange *unionXRange = [[plots objectAtIndex:0] plotRangeForCoordinate:CPCoordinateX];
+    CPPlotRange *unionYRange = [[plots objectAtIndex:0] plotRangeForCoordinate:CPCoordinateY];
+    for ( CPPlot *plot in plots ) {
+    	[unionXRange unionPlotRange:[plot plotRangeForCoordinate:CPCoordinateX]];
+        [unionYRange unionPlotRange:[plot plotRangeForCoordinate:CPCoordinateY]];
+    }
+    
+    // Set range
+    self.xRange = unionXRange;
+    self.yRange = unionYRange;
 }
 
 #pragma mark -

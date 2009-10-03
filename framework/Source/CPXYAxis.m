@@ -98,8 +98,8 @@
 			endViewPoint.x += length * endFactor;
 		}
         
-		startViewPoint = alignPointToUserSpace(theContext, startViewPoint);
-		endViewPoint = alignPointToUserSpace(theContext, endViewPoint);
+		startViewPoint = CPAlignPointToUserSpace(theContext, startViewPoint);
+		endViewPoint = CPAlignPointToUserSpace(theContext, endViewPoint);
 		
         // Add tick line
         CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
@@ -139,8 +139,8 @@
         [self terminalPointsForGridLineWithCoordinateDecimalNumber:[location decimalValue] startPoint:&startViewPoint endPoint:&endViewPoint];
         
         // Align to pixels
-        startViewPoint = alignPointToUserSpace(theContext, startViewPoint);
-        endViewPoint = alignPointToUserSpace(theContext, endViewPoint);
+        startViewPoint = CPAlignPointToUserSpace(theContext, startViewPoint);
+        endViewPoint = CPAlignPointToUserSpace(theContext, endViewPoint);
         
         // Add grid line 
         CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
@@ -166,8 +166,8 @@
     // Axis Line
 	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-		CGPoint startViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
-		CGPoint endViewPoint = alignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
+		CGPoint startViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
+		CGPoint endViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
 		[self.axisLineStyle setLineStyleInContext:theContext];
 		CGContextBeginPath(theContext);
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);

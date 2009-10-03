@@ -400,7 +400,7 @@
 	
     for ( CPAxisLabel *label in self.axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:OrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 }
 

@@ -64,8 +64,6 @@ typedef enum _CPScatterPlotField {
     CPFill *areaFill;
     NSDecimal areaBaseValue;
 	double doublePrecisionAreaBaseValue;
-    NSArray *xValues;
-    NSArray *yValues;
     NSArray *plotSymbols;
 } 
 

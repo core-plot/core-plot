@@ -54,6 +54,7 @@
     id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
     BOOL dataNeedsReloading;
+    NSMutableDictionary *cachedData;
 }
 
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;
@@ -71,6 +72,25 @@
 /// @{
 -(NSArray *)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
+///	@}
+
+/// @name Data Cache
+/// @{
+-(NSArray *)cachedNumbersForField:(NSUInteger)fieldEnum;
+-(void)cacheNumbers:(NSArray *)numbers forField:(NSUInteger)fieldEnum;
+///	@}
+
+/// @name Plot Data Ranges
+/// @{
+-(CPPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
+-(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coord;
+///	@}
+
+/// @name Fields
+/// @{
+-(NSUInteger)numberOfFields;
+-(NSArray *)fieldIdentifiers;
+-(NSArray *)fieldIdentifiersForCoordinate:(CPCoordinate)coord;
 ///	@}
 
 @end
