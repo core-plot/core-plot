@@ -193,7 +193,7 @@
         tickLabelFormatter = newFormatter;
 		axisLabels = [[NSSet set] retain];
         tickDirection = CPSignNone;
-        self.needsRelabel = YES;
+        needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
 	}
