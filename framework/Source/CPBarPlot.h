@@ -45,7 +45,7 @@ typedef enum _CPBarPlotField {
     CGFloat barWidth;
     CGFloat barOffset;
     CGFloat cornerRadius;
-    NSDecimal baseValue;
+    NSDecimal baseValue;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
 	double doublePrecisionBaseValue;
     NSArray *barLengths;
     BOOL barsAreHorizontal;

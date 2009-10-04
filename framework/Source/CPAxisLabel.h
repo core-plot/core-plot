@@ -10,7 +10,7 @@
 	CPTextStyle *textStyle;
     CPLayer *contentLayer;
     CGFloat offset;
-    NSDecimal tickLocation;
+    NSDecimal tickLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
 }
 
 @property (nonatomic, readonly, copy) NSString *text;
