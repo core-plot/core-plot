@@ -217,6 +217,8 @@
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
+		C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPLayoutManager.h */; };
+		C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPLayoutManager.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
 		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -711,6 +713,8 @@
 		BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		BC89A64010239D1D009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = SOURCE_ROOT; };
+		C32BCF7E1054081C00639E25 /* CPLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayoutManager.h; sourceTree = "<group>"; };
+		C32BCF7F1054081C00639E25 /* CPLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayoutManager.m; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
 		C34260180FAE096C00072842 /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
@@ -1026,6 +1030,7 @@
 			isa = PBXGroup;
 			children = (
 				070622650FDF29B40066A6C4 /* Layers */,
+				C32BCF7D105407B000639E25 /* Layout */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				073FB0350FC99645007A728E /* Text */,
 				906156BA0F375558001B75FC /* Drawing */,
@@ -1704,6 +1709,15 @@
 			name = CPDarkGradientThemeTests;
 			sourceTree = "<group>";
 		};
+		C32BCF7D105407B000639E25 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				C32BCF7E1054081C00639E25 /* CPLayoutManager.h */,
+				C32BCF7F1054081C00639E25 /* CPLayoutManager.m */,
+			);
+			name = Layout;
+			sourceTree = "<group>";
+		};
 		C3A959D210116FE100BF9739 /* Mac Specific */ = {
 			isa = PBXGroup;
 			children = (
@@ -1807,6 +1821,7 @@
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
 				0776F2221041BCDE0013EB11 /* CPXYTheme.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
+				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2234,6 +2249,7 @@
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
 				0776F2231041BCDE0013EB11 /* CPXYTheme.m in Sources */,
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
+				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

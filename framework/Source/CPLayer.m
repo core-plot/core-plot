@@ -1,5 +1,5 @@
-
 #import "CPLayer.h"
+#import "CPLayoutManager.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPExceptions.h"
 #import "CorePlotProbes.h"
@@ -38,6 +38,11 @@
  **/
 @synthesize paddingBottom;
 
+/** @property layoutManager
+ *  @brief The layout manager for this layer.
+ **/
+@synthesize layoutManager;
+
 /** @brief Initializes a newly allocated CPLayer object with the provided frame rectangle.
  *
  *	This is the designated initializer. The initialized layer will have the following properties that
@@ -59,6 +64,7 @@
 		paddingTop = 0.0f;
 		paddingRight = 0.0f;
 		paddingBottom = 0.0f;
+		layoutManager = nil;
 
 		self.frame = newFrame;
 		self.needsDisplayOnBoundsChange = NO;
@@ -75,6 +81,12 @@
 -(id)init
 {
 	return [self initWithFrame:CGRectZero];
+}
+
+-(void)dealloc
+{
+	[layoutManager release];
+	[super dealloc];
 }
 
 #pragma mark -
@@ -249,11 +261,13 @@
 	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
 		
 	for (CALayer *subLayer in self.sublayers) {
-		CGRect subLayerBounds = subLayer.bounds;
-		subLayerBounds.size = subLayerSize;
-		subLayer.bounds = subLayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
+		if ([subLayer isKindOfClass:[CPLayer class]]) {
+			CGRect subLayerBounds = subLayer.bounds;
+			subLayerBounds.size = subLayerSize;
+			subLayer.bounds = subLayerBounds;
+			subLayer.anchorPoint = CGPointZero;
+			subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
+		}
 	}
 }
 
