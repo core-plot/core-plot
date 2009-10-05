@@ -174,6 +174,23 @@
 }
 
 #pragma mark -
+#pragma mark Expanding/Contracting ranges
+
+/** @brief Extends/contracts the range by a factor.
+ *  @param factor Factor used. A value of 1.0 gives no change.
+ 	Less than 1.0 is a contraction, and greater than 1.0 is 
+    expansion.
+ **/
+-(void)expandRangeByFactor:(NSDecimal)factor {
+    NSDecimal newLength = CPDecimalMultiply(length, factor);
+    NSDecimal locationOffset = CPDecimalDivide( CPDecimalSubtract(newLength, length), 
+    	CPDecimalFromInt(2));
+    NSDecimal newLocation = CPDecimalSubtract(location, locationOffset);
+    self.location = newLocation;
+    self.length = newLength;
+}
+
+#pragma mark -
 #pragma mark Description
 
 - (NSString*)description

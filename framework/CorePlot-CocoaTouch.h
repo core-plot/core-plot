@@ -35,5 +35,4 @@
 #import "Source/CPXYAxisSet.h"
 #import "Source/CPXYGraph.h"
 #import "Source/CPXYPlotSpace.h"
-#import "Source/CPXYTheme.h"
 #import "iPhoneOnly/CPLayerHostingView.h"

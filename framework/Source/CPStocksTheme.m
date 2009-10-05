@@ -18,25 +18,9 @@
  **/
 @implementation CPStocksTheme
 
-+(NSString *)name 
++(NSString *)defaultName 
 {
 	return kCPStocksTheme;
-}
-
--(id)newGraph 
-{
-	CPXYGraph *graph = [super newGraph];
-    
-	graph.paddingLeft = 0.0;
-	graph.paddingTop = 0.0;
-	graph.paddingRight = 0.0;
-	graph.paddingBottom = 0.0;
-    
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-	
-	return graph;
 }
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph 

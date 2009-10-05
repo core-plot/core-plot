@@ -1,8 +1,8 @@
 
 #import <Foundation/Foundation.h>
-#import "CPXYTheme.h"
+#import "CPTheme.h"
 
-@interface CPPlainWhiteTheme : CPXYTheme {
+@interface CPPlainWhiteTheme : CPTheme {
 
 }
 

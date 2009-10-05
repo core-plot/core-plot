@@ -17,7 +17,7 @@
  **/
 @implementation CPPlainWhiteTheme
 
-+(NSString *)name 
++(NSString *)defaultName 
 {
 	return kCPPlainWhiteTheme;
 }

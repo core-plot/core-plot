@@ -7,6 +7,7 @@
 #import "CPFill.h"
 #import "CPAxisSet.h"
 #import "CPAxis.h"
+#import "CPTheme.h"
 
 ///	@cond
 @interface CPGraph()
@@ -65,6 +66,12 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		self.fill = nil;
 		self.plots = [[NSMutableArray alloc] init];
+        
+        // Margins
+        self.paddingLeft = 20.0;
+        self.paddingTop = 20.0;
+        self.paddingRight = 20.0;
+        self.paddingBottom = 20.0;
         
         // Plot area
         self.plotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
@@ -314,6 +321,17 @@
 		}
 		[self setNeedsDisplay];
     }
+}
+
+#pragma mark -
+#pragma mark Themes
+
+/**	@brief Apply a theme to style the graph.
+ *	@param theme The theme object used to style the graph.
+ **/
+-(void)applyTheme:(CPTheme *)theme 
+{
+    [theme applyThemeToGraph:self];
 }
 
 #pragma mark -

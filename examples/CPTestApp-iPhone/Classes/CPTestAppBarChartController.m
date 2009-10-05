@@ -25,8 +25,9 @@
 	[super viewDidLoad];
 	
     // Create barChart from theme
+    barChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	barChart = (CPXYGraph *)[theme newGraph];	
+    [barChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
 	

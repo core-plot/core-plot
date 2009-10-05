@@ -31,7 +31,7 @@
 /// @defgroup CPDarkGradientTheme CPDarkGradientTheme
 /// @{
 
-+(NSString *)name 
++(NSString *)defaultName 
 {
 	return kCPDarkGradientTheme;
 }

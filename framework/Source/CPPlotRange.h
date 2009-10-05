@@ -25,4 +25,6 @@
 
 -(void)unionPlotRange:(CPPlotRange *)otherRange;
 
+-(void)expandRangeByFactor:(NSDecimal)factor;
+
 @end

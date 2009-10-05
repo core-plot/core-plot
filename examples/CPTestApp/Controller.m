@@ -22,14 +22,19 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     [super awakeFromNib];
 
     // Create graph from theme
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = (CPXYGraph *)[theme newGraph];
+    [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
+    
+    // Graph padding
+    graph.paddingLeft = 60.0;
+    graph.paddingTop = 60.0;
+    graph.paddingRight = 60.0;
+    graph.paddingBottom = 60.0;
     
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-//    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-//    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
     
     // Grid line styles
     CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
@@ -122,7 +127,11 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	self.content = contentArray;
     
     // Auto scale the plot space to fit the plot data
+    // Extend the y range by 10% for neatness
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
+    CPPlotRange *yRange = plotSpace.yRange;
+    [yRange expandRangeByFactor:CPDecimalFromDouble(1.1)];
+    plotSpace.yRange = yRange;
     
     // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];

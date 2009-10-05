@@ -7,6 +7,7 @@
 @class CPPlotArea;
 @class CPPlot;
 @class CPPlotSpace;
+@class CPTheme;
 
 @interface CPGraph : CPLayer {
 @private
@@ -55,6 +56,11 @@
 -(void)addPlotSpace:(CPPlotSpace *)space; 
 -(void)removePlotSpace:(CPPlotSpace *)plotSpace;
 ///	@}
+
+/// @name Themes
+/// @{
+-(void)applyTheme:(CPTheme *)theme;
+/// @}
 
 @end
 

@@ -25,8 +25,9 @@
     [super viewDidLoad];
 
     // Create graph from theme
+    graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = (CPXYGraph *)[theme newGraph];	
+    [graph applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = graph;
 	

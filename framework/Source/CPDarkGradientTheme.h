@@ -1,11 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "CPXYTheme.h"
+#import "CPTheme.h"
 
 @class CPXYGraph;
 @class CPPlotArea;
 @class CPXYAxisSet;
 
-@interface CPDarkGradientTheme : CPXYTheme {
+@interface CPDarkGradientTheme : CPTheme {
 
 }
 

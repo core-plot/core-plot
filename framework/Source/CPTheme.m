@@ -6,13 +6,15 @@
 #import "CPPlainWhiteTheme.h"
 #import "CPStocksTheme.h"
 #import "CPGraph.h"
-#import "CPXYGraph.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 NSString * const kCPPlainWhiteTheme = @"Plain White";		///< Plain white theme.
 NSString * const kCPPlainBlackTheme = @"Plain Black";		///< Plain black theme.
 NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
+
+// Registered themes
+static NSMutableDictionary *themes = nil;
 
 /** @brief Creates a CPGraph instance formatted with predefined themes.
  *
@@ -21,13 +23,16 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 @implementation CPTheme
 
+@synthesize name;
+
+-(void)dealloc
+{
+    [name release];
+    [super dealloc];
+}
+
 /// @defgroup CPTheme CPTheme
 /// @{
-
-/**	@property graphClass
- *	@brief The class of the graph object to create.
- **/
-@synthesize graphClass;
 
 /**	@brief List of the available themes.
  *	@return An NSArray with all available themes.
@@ -53,7 +58,7 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	if ( theme ) return theme;
 	
 	for ( Class themeClass in [CPTheme themeClasses] ) {
-		if ( [themeName isEqualToString:[themeClass name]] ) {
+		if ( [themeName isEqualToString:[themeClass defaultName]] ) {
 			theme = [[themeClass alloc] init];
 			[themes setObject:theme forKey:themeName];
 			break;
@@ -63,41 +68,33 @@ NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 	return [theme autorelease];
 }
 
-/**	@brief The name of the theme.
+/**	@brief Register a theme for a given name.
+ *	@param newTheme Theme to register.
+ **/
++(void)addTheme:(CPTheme *)newTheme
+{
+    CPTheme *existingTheme = [self themeNamed:newTheme.name];
+    if ( existingTheme ) {
+        [NSException raise:CPException format:@"Theme already exists with name %@", newTheme.name];
+    }
+    
+    [themes setObject:newTheme forKey:newTheme.name];
+}
+
+/**	@brief The name used by default for this theme class.
  *	@return The name.
  **/
-+(NSString *)name 
++(NSString *)defaultName 
 {
 	return NSStringFromClass(self);
 }
 
-/**	@brief A subclass of CPGraph that the graphClass must descend from.
- *	@return The required subclass.
+/**	@brief The name of the theme.
+ *	@return The name.
  **/
-+(Class)requiredGraphSubclass
+-(NSString *)name 
 {
-    return [CPGraph class];
-}
-
-/**	@brief Sets the class used when creating a new graph
- *	@param newGraphClass the type of class, must inherit from CPGraph
- **/
--(void)setGraphClass:(Class)newGraphClass 
-{
-	if ( newGraphClass != Nil && ![newGraphClass isSubclassOfClass:[[self class] requiredGraphSubclass]] ) {
-		[NSException raise:CPException format:@"newGraphClass must be a subclass of %@", [[self class] requiredGraphSubclass]];
-	}
-	if ( graphClass != newGraphClass ) {
-        graphClass = newGraphClass;
-    }
-}
-
-/** @brief Creates and returns a new CPGraph instance formatted with the theme.
- *  @return A new CPGraph instance formatted with the theme.
- **/
--(id)newGraph 
-{
-    return nil;
+	return (name ? name : [[self class] defaultName]);
 }
 
 /**	@brief Applies the theme to the provided graph.
