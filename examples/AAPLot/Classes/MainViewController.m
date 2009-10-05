@@ -47,8 +47,9 @@
 
 -(void)viewDidLoad 
 {    
+	graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPStocksTheme];
-	graph = [theme newGraph];
+	[graph applyTheme:theme];
 	graph.frame = self.view.bounds;
 	[self.layerHost.layer addSublayer:graph];
     
@@ -66,13 +67,6 @@
 	CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"320.0");
-
-
-    
-//	CPPlotSymbol *greenCirclePlotSymbol = [CPPlotSymbol plusPlotSymbol];
-//	greenCirclePlotSymbol.fill = [CPFill fillWithColor:[CPColor greenColor]];
-//    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
-//    dataSourceLinePlot.plotSymbol = greenCirclePlotSymbol;	
     
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
     [self setDatapuller:dp];

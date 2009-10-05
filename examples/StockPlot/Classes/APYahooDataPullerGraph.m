@@ -16,10 +16,14 @@
 {
     if(!graph)
     {
+    	graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
         CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
-        graph = [theme newGraph];
-        
-        
+        [graph applyTheme:theme];
+        graph.paddingTop = 30.0;
+        graph.paddingBottom = 30.0;
+        graph.paddingLeft = 50.0;
+        graph.paddingRight = 50.0;
+
         CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
         dataSourceLinePlot.identifier = @"Data Source Plot";
         dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;

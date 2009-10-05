@@ -34,14 +34,11 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
     // Create graph from theme
-//	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-//	CPTheme *theme = [CPTheme themeNamed:kCPPlainBlackTheme];
+    graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
-//	CPTheme *theme = [CPTheme themeNamed:kCPStocksTheme];
-	graph = [theme newGraph]; 
+	[graph applyTheme:theme]; 
 	graphView.hostedLayer = graph;
 	
-//	graph.paddingLeft = 10.0;
 	graph.paddingTop = 40.0;
 	graph.paddingRight = 40.0;
 	graph.paddingBottom = 40.0;

@@ -20,8 +20,9 @@
     NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Create graph from theme
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
-	graph = (CPXYGraph *)[theme newGraph];
+	[graph applyTheme:theme];
 	hostView.hostedLayer = graph;
     
     // Setup scatter plot space
