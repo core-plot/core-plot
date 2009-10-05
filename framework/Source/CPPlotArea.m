@@ -89,6 +89,7 @@
 			axisSet = [newAxisSet retain];
 			[self insertSublayer:axisSet atIndex:0];
 		}
+        [self setNeedsLayout];
 	}	
 }
 
@@ -101,6 +102,7 @@
 			plotGroup = [newPlotGroup retain];
 			[self insertSublayer:plotGroup below:self.axisSet];
 		}
+        [self setNeedsLayout];
 	}	
 }
 
