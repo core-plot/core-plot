@@ -41,7 +41,7 @@ double CPDecimalDoubleValue(NSDecimal decimalNumber)
  **/
 NSDecimal CPDecimalFromInt(NSInteger i)
 {
-	return [[NSNumber numberWithInt:i] decimalValue]; 
+	return [[NSDecimalNumber numberWithInt:i] decimalValue]; 
 }
 
 /**
@@ -51,7 +51,7 @@ NSDecimal CPDecimalFromInt(NSInteger i)
  **/
 NSDecimal CPDecimalFromFloat(float f)
 {
-	return [[NSNumber numberWithFloat:f] decimalValue]; 
+	return [[NSDecimalNumber numberWithFloat:f] decimalValue]; 
 }
 
 /**
@@ -61,7 +61,7 @@ NSDecimal CPDecimalFromFloat(float f)
  **/
 NSDecimal CPDecimalFromDouble(double d)
 {
-	return [[NSNumber numberWithDouble:d] decimalValue]; 
+	return [[NSDecimalNumber numberWithDouble:d] decimalValue]; 
 }
 
 /**
