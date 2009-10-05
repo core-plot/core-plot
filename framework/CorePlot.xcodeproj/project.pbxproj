@@ -221,6 +221,9 @@
 		C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPLayoutManager.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
+		C33418D210798EFA008A48D4 /* CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C33418CF10798EFA008A48D4 /* CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState */; };
+		C33418D310798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C33418D010798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState */; };
+		C33418D410798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = C33418D110798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState */; };
 		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260210FAE096D00072842 /* _CPFillGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C34260190FAE096C00072842 /* _CPFillGradient.m */; };
 		C34260220FAE096D00072842 /* CPFill.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601A0FAE096C00072842 /* CPFill.m */; };
@@ -717,6 +720,9 @@
 		C32BCF7F1054081C00639E25 /* CPLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayoutManager.m; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C331F8F60F871087006E4006 /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
+		C33418CF10798EFA008A48D4 /* CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState"; sourceTree = "<group>"; };
+		C33418D010798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState"; sourceTree = "<group>"; };
+		C33418D110798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState"; sourceTree = "<group>"; };
 		C34260180FAE096C00072842 /* _CPFillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPFillImage.h; sourceTree = "<group>"; };
 		C34260190FAE096C00072842 /* _CPFillGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPFillGradient.m; sourceTree = "<group>"; };
 		C342601A0FAE096C00072842 /* CPFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFill.m; sourceTree = "<group>"; };
@@ -1586,6 +1592,7 @@
 				4C2D5A340FB7901F008275E0 /* CPScatterPlotTests */,
 				4C2D5A350FB7902E008275E0 /* CPTextLayerTests */,
 				4C2D5A360FB79043008275E0 /* CPXYGraphTests */,
+				C33418B810798E82008A48D4 /* CPXYPlotSpaceTests */,
 			);
 			path = TestResources;
 			sourceTree = SOURCE_ROOT;
@@ -1716,6 +1723,16 @@
 				C32BCF7F1054081C00639E25 /* CPLayoutManager.m */,
 			);
 			name = Layout;
+			sourceTree = "<group>";
+		};
+		C33418B810798E82008A48D4 /* CPXYPlotSpaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				C33418CF10798EFA008A48D4 /* CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState */,
+				C33418D110798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState */,
+				C33418D010798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState */,
+			);
+			name = CPXYPlotSpaceTests;
 			sourceTree = "<group>";
 		};
 		C3A959D210116FE100BF9739 /* Mac Specific */ = {
@@ -2041,6 +2058,9 @@
 				C3F9FE811017F1BF009D5DFB /* CPBorderedLayerTests-testRenderingFill-Blue-Red-Gradient.tiff in Resources */,
 				C3F9FE821017F1C5009D5DFB /* CPBorderedLayerTests-testRenderingFill-Red.tiff in Resources */,
 				C3F9FE8C1017F1E7009D5DFB /* CPPlotSymbolTests-testSymbol0.tiff in Resources */,
+				C33418D210798EFA008A48D4 /* CPCartesianPlotSpaceTests-testPlotPointForViewPoint.gtmUTState in Resources */,
+				C33418D310798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2.gtmUTState in Resources */,
+				C33418D410798EFA008A48D4 /* CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1.gtmUTState in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
