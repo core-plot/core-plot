@@ -20,16 +20,10 @@ static NSMutableDictionary *themes = nil;
  *
  *	@todo More documentation needed 
  **/
+
 @implementation CPTheme
 
-/**	@property name
- *	@brief documentation needed
- **/
 @synthesize name;
-
-/**	@property graphClass
- *	@brief documentation needed
- **/
 @synthesize graphClass;
 
 -(id)init
@@ -51,7 +45,7 @@ static NSMutableDictionary *themes = nil;
 -(void)setGraphClass:(Class)newGraphClass
 {
 	if ( graphClass != newGraphClass ) {
-		if ( ![newGraphClass isKindOfClass:[CPGraph class]] ) {
+		if ( ![newGraphClass isMemberOfClass:[CPGraph class]] ) {
 			[graphClass release];
 			graphClass = [newGraphClass retain];
 		} else

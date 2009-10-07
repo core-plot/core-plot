@@ -548,11 +548,8 @@
 				BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */,
 				BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */,
 				07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */,
-<<<<<<< local
-=======
 				0776F2E21041C8280013EB11 /* CPXYTheme.h in Headers */,
 				C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */,
->>>>>>> other
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,11 +645,8 @@
 				BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */,
 				BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E71F102DFAD300809BC5 /* CPTimeFormatter.m in Sources */,
-<<<<<<< local
-=======
 				0776F2E31041C8280013EB11 /* CPXYTheme.m in Sources */,
 				C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */,
->>>>>>> other
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

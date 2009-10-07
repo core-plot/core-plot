@@ -96,12 +96,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-<<<<<<< local
-    if (self = [super initWithFrame:newFrame]) {
-		self.dataLineStyle = [CPLineStyle lineStyle];
-		self.plotSymbols = nil;
-		self.plotSymbol = nil;
-=======
 	if ( self = [super initWithFrame:newFrame] ) {
 		observedObjectForXValues = nil;
 		observedObjectForYValues = nil;
@@ -114,10 +108,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		areaFill = nil;
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		doublePrecisionAreaBaseValue = NAN;
-		xValues = nil;
-		yValues = nil;
 		plotSymbols = nil;
->>>>>>> other
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -126,31 +117,19 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 -(void)dealloc
 {
 	if ( observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
+	observedObjectForXValues = nil;
 	if ( observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
+	observedObjectForYValues = nil;
 	if ( observedObjectForPlotSymbols ) [self unbind:CPScatterPlotBindingPlotSymbols];
+	observedObjectForPlotSymbols = nil;
 
-<<<<<<< local
-    self.observedObjectForXValues = nil;
-    self.observedObjectForYValues = nil;
-    self.observedObjectForPlotSymbols = nil;
-    self.keyPathForXValues = nil;
-    self.keyPathForYValues = nil;
-    self.keyPathForPlotSymbols = nil;
-	self.plotSymbols = nil;
-	self.plotSymbol = nil;
-    self.dataLineStyle = nil;
-    self.areaFill = nil;
-=======
 	[keyPathForXValues release];
 	[keyPathForYValues release];
 	[keyPathForPlotSymbols release];
 	[dataLineStyle release];
 	[plotSymbol release];
 	[areaFill release];
-	[xValues release];
-	[yValues release];
 	[plotSymbols release];
->>>>>>> other
 	
 	[super dealloc];
 }
@@ -237,13 +216,9 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 {	 
 	[super reloadData];
 	
-<<<<<<< local
-    self.plotSymbols = nil;
-=======
 	self.xValues = nil;
 	self.yValues = nil;
 	self.plotSymbols = nil;
->>>>>>> other
 	
 	if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
 		// Use bindings to retrieve data
@@ -321,21 +296,12 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		}
 	}
 
-<<<<<<< local
-    // path
-    CGMutablePathRef dataLinePath = NULL;
-    if ( self.dataLineStyle || self.areaFill ) {
-        dataLinePath = CGPathCreateMutable();
-		CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
-        CGPathMoveToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
-=======
 	// path
 	CGMutablePathRef dataLinePath = NULL;
 	if ( self.dataLineStyle || self.areaFill ) {
 		dataLinePath = CGPathCreateMutable();
-		CGPoint alignedPoint = alignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
+		CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
 		CGPathMoveToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
->>>>>>> other
 		for (NSUInteger i = 1; i < self.xValues.count; i++) {
 			alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y));
 			CGPathAddLineToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
@@ -364,36 +330,14 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 			baseLinePoint = [self.plotSpace viewPointInLayer:self forDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
 		}
 		
-<<<<<<< local
-        CGFloat baseLineYValue = baseLinePoint.y;
-        
-        CGPoint baseViewPoint1 = viewPoints[self.xValues.count-1];
-        baseViewPoint1.y = baseLineYValue;
-		baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
-        CGPoint baseViewPoint2 = viewPoints[0];
-        baseViewPoint2.y = baseLineYValue;
-		baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
-        
-        CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
-        CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
-        CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
-        CGPathCloseSubpath(fillPath);
-        
-        CGContextBeginPath(theContext);
-        CGContextAddPath(theContext, fillPath);
-        [self.areaFill fillPathInContext:theContext];
-        
-        CGPathRelease(fillPath);
-    }
-=======
 		CGFloat baseLineYValue = baseLinePoint.y;
 		
 		CGPoint baseViewPoint1 = viewPoints[self.xValues.count-1];
 		baseViewPoint1.y = baseLineYValue;
-		baseViewPoint1 = alignPointToUserSpace(theContext, baseViewPoint1);
+		baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
 		CGPoint baseViewPoint2 = viewPoints[0];
 		baseViewPoint2.y = baseLineYValue;
-		baseViewPoint2 = alignPointToUserSpace(theContext, baseViewPoint2);
+		baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
 		
 		CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
 		CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
@@ -406,7 +350,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		
 		CGPathRelease(fillPath);
 	}
->>>>>>> other
 
 	// draw line
 	if ( self.dataLineStyle ) {
@@ -482,22 +425,12 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	}
 }
 
-<<<<<<< local
--(void)setDataLineStyle:(CPLineStyle *)value 
-{
-    if (dataLineStyle != value) {
-        [dataLineStyle release];
-        dataLineStyle = [value copy];
-        [self setNeedsDisplay];
-    }
-=======
 -(void)setDataLineStyle:(CPLineStyle *)value {
 	if (dataLineStyle != value) {
 		[dataLineStyle release];
 		dataLineStyle = [value copy];
 		[self setNeedsDisplay];
 	}
->>>>>>> other
 }
 
 -(void)setAreaBaseValue:(NSDecimal)newAreaBaseValue

@@ -110,27 +110,14 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord 
 {	 
 	NSDecimal factor = CPDecimalDivide(CPDecimalSubtract(plotCoord, range.location), range.length);
-<<<<<<< local
-    
-    if ( NSDecimalIsNotANumber(&factor) ) {
-        [NSException raise:CPException format:@"range length is zero in viewCoordinateForViewLength:..."];
-    }
-    
-=======
 	
 	if ( NSDecimalIsNotANumber(&factor) ) {
 		[NSException raise:CPException format:@"range length is zero in viewCoordinateForViewLength:..."];
 	}
 	
->>>>>>> other
 	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] doubleValue];
-<<<<<<< local
     
     return viewCoordinate;
-=======
-	
-	return viewCoordinate;
->>>>>>> other
 }
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;

@@ -45,6 +45,7 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
+		cachedData = nil;
 		dataSource = nil;
 		identifier = nil;
 		plotSpace = nil;
@@ -55,16 +56,10 @@
 
 -(void)dealloc
 {
-<<<<<<< local
 	[cachedData release];
-    self.dataSource = nil;
-    self.identifier = nil;
-    self.plotSpace = nil;
-=======
     [dataSource release];
     [identifier release];
     [plotSpace release];
->>>>>>> other
     [super dealloc];
 }
 

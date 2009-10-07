@@ -245,6 +245,8 @@
 		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */; };
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */; };
+		C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* CPXYTheme.m */; };
+		C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* CPXYTheme.h */; };
 		C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31DE71045EB470058520A /* CPPlotGroup.m */; };
 		C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F31DE81045EB470058520A /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff */; };
@@ -743,6 +745,8 @@
 		C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbolTests.h; sourceTree = "<group>"; };
 		C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbolTests.m; sourceTree = "<group>"; };
 		C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.ppc.tiff"; sourceTree = "<group>"; };
+		C3DA34CA107AD7710051DA02 /* CPXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYTheme.m; sourceTree = "<group>"; };
+		C3DA34CB107AD7710051DA02 /* CPXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYTheme.h; sourceTree = "<group>"; };
 		C3F31DE71045EB470058520A /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotGroup.m; sourceTree = "<group>"; };
 		C3F31DE81045EB470058520A /* CPPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotGroup.h; sourceTree = "<group>"; };
 		C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPScatterPlotTests-testRenderStressTest.tiff"; sourceTree = "<group>"; };
@@ -965,6 +969,8 @@
 			children = (
 				0772C9250FE2F71600EC4C16 /* CPTheme.h */,
 				0772C9260FE2F71600EC4C16 /* CPTheme.m */,
+				C3DA34CB107AD7710051DA02 /* CPXYTheme.h */,
+				C3DA34CA107AD7710051DA02 /* CPXYTheme.m */,
 				0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */,
 				0772C92E0FE2F89000EC4C16 /* CPDarkGradientTheme.m */,
 				BC55022C10059F22005DF982 /* CPPlainBlackTheme.h */,
@@ -1830,12 +1836,9 @@
 				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
 				07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
-<<<<<<< local
-=======
-				0776F2221041BCDE0013EB11 /* CPXYTheme.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
->>>>>>> other
+				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2264,12 +2267,9 @@
 				07FA30CD100F9E5F00FD6418 /* CPMasking.m in Sources */,
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
-<<<<<<< local
-=======
-				0776F2231041BCDE0013EB11 /* CPXYTheme.m in Sources */,
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
->>>>>>> other
+				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

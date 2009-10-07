@@ -11,7 +11,7 @@
  **/
 NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
 {
-	return (NSInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] integerValue]; 
+	return (NSInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue]; 
 }
 
 /**
@@ -41,7 +41,7 @@ double CPDecimalDoubleValue(NSDecimal decimalNumber)
  **/
 NSDecimal CPDecimalFromInt(NSInteger i)
 {
-	return [[NSDecimalNumber numberWithInteger:i] decimalValue]; 
+	return [[NSNumber numberWithInt:i] decimalValue]; 
 }
 
 /**
@@ -51,7 +51,7 @@ NSDecimal CPDecimalFromInt(NSInteger i)
  **/
 NSDecimal CPDecimalFromFloat(float f)
 {
-	return [[NSDecimalNumber numberWithFloat:f] decimalValue]; 
+	return [[NSNumber numberWithFloat:f] decimalValue]; 
 }
 
 /**
@@ -61,7 +61,7 @@ NSDecimal CPDecimalFromFloat(float f)
  **/
 NSDecimal CPDecimalFromDouble(double d)
 {
-	return [[NSDecimalNumber numberWithDouble:d] decimalValue]; 
+	return [[NSNumber numberWithDouble:d] decimalValue]; 
 }
 
 /**
@@ -204,7 +204,7 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
  **/
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy) 
 {
-    NSInteger loc = MAX(0, (NSInteger)range.location - expandBy);
+    NSInteger loc = MAX(0, (int)range.location - expandBy);
     NSInteger lowerExpansion = range.location - loc;
     NSInteger length = range.length + lowerExpansion + expandBy;
     return NSMakeRange(loc, length);
@@ -278,12 +278,10 @@ CGPoint CPAlignPointToUserSpace(CGContextRef context, CGPoint p)
 {
     // Compute the coordinates of the point in device space.
     p = CGContextConvertPointToDeviceSpace(context, p);
-    
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
     p.x = round(p.x) + 0.5f;
     p.y = round(p.y) + 0.5f;
-    
     // Convert the device aligned coordinate back to user space.
     return CGContextConvertPointToUserSpace(context, p);
 }
@@ -302,11 +300,9 @@ CGSize CPAlignSizeToUserSpace(CGContextRef context, CGSize s)
 {
     // Compute the size in device space.
     s = CGContextConvertSizeToDeviceSpace(context, s);
-    
     // Ensure that size is an integer multiple of device pixels.
     s.width = round(s.width);
     s.height = round(s.height);
-    
     // Convert back to user space.
     return CGContextConvertSizeToUserSpace(context, s);
 }
@@ -328,11 +324,9 @@ CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r)
 {
     // Compute the coordinates of the rectangle in device space.
     r = CGContextConvertRectToDeviceSpace(context, r);
-    
     // Ensure that the x and y coordinates are at a pixel corner.
     r.origin.x = round(r.origin.x) + 0.5f;
     r.origin.y = round(r.origin.y) + 0.5f;
-    
     // Ensure that the width and height are an integer number of
     // device pixels. We now use ceil to make something at least as large as the original
     r.size.width = round(r.size.width);
