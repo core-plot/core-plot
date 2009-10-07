@@ -64,12 +64,12 @@ typedef enum _CPSign {
 
 /// @name Default Z Positions
 /// @{
-extern const CGFloat CPDefaultZPositionGraph;
-extern const CGFloat CPDefaultZPositionPlotArea; 
-extern const CGFloat CPDefaultZPositionAxisSet;
 extern const CGFloat CPDefaultZPositionAxis;
-extern const CGFloat CPDefaultZPositionPlotSpace;
+extern const CGFloat CPDefaultZPositionAxisSet;
+extern const CGFloat CPDefaultZPositionGraph;
 extern const CGFloat CPDefaultZPositionPlot;
-extern const CGFloat CPDefaultZPositionAxisSetOverlay;
+extern const CGFloat CPDefaultZPositionPlotArea; 
+extern const CGFloat CPDefaultZPositionPlotGroup; 
+extern const CGFloat CPDefaultZPositionPlotSpace;
 /// @}
 

@@ -1,27 +1,24 @@
 
 // Abstract class
-#import "CPLayer.h"
+#import "CPBorderedLayer.h"
 
 @class CPAxisSet;
 @class CPFill;
-@class CPPlotArea;
 @class CPPlot;
+@class CPPlotArea;
 @class CPPlotSpace;
 @class CPTheme;
 
-@interface CPGraph : CPLayer {
+@interface CPGraph : CPBorderedLayer {
 @private
-    CPAxisSet *axisSet;
     CPPlotArea *plotArea;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
-	CPFill *fill;
 }
 
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
-@property (nonatomic, readwrite, retain) CPFill *fill;
 
 /// @name Data Source
 /// @{

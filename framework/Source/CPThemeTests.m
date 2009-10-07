@@ -34,7 +34,7 @@
 		STAssertThrowsSpecificNamed([theme setGraphClass:[CPGraph class]], NSException, CPException, @"Should raise CPException for wrong kind of class"); 
 	}
 	@finally {
-		STAssertNil(theme.graphClass,@"graphClass should be nil.");
+		STAssertNil(theme.graphClass, @"graphClass should be nil.");
 		[theme release];
 	}
 }

@@ -29,21 +29,18 @@
 	
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
 {	
-    plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
+	plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
+
+	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	borderLineStyle.lineColor = [CPColor blackColor];
+	borderLineStyle.lineWidth = 1.0f;
+	
+	plotArea.borderLineStyle = borderLineStyle;
+	plotArea.cornerRadius = 0.0f;
 }
 	
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
 {	
-    CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
-    borderLineStyle.lineColor = [CPColor blackColor];
-    borderLineStyle.lineWidth = 1.0f;
-	
-	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
-	borderedLayer.borderLineStyle = borderLineStyle;
-	borderedLayer.cornerRadius = 0.0f;
-	axisSet.overlayLayerInsetX = -4.f;
-	axisSet.overlayLayerInsetY = -4.f;
-    
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapButt;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];

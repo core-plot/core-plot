@@ -2,12 +2,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CPPlatformSpecificDefines.h"
 
+@protocol CPLayoutManager;
+
 @interface CPLayer : CALayer {
 @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
+	id <CPLayoutManager> layoutManager;
 }
 
 /// @name Padding
@@ -16,6 +19,11 @@
 @property (nonatomic, readwrite) CGFloat paddingTop;
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
+///	@}
+
+/// @name Layout
+/// @{
+@property (readwrite, retain) id <CPLayoutManager> layoutManager;
 ///	@}
 
 /// @name Initialization
@@ -42,7 +50,6 @@
 /// @{
 +(CGFloat)defaultZPosition;
 ///	@}
-
 
 /// @name Bindings
 /// @{

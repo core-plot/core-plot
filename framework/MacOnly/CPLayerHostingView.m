@@ -33,8 +33,9 @@
 
 -(void)dealloc
 {
-	self.hostedLayer = nil;
-	self.layerBeingClickedOn = nil;
+	[hostedLayer removeFromSuperlayer];
+	[hostedLayer release];
+	layerBeingClickedOn = nil;
 	[super dealloc];
 }
 

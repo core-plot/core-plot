@@ -22,6 +22,7 @@
 #import "Source/CPPlainWhiteTheme.h"
 #import "Source/CPPlotArea.h"
 #import "Source/CPPlot.h"
+#import "Source/CPPlotGroup.h"
 #import "Source/CPPlotSpace.h"
 #import "Source/CPPlotSymbol.h"
 #import "Source/CPPolarPlotSpace.h"
