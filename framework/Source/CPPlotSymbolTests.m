@@ -21,7 +21,6 @@
 {
     
     CPXYPlotSpace *plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
-    plotSpace.bounds = CGRectMake(0.0, 0.0, 110.0, 110.0);
     
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(-1) 
                                                    length:CPDecimalFromInt(self.nRecords+1)];
@@ -30,8 +29,7 @@
     
     
     self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    [plotSpace addSublayer:self.plot];
-    self.plot.frame = plotSpace.bounds;
+    self.plot.frame = CGRectMake(0.0, 0.0, 110.0, 110.0);
     self.plot.dataLineStyle = nil;
     self.plot.plotSpace = plotSpace;
     self.plot.dataSource = self;

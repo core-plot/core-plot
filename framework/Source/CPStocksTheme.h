@@ -1,8 +1,8 @@
 
 #import <Foundation/Foundation.h>
-#import "CPTheme.h"
+#import "CPXYTheme.h"
 
-@interface CPStocksTheme : CPTheme {
+@interface CPStocksTheme : CPXYTheme {
 
 }
 

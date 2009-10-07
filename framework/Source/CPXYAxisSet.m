@@ -24,11 +24,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super initWithFrame:newFrame]) {
-		CPBorderedLayer *newOverlayLayer = [[CPBorderedLayer alloc] init];
-		self.overlayLayer = newOverlayLayer;
-		[newOverlayLayer release];
-		
+	if ( self = [super initWithFrame:newFrame] ) {
 		CPXYAxis *xAxis = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:newFrame];
 		xAxis.coordinate = CPCoordinateX;
         xAxis.tickDirection = CPSignNegative;

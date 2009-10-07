@@ -18,12 +18,9 @@
 - (void)setUp
 {
     CPXYPlotSpace *plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
-    plotSpace.bounds = CGRectMake(0., 0., 100., 100.);
-    
     
     self.plot = [[[CPScatterPlot alloc] init] autorelease];
-    //[plotSpace addSublayer:self.plot];
-    self.plot.frame = plotSpace.bounds;
+    self.plot.frame = CGRectMake(0., 0., 100., 100.);
     
     self.plot.plotSpace = plotSpace;
     self.plot.identifier = @"Scatter Plot";

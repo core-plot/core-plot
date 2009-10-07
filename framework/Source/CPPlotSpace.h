@@ -1,13 +1,11 @@
-
-#import "CPLayer.h"
 #import "CPDefinitions.h"
 
-@class CPAxisSet;
+@class CPLayer;
 @class CPPlotRange;
 
 extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
-@interface CPPlotSpace : CPLayer {
+@interface CPPlotSpace : NSObject {
 	id <NSCopying, NSObject> identifier;
 }
 
@@ -19,10 +17,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointForPlotPoint:(NSDecimal *)plotPoint;
--(CGPoint)viewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point;
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point;
+-(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint;
+-(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint;
+-(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer;
 ///	@}
 
 /// @name Coordinate Range

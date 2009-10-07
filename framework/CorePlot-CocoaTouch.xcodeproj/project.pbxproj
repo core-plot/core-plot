@@ -88,6 +88,8 @@
 		BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */; };
 		BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
+		C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,6 +201,8 @@
 		BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlainWhiteTheme.m; path = Source/CPPlainWhiteTheme.m; sourceTree = "<group>"; };
 		BCC7EA431006BF5700B39451 /* CPStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPStocksTheme.h; path = Source/CPStocksTheme.h; sourceTree = "<group>"; };
 		BCC7EA441006BF5700B39451 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPStocksTheme.m; path = Source/CPStocksTheme.m; sourceTree = "<group>"; };
+		C30C85A91047428100181766 /* CPPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotGroup.h; path = Source/CPPlotGroup.h; sourceTree = "<group>"; };
+		C30C85AA1047428100181766 /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotGroup.m; path = Source/CPPlotGroup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -488,6 +492,8 @@
 		BC9B82CE0FB89E610035D8DA /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C30C85A91047428100181766 /* CPPlotGroup.h */,
+				C30C85AA1047428100181766 /* CPPlotGroup.m */,
 				BC9B82D20FB89E610035D8DA /* CPPlot.h */,
 				BC9B82D30FB89E610035D8DA /* CPPlot.m */,
 				BC9B82D40FB89E610035D8DA /* CPScatterPlot.h */,
@@ -542,6 +548,11 @@
 				BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */,
 				BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */,
 				07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */,
+<<<<<<< local
+=======
+				0776F2E21041C8280013EB11 /* CPXYTheme.h in Headers */,
+				C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */,
+>>>>>>> other
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +648,11 @@
 				BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */,
 				BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E71F102DFAD300809BC5 /* CPTimeFormatter.m in Sources */,
+<<<<<<< local
+=======
+				0776F2E31041C8280013EB11 /* CPXYTheme.m in Sources */,
+				C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */,
+>>>>>>> other
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

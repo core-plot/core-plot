@@ -18,9 +18,11 @@ extern NSString * const kCPStocksTheme;
 
 @interface CPTheme : NSObject {	
 	NSString *name;
+	Class graphClass;
 }
 
 @property (copy) NSString *name;
+@property (nonatomic, readwrite, retain) Class graphClass;
 
 +(NSArray *)themeClasses;
 +(CPTheme *)themeNamed:(NSString *)theme;
@@ -28,6 +30,8 @@ extern NSString * const kCPStocksTheme;
 
 -(NSString *)name;
 +(NSString *)defaultName;
+
+-(id)newGraph;
 
 -(void)applyThemeToGraph:(CPGraph *)graph;
 -(void)applyThemeToBackground:(CPGraph *)graph;

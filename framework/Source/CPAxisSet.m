@@ -14,43 +14,25 @@
  **/
 @synthesize axes;
 
-/**	@property overlayLayer
- *	@brief An overlay that is positioned on top of all of the graph content.
- **/
-@synthesize overlayLayer;
-
 /**	@property graph
  *	@brief The graph for the axis set.
  **/
 @synthesize graph;
-
-/**	@property overlayLayerInsetX
- *	@brief The amount to inset the overlay layer in the x-direction.
- **/
-@synthesize overlayLayerInsetX;
-
-/**	@property overlayLayerInsetY
- *	@brief The amount to inset the overlay layer in the y-direction.
- **/
-@synthesize overlayLayerInsetY;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if (self = [super initWithFrame:newFrame]) {
-		self.axes = [NSArray array];
-		self.overlayLayer = nil;
+	if ( self = [super initWithFrame:newFrame] ) {
+		axes = [[NSArray array] retain];
         self.needsDisplayOnBoundsChange = YES;
-		self.overlayLayerInsetX = 0.0f;
-		self.overlayLayerInsetY = 0.0f;
 	}
 	return self;
 }
 
--(void)dealloc {
-	[overlayLayer release];
+-(void)dealloc
+{
     [axes release];
 	[super dealloc];
 }
@@ -95,42 +77,12 @@
     }
 }
 
--(void)setOverlayLayer:(CPLayer *)newLayer 
-{		
-	if ( newLayer != overlayLayer ) {
-		[overlayLayer removeFromSuperlayer];
-		[overlayLayer release];
-		overlayLayer = [newLayer retain];
-		if (overlayLayer) {
-			overlayLayer.zPosition = CPDefaultZPositionAxisSetOverlay;
-			[self addSublayer:overlayLayer];
-		}
-		[self setNeedsDisplay];
-	}
-}
-
 #pragma mark -
 #pragma mark Layout
 
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;
-}
-
--(void)layoutSublayers 
-{
-	CGRect selfBounds = self.bounds;
-	
-	for ( CPAxis *axis in self.axes ) {
-		axis.bounds = selfBounds;
-		axis.anchorPoint = CGPointZero;
-		axis.position = selfBounds.origin;
-	}
-	
-	// Overlay
-	self.overlayLayer.bounds = CGRectInset(self.graph.plotArea.bounds, self.overlayLayerInsetX, self.overlayLayerInsetY);
-	self.overlayLayer.anchorPoint = CGPointZero;
-	self.overlayLayer.position = CGPointMake(self.overlayLayerInsetX, self.overlayLayerInsetY);
 }
 
 @end

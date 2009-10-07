@@ -20,15 +20,45 @@ static NSMutableDictionary *themes = nil;
  *
  *	@todo More documentation needed 
  **/
-
 @implementation CPTheme
 
+/**	@property name
+ *	@brief documentation needed
+ **/
 @synthesize name;
+
+/**	@property graphClass
+ *	@brief documentation needed
+ **/
+@synthesize graphClass;
+
+-(id)init
+{
+	if ( self = [super init] ) {
+		name = nil;
+		graphClass = nil;
+	}
+	return self;
+}
 
 -(void)dealloc
 {
-    [name release];
-    [super dealloc];
+	[name release];
+	[graphClass release];
+	[super dealloc];
+}
+
+-(void)setGraphClass:(Class)newGraphClass
+{
+	if ( graphClass != newGraphClass ) {
+		if ( ![newGraphClass isKindOfClass:[CPGraph class]] ) {
+			[graphClass release];
+			graphClass = [newGraphClass retain];
+		} else
+		{
+			[NSException raise:CPException format:@"Invalid graph class for theme; must be a subclass of CPGraph"];
+		}
+	}
 }
 
 /// @defgroup CPTheme CPTheme
@@ -95,6 +125,14 @@ static NSMutableDictionary *themes = nil;
 -(NSString *)name 
 {
 	return (name ? name : [[self class] defaultName]);
+}
+
+/**	@brief Creates a new graph styled with the theme.
+ *	@return The new graph.
+ **/
+-(id)newGraph 
+{
+	return nil;
 }
 
 /**	@brief Applies the theme to the provided graph.

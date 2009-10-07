@@ -1,6 +1,8 @@
 
 #import "CPPlotAreaTests.h"
-#import <CorePlot/CorePlot.h>
+#import "CPColor.h"
+#import "CPPlotArea.h"
+#import "CPFill.h"
 #import "GTMNSObject+BindingUnitTesting.h"
 #import "GTMNSObject+UnitTesting.h"
 

@@ -5,7 +5,7 @@
 #import "CPDefinitions.h"
 
 @interface CPXYAxis : CPAxis {
-    NSDecimal constantCoordinateValue; 
+    NSDecimal constantCoordinateValue;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
 }
 
 @property (nonatomic, readwrite) NSDecimal constantCoordinateValue;
