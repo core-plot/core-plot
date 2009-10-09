@@ -4,6 +4,13 @@
 #import "CPLineStyle.h"
 #import "CPFill.h"
 
+@interface CPBorderedLayer ()
+
+-(void)setMaskingPath:(CGPathRef)newPath;
+
+@end
+
+
 /** @brief A layer with rounded corners.
  **/
 
@@ -32,6 +39,7 @@
 		borderLineStyle = nil;
 		fill = nil;
 		cornerRadius = 0.0f;
+        maskingPath = NULL;
 
 		self.needsDisplayOnBoundsChange = YES;
 		self.masksToBounds = YES;
@@ -43,7 +51,7 @@
 {
 	[borderLineStyle release];
     [fill release];
-	
+	CGPathRelease(maskingPath);
 	[super dealloc];
 }
 
@@ -52,7 +60,7 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-    CGPathRef roundedPath = [self newMaskingPath];
+    CGPathRef roundedPath = [self maskingPath];
 	if ( self.fill ) {
 		CGContextBeginPath(context);
         CGContextAddPath(context, roundedPath);
@@ -64,7 +72,6 @@
         [self.borderLineStyle setLineStyleInContext:context];
         CGContextStrokePath(context);
     }
-    CGPathRelease(roundedPath);
 }
 
 #pragma mark -
@@ -97,24 +104,54 @@
 #pragma mark -
 #pragma mark <CPMasking>
 
--(CGPathRef)newMaskingPath 
+-(void)setMaskingPath:(CGPathRef)newPath 
 {
+    if ( newPath != maskingPath ) {
+        CGPathRelease(maskingPath);
+        maskingPath = CGPathRetain(newPath);
+    }
+}
+
+-(CGPathRef)maskingPath 
+{
+	if ( maskingPath ) return maskingPath;
+    
 	CGFloat inset = round(self.borderLineStyle.lineWidth / 2.0f);
 	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
 
 	if ( self.cornerRadius > 0.0f ) {
 		CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
-		return CreateRoundedRectPath(selfBounds, radius);
+		[self setMaskingPath:CreateRoundedRectPath(selfBounds, radius)];
 	}
 	else {
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathAddRect(path, NULL, selfBounds);
-		return path;
+		[self setMaskingPath:path];
 	}
+    
+    return maskingPath;
+}
+
+#pragma mark -
+#pragma mark Mask Layer Delegate Methods
+
+-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
+	CGContextSaveGState(context);
+    CGContextAddPath(context, [self maskingPath]);
+    CGContextClip(context);
+    CGContextSetGrayFillColor(context, 0.0f, 1.0f);
+    CGContextFillRect(context, layer.bounds);
+    CGContextRestoreGState(context);
 }
 
 #pragma mark -
 #pragma mark Accessors
+
+-(void)setBounds:(CGRect)newBounds 
+{
+	[self setMaskingPath:NULL];
+    [super setBounds:newBounds];    
+}
 
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {

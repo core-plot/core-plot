@@ -10,6 +10,7 @@
 	CPLineStyle *borderLineStyle;
     CPFill *fill;
 	CGFloat cornerRadius;
+    CGPathRef maskingPath;
 }
 
 @property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
