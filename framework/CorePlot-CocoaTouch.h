@@ -13,6 +13,7 @@
 #import "Source/CPGradient.h"
 #import "Source/CPGraph.h"
 #import "Source/CPLayer.h"
+#import "Source/CPLayoutManager.h"
 #import "Source/CPLineStyle.h"
 #import "Source/CPMasking.h"
 #import "iPhoneOnly/CPPlatformSpecificFunctions.h"
@@ -36,4 +37,5 @@
 #import "Source/CPXYAxisSet.h"
 #import "Source/CPXYGraph.h"
 #import "Source/CPXYPlotSpace.h"
+#import "Source/CPXYTheme.h"
 #import "iPhoneOnly/CPLayerHostingView.h"

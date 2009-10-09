@@ -15,6 +15,7 @@
 #import <CorePlot/CPGradient.h>
 #import <CorePlot/CPGraph.h>
 #import <CorePlot/CPImage.h>
+#import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPMasking.h>
 #import <CorePlot/CPPlainBlackTheme.h>

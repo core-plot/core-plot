@@ -215,7 +215,7 @@
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
-		C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPLayoutManager.h */; };
+		C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPLayoutManager.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C331F8F80F871087006E4006 /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C331F8F60F871087006E4006 /* CPPlotSymbol.m */; };
@@ -246,7 +246,7 @@
 		C3B283E00FB7222200EAFF95 /* CPPlotSymbolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */; };
 		C3BFC29F0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */; };
 		C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* CPXYTheme.m */; };
-		C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* CPXYTheme.h */; };
+		C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31DE71045EB470058520A /* CPPlotGroup.m */; };
 		C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F31DE81045EB470058520A /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F505DC0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C3F505DB0FF9B57C00D984FE /* CPScatterPlotTests-testRenderStressTest.tiff */; };
