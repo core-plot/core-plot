@@ -20,10 +20,16 @@ static NSMutableDictionary *themes = nil;
  *
  *	@todo More documentation needed 
  **/
-
 @implementation CPTheme
 
+/** @property name
+ *	@brief More documentation needed
+ **/
 @synthesize name;
+
+/** @property graphClass
+ *	@brief More documentation needed
+ **/
 @synthesize graphClass;
 
 -(id)init
@@ -45,12 +51,12 @@ static NSMutableDictionary *themes = nil;
 -(void)setGraphClass:(Class)newGraphClass
 {
 	if ( graphClass != newGraphClass ) {
-		if ( ![newGraphClass isMemberOfClass:[CPGraph class]] ) {
-			[graphClass release];
-			graphClass = [newGraphClass retain];
+		if ( [newGraphClass isEqual:[CPGraph class]] ) {
+			[NSException raise:CPException format:@"Invalid graph class for theme; must be a subclass of CPGraph"];
 		} else
 		{
-			[NSException raise:CPException format:@"Invalid graph class for theme; must be a subclass of CPGraph"];
+			[graphClass release];
+			graphClass = [newGraphClass retain];
 		}
 	}
 }
