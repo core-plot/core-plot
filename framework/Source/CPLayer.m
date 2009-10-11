@@ -38,6 +38,23 @@
  **/
 @synthesize paddingBottom;
 
+/** @property maskingPath
+ *  @brief A drawing path that encompasses the layer content including any borders. Set to NULL when no masking is desired.
+ *
+ *	This path defines the outline of the layer and is used to mask all drawing. Set to NULL when no masking is desired.
+ *	The caller must release the path returned by this property.
+ **/
+@dynamic maskingPath;
+
+/** @property sublayerMaskingPath
+ *  @brief A drawing path that encompasses the layer content excluding any borders. Set to NULL when no masking is desired.
+ *
+ *	This path defines the outline of the part of the layer where sublayers should draw and is used to mask all sublayer drawing.
+ *	Set to NULL when no masking is desired.
+ *	The caller must release the path returned by this property.
+ **/
+@dynamic sublayerMaskingPath;
+
 /** @property layoutManager
  *  @brief The layout manager for this layer.
  **/
@@ -99,38 +116,38 @@
 
 /**	@brief Draws layer content into the provided graphics context.
  *
- *	This method replaces the drawInContext: method to ensure that layer content is always draw as vectors
+ *	This method replaces the drawInContext: method to ensure that layer content is always drawn as vectors
  *	and objects rather than as a cached bitmapped image representation.
- *	Subclasses should do all drawing here.
+ *	Subclasses should do all drawing here and must call super to set up the clipping path.
  *
  *	@param context The graphics context to draw into.
  **/
 -(void)renderAsVectorInContext:(CGContextRef)context;
 {
 	// This is where subclasses do their drawing
+	[self applyMaskToContext:context];
 }
 
 /**	@brief Draws layer content and the content of all sublayers into the provided graphics context.
- *
  *	@param context The graphics context to draw into.
  **/
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
 	[self renderAsVectorInContext:context];
 
-	for (CALayer *currentSublayer in self.sublayers) {
+	for ( CALayer *currentSublayer in self.sublayers ) {
 		CGContextSaveGState(context);
 		
 		// Shift origin of context to match starting coordinate of sublayer
 		CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
 		CGPoint currentSublayerBoundsOrigin = currentSublayer.bounds.origin;
 		CGContextTranslateCTM(context, currentSublayerFrameOrigin.x - currentSublayerBoundsOrigin.x, currentSublayerFrameOrigin.y - currentSublayerBoundsOrigin.y);
-		if (self.masksToBounds) {
-			CGContextClipToRect(context, currentSublayer.bounds);
-		}
-		if ([currentSublayer isKindOfClass:[CPLayer class]]) {
+		if ( [currentSublayer isKindOfClass:[CPLayer class]] ) {
 			[(CPLayer *)currentSublayer recursivelyRenderInContext:context];
 		} else {
+			if ( self.masksToBounds ) {
+				CGContextClipToRect(context, currentSublayer.bounds);
+			}
 			[currentSublayer drawInContext:context];
 		}
 		CGContextRestoreGState(context);
@@ -138,7 +155,6 @@
 }
 
 /**	@brief Draws layer content and the content of all sublayers into a PDF document.
- *
  *	@return PDF representation of the layer content.
  **/
 -(NSData *)dataForPDFRepresentationOfLayer;
@@ -272,13 +288,99 @@
 }
 
 #pragma mark -
+#pragma mark Masking
+
+-(CGPathRef)maskingPath 
+{
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathAddRect(path, NULL, self.bounds);
+	return path;
+}
+
+-(CGPathRef)sublayerMaskingPath 
+{
+	return self.maskingPath;
+}
+
+/**	@brief Recursively sets the clipping path of the given graphics context to the sublayer masking paths of its superlayers.
+ *
+ *	The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
+ *	each super layer. The tree traversal stops when a layer is encountered that is not a CPLayer.
+ *
+ *	@param context The graphics context to clip.
+ **/
+-(void)applyMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset
+{
+	CGPoint sublayerFrameOrigin = sublayer.frame.origin;
+	CGPoint sublayerBoundsOrigin = sublayer.bounds.origin;
+	CGPoint layerOffset = offset;
+	layerOffset.x += sublayerFrameOrigin.x - sublayerBoundsOrigin.x;
+	layerOffset.y += sublayerFrameOrigin.y - sublayerBoundsOrigin.y;
+	
+	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
+		[(CPLayer *)self.superlayer applyMaskToContext:context forSublayer:self withOffset:layerOffset];
+	}
+	
+	CGPathRef maskPath = self.sublayerMaskingPath;
+	if ( maskPath ) {
+		CGContextTranslateCTM(context, -layerOffset.x, -layerOffset.y);
+
+		CGContextAddPath(context, maskPath);
+		CGContextClip(context);
+		CGPathRelease(maskPath);
+
+		CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
+}
+	
+	
+	/*	for (CALayer *currentSublayer in self.sublayers) {
+	 CGContextSaveGState(context);
+	 
+	 // Shift origin of context to match starting coordinate of sublayer
+	 CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
+	 CGPoint currentSublayerBoundsOrigin = currentSublayer.bounds.origin;
+	 CGContextTranslateCTM(context, currentSublayerFrameOrigin.x - currentSublayerBoundsOrigin.x, currentSublayerFrameOrigin.y - currentSublayerBoundsOrigin.y);
+	 if (self.masksToBounds) {
+	 CGContextClipToRect(context, currentSublayer.bounds);
+	 }
+	 if ([currentSublayer isKindOfClass:[CPLayer class]]) {
+	 [(CPLayer *)currentSublayer recursivelyRenderInContext:context];
+	 } else {
+	 [currentSublayer drawInContext:context];
+	 }
+	 CGContextRestoreGState(context);
+	 }*/
+}
+
+/**	@brief Sets the clipping path of the given graphics context to mask the content.
+ *
+ *	The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
+ *	each super layer. The tree traversal stops when a layer is encountered that is not a CPLayer.
+ *
+ *	@param context The graphics context to clip.
+ **/
+-(void)applyMaskToContext:(CGContextRef)context
+{
+	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
+		[(CPLayer *)self.superlayer applyMaskToContext:context forSublayer:self withOffset:CGPointMake(0.0, 0.0)];
+	}
+	
+	CGPathRef maskPath = self.maskingPath;
+	if ( maskPath ) {
+		CGContextAddPath(context, maskPath);
+		CGContextClip(context);
+		CGPathRelease(maskPath);
+	}
+}
+
+#pragma mark -
 #pragma mark Bindings
 
 static NSString * const BindingsNotSupportedString = @"Bindings are not supported on the iPhone in Core Plot";
 
 +(void)exposeBinding:(NSString *)binding 
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
     [super exposeBinding:binding];
 #endif
@@ -286,7 +388,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     [NSException raise:CPException format:BindingsNotSupportedString];
 #else
     [super bind:binding toObject:observable withKeyPath:keyPath options:options];
@@ -295,7 +397,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 
 -(void)unbind:(NSString *)binding
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     [NSException raise:CPException format:BindingsNotSupportedString];
 #else
     [super unbind:binding];
@@ -304,7 +406,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 
 -(Class)valueClassForBinding:(NSString *)binding
 {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     [NSException raise:CPException format:BindingsNotSupportedString];
     return Nil;
 #else

@@ -34,7 +34,6 @@
 		cornerRadius = 0.0f;
 
 		self.needsDisplayOnBoundsChange = YES;
-		self.masksToBounds = YES;
 	}
 	return self;
 }
@@ -52,19 +51,26 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-    CGPathRef roundedPath = [self newMaskingPath];
-	if ( self.fill ) {
-		CGContextBeginPath(context);
-        CGContextAddPath(context, roundedPath);
-		[self.fill fillPathInContext:context];
-	}
+	[super renderAsVectorInContext:context];
+	
+	[self.fill fillRect:self.bounds inContext:context];
     if ( self.borderLineStyle ) {
-		CGContextBeginPath(context);
-        CGContextAddPath(context, roundedPath);
+		CGFloat inset = self.borderLineStyle.lineWidth / 2;
+		CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
+		
         [self.borderLineStyle setLineStyleInContext:context];
+		CGContextBeginPath(context);
+
+		if ( self.cornerRadius > 0.0f ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+			AddRoundedRectPath(context, selfBounds, radius);
+		}
+		else {
+			CGContextAddRect(context, selfBounds);
+		}
+
         CGContextStrokePath(context);
     }
-    CGPathRelease(roundedPath);
 }
 
 #pragma mark -
@@ -95,15 +101,31 @@
 }
 
 #pragma mark -
-#pragma mark <CPMasking>
+#pragma mark Masking
 
--(CGPathRef)newMaskingPath 
+-(CGPathRef)maskingPath 
 {
-	CGFloat inset = round(self.borderLineStyle.lineWidth / 2.0f);
-	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
-
+	CGFloat lineWidth = self.borderLineStyle.lineWidth;
+	CGRect selfBounds = self.bounds;
+	
 	if ( self.cornerRadius > 0.0f ) {
-		CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		return CreateRoundedRectPath(selfBounds, radius);
+	}
+	else {
+		CGMutablePathRef path = CGPathCreateMutable();
+		CGPathAddRect(path, NULL, selfBounds);
+		return path;
+	}
+}
+
+-(CGPathRef)sublayerMaskingPath 
+{
+	CGFloat lineWidth = self.borderLineStyle.lineWidth;
+	CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
+	
+	if ( self.cornerRadius > 0.0f ) {
+		CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
 		return CreateRoundedRectPath(selfBounds, radius);
 	}
 	else {

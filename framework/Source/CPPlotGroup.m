@@ -11,17 +11,6 @@
 @synthesize identifier;
 
 #pragma mark -
-#pragma mark Initialize/Deallocate
-
--(id)initWithFrame:(CGRect)newFrame
-{
-	if ( self = [super initWithFrame:newFrame] ) {
-		self.masksToBounds = YES;
-	}
-	return self;
-}
-
-#pragma mark -
 #pragma mark Organizing Plots
 
 /**	@brief Add a plot to the default plot space.
@@ -45,6 +34,29 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionPlotGroup;
+}
+
+#pragma mark -
+#pragma mark Masking
+
+-(CGPathRef)maskingPath 
+{
+	// nothing to draw--no mask required
+	return NULL;
+}
+
+-(CGPathRef)sublayerMaskingPath 
+{
+	// nothing to draw--no mask required
+	return NULL;
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	// nothing to draw
 }
 
 @end

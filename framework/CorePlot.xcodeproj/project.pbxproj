@@ -124,8 +124,6 @@
 		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07CA11310FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
-		07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FA30CA100F9E5F00FD6418 /* CPMasking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07FA30CD100F9E5F00FD6418 /* CPMasking.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FA30CB100F9E5F00FD6418 /* CPMasking.m */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
 		4C2D58C40FB78208008275E0 /* GTMAppKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F590F45ED1900DC824F /* GTMAppKit+UnitTesting.m */; };
@@ -445,8 +443,6 @@
 		07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = MacOnly/CPTextStylePlatformSpecific.m; sourceTree = SOURCE_ROOT; };
 		07CA112D0FAC8F85000861CE /* CPGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradient.h; sourceTree = "<group>"; };
 		07CA112E0FAC8F85000861CE /* CPGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradient.m; sourceTree = "<group>"; };
-		07FA30CA100F9E5F00FD6418 /* CPMasking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMasking.h; sourceTree = "<group>"; };
-		07FA30CB100F9E5F00FD6418 /* CPMasking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMasking.m; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1696,8 +1692,6 @@
 				906156BD0F375598001B75FC /* CPLineStyle.m */,
 				070622300FDF1B250066A6C4 /* CPPathExtensions.h */,
 				070622310FDF1B250066A6C4 /* CPPathExtensions.m */,
-				07FA30CA100F9E5F00FD6418 /* CPMasking.h */,
-				07FA30CB100F9E5F00FD6418 /* CPMasking.m */,
 				0704A2100FB56B9400A09979 /* Fills */,
 				076A77690FBF0C0B003F6D97 /* Tests */,
 			);
@@ -1834,7 +1828,6 @@
 				BC55023210059F22005DF982 /* CPPlainBlackTheme.h in Headers */,
 				BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */,
 				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
-				07FA30CC100F9E5F00FD6418 /* CPMasking.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
@@ -2264,7 +2257,6 @@
 				BC55023310059F22005DF982 /* CPPlainBlackTheme.m in Sources */,
 				BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */,
 				BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */,
-				07FA30CD100F9E5F00FD6418 /* CPMasking.m in Sources */,
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,

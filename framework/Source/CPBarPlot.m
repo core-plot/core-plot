@@ -230,6 +230,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     if ( self.barLengths == nil ) return;
     if ( self.lineStyle == nil && self.fill == nil ) return;
 	
+	[super renderAsVectorInContext:theContext];
+
     CGPoint tipPoint, basePoint;
     CPCoordinate independentCoord = ( barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( barsAreHorizontal ? CPCoordinateX : CPCoordinateY );

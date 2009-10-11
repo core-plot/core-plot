@@ -15,7 +15,6 @@
 #import "Source/CPLayer.h"
 #import "Source/CPLayoutManager.h"
 #import "Source/CPLineStyle.h"
-#import "Source/CPMasking.h"
 #import "iPhoneOnly/CPPlatformSpecificFunctions.h"
 #import "iPhoneOnly/CPPlatformSpecificCategories.h"
 #import "Source/CPPathExtensions.h"

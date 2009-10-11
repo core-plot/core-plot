@@ -104,6 +104,8 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	[super renderAsVectorInContext:context];
+
 #if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);

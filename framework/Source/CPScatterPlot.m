@@ -269,6 +269,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
 		
+	[super renderAsVectorInContext:theContext];
+
 	// calculate view points
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	

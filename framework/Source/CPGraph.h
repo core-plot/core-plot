@@ -3,7 +3,6 @@
 #import "CPBorderedLayer.h"
 
 @class CPAxisSet;
-@class CPFill;
 @class CPPlot;
 @class CPPlotArea;
 @class CPPlotSpace;

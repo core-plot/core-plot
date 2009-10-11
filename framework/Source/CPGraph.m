@@ -313,14 +313,6 @@
 }
 
 #pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext
-{
-	[self.fill fillRect:self.bounds inContext:theContext];
-}
-
-#pragma mark -
 #pragma mark Layout
 
 +(CGFloat)defaultZPosition 

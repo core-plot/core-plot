@@ -21,6 +21,12 @@
 @property (nonatomic, readwrite) CGFloat paddingBottom;
 ///	@}
 
+/// @name Masking
+/// @{
+@property (nonatomic, readonly, assign) CGPathRef maskingPath;
+@property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
+///	@}
+
 /// @name Layout
 /// @{
 @property (readwrite, retain) id <CPLayoutManager> layoutManager;
@@ -44,6 +50,12 @@
 -(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
 -(void)mouseOrFingerCancelled;
+///	@}
+
+/// @name Masking
+/// @{
+-(void)applyMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset;
+-(void)applyMaskToContext:(CGContextRef)context;
 ///	@}
 
 /// @name Layout

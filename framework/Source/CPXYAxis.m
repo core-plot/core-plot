@@ -153,6 +153,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	[super renderAsVectorInContext:theContext];
+	
     // Grid Lines
     [self drawGridLinesInContext:theContext atLocations:self.minorTickLocations isMajor:NO];
     [self drawGridLinesInContext:theContext atLocations:self.majorTickLocations isMajor:YES];
