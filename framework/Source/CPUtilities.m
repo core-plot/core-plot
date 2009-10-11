@@ -196,7 +196,7 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 /**
  *	@brief Expands an NSRange by the given amount.
  *
- *	The <tt>location</tt> of the resulting NSRange will be non-negative.
+ *	The <code>location</code> of the resulting NSRange will be non-negative.
  *
  *	@param range The NSRange to expand.
  *	@param expandBy The amount the expand the range by.
