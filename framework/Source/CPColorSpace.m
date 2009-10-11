@@ -34,7 +34,7 @@
 	static CPColorSpace *space = nil;
 	if (nil == space) { 
         CGColorSpaceRef cgSpace = NULL; 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		cgSpace = CGColorSpaceCreateDeviceRGB();
 #else
 		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 

@@ -686,7 +686,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement *element = [self elementAtIndex:index];
 	
     if (element != nil) {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = {element->color.red, element->color.green, element->color.blue, element->color.alpha};
 		return CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
@@ -720,7 +720,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     
 	if (components[3] != 0) {
 		//undo premultiplication that CG requires
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = {components[0]/components[3], components[1]/components[3], components[2]/components[3], components[3]};
 		gradientColor = CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
@@ -728,7 +728,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #endif
 		
 	} else {
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = {components[0], components[1], components[2], components[3]};
 		gradientColor = CGColorCreate(colorspace.cgColorSpace, colorComponents);
 #else
