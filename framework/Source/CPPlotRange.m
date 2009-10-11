@@ -162,6 +162,9 @@
 #pragma mark -
 #pragma mark Combining ranges
 
+/** @brief Extends the range to include another range.
+ *  @param other The other plot range.
+ **/
 -(void)unionPlotRange:(CPPlotRange *)other 
 {
     NSDecimal newLocation = (CPDecimalLessThan(self.location, other.location) ? self.location : other.location);
@@ -178,8 +181,7 @@
 
 /** @brief Extends/contracts the range by a factor.
  *  @param factor Factor used. A value of 1.0 gives no change.
- 	Less than 1.0 is a contraction, and greater than 1.0 is 
-    expansion.
+ *	Less than 1.0 is a contraction, and greater than 1.0 is expansion.
  **/
 -(void)expandRangeByFactor:(NSDecimal)factor {
     NSDecimal newLength = CPDecimalMultiply(length, factor);

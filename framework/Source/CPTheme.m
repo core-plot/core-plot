@@ -23,12 +23,12 @@ static NSMutableDictionary *themes = nil;
 @implementation CPTheme
 
 /** @property name
- *	@brief More documentation needed
+ *	@brief The name of the theme.
  **/
 @synthesize name;
 
 /** @property graphClass
- *	@brief More documentation needed
+ *	@brief The class used to create new graphs. Must be a subclass of CPGraph.
  **/
 @synthesize graphClass;
 
@@ -119,12 +119,9 @@ static NSMutableDictionary *themes = nil;
 	return NSStringFromClass(self);
 }
 
-/**	@brief The name of the theme.
- *	@return The name.
- **/
 -(NSString *)name 
 {
-	return (name ? name : [[self class] defaultName]);
+	return [(name ? name : [[self class] defaultName]) copy];
 }
 
 /**	@brief Creates a new graph styled with the theme.

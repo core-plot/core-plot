@@ -21,14 +21,13 @@ extern NSString * const kCPStocksTheme;
 	Class graphClass;
 }
 
-@property (copy) NSString *name;
+@property (nonatomic, readwrite, copy) NSString *name;
 @property (nonatomic, readwrite, retain) Class graphClass;
 
 +(NSArray *)themeClasses;
 +(CPTheme *)themeNamed:(NSString *)theme;
 +(void)addTheme:(CPTheme *)newTheme;
 
--(NSString *)name;
 +(NSString *)defaultName;
 
 -(id)newGraph;

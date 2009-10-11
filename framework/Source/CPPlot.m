@@ -9,6 +9,7 @@
 @interface CPPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readwrite, retain) NSMutableDictionary *cachedData;
 
 @end
 ///	@endcond
@@ -38,6 +39,8 @@
  *	@brief If YES, the plot data will be reloaded from the data source before the layer content is drawn.
  **/
 @synthesize dataNeedsReloading;
+
+@synthesize cachedData;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -178,6 +181,10 @@
 #pragma mark -
 #pragma mark Data Caching
 
+/**	@brief Stores an array of numbers in the cache.
+ *	@param numbers An array of numbers to cache.
+ *	@param fieldEnum The field enumerator identifying the field.
+ **/
 -(void)cacheNumbers:(NSArray *)numbers forField:(NSUInteger)fieldEnum 
 {
 	if ( numbers == nil ) return;
@@ -185,9 +192,13 @@
     [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
 }
 
+/**	@brief Retrieves an array of numbers from the cache.
+ *	@param fieldEnum The field enumerator identifying the field.
+ *	@return The array of cached numbers.
+ **/
 -(NSArray *)cachedNumbersForField:(NSUInteger)fieldEnum 
 {
-    return [cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
 }
 
 #pragma mark -
@@ -200,7 +211,7 @@
 -(CPPlotRange *)plotRangeForField:(NSUInteger)fieldEnum 
 {
     if ( self.dataNeedsReloading ) [self reloadData];
-    NSArray *numbers = [cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    NSArray *numbers = [self cachedNumbersForField:fieldEnum];
     NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
     NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
     NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);

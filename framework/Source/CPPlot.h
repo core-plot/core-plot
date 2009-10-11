@@ -50,6 +50,7 @@
 @end 
 
 @interface CPPlot : CPLayer {
+	@private
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
