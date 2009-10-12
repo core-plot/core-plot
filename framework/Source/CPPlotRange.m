@@ -125,19 +125,11 @@
 {
     [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.location]];
     [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.length]];
-    
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        [(id <NSCoding>)super encodeWithCoder:encoder];
-    }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder 
 {
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [(id <NSCoding>)super initWithCoder:decoder];
-    } else {
-        self = [super init];
-    }
+	self = [super init];
     
     if (self) {
         self.location = [[decoder decodeObject] decimalValue];
