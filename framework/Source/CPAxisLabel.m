@@ -1,13 +1,14 @@
 
 #import "CPAxisLabel.h"
+#import "CPLayer.h"
 #import "CPTextLayer.h"
+#import "CPTextStyle.h"
 #import "CPExceptions.h"
-#import "CPLineStyle.h"
+#import "CPUtilities.h"
 
 ///	@cond
 @interface CPAxisLabel()
 
-@property (nonatomic, readwrite, copy) NSString *text;
 @property (nonatomic, readwrite, retain) CPLayer *contentLayer;
 
 @end
@@ -18,16 +19,6 @@
  *	The label can be text-based or can be the content of any CPLayer provided by the user.
  **/
 @implementation CPAxisLabel
-
-/**	@property text
- *	@brief The label text for a text-based label.
- **/
-@synthesize text;
-
-/**	@property textStyle
- *	@brief The text style for a text-based label.
- **/
-@synthesize textStyle;
 
 /**	@property contentLayer
  *	@brief The label content.
@@ -44,6 +35,9 @@
  **/
 @synthesize tickLocation;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 /** @brief Initializes a newly allocated text-based CPAxisLabel object with the provided text and style.
  *
  *	@param newText The label text.
@@ -52,39 +46,41 @@
  **/
 -(id)initWithText:(NSString *)newText textStyle:(CPTextStyle *)newStyle
 {
-	self.text = newText;
 	CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithText:newText] autorelease];
 	newLayer.textStyle = newStyle;
 	[newLayer sizeToFit];
 	return [self initWithContentLayer:newLayer];
 }
 
-/** @brief Initializes a newly allocated CPAxisLabel object with the provided layer.
+/** @brief Initializes a newly allocated CPAxisLabel object with the provided layer. This is the designated initializer.
  *
  *	@param layer The label content.
  *  @return The initialized CPAxisLabel object.
  **/
 -(id)initWithContentLayer:(CPLayer *)layer
 {
-    if ( self = [super initWithFrame:layer.bounds] ) {
-        self.contentLayer = layer;
-        CGRect newBounds = CGRectZero;
-        newBounds.size = layer.frame.size;
-        self.bounds = newBounds;
-        layer.position = CGPointZero;
-        self.offset = 20.0f;
-        [self addSublayer:self.contentLayer];
-    }
+	if ( layer ) {
+		if ( self = [super init] ) {
+			contentLayer = [layer retain];
+			offset = 20.0f;
+			tickLocation = CPDecimalFromInt(0);
+		}
+	}
+	else {
+		[self release];
+		self = nil;
+	}
     return self;
 }
 
 -(void)dealloc
 {
-	self.text = nil;
-	self.textStyle = nil;
-	self.contentLayer = nil;
+	[contentLayer release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Layout
 
 /**	@brief Positions the axis label relative to the given point.
  *	@param point The view point.
@@ -113,12 +109,13 @@
 	}
 	
 	// Pixel-align the label layer to prevent blurriness
-	CGSize currentSize = self.bounds.size;
+	CGSize currentSize = self.contentLayer.bounds.size;
 	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + floor(currentSize.width * anchor.x);
 	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + floor(currentSize.height * anchor.y);
 	
-	self.anchorPoint = anchor;
-	self.position = newPosition;
+	self.contentLayer.anchorPoint = anchor;
+	self.contentLayer.position = newPosition;
+	[self.contentLayer setNeedsDisplay];
 }
 
 /**	@brief Positions the axis label between two given points.
@@ -133,6 +130,14 @@
 {
 	// TODO: Write implementation for positioning label between ticks
 	[NSException raise:CPException format:@"positionBetweenViewPoint:andViewPoint:forCoordinate:inDirection: not implemented"];
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	// nothing to draw
 }
 
 @end

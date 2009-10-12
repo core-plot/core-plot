@@ -7,7 +7,7 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 
-CGFloat kCPTextLayerMarginWidth = 1.0f;
+const CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 /**	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
  **/
@@ -26,7 +26,7 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 #pragma mark -
 #pragma mark Initialization and teardown
 
-/** @brief Initializes a newly allocated CPTextLayer object with the provided text and style.
+/** @brief Initializes a newly allocated CPTextLayer object with the provided text and style. This is the designated initializer.
  *  @param newText The text to display.
  *  @param newStyle The text style used to draw the text.
  *  @return The initialized CPTextLayer object.
@@ -34,9 +34,10 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 -(id)initWithText:(NSString *)newText style:(CPTextStyle *)newStyle
 {
 	if (self = [super initWithFrame:CGRectZero]) {	
+		textStyle = [newStyle retain];
+		text = [newText copy];
+
 		self.needsDisplayOnBoundsChange = NO;
-		self.textStyle = newStyle;
-		self.text = newText;
 		[self sizeToFit];
 	}
 	
@@ -106,13 +107,13 @@ CGFloat kCPTextLayerMarginWidth = 1.0f;
 {
 	[super renderAsVectorInContext:context];
 
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
 #endif
 	[self.text drawAtPoint:CPAlignPointToUserSpace(context, CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth)) withStyle:self.textStyle inContext:context];
-#if defined(TARGET_IPHONE_SIMULATOR) || defined(TARGET_OS_IPHONE)
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
 #endif
 }

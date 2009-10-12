@@ -54,7 +54,7 @@
 
 /// @name Masking
 /// @{
--(void)applyMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset;
+-(void)applySublayerMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset;
 -(void)applyMaskToContext:(CGContextRef)context;
 ///	@}
 

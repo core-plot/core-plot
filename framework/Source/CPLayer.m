@@ -292,14 +292,12 @@
 
 -(CGPathRef)maskingPath 
 {
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddRect(path, NULL, self.bounds);
-	return path;
+	return NULL;
 }
 
 -(CGPathRef)sublayerMaskingPath 
 {
-	return self.maskingPath;
+	return NULL;
 }
 
 /**	@brief Recursively sets the clipping path of the given graphics context to the sublayer masking paths of its superlayers.
@@ -308,8 +306,10 @@
  *	each super layer. The tree traversal stops when a layer is encountered that is not a CPLayer.
  *
  *	@param context The graphics context to clip.
+ *	@param sublayer The sublayer that called this method.
+ *	@param offset The cumulative position offset between the receiver and the first layer in the recursive calling chain.
  **/
--(void)applyMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset
+-(void)applySublayerMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset
 {
 	CGPoint sublayerFrameOrigin = sublayer.frame.origin;
 	CGPoint sublayerBoundsOrigin = sublayer.bounds.origin;
@@ -318,7 +318,7 @@
 	layerOffset.y += sublayerFrameOrigin.y - sublayerBoundsOrigin.y;
 	
 	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
-		[(CPLayer *)self.superlayer applyMaskToContext:context forSublayer:self withOffset:layerOffset];
+		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
 	}
 	
 	CGPathRef maskPath = self.sublayerMaskingPath;
@@ -330,26 +330,7 @@
 		CGPathRelease(maskPath);
 
 		CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
-}
-	
-	
-	/*	for (CALayer *currentSublayer in self.sublayers) {
-	 CGContextSaveGState(context);
-	 
-	 // Shift origin of context to match starting coordinate of sublayer
-	 CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
-	 CGPoint currentSublayerBoundsOrigin = currentSublayer.bounds.origin;
-	 CGContextTranslateCTM(context, currentSublayerFrameOrigin.x - currentSublayerBoundsOrigin.x, currentSublayerFrameOrigin.y - currentSublayerBoundsOrigin.y);
-	 if (self.masksToBounds) {
-	 CGContextClipToRect(context, currentSublayer.bounds);
-	 }
-	 if ([currentSublayer isKindOfClass:[CPLayer class]]) {
-	 [(CPLayer *)currentSublayer recursivelyRenderInContext:context];
-	 } else {
-	 [currentSublayer drawInContext:context];
-	 }
-	 CGContextRestoreGState(context);
-	 }*/
+	}
 }
 
 /**	@brief Sets the clipping path of the given graphics context to mask the content.
@@ -362,7 +343,7 @@
 -(void)applyMaskToContext:(CGContextRef)context
 {
 	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
-		[(CPLayer *)self.superlayer applyMaskToContext:context forSublayer:self withOffset:CGPointMake(0.0, 0.0)];
+		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:CGPointMake(0.0, 0.0)];
 	}
 	
 	CGPathRef maskPath = self.maskingPath;

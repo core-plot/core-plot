@@ -32,16 +32,12 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-        self.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
-		self.needsDisplayOnBoundsChange = YES;
+        constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
+		
 		self.tickDirection = CPSignNone;
-	}
-	return self;
+		self.needsDisplayOnBoundsChange = YES;
 }
-
--(void)dealloc 
-{
-	[super dealloc];
+	return self;
 }
 
 #pragma mark -
@@ -176,12 +172,16 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Description
+
 -(NSString *)description
 {
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
     CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
-	return [NSString stringWithFormat:@"CPXYAxis from (%@, %@) viewCoordinates: (%f, %f)-(%f, %f)", range.location, range.end, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
+	
+	return [NSString stringWithFormat:@"CPXYAxis with range %@ viewCoordinates: {%f, %f} to {%f, %f}", range, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
 };
 
 @end

@@ -37,21 +37,6 @@
 }
 
 #pragma mark -
-#pragma mark Masking
-
--(CGPathRef)maskingPath 
-{
-	// nothing to draw--no mask required
-	return NULL;
-}
-
--(CGPathRef)sublayerMaskingPath 
-{
-	// nothing to draw--no mask required
-	return NULL;
-}
-
-#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

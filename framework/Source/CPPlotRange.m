@@ -195,9 +195,9 @@
 #pragma mark -
 #pragma mark Description
 
-- (NSString*)description
+-(NSString *)description
 {
-	return [NSString stringWithFormat:@"CPPlotRange from %@, length %@", NSDecimalString(&location, [NSLocale currentLocale]), NSDecimalString(&length, [NSLocale currentLocale])]; 
+	return [NSString stringWithFormat:@"{%@, %@}", NSDecimalString(&location, [NSLocale currentLocale]), NSDecimalString(&length, [NSLocale currentLocale])]; 
 }
 
 @end

@@ -188,6 +188,7 @@
 		axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
 		axisLabelTextStyle = [[CPTextStyle alloc] init];
 		NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
+		newFormatter.minimumIntegerDigits = 1;
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
         tickLabelFormatter = newFormatter;
@@ -408,7 +409,7 @@
 {
     if ( newLabels != axisLabels ) {
         for ( CPAxisLabel *label in axisLabels ) {
-            [label removeFromSuperlayer];
+            [label.contentLayer removeFromSuperlayer];
         }
 		
 		[newLabels retain];
@@ -416,7 +417,7 @@
         axisLabels = newLabels;
 
         for ( CPAxisLabel *label in axisLabels ) {
-            [self addSublayer:label];
+            [self addSublayer:label.contentLayer];
         }
         		
 		[self setNeedsDisplay];		
@@ -594,6 +595,8 @@
 ///	@}
 
 @end
+
+#pragma mark -
 
 ///	@brief CPAxis abstract methods—must be overridden by subclasses
 @implementation CPAxis(AbstractMethods)
