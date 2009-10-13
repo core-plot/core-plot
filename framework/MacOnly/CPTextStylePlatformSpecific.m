@@ -42,8 +42,6 @@
 {	
 	if ( style.color == nil ) return;
 	
-	CGContextSetAllowsAntialiasing(context, true);
-
 	CGColorRef textColor = style.color.cgColor;
 	
 	CGContextSetStrokeColorWithColor(context, textColor);	
@@ -57,8 +55,6 @@
 		[self drawAtPoint:NSPointFromCGPoint(point) withAttributes:attributes];
 	}
 	CPPopCGContext();
-	
-	CGContextSetAllowsAntialiasing(context, false);
 }
 
 @end

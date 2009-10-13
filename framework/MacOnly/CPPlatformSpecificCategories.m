@@ -23,8 +23,8 @@
 	
 	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height));
 	CGContextSetAllowsAntialiasing(context, true);
+	CGContextSetShouldSmoothFonts(context, false);
 	[self recursivelyRenderInContext:context];	
-	CGContextSetAllowsAntialiasing(context, false);
 	CGContextFlush(context);
 	
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
