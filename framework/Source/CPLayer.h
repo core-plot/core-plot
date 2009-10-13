@@ -11,6 +11,7 @@
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
 	id <CPLayoutManager> layoutManager;
+	BOOL renderingRecursively;
 }
 
 /// @name Padding

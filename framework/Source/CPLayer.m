@@ -5,6 +5,14 @@
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
 
+///	@cond
+@interface CPLayer()
+
+@property (nonatomic, readwrite, getter=isRenderingRecursively) BOOL renderingRecursively;
+
+@end
+///	@endcond
+
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
  *	Default animations for changes in position, bounds, and sublayers are turned off.
@@ -60,6 +68,9 @@
  **/
 @synthesize layoutManager;
 
+// Private properties
+@synthesize renderingRecursively;
+
 /** @brief Initializes a newly allocated CPLayer object with the provided frame rectangle.
  *
  *	This is the designated initializer. The initialized layer will have the following properties that
@@ -82,6 +93,7 @@
 		paddingRight = 0.0f;
 		paddingBottom = 0.0f;
 		layoutManager = nil;
+		renderingRecursively = NO;
 
 		self.frame = newFrame;
 		self.needsDisplayOnBoundsChange = NO;
@@ -133,7 +145,9 @@
  **/
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
+	self.renderingRecursively = YES;
 	[self renderAsVectorInContext:context];
+	self.renderingRecursively = NO;
 
 	for ( CALayer *currentSublayer in self.sublayers ) {
 		CGContextSaveGState(context);
@@ -314,8 +328,10 @@
 	CGPoint sublayerFrameOrigin = sublayer.frame.origin;
 	CGPoint sublayerBoundsOrigin = sublayer.bounds.origin;
 	CGPoint layerOffset = offset;
-	layerOffset.x += sublayerFrameOrigin.x - sublayerBoundsOrigin.x;
-	layerOffset.y += sublayerFrameOrigin.y - sublayerBoundsOrigin.y;
+	if ( !self.renderingRecursively ) {
+		layerOffset.x += sublayerFrameOrigin.x - sublayerBoundsOrigin.x;
+		layerOffset.y += sublayerFrameOrigin.y - sublayerBoundsOrigin.y;
+	}
 	
 	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
 		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
