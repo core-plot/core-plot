@@ -77,11 +77,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [(id <NSCoding>)super initWithCoder:coder];
-    } else {
-        self = [super init];
-    }
+	self = [super init];
     
     if (self) {
 		self.fontName = [coder decodeObjectForKey:@"fontName"];

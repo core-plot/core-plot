@@ -133,10 +133,6 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         [coder encodeInt:blendingMode forKey:@"CPGradientBlendingMode"];
         [coder encodeFloat:angle forKey:@"CPGradientAngle"];
         [coder encodeInt:gradientType forKey:@"CPGradientType"];
-		
-        if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-			[(id <NSCoding>)super encodeWithCoder:coder];
-		}
 	} else {
         [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
 	}
@@ -144,11 +140,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [(id <NSCoding>)super initWithCoder:coder];
-    } else {
-        self = [super init];
-    }
+	self = [super init];
     
     if (self) {
 		[self _commonInit];
