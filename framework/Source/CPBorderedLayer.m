@@ -26,12 +26,17 @@
  **/
 @synthesize fill;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		borderLineStyle = nil;
 		fill = nil;
 		cornerRadius = 0.0f;
+		outerBorderPath = NULL;
+		innerBorderPath = NULL;
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -42,6 +47,8 @@
 {
 	[borderLineStyle release];
     [fill release];
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
 	
 	[super dealloc];
 }
@@ -105,34 +112,46 @@
 
 -(CGPathRef)maskingPath 
 {
+	if ( outerBorderPath ) return outerBorderPath;
+	
+	CGPathRelease(outerBorderPath);
+
 	CGFloat lineWidth = self.borderLineStyle.lineWidth;
 	CGRect selfBounds = self.bounds;
 	
 	if ( self.cornerRadius > 0.0f ) {
 		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
-		return CreateRoundedRectPath(selfBounds, radius);
+		outerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 	}
 	else {
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathAddRect(path, NULL, selfBounds);
-		return path;
+		outerBorderPath = path;
 	}
+	
+	return outerBorderPath;
 }
 
 -(CGPathRef)sublayerMaskingPath 
 {
+	if ( innerBorderPath ) return innerBorderPath;
+
+	CGPathRelease(innerBorderPath);
+
 	CGFloat lineWidth = self.borderLineStyle.lineWidth;
 	CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 	
 	if ( self.cornerRadius > 0.0f ) {
 		CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
-		return CreateRoundedRectPath(selfBounds, radius);
+		innerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 	}
 	else {
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathAddRect(path, NULL, selfBounds);
-		return path;
+		innerBorderPath = path;
 	}
+	
+	return innerBorderPath;
 }
 
 #pragma mark -
@@ -141,6 +160,10 @@
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {
 	if ( newLineStyle != borderLineStyle ) {
+		if ( newLineStyle.lineWidth != borderLineStyle.lineWidth ) {
+			CGPathRelease(innerBorderPath);
+			innerBorderPath = NULL;
+		}
 		[borderLineStyle release];
 		borderLineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
@@ -152,6 +175,11 @@
 	if ( newRadius != cornerRadius ) {
 		cornerRadius = ABS(newRadius);
 		[self setNeedsDisplay];
+		
+		CGPathRelease(outerBorderPath);
+		outerBorderPath = NULL;
+		CGPathRelease(innerBorderPath);
+		innerBorderPath = NULL;
 	}
 }
 
@@ -162,6 +190,15 @@
 		fill = [newFill copy];
 		[self setNeedsDisplay];
 	}
+}
+
+-(void)setBounds:(CGRect)newBounds
+{
+	[super setBounds:newBounds];
+	CGPathRelease(outerBorderPath);
+	outerBorderPath = NULL;
+	CGPathRelease(innerBorderPath);
+	innerBorderPath = NULL;
 }
 
 @end

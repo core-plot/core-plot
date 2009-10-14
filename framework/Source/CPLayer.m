@@ -50,7 +50,7 @@
  *  @brief A drawing path that encompasses the layer content including any borders. Set to NULL when no masking is desired.
  *
  *	This path defines the outline of the layer and is used to mask all drawing. Set to NULL when no masking is desired.
- *	The caller must release the path returned by this property.
+ *	The caller must NOT release the path returned by this property.
  **/
 @dynamic maskingPath;
 
@@ -59,7 +59,7 @@
  *
  *	This path defines the outline of the part of the layer where sublayers should draw and is used to mask all sublayer drawing.
  *	Set to NULL when no masking is desired.
- *	The caller must release the path returned by this property.
+ *	The caller must NOT release the path returned by this property.
  **/
 @dynamic sublayerMaskingPath;
 
@@ -70,6 +70,9 @@
 
 // Private properties
 @synthesize renderingRecursively;
+
+#pragma mark -
+#pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated CPLayer object with the provided frame rectangle.
  *
@@ -343,7 +346,6 @@
 
 		CGContextAddPath(context, maskPath);
 		CGContextClip(context);
-		CGPathRelease(maskPath);
 
 		CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
 	}
@@ -366,7 +368,6 @@
 	if ( maskPath ) {
 		CGContextAddPath(context, maskPath);
 		CGContextClip(context);
-		CGPathRelease(maskPath);
 	}
 }
 
