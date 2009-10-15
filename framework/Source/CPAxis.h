@@ -17,7 +17,6 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyNone,					///< No labels provided; user sets labels and locations.
     CPAxisLabelingPolicyLocationsProvided,		///< User sets locations; class makes labels.
     CPAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
-    // TODO: Implement automatic labeling
 	CPAxisLabelingPolicyAutomatic,				///< Automatic labeling policy (not implemented).
 	// TODO: Implement logarithmic labeling
     CPAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
@@ -64,6 +63,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSDecimal fixedPoint;			// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
     NSDecimal majorIntervalLength;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
     NSUInteger minorTicksPerInterval;
+    NSUInteger preferredNumberOfMajorTicks;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	CPTextStyle *axisLabelTextStyle;
 	NSNumberFormatter *axisLabelFormatter;
@@ -101,6 +101,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy) CPLineStyle *majorTickLineStyle;
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
+@property (nonatomic, readwrite, assign) NSUInteger preferredNumberOfMajorTicks;
 ///	@}
 
 /// @name Minor Ticks

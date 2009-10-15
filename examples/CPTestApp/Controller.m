@@ -6,6 +6,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 
 @implementation Controller
 
+@synthesize xShift;
+@synthesize yShift;
+
 +(void)initialize
 {
     [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
@@ -20,6 +23,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    self.xShift = 0.0f;
+    self.yShift = 0.0f;
 
     // Create graph from theme
     graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -46,6 +52,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
 
     // Axes
+    // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
@@ -60,14 +67,17 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 		nil];
 	x.labelExclusionRanges = exclusionRanges;
 
+	// Label y with an automatic label policy. 
+    // Rotate the labels by 45 degrees, just to show it can be done.
     CPXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength = CPDecimalFromString(@"0.5");
-    y.minorTicksPerInterval = 5;
+    y.axisLabelingPolicy = CPAxisLabelingPolicyAutomatic;
     y.constantCoordinateValue = CPDecimalFromString(@"2");
+    y.minorTicksPerInterval = 2;
+    y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
     y.axisLabelRotation = M_PI * 0.25f;
-    y.axisLabelOffset = 7.0f;
+    y.axisLabelOffset = 10.0f;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -313,6 +323,27 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	graph.superlayer.sublayerTransform = rotationTransform;
 	
 	[CATransaction commit];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setXShift:(CGFloat)newShift 
+{
+    xShift = newShift;
+    CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    CPPlotRange *newRange = [[space.xRange copy] autorelease];
+    newRange.length = CPDecimalFromFloat(3.0+newShift);  
+    space.xRange = newRange;
+}
+
+-(void)setYShift:(CGFloat)newShift 
+{
+ 	yShift = newShift;
+    CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    CPPlotRange *newRange = [[space.yRange copy] autorelease];
+    newRange.location = CPDecimalFromFloat(2.0+newShift);  
+    space.yRange = newRange;
 }
 
 @end

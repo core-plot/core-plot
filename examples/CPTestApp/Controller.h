@@ -8,7 +8,12 @@
     IBOutlet CPLayerHostingView *hostView;
     CPXYGraph *graph;
 	RotationView *overlayRotationView;
+    CGFloat xShift;
+    CGFloat yShift;
 }
+
+@property CGFloat xShift;
+@property CGFloat yShift;
 
 -(IBAction)reloadDataSourcePlot:(id)sender;
 

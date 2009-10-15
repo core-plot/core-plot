@@ -135,6 +135,12 @@
  **/
 @synthesize majorTickLocations;
 
+/**	@property preferredNumberOfMajorTicks
+ *	@brief The number of ticks that should be targeted when autogenerating positions.
+ *  This property only applies when the CPAxisLabelingPolicyAutomatic policy is in use.
+ **/
+@synthesize preferredNumberOfMajorTicks;
+
 // Minor ticks
 
 /**	@property minorTicksPerInterval
@@ -181,6 +187,7 @@
 		plotSpace = nil;
 		majorTickLocations = [[NSArray array] retain];
 		minorTickLocations = [[NSArray array] retain];
+        preferredNumberOfMajorTicks = 5;
 		minorTickLength = 3.f;
 		majorTickLength = 5.f;
 		axisLabelOffset = 2.f;
@@ -272,6 +279,80 @@
 	*newMinorLocations = minorLocations;
 }
 
+-(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
+{
+    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:preferredNumberOfMajorTicks];
+    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(preferredNumberOfMajorTicks + 1) * minorTicksPerInterval];
+    
+    if ( preferredNumberOfMajorTicks == 0 ) {
+    	*newMajorLocations = majorLocations;
+        *newMinorLocations = minorLocations;
+        return;
+    }
+    
+    // Determine starting interval
+    NSUInteger numTicks = preferredNumberOfMajorTicks;
+    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
+    NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
+    NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
+    	(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:numIntervals]];
+    
+    
+    // Determine round number using the NSString with scientific format of numbers
+    NSString *intervalString = [NSString stringWithFormat:@"%e", [interval doubleValue]];
+    NSScanner *numberScanner = [NSScanner scannerWithString:intervalString];
+	NSInteger firstDigit;
+    [numberScanner scanInteger:&firstDigit];
+    
+    // Ignore decimal part of scientific number
+    [numberScanner scanUpToString:@"e" intoString:nil];
+    [numberScanner scanString:@"e" intoString:nil];
+    
+    // Scan the exponent
+    NSInteger exponent;
+    [numberScanner scanInteger:&exponent];
+    
+    // Set interval which has been rounded. Make sure it is not zero.
+    interval = [NSDecimalNumber decimalNumberWithMantissa:MAX(1,firstDigit) exponent:exponent isNegative:NO];
+    
+    // Determine how many points there should be now
+    NSDecimalNumber *numPointsDecimal = [rangeLength decimalNumberByDividingBy:interval];
+    NSInteger numPoints = [numPointsDecimal integerValue];
+    
+    // Find first location
+    NSDecimalNumber *rangeLocation = [NSDecimalNumber decimalNumberWithDecimal:range.location];
+    NSInteger firstPointMultiple = [[rangeLocation decimalNumberByDividingBy:interval] integerValue];
+    NSDecimalNumber *pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
+    if ( firstPointMultiple >= 0 && ![rangeLocation isEqualToNumber:pointLocation] ) {
+        firstPointMultiple++;
+        pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
+    }    
+    
+    // Determine all locations
+    NSInteger majorIndex;
+    NSDecimalNumber *minorInterval = nil;
+    if ( minorTicksPerInterval > 0 ) minorInterval = [interval decimalNumberByDividingBy:
+    	(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:minorTicksPerInterval+1]];
+    for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
+    	// Major ticks
+        [majorLocations addObject:pointLocation];
+        pointLocation = [pointLocation decimalNumberByAdding:interval];
+        
+        // Minor ticks
+        if ( !minorInterval ) continue;
+        NSInteger minorIndex;
+        NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
+        for ( minorIndex = 0; minorIndex < minorTicksPerInterval; minorIndex++ ) {
+            [minorLocations addObject:minorLocation];
+            minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
+        }
+    }
+    
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
+}
+
 
 #pragma mark -
 #pragma mark Labels
@@ -337,7 +418,9 @@
 			
 			break;
         case CPAxisLabelingPolicyAutomatic:
-			// TODO: automatic labeling policy
+			[self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+            [allNewMajorLocations unionSet:newMajorLocations];
+			[allNewMinorLocations unionSet:newMinorLocations];
 			break;
 		case CPAxisLabelingPolicyLogarithmic:
 			// TODO: logarithmic labeling policy
