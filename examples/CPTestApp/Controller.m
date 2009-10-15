@@ -66,6 +66,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     y.constantCoordinateValue = CPDecimalFromString(@"2");
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
+    y.axisLabelRotation = M_PI * 0.25f;
+    y.axisLabelOffset = 7.0f;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],

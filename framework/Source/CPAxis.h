@@ -55,6 +55,7 @@ typedef enum _CPAxisLabelingPolicy {
     CGFloat majorTickLength;
     CGFloat minorTickLength;
 	CGFloat axisLabelOffset;
+    CGFloat axisLabelRotation;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
@@ -65,7 +66,7 @@ typedef enum _CPAxisLabelingPolicy {
     NSUInteger minorTicksPerInterval;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	CPTextStyle *axisLabelTextStyle;
-	NSNumberFormatter *tickLabelFormatter;
+	NSNumberFormatter *axisLabelFormatter;
 	NSSet *axisLabels;
     CPSign tickDirection;
     BOOL needsRelabel;
@@ -85,8 +86,9 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
 @property (nonatomic, readwrite, assign) CGFloat axisLabelOffset;
+@property (nonatomic, readwrite, assign) CGFloat axisLabelRotation;
 @property (nonatomic, readwrite, copy) CPTextStyle *axisLabelTextStyle;
-@property (nonatomic, readwrite, retain) NSNumberFormatter *tickLabelFormatter;
+@property (nonatomic, readwrite, retain) NSNumberFormatter *axisLabelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;

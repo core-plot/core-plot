@@ -73,18 +73,24 @@
  **/
 @synthesize axisLabelOffset;
 
+/**	@property axisLabelFormatter
+ *	@brief The rotation of the axis labels in radians.
+ *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
+ **/
+@synthesize axisLabelRotation;
+
 /**	@property axisLabelTextStyle
  *	@brief The text style used to draw the label text.
  **/
 @synthesize axisLabelTextStyle;
 
-/**	@property tickLabelFormatter
+/**	@property axisLabelFormatter
  *	@brief The number formatter used to format the label text.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
  *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
  *  The CPTimeFormatter is useful for this purpose.
  **/
-@synthesize tickLabelFormatter;
+@synthesize axisLabelFormatter;
 
 /**	@property axisLabels
  *	@brief The set of axis labels.
@@ -178,6 +184,7 @@
 		minorTickLength = 3.f;
 		majorTickLength = 5.f;
 		axisLabelOffset = 2.f;
+        axisLabelRotation = 0.f;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
 		minorTickLineStyle = [[CPLineStyle alloc] init];
@@ -191,7 +198,7 @@
 		newFormatter.minimumIntegerDigits = 1;
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
-        tickLabelFormatter = newFormatter;
+        axisLabelFormatter = newFormatter;
 		axisLabels = [[NSSet set] retain];
         tickDirection = CPSignNone;
         needsRelabel = YES;
@@ -211,7 +218,7 @@
 	[minorTickLineStyle release];
     [majorGridLineStyle release];
     [minorGridLineStyle release];
-	[tickLabelFormatter release];
+	[axisLabelFormatter release];
 	[axisLabels release];
 	[axisLabelTextStyle release];
 	[labelExclusionRanges release];
@@ -277,10 +284,11 @@
 {
     NSMutableArray *newLabels = [[NSMutableArray alloc] initWithCapacity:locations.count];
 	for ( NSDecimalNumber *tickLocation in locations ) {
-        NSString *labelString = [self.tickLabelFormatter stringForObjectValue:tickLocation];
+        NSString *labelString = [self.axisLabelFormatter stringForObjectValue:tickLocation];
         CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.axisLabelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset = self.axisLabelOffset + self.majorTickLength;
+        newLabel.rotation = self.axisLabelRotation;
         [newLabels addObject:newLabel];
         [newLabel release];
 	}
@@ -575,11 +583,11 @@
     }
 }
 
--(void)setTickLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter 
+-(void)setAxisLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter 
 {
-    if ( newTickLabelFormatter != tickLabelFormatter ) {
-        [tickLabelFormatter release];
-        tickLabelFormatter = [newTickLabelFormatter retain];
+    if ( newTickLabelFormatter != axisLabelFormatter ) {
+        [axisLabelFormatter release];
+        axisLabelFormatter = [newTickLabelFormatter retain];
         self.needsRelabel = YES;
     }
 }

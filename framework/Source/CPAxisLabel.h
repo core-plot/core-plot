@@ -8,11 +8,13 @@
 @interface CPAxisLabel : NSObject {
     CPLayer *contentLayer;
     CGFloat offset;
+    CGFloat rotation;
     NSDecimal tickLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
 }
 
 @property (nonatomic, readonly, retain) CPLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;
+@property (nonatomic, readwrite, assign) CGFloat rotation;
 @property (nonatomic, readwrite) NSDecimal tickLocation;
 
 /// @name Initialization
