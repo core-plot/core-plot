@@ -100,8 +100,9 @@
     }
     
     // Set range
-    self.xRange = unionXRange;
-    self.yRange = unionYRange;
+    NSDecimal zero = CPDecimalFromInt(0);
+    if ( !CPDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
+    if ( !CPDecimalEquals(unionYRange.length, zero) )self.yRange = unionYRange;
 }
 
 #pragma mark -
@@ -109,10 +110,11 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord 
 {	 
+	if ( !range ) return 0.0f;
+    
 	NSDecimal factor = CPDecimalDivide(CPDecimalSubtract(plotCoord, range.location), range.length);
-	
 	if ( NSDecimalIsNotANumber(&factor) ) {
-		[NSException raise:CPException format:@"range length is zero in viewCoordinateForViewLength:..."];
+		factor = CPDecimalFromInt(0);
 	}
 	
 	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] doubleValue];
@@ -122,7 +124,8 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 {
-	return viewLength * ((plotCoord - range.doublePrecisionLocation) / range.doublePrecisionLength);
+	if ( !range || range.doublePrecisionLength == 0.0 ) return 0.0f;
+    return viewLength * ((plotCoord - range.doublePrecisionLocation) / range.doublePrecisionLength);
 }
 
 -(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint
