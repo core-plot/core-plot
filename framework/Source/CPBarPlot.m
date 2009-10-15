@@ -324,8 +324,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     
     CGContextSaveGState(context);
 	
-	CGContextSaveGState(context);
-	
 	// If data source returns nil, default fill is used.
 	// If data source returns NSNull object, no fill is drawn.
 	CPFill *currentBarFill = self.fill;
