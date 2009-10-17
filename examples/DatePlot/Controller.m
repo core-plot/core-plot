@@ -41,7 +41,7 @@
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
     CPTimeFormatter *timeFormatter = [[[CPTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
     timeFormatter.referenceDate = refDate;
-    x.tickLabelFormatter = timeFormatter;
+    x.axisLabelFormatter = timeFormatter;
 
     CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"0.5");
