@@ -26,6 +26,11 @@
  **/
 @synthesize fill;
 
+/** @property masksToBorder 
+ *  @brief If YES (the default), a sublayer mask is applied to clip sublayer content to the inside of the border.
+ **/
+@synthesize masksToBorder;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -37,6 +42,7 @@
 		cornerRadius = 0.0f;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
+		masksToBorder = YES;
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -134,24 +140,29 @@
 
 -(CGPathRef)sublayerMaskingPath 
 {
-	if ( innerBorderPath ) return innerBorderPath;
-
-	CGPathRelease(innerBorderPath);
-
-	CGFloat lineWidth = self.borderLineStyle.lineWidth;
-	CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
-	
-	if ( self.cornerRadius > 0.0f ) {
-		CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
-		innerBorderPath = CreateRoundedRectPath(selfBounds, radius);
+	if ( self.masksToBorder ) {
+		if ( innerBorderPath ) return innerBorderPath;
+		
+		CGPathRelease(innerBorderPath);
+		
+		CGFloat lineWidth = self.borderLineStyle.lineWidth;
+		CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
+		
+		if ( self.cornerRadius > 0.0f ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+			innerBorderPath = CreateRoundedRectPath(selfBounds, radius);
+		}
+		else {
+			CGMutablePathRef path = CGPathCreateMutable();
+			CGPathAddRect(path, NULL, selfBounds);
+			innerBorderPath = path;
+		}
+		
+		return innerBorderPath;
 	}
 	else {
-		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRect(path, NULL, selfBounds);
-		innerBorderPath = path;
+		return NULL;
 	}
-	
-	return innerBorderPath;
 }
 
 #pragma mark -
