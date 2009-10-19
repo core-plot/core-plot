@@ -73,7 +73,7 @@
  **/
 @synthesize axisLabelOffset;
 
-/**	@property axisLabelFormatter
+/**	@property axisLabelRotation
  *	@brief The rotation of the axis labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
  **/
@@ -368,8 +368,16 @@
         NSString *labelString = [self.axisLabelFormatter stringForObjectValue:tickLocation];
         CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.axisLabelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
-        newLabel.offset = self.axisLabelOffset + self.majorTickLength;
         newLabel.rotation = self.axisLabelRotation;
+		switch ( self.tickDirection ) {
+			case CPSignNone:
+				newLabel.offset = self.axisLabelOffset + self.majorTickLength / 2.0f;
+				break;
+			case CPSignPositive:
+			case CPSignNegative:
+				newLabel.offset = self.axisLabelOffset + self.majorTickLength;
+				break;
+		}
         [newLabels addObject:newLabel];
         [newLabel release];
 	}
@@ -548,7 +556,7 @@
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];		
-        [self setNeedsRelabel];
+        self.needsRelabel = YES;
     }
 }
 
@@ -558,7 +566,7 @@
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];		
-        [self setNeedsRelabel];
+        self.needsRelabel = YES;
     }
 }
 
@@ -567,6 +575,7 @@
     if ( newLength != majorTickLength ) {
         majorTickLength = newLength;
         [self setNeedsDisplay];
+        self.needsRelabel = YES;
     }
 }
 
@@ -583,6 +592,16 @@
     if ( newOffset != axisLabelOffset ) {
         axisLabelOffset = newOffset;
 		[self setNeedsLayout];
+        self.needsRelabel = YES;
+    }
+}
+
+-(void)setAxisLabelRotation:(CGFloat)newRotation 
+{
+    if ( newRotation != axisLabelRotation ) {
+        axisLabelRotation = newRotation;
+		[self setNeedsLayout];
+        self.needsRelabel = YES;
     }
 }
 
@@ -680,6 +699,7 @@
     if (newDirection != tickDirection) {
         tickDirection = newDirection;
 		[self setNeedsLayout];
+        self.needsRelabel = YES;
     }
 }
 
