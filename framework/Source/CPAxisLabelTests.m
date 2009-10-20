@@ -78,36 +78,37 @@
     
     @try {
         label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForXCoordinate" textStyle:[CPTextStyle textStyle]];
+		CPLayer *contentLayer = label.contentLayer;
         label.offset = 20.0f;
         
-        CGPoint viewPoint = CGPointMake(start,start);
+        CGPoint viewPoint = CGPointMake(start, start);
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateX
                                inDirection:CPSignNone];
         
-        STAssertEquals(label.position, CGPointMake(start-label.offset, start), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start-label.offset, start)));
-        STAssertEquals(label.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
+        STAssertEquals(contentLayer.position, CGPointMake(start-label.offset, start), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start-label.offset, start)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateX
                                inDirection:CPSignNegative];
         
-        STAssertEquals(label.position, CGPointMake(start-label.offset, start), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start-label.offset, start)));
-        STAssertEquals(label.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
+        STAssertEquals(contentLayer.position, CGPointMake(start-label.offset, start), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start-label.offset, start)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateX
                                inDirection:CPSignPositive];
         
-        STAssertEquals(label.position, CGPointMake(start+label.offset, start), @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start+label.offset, start)));
-        STAssertEquals(label.anchorPoint, CGPointMake(0., 0.5), @"Should anchor at (0,0.5)");
+        STAssertEquals(contentLayer.position, CGPointMake(start+label.offset, start), @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start+label.offset, start)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0., 0.5), @"Should anchor at (0,0.5)");
     }
     @finally {
         [label release];
@@ -121,36 +122,37 @@
     
     @try {
         label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForYCoordinate" textStyle:[CPTextStyle textStyle]];
-        label.offset = 20.0f;
+		CPLayer *contentLayer = label.contentLayer;
+		label.offset = 20.0f;
         
         CGPoint viewPoint = CGPointMake(start,start);
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateY
                                inDirection:CPSignNone];
 		
-        STAssertEquals(label.position, CGPointMake(start, start-label.offset), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start, start-label.offset)));
-        STAssertEquals(label.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
+        STAssertEquals(contentLayer.position, CGPointMake(start, start-label.offset), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start, start-label.offset)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateY
                                inDirection:CPSignNegative];
         
-        STAssertEquals(label.position, CGPointMake(start, start-label.offset), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start, start-label.offset)));
-        STAssertEquals(label.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
+        STAssertEquals(contentLayer.position, CGPointMake(start, start-label.offset), @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start, start-label.offset)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
         
-        label.anchorPoint = CGPointZero;
-        label.position = CGPointZero;
+        contentLayer.anchorPoint = CGPointZero;
+        contentLayer.position = CGPointZero;
         [label positionRelativeToViewPoint:viewPoint
                              forCoordinate:CPCoordinateY
                                inDirection:CPSignPositive];
         
-        STAssertEquals(label.position, CGPointMake(start, start+label.offset), @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(label.position)), NSStringFromPoint(NSMakePoint(start, start+label.offset)));
-        STAssertEquals(label.anchorPoint, CGPointMake(0.5, 0.), @"Should anchor at (0.5,0)");
+        STAssertEquals(contentLayer.position, CGPointMake(start, start+label.offset), @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSMakePoint(start, start+label.offset)));
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 0.), @"Should anchor at (0.5,0)");
     }
     @finally {
         [label release];
