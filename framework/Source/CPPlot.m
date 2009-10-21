@@ -60,7 +60,6 @@
 -(void)dealloc
 {
 	[cachedData release];
-    [dataSource release];
     [identifier release];
     [plotSpace release];
     [super dealloc];
