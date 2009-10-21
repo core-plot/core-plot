@@ -4,6 +4,7 @@
 #import "CPDefinitions.h"
 
 @interface CPXYPlotSpace : CPPlotSpace {
+	@private
 	CPPlotRange *xRange;
 	CPPlotRange *yRange;
     CPScaleType xScaleType; // TODO: Implement scale types

@@ -3,7 +3,6 @@
 #import "CPLayer.h"
 #import "CPPlotArea.h"
 #import "CPAxisSet.h"
-#import "CPLineStyle.h"
 
 /**	@brief Plot space coordinate change notification.
  *

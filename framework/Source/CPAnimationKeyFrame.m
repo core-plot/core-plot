@@ -25,6 +25,9 @@
  **/
 @synthesize duration;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 /**	@todo Needs documentation.
  *	@param isFirst Needs documentation.
  *	@return Needs documentation.
@@ -32,14 +35,16 @@
 -(id)initAsInitialFrame:(BOOL)isFirst
 {
     if ( self = [super init] ) {
+		identifier = nil;
         isInitialFrame = isFirst;
-    }
+		duration = 0.0;
+   }
     return self;
 }
 
 -(void)dealloc 
 {
-    self.identifier = nil;
+    [identifier release];
     [super dealloc];
 }
 

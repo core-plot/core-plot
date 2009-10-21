@@ -5,6 +5,7 @@
 @class CPImage;
 
 @interface _CPFillImage : CPFill <NSCopying, NSCoding> {
+	@private
 	CPImage *fillImage;
 }
 

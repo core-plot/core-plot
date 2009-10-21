@@ -51,25 +51,26 @@
 @synthesize usesEvenOddClipRule;
 
 #pragma mark -
-#pragma mark init/dealloc
+#pragma mark Init/dealloc
 
 -(id)init
 {
 	if ( self = [super init] ) {
 		size = CGSizeMake(5.0, 5.0);
-		self.symbolType = CPPlotSymbolTypeNone;
-		self.lineStyle = [CPLineStyle lineStyle];
-		self.fill = nil;
-		self.customSymbolPath = NULL;
-		self.usesEvenOddClipRule = NO;
+		symbolType = CPPlotSymbolTypeNone;
+		lineStyle = [[CPLineStyle alloc] init];
+		fill = nil;
+		symbolPath = NULL;
+		customSymbolPath = NULL;
+		usesEvenOddClipRule = NO;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	self.lineStyle = nil;
-	self.fill = nil;
+	[lineStyle release];
+	[fill release];
 	CGPathRelease(symbolPath);
 	CGPathRelease(customSymbolPath);
 	

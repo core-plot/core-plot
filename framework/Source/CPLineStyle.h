@@ -16,12 +16,12 @@
     CPColor *lineColor;
 }
 
-@property (assign) CGLineCap lineCap;
-@property (assign) CGLineJoin lineJoin;
-@property (assign) CGFloat miterLimit;
-@property (assign) CGFloat lineWidth;
-@property (assign) CGSize patternPhase;
-@property (retain) CPColor *lineColor;
+@property (nonatomic, readwrite, assign) CGLineCap lineCap;
+@property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
+@property (nonatomic, readwrite, assign) CGFloat miterLimit;
+@property (nonatomic, readwrite, assign) CGFloat lineWidth;
+@property (nonatomic, readwrite, assign) CGSize patternPhase;
+@property (nonatomic, readwrite, retain) CPColor *lineColor;
 
 /// @name Factory Methods
 /// @{

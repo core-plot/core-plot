@@ -11,6 +11,23 @@
 @synthesize identifier;
 
 #pragma mark -
+#pragma mark Initialize/Deallocate
+
+-(id)init
+{
+	if ( self = [super init] ) {
+		identifier = nil;
+	}
+	return self;
+}
+
+-(void)dealloc
+{
+	[identifier release];
+	[super dealloc];
+}
+
+#pragma mark -
 #pragma mark Organizing Plots
 
 /**	@brief Add a plot to the default plot space.

@@ -5,6 +5,7 @@
 @class CPGradient;
 
 @interface _CPFillGradient : CPFill <NSCopying, NSCoding> {
+	@private
 	CPGradient *fillGradient;
 }
 

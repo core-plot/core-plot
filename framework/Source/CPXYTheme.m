@@ -11,7 +11,7 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		graphClass = [CPXYGraph class];
+		self.graphClass = [CPXYGraph class];
 	}
 	return self;
 }

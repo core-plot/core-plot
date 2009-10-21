@@ -4,6 +4,7 @@
 ///	@file
 
 @interface CPTimeFormatter : NSNumberFormatter {
+	@private
 	NSDateFormatter *dateFormatter;
     NSDate *referenceDate;
 }

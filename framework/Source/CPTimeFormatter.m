@@ -30,10 +30,14 @@
  **/
 -(id)init
 {
-    NSDateFormatter *newDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
     newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
     newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
-    return [self initWithDateFormatter:newDateFormatter];
+	
+	self = [self initWithDateFormatter:newDateFormatter];
+	[newDateFormatter release];
+	
+    return self;
 }
 
 /**	@brief Initializes new instance with the date formatter passed.
@@ -43,15 +47,16 @@
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
 	if ( self = [super init] ) {
-		self.dateFormatter = aDateFormatter;
+		dateFormatter = [aDateFormatter retain];
+		referenceDate = nil;
 	}
 	return self;	
 }
 
 -(void)dealloc
 {
-    self.referenceDate = nil;
-	self.dateFormatter = nil;
+    [referenceDate release];
+	[dateFormatter release];
 	[super dealloc];
 }
 

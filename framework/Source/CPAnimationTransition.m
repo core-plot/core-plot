@@ -49,19 +49,31 @@
  **/
 @synthesize continuingTransition;
 
--(void)dealloc 
+#pragma mark -
+#pragma mark Init/Dealloc
+
+-(id)init
 {
-    self.identifier = nil;
-    self.animation = nil;
-    self.startKeyFrame = nil;
-    self.endKeyFrame = nil;
-    self.continuingTransition = nil;
-    [super dealloc];
+	if ( self = [super init] ) {
+		identifier = nil;
+		startKeyFrame = nil;
+		endKeyFrame = nil;
+		continuingTransition = nil;
+		duration = 0.0;
+		animation = nil;
+		reversible = NO;
+	}
+	return self;
 }
 
--(BOOL)reversible 
+-(void)dealloc 
 {
-    return NO;
+    [identifier release];
+    [animation release];
+    [startKeyFrame release];
+    [endKeyFrame release];
+    [continuingTransition release];
+    [super dealloc];
 }
 
 ///	@}

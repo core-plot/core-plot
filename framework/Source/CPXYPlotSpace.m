@@ -2,7 +2,6 @@
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPExceptions.h"
-#import "CPLineStyle.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPAxisSet.h"

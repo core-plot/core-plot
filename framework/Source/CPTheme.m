@@ -27,6 +27,9 @@ static NSMutableDictionary *themes = nil;
  **/
 @synthesize name;
 
+#pragma mark -
+#pragma mark Init/dealloc
+
 /** @property graphClass
  *	@brief The class used to create new graphs. Must be a subclass of CPGraph.
  **/
@@ -36,7 +39,7 @@ static NSMutableDictionary *themes = nil;
 {
 	if ( self = [super init] ) {
 		name = nil;
-		graphClass = nil;
+		graphClass = Nil;
 	}
 	return self;
 }
@@ -47,6 +50,9 @@ static NSMutableDictionary *themes = nil;
 	[graphClass release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Accessors
 
 -(void)setGraphClass:(Class)newGraphClass
 {

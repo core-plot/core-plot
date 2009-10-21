@@ -6,6 +6,7 @@
 @class CPTextStyle;
 
 @interface CPAxisLabel : NSObject {
+	@private
     CPLayer *contentLayer;
     CGFloat offset;
     CGFloat rotation;

@@ -56,19 +56,19 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		self.lineCap = kCGLineCapButt;
-		self.lineJoin = kCGLineJoinMiter;
-		self.miterLimit = 10.f;
-		self.lineWidth = 1.f;
-		self.patternPhase = CGSizeMake(0.f, 0.f);
-		self.lineColor = [CPColor blackColor];
+		lineCap = kCGLineCapButt;
+		lineJoin = kCGLineJoinMiter;
+		miterLimit = 10.f;
+		lineWidth = 1.f;
+		patternPhase = CGSizeMake(0.f, 0.f);
+		lineColor = [[CPColor blackColor] retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    self.lineColor = nil;
+    [lineColor release];
 	[super dealloc];
 }
 
@@ -95,14 +95,12 @@
 {
     CPLineStyle *styleCopy = [[[self class] allocWithZone:zone] init];
  	
-	styleCopy.lineCap = self.lineCap;
-	styleCopy.lineJoin = self.lineJoin;
-	styleCopy.miterLimit = self.miterLimit;
-	styleCopy.lineWidth = self.lineWidth;
-	styleCopy.patternPhase = self.patternPhase;
-    CPColor *colorCopy = [self.lineColor copy];
-    styleCopy.lineColor = colorCopy;
-    [colorCopy release];
+	styleCopy->lineCap = self->lineCap;
+	styleCopy->lineJoin = self->lineJoin;
+	styleCopy->miterLimit = self->miterLimit;
+	styleCopy->lineWidth = self->lineWidth;
+	styleCopy->patternPhase = self->patternPhase;
+    styleCopy->lineColor = [self->lineColor copy];
     
     return styleCopy;
 }

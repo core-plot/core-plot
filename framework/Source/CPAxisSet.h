@@ -7,6 +7,7 @@
 @class CPGraph;
 
 @interface CPAxisSet : CPLayer {
+	@private
     NSArray *axes;
 	CPGraph	*graph;
 }

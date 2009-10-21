@@ -4,6 +4,7 @@
 
 
 @interface _CPFillColor : CPFill <NSCopying, NSCoding> {
+	@private
 	CPColor *fillColor;
 }
 

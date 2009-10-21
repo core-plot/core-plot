@@ -38,6 +38,9 @@
 {
     if ( self = [super init] ) {
         graph = [newGraph retain];
+		mutableKeyFrames = nil;
+		mutableTransitions = nil;
+		currentKeyFrame = nil;
     }
     return self;
 }
@@ -45,6 +48,9 @@
 -(void)dealloc 
 {
     [graph release];
+	[mutableKeyFrames release];
+	[mutableTransitions release];
+	[currentKeyFrame release];
     [super dealloc];
 }
 

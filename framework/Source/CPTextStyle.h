@@ -5,6 +5,7 @@
 @class CPColor;
 
 @interface CPTextStyle : NSObject <NSCopying, NSCoding> {
+	@private
     NSString *fontName;
 	CGFloat fontSize;
     CPColor *color;

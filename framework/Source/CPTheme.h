@@ -16,7 +16,8 @@ extern NSString * const kCPPlainBlackTheme;
 extern NSString * const kCPStocksTheme;
 /// @}
 
-@interface CPTheme : NSObject {	
+@interface CPTheme : NSObject {
+	@private
 	NSString *name;
 	Class graphClass;
 }

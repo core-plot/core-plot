@@ -85,8 +85,8 @@
 	if ( newAxisSet != axisSet ) {
 		[axisSet removeFromSuperlayer];
 		[axisSet release];
-		if ( newAxisSet ) {
-			axisSet = [newAxisSet retain];
+		axisSet = [newAxisSet retain];
+		if ( axisSet ) {
 			[self insertSublayer:axisSet atIndex:0];
 		}
         [self setNeedsLayout];
@@ -98,8 +98,8 @@
 	if ( newPlotGroup != plotGroup ) {
 		[plotGroup removeFromSuperlayer];
 		[plotGroup release];
-		if ( newPlotGroup ) {
-			plotGroup = [newPlotGroup retain];
+		plotGroup = [newPlotGroup retain];
+		if ( plotGroup ) {
 			[self insertSublayer:plotGroup below:self.axisSet];
 		}
         [self setNeedsLayout];

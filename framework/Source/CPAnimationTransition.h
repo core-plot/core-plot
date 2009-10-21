@@ -5,7 +5,8 @@
 @class CPAnimationKeyFrame;
 
 @interface CPAnimationTransition : NSObject {
-    id <NSCopying> identifier;
+	@private
+    id <NSObject, NSCopying> identifier;
     CPAnimationKeyFrame *startKeyFrame;
     CPAnimationKeyFrame *endKeyFrame;
     CPAnimationTransition *continuingTransition;

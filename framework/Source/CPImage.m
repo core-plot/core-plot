@@ -43,8 +43,9 @@
 -(id)initWithCGImage:(CGImageRef)anImage
 {
 	if ( self = [super init] ) {
-     	self.image = anImage;
-        self.tiled = NO;
+ 		CGImageRetain(anImage);
+    	image = anImage;
+        tiled = NO;
     }
     return self;
 }
@@ -76,7 +77,7 @@
 
 -(void)dealloc
 {
-	self.image = NULL;
+	CGImageRelease(image);
 	[super dealloc];
 }
 
@@ -84,10 +85,8 @@
 {
     CPImage *copy = [[[self class] allocWithZone:zone] init];
 	
-	CGImageRef imageCopy = CGImageCreateCopy(self.image);
-	copy.image = imageCopy;
-	CGImageRelease(imageCopy);
-	copy.tiled = self.tiled;
+	copy->image = CGImageCreateCopy(self.image);
+	copy->tiled = self->tiled;
 	
     return copy;
 }

@@ -31,17 +31,15 @@
  **/
 -(id)initWithGradient:(CPGradient *)aGradient 
 {
-	if (self = [super init]) 
-	{
-		// initialization
-		self.fillGradient = aGradient;
+	if ( self = [super init] ) {
+		fillGradient = [aGradient retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	self.fillGradient = nil;
+	[fillGradient release];
 	
 	[super dealloc];
 }
@@ -71,8 +69,9 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPFillGradient *copy = [[[self class] allocWithZone:zone] initWithGradient:[self.fillGradient copyWithZone:zone]];
-	
+	_CPFillGradient *copy = [[[self class] allocWithZone:zone] init];
+	copy->fillGradient = [self->fillGradient copyWithZone:zone];
+
 	return copy;
 }
 

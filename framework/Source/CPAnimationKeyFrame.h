@@ -2,7 +2,8 @@
 #import <Foundation/Foundation.h>
 
 @interface CPAnimationKeyFrame : NSObject {
-    id <NSCopying> identifier;
+	@private
+    id <NSObject, NSCopying> identifier;
     BOOL isInitialFrame;
     NSTimeInterval duration;
 }

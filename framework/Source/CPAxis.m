@@ -195,6 +195,8 @@
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
 		minorTickLineStyle = [[CPLineStyle alloc] init];
+		majorGridLineStyle = nil;
+		minorGridLineStyle = nil;
 		fixedPoint = [[NSDecimalNumber zero] decimalValue];
 		majorIntervalLength = [[NSDecimalNumber one] decimalValue];
 		minorTicksPerInterval = 1;
@@ -627,9 +629,7 @@
     if ( newLineStyle != axisLineStyle ) {
         [axisLineStyle release];
         axisLineStyle = [newLineStyle copy];
-		if (axisLineStyle != nil){
-			[self setNeedsDisplay];			
-		}
+		[self setNeedsDisplay];			
     }
 }
 

@@ -96,10 +96,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 +(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal
 {
 	CPBarPlot *barPlot = [[CPBarPlot alloc] init];
-	CPLineStyle *barLineStyle = [CPLineStyle lineStyle];
+	CPLineStyle *barLineStyle = [[CPLineStyle alloc] init];
 	barLineStyle.lineWidth = 1.0f;
 	barLineStyle.lineColor = [CPColor blackColor];
 	barPlot.lineStyle = barLineStyle;
+	[barLineStyle release];
 	barPlot.barsAreHorizontal = horizontal;
 	barPlot.barWidth = 10.0f;
 	barPlot.cornerRadius = 2.0f;
@@ -117,7 +118,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	if ( self = [super initWithFrame:newFrame] ) {
 		observedObjectForBarLengthValues = nil;
 		keyPathForBarLengthValues = nil;
-		lineStyle = [[CPLineStyle lineStyle] retain];
+		lineStyle = [[CPLineStyle alloc] init];
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = 10.0f;
 		barOffset = 0.0f;

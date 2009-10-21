@@ -79,7 +79,6 @@
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = blackTextStyle;
-    
 }
 
 @end

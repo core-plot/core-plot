@@ -3,6 +3,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CPColorSpace : NSObject {
+	@private
     CGColorSpaceRef cgColorSpace;
 }
 

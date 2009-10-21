@@ -60,16 +60,11 @@
  **/
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
-	if (self = [super init]) {
-		self.location = loc;
-		self.length = len;
+	if ( self = [super init] ) {
+		location = loc;
+		length = len;
 	}
 	return self;	
-}
-
--(void)dealloc
-{
-	[super dealloc];
 }
 
 #pragma mark -

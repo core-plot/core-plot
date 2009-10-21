@@ -51,10 +51,13 @@
  **/
 -(id)initWithText:(NSString *)newText textStyle:(CPTextStyle *)newStyle
 {
-	CPTextLayer *newLayer = [[[CPTextLayer alloc] initWithText:newText] autorelease];
+	CPTextLayer *newLayer = [[CPTextLayer alloc] initWithText:newText];
 	newLayer.textStyle = newStyle;
 	[newLayer sizeToFit];
-	return [self initWithContentLayer:newLayer];
+	self = [self initWithContentLayer:newLayer];
+	[newLayer release];
+	
+	return self;
 }
 
 /** @brief Initializes a newly allocated CPAxisLabel object with the provided layer. This is the designated initializer.

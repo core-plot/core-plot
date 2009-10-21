@@ -6,6 +6,7 @@
 extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @interface CPPlotSpace : NSObject {
+	@private
 	id <NSCopying, NSObject> identifier;
 }
 

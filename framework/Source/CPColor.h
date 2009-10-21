@@ -2,6 +2,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CPColor : NSObject <NSCopying, NSCoding> {
+	@private
     CGColorRef cgColor;
 }
 

@@ -28,17 +28,17 @@
 -(id)init 
 {
 	if ( self = [super init] ) {
-		self.fontName = @"Helvetica";
-		self.fontSize = 12.0f;
-		self.color = [CPColor blackColor];
+		fontName = @"Helvetica";
+		fontSize = 12.0f;
+		color = [[CPColor blackColor] retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	self.fontName = nil;
-	self.color = nil;
+	[fontName release];
+	[color release];
 	[super dealloc];
 }
 
@@ -59,9 +59,9 @@
 -(id)copyWithZone:(NSZone *)zone 
 {
 	CPTextStyle *newCopy = [[CPTextStyle allocWithZone:zone] init];
-	newCopy.fontName = self.fontName;
-	newCopy.color = self.color;
-	newCopy.fontSize = self.fontSize;
+	newCopy->fontName = [self->fontName copy];
+	newCopy->color = [self->color copy];
+	newCopy->fontSize = self->fontSize;
 	return newCopy;
 }
 

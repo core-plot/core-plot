@@ -31,18 +31,15 @@
  **/
 -(id)initWithImage:(CPImage *)anImage 
 {
-	if (self = [super init]) 
-	{
-		// initialization
-		self.fillImage = anImage;
+	if ( self = [super init] ) {
+		fillImage = [anImage retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	self.fillImage = nil;
-	
+	[fillImage release];
 	[super dealloc];
 }
 
@@ -77,7 +74,8 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPFillImage *copy = [(_CPFillImage *)[[self class] allocWithZone:zone] initWithImage:[self.fillImage copyWithZone:zone]];
+	_CPFillImage *copy = [[[self class] allocWithZone:zone] init];
+	copy->fillImage = [self->fillImage copyWithZone:zone];
 	
 	return copy;
 }

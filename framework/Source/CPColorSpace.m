@@ -23,6 +23,9 @@
  **/
 @synthesize cgColorSpace;
 
+#pragma mark -
+#pragma mark Class methods
+
 /** @brief Returns a shared instance of CPColorSpace initialized with the standard RGB space
  *
  * For the iPhone this is CGColorSpaceCreateDeviceRGB(), for Mac OS X CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB).
@@ -44,6 +47,9 @@
 	return space; 
 } 
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 /** @brief Initializes a newly allocated colorspace object with the specified color space.
  *  This is the designated initializer.
  *
@@ -52,15 +58,19 @@
  **/
 -(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace {
     if ( self = [super init] ) {
-        self.cgColorSpace = colorSpace;
+        CGColorSpaceRetain(colorSpace);
+        cgColorSpace = colorSpace;
     }
     return self;
 }
 
 -(void)dealloc {
-    self.cgColorSpace = NULL;
+    CGColorSpaceRelease(cgColorSpace);
     [super dealloc];
 }
+
+#pragma mark -
+#pragma mark Accessors
 
 -(void)setCGColorSpace:(CGColorSpaceRef)newSpace {
     if ( newSpace != cgColorSpace ) {

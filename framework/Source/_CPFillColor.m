@@ -31,15 +31,15 @@
  **/
 -(id)initWithColor:(CPColor *)aColor 
 {
-	if (self = [super init]) {
-        self.fillColor = aColor;
+	if ( self = [super init] ) {
+        fillColor = [aColor retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    self.fillColor = nil;
+    [fillColor release];
 	[super dealloc];
 }
 
@@ -74,7 +74,8 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPFillColor *copy = [(_CPFillColor *)[[self class] allocWithZone:zone] initWithColor:[self.fillColor copyWithZone:zone]];
+	_CPFillColor *copy = [[[self class] allocWithZone:zone] init];
+	copy->fillColor = [self->fillColor copyWithZone:zone];
 	
 	return copy;
 }

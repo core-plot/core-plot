@@ -3,6 +3,7 @@
 @class CPPlot;
 
 @interface CPPlotGroup : CPLayer {
+	@private
 	id <NSCopying, NSObject> identifier;
 }
 
