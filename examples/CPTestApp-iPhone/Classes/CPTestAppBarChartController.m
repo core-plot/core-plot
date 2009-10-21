@@ -31,32 +31,40 @@
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
 	
-    barChart.paddingLeft = 40.0;
+    barChart.paddingLeft = 10.0;
 	barChart.paddingTop = 10.0;
 	barChart.paddingRight = 10.0;
 	barChart.paddingBottom = 10.0;
     
+	barChart.plotArea.plotGroup.paddingLeft = 50.0;
+	barChart.plotArea.plotGroup.paddingTop = 10.0;
+	barChart.plotArea.plotGroup.paddingBottom = 25.0;
+	barChart.plotArea.plotGroup.paddingRight = 10.0;
+	barChart.plotArea.axisSet.paddingLeft = 50.0;
+	barChart.plotArea.axisSet.paddingTop = 10.0;
+	barChart.plotArea.axisSet.paddingBottom = 25.0;
+	barChart.plotArea.axisSet.paddingRight = 10.0;
 	
 	// Add plot space for horizontal bar charts
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(300.0f)];
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-2.0f) length:CPDecimalFromFloat(18.0f)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(16.0f)];
     
 	
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromString(@"5");
-    x.constantCoordinateValue = CPDecimalFromString(@"5");
+    x.constantCoordinateValue = CPDecimalFromString(@"0");
     x.minorTicksPerInterval = 2;
 
 	CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"50");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = CPDecimalFromString(@"-1.5");
+    y.constantCoordinateValue = CPDecimalFromString(@"0");
 
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];
-    barPlot.baseValue = CPDecimalFromString(@"5");
+    barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
@@ -65,7 +73,7 @@
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
     barPlot.dataSource = self;
-    barPlot.baseValue = CPDecimalFromString(@"5");
+    barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
