@@ -1,6 +1,7 @@
 #import "iPhoneOnly/CPPlatformSpecificDefines.h"
 #import "Source/CPAxis.h"
 #import "Source/CPAxisLabel.h"
+#import "Source/CPAxisTitle.h"
 #import "Source/CPAxisSet.h"
 #import "Source/CPBarPlot.h"
 #import "Source/CPBorderedLayer.h"

@@ -67,6 +67,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 		nil];
 	x.labelExclusionRanges = exclusionRanges;
 
+	x.title = @"X Axis";
+	x.axisTitleOffset = 30.0f;
+
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
     CPXYAxis *y = axisSet.yAxis;
@@ -85,6 +88,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 		nil];
 	y.labelExclusionRanges = exclusionRanges;
     
+	y.title = @"Y Axis";
+	y.axisTitleOffset = 30.0f;
+	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";

@@ -7,6 +7,7 @@
 #import "CPTextStyle.h"
 #import "CPTextLayer.h"
 #import "CPAxisLabel.h"
+#import "CPAxisTitle.h"
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 #import "NSDecimalNumberExtensions.h"
@@ -53,6 +54,33 @@
  *	@brief The tick direction.
  **/
 @synthesize tickDirection;
+
+// Title
+
+/**	@property axisTitleTextStyle
+ *  @brief  The text style used to draw the axis title text.
+ **/
+
+@synthesize axisTitleTextStyle;
+
+/**	@property axisTitle
+ *  @brief The axis title.
+ *	If nil, no title is drawn.
+ **/
+
+@synthesize axisTitle;
+
+/**	@property axisTitleOffset
+ *	@brief The offset distance between the axis title and the axis line.
+ **/
+
+@synthesize axisTitleOffset;
+
+/**	@property title
+ *	@brief A convenience property for setting the text title of the axis.
+ **/
+
+@synthesize title;
 
 // Plot space
 
@@ -192,6 +220,7 @@
 		majorTickLength = 5.f;
 		axisLabelOffset = 2.f;
         axisLabelRotation = 0.f;
+		axisTitleOffset = 30.0f;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
 		minorTickLineStyle = [[CPLineStyle alloc] init];
@@ -210,6 +239,8 @@
         axisLabelFormatter = newFormatter;
 		axisLabels = [[NSSet set] retain];
         tickDirection = CPSignNone;
+		axisTitle = nil;
+		axisTitleTextStyle = [[CPTextStyle alloc] init];
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -230,6 +261,7 @@
 	[axisLabelFormatter release];
 	[axisLabels release];
 	[axisLabelTextStyle release];
+	[axisTitleTextStyle release];
 	[labelExclusionRanges release];
 	
 	[super dealloc];
@@ -386,6 +418,14 @@
 	return newLabels;
 }
 
+/**	@brief Calculates the optimal location of the axis title, in axis units.
+ **/
+
+-(NSDecimal)axisTitleLocation
+{
+	return CPDecimalFromFloat(0.0f);
+}
+
 /**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
  **/
 -(void)setNeedsRelabel
@@ -501,6 +541,9 @@
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
+	
+	NSDecimal axisTitleLocation = [self axisTitleLocation];
+	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -534,7 +577,54 @@
 	}
 }
 
--(void)setLabelExclusionRanges:(NSArray *)ranges {
+-(void)setAxisTitle:(CPAxisTitle *)newTitle;
+{
+	if (newTitle != axisTitle)
+	{
+		[axisTitle.contentLayer removeFromSuperlayer];
+		[axisTitle release];
+		axisTitle = [newTitle retain];
+		axisTitle.offset = self.axisTitleOffset;
+		[self addSublayer:axisTitle.contentLayer];
+	}
+}
+
+-(void)setAxisTitleTextStyle:(CPTextStyle *)newStyle 
+{
+	if ( newStyle != axisTitleTextStyle ) {
+		[axisTitleTextStyle release];
+		axisTitleTextStyle = [newStyle copy];
+		[self setNeedsLayout];
+	}
+}
+
+-(void)setAxisTitleOffset:(CGFloat)newOffset 
+{
+    if ( newOffset != axisTitleOffset ) {
+        axisTitleOffset = newOffset;
+		self.axisTitle.offset = axisTitleOffset;
+		[self setNeedsLayout];
+    }
+}
+
+- (void)setTitle:(NSString *)newTitle
+{
+	if (newTitle != title) {
+		[title release];
+		title = [newTitle retain];
+		if (axisTitle == nil) {
+			CPAxisTitle *newAxisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.axisTitleTextStyle];
+			self.axisTitle = newAxisTitle;
+			[newAxisTitle release];
+		}
+		else {
+			[(CPTextLayer *)self.axisTitle.contentLayer setText:title];
+		}
+		[self setNeedsLayout];	}
+}
+
+-(void)setLabelExclusionRanges:(NSArray *)ranges 
+{
 	if ( ranges != labelExclusionRanges ) {
 		[labelExclusionRanges release];
 		labelExclusionRanges = [ranges retain];

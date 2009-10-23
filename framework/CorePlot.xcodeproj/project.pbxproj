@@ -213,6 +213,8 @@
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
+		BCFC7C3710921FDB00DAECAA /* CPAxisTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = BCFC7C3510921FDB00DAECAA /* CPAxisTitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFC7C3610921FDB00DAECAA /* CPAxisTitle.m */; };
 		C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPLayoutManager.m */; };
 		C331F8F70F871087006E4006 /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C331F8F50F871087006E4006 /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -710,6 +712,8 @@
 		BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		BC89A64010239D1D009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = SOURCE_ROOT; };
+		BCFC7C3510921FDB00DAECAA /* CPAxisTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisTitle.h; sourceTree = "<group>"; };
+		BCFC7C3610921FDB00DAECAA /* CPAxisTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisTitle.m; sourceTree = "<group>"; };
 		C32BCF7E1054081C00639E25 /* CPLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayoutManager.h; sourceTree = "<group>"; };
 		C32BCF7F1054081C00639E25 /* CPLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayoutManager.m; sourceTree = "<group>"; };
 		C331F8F50F871087006E4006 /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
@@ -1105,6 +1109,8 @@
 				07975C420F3B816600DE45DC /* CPXYAxisSet.m */,
 				073FB02E0FC991A3007A728E /* CPAxisLabel.h */,
 				073FB02F0FC991A3007A728E /* CPAxisLabel.m */,
+				BCFC7C3510921FDB00DAECAA /* CPAxisTitle.h */,
+				BCFC7C3610921FDB00DAECAA /* CPAxisTitle.m */,
 				4C7D0FB60FD5DDDA00D83C0F /* Tests */,
 			);
 			name = Axes;
@@ -1818,6 +1824,7 @@
 				072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */,
 				072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */,
 				073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */,
+				BCFC7C3710921FDB00DAECAA /* CPAxisTitle.h in Headers */,
 				BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */,
 				070622320FDF1B250066A6C4 /* CPPathExtensions.h in Headers */,
 				0706223C0FDF215C0066A6C4 /* CPBorderedLayer.h in Headers */,
@@ -2262,6 +2269,7 @@
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
+				BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

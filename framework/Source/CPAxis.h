@@ -10,6 +10,7 @@
 @class CPPlotRange;
 @class CPAxis;
 @class CPTextStyle;
+@class CPAxisTitle;
 
 /**	@brief Enumeration of labeling policies
  **/
@@ -66,8 +67,13 @@ typedef enum _CPAxisLabelingPolicy {
     NSUInteger preferredNumberOfMajorTicks;
     CPAxisLabelingPolicy axisLabelingPolicy;
 	CPTextStyle *axisLabelTextStyle;
+	CPTextStyle *axisTitleTextStyle;
 	NSNumberFormatter *axisLabelFormatter;
 	NSSet *axisLabels;
+	CPAxisTitle *axisTitle;
+	NSString *title;
+	CGFloat axisTitleOffset;
+	
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
@@ -80,6 +86,14 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite) NSDecimal fixedPoint;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
+///	@}
+
+/// @name Title
+/// @{
+@property (nonatomic, readwrite, copy) CPTextStyle *axisTitleTextStyle;
+@property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
+@property (nonatomic, readwrite, assign) CGFloat axisTitleOffset;
+@property (nonatomic, readwrite, retain) NSString *title;
 ///	@}
 
 /// @name Labels
@@ -126,6 +140,8 @@ typedef enum _CPAxisLabelingPolicy {
 -(void)setNeedsRelabel;
 
 -(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
+
+-(NSDecimal)axisTitleLocation;
 ///	@}
 
 /// @name Ticks

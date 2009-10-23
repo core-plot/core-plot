@@ -36,13 +36,13 @@
 	barChart.paddingRight = 10.0;
 	barChart.paddingBottom = 10.0;
     
-	barChart.plotArea.plotGroup.paddingLeft = 50.0;
+	barChart.plotArea.plotGroup.paddingLeft = 70.0;
 	barChart.plotArea.plotGroup.paddingTop = 10.0;
-	barChart.plotArea.plotGroup.paddingBottom = 25.0;
+	barChart.plotArea.plotGroup.paddingBottom = 55.0;
 	barChart.plotArea.plotGroup.paddingRight = 10.0;
-	barChart.plotArea.axisSet.paddingLeft = 50.0;
+	barChart.plotArea.axisSet.paddingLeft = 70.0;
 	barChart.plotArea.axisSet.paddingTop = 10.0;
-	barChart.plotArea.axisSet.paddingBottom = 25.0;
+	barChart.plotArea.axisSet.paddingBottom = 55.0;
 	barChart.plotArea.axisSet.paddingRight = 10.0;
 	
 	// Add plot space for horizontal bar charts
@@ -56,11 +56,14 @@
     x.majorIntervalLength = CPDecimalFromString(@"5");
     x.constantCoordinateValue = CPDecimalFromString(@"0");
     x.minorTicksPerInterval = 2;
+	x.title = @"X Axis";
 
 	CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"50");
     y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = CPDecimalFromString(@"0");
+	y.title = @"Y Axis";
+	y.axisTitleOffset = 45.0f;
 
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];

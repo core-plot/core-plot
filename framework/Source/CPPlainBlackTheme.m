@@ -66,6 +66,7 @@
     x.majorTickLength = 7.0f;
     x.minorTickLength = 5.0f;
 	x.axisLabelTextStyle = whiteTextStyle; 
+	x.axisTitleTextStyle = whiteTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
     y.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
@@ -79,6 +80,7 @@
     y.majorTickLength = 7.0f;
     y.minorTickLength = 5.0f;
 	y.axisLabelTextStyle = whiteTextStyle;
+	y.axisTitleTextStyle = whiteTextStyle;
 }
 
 @end

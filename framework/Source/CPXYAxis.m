@@ -183,4 +183,23 @@
 	return [NSString stringWithFormat:@"CPXYAxis with range %@ viewCoordinates: {%f, %f} to {%f, %f}", range, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
 };
 
+#pragma mark -
+#pragma mark Labels
+
+-(NSDecimal)axisTitleLocation
+{
+	// Find the longest range, before or after the constant coordinate location, and divide that by two
+    CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+
+	NSDecimal distanceAfterConstantCoordinate = CPDecimalSubtract(axisRange.end, self.constantCoordinateValue);
+	NSDecimal distanceBeforeConstantCoordinate = CPDecimalSubtract(self.constantCoordinateValue, axisRange.location);
+	
+	if (CPDecimalLessThan(distanceAfterConstantCoordinate, distanceBeforeConstantCoordinate)) {
+		return CPDecimalDivide(CPDecimalAdd(self.constantCoordinateValue, axisRange.location), CPDecimalFromDouble(2.0));
+	}
+	else {
+		return CPDecimalDivide(CPDecimalAdd(axisRange.end, self.constantCoordinateValue), CPDecimalFromDouble(2.0));
+	}
+}
+
 @end

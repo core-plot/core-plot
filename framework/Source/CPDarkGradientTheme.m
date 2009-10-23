@@ -49,6 +49,7 @@
     axis.majorTickLength = 7.0f;
     axis.minorTickLength = 5.0f;
 	axis.axisLabelTextStyle = textStyle; 
+	axis.axisTitleTextStyle = textStyle;
 }
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph 

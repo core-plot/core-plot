@@ -88,6 +88,8 @@
 		BCC7EA481006BF5700B39451 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */; };
 		BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
+		BCFC7CE9109264AE00DAECAA /* CPAxisTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = BCFC7CE7109264AD00DAECAA /* CPAxisTitle.h */; };
+		BCFC7CEA109264AE00DAECAA /* CPAxisTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFC7CE8109264AE00DAECAA /* CPAxisTitle.m */; };
 		C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
 		C3B623BD107EC7ED0009EF0B /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3B623BB107EC7ED0009EF0B /* CPLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -228,6 +230,8 @@
 		BCC7EA421006BF5700B39451 /* CPPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlainWhiteTheme.m; path = Source/CPPlainWhiteTheme.m; sourceTree = "<group>"; };
 		BCC7EA431006BF5700B39451 /* CPStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPStocksTheme.h; path = Source/CPStocksTheme.h; sourceTree = "<group>"; };
 		BCC7EA441006BF5700B39451 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPStocksTheme.m; path = Source/CPStocksTheme.m; sourceTree = "<group>"; };
+		BCFC7CE7109264AD00DAECAA /* CPAxisTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAxisTitle.h; path = Source/CPAxisTitle.h; sourceTree = "<group>"; };
+		BCFC7CE8109264AE00DAECAA /* CPAxisTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAxisTitle.m; path = Source/CPAxisTitle.m; sourceTree = "<group>"; };
 		C30C85A91047428100181766 /* CPPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotGroup.h; path = Source/CPPlotGroup.h; sourceTree = "<group>"; };
 		C30C85AA1047428100181766 /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotGroup.m; path = Source/CPPlotGroup.m; sourceTree = "<group>"; };
 		C3B623BB107EC7ED0009EF0B /* CPLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayoutManager.h; path = Source/CPLayoutManager.h; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				070CB8420FC9DED400F3152B /* CPXYAxisSet.m */,
 				070CB83B0FC9DED400F3152B /* CPAxisLabel.h */,
 				070CB83C0FC9DED400F3152B /* CPAxisLabel.m */,
+				BCFC7CE7109264AD00DAECAA /* CPAxisTitle.h */,
+				BCFC7CE8109264AE00DAECAA /* CPAxisTitle.m */,
 			);
 			name = Axes;
 			sourceTree = "<group>";
@@ -579,6 +585,7 @@
 				070CB8580FC9DEF000F3152B /* CPAnimationTransition.h in Headers */,
 				070CB8560FC9DEF000F3152B /* CPAnimationKeyFrame.h in Headers */,
 				070CB8450FC9DED400F3152B /* CPAxisLabel.h in Headers */,
+				BCFC7CE9109264AE00DAECAA /* CPAxisTitle.h in Headers */,
 				BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */,
 				074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */,
 				077F28550FE18048000BCA52 /* CPBorderedLayer.h in Headers */,
@@ -715,6 +722,7 @@
 				C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */,
 				C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */,
 				C3B623BE107EC7ED0009EF0B /* CPLayoutManager.m in Sources */,
+				BCFC7CEA109264AE00DAECAA /* CPAxisTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
