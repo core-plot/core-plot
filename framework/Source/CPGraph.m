@@ -78,7 +78,9 @@
         [newPlotSpace release];
 
         // Axis set
-		self.axisSet = [self newAxisSet];
+		CPAxisSet *newAxisSet = [self newAxisSet];
+		self.axisSet = newAxisSet;
+		[newAxisSet release];
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
