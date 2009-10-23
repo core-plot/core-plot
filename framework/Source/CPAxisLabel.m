@@ -112,24 +112,31 @@
         case CPSignNone:
         case CPSignNegative:
             *value -= offset;
-            anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
+			if ( rotation == 0.0f ) {
+				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
+			}
+			else {
+				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(1.0, 0.5));
+			}
             break;
         case CPSignPositive:
             *value += offset;
-            anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
+			if ( rotation == 0.0f ) {
+				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
+			}
+			else {
+				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.0, 0.5));
+			}
             break;
         default:
             [NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
             break;
     }
-    if ( rotation != 0.0f ) {
-        anchor = CGPointMake(0.5f, 0.5f);
-    }
 	
 	// Pixel-align the label layer to prevent blurriness
 	CGSize currentSize = self.contentLayer.bounds.size;
-	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + floor(currentSize.width * anchor.x);
-	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + floor(currentSize.height * anchor.y);
+	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + currentSize.width * anchor.x;
+	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + currentSize.height * anchor.y;
 	
     self.contentLayer.anchorPoint = anchor;
 	self.contentLayer.position = newPosition;

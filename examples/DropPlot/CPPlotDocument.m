@@ -63,9 +63,9 @@
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
     borderLineStyle.lineWidth = 0.0f;
 	
-	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
-	borderedLayer.borderLineStyle = borderLineStyle;
-	borderedLayer.cornerRadius = 0.0f;
+//	CPBorderedLayer *borderedLayer = (CPBorderedLayer *)axisSet.overlayLayer;
+//	borderedLayer.borderLineStyle = borderLineStyle;
+//	borderedLayer.cornerRadius = 0.0f;
 
     // Create the main plot for the delimited data
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
