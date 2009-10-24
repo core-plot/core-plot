@@ -30,8 +30,8 @@
 	
 	// Pixel-align the label layer to prevent blurriness
 	CGSize currentSize = self.contentLayer.bounds.size;
-	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + currentSize.width * anchor.x;
-	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + currentSize.height * anchor.y;
+	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + floor(currentSize.width * anchor.x);
+	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + floor(currentSize.height * anchor.y);
 	
     self.contentLayer.anchorPoint = anchor;
 	self.contentLayer.position = newPosition;
