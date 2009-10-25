@@ -69,7 +69,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 
 	x.title = @"X Axis";
 	x.axisTitleOffset = 30.0f;
-
+	
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
     CPXYAxis *y = axisSet.yAxis;
@@ -316,6 +316,27 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	for (CALayer *currentLayer in layer.sublayers) {
 		[Controller recursivelyAssembleSublayersInZForLayer:currentLayer];
 	}
+}
+
+#pragma mark -
+#pragma mark Demo windows
+
+-(IBAction)plotSymbolDemo:(id)sender
+{
+	if ( !plotSymbolWindow ) {
+		[NSBundle loadNibNamed:@"PlotSymbolDemo" owner:self];
+	}
+	
+	[plotSymbolWindow makeKeyAndOrderFront:sender];
+}
+
+-(IBAction)axisDemo:(id)sender
+{
+	if ( !axisDemoWindow ) {
+		[NSBundle loadNibNamed:@"AxisDemo" owner:self];
+	}
+	
+	[axisDemoWindow makeKeyAndOrderFront:sender];
 }
 
 #pragma mark -

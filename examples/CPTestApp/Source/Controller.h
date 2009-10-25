@@ -1,11 +1,11 @@
-
-
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 #import "RotationView.h"
 
 @interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate> {
     IBOutlet CPLayerHostingView *hostView;
+    IBOutlet NSWindow *plotSymbolWindow;
+    IBOutlet NSWindow *axisDemoWindow;
     CPXYGraph *graph;
 	RotationView *overlayRotationView;
     CGFloat xShift;
@@ -26,6 +26,10 @@
 +(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(NSUInteger)depthLevel;
 -(IBAction)reassembleLayers:(id)sender;
 +(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer;
+
+// Demo windows
+-(IBAction)plotSymbolDemo:(id)sender;
+-(IBAction)axisDemo:(id)sender;
 
 @end
 
