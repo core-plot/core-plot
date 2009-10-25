@@ -9,40 +9,7 @@
 
 @implementation CPAxisLabelTests
 
-- (void)testRenderText
-{
-    CPAxisLabel *label;
-    
-    @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testRenderText" textStyle:[CPTextStyle textStyle]];
-        label.offset = 20.0f;
-        GTMAssertObjectImageEqualToImageNamed(label, @"CPAxisLabelTests-testRenderText", @"");
-    }
-    @finally {
-        [label release];
-    }
-}
-
-- (void)testRenderContentLayer
-{
-    CPAxisLabel *label;
-    
-    @try {
-        CPBorderedLayer *contentLayer = [CPBorderedLayer layer];
-        contentLayer.fill = [CPFill fillWithColor:[CPColor blueColor]];
-        contentLayer.bounds = CGRectMake(0, 0, 20, 20);
-        
-        label = [[CPAxisLabel alloc] initWithContentLayer:contentLayer];
-        label.offset = 20.0f;
-        
-        GTMAssertObjectImageEqualToImageNamed(label, @"CPAxisLabelTests-testRenderContentLayer", @"");
-    }
-    @finally {
-        [label release];
-    }
-}
-
-- (void)testPositionRelativeToViewPointRaisesForInvalidDirection
+-(void)testPositionRelativeToViewPointRaisesForInvalidDirection
 {
     CPAxisLabel *label;
     
@@ -57,21 +24,7 @@
     }
 }
 
-- (void)testPositionBetweenViewPointImplemented
-{
-    CPAxisLabel *label;
-    
-    @try {
-        label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionBetweenViewPointImplemented" textStyle:[CPTextStyle textStyle]];
-        
-        STAssertNoThrow([label positionBetweenViewPoint:CGPointZero andViewPoint:CGPointMake(1.0, 1.0) forCoordinate:CPCoordinateX inDirection:CPSignNone], @"Current implementation throws CPException. When implemented, revise this test");
-    }
-    @finally {
-        [label release];
-    }
-}
-
-- (void)testPositionRelativeToViewPointPositionsForXCoordinate
+-(void)testPositionRelativeToViewPointPositionsForXCoordinate
 {
     CPAxisLabel *label;
     CGFloat start = 100.0f;
@@ -115,7 +68,7 @@
     }
 }
 
-- (void)testPositionRelativeToViewPointPositionsForYCoordinate
+-(void)testPositionRelativeToViewPointPositionsForYCoordinate
 {
     CPAxisLabel *label;
     CGFloat start = 100.0f;

@@ -5,7 +5,8 @@
 
 @implementation CPTextStyleTests
 
--(void)testDefaults {
+-(void)testDefaults 
+{
 	
 	CPTextStyle *textStyle= [CPTextStyle textStyle];
 	

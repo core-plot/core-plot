@@ -5,7 +5,9 @@
 #import "CPUtilities.h"
 
 @implementation CPUtilitiesTests
-- (void)testCPDecimalIntegerValue {
+
+-(void)testCPDecimalIntegerValue 
+{
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
     STAssertEquals(CPDecimalIntegerValue([d decimalValue]), (NSInteger)42, @"Result incorrect");
     
@@ -13,7 +15,8 @@
     STAssertEquals((NSInteger)CPDecimalIntegerValue([d decimalValue]), (NSInteger)42, @"Result incorrect");
 }
 
-- (void)testCPDecimalFloatValue {
+-(void)testCPDecimalFloatValue 
+{
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
     STAssertEquals((float)CPDecimalFloatValue([d decimalValue]), (float)42., @"Result incorrect");
     
@@ -21,7 +24,8 @@
     STAssertEquals((float)CPDecimalFloatValue([d decimalValue]), (float)42.1, @"Result incorrect");
 }
 
-- (void)testCPDecimalDoubleValue {
+-(void)testCPDecimalDoubleValue 
+{
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
     STAssertEquals((double)CPDecimalDoubleValue([d decimalValue]), (double)42., @"Result incorrect");
     
@@ -29,7 +33,8 @@
     STAssertEquals((double)CPDecimalDoubleValue([d decimalValue]), (double)42.1, @"Result incorrect");
 }
 
-- (void)testToDecimalConversion {
+-(void)testToDecimalConversion 
+{
     NSInteger i = 100;
     float f = 3.141;
     double d = 42.1;
