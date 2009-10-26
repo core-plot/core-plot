@@ -25,6 +25,9 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @property (nonatomic, readwrite, assign) id observedObjectForYValues;
 @property (nonatomic, readwrite, assign) id observedObjectForPlotSymbols;
 
+@property (nonatomic, readwrite, retain) NSValueTransformer *xValuesTransformer;
+@property (nonatomic, readwrite, retain) NSValueTransformer *yValuesTransformer;
+
 @property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForYValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForPlotSymbols;
@@ -43,6 +46,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @synthesize observedObjectForXValues;
 @synthesize observedObjectForYValues;
 @synthesize observedObjectForPlotSymbols;
+@synthesize xValuesTransformer;
+@synthesize yValuesTransformer;
 @synthesize keyPathForXValues;
 @synthesize keyPathForYValues;
 @synthesize keyPathForPlotSymbols;
@@ -130,7 +135,9 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	[plotSymbol release];
 	[areaFill release];
 	[plotSymbols release];
-	
+	[xValuesTransformer release];
+    [yValuesTransformer release];
+    	
 	[super dealloc];
 }
 
@@ -142,12 +149,22 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		self.observedObjectForXValues = observable;
 		self.keyPathForXValues = keyPath;
 		[self setDataNeedsReloading];
+		
+		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
+		if ( transformerName != nil ) {
+            self.xValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
+        }			
 	}
 	else if ([binding isEqualToString:CPScatterPlotBindingYValues]) {
 		[observable addObserver:self forKeyPath:keyPath options:0 context:CPYValuesBindingContext];
 		self.observedObjectForYValues = observable;
 		self.keyPathForYValues = keyPath;
 		[self setDataNeedsReloading];
+        
+		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
+		if ( transformerName != nil ) {
+            self.yValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
+        }	
 	}
 	else if ([binding isEqualToString:CPScatterPlotBindingPlotSymbols]) {
 		[observable addObserver:self forKeyPath:keyPath options:0 context:CPPlotSymbolsBindingContext];
@@ -163,12 +180,14 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
 		self.observedObjectForXValues = nil;
 		self.keyPathForXValues = nil;
+        self.xValuesTransformer = nil;
 		[self setDataNeedsReloading];
 	}	
 	else if ([bindingName isEqualToString:CPScatterPlotBindingYValues]) {
 		[observedObjectForYValues removeObserver:self forKeyPath:self.keyPathForYValues];
 		self.observedObjectForYValues = nil;
 		self.keyPathForYValues = nil;
+        self.yValuesTransformer = nil;
 		[self setDataNeedsReloading];
 	}	
 	else if ([bindingName isEqualToString:CPScatterPlotBindingPlotSymbols]) {
@@ -224,6 +243,23 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		// Use bindings to retrieve data
 		self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
 		self.yValues = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
+
+		if ( xValuesTransformer != nil ) {
+			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:self.xValues.count];
+			for ( id val in self.xValues ) {
+				[newXValues addObject:[xValuesTransformer transformedValue:val]];
+			}
+			self.xValues = newXValues;
+		}
+        
+		if ( yValuesTransformer != nil ) {
+			NSMutableArray *newYValues = [NSMutableArray arrayWithCapacity:self.yValues.count];
+			for ( id val in self.yValues ) {
+				[newYValues addObject:[yValuesTransformer transformedValue:val]];
+			}
+			self.yValues = newYValues;
+		}
+        
 		self.plotSymbols = [self.observedObjectForPlotSymbols valueForKeyPath:self.keyPathForPlotSymbols];
 	}
 	else if ( self.dataSource ) {

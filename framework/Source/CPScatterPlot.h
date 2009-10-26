@@ -59,6 +59,8 @@ typedef enum _CPScatterPlotField {
     NSString *keyPathForXValues;
     NSString *keyPathForYValues;
     NSString *keyPathForPlotSymbols;
+	NSValueTransformer *xValuesTransformer;
+    NSValueTransformer *yValuesTransformer;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
