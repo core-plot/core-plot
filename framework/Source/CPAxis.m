@@ -82,6 +82,13 @@
 
 @synthesize title;
 
+/**	@property axisTitlePosition
+ *	@brief The position along the axis where the axis title should be centered.
+ *  If NaN, just place the axis title at the middle of the axis range
+ **/
+
+@synthesize axisTitleLocation;
+
 // Plot space
 
 /**	@property plotSpace
@@ -241,6 +248,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		axisTitleTextStyle = [[CPTextStyle alloc] init];
+		axisTitleLocation = [[NSDecimalNumber notANumber] decimalValue];
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -418,14 +426,6 @@
 	return newLabels;
 }
 
-/**	@brief Calculates the optimal location of the axis title, in axis units.
- **/
-
--(NSDecimal)axisTitleLocation
-{
-	return CPDecimalFromFloat(0.0f);
-}
-
 /**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
  **/
 -(void)setNeedsRelabel
@@ -496,6 +496,13 @@
 	[self.delegate axisDidRelabel:self];
 }
 
+/**	@brief Provides a default axis title location, if none has been specified.  Should be overridden by subclasses.
+ **/
+-(NSDecimal)defaultAxisTitleLocation;
+{
+	return CPDecimalFromString(@"0.0");
+}
+
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations 
 {
 	NSMutableSet *filteredLocations = [allLocations mutableCopy];
@@ -542,8 +549,7 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 	
-	NSDecimal axisTitleLocation = [self axisTitleLocation];
-	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -621,6 +627,18 @@
 			[(CPTextLayer *)self.axisTitle.contentLayer setText:title];
 		}
 		[self setNeedsLayout];	}
+}
+
+-(NSDecimal)axisTitleLocation
+{
+	if (NSDecimalIsNotANumber(&axisTitleLocation))
+	{
+		return [self defaultAxisTitleLocation];
+	}
+	else
+	{
+		return axisTitleLocation;
+	}
 }
 
 -(void)setLabelExclusionRanges:(NSArray *)ranges 

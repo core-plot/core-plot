@@ -186,20 +186,11 @@
 #pragma mark -
 #pragma mark Labels
 
--(NSDecimal)axisTitleLocation
+-(NSDecimal)defaultAxisTitleLocation;
 {
-	// Find the longest range, before or after the constant coordinate location, and divide that by two
-    CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-
-	NSDecimal distanceAfterConstantCoordinate = CPDecimalSubtract(axisRange.end, self.constantCoordinateValue);
-	NSDecimal distanceBeforeConstantCoordinate = CPDecimalSubtract(self.constantCoordinateValue, axisRange.location);
+	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
-	if (CPDecimalLessThan(distanceAfterConstantCoordinate, distanceBeforeConstantCoordinate)) {
-		return CPDecimalDivide(CPDecimalAdd(self.constantCoordinateValue, axisRange.location), CPDecimalFromDouble(2.0));
-	}
-	else {
-		return CPDecimalDivide(CPDecimalAdd(axisRange.end, self.constantCoordinateValue), CPDecimalFromDouble(2.0));
-	}
+	return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
 }
 
 @end

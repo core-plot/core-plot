@@ -73,6 +73,7 @@ typedef enum _CPAxisLabelingPolicy {
 	CPAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat axisTitleOffset;
+	NSDecimal axisTitleLocation;
 	
     CPSign tickDirection;
     BOOL needsRelabel;
@@ -94,6 +95,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat axisTitleOffset;
 @property (nonatomic, readwrite, retain) NSString *title;
+@property (nonatomic, readwrite) NSDecimal axisTitleLocation;
 ///	@}
 
 /// @name Labels
@@ -140,8 +142,7 @@ typedef enum _CPAxisLabelingPolicy {
 -(void)setNeedsRelabel;
 
 -(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
-
--(NSDecimal)axisTitleLocation;
+-(NSDecimal)defaultAxisTitleLocation;
 ///	@}
 
 /// @name Ticks

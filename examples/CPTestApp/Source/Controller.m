@@ -69,6 +69,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 
 	x.title = @"X Axis";
 	x.axisTitleOffset = 30.0f;
+	x.axisTitleLocation = CPDecimalFromString(@"3.0");
 	
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
@@ -90,6 +91,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     
 	y.title = @"Y Axis";
 	y.axisTitleOffset = 30.0f;
+	y.axisTitleLocation = CPDecimalFromString(@"2.7");
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
