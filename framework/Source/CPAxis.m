@@ -48,7 +48,7 @@
 /**	@property fixedPoint
  *	@brief The axis origin.
  **/
-@synthesize fixedPoint;
+@synthesize labelingOrigin;
 
 /**	@property tickDirection
  *	@brief The tick direction.
@@ -233,7 +233,7 @@
 		minorTickLineStyle = [[CPLineStyle alloc] init];
 		majorGridLineStyle = nil;
 		minorGridLineStyle = nil;
-		fixedPoint = [[NSDecimalNumber zero] decimalValue];
+		labelingOrigin = [[NSDecimalNumber zero] decimalValue];
 		majorIntervalLength = [[NSDecimalNumber one] decimalValue];
 		minorTicksPerInterval = 1;
 		coordinate = CPCoordinateX;
@@ -305,8 +305,8 @@
 		// Minor ticks
 		if ( self.minorTicksPerInterval > 0 ) {
 			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromInt(self.minorTicksPerInterval+1));
-			NSDecimal minorCoord;
-			minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+			NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+			
 			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
 				if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
 					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
@@ -323,23 +323,22 @@
 
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
-    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:preferredNumberOfMajorTicks];
-    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(preferredNumberOfMajorTicks + 1) * minorTicksPerInterval];
+    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:self.preferredNumberOfMajorTicks];
+    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(self.preferredNumberOfMajorTicks + 1) * self.minorTicksPerInterval];
     
-    if ( preferredNumberOfMajorTicks == 0 ) {
+    if ( self.preferredNumberOfMajorTicks == 0 ) {
     	*newMajorLocations = majorLocations;
         *newMinorLocations = minorLocations;
         return;
     }
     
     // Determine starting interval
-    NSUInteger numTicks = preferredNumberOfMajorTicks;
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
     NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
     NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
     	(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:numIntervals]];
-    
     
     // Determine round number using the NSString with scientific format of numbers
     NSString *intervalString = [NSString stringWithFormat:@"%e", [interval doubleValue]];
@@ -374,8 +373,9 @@
     // Determine all locations
     NSInteger majorIndex;
     NSDecimalNumber *minorInterval = nil;
-    if ( minorTicksPerInterval > 0 ) minorInterval = [interval decimalNumberByDividingBy:
-    	(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:minorTicksPerInterval+1]];
+    if ( self.minorTicksPerInterval > 0 ) {
+		minorInterval = [interval decimalNumberByDividingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:self.minorTicksPerInterval+1]];
+	}
     for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
     	// Major ticks
         [majorLocations addObject:pointLocation];
@@ -385,7 +385,7 @@
         if ( !minorInterval ) continue;
         NSInteger minorIndex;
         NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
-        for ( minorIndex = 0; minorIndex < minorTicksPerInterval; minorIndex++ ) {
+        for ( minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
             [minorLocations addObject:minorLocation];
             minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
         }
@@ -457,12 +457,12 @@
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
 			// Add ticks in negative direction
-			[self tickLocationsBeginningAt:self.fixedPoint increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+			[self tickLocationsBeginningAt:self.labelingOrigin increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			[allNewMajorLocations unionSet:newMajorLocations];  
 			[allNewMinorLocations unionSet:newMinorLocations];  
 			
 			// Add ticks in positive direction
-			[self tickLocationsBeginningAt:self.fixedPoint increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+			[self tickLocationsBeginningAt:self.labelingOrigin increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			[allNewMajorLocations unionSet:newMajorLocations];
 			[allNewMinorLocations unionSet:newMinorLocations];
 			
@@ -759,12 +759,12 @@
     }
 }
 
--(void)setFixedPoint:(NSDecimal)newFixedPoint 
+-(void)setLabelingOrigin:(NSDecimal)newLabelingOrigin
 {
-	if (CPDecimalEquals(fixedPoint, newFixedPoint)) {
+	if (CPDecimalEquals(labelingOrigin, newLabelingOrigin)) {
 		return;
 	}
-	fixedPoint = newFixedPoint;
+	labelingOrigin = newLabelingOrigin;
 	self.needsRelabel = YES;
 }
 
