@@ -68,20 +68,20 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	x.labelExclusionRanges = exclusionRanges;
 
 	x.title = @"X Axis";
-	x.axisTitleOffset = 30.0f;
-	x.axisTitleLocation = CPDecimalFromString(@"3.0");
+	x.titleOffset = 30.0f;
+	x.titleLocation = CPDecimalFromString(@"3.0");
 	
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
     CPXYAxis *y = axisSet.yAxis;
-    y.axisLabelingPolicy = CPAxisLabelingPolicyAutomatic;
+    y.labelingPolicy = CPAxisLabelingPolicyAutomatic;
     y.constantCoordinateValue = CPDecimalFromString(@"2");
     y.minorTicksPerInterval = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
-    y.axisLabelRotation = M_PI * 0.25f;
-    y.axisLabelOffset = 10.0f;
+    y.labelRotation = M_PI * 0.25f;
+    y.labelOffset = 10.0f;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -90,8 +90,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	y.labelExclusionRanges = exclusionRanges;
     
 	y.title = @"Y Axis";
-	y.axisTitleOffset = 30.0f;
-	y.axisTitleLocation = CPDecimalFromString(@"2.7");
+	y.titleOffset = 30.0f;
+	y.titleLocation = CPDecimalFromString(@"2.7");
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];

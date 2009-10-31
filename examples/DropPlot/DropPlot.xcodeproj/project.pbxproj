@@ -22,33 +22,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		07E0DFAB109C4EB500F108D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162 /* UnitTests.octest */;
+			remoteInfo = UnitTests;
+		};
 		BC93AA960FDEFEAC00606226 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = CorePlot;
-		};
-		BC93AA980FDEFEAC00606226 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8;
-			remoteInfo = "CorePlot-UnitTests";
-		};
-		BC93AA9A0FDEFEAC00606226 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
-			remoteInfo = "CorePlot-PerformanceTests";
-		};
-		BC93AA9C0FDEFEAC00606226 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A;
-			remoteInfo = CPTestHarness;
 		};
 		BC93AA9E0FDEFEC500606226 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -195,9 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				BC93AA970FDEFEAC00606226 /* CorePlot.framework */,
-				BC93AA990FDEFEAC00606226 /* CorePlot-UnitTests.octest */,
-				BC93AA9B0FDEFEAC00606226 /* CorePlot-PerformanceTests.octest */,
-				BC93AA9D0FDEFEAC00606226 /* CPTestHarness.app */,
+				07E0DFAC109C4EB500F108D2 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,32 +233,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		07E0DFAC109C4EB500F108D2 /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = 07E0DFAB109C4EB500F108D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BC93AA970FDEFEAC00606226 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
 			remoteRef = BC93AA960FDEFEAC00606226 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC93AA990FDEFEAC00606226 /* CorePlot-UnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-UnitTests.octest";
-			remoteRef = BC93AA980FDEFEAC00606226 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC93AA9B0FDEFEAC00606226 /* CorePlot-PerformanceTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-PerformanceTests.octest";
-			remoteRef = BC93AA9A0FDEFEAC00606226 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC93AA9D0FDEFEAC00606226 /* CPTestHarness.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CPTestHarness.app;
-			remoteRef = BC93AA9C0FDEFEAC00606226 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -45,13 +45,20 @@
  **/
 @synthesize coordinate;
 
-/**	@property fixedPoint
- *	@brief The axis origin.
+/**	@property labelingOrigin
+ *	@brief The origin used for axis labels.
+ *  The default value is 0. It is only used when the axis labeling
+ *  policy is CPAxisLabelingPolicyFixedInterval. The origin is
+ *  a reference point used to being labeling. Labels are added
+ *	at the origin, as well as at fixed intervals above and below
+ *  the origin.
  **/
-@synthesize fixedPoint;
+@synthesize labelingOrigin;
 
 /**	@property tickDirection
  *	@brief The tick direction.
+ *  The direction is given as the sign that ticks extend along
+ *  the axis (eg positive, or negative).
  **/
 @synthesize tickDirection;
 
@@ -61,7 +68,7 @@
  *  @brief  The text style used to draw the axis title text.
  **/
 
-@synthesize axisTitleTextStyle;
+@synthesize titleTextStyle;
 
 /**	@property axisTitle
  *  @brief The axis title.
@@ -74,7 +81,7 @@
  *	@brief The offset distance between the axis title and the axis line.
  **/
 
-@synthesize axisTitleOffset;
+@synthesize titleOffset;
 
 /**	@property title
  *	@brief A convenience property for setting the text title of the axis.
@@ -87,7 +94,7 @@
  *  If NaN, just place the axis title at the middle of the axis range
  **/
 
-@synthesize axisTitleLocation;
+@synthesize titleLocation;
 
 // Plot space
 
@@ -101,23 +108,23 @@
 /**	@property axisLabelingPolicy
  *	@brief The axis labeling policy.
  **/
-@synthesize axisLabelingPolicy;
+@synthesize labelingPolicy;
 
 /**	@property axisLabelOffset
  *	@brief The offset distance between the tick marks and labels.
  **/
-@synthesize axisLabelOffset;
+@synthesize labelOffset;
 
 /**	@property axisLabelRotation
  *	@brief The rotation of the axis labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
  **/
-@synthesize axisLabelRotation;
+@synthesize labelRotation;
 
 /**	@property axisLabelTextStyle
  *	@brief The text style used to draw the label text.
  **/
-@synthesize axisLabelTextStyle;
+@synthesize labelTextStyle;
 
 /**	@property axisLabelFormatter
  *	@brief The number formatter used to format the label text.
@@ -125,7 +132,7 @@
  *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
  *  The CPTimeFormatter is useful for this purpose.
  **/
-@synthesize axisLabelFormatter;
+@synthesize labelFormatter;
 
 /**	@property axisLabels
  *	@brief The set of axis labels.
@@ -225,30 +232,30 @@
         preferredNumberOfMajorTicks = 5;
 		minorTickLength = 3.f;
 		majorTickLength = 5.f;
-		axisLabelOffset = 2.f;
-        axisLabelRotation = 0.f;
-		axisTitleOffset = 30.0f;
+		labelOffset = 2.f;
+        labelRotation = 0.f;
+		titleOffset = 30.0f;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
 		minorTickLineStyle = [[CPLineStyle alloc] init];
 		majorGridLineStyle = nil;
 		minorGridLineStyle = nil;
-		fixedPoint = [[NSDecimalNumber zero] decimalValue];
+		labelingOrigin = [[NSDecimalNumber zero] decimalValue];
 		majorIntervalLength = [[NSDecimalNumber one] decimalValue];
 		minorTicksPerInterval = 1;
 		coordinate = CPCoordinateX;
-		axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
-		axisLabelTextStyle = [[CPTextStyle alloc] init];
+		labelingPolicy = CPAxisLabelingPolicyFixedInterval;
+		labelTextStyle = [[CPTextStyle alloc] init];
 		NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
 		newFormatter.minimumIntegerDigits = 1;
 		newFormatter.maximumFractionDigits = 1; 
         newFormatter.minimumFractionDigits = 1;
-        axisLabelFormatter = newFormatter;
+        labelFormatter = newFormatter;
 		axisLabels = [[NSSet set] retain];
         tickDirection = CPSignNone;
 		axisTitle = nil;
-		axisTitleTextStyle = [[CPTextStyle alloc] init];
-		axisTitleLocation = [[NSDecimalNumber notANumber] decimalValue];
+		titleTextStyle = [[CPTextStyle alloc] init];
+		titleLocation = CPDecimalFromString(@"0.0");
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -266,10 +273,10 @@
 	[minorTickLineStyle release];
     [majorGridLineStyle release];
     [minorGridLineStyle release];
-	[axisLabelFormatter release];
+	[labelFormatter release];
 	[axisLabels release];
-	[axisLabelTextStyle release];
-	[axisTitleTextStyle release];
+	[labelTextStyle release];
+	[titleTextStyle release];
 	[labelExclusionRanges release];
 	
 	[super dealloc];
@@ -407,17 +414,17 @@
 {
     NSMutableArray *newLabels = [[NSMutableArray alloc] initWithCapacity:locations.count];
 	for ( NSDecimalNumber *tickLocation in locations ) {
-        NSString *labelString = [self.axisLabelFormatter stringForObjectValue:tickLocation];
-        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.axisLabelTextStyle];
+        NSString *labelString = [self.labelFormatter stringForObjectValue:tickLocation];
+        CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText:labelString textStyle:self.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
-        newLabel.rotation = self.axisLabelRotation;
+        newLabel.rotation = self.labelRotation;
 		switch ( self.tickDirection ) {
 			case CPSignNone:
-				newLabel.offset = self.axisLabelOffset + self.majorTickLength / 2.0f;
+				newLabel.offset = self.labelOffset + self.majorTickLength / 2.0f;
 				break;
 			case CPSignPositive:
 			case CPSignNegative:
-				newLabel.offset = self.axisLabelOffset + self.majorTickLength;
+				newLabel.offset = self.labelOffset + self.majorTickLength;
 				break;
 		}
         [newLabels addObject:newLabel];
@@ -448,7 +455,7 @@
 	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
 	NSSet *newMajorLocations, *newMinorLocations;
 	
-	switch (self.axisLabelingPolicy) {
+	switch (self.labelingPolicy) {
 		case CPAxisLabelingPolicyNone:
         case CPAxisLabelingPolicyLocationsProvided:
             // Assume locations are set by user
@@ -457,12 +464,12 @@
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
 			// Add ticks in negative direction
-			[self tickLocationsBeginningAt:self.fixedPoint increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+			[self tickLocationsBeginningAt:self.labelingOrigin increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			[allNewMajorLocations unionSet:newMajorLocations];  
 			[allNewMinorLocations unionSet:newMinorLocations];  
 			
 			// Add ticks in positive direction
-			[self tickLocationsBeginningAt:self.fixedPoint increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+			[self tickLocationsBeginningAt:self.labelingOrigin increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			[allNewMajorLocations unionSet:newMajorLocations];
 			[allNewMinorLocations unionSet:newMinorLocations];
 			
@@ -477,14 +484,14 @@
 			break;
 	}
 	
-    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone &&
-    	 self.axisLabelingPolicy != CPAxisLabelingPolicyLocationsProvided ) {
+    if ( self.labelingPolicy != CPAxisLabelingPolicyNone &&
+    	 self.labelingPolicy != CPAxisLabelingPolicyLocationsProvided ) {
         // Filter and set tick locations	
         self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
         self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
     }
         
-    if ( self.axisLabelingPolicy != CPAxisLabelingPolicyNone ) {
+    if ( self.labelingPolicy != CPAxisLabelingPolicyNone ) {
         // Label ticks
         NSArray *newLabels = [self newAxisLabelsAtLocations:self.majorTickLocations.allObjects];
         self.axisLabels = [NSSet setWithArray:newLabels];
@@ -494,13 +501,6 @@
     self.needsRelabel = NO;
 	
 	[self.delegate axisDidRelabel:self];
-}
-
-/**	@brief Provides a default axis title location, if none has been specified.  Should be overridden by subclasses.
- **/
--(NSDecimal)defaultAxisTitleLocation;
-{
-	return CPDecimalFromString(@"0.0");
 }
 
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations 
@@ -549,7 +549,7 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 	
-	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -574,11 +574,11 @@
 	}
 }
 
--(void)setAxisLabelTextStyle:(CPTextStyle *)newStyle 
+-(void)setLabelTextStyle:(CPTextStyle *)newStyle 
 {
-	if ( newStyle != axisLabelTextStyle ) {
-		[axisLabelTextStyle release];
-		axisLabelTextStyle = [newStyle copy];
+	if ( newStyle != labelTextStyle ) {
+		[labelTextStyle release];
+		labelTextStyle = [newStyle copy];
 		[self setNeedsLayout];
 	}
 }
@@ -590,25 +590,25 @@
 		[axisTitle.contentLayer removeFromSuperlayer];
 		[axisTitle release];
 		axisTitle = [newTitle retain];
-		axisTitle.offset = self.axisTitleOffset;
+		axisTitle.offset = self.titleOffset;
 		[self addSublayer:axisTitle.contentLayer];
 	}
 }
 
--(void)setAxisTitleTextStyle:(CPTextStyle *)newStyle 
+-(void)setTitleTextStyle:(CPTextStyle *)newStyle 
 {
-	if ( newStyle != axisTitleTextStyle ) {
-		[axisTitleTextStyle release];
-		axisTitleTextStyle = [newStyle copy];
+	if ( newStyle != titleTextStyle ) {
+		[titleTextStyle release];
+		titleTextStyle = [newStyle copy];
 		[self setNeedsLayout];
 	}
 }
 
--(void)setAxisTitleOffset:(CGFloat)newOffset 
+-(void)setTitleOffset:(CGFloat)newOffset 
 {
-    if ( newOffset != axisTitleOffset ) {
-        axisTitleOffset = newOffset;
-		self.axisTitle.offset = axisTitleOffset;
+    if ( newOffset != titleOffset ) {
+        titleOffset = newOffset;
+		self.axisTitle.offset = titleOffset;
 		[self setNeedsLayout];
     }
 }
@@ -619,7 +619,7 @@
 		[title release];
 		title = [newTitle retain];
 		if (axisTitle == nil) {
-			CPAxisTitle *newAxisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.axisTitleTextStyle];
+			CPAxisTitle *newAxisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
 			self.axisTitle = newAxisTitle;
 			[newAxisTitle release];
 		}
@@ -627,18 +627,6 @@
 			[(CPTextLayer *)self.axisTitle.contentLayer setText:title];
 		}
 		[self setNeedsLayout];	}
-}
-
--(NSDecimal)axisTitleLocation
-{
-	if (NSDecimalIsNotANumber(&axisTitleLocation))
-	{
-		return [self defaultAxisTitleLocation];
-	}
-	else
-	{
-		return axisTitleLocation;
-	}
 }
 
 -(void)setLabelExclusionRanges:(NSArray *)ranges 
@@ -697,19 +685,19 @@
     }
 }
 
--(void)setAxisLabelOffset:(CGFloat)newOffset 
+-(void)setLabelOffset:(CGFloat)newOffset 
 {
-    if ( newOffset != axisLabelOffset ) {
-        axisLabelOffset = newOffset;
+    if ( newOffset != labelOffset ) {
+        labelOffset = newOffset;
 		[self setNeedsLayout];
         self.needsRelabel = YES;
     }
 }
 
--(void)setAxisLabelRotation:(CGFloat)newRotation 
+-(void)setLabelRotation:(CGFloat)newRotation 
 {
-    if ( newRotation != axisLabelRotation ) {
-        axisLabelRotation = newRotation;
+    if ( newRotation != labelRotation ) {
+        labelRotation = newRotation;
 		[self setNeedsLayout];
         self.needsRelabel = YES;
     }
@@ -759,12 +747,12 @@
     }
 }
 
--(void)setFixedPoint:(NSDecimal)newFixedPoint 
+-(void)setLabelingOrigin:(NSDecimal)newFixedPoint 
 {
-	if (CPDecimalEquals(fixedPoint, newFixedPoint)) {
+	if (CPDecimalEquals(labelingOrigin, newFixedPoint)) {
 		return;
 	}
-	fixedPoint = newFixedPoint;
+	labelingOrigin = newFixedPoint;
 	self.needsRelabel = YES;
 }
 
@@ -785,19 +773,19 @@
     }
 }
 
--(void)setAxisLabelingPolicy:(CPAxisLabelingPolicy)newPolicy 
+-(void)setLabelingPolicy:(CPAxisLabelingPolicy)newPolicy 
 {
-    if (newPolicy != axisLabelingPolicy) {
-        axisLabelingPolicy = newPolicy;
+    if (newPolicy != labelingPolicy) {
+        labelingPolicy = newPolicy;
         self.needsRelabel = YES;
     }
 }
 
--(void)setAxisLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter 
+-(void)setLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter 
 {
-    if ( newTickLabelFormatter != axisLabelFormatter ) {
-        [axisLabelFormatter release];
-        axisLabelFormatter = [newTickLabelFormatter retain];
+    if ( newTickLabelFormatter != labelFormatter ) {
+        [labelFormatter release];
+        labelFormatter = [newTickLabelFormatter retain];
         self.needsRelabel = YES;
     }
 }

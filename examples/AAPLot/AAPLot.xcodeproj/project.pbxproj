@@ -22,8 +22,6 @@
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8989460FE0309E00FDC37F /* QuartzCore.framework */; };
-		AB8989C70FE055FD00FDC37F /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */; };
-		AB8989C80FE055FD00FDC37F /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */; };
 		AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8F94490FDEF56700E61485 /* libCorePlot-CocoaTouch.a */; };
 		AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */; };
 		ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5345D0FEB40CE0046A8DA /* AAPL.plist */; };
@@ -72,11 +70,6 @@
 		32CA4F630368D1EE00C91783 /* AAPLot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLot_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB8989460FE0309E00FDC37F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AB8989C20FE055B800FDC37F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../../google-toolbox-for-mac/GTMDefines.h"; sourceTree = SOURCE_ROOT; };
-		AB8989C30FE055FD00FDC37F /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMObjC2Runtime.h; path = "../../google-toolbox-for-mac/Foundation/GTMObjC2Runtime.h"; sourceTree = SOURCE_ROOT; };
-		AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMObjC2Runtime.m; path = "../../google-toolbox-for-mac/Foundation/GTMObjC2Runtime.m"; sourceTree = SOURCE_ROOT; };
-		AB8989C50FE055FD00FDC37F /* GTMStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMStackTrace.h; path = "../../google-toolbox-for-mac/Foundation/GTMStackTrace.h"; sourceTree = SOURCE_ROOT; };
-		AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMStackTrace.m; path = "../../google-toolbox-for-mac/Foundation/GTMStackTrace.m"; sourceTree = SOURCE_ROOT; };
 		AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		AB8F94560FDEFA1500E61485 /* APYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APYahooDataPuller.h; sourceTree = "<group>"; };
 		AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPuller.m; sourceTree = "<group>"; };
@@ -159,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				AB8F94440FDEF56700E61485 /* CorePlot-CocoaTouch.xcodeproj */,
-				AB8989C10FE0557900FDC37F /* Google Debugging Toys */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				0737034D0FE518E7006D46AD /* Data Acquisition */,
 				281C6CD70DB2D82200F60ACC /* Flipside View */,
@@ -199,18 +191,6 @@
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AB8989C10FE0557900FDC37F /* Google Debugging Toys */ = {
-			isa = PBXGroup;
-			children = (
-				AB8989C30FE055FD00FDC37F /* GTMObjC2Runtime.h */,
-				AB8989C40FE055FD00FDC37F /* GTMObjC2Runtime.m */,
-				AB8989C50FE055FD00FDC37F /* GTMStackTrace.h */,
-				AB8989C60FE055FD00FDC37F /* GTMStackTrace.m */,
-				AB8989C20FE055B800FDC37F /* GTMDefines.h */,
-			);
-			name = "Google Debugging Toys";
 			sourceTree = "<group>";
 		};
 		AB8F94450FDEF56700E61485 /* Products */ = {
@@ -308,8 +288,6 @@
 				289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */,
-				AB8989C70FE055FD00FDC37F /* GTMObjC2Runtime.m in Sources */,
-				AB8989C80FE055FD00FDC37F /* GTMStackTrace.m in Sources */,
 				073703570FE5193C006D46AD /* APFinancialData.m in Sources */,
 				073703B10FE51E6C006D46AD /* NSDateFormatterExtensions.m in Sources */,
 			);

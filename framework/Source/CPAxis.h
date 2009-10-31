@@ -47,33 +47,33 @@ typedef enum _CPAxisLabelingPolicy {
 @end
 
 @interface CPAxis : CPLayer {   
-@private
+	@private
     CPCoordinate coordinate;
 	CPPlotSpace *plotSpace;
     NSSet *majorTickLocations;
     NSSet *minorTickLocations;
     CGFloat majorTickLength;
     CGFloat minorTickLength;
-	CGFloat axisLabelOffset;
-    CGFloat axisLabelRotation;
+	CGFloat labelOffset;
+    CGFloat labelRotation;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
     CPLineStyle *majorGridLineStyle;
     CPLineStyle *minorGridLineStyle;
-    NSDecimal fixedPoint;			// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    NSDecimal labelingOrigin;			// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
     NSDecimal majorIntervalLength;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
     NSUInteger minorTicksPerInterval;
     NSUInteger preferredNumberOfMajorTicks;
-    CPAxisLabelingPolicy axisLabelingPolicy;
-	CPTextStyle *axisLabelTextStyle;
-	CPTextStyle *axisTitleTextStyle;
-	NSNumberFormatter *axisLabelFormatter;
+    CPAxisLabelingPolicy labelingPolicy;
+	CPTextStyle *labelTextStyle;
+	CPTextStyle *titleTextStyle;
+	NSNumberFormatter *labelFormatter;
 	NSSet *axisLabels;
 	CPAxisTitle *axisTitle;
 	NSString *title;
-	CGFloat axisTitleOffset;
-	NSDecimal axisTitleLocation;
+	CGFloat titleOffset;
+	NSDecimal titleLocation;
 	
     CPSign tickDirection;
     BOOL needsRelabel;
@@ -85,26 +85,26 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
-@property (nonatomic, readwrite) NSDecimal fixedPoint;
+@property (nonatomic, readwrite) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
 ///	@}
 
 /// @name Title
 /// @{
-@property (nonatomic, readwrite, copy) CPTextStyle *axisTitleTextStyle;
+@property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
-@property (nonatomic, readwrite, assign) CGFloat axisTitleOffset;
+@property (nonatomic, readwrite, assign) CGFloat titleOffset;
 @property (nonatomic, readwrite, retain) NSString *title;
-@property (nonatomic, readwrite) NSDecimal axisTitleLocation;
+@property (nonatomic, readwrite) NSDecimal titleLocation;
 ///	@}
 
 /// @name Labels
 /// @{
-@property (nonatomic, readwrite, assign) CPAxisLabelingPolicy axisLabelingPolicy;
-@property (nonatomic, readwrite, assign) CGFloat axisLabelOffset;
-@property (nonatomic, readwrite, assign) CGFloat axisLabelRotation;
-@property (nonatomic, readwrite, copy) CPTextStyle *axisLabelTextStyle;
-@property (nonatomic, readwrite, retain) NSNumberFormatter *axisLabelFormatter;
+@property (nonatomic, readwrite, assign) CPAxisLabelingPolicy labelingPolicy;
+@property (nonatomic, readwrite, assign) CGFloat labelOffset;
+@property (nonatomic, readwrite, assign) CGFloat labelRotation;
+@property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
@@ -142,7 +142,6 @@ typedef enum _CPAxisLabelingPolicy {
 -(void)setNeedsRelabel;
 
 -(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
--(NSDecimal)defaultAxisTitleLocation;
 ///	@}
 
 /// @name Ticks

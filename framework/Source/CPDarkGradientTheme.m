@@ -38,7 +38,7 @@
 
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle
 {
-	axis.axisLabelingPolicy = CPAxisLabelingPolicyFixedInterval;
+	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength = CPDecimalFromString(@"0.5");
     axis.constantCoordinateValue = CPDecimalFromString(@"0");
 	axis.tickDirection = CPSignNone;
@@ -48,8 +48,8 @@
     axis.axisLineStyle = majorLineStyle;
     axis.majorTickLength = 7.0f;
     axis.minorTickLength = 5.0f;
-	axis.axisLabelTextStyle = textStyle; 
-	axis.axisTitleTextStyle = textStyle;
+	axis.labelTextStyle = textStyle; 
+	axis.titleTextStyle = textStyle;
 }
 
 -(void)applyThemeToBackground:(CPXYGraph *)graph 

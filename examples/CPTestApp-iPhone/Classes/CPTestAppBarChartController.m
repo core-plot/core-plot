@@ -57,13 +57,15 @@
     x.constantCoordinateValue = CPDecimalFromString(@"0");
     x.minorTicksPerInterval = 2;
 	x.title = @"X Axis";
+    x.titleLocation = CPDecimalFromFloat(7.5f);
 
 	CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"50");
     y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = CPDecimalFromString(@"0");
 	y.title = @"Y Axis";
-	y.axisTitleOffset = 45.0f;
+	y.titleOffset = 45.0f;
+    y.titleLocation = CPDecimalFromFloat(150.0f);
 
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];

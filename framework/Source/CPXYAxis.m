@@ -186,7 +186,7 @@
 #pragma mark -
 #pragma mark Labels
 
--(NSDecimal)defaultAxisTitleLocation;
+-(NSDecimal)defaultTitleLocation;
 {
 	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	

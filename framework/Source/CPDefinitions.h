@@ -57,9 +57,9 @@ typedef struct _CPRGBAColor {
  *	@brief Enumeration of label positioning offset directions
  **/
 typedef enum _CPSign {
-	CPSignNone,		///< No offset
-	CPSignPositive,	///< Positive offset
-	CPSignNegative	///< Negative offset
+	CPSignNone     =  0, ///< No offset
+	CPSignPositive = +1, ///< Positive offset
+	CPSignNegative = -1	 ///< Negative offset
 } CPSign;
 
 /// @name Default Z Positions
