@@ -2,6 +2,10 @@
 #import "CPTextLayer.h"
 #import "CPExceptions.h"
 
+/**	@brief An axis title.
+ *
+ *	The title can be text-based or can be the content of any CPLayer provided by the user.
+ **/
 @implementation CPAxisTitle
 
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
