@@ -312,8 +312,8 @@
 		// Minor ticks
 		if ( self.minorTicksPerInterval > 0 ) {
 			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromInt(self.minorTicksPerInterval+1));
-			NSDecimal minorCoord;
-			minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+			NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+			
 			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
 				if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
 					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
@@ -330,23 +330,22 @@
 
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
-    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:preferredNumberOfMajorTicks];
-    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(preferredNumberOfMajorTicks + 1) * minorTicksPerInterval];
+    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:self.preferredNumberOfMajorTicks];
+    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(self.preferredNumberOfMajorTicks + 1) * self.minorTicksPerInterval];
     
-    if ( preferredNumberOfMajorTicks == 0 ) {
+    if ( self.preferredNumberOfMajorTicks == 0 ) {
     	*newMajorLocations = majorLocations;
         *newMinorLocations = minorLocations;
         return;
     }
     
     // Determine starting interval
-    NSUInteger numTicks = preferredNumberOfMajorTicks;
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
     NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
     NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
     	(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:numIntervals]];
-    
     
     // Determine round number using the NSString with scientific format of numbers
     NSString *intervalString = [NSString stringWithFormat:@"%e", [interval doubleValue]];
@@ -381,8 +380,9 @@
     // Determine all locations
     NSInteger majorIndex;
     NSDecimalNumber *minorInterval = nil;
-    if ( minorTicksPerInterval > 0 ) minorInterval = [interval decimalNumberByDividingBy:
-    	(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:minorTicksPerInterval+1]];
+    if ( self.minorTicksPerInterval > 0 ) {
+		minorInterval = [interval decimalNumberByDividingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:self.minorTicksPerInterval+1]];
+	}
     for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
     	// Major ticks
         [majorLocations addObject:pointLocation];
@@ -392,7 +392,7 @@
         if ( !minorInterval ) continue;
         NSInteger minorIndex;
         NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
-        for ( minorIndex = 0; minorIndex < minorTicksPerInterval; minorIndex++ ) {
+        for ( minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
             [minorLocations addObject:minorLocation];
             minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
         }
@@ -549,7 +549,7 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 	
-	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -579,6 +579,14 @@
 	if ( newStyle != labelTextStyle ) {
 		[labelTextStyle release];
 		labelTextStyle = [newStyle copy];
+		
+		for ( CPAxisLabel *axisLabel in self.axisLabels ) {
+			CPLayer *contentLayer = axisLabel.contentLayer;
+			if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+				[(CPTextLayer *)contentLayer setTextStyle:labelTextStyle];
+			}
+		}
+		
 		[self setNeedsLayout];
 	}
 }
@@ -600,6 +608,12 @@
 	if ( newStyle != titleTextStyle ) {
 		[titleTextStyle release];
 		titleTextStyle = [newStyle copy];
+
+		CPLayer *contentLayer = self.axisTitle.contentLayer;
+		if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+			[(CPTextLayer *)contentLayer setTextStyle:titleTextStyle];
+		}
+		
 		[self setNeedsLayout];
 	}
 }
@@ -747,12 +761,12 @@
     }
 }
 
--(void)setLabelingOrigin:(NSDecimal)newFixedPoint 
+-(void)setLabelingOrigin:(NSDecimal)newLabelingOrigin
 {
-	if (CPDecimalEquals(labelingOrigin, newFixedPoint)) {
+	if (CPDecimalEquals(labelingOrigin, newLabelingOrigin)) {
 		return;
 	}
-	labelingOrigin = newFixedPoint;
+	labelingOrigin = newLabelingOrigin;
 	self.needsRelabel = YES;
 }
 

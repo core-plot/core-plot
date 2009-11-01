@@ -73,8 +73,7 @@ typedef enum _CPAxisLabelingPolicy {
 	CPAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat titleOffset;
-	NSDecimal titleLocation;
-	
+	NSDecimal titleLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;

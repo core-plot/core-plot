@@ -39,6 +39,11 @@
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [CPColor blueColor];
 	
+	// Text styles
+	CPTextStyle *axisTitleTextStyle = [CPTextStyle textStyle];
+	axisTitleTextStyle.fontName = @"Helvetica Bold";
+	axisTitleTextStyle.fontSize = 14.0;
+	
     // Axes
     // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -53,7 +58,8 @@
 	x.minorTickLength = 6.0;
     x.minorGridLineStyle = minorGridLineStyle;
 	x.title = @"X Axis";
-	x.titleOffset = 30.0f;
+	x.titleTextStyle = axisTitleTextStyle;
+	x.titleOffset = 25.0f;
 	
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
@@ -69,6 +75,7 @@
 	y.minorTickLength = 6.0;
     y.minorGridLineStyle = minorGridLineStyle;
 	y.title = @"Y Axis";
+	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0f;
 }
 
