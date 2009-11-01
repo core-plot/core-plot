@@ -549,7 +549,7 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 	
-	[axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.axisTitleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -579,6 +579,14 @@
 	if ( newStyle != axisLabelTextStyle ) {
 		[axisLabelTextStyle release];
 		axisLabelTextStyle = [newStyle copy];
+		
+		for ( CPAxisLabel *axisLabel in self.axisLabels ) {
+			CPLayer *contentLayer = axisLabel.contentLayer;
+			if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+				[(CPTextLayer *)contentLayer setTextStyle:axisLabelTextStyle];
+			}
+		}
+		
 		[self setNeedsLayout];
 	}
 }
@@ -600,6 +608,12 @@
 	if ( newStyle != axisTitleTextStyle ) {
 		[axisTitleTextStyle release];
 		axisTitleTextStyle = [newStyle copy];
+
+		CPLayer *contentLayer = self.axisTitle.contentLayer;
+		if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+			[(CPTextLayer *)contentLayer setTextStyle:axisTitleTextStyle];
+		}
+		
 		[self setNeedsLayout];
 	}
 }

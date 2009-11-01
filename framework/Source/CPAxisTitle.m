@@ -11,8 +11,7 @@
 	self.rotation = (coordinate == CPCoordinateX ? (M_PI / 2.0) : 0.0);
 	CGPoint anchor = CGPointZero;
     
-    // If there is no rotation, position the anchor point along the closest edge.
-    // If there is rotation, leave the anchor in the center.
+    // Position the anchor point along the closest edge.
     switch ( direction ) {
         case CPSignNone:
         case CPSignNegative:
@@ -28,15 +27,31 @@
             break;
     }
 	
-	// Pixel-align the label layer to prevent blurriness
-	CGSize currentSize = self.contentLayer.bounds.size;
-	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + floor(currentSize.width * anchor.x);
-	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + floor(currentSize.height * anchor.y);
+	// Pixel-align the title layer to prevent blurriness
+	CPLayer *content = self.contentLayer;
+	CGSize currentSize = content.bounds.size;
 	
-    self.contentLayer.anchorPoint = anchor;
-	self.contentLayer.position = newPosition;
-    self.contentLayer.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
-	[self.contentLayer setNeedsDisplay];
+	content.anchorPoint = anchor;
+
+	if ( self.rotation == 0.0 ) {
+		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+	}
+	else {
+		newPosition.x = round(newPosition.x);
+		newPosition.y = round(newPosition.y);
+	}
+	content.position = newPosition;
+    content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+	[content setNeedsDisplay];
 }
+
+#pragma mark -
+#pragma mark Description
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"CPAxisTitle {%@}", self.contentLayer];
+};
 
 @end

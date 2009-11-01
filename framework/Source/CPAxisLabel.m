@@ -112,7 +112,7 @@
         case CPSignNone:
         case CPSignNegative:
             *value -= offset;
-			if ( rotation == 0.0f ) {
+			if ( self.rotation == 0.0f ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
 			}
 			else {
@@ -121,7 +121,7 @@
             break;
         case CPSignPositive:
             *value += offset;
-			if ( rotation == 0.0f ) {
+			if ( self.rotation == 0.0f ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			}
 			else {
@@ -134,14 +134,22 @@
     }
 	
 	// Pixel-align the label layer to prevent blurriness
-	CGSize currentSize = self.contentLayer.bounds.size;
-	newPosition.x = round(newPosition.x - (currentSize.width * anchor.x)) + floor(currentSize.width * anchor.x);
-	newPosition.y = round(newPosition.y - (currentSize.height * anchor.y)) + floor(currentSize.height * anchor.y);
+	CPLayer *content = self.contentLayer;
+	CGSize currentSize = content.bounds.size;
 	
-    self.contentLayer.anchorPoint = anchor;
-	self.contentLayer.position = newPosition;
-    self.contentLayer.transform = CATransform3DMakeRotation(rotation, 0.0f, 0.0f, 1.0f);
-	[self.contentLayer setNeedsDisplay];
+	content.anchorPoint = anchor;
+	
+	if ( self.rotation == 0.0 ) {
+		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+	}
+	else {
+		newPosition.x = round(newPosition.x);
+		newPosition.y = round(newPosition.y);
+	}
+	content.position = newPosition;
+    content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+	[content setNeedsDisplay];
 }
 
 /**	@brief Positions the axis label between two given points.
@@ -157,5 +165,13 @@
 	// TODO: Write implementation for positioning label between ticks
 	[NSException raise:CPException format:@"positionBetweenViewPoint:andViewPoint:forCoordinate:inDirection: not implemented"];
 }
+
+#pragma mark -
+#pragma mark Description
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"CPAxisLabel {%@}", self.contentLayer];
+};
 
 @end
