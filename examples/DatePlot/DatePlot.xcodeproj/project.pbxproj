@@ -39,7 +39,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 0730F600109492D800E95162 /* UnitTests.octest */;
+			remoteGlobalIDString = 0730F600109492D800E95162;
 			remoteInfo = UnitTests;
 		};
 /* End PBXContainerItemProxy section */
