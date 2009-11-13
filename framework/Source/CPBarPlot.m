@@ -242,7 +242,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		id dependentCoordValue = [lengths objectAtIndex:ii];
         id independentCoordValue = [locations objectAtIndex:ii];
 		
-		if ( [dependentCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
+		if ( ![dependentCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
 			double plotPoint[2];
             plotPoint[independentCoord] = [independentCoordValue doubleValue];
 			
