@@ -6,7 +6,6 @@
 
 /** @brief A layer with rounded corners.
  **/
-
 @implementation CPBorderedLayer
 
 /** @property borderLineStyle 
