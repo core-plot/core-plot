@@ -15,7 +15,7 @@
 	BOOL reversible;
 }
 
-@property (nonatomic, readwrite, copy) id <NSCopying> identifier;
+@property (nonatomic, readwrite, copy) id <NSObject, NSCopying> identifier;
 @property (nonatomic, readwrite, assign) NSTimeInterval duration;
 @property (nonatomic, readonly, assign) BOOL reversible;
 @property (nonatomic, readwrite, assign) CPAnimation *animation;

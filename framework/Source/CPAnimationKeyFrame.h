@@ -8,7 +8,7 @@
     NSTimeInterval duration;
 }
 
-@property (nonatomic, readwrite, copy) id <NSCopying> identifier;
+@property (nonatomic, readwrite, copy) id <NSObject, NSCopying> identifier;
 @property (nonatomic, readwrite, assign) BOOL isInitialFrame;
 @property (nonatomic, readwrite, assign) NSTimeInterval duration;
 
