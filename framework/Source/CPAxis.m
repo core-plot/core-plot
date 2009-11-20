@@ -302,7 +302,9 @@
 	NSDecimal coord = beginNumber;
 	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
-	while ( (increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
+	while ( range &&
+    		(increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
+    		(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
 		
 		// Major tick
 		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
