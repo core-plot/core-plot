@@ -221,9 +221,9 @@
         lastDragPoint = pointInPlotArea;
         isDragging = YES;
     }
-    else {
-        [super pointingDeviceDownAtPoint:interactionPoint];
-    }
+
+	// Allow other responders (eg other spaces) to receive event
+    [super pointingDeviceDownAtPoint:interactionPoint];
 }
 
 -(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
@@ -232,9 +232,9 @@
     if ( isDragging ) {
         isDragging = NO;
     }
-    else {
-        [super pointingDeviceUpAtPoint:interactionPoint];
-    }
+    
+	// Allow other responders (eg other spaces) to receive event
+    [super pointingDeviceUpAtPoint:interactionPoint];
 }
 
 -(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
@@ -259,9 +259,9 @@
         
         lastDragPoint = pointInPlotArea;
     }
-    else {
-        [super pointingDeviceDownAtPoint:interactionPoint];
-    }
+
+	// Allow other responders (eg other spaces) to receive event
+    [super pointingDeviceDownAtPoint:interactionPoint];
 }
 
 @end
