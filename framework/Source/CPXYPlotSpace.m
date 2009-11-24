@@ -209,4 +209,21 @@
 	//	TODO: implement doublePrecisionPlotPoint:forViewPoint:
 }
 
+#pragma mark Interaction
+
+-(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
+{
+	if ( !self.allowsUserInteraction ) [super mouseOrFingerDownAtPoint:interactionPoint];
+}
+
+-(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
+{
+	if ( !self.allowsUserInteraction ) [super mouseOrFingerUpAtPoint:interactionPoint];
+}
+
+-(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
+{
+	if ( !self.allowsUserInteraction ) [super mouseOrFingerUpAtPoint:interactionPoint];
+}
+
 @end

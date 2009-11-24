@@ -82,6 +82,9 @@
 		079FC0BF0FB9762B0037E990 /* CPColorSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 079FC0BC0FB9762B0037E990 /* CPColorSpace.m */; };
 		07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A2E6FA102DF47900809BC5 /* CPTimeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E6FB102DF47900809BC5 /* CPTimeFormatter.m */; };
+		07AEF1FF10BBE1F10012BEFF /* CPResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AEF1FE10BBE1F10012BEFF /* CPResponder.m */; };
+		07AEF24910BBED050012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF1FD10BBE1F10012BEFF /* CPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07AEF24A10BBED060012BEFF /* CPResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AEF1FE10BBE1F10012BEFF /* CPResponder.m */; };
 		07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D610F2B70B8002FCEA7 /* CoreData.framework */; };
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D700F2B718F002FCEA7 /* CPGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,6 +215,8 @@
 		079FC0BC0FB9762B0037E990 /* CPColorSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorSpace.m; sourceTree = "<group>"; };
 		07A2E6FA102DF47900809BC5 /* CPTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTimeFormatter.h; sourceTree = "<group>"; };
 		07A2E6FB102DF47900809BC5 /* CPTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTimeFormatter.m; sourceTree = "<group>"; };
+		07AEF1FD10BBE1F10012BEFF /* CPResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPResponder.h; sourceTree = "<group>"; };
+		07AEF1FE10BBE1F10012BEFF /* CPResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPResponder.m; sourceTree = "<group>"; };
 		07BF0D610F2B70B8002FCEA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		07BF0D620F2B70B8002FCEA7 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -359,6 +364,8 @@
 				4CD7E7EB0F4B4F9600F9BCBB /* CPLayer.m */,
 				0706223A0FDF215C0066A6C4 /* CPBorderedLayer.h */,
 				0706223B0FDF215C0066A6C4 /* CPBorderedLayer.m */,
+				07AEF1FD10BBE1F10012BEFF /* CPResponder.h */,
+				07AEF1FE10BBE1F10012BEFF /* CPResponder.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -817,6 +824,7 @@
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
 				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
+				07AEF24910BBED050012BEFF /* CPResponder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,6 +953,7 @@
 				0730F63D1094936D00E95162 /* CPDarkGradientThemeTests.m in Sources */,
 				0730F64E109494D100E95162 /* CPTestCase.m in Sources */,
 				0730F6851094995F00E95162 /* CPDerivedXYGraph.m in Sources */,
+				07AEF1FF10BBE1F10012BEFF /* CPResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1016,7 @@
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
 				BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */,
+				07AEF24A10BBED060012BEFF /* CPResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

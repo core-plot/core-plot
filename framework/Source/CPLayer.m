@@ -68,6 +68,11 @@
  **/
 @synthesize layoutManager;
 
+/** @property nextResponder
+ *  @brief The next responder of the layer in the responder chain.
+ **/
+@synthesize nextResponder;
+
 // Private properties
 @synthesize renderingRecursively;
 
@@ -96,6 +101,7 @@
 		paddingRight = 0.0f;
 		paddingBottom = 0.0f;
 		layoutManager = nil;
+        nextResponder = nil;
 		renderingRecursively = NO;
 
 		self.frame = newFrame;
@@ -117,6 +123,7 @@
 
 -(void)dealloc
 {
+	nextResponder = nil;
 	[layoutManager release];
 	[super dealloc];
 }
@@ -198,43 +205,37 @@
 }
 
 #pragma mark -
-#pragma mark User interaction
-
--(BOOL)containsPoint:(CGPoint)thePoint
-{
-	// By default, don't respond to touch or mouse events
-	return NO;
-}
+#pragma mark Responder Chain and User interaction
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
- *	@param interactionPoint The coordinates of the event.
+ *	@param interactionPoint The coordinates of the event in the host view.
  **/
 -(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
 {
-	// Subclasses should handle mouse or touch interactions here
+	[nextResponder mouseOrFingerDownAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
- *	@param interactionPoint The coordinates of the event.
+ *	@param interactionPoint The coordinates of the event in the host view.
  **/
 -(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
 {
-	// Subclasses should handle mouse or touch interactions here
+	[nextResponder mouseOrFingerUpAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
- *	@param interactionPoint The coordinates of the event.
+ *	@param interactionPoint The coordinates of the event in the host view.
  **/
 -(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
 {
-	// Subclasses should handle mouse or touch interactions here
+	[nextResponder mouseOrFingerDraggedAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
  **/
 -(void)mouseOrFingerCancelled
 {
-	// Subclasses should handle mouse or touch interactions here
+	[nextResponder mouseOrFingerCancelled];
 }
 
 #pragma mark -

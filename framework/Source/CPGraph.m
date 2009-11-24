@@ -68,8 +68,9 @@
         self.paddingBottom = 20.0;
         
         // Plot area
-        plotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
-        [self addSublayer:plotArea];
+        CPPlotArea *newArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
+        self.plotArea = newArea;
+        [newArea release];
 
         // Plot spaces
 		plotSpaces = [[NSMutableArray alloc] init];
@@ -249,6 +250,22 @@
 }
 
 #pragma mark -
+#pragma mark Set Plot Area
+
+-(void)setPlotArea:(CPPlotArea *)newArea 
+{
+    if ( plotArea != newArea ) {
+    	[plotArea removeFromSuperlayer];
+        [plotArea release];
+        plotArea = [newArea retain];
+        [self addSublayer:newArea];
+		for ( CPPlotSpace *space in plotSpaces ) {
+            space.plotArea = newArea;
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark Organizing Plot Spaces
 
 /**	@brief Add a plot space to the graph.
@@ -257,6 +274,7 @@
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
 	[self.plotSpaces addObject:space];
+    space.plotArea = plotArea;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
@@ -268,6 +286,7 @@
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
 		[self.plotSpaces removeObject:plotSpace];
+        plotSpace.plotArea = nil;
         for ( CPAxis *axis in self.axisSet.axes ) {
             if ( axis.plotSpace == plotSpace ) axis.plotSpace = nil;
         }

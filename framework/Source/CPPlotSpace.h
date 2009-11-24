@@ -1,16 +1,23 @@
 #import "CPDefinitions.h"
+#import "CPResponder.h"
 
 @class CPLayer;
 @class CPPlotRange;
+@class CPPlotArea;
 
 extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
-@interface CPPlotSpace : NSObject {
+@interface CPPlotSpace : NSObject <CPResponder> {
 	@private
+    __weak CPPlotArea *plotArea;
 	id <NSCopying, NSObject> identifier;
+    id <CPResponder> nextResponder;
+    BOOL allowsUserInteraction;
 }
 
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
+@property (nonatomic, readwrite, assign) BOOL allowsUserInteraction;
+@property (nonatomic, readwrite, assign) __weak CPPlotArea *plotArea;
 
 @end
 

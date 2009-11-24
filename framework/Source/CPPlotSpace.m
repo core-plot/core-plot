@@ -23,6 +23,21 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @synthesize identifier;
 
+/**	@property allowsUserInteraction
+ *	@brief Determines whether user can interactively change plot range and/or zoom.
+ **/
+@synthesize allowsUserInteraction;
+
+/** @property nextResponder
+ *  @brief The next responder of the layer in the responder chain.
+ **/
+@synthesize nextResponder;
+
+/** @property plotArea
+ *  @brief The plot area of the space.
+ **/
+@synthesize plotArea;
+
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
@@ -30,12 +45,17 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	if ( self = [super init] ) {
 		identifier = nil;
+        allowsUserInteraction = NO;
+        nextResponder = nil;
+        plotArea = nil;
 	}
 	return self;
 }
 
 -(void)dealloc
-{
+{	
+	plotArea = nil;
+	nextResponder = nil;
 	[identifier release];
 	[super dealloc];
 }
@@ -46,6 +66,40 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionPlotSpace;
+}
+
+#pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ **/
+-(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
+{
+	[nextResponder mouseOrFingerDownAtPoint:interactionPoint];
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ **/
+-(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
+{
+	[nextResponder mouseOrFingerUpAtPoint:interactionPoint];
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ **/
+-(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
+{
+	[nextResponder mouseOrFingerDraggedAtPoint:interactionPoint];
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ **/
+-(void)mouseOrFingerCancelled
+{
+	[nextResponder mouseOrFingerCancelled];
 }
 
 ///	@}

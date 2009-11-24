@@ -1,16 +1,18 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPResponder.h"
 #import "CPPlatformSpecificDefines.h"
 
 @protocol CPLayoutManager;
 
-@interface CPLayer : CALayer {
+@interface CPLayer : CALayer <CPResponder> {
 @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
 	id <CPLayoutManager> layoutManager;
+    id <CPResponder> nextResponder;
 	BOOL renderingRecursively;
 }
 
@@ -43,14 +45,6 @@
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
-///	@}
-
-/// @name User Interaction
-/// @{
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerCancelled;
 ///	@}
 
 /// @name Masking

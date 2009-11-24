@@ -29,6 +29,7 @@
 #import <CorePlot/CPPlotSpace.h>
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
+#import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPStocksTheme.h>
 #import <CorePlot/CPTextLayer.h>
