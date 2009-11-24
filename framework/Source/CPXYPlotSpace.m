@@ -214,7 +214,10 @@
 
 -(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceDownAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) {
+        [super pointingDeviceDownAtPoint:interactionPoint];
+        return;
+    }
     CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
     if ( [self.plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
@@ -228,7 +231,10 @@
 
 -(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceUpAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) {
+        [super pointingDeviceUpAtPoint:interactionPoint];
+        return;
+    }
     if ( isDragging ) {
         isDragging = NO;
     }
@@ -239,7 +245,10 @@
 
 -(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceDraggedAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) {
+        [super pointingDeviceDraggedAtPoint:interactionPoint];
+        return;
+    }
     CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
     if ( isDragging ) {
     	NSDecimal lastPoint[2], newPoint[2];
