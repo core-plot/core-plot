@@ -15,7 +15,6 @@
 {
     if (self = [super initWithFrame:frame]) {
 		hostedLayer = nil;
-		layerBeingTouched = nil;
 		
 		// This undoes the normal coordinate space inversion that UIViews apply to their layers
 		self.layer.sublayerTransform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
@@ -29,7 +28,6 @@
 - (void)awakeFromNib
 {
 	hostedLayer = nil;
-	layerBeingTouched = nil;
 	
 	// This undoes the normal coordinate space inversion that UIViews apply to their layers
 	self.layer.sublayerTransform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
@@ -53,47 +51,24 @@
 	}
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-	CALayer *hitLayer = [self.layer hitTest:pointOfTouch];
-	
-	if ( (hitLayer != nil) && [hitLayer isKindOfClass:[CPLayer class]]) {
-		layerBeingTouched = (CPLayer *)hitLayer;
-		[(CPLayer *)hitLayer mouseOrFingerDownAtPoint:pointOfTouch];
-	}
+    [hostedLayer pointingDeviceDownAtPoint:pointOfTouch];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	if (layerBeingTouched == nil) {
-		return;
-	}
-	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-	
-	[layerBeingTouched mouseOrFingerDraggedAtPoint:pointOfTouch];
-	layerBeingTouched = nil;
+	[hostedLayer pointingDeviceDraggedAtPoint:pointOfTouch];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	if (layerBeingTouched == nil) {
-		return;		
-	}
-	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-
-	[layerBeingTouched mouseOrFingerUpAtPoint:pointOfTouch];
-	layerBeingTouched = nil;
+	[hostedLayer pointingDeviceUpAtPoint:pointOfTouch];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	// Ignore pinch or other multitouch gestures
-	if (layerBeingTouched == nil) {
-		return;		
-	}
-	
-	[layerBeingTouched mouseOrFingerCancelled];
-	layerBeingTouched = nil;
+	[hostedLayer pointingDeviceCancelled];
 }
 
 #pragma mark -

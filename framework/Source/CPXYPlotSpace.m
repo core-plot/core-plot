@@ -6,6 +6,7 @@
 #import "CPXYAxis.h"
 #import "CPAxisSet.h"
 #import "CPPlot.h"
+#import "CPPlotArea.h"
 
 /// @cond
 @interface CPXYPlotSpace ()
@@ -211,19 +212,56 @@
 
 #pragma mark Interaction
 
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction ) [super mouseOrFingerDownAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceDownAtPoint:interactionPoint];
+    CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
+    if ( [self.plotArea containsPoint:pointInPlotArea] ) {
+        // Handle event
+        lastDragPoint = pointInPlotArea;
+        isDragging = YES;
+    }
+    else {
+        [super pointingDeviceDownAtPoint:interactionPoint];
+    }
 }
 
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction ) [super mouseOrFingerUpAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceUpAtPoint:interactionPoint];
+    if ( isDragging ) {
+        isDragging = NO;
+    }
+    else {
+        [super pointingDeviceUpAtPoint:interactionPoint];
+    }
 }
 
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	if ( !self.allowsUserInteraction ) [super mouseOrFingerUpAtPoint:interactionPoint];
+	if ( !self.allowsUserInteraction || !self.plotArea ) [super pointingDeviceDraggedAtPoint:interactionPoint];
+    CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
+    if ( isDragging ) {
+    	NSDecimal lastPoint[2], newPoint[2];
+    	[self plotPoint:lastPoint forViewPoint:lastDragPoint inLayer:self.plotArea];
+        [self plotPoint:newPoint forViewPoint:pointInPlotArea inLayer:self.plotArea];
+        
+		CPPlotRange *newRangeX = [self.xRange copy];
+        CPPlotRange *newRangeY = [self.yRange copy];
+        NSDecimal shiftX = CPDecimalSubtract(lastPoint[0], newPoint[0]);
+        NSDecimal shiftY = CPDecimalSubtract(lastPoint[1], newPoint[1]);
+		newRangeX.location = CPDecimalAdd(newRangeX.location, shiftX);
+        newRangeY.location = CPDecimalAdd(newRangeY.location, shiftY);
+        self.xRange = newRangeX;
+        self.yRange = newRangeY;
+        [newRangeX release];
+        [newRangeY release];
+        
+        lastDragPoint = pointInPlotArea;
+    }
+    else {
+        [super pointingDeviceDownAtPoint:interactionPoint];
+    }
 }
 
 @end

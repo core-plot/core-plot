@@ -74,32 +74,32 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *	@param interactionPoint The coordinates of the event in the host view.
  **/
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder mouseOrFingerDownAtPoint:interactionPoint];
+	[nextResponder pointingDeviceDownAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
  *	@param interactionPoint The coordinates of the event in the host view.
  **/
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder mouseOrFingerUpAtPoint:interactionPoint];
+	[nextResponder pointingDeviceUpAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
  *	@param interactionPoint The coordinates of the event in the host view.
  **/
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
+-(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder mouseOrFingerDraggedAtPoint:interactionPoint];
+	[nextResponder pointingDeviceDraggedAtPoint:interactionPoint];
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
  **/
--(void)mouseOrFingerCancelled
+-(void)pointingDeviceCancelled
 {
-	[nextResponder mouseOrFingerCancelled];
+	[nextResponder pointingDeviceCancelled];
 }
 
 ///	@}

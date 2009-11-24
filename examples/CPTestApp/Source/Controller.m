@@ -41,6 +41,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.allowsUserInteraction = YES;
     
     // Grid line styles
     CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];

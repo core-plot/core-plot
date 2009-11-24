@@ -4,7 +4,7 @@
 
 @interface CPLayerHostingView : UIView {
 @protected
-	CPLayer *hostedLayer, *layerBeingTouched;
+	CPLayer *hostedLayer;
 
 }
 

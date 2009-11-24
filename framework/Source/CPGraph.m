@@ -273,6 +273,9 @@
  **/
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
+	CPPlotSpace *lastExistingSpace = self.plotSpaces.lastObject;
+    lastExistingSpace.nextResponder = space;
+    space.nextResponder = nil;
 	[self.plotSpaces addObject:space];
     space.plotArea = plotArea;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
@@ -285,8 +288,20 @@
 {
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
+        
+        // Update responder chain
+        NSInteger indexOfSpace = [self.plotSpaces indexOfObject:plotSpace];
+        if ( indexOfSpace > 0 ) {
+            CPPlotSpace *previousSpace = [self.plotSpaces objectAtIndex:indexOfSpace-1];
+            previousSpace.nextResponder = plotSpace.nextResponder;
+        }        
+    	plotSpace.nextResponder = nil;
+
+        // Remove space
 		[self.plotSpaces removeObject:plotSpace];
         plotSpace.plotArea = nil;
+        
+        // Update axes that referenced space
         for ( CPAxis *axis in self.axisSet.axes ) {
             if ( axis.plotSpace == plotSpace ) axis.plotSpace = nil;
         }
@@ -369,5 +384,29 @@
 	return nil;
 }
 ///	@}
+
+#pragma mark -
+#pragma mark Responder Chain
+
+-(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+{
+	// TODO:This is a very simple responder chain, only covering the plot spaces. Needs to be made more complete.
+	[self.defaultPlotSpace pointingDeviceDownAtPoint:interactionPoint];
+}
+
+-(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+{
+	[self.defaultPlotSpace pointingDeviceUpAtPoint:interactionPoint];
+}
+
+-(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+{
+	[self.defaultPlotSpace pointingDeviceDraggedAtPoint:interactionPoint];
+}
+
+-(void)pointingDeviceCancelled
+{
+	[self.defaultPlotSpace pointingDeviceCancelled];
+}
 
 @end

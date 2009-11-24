@@ -11,10 +11,10 @@
 
 /// @name User Interaction
 /// @{
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerCancelled;
+-(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint;
+-(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint;
+-(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint;
+-(void)pointingDeviceCancelled;
 ///	@}
 
 @end

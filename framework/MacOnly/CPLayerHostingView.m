@@ -39,19 +39,19 @@
 -(void)mouseDown:(NSEvent *)theEvent
 {
 	CGPoint pointOfMouseDown = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-    [hostedLayer mouseOrFingerDownAtPoint:pointOfMouseDown];
+    [hostedLayer pointingDeviceDownAtPoint:pointOfMouseDown];
 }
 
 -(void)mouseDragged:(NSEvent *)theEvent
 {
 	CGPoint pointOfMouseDrag = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-	[hostedLayer mouseOrFingerUpAtPoint:pointOfMouseDrag];
+	[hostedLayer pointingDeviceDraggedAtPoint:pointOfMouseDrag];
 }
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
 	CGPoint pointOfMouseUp = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-	[hostedLayer mouseOrFingerUpAtPoint:pointOfMouseUp];
+	[hostedLayer pointingDeviceUpAtPoint:pointOfMouseUp];
 }
 
 #pragma mark -

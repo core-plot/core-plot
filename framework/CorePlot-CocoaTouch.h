@@ -27,6 +27,7 @@
 #import "Source/CPPlotSpace.h"
 #import "Source/CPPlotSymbol.h"
 #import "Source/CPPolarPlotSpace.h"
+#import "Source/CPResponder.h"
 #import "Source/CPScatterPlot.h"
 #import "Source/CPStocksTheme.h"
 #import "Source/CPTextStyle.h"
