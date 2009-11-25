@@ -2,7 +2,7 @@
 #import <CorePlot/CorePlot.h>
 #import "RotationView.h"
 
-@interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate> {
+@interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate, CPPlotSpaceDelegate> {
     IBOutlet CPLayerHostingView *hostView;
     IBOutlet NSWindow *plotSymbolWindow;
     IBOutlet NSWindow *axisDemoWindow;

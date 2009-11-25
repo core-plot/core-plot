@@ -76,6 +76,9 @@
 		[xRange release];
 		xRange = [range copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
+    	if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+            [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateX];
+        }
 	}
 }
 
@@ -85,6 +88,9 @@
 		[yRange release];
 		yRange = [range copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
+        if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+            [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateY];
+        }
 	}
 }
 
@@ -251,20 +257,34 @@
     }
     CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
     if ( isDragging ) {
+    	CGPoint displacement = CGPointMake(pointInPlotArea.x-lastDragPoint.x, pointInPlotArea.y-lastDragPoint.y);
+        CGPoint pointToUse = pointInPlotArea;
+        
+        // Allow delegate to override
+        if ( [self.delegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
+            displacement = [self.delegate plotSpace:self willDisplaceBy:displacement];
+            pointToUse = CGPointMake(lastDragPoint.x+displacement.x, lastDragPoint.y+displacement.y);
+        }
+    
     	NSDecimal lastPoint[2], newPoint[2];
     	[self plotPoint:lastPoint forViewPoint:lastDragPoint inLayer:self.plotArea];
-        [self plotPoint:newPoint forViewPoint:pointInPlotArea inLayer:self.plotArea];
+        [self plotPoint:newPoint forViewPoint:pointToUse inLayer:self.plotArea];
         
-		CPPlotRange *newRangeX = [self.xRange copy];
-        CPPlotRange *newRangeY = [self.yRange copy];
+		CPPlotRange *newRangeX = [[self.xRange copy] autorelease];
+        CPPlotRange *newRangeY = [[self.yRange copy] autorelease];
         NSDecimal shiftX = CPDecimalSubtract(lastPoint[0], newPoint[0]);
         NSDecimal shiftY = CPDecimalSubtract(lastPoint[1], newPoint[1]);
 		newRangeX.location = CPDecimalAdd(newRangeX.location, shiftX);
         newRangeY.location = CPDecimalAdd(newRangeY.location, shiftY);
+        
+        // Delegate override
+        if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+            newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPCoordinateX];
+            newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPCoordinateY];
+        }
+        
         self.xRange = newRangeX;
         self.yRange = newRangeY;
-        [newRangeX release];
-        [newRangeY release];
         
         lastDragPoint = pointInPlotArea;
     }

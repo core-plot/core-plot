@@ -24,6 +24,10 @@
 -(BOOL)contains:(NSDecimal)number;
 
 -(void)unionPlotRange:(CPPlotRange *)otherRange;
+-(void)intersectionPlotRange:(CPPlotRange *)otherRange;
+
+-(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange;
+-(void)shiftEndToFitInRange:(CPPlotRange *)otherRange;
 
 -(void)expandRangeByFactor:(NSDecimal)factor;
 

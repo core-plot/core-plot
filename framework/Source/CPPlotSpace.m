@@ -38,6 +38,11 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @synthesize plotArea;
 
+/** @property delegate
+ *  @brief The plot space delegate.
+ **/
+@synthesize delegate;
+
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
@@ -48,12 +53,14 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
         allowsUserInteraction = NO;
         nextResponder = nil;
         plotArea = nil;
+        delegate = nil;
 	}
 	return self;
 }
 
 -(void)dealloc
 {	
+	delegate = nil;
 	plotArea = nil;
 	nextResponder = nil;
 	[identifier release];

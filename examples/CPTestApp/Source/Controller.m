@@ -42,6 +42,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
+    plotSpace.delegate = self;
     
     // Grid line styles
     CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
@@ -225,6 +226,22 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 {
 	return nil;
 }
+
+#pragma mark -
+#pragma mark Plot Space Delegate Methods
+
+-(CPPlotRange *)plotSpace:(CPPlotSpace *)space willChangePlotRangeTo:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate {
+    // Impose a limit on how far user can scroll
+    if ( coordinate == CPCoordinateX ) {
+        CPPlotRange *maxRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0f) length:CPDecimalFromFloat(6.0f)];
+        CPPlotRange *changedRange = [[newRange copy] autorelease];
+        [changedRange shiftEndToFitInRange:maxRange];
+        [changedRange shiftLocationToFitInRange:maxRange];
+        newRange = changedRange;
+    }
+    return newRange;
+}
+
 
 #pragma mark -
 #pragma mark PDF / image export
