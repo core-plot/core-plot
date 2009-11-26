@@ -4,7 +4,7 @@
 @class CPPlotGroup;
 
 @interface CPPlotArea : CPBorderedLayer {
-@private
+	@private
     CPAxisSet *axisSet;
     CPPlotGroup *plotGroup;
 }

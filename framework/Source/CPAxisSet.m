@@ -73,6 +73,7 @@
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
         }
+        [self setNeedsLayout];
 		[self setNeedsDisplay];
     }
 }
@@ -83,6 +84,18 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;
+}
+
+-(void)layoutSublayers
+{
+    [super layoutSublayers];
+    for ( CPAxis *axis in axes ) {
+        axis.bounds = self.bounds;
+        axis.anchorPoint = CGPointZero;
+        axis.position = self.bounds.origin;
+        NSLog(@"axisset %@, axis %@", [NSValue valueWithRect:NSRectFromCGRect(self.bounds)], [NSValue valueWithRect:NSRectFromCGRect(axis.bounds)]);
+        NSLog(@"frame axis %@", [NSValue valueWithRect:NSRectFromCGRect(axis.frame)]);
+    }
 }
 
 #pragma mark -

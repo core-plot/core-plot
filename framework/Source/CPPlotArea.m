@@ -32,6 +32,7 @@
 		[newPlotGroup release];
 
 		self.needsDisplayOnBoundsChange = YES;
+        self.masksToBorder = NO;
 }
 	return self;
 }
@@ -55,16 +56,20 @@
 {
 	[super layoutSublayers];
 	
-	CGFloat inset = self.borderLineStyle.lineWidth;
-	CGRect sublayerBounds = CGRectInset(self.bounds, inset, inset);
+//	CGFloat inset = self.borderLineStyle.lineWidth;
+	CGRect sublayerBounds = self.bounds; // CGRectInset(self.bounds, inset, inset);
 
 	CPAxisSet *theAxisSet = self.axisSet;
 	if ( theAxisSet ) {
-		// Set the bounds so that the axis set coordinates coincide with the 
-		// plot area drawing coordinates.
-		theAxisSet.bounds =	 sublayerBounds;
-		theAxisSet.anchorPoint = CGPointZero;
-		theAxisSet.position = sublayerBounds.origin;
+    	// Axis set often draws outside the plot area, so make it as big
+        // as the super layer. 
+        // Adjust bounds so that the origin of the plot area coincides with the zero point of the axis set
+        CGPoint sublayerOrigin = [self.superlayer convertPoint:sublayerBounds.origin fromLayer:self];
+		CGRect newBounds = self.superlayer.bounds;
+		newBounds.origin = CGPointMake(-1*sublayerOrigin.x, -1*sublayerOrigin.y);
+        theAxisSet.bounds = newBounds;
+        theAxisSet.anchorPoint = CGPointZero; 
+		theAxisSet.position = [self convertPoint:self.superlayer.bounds.origin fromLayer:self.superlayer];
 	}
 	
 	CPPlotGroup *thePlotGroup = self.plotGroup;
