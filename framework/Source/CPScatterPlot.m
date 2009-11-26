@@ -321,7 +321,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 				NSDecimal plotPoint[2];
 				plotPoint[CPCoordinateX] = [xValue decimalValue];
 				plotPoint[CPCoordinateY] = [yValue decimalValue];
-				viewPoints[i] = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+				viewPoints[i] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			}
 			else
 			{
@@ -329,7 +329,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 				double doublePrecisionPlotPoint[2];
 				doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
 				doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
-				viewPoints[i] = [self.plotSpace viewPointInLayer:self forDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+				viewPoints[i] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
 			}
 		}
 	}
@@ -358,14 +358,14 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 			NSDecimal plotPoint[2];
 			plotPoint[CPCoordinateX] = [xValue decimalValue];
 			plotPoint[CPCoordinateY] = self.areaBaseValue;
-			baseLinePoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+			baseLinePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 		}
 		else {
 			// Go floating-point route for calculations
 			double doublePrecisionPlotPoint[2];
 			doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
 			doublePrecisionPlotPoint[CPCoordinateY] = self.doublePrecisionAreaBaseValue;
-			baseLinePoint = [self.plotSpace viewPointInLayer:self forDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+			baseLinePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
 		}
 		
 		CGFloat baseLineYValue = baseLinePoint.y;

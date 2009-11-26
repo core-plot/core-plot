@@ -30,21 +30,13 @@
     [barChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
+    barChart.plotArea.masksToBorder = NO;
 	
-    barChart.paddingLeft = 10.0;
-	barChart.paddingTop = 10.0;
-	barChart.paddingRight = 10.0;
-	barChart.paddingBottom = 10.0;
-    
-	barChart.plotArea.plotGroup.paddingLeft = 70.0;
-	barChart.plotArea.plotGroup.paddingTop = 10.0;
-	barChart.plotArea.plotGroup.paddingBottom = 55.0;
-	barChart.plotArea.plotGroup.paddingRight = 10.0;
-	barChart.plotArea.axisSet.paddingLeft = 70.0;
-	barChart.plotArea.axisSet.paddingTop = 10.0;
-	barChart.plotArea.axisSet.paddingBottom = 55.0;
-	barChart.plotArea.axisSet.paddingRight = 10.0;
-	
+    barChart.paddingLeft = 70.0;
+	barChart.paddingTop = 20.0;
+	barChart.paddingRight = 20.0;
+	barChart.paddingBottom = 70.0;
+    	
 	// Add plot space for horizontal bar charts
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
@@ -53,15 +45,19 @@
 	
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
     CPXYAxis *x = axisSet.xAxis;
+    x.axisLineStyle = nil;
+    x.majorTickLineStyle = nil;
+    x.minorTickLineStyle = nil;
     x.majorIntervalLength = CPDecimalFromString(@"5");
     x.constantCoordinateValue = CPDecimalFromString(@"0");
-    x.minorTicksPerInterval = 2;
 	x.title = @"X Axis";
     x.titleLocation = CPDecimalFromFloat(7.5f);
 
 	CPXYAxis *y = axisSet.yAxis;
+    y.axisLineStyle = nil;
+    y.majorTickLineStyle = nil;
+    y.minorTickLineStyle = nil;
     y.majorIntervalLength = CPDecimalFromString(@"50");
-    y.minorTicksPerInterval = 5;
     y.constantCoordinateValue = CPDecimalFromString(@"0");
 	y.title = @"Y Axis";
 	y.titleOffset = 45.0f;

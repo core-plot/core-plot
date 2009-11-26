@@ -248,11 +248,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 			
 			// Tip point
 			plotPoint[dependentCoord] = [dependentCoordValue doubleValue];
-			tipPoint = [self.plotSpace viewPointInLayer:self forDoublePrecisionPlotPoint:plotPoint];
+			tipPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			
 			// Base point
 			plotPoint[dependentCoord] = self.doublePrecisionBaseValue;
-			basePoint = [self.plotSpace viewPointInLayer:self forDoublePrecisionPlotPoint:plotPoint];
+			basePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 		}
 		else {
 			NSDecimal plotPoint[2];
@@ -260,11 +260,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 			
 			// Tip point
 			plotPoint[dependentCoord] = [[lengths objectAtIndex:ii] decimalValue];
-			tipPoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+			tipPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			
 			// Base point
 			plotPoint[dependentCoord] = baseValue;
-			basePoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+			basePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 		}
 		
         // Offset

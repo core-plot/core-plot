@@ -63,10 +63,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint;
--(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint;
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer;
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer;
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint;
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
+-(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
 ///	@}
 
 /// @name Coordinate Range

@@ -93,8 +93,6 @@
         axis.bounds = self.bounds;
         axis.anchorPoint = CGPointZero;
         axis.position = self.bounds.origin;
-        NSLog(@"axisset %@, axis %@", [NSValue valueWithRect:NSRectFromCGRect(self.bounds)], [NSValue valueWithRect:NSRectFromCGRect(axis.bounds)]);
-        NSLog(@"frame axis %@", [NSValue valueWithRect:NSRectFromCGRect(axis.frame)]);
     }
 }
 

@@ -49,14 +49,17 @@
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = self.constantCoordinateValue;
-    CGPoint point = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+    CGPoint point = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
     
     return point;
 }
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
 {
-	[(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
+	CPLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
+    if ( !lineStyle ) return;
+    
+	[lineStyle setLineStyleInContext:theContext];
 	CGContextBeginPath(theContext);
 
     for ( NSDecimalNumber *tickLocation in locations ) {
@@ -113,11 +116,11 @@
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = orthogonalRange.location;
-    *startPoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+    *startPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
     
     // End point
     plotPoint[orthogonalCoordinate] = orthogonalRange.end;
-    *endPoint = [self.plotSpace viewPointInLayer:self forPlotPoint:plotPoint];
+    *endPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 }
 
 -(void)drawGridLinesInContext:(CGContextRef)theContext atLocations:(NSSet *)locations isMajor:(BOOL)major

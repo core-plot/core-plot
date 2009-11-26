@@ -119,32 +119,29 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /// @addtogroup CPPlotSpace
 /// @{
 
-/**	@brief Converts a data point to drawing coordinates.
- *	@param layer The layer containing the point to convert.
+/**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
 	return CGPointMake(0.0f, 0.0f);
 }
 
-/**	@brief Converts a data point to drawing coordinates.
- *	@param layer The layer containing the point to convert.
+/**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint;
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 {
 	return CGPointMake(0.0f, 0.0f);
 }
 
-/**	@brief Converts a point given in drawing coordinates to the data coordinate space.
+/**	@brief Converts a point given in plot area drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@param point The drawing coordinates of the data point.
- *	@param layer The layer containing the point to convert.
  **/
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
 }
 
@@ -153,7 +150,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param point The drawing coordinates of the data point.
  *	@param layer The layer containing the point to convert.
  **/
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
 }
 

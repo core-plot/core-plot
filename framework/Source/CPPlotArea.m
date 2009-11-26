@@ -56,15 +56,12 @@
 {
 	[super layoutSublayers];
 	
-//	CGFloat inset = self.borderLineStyle.lineWidth;
-	CGRect sublayerBounds = self.bounds; // CGRectInset(self.bounds, inset, inset);
-
 	CPAxisSet *theAxisSet = self.axisSet;
 	if ( theAxisSet ) {
     	// Axis set often draws outside the plot area, so make it as big
         // as the super layer. 
         // Adjust bounds so that the origin of the plot area coincides with the zero point of the axis set
-        CGPoint sublayerOrigin = [self.superlayer convertPoint:sublayerBounds.origin fromLayer:self];
+        CGPoint sublayerOrigin = [self.superlayer convertPoint:self.bounds.origin fromLayer:self];
 		CGRect newBounds = self.superlayer.bounds;
 		newBounds.origin = CGPointMake(-1*sublayerOrigin.x, -1*sublayerOrigin.y);
         theAxisSet.bounds = newBounds;
@@ -76,9 +73,9 @@
 	if ( thePlotGroup ) {
 		// Set the bounds so that the plot group coordinates coincide with the 
 		// plot area drawing coordinates.
-		thePlotGroup.bounds = sublayerBounds;
+		thePlotGroup.bounds = self.bounds;
 		thePlotGroup.anchorPoint = CGPointZero;
-		thePlotGroup.position = sublayerBounds.origin;
+		thePlotGroup.position = self.bounds.origin;
 	}
 }
 

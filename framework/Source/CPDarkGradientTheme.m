@@ -75,6 +75,8 @@
 	
 	plotArea.borderLineStyle = borderLineStyle;
 	plotArea.cornerRadius = 10.0f;
+    
+    plotArea.masksToBorder = YES;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {

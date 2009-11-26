@@ -134,10 +134,10 @@
     return viewLength * ((plotCoord - range.doublePrecisionLocation) / range.doublePrecisionLength);
 }
 
--(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
 	CGFloat viewX, viewY;
-	CGSize layerSize = layer.bounds.size;
+	CGSize layerSize = self.plotArea.bounds.size;
 	
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:
@@ -158,10 +158,10 @@
 	return CGPointMake(viewX, viewY);
 }
 
--(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
 	CGFloat viewX, viewY;
-	CGSize layerSize = layer.bounds.size;
+	CGSize layerSize = self.plotArea.bounds.size;
 
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:
@@ -182,12 +182,12 @@
 	return CGPointMake(viewX, viewY);
 }
 
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
 	NSDecimal pointx = CPDecimalFromFloat(point.x);
 	NSDecimal pointy = CPDecimalFromFloat(point.y);
-	NSDecimal boundsw = CPDecimalFromFloat(layer.bounds.size.width);
-	NSDecimal boundsh = CPDecimalFromFloat(layer.bounds.size.height);
+	NSDecimal boundsw = CPDecimalFromFloat(self.plotArea.bounds.size.width);
+	NSDecimal boundsh = CPDecimalFromFloat(self.plotArea.bounds.size.height);
 	
 	// get the xRange's location and length
 	NSDecimal xLocation = xRange.location;
@@ -211,7 +211,7 @@
 	plotPoint[CPCoordinateY] = y;
 }
 
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point 
 {
 	//	TODO: implement doublePrecisionPlotPoint:forViewPoint:
 }
@@ -267,8 +267,8 @@
         }
     
     	NSDecimal lastPoint[2], newPoint[2];
-    	[self plotPoint:lastPoint forViewPoint:lastDragPoint inLayer:self.plotArea];
-        [self plotPoint:newPoint forViewPoint:pointToUse inLayer:self.plotArea];
+    	[self plotPoint:lastPoint forPlotAreaViewPoint:lastDragPoint];
+        [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
         
 		CPPlotRange *newRangeX = [[self.xRange copy] autorelease];
         CPPlotRange *newRangeY = [[self.yRange copy] autorelease];
