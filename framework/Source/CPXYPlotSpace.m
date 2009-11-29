@@ -218,42 +218,39 @@
 
 #pragma mark Interaction
 
--(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
 	if ( !self.allowsUserInteraction || !self.plotArea ) {
-        [super pointingDeviceDownAtPoint:interactionPoint];
-        return;
+        return NO;
     }
     CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
     if ( [self.plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
         lastDragPoint = pointInPlotArea;
         isDragging = YES;
+        return YES;
     }
 
-	// Allow other responders (eg other spaces) to receive event
-    [super pointingDeviceDownAtPoint:interactionPoint];
+	return NO;
 }
 
--(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
 	if ( !self.allowsUserInteraction || !self.plotArea ) {
-        [super pointingDeviceUpAtPoint:interactionPoint];
-        return;
+        return NO;
     }
     if ( isDragging ) {
         isDragging = NO;
+        return YES;
     }
     
-	// Allow other responders (eg other spaces) to receive event
-    [super pointingDeviceUpAtPoint:interactionPoint];
+	return NO;
 }
 
--(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
 	if ( !self.allowsUserInteraction || !self.plotArea ) {
-        [super pointingDeviceDraggedAtPoint:interactionPoint];
-        return;
+        return NO;
     }
     CGPoint pointInPlotArea = [self.plotArea convertPoint:interactionPoint toLayer:self.plotArea];
     if ( isDragging ) {
@@ -287,10 +284,11 @@
         self.yRange = newRangeY;
         
         lastDragPoint = pointInPlotArea;
+        
+        return YES;
     }
 
-	// Allow other responders (eg other spaces) to receive event
-    [super pointingDeviceDownAtPoint:interactionPoint];
+	return NO;
 }
 
 @end

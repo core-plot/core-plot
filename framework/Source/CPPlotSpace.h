@@ -47,7 +47,6 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 	@private
     __weak CPPlotArea *plotArea;
 	id <NSCopying, NSObject> identifier;
-    id <CPResponder> nextResponder;
     __weak id <CPPlotSpaceDelegate> delegate;
     BOOL allowsUserInteraction;
 }

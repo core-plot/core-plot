@@ -28,11 +28,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @synthesize allowsUserInteraction;
 
-/** @property nextResponder
- *  @brief The next responder of the layer in the responder chain.
- **/
-@synthesize nextResponder;
-
 /** @property plotArea
  *  @brief The plot area of the space.
  **/
@@ -51,7 +46,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	if ( self = [super init] ) {
 		identifier = nil;
         allowsUserInteraction = NO;
-        nextResponder = nil;
         plotArea = nil;
         delegate = nil;
 	}
@@ -62,7 +56,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {	
 	delegate = nil;
 	plotArea = nil;
-	nextResponder = nil;
 	[identifier release];
 	[super dealloc];
 }
@@ -80,33 +73,37 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
  **/
--(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceDownAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
  **/
--(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceUpAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
  **/
--(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceDraggedAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *	@return Whether the plot space handled the event or not.
  **/
--(void)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelled
 {
-	[nextResponder pointingDeviceCancelled];
+	return NO;
 }
 
 ///	@}

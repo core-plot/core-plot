@@ -87,33 +87,6 @@
 }
 
 #pragma mark -
-#pragma mark Layout
-
--(void)layoutSublayers
-{
-	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
-	// Subclasses should override to lay out their own sublayers
-	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
-	// Sublayers fill the super layer's bounds minus any padding by default
-	CGRect selfBounds = self.bounds;
-	CGSize subLayerSize = selfBounds.size;
-	CGFloat lineWidth = self.borderLineStyle.lineWidth;
-	
-	subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
-	subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
-	
-	for (CALayer *subLayer in self.sublayers) {
-		CGRect subLayerBounds = subLayer.bounds;
-		subLayerBounds.size = subLayerSize;
-		subLayer.bounds = subLayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
-	}
-}
-
-#pragma mark -
 #pragma mark Masking
 
 -(CGPathRef)maskingPath 

@@ -273,9 +273,6 @@
  **/
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
-	CPPlotSpace *lastExistingSpace = self.plotSpaces.lastObject;
-    lastExistingSpace.nextResponder = space;
-    space.nextResponder = nil;
 	[self.plotSpaces addObject:space];
     space.plotArea = plotArea;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
@@ -288,14 +285,6 @@
 {
 	if ( [self.plotSpaces containsObject:plotSpace] ) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
-        
-        // Update responder chain
-        NSInteger indexOfSpace = [self.plotSpaces indexOfObject:plotSpace];
-        if ( indexOfSpace > 0 ) {
-            CPPlotSpace *previousSpace = [self.plotSpaces objectAtIndex:indexOfSpace-1];
-            previousSpace.nextResponder = plotSpace.nextResponder;
-        }        
-    	plotSpace.nextResponder = nil;
 
         // Remove space
 		[self.plotSpaces removeObject:plotSpace];
@@ -386,27 +375,100 @@
 ///	@}
 
 #pragma mark -
-#pragma mark Responder Chain
+#pragma mark Event Handling
 
--(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
-{
-	// TODO:This is a very simple responder chain, only covering the plot spaces. Needs to be made more complete.
-	[self.defaultPlotSpace pointingDeviceDownAtPoint:interactionPoint];
+-(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+{    
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        handledEvent = handledEvent || [space pointingDeviceDownAtPoint:interactionPoint];
+    } 
+    
+    return handledEvent;
 }
 
--(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	[self.defaultPlotSpace pointingDeviceUpAtPoint:interactionPoint];
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        handledEvent = handledEvent || [space pointingDeviceUpAtPoint:interactionPoint];
+    } 
+    
+    return handledEvent;
 }
 
--(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	[self.defaultPlotSpace pointingDeviceDraggedAtPoint:interactionPoint];
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        handledEvent = handledEvent || [space pointingDeviceDraggedAtPoint:interactionPoint];
+    } 
+    
+    return handledEvent;
 }
 
--(void)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelled
 {
-	[self.defaultPlotSpace pointingDeviceCancelled];
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pointingDeviceCancelled] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet pointingDeviceCancelled] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea pointingDeviceCancelled] ) return YES;
+    
+    // Plot spaces
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        handledEvent = handledEvent || [space pointingDeviceCancelled];
+    } 
+    
+    return handledEvent;
 }
 
 @end

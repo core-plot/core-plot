@@ -68,11 +68,6 @@
  **/
 @synthesize layoutManager;
 
-/** @property nextResponder
- *  @brief The next responder of the layer in the responder chain.
- **/
-@synthesize nextResponder;
-
 // Private properties
 @synthesize renderingRecursively;
 
@@ -101,7 +96,6 @@
 		paddingRight = 0.0f;
 		paddingBottom = 0.0f;
 		layoutManager = nil;
-        nextResponder = nil;
 		renderingRecursively = NO;
 
 		self.frame = newFrame;
@@ -109,10 +103,10 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
-        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", [NSNull null], @"sublayers", nil];
+        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", [NSNull null], @"sublayers", [NSNull null], @"contents", nil];
         self.actions = actionsDict;
         [actionsDict release];
-	}
+    }
 	return self;
 }
 
@@ -123,9 +117,16 @@
 
 -(void)dealloc
 {
-	nextResponder = nil;
 	[layoutManager release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(id <CAAction>)defaultActionForKey:(NSString *)aKey
+{
+    return nil;
 }
 
 #pragma mark -
@@ -209,33 +210,37 @@
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
  **/
--(void)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceDownAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
  **/
--(void)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceUpAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
  *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
  **/
--(void)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	[nextResponder pointingDeviceDraggedAtPoint:interactionPoint];
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *  @return Whether the event was handled or not.
  **/
--(void)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelled
 {
-	[nextResponder pointingDeviceCancelled];
+	return NO;
 }
 
 #pragma mark -

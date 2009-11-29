@@ -12,7 +12,6 @@
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
 	id <CPLayoutManager> layoutManager;
-    id <CPResponder> nextResponder;
 	BOOL renderingRecursively;
 }
 

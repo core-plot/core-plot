@@ -47,7 +47,8 @@
 	}
 	content.position = newPosition;
     content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
-	[content setNeedsDisplay];
+    
+    [self.contentLayer setNeedsDisplay];
 }
 
 #pragma mark -
