@@ -43,6 +43,13 @@
 #pragma mark -
 #pragma mark Touch handling
 
+-(CGPoint)flippedPointForPoint:(CGPoint)interactionPoint
+{
+	CGAffineTransform flipTransform = CGAffineTransformMakeTranslation(0.0f, self.frame.size.height);
+	flipTransform = CGAffineTransformScale(flipTransform, 1.0f, -1.0f);
+	return CGPointApplyAffineTransform(interactionPoint, flipTransform);
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	// Ignore pinch or other multitouch gestures
@@ -51,18 +58,21 @@
 	}
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
     [hostedLayer pointingDeviceDownAtPoint:pointOfTouch];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
 	[hostedLayer pointingDeviceDraggedAtPoint:pointOfTouch];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
 	[hostedLayer pointingDeviceUpAtPoint:pointOfTouch];
 }
 
