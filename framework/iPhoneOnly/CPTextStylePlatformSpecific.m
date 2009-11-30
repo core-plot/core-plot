@@ -33,7 +33,7 @@
 	CPPushCGContext(context);	
 	
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	[self drawAtPoint:CGPointZero withFont:theFont];
+	[self drawAtPoint:point withFont:theFont];
 	
 	CGContextRestoreGState(context);
 	CPPopCGContext();
