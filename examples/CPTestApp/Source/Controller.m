@@ -52,6 +52,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
+    
+    CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
+    redLineStyle.lineWidth = 2.0;
+    redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.7];
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -94,6 +98,24 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	y.title = @"Y Axis";
 	y.titleOffset = 30.0f;
 	y.titleLocation = CPDecimalFromString(@"2.7");
+    
+    // Add an extra y axis (red)
+    CPXYAxis *y2 = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:CGRectZero];
+    y2.labelingPolicy = CPAxisLabelingPolicyAutomatic;
+    y2.constantCoordinateValue = CPDecimalFromString(@"3");
+    y2.minorTicksPerInterval = 0;
+    y2.preferredNumberOfMajorTicks = 4;
+    y2.majorGridLineStyle = majorGridLineStyle;
+    y2.minorGridLineStyle = minorGridLineStyle;
+    y2.labelOffset = 10.0f;    
+    y2.coordinate = CPCoordinateY;
+    y2.plotSpace = graph.defaultPlotSpace;
+    y2.axisLineStyle = redLineStyle;
+    y2.majorTickLineStyle = redLineStyle;
+    y2.minorTickLineStyle = nil;
+    y2.labelTextStyle = nil;
+    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
+    [y2 release];
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
