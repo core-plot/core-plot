@@ -4,6 +4,7 @@
 #import "CPPlatformSpecificDefines.h"
 
 @protocol CPLayoutManager;
+@class CPGraph;
 
 @interface CPLayer : CALayer <CPResponder> {
 @private
@@ -13,7 +14,13 @@
 	CGFloat paddingBottom;
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
+    __weak CPGraph *graph;
 }
+
+/// @name Graph
+/// @{
+@property (nonatomic, readwrite, assign) __weak CPGraph *graph;
+/// @}
 
 /// @name Padding
 /// @{

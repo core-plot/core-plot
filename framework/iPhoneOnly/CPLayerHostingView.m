@@ -43,13 +43,6 @@
 #pragma mark -
 #pragma mark Touch handling
 
--(CGPoint)flippedPointForPoint:(CGPoint)interactionPoint
-{
-	CGAffineTransform flipTransform = CGAffineTransformMakeTranslation(0.0f, self.frame.size.height);
-	flipTransform = CGAffineTransformScale(flipTransform, 1.0f, -1.0f);
-	return CGPointApplyAffineTransform(interactionPoint, flipTransform);
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	// Ignore pinch or other multitouch gestures
@@ -58,22 +51,22 @@
 	}
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
-    [hostedLayer pointingDeviceDownAtPoint:pointOfTouch];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+    [hostedLayer pointingDeviceDownAtPoint:pointInHostedLayer];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
-	[hostedLayer pointingDeviceDraggedAtPoint:pointOfTouch];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	[hostedLayer pointingDeviceDraggedAtPoint:pointInHostedLayer];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    pointOfTouch = [self flippedPointForPoint:pointOfTouch];
-	[hostedLayer pointingDeviceUpAtPoint:pointOfTouch];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	[hostedLayer pointingDeviceUpAtPoint:pointInHostedLayer];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 

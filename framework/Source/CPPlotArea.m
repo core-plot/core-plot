@@ -85,11 +85,13 @@
 -(void)setAxisSet:(CPAxisSet *)newAxisSet
 {
 	if ( newAxisSet != axisSet ) {
+    	axisSet.graph = nil;
 		[axisSet removeFromSuperlayer];
 		[axisSet release];
 		axisSet = [newAxisSet retain];
 		if ( axisSet ) {
 			[self insertSublayer:axisSet atIndex:0];
+            axisSet.graph = self.graph;
 		}
         [self setNeedsLayout];
 	}	

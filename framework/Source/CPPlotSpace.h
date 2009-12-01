@@ -3,7 +3,7 @@
 
 @class CPLayer;
 @class CPPlotRange;
-@class CPPlotArea;
+@class CPGraph;
 @class CPPlotSpace;
 
 extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
@@ -45,7 +45,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @interface CPPlotSpace : NSObject <CPResponder> {
 	@private
-    __weak CPPlotArea *plotArea;
+    __weak CPGraph *graph;
 	id <NSCopying, NSObject> identifier;
     __weak id <CPPlotSpaceDelegate> delegate;
     BOOL allowsUserInteraction;
@@ -53,7 +53,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, assign) BOOL allowsUserInteraction;
-@property (nonatomic, readwrite, assign) __weak CPPlotArea *plotArea;
+@property (nonatomic, readwrite, assign) __weak CPGraph *graph;
 @property (nonatomic, readwrite, assign) __weak id <CPPlotSpaceDelegate> delegate;
 
 @end

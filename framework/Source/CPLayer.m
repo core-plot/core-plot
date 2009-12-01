@@ -26,6 +26,11 @@
 /// @defgroup CPLayer CPLayer
 /// @{
 
+/**	@property graph
+ *	@brief The graph for the axis set.
+ **/
+@synthesize graph;
+
 /** @property paddingLeft
  *  @brief Amount to inset the left side of each sublayer.
  **/
@@ -117,6 +122,7 @@
 
 -(void)dealloc
 {
+	graph = nil;
 	[layoutManager release];
 	[super dealloc];
 }

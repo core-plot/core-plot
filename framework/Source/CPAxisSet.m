@@ -14,11 +14,6 @@
  **/
 @synthesize axes;
 
-/**	@property graph
- *	@brief The graph for the axis set.
- **/
-@synthesize graph;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -52,15 +47,6 @@
 
 #pragma mark -
 #pragma mark Accessors
-
--(void)setGraph:(CPGraph *)newGraph
-{
-	if ( graph != newGraph ) {
-		graph = newGraph;
-		[self setNeedsLayout];
-		[self setNeedsDisplay];
-	}
-}
 
 -(void)setAxes:(NSArray *)newAxes 
 {

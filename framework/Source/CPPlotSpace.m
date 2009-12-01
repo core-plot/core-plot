@@ -28,10 +28,10 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @synthesize allowsUserInteraction;
 
-/** @property plotArea
- *  @brief The plot area of the space.
+/** @property graph
+ *  @brief The graph of the space.
  **/
-@synthesize plotArea;
+@synthesize graph;
 
 /** @property delegate
  *  @brief The plot space delegate.
@@ -46,7 +46,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	if ( self = [super init] ) {
 		identifier = nil;
         allowsUserInteraction = NO;
-        plotArea = nil;
+        graph = nil;
         delegate = nil;
 	}
 	return self;
@@ -55,7 +55,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 -(void)dealloc
 {	
 	delegate = nil;
-	plotArea = nil;
+	graph = nil;
 	[identifier release];
 	[super dealloc];
 }

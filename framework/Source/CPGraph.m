@@ -158,6 +158,7 @@
 	if ( plot ) {
 		[self.plots addObject:plot];
 		plot.plotSpace = space;
+        plot.graph = self;
 		[self.plotArea.plotGroup addPlot:plot];
 	}
 }
@@ -170,6 +171,7 @@
     if ( [self.plots containsObject:plot] ) {
 		[self.plots removeObject:plot];
         plot.plotSpace = nil;
+        plot.graph = nil;
 		[self.plotArea.plotGroup removePlot:plot];
     }
     else {
@@ -196,6 +198,7 @@
 	if (plot) {
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
+        plot.graph = self;
 		[self.plotArea.plotGroup addPlot:plot];
 	}
 }
@@ -208,6 +211,7 @@
 	CPPlot* plotToRemove = [self plotWithIdentifier:identifier];
 	if (plotToRemove) {
 		plotToRemove.plotSpace = nil;
+        plotToRemove.graph = nil;
 		[self.plotArea.plotGroup removePlot:plotToRemove];
 		[self.plots removeObjectIdenticalTo:plotToRemove];
 	}
@@ -255,12 +259,14 @@
 -(void)setPlotArea:(CPPlotArea *)newArea 
 {
     if ( plotArea != newArea ) {
+    	plotArea.graph = nil;
     	[plotArea removeFromSuperlayer];
         [plotArea release];
         plotArea = [newArea retain];
         [self addSublayer:newArea];
+        plotArea.graph = self;
 		for ( CPPlotSpace *space in plotSpaces ) {
-            space.plotArea = newArea;
+            space.graph = self;
         }
     }
 }
@@ -274,7 +280,7 @@
 -(void)addPlotSpace:(CPPlotSpace *)space
 {
 	[self.plotSpaces addObject:space];
-    space.plotArea = plotArea;
+    space.graph = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
@@ -288,7 +294,7 @@
 
         // Remove space
 		[self.plotSpaces removeObject:plotSpace];
-        plotSpace.plotArea = nil;
+        plotSpace.graph = nil;
         
         // Update axes that referenced space
         for ( CPAxis *axis in self.axisSet.axes ) {
@@ -322,7 +328,6 @@
 
 -(void)setAxisSet:(CPAxisSet *)newSet
 {
-	newSet.graph = self;
 	self.plotArea.axisSet = newSet;
 }
 
@@ -378,7 +383,7 @@
 #pragma mark Event Handling
 
 -(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
-{    
+{
     // Plots
     for ( CPPlot *plot in self.plots ) {
         if ( [plot pointingDeviceDownAtPoint:interactionPoint] ) return YES;
