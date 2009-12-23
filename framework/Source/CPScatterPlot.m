@@ -307,29 +307,37 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		
 	[super renderAsVectorInContext:theContext];
 
+	CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
+
 	// calculate view points
-	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
+	CGPoint *viewPoints = malloc([self.xValues count] * sizeof(CGPoint));
 	
+	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
+	NSUInteger pointCount = 0;
 	if ( self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count ) {
 		for (NSUInteger i = 0; i < [self.xValues count]; i++) {
 			id xValue = [self.xValues objectAtIndex:i];
-			id yValue = [self.yValues objectAtIndex:i];
-			
-			if ([xValue isKindOfClass:[NSDecimalNumber class]] && [yValue isKindOfClass:[NSDecimalNumber class]])
+			if ([plotRange contains:[xValue decimalValue]])
 			{
-				// Do higher-precision NSDecimal calculations
-				NSDecimal plotPoint[2];
-				plotPoint[CPCoordinateX] = [xValue decimalValue];
-				plotPoint[CPCoordinateY] = [yValue decimalValue];
-				viewPoints[i] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
-			}
-			else
-			{
-				// Go floating-point route for calculations
-				double doublePrecisionPlotPoint[2];
-				doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
-				doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
-				viewPoints[i] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+				id yValue = [self.yValues objectAtIndex:i];
+				
+				if (doubleFastPath)
+				{
+					// Go floating-point route for calculations
+					double doublePrecisionPlotPoint[2];
+					doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
+					doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
+					viewPoints[pointCount] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+				}
+				else
+				{
+					// Do higher-precision NSDecimal calculations
+					NSDecimal plotPoint[2];
+					plotPoint[CPCoordinateX] = [xValue decimalValue];
+					plotPoint[CPCoordinateY] = [yValue decimalValue];
+					viewPoints[pointCount] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				}
+				pointCount += 1;
 			}
 		}
 	}
@@ -340,7 +348,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		dataLinePath = CGPathCreateMutable();
 		CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
 		CGPathMoveToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
-		for (NSUInteger i = 1; i < self.xValues.count; i++) {
+		for (NSUInteger i = 1; i < pointCount; i++) {
 			alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y));
 			CGPathAddLineToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
 		}		 
@@ -370,7 +378,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		
 		CGFloat baseLineYValue = baseLinePoint.y;
 		
-		CGPoint baseViewPoint1 = viewPoints[self.xValues.count-1];
+		CGPoint baseViewPoint1 = viewPoints[pointCount-1];
 		baseViewPoint1.y = baseLineYValue;
 		baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
 		CGPoint baseViewPoint2 = viewPoints[0];
@@ -401,19 +409,30 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	// draw plot symbols
 	if (self.plotSymbol || self.plotSymbols.count) {
 		if ( self.plotSymbols.count > 0 ) {
+			pointCount = 0;
 			for (NSUInteger i = 0; i < self.xValues.count; i++) {
-				if (i < self.plotSymbols.count) {
-					id <NSObject> currentSymbol = [self.plotSymbols objectAtIndex:i];
-					if ([currentSymbol isKindOfClass:[CPPlotSymbol class]]) {
-						[(CPPlotSymbol *)currentSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext, viewPoints[i])];			
-					} 
+				id xValue = [self.xValues objectAtIndex:i];
+				if ([plotRange contains:[xValue decimalValue]])
+				{
+					if (i < self.plotSymbols.count) {
+						id <NSObject> currentSymbol = [self.plotSymbols objectAtIndex:i];
+						if ([currentSymbol isKindOfClass:[CPPlotSymbol class]]) {
+							[(CPPlotSymbol *)currentSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext, viewPoints[pointCount])];			
+						} 
+					}
+					pointCount += 1;
 				} 
 			}
 		}
 		else {
 			CPPlotSymbol *theSymbol = self.plotSymbol;
+			pointCount = 0;
 			for (NSUInteger i = 0; i < self.xValues.count; i++) {
-				[theSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext,viewPoints[i])];
+				id xValue = [self.xValues objectAtIndex:i];
+				if ([plotRange contains:[xValue decimalValue]]) {
+					[theSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext,viewPoints[pointCount])];
+					pointCount += 1;
+				}
 			}
 		}
 	}

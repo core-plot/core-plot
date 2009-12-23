@@ -70,7 +70,7 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setLocation:(NSDecimal)newLocation;
+-(void)setLocation:(NSDecimal)newLocation
 {
 	if (CPDecimalEquals(location, newLocation))
 	{
@@ -81,7 +81,7 @@
 	doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 }
 
--(void)setLength:(NSDecimal)newLength;
+-(void)setLength:(NSDecimal)newLength
 {
 	if (CPDecimalEquals(length, newLength))
 	{
@@ -95,6 +95,16 @@
 -(NSDecimal)end 
 {
     return CPDecimalAdd(self.location, self.length);
+}
+
+-(void)setDoublePrecisionLocation:(double)newLocation
+{
+	[self setLocation:[[NSNumber numberWithDouble:newLocation] decimalValue]];
+}
+
+-(void)setDoublePrecisionLength:(double)newLength
+{
+	[self setLength:[[NSNumber numberWithDouble:newLength] decimalValue]];
 }
 
 -(double)doublePrecisionEnd 
