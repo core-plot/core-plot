@@ -51,6 +51,9 @@
 		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FB02F0FC991A3007A728E /* CPAxisLabel.m */; };
 		074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AFC9D00FB62969005DFFDC /* CPImage.m */; };
+		0772B43910E24D5C009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */; };
+		0772B43A10E24D5C009CD04C /* CPTradingRangePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772B43710E24D5C009CD04C /* CPTradingRangePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0772B43B10E24D5C009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */; };
 		0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C9250FE2F71600EC4C16 /* CPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0772C9280FE2F71600EC4C16 /* CPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772C9260FE2F71600EC4C16 /* CPTheme.m */; };
 		0772C92F0FE2F89000EC4C16 /* CPDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -182,6 +185,8 @@
 		07321BC50F37382D00F423D8 /* CPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUtilities.m; sourceTree = "<group>"; };
 		073FB02E0FC991A3007A728E /* CPAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisLabel.h; sourceTree = "<group>"; };
 		073FB02F0FC991A3007A728E /* CPAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisLabel.m; sourceTree = "<group>"; };
+		0772B43710E24D5C009CD04C /* CPTradingRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTradingRangePlot.h; sourceTree = "<group>"; };
+		0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTradingRangePlot.m; sourceTree = "<group>"; };
 		0772C9250FE2F71600EC4C16 /* CPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTheme.h; sourceTree = "<group>"; };
 		0772C9260FE2F71600EC4C16 /* CPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTheme.m; sourceTree = "<group>"; };
 		0772C92D0FE2F89000EC4C16 /* CPDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDarkGradientTheme.h; sourceTree = "<group>"; };
@@ -521,6 +526,8 @@
 				07BF0D960F2B73CA002FCEA7 /* CPScatterPlot.m */,
 				0799E0930F2BB5F300790525 /* CPBarPlot.h */,
 				0799E0940F2BB5F300790525 /* CPBarPlot.m */,
+				0772B43710E24D5C009CD04C /* CPTradingRangePlot.h */,
+				0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */,
 			);
 			name = Plots;
 			sourceTree = "<group>";
@@ -821,6 +828,7 @@
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
 				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
 				07AEF24910BBED050012BEFF /* CPResponder.h in Headers */,
+				0772B43A10E24D5C009CD04C /* CPTradingRangePlot.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +957,7 @@
 				0730F63D1094936D00E95162 /* CPDarkGradientThemeTests.m in Sources */,
 				0730F64E109494D100E95162 /* CPTestCase.m in Sources */,
 				0730F6851094995F00E95162 /* CPDerivedXYGraph.m in Sources */,
+				0772B43910E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1020,7 @@
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
 				BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */,
+				0772B43B10E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,6 +34,7 @@
 #import <CorePlot/CPStocksTheme.h>
 #import <CorePlot/CPTextLayer.h>
 #import <CorePlot/CPTextStyle.h>
+#import <CorePlot/CPTradingRangePlot.h>
 #import <CorePlot/CPTheme.h>
 #import <CorePlot/CPTimeFormatter.h>
 #import <CorePlot/CPUtilities.h>
