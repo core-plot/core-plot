@@ -15,23 +15,15 @@
 @synthesize graph;
 @synthesize datapuller;
 @synthesize layerHost;
-//@synthesize topLabel;
-//@synthesize bottomLabel;
 
 -(void)dealloc
 {
     [datapuller release];
     [graph release];
     [layerHost release];
-//    [topLabel release];
-//    [bottomLabel release];
-    
     datapuller = nil;
     graph = nil;
-    layerHost = nil;
-//    topLabel = nil;
-//    bottomLabel = nil;
-    
+    layerHost = nil;    
     [super dealloc];
 }
 
@@ -53,12 +45,11 @@
 	graph.frame = self.view.bounds;
 	[self.layerHost.layer addSublayer:graph];
     
+    // Line plot with gradient fill
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor whiteColor];
+	dataSourceLinePlot.dataLineStyle = nil;
     dataSourceLinePlot.dataSource = self;
-
 	[graph addPlot:dataSourceLinePlot];
 	
 	CPColor *areaColor = [CPColor colorWithComponentRed:1.0 green:1.0 blue:1.0 alpha:0.6];
@@ -68,6 +59,19 @@
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"320.0");
     
+    // Candlestick plot
+    CPLineStyle *whiteLineStyle = [CPLineStyle lineStyle];
+    whiteLineStyle.lineColor = [CPColor whiteColor];
+    whiteLineStyle.lineWidth = 1.0f;
+    CPTradingRangePlot *ohlcPlot = [[[CPTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
+    ohlcPlot.identifier = @"Candlestick";
+    ohlcPlot.lineStyle = whiteLineStyle;
+    ohlcPlot.stickLength = 2.0f;
+    ohlcPlot.dataSource = self;
+    ohlcPlot.plotStyle = CPTradingRangePlotStyleOHLC;
+    [graph addPlot:ohlcPlot];
+    
+    // Data puller
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
     [self setDatapuller:dp];
     [dp setDelegate:self];
@@ -92,17 +96,38 @@
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     NSDecimalNumber *num = [NSDecimalNumber zero];
-    if (fieldEnum == CPScatterPlotFieldX) 
-    {
-        num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
+    if ( [plot.identifier isEqual:@"Data Source Plot"] ) {
+        if (fieldEnum == CPScatterPlotFieldX) {
+            num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
+        }
+        else if (fieldEnum == CPScatterPlotFieldY) {
+            NSArray *financialData = self.datapuller.financialData;
+            
+            NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
+            num = [fData objectForKey:@"close"];
+            NSAssert(nil != num, @"grrr");
+        }
     }
-    else if (fieldEnum == CPScatterPlotFieldY)
-    {
+    else {
         NSArray *financialData = self.datapuller.financialData;
-        
         NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
-        num = [fData objectForKey:@"close"];
-        NSAssert(nil != num, @"grrr");
+        switch ( fieldEnum ) {
+            case CPTradingRangePlotFieldX:
+                num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
+                break;
+            case CPTradingRangePlotFieldClose:
+            	num = [fData objectForKey:@"close"];
+                break;
+            case CPTradingRangePlotFieldHigh:
+            	num = [fData objectForKey:@"high"];
+                break;            
+            case CPTradingRangePlotFieldLow:
+            	num = [fData objectForKey:@"low"];
+                break;
+            case CPTradingRangePlotFieldOpen:
+            	num = [fData objectForKey:@"open"];
+                break;
+        }
     }
     return num;
 }

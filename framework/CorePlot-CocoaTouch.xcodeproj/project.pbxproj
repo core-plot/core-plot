@@ -38,6 +38,8 @@
 		072E3FA00FE2FF7300ACF62F /* CPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 072E3F9C0FE2FF7300ACF62F /* CPTheme.m */; };
 		074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 074D7BC30FD6B65E006011BC /* CPXYPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */; };
+		0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */; };
+		0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */; };
 		077F28550FE18048000BCA52 /* CPBorderedLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 077F28510FE18048000BCA52 /* CPBorderedLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		077F28560FE18048000BCA52 /* CPBorderedLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F28520FE18048000BCA52 /* CPBorderedLayer.m */; };
 		077F28570FE18048000BCA52 /* CPPathExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 077F28530FE18048000BCA52 /* CPPathExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,6 +151,8 @@
 		072E3F9C0FE2FF7300ACF62F /* CPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTheme.m; path = Source/CPTheme.m; sourceTree = "<group>"; };
 		074D7BC30FD6B65E006011BC /* CPXYPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYPlotSpace.h; path = Source/CPXYPlotSpace.h; sourceTree = "<group>"; };
 		074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYPlotSpace.m; path = Source/CPXYPlotSpace.m; sourceTree = "<group>"; };
+		0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTradingRangePlot.h; path = Source/CPTradingRangePlot.h; sourceTree = "<group>"; };
+		0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTradingRangePlot.m; path = Source/CPTradingRangePlot.m; sourceTree = "<group>"; };
 		077F28510FE18048000BCA52 /* CPBorderedLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPBorderedLayer.h; path = Source/CPBorderedLayer.h; sourceTree = "<group>"; };
 		077F28520FE18048000BCA52 /* CPBorderedLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPBorderedLayer.m; path = Source/CPBorderedLayer.m; sourceTree = "<group>"; };
 		077F28530FE18048000BCA52 /* CPPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPathExtensions.h; path = Source/CPPathExtensions.h; sourceTree = "<group>"; };
@@ -543,6 +547,8 @@
 				BC9B82D50FB89E610035D8DA /* CPScatterPlot.m */,
 				BC9B82DA0FB89E610035D8DA /* CPBarPlot.h */,
 				BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */,
+				0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */,
+				0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */,
 				BC9B82CF0FB89E610035D8DA /* Plot Symbols */,
 			);
 			name = Plots;
@@ -628,6 +634,7 @@
 				C3B623D5107EC9820009EF0B /* _CPFillGradient.h in Headers */,
 				C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */,
 				07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */,
+				0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,6 +734,7 @@
 				C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */,
 				C3B623BE107EC7ED0009EF0B /* CPLayoutManager.m in Sources */,
 				BCFC7CEA109264AE00DAECAA /* CPAxisTitle.m in Sources */,
+				0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

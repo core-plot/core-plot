@@ -33,6 +33,7 @@
 #import "Source/CPTextStyle.h"
 #import "Source/CPTheme.h"
 #import "Source/CPTimeFormatter.h"
+#import "Source/CPTradingRangePlot.h"
 #import "Source/CPUtilities.h"
 #import "Source/CPXYAxis.h"
 #import "Source/CPXYAxisSet.h"
