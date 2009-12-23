@@ -64,6 +64,7 @@ typedef enum _CPTradingRangePlotField {
 	
 	CGFloat barWidth;
     CGFloat stickLength;
+    CGFloat barCornerRadius;
 } 
 
 @property (nonatomic, readwrite, copy) CPLineStyle *lineStyle;
@@ -72,5 +73,6 @@ typedef enum _CPTradingRangePlotField {
 @property (nonatomic, readwrite, assign) CPTradingRangePlotStyle plotStyle;
 @property (nonatomic, readwrite, assign) CGFloat barWidth;	 // In view coordinates
 @property (nonatomic, readwrite, assign) CGFloat stickLength; // In view coordinates
+@property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
 
 @end

@@ -164,6 +164,12 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
  **/
 @synthesize stickLength;
 
+/** @property barCornerRadius
+ *	@brief The corner radius used for candlestick plots.
+ *  Defaults to 0.0.
+ **/
+@synthesize barCornerRadius;
+
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -196,6 +202,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         decreaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor blackColor]];
         barWidth = 5.0f;
         stickLength = 3.0f;
+        barCornerRadius = 0.0f;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -571,7 +578,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedCenterPoint2 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
 	
-	CGFloat radius = MIN(self.cornerRadius, halfBarWidth);
+	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 	radius = MIN(radius, ABS(close - open));
 	
     [lineStyle setLineStyleInContext:context];
