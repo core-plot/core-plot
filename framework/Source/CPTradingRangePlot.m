@@ -575,7 +575,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	
 	point[CPCoordinateX] = x;
     point[CPCoordinateY] = low;
-    point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedCenterPoint2 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
 	
 	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);

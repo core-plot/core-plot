@@ -64,7 +64,7 @@
     whiteLineStyle.lineColor = [CPColor whiteColor];
     whiteLineStyle.lineWidth = 1.0f;
     CPTradingRangePlot *ohlcPlot = [[[CPTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
-    ohlcPlot.identifier = @"Candlestick";
+    ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle = whiteLineStyle;
     ohlcPlot.stickLength = 2.0f;
     ohlcPlot.dataSource = self;
