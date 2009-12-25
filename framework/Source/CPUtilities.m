@@ -21,7 +21,7 @@ NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
  **/
 float CPDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
+	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
 }
 
 /**
