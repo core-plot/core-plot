@@ -40,3 +40,10 @@ CGPoint CPAlignPointToUserSpace(CGContextRef context, CGPoint p);
 CGSize CPAlignSizeToUserSpace(CGContextRef context, CGSize s);
 CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r);
 /// @}
+
+/// @name String formatting for Core Graphics structs
+/// @{
+NSString *CPStringFromPoint(CGPoint p);
+NSString *CPStringFromSize(CGSize s);
+NSString *CPStringFromRect(CGRect r);
+/// @}
