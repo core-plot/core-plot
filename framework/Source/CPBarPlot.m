@@ -8,6 +8,8 @@
 #import "CPGradient.h"
 #import "CPUtilities.h"
 #import "CPExceptions.h"
+#import "CPTextLayer.h"
+#import "CPTextStyle.h"
 
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";	///< Bar lengths.
 
@@ -83,15 +85,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
  **/
 @synthesize plotRange;
 
-/** @property showValueLabel
- *  @brief If YES, text labels indicating the value of the bar will be printed above the bars.
- **/
-@synthesize showValueLabel;
-
-/** @property valueLabelOffset
+/** @property barLabelOffset
  *  @brief Sets the offset of the value label above the bar
  **/
-@synthesize valueLabelOffset;
+@synthesize barLabelOffset;
+
+/** @property barLabelTextStyle
+ *  @brief Sets the textstyle of the value label above the bar
+ **/
+@synthesize barLabelTextStyle;
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
@@ -115,6 +117,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
 	fillGradient.angle = (horizontal ? -90.0f : 0.0f);
 	barPlot.fill = [CPFill fillWithGradient:fillGradient];
+	barPlot.barLabelTextStyle = [CPTextStyle textStyle]; 
 	return [barPlot autorelease];
 }
 
@@ -136,8 +139,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		barLengths = nil;
 		barsAreHorizontal = NO;
 		plotRange = nil;
-		showValueLabel = NO;
-		valueLabelOffset = 10.f;
+		barLabelOffset = 10.f;
 		
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -363,6 +365,33 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	CGContextRestoreGState(context);
 	
 	CGPathRelease(path);
+	
+	// Value label drawing
+	if ( [self.dataSource respondsToSelector:@selector(barLabelForBarPlot:recordIndex:)] ) {
+		CPTextLayer* label = [(id <CPBarPlotDataSource>)self.dataSource barLabelForBarPlot:self recordIndex:index];
+		if ( nil == label )
+			label = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%@", [self.barLengths objectAtIndex:index]] style:self.barLabelTextStyle] autorelease];
+
+		if ( self.barsAreHorizontal ) {
+			if ( tipPoint->x < basePoint->x ) {
+				[label setAnchorPoint:CGPointMake(1, 0.5)];
+				[label setPosition:CGPointMake(tipPoint->x - self.barLabelOffset, tipPoint->y)];
+			} else {
+				[label setAnchorPoint:CGPointMake(0, 0.5)];
+				[label setPosition:CGPointMake(tipPoint->x + self.barLabelOffset, tipPoint->y)];
+			}
+		} else {
+			if ( tipPoint->y < basePoint->y ) {
+				[label setAnchorPoint:CGPointMake(0.5, 1)];
+				[label setPosition:CGPointMake(tipPoint->x, tipPoint->y - self.barLabelOffset)];
+			} else {
+				[label setAnchorPoint:CGPointMake(0.5, 0)];
+				[label setPosition:CGPointMake(tipPoint->x, tipPoint->y + self.barLabelOffset)];
+			}
+		}
+		
+		[self addSublayer:label];
+	}
 }
 
 #pragma mark -

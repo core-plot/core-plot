@@ -10,6 +10,8 @@
 @class CPPlotRange;
 @class CPColor;
 @class CPBarPlot;
+@class CPTextLayer;
+@class CPTextStyle;
 
 /// @name Binding Identifiers
 /// @{
@@ -35,6 +37,13 @@ typedef enum _CPBarPlotField {
  **/
 -(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 
+/** @brief Gets a bar label for the given bar plot. This method is optional.
+ *	@param barPlot The bar plot.
+ *	@param index The data index of interest.
+ *	@return The bar label for the point with the given index.
+ **/
+-(CPTextLayer *)barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index;
+
 @end 
 
 @interface CPBarPlot : CPPlot {
@@ -51,8 +60,8 @@ typedef enum _CPBarPlotField {
     NSArray *barLengths;
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
-	BOOL showValueLabel;
-	CGFloat valueLabelOffset;
+	CGFloat barLabelOffset;
+	CPTextStyle *barLabelTextStyle;
 } 
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
@@ -64,8 +73,8 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite) NSDecimal baseValue;
 @property (nonatomic, readwrite) double doublePrecisionBaseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
-@property (nonatomic, readwrite, assign) CGFloat valueLabelOffset;
-@property (nonatomic, readwrite, assign) BOOL showValueLabel;
+@property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
+@property (nonatomic, readwrite, retain) CPTextStyle *barLabelTextStyle;
 
 /// @name Factory Methods
 /// @{
