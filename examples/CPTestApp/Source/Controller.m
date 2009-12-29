@@ -190,6 +190,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
+    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    whiteTextStyle.color = [CPColor whiteColor];
+    barPlot.barLabelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
     
     // Second bar plot
@@ -244,9 +247,19 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     return num;
 }
 
--(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index
+-(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index
 {
 	return nil;
+}
+
+-(CPTextLayer *) barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index 
+{
+	if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 2"] )
+		return (id)[NSNull null]; // Don't show any label
+	else if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
+        return (id)[NSNull null];
+    else
+		return nil; // Use default label style
 }
 
 #pragma mark -

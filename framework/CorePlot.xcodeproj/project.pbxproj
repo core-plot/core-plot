@@ -494,9 +494,9 @@
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				070622650FDF29B40066A6C4 /* Layers */,
 				C32BCF7D105407B000639E25 /* Layout */,
-				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				073FB0350FC99645007A728E /* Text */,
 				906156BA0F375558001B75FC /* Drawing */,
 				070A73DF0F5D8D7D0014FA84 /* Value Transformers */,

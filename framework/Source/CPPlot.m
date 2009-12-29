@@ -119,6 +119,7 @@
 {
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 /**	@brief Gets a range of plot data for the given plot and field.
@@ -247,6 +248,7 @@
         dataSource = newSource;
         self.dataNeedsReloading = YES;
 		[self setNeedsDisplay];
+        [self setNeedsLayout];
     }
 }
 
@@ -256,6 +258,10 @@
 {
 	self.dataNeedsReloading = YES;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
+}
+
+-(void)layoutSublayers {
 }
 
 @end
