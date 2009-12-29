@@ -51,6 +51,8 @@ typedef enum _CPBarPlotField {
     NSArray *barLengths;
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
+	BOOL showValueLabel;
+	CGFloat valueLabelOffset;
 } 
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
@@ -62,6 +64,8 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite) NSDecimal baseValue;
 @property (nonatomic, readwrite) double doublePrecisionBaseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
+@property (nonatomic, readwrite, assign) CGFloat valueLabelOffset;
+@property (nonatomic, readwrite, assign) BOOL showValueLabel;
 
 /// @name Factory Methods
 /// @{

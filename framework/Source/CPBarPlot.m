@@ -83,7 +83,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
  **/
 @synthesize plotRange;
 
+/** @property showValueLabel
+ *  @brief If YES, text labels indicating the value of the bar will be printed above the bars.
+ **/
+@synthesize showValueLabel;
 
+/** @property valueLabelOffset
+ *  @brief Sets the offset of the value label above the bar
+ **/
+@synthesize valueLabelOffset;
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
@@ -128,6 +136,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		barLengths = nil;
 		barsAreHorizontal = NO;
 		plotRange = nil;
+		showValueLabel = NO;
+		valueLabelOffset = 10.f;
 		
 		self.needsDisplayOnBoundsChange = YES;
 	}
