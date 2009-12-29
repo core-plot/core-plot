@@ -25,7 +25,8 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/**	@brief Initializes new instance with the a default date formatter.
+/**	@brief Initializes new instance with a default date formatter.
+ *	The default formatter uses <code>NSDateFormatterMediumStyle</code> for dates and times.
  *	@return The new instance.
  **/
 -(id)init
@@ -77,7 +78,7 @@
         date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
     else
         date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
-	NSString *string = [dateFormatter stringFromDate:date];
+	NSString *string = [self.dateFormatter stringFromDate:date];
     [date release];
     return string;
 }

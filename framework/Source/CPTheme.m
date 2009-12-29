@@ -127,7 +127,8 @@ static NSMutableDictionary *themes = nil;
 
 -(NSString *)name 
 {
-	return [(name ? name : [[self class] defaultName]) copy];
+	return [[(name ? name : [[self class] defaultName]) copy] autorelease]
+	;
 }
 
 /**	@brief Creates a new graph styled with the theme.

@@ -171,7 +171,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"CPAxisLabel {%@}", self.contentLayer];
+	return [NSString stringWithFormat:@"<%@ {%@}>", [self className], self.contentLayer];
 };
 
 @end

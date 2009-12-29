@@ -11,7 +11,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 
 +(void)initialize
 {
-    [NSValueTransformer setValueTransformer:[CPDecimalNumberValueTransformer new] forName:@"CPDecimalNumberValueTransformer"];
+    [NSValueTransformer setValueTransformer:[[CPDecimalNumberValueTransformer new] autorelease] forName:@"CPDecimalNumberValueTransformer"];
 }
 
 -(void)dealloc 
@@ -206,7 +206,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 {
 	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
 	NSDecimalNumber *y1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
-    return [NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil];
+    return [[NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil] retain];
 }
 
 #pragma mark -

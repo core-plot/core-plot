@@ -424,13 +424,13 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 #endif
 }
 
-///	@}
+#pragma mark -
+#pragma mark Accessors
 
 - (void)setPosition:(CGPoint)newPosition;
 {
 	[super setPosition:newPosition];
-	if (COREPLOT_LAYER_POSITION_CHANGE_ENABLED())
-	{
+	if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
 		CGRect currentFrame = self.frame;
 		if (!CGRectEqualToRect(currentFrame, CGRectIntegral(self.frame)))
 			COREPLOT_LAYER_POSITION_CHANGE((char *)class_getName([self class]),
@@ -440,5 +440,15 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 										   (int)ceil(currentFrame.size.height * 1000.0));
 	}
 }
+
+#pragma mark -
+#pragma mark Description
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"<%@ with bounds: %@>", [self className], NSStringFromRect(NSRectFromCGRect(self.bounds))];
+};
+
+///	@}
 
 @end

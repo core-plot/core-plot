@@ -24,6 +24,7 @@ syntax: glob
 
 # documentation
 **.docset/*
+**/debug.txt
 
 # for those crazies using svn and hg at the same time
 *.svn*
