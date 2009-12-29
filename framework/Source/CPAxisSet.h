@@ -4,6 +4,7 @@
 
 @class CPPlotSpace;
 @class CPPlotArea;
+@class CPPlottingArea;
 @class CPGraph;
 
 @interface CPAxisSet : CPLayer {

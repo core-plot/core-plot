@@ -1,4 +1,4 @@
-
+#import "CPAxis.h"
 #import "CPAxisLabel.h"
 #import "CPLayer.h"
 #import "CPTextLayer.h"
@@ -19,6 +19,11 @@
  *	The label can be text-based or can be the content of any CPLayer provided by the user.
  **/
 @implementation CPAxisLabel
+
+/**	@property axis
+ *	@brief The axis.
+ **/
+@synthesize axis;
 
 /**	@property contentLayer
  *	@brief The label content.
@@ -102,39 +107,39 @@
  **/
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
 {
+	CPLayer *content = self.contentLayer;
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
 	CGPoint anchor = CGPointZero;
-    
-    // If there is no rotation, position the anchor point along the closest edge.
-    // If there is rotation, leave the anchor in the center.
-    switch ( direction ) {
-        case CPSignNone:
-        case CPSignNegative:
-            *value -= offset;
+	
+	// If there is no rotation, position the anchor point along the closest edge.
+	// If there is rotation, leave the anchor in the center.
+	switch ( direction ) {
+		case CPSignNone:
+		case CPSignNegative:
+			*value -= self.offset;
 			if ( self.rotation == 0.0f ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
 			}
 			else {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(1.0, 0.5));
 			}
-            break;
-        case CPSignPositive:
-            *value += offset;
+			break;
+		case CPSignPositive:
+			*value += self.offset;
 			if ( self.rotation == 0.0f ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			}
 			else {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.0, 0.5));
 			}
-            break;
-        default:
-            [NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
-            break;
-    }
+			break;
+		default:
+			[NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
+			break;
+	}
 	
 	// Pixel-align the label layer to prevent blurriness
-	CPLayer *content = self.contentLayer;
 	CGSize currentSize = content.bounds.size;
 	
 	content.anchorPoint = anchor;
@@ -148,7 +153,7 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-    content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+	content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
 	[content setNeedsDisplay];
 }
 
@@ -171,7 +176,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ {%@}>", [self className], self.contentLayer];
-};
+	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
+}
 
 @end
