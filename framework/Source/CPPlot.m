@@ -258,4 +258,7 @@
     [self setNeedsDisplay];
 }
 
+-(void)layoutSublayers {
+}
+
 @end
