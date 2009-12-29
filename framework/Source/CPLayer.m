@@ -2,6 +2,7 @@
 #import "CPLayoutManager.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPExceptions.h"
+#import "CPUtilities.h"
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
 
@@ -446,7 +447,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ with bounds: %@>", [self className], NSStringFromRect(NSRectFromCGRect(self.bounds))];
+	return [NSString stringWithFormat:@"<%@ with bounds: %@>", [super description], CPStringFromRect(self.bounds)];
 };
 
 ///	@}
