@@ -249,6 +249,13 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	return nil;
 }
 
+-(CPTextLayer *) barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index {
+	if ([(NSString*)barPlot.identifier compare:@"Bar Plot 2"] == NSOrderedSame )
+		return [[[CPTextLayer alloc] initWithText:@"*"] autorelease];
+	else
+		return nil;
+}
+
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
 
