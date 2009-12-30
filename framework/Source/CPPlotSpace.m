@@ -122,7 +122,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-	return CGPointMake(0.0f, 0.0f);
+	return CGPointZero;
 }
 
 /**	@brief Converts a data point to plot area drawing coordinates.
@@ -131,7 +131,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 {
-	return CGPointMake(0.0f, 0.0f);
+	return CGPointZero;
 }
 
 /**	@brief Converts a point given in plot area drawing coordinates to the data coordinate space.

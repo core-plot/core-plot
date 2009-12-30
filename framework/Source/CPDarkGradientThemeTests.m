@@ -1,6 +1,7 @@
 #import "CPDarkGradientThemeTests.h"
 #import "CPDarkGradientTheme.h"
 #import "CPGraph.h"
+#import "CPPlotRange.h"
 #import "CPXYGraph.h"
 #import "CPDerivedXYGraph.h"
 #import "CPXYPlotSpace.h"

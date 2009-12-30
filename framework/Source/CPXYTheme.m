@@ -1,5 +1,6 @@
 
 #import "CPXYTheme.h"
+#import "CPPlotRange.h"
 #import "CPXYGraph.h"
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"

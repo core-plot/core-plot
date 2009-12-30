@@ -466,15 +466,15 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	[super renderAsVectorInContext:theContext];
 	
     CGPoint openPoint,highPoint,lowPoint, closePoint;
-    CPCoordinate independentCoord = CPCoordinateX ;
-    CPCoordinate dependentCoord = CPCoordinateY ;
+    CPCoordinate independentCoord = CPCoordinateX;
+    CPCoordinate dependentCoord = CPCoordinateY;
     NSArray *locations = self.xValues;
     NSArray *opens = self.openValues;
 	NSArray *highs = self.highValues;
 	NSArray *lows = self.lowValues;
 	NSArray *closes = self.closeValues;
 	
-    for (NSUInteger ii = 0; ii < [closes count]; ii++) {
+    for ( NSUInteger ii = 0; ii < [closes count]; ii++ ) {
 		id openCoordValue = [opens objectAtIndex:ii];
 		id highCoordValue = [highs objectAtIndex:ii];
 		id lowCoordValue = [lows objectAtIndex:ii];
@@ -524,7 +524,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 		}
         
         // Draw
-		switch ( plotStyle ) {
+		switch ( self.plotStyle ) {
             case CPTradingRangePlotStyleOHLC:
                 [self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
                 break;
@@ -541,8 +541,8 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
-    CPCoordinate widthCoordinate = CPCoordinateX ;
-	CGFloat halfBarWidth = 0.5 * barWidth;
+    CPCoordinate widthCoordinate = CPCoordinateX;
+	CGFloat halfBarWidth = 0.5 * self.barWidth;
 	
     CGFloat point[2];
     point[CPCoordinateX] = x;
@@ -580,7 +580,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 	radius = MIN(radius, ABS(close - open));
 	
-    [lineStyle setLineStyleInContext:context];
+    [self.lineStyle setLineStyleInContext:context];
 
     CGMutablePathRef path = CGPathCreateMutable();
 	CGContextMoveToPoint(context, alignedCenterPoint1.x, alignedCenterPoint1.y);
@@ -597,7 +597,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	
     CGContextSaveGState(context);
 	 
-	CPFill *currentBarFill = ( open <= close ? increaseFill : decreaseFill ); 
+	CPFill *currentBarFill = ( open <= close ? self.increaseFill : self.decreaseFill ); 
     if ( currentBarFill != nil ) {
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
@@ -618,7 +618,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     
     point[CPCoordinateX] = x;
     point[CPCoordinateY] = open;
-    point[CPCoordinateX] += stickLength;// right side
+    point[CPCoordinateX] += self.stickLength;	// right side
 	CGPoint alignedOpenEndPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
     
     point[CPCoordinateX] = x;
@@ -627,7 +627,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	
     point[CPCoordinateX] = x;
     point[CPCoordinateY] = close;
-    point[CPCoordinateX] -= stickLength;//left side
+    point[CPCoordinateX] -= self.stickLength;	// left side
 	CGPoint alignedCloseEndPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
     
 	
@@ -639,7 +639,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     point[CPCoordinateY] = low;
 	CGPoint alignedLowPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
 	
-    [lineStyle setLineStyleInContext:context];
+    [self.lineStyle setLineStyleInContext:context];
     
     CGMutablePathRef path = CGPathCreateMutable();
 	CGContextMoveToPoint(context, alignedHighPoint.x, alignedHighPoint.y);
