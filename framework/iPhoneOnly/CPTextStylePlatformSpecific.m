@@ -10,7 +10,7 @@
 #pragma mark -
 #pragma mark Layout
 
--(CGSize)sizeWithStyle:(CPTextStyle *)style
+-(CGSize)sizeWithTextStyle:(CPTextStyle *)style
 {	
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 	CGSize textSize = [self sizeWithFont:theFont];	
@@ -20,7 +20,7 @@
 #pragma mark -
 #pragma mark Drawing of Text
 
--(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context
+-(void)drawAtPoint:(CGPoint)point withTextStyle:(CPTextStyle *)style inContext:(CGContextRef)context
 {	
 	if ( style.color == nil ) return;
     

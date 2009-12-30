@@ -88,7 +88,7 @@ const CGFloat kCPTextLayerMarginWidth = 1.0f;
 -(void)sizeToFit
 {	
 	if ( self.text == nil ) return;
-	CGSize textSize = [self.text sizeWithStyle:textStyle];
+	CGSize textSize = [self.text sizeWithTextStyle:textStyle];
 
 	// Add small margin
 	textSize.width += 2 * kCPTextLayerMarginWidth;
@@ -112,7 +112,7 @@ const CGFloat kCPTextLayerMarginWidth = 1.0f;
 	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
 #endif
-	[self.text drawAtPoint:CPAlignPointToUserSpace(context, CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth)) withStyle:self.textStyle inContext:context];
+	[self.text drawAtPoint:CPAlignPointToUserSpace(context, CGPointMake(kCPTextLayerMarginWidth, kCPTextLayerMarginWidth)) withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
 #endif
