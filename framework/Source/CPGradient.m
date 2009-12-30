@@ -89,7 +89,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
 	[colorspace release];
     CGFunctionRelease(gradientFunction);
-    CPGradientElement *elementToRemove = elementList;
+    CPGradientElement *elementToRemove;
     while (elementList != NULL) {
         elementToRemove = elementList;
         elementList = elementList->nextElement;
@@ -748,7 +748,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
 {
-	CGShadingRef myCGShading;
+	CGShadingRef myCGShading = NULL;
 	
     CGContextSaveGState(context);
 	
@@ -775,7 +775,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 -(void)fillPathInContext:(CGContextRef)context
 {
 	if (!CGContextIsPathEmpty(context)) {
-		CGShadingRef myCGShading;
+		CGShadingRef myCGShading = NULL;
 		
 		CGContextSaveGState(context);
 		

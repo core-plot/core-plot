@@ -42,6 +42,11 @@
     return self;
 }
 
+-(id)init
+{
+	return [self initAsInitialFrame:YES];
+}
+
 -(void)dealloc 
 {
     [identifier release];

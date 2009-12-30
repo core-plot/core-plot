@@ -43,6 +43,7 @@
 		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 
 #endif
         space = [[CPColorSpace alloc] initWithCGColorSpace:cgSpace];
+		CGColorSpaceRelease(cgSpace);
 	} 
 	return space; 
 } 

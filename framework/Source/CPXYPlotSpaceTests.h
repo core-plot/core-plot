@@ -1,15 +1,12 @@
 
 #import "CPTestCase.h"
 
-@class CPLayer;
-@class CPXYPlotSpace;
+@class CPXYGraph;
 
 @interface CPXYPlotSpaceTests : CPTestCase {
-    CPLayer *layer;
-    CPXYPlotSpace *plotSpace;
+    CPXYGraph *graph;
 }
 
-@property (retain,readwrite) CPLayer *layer;
-@property (retain,readwrite) CPXYPlotSpace *plotSpace;
+@property (retain,readwrite) CPXYGraph *graph;
 
 @end

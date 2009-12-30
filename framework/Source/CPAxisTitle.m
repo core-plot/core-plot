@@ -56,7 +56,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"CPAxisTitle {%@}", self.contentLayer];
+	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 };
 
 @end

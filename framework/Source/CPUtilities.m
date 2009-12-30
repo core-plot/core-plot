@@ -21,7 +21,7 @@ NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
  **/
 float CPDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
+	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
 }
 
 /**
@@ -334,4 +334,34 @@ CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r)
     
     // Convert back to user space.
     return CGContextConvertRectToUserSpace(context, r);
+}
+
+#pragma mark -
+#pragma mark String formatting for Core Graphics structs
+
+/**	@brief Creates a string representation of the given point.
+ *	@param p The point.
+ *	@return A string with the format <code>{x, y}</code>.
+ **/
+NSString *CPStringFromPoint(CGPoint p)
+{
+	return [NSString stringWithFormat:@"{%f, %f}", p.x, p.y];
+}
+
+/**	@brief Creates a string representation of the given point.
+ *	@param s The size.
+ *	@return A string with the format <code>{width, height}</code>.
+ **/
+NSString *CPStringFromSize(CGSize s)
+{
+	return [NSString stringWithFormat:@"{%f, %f}", s.width, s.height];
+}
+
+/**	@brief Creates a string representation of the given point.
+ *	@param r The rectangle.
+ *	@return A string with the format <code>{{x, y}, {width, height}}</code>.
+ **/
+NSString *CPStringFromRect(CGRect r)
+{
+	return [NSString stringWithFormat:@"{{%f, %f}, {%f, %f}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }

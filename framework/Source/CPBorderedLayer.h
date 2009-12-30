@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 
@@ -6,7 +5,7 @@
 @class CPFill;
 
 @interface CPBorderedLayer : CPLayer {
-	@private
+@private
 	CPLineStyle *borderLineStyle;
     CPFill *fill;
 	CGFloat cornerRadius;

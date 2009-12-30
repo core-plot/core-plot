@@ -292,7 +292,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		}
 		
         // Offset
-        CGFloat viewOffset = self.barOffset * barWidth;
+        CGFloat viewOffset = self.barOffset * self.barWidth;
         if ( self.barsAreHorizontal ) {
             basePoint.y += viewOffset;
             tipPoint.y += viewOffset;

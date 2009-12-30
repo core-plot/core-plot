@@ -1,7 +1,8 @@
 
-#import "CPPlotRange.h"
 #import "CPPlotSpace.h"
 #import "CPDefinitions.h"
+
+@class CPPlotRange;
 
 @interface CPXYPlotSpace : CPPlotSpace {
 	@private

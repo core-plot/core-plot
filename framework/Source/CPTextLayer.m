@@ -123,7 +123,7 @@ const CGFloat kCPTextLayerMarginWidth = 1.0f;
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"CPTextLayer \"%@\"", self.text];
+	return [NSString stringWithFormat:@"<%@ \"%@\">", [super description], self.text];
 };
 
 @end
