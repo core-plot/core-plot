@@ -7,6 +7,7 @@
 #import "CPAxisSet.h"
 #import "CPPlot.h"
 #import "CPPlotArea.h"
+#import "CPPlotRange.h"
 #import "CPGraph.h"
 
 /// @cond
@@ -187,8 +188,9 @@
 {
 	NSDecimal pointx = CPDecimalFromFloat(point.x);
 	NSDecimal pointy = CPDecimalFromFloat(point.y);
-	NSDecimal boundsw = CPDecimalFromFloat(self.graph.plotArea.bounds.size.width);
-	NSDecimal boundsh = CPDecimalFromFloat(self.graph.plotArea.bounds.size.height);
+	CGSize boundsSize = self.graph.plotArea.bounds.size;
+	NSDecimal boundsw = CPDecimalFromFloat(boundsSize.width);
+	NSDecimal boundsh = CPDecimalFromFloat(boundsSize.height);
 	
 	// get the xRange's location and length
 	NSDecimal xLocation = xRange.location;
@@ -217,6 +219,7 @@
 	//	TODO: implement doublePrecisionPlotPoint:forViewPoint:
 }
 
+#pragma mark -
 #pragma mark Interaction
 
 -(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
