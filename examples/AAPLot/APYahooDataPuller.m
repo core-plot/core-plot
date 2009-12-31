@@ -16,6 +16,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 @property (nonatomic, assign) BOOL loadingData;
 @property (nonatomic, readwrite, retain) NSDecimalNumber *overallHigh;
 @property (nonatomic, readwrite, retain) NSDecimalNumber *overallLow;
+@property (nonatomic, readwrite, retain) NSDecimalNumber *overallVolumeHigh;
+@property (nonatomic, readwrite, retain) NSDecimalNumber *overallVolumeLow;
 @property (nonatomic, readwrite, retain) NSArray *financialData;
 
 -(void)fetch;
@@ -35,6 +37,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 @synthesize targetSymbol;
 @synthesize overallLow;
 @synthesize overallHigh;
+@synthesize overallVolumeHigh;
+@synthesize overallVolumeLow;
 @synthesize csvString;
 @synthesize financialData;
 
@@ -65,6 +69,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     [rep setObject:[self endDate] forKey:@"endDate"];
     [rep setObject:[self overallHigh] forKey:@"overallHigh"];
     [rep setObject:[self overallLow] forKey:@"overallLow"];
+	[rep setObject:[self overallVolumeHigh] forKey:@"overallVolumeHigh"];
+    [rep setObject:[self overallVolumeLow] forKey:@"overallVolumeLow"];
     [rep setObject:[self financialData] forKey:@"financalData"];
     return [NSDictionary dictionaryWithDictionary:rep];
 }
@@ -308,7 +314,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     
     self.overallHigh = [NSDecimalNumber notANumber];
     self.overallLow = [NSDecimalNumber notANumber];
-    
+    self.overallVolumeHigh = [NSDecimalNumber notANumber];
+    self.overallVolumeLow = [NSDecimalNumber notANumber];
+
+	
     for (NSUInteger i=1; i<[csvLines count]-1; i++) {
         line = (NSString *)[csvLines objectAtIndex:i];
         currentFinancial = [NSDictionary dictionaryWithCSVLine:line];
@@ -316,7 +325,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         
         NSDecimalNumber *high = [currentFinancial objectForKey:@"high"];
         NSDecimalNumber *low = [currentFinancial objectForKey:@"low"];
-        
+        NSDecimalNumber *volume = [currentFinancial objectForKey:@"volume"];;
+		
         if ( [self.overallHigh isEqual:[NSDecimalNumber notANumber]] ) {
             self.overallHigh = high;
         }
@@ -332,6 +342,23 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
             self.overallHigh = high;
         }
         
+		if ( [self.overallVolumeHigh isEqual:[NSDecimalNumber notANumber]] ) {
+            self.overallVolumeHigh = volume;
+        }
+        
+		if ( [self.overallVolumeLow isEqual:[NSDecimalNumber notANumber]] ) {
+            self.overallVolumeLow = volume;
+        }
+		
+        if ( [volume compare:self.overallVolumeLow] == NSOrderedAscending )  {
+            self.overallVolumeLow = volume;
+        }
+        
+		if ( [volume compare:self.overallVolumeHigh] == NSOrderedDescending ) {
+            self.overallVolumeHigh = volume;
+        }
+
+		
     }
     self.startDate = self.targetStartDate;
     self.endDate = self.targetEndDate;
