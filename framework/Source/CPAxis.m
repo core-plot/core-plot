@@ -259,6 +259,8 @@
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
+		
+		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }

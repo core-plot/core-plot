@@ -313,9 +313,7 @@
 {
     [self setNeedsLayout];
     [self.axisSet relabelAxes];
-    for ( CPPlot *plot in self.plots ) {
-        [plot setNeedsDisplay];
-    }
+    [[self allPlots] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 #pragma mark -
@@ -352,32 +350,38 @@
 
 #pragma mark -
 #pragma mark Accessors
-///	@}
 
-@end
-
-///	@brief CPGraph abstract methods—must be overridden by subclasses
-@implementation CPGraph(AbstractFactoryMethods)
-
-/// @addtogroup CPGraph
-/// @{
-
-/**	@brief Creates a new plot space for the graph.
- *	@return A new plot space.
- **/
--(CPPlotSpace *)newPlotSpace
+-(void)setPaddingLeft:(CGFloat)newPadding 
 {
-	return nil;
+    if ( newPadding != self.paddingLeft ) {
+        [super setPaddingLeft:newPadding];
+		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
 
-/**	@brief Creates a new axis set for the graph.
- *	@return A new axis set.
- **/
--(CPAxisSet *)newAxisSet
+-(void)setPaddingRight:(CGFloat)newPadding 
 {
-	return nil;
+    if ( newPadding != self.paddingRight ) {
+        [super setPaddingRight:newPadding];
+		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
-///	@}
+
+-(void)setPaddingTop:(CGFloat)newPadding 
+{
+    if ( newPadding != self.paddingTop ) {
+        [super setPaddingTop:newPadding];
+		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
+}
+
+-(void)setPaddingBottom:(CGFloat)newPadding 
+{
+    if ( newPadding != self.paddingBottom ) {
+        [super setPaddingBottom:newPadding];
+		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
+}
 
 #pragma mark -
 #pragma mark Event Handling
@@ -475,5 +479,33 @@
     
     return handledEvent;
 }
+///	@}
+
+@end
+
+#pragma mark -
+
+///	@brief CPGraph abstract methods—must be overridden by subclasses
+@implementation CPGraph(AbstractFactoryMethods)
+
+/// @addtogroup CPGraph
+/// @{
+
+/**	@brief Creates a new plot space for the graph.
+ *	@return A new plot space.
+ **/
+-(CPPlotSpace *)newPlotSpace
+{
+	return nil;
+}
+
+/**	@brief Creates a new axis set for the graph.
+ *	@return A new axis set.
+ **/
+-(CPAxisSet *)newAxisSet
+{
+	return nil;
+}
+///	@}
 
 @end

@@ -345,7 +345,7 @@ CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r)
  **/
 NSString *CPStringFromPoint(CGPoint p)
 {
-	return [NSString stringWithFormat:@"{%f, %f}", p.x, p.y];
+	return [NSString stringWithFormat:@"{%g, %g}", p.x, p.y];
 }
 
 /**	@brief Creates a string representation of the given point.
@@ -354,7 +354,7 @@ NSString *CPStringFromPoint(CGPoint p)
  **/
 NSString *CPStringFromSize(CGSize s)
 {
-	return [NSString stringWithFormat:@"{%f, %f}", s.width, s.height];
+	return [NSString stringWithFormat:@"{%g, %g}", s.width, s.height];
 }
 
 /**	@brief Creates a string representation of the given point.
@@ -363,5 +363,5 @@ NSString *CPStringFromSize(CGSize s)
  **/
 NSString *CPStringFromRect(CGRect r)
 {
-	return [NSString stringWithFormat:@"{{%f, %f}, {%f, %f}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
+	return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }

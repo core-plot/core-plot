@@ -643,7 +643,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement removedElement = [newGradient removeElementAtPosition:position];
 	
     if ( isnan(removedElement.position) ) {
-        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%f)", [self class], position];
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
 	}
 	
     return [newGradient autorelease];

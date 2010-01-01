@@ -34,7 +34,6 @@
         constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
 		
 		self.tickDirection = CPSignNone;
-		self.needsDisplayOnBoundsChange = YES;
 }
 	return self;
 }
@@ -183,7 +182,7 @@
 	CGPoint startViewPoint = [self viewPointForCoordinateDecimalNumber:range.location];
     CGPoint endViewPoint = [self viewPointForCoordinateDecimalNumber:range.end];
 	
-	return [NSString stringWithFormat:@"CPXYAxis with range %@ viewCoordinates: {%f, %f} to {%f, %f}", range, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
+	return [NSString stringWithFormat:@"<%@ with range %@ viewCoordinates: {%g, %g} to {%g, %g}>", [super description], range, startViewPoint.x, startViewPoint.y, endViewPoint.x, endViewPoint.y];
 };
 
 #pragma mark -
