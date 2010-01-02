@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<tagfile>
+	<!-- Foundation classes & protocols -->
+	<compound kind="class" objc="yes">
+		<name>NSArray</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/NSArray.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSCoder</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
+		<base>NSObject</base>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSCoding-p</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html</filename>
+		<member kind="function">
+			<name>initWithCoder:</name>
+			<anchor>//apple_ref/occ/intfm/NSCoding/initWithCoder:</anchor>
+		</member>
+		<member kind="function">
+			<name>encodeWithCoder:</name>
+			<anchor>//apple_ref/occ/intfm/NSCoding/encodeWithCoder:</anchor>
+		</member>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>UIColor</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIColor_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSCopying-p</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html</filename>
+		<member kind="function">
+			<name>copyWithZone:</name>
+			<anchor>//apple_ref/occ/intfm/NSCopying/copyWithZone:</anchor>
+		</member>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSData</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSDecimalNumber</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSDecimalNumber_Class/Reference/Reference.html</filename>
+		<base>NSNumber</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSDictionary</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSFastEnumeration-p</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/NSFastEnumeration_protocol/Reference/NSFastEnumeration.html</filename>
+		<member kind="function">
+			<name>countByEnumeratingWithState:objects:count:</name>
+			<anchor>//apple_ref/occ/intfm/NSFastEnumeration/countByEnumeratingWithState:objects:count:</anchor>
+		</member>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>UIImage</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIImage_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSMutableCopying-p</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html</filename>
+		<member kind="function">
+			<name>mutableCopyWithZone:</name>
+			<anchor>//apple_ref/occ/intfm/NSMutableCopying/mutableCopyWithZone:</anchor>
+		</member>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSNumber</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSNumber_Class/Reference/Reference.html</filename>
+		<base>NSValue</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSNumberFormatter</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSNumberFormatter_Class/Reference/Reference.html#//apple_ref/occ/cl/NSNumberFormatter</filename>
+		<base>NSFormatter</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSFormatter</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSFormatter_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSObject</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html</filename>
+		<base>NSObject-p</base>
+		<base>NSKeyValueBindingCreation-p</base>
+		<member kind="function">
+			<name>init</name>
+			<anchor>//apple_ref/occ/instm/NSObject/init</anchor>
+		</member>
+		<member kind="function">
+			<name>dealloc</name>
+			<anchor>//apple_ref/occ/instm/NSObject/dealloc</anchor>
+		</member>
+		<member kind="function">
+			<name>copy</name>
+			<anchor>//apple_ref/occ/instm/NSObject/copy</anchor>
+		</member>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>NSObject-p</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html</filename>
+		<member kind="function">
+			<name>description</name>
+			<anchor>//apple_ref/occ/intfm/NSObject/description</anchor>
+		</member>
+		<member kind="function">
+			<name>hash</name>
+			<anchor>//apple_ref/occ/intfm/NSObject/hash</anchor>
+		</member>
+		<member kind="function">
+			<name>isEqual:</name>
+			<anchor>//apple_ref/occ/intfm/NSObject/isEqual:</anchor>
+		</member>
+	</compound>
+	<compound kind="struct">
+		<name>NSRange</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSRange</filename>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSSet</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>UIResponder</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/UIKit/Reference/UIResponder_Class/Reference/Reference.html#//apple_ref/occ/cl/UIResponder</filename>
+		<base>NSObject</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSString</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSValue</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSValueTransformer</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSValueTransformer_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>UIView</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/UIKit/Reference/UIView_Class/UIView/UIView.html</filename>
+		<base>UIResponder</base>
+	</compound>
+	<compound kind="struct">
+		<name>NSZone</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSZone</filename>
+	</compound>
+
+	<!-- Core Graphics -->
+	<compound kind="struct">
+		<name>CGColorRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGColor/Reference/reference.html#//apple_ref/doc/c_ref/CGColorRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGColorSpaceRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGColorSpace/Reference/reference.html#//apple_ref/doc/c_ref/CGColorSpaceRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGContextRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html#//apple_ref/doc/c_ref/CGContextRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGFunctionRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGFunction/Reference/reference.html#//apple_ref/doc/c_ref/CGFunctionRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGImageRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGImage/Reference/reference.html#//apple_ref/doc/c_ref/CGImageRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGPathRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html#//apple_ref/doc/c_ref/CGPathRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGPoint</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGPoint</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGRect</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGRect</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGShadingRef</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGShading/Reference/reference.html#//apple_ref/doc/c_ref/CGShadingRef</filename>
+	</compound>
+	<compound kind="struct">
+		<name>CGSize</name>
+		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGSize</filename>
+	</compound>
+
+	<!-- Core Animation -->
+	<compound kind="class" objc="yes">
+		<name>CALayer</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html</filename>
+		<base>NSObject</base>
+		<base>CAMediaTiming-p</base>
+		<member kind="function">
+			<name>containsPoint:</name>
+			<anchor>//apple_ref/occ/instm/CALayer/containsPoint:</anchor>
+		</member>
+		<member kind="function">
+			<name>drawInContext:</name>
+			<anchor>//apple_ref/occ/instm/CALayer/drawInContext:</anchor>
+		</member>
+		<member kind="function">
+			<name>layoutSublayers</name>
+			<anchor>//apple_ref/occ/instm/CALayer/layoutSublayers</anchor>
+		</member>
+	</compound>
+	<compound kind="protocol" objc="yes">
+		<name>CAMediaTiming-p</name>
+		<filename>http://www.devworld.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/Introduction/Introduction.html</filename>
+		<member kind="property">
+			<name>autoreverses</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/autoreverses</anchor>
+		</member>
+		<member kind="property">
+			<name>beginTime</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/beginTime</anchor>
+		</member>
+		<member kind="property">
+			<name>duration</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/duration</anchor>
+		</member>
+		<member kind="property">
+			<name>fillMode</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/fillMode</anchor>
+		</member>
+		<member kind="property">
+			<name>repeatCount</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatCount</anchor>
+		</member>
+		<member kind="property">
+			<name>repeatDuration</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatDuration</anchor>
+		</member>
+		<member kind="property">
+			<name>speed</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/speed</anchor>
+		</member>
+		<member kind="property">
+			<name>timeOffset</name>
+			<anchor>//apple_ref/occ/intfp/CAMediaTiming/timeOffset</anchor>
+		</member>
+	</compound>
+
+</tagfile>
