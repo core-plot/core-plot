@@ -5,7 +5,7 @@
 
 /**	@brief Platform-specific extensions to CPLayer.
  **/
-@implementation CPLayer(CPPlatformSpecificLayerExtensions)
+@implementation CPLayer (CPPlatformSpecificLayerExtensions)
 
 /// @addtogroup CPLayer
 /// @{
@@ -40,7 +40,7 @@
 
 /**	@brief Platform-specific extensions to CPColor.
  **/
-@implementation CPColor(CPPlatformSpecificColorExtensions)
+@implementation CPColor (CPPlatformSpecificColorExtensions)
 
 /// @addtogroup CPColor
 /// @{

@@ -1,7 +1,14 @@
 
 #import <UIKit/UIKit.h>
+#import "CPColor.h"
 #import "CPLayer.h"
 #import "CPPlatformSpecificDefines.h"
+
+@interface CPColor (CPPlatformSpecificColorExtensions)
+
+@property (nonatomic, readonly, retain) UIColor *uiColor;
+
+@end
 
 @interface CPLayer (CPPlatformSpecificLayerExtensions)
 

@@ -10,14 +10,21 @@
 
 /// @name Factory Methods
 /// @{
-+(CPColor *)clearColor; 
-+(CPColor *)whiteColor; 
-+(CPColor *)blackColor; 
++(CPColor *)clearColor;
++(CPColor *)whiteColor;
++(CPColor *)lightGrayColor;
++(CPColor *)grayColor;
++(CPColor *)darkGrayColor;
++(CPColor *)blackColor;
 +(CPColor *)redColor;
 +(CPColor *)greenColor;
 +(CPColor *)blueColor;
-+(CPColor *)darkGrayColor;
-+(CPColor *)lightGrayColor;
++(CPColor *)cyanColor;
++(CPColor *)yellowColor;
++(CPColor *)magentaColor;
++(CPColor *)orangeColor;
++(CPColor *)purpleColor;
++(CPColor *)brownColor;
 
 +(CPColor *)colorWithCGColor:(CGColorRef)newCGColor;
 +(CPColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;

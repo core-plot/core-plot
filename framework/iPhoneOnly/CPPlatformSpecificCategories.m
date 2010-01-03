@@ -1,5 +1,23 @@
 #import "CPPlatformSpecificCategories.h"
 
+/**	@brief Platform-specific extensions to CPColor.
+ **/
+@implementation CPColor (CPPlatformSpecificColorExtensions)
+
+/// @addtogroup CPColor
+/// @{
+
+/**	@property uiColor
+ *	@brief Gets the color value as a UIColor.
+ **/
+-(UIColor *)uiColor
+{
+	return [UIColor colorWithCGColor:self.cgColor];
+}
+
+///	@}
+
+@end
 @implementation CPLayer (CPPlatformSpecificLayerExtensions)
 
 -(CPNativeImage *)imageOfLayer 
