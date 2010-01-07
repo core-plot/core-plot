@@ -107,15 +107,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 {
 	CPBarPlot *barPlot = [[CPBarPlot alloc] init];
 	CPLineStyle *barLineStyle = [[CPLineStyle alloc] init];
-	barLineStyle.lineWidth = 1.0f;
+	barLineStyle.lineWidth = 1.0;
 	barLineStyle.lineColor = [CPColor blackColor];
 	barPlot.lineStyle = barLineStyle;
 	[barLineStyle release];
 	barPlot.barsAreHorizontal = horizontal;
-	barPlot.barWidth = 10.0f;
-	barPlot.cornerRadius = 2.0f;
+	barPlot.barWidth = 10.0;
+	barPlot.cornerRadius = 2.0;
 	CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
-	fillGradient.angle = (horizontal ? -90.0f : 0.0f);
+	fillGradient.angle = (horizontal ? -90.0 : 0.0);
 	barPlot.fill = [CPFill fillWithGradient:fillGradient];
 	return [barPlot autorelease];
 }
@@ -130,14 +130,14 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		keyPathForBarLengthValues = nil;
 		lineStyle = [[CPLineStyle alloc] init];
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
-		barWidth = 10.0f;
-		barOffset = 0.0f;
-		cornerRadius = 0.0f;
+		barWidth = 10.0;
+		barOffset = 0.0;
+		cornerRadius = 0.0;
 		baseValue = [[NSDecimalNumber zero] decimalValue];
 		barLengths = nil;
 		barsAreHorizontal = NO;
 		plotRange = nil;
-		barLabelOffset = 10.f;
+		barLabelOffset = 10.0;
 		barLabelTextStyle = nil;
         barLabelTextLayers = nil;
         

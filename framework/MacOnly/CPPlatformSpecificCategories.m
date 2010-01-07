@@ -21,7 +21,7 @@
 	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 	CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
 	
-	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height));
+	CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
 	CGContextSetAllowsAntialiasing(context, true);
 	CGContextSetShouldSmoothFonts(context, false);
 	[self recursivelyRenderInContext:context];	

@@ -200,9 +200,9 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 		lineStyle = [[CPLineStyle alloc] init];
         increaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor whiteColor]];
         decreaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor blackColor]];
-        barWidth = 5.0f;
-        stickLength = 3.0f;
-        barCornerRadius = 0.0f;
+        barWidth = 5.0;
+        stickLength = 3.0;
+        barCornerRadius = 0.0;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;

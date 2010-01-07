@@ -34,10 +34,10 @@
 
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor whiteColor];
-	borderLineStyle.lineWidth = 1.0f;
+	borderLineStyle.lineWidth = 1.0;
 	
 	plotArea.borderLineStyle = borderLineStyle;
-	plotArea.cornerRadius = 0.0f;
+	plotArea.cornerRadius = 0.0;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
@@ -45,40 +45,40 @@
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
     majorLineStyle.lineColor = [CPColor whiteColor];
-    majorLineStyle.lineWidth = 3.0f;
+    majorLineStyle.lineWidth = 3.0;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
     minorLineStyle.lineColor = [CPColor whiteColor];
-    minorLineStyle.lineWidth = 3.0f;
+    minorLineStyle.lineWidth = 3.0;
 	
     CPXYAxis *x = axisSet.xAxis;
 	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    x.majorIntervalLength = CPDecimalFromString(@"0.5");
-    x.constantCoordinateValue = CPDecimalFromString(@"0");
+    x.majorIntervalLength = CPDecimalFromDouble(0.5);
+    x.constantCoordinateValue = CPDecimalFromDouble(0.0);
 	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 4;
     x.majorTickLineStyle = majorLineStyle;
     x.minorTickLineStyle = minorLineStyle;
     x.axisLineStyle = majorLineStyle;
-    x.majorTickLength = 7.0f;
-    x.minorTickLength = 5.0f;
+    x.majorTickLength = 7.0;
+    x.minorTickLength = 5.0;
 	x.labelTextStyle = whiteTextStyle; 
 	x.titleTextStyle = whiteTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    y.majorIntervalLength = CPDecimalFromString(@"0.5");
+    y.majorIntervalLength = CPDecimalFromDouble(0.5);
     y.minorTicksPerInterval = 4;
-    y.constantCoordinateValue = CPDecimalFromString(@"0");
+    y.constantCoordinateValue = CPDecimalFromDouble(0.0);
 	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;
     y.axisLineStyle = majorLineStyle;
-    y.majorTickLength = 7.0f;
-    y.minorTickLength = 5.0f;
+    y.majorTickLength = 7.0;
+    y.minorTickLength = 5.0;
 	y.labelTextStyle = whiteTextStyle;
 	y.titleTextStyle = whiteTextStyle;
 }

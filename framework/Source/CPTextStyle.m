@@ -29,7 +29,7 @@
 {
 	if ( self = [super init] ) {
 		fontName = @"Helvetica";
-		fontSize = 12.0f;
+		fontSize = 12.0;
 		color = [[CPColor blackColor] retain];
 	}
 	return self;

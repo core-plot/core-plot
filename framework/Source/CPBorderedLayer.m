@@ -38,7 +38,7 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		borderLineStyle = nil;
 		fill = nil;
-		cornerRadius = 0.0f;
+		cornerRadius = 0.0;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
 		masksToBorder = YES;
@@ -73,8 +73,8 @@
         [self.borderLineStyle setLineStyleInContext:context];
 		CGContextBeginPath(context);
 
-		if ( self.cornerRadius > 0.0f ) {
-			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 			AddRoundedRectPath(context, selfBounds, radius);
 		}
 		else {
@@ -97,8 +97,8 @@
 	CGFloat lineWidth = self.borderLineStyle.lineWidth;
 	CGRect selfBounds = self.bounds;
 	
-	if ( self.cornerRadius > 0.0f ) {
-		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+	if ( self.cornerRadius > 0.0 ) {
+		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 		outerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 	}
 	else {
@@ -120,8 +120,8 @@
 		CGFloat lineWidth = self.borderLineStyle.lineWidth;
 		CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 		
-		if ( self.cornerRadius > 0.0f ) {
-			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 			innerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 		}
 		else {

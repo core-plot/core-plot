@@ -58,9 +58,9 @@
 	if ( self = [super init] ) {
 		lineCap = kCGLineCapButt;
 		lineJoin = kCGLineJoinMiter;
-		miterLimit = 10.f;
-		lineWidth = 1.f;
-		patternPhase = CGSizeMake(0.f, 0.f);
+		miterLimit = 10.0;
+		lineWidth = 1.0;
+		patternPhase = CGSizeZero;
 		lineColor = [[CPColor blackColor] retain];
 	}
 	return self;

@@ -28,7 +28,7 @@
 /// @{
 
 /**	@property graph
- *	@brief The graph for the axis set.
+ *	@brief The graph for the layer.
  **/
 @synthesize graph;
 
@@ -97,10 +97,10 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super init] ) {
-		paddingLeft = 0.0f;
-		paddingTop = 0.0f;
-		paddingRight = 0.0f;
-		paddingBottom = 0.0f;
+		paddingLeft = 0.0;
+		paddingTop = 0.0;
+		paddingRight = 0.0;
+		paddingBottom = 0.0;
 		layoutManager = nil;
 		renderingRecursively = NO;
 
@@ -194,7 +194,7 @@
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
-	const CGRect mediaBox = CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height);
+	const CGRect mediaBox = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
 	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 	
 	CPPushCGContext(pdfContext);
@@ -290,7 +290,7 @@
  **/
 +(CGFloat)defaultZPosition 
 {
-	return 0.0f;
+	return 0.0;
 }
 
 -(void)layoutSublayers
@@ -302,9 +302,9 @@
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
 	subLayerSize.width -= self.paddingLeft + self.paddingRight;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
+	subLayerSize.width = MAX(subLayerSize.width, 0.0);
 	subLayerSize.height -= self.paddingTop + self.paddingBottom;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
+	subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
 	for (CALayer *subLayer in self.sublayers) {
 		if ([subLayer isKindOfClass:[CPLayer class]]) {

@@ -10,7 +10,7 @@
     CPLayer *contentLayer;
     CGFloat offset;
     CGFloat rotation;
-    NSDecimal tickLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    NSDecimal tickLocation;
 }
 
 @property (nonatomic, readonly, retain) CPLayer *contentLayer;

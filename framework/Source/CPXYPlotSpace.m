@@ -110,7 +110,7 @@
     // Set range
     NSDecimal zero = CPDecimalFromInt(0);
     if ( !CPDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
-    if ( !CPDecimalEquals(unionYRange.length, zero) )self.yRange = unionYRange;
+    if ( !CPDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
 }
 
 #pragma mark -
@@ -118,7 +118,7 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord 
 {	 
-	if ( !range ) return 0.0f;
+	if ( !range ) return 0.0;
     
 	NSDecimal factor = CPDecimalDivide(CPDecimalSubtract(plotCoord, range.location), range.length);
 	if ( NSDecimalIsNotANumber(&factor) ) {
@@ -132,7 +132,7 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 {
-	if ( !range || range.doublePrecisionLength == 0.0 ) return 0.0f;
+	if ( !range || range.doublePrecisionLength == 0.0 ) return 0.0;
     return viewLength * ((plotCoord - range.doublePrecisionLocation) / range.doublePrecisionLength);
 }
 
@@ -186,11 +186,11 @@
 
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
-	NSDecimal pointx = CPDecimalFromFloat(point.x);
-	NSDecimal pointy = CPDecimalFromFloat(point.y);
+	NSDecimal pointx = CPDecimalFromDouble(point.x);
+	NSDecimal pointy = CPDecimalFromDouble(point.y);
 	CGSize boundsSize = self.graph.plotArea.bounds.size;
-	NSDecimal boundsw = CPDecimalFromFloat(boundsSize.width);
-	NSDecimal boundsh = CPDecimalFromFloat(boundsSize.height);
+	NSDecimal boundsw = CPDecimalFromDouble(boundsSize.width);
+	NSDecimal boundsh = CPDecimalFromDouble(boundsSize.height);
 	
 	// get the xRange's location and length
 	NSDecimal xLocation = xRange.location;

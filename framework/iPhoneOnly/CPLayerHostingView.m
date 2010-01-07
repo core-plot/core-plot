@@ -17,8 +17,8 @@
 		hostedLayer = nil;
 		
 		// This undoes the normal coordinate space inversion that UIViews apply to their layers
-		self.layer.sublayerTransform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
-//		self.layer.transform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
+		self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
+//		self.layer.transform = CATransform3DMakeScale(1.0, -1.0, 1.0);
 		self.backgroundColor = [UIColor clearColor];		
     }
     return self;
@@ -30,8 +30,8 @@
 	hostedLayer = nil;
 	
 	// This undoes the normal coordinate space inversion that UIViews apply to their layers
-	self.layer.sublayerTransform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
-	//		self.layer.transform = CATransform3DMakeScale(1.0f, -1.0f, 1.0f);
+	self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
+	//		self.layer.transform = CATransform3DMakeScale(1.0, -1.0, 1.0);
 	self.backgroundColor = [UIColor clearColor];		
 }
 

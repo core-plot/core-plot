@@ -46,7 +46,7 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-    content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+    content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
     
     [self.contentLayer setNeedsDisplay];
 }

@@ -33,10 +33,10 @@
 
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor blackColor];
-	borderLineStyle.lineWidth = 1.0f;
+	borderLineStyle.lineWidth = 1.0;
 	
 	plotArea.borderLineStyle = borderLineStyle;
-	plotArea.cornerRadius = 0.0f;
+	plotArea.cornerRadius = 0.0;
 }
 	
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
@@ -44,41 +44,41 @@
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapButt;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
-    majorLineStyle.lineWidth = 1.0f;
+    majorLineStyle.lineWidth = 1.0;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapButt;
     minorLineStyle.lineColor = [CPColor blackColor];
-    minorLineStyle.lineWidth = 1.0f;
+    minorLineStyle.lineWidth = 1.0;
 	
     CPXYAxis *x = axisSet.xAxis;
 	CPTextStyle *blackTextStyle = [[[CPTextStyle alloc] init] autorelease];
 	blackTextStyle.color = [CPColor blackColor];
 	blackTextStyle.fontSize = 14.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    x.majorIntervalLength = CPDecimalFromString(@"0.5");
-    x.constantCoordinateValue = CPDecimalFromString(@"0");
+    x.majorIntervalLength = CPDecimalFromDouble(0.5);
+    x.constantCoordinateValue = CPDecimalFromDouble(0.0);
 	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 4;
     x.majorTickLineStyle = majorLineStyle;
     x.minorTickLineStyle = minorLineStyle;
     x.axisLineStyle = majorLineStyle;
-    x.majorTickLength = 7.0f;
-    x.minorTickLength = 5.0f;
+    x.majorTickLength = 7.0;
+    x.minorTickLength = 5.0;
 	x.labelTextStyle = blackTextStyle;
 	x.titleTextStyle = blackTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    y.majorIntervalLength = CPDecimalFromString(@"0.5");
+    y.majorIntervalLength = CPDecimalFromDouble(0.5);
     y.minorTicksPerInterval = 4;
-    y.constantCoordinateValue = CPDecimalFromString(@"0");
+    y.constantCoordinateValue = CPDecimalFromDouble(0.0);
 	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;
     y.axisLineStyle = majorLineStyle;
-    y.majorTickLength = 7.0f;
-    y.minorTickLength = 5.0f;
+    y.majorTickLength = 7.0;
+    y.minorTickLength = 5.0;
 	y.labelTextStyle = blackTextStyle;
 	y.titleTextStyle = blackTextStyle;
 }

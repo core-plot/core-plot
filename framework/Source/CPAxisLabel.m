@@ -70,8 +70,8 @@
 	if ( layer ) {
 		if ( self = [super init] ) {
 			contentLayer = [layer retain];
-			offset = 20.0f;
-            rotation = 0.0f;
+			offset = 20.0;
+            rotation = 0.0;
 			tickLocation = CPDecimalFromInt(0);
 		}
 	}
@@ -111,8 +111,8 @@
     switch ( direction ) {
         case CPSignNone:
         case CPSignNegative:
-            *value -= offset;
-			if ( self.rotation == 0.0f ) {
+            *value -= self.offset;
+			if ( self.rotation == 0.0 ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
 			}
 			else {
@@ -121,7 +121,7 @@
             break;
         case CPSignPositive:
             *value += offset;
-			if ( self.rotation == 0.0f ) {
+			if ( self.rotation == 0.0 ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			}
 			else {
@@ -148,7 +148,7 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-    content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+    content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
 	[content setNeedsDisplay];
 }
 

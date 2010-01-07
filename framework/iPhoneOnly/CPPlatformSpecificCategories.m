@@ -28,8 +28,8 @@
 	CGContextSaveGState(context);
 	CGContextSetAllowsAntialiasing(context, true);
 	
-	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
-	CGContextScaleCTM(context, 1.0f, -1.0f);
+	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
 	
 	[self recursivelyRenderInContext:context];
 	CPNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
