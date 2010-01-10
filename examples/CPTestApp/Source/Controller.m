@@ -2,7 +2,7 @@
 #import "Controller.h"
 #import <CorePlot/CorePlot.h>
 
-static const CGFloat kZDistanceBetweenLayers = 20.0f;
+static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 @implementation Controller
 
@@ -24,8 +24,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 {
     [super awakeFromNib];
     
-    self.xShift = 0.0f;
-    self.yShift = 0.0f;
+    self.xShift = 0.0;
+    self.yShift = 0.0;
 
     // Create graph from theme
     graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -74,7 +74,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	x.labelExclusionRanges = exclusionRanges;
 
 	x.title = @"X Axis";
-	x.titleOffset = 30.0f;
+	x.titleOffset = 30.0;
 	x.titleLocation = CPDecimalFromString(@"3.0");
 	
 	// Label y with an automatic label policy. 
@@ -87,7 +87,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
     y.labelRotation = M_PI * 0.25f;
-    y.labelOffset = 10.0f;
+    y.labelOffset = 10.0;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
@@ -96,7 +96,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	y.labelExclusionRanges = exclusionRanges;
     
 	y.title = @"Y Axis";
-	y.titleOffset = 30.0f;
+	y.titleOffset = 30.0;
 	y.titleLocation = CPDecimalFromString(@"2.7");
     
     // Add an extra y axis (red)
@@ -107,7 +107,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     y2.preferredNumberOfMajorTicks = 4;
     y2.majorGridLineStyle = majorGridLineStyle;
     y2.minorGridLineStyle = minorGridLineStyle;
-    y2.labelOffset = 10.0f;    
+    y2.labelOffset = 10.0;    
     y2.coordinate = CPCoordinateY;
     y2.plotSpace = graph.defaultPlotSpace;
     y2.axisLineStyle = redLineStyle;
@@ -120,8 +120,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
-	boundLinePlot.dataLineStyle.miterLimit = 1.f;
-	boundLinePlot.dataLineStyle.lineWidth = 3.f;
+	boundLinePlot.dataLineStyle.miterLimit = 1.0;
+	boundLinePlot.dataLineStyle.lineWidth = 3.0;
 	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
@@ -147,7 +147,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
+	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
@@ -155,7 +155,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Put an area gradient under the plot above
     CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
     CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
-    areaGradient.angle = -90.0f;
+    areaGradient.angle = -90.0;
     areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
@@ -164,8 +164,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;
 	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithFloat:1+i*0.05];
-		id y = [NSDecimalNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
+		id x = [NSDecimalNumber numberWithDouble:1.0+i*0.05];
+		id y = [NSDecimalNumber numberWithDouble:1.2*rand()/(double)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.content = contentArray;
@@ -173,10 +173,16 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
+    CPPlotRange *xRange = plotSpace.xRange;
     CPPlotRange *yRange = plotSpace.yRange;
     [yRange expandRangeByFactor:CPDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
-    
+    // set the x and y shift to match the new ranges
+	CGFloat length = CPDecimalDoubleValue(xRange.length);
+	self.xShift = length - 3.0;
+	length = CPDecimalDoubleValue(yRange.length);
+	self.yShift = length - 2.0;
+	
     // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
     barPlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(200.0f)];
@@ -200,7 +206,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     barPlot.dataSource = self;
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.barOffset = 0.25f;
-    barPlot.cornerRadius = 2.0f;
+    barPlot.cornerRadius = 2.0;
     barPlot.identifier = @"Bar Plot 2";
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
 }
@@ -415,7 +421,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
     xShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.xRange copy] autorelease];
-    newRange.length = CPDecimalFromFloat(3.0+newShift);  
+    newRange.length = CPDecimalFromDouble(3.0+newShift);  
     space.xRange = newRange;
 }
 
@@ -424,7 +430,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0f;
  	yShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.yRange copy] autorelease];
-    newRange.location = CPDecimalFromFloat(2.0+newShift);  
+    newRange.length = CPDecimalFromDouble(2.0+newShift);  
     space.yRange = newRange;
 }
 
