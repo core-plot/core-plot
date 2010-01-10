@@ -117,7 +117,7 @@
 
 -(void)setImage:(CGImageRef)anImage
 {
-	if (anImage != image) {
+	if ( anImage != image ) {
 		CGImageRetain(anImage);
 		CGImageRelease(image);
 		image = anImage;
@@ -137,11 +137,16 @@
  **/
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context
 {
-	if (self.image) {
-		if (self.tiled) {
-			CGContextDrawTiledImage(context, rect, self.image);
+	CGImageRef theImage = self.image;
+	if ( theImage ) {
+		if ( self.tiled ) {
+			CGContextSaveGState(context);
+			CGContextClipToRect(context, *(CGRect *)&rect);
+			CGRect imageBounds = CGRectMake(0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage));
+			CGContextDrawTiledImage(context, imageBounds, theImage);
+			CGContextRestoreGState(context);
 		} else {
-			CGContextDrawImage(context, rect, self.image);
+			CGContextDrawImage(context, rect, theImage);
 		}
 	}
 }
