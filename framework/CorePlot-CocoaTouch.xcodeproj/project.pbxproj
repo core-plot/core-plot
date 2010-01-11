@@ -159,6 +159,7 @@
 		070CB8510FC9DEF000F3152B /* CPAnimationKeyFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnimationKeyFrame.m; path = Source/CPAnimationKeyFrame.m; sourceTree = "<group>"; };
 		070CB8520FC9DEF000F3152B /* CPAnimationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnimationTransition.h; path = Source/CPAnimationTransition.h; sourceTree = "<group>"; };
 		070CB8530FC9DEF000F3152B /* CPAnimationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnimationTransition.m; path = Source/CPAnimationTransition.m; sourceTree = "<group>"; };
+		071F3CDF10FBAB9D00D0A7B6 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = ../License.txt; sourceTree = SOURCE_ROOT; };
 		072E3F990FE2FF7300ACF62F /* CPDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDarkGradientTheme.h; path = Source/CPDarkGradientTheme.h; sourceTree = "<group>"; };
 		072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDarkGradientTheme.m; path = Source/CPDarkGradientTheme.m; sourceTree = "<group>"; };
 		072E3F9B0FE2FF7300ACF62F /* CPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTheme.h; path = Source/CPTheme.h; sourceTree = "<group>"; };
@@ -433,6 +434,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				071F3CDF10FBAB9D00D0A7B6 /* License.txt */,
 				8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */,
 			);
 			name = Resources;
