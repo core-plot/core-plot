@@ -22,7 +22,6 @@
 
 @synthesize observedObjectForPieSliceWidthValues;
 @synthesize keyPathForPieSliceWidthValues;
-@synthesize normalizedSliceWidths;
 
 /** @property pieRadius
  *	@brief The radius of the overall pie chart.
@@ -71,6 +70,8 @@ static float colorLookupTable[10][3] =
 
 -(void)dealloc
 {
+	observedObjectForPieSliceWidthValues = nil;
+	[keyPathForPieSliceWidthValues release];
 	[super dealloc];
 }
 

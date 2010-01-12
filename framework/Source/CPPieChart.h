@@ -12,7 +12,6 @@
 /**	@brief Enumeration of pie chart data source field types
  **/
 typedef enum _CPPieChartField {
-    CPPieChartFieldSliceLocation,	///< Pie slide location on independent coordinate axis.
     CPPieChartFieldSliceWidth		///< Pie slice width.
 } CPPieChartField;
 
@@ -46,7 +45,6 @@ typedef enum _CPPieChartField {
 	NSString *keyPathForPieSliceWidthValues;
 	CGFloat pieRadius;
 	CGFloat sliceLabelOffset;
-    NSArray *normalizedSliceWidths;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
