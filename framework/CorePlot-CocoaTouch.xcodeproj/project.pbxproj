@@ -72,6 +72,8 @@
 		07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */; };
 		07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF30110BBF99A0012BEFF /* CPResponder.h */; };
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC74A2C210FC087800E7E90D /* CPPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A2C010FC087800E7E90D /* CPPieChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A2C110FC087800E7E90D /* CPPieChart.m */; };
 		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
 		BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A7991024AB19009D5261 /* CorePlotProbes.d */; };
@@ -191,6 +193,8 @@
 		29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "main-cocoatouch.m"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_CocoaTouch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
+		BC74A2C010FC087800E7E90D /* CPPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPieChart.h; path = Source/CPPieChart.h; sourceTree = "<group>"; };
+		BC74A2C110FC087800E7E90D /* CPPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPieChart.m; path = Source/CPPieChart.m; sourceTree = "<group>"; };
 		BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		BC89A7991024AB19009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = "<group>"; };
@@ -569,6 +573,8 @@
 				BC9B82DB0FB89E610035D8DA /* CPBarPlot.m */,
 				0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */,
 				0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */,
+				BC74A2C010FC087800E7E90D /* CPPieChart.h */,
+				BC74A2C110FC087800E7E90D /* CPPieChart.m */,
 				BC9B82CF0FB89E610035D8DA /* Plot Symbols */,
 			);
 			name = Plots;
@@ -641,6 +647,7 @@
 				C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */,
 				C3B623BD107EC7ED0009EF0B /* CPLayoutManager.h in Headers */,
 				C3B623C0107EC9370009EF0B /* CPBarPlot.h in Headers */,
+				BC74A2C210FC087800E7E90D /* CPPieChart.h in Headers */,
 				C3B623C1107EC9400009EF0B /* CPDefinitions.h in Headers */,
 				C3B623C2107EC9430009EF0B /* CPExceptions.h in Headers */,
 				C3B623C3107EC94D0009EF0B /* CPFill.h in Headers */,
@@ -782,6 +789,7 @@
 				C3B623BE107EC7ED0009EF0B /* CPLayoutManager.m in Sources */,
 				BCFC7CEA109264AE00DAECAA /* CPAxisTitle.m in Sources */,
 				0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */,
+				BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
