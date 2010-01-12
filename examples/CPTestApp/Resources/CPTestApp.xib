@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="534"/>
 			<integer value="296"/>
-			<integer value="485"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1590,6 +1590,28 @@
 								<bool key="NSVertical">YES</bool>
 							</object>
 						</object>
+						<object class="NSSlider" id="986630464">
+							<reference key="NSNextResponder" ref="1019331462"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{780, 0}, {32, 34}}</string>
+							<reference key="NSSuperview" ref="1019331462"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSSliderCell" key="NSCell" id="438925436">
+								<int key="NSCellFlags">-2079981824</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents"/>
+								<reference key="NSControlView" ref="986630464"/>
+								<double key="NSMaxValue">6.2831853071795862</double>
+								<double key="NSMinValue">0.0</double>
+								<double key="NSValue">0.0</double>
+								<double key="NSAltIncValue">0.0</double>
+								<int key="NSNumberOfTickMarks">12</int>
+								<int key="NSTickMarkPosition">1</int>
+								<bool key="NSAllowsTickMarkValuesOnly">NO</bool>
+								<bool key="NSVertical">NO</bool>
+								<int key="NSSliderType">1</int>
+							</object>
+						</object>
 					</object>
 					<string key="NSFrameSize">{944, 525}</string>
 					<reference key="NSSuperview"/>
@@ -2271,6 +2293,22 @@
 						<reference key="destination" ref="731742317"/>
 					</object>
 					<int key="connectionID">532</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: labelRotation</string>
+						<reference key="source" ref="986630464"/>
+						<reference key="destination" ref="862234084"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="986630464"/>
+							<reference key="NSDestination" ref="862234084"/>
+							<string key="NSLabel">value: labelRotation</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">labelRotation</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">536</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3180,6 +3218,7 @@
 							<reference ref="519419721"/>
 							<reference ref="242160170"/>
 							<reference ref="595640194"/>
+							<reference ref="986630464"/>
 						</object>
 						<reference key="parent" ref="496158795"/>
 					</object>
@@ -3399,6 +3438,20 @@
 						<int key="objectID">529</int>
 						<reference key="object" ref="731742317"/>
 						<reference key="parent" ref="466310130"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">533</int>
+						<reference key="object" ref="986630464"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="438925436"/>
+						</object>
+						<reference key="parent" ref="1019331462"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">534</int>
+						<reference key="object" ref="438925436"/>
+						<reference key="parent" ref="986630464"/>
 					</object>
 				</object>
 			</object>
@@ -3638,6 +3691,8 @@
 					<string>527.IBPluginDependency</string>
 					<string>528.IBPluginDependency</string>
 					<string>529.IBPluginDependency</string>
+					<string>533.IBPluginDependency</string>
+					<string>534.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -3908,6 +3963,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{57, 495}, {213, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3959,7 +4016,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">532</int>
+			<int key="maxID">536</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

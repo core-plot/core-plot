@@ -10,10 +10,12 @@
 	RotationView *overlayRotationView;
     CGFloat xShift;
     CGFloat yShift;
+    CGFloat labelRotation;
 }
 
 @property CGFloat xShift;
 @property CGFloat yShift;
+@property CGFloat labelRotation;
 
 -(IBAction)reloadDataSourcePlot:(id)sender;
 

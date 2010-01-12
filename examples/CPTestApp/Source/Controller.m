@@ -8,6 +8,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 @synthesize xShift;
 @synthesize yShift;
+@synthesize labelRotation;
 
 +(void)initialize
 {
@@ -78,7 +79,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	x.titleLocation = CPDecimalFromString(@"3.0");
 	
 	// Label y with an automatic label policy. 
-    // Rotate the labels by 45 degrees, just to show it can be done.
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyAutomatic;
     y.constantCoordinateValue = CPDecimalFromString(@"2");
@@ -86,7 +86,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle = majorGridLineStyle;
     y.minorGridLineStyle = minorGridLineStyle;
-    y.labelRotation = M_PI * 0.25f;
     y.labelOffset = 10.0;
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
@@ -98,7 +97,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	y.title = @"Y Axis";
 	y.titleOffset = 30.0;
 	y.titleLocation = CPDecimalFromString(@"2.7");
-    
+
+    // Rotate the labels by 45 degrees, just to show it can be done.
+	self.labelRotation = M_PI * 0.25;
+
     // Add an extra y axis (red)
     CPXYAxis *y2 = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:CGRectZero];
     y2.labelingPolicy = CPAxisLabelingPolicyAutomatic;
@@ -432,6 +434,13 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     CPPlotRange *newRange = [[space.yRange copy] autorelease];
     newRange.length = CPDecimalFromDouble(2.0+newShift);  
     space.yRange = newRange;
+}
+
+-(void)setLabelRotation:(CGFloat)newRotation 
+{
+ 	labelRotation = newRotation;
+    
+	((CPXYAxisSet *)graph.axisSet).yAxis.labelRotation = newRotation;
 }
 
 @end
