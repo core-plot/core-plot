@@ -19,6 +19,7 @@
 #import "iPhoneOnly/CPPlatformSpecificFunctions.h"
 #import "iPhoneOnly/CPPlatformSpecificCategories.h"
 #import "Source/CPPathExtensions.h"
+#import "Source/CPPieChart.h"
 #import "Source/CPPlainBlackTheme.h"
 #import "Source/CPPlainWhiteTheme.h"
 #import "Source/CPPlotArea.h"

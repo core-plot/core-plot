@@ -28,6 +28,7 @@
 		070A73DC0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070A73DD0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */; };
 		070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		071F3CB910FBAB5900D0A7B6 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 071F3CB810FBAB5900D0A7B6 /* License.txt */; };
 		072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00ED0FC149D400CC8842 /* CPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
 		072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -127,6 +128,8 @@
 		BC55023510059F22005DF982 /* CPPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */; };
 		BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BC55023010059F22005DF982 /* CPStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55023110059F22005DF982 /* CPStocksTheme.m */; };
+		BC74A33010FC402600E7E90D /* CPPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A32E10FC402600E7E90D /* CPPieChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC74A33110FC402600E7E90D /* CPPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A32F10FC402600E7E90D /* CPPieChart.m */; };
 		BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */; };
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
@@ -169,6 +172,7 @@
 		070A73DA0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDecimalNumberValueTransformer.h; path = ../MacOnly/CPDecimalNumberValueTransformer.h; sourceTree = "<group>"; };
 		070A73DB0F5D8C910014FA84 /* CPDecimalNumberValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDecimalNumberValueTransformer.m; path = ../MacOnly/CPDecimalNumberValueTransformer.m; sourceTree = "<group>"; };
 		070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
+		071F3CB810FBAB5900D0A7B6 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = ../License.txt; sourceTree = SOURCE_ROOT; };
 		072B00ED0FC149D400CC8842 /* CPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimation.h; sourceTree = "<group>"; };
 		072B00EE0FC149D400CC8842 /* CPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimation.m; sourceTree = "<group>"; };
 		072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimationTransition.h; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 		BC55022F10059F22005DF982 /* CPPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlainWhiteTheme.m; sourceTree = "<group>"; };
 		BC55023010059F22005DF982 /* CPStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStocksTheme.h; sourceTree = "<group>"; };
 		BC55023110059F22005DF982 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStocksTheme.m; sourceTree = "<group>"; };
+		BC74A32E10FC402600E7E90D /* CPPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPieChart.h; sourceTree = "<group>"; };
+		BC74A32F10FC402600E7E90D /* CPPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPieChart.m; sourceTree = "<group>"; };
 		BC79F1340FD1CD6600510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
 		BC79F1350FD1CD6600510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
 		BC89A64010239D1D009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = SOURCE_ROOT; };
@@ -528,6 +534,8 @@
 				0799E0940F2BB5F300790525 /* CPBarPlot.m */,
 				0772B43710E24D5C009CD04C /* CPTradingRangePlot.h */,
 				0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */,
+				BC74A32E10FC402600E7E90D /* CPPieChart.h */,
+				BC74A32F10FC402600E7E90D /* CPPieChart.m */,
 			);
 			name = Plots;
 			sourceTree = "<group>";
@@ -619,6 +627,7 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				071F3CB810FBAB5900D0A7B6 /* License.txt */,
 				0730F601109492D800E95162 /* UnitTests-Info.plist */,
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
@@ -781,6 +790,7 @@
 				07BF0D970F2B73CA002FCEA7 /* CPScatterPlot.h in Headers */,
 				07BF0DF30F2B7BFB002FCEA7 /* CPDefinitions.h in Headers */,
 				0799E0950F2BB5F300790525 /* CPBarPlot.h in Headers */,
+				BC74A33010FC402600E7E90D /* CPPieChart.h in Headers */,
 				0799E0990F2BB6E800790525 /* CPXYPlotSpace.h in Headers */,
 				07983EF60F2F9A3D008C8618 /* CPXYGraph.h in Headers */,
 				07983F070F2F9BA6008C8618 /* CPPolarPlotSpace.h in Headers */,
@@ -909,6 +919,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				071F3CB910FBAB5900D0A7B6 /* License.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1032,7 @@
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
 				BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */,
 				0772B43B10E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
+				BC74A33110FC402600E7E90D /* CPPieChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

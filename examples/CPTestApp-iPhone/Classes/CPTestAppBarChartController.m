@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad 
 {
-	NSLog(@"Loading view");
 	[super viewDidLoad];
 	
     // Create barChart from theme
@@ -80,79 +79,6 @@
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 	
-	
-//    // Setup plot space
-//    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;
-//    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(2.0)];
-//    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(3.0)];
-//	
-//    // Axes
-//	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
-//    CPXYAxis *x = axisSet.xAxis;
-//    x.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-//    x.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
-//    x.minorTicksPerInterval = 2;
-// 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-//								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-//								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-//								[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(2.99) length:CPDecimalFromFloat(0.02)],
-//								nil];
-//	x.labelExclusionRanges = exclusionRanges;
-//	
-//    CPXYAxis *y = axisSet.yAxis;
-//    y.majorIntervalLength = [NSDecimalNumber decimalNumberWithString:@"0.5"];
-//    y.minorTicksPerInterval = 5;
-//    y.constantCoordinateValue = [NSDecimalNumber decimalNumberWithString:@"2"];
-//	exclusionRanges = [NSArray arrayWithObjects:
-//					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-//					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-//					   [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(3.99) length:CPDecimalFromFloat(0.02)],
-//					   nil];
-//	y.labelExclusionRanges = exclusionRanges;
-//	
-//	// Create a blue plot area
-//	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-//    boundLinePlot.identifier = @"Blue Plot";
-//	boundLinePlot.dataLineStyle.miterLimit = 1.0f;
-//	boundLinePlot.dataLineStyle.lineWidth = 3.0f;
-//	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
-//    boundLinePlot.dataSource = self;
-//	[barChart addPlot:boundLinePlot];
-//	
-//	// Do a blue gradient
-//	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
-//    CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
-//    areaGradient1.angle = -90.0f;
-//    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
-//    boundLinePlot.areaFill = areaGradientFill;
-//    boundLinePlot.areaBaseValue = [NSDecimalNumber zero];    
-//	
-//	// Add plot symbols
-//	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
-//	symbolLineStyle.lineColor = [CPColor blackColor];
-//	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
-//	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
-//	plotSymbol.lineStyle = symbolLineStyle;
-//    plotSymbol.size = CGSizeMake(10.0, 10.0);
-//    boundLinePlot.plotSymbol = plotSymbol;
-//	
-//    // Create a green plot area
-//	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-//    dataSourceLinePlot.identifier = @"Green Plot";
-//	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
-//    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
-//    dataSourceLinePlot.dataSource = self;
-//    [barChart addPlot:dataSourceLinePlot];
-//	
-//	// Put an area gradient under the plot above
-//    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
-//    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
-//    areaGradient.angle = -90.0f;
-//    areaGradientFill = [CPFill fillWithGradient:areaGradient];
-//    dataSourceLinePlot.areaFill = areaGradientFill;
-//    dataSourceLinePlot.areaBaseValue = [NSDecimalNumber decimalNumberWithString:@"1.75"];    
-	
-    // Add some initial data
 	// Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 	NSUInteger i;

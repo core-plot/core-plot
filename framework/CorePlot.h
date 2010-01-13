@@ -18,6 +18,7 @@
 #import <CorePlot/CPImage.h>
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPPieChart.h>
 #import <CorePlot/CPPlainBlackTheme.h>
 #import <CorePlot/CPPlainWhiteTheme.h>
 #import <CorePlot/CPPlatformSpecificDefines.h>
