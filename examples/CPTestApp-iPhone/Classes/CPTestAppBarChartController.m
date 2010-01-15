@@ -34,8 +34,8 @@
     barChart.paddingLeft = 70.0;
 	barChart.paddingTop = 20.0;
 	barChart.paddingRight = 20.0;
-	barChart.paddingBottom = 70.0;
-    	
+	barChart.paddingBottom = 80.0;
+	
 	// Add plot space for horizontal bar charts
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
@@ -51,7 +51,28 @@
     x.constantCoordinateValue = CPDecimalFromString(@"0");
 	x.title = @"X Axis";
     x.titleLocation = CPDecimalFromFloat(7.5f);
+	x.titleOffset = 55.0f;
 
+	// Define some custom labels for the data elements
+	x.labelRotation = M_PI/4;
+	x.labelingPolicy = CPAxisLabelingPolicyNone;
+	NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
+	NSArray *xAxisLabels = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", @"Label E", nil];
+	NSUInteger labelLocation = 0;
+	NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[xAxisLabels count]];
+	for (NSNumber *tickLocation in customTickLocations)
+	{
+		CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText: [xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
+		newLabel.tickLocation = [tickLocation decimalValue];
+		newLabel.offset = x.labelOffset + x.majorTickLength;
+		newLabel.rotation = M_PI/4;
+		[customLabels addObject:newLabel];
+		[newLabel release];
+	}
+	
+	x.axisLabels =  [NSSet setWithArray:customLabels];
+	
+	
 	CPXYAxis *y = axisSet.yAxis;
     y.axisLineStyle = nil;
     y.majorTickLineStyle = nil;
