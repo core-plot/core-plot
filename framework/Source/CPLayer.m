@@ -27,6 +27,11 @@
 /// @defgroup CPLayer CPLayer
 /// @{
 
+/**	@property graph
+ *	@brief The graph for the layer.
+ **/
+@synthesize graph;
+
 /** @property paddingLeft
  *  @brief Amount to inset the left side of each sublayer.
  **/
@@ -92,10 +97,10 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super init] ) {
-		paddingLeft = 0.0f;
-		paddingTop = 0.0f;
-		paddingRight = 0.0f;
-		paddingBottom = 0.0f;
+		paddingLeft = 0.0;
+		paddingTop = 0.0;
+		paddingRight = 0.0;
+		paddingBottom = 0.0;
 		layoutManager = nil;
 		renderingRecursively = NO;
 
@@ -115,7 +120,7 @@
 									 nil];
         self.actions = actionsDict;
         [actionsDict release];
-	}
+    }
 	return self;
 }
 
@@ -126,8 +131,17 @@
 
 -(void)dealloc
 {
+	graph = nil;
 	[layoutManager release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(id <CAAction>)defaultActionForKey:(NSString *)aKey
+{
+    return nil;
 }
 
 #pragma mark -
@@ -188,7 +202,7 @@
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
-	const CGRect mediaBox = CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height);
+	const CGRect mediaBox = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
 	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 	
 	CPPushCGContext(pdfContext);
@@ -207,43 +221,41 @@
 }
 
 #pragma mark -
-#pragma mark User interaction
+#pragma mark Responder Chain and User interaction
 
--(BOOL)containsPoint:(CGPoint)thePoint
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
 {
-	// By default, don't respond to touch or mouse events
 	return NO;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
- *	@param interactionPoint The coordinates of the event.
- **/
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint
-{
-	// Subclasses should handle mouse or touch interactions here
-}
-
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
- *	@param interactionPoint The coordinates of the event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
  **/
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
 {
-	// Subclasses should handle mouse or touch interactions here
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
- *	@param interactionPoint The coordinates of the event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *  @return Whether the event was handled or not.
  **/
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
 {
-	// Subclasses should handle mouse or touch interactions here
+	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *  @return Whether the event was handled or not.
  **/
--(void)mouseOrFingerCancelled
+-(BOOL)pointingDeviceCancelled
 {
-	// Subclasses should handle mouse or touch interactions here
+	return NO;
 }
 
 #pragma mark -
@@ -286,7 +298,7 @@
  **/
 +(CGFloat)defaultZPosition 
 {
-	return 0.0f;
+	return 0.0;
 }
 
 -(void)layoutSublayers
@@ -298,9 +310,9 @@
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
 	subLayerSize.width -= self.paddingLeft + self.paddingRight;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
+	subLayerSize.width = MAX(subLayerSize.width, 0.0);
 	subLayerSize.height -= self.paddingTop + self.paddingBottom;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
+	subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
 	for (CALayer *subLayer in self.sublayers) {
 		if ([subLayer isKindOfClass:[CPLayer class]]) {

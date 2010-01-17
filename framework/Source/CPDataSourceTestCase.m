@@ -121,7 +121,7 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
                 STAssertTrue([[self plots] containsObject:plot], @"Plot missing");
                 NSMutableArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
                 for(NSDecimalNumber *d in result) {
-                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromFloat(CPDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot]+1))]]];
+                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromDouble(CPDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot]+1))]]];
                 }
                 
                 result = shiftedResult;

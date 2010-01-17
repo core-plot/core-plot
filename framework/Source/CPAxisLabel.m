@@ -75,8 +75,8 @@
 	if ( layer ) {
 		if ( self = [super init] ) {
 			contentLayer = [layer retain];
-			offset = 20.0f;
-            rotation = 0.0f;
+			offset = 20.0;
+            rotation = 0.0;
 			tickLocation = CPDecimalFromInt(0);
 		}
 	}
@@ -111,23 +111,23 @@
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
 	CGPoint anchor = CGPointZero;
-	
-	// If there is no rotation, position the anchor point along the closest edge.
-	// If there is rotation, leave the anchor in the center.
-	switch ( direction ) {
-		case CPSignNone:
-		case CPSignNegative:
-			*value -= self.offset;
-			if ( self.rotation == 0.0f ) {
+    
+    // If there is no rotation, position the anchor point along the closest edge.
+    // If there is rotation, leave the anchor in the center.
+    switch ( direction ) {
+        case CPSignNone:
+        case CPSignNegative:
+            *value -= self.offset;
+			if ( self.rotation == 0.0 ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
 			}
 			else {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(1.0, 0.5));
 			}
-			break;
-		case CPSignPositive:
-			*value += self.offset;
-			if ( self.rotation == 0.0f ) {
+            break;
+        case CPSignPositive:
+            *value += self.offset;
+			if ( self.rotation == 0.0 ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			}
 			else {
@@ -153,7 +153,7 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-	content.transform = CATransform3DMakeRotation(self.rotation, 0.0f, 0.0f, 1.0f);
+    content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
 	[content setNeedsDisplay];
 }
 

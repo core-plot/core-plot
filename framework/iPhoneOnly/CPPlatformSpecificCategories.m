@@ -1,5 +1,23 @@
 #import "CPPlatformSpecificCategories.h"
 
+/**	@brief Platform-specific extensions to CPColor.
+ **/
+@implementation CPColor (CPPlatformSpecificColorExtensions)
+
+/// @addtogroup CPColor
+/// @{
+
+/**	@property uiColor
+ *	@brief Gets the color value as a UIColor.
+ **/
+-(UIColor *)uiColor
+{
+	return [UIColor colorWithCGColor:self.cgColor];
+}
+
+///	@}
+
+@end
 @implementation CPLayer (CPPlatformSpecificLayerExtensions)
 
 -(CPNativeImage *)imageOfLayer 
@@ -10,8 +28,8 @@
 	CGContextSaveGState(context);
 	CGContextSetAllowsAntialiasing(context, true);
 	
-	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
-	CGContextScaleCTM(context, 1.0f, -1.0f);
+	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
 	
 	[self recursivelyRenderInContext:context];
 	CPNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();

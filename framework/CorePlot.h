@@ -22,6 +22,7 @@
 #import <CorePlot/CPLayer.h>
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPPieChart.h>
 #import <CorePlot/CPPlainBlackTheme.h>
 #import <CorePlot/CPPlainWhiteTheme.h>
 #import <CorePlot/CPPlatformSpecificDefines.h>
@@ -36,10 +37,12 @@
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPlottingArea.h>
 #import <CorePlot/CPPolarPlotSpace.h>
+#import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPStocksTheme.h>
 #import <CorePlot/CPTextLayer.h>
 #import <CorePlot/CPTextStyle.h>
+#import <CorePlot/CPTradingRangePlot.h>
 #import <CorePlot/CPTheme.h>
 #import <CorePlot/CPTimeFormatter.h>
 #import <CorePlot/CPUtilities.h>

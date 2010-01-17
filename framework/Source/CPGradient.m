@@ -73,7 +73,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 		
         self.blendingMode = CPLinearBlendingMode;
 		
-		angle = 0.0f;
+		angle = 0.0;
         gradientType = CPGradientTypeAxial;
     }
     return self;
@@ -215,7 +215,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     color1.color.green = 0.86;
     color1.color.blue  = 0.98;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red   = 0.42;
@@ -236,7 +236,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     color4.color.green = 0.70;
     color4.color.blue  = 0.90;
     color4.color.alpha = 1.00;
-    color4.position = 1;
+    color4.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -256,7 +256,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.95;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.83;
@@ -271,7 +271,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color4;
     color4.color.red = color4.color.green = color4.color.blue  = 0.92;
     color4.color.alpha = 1.00;
-    color4.position = 1;
+    color4.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -291,7 +291,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.80;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.64;
@@ -306,7 +306,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color4;
     color4.color.red = color4.color.green = color4.color.blue  = 0.77;
     color4.color.alpha = 1.00;
-    color4.position = 1;
+    color4.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -326,12 +326,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.85;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.95;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -349,12 +349,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.75;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.90;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -372,12 +372,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.60;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.75;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -395,12 +395,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement color1;
     color1.color.red = color1.color.green = color1.color.blue  = 0.68;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red = color2.color.green = color2.color.blue  = 0.83;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -420,14 +420,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     color1.color.green = 0.37;
     color1.color.blue  = 0.85;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red   = 0.30;
     color2.color.green = 0.60;
     color2.color.blue  = 0.92;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -447,14 +447,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     color1.color.green = 0.43;
     color1.color.blue  = 0.43;
     color1.color.alpha = 1.00;
-    color1.position = 0;
+    color1.position = 0.0;
 	
     CPGradientElement color2;
     color2.color.red   = 0.60;
     color2.color.green = 0.60;
     color2.color.blue  = 0.60;
     color2.color.alpha = 1.00;
-    color2.position = 1;
+    color2.position = 1.0;
 	
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -643,7 +643,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPGradientElement removedElement = [newGradient removeElementAtPosition:position];
 	
     if ( isnan(removedElement.position) ) {
-        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%f)", [self class], position];
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
 	}
 	
     return [newGradient autorelease];
@@ -1310,7 +1310,7 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 	CGFloat S = components[1];
 	CGFloat V = components[2];
 	
-	int   Hi = (int)floor(H/60.) % 6;
+	int   Hi = (int)floor(H/60.0) % 6;
 	CGFloat f  = H/60-Hi;
 	CGFloat p  = V*(1-S);
 	CGFloat q  = V*(1-f*S);

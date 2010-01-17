@@ -26,12 +26,12 @@
 
 /// @name Measurement
 /// @{
--(CGSize)sizeWithStyle:(CPTextStyle *)style;
+-(CGSize)sizeWithTextStyle:(CPTextStyle *)style;
 ///	@}
 
 /// @name Drawing
 /// @{
--(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context;
+-(void)drawAtPoint:(CGPoint)point withTextStyle:(CPTextStyle *)style inContext:(CGContextRef)context;
 ///	@}
 
 @end

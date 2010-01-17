@@ -1,7 +1,8 @@
 
-#import "CPPlotRange.h"
 #import "CPPlotSpace.h"
 #import "CPDefinitions.h"
+
+@class CPPlotRange;
 
 @interface CPXYPlotSpace : CPPlotSpace {
 	@private
@@ -9,6 +10,8 @@
 	CPPlotRange *yRange;
     CPScaleType xScaleType; // TODO: Implement scale types
     CPScaleType yScaleType; // TODO: Implement scale types
+    CGPoint lastDragPoint;
+    BOOL isDragging;
 }
 
 @property (nonatomic, readwrite, copy) CPPlotRange *xRange;

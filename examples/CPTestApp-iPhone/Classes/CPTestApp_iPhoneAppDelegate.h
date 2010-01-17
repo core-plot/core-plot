@@ -2,7 +2,8 @@
 //  CPTestApp_iPhoneAppDelegate.h
 //  CPTestApp-iPhone
 //
-//  Created by Brad Larson on 5/11/2009.
+//  Toolbar icons in the application are courtesy of Joseph Wain / glyphish.com
+//  See the license file in the GlyphishIcons directory for more information on these icons
 
 #import <UIKit/UIKit.h>
 

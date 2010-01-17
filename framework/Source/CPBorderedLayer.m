@@ -38,7 +38,7 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		borderLineStyle = nil;
 		fill = nil;
-		cornerRadius = 0.0f;
+		cornerRadius = 0.0;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
 		masksToBorder = YES;
@@ -73,8 +73,8 @@
         [self.borderLineStyle setLineStyleInContext:context];
 		CGContextBeginPath(context);
 
-		if ( self.cornerRadius > 0.0f ) {
-			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 			AddRoundedRectPath(context, selfBounds, radius);
 		}
 		else {
@@ -83,33 +83,6 @@
 
         CGContextStrokePath(context);
     }
-}
-
-#pragma mark -
-#pragma mark Layout
-
--(void)layoutSublayers
-{
-	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
-	// Subclasses should override to lay out their own sublayers
-	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
-	// Sublayers fill the super layer's bounds minus any padding by default
-	CGRect selfBounds = self.bounds;
-	CGSize subLayerSize = selfBounds.size;
-	CGFloat lineWidth = self.borderLineStyle.lineWidth;
-	
-	subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
-	subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
-	
-	for (CALayer *subLayer in self.sublayers) {
-		CGRect subLayerBounds = subLayer.bounds;
-		subLayerBounds.size = subLayerSize;
-		subLayer.bounds = subLayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
-	}
 }
 
 #pragma mark -
@@ -124,8 +97,8 @@
 	CGFloat lineWidth = self.borderLineStyle.lineWidth;
 	CGRect selfBounds = self.bounds;
 	
-	if ( self.cornerRadius > 0.0f ) {
-		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+	if ( self.cornerRadius > 0.0 ) {
+		CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 		outerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 	}
 	else {
@@ -147,8 +120,8 @@
 		CGFloat lineWidth = self.borderLineStyle.lineWidth;
 		CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 		
-		if ( self.cornerRadius > 0.0f ) {
-			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2, selfBounds.size.width / 2), selfBounds.size.height / 2);
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
 			innerBorderPath = CreateRoundedRectPath(selfBounds, radius);
 		}
 		else {

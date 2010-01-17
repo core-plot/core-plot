@@ -39,15 +39,15 @@
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle
 {
 	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
-    axis.majorIntervalLength = CPDecimalFromString(@"0.5");
-    axis.constantCoordinateValue = CPDecimalFromString(@"0");
+    axis.majorIntervalLength = CPDecimalFromDouble(0.5);
+    axis.constantCoordinateValue = CPDecimalFromDouble(0.0);
 	axis.tickDirection = CPSignNone;
     axis.minorTicksPerInterval = 4;
     axis.majorTickLineStyle = majorLineStyle;
     axis.minorTickLineStyle = minorLineStyle;
     axis.axisLineStyle = majorLineStyle;
-    axis.majorTickLength = 7.0f;
-    axis.minorTickLength = 5.0f;
+    axis.majorTickLength = 7.0;
+    axis.minorTickLength = 5.0;
 	axis.labelTextStyle = textStyle; 
 	axis.titleTextStyle = textStyle;
 }
@@ -59,7 +59,7 @@
 	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.3];
 	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.3] atPosition:0.5];
 	graphGradient = [graphGradient addColorStop:[CPColor colorWithGenericGray:0.2] atPosition:0.6];
-	graphGradient.angle = 90.0f;
+	graphGradient.angle = 90.0;
 	graph.fill = [CPFill fillWithGradient:graphGradient];
 }
 
@@ -71,22 +71,24 @@
 
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
-	borderLineStyle.lineWidth = 4.0f;
+	borderLineStyle.lineWidth = 4.0;
 	
 	plotArea.borderLineStyle = borderLineStyle;
-	plotArea.cornerRadius = 10.0f;
+	plotArea.cornerRadius = 10.0;
+    
+    plotArea.masksToBorder = YES;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
     CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
-    majorLineStyle.lineWidth = 2.0f;
+    majorLineStyle.lineWidth = 2.0;
     
     CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPColor darkGrayColor];
-    minorLineStyle.lineWidth = 1.0f;
+    minorLineStyle.lineWidth = 1.0;
 	
 	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];

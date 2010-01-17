@@ -15,11 +15,6 @@
  **/
 @synthesize axes;
 
-/**	@property graph
- *	@brief The graph for the axis set.
- **/
-@synthesize graph;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -48,20 +43,12 @@
     for ( CPAxis *axis in self.axes ) {
         [axis setNeedsLayout];
         [axis setNeedsRelabel];
+		[axis setNeedsDisplay];
     }
 }
 
 #pragma mark -
 #pragma mark Accessors
-
--(void)setGraph:(CPGraph *)newGraph
-{
-	if ( graph != newGraph ) {
-		graph = newGraph;
-		[self setNeedsLayout];
-		[self setNeedsDisplay];
-	}
-}
 
 -(void)setAxes:(NSArray *)newAxes 
 {
@@ -76,6 +63,7 @@
             [self addSublayer:axis];
 			axis.plottingArea = plottingArea;
         }
+        [self setNeedsLayout];
 		[self setNeedsDisplay];
     }
 }
@@ -86,6 +74,16 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;
+}
+
+-(void)layoutSublayers
+{
+    [super layoutSublayers];
+    for ( CPAxis *axis in axes ) {
+        axis.bounds = self.bounds;
+        axis.anchorPoint = CGPointZero;
+        axis.position = self.bounds.origin;
+    }
 }
 
 #pragma mark -

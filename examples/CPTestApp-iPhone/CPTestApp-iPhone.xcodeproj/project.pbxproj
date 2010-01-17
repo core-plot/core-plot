@@ -15,6 +15,11 @@
 		282CCBFE0DB6C98000C4EA27 /* BarChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* BarChart.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
+		BC74A33A10FC40C600E7E90D /* CPTestAppPieChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A33910FC40C600E7E90D /* CPTestAppPieChartController.m */; };
+		BC74A34110FC418D00E7E90D /* PieChart.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC74A34010FC418D00E7E90D /* PieChart.xib */; };
+		BC8166CE1100DD00006D898E /* 16-line-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = BC8166CC1100DD00006D898E /* 16-line-chart.png */; };
+		BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = BC8166CD1100DD00006D898E /* 17-bar-chart.png */; };
+		BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */ = {isa = PBXBuildFile; fileRef = BC8166D11100DD6F006D898E /* 62-contrast.png */; };
 		BC9B81DA0FB893F70035D8DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B81D90FB893F70035D8DA /* QuartzCore.framework */; };
 		BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */; };
 		BC9B843A0FB8B76B0035D8DA /* CPTestAppScatterPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B84390FB8B76B0035D8DA /* CPTestAppScatterPlotController.m */; };
@@ -53,6 +58,12 @@
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC74A33810FC40C600E7E90D /* CPTestAppPieChartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTestAppPieChartController.h; sourceTree = "<group>"; };
+		BC74A33910FC40C600E7E90D /* CPTestAppPieChartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTestAppPieChartController.m; sourceTree = "<group>"; };
+		BC74A34010FC418D00E7E90D /* PieChart.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PieChart.xib; sourceTree = "<group>"; };
+		BC8166CC1100DD00006D898E /* 16-line-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "16-line-chart.png"; path = "GlyphishIcons/16-line-chart.png"; sourceTree = "<group>"; };
+		BC8166CD1100DD00006D898E /* 17-bar-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "17-bar-chart.png"; path = "GlyphishIcons/17-bar-chart.png"; sourceTree = "<group>"; };
+		BC8166D11100DD6F006D898E /* 62-contrast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "62-contrast.png"; path = "GlyphishIcons/62-contrast.png"; sourceTree = "<group>"; };
 		BC9B81D90FB893F70035D8DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC9B83B00FB8A9BC0035D8DA /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScatterPlot.xib; sourceTree = "<group>"; };
@@ -84,6 +95,8 @@
 				28216C960DB411BC00E5133A /* CPTestAppBarChartController.m */,
 				1D3623240D0F684500981E51 /* CPTestApp_iPhoneAppDelegate.h */,
 				1D3623250D0F684500981E51 /* CPTestApp_iPhoneAppDelegate.m */,
+				BC74A33810FC40C600E7E90D /* CPTestAppPieChartController.h */,
+				BC74A33910FC40C600E7E90D /* CPTestAppPieChartController.m */,
 				BC9B84380FB8B76B0035D8DA /* CPTestAppScatterPlotController.h */,
 				BC9B84390FB8B76B0035D8DA /* CPTestAppScatterPlotController.m */,
 			);
@@ -123,6 +136,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC8166D11100DD6F006D898E /* 62-contrast.png */,
+				BC8166CC1100DD00006D898E /* 16-line-chart.png */,
+				BC8166CD1100DD00006D898E /* 17-bar-chart.png */,
+				BC74A34010FC418D00E7E90D /* PieChart.xib */,
 				BCB3FD650FD85732008875A4 /* CorePlotIcon.png */,
 				282CCBFD0DB6C98000C4EA27 /* BarChart.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
@@ -214,6 +231,10 @@
 				282CCBFE0DB6C98000C4EA27 /* BarChart.xib in Resources */,
 				BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */,
 				BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */,
+				BC74A34110FC418D00E7E90D /* PieChart.xib in Resources */,
+				BC8166CE1100DD00006D898E /* 16-line-chart.png in Resources */,
+				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
+				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +249,7 @@
 				1D3623260D0F684500981E51 /* CPTestApp_iPhoneAppDelegate.m in Sources */,
 				28216C970DB411BC00E5133A /* CPTestAppBarChartController.m in Sources */,
 				BC9B843A0FB8B76B0035D8DA /* CPTestAppScatterPlotController.m in Sources */,
+				BC74A33A10FC40C600E7E90D /* CPTestAppPieChartController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

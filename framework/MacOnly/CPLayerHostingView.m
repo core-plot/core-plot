@@ -1,14 +1,6 @@
 #import "CPLayerHostingView.h"
 #import "CPLayer.h"
 
-///	@cond
-@interface CPLayerHostingView()
-
-@property (nonatomic, readwrite, assign) CPLayer *layerBeingClickedOn;
-
-@end
-///	@endcond
-
 /**	@brief A container view for displaying a CPLayer.
  **/
 @implementation CPLayerHostingView
@@ -17,13 +9,11 @@
  *	@brief The CPLayer hosted inside this view.
  **/
 @synthesize hostedLayer;
-@synthesize layerBeingClickedOn;
 
 -(id)initWithFrame:(NSRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         hostedLayer = nil;
-        layerBeingClickedOn = nil;
         CPLayer *mainLayer = [(CPLayer *)[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;
         [mainLayer release];
@@ -35,7 +25,6 @@
 {
 	[hostedLayer removeFromSuperlayer];
 	[hostedLayer release];
-	layerBeingClickedOn = nil;
 	[super dealloc];
 }
 
@@ -50,36 +39,22 @@
 -(void)mouseDown:(NSEvent *)theEvent
 {
 	CGPoint pointOfMouseDown = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-	CALayer *hitLayer = [self.layer hitTest:pointOfMouseDown];
-	
-	if ( (hitLayer != nil) && [hitLayer isKindOfClass:[CPLayer class]]) {
-		self.layerBeingClickedOn = (CPLayer *)hitLayer;
-		[(CPLayer *)hitLayer mouseOrFingerDownAtPoint:pointOfMouseDown];
-	}
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfMouseDown toLayer:hostedLayer];
+    [hostedLayer pointingDeviceDownAtPoint:pointInHostedLayer];
 }
 
 -(void)mouseDragged:(NSEvent *)theEvent
 {
-	if (self.layerBeingClickedOn == nil) {
-		return;
-	}
-	
 	CGPoint pointOfMouseDrag = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-	
-	[self.layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseDrag];
-	self.layerBeingClickedOn = nil;	
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfMouseDrag toLayer:hostedLayer];
+	[hostedLayer pointingDeviceDraggedAtPoint:pointInHostedLayer];
 }
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
-	if (self.layerBeingClickedOn == nil) {
-		return;		
-	}
-	
 	CGPoint pointOfMouseUp = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-	
-	[self.layerBeingClickedOn mouseOrFingerUpAtPoint:pointOfMouseUp];
-	self.layerBeingClickedOn = nil;	
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfMouseUp toLayer:hostedLayer];
+	[hostedLayer pointingDeviceUpAtPoint:pointInHostedLayer];
 }
 
 #pragma mark -

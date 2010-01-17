@@ -33,11 +33,11 @@
     NSDecimal plotPoint[2];
     plotPoint[axis.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = orthogonalRange.location;
-    *startPoint = [self convertPoint:[axis.plotSpace viewPointInLayer:plottingArea forPlotPoint:plotPoint] fromLayer:plottingArea];
+    *startPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
     
     // End point
     plotPoint[orthogonalCoordinate] = orthogonalRange.end;
-    *endPoint = [self convertPoint:[axis.plotSpace viewPointInLayer:plottingArea forPlotPoint:plotPoint] fromLayer:plottingArea];
+    *endPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
 }
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

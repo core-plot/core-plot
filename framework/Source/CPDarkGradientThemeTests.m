@@ -1,6 +1,7 @@
 #import "CPDarkGradientThemeTests.h"
 #import "CPDarkGradientTheme.h"
 #import "CPGraph.h"
+#import "CPPlotRange.h"
 #import "CPXYGraph.h"
 #import "CPDerivedXYGraph.h"
 #import "CPXYPlotSpace.h"
@@ -45,8 +46,8 @@
 	graph.paddingBottom = 20.0;
     
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(1.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(1.0)];
 	
     return graph;
 }

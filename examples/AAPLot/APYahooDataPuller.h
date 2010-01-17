@@ -23,6 +23,9 @@
     id delegate;
     NSDecimalNumber *overallHigh;
     NSDecimalNumber *overallLow;
+	NSDecimalNumber *overallVolumeHigh;
+    NSDecimalNumber *overallVolumeLow;
+	
 
 	@private
     NSString *csvString;
@@ -43,6 +46,9 @@
 @property (nonatomic, readonly, retain) NSArray *financialData;
 @property (nonatomic, readonly, retain) NSDecimalNumber *overallHigh;
 @property (nonatomic, readonly, retain) NSDecimalNumber *overallLow;
+@property (nonatomic, readonly, retain) NSDecimalNumber *overallVolumeHigh;
+@property (nonatomic, readonly, retain) NSDecimalNumber *overallVolumeLow;
+
 
 -(id)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
 

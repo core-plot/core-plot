@@ -37,13 +37,13 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 -(void)testPositionRelativeToViewPointPositionsForXCoordinate
 {
     CPAxisLabel *label;
-    CGFloat start = 100.0f;
+    CGFloat start = 100.0;
     
     @try {
         label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForXCoordinate" textStyle:[CPTextStyle textStyle]];
 		CPLayer *contentLayer = label.contentLayer;
 		CGSize contentSize = contentLayer.bounds.size;
-        label.offset = 20.0f;
+        label.offset = 20.0;
         
         CGPoint viewPoint = CGPointMake(start, start);
         
@@ -78,7 +78,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start+label.offset, start), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0., 0.5), @"Should anchor at (0,0.5)");
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.0, 0.5), @"Should anchor at (0,0.5)");
     }
     @finally {
         [label release];
@@ -88,13 +88,13 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 -(void)testPositionRelativeToViewPointPositionsForYCoordinate
 {
     CPAxisLabel *label;
-    CGFloat start = 100.0f;
+    CGFloat start = 100.0;
     
     @try {
         label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointPositionsForYCoordinate" textStyle:[CPTextStyle textStyle]];
 		CPLayer *contentLayer = label.contentLayer;
 		CGSize contentSize = contentLayer.bounds.size;
-		label.offset = 20.0f;
+		label.offset = 20.0;
         
         CGPoint viewPoint = CGPointMake(start,start);
         
@@ -129,7 +129,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start, start+label.offset), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 0.), @"Should anchor at (0.5,0)");
+        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 0.0), @"Should anchor at (0.5,0)");
     }
     @finally {
         [label release];

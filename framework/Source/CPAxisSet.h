@@ -10,11 +10,9 @@
 @interface CPAxisSet : CPLayer {
 	@private
     NSArray *axes;
-	CPGraph	*graph;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
-@property (nonatomic, readwrite, assign) CPGraph *graph;
 
 -(void)relabelAxes;
 

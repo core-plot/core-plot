@@ -17,7 +17,7 @@
 /**	@brief Layout each sublayer of the given layer.
  *	@param layer The layer whose sublayers require layout.
  *
- *	The recevier should set the frame of each sublayer that requires layout.
+ *	The receiver should set the frame of each sublayer that requires layout.
  **/
 -(void)layoutSublayersOfLayer:(CALayer *)layer;
 
@@ -41,7 +41,7 @@
  *	@param layer The layer that requires layout.
  *	@return The maximum size of the layer.
  *	
- *	If this method is not implemented the maximimum size is assumed to be the size of the bounds of  <code>layer</code>'s superlayer.
+ *	If this method is not implemented the maximum size is assumed to be the size of the bounds of <code>layer</code>'s superlayer.
  **/
 -(CGSize)maximumSizeOfLayer:(CALayer *)layer;
 

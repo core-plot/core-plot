@@ -1,10 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPResponder.h"
 #import "CPPlatformSpecificDefines.h"
 
 @protocol CPLayoutManager;
+@class CPGraph;
 
-@interface CPLayer : CALayer {
+@interface CPLayer : CALayer <CPResponder> {
 @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
@@ -12,7 +14,13 @@
 	CGFloat paddingBottom;
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
+    __weak CPGraph *graph;
 }
+
+/// @name Graph
+/// @{
+@property (nonatomic, readwrite, assign) __weak CPGraph *graph;
+/// @}
 
 /// @name Padding
 /// @{
@@ -43,14 +51,6 @@
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
-///	@}
-
-/// @name User Interaction
-/// @{
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerCancelled;
 ///	@}
 
 /// @name Masking

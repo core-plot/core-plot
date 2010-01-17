@@ -37,6 +37,7 @@
 		[newPlottingArea release];
 
 		self.needsDisplayOnBoundsChange = YES;
+        self.masksToBorder = NO;
 }
 	return self;
 }

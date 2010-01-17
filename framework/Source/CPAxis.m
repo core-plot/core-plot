@@ -261,11 +261,11 @@
 		majorTickLocations = [[NSArray array] retain];
 		minorTickLocations = [[NSArray array] retain];
         preferredNumberOfMajorTicks = 5;
-		minorTickLength = 3.f;
-		majorTickLength = 5.f;
-		labelOffset = 2.f;
-        labelRotation = 0.f;
-		titleOffset = 30.0f;
+		minorTickLength = 3.0;
+		majorTickLength = 5.0;
+		labelOffset = 2.0;
+        labelRotation = 0.0;
+		titleOffset = 30.0;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
 		minorTickLineStyle = [[CPLineStyle alloc] init];
@@ -286,7 +286,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTextStyle alloc] init];
-		titleLocation = [[NSDecimalNumber zero] decimalValue];
+		titleLocation = CPDecimalFromInt(0);
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -339,7 +339,9 @@
 	NSDecimal coord = beginNumber;
 	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
-	while ( (increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
+	while ( range &&
+    		(increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
+    		(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
 		
 		// Major tick
 		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
@@ -456,7 +458,7 @@
         newLabel.rotation = self.labelRotation;
 		switch ( self.tickDirection ) {
 			case CPSignNone:
-				newLabel.offset = self.labelOffset + self.majorTickLength / 2.0f;
+				newLabel.offset = self.labelOffset + self.majorTickLength / 2.0;
 				break;
 			case CPSignPositive:
 			case CPSignNegative:
@@ -952,7 +954,7 @@
  **/
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
 {
-	return CGPointMake(0.0f, 0.0f);
+	return CGPointZero;
 }
 
 ///	@}

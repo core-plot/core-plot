@@ -32,7 +32,6 @@
         constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
 		
 		self.tickDirection = CPSignNone;
-		self.needsDisplayOnBoundsChange = YES;
 }
 	return self;
 }
@@ -48,14 +47,17 @@
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = self.constantCoordinateValue;
-    CGPoint point = [self convertPoint:[self.plotSpace viewPointInLayer:plottingArea forPlotPoint:plotPoint] fromLayer:plottingArea];
+    CGPoint point = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
     
     return point;
 }
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
 {
-	[(major ? self.majorTickLineStyle : self.minorTickLineStyle) setLineStyleInContext:theContext];
+	CPLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
+    if ( !lineStyle ) return;
+    
+	[lineStyle setLineStyleInContext:theContext];
 	CGContextBeginPath(theContext);
 
     for ( NSDecimalNumber *tickLocation in locations ) {

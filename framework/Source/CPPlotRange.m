@@ -70,7 +70,7 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setLocation:(NSDecimal)newLocation;
+-(void)setLocation:(NSDecimal)newLocation
 {
 	if (CPDecimalEquals(location, newLocation))
 	{
@@ -81,7 +81,7 @@
 	doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 }
 
--(void)setLength:(NSDecimal)newLength;
+-(void)setLength:(NSDecimal)newLength
 {
 	if (CPDecimalEquals(length, newLength))
 	{
@@ -95,6 +95,16 @@
 -(NSDecimal)end 
 {
     return CPDecimalAdd(self.location, self.length);
+}
+
+-(void)setDoublePrecisionLocation:(double)newLocation
+{
+	[self setLocation:[[NSNumber numberWithDouble:newLocation] decimalValue]];
+}
+
+-(void)setDoublePrecisionLength:(double)newLength
+{
+	[self setLength:[[NSNumber numberWithDouble:newLength] decimalValue]];
 }
 
 -(double)doublePrecisionEnd 
@@ -163,6 +173,19 @@
     self.length = newLength;
 }
 
+/** @brief Sets the messaged object to the intersection with another range.
+ *  @param other The other plot range.
+ **/
+-(void)intersectionPlotRange:(CPPlotRange *)other
+{
+    NSDecimal newLocation = (CPDecimalGreaterThan(self.location, other.location) ? self.location : other.location);
+    NSDecimal max1 = self.end;
+    NSDecimal max2 = other.end;
+    NSDecimal newEnd = (CPDecimalLessThan(max1, max2) ? max1 : max2);
+    self.location = newLocation;
+    self.length = CPDecimalSubtract(newEnd, newLocation);
+}
+
 #pragma mark -
 #pragma mark Expanding/Contracting ranges
 
@@ -170,13 +193,48 @@
  *  @param factor Factor used. A value of 1.0 gives no change.
  *	Less than 1.0 is a contraction, and greater than 1.0 is expansion.
  **/
--(void)expandRangeByFactor:(NSDecimal)factor {
+-(void)expandRangeByFactor:(NSDecimal)factor 
+{
     NSDecimal newLength = CPDecimalMultiply(length, factor);
     NSDecimal locationOffset = CPDecimalDivide( CPDecimalSubtract(newLength, length), 
     	CPDecimalFromInt(2));
     NSDecimal newLocation = CPDecimalSubtract(location, locationOffset);
     self.location = newLocation;
     self.length = newLength;
+}
+
+#pragma mark -
+#pragma mark Shifting Range
+
+/** @brief Moves the whole range so that the location fits in other range.
+ *  @param other Other range.
+ *	The minimum possible shift is made. The range length is unchanged.
+ **/
+-(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange 
+{
+	if ( [otherRange contains:self.location] ) return;
+    if ( CPDecimalGreaterThan(otherRange.location, self.location) ) {
+        self.location = otherRange.location;
+    }
+    else {
+        self.location = otherRange.end;
+    }
+}
+
+/** @brief Moves the whole range so that the end point fits in other range.
+ *  @param other Other range.
+ *	The minimum possible shift is made. The range length is unchanged.
+ **/
+-(void)shiftEndToFitInRange:(CPPlotRange *)otherRange
+{
+	NSDecimal currentEnd = self.end;
+    if ( [otherRange contains:currentEnd] ) return;
+    if ( CPDecimalLessThan(otherRange.end, currentEnd) ) {
+        self.location = CPDecimalSubtract(otherRange.end, self.length);
+    }
+    else {
+        self.location = CPDecimalSubtract(otherRange.location, self.length);
+    }
 }
 
 #pragma mark -

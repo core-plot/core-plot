@@ -119,6 +119,7 @@
 {
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 /**	@brief Gets a range of plot data for the given plot and field.
@@ -211,10 +212,14 @@
 {
     if ( self.dataNeedsReloading ) [self reloadData];
     NSArray *numbers = [self cachedNumbersForField:fieldEnum];
-    NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
-    NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
-    NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
-    return [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+    CPPlotRange *range = nil;
+    if ( numbers && numbers.count > 0 ) {
+        NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
+        NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
+        NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
+        range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+    }
+    return range;
 }
 
 /**	@brief Determines the smallest plot range that fully encloses the data for a particular coordinate.
@@ -243,6 +248,7 @@
         dataSource = newSource;
         self.dataNeedsReloading = YES;
 		[self setNeedsDisplay];
+        [self setNeedsLayout];
     }
 }
 
@@ -252,6 +258,10 @@
 {
 	self.dataNeedsReloading = YES;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
+}
+
+-(void)layoutSublayers {
 }
 
 @end
