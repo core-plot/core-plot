@@ -662,6 +662,7 @@
         needsRelabel = newNeedsRelabel;
         if ( needsRelabel ) {
             [self setNeedsLayout];
+            [self setNeedsDisplay];
         }
     }
 }
