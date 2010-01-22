@@ -5,12 +5,15 @@
 
 ///	@file
 
+@class CPAxis;
+@class CPAxisSet;
+@class CPAxisTitle;
+@class CPGridLines;
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
-@class CPAxis;
+@class CPPlottingArea;
 @class CPTextStyle;
-@class CPAxisTitle;
 
 /**	@brief Enumeration of labeling policies
  **/
@@ -79,6 +82,10 @@ typedef enum _CPAxisLabelingPolicy {
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
 	id <CPAxisDelegate> delegate;
+	CPPlottingArea *plottingArea;
+	CPGridLines *minorGridLines;
+	CPGridLines *majorGridLines;
+//	Class gridLineClass;
 }
 
 /// @name Axis
@@ -134,7 +141,19 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPLineStyle *minorGridLineStyle;
 ///	@}
 
+/// @name Plot Space
+/// @{
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
+///	@}
+
+/// @name Layers
+/// @{
+@property (nonatomic, readwrite, retain) CPPlottingArea *plottingArea;
+@property (nonatomic, readonly, retain) CPGridLines *minorGridLines;
+@property (nonatomic, readonly, retain) CPGridLines *majorGridLines;
+@property (nonatomic, readonly, retain) CPAxisSet *axisSet;
+@property (nonatomic, readonly, retain) Class gridLineClass;
+///	@}
 
 /// @name Labels
 /// @{
