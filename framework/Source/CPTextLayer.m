@@ -65,15 +65,16 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 
 -(void)setText:(NSString *)newValue
 {
-	if ( text == newValue ) return;	
-	[text release];
-	text = [newValue copy];
-	[self sizeToFit];
+	if ( text != newValue ) {
+		[text release];
+		text = [newValue copy];
+		[self sizeToFit];
+	}
 }
 
 -(void)setTextStyle:(CPTextStyle *)newStyle 
 {
-	if ( newStyle != textStyle ) {
+	if ( textStyle != newStyle ) {
 		[textStyle release];
 		textStyle = [newStyle retain];
 		[self sizeToFit];

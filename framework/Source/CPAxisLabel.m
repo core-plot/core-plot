@@ -6,14 +6,6 @@
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 
-///	@cond
-@interface CPAxisLabel()
-
-@property (nonatomic, readwrite, retain) CPLayer *contentLayer;
-
-@end
-///	@endcond
-
 /**	@brief An axis label.
  *
  *	The label can be text-based or can be the content of any CPLayer provided by the user.
@@ -173,5 +165,35 @@
 {
 	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 };
+
+#pragma mark -
+#pragma mark Label comparison
+
+// Axis labels are equal if they have the same location
+-(BOOL)isEqual:(id)object
+{
+	if ( self == object ) {
+		return YES;
+	}
+	else if ( [object isKindOfClass:[self class]] ) {
+		return CPDecimalEquals(self.tickLocation, ((CPAxisLabel *)object).tickLocation);
+	}
+	else {
+		return NO;
+	}
+}
+
+-(NSUInteger)hash
+{
+	NSUInteger hashValue = 0;
+	
+	// Equal objects must hash the same.
+	double tickLocationAsDouble = CPDecimalDoubleValue(self.tickLocation);
+	if ( !isnan(tickLocationAsDouble) ) {
+		hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
+	}
+	
+	return hashValue;
+}
 
 @end

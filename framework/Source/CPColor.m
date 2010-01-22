@@ -361,9 +361,13 @@
 
 -(BOOL)isEqual:(id)object
 {
-	if ([object isKindOfClass:[self class]]) {
+	if ( self == object ) {
+		return YES;
+	}
+	else if ([object isKindOfClass:[self class]]) {
 		return CGColorEqualToColor(self.cgColor, ((CPColor *)object).cgColor);
-	} else {
+	}
+	else {
 		return NO;
 	}
 }

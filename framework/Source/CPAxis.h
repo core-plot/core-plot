@@ -18,7 +18,7 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyNone,					///< No labels provided; user sets labels and locations.
     CPAxisLabelingPolicyLocationsProvided,		///< User sets locations; class makes labels.
     CPAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
-	CPAxisLabelingPolicyAutomatic,				///< Automatic labeling policy (not implemented).
+	CPAxisLabelingPolicyAutomatic,				///< Automatic labeling policy.
 	// TODO: Implement logarithmic labeling
     CPAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
 } CPAxisLabelingPolicy;
@@ -69,6 +69,7 @@ typedef enum _CPAxisLabelingPolicy {
 	CPTextStyle *labelTextStyle;
 	CPTextStyle *titleTextStyle;
 	NSNumberFormatter *labelFormatter;
+	BOOL labelFormatterChanged;
 	NSSet *axisLabels;
 	CPAxisTitle *axisTitle;
 	NSString *title;
@@ -84,7 +85,7 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
-@property (nonatomic, readwrite) NSDecimal labelingOrigin;
+@property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
 ///	@}
 
@@ -94,7 +95,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
 @property (nonatomic, readwrite, retain) NSString *title;
-@property (nonatomic, readwrite) NSDecimal titleLocation;
+@property (nonatomic, readwrite, assign) NSDecimal titleLocation;
 ///	@}
 
 /// @name Labels
@@ -112,7 +113,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Major Ticks
 /// @{
-@property (nonatomic, readwrite) NSDecimal majorIntervalLength;
+@property (nonatomic, readwrite, assign) NSDecimal majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy) CPLineStyle *majorTickLineStyle;
 @property (nonatomic, readwrite, retain) NSSet *majorTickLocations;
@@ -139,8 +140,6 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 -(void)relabel;
 -(void)setNeedsRelabel;
-
--(NSArray *)newAxisLabelsAtLocations:(NSArray *)locations;
 ///	@}
 
 /// @name Ticks
