@@ -474,6 +474,7 @@
 	for ( CPAxisLabel *label in oldAxisLabels ) {
 		[label.contentLayer removeFromSuperlayer];
 	}
+	[oldAxisLabels release];
 	
 	// do not use accessor because we've already updated the layer hierarchy
 	[axisLabels release];
