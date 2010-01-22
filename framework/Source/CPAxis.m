@@ -461,6 +461,7 @@
 			[oldAxisLabel.contentLayer removeFromSuperlayer];
 			newAxisLabel.contentLayer = newLabelLayer;
 			[self addSublayer:newLabelLayer];
+			[newLabelLayer release];
 		}
 
 		[newAxisLabels addObject:newAxisLabel];
