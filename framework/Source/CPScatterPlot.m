@@ -10,12 +10,14 @@
 #import "CPFill.h"
 
 
-NSString * const CPScatterPlotBindingXValues = @"xValues";			///< X values.
-NSString * const CPScatterPlotBindingYValues = @"yValues";			///< Y values.
-NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";	///< Plot symbols.
+NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
+NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
+NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
 
 static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
+static NSString * const CPLowerErrorValuesBindingContext = @"CPLowerErrorValuesBindingContext";
+static NSString * const CPUpperErrorValuesBindingContext = @"CPUpperErrorValuesBindingContext";
 static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
 
 /// @cond
@@ -79,14 +81,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
  **/
 @synthesize areaBaseValue;
 
-/** @property doublePrecisionAreaBaseValue
- *	@brief The Y coordinate of the straight boundary of the area fill, as a double.
- *	If nil, the area is not filled.
- *
- *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
- **/
-@synthesize doublePrecisionAreaBaseValue;
-
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -112,7 +106,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		plotSymbol = nil;
 		areaFill = nil;
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
-		doublePrecisionAreaBaseValue = NAN;
 		plotSymbols = nil;
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -297,66 +290,100 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 #pragma mark -
 #pragma mark Drawing
 
+-(void)calculatePointsToDraw:(BOOL *)pointDrawFlags
+{    
+	NSUInteger n = self.xValues.count;
+    if ( n == 0 ) return;
+    
+	CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
+    CPPlotRangeComparisonResult *rangeFlags = malloc(self.xValues.count * sizeof(CPPlotRangeComparisonResult));
+
+    // Determine where each point lies in relation to range
+    for (NSUInteger i = 0; i < n; i++) {
+        NSNumber *xValue = [self.xValues objectAtIndex:i];
+        rangeFlags[i] = [plotRange compareToNumber:xValue];
+    }
+        
+    // Ensure that whenever the path crosses over a region boundary, both points 
+    // are included. This ensures no lines are left out that shouldn't be.
+    pointDrawFlags[0] = (rangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
+    for (NSUInteger i = 1; i < n; i++) {
+    	pointDrawFlags[i] = NO;
+        if ( rangeFlags[i-1] != rangeFlags[i] ) {
+            pointDrawFlags[i-1] = YES;
+            pointDrawFlags[i] = YES;
+        }
+        else if ( rangeFlags[i] == CPPlotRangeComparisonResultNumberInRange ) {
+            pointDrawFlags[i] = YES;
+        }
+    }
+
+    free(rangeFlags);
+}
+
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	if ( self.xValues == nil || self.yValues == nil ) return;
 	if ( self.xValues.count == 0 ) return;
-	if ( [self.xValues count] != [self.yValues count] ) {
+    if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
+	if ( self.xValues.count != self.yValues.count ) {
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
 		
 	[super renderAsVectorInContext:theContext];
 
-	CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
-
 	// calculate view points
-	CGPoint *viewPoints = malloc([self.xValues count] * sizeof(CGPoint));
-	
-	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
-	NSUInteger pointCount = 0;
-	if ( self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count ) {
-		for (NSUInteger i = 0; i < [self.xValues count]; i++) {
-			id xValue = [self.xValues objectAtIndex:i];
-			if ([plotRange contains:[xValue decimalValue]])
-			{
-				id yValue = [self.yValues objectAtIndex:i];
-				
-				if (doubleFastPath)
-				{
-					// Go floating-point route for calculations
-					double doublePrecisionPlotPoint[2];
-					doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
-					doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
-					viewPoints[pointCount] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
-				}
-				else
-				{
-					// Do higher-precision NSDecimal calculations
-					NSDecimal plotPoint[2];
-					plotPoint[CPCoordinateX] = [xValue decimalValue];
-					plotPoint[CPCoordinateY] = [yValue decimalValue];
-					viewPoints[pointCount] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
-				}
-				pointCount += 1;
-			}
-		}
-	}
+	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
+	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
+    
+    // Determine which points will be included in drawing
+    [self calculatePointsToDraw:drawPointFlags];
 
-	// path
+    // Calculate points
+	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
+    double doublePrecisionAreaBaseValue = CPDecimalDoubleValue(self.areaBaseValue);
+    NSInteger lastDrawnPointIndex = -1, firstDrawnPointIndex = -1;
+    for (NSUInteger i = 0; i < self.xValues.count; i++) {
+    	if ( drawPointFlags[i] ) {
+            id xValue = [self.xValues objectAtIndex:i];
+            id yValue = [self.yValues objectAtIndex:i];
+            if (doubleFastPath) {
+                double doublePrecisionPlotPoint[2];
+                doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
+                doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
+                viewPoints[i] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+            }
+            else {
+                NSDecimal plotPoint[2];
+                plotPoint[CPCoordinateX] = [xValue decimalValue];
+                plotPoint[CPCoordinateY] = [yValue decimalValue];
+                viewPoints[i] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+            }
+            viewPoints[i] = CPAlignPointToUserSpace(theContext, viewPoints[i]);      
+            if ( firstDrawnPointIndex < 0 ) firstDrawnPointIndex = i;
+            lastDrawnPointIndex = i;      
+        }
+    }
+
+	// Path
 	CGMutablePathRef dataLinePath = NULL;
 	if ( self.dataLineStyle || self.areaFill ) {
 		dataLinePath = CGPathCreateMutable();
-		CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[0].x, viewPoints[0].y));
-		CGPathMoveToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
-		for (NSUInteger i = 1; i < pointCount; i++) {
-			alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y));
-			CGPathAddLineToPoint(dataLinePath, NULL, alignedPoint.x, alignedPoint.y);
-		}		 
+        CGPathMoveToPoint(dataLinePath, NULL, viewPoints[0].x, viewPoints[0].y);
+        NSUInteger i = 1;
+        while ( i < self.xValues.count ) {
+            if ( drawPointFlags[i-1] && drawPointFlags[i] ) {
+                CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+            }
+            else if ( drawPointFlags[i] ) {
+                CGPathMoveToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+            }
+            i++;
+        } 
 	}
 	
-	// draw fill
+	// Draw fill
 	NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
-	
 	if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {
 		id xValue = [self.xValues objectAtIndex:0];
 		
@@ -372,18 +399,19 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 			// Go floating-point route for calculations
 			double doublePrecisionPlotPoint[2];
 			doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
-			doublePrecisionPlotPoint[CPCoordinateY] = self.doublePrecisionAreaBaseValue;
+			doublePrecisionPlotPoint[CPCoordinateY] = doublePrecisionAreaBaseValue;
 			baseLinePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
 		}
 		
 		CGFloat baseLineYValue = baseLinePoint.y;
 		
-		CGPoint baseViewPoint1 = viewPoints[pointCount-1];
+		CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
 		baseViewPoint1.y = baseLineYValue;
-		baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
-		CGPoint baseViewPoint2 = viewPoints[0];
+        baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
+        
+		CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
 		baseViewPoint2.y = baseLineYValue;
-		baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
+        baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
 		
 		CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
 		CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
@@ -397,7 +425,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		CGPathRelease(fillPath);
 	}
 
-	// draw line
+	// Draw line
 	if ( self.dataLineStyle ) {
 		CGContextBeginPath(theContext);
 		CGContextAddPath(theContext, dataLinePath);
@@ -406,38 +434,21 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	}
 	if ( dataLinePath ) CGPathRelease(dataLinePath);
 	
-	// draw plot symbols
+	// Draw plot symbols
 	if (self.plotSymbol || self.plotSymbols.count) {
-		if ( self.plotSymbols.count > 0 ) {
-			pointCount = 0;
-			for (NSUInteger i = 0; i < self.xValues.count; i++) {
-				id xValue = [self.xValues objectAtIndex:i];
-				if ([plotRange contains:[xValue decimalValue]])
-				{
-					if (i < self.plotSymbols.count) {
-						id <NSObject> currentSymbol = [self.plotSymbols objectAtIndex:i];
-						if ([currentSymbol isKindOfClass:[CPPlotSymbol class]]) {
-							[(CPPlotSymbol *)currentSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext, viewPoints[pointCount])];			
-						} 
-					}
-					pointCount += 1;
-				} 
-			}
-		}
-		else {
-			CPPlotSymbol *theSymbol = self.plotSymbol;
-			pointCount = 0;
-			for (NSUInteger i = 0; i < self.xValues.count; i++) {
-				id xValue = [self.xValues objectAtIndex:i];
-				if ([plotRange contains:[xValue decimalValue]]) {
-					[theSymbol renderInContext:theContext atPoint:CPAlignPointToUserSpace(theContext,viewPoints[pointCount])];
-					pointCount += 1;
-				}
+        for (NSUInteger i = 0; i < self.xValues.count; i++) {
+            if ( drawPointFlags[i] ) {
+            	CPPlotSymbol *currentSymbol = self.plotSymbol;
+            	if ( i < self.plotSymbols.count ) currentSymbol = [self.plotSymbols objectAtIndex:i];
+                if ( [currentSymbol isKindOfClass:[CPPlotSymbol class]] ) {
+                    [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];			
+                }
 			}
 		}
 	}
 	
 	free(viewPoints);
+    free(drawPointFlags);
 }
 
 #pragma mark -
@@ -497,7 +508,6 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 		return;
 	}
 	areaBaseValue = newAreaBaseValue;
-	doublePrecisionAreaBaseValue = [[NSDecimalNumber decimalNumberWithDecimal:areaBaseValue] doubleValue];
 }
 
 -(void)setXValues:(NSArray *)newValues 

@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "CPPlot.h"
+#import "CPXYPlot.h"
 #import "CPDefinitions.h"
 
 ///	@file
@@ -21,8 +21,8 @@ extern NSString * const CPBarPlotBindingBarLengths;
 /**	@brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPBarPlotField {
-    CPBarPlotFieldBarLocation,  ///< Bar location on independent coordinate axis.
-    CPBarPlotFieldBarLength		///< Bar length.
+    CPBarPlotFieldBarLocation = 2,  ///< Bar location on independent coordinate axis.
+    CPBarPlotFieldBarLength   = 3	///< Bar length.
 } CPBarPlotField;
 
 /**	@brief A bar plot data source.
@@ -48,7 +48,7 @@ typedef enum _CPBarPlotField {
 
 @end 
 
-@interface CPBarPlot : CPPlot {
+@interface CPBarPlot : CPXYPlot {
 	@private
     id observedObjectForBarLengthValues;
     NSString *keyPathForBarLengthValues;
