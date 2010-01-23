@@ -164,7 +164,13 @@
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
 	self.renderingRecursively = YES;
+	if ( !self.masksToBounds ) {
+		CGContextSaveGState(context);
+	}
 	[self renderAsVectorInContext:context];
+	if ( !self.masksToBounds ) {
+		CGContextRestoreGState(context);
+	}
 	self.renderingRecursively = NO;
 
 	for ( CALayer *currentSublayer in self.sublayers ) {
