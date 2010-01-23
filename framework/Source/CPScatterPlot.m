@@ -290,18 +290,17 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 #pragma mark -
 #pragma mark Drawing
 
--(void)calculatePointsToDraw:(BOOL *)pointDrawFlags
+-(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotRange:(CPPlotRange *)aPlotRange
 {    
 	NSUInteger n = self.xValues.count;
     if ( n == 0 ) return;
     
-	CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
     CPPlotRangeComparisonResult *rangeFlags = malloc(self.xValues.count * sizeof(CPPlotRangeComparisonResult));
 
     // Determine where each point lies in relation to range
     for (NSUInteger i = 0; i < n; i++) {
         NSNumber *xValue = [self.xValues objectAtIndex:i];
-        rangeFlags[i] = [plotRange compareToNumber:xValue];
+        rangeFlags[i] = [aPlotRange compareToNumber:xValue];
     }
         
     // Ensure that whenever the path crosses over a region boundary, both points 
@@ -337,7 +336,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
     
     // Determine which points will be included in drawing
-    [self calculatePointsToDraw:drawPointFlags];
+    CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
+    [self calculatePointsToDraw:drawPointFlags forPlotRange:plotRange];
 
     // Calculate points
 	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
