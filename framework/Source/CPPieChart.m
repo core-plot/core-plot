@@ -11,6 +11,7 @@
 @property (nonatomic, readwrite, copy) NSArray *normalizedSliceWidths;
 
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
+-(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
 
 @end
 /// @endcond
@@ -24,23 +25,33 @@
 @synthesize keyPathForPieSliceWidthValues;
 
 /** @property pieRadius
- *	@brief The radius of the overall pie chart.
+ *	@brief The radius of the overall pie chart. Defaults to 80% of the initial frame size.
  **/
 @synthesize pieRadius;
 
 /** @property sliceLabelOffset
- *	@brief The radial offset of the slice labels from the edge of each slice.
+ *	@brief The radial offset of the slice labels from the edge of each slice. Defaults to 10.0
  **/
 @synthesize sliceLabelOffset;
+
+/** @property startAngle
+ *	@brief The starting angle for the first slice in radians. Defaults to pi/2.
+ **/
+@synthesize startAngle;
+
+/** @property sliceDirection
+ *	@brief Determines whether the pie slices are drawn in a clockwise or counter-clockwise
+ *	direction from the starting point. Defaults to clockwise.
+ **/
+@synthesize sliceDirection;
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
-static float colorLookupTable[10][3] = 
+static CGFloat colorLookupTable[10][3] = 
 {    
 	{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}, {1.0, 1.0, 0.0}, {0.25, 0.5, 0.25},   
-	{1.0, 0, 1.0}, {0.5, 0.5, 0.5}, {0.25, 0.5, 0},    
-	{0.25, 0.25, 0.25}, {0, 1.0, 1.0}, 
+	{1.0, 0.0, 1.0}, {0.5, 0.5, 0.5}, {0.25, 0.5, 0.0}, {0.25, 0.25, 0.25}, {0.0, 1.0, 1.0}
 };
 
 /** @brief Creates and returns a CPColor that acts as the default color for that pie chart index.
@@ -50,10 +61,7 @@ static float colorLookupTable[10][3] =
 
 +(CPColor *)defaultPieSliceColorForIndex:(NSUInteger)pieSliceIndex;
 {
-	if (pieSliceIndex > 9)
-		return [CPColor colorWithComponentRed:colorLookupTable[pieSliceIndex][0] green:colorLookupTable[pieSliceIndex][1] blue:colorLookupTable[pieSliceIndex][2] alpha:1.0f];
-	else
-		return [CPColor colorWithComponentRed:(colorLookupTable[pieSliceIndex % 10][0] + (float)(pieSliceIndex / 10) * 0.1f) green:(colorLookupTable[pieSliceIndex % 10][1] + (float)(pieSliceIndex / 10) * 0.1f) blue:(colorLookupTable[pieSliceIndex % 10][2] + (float)(pieSliceIndex / 10) * 0.1f) alpha:1.0f];	
+	return [CPColor colorWithComponentRed:(colorLookupTable[pieSliceIndex % 10][0] + (CGFloat)(pieSliceIndex / 10) * 0.1) green:(colorLookupTable[pieSliceIndex % 10][1] + (CGFloat)(pieSliceIndex / 10) * 0.1) blue:(colorLookupTable[pieSliceIndex % 10][2] + (CGFloat)(pieSliceIndex / 10) * 0.1) alpha:1.0];	
 }
 
 #pragma mark -
@@ -62,7 +70,10 @@ static float colorLookupTable[10][3] =
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		pieRadius = 0.8f * (newFrame.size.width / 2.0f);
+		pieRadius = 0.8 * (MIN(newFrame.size.width, newFrame.size.height) / 2.0);
+		startAngle = M_PI_2;	// pi/2
+		sliceDirection = CPPieDirectionClockwise;
+		sliceLabelOffset = 10.0;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -84,7 +95,6 @@ static float colorLookupTable[10][3] =
 
 	self.normalizedSliceWidths = nil;
 	
-	
     // Pie slice widths
 	NSArray *rawSliceValues = nil;
     if ( self.observedObjectForPieSliceWidthValues ) {
@@ -95,12 +105,11 @@ static float colorLookupTable[10][3] =
 		// Grab all values from the data source
         NSRange indexRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);
 		rawSliceValues = [self numbersFromDataSourceForField:CPPieChartFieldSliceWidth recordIndexRange:indexRange];
-		
     }
 	
 	// Normalize these widths to 1.0 for the whole pie
-	if ([rawSliceValues count] > 0) {
-		if ([[rawSliceValues objectAtIndex:0] isKindOfClass:[NSDecimalNumber class]]) {
+	if ( [rawSliceValues count] > 0 ) {
+		if ( [[rawSliceValues objectAtIndex:0] isKindOfClass:[NSDecimalNumber class]] ) {
 			NSDecimal valueSum = [[NSDecimalNumber zero] decimalValue];
 			for (NSNumber *currentWidth in rawSliceValues) {
 				valueSum = CPDecimalAdd(valueSum, [currentWidth decimalValue]);
@@ -130,7 +139,6 @@ static float colorLookupTable[10][3] =
 			[normalizedSliceValues release];
 		}
 	}
-	
 }
 
 #pragma mark -
@@ -150,13 +158,13 @@ static float colorLookupTable[10][3] =
 	if (( self.normalizedSliceWidths == nil ) || ([self.normalizedSliceWidths count] < 1)) return;
 
 	[super renderAsVectorInContext:context];
-	CGPoint centerPoint = CPAlignPointToUserSpace(context, CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f));
+	CGPoint centerPoint = CPAlignPointToUserSpace(context, CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0));
 	// TODO: Add NSDecimal rendering path
 	
 	NSUInteger currentIndex = 0;
-	double startingWidth = 0.0;
+	CGFloat startingWidth = 0.0;
 	
-	for (NSNumber *currentWidth in self.normalizedSliceWidths) {
+	for ( NSNumber *currentWidth in self.normalizedSliceWidths ) {
 		CPFill *currentFill = nil;
 		if ( [self.dataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
 			CPFill *dataSourceFill = [(id <CPPieChartDataSource>)self.dataSource sliceFillForPieChart:self recordIndex:currentIndex];
@@ -166,32 +174,44 @@ static float colorLookupTable[10][3] =
 			currentFill = [CPFill fillWithColor:[CPPieChart defaultPieSliceColorForIndex:currentIndex]];
 		}
 		
-		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:[currentWidth doubleValue] fill:currentFill];
+		CGFloat currentWidthAsDouble = [currentWidth doubleValue];
 		
-		startingWidth += [currentWidth doubleValue];
+		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidthAsDouble fill:currentFill];
+		
+		startingWidth += currentWidthAsDouble;
 		
 		currentIndex++;
 	}
 }	
 
-double radiansForPieSliceValue(double pieSliceValue)
+-(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue
 {
-	// Start from the top of the circle (pi / 2) and proceed in a clockwise direction
-	return (M_PI / 2.0) - (pieSliceValue * M_PI * 2.0);
+	CGFloat angle = self.startAngle;
+	switch ( self.sliceDirection ) {
+		case CPPieDirectionClockwise:
+			angle -= pieSliceValue * M_PI * 2.0;
+			break;
+		case CPPieDirectionCounterClockwise:
+			angle += pieSliceValue * M_PI * 2.0;
+			break;
+	}
+	return angle;
 }
 
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
 {
+	int direction = 0;
+	if ( self.sliceDirection == CPPieDirectionClockwise ) {
+		direction = 1;
+	}
     CGContextSaveGState(context);
 	
 	CGContextMoveToPoint(context, centerPoint.x, centerPoint.y);
-	CGContextAddArc(context, centerPoint.x, centerPoint.y, self.pieRadius, radiansForPieSliceValue(startingValue), 
-					radiansForPieSliceValue(startingValue + sliceWidth), 1);
+	CGContextAddArc(context, centerPoint.x, centerPoint.y, self.pieRadius, [self radiansForPieSliceValue:startingValue], [self radiansForPieSliceValue:startingValue + sliceWidth], direction);
 	CGContextClosePath(context);
-
+	
 	[sliceFill fillPathInContext:context]; 
 	CGContextRestoreGState(context);
-
 }
 
 #pragma mark -

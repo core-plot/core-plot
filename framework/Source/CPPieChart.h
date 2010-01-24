@@ -9,11 +9,18 @@
 @class CPPieChart;
 @class CPTextLayer;
 
-/**	@brief Enumeration of pie chart data source field types
+/**	@brief Enumeration of pie chart data source field types.
  **/
 typedef enum _CPPieChartField {
     CPPieChartFieldSliceWidth		///< Pie slice width.
 } CPPieChartField;
+
+/**	@brief Enumeration of pie slice drawing directions.
+ **/
+typedef enum _CPPieDirection {
+    CPPieDirectionClockwise,		///< Pie slices are drawn in a clockwise direction.
+	CPPieDirectionCounterClockwise	///< Pie slices are drawn in a counter-clockwise direction.
+} CPPieDirection;
 
 /**	@brief A pie chart data source.
  **/
@@ -45,10 +52,14 @@ typedef enum _CPPieChartField {
 	NSString *keyPathForPieSliceWidthValues;
 	CGFloat pieRadius;
 	CGFloat sliceLabelOffset;
+	CGFloat startAngle;
+	CPPieDirection sliceDirection;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
 @property (nonatomic, readwrite) CGFloat sliceLabelOffset;
+@property (nonatomic, readwrite) CGFloat startAngle;
+@property (nonatomic, readwrite) CPPieDirection sliceDirection;
 
 /// @name Factory Methods
 /// @{
