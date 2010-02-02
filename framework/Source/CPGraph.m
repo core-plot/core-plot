@@ -404,7 +404,8 @@
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        handledEvent = handledEvent || [space pointingDeviceDownAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceDownAtPoint:interactionPoint];
+        handledEvent |= handled;
     } 
     
     return handledEvent;
@@ -428,7 +429,8 @@
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        handledEvent = handledEvent || [space pointingDeviceUpAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceUpAtPoint:interactionPoint];
+        handledEvent |= handled;
     } 
     
     return handledEvent;
@@ -452,7 +454,8 @@
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        handledEvent = handledEvent || [space pointingDeviceDraggedAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceDraggedAtPoint:interactionPoint];
+        handledEvent |= handled;
     } 
     
     return handledEvent;
@@ -474,7 +477,8 @@
     // Plot spaces
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        handledEvent = handledEvent || [space pointingDeviceCancelled];
+        BOOL handled = [space pointingDeviceCancelled];
+        handledEvent |= handled;
     } 
     
     return handledEvent;

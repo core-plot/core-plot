@@ -488,7 +488,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// open point
 			plotPoint[dependentCoord] = [openCoordValue doubleValue];
-			closePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			openPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			
 			// high point
 			plotPoint[dependentCoord] = [highCoordValue doubleValue];
@@ -500,7 +500,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// close point
 			plotPoint[dependentCoord] = [closeCoordValue doubleValue];
-			openPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			closePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 		}
 		else {
 			NSDecimal plotPoint[2];
@@ -508,7 +508,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// open point
 			plotPoint[dependentCoord] = [[opens objectAtIndex:ii] decimalValue];
-			closePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			openPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 	
 			// high point
 			plotPoint[dependentCoord] = [[highs objectAtIndex:ii] decimalValue];
@@ -520,7 +520,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// close point
 			plotPoint[dependentCoord] = [[closes objectAtIndex:ii] decimalValue];
-			openPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			closePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 		}
         
         // Draw
