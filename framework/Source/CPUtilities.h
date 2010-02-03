@@ -10,7 +10,8 @@ NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber);
 float   CPDecimalFloatValue(NSDecimal decimalNumber);
 double  CPDecimalDoubleValue(NSDecimal decimalNumber);
 
-NSDecimal CPDecimalFromInt(NSInteger i);
+NSDecimal CPDecimalFromInteger(NSInteger i);
+NSDecimal CPDecimalFromUnsignedInteger(NSUInteger i);
 NSDecimal CPDecimalFromFloat(float f);
 NSDecimal CPDecimalFromDouble(double d);
 

@@ -108,7 +108,7 @@
     }
     
     // Set range
-    NSDecimal zero = CPDecimalFromInt(0);
+    NSDecimal zero = CPDecimalFromInteger(0);
     if ( !CPDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
     if ( !CPDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
 }
@@ -122,7 +122,7 @@
     
 	NSDecimal factor = CPDecimalDivide(CPDecimalSubtract(plotCoord, range.location), range.length);
 	if ( NSDecimalIsNotANumber(&factor) ) {
-		factor = CPDecimalFromInt(0);
+		factor = CPDecimalFromInteger(0);
 	}
 	
 	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] doubleValue];

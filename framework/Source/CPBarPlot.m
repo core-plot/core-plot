@@ -216,7 +216,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     NSDecimal delta = [[NSDecimalNumber one] decimalValue];
 	double doublePrecisionDelta = 1.0;
     if ( self.plotRange && self.barLengths.count > 1 ) {
-        delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromInt(self.barLengths.count - 1));
+        delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromUnsignedInteger(self.barLengths.count - 1));
 		doublePrecisionDelta  = self.plotRange.doublePrecisionLength / (double)(self.barLengths.count - 1);
     }
     
@@ -224,7 +224,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     for (NSUInteger ii = 0; ii < self.barLengths.count; ii++) {
         id dependentCoordValue = [self.barLengths objectAtIndex:ii];
 		if ([dependentCoordValue isKindOfClass:[NSDecimalNumber class]]) {
-			NSDecimal location = CPDecimalMultiply(delta, CPDecimalFromInt(ii));
+			NSDecimal location = CPDecimalMultiply(delta, CPDecimalFromUnsignedInteger(ii));
 			if ( self.plotRange ) {
 				location = CPDecimalAdd(location, self.plotRange.location);			
 			}

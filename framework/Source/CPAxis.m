@@ -262,7 +262,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTextStyle alloc] init];
-		titleLocation = CPDecimalFromInt(0);
+		titleLocation = CPDecimalFromInteger(0);
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -322,7 +322,7 @@
 		
 		// Minor ticks
 		if ( self.minorTicksPerInterval > 0 ) {
-			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromInt(self.minorTicksPerInterval+1));
+			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
 			NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
 			
 			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {

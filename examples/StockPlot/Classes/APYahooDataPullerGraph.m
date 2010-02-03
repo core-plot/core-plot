@@ -42,7 +42,7 @@
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
     
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([dataPuller.financialData count])];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromUnsignedInteger([dataPuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
     CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
