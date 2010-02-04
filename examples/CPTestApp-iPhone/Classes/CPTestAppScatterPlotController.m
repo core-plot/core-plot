@@ -97,6 +97,7 @@
     dataSourceLinePlot.identifier = @"Green Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+	dataSourceLinePlot.dataLineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
     dataSourceLinePlot.dataSource = self;
 
    // Put an area gradient under the plot above

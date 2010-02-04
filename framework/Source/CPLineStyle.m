@@ -32,8 +32,13 @@
  **/
 @synthesize lineWidth;
 
+/** @property dashPattern
+ *  @brief The dash-and-space pattern for the line.
+ **/
+@synthesize dashPattern;
+
 /** @property patternPhase
- *  @brief Sets the pattern phase of a context.
+ *  @brief Sets the starting phase of the line dash pattern.
  **/
 @synthesize patternPhase;
 
@@ -60,7 +65,7 @@
 		lineJoin = kCGLineJoinMiter;
 		miterLimit = 10.0;
 		lineWidth = 1.0;
-		patternPhase = CGSizeZero;
+		patternPhase = 0.0f;
 		lineColor = [[CPColor blackColor] retain];
 	}
 	return self;
@@ -69,6 +74,7 @@
 -(void)dealloc
 {
     [lineColor release];
+	[dashPattern release];
 	[super dealloc];
 }
 
@@ -84,7 +90,19 @@
 	CGContextSetLineJoin(theContext, lineJoin);
 	CGContextSetMiterLimit(theContext, miterLimit);
 	CGContextSetLineWidth(theContext, lineWidth);
-	CGContextSetPatternPhase(theContext, patternPhase);
+	if (dashPattern != nil)
+	{
+		CGFloat *dashLengths = (CGFloat *)calloc([dashPattern count], sizeof(CGFloat));
+
+		NSUInteger dashCounter = 0;
+		for (NSNumber *currentDashLength in dashPattern)
+		{
+			dashLengths[dashCounter++] = [currentDashLength doubleValue];
+		}
+		
+		CGContextSetLineDash(theContext, patternPhase, dashLengths, [dashPattern count]);
+		free(dashLengths);
+	}
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
