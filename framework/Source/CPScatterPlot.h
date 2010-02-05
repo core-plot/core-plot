@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "CPXYPlot.h"
+#import "CPPlot.h"
 #import "CPDefinitions.h"
 
 ///	@file
@@ -20,8 +20,6 @@ extern NSString * const CPScatterPlotBindingPlotSymbols;
 /**	@brief Enumeration of scatter plot data source field types
  **/
 typedef enum _CPScatterPlotField {
-    CPScatterPlotLowerErrorBar = CPXYPlotLowerErrorBar, ///< Lower error bar.
-    CPScatterPlotUpperErrorBar = CPXYPlotUpperErrorBar, ///< Upper error bar.
     CPScatterPlotFieldX,								///< X values.
     CPScatterPlotFieldY 								///< Y values.
 } CPScatterPlotField;
@@ -53,7 +51,7 @@ typedef enum _CPScatterPlotField {
 
 @end 
 
-@interface CPScatterPlot : CPXYPlot {
+@interface CPScatterPlot : CPPlot {
 	@private
     id observedObjectForXValues;
     id observedObjectForYValues;

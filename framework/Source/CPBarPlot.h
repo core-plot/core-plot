@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "CPXYPlot.h"
+#import "CPPlot.h"
 #import "CPDefinitions.h"
 
 ///	@file
@@ -48,7 +48,7 @@ typedef enum _CPBarPlotField {
 
 @end 
 
-@interface CPBarPlot : CPXYPlot {
+@interface CPBarPlot : CPPlot {
 	@private
     id observedObjectForBarLengthValues;
     NSString *keyPathForBarLengthValues;
