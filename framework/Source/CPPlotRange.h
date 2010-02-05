@@ -2,6 +2,12 @@
 #import <Foundation/Foundation.h>
 #import "CPDefinitions.h"
 
+typedef enum {
+    CPPlotRangeComparisonResultNumberBelowRange,
+    CPPlotRangeComparisonResultNumberInRange,
+    CPPlotRangeComparisonResultNumberAboveRange
+} CPPlotRangeComparisonResult;
+
 @interface CPPlotRange : NSObject <NSCoding, NSCopying> {
 	@private
 	NSDecimal location;
@@ -30,5 +36,7 @@
 -(void)shiftEndToFitInRange:(CPPlotRange *)otherRange;
 
 -(void)expandRangeByFactor:(NSDecimal)factor;
+
+-(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number;
 
 @end

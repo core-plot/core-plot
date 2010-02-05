@@ -156,6 +156,25 @@
 	return (CPDecimalGreaterThanOrEqualTo(number, location) && CPDecimalLessThanOrEqualTo(number, self.end));
 }
 
+/** @brief Compares a number to the range, determining if it is in the range, or above or below it.
+ *  @param number The number to check.
+ *  @return The comparison result.
+ **/
+-(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number
+{
+	CPPlotRangeComparisonResult result;
+    if ( [self contains:number.decimalValue] ) {
+        result = CPPlotRangeComparisonResultNumberInRange;
+    }
+    else if ( CPDecimalLessThan(number.decimalValue, self.location) ) {
+        result = CPPlotRangeComparisonResultNumberBelowRange;
+    }
+    else {
+        result = CPPlotRangeComparisonResultNumberAboveRange;
+    }
+    return result;
+}
+
 #pragma mark -
 #pragma mark Combining ranges
 

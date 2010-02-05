@@ -40,7 +40,8 @@
 ///	@}
 
 /**	@brief Determines the record index range corresponding to a given range of data.
- *	This method is optional.
+ *	This method is optional. If the method is implemented, it could improve performance
+ *  in data sets that are only partially displayed.
  *	@param plot The plot.
  *	@param plotRange The range expressed in data values.
  *	@return The range of record indexes.

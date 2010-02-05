@@ -54,6 +54,8 @@
 		074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */; };
 		0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */; };
 		0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */; };
+		077A292B110B7C7100C34CEA /* CPXYPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 077A2929110B7C7100C34CEA /* CPXYPlot.h */; };
+		077A292C110B7C7100C34CEA /* CPXYPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 077A292A110B7C7100C34CEA /* CPXYPlot.m */; };
 		077F28550FE18048000BCA52 /* CPBorderedLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 077F28510FE18048000BCA52 /* CPBorderedLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		077F28560FE18048000BCA52 /* CPBorderedLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F28520FE18048000BCA52 /* CPBorderedLayer.m */; };
 		077F28570FE18048000BCA52 /* CPPathExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 077F28530FE18048000BCA52 /* CPPathExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,6 +172,8 @@
 		074D7BC40FD6B65F006011BC /* CPXYPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYPlotSpace.m; path = Source/CPXYPlotSpace.m; sourceTree = "<group>"; };
 		0772B4F110E26A12009CD04C /* CPTradingRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTradingRangePlot.h; path = Source/CPTradingRangePlot.h; sourceTree = "<group>"; };
 		0772B4F210E26A12009CD04C /* CPTradingRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTradingRangePlot.m; path = Source/CPTradingRangePlot.m; sourceTree = "<group>"; };
+		077A2929110B7C7100C34CEA /* CPXYPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYPlot.h; path = Source/CPXYPlot.h; sourceTree = "<group>"; };
+		077A292A110B7C7100C34CEA /* CPXYPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYPlot.m; path = Source/CPXYPlot.m; sourceTree = "<group>"; };
 		077F28510FE18048000BCA52 /* CPBorderedLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPBorderedLayer.h; path = Source/CPBorderedLayer.h; sourceTree = "<group>"; };
 		077F28520FE18048000BCA52 /* CPBorderedLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPBorderedLayer.m; path = Source/CPBorderedLayer.m; sourceTree = "<group>"; };
 		077F28530FE18048000BCA52 /* CPPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPathExtensions.h; path = Source/CPPathExtensions.h; sourceTree = "<group>"; };
@@ -563,6 +567,8 @@
 		BC9B82CE0FB89E610035D8DA /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				077A2929110B7C7100C34CEA /* CPXYPlot.h */,
+				077A292A110B7C7100C34CEA /* CPXYPlot.m */,
 				C30C85A91047428100181766 /* CPPlotGroup.h */,
 				C30C85AA1047428100181766 /* CPPlotGroup.m */,
 				BC9B82D20FB89E610035D8DA /* CPPlot.h */,
@@ -672,6 +678,7 @@
 				C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */,
 				07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */,
 				0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */,
+				077A292B110B7C7100C34CEA /* CPXYPlot.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +797,7 @@
 				BCFC7CEA109264AE00DAECAA /* CPAxisTitle.m in Sources */,
 				0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */,
 				BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */,
+				077A292C110B7C7100C34CEA /* CPXYPlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

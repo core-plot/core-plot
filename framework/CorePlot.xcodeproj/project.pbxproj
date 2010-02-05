@@ -109,6 +109,7 @@
 		07C467B90FE1A96E00299939 /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */; };
 		07CA112F0FAC8F85000861CE /* CPGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
+		07FEBD6E110B801300E44D37 /* CPScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBD61110B7E8B00E44D37 /* CPScatterPlotTests.m */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
 		4CD7E7E70F4B4F8200F9BCBB /* CPTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -246,6 +247,8 @@
 		07C467B70FE1A96E00299939 /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = MacOnly/CPTextStylePlatformSpecific.m; sourceTree = SOURCE_ROOT; };
 		07CA112D0FAC8F85000861CE /* CPGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradient.h; sourceTree = "<group>"; };
 		07CA112E0FAC8F85000861CE /* CPGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradient.m; sourceTree = "<group>"; };
+		07FEBD60110B7E8B00E44D37 /* CPScatterPlotTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScatterPlotTests.h; sourceTree = "<group>"; };
+		07FEBD61110B7E8B00E44D37 /* CPScatterPlotTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotTests.m; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -536,6 +539,7 @@
 				0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */,
 				BC74A32E10FC402600E7E90D /* CPPieChart.h */,
 				BC74A32F10FC402600E7E90D /* CPPieChart.m */,
+				07FEBD5F110B7E6F00E44D37 /* Tests */,
 			);
 			name = Plots;
 			sourceTree = "<group>";
@@ -597,6 +601,15 @@
 				076A775F0FBF0BFE003F6D97 /* Tests */,
 			);
 			name = "Types and Functions";
+			sourceTree = "<group>";
+		};
+		07FEBD5F110B7E6F00E44D37 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				07FEBD60110B7E8B00E44D37 /* CPScatterPlotTests.h */,
+				07FEBD61110B7E8B00E44D37 /* CPScatterPlotTests.m */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		0867D691FE84028FC02AAC07 /* CorePlot */ = {
@@ -969,6 +982,7 @@
 				0730F64E109494D100E95162 /* CPTestCase.m in Sources */,
 				0730F6851094995F00E95162 /* CPDerivedXYGraph.m in Sources */,
 				0772B43910E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
+				07FEBD6E110B801300E44D37 /* CPScatterPlotTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
