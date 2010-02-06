@@ -39,9 +39,19 @@ double CPDecimalDoubleValue(NSDecimal decimalNumber)
  *	@param i The NSInteger value.
  *	@return The converted value.
  **/
-NSDecimal CPDecimalFromInt(NSInteger i)
+NSDecimal CPDecimalFromInteger(NSInteger i)
 {
-	return [[NSNumber numberWithInt:i] decimalValue]; 
+	return [[NSNumber numberWithInteger:i] decimalValue]; 
+}
+
+/**
+ *	@brief Converts a NSUInteger value to an NSDecimal.
+ *	@param i The NSUInteger value.
+ *	@return The converted value.
+ **/
+NSDecimal CPDecimalFromUnsignedInteger(NSUInteger i)
+{
+	return [[NSNumber numberWithUnsignedInteger:i] decimalValue]; 
 }
 
 /**

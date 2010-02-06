@@ -216,7 +216,7 @@
 {
     NSDecimal newLength = CPDecimalMultiply(length, factor);
     NSDecimal locationOffset = CPDecimalDivide( CPDecimalSubtract(newLength, length), 
-    	CPDecimalFromInt(2));
+    	CPDecimalFromInteger(2));
     NSDecimal newLocation = CPDecimalSubtract(location, locationOffset);
     self.location = newLocation;
     self.length = newLength;

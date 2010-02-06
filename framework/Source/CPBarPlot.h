@@ -15,6 +15,7 @@
 
 /// @name Binding Identifiers
 /// @{
+extern NSString * const CPBarPlotBindingBarLocations;
 extern NSString * const CPBarPlotBindingBarLengths;
 ///	@}
 
@@ -50,7 +51,9 @@ typedef enum _CPBarPlotField {
 
 @interface CPBarPlot : CPPlot {
 	@private
+    id observedObjectForBarLocationValues;
     id observedObjectForBarLengthValues;
+    NSString *keyPathForBarLocationValues;
     NSString *keyPathForBarLengthValues;
     CPLineStyle *lineStyle;
     CPFill *fill;
@@ -58,6 +61,7 @@ typedef enum _CPBarPlotField {
     CGFloat barOffset;
     CGFloat cornerRadius;
     NSDecimal baseValue;	
+    NSArray *barLocations;
     NSArray *barLengths;
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;

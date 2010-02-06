@@ -198,6 +198,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
+	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
     CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
     barPlot.barLabelTextStyle = whiteTextStyle;
@@ -210,6 +211,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0;
     barPlot.identifier = @"Bar Plot 2";
+	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
 }
 

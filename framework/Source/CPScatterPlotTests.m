@@ -18,7 +18,7 @@
 -(void)setUp 
 {
     self.plot = [[CPScatterPlot new] autorelease];
-    self.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInt(0) length:CPDecimalFromInt(1)];
+    self.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(1)];
 }
 
 -(void)tearDown

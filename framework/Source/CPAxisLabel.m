@@ -64,7 +64,7 @@
 			contentLayer = [layer retain];
 			offset = 20.0;
             rotation = 0.0;
-			tickLocation = CPDecimalFromInt(0);
+			tickLocation = CPDecimalFromInteger(0);
 		}
 	}
 	else {
