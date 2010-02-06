@@ -8,16 +8,8 @@
 
 @implementation CPTestAppBarChartController
 
-@synthesize dataForChart;
-
 #pragma mark -
 #pragma mark Initialization and teardown
-
--(void)dealloc 
-{
-	[dataForChart release];
-    [super dealloc];
-}
 
 - (void)viewDidLoad 
 {
@@ -59,9 +51,8 @@
 	NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
 	NSArray *xAxisLabels = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", @"Label E", nil];
 	NSUInteger labelLocation = 0;
-	NSMutableArray *customLabels = [[NSMutableArray alloc] initWithCapacity:[xAxisLabels count]];
-	for (NSNumber *tickLocation in customTickLocations)
-	{
+	NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:[xAxisLabels count]];
+	for (NSNumber *tickLocation in customTickLocations) {
 		CPAxisLabel *newLabel = [[CPAxisLabel alloc] initWithText: [xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
 		newLabel.tickLocation = [tickLocation decimalValue];
 		newLabel.offset = x.labelOffset + x.majorTickLength;
@@ -71,7 +62,6 @@
 	}
 	
 	x.axisLabels =  [NSSet setWithArray:customLabels];
-	
 	
 	CPXYAxis *y = axisSet.yAxis;
     y.axisLineStyle = nil;
@@ -100,16 +90,6 @@
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 	
-	// Add some initial data
-	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
-	NSUInteger i;
-	for ( i = 0; i < 60; i++ ) {
-		id x = [NSNumber numberWithFloat:1+i*0.05];
-		id y = [NSNumber numberWithFloat:1.2*rand()/(float)RAND_MAX + 1.2];
-		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
-	}
-	self.dataForChart = contentArray;
-	
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
 #endif
@@ -129,21 +109,19 @@
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
 {
-    NSDecimalNumber *num = [[dataForChart objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+    NSDecimalNumber *num = nil;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
-        num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:(index+1)*(index+1)];
-        if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
-            num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+		switch ( fieldEnum ) {
+			case CPBarPlotFieldBarLocation:
+				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+				break;
+			case CPBarPlotFieldBarLength:
+				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index+1)*(index+1)];
+				if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
+					num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+				break;
+		}
     }
-	else
-	{
-	// Green plot gets shifted above the blue
-	if ([(NSString *)plot.identifier isEqualToString:@"Bar Plot 1"])
-	{
-		if ( fieldEnum == CPScatterPlotFieldY ) 
-			num = [num decimalNumberByAdding:[NSDecimalNumber one]];
-	}
-	}
 	
     return num;
 }
