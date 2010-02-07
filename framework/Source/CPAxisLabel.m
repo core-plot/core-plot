@@ -1,4 +1,4 @@
-
+#import "CPAxis.h"
 #import "CPAxisLabel.h"
 #import "CPLayer.h"
 #import "CPTextLayer.h"
@@ -11,6 +11,11 @@
  *	The label can be text-based or can be the content of any CPLayer provided by the user.
  **/
 @implementation CPAxisLabel
+
+/**	@property axis
+ *	@brief The axis.
+ **/
+@synthesize axis;
 
 /**	@property contentLayer
  *	@brief The label content.
@@ -94,6 +99,7 @@
  **/
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
 {
+	CPLayer *content = self.contentLayer;
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
 	CGPoint anchor = CGPointZero;
@@ -112,21 +118,20 @@
 			}
             break;
         case CPSignPositive:
-            *value += offset;
+            *value += self.offset;
 			if ( self.rotation == 0.0 ) {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
 			}
 			else {
 				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.0, 0.5));
 			}
-            break;
-        default:
-            [NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
-            break;
-    }
+			break;
+		default:
+			[NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
+			break;
+	}
 	
 	// Pixel-align the label layer to prevent blurriness
-	CPLayer *content = self.contentLayer;
 	CGSize currentSize = content.bounds.size;
 	
 	content.anchorPoint = anchor;
@@ -164,7 +169,7 @@
 -(NSString *)description
 {
 	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
-};
+}
 
 #pragma mark -
 #pragma mark Label comparison

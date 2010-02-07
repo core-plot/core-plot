@@ -441,7 +441,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 -(void)setLabelRotation:(CGFloat)newRotation 
 {
  	labelRotation = newRotation;
-    
+	
 	((CPXYAxisSet *)graph.axisSet).yAxis.labelRotation = newRotation;
 }
 

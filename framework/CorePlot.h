@@ -2,6 +2,8 @@
 #import <CorePlot/CPAnimationKeyFrame.h>
 #import <CorePlot/CPAnimationTransition.h>
 #import <CorePlot/CPAxis.h>
+#import <CorePlot/CPAxisLabel.h>
+#import <CorePlot/CPAxisLabelGroup.h>
 #import <CorePlot/CPAxisSet.h>
 #import <CorePlot/CPAxisTitle.h>
 #import <CorePlot/CPBarPlot.h>
@@ -15,7 +17,9 @@
 #import <CorePlot/CPFill.h>
 #import <CorePlot/CPGradient.h>
 #import <CorePlot/CPGraph.h>
+#import <CorePlot/CPGridLines.h>
 #import <CorePlot/CPImage.h>
+#import <CorePlot/CPLayer.h>
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPPieChart.h>
@@ -24,11 +28,14 @@
 #import <CorePlot/CPPlatformSpecificDefines.h>
 #import <CorePlot/CPPlatformSpecificFunctions.h>
 #import <CorePlot/CPPlatformSpecificCategories.h>
-#import <CorePlot/CPPlotArea.h>
+#import <CorePlot/CPPathExtensions.h>
 #import <CorePlot/CPPlot.h>
+#import <CorePlot/CPPlotArea.h>
+#import <CorePlot/CPPlotFrame.h>
 #import <CorePlot/CPPlotGroup.h>
 #import <CorePlot/CPPlotSpace.h>
 #import <CorePlot/CPPlotSymbol.h>
+#import <CorePlot/CPPlottingArea.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
@@ -42,6 +49,7 @@
 #import <CorePlot/CPXYAxis.h>
 #import <CorePlot/CPXYAxisSet.h>
 #import <CorePlot/CPXYGraph.h>
+#import <CorePlot/CPXYGridLines.h>
 #import <CorePlot/CPXYPlotSpace.h>
 #import <CorePlot/CPXYTheme.h>
 #import <CorePlot/CPLayerHostingView.h>

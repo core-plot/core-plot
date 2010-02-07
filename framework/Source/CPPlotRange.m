@@ -261,7 +261,10 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"{%@, %@}", NSDecimalString(&location, [NSLocale currentLocale]), NSDecimalString(&length, [NSLocale currentLocale])]; 
+	return [NSString stringWithFormat:@"<%@ {%@, %@}>",
+			[super description],
+			NSDecimalString(&location, [NSLocale currentLocale]),
+			NSDecimalString(&length, [NSLocale currentLocale])]; 
 }
 
 @end

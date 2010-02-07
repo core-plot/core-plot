@@ -21,15 +21,23 @@
 	
 	// Plot area
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-	    
+	graph.plotArea.paddingTop = 20;
+	graph.plotArea.paddingBottom = 50;
+	graph.plotArea.paddingLeft = 50;
+	graph.plotArea.paddingRight = 20;
+	
+	graph.plotArea.plottingArea.borderLineStyle = [CPLineStyle lineStyle];
+//	graph.plotArea.plottingArea.fill = graph.fill;
+
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(10.0)];
 	
     // Line styles
     CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];
     axisLineStyle.lineWidth = 3.0;
+	axisLineStyle.lineCap = kCGLineCapRound;
     
     CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
@@ -52,31 +60,32 @@
     x.minorTicksPerInterval = 4;
 	x.tickDirection = CPSignNone;
 	x.axisLineStyle = axisLineStyle;
-	x.majorTickLength = 9.0;
+	x.majorTickLength = 12.0;
 	x.majorTickLineStyle = axisLineStyle;
     x.majorGridLineStyle = majorGridLineStyle;
-	x.minorTickLength = 6.0;
+	x.minorTickLength = 8.0;
     x.minorGridLineStyle = minorGridLineStyle;
 	x.title = @"X Axis";
 	x.titleTextStyle = axisTitleTextStyle;
 	x.titleOffset = 25.0f;
+	x.titleLocation = CPDecimalFromFloat(5.0);
 	
-	// Label y with an automatic label policy. 
-    // Rotate the labels by 45 degrees, just to show it can be done.
+	// Label y with an automatic label policy.
 	axisLineStyle.lineColor = [CPColor greenColor];
 	
     CPXYAxis *y = axisSet.yAxis;
     y.minorTicksPerInterval = 9;
 	y.tickDirection = CPSignNone;
 	y.axisLineStyle = axisLineStyle;
-	y.majorTickLength = 9.0;
+	y.majorTickLength = 12.0;
 	y.majorTickLineStyle = axisLineStyle;
     y.majorGridLineStyle = majorGridLineStyle;
-	y.minorTickLength = 6.0;
+	y.minorTickLength = 8.0;
     y.minorGridLineStyle = minorGridLineStyle;
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0f;
+	y.titleLocation = CPDecimalFromFloat(5.0);
 }
 
 @end

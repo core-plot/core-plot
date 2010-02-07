@@ -111,7 +111,15 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
-        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNull null], @"position", [NSNull null], @"bounds", [NSNull null], @"sublayers", [NSNull null], @"contents", nil];
+        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+									 [NSNull null], @"anchorPoint",
+									 [NSNull null], @"bounds",
+									 [NSNull null], @"position",
+									 [NSNull null], @"sublayers",
+									 [NSNull null], @"sublayerTransform",
+									 [NSNull null], @"transform",
+									 [NSNull null], @"zPosition",
+									 nil];
         self.actions = actionsDict;
         [actionsDict release];
     }
@@ -493,7 +501,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ with bounds: %@>", [super description], CPStringFromRect(self.bounds)];
+	return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPStringFromRect(self.bounds)];
 };
 
 ///	@}
