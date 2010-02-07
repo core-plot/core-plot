@@ -65,6 +65,7 @@
 		lineJoin = kCGLineJoinMiter;
 		miterLimit = 10.0;
 		lineWidth = 1.0;
+		dashPattern = nil;
 		patternPhase = 0.0f;
 		lineColor = [[CPColor blackColor] retain];
 	}
@@ -90,17 +91,15 @@
 	CGContextSetLineJoin(theContext, lineJoin);
 	CGContextSetMiterLimit(theContext, miterLimit);
 	CGContextSetLineWidth(theContext, lineWidth);
-	if (dashPattern != nil)
-	{
-		CGFloat *dashLengths = (CGFloat *)calloc([dashPattern count], sizeof(CGFloat));
+	if ( dashPattern.count > 0 ) {
+		CGFloat *dashLengths = (CGFloat *)calloc(dashPattern.count, sizeof(CGFloat));
 
 		NSUInteger dashCounter = 0;
-		for (NSNumber *currentDashLength in dashPattern)
-		{
+		for ( NSNumber *currentDashLength in dashPattern ) {
 			dashLengths[dashCounter++] = [currentDashLength doubleValue];
 		}
 		
-		CGContextSetLineDash(theContext, patternPhase, dashLengths, [dashPattern count]);
+		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashPattern.count);
 		free(dashLengths);
 	}
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
@@ -117,6 +116,7 @@
 	styleCopy->lineJoin = self->lineJoin;
 	styleCopy->miterLimit = self->miterLimit;
 	styleCopy->lineWidth = self->lineWidth;
+	styleCopy->dashPattern = [self->dashPattern copy];
 	styleCopy->patternPhase = self->patternPhase;
     styleCopy->lineColor = [self->lineColor copy];
     
