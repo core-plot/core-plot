@@ -32,7 +32,6 @@
 {
 	if ( self = [super initWithFrame:newFrame] ) {
         constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
-		
 		self.tickDirection = CPSignNone;
 }
 	return self;

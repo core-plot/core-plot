@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		070064E9111F2BAA003DE087 /* CPConstrainedPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 070064E7111F2BAA003DE087 /* CPConstrainedPosition.h */; };
+		070064EA111F2BAA003DE087 /* CPConstrainedPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 070064E8111F2BAA003DE087 /* CPConstrainedPosition.m */; };
 		070622320FDF1B250066A6C4 /* CPPathExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 070622300FDF1B250066A6C4 /* CPPathExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070622330FDF1B250066A6C4 /* CPPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 070622310FDF1B250066A6C4 /* CPPathExtensions.m */; };
 		0706223C0FDF215C0066A6C4 /* CPBorderedLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0706223A0FDF215C0066A6C4 /* CPBorderedLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -166,6 +168,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		070064E7111F2BAA003DE087 /* CPConstrainedPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPConstrainedPosition.h; sourceTree = "<group>"; };
+		070064E8111F2BAA003DE087 /* CPConstrainedPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPConstrainedPosition.m; sourceTree = "<group>"; };
 		070622300FDF1B250066A6C4 /* CPPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPathExtensions.h; sourceTree = "<group>"; };
 		070622310FDF1B250066A6C4 /* CPPathExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPathExtensions.m; sourceTree = "<group>"; };
 		0706223A0FDF215C0066A6C4 /* CPBorderedLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBorderedLayer.h; sourceTree = "<group>"; };
@@ -761,6 +765,8 @@
 			children = (
 				C32BCF7E1054081C00639E25 /* CPLayoutManager.h */,
 				C32BCF7F1054081C00639E25 /* CPLayoutManager.m */,
+				070064E7111F2BAA003DE087 /* CPConstrainedPosition.h */,
+				070064E8111F2BAA003DE087 /* CPConstrainedPosition.m */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -852,6 +858,7 @@
 				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
 				07AEF24910BBED050012BEFF /* CPResponder.h in Headers */,
 				0772B43A10E24D5C009CD04C /* CPTradingRangePlot.h in Headers */,
+				070064E9111F2BAA003DE087 /* CPConstrainedPosition.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,6 +1054,7 @@
 				BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */,
 				0772B43B10E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
 				BC74A33110FC402600E7E90D /* CPPieChart.m in Sources */,
+				070064EA111F2BAA003DE087 /* CPConstrainedPosition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

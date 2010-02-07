@@ -61,8 +61,8 @@ typedef enum _CPAxisLabelingPolicy {
     CPLineStyle *minorTickLineStyle;
     CPLineStyle *majorGridLineStyle;
     CPLineStyle *minorGridLineStyle;
-    NSDecimal labelingOrigin;			// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
-    NSDecimal majorIntervalLength;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    NSDecimal labelingOrigin;			
+    NSDecimal majorIntervalLength;	
     NSUInteger minorTicksPerInterval;
     NSUInteger preferredNumberOfMajorTicks;
     CPAxisLabelingPolicy labelingPolicy;
@@ -74,7 +74,7 @@ typedef enum _CPAxisLabelingPolicy {
 	CPAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat titleOffset;
-	NSDecimal titleLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+	NSDecimal titleLocation;	
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
