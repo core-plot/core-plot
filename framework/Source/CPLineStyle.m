@@ -65,7 +65,7 @@
 		lineJoin = kCGLineJoinMiter;
 		miterLimit = 10.0;
 		lineWidth = 1.0;
-		patternPhase = 0.0f;
+		patternPhase = 0.0;
 		lineColor = [[CPColor blackColor] retain];
 	}
 	return self;

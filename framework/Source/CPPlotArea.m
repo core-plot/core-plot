@@ -67,9 +67,9 @@
 		CGFloat lineWidth = self.borderLineStyle.lineWidth;
 		
 		subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
-		subLayerSize.width = MAX(subLayerSize.width, 0.0f);
+		subLayerSize.width = MAX(subLayerSize.width, 0.0);
 		subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
-		subLayerSize.height = MAX(subLayerSize.height, 0.0f);
+		subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
 		CGRect subLayerBounds = thePlottingArea.bounds;
 		subLayerBounds.size = subLayerSize;

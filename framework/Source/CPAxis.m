@@ -517,6 +517,7 @@
 	// do not use accessor because we've already updated the layer hierarchy
 	[axisLabels release];
 	axisLabels = newAxisLabels;
+	[self setNeedsLayout];		
 	self.labelFormatterChanged = NO;
 }
 

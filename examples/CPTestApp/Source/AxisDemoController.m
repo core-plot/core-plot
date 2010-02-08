@@ -2,37 +2,35 @@
 
 @implementation AxisDemoController
 
--(void)dealloc 
-{
-    [graph release];
-    [super dealloc];
-}
-
 -(void)awakeFromNib
 {
-    // Create graph
-    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-    hostView.hostedLayer = graph;
-	
 	// Background
-	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
-	CGColorRelease(grayColor);
+	CPBorderedLayer *background = [[(CPBorderedLayer *)[CPBorderedLayer alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
+	background.fill = [CPFill fillWithColor:[CPColor darkGrayColor]];
+	background.paddingTop = 20.0;
+	background.paddingBottom = 20.0;
+	background.paddingLeft = 20.0;
+	background.paddingRight = 20.0;
+    hostView.hostedLayer = background;
+	
+    // Create graph
+	CPXYGraph *graph = [[(CPXYGraph *)[CPXYGraph alloc] initWithFrame:background.bounds] autorelease];
+	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+	[background addSublayer:graph];
 	
 	// Plot area
 	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-	graph.plotArea.paddingTop = 20;
-	graph.plotArea.paddingBottom = 50;
-	graph.plotArea.paddingLeft = 50;
-	graph.plotArea.paddingRight = 20;
+	graph.plotArea.paddingTop = 20.0;
+	graph.plotArea.paddingBottom = 50.0;
+	graph.plotArea.paddingLeft = 50.0;
+	graph.plotArea.paddingRight = 20.0;
 	
 	graph.plotArea.plottingArea.borderLineStyle = [CPLineStyle lineStyle];
-//	graph.plotArea.plottingArea.fill = graph.fill;
 
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(10.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0) length:CPDecimalFromFloat(10.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
 	
     // Line styles
     CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];

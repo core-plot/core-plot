@@ -110,6 +110,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 
 @end
 
+#pragma mark -
 ///	@brief CPPlotSpace abstract methods—must be overridden by subclasses
 @implementation CPPlotSpace(AbstractMethods)
 
