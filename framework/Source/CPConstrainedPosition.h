@@ -7,15 +7,13 @@
     CGFloat lowerBound;
     CGFloat upperBound;
     CGFloat lowerRatio;
-    CPConstraint lowerConstraint;
-    CPConstraint upperConstraint;
+    CPConstraints constraints;
 }
 
 @property (nonatomic, readwrite, assign) CGFloat position;
 @property (nonatomic, readwrite, assign) CGFloat lowerBound;
 @property (nonatomic, readwrite, assign) CGFloat upperBound;
-@property (nonatomic, readonly, assign) CPConstraint lowerConstraint;
-@property (nonatomic, readonly, assign) CPConstraint upperConstraint;
+@property (nonatomic, readonly, assign) CPConstraints constraints;
 
 -(id)initWithPosition:(CGFloat)newPosition lowerBound:(CGFloat)newLowerBound upperBound:(CGFloat)newUpperBound;
 

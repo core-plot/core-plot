@@ -4,11 +4,18 @@
 #import "CPAxis.h"
 #import "CPDefinitions.h"
 
+@class CPConstrainedPosition;
+
 @interface CPXYAxis : CPAxis {
 	@private
-    NSDecimal constantCoordinateValue;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    BOOL positionedRelativeToPlotArea;
+    NSDecimal orthogonalCoordinateDecimal;
+	CPConstraints constraints;
+    CPConstrainedPosition *constrainedPosition;
 }
 
-@property (nonatomic, readwrite) NSDecimal constantCoordinateValue;
+@property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
+@property (nonatomic, readwrite) CPConstraints constraints;
+@property (nonatomic, readwrite) BOOL positionedRelativeToPlotArea;
 
 @end

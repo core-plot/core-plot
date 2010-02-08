@@ -40,7 +40,7 @@
     x.majorTickLineStyle = nil;
     x.minorTickLineStyle = nil;
     x.majorIntervalLength = CPDecimalFromString(@"5");
-    x.constantCoordinateValue = CPDecimalFromString(@"0");
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"0");
 	x.title = @"X Axis";
     x.titleLocation = CPDecimalFromFloat(7.5f);
 	x.titleOffset = 55.0f;
@@ -68,7 +68,7 @@
     y.majorTickLineStyle = nil;
     y.minorTickLineStyle = nil;
     y.majorIntervalLength = CPDecimalFromString(@"50");
-    y.constantCoordinateValue = CPDecimalFromString(@"0");
+    y.orthogonalCoordinateDecimal = CPDecimalFromString(@"0");
 	y.title = @"Y Axis";
 	y.titleOffset = 45.0f;
     y.titleLocation = CPDecimalFromFloat(150.0f);

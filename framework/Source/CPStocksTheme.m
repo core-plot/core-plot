@@ -63,7 +63,7 @@
 	whiteTextStyle.fontSize = 14.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = CPDecimalFromDouble(0.5);
-    x.constantCoordinateValue = CPDecimalFromDouble(0.0);
+    x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
 	x.tickDirection = CPSignNone;
     x.minorTicksPerInterval = 4;
     x.majorTickLineStyle = majorLineStyle;
@@ -78,7 +78,7 @@
     y.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength = CPDecimalFromDouble(0.5);
     y.minorTicksPerInterval = 4;
-    y.constantCoordinateValue = CPDecimalFromDouble(0.0);
+    y.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
 	y.tickDirection = CPSignNone;
     y.majorTickLineStyle = majorLineStyle;
     y.minorTickLineStyle = minorLineStyle;

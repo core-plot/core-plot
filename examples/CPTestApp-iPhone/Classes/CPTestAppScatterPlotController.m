@@ -46,7 +46,7 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
-    x.constantCoordinateValue = CPDecimalFromString(@"2");
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 2;
  	NSArray *exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
@@ -58,7 +58,7 @@
     CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = CPDecimalFromString(@"2");
+    y.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
 	exclusionRanges = [NSArray arrayWithObjects:
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
 		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
