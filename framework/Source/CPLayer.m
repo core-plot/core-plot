@@ -111,17 +111,6 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
-        NSDictionary *actionsDict = [[NSDictionary alloc] initWithObjectsAndKeys:
-									 [NSNull null], @"anchorPoint",
-									 [NSNull null], @"bounds",
-									 [NSNull null], @"position",
-									 [NSNull null], @"sublayers",
-									 [NSNull null], @"sublayerTransform",
-									 [NSNull null], @"transform",
-									 [NSNull null], @"zPosition",
-									 nil];
-        self.actions = actionsDict;
-        [actionsDict release];
     }
 	return self;
 }
@@ -141,7 +130,7 @@
 #pragma mark -
 #pragma mark Animation
 
-+(id <CAAction>)defaultActionForKey:(NSString *)aKey
+-(id <CAAction>)actionForKey:(NSString *)aKey
 {
     return nil;
 }
