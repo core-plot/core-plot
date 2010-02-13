@@ -14,11 +14,6 @@
  **/
 @synthesize borderLineStyle;
 
-/** @property cornerRadius 
- *  @brief Radius for the rounded corners of the layer.
- **/
-@synthesize cornerRadius;
-
 /** @property fill 
  *  @brief The fill for the layer background.
  *	If nil, the layer background is not filled.
@@ -33,7 +28,6 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		borderLineStyle = nil;
 		fill = nil;
-		cornerRadius = 0.0;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
 
@@ -150,8 +144,8 @@
 
 -(void)setCornerRadius:(CGFloat)newRadius
 {
-	if ( newRadius != cornerRadius ) {
-		cornerRadius = ABS(newRadius);
+	if ( newRadius != self.cornerRadius ) {
+		super.cornerRadius = newRadius;
 		[self setNeedsDisplay];
 		
 		CGPathRelease(outerBorderPath);
