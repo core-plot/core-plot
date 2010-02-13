@@ -54,6 +54,11 @@
  **/
 @synthesize paddingBottom;
 
+/** @property masksToBorder 
+ *  @brief If YES (the default), a sublayer mask is applied to clip sublayer content to the inside of the border.
+ **/
+@synthesize masksToBorder;
+
 /** @property maskingPath
  *  @brief A drawing path that encompasses the layer content including any borders. Set to NULL when no masking is desired.
  *
@@ -103,6 +108,7 @@
 		paddingTop = 0.0;
 		paddingRight = 0.0;
 		paddingBottom = 0.0;
+		masksToBorder = NO;
 		layoutManager = nil;
 		renderingRecursively = NO;
 
@@ -417,7 +423,7 @@
 -(void)applyMaskToContext:(CGContextRef)context
 {
 	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
-		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:CGPointMake(0.0, 0.0)];
+		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:CGPointZero];
 	}
 	
 	CGPathRef maskPath = self.maskingPath;

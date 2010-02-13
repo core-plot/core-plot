@@ -25,11 +25,6 @@
  **/
 @synthesize fill;
 
-/** @property masksToBorder 
- *  @brief If YES (the default), a sublayer mask is applied to clip sublayer content to the inside of the border.
- **/
-@synthesize masksToBorder;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -41,8 +36,8 @@
 		cornerRadius = 0.0;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
-		masksToBorder = YES;
 
+		self.masksToBorder = YES;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;

@@ -12,6 +12,7 @@
 	CGFloat paddingTop;
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
+	BOOL masksToBorder;
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
     __weak CPGraph *graph;
@@ -32,6 +33,7 @@
 
 /// @name Masking
 /// @{
+@property (nonatomic, readwrite, assign) BOOL masksToBorder;
 @property (nonatomic, readonly, assign) CGPathRef maskingPath;
 @property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
 ///	@}
