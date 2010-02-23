@@ -151,6 +151,14 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 }
 
+/**	@brief Sets the range of values for a given coordinate.
+ *  @param newRange The new plot range.
+ *	@param coordinate The axis coordinate.
+ **/
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate
+{
+}
+
 /**	@brief Gets the range of values for a given coordinate.
  *	@param coordinate The axis coordinate.
  *	@return The range of values.

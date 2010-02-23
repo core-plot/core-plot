@@ -70,6 +70,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Range
 /// @{
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate;
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 ///	@}
 

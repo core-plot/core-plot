@@ -16,6 +16,8 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
+-(CPPlotRange *)constrainRange:(CPPlotRange *)existingRange toGlobalRange:(CPPlotRange *)globalRange;
+
 @end
 /// @endcond
 
@@ -24,22 +26,34 @@
 @implementation CPXYPlotSpace
 
 /** @property xRange
- *	@brief The range of the x-axis.
+ *	@brief The range of the x coordinate.
  **/
 @synthesize xRange;
 
 /** @property yRange
- *	@brief The range of the y-axis.
+ *	@brief The range of the y coordinate.
  **/
 @synthesize yRange;
 
+/** @property globalXRange
+ *	@brief The global range of the x coordinate to which the plot range is constrained.
+ *  If nil, there is no constraint on x.
+ **/
+@synthesize globalXRange;
+
+/** @property globalYRange
+ *	@brief The global range of the y coordinate to which the plot range is constrained.
+ *  If nil, there is no constraint on y.
+ **/
+@synthesize globalYRange;
+
 /** @property xScaleType
- *	@brief The scale type of the x-axis.
+ *	@brief The scale type of the x coordinate.
  **/
 @synthesize xScaleType;
 
 /** @property yScaleType
- *	@brief The scale type of the y-axis.
+ *	@brief The scale type of the y coordinate.
  **/
 @synthesize yScaleType;
 
@@ -51,6 +65,8 @@
 	if ( self = [super init] ) {
 		xRange = nil;
 		yRange = nil;
+        globalXRange = nil;
+        globalYRange = nil;
 		xScaleType = CPScaleTypeLinear;
 		yScaleType = CPScaleTypeLinear;
 	}
@@ -61,11 +77,23 @@
 {
 	[xRange release];
 	[yRange release];
+    [globalXRange release];
+    [globalYRange release];
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Ranges
+
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate
+{
+	if ( coordinate == CPCoordinateX ) {
+        self.xRange = newRange;
+    }
+    else {
+        self.yRange = newRange;
+    }
+}
 
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate
 {
@@ -75,8 +103,9 @@
 -(void)setXRange:(CPPlotRange *)range 
 {
 	if ( range != xRange ) {
+        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:globalXRange];
 		[xRange release];
-		xRange = [range copy];
+		xRange = [constrainedRange copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
     	if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
             [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateX];
@@ -87,13 +116,42 @@
 -(void)setYRange:(CPPlotRange *)range 
 {
 	if ( range != yRange ) {
+        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:globalYRange];
 		[yRange release];
-		yRange = [range copy];
+		yRange = [constrainedRange copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
         if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
             [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateY];
         }
 	}
+}
+
+-(CPPlotRange *)constrainRange:(CPPlotRange *)existingRange toGlobalRange:(CPPlotRange *)globalRange 
+{
+    if ( !globalRange ) return existingRange;
+    if ( !existingRange ) return nil;
+    CPPlotRange *newRange = [[existingRange copy] autorelease];
+    [newRange shiftEndToFitInRange:globalRange];
+    [newRange shiftLocationToFitInRange:globalRange];
+    return newRange;
+}
+
+-(void)setGlobalXRange:(CPPlotRange *)newRange 
+{
+    if ( newRange != globalXRange ) {
+    	[globalXRange release];
+        globalXRange = [newRange copy];
+		self.xRange = [self constrainRange:xRange toGlobalRange:globalXRange];
+    }
+}
+
+-(void)setGlobalYRange:(CPPlotRange *)newRange 
+{
+    if ( newRange != globalYRange ) {
+    	[globalYRange release];
+        globalYRange = [newRange copy];
+        self.yRange = [self constrainRange:yRange toGlobalRange:globalYRange];
+    }
 }
 
 -(void)scaleToFitPlots:(NSArray *)plots {

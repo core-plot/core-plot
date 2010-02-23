@@ -182,6 +182,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     [yRange expandRangeByFactor:CPDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
     
+    // Restrict y range to a global range
+    CPPlotRange *globalYRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(6.0f)];
+    plotSpace.globalYRange = globalYRange;
+    
     // set the x and y shift to match the new ranges
 	CGFloat length = CPDecimalDoubleValue(xRange.length);
 	self.xShift = length - 3.0;
