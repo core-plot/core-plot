@@ -288,7 +288,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 #pragma mark Plot Space Delegate Methods
 
 -(CPPlotRange *)plotSpace:(CPPlotSpace *)space willChangePlotRangeTo:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate {
-    // Impose a limit on how far user can scroll
+    // Impose a limit on how far user can scroll in x
     if ( coordinate == CPCoordinateX ) {
         CPPlotRange *maxRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0f) length:CPDecimalFromFloat(6.0f)];
         CPPlotRange *changedRange = [[newRange copy] autorelease];

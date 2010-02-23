@@ -285,7 +285,7 @@
 	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
         return NO;
     }
-    CGPoint pointInPlotArea = [self.graph.plotArea convertPoint:interactionPoint toLayer:self.graph.plotArea];
+    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotArea];
     if ( [self.graph.plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
         lastDragPoint = pointInPlotArea;
@@ -314,7 +314,7 @@
 	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
         return NO;
     }
-    CGPoint pointInPlotArea = [self.graph.plotArea convertPoint:interactionPoint toLayer:self.graph.plotArea];
+    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotArea];
     if ( isDragging ) {
     	CGPoint displacement = CGPointMake(pointInPlotArea.x-lastDragPoint.x, pointInPlotArea.y-lastDragPoint.y);
         CGPoint pointToUse = pointInPlotArea;
