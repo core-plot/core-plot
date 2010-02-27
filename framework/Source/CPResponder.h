@@ -6,10 +6,10 @@
 
 /// @name User Interaction
 /// @{
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint;
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint;
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint;
--(BOOL)pointingDeviceCancelled;
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceCancelledEvent:(id)event;
 ///	@}
 
 @end

@@ -386,98 +386,98 @@
 #pragma mark -
 #pragma mark Event Handling
 
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
     // Plots
     for ( CPPlot *plot in self.plots ) {
-        if ( [plot pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+        if ( [plot pointingDeviceDownEvent:event atPoint:interactionPoint] ) return YES;
     } 
     
     // Axes Set
-    if ( [self.axisSet pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    if ( [self.axisSet pointingDeviceDownEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotArea pointingDeviceDownEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        BOOL handled = [space pointingDeviceDownAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceDownEvent:event atPoint:interactionPoint];
         handledEvent |= handled;
     } 
     
     return handledEvent;
 }
 
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
     // Plots
     for ( CPPlot *plot in self.plots ) {
-        if ( [plot pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+        if ( [plot pointingDeviceUpEvent:event atPoint:interactionPoint] ) return YES;
     } 
     
     // Axes Set
-    if ( [self.axisSet pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    if ( [self.axisSet pointingDeviceUpEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotArea pointingDeviceUpEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        BOOL handled = [space pointingDeviceUpAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
         handledEvent |= handled;
     } 
     
     return handledEvent;
 }
 
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
     // Plots
     for ( CPPlot *plot in self.plots ) {
-        if ( [plot pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+        if ( [plot pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) return YES;
     } 
     
     // Axes Set
-    if ( [self.axisSet pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    if ( [self.axisSet pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotArea pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
     // the same event sequence (eg dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        BOOL handled = [space pointingDeviceDraggedAtPoint:interactionPoint];
+        BOOL handled = [space pointingDeviceDraggedEvent:event atPoint:interactionPoint];
         handledEvent |= handled;
     } 
     
     return handledEvent;
 }
 
--(BOOL)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelledEvent:(id)event
 {
     // Plots
     for ( CPPlot *plot in self.plots ) {
-        if ( [plot pointingDeviceCancelled] ) return YES;
+        if ( [plot pointingDeviceCancelledEvent:event] ) return YES;
     } 
     
     // Axes Set
-    if ( [self.axisSet pointingDeviceCancelled] ) return YES;
+    if ( [self.axisSet pointingDeviceCancelledEvent:event] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceCancelled] ) return YES;
+    if ( [self.plotArea pointingDeviceCancelledEvent:event] ) return YES;
     
     // Plot spaces
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
-        BOOL handled = [space pointingDeviceCancelled];
+        BOOL handled = [space pointingDeviceCancelledEvent:event];
         handledEvent |= handled;
     } 
     

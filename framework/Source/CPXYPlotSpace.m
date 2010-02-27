@@ -280,11 +280,15 @@
 #pragma mark -
 #pragma mark Interaction
 
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
+	BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    if ( handledByDelegate ) return YES;
+
 	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
         return NO;
     }
+    
     CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotArea];
     if ( [self.graph.plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
@@ -296,11 +300,15 @@
 	return NO;
 }
 
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
+	BOOL handledByDelegate = [super pointingDeviceUpEvent:event atPoint:interactionPoint];
+	if ( handledByDelegate ) return YES;
+
 	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
         return NO;
     }
+    
     if ( isDragging ) {
         isDragging = NO;
         return YES;
@@ -309,11 +317,15 @@
 	return NO;
 }
 
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
+	BOOL handledByDelegate = [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+	if ( handledByDelegate ) return YES;
+    
 	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
         return NO;
     }
+    
     CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotArea];
     if ( isDragging ) {
     	CGPoint displacement = CGPointMake(pointInPlotArea.x-lastDragPoint.x, pointInPlotArea.y-lastDragPoint.y);

@@ -75,35 +75,51 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelledEvent:(id)event
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    }
+	return eventIsHandled;
 }
 
 ///	@}
