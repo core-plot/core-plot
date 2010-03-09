@@ -421,6 +421,11 @@
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
 {
+	if ( [delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+		BOOL shouldContinue = [delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+		if ( !shouldContinue ) return;
+	}
+
 	CGFloat offset = self.labelOffset;
 	switch ( self.tickDirection ) {
 		case CPSignNone:

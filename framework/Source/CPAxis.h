@@ -25,7 +25,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /**	@brief Axis labeling delegate.
  **/
-@protocol CPAxisDelegate
+@protocol CPAxisDelegate <NSObject>
 
 /// @name Labels
 /// @{
@@ -41,6 +41,17 @@ typedef enum _CPAxisLabelingPolicy {
  *	@param axis The axis.
  **/
 -(void)axisDidRelabel:(CPAxis *)axis;
+
+@optional
+
+/**	@brief This method gives the delegate a chance to create custom labels for each tick.
+ *  It can be used with any relabeling policy. Returning NO will cause the axis not
+ *  to update the labels. It is then the delegates responsiblity to do this.
+ *	@param axis The axis.
+ *  @param locations The locations of the major ticks.
+ *  @return YES if the axis class should proceed with automatic relabeling.
+ **/
+-(BOOL)axis:(CPAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations;
 
 ///	@}
 
