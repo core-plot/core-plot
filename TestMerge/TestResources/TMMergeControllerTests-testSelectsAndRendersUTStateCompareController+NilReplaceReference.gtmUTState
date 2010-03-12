@@ -88,6 +88,14 @@
 				<false/>
 				<key>ViewSubView 0</key>
 				<dict>
+					<key>BoxBorderType</key>
+					<integer>0</integer>
+					<key>BoxTitle</key>
+					<string>Box</string>
+					<key>BoxTitlePosition</key>
+					<integer>0</integer>
+					<key>BoxType</key>
+					<integer>0</integer>
 					<key>ViewIsHidden</key>
 					<false/>
 					<key>ViewSubView 0</key>
@@ -357,25 +365,6 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<false/>
-																<key>MenuItemIsSeparator</key>
-																<true/>
-																<key>MenuItemKeyEquivalent</key>
-																<string></string>
-																<key>MenuItemState</key>
-																<integer>0</integer>
-																<key>MenuItemTag</key>
-																<integer>0</integer>
-																<key>MenuItemTitle</key>
-																<string></string>
-															</dict>
-															<key>MenuItem 7</key>
-															<dict>
-																<key>MenuItemIndentationLevel</key>
-																<integer>0</integer>
-																<key>MenuItemIsAlternate</key>
-																<false/>
-																<key>MenuItemIsEnabled</key>
 																<true/>
 																<key>MenuItemIsSeparator</key>
 																<false/>
@@ -457,9 +446,9 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<true/>
-																<key>MenuItemIsSeparator</key>
 																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
 																<key>MenuItemKeyEquivalent</key>
 																<string></string>
 																<key>MenuItemState</key>
@@ -467,7 +456,7 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Check Spelling While Typing</string>
+																<string></string>
 															</dict>
 															<key>MenuItem 3</key>
 															<dict>
@@ -486,7 +475,45 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
+																<string>Check Spelling While Typing</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
 																<string>Check Grammar With Spelling</string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Correct Spelling Automatically</string>
 															</dict>
 															<key>MenuTitle</key>
 															<string>Spelling and Grammar</string>
@@ -529,7 +556,7 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Smart Copy/Paste</string>
+																<string>Replace Quotes</string>
 															</dict>
 															<key>MenuItem 1</key>
 															<dict>
@@ -548,9 +575,9 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Smart Quotes</string>
+																<string>Replace Dashes</string>
 															</dict>
-															<key>MenuItem 2</key>
+															<key>MenuItem 10</key>
 															<dict>
 																<key>MenuItemIndentationLevel</key>
 																<integer>0</integer>
@@ -569,6 +596,196 @@
 																<key>MenuItemTitle</key>
 																<string>Smart Links</string>
 															</dict>
+															<key>MenuItem 11</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Data Detectors</string>
+															</dict>
+															<key>MenuItem 12</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Text Replacement</string>
+															</dict>
+															<key>MenuItem 2</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Add Links</string>
+															</dict>
+															<key>MenuItem 3</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Replace Text</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Show Substitutions</string>
+															</dict>
+															<key>MenuItem 6</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 7</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Copy/Paste</string>
+															</dict>
+															<key>MenuItem 8</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Quotes</string>
+															</dict>
+															<key>MenuItem 9</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Dashes</string>
+															</dict>
 															<key>MenuTitle</key>
 															<string>Substitutions</string>
 														</dict>
@@ -578,6 +795,87 @@
 														<string>Substitutions</string>
 													</dict>
 													<key>MenuItem 7</key>
+													<dict>
+														<key>MenuItemIndentationLevel</key>
+														<integer>0</integer>
+														<key>MenuItemIsAlternate</key>
+														<false/>
+														<key>MenuItemIsEnabled</key>
+														<true/>
+														<key>MenuItemIsSeparator</key>
+														<false/>
+														<key>MenuItemKeyEquivalent</key>
+														<string></string>
+														<key>MenuItemState</key>
+														<integer>0</integer>
+														<key>MenuItemSubmenu</key>
+														<dict>
+															<key>MenuItem 0</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Make Upper Case</string>
+															</dict>
+															<key>MenuItem 1</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Make Lower Case</string>
+															</dict>
+															<key>MenuItem 2</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Capitalize</string>
+															</dict>
+															<key>MenuTitle</key>
+															<string>Transformations</string>
+														</dict>
+														<key>MenuItemTag</key>
+														<integer>0</integer>
+														<key>MenuItemTitle</key>
+														<string>Transformations</string>
+													</dict>
+													<key>MenuItem 8</key>
 													<dict>
 														<key>MenuItemIndentationLevel</key>
 														<integer>0</integer>
@@ -639,7 +937,7 @@
 														<key>MenuItemTitle</key>
 														<string>Speech</string>
 													</dict>
-													<key>MenuItem 8</key>
+													<key>MenuItem 9</key>
 													<dict>
 														<key>MenuItemIndentationLevel</key>
 														<integer>0</integer>
@@ -662,7 +960,7 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<true/>
+																<false/>
 																<key>MenuItemIsSeparator</key>
 																<false/>
 																<key>MenuItemKeyEquivalent</key>
@@ -670,9 +968,9 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
-																<integer>-1</integer>
+																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Default</string>
+																<string>Paragraph</string>
 															</dict>
 															<key>MenuItem 1</key>
 															<dict>
@@ -689,9 +987,9 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
-																<integer>0</integer>
+																<integer>-1</integer>
 																<key>MenuItemTitle</key>
-																<string>Left to Right</string>
+																<string>	Default</string>
 															</dict>
 															<key>MenuItem 2</key>
 															<dict>
@@ -708,9 +1006,123 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>	Left to Right</string>
+															</dict>
+															<key>MenuItem 3</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
 																<integer>1</integer>
 																<key>MenuItemTitle</key>
-																<string>Right to Left</string>
+																<string>	Right to Left</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Selection</string>
+															</dict>
+															<key>MenuItem 6</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>-1</integer>
+																<key>MenuItemTitle</key>
+																<string>	Default</string>
+															</dict>
+															<key>MenuItem 7</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>	Left to Right</string>
+															</dict>
+															<key>MenuItem 8</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>1</integer>
+																<key>MenuItemTitle</key>
+																<string>	Right to Left</string>
 															</dict>
 															<key>MenuTitle</key>
 															<string>Writing Direction</string>
@@ -985,25 +1397,6 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<false/>
-																<key>MenuItemIsSeparator</key>
-																<true/>
-																<key>MenuItemKeyEquivalent</key>
-																<string></string>
-																<key>MenuItemState</key>
-																<integer>0</integer>
-																<key>MenuItemTag</key>
-																<integer>0</integer>
-																<key>MenuItemTitle</key>
-																<string></string>
-															</dict>
-															<key>MenuItem 7</key>
-															<dict>
-																<key>MenuItemIndentationLevel</key>
-																<integer>0</integer>
-																<key>MenuItemIsAlternate</key>
-																<false/>
-																<key>MenuItemIsEnabled</key>
 																<true/>
 																<key>MenuItemIsSeparator</key>
 																<false/>
@@ -1085,9 +1478,9 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<true/>
-																<key>MenuItemIsSeparator</key>
 																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
 																<key>MenuItemKeyEquivalent</key>
 																<string></string>
 																<key>MenuItemState</key>
@@ -1095,7 +1488,7 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Check Spelling While Typing</string>
+																<string></string>
 															</dict>
 															<key>MenuItem 3</key>
 															<dict>
@@ -1114,7 +1507,45 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
+																<string>Check Spelling While Typing</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
 																<string>Check Grammar With Spelling</string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Correct Spelling Automatically</string>
 															</dict>
 															<key>MenuTitle</key>
 															<string>Spelling and Grammar</string>
@@ -1157,7 +1588,7 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Smart Copy/Paste</string>
+																<string>Replace Quotes</string>
 															</dict>
 															<key>MenuItem 1</key>
 															<dict>
@@ -1176,9 +1607,9 @@
 																<key>MenuItemTag</key>
 																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Smart Quotes</string>
+																<string>Replace Dashes</string>
 															</dict>
-															<key>MenuItem 2</key>
+															<key>MenuItem 10</key>
 															<dict>
 																<key>MenuItemIndentationLevel</key>
 																<integer>0</integer>
@@ -1197,6 +1628,196 @@
 																<key>MenuItemTitle</key>
 																<string>Smart Links</string>
 															</dict>
+															<key>MenuItem 11</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Data Detectors</string>
+															</dict>
+															<key>MenuItem 12</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Text Replacement</string>
+															</dict>
+															<key>MenuItem 2</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Add Links</string>
+															</dict>
+															<key>MenuItem 3</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Replace Text</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Show Substitutions</string>
+															</dict>
+															<key>MenuItem 6</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 7</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Copy/Paste</string>
+															</dict>
+															<key>MenuItem 8</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Quotes</string>
+															</dict>
+															<key>MenuItem 9</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Smart Dashes</string>
+															</dict>
 															<key>MenuTitle</key>
 															<string>Substitutions</string>
 														</dict>
@@ -1206,6 +1827,87 @@
 														<string>Substitutions</string>
 													</dict>
 													<key>MenuItem 7</key>
+													<dict>
+														<key>MenuItemIndentationLevel</key>
+														<integer>0</integer>
+														<key>MenuItemIsAlternate</key>
+														<false/>
+														<key>MenuItemIsEnabled</key>
+														<true/>
+														<key>MenuItemIsSeparator</key>
+														<false/>
+														<key>MenuItemKeyEquivalent</key>
+														<string></string>
+														<key>MenuItemState</key>
+														<integer>0</integer>
+														<key>MenuItemSubmenu</key>
+														<dict>
+															<key>MenuItem 0</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Make Upper Case</string>
+															</dict>
+															<key>MenuItem 1</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Make Lower Case</string>
+															</dict>
+															<key>MenuItem 2</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Capitalize</string>
+															</dict>
+															<key>MenuTitle</key>
+															<string>Transformations</string>
+														</dict>
+														<key>MenuItemTag</key>
+														<integer>0</integer>
+														<key>MenuItemTitle</key>
+														<string>Transformations</string>
+													</dict>
+													<key>MenuItem 8</key>
 													<dict>
 														<key>MenuItemIndentationLevel</key>
 														<integer>0</integer>
@@ -1267,7 +1969,7 @@
 														<key>MenuItemTitle</key>
 														<string>Speech</string>
 													</dict>
-													<key>MenuItem 8</key>
+													<key>MenuItem 9</key>
 													<dict>
 														<key>MenuItemIndentationLevel</key>
 														<integer>0</integer>
@@ -1290,7 +1992,7 @@
 																<key>MenuItemIsAlternate</key>
 																<false/>
 																<key>MenuItemIsEnabled</key>
-																<true/>
+																<false/>
 																<key>MenuItemIsSeparator</key>
 																<false/>
 																<key>MenuItemKeyEquivalent</key>
@@ -1298,9 +2000,9 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
-																<integer>-1</integer>
+																<integer>0</integer>
 																<key>MenuItemTitle</key>
-																<string>Default</string>
+																<string>Paragraph</string>
 															</dict>
 															<key>MenuItem 1</key>
 															<dict>
@@ -1317,9 +2019,9 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
-																<integer>0</integer>
+																<integer>-1</integer>
 																<key>MenuItemTitle</key>
-																<string>Left to Right</string>
+																<string>	Default</string>
 															</dict>
 															<key>MenuItem 2</key>
 															<dict>
@@ -1336,9 +2038,123 @@
 																<key>MenuItemState</key>
 																<integer>0</integer>
 																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>	Left to Right</string>
+															</dict>
+															<key>MenuItem 3</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
 																<integer>1</integer>
 																<key>MenuItemTitle</key>
-																<string>Right to Left</string>
+																<string>	Right to Left</string>
+															</dict>
+															<key>MenuItem 4</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<true/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string></string>
+															</dict>
+															<key>MenuItem 5</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<false/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>Selection</string>
+															</dict>
+															<key>MenuItem 6</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>-1</integer>
+																<key>MenuItemTitle</key>
+																<string>	Default</string>
+															</dict>
+															<key>MenuItem 7</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>0</integer>
+																<key>MenuItemTitle</key>
+																<string>	Left to Right</string>
+															</dict>
+															<key>MenuItem 8</key>
+															<dict>
+																<key>MenuItemIndentationLevel</key>
+																<integer>0</integer>
+																<key>MenuItemIsAlternate</key>
+																<false/>
+																<key>MenuItemIsEnabled</key>
+																<true/>
+																<key>MenuItemIsSeparator</key>
+																<false/>
+																<key>MenuItemKeyEquivalent</key>
+																<string></string>
+																<key>MenuItemState</key>
+																<integer>0</integer>
+																<key>MenuItemTag</key>
+																<integer>1</integer>
+																<key>MenuItemTitle</key>
+																<string>	Right to Left</string>
 															</dict>
 															<key>MenuTitle</key>
 															<string>Writing Direction</string>
@@ -1356,13 +2172,13 @@
 										<key>ViewSubView 1</key>
 										<dict>
 											<key>ControlIsEnabled</key>
-											<true/>
+											<false/>
 											<key>ControlTag</key>
 											<integer>0</integer>
 											<key>ControlType</key>
 											<string>NSScroller</string>
 											<key>ViewIsHidden</key>
-											<false/>
+											<true/>
 										</dict>
 										<key>ViewSubView 2</key>
 										<dict>
@@ -1413,6 +2229,94 @@
 	<key>WindowIsVisible</key>
 	<false/>
 	<key>WindowTitle</key>
-	<string>/Network/Servers/rieke-server.physiol.washington.edu/Volumes/Data/Users/barry/Build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference — /Network/Servers/rieke-server.physiol.washington.edu/Volumes/Data/Users/barry/Build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+	<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference — /Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+	<key>WindowToolbar</key>
+	<dict>
+		<key>ToolbarItem 0</key>
+		<dict>
+			<key>Label</key>
+			<string>Reference</string>
+			<key>PaletteLabel</key>
+			<string>Reference</string>
+			<key>View</key>
+			<dict>
+				<key>ControlIsEnabled</key>
+				<true/>
+				<key>ControlSelectedCell</key>
+				<dict>
+					<key>CellState</key>
+					<integer>0</integer>
+					<key>CellTag</key>
+					<integer>0</integer>
+					<key>CellTitle</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+					<key>CellValue</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+				</dict>
+				<key>ControlTag</key>
+				<integer>0</integer>
+				<key>ControlType</key>
+				<string>NSPathControl</string>
+				<key>ControlValue</key>
+				<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+				<key>ViewIsHidden</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>ToolbarItem 1</key>
+		<dict>
+			<key>Label</key>
+			<string></string>
+			<key>PaletteLabel</key>
+			<string>Space</string>
+		</dict>
+		<key>ToolbarItem 2</key>
+		<dict>
+			<key>Label</key>
+			<string>Test Output</string>
+			<key>PaletteLabel</key>
+			<string>Test Output</string>
+			<key>View</key>
+			<dict>
+				<key>ControlIsEnabled</key>
+				<true/>
+				<key>ControlSelectedCell</key>
+				<dict>
+					<key>CellState</key>
+					<integer>0</integer>
+					<key>CellTag</key>
+					<integer>0</integer>
+					<key>CellTitle</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+					<key>CellValue</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+				</dict>
+				<key>ControlTag</key>
+				<integer>0</integer>
+				<key>ControlType</key>
+				<string>NSPathControl</string>
+				<key>ControlValue</key>
+				<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+				<key>ViewIsHidden</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>ToolbarItem 3</key>
+		<dict>
+			<key>Label</key>
+			<string></string>
+			<key>PaletteLabel</key>
+			<string>Flexible Space</string>
+		</dict>
+		<key>ToolbarItem 4</key>
+		<dict>
+			<key>Label</key>
+			<string>Customize</string>
+			<key>PaletteLabel</key>
+			<string>Customize</string>
+			<key>ToolTip</key>
+			<string>Customize Toolbar</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
