@@ -182,7 +182,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4CB6D3471149BFE9004713F1 /* GTM.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894 /* UnitTest - AddressBook.octest */;
+			remoteGlobalIDString = 8BFE13FC0FB0F2D8001BE894;
 			remoteInfo = "UnitTest - AddressBook";
 		};
 /* End PBXContainerItemProxy section */
