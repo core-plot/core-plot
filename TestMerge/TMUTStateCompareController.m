@@ -23,10 +23,18 @@
 }
 
 - (NSString*)referenceText {
-    return [NSString stringWithContentsOfFile:[(id<TMOutputGroup>)[self representedObject] referencePath]];
+	NSStringEncoding encoding;
+	
+    return [NSString stringWithContentsOfFile:[(id<TMOutputGroup>)[self representedObject] referencePath]
+									 usedEncoding:&encoding
+										error:NULL];
 }
 
 - (NSString*)outputText {
-    return [NSString stringWithContentsOfFile:[(id<TMOutputGroup>)[self representedObject] outputPath]];
+	NSStringEncoding encoding;
+	
+    return [NSString stringWithContentsOfFile:[(id<TMOutputGroup>)[self representedObject] outputPath]
+								 usedEncoding:&encoding
+										error:NULL];
 }
 @end
