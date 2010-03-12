@@ -64,7 +64,7 @@
     GTMAssertObjectImageEqualToImageNamed(controller.window, @"TMMergeControllerTests-testWindowUIRendering", @"");
 }
 
-- (void)testOutputGroupsSortsReferenceAndOutputFiles {
+- (void)testOutputGroupsSortsReferenceAndOutputFilesForOSX {
     NSString *groupTestRoot = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"OutputGroupTest"];
     
     BOOL dir;
@@ -81,6 +81,24 @@
     STAssertTrue(controller.outputGroups.count > 0, @"");
     
     GTMAssertObjectEqualToStateAndImageNamed(controller.window, @"TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles", @"");
+    
+}
+
+- (void)testOutputGroupsSortsReferenceAndOutputFilesForIPhone {
+    NSString *groupTestRoot = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"IPhoneOutputGroupTest"];
+    
+    BOOL dir;
+    STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:groupTestRoot isDirectory:&dir] && dir, @"");
+    
+    TMMergeController *controller = [[[TMMergeController alloc] initWithWindowNibName:@"MergeUI"] autorelease];
+    
+    controller.referencePath = [groupTestRoot stringByAppendingPathComponent:@"Reference"];
+    controller.outputPath = [groupTestRoot stringByAppendingPathComponent:@"Output"];
+    
+    
+    (void)[controller window];
+    
+    STAssertTrue(controller.outputGroups.count > 0, @"");
     
 }
 

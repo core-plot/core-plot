@@ -35,7 +35,6 @@
 		4C5111C40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B20FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff */; };
 		4C5111C50FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B30FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff */; };
 		4C5111C60FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C5111B40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff */; };
-		4C6C49D90FCDC2D600D6AB30 /* TMOutputGroupCDFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */; };
 		4C6C4A350FCDC5C700D6AB30 /* OutputGroupTest in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */; };
 		4C6C4AD40FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4AD20FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.gtmUTState */; };
 		4C6C4AD50FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C6C4AD30FCDD21800D6AB30 /* TMMergeControllerTests-testOutputGroupsSortsReferenceAndOutputFiles.tiff */; };
@@ -76,6 +75,10 @@
 		4CB6D4A61149C2D1004713F1 /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D3741149BFE9004713F1 /* GTMUnitTestingUtilities.m */; };
 		4CB6D4A71149C2DC004713F1 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D47B1149C176004713F1 /* GTMSystemVersion.m */; };
 		4CB6D4A81149C2DF004713F1 /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D4691149C176004713F1 /* GTMRegex.m */; };
+		4CB6D56F1149C81E004713F1 /* TMOutputGroupCDFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D56D1149C81E004713F1 /* TMOutputGroupCDFactory.m */; };
+		4CB6DC0E114AE977004713F1 /* IPhoneOutputGroupTest in Resources */ = {isa = PBXBuildFile; fileRef = 4CB6DC05114AE977004713F1 /* IPhoneOutputGroupTest */; };
+		4CB6DCF7114AEA74004713F1 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D2FD1149BFE9004713F1 /* GTMMethodCheck.m */; };
+		4CB6DD02114AEDC1004713F1 /* GTMNSNumber+64Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6D4491149C176004713F1 /* GTMNSNumber+64Bit.m */; };
 		4CC9A4020FD995C100CFBE5E /* _OutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4010FD995C100CFBE5E /* _OutputFile.m */; };
 		4CC9A4050FD995D700CFBE5E /* OutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4040FD995D700CFBE5E /* OutputFile.m */; };
 		4CC9A4170FD9963C00CFBE5E /* OutputGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9A4160FD9963C00CFBE5E /* OutputGroupTests.m */; };
@@ -275,8 +278,6 @@
 		4C7D30930FC2043000005D98 /* TMOutputSorterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorterTests.m; sourceTree = "<group>"; };
 		4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputSorter.h; sourceTree = "<group>"; };
 		4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputSorter.m; sourceTree = "<group>"; };
-		4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupCDFactory.h; sourceTree = "<group>"; };
-		4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputGroupCDFactory.m; sourceTree = "<group>"; };
 		4C7D31BC0FC21F0600005D98 /* _OutputGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OutputGroup.h; sourceTree = "<group>"; };
 		4C7D31BD0FC21F0600005D98 /* _OutputGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OutputGroup.m; sourceTree = "<group>"; };
 		4C7D31BE0FC21F0600005D98 /* OutputGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputGroup.h; sourceTree = "<group>"; };
@@ -326,7 +327,6 @@
 		4CB6D2F71149BFE9004713F1 /* BuildAllSDKs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildAllSDKs.sh; sourceTree = "<group>"; };
 		4CB6D2F81149BFE9004713F1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		4CB6D2FA1149BFE9004713F1 /* GTMDebugSelectorValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDebugSelectorValidation.h; sourceTree = "<group>"; };
-		4CB6D2FB1149BFE9004713F1 /* GTMDevLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMDevLog.m; sourceTree = "<group>"; };
 		4CB6D2FC1149BFE9004713F1 /* GTMMethodCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMMethodCheck.h; sourceTree = "<group>"; };
 		4CB6D2FD1149BFE9004713F1 /* GTMMethodCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMMethodCheck.m; sourceTree = "<group>"; };
 		4CB6D2FE1149BFE9004713F1 /* GTMMethodCheckTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMMethodCheckTest.m; sourceTree = "<group>"; };
@@ -543,6 +543,9 @@
 		4CB6D4831149C176004713F1 /* GTMValidatingContainers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMValidatingContainers.h; sourceTree = "<group>"; };
 		4CB6D4841149C176004713F1 /* GTMValidatingContainers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMValidatingContainers.m; sourceTree = "<group>"; };
 		4CB6D4851149C176004713F1 /* GTMValidatingContainersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMValidatingContainersTest.m; sourceTree = "<group>"; };
+		4CB6D56D1149C81E004713F1 /* TMOutputGroupCDFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOutputGroupCDFactory.m; sourceTree = "<group>"; };
+		4CB6D56E1149C81E004713F1 /* TMOutputGroupCDFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOutputGroupCDFactory.h; sourceTree = "<group>"; };
+		4CB6DC05114AE977004713F1 /* IPhoneOutputGroupTest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IPhoneOutputGroupTest; path = TestResources/IPhoneOutputGroupTest; sourceTree = "<group>"; };
 		4CC9A4000FD995C100CFBE5E /* _OutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OutputFile.h; sourceTree = "<group>"; };
 		4CC9A4010FD995C100CFBE5E /* _OutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OutputFile.m; sourceTree = "<group>"; };
 		4CC9A4030FD995D700CFBE5E /* OutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputFile.h; sourceTree = "<group>"; };
@@ -590,14 +593,12 @@
 				77C8280C06725ACE000B614F /* AppDelegate.m */,
 				4C7D30CD0FC209DC00005D98 /* TMOutputSorter.h */,
 				4C7D30CE0FC209DC00005D98 /* TMOutputSorter.m */,
-				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
-				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
+				4CB6D56D1149C81E004713F1 /* TMOutputGroupCDFactory.m */,
+				4CB6D56E1149C81E004713F1 /* TMOutputGroupCDFactory.h */,
 				4C6C4C250FCF19A800D6AB30 /* TMImageView.h */,
 				4C6C4C260FCF19A800D6AB30 /* TMImageView.m */,
 				4C050A6A0FD9CD79008D007B /* TMSelectableView.h */,
 				4C050A6B0FD9CD79008D007B /* TMSelectableView.m */,
-				4C7D31770FC215CE00005D98 /* TMOutputGroupCDFactory.h */,
-				4C7D31780FC215CE00005D98 /* TMOutputGroupCDFactory.m */,
 				4C86F6D90FCDA798008849CC /* TMErrors.h */,
 				4C86F6DA0FCDA798008849CC /* TMErrors.m */,
 				4C7D30910FC203FB00005D98 /* Tests */,
@@ -641,6 +642,7 @@
 				7756732906782D8800D1FEB8 /* Models */,
 				4C7D32DF0FC22FEF00005D98 /* Test Resources */,
 				4C6C4A2C0FCDC5C700D6AB30 /* OutputGroupTest */,
+				4CB6DC05114AE977004713F1 /* IPhoneOutputGroupTest */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -893,7 +895,6 @@
 			isa = PBXGroup;
 			children = (
 				4CB6D2FA1149BFE9004713F1 /* GTMDebugSelectorValidation.h */,
-				4CB6D2FB1149BFE9004713F1 /* GTMDevLog.m */,
 				4CB6D2FC1149BFE9004713F1 /* GTMMethodCheck.h */,
 				4CB6D2FD1149BFE9004713F1 /* GTMMethodCheck.m */,
 				4CB6D2FE1149BFE9004713F1 /* GTMMethodCheckTest.m */,
@@ -1412,6 +1413,7 @@
 				4C5111C40FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-background.tiff in Resources */,
 				4C5111C50FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-selected-nobackground.tiff in Resources */,
 				4C5111C60FDDA28F00D4CBCF /* TMSelectableViewTests-testRendering-unselected-background.tiff in Resources */,
+				4CB6DC0E114AE977004713F1 /* IPhoneOutputGroupTest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,7 +1456,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n#export GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/../google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"";
+			shellScript = "# Run the unit tests in this test bundle using GTM's RunMacOSUnitTests.sh\n\n#export GTM_DISABLE_ZOMBIES=1\n\n\"${PROJECT_DIR}/externals/google-toolbox-for-mac/UnitTesting/RunMacOSUnitTests.sh\"";
 		};
 		4C7D31D20FC2209A00005D98 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1490,6 +1492,8 @@
 				4CB6D48B1149C19E004713F1 /* GTMNSObject+BindingUnitTesting.m in Sources */,
 				4CB6D48C1149C1A1004713F1 /* GTMNSObject+UnitTesting.m in Sources */,
 				4CB6D48D1149C1A3004713F1 /* GTMSenTestCase.m in Sources */,
+				4CB6DCF7114AEA74004713F1 /* GTMMethodCheck.m in Sources */,
+				4CB6DD02114AEDC1004713F1 /* GTMNSNumber+64Bit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,7 +1509,6 @@
 				4C7D31C10FC21F0600005D98 /* OutputGroup.m in Sources */,
 				4C7D33060FC2311B00005D98 /* TMMergeController.m in Sources */,
 				4C86F6DB0FCDA798008849CC /* TMErrors.m in Sources */,
-				4C6C49D90FCDC2D600D6AB30 /* TMOutputGroupCDFactory.m in Sources */,
 				4C6C4AF80FCDD72400D6AB30 /* TMImageCompareController.m in Sources */,
 				4C6C4BF00FCE0B3D00D6AB30 /* TMCompareController.m in Sources */,
 				4C6C4C270FCF19A800D6AB30 /* TMImageView.m in Sources */,
@@ -1518,6 +1521,7 @@
 				4CB6D4A61149C2D1004713F1 /* GTMUnitTestingUtilities.m in Sources */,
 				4CB6D4A71149C2DC004713F1 /* GTMSystemVersion.m in Sources */,
 				4CB6D4A81149C2DF004713F1 /* GTMRegex.m in Sources */,
+				4CB6D56F1149C81E004713F1 /* TMOutputGroupCDFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,7 +1674,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestMerge.app/Contents/MacOS/TestMerge";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/externals/ocmock-1.55/build/$(CONFIGURATION)",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1707,7 +1714,10 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestMerge.app/Contents/MacOS/TestMerge";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/externals/ocmock-1.55/build/$(CONFIGURATION)",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = required;

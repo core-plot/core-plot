@@ -88,6 +88,14 @@
 				<false/>
 				<key>ViewSubView 0</key>
 				<dict>
+					<key>BoxBorderType</key>
+					<integer>0</integer>
+					<key>BoxTitle</key>
+					<string>Box</string>
+					<key>BoxTitlePosition</key>
+					<integer>0</integer>
+					<key>BoxType</key>
+					<integer>0</integer>
 					<key>ViewIsHidden</key>
 					<false/>
 					<key>ViewSubView 0</key>
@@ -104,6 +112,94 @@
 	<key>WindowIsVisible</key>
 	<false/>
 	<key>WindowTitle</key>
-	<string>/Network/Servers/rieke-server.physiol.washington.edu/Volumes/Data/Users/barry/Build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference — /Network/Servers/rieke-server.physiol.washington.edu/Volumes/Data/Users/barry/Build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+	<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference — /Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+	<key>WindowToolbar</key>
+	<dict>
+		<key>ToolbarItem 0</key>
+		<dict>
+			<key>Label</key>
+			<string>Reference</string>
+			<key>PaletteLabel</key>
+			<string>Reference</string>
+			<key>View</key>
+			<dict>
+				<key>ControlIsEnabled</key>
+				<true/>
+				<key>ControlSelectedCell</key>
+				<dict>
+					<key>CellState</key>
+					<integer>0</integer>
+					<key>CellTag</key>
+					<integer>0</integer>
+					<key>CellTitle</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+					<key>CellValue</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+				</dict>
+				<key>ControlTag</key>
+				<integer>0</integer>
+				<key>ControlType</key>
+				<string>NSPathControl</string>
+				<key>ControlValue</key>
+				<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Reference</string>
+				<key>ViewIsHidden</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>ToolbarItem 1</key>
+		<dict>
+			<key>Label</key>
+			<string></string>
+			<key>PaletteLabel</key>
+			<string>Space</string>
+		</dict>
+		<key>ToolbarItem 2</key>
+		<dict>
+			<key>Label</key>
+			<string>Test Output</string>
+			<key>PaletteLabel</key>
+			<string>Test Output</string>
+			<key>View</key>
+			<dict>
+				<key>ControlIsEnabled</key>
+				<true/>
+				<key>ControlSelectedCell</key>
+				<dict>
+					<key>CellState</key>
+					<integer>0</integer>
+					<key>CellTag</key>
+					<integer>0</integer>
+					<key>CellTitle</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+					<key>CellValue</key>
+					<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+				</dict>
+				<key>ControlTag</key>
+				<integer>0</integer>
+				<key>ControlType</key>
+				<string>NSPathControl</string>
+				<key>ControlValue</key>
+				<string>/Users/barry/development/core-plot/TestMerge/build/Debug/TestMerge-UnitTests.octest/Contents/Resources/OutputGroupTest/Output</string>
+				<key>ViewIsHidden</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>ToolbarItem 3</key>
+		<dict>
+			<key>Label</key>
+			<string></string>
+			<key>PaletteLabel</key>
+			<string>Flexible Space</string>
+		</dict>
+		<key>ToolbarItem 4</key>
+		<dict>
+			<key>Label</key>
+			<string>Customize</string>
+			<key>PaletteLabel</key>
+			<string>Customize</string>
+			<key>ToolTip</key>
+			<string>Customize Toolbar</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
