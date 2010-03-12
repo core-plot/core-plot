@@ -10,28 +10,25 @@
 @end
 
 @interface _OutputFile : NSManagedObject {}
-+ (id)newInManagedObjectContext:(NSManagedObjectContext*)moc_;
++ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OutputFileID*)objectID;
 
 
 
-- (NSString*)path;
-- (void)setPath:(NSString*)value_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) NSString *path;
-#endif
+@property (nonatomic, retain) NSString *path;
 
 //- (BOOL)validatePath:(id*)value_ error:(NSError**)error_;
 
 
 
 
-- (OutputGroup*)group;
-- (void)setGroup:(OutputGroup*)value_;
+@property (nonatomic, retain) OutputGroup* group;
 //- (BOOL)validateGroup:(id*)value_ error:(NSError**)error_;
-#if defined(MAC_OS_X_VERSION_10_5) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-@property (retain) OutputGroup* group;
-#endif
 
+
+
+@end
+
+@interface _OutputFile (CoreDataGeneratedAccessors)
 
 @end

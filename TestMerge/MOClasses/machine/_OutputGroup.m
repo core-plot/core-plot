@@ -8,8 +8,9 @@
 
 @implementation _OutputGroup
 
-+ (id)newInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputGroup" inManagedObjectContext:moc_];									 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputGroup" inManagedObjectContext:moc_];
 }
 
 - (OutputGroupID*)objectID {
@@ -19,18 +20,14 @@
 
 
 
-- (NSNumber*)replaceReference {
-	[self willAccessValueForKey:@"replaceReference"];
-	NSNumber *result = [self primitiveValueForKey:@"replaceReference"];
-	[self didAccessValueForKey:@"replaceReference"];
-	return result;
-}
+@dynamic name;
 
-- (void)setReplaceReference:(NSNumber*)value_ {
-	[self willChangeValueForKey:@"replaceReference"];
-	[self setPrimitiveValue:value_ forKey:@"replaceReference"];
-	[self didChangeValueForKey:@"replaceReference"];
-}
+
+
+
+
+
+@dynamic replaceReference;
 
 
 
@@ -48,124 +45,132 @@
 
 
 
-- (NSString*)outputPath {
-	[self willAccessValueForKey:@"outputPath"];
-	NSString *result = [self primitiveValueForKey:@"outputPath"];
-	[self didAccessValueForKey:@"outputPath"];
-	return result;
-}
-
-- (void)setOutputPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"outputPath"];
-	[self setPrimitiveValue:value_ forKey:@"outputPath"];
-	[self didChangeValueForKey:@"outputPath"];
-}
+@dynamic failureDiffPath;
 
 
 
 
 
 
-- (NSString*)name {
-	[self willAccessValueForKey:@"name"];
-	NSString *result = [self primitiveValueForKey:@"name"];
-	[self didAccessValueForKey:@"name"];
-	return result;
-}
-
-- (void)setName:(NSString*)value_ {
-	[self willChangeValueForKey:@"name"];
-	[self setPrimitiveValue:value_ forKey:@"name"];
-	[self didChangeValueForKey:@"name"];
-}
+@dynamic outputPath;
 
 
 
 
 
 
-- (NSString*)extension {
-	[self willAccessValueForKey:@"extension"];
-	NSString *result = [self primitiveValueForKey:@"extension"];
-	[self didAccessValueForKey:@"extension"];
-	return result;
-}
-
-- (void)setExtension:(NSString*)value_ {
-	[self willChangeValueForKey:@"extension"];
-	[self setPrimitiveValue:value_ forKey:@"extension"];
-	[self didChangeValueForKey:@"extension"];
-}
+@dynamic extension;
 
 
 
 
 
 
-- (NSString*)failureDiffPath {
-	[self willAccessValueForKey:@"failureDiffPath"];
-	NSString *result = [self primitiveValueForKey:@"failureDiffPath"];
-	[self didAccessValueForKey:@"failureDiffPath"];
-	return result;
-}
-
-- (void)setFailureDiffPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"failureDiffPath"];
-	[self setPrimitiveValue:value_ forKey:@"failureDiffPath"];
-	[self didChangeValueForKey:@"failureDiffPath"];
-}
-
-
-
-
-
+@dynamic referenceFiles;
 
 	
-
-- (NSSet*)referenceFiles {
+- (NSMutableSet*)referenceFilesSet {
 	[self willAccessValueForKey:@"referenceFiles"];
-	NSSet *result = [self primitiveValueForKey:@"referenceFiles"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"referenceFiles"];
 	[self didAccessValueForKey:@"referenceFiles"];
 	return result;
 }
-
-- (void)setReferenceFiles:(NSSet*)value_ {
-	[self willChangeValueForKey:@"referenceFiles"];
-	[self setPrimitiveValue:value_ forKey:@"referenceFiles"];
-	[self didChangeValueForKey:@"referenceFiles"];
-}
-
-- (void)addReferenceFiles:(NSSet*)value_ {
-	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value_];
-	[[self primitiveValueForKey:@"referenceFiles"] unionSet:value_];
-	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value_];
-}
-
--(void)removeReferenceFiles:(NSSet*)value_ {
-	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value_];
-	[[self primitiveValueForKey:@"referenceFiles"] minusSet:value_];
-	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value_];
-}
 	
-- (void)addReferenceFilesObject:(OutputFile*)value_ {
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value_ count:1];
-	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"referenceFiles"] addObject:value_];
-	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
-	[changedObjects release];
-}
 
-- (void)removeReferenceFilesObject:(OutputFile*)value_ {
-	NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value_ count:1];
-	[self willChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[[self primitiveValueForKey:@"referenceFiles"] removeObject:value_];
-	[self didChangeValueForKey:@"referenceFiles" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
-	[changedObjects release];
-}
 
-- (NSMutableSet*)referenceFilesSet {
-	return [self mutableSetValueForKey:@"referenceFiles"];
+
+
++ (NSArray*)fetchNamedGroup:(NSManagedObjectContext*)moc_ NAME:(NSString*)NAME_ EXTENSION:(NSString*)EXTENSION_ {
+	NSError *error = nil;
+	NSArray *result = [self fetchNamedGroup:moc_ NAME:NAME_ EXTENSION:EXTENSION_ error:&error];
+	if (error) {
+#if TARGET_OS_IPHONE
+		NSLog(@"error: %@", error);
+#else
+		[NSApp presentError:error];
+#endif
+	}
+	return result;
 }
++ (NSArray*)fetchNamedGroup:(NSManagedObjectContext*)moc_ NAME:(NSString*)NAME_ EXTENSION:(NSString*)EXTENSION_ error:(NSError**)error_ {
+	NSError *error = nil;
 	
+	NSManagedObjectModel *model = [[moc_ persistentStoreCoordinator] managedObjectModel];
+	NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:@"namedGroup"
+													 substitutionVariables:[NSDictionary dictionaryWithObjectsAndKeys:
+														
+														NAME_, @"NAME",
+														
+														EXTENSION_, @"EXTENSION",
+														
+														nil]
+													 ];
+	NSAssert(fetchRequest, @"Can't find fetch request named \"namedGroup\".");
+	
+	NSArray *result = [moc_ executeFetchRequest:fetchRequest error:&error];
+	if (error_) *error_ = error;
+	return result;
+}
+
+
+
++ (NSArray*)fetchGroupsWithSelectedMerge:(NSManagedObjectContext*)moc_ {
+	NSError *error = nil;
+	NSArray *result = [self fetchGroupsWithSelectedMerge:moc_ error:&error];
+	if (error) {
+#if TARGET_OS_IPHONE
+		NSLog(@"error: %@", error);
+#else
+		[NSApp presentError:error];
+#endif
+	}
+	return result;
+}
++ (NSArray*)fetchGroupsWithSelectedMerge:(NSManagedObjectContext*)moc_ error:(NSError**)error_ {
+	NSError *error = nil;
+	
+	NSManagedObjectModel *model = [[moc_ persistentStoreCoordinator] managedObjectModel];
+	NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:@"groupsWithSelectedMerge"
+													 substitutionVariables:[NSDictionary dictionaryWithObjectsAndKeys:
+														
+														nil]
+													 ];
+	NSAssert(fetchRequest, @"Can't find fetch request named \"groupsWithSelectedMerge\".");
+	
+	NSArray *result = [moc_ executeFetchRequest:fetchRequest error:&error];
+	if (error_) *error_ = error;
+	return result;
+}
+
+
+
++ (NSArray*)fetchAllGroups:(NSManagedObjectContext*)moc_ {
+	NSError *error = nil;
+	NSArray *result = [self fetchAllGroups:moc_ error:&error];
+	if (error) {
+#if TARGET_OS_IPHONE
+		NSLog(@"error: %@", error);
+#else
+		[NSApp presentError:error];
+#endif
+	}
+	return result;
+}
++ (NSArray*)fetchAllGroups:(NSManagedObjectContext*)moc_ error:(NSError**)error_ {
+	NSError *error = nil;
+	
+	NSManagedObjectModel *model = [[moc_ persistentStoreCoordinator] managedObjectModel];
+	NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:@"allGroups"
+													 substitutionVariables:[NSDictionary dictionaryWithObjectsAndKeys:
+														
+														nil]
+													 ];
+	NSAssert(fetchRequest, @"Can't find fetch request named \"allGroups\".");
+	
+	NSArray *result = [moc_ executeFetchRequest:fetchRequest error:&error];
+	if (error_) *error_ = error;
+	return result;
+}
+
 
 @end
