@@ -76,7 +76,7 @@
 }
 
 - (void)addReferencePathsObject:(NSString*)newPath {
-    OutputFile *file = [OutputFile newInManagedObjectContext:[self managedObjectContext]];
+    OutputFile *file = [OutputFile insertInManagedObjectContext:[self managedObjectContext]];
     file.path = newPath;
     
     [self addReferenceFilesObject:file];
