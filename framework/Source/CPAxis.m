@@ -312,8 +312,8 @@
 	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
 	while ( range &&
-    		(increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
-    		(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
+    		((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
+    		 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
 		
 		// Major tick
 		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
