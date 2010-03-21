@@ -51,8 +51,6 @@
 
 @synthesize constrainedPosition;
 
-@synthesize orthogonalVisibleRange;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -70,7 +68,6 @@
 
 -(void)dealloc 
 {
-	[orthogonalVisibleRange release];
     [constrainedPosition release];
     [super dealloc];
 }
@@ -186,8 +183,8 @@
 {
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     CPPlotRange *orthogonalRange = [[self.plotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
-    if (self.orthogonalVisibleRange) {
-        [orthogonalRange intersectionPlotRange:self.orthogonalVisibleRange];
+    if (self.gridLinesRange) {
+        [orthogonalRange intersectionPlotRange:self.gridLinesRange];
     }
     
     // Start point

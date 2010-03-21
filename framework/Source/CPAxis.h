@@ -91,6 +91,7 @@ typedef enum _CPAxisLabelingPolicy {
 	NSArray *labelExclusionRanges;
 	id <CPAxisDelegate> delegate;
     CPPlotRange *visibleRange;
+    CPPlotRange *gridLinesRange;
 }
 
 /// @name Axis
@@ -145,6 +146,7 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *majorGridLineStyle;
 @property (nonatomic, readwrite, copy) CPLineStyle *minorGridLineStyle;
+@property (nonatomic, readwrite, copy) CPPlotRange *gridLinesRange;
 ///	@}
 
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;

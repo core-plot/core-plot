@@ -66,7 +66,21 @@
  **/
 @synthesize tickDirection;
 
+/**	@property visibleRange
+ *	@brief The plot range over which the axis and ticks are visible.
+ *  Use this to restrict an axis to less than the full plot area width.
+ *  Set to nil for no restriction.
+ **/
 @synthesize visibleRange;
+
+/**	@property gridLinesRange
+ *	@brief The plot range over which the grid lines are visible.
+ *  Note that this range applies to the orthogonal coordinate, not
+ *  the axis coordinate itself.
+ *  Set to nil for no restriction.
+ **/
+@synthesize gridLinesRange;
+
 
 // Title
 
@@ -290,6 +304,7 @@
 	[titleTextStyle release];
 	[labelExclusionRanges release];
     [visibleRange release];
+    [gridLinesRange release];
 	[super dealloc];
 }
 
@@ -879,6 +894,22 @@
     if ( newDirection != tickDirection ) {
         tickDirection = newDirection;
 		[self setNeedsLayout];
+        self.needsRelabel = YES;
+    }
+}
+
+-(void)setGridLinesRange:(CPPlotRange *)newRange {
+    if ( newRange != gridLinesRange ) {
+        [gridLinesRange release];
+        gridLinesRange = [newRange copy];
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setVisibleRange:(CPPlotRange *)newRange {
+    if ( newRange != visibleRange ) {
+        [visibleRange release];
+        visibleRange = [newRange copy];
         self.needsRelabel = YES;
     }
 }
