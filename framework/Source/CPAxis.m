@@ -66,6 +66,8 @@
  **/
 @synthesize tickDirection;
 
+@synthesize visibleRange;
+
 // Title
 
 /**	@property axisTitleTextStyle
@@ -309,7 +311,10 @@
 	NSMutableSet *minorLocations = [NSMutableSet set];
 	NSDecimal majorInterval = self.majorIntervalLength;
 	NSDecimal coord = beginNumber;
-	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+    if (self.visibleRange) {
+        [range intersectionPlotRange:self.visibleRange];
+    }
 	
 	while ( range &&
     		((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
@@ -335,6 +340,7 @@
 		
 		coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
 	}
+    [range release];
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }

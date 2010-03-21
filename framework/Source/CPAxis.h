@@ -90,6 +90,7 @@ typedef enum _CPAxisLabelingPolicy {
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
 	id <CPAxisDelegate> delegate;
+    CPPlotRange *visibleRange;
 }
 
 /// @name Axis
@@ -98,6 +99,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
+@property (nonatomic, readwrite, copy) CPPlotRange *visibleRange;
 ///	@}
 
 /// @name Title

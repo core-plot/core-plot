@@ -51,6 +51,8 @@
 
 @synthesize constrainedPosition;
 
+@synthesize orthogonalVisibleRange;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -182,7 +184,10 @@
 -(void)terminalPointsForGridLineWithCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber startPoint:(CGPoint *)startPoint endPoint:(CGPoint *)endPoint
 {
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
-    CPPlotRange *orthogonalRange = [self.plotSpace plotRangeForCoordinate:orthogonalCoordinate];
+    CPPlotRange *orthogonalRange = [[self.plotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+    if (self.orthogonalVisibleRange) {
+        [orthogonalRange intersectionPlotRange:self.orthogonalVisibleRange];
+    }
     
     // Start point
     NSDecimal plotPoint[2];
@@ -193,6 +198,7 @@
     // End point
     plotPoint[orthogonalCoordinate] = orthogonalRange.end;
     *endPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    [orthogonalRange release];
 }
 
 -(void)drawGridLinesInContext:(CGContextRef)theContext atLocations:(NSSet *)locations isMajor:(BOOL)major
@@ -235,7 +241,10 @@
     
     // Axis Line
 	if ( self.axisLineStyle ) {
-		CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+		CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+        if (self.visibleRange) {
+            [range intersectionPlotRange:self.visibleRange];
+        }
 		CGPoint startViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 		CGPoint endViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
 		[self.axisLineStyle setLineStyleInContext:theContext];
@@ -243,6 +252,7 @@
 		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 		CGContextStrokePath(theContext);
+        [range release];
 	}
 }
 
