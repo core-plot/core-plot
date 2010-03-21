@@ -70,6 +70,7 @@
 
 -(void)dealloc 
 {
+	[orthogonalVisibleRange release];
     [constrainedPosition release];
     [super dealloc];
 }

@@ -289,7 +289,7 @@
 	[labelTextStyle release];
 	[titleTextStyle release];
 	[labelExclusionRanges release];
-	
+    [visibleRange release];
 	[super dealloc];
 }
 
@@ -357,8 +357,8 @@
     }
     
     // Determine starting interval
-    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
     NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
     NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
@@ -402,14 +402,16 @@
 	}
     for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
     	// Major ticks
-        [majorLocations addObject:pointLocation];
+        if ( !self.visibleRange || [self.visibleRange contains:pointLocation.decimalValue] ) 
+        	[majorLocations addObject:pointLocation];
         pointLocation = [pointLocation decimalNumberByAdding:interval];
         
         // Minor ticks
         if ( !minorInterval ) continue;
         NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
         for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
-            [minorLocations addObject:minorLocation];
+            if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
+            	[minorLocations addObject:minorLocation];
             minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
         }
     }

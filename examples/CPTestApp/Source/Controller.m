@@ -117,6 +117,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     y2.majorTickLineStyle = redLineStyle;
     y2.minorTickLineStyle = nil;
     y2.labelTextStyle = nil;
+    y2.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(2) length:CPDecimalFromInteger(3)];
     
     // Set axes
     graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
