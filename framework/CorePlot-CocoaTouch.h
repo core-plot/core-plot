@@ -31,6 +31,7 @@
 #import "Source/CPResponder.h"
 #import "Source/CPScatterPlot.h"
 #import "Source/CPStocksTheme.h"
+#import "Source/CPTextLayer.h"
 #import "Source/CPTextStyle.h"
 #import "Source/CPTheme.h"
 #import "Source/CPTimeFormatter.h"
