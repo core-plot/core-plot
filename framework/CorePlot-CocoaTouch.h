@@ -30,6 +30,7 @@
 #import "Source/CPPolarPlotSpace.h"
 #import "Source/CPResponder.h"
 #import "Source/CPScatterPlot.h"
+#import "Source/CPSlateTheme.h"
 #import "Source/CPStocksTheme.h"
 #import "Source/CPTextLayer.h"
 #import "Source/CPTextStyle.h"

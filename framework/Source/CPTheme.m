@@ -5,12 +5,14 @@
 #import "CPPlainBlackTheme.h"
 #import "CPPlainWhiteTheme.h"
 #import "CPStocksTheme.h"
+#import "CPSlateTheme.h"
 #import "CPGraph.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 NSString * const kCPPlainWhiteTheme = @"Plain White";		///< Plain white theme.
 NSString * const kCPPlainBlackTheme = @"Plain Black";		///< Plain black theme.
+NSString * const kCPSlateTheme = @"Slate";		  			///< Slate theme.
 NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 // Registered themes
@@ -76,7 +78,7 @@ static NSMutableDictionary *themes = nil;
 +(NSArray *)themeClasses {
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
-		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
+		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPSlateTheme class], [CPStocksTheme class], nil];
 	}
 	return themeClasses;
 }

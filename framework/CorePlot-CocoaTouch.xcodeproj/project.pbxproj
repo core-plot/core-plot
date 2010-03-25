@@ -73,6 +73,8 @@
 		07A62FB90FE2237D00CD765C /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FBA0FE2237D00CD765C /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */; };
 		07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF30110BBF99A0012BEFF /* CPResponder.h */; };
+		07FCF2D3115B54DE00E46606 /* CPSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FCF2D1115B54DE00E46606 /* CPSlateTheme.h */; };
+		07FCF2D4115B54DE00E46606 /* CPSlateTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF2D2115B54DE00E46606 /* CPSlateTheme.m */; };
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC74A2C210FC087800E7E90D /* CPPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A2C010FC087800E7E90D /* CPPieChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A2C110FC087800E7E90D /* CPPieChart.m */; };
@@ -191,6 +193,8 @@
 		07A62FB70FE2237D00CD765C /* CPTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStylePlatformSpecific.h; path = iPhoneOnly/CPTextStylePlatformSpecific.h; sourceTree = "<group>"; };
 		07A62FB80FE2237D00CD765C /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = iPhoneOnly/CPTextStylePlatformSpecific.m; sourceTree = "<group>"; };
 		07AEF30110BBF99A0012BEFF /* CPResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPResponder.h; path = Source/CPResponder.h; sourceTree = "<group>"; };
+		07FCF2D1115B54DE00E46606 /* CPSlateTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPSlateTheme.h; path = Source/CPSlateTheme.h; sourceTree = "<group>"; };
+		07FCF2D2115B54DE00E46606 /* CPSlateTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPSlateTheme.m; path = Source/CPSlateTheme.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -361,6 +365,8 @@
 				BCC7EA441006BF5700B39451 /* CPStocksTheme.m */,
 				072E3F990FE2FF7300ACF62F /* CPDarkGradientTheme.h */,
 				072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */,
+				07FCF2D1115B54DE00E46606 /* CPSlateTheme.h */,
+				07FCF2D2115B54DE00E46606 /* CPSlateTheme.m */,
 				072E3F9B0FE2FF7300ACF62F /* CPTheme.h */,
 				072E3F9C0FE2FF7300ACF62F /* CPTheme.m */,
 				C40CFB92107EC1B40057E828 /* CPXYTheme.h */,
@@ -679,6 +685,7 @@
 				07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */,
 				0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */,
 				074FADF9112024C500394B90 /* CPConstrainedPosition.h in Headers */,
+				07FCF2D3115B54DE00E46606 /* CPSlateTheme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,6 +805,7 @@
 				0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */,
 				BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */,
 				074FADFA112024C500394B90 /* CPConstrainedPosition.m in Sources */,
+				07FCF2D4115B54DE00E46606 /* CPSlateTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
