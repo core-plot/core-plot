@@ -408,7 +408,11 @@
         firstPointMultiple++;
         pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
     }    
-    
+	
+	// If the intervals divide exactly, and the first point is at the beginning of the range,
+	// you can end up with one extra tick
+	if ( [rangeLocation isEqualToNumber:pointLocation] ) numPoints++;
+	
     // Determine all locations
     NSInteger majorIndex;
     NSDecimalNumber *minorInterval = nil;
