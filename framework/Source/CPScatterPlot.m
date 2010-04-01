@@ -38,7 +38,7 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @property (nonatomic, readwrite, copy) NSArray *yValues;
 @property (nonatomic, readwrite, retain) NSArray *plotSymbols;
 
--(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotRange:(CPPlotRange *)aPlotRange includeVisiblePointsOnly:(BOOL)visibleOnly;
+-(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)plotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags includeVisiblePointsOnly:(BOOL)visibleOnly;
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
 
@@ -296,43 +296,48 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 #pragma mark -
 #pragma mark Determing Which Points to Draw
 
--(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotRange:(CPPlotRange *)aPlotRange includeVisiblePointsOnly:(BOOL)visibleOnly
+-(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {    
 	NSUInteger n = self.xValues.count;
     if ( n == 0 ) return;
     
-    CPPlotRangeComparisonResult *rangeFlags = malloc(self.xValues.count * sizeof(CPPlotRangeComparisonResult));
+    CPPlotRangeComparisonResult *xRangeFlags = malloc(self.xValues.count * sizeof(CPPlotRangeComparisonResult));
+    CPPlotRangeComparisonResult *yRangeFlags = malloc(self.yValues.count * sizeof(CPPlotRangeComparisonResult));
 
     // Determine where each point lies in relation to range
     for (NSUInteger i = 0; i < n; i++) {
         NSNumber *xValue = [self.xValues objectAtIndex:i];
-        rangeFlags[i] = [aPlotRange compareToNumber:xValue];
+		NSNumber *yValue = [self.yValues objectAtIndex:i];
+        xRangeFlags[i] = [xyPlotSpace.xRange compareToNumber:xValue];
+		yRangeFlags[i] = [xyPlotSpace.yRange compareToNumber:yValue];
     }
         
     // Ensure that whenever the path crosses over a region boundary, both points 
     // are included. This ensures no lines are left out that shouldn't be.
-    pointDrawFlags[0] = (rangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
+    pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
+						 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
     for (NSUInteger i = 1; i < n; i++) {
     	pointDrawFlags[i] = NO;
-		if ( visibleOnly && (rangeFlags[i] != CPPlotRangeComparisonResultNumberInRange) ) continue;
-        if ( rangeFlags[i-1] != rangeFlags[i] ) {
+		if ( visibleOnly ) {
+			if (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange &&
+				yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) pointDrawFlags[i] = YES;
+		}
+        else if ( xRangeFlags[i-1] != xRangeFlags[i] || yRangeFlags[i-1] != yRangeFlags[i] ) {
             pointDrawFlags[i-1] = YES;
             pointDrawFlags[i] = YES;
         }
-        else if ( rangeFlags[i] == CPPlotRangeComparisonResultNumberInRange ) {
+        else if ( xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange && 
+			      yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange ) {
             pointDrawFlags[i] = YES;
         }
     }
 
-    free(rangeFlags);
+    free(xRangeFlags);
+	free(yRangeFlags);
 }
 
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags includeVisiblePointsOnly:(BOOL)visibleOnly 
-{
-	// Determine which points will be included in drawing
-    CPPlotRange *plotRange = ((CPXYPlotSpace *)self.plotSpace).xRange;
-    [self calculatePointsToDraw:drawPointFlags forPlotRange:plotRange includeVisiblePointsOnly:visibleOnly];
-	
+{	
     // Calculate points
 	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
     NSInteger lastDrawnPointIndex = -1, firstDrawnPointIndex = -1;
@@ -398,6 +403,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));	
+	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags includeVisiblePointsOnly:YES];
 		
 	NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
@@ -425,6 +431,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
+	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags includeVisiblePointsOnly:YES];
 
 	CGPoint result = viewPoints[index];
@@ -452,9 +459,15 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	// Calculate view points, and align to user space
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
+	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:NO];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags includeVisiblePointsOnly:NO];
 	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
-
+	
+	// Get extreme points
+	NSInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
+	NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
+	if ( firstDrawnPointIndex == NSNotFound ) return;
+	
 	// Path
 	CGMutablePathRef dataLinePath = NULL;
 	if ( self.dataLineStyle || self.areaFill ) {
@@ -473,11 +486,9 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 	
 	// Draw fill
-	NSInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
-	NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
 	NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
-	if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {
-		id xValue = [self.xValues objectAtIndex:0];
+	if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {		
+		id xValue = [self.xValues objectAtIndex:firstDrawnPointIndex];
 		
 		CGPoint baseLinePoint;
 		NSDecimal plotPoint[2];

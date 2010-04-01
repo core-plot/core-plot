@@ -4,10 +4,10 @@
 
 @interface CPScatterPlotTests : CPTestCase {
 	CPScatterPlot *plot;
-    CPPlotRange *plotRange;
+    CPXYPlotSpace *plotSpace;
 }
 
 @property (retain) CPScatterPlot *plot;
-@property (retain) CPPlotRange *plotRange;
+@property (retain) CPXYPlotSpace *plotSpace;
 
 @end
