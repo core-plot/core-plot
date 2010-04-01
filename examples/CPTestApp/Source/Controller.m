@@ -138,7 +138,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     fillImage.tiled = YES;
     CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
     boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
+    boundLinePlot.areaBaseValue = [[NSDecimalNumber one] decimalValue];
     
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
