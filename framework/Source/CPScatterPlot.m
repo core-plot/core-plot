@@ -388,6 +388,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 }
 
 /**	@brief Returns the index of the closest visible point to the point passed in.
+ *	@param viewPoint The reference point.
  *	@return The index of the closest point, or NSNotFound if there is no visible point.
  **/
 -(NSInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint 
@@ -416,6 +417,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 }
 
 /**	@brief Returns the plot area view point of a visible point.
+ *	@param index The index of the point.
  *	@return The view point of the visible point at the index passed.
  **/
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSInteger)index 

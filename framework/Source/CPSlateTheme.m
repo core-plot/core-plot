@@ -28,9 +28,6 @@
  **/
 @implementation CPSlateTheme
 
-/// @defgroup CPSlateTheme CPSlateTheme
-/// @{
-
 +(NSString *)defaultName 
 {
 	return kCPSlateTheme;
@@ -91,7 +88,5 @@
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle];
     }
 }
-
-///	@}
 
 @end

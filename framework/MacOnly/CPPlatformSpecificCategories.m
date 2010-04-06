@@ -3,12 +3,7 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 
-/**	@brief Platform-specific extensions to CPLayer.
- **/
-@implementation CPLayer (CPPlatformSpecificLayerExtensions)
-
-/// @addtogroup CPLayer
-/// @{
+@implementation CPLayer(CPPlatformSpecificLayerExtensions)
 
 /**	@brief Gets an image of the layer contents.
  *	@return A native image representation of the layer content.
@@ -34,25 +29,20 @@
 	return [image autorelease];
 }
 
-///	@}
-
 @end
 
-/**	@brief Platform-specific extensions to CPColor.
- **/
-@implementation CPColor (CPPlatformSpecificColorExtensions)
+#pragma mark -
 
-/// @addtogroup CPColor
-/// @{
+@implementation CPColor(CPPlatformSpecificColorExtensions)
 
 /**	@property nsColor
  *	@brief Gets the color value as an NSColor.
  **/
+@dynamic nsColor;
+
 -(NSColor *)nsColor
 {
 	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
-
-///	@}
 
 @end

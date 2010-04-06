@@ -226,7 +226,7 @@
 #pragma mark Shifting Range
 
 /** @brief Moves the whole range so that the location fits in other range.
- *  @param other Other range.
+ *  @param otherRange Other range.
  *	The minimum possible shift is made. The range length is unchanged.
  **/
 -(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange 
@@ -241,7 +241,7 @@
 }
 
 /** @brief Moves the whole range so that the end point fits in other range.
- *  @param other Other range.
+ *  @param otherRange Other range.
  *	The minimum possible shift is made. The range length is unchanged.
  **/
 -(void)shiftEndToFitInRange:(CPPlotRange *)otherRange

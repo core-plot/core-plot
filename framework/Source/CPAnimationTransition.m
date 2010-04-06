@@ -11,9 +11,6 @@
  **/
 @implementation CPAnimationTransition
 
-/// @defgroup CPAnimationTransition CPAnimationTransition
-/// @{
-
 /**	@property identifier
  *	@todo Needs documentation.
  **/
@@ -76,23 +73,15 @@
     [super dealloc];
 }
 
-///	@}
-
 @end
 
-///	@brief CPAnimationTransition abstract methods—must be overridden by subclasses
 @implementation CPAnimationTransition(AbstractMethods)
-
-/// @addtogroup CPAnimationTransition
-/// @{
 
 /**	@todo Needs documentation.
  **/
 -(void)performTransition
 {
-	
+	// do nothing
 }
-
-///	@}
 
 @end

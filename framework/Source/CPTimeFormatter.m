@@ -8,9 +8,6 @@
  **/
 @implementation CPTimeFormatter
 
-/// @defgroup CPAxis CPAxis
-/// @{
-
 /**	@property dateFormatter
  *  @brief The date formatter used to generate strings from time intervals.
  **/
@@ -82,7 +79,5 @@
     [date release];
     return string;
 }
-
-///	@}
 
 @end

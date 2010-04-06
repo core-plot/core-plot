@@ -15,9 +15,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @implementation CPPlotSpace
 
-/// @defgroup CPPlotSpace CPPlotSpace
-/// @{
-
 /**	@property identifier
  *	@brief An object used to identify the plot in collections.
  **/
@@ -122,15 +119,11 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	return eventIsHandled;
 }
 
-///	@}
-
 @end
 
-///	@brief CPPlotSpace abstract methods—must be overridden by subclasses
-@implementation CPPlotSpace(AbstractMethods)
+#pragma mark -
 
-/// @addtogroup CPPlotSpace
-/// @{
+@implementation CPPlotSpace(AbstractMethods)
 
 /**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
@@ -161,7 +154,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@param point The drawing coordinates of the data point.
- *	@param layer The layer containing the point to convert.
  **/
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
@@ -189,6 +181,5 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(void)scaleToFitPlots:(NSArray *)plots {
 }
-///	@}
 
 @end

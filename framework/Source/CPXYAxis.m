@@ -30,7 +30,7 @@
  **/
 @implementation CPXYAxis
 
-/**	@property constantCoordinateValue
+/**	@property orthogonalCoordinateDecimal
  *	@brief The data coordinate value where the axis crosses the orthogonal axis.
  **/
 @synthesize orthogonalCoordinateDecimal;

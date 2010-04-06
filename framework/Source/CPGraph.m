@@ -25,9 +25,6 @@
  **/
 @implementation CPGraph
 
-/// @defgroup CPGraph CPGraph
-/// @{
-
 /**	@property axisSet
  *	@brief The axis set.
  **/
@@ -483,17 +480,12 @@
     
     return handledEvent;
 }
-///	@}
 
 @end
 
 #pragma mark -
 
-///	@brief CPGraph abstract methods—must be overridden by subclasses
 @implementation CPGraph(AbstractFactoryMethods)
-
-/// @addtogroup CPGraph
-/// @{
 
 /**	@brief Creates a new plot space for the graph.
  *	@return A new plot space.
@@ -510,6 +502,5 @@
 {
 	return nil;
 }
-///	@}
 
 @end

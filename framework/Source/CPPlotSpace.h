@@ -36,7 +36,6 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 /**	@brief Notifies that plot space intercepted a device cancelled event.
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
- *  @param point The point in the host view.
  *	@return Whether the device should handle the event.
  **/
 -(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event;
@@ -89,6 +88,9 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @end
 
+/**	@category CPPlotSpace(AbstractMethods)
+ *	@brief CPPlotSpace abstract methods—must be overridden by subclasses
+ **/
 @interface CPPlotSpace(AbstractMethods)
 
 /// @name Coordinate Space Conversions

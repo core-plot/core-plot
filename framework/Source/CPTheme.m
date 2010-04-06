@@ -69,9 +69,6 @@ static NSMutableDictionary *themes = nil;
 	}
 }
 
-/// @defgroup CPTheme CPTheme
-/// @{
-
 /**	@brief List of the available themes.
  *	@return An NSArray with all available themes.
  **/
@@ -133,14 +130,6 @@ static NSMutableDictionary *themes = nil;
 	;
 }
 
-/**	@brief Creates a new graph styled with the theme.
- *	@return The new graph.
- **/
--(id)newGraph 
-{
-	return nil;
-}
-
 /**	@brief Applies the theme to the provided graph.
  *	@param graph The graph to style.
  **/
@@ -149,6 +138,20 @@ static NSMutableDictionary *themes = nil;
 	[self applyThemeToBackground:graph];
 	[self applyThemeToPlotArea:graph.plotArea];
 	[self applyThemeToAxisSet:graph.axisSet];    
+}
+
+@end
+
+#pragma mark -
+
+@implementation CPTheme(AbstractMethods)
+
+/**	@brief Creates a new graph styled with the theme.
+ *	@return The new graph.
+ **/
+-(id)newGraph 
+{
+	return nil;
 }
 
 /**	@brief Applies the background theme to the provided graph.
@@ -171,7 +174,5 @@ static NSMutableDictionary *themes = nil;
 -(void)applyThemeToAxisSet:(CPAxisSet *)axisSet
 {
 }
-
-///	@}
 
 @end

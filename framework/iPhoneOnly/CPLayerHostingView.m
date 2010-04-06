@@ -2,8 +2,13 @@
 #import "CPLayerHostingView.h"
 #import "CPLayer.h"
 
+/**	@brief A container view for displaying a CPLayer.
+ **/
 @implementation CPLayerHostingView
 
+/**	@property hostedLayer
+ *	@brief The CPLayer hosted inside this view.
+ **/
 @synthesize hostedLayer;
 
 +(Class)layerClass

@@ -26,17 +26,33 @@ extern NSString * const kCPStocksTheme;
 @property (nonatomic, readwrite, copy) NSString *name;
 @property (nonatomic, readwrite, retain) Class graphClass;
 
+/// @name Theme Management
+/// @{
 +(NSArray *)themeClasses;
 +(CPTheme *)themeNamed:(NSString *)theme;
 +(void)addTheme:(CPTheme *)newTheme;
-
 +(NSString *)defaultName;
+/// @}
 
+/// @name Theme Usage
+/// @{
+-(void)applyThemeToGraph:(CPGraph *)graph;
+/// @}
+
+@end
+
+/**	@category CPTheme(AbstractMethods)
+ *	@brief CPTheme abstract methods—must be overridden by subclasses
+ **/
+@interface CPTheme(AbstractMethods)
+
+/// @name Theme Usage
+/// @{
 -(id)newGraph;
 
--(void)applyThemeToGraph:(CPGraph *)graph;
 -(void)applyThemeToBackground:(CPGraph *)graph;
 -(void)applyThemeToPlotArea:(CPPlotArea *)plotArea;
 -(void)applyThemeToAxisSet:(CPAxisSet *)axisSet; 
+/// @}
 
 @end

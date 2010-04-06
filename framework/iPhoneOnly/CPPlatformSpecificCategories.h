@@ -4,19 +4,31 @@
 #import "CPLayer.h"
 #import "CPPlatformSpecificDefines.h"
 
-@interface CPColor (CPPlatformSpecificColorExtensions)
+/**	@category CPColor(CPPlatformSpecificColorExtensions)
+ *	@brief Platform-specific extensions to CPColor.
+ **/
+@interface CPColor(CPPlatformSpecificColorExtensions)
 
 @property (nonatomic, readonly, retain) UIColor *uiColor;
 
 @end
 
-@interface CPLayer (CPPlatformSpecificLayerExtensions)
+/**	@category CPLayer(CPPlatformSpecificLayerExtensions)
+ *	@brief Platform-specific extensions to CPLayer.
+ **/
+@interface CPLayer(CPPlatformSpecificLayerExtensions)
 
+/// @name Images
+/// @{
 -(CPNativeImage *)imageOfLayer;
+///	@}
 
 @end
 
-@interface NSNumber (CPPlatformSpecificExtensions)
+/**	@category NSNumber(CPPlatformSpecificNumberExtensions)
+ *	@brief Platform-specific extensions to NSNumber.
+ **/
+@interface NSNumber(CPPlatformSpecificNumberExtensions)
 
 -(BOOL)isLessThan:(NSNumber *)other;
 -(BOOL)isLessThanOrEqualTo:(NSNumber *)other;

@@ -24,10 +24,9 @@
  *	@todo More documentation needed 
  **/
 
-@implementation CPLayer
+#pragma mark -
 
-/// @defgroup CPLayer CPLayer
-/// @{
+@implementation CPLayer
 
 /**	@property graph
  *	@brief The graph for the layer.
@@ -499,7 +498,5 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 {
 	return [NSString stringWithFormat:@"<%@ with bounds: %@>", [super description], CPStringFromRect(self.bounds)];
 };
-
-///	@}
 
 @end

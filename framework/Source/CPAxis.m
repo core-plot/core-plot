@@ -33,9 +33,6 @@
  **/
 @implementation CPAxis
 
-/// @defgroup CPAxis CPAxis
-/// @{
-
 // Axis
 
 /**	@property axisLineStyle
@@ -918,17 +915,11 @@
     }
 }
 
-///	@}
-
 @end
 
 #pragma mark -
 
-///	@brief CPAxis abstract methods—must be overridden by subclasses
 @implementation CPAxis(AbstractMethods)
-
-/// @addtogroup CPAxis
-/// @{
 
 /**	@brief Converts a position on the axis to drawing coordinates.
  *	@param coordinateDecimalNumber The axis value in data coordinate space.
@@ -938,7 +929,5 @@
 {
 	return CGPointZero;
 }
-
-///	@}
 
 @end

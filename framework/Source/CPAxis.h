@@ -165,6 +165,9 @@ typedef enum _CPAxisLabelingPolicy {
 
 @end
 
+/**	@category CPAxis(AbstractMethods)
+ *	@brief CPAxis abstract methods—must be overridden by subclasses
+ **/
 @interface CPAxis(AbstractMethods)
 
 /// @name Coordinate Space Conversions

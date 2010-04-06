@@ -28,9 +28,6 @@
  **/
 @implementation CPDarkGradientTheme
 
-/// @defgroup CPDarkGradientTheme CPDarkGradientTheme
-/// @{
-
 +(NSString *)defaultName 
 {
 	return kCPDarkGradientTheme;
@@ -98,7 +95,5 @@
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:whiteTextStyle];
     }
 }
-
-///	@}
 
 @end
