@@ -8,6 +8,7 @@
 #import <CorePlot/CPBorderedLayer.h>
 #import <CorePlot/CPColor.h>
 #import <CorePlot/CPColorSpace.h>
+#import <CorePlot/CPConstrainedPosition.h>
 #import <CorePlot/CPDarkGradientTheme.h>
 #import <CorePlot/CPDecimalNumberValueTransformer.h>
 #import <CorePlot/CPDefinitions.h>
@@ -27,11 +28,13 @@
 #import <CorePlot/CPPlotArea.h>
 #import <CorePlot/CPPlot.h>
 #import <CorePlot/CPPlotGroup.h>
+#import <CorePlot/CPPlotRange.h>
 #import <CorePlot/CPPlotSpace.h>
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
+#import <CorePlot/CPSlateTheme.h>
 #import <CorePlot/CPStocksTheme.h>
 #import <CorePlot/CPTextLayer.h>
 #import <CorePlot/CPTextStyle.h>
