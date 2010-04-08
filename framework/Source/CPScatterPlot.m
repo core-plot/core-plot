@@ -589,6 +589,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		return;
 	}
 	areaBaseValue = newAreaBaseValue;
+	[self setNeedsDisplay];
 }
 
 -(void)setXValues:(NSArray *)newValues 

@@ -20,6 +20,8 @@
 
 -(CPNativeImage *)imageOfLayer 
 {
+	[self layoutIfNeeded];
+	
     UIGraphicsBeginImageContext(self.bounds.size);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();

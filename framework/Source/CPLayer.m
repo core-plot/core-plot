@@ -227,14 +227,16 @@
 /**	@brief Draws layer content and the content of all sublayers into a PDF document.
  *	@return PDF representation of the layer content.
  **/
--(NSData *)dataForPDFRepresentationOfLayer;
+-(NSData *)dataForPDFRepresentationOfLayer
 {
+	[self layoutIfNeeded];
+
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
 	const CGRect mediaBox = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
 	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
-	
+		
 	CPPushCGContext(pdfContext);
 	
 	CGContextBeginPage(pdfContext, &mediaBox);
@@ -339,7 +341,6 @@
 {
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
 	// Subclasses should override to lay out their own sublayers
-	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
 	// Sublayers fill the super layer's bounds minus any padding by default
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
