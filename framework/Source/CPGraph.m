@@ -458,6 +458,84 @@
     return handledEvent;
 }
 
+
+
+
+-(BOOL)pinchBegin:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
+{
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pinchBegin:event atPoint1:point1 andPoint2:point2] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet  pinchBegin:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea  pinchBegin:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space  pinchBegin:event atPoint1:point1 andPoint2:point2];
+        handledEvent |= handled;
+    } 
+    
+    return handledEvent;
+}
+
+-(BOOL)pinchEnd:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
+{
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pinchEnd:event atPoint1:point1 andPoint2:point2] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet  pinchEnd:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea  pinchEnd:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space  pinchEnd:event atPoint1:point1 andPoint2:point2];
+        handledEvent |= handled;
+    } 
+    
+    return handledEvent;
+}
+
+-(BOOL)pinch:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
+{
+    // Plots
+    for ( CPPlot *plot in self.plots ) {
+        if ( [plot pinch:event atPoint1:point1 andPoint2:point2] ) return YES;
+    } 
+    
+    // Axes Set
+    if ( [self.axisSet  pinch:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot area
+    if ( [self.plotArea  pinch:event atPoint1:point1 andPoint2:point2] ) return YES;
+    
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (eg dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space  pinch:event atPoint1:point1 andPoint2:point2];
+        handledEvent |= handled;
+    } 
+    
+    return handledEvent;
+}
+
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
     // Plots

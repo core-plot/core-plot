@@ -30,6 +30,10 @@
  *	@param event The OS event.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event;
+-(BOOL)pinchBegin:(id)event  atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2;
+-(BOOL)pinchEnd:(id)event  atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2;
+-(BOOL)pinch:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2;
+
 ///	@}
 
 @end
