@@ -17,7 +17,7 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
 -(CPPlotRange *)constrainRange:(CPPlotRange *)existingRange toGlobalRange:(CPPlotRange *)globalRange;
-- (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
+
 @end
 /// @endcond
 
@@ -363,90 +363,6 @@
     }
 
 	return NO;
-}
-
-- (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
-	
-	float x = toPoint.x - fromPoint.x;
-    float y = toPoint.y - fromPoint.y;
-    
-    return sqrt(x * x + y * y);
-}
-
--(BOOL)pinchBegin:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL handledByDelegate = [super pinchBegin:event atPoint1:point1 andPoint2:point2];
-    if ( handledByDelegate ) return YES;
-	
-	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
-        return NO;
-    }
-    
-    CGPoint point1InPlotArea = [self.graph convertPoint:point1 toLayer:self.graph.plotArea];
-	CGPoint point2InPlotArea = [self.graph convertPoint:point2 toLayer:self.graph.plotArea];
-    if ( [self.graph.plotArea containsPoint:point1InPlotArea] &&
-		   [self.graph.plotArea containsPoint:point2InPlotArea]) {
-        // Handle event
-		initialDistance = [self distanceBetweenTwoPoints:point1InPlotArea toPoint:point2InPlotArea];
-		initialRangeLengthX = self.xRange.length;
-		initialRangeLengthY = self.yRange.length;
-        return YES;
-    }
-	
-	return NO;
-}
-
--(BOOL)pinchEnd:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL handledByDelegate = [super pinchEnd:event atPoint1:point1 andPoint2:point2];
-	if ( handledByDelegate ) return YES;
-	
-	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
-        return NO;
-    }
-    
-	return YES;
-}
-
--(BOOL)pinch:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL handledByDelegate = [super pinch:event atPoint1:point1 andPoint2:point2];
-	if ( handledByDelegate ) return YES;
-    
-	if ( !self.allowsUserInteraction || !self.graph.plotArea ) {
-        return NO;
-    }
-    
-    CGPoint point1InPlotArea = [self.graph convertPoint:point1 toLayer:self.graph.plotArea];
-    CGPoint point2InPlotArea = [self.graph convertPoint:point2 toLayer:self.graph.plotArea];
-
-    CGFloat newDistance = 	[self distanceBetweenTwoPoints:point1InPlotArea toPoint:point2InPlotArea];
-	CGFloat zoomFactor = initialDistance/newDistance;
-	
-/*	
-	// Allow delegate to override
-	if ( [self.delegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
-		displacement = [self.delegate plotSpace:self willDisplaceBy:displacement];
-		pointToUse = CGPointMake(lastDragPoint.x+displacement.x, lastDragPoint.y+displacement.y);
-	}
-*/	
-	CPPlotRange *newRangeX = [[self.xRange copy] autorelease];
-	CPPlotRange *newRangeY = [[self.yRange copy] autorelease];
-	newRangeX.length = CPDecimalMultiply(initialRangeLengthX, CPDecimalFromFloat(zoomFactor));
-	newRangeY.length = CPDecimalMultiply(initialRangeLengthX, CPDecimalFromFloat(zoomFactor));
-/*	
-	// Delegate override
-	if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-		newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPCoordinateX];
-		newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPCoordinateY];
-	}
-*/	
-	self.xRange = newRangeX;
-	self.yRange = newRangeY;
-	
-	return YES;
-
-
 }
 
 @end

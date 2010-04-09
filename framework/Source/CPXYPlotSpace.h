@@ -14,11 +14,6 @@
     CPScaleType yScaleType; // TODO: Implement scale types
     CGPoint lastDragPoint;
     BOOL isDragging;
-	
-	CGFloat initialDistance;
-	NSDecimal initialRangeLengthX;
-	NSDecimal initialRangeLengthY;
-	
 }
 
 @property (nonatomic, readwrite, copy) CPPlotRange *xRange;

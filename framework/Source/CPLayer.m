@@ -294,38 +294,6 @@
 	return NO;
 }
 
-
-
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
- **/
--(BOOL)pinchBegin:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL eventIsHandled = NO;
-	return eventIsHandled;
-}
-
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
- **/
--(BOOL)pinchEnd:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL eventIsHandled = NO;
-	return eventIsHandled;
-}
-
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
- **/
--(BOOL)pinch:(id)event atPoint1:(CGPoint)point1 andPoint2:(CGPoint)point2
-{
-	BOOL eventIsHandled = NO;
-	return eventIsHandled;
-}
-
 #pragma mark -
 #pragma mark Layout
 

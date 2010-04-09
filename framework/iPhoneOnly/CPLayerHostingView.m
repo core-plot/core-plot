@@ -50,68 +50,28 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
-	NSSet* myTouches = [event touchesForView:self];
-	int count = [myTouches count];
-    if (count <=1){
-		CGPoint pointOfTouch = [[myTouches anyObject] locationInView:self];
-		CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-		[hostedLayer pointingDeviceDownEvent:event atPoint:pointInHostedLayer];		
-	} else if (count == 2){
-		NSArray* tchs = [myTouches allObjects];	
-		CGPoint pointOfTouch1 = [[tchs objectAtIndex:0] locationInView:self];
-		CGPoint pointInHostedLayer1 = [self.layer convertPoint:pointOfTouch1 toLayer:hostedLayer];	
-		
-		CGPoint pointOfTouch2 = [[tchs objectAtIndex:1] locationInView:self];
-		CGPoint pointInHostedLayer2 = [self.layer convertPoint:pointOfTouch2 toLayer:hostedLayer];	
-		
-		[hostedLayer pinchBegin:event atPoint1:pointInHostedLayer1 andPoint2:pointInHostedLayer2];
-		
+	// Ignore pinch or other multitouch gestures
+	if ([[event allTouches] count] > 1) {
+		return;		
 	}
 	
-
+	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+    [hostedLayer pointingDeviceDownEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	NSSet* myTouches = [event touchesForView:self];
-	int count = [myTouches count];
-    if (count <=1){
-		CGPoint pointOfTouch = [[myTouches anyObject] locationInView:self];
-		CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-		[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointInHostedLayer];
-	} else if (count == 2){
-		NSArray* tchs = [myTouches allObjects];	
-		CGPoint pointOfTouch1 = [[tchs objectAtIndex:0] locationInView:self];
-		CGPoint pointInHostedLayer1 = [self.layer convertPoint:pointOfTouch1 toLayer:hostedLayer];	
-		
-		CGPoint pointOfTouch2 = [[tchs objectAtIndex:1] locationInView:self];
-		CGPoint pointInHostedLayer2 = [self.layer convertPoint:pointOfTouch2 toLayer:hostedLayer];	
-		
-		[hostedLayer pinch:event atPoint1:pointInHostedLayer1 andPoint2:pointInHostedLayer2];
-		
-	}
+	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	NSSet* myTouches = [event touchesForView:self];
-	int count = [myTouches count];
-    if (count <=1){
-		CGPoint pointOfTouch = [[myTouches anyObject] locationInView:self];
-		CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-		[hostedLayer pointingDeviceUpEvent:event atPoint:pointInHostedLayer];
-	} else if (count == 2){
-		NSArray* tchs = [myTouches allObjects];	
-		CGPoint pointOfTouch1 = [[tchs objectAtIndex:0] locationInView:self];
-		CGPoint pointInHostedLayer1 = [self.layer convertPoint:pointOfTouch1 toLayer:hostedLayer];	
-		
-		CGPoint pointOfTouch2 = [[tchs objectAtIndex:1] locationInView:self];
-		CGPoint pointInHostedLayer2 = [self.layer convertPoint:pointOfTouch2 toLayer:hostedLayer];	
-		
-		[hostedLayer pinchEnd:event atPoint1:pointInHostedLayer1 andPoint2:pointInHostedLayer2];
-		
-	}
+	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	[hostedLayer pointingDeviceUpEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
