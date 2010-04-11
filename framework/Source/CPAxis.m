@@ -81,37 +81,38 @@
 
 // Title
 
-/**	@property axisTitleTextStyle
- *  @brief  The text style used to draw the axis title text.
+/**	@property titleTextStyle
+ *  @brief The text style used to draw the axis title text.
  **/
-
 @synthesize titleTextStyle;
 
 /**	@property axisTitle
  *  @brief The axis title.
  *	If nil, no title is drawn.
  **/
-
 @synthesize axisTitle;
 
-/**	@property axisTitleOffset
+/**	@property titleOffset
  *	@brief The offset distance between the axis title and the axis line.
  **/
-
 @synthesize titleOffset;
 
 /**	@property title
  *	@brief A convenience property for setting the text title of the axis.
  **/
-
 @synthesize title;
 
-/**	@property axisTitlePosition
+/**	@property titleLocation
  *	@brief The position along the axis where the axis title should be centered.
- *  If NaN, just place the axis title at the middle of the axis range
+ *  If NaN, the <code>defaultTitleLocation</code> will be used.
  **/
-
 @synthesize titleLocation;
+
+/**	@property defaultTitleLocation
+ *	@brief The position along the axis where the axis title should be centered
+ *  if <code>titleLocation</code> is NaN.
+ **/
+@dynamic defaultTitleLocation;
 
 // Plot space
 
@@ -122,28 +123,28 @@
 
 // Labels
 
-/**	@property axisLabelingPolicy
+/**	@property labelingPolicy
  *	@brief The axis labeling policy.
  **/
 @synthesize labelingPolicy;
 
-/**	@property axisLabelOffset
+/**	@property labelOffset
  *	@brief The offset distance between the tick marks and labels.
  **/
 @synthesize labelOffset;
 
-/**	@property axisLabelRotation
+/**	@property labelRotation
  *	@brief The rotation of the axis labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
  **/
 @synthesize labelRotation;
 
-/**	@property axisLabelTextStyle
+/**	@property labelTextStyle
  *	@brief The text style used to draw the label text.
  **/
 @synthesize labelTextStyle;
 
-/**	@property axisLabelFormatter
+/**	@property labelFormatter
  *	@brief The number formatter used to format the label text.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
  *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
@@ -275,7 +276,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTextStyle alloc] init];
-		titleLocation = CPDecimalFromInteger(0);
+		titleLocation = CPDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -614,6 +615,14 @@
 }
 
 #pragma mark -
+#pragma mark Titles
+
+-(NSDecimal)defaultTitleLocation
+{
+	return CPDecimalNaN();
+}
+
+#pragma mark -
 #pragma mark Sublayer Layout
 
 +(CGFloat)defaultZPosition 
@@ -708,7 +717,7 @@
     }
 }
 
-- (void)setTitle:(NSString *)newTitle
+-(void)setTitle:(NSString *)newTitle
 {
 	if ( newTitle != title ) {
 		[title release];
@@ -725,6 +734,16 @@
 			}
 		}
 		[self setNeedsLayout];
+	}
+}
+
+
+-(NSDecimal)titleLocation
+{
+	if ( NSDecimalIsNotANumber(&titleLocation) ) {
+		return self.defaultTitleLocation;
+	} else {
+		return titleLocation;
 	}
 }
 

@@ -21,10 +21,12 @@
 
 -(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper;
 -(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber;
+-(void)updateConstraints;
 
 @end
 ///	@endcond
 
+#pragma mark -
 
 /**	@brief A 2-dimensional cartesian (X-Y) axis class.
  **/
@@ -101,8 +103,8 @@
 {    
     CGPoint point = [self viewPointForOrthogonalCoordinateDecimal:self.orthogonalCoordinateDecimal axisCoordinateDecimal:coordinateDecimalNumber];
     
-    if ( positionedRelativeToPlotArea ) {
-        if ( constrainedPosition ) {
+    if ( self.positionedRelativeToPlotArea ) {
+        if ( self.constrainedPosition ) {
         	CGFloat lb, ub;
             [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];
         	constrainedPosition.lowerBound = lb;
@@ -267,9 +269,10 @@
 };
 
 #pragma mark -
-#pragma mark Labels
+#pragma mark Titles
 
--(NSDecimal)defaultTitleLocation;
+// Center title in the plot range by default
+-(NSDecimal)defaultTitleLocation
 {
 	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
 	
@@ -288,8 +291,10 @@
         CGFloat lb, ub;
         [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];
         
-        self.constrainedPosition = [[CPConstrainedPosition alloc] initWithPosition:position lowerBound:lb upperBound:ub];
-        [constrainedPosition release];         
+		CPConstrainedPosition *cp = [[CPConstrainedPosition alloc] initWithPosition:position lowerBound:lb upperBound:ub];
+		cp.constraints = self.constraints;
+        self.constrainedPosition = cp;
+        [cp release];         
     }
     else {
         self.constrainedPosition = nil;
