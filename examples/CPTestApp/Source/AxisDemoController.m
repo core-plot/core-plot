@@ -24,8 +24,8 @@
 	    
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(11.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(11.5)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(11.5)];
 	
     // Line styles
     CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];
@@ -60,6 +60,8 @@
 	x.title = @"X Axis";
 	x.titleTextStyle = axisTitleTextStyle;
 	x.titleOffset = 25.0f;
+	x.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(10)];
+	x.gridLinesRange = x.visibleRange;
 	
 	// Label y with an automatic label policy. 
     // Rotate the labels by 45 degrees, just to show it can be done.
@@ -77,6 +79,8 @@
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0f;
+	y.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(10)];
+	y.gridLinesRange = y.visibleRange;
 }
 
 @end

@@ -1,13 +1,5 @@
 #import "CPConstrainedPosition.h"
 
-///	@cond
-@interface CPConstrainedPosition ()
-
-@property (nonatomic, readwrite, assign) CGFloat lowerRatio;
-
-@end
-///	@endcond
-
 /**	@brief Implements a spring and strut positioning algorithm for one dimension.
  **/
 @implementation CPConstrainedPosition
@@ -32,11 +24,6 @@
  **/
 @synthesize position;
 
-/**	@property lowerRatio
- *	@brief The current position, normalized to a range of 0 to 1 between the lower and upper bounds.
- **/
-@synthesize lowerRatio;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -53,7 +40,6 @@
         upperBound = newUpperBound;
         constraints.lower = CPConstraintNone;
         constraints.upper = CPConstraintNone;
-        lowerRatio = (position - lowerBound) / MAX(1.e-6, upperBound - lowerBound);
     }
     return self;
 }
@@ -68,10 +54,11 @@
 -(void)adjustPositionForOldLowerBound:(CGFloat)oldLowerBound oldUpperBound:(CGFloat)oldUpperBound
 {
     if ( self.constraints.lower == self.constraints.upper ) {
-        if ( self.upperBound - self.lowerBound > 1.e-3 && oldUpperBound - oldLowerBound > 1.e-3 ) {
-            self.lowerRatio = (self.position - oldLowerBound) / (oldUpperBound - oldLowerBound);
+        CGFloat lowerRatio = 0.0;
+		if ( (oldUpperBound - oldLowerBound) != 0.0 ) {
+            lowerRatio = (self.position - oldLowerBound) / (oldUpperBound - oldLowerBound);
         }
-        self.position = self.lowerBound + self.lowerRatio * (self.upperBound - self.lowerBound);
+        self.position = self.lowerBound + lowerRatio * (self.upperBound - self.lowerBound);
     }
     else if ( self.constraints.lower == CPConstraintFixed ) {
         self.position = self.lowerBound + (self.position - oldLowerBound);

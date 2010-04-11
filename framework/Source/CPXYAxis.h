@@ -14,8 +14,11 @@
     CPConstrainedPosition *constrainedPosition;
 }
 
+/// @name Positioning
+/// @{
 @property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
 @property (nonatomic, readwrite) CPConstraints constraints;
 @property (nonatomic, readwrite) BOOL positionedRelativeToPlotArea;
+///	@}
 
 @end

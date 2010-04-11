@@ -27,13 +27,24 @@ BOOL CPDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand);
 BOOL CPDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand);
 
 NSDecimal CPDecimalFromString(NSString *stringRepresentation);
+
+NSDecimal CPDecimalNaN(void);
 /// @}
 
+/// @name Ranges
+/// @{
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
+/// @}
 
+/// @name Coordinates
+/// @{
 CPCoordinate CPOrthogonalCoordinate(CPCoordinate coord);
+/// @}
 
+/// @name Gradient colors
+/// @{
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);
+/// @}
 
 /// @name Quartz Pixel-Alignment Functions
 /// @{

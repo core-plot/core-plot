@@ -29,7 +29,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     self.yShift = 0.0;
 
     // Create graph and apply a dark theme
-    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f)];
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
@@ -77,7 +77,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	x.title = @"X Axis";
 	x.titleOffset = 30.0;
 	x.titleLocation = CPDecimalFromString(@"3.0");
-	
+
 	// Label y with an automatic label policy. 
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyAutomatic;
@@ -194,9 +194,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	self.yShift = length - 2.0;
     
     // Position y2 axis relative to the plot area, ie, not moving when dragging
-    CPConstraints y2Constraints = {CPConstraintNone, CPConstraintNone};
-    y2.positionedRelativeToPlotArea = YES;
-    y2.constraints = y2Constraints;
+	CPConstraints y2Constraints = {CPConstraintNone, CPConstraintFixed};
+	y2.positionedRelativeToPlotArea = YES;
+	y2.constraints = y2Constraints;
 	
     // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];

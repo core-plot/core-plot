@@ -110,6 +110,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
 @property (nonatomic, readwrite, retain) NSString *title;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
+@property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
 ///	@}
 
 /// @name Labels
@@ -149,7 +150,10 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPPlotRange *gridLinesRange;
 ///	@}
 
+/// @name Plot Spaces
+/// @{
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
+///	@}
 
 /// @name Labels
 /// @{

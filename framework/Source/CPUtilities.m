@@ -181,7 +181,11 @@ BOOL CPDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
 	return (NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedSame);	
 }
 
-
+/**
+ *	@brief Parses a string and extracts the numeric value as an NSDecimal.
+ *	@param stringRepresentation The string value.
+ *	@return The numeric value extracted from the string.
+ **/
 NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 {
 	// The following NSDecimalNumber-based creation of NSDecimals from strings is slower than 
@@ -199,6 +203,21 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 	return result;
 }
 
+/**
+ *	@brief Creates and returns an NSDecimal struct that represents the value "not a number".
+ *
+ *	Calling <code>NSDecimalIsNotANumber()</code> on this value will return <code>YES</code>.
+ *
+ *	@return An NSDecimal struct that represents the value "not a number".
+ **/
+NSDecimal CPDecimalNaN(void)
+{
+	NSDecimal decimalNaN;
+	decimalNaN._length = 0;
+	decimalNaN._isNegative = YES;
+	
+	return decimalNaN;
+}
 
 #pragma mark -
 #pragma mark Ranges
