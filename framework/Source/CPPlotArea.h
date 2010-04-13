@@ -8,7 +8,7 @@
 @class CPLineStyle;
 @class CPFill;
 
-@interface CPPlottingArea : CPLayer {
+@interface CPPlotArea : CPLayer {
 @private
 	CPLayer *minorGridLineGroup;
 	CPLayer *majorGridLineGroup;

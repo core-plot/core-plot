@@ -2,14 +2,14 @@
 
 @class CPAxisSet;
 @class CPPlotGroup;
-@class CPPlottingArea;
+@class CPPlotArea;
 
 @interface CPPlotAreaFrame : CPBorderedLayer {
 @private
-    CPPlottingArea *plottingArea;
+    CPPlotArea *plotArea;
 }
 
-@property (nonatomic, readwrite, retain) CPPlottingArea *plottingArea;
+@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotGroup *plotGroup;
 

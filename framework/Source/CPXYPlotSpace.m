@@ -8,7 +8,7 @@
 #import "CPPlot.h"
 #import "CPPlotAreaFrame.h"
 #import "CPPlotRange.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 #import "CPGraph.h"
 
 /// @cond
@@ -140,7 +140,7 @@
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
 	CGFloat viewX, viewY;
-	CGSize layerSize = self.graph.plotAreaFrame.plottingArea.bounds.size;
+	CGSize layerSize = self.graph.plotAreaFrame.plotArea.bounds.size;
 	
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:

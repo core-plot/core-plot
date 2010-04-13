@@ -148,7 +148,7 @@
 		C34260270FAE096D00072842 /* CPFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C34AFE5311021C100041675A /* CPGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C32B391710AA4C78000470D4 /* CPGridLines.m */; };
 		C34AFE5411021C2B0041675A /* CPXYGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C32B392210AA4D4C000470D4 /* CPXYGridLines.m */; };
-		C34AFE5511021C470041675A /* CPPlottingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C34BF5BB10A67633007F0894 /* CPPlottingArea.m */; };
+		C34AFE5511021C470041675A /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C34BF5BB10A67633007F0894 /* CPPlotArea.m */; };
 		C34AFE6B11021D010041675A /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C34AFE6911021D010041675A /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C34AFE6C11021D010041675A /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = C34AFE6A11021D010041675A /* CPPlotSymbol.m */; };
 		C34AFE7111021D880041675A /* CPAxisLabelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C032C810B8DEDC003A11B6 /* CPAxisLabelGroup.m */; };
@@ -157,7 +157,7 @@
 		C34AFE971102246D0041675A /* CPXYGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C32B392110AA4D4C000470D4 /* CPXYGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C34AFE98110224710041675A /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C32B391610AA4C78000470D4 /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C34AFE9A110224890041675A /* CPPlotFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F10EED10A74BFE0061BDDA /* CPPlotFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C34AFE9B1102248D0041675A /* CPPlottingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C34BF5BA10A67633007F0894 /* CPPlottingArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C34AFE9B1102248D0041675A /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C34BF5BA10A67633007F0894 /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* CPXYTheme.m */; };
 		C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -317,8 +317,8 @@
 		C342601F0FAE096C00072842 /* CPFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFill.h; sourceTree = "<group>"; };
 		C34AFE6911021D010041675A /* CPPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbol.h; sourceTree = "<group>"; };
 		C34AFE6A11021D010041675A /* CPPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbol.m; sourceTree = "<group>"; };
-		C34BF5BA10A67633007F0894 /* CPPlottingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlottingArea.h; sourceTree = "<group>"; };
-		C34BF5BB10A67633007F0894 /* CPPlottingArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlottingArea.m; sourceTree = "<group>"; };
+		C34BF5BA10A67633007F0894 /* CPPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotArea.h; sourceTree = "<group>"; };
+		C34BF5BB10A67633007F0894 /* CPPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotArea.m; sourceTree = "<group>"; };
 		C36468A80FE5533F0064B186 /* CPTextStyleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextStyleTests.h; sourceTree = "<group>"; };
 		C36468A90FE5533F0064B186 /* CPTextStyleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextStyleTests.m; sourceTree = "<group>"; };
 		C3AFC9CF0FB62969005DFFDC /* CPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImage.h; sourceTree = "<group>"; };
@@ -584,8 +584,8 @@
 				07BF0D770F2B723A002FCEA7 /* CPPlotAreaFrame.m */,
 				C3F10EED10A74BFE0061BDDA /* CPPlotFrame.h */,
 				C3F10EEE10A74BFE0061BDDA /* CPPlotFrame.m */,
-				C34BF5BA10A67633007F0894 /* CPPlottingArea.h */,
-				C34BF5BB10A67633007F0894 /* CPPlottingArea.m */,
+				C34BF5BA10A67633007F0894 /* CPPlotArea.h */,
+				C34BF5BB10A67633007F0894 /* CPPlotArea.m */,
 			);
 			name = "Plot Areas";
 			sourceTree = "<group>";
@@ -918,7 +918,7 @@
 				C34AFE971102246D0041675A /* CPXYGridLines.h in Headers */,
 				C34AFE98110224710041675A /* CPGridLines.h in Headers */,
 				C34AFE9A110224890041675A /* CPPlotFrame.h in Headers */,
-				C34AFE9B1102248D0041675A /* CPPlottingArea.h in Headers */,
+				C34AFE9B1102248D0041675A /* CPPlotArea.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,7 +1115,7 @@
 				BC74A33110FC402600E7E90D /* CPPieChart.m in Sources */,
 				C34AFE5311021C100041675A /* CPGridLines.m in Sources */,
 				C34AFE5411021C2B0041675A /* CPXYGridLines.m in Sources */,
-				C34AFE5511021C470041675A /* CPPlottingArea.m in Sources */,
+				C34AFE5511021C470041675A /* CPPlotArea.m in Sources */,
 				C34AFE6C11021D010041675A /* CPPlotSymbol.m in Sources */,
 				C34AFE7111021D880041675A /* CPAxisLabelGroup.m in Sources */,
 				C34AFE7211021D9A0041675A /* CPPlotFrame.m in Sources */,
@@ -1213,10 +1213,7 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1240,7 +1237,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;

@@ -2,7 +2,7 @@
 #import "CPAxisSet.h"
 #import "CPGraph.h"
 #import "CPPlotSpace.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 
 /**	@brief A container layer for the set of axes for a graph.
  **/
@@ -56,10 +56,10 @@
         }
         [axes release];
         axes = [newAxes retain];
-		CPPlottingArea *plottingArea = (CPPlottingArea *)self.superlayer;
+		CPPlotArea *plotArea = (CPPlotArea *)self.superlayer;
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
-			axis.plottingArea = plottingArea;
+			axis.plotArea = plotArea;
         }
         [self setNeedsLayout];
 		[self setNeedsDisplay];

@@ -12,7 +12,7 @@
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
-@class CPPlottingArea;
+@class CPPlotArea;
 @class CPTextStyle;
 
 /**	@brief Enumeration of labeling policies
@@ -82,7 +82,7 @@ typedef enum _CPAxisLabelingPolicy {
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
 	id <CPAxisDelegate> delegate;
-	CPPlottingArea *plottingArea;
+	CPPlotArea *plotArea;
 	CPGridLines *minorGridLines;
 	CPGridLines *majorGridLines;
 //	Class gridLineClass;
@@ -148,7 +148,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPPlottingArea *plottingArea;
+@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 @property (nonatomic, readonly, retain) CPGridLines *minorGridLines;
 @property (nonatomic, readonly, retain) CPGridLines *majorGridLines;
 @property (nonatomic, readonly, retain) CPAxisSet *axisSet;

@@ -7,7 +7,7 @@
 #import "CPLineStyle.h"
 #import "CPPlotRange.h"
 #import "CPPlotSpace.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 #import "CPTextLayer.h"
 #import "CPTextStyle.h"
 #import "CPUtilities.h"
@@ -232,10 +232,10 @@
 
 // Layers
 
-/**	@property plottingArea
- *  @brief The plotting area that the axis belongs to.
+/**	@property plotArea
+ *  @brief The plot area that the axis belongs to.
  **/
-@synthesize plottingArea;
+@synthesize plotArea;
 
 /**	@property minorGridLines
  *  @brief The layer that draws the minor grid lines.
@@ -297,7 +297,7 @@
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
-		plottingArea = nil;
+		plotArea = nil;
 		minorGridLines = nil;
 		majorGridLines = nil;
 		
@@ -321,7 +321,7 @@
 	[labelTextStyle release];
 	[titleTextStyle release];
 	[labelExclusionRanges release];
-	[plottingArea release];
+	[plotArea release];
 	[minorGridLines release];
 	[majorGridLines release];
 	
@@ -654,7 +654,7 @@
         [axisLabels release];
         axisLabels = newLabels;
 		
-		CPAxisLabelGroup *axisLabelGroup = self.plottingArea.axisLabelGroup;
+		CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
 		
         for ( CPAxisLabel *label in axisLabels ) {
 			label.axis = self;
@@ -695,7 +695,7 @@
 		axisTitle.offset = self.titleOffset;
 		CPLayer *content = axisTitle.contentLayer;
 		if ( content ) {
-			[self.plottingArea.axisTitleGroup addSublayer:content];
+			[self.plotArea.axisTitleGroup addSublayer:content];
 		}
 		
 		[self setNeedsLayout];
@@ -938,11 +938,11 @@
     }
 }
 
--(void)setPlottingArea:(CPPlottingArea *)newPlottingArea
+-(void)setPlotArea:(CPPlotArea *)newPlotArea
 {
-	if ( newPlottingArea != plottingArea ) {
-		[plottingArea release];
-		plottingArea = [newPlottingArea retain];
+	if ( newPlotArea != plotArea ) {
+		[plotArea release];
+		plotArea = [newPlotArea retain];
 
 		CPGridLines *gridLines = [[self.gridLineClass alloc] init];
 		gridLines.axis = self;
@@ -965,7 +965,7 @@
 		[minorGridLines release];
 		minorGridLines = [newGridLines retain];
 		if ( minorGridLines ) {
-			[self.plottingArea.minorGridLineGroup addSublayer:minorGridLines];
+			[self.plotArea.minorGridLineGroup addSublayer:minorGridLines];
 		}
         [minorGridLines setNeedsLayout];
 	}	
@@ -978,7 +978,7 @@
 		[majorGridLines release];
 		majorGridLines = [newGridLines retain];
 		if ( majorGridLines ) {
-			[self.plottingArea.majorGridLineGroup addSublayer:majorGridLines];
+			[self.plotArea.majorGridLineGroup addSublayer:majorGridLines];
 		}
         [majorGridLines setNeedsLayout];
 	}	
@@ -986,7 +986,7 @@
 
 -(CPAxisSet *)axisSet
 {
-	return self.plottingArea.axisSet;
+	return self.plotArea.axisSet;
 }
 
 -(Class)gridLineClass

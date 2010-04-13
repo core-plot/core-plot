@@ -3,7 +3,7 @@
 #import "CPLineStyle.h"
 #import "CPPlotRange.h"
 #import "CPPlotSpace.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 #import "CPUtilities.h"
 
 ///	@cond
@@ -27,17 +27,17 @@
     CPCoordinate orthogonalCoordinate = (axis.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     CPPlotRange *orthogonalRange = [axis.plotSpace plotRangeForCoordinate:orthogonalCoordinate];
     
-	CPPlottingArea *plottingArea = axis.plottingArea;
+	CPPlotArea *plotArea = axis.plotArea;
 
     // Start point
     NSDecimal plotPoint[2];
     plotPoint[axis.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = orthogonalRange.location;
-    *startPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
+    *startPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
     
     // End point
     plotPoint[orthogonalCoordinate] = orthogonalRange.end;
-    *endPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
+    *endPoint = [self convertPoint:[axis.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
 }
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

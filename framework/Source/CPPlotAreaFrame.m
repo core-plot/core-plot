@@ -3,16 +3,16 @@
 #import "CPPlotGroup.h"
 #import "CPDefinitions.h"
 #import "CPLineStyle.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 
 /** @brief A layer drawn on top of the graph layer and behind all plot elements.
  **/
 @implementation CPPlotAreaFrame
 
-/** @property plottingArea
- *	@brief The plotting area.
+/** @property plotArea
+ *	@brief The plot area.
  **/
-@synthesize plottingArea;
+@synthesize plotArea;
 
 /** @property axisSet
  *	@brief The axis set.
@@ -30,11 +30,11 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		plottingArea = nil;
+		plotArea = nil;
 		
-		CPPlottingArea *newPlottingArea = [[CPPlottingArea alloc] init];
-		self.plottingArea = newPlottingArea;
-		[newPlottingArea release];
+		CPPlotArea *newPlotArea = [[CPPlotArea alloc] init];
+		self.plotArea = newPlotArea;
+		[newPlotArea release];
 
 		self.needsDisplayOnBoundsChange = YES;
         self.masksToBorder = NO;
@@ -44,7 +44,7 @@
 
 -(void)dealloc
 {
-	[plottingArea release];
+	[plotArea release];
 	[super dealloc];
 }
 
@@ -60,8 +60,8 @@
 {
 	[super layoutSublayers];
 	
-	CPPlottingArea *thePlottingArea = self.plottingArea;
-	if ( thePlottingArea ) {
+	CPPlotArea *thePlotArea = self.plotArea;
+	if ( thePlotArea ) {
 		CGRect selfBounds = self.bounds;
 		CGSize subLayerSize = selfBounds.size;
 		CGFloat lineWidth = self.borderLineStyle.lineWidth;
@@ -71,25 +71,25 @@
 		subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
 		subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
-		CGRect subLayerBounds = thePlottingArea.bounds;
+		CGRect subLayerBounds = thePlotArea.bounds;
 		subLayerBounds.size = subLayerSize;
-		thePlottingArea.bounds = subLayerBounds;
-		thePlottingArea.anchorPoint = CGPointZero;
-		thePlottingArea.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y + self.paddingBottom);
+		thePlotArea.bounds = subLayerBounds;
+		thePlotArea.anchorPoint = CGPointZero;
+		thePlotArea.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y + self.paddingBottom);
 	}
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setPlottingArea:(CPPlottingArea *)newPlottingArea
+-(void)setPlotArea:(CPPlotArea *)newPlotArea
 {
-	if ( newPlottingArea != plottingArea ) {
-		[plottingArea removeFromSuperlayer];
-		[plottingArea release];
-		plottingArea = [newPlottingArea retain];
-		if ( plottingArea ) {
-			[self insertSublayer:plottingArea atIndex:0];
+	if ( newPlotArea != plotArea ) {
+		[plotArea removeFromSuperlayer];
+		[plotArea release];
+		plotArea = [newPlotArea retain];
+		if ( plotArea ) {
+			[self insertSublayer:plotArea atIndex:0];
 		}
         [self setNeedsLayout];
 	}	
@@ -97,22 +97,22 @@
 
 -(CPAxisSet *)axisSet
 {
-	return self.plottingArea.axisSet;
+	return self.plotArea.axisSet;
 }
 
 -(void)setAxisSet:(CPAxisSet *)newAxisSet
 {
-	self.plottingArea.axisSet = newAxisSet;
+	self.plotArea.axisSet = newAxisSet;
 }
 
 -(CPPlotGroup *)plotGroup
 {
-	return self.plottingArea.plotGroup;
+	return self.plotArea.plotGroup;
 }
 
 -(void)setPlotGroup:(CPPlotGroup *)newPlotGroup
 {
-	self.plottingArea.plotGroup = newPlotGroup;
+	self.plotArea.plotGroup = newPlotGroup;
 }
 
 @end

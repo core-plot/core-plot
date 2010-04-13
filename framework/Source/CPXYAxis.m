@@ -1,7 +1,7 @@
 #import "CPPlotSpace.h"
 #import "CPLineStyle.h"
 #import "CPPlotRange.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 #import "CPUtilities.h"
 #import "CPXYAxis.h"
 #import "CPXYGridLines.h"
@@ -43,11 +43,11 @@
 {
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     
-	CPPlottingArea *plottingArea = self.plottingArea;
+	CPPlotArea *plotArea = self.plotArea;
     NSDecimal plotPoint[2];
     plotPoint[self.coordinate] = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = self.constantCoordinateValue;
-    CGPoint point = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plottingArea];
+    CGPoint point = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
     
     return point;
 }

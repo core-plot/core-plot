@@ -97,8 +97,8 @@
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
 		C35A65A111025ECF00FE24BB /* CPPlotFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A659F11025ECF00FE24BB /* CPPlotFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A211025ECF00FE24BB /* CPPlotFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A011025ECF00FE24BB /* CPPlotFrame.m */; };
-		C35A65A511025EDF00FE24BB /* CPPlottingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlottingArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C35A65A611025EDF00FE24BB /* CPPlottingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlottingArea.m */; };
+		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65B411025F8A00FE24BB /* CPGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65B211025F8A00FE24BB /* CPGridLines.m */; };
 		C35A65B911025FA900FE24BB /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B511025FA900FE24BB /* CPAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,8 +258,8 @@
 		C3566B8E10EED1B000FB3866 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
 		C35A659F11025ECF00FE24BB /* CPPlotFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotFrame.h; path = Source/CPPlotFrame.h; sourceTree = "<group>"; };
 		C35A65A011025ECF00FE24BB /* CPPlotFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotFrame.m; path = Source/CPPlotFrame.m; sourceTree = "<group>"; };
-		C35A65A311025EDF00FE24BB /* CPPlottingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlottingArea.h; path = Source/CPPlottingArea.h; sourceTree = "<group>"; };
-		C35A65A411025EDF00FE24BB /* CPPlottingArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlottingArea.m; path = Source/CPPlottingArea.m; sourceTree = "<group>"; };
+		C35A65A311025EDF00FE24BB /* CPPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotArea.h; path = Source/CPPlotArea.h; sourceTree = "<group>"; };
+		C35A65A411025EDF00FE24BB /* CPPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotArea.m; path = Source/CPPlotArea.m; sourceTree = "<group>"; };
 		C35A65B111025F8A00FE24BB /* CPGridLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPGridLines.h; path = Source/CPGridLines.h; sourceTree = "<group>"; };
 		C35A65B211025F8A00FE24BB /* CPGridLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPGridLines.m; path = Source/CPGridLines.m; sourceTree = "<group>"; };
 		C35A65B511025FA900FE24BB /* CPAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAxisLabel.h; path = Source/CPAxisLabel.h; sourceTree = "<group>"; };
@@ -547,8 +547,8 @@
 				BC9B82C20FB89E610035D8DA /* CPPlotAreaFrame.m */,
 				C35A659F11025ECF00FE24BB /* CPPlotFrame.h */,
 				C35A65A011025ECF00FE24BB /* CPPlotFrame.m */,
-				C35A65A311025EDF00FE24BB /* CPPlottingArea.h */,
-				C35A65A411025EDF00FE24BB /* CPPlottingArea.m */,
+				C35A65A311025EDF00FE24BB /* CPPlotArea.h */,
+				C35A65A411025EDF00FE24BB /* CPPlotArea.m */,
 			);
 			name = "Plot Areas";
 			sourceTree = SOURCE_ROOT;
@@ -719,7 +719,7 @@
 				07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */,
 				0772B4F310E26A12009CD04C /* CPTradingRangePlot.h in Headers */,
 				C35A65A111025ECF00FE24BB /* CPPlotFrame.h in Headers */,
-				C35A65A511025EDF00FE24BB /* CPPlottingArea.h in Headers */,
+				C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */,
 				C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */,
 				C35A65B911025FA900FE24BB /* CPAxisLabel.h in Headers */,
 				C35A65BB11025FA900FE24BB /* CPAxisTitle.h in Headers */,
@@ -842,7 +842,7 @@
 				0772B4F410E26A12009CD04C /* CPTradingRangePlot.m in Sources */,
 				BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */,
 				C35A65A211025ECF00FE24BB /* CPPlotFrame.m in Sources */,
-				C35A65A611025EDF00FE24BB /* CPPlottingArea.m in Sources */,
+				C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */,
 				C35A65B411025F8A00FE24BB /* CPGridLines.m in Sources */,
 				C35A65BA11025FA900FE24BB /* CPAxisLabel.m in Sources */,
 				C35A65BC11025FA900FE24BB /* CPAxisTitle.m in Sources */,

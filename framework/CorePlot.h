@@ -30,12 +30,12 @@
 #import <CorePlot/CPPlatformSpecificCategories.h>
 #import <CorePlot/CPPathExtensions.h>
 #import <CorePlot/CPPlot.h>
+#import <CorePlot/CPPlotArea.h>
 #import <CorePlot/CPPlotAreaFrame.h>
 #import <CorePlot/CPPlotFrame.h>
 #import <CorePlot/CPPlotGroup.h>
 #import <CorePlot/CPPlotSpace.h>
 #import <CorePlot/CPPlotSymbol.h>
-#import <CorePlot/CPPlottingArea.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>

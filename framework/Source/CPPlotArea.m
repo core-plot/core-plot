@@ -5,7 +5,7 @@
 #import "CPLineStyle.h"
 #import "CPPlotFrame.h"
 #import "CPPlotGroup.h"
-#import "CPPlottingArea.h"
+#import "CPPlotArea.h"
 
 /** @brief A layer representing the actual plotting area of a graph.
  *	
@@ -20,7 +20,7 @@
  *	-# Axis labels
  *	-# Axis titles
  **/
-@implementation CPPlottingArea
+@implementation CPPlotArea
 
 /** @property minorGridLineGroup
  *	@brief The parent layer for all minor grid lines.
@@ -142,6 +142,11 @@
 #pragma mark -
 #pragma mark Layout
 
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionPlotAreaFrame;
+}
+
 -(void)layoutSublayers
 {
 	CALayer *superlayer = self.superlayer;
@@ -227,7 +232,7 @@
 			if ( self.plotFrame ) index++;
 			[self insertSublayer:axisSet atIndex:index];
 			for ( CPAxis *axis in axisSet.axes ) {
-				axis.plottingArea = self;
+				axis.plotArea = self;
 			}
 		}
         [self setNeedsLayout];
