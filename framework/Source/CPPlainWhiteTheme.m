@@ -4,7 +4,7 @@
 #import "CPColor.h"
 #import "CPGradient.h"
 #import "CPFill.h"
-#import "CPPlotArea.h"
+#import "CPPlotAreaFrame.h"
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
@@ -27,16 +27,16 @@
     graph.fill = [CPFill fillWithColor:[CPColor whiteColor]];
 }
 	
--(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
+-(void)applyThemeToPlotArea:(CPPlotAreaFrame *)plotAreaFrame
 {	
-	plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
+	plotAreaFrame.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
 
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor blackColor];
 	borderLineStyle.lineWidth = 1.0;
 	
-	plotArea.borderLineStyle = borderLineStyle;
-	plotArea.cornerRadius = 0.0;
+	plotAreaFrame.borderLineStyle = borderLineStyle;
+	plotAreaFrame.cornerRadius = 0.0;
 }
 	
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 

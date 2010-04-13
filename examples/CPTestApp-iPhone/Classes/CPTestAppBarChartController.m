@@ -21,7 +21,7 @@
     [barChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
-    barChart.plotArea.masksToBorder = NO;
+    barChart.plotAreaFrame.masksToBorder = NO;
 	
     barChart.paddingLeft = 70.0;
 	barChart.paddingTop = 20.0;

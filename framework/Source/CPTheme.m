@@ -145,7 +145,7 @@ static NSMutableDictionary *themes = nil;
 -(void)applyThemeToGraph:(CPGraph *)graph
 {
 	[self applyThemeToBackground:graph];
-	[self applyThemeToPlotArea:graph.plotArea];
+	[self applyThemeToPlotArea:graph.plotAreaFrame];
 	[self applyThemeToAxisSet:graph.axisSet];    
 }
 
@@ -159,7 +159,7 @@ static NSMutableDictionary *themes = nil;
 /**	@brief Applies the theme to the provided plot area.
  *	@param plotArea The plot area to style.
  **/
--(void)applyThemeToPlotArea:(CPPlotArea *)plotArea
+-(void)applyThemeToPlotArea:(CPPlotAreaFrame *)plotAreaFrame
 {
 }
 

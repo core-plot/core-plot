@@ -2,7 +2,7 @@
 #import "CPGraph.h"
 #import "CPExceptions.h"
 #import "CPPlot.h"
-#import "CPPlotArea.h"
+#import "CPPlotAreaFrame.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 #import "CPAxisSet.h"
@@ -33,10 +33,10 @@
  **/
 @dynamic axisSet;
 
-/**	@property plotArea
- *	@brief The plot area.
+/**	@property plotAreaFrame
+ *	@brief The plot area frame.
  **/
-@synthesize plotArea;
+@synthesize plotAreaFrame;
 
 /**	@property plots
  *	@brief An array of all plots associated with the graph.
@@ -68,8 +68,8 @@
         self.paddingBottom = 20.0;
         
         // Plot area
-        CPPlotArea *newArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:self.bounds];
-        self.plotArea = newArea;
+        CPPlotAreaFrame *newArea = [(CPPlotAreaFrame *)[CPPlotAreaFrame alloc] initWithFrame:self.bounds];
+        self.plotAreaFrame = newArea;
         [newArea release];
 
         // Plot spaces
@@ -92,7 +92,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[plotArea release];
+	[plotAreaFrame release];
 	[plots release];
 	[plotSpaces release];
 	
@@ -159,7 +159,7 @@
 		[self.plots addObject:plot];
 		plot.plotSpace = space;
         plot.graph = self;
-		[self.plotArea.plotGroup addPlot:plot];
+		[self.plotAreaFrame.plotGroup addPlot:plot];
 	}
 }
 
@@ -172,7 +172,7 @@
 		[self.plots removeObject:plot];
         plot.plotSpace = nil;
         plot.graph = nil;
-		[self.plotArea.plotGroup removePlot:plot];
+		[self.plotAreaFrame.plotGroup removePlot:plot];
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlot which did not exist."];
@@ -199,7 +199,7 @@
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
         plot.graph = self;
-		[self.plotArea.plotGroup addPlot:plot];
+		[self.plotAreaFrame.plotGroup addPlot:plot];
 	}
 }
 
@@ -212,7 +212,7 @@
 	if (plotToRemove) {
 		plotToRemove.plotSpace = nil;
         plotToRemove.graph = nil;
-		[self.plotArea.plotGroup removePlot:plotToRemove];
+		[self.plotAreaFrame.plotGroup removePlot:plotToRemove];
 		[self.plots removeObjectIdenticalTo:plotToRemove];
 	}
 }
@@ -256,15 +256,15 @@
 #pragma mark -
 #pragma mark Set Plot Area
 
--(void)setPlotArea:(CPPlotArea *)newArea 
+-(void)setPlotAreaFrame:(CPPlotAreaFrame *)newArea 
 {
-    if ( plotArea != newArea ) {
-    	plotArea.graph = nil;
-    	[plotArea removeFromSuperlayer];
-        [plotArea release];
-        plotArea = [newArea retain];
+    if ( plotAreaFrame != newArea ) {
+    	plotAreaFrame.graph = nil;
+    	[plotAreaFrame removeFromSuperlayer];
+        [plotAreaFrame release];
+        plotAreaFrame = [newArea retain];
         [self addSublayer:newArea];
-        plotArea.graph = self;
+        plotAreaFrame.graph = self;
 		for ( CPPlotSpace *space in plotSpaces ) {
             space.graph = self;
         }
@@ -321,12 +321,12 @@
 
 -(CPAxisSet *)axisSet
 {
-	return self.plotArea.axisSet;
+	return self.plotAreaFrame.axisSet;
 }
 
 -(void)setAxisSet:(CPAxisSet *)newSet
 {
-	self.plotArea.axisSet = newSet;
+	self.plotAreaFrame.axisSet = newSet;
 }
 
 #pragma mark -
@@ -397,7 +397,7 @@
     if ( [self.axisSet pointingDeviceDownAtPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceDownAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotAreaFrame pointingDeviceDownAtPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
@@ -422,7 +422,7 @@
     if ( [self.axisSet pointingDeviceUpAtPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceUpAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotAreaFrame pointingDeviceUpAtPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
@@ -447,7 +447,7 @@
     if ( [self.axisSet pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
+    if ( [self.plotAreaFrame pointingDeviceDraggedAtPoint:interactionPoint] ) return YES;
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
@@ -472,7 +472,7 @@
     if ( [self.axisSet pointingDeviceCancelled] ) return YES;
     
     // Plot area
-    if ( [self.plotArea pointingDeviceCancelled] ) return YES;
+    if ( [self.plotAreaFrame pointingDeviceCancelled] ) return YES;
     
     // Plot spaces
     BOOL handledEvent = NO;

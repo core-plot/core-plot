@@ -24,7 +24,7 @@
 	
 	// Plot area
 	grayColor = CGColorCreateGenericGray(0.2, 0.3);
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
+	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:grayColor]];
 	CGColorRelease(grayColor);
 	    
     // Setup plot space

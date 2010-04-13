@@ -69,7 +69,7 @@
 		BC9B83510FB8A1400035D8DA /* CPPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D10FB89E610035D8DA /* CPPlotSymbol.m */; };
 		BC9B83520FB8A1400035D8DA /* CPPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C70FB89E610035D8DA /* CPPlotSpace.m */; };
 		BC9B83540FB8A1400035D8DA /* CPPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82CD0FB89E610035D8DA /* CPPolarPlotSpace.m */; };
-		BC9B83550FB8A1400035D8DA /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C20FB89E610035D8DA /* CPPlotArea.m */; };
+		BC9B83550FB8A1400035D8DA /* CPPlotAreaFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C20FB89E610035D8DA /* CPPlotAreaFrame.m */; };
 		BC9B83560FB8A1400035D8DA /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B70FB89E610035D8DA /* CPGraph.m */; };
 		BC9B83570FB8A1400035D8DA /* CPXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B90FB89E610035D8DA /* CPXYGraph.m */; };
 		BC9B835A0FB8A1400035D8DA /* NSDecimalNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B20FB89E610035D8DA /* NSDecimalNumberExtensions.m */; };
@@ -133,7 +133,7 @@
 		C3B623C7107EC9540009EF0B /* CPLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B826F0FB89E610035D8DA /* CPLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C8107EC9570009EF0B /* CPLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B829C0FB89E610035D8DA /* CPLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C9107EC95C0009EF0B /* CPPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D20FB89E610035D8DA /* CPPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3B623CA107EC95E0009EF0B /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82C10FB89E610035D8DA /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3B623CA107EC95E0009EF0B /* CPPlotAreaFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82C10FB89E610035D8DA /* CPPlotAreaFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CB107EC9610009EF0B /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82AB0FB89E610035D8DA /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CC107EC9620009EF0B /* CPPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82C60FB89E610035D8DA /* CPPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CD107EC9630009EF0B /* CPPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D00FB89E610035D8DA /* CPPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -229,8 +229,8 @@
 		BC9B82B70FB89E610035D8DA /* CPGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPGraph.m; path = Source/CPGraph.m; sourceTree = SOURCE_ROOT; };
 		BC9B82B80FB89E610035D8DA /* CPXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYGraph.h; path = Source/CPXYGraph.h; sourceTree = SOURCE_ROOT; };
 		BC9B82B90FB89E610035D8DA /* CPXYGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYGraph.m; path = Source/CPXYGraph.m; sourceTree = SOURCE_ROOT; };
-		BC9B82C10FB89E610035D8DA /* CPPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotArea.h; path = Source/CPPlotArea.h; sourceTree = SOURCE_ROOT; };
-		BC9B82C20FB89E610035D8DA /* CPPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotArea.m; path = Source/CPPlotArea.m; sourceTree = SOURCE_ROOT; };
+		BC9B82C10FB89E610035D8DA /* CPPlotAreaFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotAreaFrame.h; path = Source/CPPlotAreaFrame.h; sourceTree = "<group>"; };
+		BC9B82C20FB89E610035D8DA /* CPPlotAreaFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotAreaFrame.m; path = Source/CPPlotAreaFrame.m; sourceTree = "<group>"; };
 		BC9B82C60FB89E610035D8DA /* CPPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSpace.h; path = Source/CPPlotSpace.h; sourceTree = SOURCE_ROOT; };
 		BC9B82C70FB89E610035D8DA /* CPPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotSpace.m; path = Source/CPPlotSpace.m; sourceTree = SOURCE_ROOT; };
 		BC9B82CC0FB89E610035D8DA /* CPPolarPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPolarPlotSpace.h; path = Source/CPPolarPlotSpace.h; sourceTree = SOURCE_ROOT; };
@@ -543,8 +543,8 @@
 		BC9B82C00FB89E610035D8DA /* Plot Areas */ = {
 			isa = PBXGroup;
 			children = (
-				BC9B82C10FB89E610035D8DA /* CPPlotArea.h */,
-				BC9B82C20FB89E610035D8DA /* CPPlotArea.m */,
+				BC9B82C10FB89E610035D8DA /* CPPlotAreaFrame.h */,
+				BC9B82C20FB89E610035D8DA /* CPPlotAreaFrame.m */,
 				C35A659F11025ECF00FE24BB /* CPPlotFrame.h */,
 				C35A65A011025ECF00FE24BB /* CPPlotFrame.m */,
 				C35A65A311025EDF00FE24BB /* CPPlottingArea.h */,
@@ -703,7 +703,7 @@
 				C3B623C7107EC9540009EF0B /* CPLayer.h in Headers */,
 				C3B623C8107EC9570009EF0B /* CPLineStyle.h in Headers */,
 				C3B623C9107EC95C0009EF0B /* CPPlot.h in Headers */,
-				C3B623CA107EC95E0009EF0B /* CPPlotArea.h in Headers */,
+				C3B623CA107EC95E0009EF0B /* CPPlotAreaFrame.h in Headers */,
 				C3B623CB107EC9610009EF0B /* CPPlotRange.h in Headers */,
 				C3B623CC107EC9620009EF0B /* CPPlotSpace.h in Headers */,
 				C3B623CD107EC9630009EF0B /* CPPlotSymbol.h in Headers */,
@@ -799,7 +799,7 @@
 				BC9B83510FB8A1400035D8DA /* CPPlotSymbol.m in Sources */,
 				BC9B83520FB8A1400035D8DA /* CPPlotSpace.m in Sources */,
 				BC9B83540FB8A1400035D8DA /* CPPolarPlotSpace.m in Sources */,
-				BC9B83550FB8A1400035D8DA /* CPPlotArea.m in Sources */,
+				BC9B83550FB8A1400035D8DA /* CPPlotAreaFrame.m in Sources */,
 				BC9B83560FB8A1400035D8DA /* CPGraph.m in Sources */,
 				BC9B83570FB8A1400035D8DA /* CPXYGraph.m in Sources */,
 				BC9B835A0FB8A1400035D8DA /* NSDecimalNumberExtensions.m in Sources */,

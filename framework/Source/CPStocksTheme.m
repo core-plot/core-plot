@@ -4,7 +4,7 @@
 #import "CPColor.h"
 #import "CPGradient.h"
 #import "CPFill.h"
-#import "CPPlotArea.h"
+#import "CPPlotAreaFrame.h"
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
@@ -28,7 +28,7 @@
     graph.fill = [CPFill fillWithColor:[CPColor blackColor]];
 }
 	
--(void)applyThemeToPlotArea:(CPPlotArea *)plotArea 
+-(void)applyThemeToPlotArea:(CPPlotAreaFrame *)plotAreaFrame
 {	
     CPGradient *stocksBackgroundGradient = [[[CPGradient alloc] init] autorelease];
     stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.21569 green:0.28627 blue:0.44706 alpha:1.0] atPosition:0.0];
@@ -36,14 +36,14 @@
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882 green:0.13333 blue:0.33333 alpha:1.0] atPosition:0.5];
 	stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPColor colorWithComponentRed:0.05882 green:0.13333 blue:0.33333 alpha:1.0] atPosition:1.0];
     stocksBackgroundGradient.angle = 270.0;
-	plotArea.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
+	plotAreaFrame.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
 
 	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
 	borderLineStyle.lineWidth = 0.0;
 	
-	plotArea.borderLineStyle = borderLineStyle;
-	plotArea.cornerRadius = 14.0;
+	plotAreaFrame.borderLineStyle = borderLineStyle;
+	plotAreaFrame.cornerRadius = 14.0;
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 

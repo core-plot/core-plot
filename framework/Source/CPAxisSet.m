@@ -1,8 +1,6 @@
-
 #import "CPAxis.h"
 #import "CPAxisSet.h"
 #import "CPGraph.h"
-#import "CPPlotArea.h"
 #import "CPPlotSpace.h"
 #import "CPPlottingArea.h"
 

@@ -23,7 +23,7 @@
     [pieChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = pieChart;
-    pieChart.plotArea.masksToBorder = NO;
+    pieChart.plotAreaFrame.masksToBorder = NO;
 	
     pieChart.paddingLeft = 20.0;
 	pieChart.paddingTop = 20.0;

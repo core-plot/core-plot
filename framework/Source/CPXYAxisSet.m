@@ -1,9 +1,6 @@
-
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPDefinitions.h"
-#import "CPPlotArea.h"
-#import "CPBorderedLayer.h"
 
 /**	@brief A set of cartesian (X-Y) axes.
  **/

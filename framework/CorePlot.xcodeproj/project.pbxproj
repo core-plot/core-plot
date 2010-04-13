@@ -91,8 +91,8 @@
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D700F2B718F002FCEA7 /* CPGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0D730F2B718F002FCEA7 /* CPGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D710F2B718F002FCEA7 /* CPGraph.m */; };
-		07BF0D780F2B723A002FCEA7 /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D760F2B723A002FCEA7 /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07BF0D790F2B723A002FCEA7 /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */; };
+		07BF0D780F2B723A002FCEA7 /* CPPlotAreaFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D760F2B723A002FCEA7 /* CPPlotAreaFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07BF0D790F2B723A002FCEA7 /* CPPlotAreaFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D770F2B723A002FCEA7 /* CPPlotAreaFrame.m */; };
 		07BF0D7C0F2B72B0002FCEA7 /* CPPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D7A0F2B72B0002FCEA7 /* CPPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07BF0D7D0F2B72B0002FCEA7 /* CPPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */; };
 		07BF0D800F2B72F6002FCEA7 /* CPPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D7E0F2B72F6002FCEA7 /* CPPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -239,8 +239,8 @@
 		07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		07BF0D700F2B718F002FCEA7 /* CPGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGraph.h; sourceTree = "<group>"; };
 		07BF0D710F2B718F002FCEA7 /* CPGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGraph.m; sourceTree = "<group>"; };
-		07BF0D760F2B723A002FCEA7 /* CPPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotArea.h; sourceTree = "<group>"; };
-		07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotArea.m; sourceTree = "<group>"; };
+		07BF0D760F2B723A002FCEA7 /* CPPlotAreaFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotAreaFrame.h; sourceTree = "<group>"; };
+		07BF0D770F2B723A002FCEA7 /* CPPlotAreaFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotAreaFrame.m; sourceTree = "<group>"; };
 		07BF0D7A0F2B72B0002FCEA7 /* CPPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSpace.h; sourceTree = "<group>"; };
 		07BF0D7B0F2B72B0002FCEA7 /* CPPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSpace.m; sourceTree = "<group>"; };
 		07BF0D7E0F2B72F6002FCEA7 /* CPPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlot.h; sourceTree = "<group>"; };
@@ -580,8 +580,8 @@
 		07BF0D8F0F2B739B002FCEA7 /* Plot Areas */ = {
 			isa = PBXGroup;
 			children = (
-				07BF0D760F2B723A002FCEA7 /* CPPlotArea.h */,
-				07BF0D770F2B723A002FCEA7 /* CPPlotArea.m */,
+				07BF0D760F2B723A002FCEA7 /* CPPlotAreaFrame.h */,
+				07BF0D770F2B723A002FCEA7 /* CPPlotAreaFrame.m */,
 				C3F10EED10A74BFE0061BDDA /* CPPlotFrame.h */,
 				C3F10EEE10A74BFE0061BDDA /* CPPlotFrame.m */,
 				C34BF5BA10A67633007F0894 /* CPPlottingArea.h */,
@@ -858,7 +858,7 @@
 			files = (
 				070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */,
 				07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */,
-				07BF0D780F2B723A002FCEA7 /* CPPlotArea.h in Headers */,
+				07BF0D780F2B723A002FCEA7 /* CPPlotAreaFrame.h in Headers */,
 				07BF0D7C0F2B72B0002FCEA7 /* CPPlotSpace.h in Headers */,
 				07BF0D800F2B72F6002FCEA7 /* CPPlot.h in Headers */,
 				07BF0D840F2B7340002FCEA7 /* CPAxisSet.h in Headers */,
@@ -1058,7 +1058,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07BF0D730F2B718F002FCEA7 /* CPGraph.m in Sources */,
-				07BF0D790F2B723A002FCEA7 /* CPPlotArea.m in Sources */,
+				07BF0D790F2B723A002FCEA7 /* CPPlotAreaFrame.m in Sources */,
 				07BF0D7D0F2B72B0002FCEA7 /* CPPlotSpace.m in Sources */,
 				07BF0D810F2B72F6002FCEA7 /* CPPlot.m in Sources */,
 				07BF0D850F2B7340002FCEA7 /* CPAxisSet.m in Sources */,
@@ -1240,10 +1240,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;

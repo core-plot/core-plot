@@ -4,19 +4,19 @@
 
 @class CPAxisSet;
 @class CPPlot;
-@class CPPlotArea;
+@class CPPlotAreaFrame;
 @class CPPlotSpace;
 @class CPTheme;
 
 @interface CPGraph : CPBorderedLayer {
 @private
-    CPPlotArea *plotArea;
+    CPPlotAreaFrame *plotAreaFrame;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
 }
 
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
+@property (nonatomic, readwrite, retain) CPPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
 
 /// @name Data Source

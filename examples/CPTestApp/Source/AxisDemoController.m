@@ -19,13 +19,13 @@
 	[background addSublayer:graph];
 	
 	// Plot area
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]];
-	graph.plotArea.paddingTop = 20.0;
-	graph.plotArea.paddingBottom = 50.0;
-	graph.plotArea.paddingLeft = 50.0;
-	graph.plotArea.paddingRight = 20.0;
+	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	graph.plotAreaFrame.paddingTop = 20.0;
+	graph.plotAreaFrame.paddingBottom = 50.0;
+	graph.plotAreaFrame.paddingLeft = 50.0;
+	graph.plotAreaFrame.paddingRight = 20.0;
 	
-	graph.plotArea.plottingArea.borderLineStyle = [CPLineStyle lineStyle];
+	graph.plotAreaFrame.plottingArea.borderLineStyle = [CPLineStyle lineStyle];
 
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
