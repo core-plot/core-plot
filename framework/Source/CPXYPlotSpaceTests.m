@@ -14,6 +14,12 @@
 -(void)setUp 
 {
     self.graph = [[(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)] autorelease];
+	self.graph.paddingLeft = 0.0;
+	self.graph.paddingRight = 0.0;
+	self.graph.paddingTop = 0.0;
+	self.graph.paddingBottom = 0.0;
+	
+	[self.graph layoutIfNeeded];
 }
 
 -(void)tearDown
@@ -61,11 +67,14 @@
         
     NSDecimal plotPoint[2];
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
-    
+    NSString *errMessage;
+	
 	[plotSpace plotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
 	
-	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateX], CPDecimalFromDouble(5.0)), @"");
-	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateY], CPDecimalFromDouble(5.0)), @"");
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPCoordinateX] was %@", NSDecimalString(&plotPoint[CPCoordinateX], nil)];
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateX], CPDecimalFromDouble(5.0)), errMessage);
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPCoordinateY] was %@", NSDecimalString(&plotPoint[CPCoordinateY], nil)];
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateY], CPDecimalFromDouble(5.0)), errMessage);
 }
 
 @end

@@ -189,7 +189,7 @@
 {
 	NSDecimal pointx = CPDecimalFromDouble(point.x);
 	NSDecimal pointy = CPDecimalFromDouble(point.y);
-	CGSize boundsSize = self.graph.plotAreaFrame.bounds.size;
+	CGSize boundsSize = self.graph.plotAreaFrame.plotArea.bounds.size;
 	NSDecimal boundsw = CPDecimalFromDouble(boundsSize.width);
 	NSDecimal boundsh = CPDecimalFromDouble(boundsSize.height);
 	
