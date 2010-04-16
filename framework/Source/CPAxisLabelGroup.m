@@ -1,5 +1,7 @@
 #import "CPAxisLabelGroup.h"
 
+/**	@brief A container layer for the axis labels.
+ **/
 @implementation CPAxisLabelGroup
 
 #pragma mark -
