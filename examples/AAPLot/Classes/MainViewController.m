@@ -45,12 +45,12 @@
 	graph.frame = self.view.bounds;
 	graph.paddingRight = 50.0f;
     graph.paddingLeft = 50.0f;
-    graph.plotArea.masksToBorder = NO;
-    graph.plotArea.cornerRadius = 0.0f;
+    graph.plotAreaFrame.masksToBorder = NO;
+    graph.plotAreaFrame.cornerRadius = 0.0f;
     CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor whiteColor];
     borderLineStyle.lineWidth = 2.0f;
-    graph.plotArea.borderLineStyle = borderLineStyle;
+    graph.plotAreaFrame.borderLineStyle = borderLineStyle;
 	[self.layerHost.layer addSublayer:graph];
     
     // Axes
@@ -194,7 +194,7 @@
 	NSDecimalNumber *lowDisplayLocation = [low decimalNumberBySubtracting:lengthDisplacementValue]  ;
 	NSDecimalNumber *lengthDisplayLocation = [length decimalNumberByAdding:lengthDisplacementValue]  ;
 	
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0f) length:CPDecimalFromInt([datapuller.financialData count])];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0f) length:CPDecimalFromInteger([datapuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
     // Axes
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -216,15 +216,15 @@
 	
 	
 	
-	volumePlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([datapuller.financialData count])];
+	volumePlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInteger([datapuller.financialData count])];
 	volumePlotSpace.yRange = [CPPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]length:[volumeLengthDisplayLocation decimalValue]];
 	
 
-    axisSet.xAxis.constantCoordinateValue = [low decimalValue];
+    axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
     
     axisSet.yAxis.majorIntervalLength = CPDecimalFromString(@"50.0");
     axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = CPDecimalFromString(@"1.0");
+    axisSet.yAxis.orthogonalCoordinateDecimal = CPDecimalFromString(@"1.0");
 	NSArray *exclusionRanges  = [NSArray arrayWithObjects:
 								 [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0) length:[low decimalValue]],
 								 nil];

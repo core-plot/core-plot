@@ -4,9 +4,6 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPPlatformSpecificFunctions.h"
 
-/**	@brief NSString extensions for drawing styled text.
- **/
-
 @implementation NSString(CPTextStyleExtensions)
 
 #pragma mark -

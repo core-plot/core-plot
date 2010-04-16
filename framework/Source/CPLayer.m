@@ -24,10 +24,9 @@
  *	@todo More documentation needed 
  **/
 
-@implementation CPLayer
+#pragma mark -
 
-/// @defgroup CPLayer CPLayer
-/// @{
+@implementation CPLayer
 
 /**	@property graph
  *	@brief The graph for the layer.
@@ -231,14 +230,16 @@
 /**	@brief Draws layer content and the content of all sublayers into a PDF document.
  *	@return PDF representation of the layer content.
  **/
--(NSData *)dataForPDFRepresentationOfLayer;
+-(NSData *)dataForPDFRepresentationOfLayer
 {
+	[self layoutIfNeeded];
+
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
 	const CGRect mediaBox = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
 	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
-	
+		
 	CPPushCGContext(pdfContext);
 	
 	CGContextBeginPage(pdfContext, &mediaBox);
@@ -258,36 +259,40 @@
 #pragma mark Responder Chain and User interaction
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *  @param event Native event object of device.
  *	@param interactionPoint The coordinates of the event in the host view.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+ *  @param event Native event object of device.
  *	@param interactionPoint The coordinates of the event in the host view.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+ *  @param event Native event object of device.
  *	@param interactionPoint The coordinates of the event in the host view.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *  @param event Native event object of device.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelledEvent:(id)event
 {
 	return NO;
 }
@@ -339,7 +344,6 @@
 {
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
 	// Subclasses should override to lay out their own sublayers
-	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
 	// Sublayers fill the super layer's bounds minus any padding by default
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
@@ -498,7 +502,5 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 {
 	return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPStringFromRect(self.bounds)];
 };
-
-///	@}
 
 @end

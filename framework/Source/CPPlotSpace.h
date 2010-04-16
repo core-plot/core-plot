@@ -17,13 +17,43 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Scrolling
 /// @{
 
+/**	@brief Notifies that plot space intercepted a device down event.
+ *	@param space The plot space.
+ *  @param event The native event (eg UIEvent on iPhone)
+ *  @param point The point in the host view.
+ *	@return Whether the device should handle the event.
+ **/
+-(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point;
+
+/**	@brief Notifies that plot space intercepted a device dragged event.
+ *	@param space The plot space.
+ *  @param event The native event (eg UIEvent on iPhone)
+ *  @param point The point in the host view.
+ *	@return Whether the device should handle the event.
+ **/
+-(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point;
+
+/**	@brief Notifies that plot space intercepted a device cancelled event.
+ *	@param space The plot space.
+ *  @param event The native event (eg UIEvent on iPhone)
+ *	@return Whether the device should handle the event.
+ **/
+-(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event;
+
+/**	@brief Notifies that plot space intercepted a device up event.
+ *	@param space The plot space.
+ *  @param event The native event (eg UIEvent on iPhone)
+ *  @param point The point in the host view.
+ *	@return Whether the device should handle the event.
+ **/
+-(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point;
+
 /**	@brief Notifies that plot space is going to scroll.
  *	@param space The plot space.
  *  @param proposedDisplacementVector The proposed amount by which the plot space will shift
  *	@return The displacement actually applied.
  **/
 -(CGPoint)plotSpace:(CPPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector;
-
 
 /**	@brief Notifies that plot space is going to change a plot range.
  *	@param space The plot space.
@@ -58,6 +88,9 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @end
 
+/**	@category CPPlotSpace(AbstractMethods)
+ *	@brief CPPlotSpace abstract methods—must be overridden by subclasses
+ **/
 @interface CPPlotSpace(AbstractMethods)
 
 /// @name Coordinate Space Conversions
@@ -70,6 +103,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Range
 /// @{
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate;
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 ///	@}
 

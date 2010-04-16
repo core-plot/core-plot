@@ -37,9 +37,6 @@
  **/
 @implementation CPAxis
 
-/// @defgroup CPAxis CPAxis
-/// @{
-
 // Axis
 
 /**	@property axisLineStyle
@@ -70,39 +67,56 @@
  **/
 @synthesize tickDirection;
 
+/**	@property visibleRange
+ *	@brief The plot range over which the axis and ticks are visible.
+ *  Use this to restrict an axis to less than the full plot area width.
+ *  Set to nil for no restriction.
+ **/
+@synthesize visibleRange;
+
+/**	@property gridLinesRange
+ *	@brief The plot range over which the grid lines are visible.
+ *  Note that this range applies to the orthogonal coordinate, not
+ *  the axis coordinate itself.
+ *  Set to nil for no restriction.
+ **/
+@synthesize gridLinesRange;
+
+
 // Title
 
-/**	@property axisTitleTextStyle
- *  @brief  The text style used to draw the axis title text.
+/**	@property titleTextStyle
+ *  @brief The text style used to draw the axis title text.
  **/
-
 @synthesize titleTextStyle;
 
 /**	@property axisTitle
  *  @brief The axis title.
  *	If nil, no title is drawn.
  **/
-
 @synthesize axisTitle;
 
-/**	@property axisTitleOffset
+/**	@property titleOffset
  *	@brief The offset distance between the axis title and the axis line.
  **/
-
 @synthesize titleOffset;
 
 /**	@property title
  *	@brief A convenience property for setting the text title of the axis.
  **/
-
 @synthesize title;
 
-/**	@property axisTitlePosition
+/**	@property titleLocation
  *	@brief The position along the axis where the axis title should be centered.
- *  If NaN, just place the axis title at the middle of the axis range
+ *  If NaN, the <code>defaultTitleLocation</code> will be used.
  **/
-
 @synthesize titleLocation;
+
+/**	@property defaultTitleLocation
+ *	@brief The position along the axis where the axis title should be centered
+ *  if <code>titleLocation</code> is NaN.
+ **/
+@dynamic defaultTitleLocation;
 
 // Plot space
 
@@ -113,28 +127,28 @@
 
 // Labels
 
-/**	@property axisLabelingPolicy
+/**	@property labelingPolicy
  *	@brief The axis labeling policy.
  **/
 @synthesize labelingPolicy;
 
-/**	@property axisLabelOffset
+/**	@property labelOffset
  *	@brief The offset distance between the tick marks and labels.
  **/
 @synthesize labelOffset;
 
-/**	@property axisLabelRotation
+/**	@property labelRotation
  *	@brief The rotation of the axis labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
  **/
 @synthesize labelRotation;
 
-/**	@property axisLabelTextStyle
+/**	@property labelTextStyle
  *	@brief The text style used to draw the label text.
  **/
 @synthesize labelTextStyle;
 
-/**	@property axisLabelFormatter
+/**	@property labelFormatter
  *	@brief The number formatter used to format the label text.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
  *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
@@ -293,7 +307,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTextStyle alloc] init];
-		titleLocation = CPDecimalFromInteger(0);
+		titleLocation = CPDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
 		delegate = nil;
@@ -321,6 +335,8 @@
 	[labelTextStyle release];
 	[titleTextStyle release];
 	[labelExclusionRanges release];
+    [visibleRange release];
+    [gridLinesRange release];
 	[plotArea release];
 	[minorGridLines release];
 	[majorGridLines release];
@@ -346,11 +362,14 @@
 	NSMutableSet *minorLocations = [NSMutableSet set];
 	NSDecimal majorInterval = self.majorIntervalLength;
 	NSDecimal coord = beginNumber;
-	CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+    if (self.visibleRange) {
+        [range intersectionPlotRange:self.visibleRange];
+    }
 	
 	while ( range &&
-    		(increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
-    		(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location)) ) {
+    		((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
+    		 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
 		
 		// Major tick
 		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
@@ -372,6 +391,7 @@
 		
 		coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
 	}
+    [range release];
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }
@@ -388,8 +408,8 @@
     }
     
     // Determine starting interval
-    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
     NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
     NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
     NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
@@ -424,7 +444,11 @@
         firstPointMultiple++;
         pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
     }    
-    
+	
+	// If the intervals divide exactly, and the first point is at the beginning of the range,
+	// you can end up with one extra tick
+	if ( [rangeLocation isEqualToNumber:pointLocation] ) numPoints++;
+	
     // Determine all locations
     NSInteger majorIndex;
     NSDecimalNumber *minorInterval = nil;
@@ -433,14 +457,16 @@
 	}
     for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
     	// Major ticks
-        [majorLocations addObject:pointLocation];
+        if ( !self.visibleRange || [self.visibleRange contains:pointLocation.decimalValue] ) 
+        	[majorLocations addObject:pointLocation];
         pointLocation = [pointLocation decimalNumberByAdding:interval];
         
         // Minor ticks
         if ( !minorInterval ) continue;
         NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
         for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
-            [minorLocations addObject:minorLocation];
+            if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
+            	[minorLocations addObject:minorLocation];
             minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
         }
     }
@@ -458,6 +484,11 @@
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
 {
+	if ( [delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+		BOOL shouldContinue = [delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+		if ( !shouldContinue ) return;
+	}
+
 	CGFloat offset = self.labelOffset;
 	switch ( self.tickDirection ) {
 		case CPSignNone:
@@ -623,6 +654,14 @@
 }
 
 #pragma mark -
+#pragma mark Titles
+
+-(NSDecimal)defaultTitleLocation
+{
+	return CPDecimalNaN();
+}
+
+#pragma mark -
 #pragma mark Layout
 
 +(CGFloat)defaultZPosition 
@@ -726,7 +765,7 @@
     }
 }
 
-- (void)setTitle:(NSString *)newTitle
+-(void)setTitle:(NSString *)newTitle
 {
 	if ( newTitle != title ) {
 		[title release];
@@ -743,6 +782,16 @@
 			}
 		}
 		[self setNeedsLayout];
+	}
+}
+
+
+-(NSDecimal)titleLocation
+{
+	if ( NSDecimalIsNotANumber(&titleLocation) ) {
+		return self.defaultTitleLocation;
+	} else {
+		return titleLocation;
 	}
 }
 
@@ -938,6 +987,14 @@
     }
 }
 
+-(void)setGridLinesRange:(CPPlotRange *)newRange {
+    if ( newRange != gridLinesRange ) {
+        [gridLinesRange release];
+        gridLinesRange = [newRange copy];
+        [self setNeedsDisplay];
+    }
+}
+
 -(void)setPlotArea:(CPPlotArea *)newPlotArea
 {
 	if ( newPlotArea != plotArea ) {
@@ -958,6 +1015,14 @@
 	}	
 }
 
+-(void)setVisibleRange:(CPPlotRange *)newRange {
+    if ( newRange != visibleRange ) {
+        [visibleRange release];
+        visibleRange = [newRange copy];
+        self.needsRelabel = YES;
+    }
+}
+	
 -(void)setMinorGridLines:(CPGridLines *)newGridLines
 {
 	if ( newGridLines != minorGridLines ) {
@@ -968,7 +1033,7 @@
 			[self.plotArea.minorGridLineGroup addSublayer:minorGridLines];
 		}
         [minorGridLines setNeedsLayout];
-	}	
+	}
 }
 
 -(void)setMajorGridLines:(CPGridLines *)newGridLines
@@ -994,17 +1059,11 @@
 	return [CPGridLines class];
 }
 
-///	@}
-
 @end
 
 #pragma mark -
 
-///	@brief CPAxis abstract methods—must be overridden by subclasses
 @implementation CPAxis(AbstractMethods)
-
-/// @addtogroup CPAxis
-/// @{
 
 /**	@brief Converts a position on the axis to drawing coordinates.
  *	@param coordinateDecimalNumber The axis value in data coordinate space.
@@ -1014,7 +1073,5 @@
 {
 	return CGPointZero;
 }
-
-///	@}
 
 @end

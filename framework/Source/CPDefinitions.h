@@ -62,6 +62,23 @@ typedef enum _CPSign {
 	CPSignNegative = -1	 ///< Negative offset
 } CPSign;
 
+/**
+ *  @brief Enumeration of constraint types used in spring and strut model.
+ **/
+typedef enum _CPConstraint {
+    CPConstraintNone,    ///< No constraint. Free movement, equivalent to 'spring'.
+    CPConstraintFixed	 ///< Distance is fixed. Equivalent to a 'strut'.
+} CPConstraint;
+
+/**
+ *	@brief Constraints for a relative position
+ **/
+typedef struct _CPConstraints {
+	CPConstraint lower;	///< The constraint on the lower range.
+	CPConstraint upper;	///< The constraint on the upper range.
+} CPConstraints;
+
+
 /// @name Default Z Positions
 /// @{
 extern const CGFloat CPDefaultZPositionAxis;

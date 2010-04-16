@@ -74,16 +74,6 @@
 	return CPDefaultZPositionAxisSet;
 }
 
--(void)layoutSublayers
-{
-    [super layoutSublayers];
-    for ( CPAxis *axis in axes ) {
-        axis.bounds = self.bounds;
-        axis.anchorPoint = CGPointZero;
-        axis.position = self.bounds.origin;
-    }
-}
-
 #pragma mark -
 #pragma mark Drawing
 

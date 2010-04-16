@@ -3,18 +3,15 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 
-/**	@brief Platform-specific extensions to CPLayer.
- **/
-@implementation CPLayer (CPPlatformSpecificLayerExtensions)
-
-/// @addtogroup CPLayer
-/// @{
+@implementation CPLayer(CPPlatformSpecificLayerExtensions)
 
 /**	@brief Gets an image of the layer contents.
  *	@return A native image representation of the layer content.
  **/
 -(CPNativeImage *)imageOfLayer
 {
+	[self layoutIfNeeded];
+	
 	CGSize boundsSize = self.bounds.size;
 	
 	NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:boundsSize.width pixelsHigh:boundsSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(NSInteger)boundsSize.width * 4 bitsPerPixel:32];
@@ -34,25 +31,20 @@
 	return [image autorelease];
 }
 
-///	@}
-
 @end
 
-/**	@brief Platform-specific extensions to CPColor.
- **/
-@implementation CPColor (CPPlatformSpecificColorExtensions)
+#pragma mark -
 
-/// @addtogroup CPColor
-/// @{
+@implementation CPColor(CPPlatformSpecificColorExtensions)
 
 /**	@property nsColor
  *	@brief Gets the color value as an NSColor.
  **/
+@dynamic nsColor;
+
 -(NSColor *)nsColor
 {
 	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
-
-///	@}
 
 @end

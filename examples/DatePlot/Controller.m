@@ -38,7 +38,7 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromFloat(oneDay);
-    x.constantCoordinateValue = CPDecimalFromString(@"2");
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -49,7 +49,7 @@
     CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = CPDecimalFromFloat(oneDay);
+    y.orthogonalCoordinateDecimal = CPDecimalFromFloat(oneDay);
             
     // Create a plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];

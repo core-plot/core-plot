@@ -25,6 +25,9 @@
 
 @end
 
+/**	@category CPAnimationTransition(AbstractMethods)
+ *	@brief CPAnimationTransition abstract methods—must be overridden by subclasses
+ **/
 @interface CPAnimationTransition(AbstractMethods)
 
 -(void)performTransition;

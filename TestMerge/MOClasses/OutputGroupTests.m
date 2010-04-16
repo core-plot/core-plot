@@ -30,7 +30,7 @@
     self.moc = [[NSManagedObjectContext alloc] init];
     self.moc.persistentStoreCoordinator = psc;
     
-    self.group = [OutputGroup newInManagedObjectContext:self.moc];
+    self.group = [OutputGroup insertInManagedObjectContext:self.moc];
     
     // System Version
     SInt32 major, minor, bugFix;

@@ -65,8 +65,7 @@
     x.minorGridLineStyle = minorGridLineStyle;
 	x.title = @"X Axis";
 	x.titleTextStyle = axisTitleTextStyle;
-	x.titleOffset = 25.0f;
-	x.titleLocation = CPDecimalFromFloat(5.0);
+	x.titleOffset = 25.0;
 	
 	// Label y with an automatic label policy.
 	axisLineStyle.lineColor = [CPColor greenColor];
@@ -82,8 +81,7 @@
     y.minorGridLineStyle = minorGridLineStyle;
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
-	y.titleOffset = 30.0f;
-	y.titleLocation = CPDecimalFromFloat(5.0);
+	y.titleOffset = 30.0;
 }
 
 @end

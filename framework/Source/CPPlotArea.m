@@ -144,7 +144,7 @@
 
 +(CGFloat)defaultZPosition 
 {
-	return CPDefaultZPositionPlotAreaFrame;
+	return CPDefaultZPositionPlotArea;
 }
 
 -(void)layoutSublayers

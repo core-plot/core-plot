@@ -15,9 +15,6 @@
 
 @implementation CPFill
 
-/// @defgroup CPFill CPFill
-/// @{
-
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -110,15 +107,11 @@
 	return nil;
 }
 
-///	@}
-
 @end
 
-///	@brief CPFill abstract methods—must be overridden by subclasses
-@implementation CPFill(AbstractMethods)
+#pragma mark -
 
-/// @addtogroup CPFill
-/// @{
+@implementation CPFill(AbstractMethods)
 
 #pragma mark -
 #pragma mark Drawing
@@ -139,7 +132,5 @@
 {
 	// do nothing--subclasses override to do drawing here
 }
-
-///	@}
 
 @end

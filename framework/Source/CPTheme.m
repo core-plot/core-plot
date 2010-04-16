@@ -5,12 +5,14 @@
 #import "CPPlainBlackTheme.h"
 #import "CPPlainWhiteTheme.h"
 #import "CPStocksTheme.h"
+#import "CPSlateTheme.h"
 #import "CPGraph.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 NSString * const kCPPlainWhiteTheme = @"Plain White";		///< Plain white theme.
 NSString * const kCPPlainBlackTheme = @"Plain Black";		///< Plain black theme.
+NSString * const kCPSlateTheme = @"Slate";		  			///< Slate theme.
 NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 // Registered themes
@@ -67,16 +69,13 @@ static NSMutableDictionary *themes = nil;
 	}
 }
 
-/// @defgroup CPTheme CPTheme
-/// @{
-
 /**	@brief List of the available themes.
  *	@return An NSArray with all available themes.
  **/
 +(NSArray *)themeClasses {
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
-		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
+		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPSlateTheme class], [CPStocksTheme class], nil];
 	}
 	return themeClasses;
 }
@@ -131,14 +130,6 @@ static NSMutableDictionary *themes = nil;
 	;
 }
 
-/**	@brief Creates a new graph styled with the theme.
- *	@return The new graph.
- **/
--(id)newGraph 
-{
-	return nil;
-}
-
 /**	@brief Applies the theme to the provided graph.
  *	@param graph The graph to style.
  **/
@@ -149,6 +140,20 @@ static NSMutableDictionary *themes = nil;
 	[self applyThemeToAxisSet:graph.axisSet];    
 }
 
+@end
+
+#pragma mark -
+
+@implementation CPTheme(AbstractMethods)
+
+/**	@brief Creates a new graph styled with the theme.
+ *	@return The new graph.
+ **/
+-(id)newGraph 
+{
+	return nil;
+}
+
 /**	@brief Applies the background theme to the provided graph.
  *	@param graph The graph to style.
  **/
@@ -157,7 +162,7 @@ static NSMutableDictionary *themes = nil;
 }
 
 /**	@brief Applies the theme to the provided plot area.
- *	@param plotArea The plot area to style.
+ *	@param plotAreaFrame The plot area to style.
  **/
 -(void)applyThemeToPlotArea:(CPPlotAreaFrame *)plotAreaFrame
 {
@@ -169,7 +174,5 @@ static NSMutableDictionary *themes = nil;
 -(void)applyThemeToAxisSet:(CPAxisSet *)axisSet
 {
 }
-
-///	@}
 
 @end

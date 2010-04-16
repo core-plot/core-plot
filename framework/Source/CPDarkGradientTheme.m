@@ -28,9 +28,6 @@
  **/
 @implementation CPDarkGradientTheme
 
-/// @defgroup CPDarkGradientTheme CPDarkGradientTheme
-/// @{
-
 +(NSString *)defaultName 
 {
 	return kCPDarkGradientTheme;
@@ -40,7 +37,7 @@
 {
 	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength = CPDecimalFromDouble(0.5);
-    axis.constantCoordinateValue = CPDecimalFromDouble(0.0);
+    axis.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
 	axis.tickDirection = CPSignNone;
     axis.minorTicksPerInterval = 4;
     axis.majorTickLineStyle = majorLineStyle;
@@ -98,7 +95,5 @@
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:whiteTextStyle];
     }
 }
-
-///	@}
 
 @end

@@ -28,8 +28,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     self.xShift = 0.0;
     self.yShift = 0.0;
 
-    // Create graph from theme
-    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
+    // Create graph and apply a dark theme
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
@@ -55,15 +55,15 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
     
     CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
-    redLineStyle.lineWidth = 2.0;
-    redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.7];
+    redLineStyle.lineWidth = 10.0;
+    redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.5];
 
     // Axes
     // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
-    x.constantCoordinateValue = CPDecimalFromString(@"2");
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 2;
     x.majorGridLineStyle = majorGridLineStyle;
     x.minorGridLineStyle = minorGridLineStyle;
@@ -77,11 +77,11 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	x.title = @"X Axis";
 	x.titleOffset = 30.0;
 	x.titleLocation = CPDecimalFromString(@"3.0");
-	
+
 	// Label y with an automatic label policy. 
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyAutomatic;
-    y.constantCoordinateValue = CPDecimalFromString(@"2");
+    y.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
     y.minorTicksPerInterval = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle = majorGridLineStyle;
@@ -102,9 +102,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	self.labelRotation = M_PI * 0.25;
 
     // Add an extra y axis (red)
-    CPXYAxis *y2 = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:CGRectZero];
+    // We add constraints to this axis below
+    CPXYAxis *y2 = [[(CPXYAxis *)[CPXYAxis alloc] initWithFrame:CGRectZero] autorelease];
     y2.labelingPolicy = CPAxisLabelingPolicyAutomatic;
-    y2.constantCoordinateValue = CPDecimalFromString(@"3");
+    y2.orthogonalCoordinateDecimal = CPDecimalFromString(@"3");
     y2.minorTicksPerInterval = 0;
     y2.preferredNumberOfMajorTicks = 4;
     y2.majorGridLineStyle = majorGridLineStyle;
@@ -116,8 +117,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     y2.majorTickLineStyle = redLineStyle;
     y2.minorTickLineStyle = nil;
     y2.labelTextStyle = nil;
+    y2.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(2) length:CPDecimalFromInteger(3)];
+    
+    // Set axes
     graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
-    [y2 release];
 	
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -135,7 +138,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     fillImage.tiled = YES;
     CPFill *areaGradientFill = [CPFill fillWithImage:fillImage];
     boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
+    boundLinePlot.areaBaseValue = [[NSDecimalNumber one] decimalValue];
     
 	// Add plot symbols
 	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
@@ -179,11 +182,21 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     CPPlotRange *yRange = plotSpace.yRange;
     [yRange expandRangeByFactor:CPDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
+    
+    // Restrict y range to a global range
+    CPPlotRange *globalYRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(6.0f)];
+    plotSpace.globalYRange = globalYRange;
+    
     // set the x and y shift to match the new ranges
 	CGFloat length = CPDecimalDoubleValue(xRange.length);
 	self.xShift = length - 3.0;
 	length = CPDecimalDoubleValue(yRange.length);
 	self.yShift = length - 2.0;
+    
+    // Position y2 axis relative to the plot area, ie, not moving when dragging
+	CPConstraints y2Constraints = {CPConstraintNone, CPConstraintFixed};
+	y2.positionedRelativeToPlotArea = YES;
+	y2.constraints = y2Constraints;
 	
     // Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
@@ -276,7 +289,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 #pragma mark Plot Space Delegate Methods
 
 -(CPPlotRange *)plotSpace:(CPPlotSpace *)space willChangePlotRangeTo:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate {
-    // Impose a limit on how far user can scroll
+    // Impose a limit on how far user can scroll in x
     if ( coordinate == CPCoordinateX ) {
         CPPlotRange *maxRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0f) length:CPDecimalFromFloat(6.0f)];
         CPPlotRange *changedRange = [[newRange copy] autorelease];

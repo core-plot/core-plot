@@ -3,7 +3,10 @@
 #import "CPLayer.h"
 #import "CPColor.h"
 
-@interface CPLayer (CPPlatformSpecificLayerExtensions)
+/**	@category CPLayer(CPPlatformSpecificLayerExtensions)
+ *	@brief Platform-specific extensions to CPLayer.
+ **/
+@interface CPLayer(CPPlatformSpecificLayerExtensions)
 
 /// @name Images
 /// @{
@@ -12,7 +15,10 @@
 
 @end
 
-@interface CPColor (CPPlatformSpecificColorExtensions)
+/**	@category CPColor(CPPlatformSpecificColorExtensions)
+ *	@brief Platform-specific extensions to CPColor.
+ **/
+@interface CPColor(CPPlatformSpecificColorExtensions)
 
 @property (nonatomic, readonly, retain) NSColor *nsColor;
 

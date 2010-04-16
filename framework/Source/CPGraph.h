@@ -60,9 +60,15 @@
 
 @end
 
-@interface CPGraph (AbstractFactoryMethods)
+/**	@category CPGraph(AbstractFactoryMethods)
+ *	@brief CPGraph abstract methods—must be overridden by subclasses
+ **/
+@interface CPGraph(AbstractFactoryMethods)
 
+/// @name Factory Methods
+/// @{
 -(CPPlotSpace *)newPlotSpace;
 -(CPAxisSet *)newAxisSet;
+/// @}
 
 @end

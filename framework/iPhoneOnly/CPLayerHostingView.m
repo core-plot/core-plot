@@ -2,8 +2,13 @@
 #import "CPLayerHostingView.h"
 #import "CPLayer.h"
 
+/**	@brief A container view for displaying a CPLayer.
+ **/
 @implementation CPLayerHostingView
 
+/**	@property hostedLayer
+ *	@brief The CPLayer hosted inside this view.
+ **/
 @synthesize hostedLayer;
 
 +(Class)layerClass
@@ -52,26 +57,26 @@
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
     CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-    [hostedLayer pointingDeviceDownAtPoint:pointInHostedLayer];
+    [hostedLayer pointingDeviceDownEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
     CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-	[hostedLayer pointingDeviceDraggedAtPoint:pointInHostedLayer];
+	[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
     CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-	[hostedLayer pointingDeviceUpAtPoint:pointInHostedLayer];
+	[hostedLayer pointingDeviceUpEvent:event atPoint:pointInHostedLayer];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	[hostedLayer pointingDeviceCancelled];
+	[hostedLayer pointingDeviceCancelledEvent:event];
 }
 
 #pragma mark -

@@ -13,9 +13,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @implementation CPPlotSpace
 
-/// @defgroup CPPlotSpace CPPlotSpace
-/// @{
-
 /**	@property identifier
  *	@brief An object used to identify the plot in collections.
  **/
@@ -73,47 +70,58 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceDownAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceUpAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceDraggedAtPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
  *	@return Whether the plot space handled the event or not.
  **/
--(BOOL)pointingDeviceCancelled
+-(BOOL)pointingDeviceCancelledEvent:(id)event
 {
-	return NO;
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    }
+	return eventIsHandled;
 }
-
-///	@}
 
 @end
 
 #pragma mark -
-///	@brief CPPlotSpace abstract methods—must be overridden by subclasses
-@implementation CPPlotSpace(AbstractMethods)
 
-/// @addtogroup CPPlotSpace
-/// @{
+@implementation CPPlotSpace(AbstractMethods)
 
 /**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
@@ -144,9 +152,16 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@param point The drawing coordinates of the data point.
- *	@param layer The layer containing the point to convert.
  **/
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
+{
+}
+
+/**	@brief Sets the range of values for a given coordinate.
+ *  @param newRange The new plot range.
+ *	@param coordinate The axis coordinate.
+ **/
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate
 {
 }
 
@@ -164,6 +179,5 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(void)scaleToFitPlots:(NSArray *)plots {
 }
-///	@}
 
 @end

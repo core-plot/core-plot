@@ -22,6 +22,9 @@
 
 @end
 
+/**	@category NSString(CPTextStyleExtensions)
+ *	@brief NSString extensions for drawing styled text.
+ **/
 @interface NSString(CPTextStyleExtensions)
 
 /// @name Measurement

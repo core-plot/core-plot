@@ -28,7 +28,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 /**	@brief Axis labeling delegate.
  **/
-@protocol CPAxisDelegate
+@protocol CPAxisDelegate <NSObject>
 
 /// @name Labels
 /// @{
@@ -44,6 +44,17 @@ typedef enum _CPAxisLabelingPolicy {
  *	@param axis The axis.
  **/
 -(void)axisDidRelabel:(CPAxis *)axis;
+
+@optional
+
+/**	@brief This method gives the delegate a chance to create custom labels for each tick.
+ *  It can be used with any relabeling policy. Returning NO will cause the axis not
+ *  to update the labels. It is then the delegates responsiblity to do this.
+ *	@param axis The axis.
+ *  @param locations The locations of the major ticks.
+ *  @return YES if the axis class should proceed with automatic relabeling.
+ **/
+-(BOOL)axis:(CPAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations;
 
 ///	@}
 
@@ -64,8 +75,8 @@ typedef enum _CPAxisLabelingPolicy {
     CPLineStyle *minorTickLineStyle;
     CPLineStyle *majorGridLineStyle;
     CPLineStyle *minorGridLineStyle;
-    NSDecimal labelingOrigin;			// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
-    NSDecimal majorIntervalLength;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    NSDecimal labelingOrigin;			
+    NSDecimal majorIntervalLength;	
     NSUInteger minorTicksPerInterval;
     NSUInteger preferredNumberOfMajorTicks;
     CPAxisLabelingPolicy labelingPolicy;
@@ -77,15 +88,16 @@ typedef enum _CPAxisLabelingPolicy {
 	CPAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat titleOffset;
-	NSDecimal titleLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+	NSDecimal titleLocation;	
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
 	id <CPAxisDelegate> delegate;
+    CPPlotRange *visibleRange;
+    CPPlotRange *gridLinesRange;
 	CPPlotArea *plotArea;
 	CPGridLines *minorGridLines;
 	CPGridLines *majorGridLines;
-//	Class gridLineClass;
 }
 
 /// @name Axis
@@ -94,6 +106,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPCoordinate coordinate;
 @property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPSign tickDirection;
+@property (nonatomic, readwrite, copy) CPPlotRange *visibleRange;
 ///	@}
 
 /// @name Title
@@ -103,6 +116,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
 @property (nonatomic, readwrite, retain) NSString *title;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
+@property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
 ///	@}
 
 /// @name Labels
@@ -139,6 +153,7 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *majorGridLineStyle;
 @property (nonatomic, readwrite, copy) CPLineStyle *minorGridLineStyle;
+@property (nonatomic, readwrite, copy) CPPlotRange *gridLinesRange;
 ///	@}
 
 /// @name Plot Space
@@ -169,6 +184,9 @@ typedef enum _CPAxisLabelingPolicy {
 
 @end
 
+/**	@category CPAxis(AbstractMethods)
+ *	@brief CPAxis abstract methods—must be overridden by subclasses
+ **/
 @interface CPAxis(AbstractMethods)
 
 /// @name Coordinate Space Conversions
