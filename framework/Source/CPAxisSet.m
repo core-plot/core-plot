@@ -1,6 +1,7 @@
 #import "CPAxis.h"
 #import "CPAxisSet.h"
 #import "CPGraph.h"
+#import "CPLineStyle.h"
 #import "CPPlotSpace.h"
 #import "CPPlotArea.h"
 
@@ -13,6 +14,12 @@
  **/
 @synthesize axes;
 
+/** @property borderLineStyle 
+ *	@brief The line style for the layer border.
+ *	If nil, the border is not drawn.
+ **/
+@synthesize borderLineStyle;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -20,6 +27,8 @@
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		axes = [[NSArray array] retain];
+		borderLineStyle = nil;
+		
         self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -28,6 +37,7 @@
 -(void)dealloc
 {
     [axes release];
+	[borderLineStyle release];
 	[super dealloc];
 }
 
@@ -43,6 +53,14 @@
         [axis setNeedsRelabel];
 		[axis setNeedsDisplay];
     }
+}
+
+#pragma mark -
+#pragma mark Layout
+
++(CGFloat)defaultZPosition 
+{
+	return CPDefaultZPositionAxisSet;
 }
 
 #pragma mark -
@@ -66,20 +84,13 @@
     }
 }
 
-#pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
+-(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {
-	return CPDefaultZPositionAxisSet;
-}
-
-#pragma mark -
-#pragma mark Drawing
-
--(void)renderAsVectorInContext:(CGContextRef)theContext
-{
-	// nothing to draw
+	if ( newLineStyle != borderLineStyle ) {
+		[borderLineStyle release];
+		borderLineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+	}
 }
 
 @end

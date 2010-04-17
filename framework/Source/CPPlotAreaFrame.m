@@ -5,6 +5,16 @@
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 
+///	@cond
+@interface CPPlotAreaFrame()
+
+@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
+
+@end
+///	@endcond
+
+#pragma mark -
+
 /** @brief A layer drawn on top of the graph layer and behind all plot elements.
  **/
 @implementation CPPlotAreaFrame

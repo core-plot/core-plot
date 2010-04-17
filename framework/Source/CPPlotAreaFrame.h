@@ -9,7 +9,7 @@
     CPPlotArea *plotArea;
 }
 
-@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
+@property (nonatomic, readonly, retain) CPPlotArea *plotArea;
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotGroup *plotGroup;
 

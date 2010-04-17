@@ -1,6 +1,8 @@
-#import "CPXYAxisSet.h"
-#import "CPXYAxis.h"
 #import "CPDefinitions.h"
+#import "CPLineStyle.h"
+#import "CPUtilities.h"
+#import "CPXYAxis.h"
+#import "CPXYAxisSet.h"
 
 /**	@brief A set of cartesian (X-Y) axes.
  **/
@@ -35,6 +37,25 @@
 		[yAxis release];
 	}
 	return self;
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)context
+{
+	if ( self.borderLineStyle ) {
+		[super renderAsVectorInContext:context];
+		
+		CALayer *superlayer = self.superlayer;
+		CGRect borderRect = CPAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
+		
+		[self.borderLineStyle setLineStyleInContext:context];
+		
+		CGContextBeginPath(context);
+		CGContextAddRect(context, borderRect);
+		CGContextStrokePath(context);
+	}
 }
 
 #pragma mark -

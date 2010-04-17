@@ -25,7 +25,7 @@
 	graph.plotAreaFrame.paddingLeft = 50.0;
 	graph.plotAreaFrame.paddingRight = 20.0;
 	
-	graph.plotAreaFrame.plotArea.borderLineStyle = [CPLineStyle lineStyle];
+	graph.plotAreaFrame.axisSet.borderLineStyle = [CPLineStyle lineStyle];
 
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;

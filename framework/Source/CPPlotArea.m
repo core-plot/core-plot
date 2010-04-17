@@ -3,7 +3,6 @@
 #import "CPAxisSet.h"
 #import "CPFill.h"
 #import "CPLineStyle.h"
-#import "CPPlotFrame.h"
 #import "CPPlotGroup.h"
 #import "CPPlotArea.h"
 
@@ -31,11 +30,6 @@
  *	@brief The parent layer for all major grid lines.
  **/
 @synthesize majorGridLineGroup;
-
-/** @property plotFrame
- *	@brief The plot frame layer.
- **/
-@synthesize plotFrame;
 
 /** @property axisSet
  *	@brief The axis set.
@@ -77,7 +71,6 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		minorGridLineGroup = nil;
 		majorGridLineGroup = nil;
-		plotFrame = nil;
 		axisSet = nil;
 		plotGroup = nil;
 		axisLabelGroup = nil;
@@ -91,10 +84,6 @@
 		newGridLines = [[CPLayer alloc] init];
 		self.majorGridLineGroup = newGridLines;
 		[newGridLines release];
-		
-		CPPlotFrame *newPlotFrame = [[CPPlotFrame alloc] init];
-		self.plotFrame = newPlotFrame;
-		[newPlotFrame release];
 		
 		CPPlotGroup *newPlotGroup = [[CPPlotGroup alloc] init];
 		self.plotGroup = newPlotGroup;
@@ -117,7 +106,6 @@
 {
 	[minorGridLineGroup release];
 	[majorGridLineGroup release];
-	[plotFrame release];
 	[axisSet release];
 	[plotGroup release];
 	[axisLabelGroup release];
@@ -167,12 +155,12 @@
 
 -(CPLineStyle *)borderLineStyle
 {
-	return self.plotFrame.borderLineStyle;
+	return self.axisSet.borderLineStyle;
 }
 
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {
-	self.plotFrame.borderLineStyle = newLineStyle;
+	self.axisSet.borderLineStyle = newLineStyle;
 }
 
 -(void)setMinorGridLineGroup:(CPLayer *)newGridLines
@@ -203,22 +191,6 @@
 	}	
 }
 
--(void)setPlotFrame:(CPPlotFrame *)newPlotFrame
-{
-	if ( newPlotFrame != plotFrame ) {
-		[plotFrame removeFromSuperlayer];
-		[plotFrame release];
-		plotFrame = [newPlotFrame retain];
-		if ( plotFrame ) {
-			NSUInteger index = 0;
-			if ( self.minorGridLineGroup ) index++;
-			if ( self.majorGridLineGroup ) index++;
-			[self insertSublayer:plotFrame atIndex:index];
-		}
-        [self setNeedsLayout];
-	}	
-}
-
 -(void)setAxisSet:(CPAxisSet *)newAxisSet
 {
 	if ( newAxisSet != axisSet ) {
@@ -229,7 +201,6 @@
 			NSUInteger index = 0;
 			if ( self.minorGridLineGroup ) index++;
 			if ( self.majorGridLineGroup ) index++;
-			if ( self.plotFrame ) index++;
 			[self insertSublayer:axisSet atIndex:index];
 			for ( CPAxis *axis in axisSet.axes ) {
 				axis.plotArea = self;
@@ -249,7 +220,6 @@
 			NSUInteger index = 0;
 			if ( self.minorGridLineGroup ) index++;
 			if ( self.majorGridLineGroup ) index++;
-			if ( self.plotFrame ) index++;
 			if ( self.axisSet ) index++;
 			[self insertSublayer:plotGroup atIndex:index];
 		}
@@ -267,7 +237,6 @@
 			NSUInteger index = 0;
 			if ( self.minorGridLineGroup ) index++;
 			if ( self.majorGridLineGroup ) index++;
-			if ( self.plotFrame ) index++;
 			if ( self.axisSet ) index++;
 			if ( self.plotGroup ) index++;
 			[self insertSublayer:axisLabelGroup atIndex:index];
@@ -286,7 +255,6 @@
 			NSUInteger index = 0;
 			if ( self.minorGridLineGroup ) index++;
 			if ( self.majorGridLineGroup ) index++;
-			if ( self.plotFrame ) index++;
 			if ( self.axisSet ) index++;
 			if ( self.plotGroup ) index++;
 			if ( self.axisLabelGroup ) index++;
