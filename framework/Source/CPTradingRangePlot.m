@@ -55,6 +55,8 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 @end
 /// @endcond
 
+#pragma mark -
+
 /** @brief A trading range financial plot.
  **/
 @implementation CPTradingRangePlot
@@ -210,16 +212,26 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 -(void)dealloc
 {
-	if ( observedObjectForXValues ) [self unbind:CPTradingRangePlotBindingXValues];
-	observedObjectForXValues = nil;
-	if ( observedObjectForOpenValues ) [self unbind:CPTradingRangePlotBindingOpenValues];
-	observedObjectForOpenValues = nil;
-	if ( observedObjectForHighValues ) [self unbind:CPTradingRangePlotBindingHighValues];
-	observedObjectForHighValues = nil;
-	if ( observedObjectForLowValues ) [self unbind:CPTradingRangePlotBindingLowValues];
-	observedObjectForLowValues = nil;
-	if ( observedObjectForCloseValues ) [self unbind:CPTradingRangePlotBindingCloseValues];
-	observedObjectForCloseValues = nil;
+	if ( observedObjectForXValues ) {
+		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
+		observedObjectForXValues = nil;	
+	}
+	if ( observedObjectForOpenValues ) {
+		[observedObjectForOpenValues removeObserver:self forKeyPath:self.keyPathForOpenValues];
+		observedObjectForOpenValues = nil;	
+	}
+	if ( observedObjectForHighValues ) {
+		[observedObjectForHighValues removeObserver:self forKeyPath:self.keyPathForHighValues];
+		observedObjectForHighValues = nil;	
+	}
+	if ( observedObjectForLowValues ) {
+		[observedObjectForLowValues removeObserver:self forKeyPath:self.keyPathForLowValues];
+		observedObjectForLowValues = nil;	
+	}
+	if ( observedObjectForCloseValues ) {
+		[observedObjectForCloseValues removeObserver:self forKeyPath:self.keyPathForCloseValues];
+		observedObjectForCloseValues = nil;	
+	}
 	
 	[keyPathForXValues release];
 	[keyPathForCloseValues release];
@@ -236,6 +248,9 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Bindings
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {

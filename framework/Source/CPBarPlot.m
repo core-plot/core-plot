@@ -35,6 +35,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @end
 /// @endcond
 
+#pragma mark -
+
 /** @brief A two-dimensional bar plot.
  **/
 @implementation CPBarPlot
@@ -167,10 +169,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 -(void)dealloc
 {
-	if ( observedObjectForBarLengthValues ) [self unbind:CPBarPlotBindingBarLengths];
-
-	observedObjectForBarLocationValues = nil;
-	observedObjectForBarLengthValues = nil;
+	if ( observedObjectForBarLocationValues ) {
+		[observedObjectForBarLocationValues removeObserver:self forKeyPath:self.keyPathForBarLocationValues];
+		observedObjectForBarLocationValues = nil;	
+	}
+	if ( observedObjectForBarLengthValues ) {
+		[observedObjectForBarLengthValues removeObserver:self forKeyPath:self.keyPathForBarLengthValues];
+		observedObjectForBarLengthValues = nil;	
+	}
+	
 	[keyPathForBarLocationValues release];
 	[keyPathForBarLengthValues release];
 	[lineStyle release];
@@ -183,6 +190,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Bindings
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {

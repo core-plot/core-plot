@@ -14,6 +14,8 @@
 @end
 ///	@endcond
 
+#pragma mark -
+
 /**	@brief An abstract plot class.
  *
  *	Each data series on the graph is represented by a plot.

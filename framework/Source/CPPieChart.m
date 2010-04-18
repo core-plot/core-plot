@@ -16,6 +16,7 @@
 @end
 /// @endcond
 
+#pragma mark -
 
 /** @brief A pie chart.
  **/

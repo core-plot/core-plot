@@ -47,6 +47,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @end
 /// @endcond
 
+#pragma mark -
+
 /** @brief A two-dimensional scatter plot.
  **/
 @implementation CPScatterPlot
@@ -120,12 +122,18 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 
 -(void)dealloc
 {
-	if ( observedObjectForXValues ) [self unbind:CPScatterPlotBindingXValues];
-	observedObjectForXValues = nil;
-	if ( observedObjectForYValues ) [self unbind:CPScatterPlotBindingYValues];
-	observedObjectForYValues = nil;
-	if ( observedObjectForPlotSymbols ) [self unbind:CPScatterPlotBindingPlotSymbols];
-	observedObjectForPlotSymbols = nil;
+	if ( observedObjectForXValues ) {
+		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
+		observedObjectForXValues = nil;	
+	}
+	if ( observedObjectForYValues ) {
+		[observedObjectForYValues removeObserver:self forKeyPath:self.keyPathForYValues];
+		observedObjectForYValues = nil;	
+	}
+	if ( observedObjectForPlotSymbols ) {
+		[observedObjectForPlotSymbols removeObserver:self forKeyPath:self.keyPathForPlotSymbols];
+		observedObjectForPlotSymbols = nil;	
+	}
 
 	[keyPathForXValues release];
 	[keyPathForYValues release];
@@ -139,6 +147,9 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
     	
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Bindings
 
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
