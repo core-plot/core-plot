@@ -13,9 +13,9 @@
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
--(id)init
+-(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super init] ) {
+	if ( self = [super initWithFrame:newFrame] ) {
 		identifier = nil;
 	}
 	return self;
