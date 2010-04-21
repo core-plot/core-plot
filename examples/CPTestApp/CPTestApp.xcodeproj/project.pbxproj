@@ -18,7 +18,6 @@
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
 		BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8E74230FC0B96000DF8511 /* RotationView.m */; };
 		BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */; };
-		C317AB351093CA9300B25011 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB341093CA9300B25011 /* PlotSymbolDemo.xib */; };
 		C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */; };
 		C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB701093E09D00B25011 /* AxisDemo.xib */; };
 		C317AB751093E17500B25011 /* AxisDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AB731093E17500B25011 /* AxisDemoController.m */; };
@@ -83,7 +82,6 @@
 		BC8E74220FC0B96000DF8511 /* RotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationView.h; path = Source/RotationView.h; sourceTree = "<group>"; };
 		BC8E74230FC0B96000DF8511 /* RotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationView.m; path = Source/RotationView.m; sourceTree = "<group>"; };
 		BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
-		C317AB341093CA9300B25011 /* PlotSymbolDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotSymbolDemo.xib; path = Resources/PlotSymbolDemo.xib; sourceTree = "<group>"; };
 		C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotSymbolDemo.xib; path = Resources/PlotSymbolDemo.xib; sourceTree = "<group>"; };
 		C317AB701093E09D00B25011 /* AxisDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AxisDemo.xib; path = Resources/AxisDemo.xib; sourceTree = "<group>"; };
 		C317AB731093E17500B25011 /* AxisDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemoController.m; path = Source/AxisDemoController.m; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				C317AB341093CA9300B25011 /* PlotSymbolDemo.xib */,
 			);
 			name = CPTestApp;
 			sourceTree = "<group>";
@@ -279,7 +276,6 @@
 				90AF4F440F36CF1800753D26 /* CPTestApp.xib in Resources */,
 				BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */,
 				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
-				C317AB351093CA9300B25011 /* PlotSymbolDemo.xib in Resources */,
 				C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */,
 				C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */,
 			);
