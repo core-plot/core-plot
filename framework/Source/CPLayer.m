@@ -1,7 +1,9 @@
 #import "CPLayer.h"
 #import "CPLayoutManager.h"
+#import "CPPathExtensions.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPExceptions.h"
+#import "CPLineStyle.h"
 #import "CPUtilities.h"
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
@@ -54,9 +56,19 @@
 @synthesize paddingBottom;
 
 /** @property masksToBorder 
- *  @brief If YES (the default), a sublayer mask is applied to clip sublayer content to the inside of the border.
+ *  @brief If YES, a sublayer mask is applied to clip sublayer content to the inside of the border.
  **/
 @synthesize masksToBorder;
+
+/** @property outerBorderPath
+ *  @brief A drawing path that encompasses the outer boundary of the layer border.
+ **/
+@synthesize outerBorderPath;
+
+/** @property innerBorderPath
+ *  @brief A drawing path that encompasses the inner boundary of the layer border.
+ **/
+@synthesize innerBorderPath;
 
 /** @property maskingPath
  *  @brief A drawing path that encompasses the layer content including any borders. Set to NULL when no masking is desired.
@@ -110,6 +122,8 @@
 		masksToBorder = NO;
 		layoutManager = nil;
 		renderingRecursively = NO;
+		outerBorderPath = NULL;
+		innerBorderPath = NULL;
 
 		self.frame = newFrame;
 		self.needsDisplayOnBoundsChange = NO;
@@ -129,6 +143,9 @@
 {
 	graph = nil;
 	[layoutManager release];
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
+
 	[super dealloc];
 }
 
@@ -366,14 +383,38 @@
 #pragma mark -
 #pragma mark Masking
 
+// default path is the rounded rect layer bounds
 -(CGPathRef)maskingPath 
 {
-	return NULL;
+	if ( self.masksToBounds ) {
+		CGPathRef path = self.outerBorderPath;
+		if ( path ) return path;
+		
+		CGRect selfBounds = self.bounds;
+		
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
+			path = CreateRoundedRectPath(selfBounds, radius);
+			self.outerBorderPath = path;
+			CGPathRelease(path);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, selfBounds);
+			self.outerBorderPath = mutablePath;
+			CGPathRelease(mutablePath);
+		}
+		
+		return self.outerBorderPath;
+	}
+	else {
+		return NULL;
+	}
 }
 
 -(CGPathRef)sublayerMaskingPath 
 {
-	return NULL;
+	return self.innerBorderPath;
 }
 
 /**	@brief Recursively sets the clipping path of the given graphics context to the sublayer masking paths of its superlayers.
@@ -387,16 +428,20 @@
  **/
 -(void)applySublayerMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset
 {
-	CGPoint sublayerFrameOrigin = sublayer.frame.origin;
 	CGPoint sublayerBoundsOrigin = sublayer.bounds.origin;
 	CGPoint layerOffset = offset;
 	if ( !self.renderingRecursively ) {
-		layerOffset.x += sublayerFrameOrigin.x - sublayerBoundsOrigin.x;
-		layerOffset.y += sublayerFrameOrigin.y - sublayerBoundsOrigin.y;
+		CGPoint convertedOffset = [self convertPoint:sublayerBoundsOrigin fromLayer:sublayer];
+		layerOffset.x += convertedOffset.x;
+		layerOffset.y += convertedOffset.y;
 	}
 	
-	if ( [self.superlayer isKindOfClass:[CPLayer class]] ) {
-		[(CPLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
+	CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(sublayer.transform);
+	CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
+	
+	CALayer *superlayer = self.superlayer;
+	if ( [superlayer isKindOfClass:[CPLayer class]] ) {
+		[(CPLayer *)superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
 	}
 	
 	CGPathRef maskPath = self.sublayerMaskingPath;
@@ -415,6 +460,8 @@
 		//		CGContextConcatCTM(context, transform);
 		CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
 	}
+	
+	CGContextConcatCTM(context, sublayerTransform);
 }
 
 /**	@brief Sets the clipping path of the given graphics context to mask the content.
@@ -492,6 +539,40 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 										   (int)ceil(currentFrame.origin.y * 1000.0),
 										   (int)ceil(currentFrame.size.width * 1000.0),
 										   (int)ceil(currentFrame.size.height * 1000.0));
+	}
+}
+
+-(void)setOuterBorderPath:(CGPathRef)newPath
+{
+	if ( newPath != outerBorderPath ) {
+		CGPathRelease(outerBorderPath);
+		outerBorderPath = CGPathRetain(newPath);
+	}
+}
+
+-(void)setInnerBorderPath:(CGPathRef)newPath
+{
+	if ( newPath != innerBorderPath ) {
+		CGPathRelease(innerBorderPath);
+		innerBorderPath = CGPathRetain(newPath);
+	}
+}
+
+-(void)setBounds:(CGRect)newBounds
+{
+	[super setBounds:newBounds];
+	self.outerBorderPath = NULL;
+	self.innerBorderPath = NULL;
+}
+
+-(void)setCornerRadius:(CGFloat)newRadius
+{
+	if ( newRadius != self.cornerRadius ) {
+		super.cornerRadius = newRadius;
+		[self setNeedsDisplay];
+		
+		self.outerBorderPath = NULL;
+		self.innerBorderPath = NULL;
 	}
 }
 

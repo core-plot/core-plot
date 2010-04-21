@@ -16,6 +16,8 @@
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
     __weak CPGraph *graph;
+	CGPathRef outerBorderPath;
+	CGPathRef innerBorderPath;
 }
 
 /// @name Graph
@@ -34,6 +36,8 @@
 /// @name Masking
 /// @{
 @property (nonatomic, readwrite, assign) BOOL masksToBorder;
+@property (nonatomic, readwrite, assign) CGPathRef outerBorderPath;
+@property (nonatomic, readwrite, assign) CGPathRef innerBorderPath;
 @property (nonatomic, readonly, assign) CGPathRef maskingPath;
 @property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
 ///	@}
