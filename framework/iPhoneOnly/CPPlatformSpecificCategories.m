@@ -20,8 +20,6 @@
 
 -(CPNativeImage *)imageOfLayer 
 {
-	[self layoutIfNeeded];
-	
     UIGraphicsBeginImageContext(self.bounds.size);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -31,7 +29,7 @@
 	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0, -1.0);
 	
-	[self recursivelyRenderInContext:context];
+	[self layoutAndRenderInContext:context];
 	CPNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
 	CGContextSetAllowsAntialiasing(context, false);
 	

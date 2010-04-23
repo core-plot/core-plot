@@ -244,13 +244,20 @@
 	}
 }
 
+/**	@brief Updates the layer layout if needed and then draws layer content and the content of all sublayers into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ */
+-(void)layoutAndRenderInContext:(CGContextRef)context
+{
+	[self layoutIfNeeded];
+	[self recursivelyRenderInContext:context];
+}
+
 /**	@brief Draws layer content and the content of all sublayers into a PDF document.
  *	@return PDF representation of the layer content.
  **/
 -(NSData *)dataForPDFRepresentationOfLayer
 {
-	[self layoutIfNeeded];
-
 	NSMutableData *pdfData = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfData);
 	
@@ -260,7 +267,7 @@
 	CPPushCGContext(pdfContext);
 	
 	CGContextBeginPage(pdfContext, &mediaBox);
-	[self recursivelyRenderInContext:pdfContext];
+	[self layoutAndRenderInContext:pdfContext];
 	CGContextEndPage(pdfContext);
 	CGPDFContextClose(pdfContext);
 	

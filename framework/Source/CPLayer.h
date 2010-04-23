@@ -56,6 +56,7 @@
 /// @{
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
+-(void)layoutAndRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
 ///	@}
 
