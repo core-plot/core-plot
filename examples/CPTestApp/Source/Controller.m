@@ -195,7 +195,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     
     // Position y2 axis relative to the plot area, ie, not moving when dragging
 	CPConstraints y2Constraints = {CPConstraintNone, CPConstraintFixed};
-	y2.positionedRelativeToPlotArea = YES;
+	y2.isFloatingAxis = YES;
 	y2.constraints = y2Constraints;
 	
     // Add plot space for horizontal bar charts
