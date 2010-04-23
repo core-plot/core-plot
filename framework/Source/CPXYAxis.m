@@ -42,13 +42,14 @@
  **/
 @synthesize constraints;
 
-/**	@property positionedRelativeToPlotArea
- *	@brief True if the axis is constrained to move relative to the plot area.
- *  If false, the axes is fixed relative to the plot coordinates, and moves
+/**	@property isFloatingAxis
+ *	@brief True if the axis is floats independent of the plot space.
+ *  If false, the axes is fixed relative to the plot space coordinates, and moves
  *  whenever the plot space ranges change.
+ *  When true, the axis must be constrained relative to the plot area, in view coordinates.
  *  The default value is NO, meaning the axis is positioned in plot coordinates.
  **/
-@synthesize positionedRelativeToPlotArea;
+@synthesize isFloatingAxis;
 
 @synthesize constrainedPosition;
 
@@ -60,7 +61,7 @@
 	if ( self = [super initWithFrame:newFrame] ) {
     	CPConstraints newConstraints = {CPConstraintNone, CPConstraintNone};
         orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
-        positionedRelativeToPlotArea = NO;
+        isFloatingAxis = NO;
         self.constraints = newConstraints;
 		self.tickDirection = CPSignNone;
 	}
@@ -102,7 +103,7 @@
 {    
     CGPoint point = [self viewPointForOrthogonalCoordinateDecimal:self.orthogonalCoordinateDecimal axisCoordinateDecimal:coordinateDecimalNumber];
     
-    if ( self.positionedRelativeToPlotArea ) {
+    if ( self.isFloatingAxis ) {
         if ( self.constrainedPosition ) {
         	CGFloat lb, ub;
             [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];

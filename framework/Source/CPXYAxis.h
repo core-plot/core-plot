@@ -6,7 +6,7 @@
 
 @interface CPXYAxis : CPAxis {
 @private
-    BOOL positionedRelativeToPlotArea;
+    BOOL isFloatingAxis;
     NSDecimal orthogonalCoordinateDecimal;
 	CPConstraints constraints;
     CPConstrainedPosition *constrainedPosition;
@@ -16,7 +16,7 @@
 /// @{
 @property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
 @property (nonatomic, readwrite) CPConstraints constraints;
-@property (nonatomic, readwrite) BOOL positionedRelativeToPlotArea;
+@property (nonatomic, readwrite) BOOL isFloatingAxis;
 ///	@}
 
 @end
