@@ -335,6 +335,9 @@
 	symbolPath = CGPathCreateMutable();
 	
 	switch (self.symbolType) {
+		case CPPlotSymbolTypeNone:
+			// empty path
+			break;
 		case CPPlotSymbolTypeRectangle:
 			CGPathAddRect(symbolPath, NULL, bounds);
 			break;
