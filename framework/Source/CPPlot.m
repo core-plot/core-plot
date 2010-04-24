@@ -191,7 +191,7 @@
 {
 	if ( numbers == nil ) return;
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
-    [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
 
 /**	@brief Retrieves an array of numbers from the cache.
@@ -200,7 +200,7 @@
  **/
 -(NSArray *)cachedNumbersForField:(NSUInteger)fieldEnum 
 {
-    return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
 
 #pragma mark -

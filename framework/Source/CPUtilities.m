@@ -212,7 +212,7 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
  **/
 NSDecimal CPDecimalNaN(void)
 {
-	NSDecimal decimalNaN;
+	NSDecimal decimalNaN = [[NSDecimalNumber zero] decimalValue];
 	decimalNaN._length = 0;
 	decimalNaN._isNegative = YES;
 	

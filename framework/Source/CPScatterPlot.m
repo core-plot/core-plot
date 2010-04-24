@@ -1,4 +1,3 @@
-
 #import <stdlib.h>
 #import "CPScatterPlot.h"
 #import "CPLineStyle.h"
@@ -42,7 +41,9 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags;
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
 
--(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound;
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound;
+
+CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 @end
 /// @endcond
@@ -373,12 +374,12 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 	}
 }
 
--(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound 
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound 
 {
-	NSInteger result = NSNotFound;
-	NSInteger delta = (isLowerBound ? 1 : -1);
-	NSInteger initialIndex = (isLowerBound ? 0 : self.xValues.count-1);
-	for ( NSInteger i = initialIndex; i >= 0 && i < self.xValues.count; i += delta ) {
+	NSUInteger result = NSNotFound;
+	NSUInteger delta = (isLowerBound ? 1 : -1);
+	NSUInteger initialIndex = (isLowerBound ? 0 : self.xValues.count-1);
+	for ( NSUInteger i = initialIndex; i >= 0 && i < self.xValues.count; i += delta ) {
 		if ( pointDrawFlags[i] ) {
 			result = i;
 			break;
@@ -390,11 +391,11 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 #pragma mark -
 #pragma mark View Points
 
-CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
+CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
 	CGFloat deltaX = point1.x - point2.x;
 	CGFloat deltaY = point1.y - point2.y;
-	CGFloat distanceSquared = deltaX*deltaX + deltaY*deltaY;
+	CGFloat distanceSquared = deltaX * deltaX + deltaY * deltaY;
 	return distanceSquared;
 }
 
@@ -402,18 +403,18 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
  *	@param viewPoint The reference point.
  *	@return The index of the closest point, or NSNotFound if there is no visible point.
  **/
--(NSInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint 
+-(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint 
 {
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));	
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
-		
-	NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
+	
+	NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
 	if ( result != NSNotFound ) {
-		CGFloat minimumDistanceSquared = SquareOfDistanceBetweenPoints(viewPoint, viewPoints[result]);
-		for ( NSInteger i = result+1; i < self.xValues.count; ++i ) {
-			CGFloat distanceSquared = SquareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
+		CGFloat minimumDistanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[result]);
+		for ( NSUInteger i = result + 1; i < self.xValues.count; ++i ) {
+			CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
 			if ( distanceSquared < minimumDistanceSquared ) {
 				minimumDistanceSquared = distanceSquared;
 				result = i;
@@ -431,7 +432,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
  *	@param index The index of the point.
  *	@return The view point of the visible point at the index passed.
  **/
--(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSInteger)index 
+-(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index 
 {
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
@@ -468,8 +469,8 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
 	
 	// Get extreme points
-	NSInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
-	NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
+	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
+	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
 	if ( firstDrawnPointIndex == NSNotFound ) return;
 	
 	// Path
@@ -477,7 +478,7 @@ CGFloat SquareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( self.dataLineStyle || self.areaFill ) {
 		dataLinePath = CGPathCreateMutable();
         CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
-        NSUInteger i = firstDrawnPointIndex+1;
+        NSUInteger i = firstDrawnPointIndex + 1;
         while ( i <= lastDrawnPointIndex ) {
             CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
             i++;

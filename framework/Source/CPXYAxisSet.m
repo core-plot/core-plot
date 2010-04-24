@@ -52,9 +52,7 @@
 		
 		[self.borderLineStyle setLineStyleInContext:context];
 		
-		CGContextBeginPath(context);
-		CGContextAddRect(context, borderRect);
-		CGContextStrokePath(context);
+		CGContextStrokeRect(context, borderRect);
 	}
 }
 

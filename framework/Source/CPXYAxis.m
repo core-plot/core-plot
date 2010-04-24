@@ -142,15 +142,14 @@
 		CGPoint startViewPoint = baseViewPoint;
         CGPoint endViewPoint = baseViewPoint;
 		
-		CGFloat startFactor, endFactor;
+		CGFloat startFactor = 0.0;
+		CGFloat endFactor = 0.0;
 		switch ( self.tickDirection ) {
 			case CPSignPositive:
-				startFactor = 0;
-				endFactor = 1;
+				endFactor = 1.0;
 				break;
 			case CPSignNegative:
-				startFactor = 0;
-				endFactor = -1;
+				endFactor = -1.0;
 				break;
 			case CPSignNone:
 				startFactor = -0.5;

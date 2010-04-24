@@ -197,7 +197,7 @@
 
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-	CGFloat viewX, viewY;
+	CGFloat viewX = 0.0, viewY = 0.0;
 	CGSize layerSize = self.graph.plotAreaFrame.plotArea.bounds.size;
 	
 	switch ( self.xScaleType ) {
@@ -221,7 +221,7 @@
 
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
-	CGFloat viewX, viewY;
+	CGFloat viewX = 0.0, viewY = 0.0;
 	CGSize layerSize = self.graph.plotAreaFrame.bounds.size;
 
 	switch ( self.xScaleType ) {
