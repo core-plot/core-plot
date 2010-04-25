@@ -1,6 +1,7 @@
 #import "CPGraph.h"
 #import "CPExceptions.h"
 #import "CPPlot.h"
+#import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
@@ -18,6 +19,8 @@
 
 @end
 ///	@endcond
+
+#pragma mark -
 
 /**	@brief An abstract graph class.
  *	@todo More documentation needed 
@@ -48,6 +51,12 @@
  *	@brief The default plot space.
  **/
 @dynamic defaultPlotSpace;
+
+/** @property topDownLayerOrder
+ *	@brief An array of graph layers to be drawn in an order other than the default.
+ *	@see CPPlotArea#topDownLayerOrder
+ **/
+@dynamic topDownLayerOrder;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -261,7 +270,7 @@
         plotAreaFrame = [newArea retain];
         [self addSublayer:newArea];
         plotAreaFrame.graph = self;
-		for ( CPPlotSpace *space in plotSpaces ) {
+		for ( CPPlotSpace *space in self.plotSpaces ) {
             space.graph = self;
         }
     }
@@ -377,6 +386,16 @@
         [super setPaddingBottom:newPadding];
 		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
     }
+}
+
+-(NSArray *)topDownLayerOrder
+{
+	return self.plotAreaFrame.plotArea.topDownLayerOrder;
+}
+
+-(void)setTopDownLayerOrder:(NSArray *)newArray
+{
+	self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
 }
 
 #pragma mark -

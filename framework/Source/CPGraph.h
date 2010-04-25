@@ -1,12 +1,25 @@
-
 // Abstract class
 #import "CPBorderedLayer.h"
+
+/// @file
 
 @class CPAxisSet;
 @class CPPlot;
 @class CPPlotAreaFrame;
 @class CPPlotSpace;
 @class CPTheme;
+
+/**
+ *	@brief Enumeration of graph layers.
+ **/
+typedef enum _CPGraphLayerType {
+	CPGraphLayerTypeMinorGridLines,		///< Minor grid lines.
+	CPGraphLayerTypeMajorGridLines,		///< Major grid lines.
+	CPGraphLayerTypeAxisLines,			///< Axis lines.
+	CPGraphLayerTypePlots,				///< Plots.
+	CPGraphLayerTypeAxisLabels,			///< Axis labels.
+	CPGraphLayerTypeAxisTitles			///< Axis titles.
+} CPGraphLayerType;
 
 @interface CPGraph : CPBorderedLayer {
 @private
@@ -18,6 +31,7 @@
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
+@property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
 
 /// @name Data Source
 /// @{

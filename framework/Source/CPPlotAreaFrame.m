@@ -42,7 +42,7 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		plotArea = nil;
 		
-		CPPlotArea *newPlotArea = [[CPPlotArea alloc] init];
+		CPPlotArea *newPlotArea = [(CPPlotArea *)[CPPlotArea alloc] initWithFrame:newFrame];
 		self.plotArea = newPlotArea;
 		[newPlotArea release];
 
