@@ -934,6 +934,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
+				SYMROOT = build;
 			};
 			name = Debug;
 		};
@@ -964,6 +965,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
+				SYMROOT = build;
 			};
 			name = Release;
 		};
