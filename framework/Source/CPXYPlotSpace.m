@@ -222,7 +222,7 @@
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
 	CGFloat viewX = 0.0, viewY = 0.0;
-	CGSize layerSize = self.graph.plotAreaFrame.bounds.size;
+	CGSize layerSize = self.graph.plotAreaFrame.plotArea.bounds.size;
 
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:

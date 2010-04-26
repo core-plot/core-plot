@@ -4,6 +4,7 @@
 #import "CPLayer.h"
 
 @class CPPlot;
+@class CPPlotArea;
 @class CPPlotSpace;
 @class CPPlotRange;
 
@@ -50,6 +51,8 @@
 
 @end 
 
+#pragma mark -
+
 @interface CPPlot : CPLayer {
 	@private
     id <CPPlotDataSource> dataSource;
@@ -63,6 +66,7 @@
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 @property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readonly, retain) CPPlotArea *plotArea;
 
 /// @name Data Loading
 /// @{

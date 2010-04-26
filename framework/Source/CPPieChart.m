@@ -1,4 +1,5 @@
 #import "CPPieChart.h"
+#import "CPPlotArea.h"
 #import "CPColor.h"
 #import "CPFill.h"
 #import "CPUtilities.h"
@@ -159,7 +160,9 @@ static CGFloat colorLookupTable[10][3] =
 	if (( self.normalizedSliceWidths == nil ) || ([self.normalizedSliceWidths count] < 1)) return;
 
 	[super renderAsVectorInContext:context];
-	CGPoint centerPoint = CPAlignPointToUserSpace(context, CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0));
+	CGRect plotAreaBounds = self.plotArea.bounds;
+	CGPoint centerPoint = [self convertPoint:CGPointMake(CGRectGetMidX(plotAreaBounds), CGRectGetMidY(plotAreaBounds)) fromLayer:self.plotArea];
+	centerPoint = CPAlignPointToUserSpace(context, centerPoint);
 	// TODO: Add NSDecimal rendering path
 	
 	NSUInteger currentIndex = 0;

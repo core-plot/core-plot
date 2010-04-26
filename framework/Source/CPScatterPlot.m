@@ -1,6 +1,7 @@
 #import <stdlib.h>
 #import "CPScatterPlot.h"
 #import "CPLineStyle.h"
+#import "CPPlotArea.h"
 #import "CPPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
@@ -355,13 +356,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 			double doublePrecisionPlotPoint[2];
 			doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
 			doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
-			viewPoints[i] = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint];
+			viewPoints[i] = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:doublePrecisionPlotPoint] fromLayer:self.plotArea];
 		}
 		else {
 			NSDecimal plotPoint[2];
 			plotPoint[CPCoordinateX] = [xValue decimalValue];
 			plotPoint[CPCoordinateY] = [yValue decimalValue];
-			viewPoints[i] = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			viewPoints[i] = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 		}
     }	
 }
@@ -376,8 +377,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound 
 {
-	NSUInteger result = NSNotFound;
-	NSUInteger delta = (isLowerBound ? 1 : -1);
+	NSInteger result = NSNotFound;
+	NSInteger delta = (isLowerBound ? 1 : -1);
 	NSUInteger initialIndex = (isLowerBound ? 0 : self.xValues.count-1);
 	for ( NSUInteger i = initialIndex; i >= 0 && i < self.xValues.count; i += delta ) {
 		if ( pointDrawFlags[i] ) {
@@ -494,7 +495,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		NSDecimal plotPoint[2];
 		plotPoint[CPCoordinateX] = [xValue decimalValue];
 		plotPoint[CPCoordinateY] = self.areaBaseValue;
-		baseLinePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+		baseLinePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 		
 		CGFloat baseLineYValue = baseLinePoint.y;
 		

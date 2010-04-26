@@ -198,6 +198,13 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		subLayer.anchorPoint = CGPointZero;
 		subLayer.position = sublayerPosition;
 	}
+	
+	// make the plot group the same size as the plot area to clip the plots
+	CPPlotGroup *thePlotGroup = self.plotGroup;
+	if ( thePlotGroup ) {
+		thePlotGroup.bounds = self.bounds;
+		thePlotGroup.position = CGPointZero;
+	}
 }
 
 #pragma mark -

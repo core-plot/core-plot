@@ -1,9 +1,9 @@
-
 #import "CPBarPlot.h"
 #import "CPXYPlotSpace.h"
 #import "CPColor.h"
 #import "CPLineStyle.h"
 #import "CPFill.h"
+#import "CPPlotArea.h"
 #import "CPPlotRange.h"
 #import "CPGradient.h"
 #import "CPUtilities.h"
@@ -362,11 +362,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 			
 			// Tip point
 			plotPoint[dependentCoord] = [dependentCoordValue doubleValue];
-			tipPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// Base point
 			plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
-			basePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 		}
 		else {
 			NSDecimal plotPoint[2];
@@ -374,11 +374,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 			
 			// Tip point
 			plotPoint[dependentCoord] = [[lengths objectAtIndex:ii] decimalValue];
-			tipPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// Base point
 			plotPoint[dependentCoord] = baseValue;
-			basePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 		}
 		
         // Offset
@@ -492,12 +492,12 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         CGPoint tipPoint;
         plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
         plotPoint[dependentCoord] = [[lengths objectAtIndex:ii] decimalValue];
-        tipPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+        tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
         
         CGPoint basePoint;
         plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
         plotPoint[dependentCoord] = self.baseValue;
-        basePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+        basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
                 
         // Create label
         CPTextLayer *label = nil;

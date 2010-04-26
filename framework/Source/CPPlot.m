@@ -1,5 +1,7 @@
-
+#import "CPGraph.h"
 #import "CPPlot.h"
+#import "CPPlotArea.h"
+#import "CPPlotAreaFrame.h"
 #import "CPPlotSpace.h"
 #import "CPPlotRange.h"
 #import "NSNumberExtensions.h"
@@ -36,6 +38,11 @@
  *	@brief The plot space for the plot.
  **/
 @synthesize plotSpace;
+
+/**	@property plotArea
+ *	@brief The plot area for the plot.
+ **/
+@dynamic plotArea;
 
 /**	@property dataNeedsReloading
  *	@brief If YES, the plot data will be reloaded from the data source before the layer content is drawn.
@@ -83,6 +90,11 @@
 {
 	return CPDefaultZPositionPlot;
 }
+
+-(void)layoutSublayers {
+	// do nothing
+}
+
 
 #pragma mark -
 #pragma mark Fields
@@ -263,7 +275,9 @@
     [self setNeedsLayout];
 }
 
--(void)layoutSublayers {
+-(CPPlotArea *)plotArea
+{
+	return self.graph.plotAreaFrame.plotArea;
 }
 
 @end

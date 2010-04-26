@@ -1,4 +1,3 @@
-
 #import "Controller.h"
 #import <CorePlot/CorePlot.h>
 
@@ -33,7 +32,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
-    
+	
     // Graph padding
     graph.paddingLeft = 60.0;
     graph.paddingTop = 60.0;

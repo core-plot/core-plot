@@ -1,7 +1,7 @@
-
 #import <stdlib.h>
 #import "CPTradingRangePlot.h"
 #import "CPLineStyle.h"
+#import "CPPlotArea.h"
 #import "CPPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
@@ -503,19 +503,19 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// open point
 			plotPoint[dependentCoord] = [openCoordValue doubleValue];
-			openPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			openPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// high point
 			plotPoint[dependentCoord] = [highCoordValue doubleValue];
-			highPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			highPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// low point
 			plotPoint[dependentCoord] = [lowCoordValue doubleValue];
-			lowPoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			lowPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// close point
 			plotPoint[dependentCoord] = [closeCoordValue doubleValue];
-			closePoint = [self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+			closePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 		}
 		else {
 			NSDecimal plotPoint[2];
@@ -523,19 +523,19 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			
 			// open point
 			plotPoint[dependentCoord] = [[opens objectAtIndex:ii] decimalValue];
-			openPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			openPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 	
 			// high point
 			plotPoint[dependentCoord] = [[highs objectAtIndex:ii] decimalValue];
-			highPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			highPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 	
 			// low point
 			plotPoint[dependentCoord] = [[lows objectAtIndex:ii] decimalValue];
-			lowPoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			lowPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 			
 			// close point
 			plotPoint[dependentCoord] = [[closes objectAtIndex:ii] decimalValue];
-			closePoint = [self.plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+			closePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
 		}
         
         // Draw
