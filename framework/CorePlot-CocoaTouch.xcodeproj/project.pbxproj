@@ -56,6 +56,7 @@
 		0789EFC30FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */; };
 		07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A2E71C102DFAD300809BC5 /* CPTimeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A2E71F102DFAD300809BC5 /* CPTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E71D102DFAD300809BC5 /* CPTimeFormatter.m */; };
+		07A5E24C104E47E900B7AB80 /* CPTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B829E0FB89E610035D8DA /* CPTextLayer.h */; };
 		07A62FB50FE2234900CD765C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB30FE2234900CD765C /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTextStyle.m */; };
 		07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF30110BBF99A0012BEFF /* CPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -701,6 +702,7 @@
 				BCC7EA471006BF5700B39451 /* CPPlainWhiteTheme.h in Headers */,
 				BCC7EA491006BF5700B39451 /* CPStocksTheme.h in Headers */,
 				07A2E71E102DFAD300809BC5 /* CPTimeFormatter.h in Headers */,
+				07A5E24C104E47E900B7AB80 /* CPTextLayer.h in Headers */,
 				C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */,
 				C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */,
 				C3B623BD107EC7ED0009EF0B /* CPLayoutManager.h in Headers */,

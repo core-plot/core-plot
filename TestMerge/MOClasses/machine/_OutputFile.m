@@ -13,6 +13,15 @@
 	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputFile" inManagedObjectContext:moc_];
 }
 
++ (NSString*)entityName {
+	return @"OutputFile";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription entityForName:@"OutputFile" inManagedObjectContext:moc_];
+}
+
 - (OutputFileID*)objectID {
 	return (OutputFileID*)[super objectID];
 }

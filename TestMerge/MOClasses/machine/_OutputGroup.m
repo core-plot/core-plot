@@ -13,6 +13,15 @@
 	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputGroup" inManagedObjectContext:moc_];
 }
 
++ (NSString*)entityName {
+	return @"OutputGroup";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription entityForName:@"OutputGroup" inManagedObjectContext:moc_];
+}
+
 - (OutputGroupID*)objectID {
 	return (OutputGroupID*)[super objectID];
 }

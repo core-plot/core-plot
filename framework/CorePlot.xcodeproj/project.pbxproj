@@ -37,16 +37,7 @@
 		072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
 		072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
-		0730F6261094936D00E95162 /* CPUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */; };
-		0730F6291094936D00E95162 /* CPXYPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPXYPlotSpaceTests.m */; };
-		0730F62B1094936D00E95162 /* CPDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */; };
-		0730F6391094936D00E95162 /* CPTextStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36468A90FE5533F0064B186 /* CPTextStyleTests.m */; };
-		0730F63B1094936D00E95162 /* CPAxisLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */; };
-		0730F63C1094936D00E95162 /* CPThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPThemeTests.m */; };
-		0730F63D1094936D00E95162 /* CPDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPDarkGradientThemeTests.m */; };
-		0730F64E109494D100E95162 /* CPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTestCase.m */; };
 		0730F67C1094995000E95162 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
-		0730F6851094995F00E95162 /* CPDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPDerivedXYGraph.m */; };
 		07321BC10F37370D00F423D8 /* CPExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BBF0F37370D00F423D8 /* CPExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
 		07321BC60F37382D00F423D8 /* CPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BC40F37382D00F423D8 /* CPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,7 +45,6 @@
 		073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 073FB02E0FC991A3007A728E /* CPAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FB02F0FC991A3007A728E /* CPAxisLabel.m */; };
 		074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AFC9D00FB62969005DFFDC /* CPImage.m */; };
-		0772B43910E24D5C009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */; };
 		0772B43A10E24D5C009CD04C /* CPTradingRangePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772B43710E24D5C009CD04C /* CPTradingRangePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0772B43B10E24D5C009CD04C /* CPTradingRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0772B43810E24D5C009CD04C /* CPTradingRangePlot.m */; };
 		0772C9270FE2F71600EC4C16 /* CPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 0772C9250FE2F71600EC4C16 /* CPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,9 +103,23 @@
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07FCF2C6115B54AE00E46606 /* CPSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FCF2C4115B54AE00E46606 /* CPSlateTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07FCF2C7115B54AE00E46606 /* CPSlateTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF2C5115B54AE00E46606 /* CPSlateTheme.m */; };
-		07FEBD6E110B801300E44D37 /* CPScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBD61110B7E8B00E44D37 /* CPScatterPlotTests.m */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32484B440F530E8B002151AD /* CPPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 32484B400F530E8B002151AD /* CPPlotRange.m */; };
+		4C2D58D20FB78208008275E0 /* NSNumberExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F42DA0FACC075006E670B /* NSNumberExtensions.m */; };
+		4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */; };
+		4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */; };
+		4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */; };
+		4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */; };
+		4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFA104D80C400B554F9 /* CPNumericData.h */; };
+		4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFB104D80C400B554F9 /* CPNumericData.m */; };
+		4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */; };
+		4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */; };
+		4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */; };
+		4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF10104D819100B554F9 /* CPMutableNumericData.h */; };
+		4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF11104D819100B554F9 /* CPMutableNumericData.m */; };
+		4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */; };
+		4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */; };
+		4C97EF4D104D843E00B554F9 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EF4C104D843E00B554F9 /* license.txt */; };
 		4CD7E7E70F4B4F8200F9BCBB /* CPTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7E50F4B4F8200F9BCBB /* CPTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD7E7E80F4B4F8200F9BCBB /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTextLayer.m */; };
 		4CD7E7EC0F4B4F9600F9BCBB /* CPLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7EA0F4B4F9600F9BCBB /* CPLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -275,6 +279,25 @@
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C422A620FB1FCD5000CAA43 /* CPXYPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYPlotSpaceTests.h; sourceTree = "<group>"; };
 		4C422A630FB1FCD5000CAA43 /* CPXYPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYPlotSpaceTests.m; sourceTree = "<group>"; };
+		4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPNumericData+TypeConversion.h"; path = "BWNumericData/CPNumericData+TypeConversion.h"; sourceTree = SOURCE_ROOT; };
+		4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "CPNumericData+TypeConversion.mm"; path = "BWNumericData/CPNumericData+TypeConversion.mm"; sourceTree = SOURCE_ROOT; };
+		4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "BWNumericData+TypeConversions_Generation.py"; path = "BWNumericData/BWNumericData+TypeConversions_Generation.py"; sourceTree = SOURCE_ROOT; };
+		4C97EEFA104D80C400B554F9 /* CPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericData.h; path = BWNumericData/CPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFB104D80C400B554F9 /* CPNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericData.m; path = BWNumericData/CPNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataType.h; path = BWNumericData/CPNumericDataType.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericDataType.m; path = BWNumericData/CPNumericDataType.m; sourceTree = SOURCE_ROOT; };
+		4C97EF05104D80D400B554F9 /* TestCPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericData.h; path = BWNumericData/TestCPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericData.mm; path = BWNumericData/TestCPNumericData.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataConversion.h; path = BWNumericData/TestCPNumericDataConversion.h; sourceTree = SOURCE_ROOT; };
+		4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericDataConversion.mm; path = BWNumericData/TestCPNumericDataConversion.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumericDataTypeConversions.h; path = BWNumericData/NumericDataTypeConversions.h; sourceTree = SOURCE_ROOT; };
+		4C97EF10104D819100B554F9 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = BWNumericData/CPMutableNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF11104D819100B554F9 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = BWNumericData/CPMutableNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF4C104D843E00B554F9 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
 		4C993FF00F45EE1600DC824F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4C9A745D0FB24C7200918464 /* CPDataSourceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDataSourceTestCase.h; sourceTree = "<group>"; };
 		4C9A745E0FB24C7200918464 /* CPDataSourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDataSourceTestCase.m; sourceTree = "<group>"; };
@@ -486,6 +509,9 @@
 				4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */,
 				078F42D90FACC075006E670B /* NSNumberExtensions.h */,
 				078F42DA0FACC075006E670B /* NSNumberExtensions.m */,
+				4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */,
+				4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */,
+				4C97EF18104D822700B554F9 /* Tests */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -529,6 +555,7 @@
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4C97EEF5104D80A700B554F9 /* Numeric Data */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
 				070622650FDF29B40066A6C4 /* Layers */,
 				C32BCF7D105407B000639E25 /* Layout */,
@@ -716,6 +743,45 @@
 			children = (
 				4CD23FFA0FFBE78400ADD2E2 /* CPAxisLabelTests.h */,
 				4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EEF5104D80A700B554F9 /* Numeric Data */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF4C104D843E00B554F9 /* license.txt */,
+				4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */,
+				4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */,
+				4C97EEFA104D80C400B554F9 /* CPNumericData.h */,
+				4C97EEFB104D80C400B554F9 /* CPNumericData.m */,
+				4C97EF10104D819100B554F9 /* CPMutableNumericData.h */,
+				4C97EF11104D819100B554F9 /* CPMutableNumericData.m */,
+				4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */,
+				4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */,
+				4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */,
+				4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */,
+				4C97EF19104D822D00B554F9 /* Tests */,
+			);
+			name = "Numeric Data";
+			sourceTree = "<group>";
+		};
+		4C97EF18104D822700B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */,
+				4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EF19104D822D00B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF05104D80D400B554F9 /* TestCPNumericData.h */,
+				4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */,
+				4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */,
+				4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -914,6 +980,12 @@
 				BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */,
 				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
+				4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */,
+				4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */,
+				4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */,
+				4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */,
+				4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */,
+				4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
 				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
@@ -1006,6 +1078,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */,
+				4C97EF4D104D843E00B554F9 /* license.txt in Resources */,
 				071F3CB910FBAB5900D0A7B6 /* License.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1046,17 +1120,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0730F6261094936D00E95162 /* CPUtilitiesTests.m in Sources */,
-				0730F6291094936D00E95162 /* CPXYPlotSpaceTests.m in Sources */,
-				0730F62B1094936D00E95162 /* CPDataSourceTestCase.m in Sources */,
-				0730F6391094936D00E95162 /* CPTextStyleTests.m in Sources */,
-				0730F63B1094936D00E95162 /* CPAxisLabelTests.m in Sources */,
-				0730F63C1094936D00E95162 /* CPThemeTests.m in Sources */,
-				0730F63D1094936D00E95162 /* CPDarkGradientThemeTests.m in Sources */,
-				0730F64E109494D100E95162 /* CPTestCase.m in Sources */,
-				0730F6851094995F00E95162 /* CPDerivedXYGraph.m in Sources */,
-				0772B43910E24D5C009CD04C /* CPTradingRangePlot.m in Sources */,
-				07FEBD6E110B801300E44D37 /* CPScatterPlotTests.m in Sources */,
+				4C2D58D20FB78208008275E0 /* NSNumberExtensions.m in Sources */,
+				4C2D593E0FB78492008275E0 /* CPDataSourceTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1114,6 +1179,11 @@
 				BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */,
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
+				4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */,
+				4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */,
+				4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */,
+				4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */,
+				4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */,
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,

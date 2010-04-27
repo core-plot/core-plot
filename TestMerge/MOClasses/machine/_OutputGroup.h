@@ -11,6 +11,8 @@
 
 @interface _OutputGroup : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
++ (NSString*)entityName;
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (OutputGroupID*)objectID;
 
 

@@ -149,6 +149,24 @@
 		4C422B290FB20882000CAA43 /* CPXYGraphTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422B280FB20882000CAA43 /* CPXYGraphTests.m */; };
 		4C62EAC30FC1DFB200E6D443 /* CPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C62EAC20FC1DFB200E6D443 /* CPColorTests.m */; };
 		4C62EAD00FC1E21F00E6D443 /* CPGradientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C62EACF0FC1E21F00E6D443 /* CPGradientTests.m */; };
+		4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */; };
+		4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */; };
+		4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */; };
+		4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFA104D80C400B554F9 /* CPNumericData.h */; };
+		4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFB104D80C400B554F9 /* CPNumericData.m */; };
+		4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */; };
+		4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */; };
+		4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */; };
+		4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */; };
+		4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */; };
+		4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF10104D819100B554F9 /* CPMutableNumericData.h */; };
+		4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF11104D819100B554F9 /* CPMutableNumericData.m */; };
+		4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */; };
+		4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */; };
+		4C97EF1C104D824900B554F9 /* TestNSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */; };
+		4C97EF1E104D83B900B554F9 /* GTMLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C993EF90F45ED1900DC824F /* GTMLogger.h */; };
+		4C97EF1F104D83BA00B554F9 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993EFA0F45ED1900DC824F /* GTMLogger.m */; };
+		4C97EF4D104D843E00B554F9 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EF4C104D843E00B554F9 /* license.txt */; };
 		4C993D1A0F45E86100DC824F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		4C993FB10F45ED4500DC824F /* GTMUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993F790F45ED1900DC824F /* GTMUnitTestingUtilities.m */; };
 		4C993FF40F45EE2F00DC824F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C993FF30F45EE2F00DC824F /* MainMenu.xib */; };
@@ -328,33 +346,26 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090;
-			remoteInfo = TestMerge;
-		};
-		4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C7D30560FC202CD00005D98;
-			remoteInfo = "TestMerge-UnitTests";
-		};
-		4C3779950FD87A7A00BA848A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = TestMerge;
-		};
 		4C993D0F0F45E82A00DC824F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4C32D3550F43B36F00EDFE7A;
 			remoteInfo = CPTestHost;
+		};
+		C3863DA0118679C800F3984D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090 /* TestMerge.app */;
+			remoteInfo = TestMerge;
+		};
+		C3863DA2118679C800F3984D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C7D30560FC202CD00005D98 /* TestMerge-UnitTests.octest */;
+			remoteInfo = "TestMerge-UnitTests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -461,7 +472,7 @@
 		4C32D3560F43B36F00EDFE7A /* CPTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C32D3580F43B36F00EDFE7A /* CPTestHost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPTestHost-Info.plist"; sourceTree = "<group>"; };
 		4C32D37C0F43B3CD00EDFE7A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestMerge.xcodeproj; path = ../TestMerge/TestMerge.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestMerge.xcodeproj; path = ../../TestMerge/TestMerge.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4C422A620FB1FCD5000CAA43 /* CPXYPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYPlotSpaceTests.h; sourceTree = "<group>"; };
 		4C422A630FB1FCD5000CAA43 /* CPXYPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYPlotSpaceTests.m; sourceTree = "<group>"; };
 		4C422B270FB20882000CAA43 /* CPXYGraphTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXYGraphTests.h; sourceTree = "<group>"; };
@@ -470,6 +481,25 @@
 		4C62EAC20FC1DFB200E6D443 /* CPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorTests.m; sourceTree = "<group>"; };
 		4C62EACE0FC1E21F00E6D443 /* CPGradientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGradientTests.h; sourceTree = "<group>"; };
 		4C62EACF0FC1E21F00E6D443 /* CPGradientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGradientTests.m; sourceTree = "<group>"; };
+		4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPNumericData+TypeConversion.h"; path = "../../framework/BWNumericData/CPNumericData+TypeConversion.h"; sourceTree = SOURCE_ROOT; };
+		4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "CPNumericData+TypeConversion.mm"; path = "../../framework/BWNumericData/CPNumericData+TypeConversion.mm"; sourceTree = SOURCE_ROOT; };
+		4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "BWNumericData+TypeConversions_Generation.py"; path = "../../framework/BWNumericData/BWNumericData+TypeConversions_Generation.py"; sourceTree = SOURCE_ROOT; };
+		4C97EEFA104D80C400B554F9 /* CPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericData.h; path = ../../framework/BWNumericData/CPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFB104D80C400B554F9 /* CPNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericData.m; path = ../../framework/BWNumericData/CPNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataType.h; path = ../../framework/BWNumericData/CPNumericDataType.h; sourceTree = SOURCE_ROOT; };
+		4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericDataType.m; path = ../../framework/BWNumericData/CPNumericDataType.m; sourceTree = SOURCE_ROOT; };
+		4C97EF05104D80D400B554F9 /* TestCPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericData.h; path = ../../framework/BWNumericData/TestCPNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericData.mm; path = ../../framework/BWNumericData/TestCPNumericData.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestCPNumericDataConversion.h; path = ../../framework/BWNumericData/TestCPNumericDataConversion.h; sourceTree = SOURCE_ROOT; };
+		4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestCPNumericDataConversion.mm; path = ../../framework/BWNumericData/TestCPNumericDataConversion.mm; sourceTree = SOURCE_ROOT; };
+		4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumericDataTypeConversions.h; path = ../../framework/BWNumericData/NumericDataTypeConversions.h; sourceTree = SOURCE_ROOT; };
+		4C97EF10104D819100B554F9 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = ../../framework/BWNumericData/CPMutableNumericData.h; sourceTree = SOURCE_ROOT; };
+		4C97EF11104D819100B554F9 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = ../../framework/BWNumericData/CPMutableNumericData.m; sourceTree = SOURCE_ROOT; };
+		4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSExceptionExtensions.h; path = ../../../framework/Source/NSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = ../../../framework/Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestNSExceptionExtensions.h; path = ../../../framework/Source/TestNSExceptionExtensions.h; sourceTree = "<group>"; };
+		4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSExceptionExtensions.m; path = ../../../framework/Source/TestNSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF4C104D843E00B554F9 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = ../../../framework/Source/license.txt; sourceTree = "<group>"; };
 		4C993EA50F45ED1900DC824F /* GTMDelegatingTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDelegatingTableColumn.h; sourceTree = "<group>"; };
 		4C993EA60F45ED1900DC824F /* GTMDelegatingTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMDelegatingTableColumn.m; sourceTree = "<group>"; };
 		4C993EAF0F45ED1900DC824F /* GTMLinearRGBShading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLinearRGBShading.h; sourceTree = "<group>"; };
@@ -699,7 +729,7 @@
 		4CD7E9A50F4B65D000F9BCBB /* GTM_notes.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GTM_notes.rst; path = TestResources/GTM_notes.rst; sourceTree = SOURCE_ROOT; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9021E5690FC69B2900443472 /* doxygen.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = doxygen.config; path = ../documentation/doxygen.config; sourceTree = SOURCE_ROOT; };
+		9021E5690FC69B2900443472 /* doxygen.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = doxygen.config; path = ../../documentation/doxygen.config; sourceTree = SOURCE_ROOT; };
 		906156BC0F375598001B75FC /* CPLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLineStyle.h; sourceTree = "<group>"; };
 		906156BD0F375598001B75FC /* CPLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLineStyle.m; sourceTree = "<group>"; };
 		90AF4FB90F36D39700753D26 /* CPXYPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYPlotSpace.m; sourceTree = "<group>"; };
@@ -741,7 +771,7 @@
 		C3673F510FFED528009EE63A /* CPTextLayerTests-testRendering2.gtmUTState */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "CPTextLayerTests-testRendering2.gtmUTState"; sourceTree = "<group>"; };
 		C3AFC9CF0FB62969005DFFDC /* CPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImage.h; sourceTree = "<group>"; };
 		C3AFC9D00FB62969005DFFDC /* CPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPImage.m; sourceTree = "<group>"; };
-		C3B235631009931400970270 /* doxygen-cocoa-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-tags.xml"; path = "../documentation/doxygen-cocoa-tags.xml"; sourceTree = "<group>"; };
+		C3B235631009931400970270 /* doxygen-cocoa-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-tags.xml"; path = "../../documentation/doxygen-cocoa-tags.xml"; sourceTree = "<group>"; };
 		C3B283DE0FB7222200EAFF95 /* CPPlotSymbolTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbolTests.h; sourceTree = "<group>"; };
 		C3B283DF0FB7222200EAFF95 /* CPPlotSymbolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbolTests.m; sourceTree = "<group>"; };
 		C3BFC29E0FBFB69500998EE7 /* CPXYGraphTests-testRenderStressTest.ppc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "CPXYGraphTests-testRenderStressTest.ppc.tiff"; sourceTree = "<group>"; };
@@ -991,6 +1021,9 @@
 				4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */,
 				078F42D90FACC075006E670B /* NSNumberExtensions.h */,
 				078F42DA0FACC075006E670B /* NSNumberExtensions.m */,
+				4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */,
+				4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */,
+				4C97EF18104D822700B554F9 /* Tests */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1035,6 +1068,7 @@
 		07BF0D600F2B6FE1002FCEA7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4C97EEF5104D80A700B554F9 /* Numeric Data */,
 				070622650FDF29B40066A6C4 /* Layers */,
 				C32BCF7D105407B000639E25 /* Layout */,
 				07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */,
@@ -1257,20 +1291,50 @@
 			name = "Test Host";
 			sourceTree = "<group>";
 		};
-		4C3779790FD87A5E00BA848A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4C37798F0FD87A5E00BA848A /* TestMerge.app */,
-				4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4C7D0FB60FD5DDDA00D83C0F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				4CD23FFA0FFBE78400ADD2E2 /* CPAxisLabelTests.h */,
 				4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EEF5104D80A700B554F9 /* Numeric Data */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF4C104D843E00B554F9 /* license.txt */,
+				4C97EEFC104D80C400B554F9 /* CPNumericDataType.h */,
+				4C97EEFD104D80C400B554F9 /* CPNumericDataType.m */,
+				4C97EEFA104D80C400B554F9 /* CPNumericData.h */,
+				4C97EEFB104D80C400B554F9 /* CPNumericData.m */,
+				4C97EF10104D819100B554F9 /* CPMutableNumericData.h */,
+				4C97EF11104D819100B554F9 /* CPMutableNumericData.m */,
+				4C97EF0E104D813600B554F9 /* NumericDataTypeConversions.h */,
+				4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */,
+				4C97EEF8104D80C400B554F9 /* CPNumericData+TypeConversion.mm */,
+				4C97EEF9104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py */,
+				4C97EF19104D822D00B554F9 /* Tests */,
+			);
+			name = "Numeric Data";
+			sourceTree = "<group>";
+		};
+		4C97EF18104D822700B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */,
+				4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		4C97EF19104D822D00B554F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C97EF05104D80D400B554F9 /* TestCPNumericData.h */,
+				4C97EF06104D80D400B554F9 /* TestCPNumericData.mm */,
+				4C97EF07104D80D400B554F9 /* TestCPNumericDataConversion.h */,
+				4C97EF08104D80D400B554F9 /* TestCPNumericDataConversion.mm */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1735,6 +1799,15 @@
 			name = CPXYPlotSpaceTests;
 			sourceTree = "<group>";
 		};
+		C3863D9C118679C800F3984D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3863DA1118679C800F3984D /* TestMerge.app */,
+				C3863DA3118679C800F3984D /* TestMerge-UnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C3A959D210116FE100BF9739 /* Mac Specific */ = {
 			isa = PBXGroup;
 			children = (
@@ -1836,6 +1909,13 @@
 				BC55023410059F22005DF982 /* CPPlainWhiteTheme.h in Headers */,
 				BC55023610059F22005DF982 /* CPStocksTheme.h in Headers */,
 				07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */,
+				4C97EEFE104D80C400B554F9 /* CPNumericData+TypeConversion.h in Headers */,
+				4C97EF01104D80C400B554F9 /* CPNumericData.h in Headers */,
+				4C97EF03104D80C400B554F9 /* CPNumericDataType.h in Headers */,
+				4C97EF0F104D813600B554F9 /* NumericDataTypeConversions.h in Headers */,
+				4C97EF12104D819100B554F9 /* CPMutableNumericData.h in Headers */,
+				4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */,
+				4C97EF1E104D83B900B554F9 /* GTMLogger.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPPlotGroup.h in Headers */,
 				C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */,
 				C3DA34CD107AD7710051DA02 /* CPXYTheme.h in Headers */,
@@ -1899,7 +1979,6 @@
 			dependencies = (
 				4C32D34A0F43B34300EDFE7A /* PBXTargetDependency */,
 				4C993D100F45E82A00DC824F /* PBXTargetDependency */,
-				4C3779960FD87A7A00BA848A /* PBXTargetDependency */,
 			);
 			name = "CorePlot-UnitTests";
 			productName = "CorePlot-UnitTests";
@@ -1941,7 +2020,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4C3779790FD87A5E00BA848A /* Products */;
+					ProductGroup = C3863D9C118679C800F3984D /* Products */;
 					ProjectRef = 4C3779780FD87A5E00BA848A /* TestMerge.xcodeproj */;
 				},
 			);
@@ -1958,18 +2037,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4C37798F0FD87A5E00BA848A /* TestMerge.app */ = {
+		C3863DA1118679C800F3984D /* TestMerge.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = TestMerge.app;
-			remoteRef = 4C37798E0FD87A5E00BA848A /* PBXContainerItemProxy */;
+			remoteRef = C3863DA0118679C800F3984D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C3779910FD87A5E00BA848A /* TestMerge-UnitTests.octest */ = {
+		C3863DA3118679C800F3984D /* TestMerge-UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "TestMerge-UnitTests.octest";
-			remoteRef = 4C3779900FD87A5E00BA848A /* PBXContainerItemProxy */;
+			remoteRef = C3863DA2118679C800F3984D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2069,6 +2148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				4C97EF00104D80C400B554F9 /* BWNumericData+TypeConversions_Generation.py in Resources */,
+				4C97EF4D104D843E00B554F9 /* license.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2208,6 +2289,9 @@
 				E1620CBE100F03A100A84E77 /* CPThemeTests.m in Sources */,
 				E1FE6052100F27EF00895A91 /* CPDarkGradientThemeTests.m in Sources */,
 				E1FE611B100F3FB700895A91 /* CPDerivedXYGraph.m in Sources */,
+				4C97EF0B104D80D400B554F9 /* TestCPNumericData.mm in Sources */,
+				4C97EF0C104D80D400B554F9 /* TestCPNumericDataConversion.mm in Sources */,
+				4C97EF1C104D824900B554F9 /* TestNSExceptionExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2266,6 +2350,12 @@
 				BC55023710059F22005DF982 /* CPStocksTheme.m in Sources */,
 				BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */,
+				4C97EEFF104D80C400B554F9 /* CPNumericData+TypeConversion.mm in Sources */,
+				4C97EF02104D80C400B554F9 /* CPNumericData.m in Sources */,
+				4C97EF04104D80C400B554F9 /* CPNumericDataType.m in Sources */,
+				4C97EF13104D819100B554F9 /* CPMutableNumericData.m in Sources */,
+				4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */,
+				4C97EF1F104D83BA00B554F9 /* GTMLogger.m in Sources */,
 				C3F31DE91045EB470058520A /* CPPlotGroup.m in Sources */,
 				C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPXYTheme.m in Sources */,
@@ -2305,11 +2395,6 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
 			targetProxy = 4C32D35C0F43B37800EDFE7A /* PBXContainerItemProxy */;
-		};
-		4C3779960FD87A7A00BA848A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TestMerge;
-			targetProxy = 4C3779950FD87A7A00BA848A /* PBXContainerItemProxy */;
 		};
 		4C993D100F45E82A00DC824F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2354,10 +2439,7 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2381,10 +2463,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
@@ -2522,10 +2601,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -2552,10 +2628,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Build/LeopardOrLater-Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
