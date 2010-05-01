@@ -1,4 +1,3 @@
-
 #import "CPPlotRange.h"
 #import "CPPlatformSpecificCategories.h"
 #import "NSDecimalNumberExtensions.h"
@@ -7,7 +6,6 @@
 
 /** @brief Defines a range of plot data
  **/
-
 @implementation CPPlotRange
 
 /** @property location
@@ -62,7 +60,9 @@
 {
 	if ( self = [super init] ) {
 		location = loc;
+		doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:loc] doubleValue];
 		length = len;
+		doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:len] doubleValue];
 	}
 	return self;	
 }
@@ -72,24 +72,18 @@
 
 -(void)setLocation:(NSDecimal)newLocation
 {
-	if (CPDecimalEquals(location, newLocation))
-	{
-		return;
+	if ( !CPDecimalEquals(location, newLocation) ) {
+		location = newLocation;
+		doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 	}
-	
-	location = newLocation;
-	doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 }
 
 -(void)setLength:(NSDecimal)newLength
 {
-	if (CPDecimalEquals(length, newLength))
-	{
-		return;
+	if ( !CPDecimalEquals(length, newLength) ) {
+		length = newLength;
+		doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
 	}
-	
-	length = newLength;
-	doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
 }
 
 -(NSDecimal)end 
@@ -99,12 +93,18 @@
 
 -(void)setDoublePrecisionLocation:(double)newLocation
 {
-	[self setLocation:[[NSNumber numberWithDouble:newLocation] decimalValue]];
+	if ( doublePrecisionLocation != newLocation ) {
+		location = CPDecimalFromDouble(newLocation);
+		doublePrecisionLocation = newLocation;
+	}
 }
 
 -(void)setDoublePrecisionLength:(double)newLength
 {
-	[self setLength:[[NSNumber numberWithDouble:newLength] decimalValue]];
+	if ( doublePrecisionLength != newLength ) {
+		length = CPDecimalFromDouble(newLength);
+		doublePrecisionLength = newLength;
+	}
 }
 
 -(double)doublePrecisionEnd 
@@ -118,8 +118,12 @@
 -(id)copyWithZone:(NSZone *)zone 
 {
     CPPlotRange *newRange = [[CPPlotRange allocWithZone:zone] init];
-    newRange.location = self.location;
-    newRange.length = self.length;
+	if ( newRange ) {
+		newRange->location = self->location;
+		newRange->length = self->length;
+		newRange->doublePrecisionLocation = self->doublePrecisionLocation;
+		newRange->doublePrecisionLength = self->doublePrecisionLength;
+	}
     return newRange;
 }
 
@@ -134,9 +138,7 @@
 
 - (id)initWithCoder:(NSCoder *)decoder 
 {
-	self = [super init];
-    
-    if (self) {
+    if ( self = [super init] ) {
         self.location = [[decoder decodeObject] decimalValue];
         self.length = [[decoder decodeObject] decimalValue];
     }
@@ -153,7 +155,16 @@
  **/
 -(BOOL)contains:(NSDecimal)number
 {
-	return (CPDecimalGreaterThanOrEqualTo(number, location) && CPDecimalLessThanOrEqualTo(number, self.end));
+	return (CPDecimalGreaterThanOrEqualTo(number, self.location) && CPDecimalLessThanOrEqualTo(number, self.end));
+}
+
+/** @brief Determines whether a given range is equal to the range of the receiver.
+ *  @param otherRange The range to check.
+ *  @return True if the ranges both have the same location and length.
+ **/
+-(BOOL)isEqualToRange:(CPPlotRange *)otherRange
+{
+	return (CPDecimalEquals(self.location, otherRange.location) && CPDecimalEquals(self.length, otherRange.length));
 }
 
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
