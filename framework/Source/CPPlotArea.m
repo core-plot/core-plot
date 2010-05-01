@@ -224,10 +224,11 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		for ( NSUInteger layerIndex = 0; layerIndex < [tdLayerOrder count]; layerIndex++ ) {
 			CPGraphLayerType layerType = [[tdLayerOrder objectAtIndex:layerIndex] intValue];
 			NSUInteger i = kCPNumberOfLayers - layerIndex - 1;
-			while ( (i >= 0) && (buLayerOrder[i] != layerType) ) {
+			while ( buLayerOrder[i] != layerType ) {
+				if ( i == 0 ) break;
 				i--;
 			}
-			while ( (i >= 0) && (i < kCPNumberOfLayers - layerIndex - 1) ) {
+			while ( i < kCPNumberOfLayers - layerIndex - 1 ) {
 				buLayerOrder[i] = buLayerOrder[i + 1];
 				i++;
 			}
@@ -276,7 +277,6 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 				break;
 		}
 	}
-	NSLog(@"index for layer type %d = %u", layerType, index);
 	return index;
 }
 

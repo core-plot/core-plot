@@ -379,13 +379,17 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 {
 	NSInteger result = NSNotFound;
 	NSInteger delta = (isLowerBound ? 1 : -1);
-	NSUInteger initialIndex = (isLowerBound ? 0 : self.xValues.count-1);
-	for ( NSUInteger i = initialIndex; i >= 0 && i < self.xValues.count; i += delta ) {
-		if ( pointDrawFlags[i] ) {
-			result = i;
-			break;
-		}
-	}	
+	NSUInteger xValuesCount = self.xValues.count;
+	if ( xValuesCount > 0 ) {
+		NSUInteger initialIndex = (isLowerBound ? 0 : xValuesCount - 1);
+		for ( NSUInteger i = initialIndex; i < xValuesCount; i += delta ) {
+			if ( pointDrawFlags[i] ) {
+				result = i;
+				break;
+			}
+			if ( (delta < 0) && (i == 0) ) break;
+		}	
+	}
 	return result;
 }
 
