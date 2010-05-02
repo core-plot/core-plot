@@ -114,7 +114,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
-@property (nonatomic, readwrite, retain) NSString *title;
+@property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
 @property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
 ///	@}

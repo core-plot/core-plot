@@ -676,6 +676,9 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 
+    if ( axisTitle.contentLayer && axisTitle.contentLayer.superlayer == nil ) {
+        [self.plotArea.axisTitleGroup addSublayer:axisTitle.contentLayer];
+    }
 	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
@@ -731,14 +734,17 @@
 		[axisTitle release];
 		axisTitle = [newTitle retain];
 		axisTitle.axis = self;
-		axisTitle.offset = self.titleOffset;
-		CPLayer *content = axisTitle.contentLayer;
-		if ( content ) {
-			[self.plotArea.axisTitleGroup addSublayer:content];
-		}
-		
+		axisTitle.offset = self.titleOffset;		
 		[self setNeedsLayout];
 	}
+}
+
+-(CPAxisTitle *)axisTitle 
+{
+    if ( axisTitle == nil && title != nil ) {
+        axisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+    }
+    return axisTitle;
 }
 
 -(void)setTitleTextStyle:(CPTextStyle *)newStyle 
@@ -769,18 +775,14 @@
 {
 	if ( newTitle != title ) {
 		[title release];
-		title = [newTitle retain];
-		if ( axisTitle == nil ) {
-			CPAxisTitle *newAxisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
-			self.axisTitle = newAxisTitle;
-			[newAxisTitle release];
-		}
-		else {
-			CPLayer *contentLayer = self.axisTitle.contentLayer;
-			if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
-				[(CPTextLayer *)contentLayer setText:title];
-			}
-		}
+		title = [newTitle copy];
+    	if ( title == nil ) self.axisTitle = nil;
+        
+        CPLayer *contentLayer = self.axisTitle.contentLayer;
+        if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+            [(CPTextLayer *)contentLayer setText:title];
+        }
+        
 		[self setNeedsLayout];
 	}
 }
