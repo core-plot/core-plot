@@ -696,7 +696,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CGColorRef)newColorAtPosition:(CGFloat)position
 {
-    CGFloat components[4];
+    CGFloat components[4] = {0,0,0,0};
 	CGColorRef gradientColor;
 	
     switch ( self.blendingMode ) {
@@ -711,7 +711,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 			break;
     }
     
-	if ( components[3] != 0 ) {
+	if (  0.0f != components[3] ) {
 		//undo premultiplication that CG requires
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = {components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]};
@@ -934,8 +934,10 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     if ( elementList == NULL || newElement->position < elementList->position ) {
         CPGradientElement *tmpNext = elementList;
         elementList = malloc(sizeof(CPGradientElement));
-        *elementList = *newElement;
-        elementList->nextElement = tmpNext;
+        if ( elementList ) {
+            *elementList = *newElement;
+            elementList->nextElement = tmpNext;
+        } 
     }
 	else {
         CPGradientElement *curElement = elementList;
