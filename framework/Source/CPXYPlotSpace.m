@@ -22,6 +22,8 @@
 @end
 /// @endcond
 
+#pragma mark -
+
 /** @brief A plot space using a two-dimensional cartesian coordinate system.
  **/
 @implementation CPXYPlotSpace
@@ -103,8 +105,8 @@
 
 -(void)setXRange:(CPPlotRange *)range 
 {
-	if ( range != xRange ) {
-        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:globalXRange];
+	if ( ![range isEqualToRange:xRange] ) {
+        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
 		[xRange release];
 		xRange = [constrainedRange copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
@@ -116,8 +118,8 @@
 
 -(void)setYRange:(CPPlotRange *)range 
 {
-	if ( range != yRange ) {
-        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:globalYRange];
+	if ( ![range isEqualToRange:yRange] ) {
+        CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
 		[yRange release];
 		yRange = [constrainedRange copy];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPPlotSpaceCoordinateMappingDidChangeNotification object:self];
@@ -142,7 +144,7 @@
     if ( newRange != globalXRange ) {
     	[globalXRange release];
         globalXRange = [newRange copy];
-		self.xRange = [self constrainRange:xRange toGlobalRange:globalXRange];
+		self.xRange = [self constrainRange:self.xRange toGlobalRange:globalXRange];
     }
 }
 
@@ -151,7 +153,7 @@
     if ( newRange != globalYRange ) {
     	[globalYRange release];
         globalYRange = [newRange copy];
-        self.yRange = [self constrainRange:yRange toGlobalRange:globalYRange];
+        self.yRange = [self constrainRange:self.yRange toGlobalRange:globalYRange];
     }
 }
 
@@ -202,7 +204,7 @@
 	
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:
-			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:xRange plotCoordinateValue:plotPoint[CPCoordinateX]];
+			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPCoordinateX]];
 			break;
 		default:
 			[NSException raise:CPException format:@"Scale type not supported in CPXYPlotSpace"];
@@ -210,7 +212,7 @@
 	
 	switch ( self.yScaleType ) {
 		case CPScaleTypeLinear:
-			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:yRange plotCoordinateValue:plotPoint[CPCoordinateY]];
+			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPCoordinateY]];
 			break;
 		default:
 			[NSException raise:CPException format:@"Scale type not supported in CPXYPlotSpace"];
@@ -226,7 +228,7 @@
 
 	switch ( self.xScaleType ) {
 		case CPScaleTypeLinear:
-			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:xRange doublePrecisionPlotCoordinateValue:plotPoint[CPCoordinateX]];
+			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPCoordinateX]];
 			break;
 		default:
 			[NSException raise:CPException format:@"Scale type not supported in CPXYPlotSpace"];
@@ -234,7 +236,7 @@
 	
 	switch ( self.yScaleType ) {
 		case CPScaleTypeLinear:
-			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:yRange doublePrecisionPlotCoordinateValue:plotPoint[CPCoordinateY]];
+			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPCoordinateY]];
 			break;
 		default:
 			[NSException raise:CPException format:@"Scale type not supported in CPXYPlotSpace"];

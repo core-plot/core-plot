@@ -22,6 +22,7 @@
 
 -(CPGradientElement)removeElementAtIndex:(NSUInteger)index;
 -(CPGradientElement)removeElementAtPosition:(CGFloat)position;
+-(void)removeAllElements;
 
 @end
 ///	@endcond
@@ -33,6 +34,8 @@ static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *o
 static void transformRGB_HSV(CGFloat *components);
 static void transformHSV_RGB(CGFloat *components);
 static void resolveHSV(CGFloat *color1, CGFloat *color2);
+
+#pragma mark -
 
 /** @brief Draws color gradient fills.
  *
@@ -88,14 +91,16 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 -(void)dealloc
 {
 	[colorspace release];
-    CGFunctionRelease(gradientFunction);
-    CPGradientElement *elementToRemove;
-    while (elementList != NULL) {
-        elementToRemove = elementList;
-        elementList = elementList->nextElement;
-        free(elementToRemove);
-	}
+	CGFunctionRelease(gradientFunction);
+	[self removeAllElements];
     [super dealloc];
+}
+
+-(void)finalize
+{
+	CGFunctionRelease(gradientFunction);
+	[self removeAllElements];
+	[super finalize];
 }
 
 -(id)copyWithZone:(NSZone *)zone
@@ -696,7 +701,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CGColorRef)newColorAtPosition:(CGFloat)position
 {
-    CGFloat components[4] = {0,0,0,0};
+    CGFloat components[4] = {0.0, 0.0, 0.0, 0.0};
 	CGColorRef gradientColor;
 	
     switch ( self.blendingMode ) {
@@ -711,7 +716,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 			break;
     }
     
-	if (  0.0f != components[3] ) {
+	if (  0.0 != components[3] ) {
 		//undo premultiplication that CG requires
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = {components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]};
@@ -1037,6 +1042,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     removedElement.nextElement = NULL;
 	
     return removedElement;
+}
+
+-(void)removeAllElements
+{
+    while (elementList != NULL) {
+        CPGradientElement *elementToRemove = elementList;
+        elementList = elementList->nextElement;
+        free(elementToRemove);
+	}
 }
 
 -(CPGradientElement *)elementAtIndex:(NSUInteger)index

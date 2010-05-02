@@ -77,6 +77,13 @@
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	CGPathRelease(symbolPath);
+	CGPathRelease(customSymbolPath);
+	[super finalize];
+}
+
 #pragma mark -
 #pragma mark Accessors
 

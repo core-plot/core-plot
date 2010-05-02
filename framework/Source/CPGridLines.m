@@ -29,20 +29,13 @@
 	return self;
 }
 
--(void)dealloc
-{
-	[axis release];
-	[super dealloc];
-}
-
 #pragma mark -
 #pragma mark Accessors
 
 -(void)setAxis:(CPAxis *)newAxis 
 {
     if ( newAxis != axis ) {
-        [axis release];
-        axis = [newAxis retain];
+        axis = newAxis;
 		[self setNeedsDisplay];		
 	}
 }

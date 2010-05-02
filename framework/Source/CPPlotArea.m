@@ -165,6 +165,12 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	free(bottomUpLayerOrder);
+	[super finalize];
+}
+
 #pragma mark -
 #pragma mark Drawing
 

@@ -149,6 +149,14 @@
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
+	[super finalize];
+}
+
+
 #pragma mark -
 #pragma mark Animation
 

@@ -26,6 +26,8 @@ typedef enum _CPAxisLabelingPolicy {
     CPAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
 } CPAxisLabelingPolicy;
 
+#pragma mark -
+
 /**	@brief Axis labeling delegate.
  **/
 @protocol CPAxisDelegate <NSObject>
@@ -59,6 +61,8 @@ typedef enum _CPAxisLabelingPolicy {
 ///	@}
 
 @end
+
+#pragma mark -
 
 @interface CPAxis : CPLayer {   
 	@private
@@ -95,9 +99,9 @@ typedef enum _CPAxisLabelingPolicy {
 	id <CPAxisDelegate> delegate;
     CPPlotRange *visibleRange;
     CPPlotRange *gridLinesRange;
-	CPPlotArea *plotArea;
-	CPGridLines *minorGridLines;
-	CPGridLines *majorGridLines;
+	__weak CPPlotArea *plotArea;
+	__weak CPGridLines *minorGridLines;
+	__weak CPGridLines *majorGridLines;
 }
 
 /// @name Axis
@@ -163,9 +167,9 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
-@property (nonatomic, readonly, retain) CPGridLines *minorGridLines;
-@property (nonatomic, readonly, retain) CPGridLines *majorGridLines;
+@property (nonatomic, readwrite, assign) __weak CPPlotArea *plotArea;
+@property (nonatomic, readonly, assign) __weak CPGridLines *minorGridLines;
+@property (nonatomic, readonly, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readonly, retain) CPAxisSet *axisSet;
 @property (nonatomic, readonly, retain) Class gridLineClass;
 ///	@}
@@ -183,6 +187,8 @@ typedef enum _CPAxisLabelingPolicy {
 ///	@}
 
 @end
+
+#pragma mark -
 
 /**	@category CPAxis(AbstractMethods)
  *	@brief CPAxis abstract methods—must be overridden by subclasses

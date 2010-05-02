@@ -19,8 +19,8 @@
 @interface CPAxis ()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, retain) CPGridLines *minorGridLines;
-@property (nonatomic, readwrite, retain) CPGridLines *majorGridLines;
+@property (nonatomic, readwrite, assign) __weak CPGridLines *minorGridLines;
+@property (nonatomic, readwrite, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 
 -(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
@@ -285,6 +285,7 @@
 		majorTickLength = 5.0;
 		labelOffset = 2.0;
         labelRotation = 0.0;
+		title = nil;
 		titleOffset = 30.0;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
@@ -325,6 +326,7 @@
 	[plotSpace release];	
 	[majorTickLocations release];
 	[minorTickLocations release];
+	[title release];
 	[axisLineStyle release];
 	[majorTickLineStyle release];
 	[minorTickLineStyle release];
@@ -337,9 +339,6 @@
 	[labelExclusionRanges release];
     [visibleRange release];
     [gridLinesRange release];
-	[plotArea release];
-	[minorGridLines release];
-	[majorGridLines release];
 	
 	[super dealloc];
 }
@@ -1000,18 +999,13 @@
 -(void)setPlotArea:(CPPlotArea *)newPlotArea
 {
 	if ( newPlotArea != plotArea ) {
-		[plotArea release];
-		plotArea = [newPlotArea retain];
+		plotArea = newPlotArea;
 
 		CPGridLines *gridLines = [[self.gridLineClass alloc] init];
-		gridLines.axis = self;
-		gridLines.major = NO;
 		self.minorGridLines = gridLines;
 		[gridLines release];
 		
 		gridLines = [[self.gridLineClass alloc] init];
-		gridLines.axis = self;
-		gridLines.major = YES;
 		self.majorGridLines = gridLines;
 		[gridLines release];
 	}	
@@ -1029,12 +1023,12 @@
 {
 	if ( newGridLines != minorGridLines ) {
 		[minorGridLines removeFromSuperlayer];
-		[minorGridLines release];
-		minorGridLines = [newGridLines retain];
+		minorGridLines = newGridLines;
 		if ( minorGridLines ) {
+			minorGridLines.major = NO;
+			minorGridLines.axis = self;
 			[self.plotArea.minorGridLineGroup addSublayer:minorGridLines];
 		}
-        [minorGridLines setNeedsLayout];
 	}
 }
 
@@ -1042,12 +1036,12 @@
 {
 	if ( newGridLines != majorGridLines ) {
 		[majorGridLines removeFromSuperlayer];
-		[majorGridLines release];
-		majorGridLines = [newGridLines retain];
+		majorGridLines = newGridLines;
 		if ( majorGridLines ) {
+			majorGridLines.major = YES;
+			majorGridLines.axis = self;
 			[self.plotArea.majorGridLineGroup addSublayer:majorGridLines];
 		}
-        [majorGridLines setNeedsLayout];
 	}	
 }
 

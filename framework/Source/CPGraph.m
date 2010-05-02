@@ -95,7 +95,7 @@
 
 -(void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[plotAreaFrame release];
 	[plots release];
@@ -298,8 +298,8 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
 
         // Remove space
+		plotSpace.graph = nil;
 		[self.plotSpaces removeObject:plotSpace];
-        plotSpace.graph = nil;
         
         // Update axes that referenced space
         for ( CPAxis *axis in self.axisSet.axes ) {
