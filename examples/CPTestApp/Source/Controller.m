@@ -166,10 +166,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
-	NSUInteger i;
-	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithDouble:1.0+i*0.05];
-		id y = [NSDecimalNumber numberWithDouble:1.2*rand()/(double)RAND_MAX + 1.2];
+	for ( NSUInteger i = 0; i < 60; i++ ) {
+		id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
+		id y = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.content = contentArray;
@@ -229,8 +228,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(id)newObject 
 {
-	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
-	NSDecimalNumber *y1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
+	NSNumber *x1 = [NSDecimalNumber numberWithDouble:1.0 + ((NSMutableArray *)self.content).count * 0.05];
+	NSNumber *y1 = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
     return [[NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil] retain];
 }
 
@@ -256,15 +255,17 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num;
+    NSNumber *num;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
-        num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:(index+1)*(index+1)];
+        num = [NSDecimalNumber numberWithInt:(index+1)*(index+1)];
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
-            num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+            num = [(NSDecimalNumber *)num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
     }
     else {
         num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-        if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+        if ( fieldEnum == CPScatterPlotFieldY ) {
+			num = [NSNumber numberWithDouble:([num doubleValue] + 1.0)];	
+		}
     }
     return num;
 }
@@ -274,7 +275,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	return nil;
 }
 
--(CPTextLayer *) barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index 
+-(CPTextLayer *)barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index 
 {
 	if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 2"] )
 		return (id)[NSNull null]; // Don't show any label
@@ -437,8 +438,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     xShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.xRange copy] autorelease];
-    newRange.length = CPDecimalFromDouble(3.0+newShift);  
-    space.xRange = newRange;
+    newRange.length = CPDecimalFromDouble(3.0 + newShift);  
+	space.xRange = newRange;
 }
 
 -(void)setYShift:(CGFloat)newShift 
@@ -446,7 +447,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
  	yShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.yRange copy] autorelease];
-    newRange.length = CPDecimalFromDouble(2.0+newShift);  
+    newRange.length = CPDecimalFromDouble(2.0 + newShift);  
     space.yRange = newRange;
 }
 
