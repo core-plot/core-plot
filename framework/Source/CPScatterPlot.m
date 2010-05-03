@@ -459,94 +459,94 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
 	if ( self.xValues == nil || self.yValues == nil ) return;
 	if ( self.xValues.count == 0 ) return;
-    if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
+	if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
 	if ( self.xValues.count != self.yValues.count ) {
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
-		
+	
 	[super renderAsVectorInContext:theContext];
-
+	
 	// Calculate view points, and align to user space
 	CGPoint *viewPoints = malloc(self.xValues.count * sizeof(CGPoint));
 	BOOL *drawPointFlags = malloc(self.xValues.count * sizeof(BOOL));
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:NO];
-    [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
+	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
 	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
 	
 	// Get extreme points
 	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
 	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
-	if ( firstDrawnPointIndex == NSNotFound ) return;
-	
-	// Path
-	CGMutablePathRef dataLinePath = NULL;
-	if ( self.dataLineStyle || self.areaFill ) {
-		dataLinePath = CGPathCreateMutable();
-        CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
-        NSUInteger i = firstDrawnPointIndex + 1;
-        while ( i <= lastDrawnPointIndex ) {
-            CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
-            i++;
-        } 
-	}
-	
-	// Draw fill
-	NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
-	if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {		
-		id xValue = [self.xValues objectAtIndex:firstDrawnPointIndex];
+	if ( firstDrawnPointIndex != NSNotFound ) {
+		// Path
+		CGMutablePathRef dataLinePath = NULL;
+		if ( self.dataLineStyle || self.areaFill ) {
+			dataLinePath = CGPathCreateMutable();
+			CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
+			NSUInteger i = firstDrawnPointIndex + 1;
+			while ( i <= lastDrawnPointIndex ) {
+				CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+				i++;
+			} 
+		}
 		
-		CGPoint baseLinePoint;
-		NSDecimal plotPoint[2];
-		plotPoint[CPCoordinateX] = [xValue decimalValue];
-		plotPoint[CPCoordinateY] = self.areaBaseValue;
-		baseLinePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+		// Draw fill
+		NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
+		if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {		
+			id xValue = [self.xValues objectAtIndex:firstDrawnPointIndex];
+			
+			CGPoint baseLinePoint;
+			NSDecimal plotPoint[2];
+			plotPoint[CPCoordinateX] = [xValue decimalValue];
+			plotPoint[CPCoordinateY] = self.areaBaseValue;
+			baseLinePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+			
+			CGFloat baseLineYValue = baseLinePoint.y;
+			
+			CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
+			baseViewPoint1.y = baseLineYValue;
+			baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
+			
+			CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
+			baseViewPoint2.y = baseLineYValue;
+			baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
+			
+			CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
+			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
+			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
+			CGPathCloseSubpath(fillPath);
+			
+			CGContextBeginPath(theContext);
+			CGContextAddPath(theContext, fillPath);
+			[self.areaFill fillPathInContext:theContext];
+			
+			CGPathRelease(fillPath);
+		}
 		
-		CGFloat baseLineYValue = baseLinePoint.y;
+		// Draw line
+		if ( self.dataLineStyle ) {
+			CGContextBeginPath(theContext);
+			CGContextAddPath(theContext, dataLinePath);
+			[self.dataLineStyle setLineStyleInContext:theContext];
+			CGContextStrokePath(theContext);
+		}
+		if ( dataLinePath ) CGPathRelease(dataLinePath);
 		
-		CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
-		baseViewPoint1.y = baseLineYValue;
-        baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
-        
-		CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
-		baseViewPoint2.y = baseLineYValue;
-        baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
-
-		CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
-		CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
-		CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
-		CGPathCloseSubpath(fillPath);
-		
-		CGContextBeginPath(theContext);
-		CGContextAddPath(theContext, fillPath);
-		[self.areaFill fillPathInContext:theContext];
-		
-		CGPathRelease(fillPath);
-	}
-
-	// Draw line
-	if ( self.dataLineStyle ) {
-		CGContextBeginPath(theContext);
-		CGContextAddPath(theContext, dataLinePath);
-		[self.dataLineStyle setLineStyleInContext:theContext];
-		CGContextStrokePath(theContext);
-	}
-	if ( dataLinePath ) CGPathRelease(dataLinePath);
-	
-	// Draw plot symbols
-	if (self.plotSymbol || self.plotSymbols.count) {
-        for (NSUInteger i = 0; i < self.xValues.count; i++) {
-            if ( drawPointFlags[i] ) {
-            	CPPlotSymbol *currentSymbol = self.plotSymbol;
-            	if ( i < self.plotSymbols.count ) currentSymbol = [self.plotSymbols objectAtIndex:i];
-                if ( [currentSymbol isKindOfClass:[CPPlotSymbol class]] ) {
-                    [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];			
-                }
+		// Draw plot symbols
+		if (self.plotSymbol || self.plotSymbols.count) {
+			for (NSUInteger i = 0; i < self.xValues.count; i++) {
+				if ( drawPointFlags[i] ) {
+					CPPlotSymbol *currentSymbol = self.plotSymbol;
+					if ( i < self.plotSymbols.count ) currentSymbol = [self.plotSymbols objectAtIndex:i];
+					if ( [currentSymbol isKindOfClass:[CPPlotSymbol class]] ) {
+						[currentSymbol renderInContext:theContext atPoint:viewPoints[i]];			
+					}
+				}
 			}
 		}
 	}
 	
 	free(viewPoints);
-    free(drawPointFlags);
+	free(drawPointFlags);
 }
 
 #pragma mark -
