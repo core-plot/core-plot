@@ -483,8 +483,8 @@
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
 {
-	if ( [delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
-		BOOL shouldContinue = [delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+	if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+		BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
 		if ( !shouldContinue ) return;
 	}
 
@@ -529,6 +529,8 @@
 			newAxisLabel.contentLayer = newLabelLayer;
 			[self addSublayer:newLabelLayer];
 			[newLabelLayer release];
+			CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:newAxisLabel.tickLocation];
+			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 		}
 
 		[newAxisLabels addObject:newAxisLabel];
