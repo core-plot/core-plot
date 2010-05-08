@@ -4,6 +4,11 @@
 
 @synthesize dataForChart;
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+	return YES;
+}
+
 #pragma mark -
 #pragma mark Initialization and teardown
 
@@ -23,7 +28,6 @@
     [pieChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = pieChart;
-    pieChart.plotAreaFrame.masksToBorder = NO;
 	
     pieChart.paddingLeft = 20.0;
 	pieChart.paddingTop = 20.0;
