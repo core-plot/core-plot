@@ -2,6 +2,7 @@
 #import "CPLayer.h"
 #import "CPGraph.h"
 
+@class CPAxis;
 @class CPAxisLabelGroup;
 @class CPAxisSet;
 @class CPPlotGroup;
@@ -41,6 +42,13 @@
 /// @{
 @property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
 @property (nonatomic, readwrite, copy) CPFill *fill;
+///	@}
+
+/// @name Axis set layer management
+/// @{
+-(void)updateAxisSetLayersForType:(CPGraphLayerType)layerType;
+-(void)setAxisSetLayersForType:(CPGraphLayerType)layerType;
+-(unsigned)sublayerIndexForAxis:(CPAxis *)axis layerType:(CPGraphLayerType)layerType;
 ///	@}
 
 @end

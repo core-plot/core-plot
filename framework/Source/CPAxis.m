@@ -1,6 +1,6 @@
-
 #import "CPAxis.h"
 #import "CPAxisLabel.h"
+#import "CPAxisLabelGroup.h"
 #import "CPAxisSet.h"
 #import "CPAxisTitle.h"
 #import "CPGridLines.h"
@@ -362,7 +362,7 @@
 	NSDecimal majorInterval = self.majorIntervalLength;
 	NSDecimal coord = beginNumber;
 	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-    if (self.visibleRange) {
+    if ( self.visibleRange ) {
         [range intersectionPlotRange:self.visibleRange];
     }
 	
@@ -488,6 +488,11 @@
 		if ( !shouldContinue ) return;
 	}
 
+	if ( locations.count == 0 ) {
+		self.axisLabels = nil;
+		return;
+	}
+	
 	CGFloat offset = self.labelOffset;
 	switch ( self.tickDirection ) {
 		case CPSignNone:
@@ -499,9 +504,14 @@
 			break;
 	}
 	
+	
+	[self.plotArea setAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+
     NSMutableSet *newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
 	CPAxisLabel *blankLabel = [[CPAxisLabel alloc] initWithText:nil textStyle:nil];
-	
+	CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+	CALayer *lastLayer = nil;
+
 	for ( NSDecimalNumber *tickLocation in locations ) {
 		CPAxisLabel *newAxisLabel;
 		BOOL needsNewContentLayer = NO;
@@ -527,12 +537,21 @@
 			CPTextLayer *newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:self.labelTextStyle];
 			[oldAxisLabel.contentLayer removeFromSuperlayer];
 			newAxisLabel.contentLayer = newLabelLayer;
-			[self addSublayer:newLabelLayer];
+			
+			if ( lastLayer ) {
+				[axisLabelGroup insertSublayer:newLabelLayer below:lastLayer];
+			}
+			else {
+				[axisLabelGroup insertSublayer:newLabelLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+			}
+			
 			[newLabelLayer release];
 			CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:newAxisLabel.tickLocation];
 			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 		}
 
+		lastLayer = newAxisLabel.contentLayer;
+		
 		[newAxisLabels addObject:newAxisLabel];
 		[newAxisLabel release];
 	}
@@ -677,9 +696,6 @@
         [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
     }
 
-    if ( axisTitle.contentLayer && axisTitle.contentLayer.superlayer == nil ) {
-        [self.plotArea.axisTitleGroup addSublayer:axisTitle.contentLayer];
-    }
 	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 }
 
@@ -697,15 +713,27 @@
         [axisLabels release];
         axisLabels = newLabels;
 		
-		CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
-		
-        for ( CPAxisLabel *label in axisLabels ) {
-			label.axis = self;
-			CPLayer *contentLayer = label.contentLayer;
-			if ( contentLayer ) {
-				[axisLabelGroup addSublayer:contentLayer];
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+
+		if ( axisLabels ) {
+			CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+			CALayer *lastLayer = nil;
+			
+			for ( CPAxisLabel *label in axisLabels ) {
+				label.axis = self;
+				CPLayer *contentLayer = label.contentLayer;
+				if ( contentLayer ) {
+					if ( lastLayer ) {
+						[axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+					}
+					else {
+						[axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+					}
+					
+					lastLayer = contentLayer;
+				}
 			}
-        }
+		}
 		
 		[self setNeedsLayout];		
 	}
@@ -734,8 +762,17 @@
 		[axisTitle.contentLayer removeFromSuperlayer];
 		[axisTitle release];
 		axisTitle = [newTitle retain];
-		axisTitle.axis = self;
-		axisTitle.offset = self.titleOffset;		
+		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
+		
+		if ( axisTitle ) {
+			axisTitle.axis = self;
+			axisTitle.offset = self.titleOffset;		
+			CPLayer *contentLayer = axisTitle.contentLayer;
+			if ( contentLayer ) {
+				[self.plotArea.axisTitleGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			}
+		}
 		[self setNeedsLayout];
 	}
 }
@@ -743,7 +780,9 @@
 -(CPAxisTitle *)axisTitle 
 {
     if ( axisTitle == nil && title != nil ) {
-        axisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+        CPAxisTitle *newTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+		self.axisTitle = newTitle;
+		[newTitle release];
     }
     return axisTitle;
 }
@@ -924,7 +963,20 @@
     if ( newLineStyle != majorGridLineStyle ) {
         [majorGridLineStyle release];
         majorGridLineStyle = [newLineStyle copy];
-        [self.majorGridLines setNeedsDisplay];
+		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+		
+		if ( majorGridLineStyle ) {
+			if ( !self.majorGridLines ) {
+				CPGridLines *gridLines = [[self.gridLineClass alloc] init];
+				self.majorGridLines = gridLines;
+				[gridLines release];
+			}
+			[self.majorGridLines setNeedsDisplay];
+		}
+		else {
+			self.majorGridLines = nil;
+		}
     }
 }
 
@@ -933,7 +985,20 @@
     if ( newLineStyle != minorGridLineStyle ) {
         [minorGridLineStyle release];
         minorGridLineStyle = [newLineStyle copy];
-        [self.minorGridLines setNeedsDisplay];
+		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+		
+		if ( minorGridLineStyle ) {
+			if ( !self.minorGridLines ) {
+				CPGridLines *gridLines = [[self.gridLineClass alloc] init];
+				self.minorGridLines = gridLines;
+				[gridLines release];
+			}
+			[self.minorGridLines setNeedsDisplay];
+		}
+		else {
+			self.minorGridLines = nil;
+		}
     }
 }
 
@@ -1002,14 +1067,49 @@
 {
 	if ( newPlotArea != plotArea ) {
 		plotArea = newPlotArea;
-
-		CPGridLines *gridLines = [[self.gridLineClass alloc] init];
-		self.minorGridLines = gridLines;
-		[gridLines release];
 		
-		gridLines = [[self.gridLineClass alloc] init];
-		self.majorGridLines = gridLines;
-		[gridLines release];
+		if ( plotArea ) {
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+			if ( self.minorGridLines ) {
+				[self.minorGridLines removeFromSuperlayer];
+				[plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+			if ( self.majorGridLines ) {
+				[self.majorGridLines removeFromSuperlayer];
+				[plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+			if ( self.axisLabels.count > 0 ) {
+				CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+				CALayer *lastLayer = nil;
+				
+				for ( CPAxisLabel *label in axisLabels ) {
+					label.axis = self;
+					CPLayer *contentLayer = label.contentLayer;
+					if ( contentLayer ) {
+						[contentLayer removeFromSuperlayer];
+						
+						if ( lastLayer ) {
+							[axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+						}
+						else {
+							[axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+						}
+						
+						lastLayer = contentLayer;
+					}
+				}
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
+			if ( self.axisTitle.contentLayer ) {
+				[self.axisTitle.contentLayer removeFromSuperlayer];
+				[plotArea.axisTitleGroup insertSublayer:self.axisTitle.contentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			}
+		}
 	}	
 }
 
@@ -1029,7 +1129,7 @@
 		if ( minorGridLines ) {
 			minorGridLines.major = NO;
 			minorGridLines.axis = self;
-			[self.plotArea.minorGridLineGroup addSublayer:minorGridLines];
+			[self.plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
 		}
 	}
 }
@@ -1042,7 +1142,7 @@
 		if ( majorGridLines ) {
 			majorGridLines.major = YES;
 			majorGridLines.axis = self;
-			[self.plotArea.majorGridLineGroup addSublayer:majorGridLines];
+			[self.plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
 		}
 	}	
 }
