@@ -6,10 +6,12 @@
     @private
 	CGImageRef image;
 	BOOL tiled;
+	BOOL tileAnchoredToContext;
 }
 
 @property (assign) CGImageRef image;
 @property (assign, getter=isTiled) BOOL tiled;
+@property (assign) BOOL	tileAnchoredToContext;
 
 /// @name Factory Methods
 /// @{
