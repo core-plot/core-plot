@@ -81,6 +81,12 @@
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	CGImageRelease(image);
+	[super finalize];
+}
+
 -(id)copyWithZone:(NSZone *)zone
 {
     CPImage *copy = [[[self class] allocWithZone:zone] init];
