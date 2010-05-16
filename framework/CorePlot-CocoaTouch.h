@@ -51,6 +51,5 @@
 #import "Source/CPXYAxis.h"
 #import "Source/CPXYAxisSet.h"
 #import "Source/CPXYGraph.h"
-#import "Source/CPXYGridLines.h"
 #import "Source/CPXYPlotSpace.h"
 #import "Source/CPXYTheme.h"

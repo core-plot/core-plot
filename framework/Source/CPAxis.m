@@ -246,6 +246,14 @@
 
 // Layers
 
+/**	@property separateLayers
+ *  @brief Use separate layers for drawing grid lines?
+ *
+ *	If NO, the default, the major and minor grid lines are drawn in layers shared with other axes.
+ *	If YES, the grid lines are drawn in their own layers.
+ **/
+@synthesize separateLayers;
+
 /**	@property plotArea
  *  @brief The plot area that the axis belongs to.
  **/
@@ -265,11 +273,6 @@
  *  @brief The axis set that the axis belongs to.
  **/
 @dynamic axisSet;
-
-/**	@property gridLineClass
- *  @brief The Class used to draw the major and minor grid lines.
- **/
-@dynamic gridLineClass;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -313,6 +316,7 @@
 		labelExclusionRanges = nil;
 		delegate = nil;
 		plotArea = nil;
+		separateLayers = NO;
 		minorGridLines = nil;
 		majorGridLines = nil;
 		
@@ -863,7 +867,13 @@
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];
-		[self.majorGridLines setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.majorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.majorGridLineGroup setNeedsDisplay];
+		}
+
         self.needsRelabel = YES;
     }
 }
@@ -873,8 +883,14 @@
     if ( newLocations != majorTickLocations ) {
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
-		[self setNeedsDisplay];		
-		[self.minorGridLines setNeedsDisplay];
+		[self setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.minorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.minorGridLineGroup setNeedsDisplay];
+		}
+
         self.needsRelabel = YES;
     }
 }
@@ -967,12 +983,19 @@
 		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
 		
 		if ( majorGridLineStyle ) {
-			if ( !self.majorGridLines ) {
-				CPGridLines *gridLines = [[self.gridLineClass alloc] init];
-				self.majorGridLines = gridLines;
-				[gridLines release];
+			if ( self.separateLayers ) {
+				if ( !self.majorGridLines ) {
+					CPGridLines *gridLines = [[CPGridLines alloc] init];
+					self.majorGridLines = gridLines;
+					[gridLines release];
+				}
+				else {
+					[self.majorGridLines setNeedsDisplay];
+				}
 			}
-			[self.majorGridLines setNeedsDisplay];
+			else {
+				[self.plotArea.majorGridLineGroup setNeedsDisplay];
+			}
 		}
 		else {
 			self.majorGridLines = nil;
@@ -989,12 +1012,19 @@
 		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
 		
 		if ( minorGridLineStyle ) {
-			if ( !self.minorGridLines ) {
-				CPGridLines *gridLines = [[self.gridLineClass alloc] init];
-				self.minorGridLines = gridLines;
-				[gridLines release];
+			if ( self.separateLayers ) {
+				if ( !self.minorGridLines ) {
+					CPGridLines *gridLines = [[CPGridLines alloc] init];
+					self.minorGridLines = gridLines;
+					[gridLines release];
+				}
+				else {
+					[self.minorGridLines setNeedsDisplay];
+				}
 			}
-			[self.minorGridLines setNeedsDisplay];
+			else {
+				[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			}
 		}
 		else {
 			self.minorGridLines = nil;
@@ -1059,7 +1089,14 @@
     if ( newRange != gridLinesRange ) {
         [gridLinesRange release];
         gridLinesRange = [newRange copy];
-        [self setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.minorGridLines setNeedsDisplay];
+			[self.majorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			[self.plotArea.majorGridLineGroup setNeedsDisplay];
+		}
     }
 }
 
@@ -1113,14 +1150,45 @@
 	}	
 }
 
--(void)setVisibleRange:(CPPlotRange *)newRange {
+-(void)setVisibleRange:(CPPlotRange *)newRange
+{
     if ( newRange != visibleRange ) {
         [visibleRange release];
         visibleRange = [newRange copy];
         self.needsRelabel = YES;
     }
 }
-	
+
+-(void)setSeparateLayers:(BOOL)newSeparateLayers
+{
+	if ( newSeparateLayers != separateLayers ) {
+		separateLayers = newSeparateLayers;
+		if ( separateLayers ) {
+			if ( self.minorGridLineStyle ) {
+				CPGridLines *gridLines = [[CPGridLines alloc] init];
+				self.minorGridLines = gridLines;
+				[gridLines release];
+			}
+			if ( self.majorGridLineStyle ) {
+				CPGridLines *gridLines = [[CPGridLines alloc] init];
+				self.majorGridLines = gridLines;
+				[gridLines release];
+			}
+		}
+		else {
+			self.minorGridLines	= nil;
+			if ( self.minorGridLineStyle ) {
+				[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			}
+			self.majorGridLines = nil;
+			if ( self.majorGridLineStyle ) {
+				[self.plotArea.majorGridLineGroup setNeedsDisplay];
+			}
+		}
+		
+	}
+}
+
 -(void)setMinorGridLines:(CPGridLines *)newGridLines
 {
 	if ( newGridLines != minorGridLines ) {
@@ -1152,11 +1220,6 @@
 	return self.plotArea.axisSet;
 }
 
--(Class)gridLineClass
-{
-	return [CPGridLines class];
-}
-
 @end
 
 #pragma mark -
@@ -1170,6 +1233,15 @@
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
 {
 	return CGPointZero;
+}
+
+/**	@brief Draws grid lines into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ *	@param major Draw the major grid lines if YES, minor grid lines otherwise.
+ **/
+-(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+{
+	// do nothing--subclasses must override to do their drawing	
 }
 
 @end

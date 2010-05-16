@@ -30,6 +30,14 @@
 }
 
 #pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	[self.axis drawGridLinesInContext:theContext isMajor:self.major];
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setAxis:(CPAxis *)newAxis 

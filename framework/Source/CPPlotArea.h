@@ -5,14 +5,15 @@
 @class CPAxis;
 @class CPAxisLabelGroup;
 @class CPAxisSet;
+@class CPGridLineGroup;
 @class CPPlotGroup;
 @class CPLineStyle;
 @class CPFill;
 
 @interface CPPlotArea : CPLayer {
 @private
-	CPLayer *minorGridLineGroup;
-	CPLayer *majorGridLineGroup;
+	CPGridLineGroup *minorGridLineGroup;
+	CPGridLineGroup *majorGridLineGroup;
 	CPAxisSet *axisSet;
 	CPPlotGroup *plotGroup;
 	CPAxisLabelGroup *axisLabelGroup;
@@ -25,8 +26,8 @@
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPLayer *minorGridLineGroup;
-@property (nonatomic, readwrite, retain) CPLayer *majorGridLineGroup;
+@property (nonatomic, readwrite, retain) CPGridLineGroup *minorGridLineGroup;
+@property (nonatomic, readwrite, retain) CPGridLineGroup *majorGridLineGroup;
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotGroup *plotGroup;
 @property (nonatomic, readwrite, retain) CPAxisLabelGroup *axisLabelGroup;

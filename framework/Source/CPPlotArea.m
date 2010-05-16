@@ -2,6 +2,7 @@
 #import "CPAxisLabelGroup.h"
 #import "CPAxisSet.h"
 #import "CPFill.h"
+#import "CPGridLineGroup.h"
 #import "CPLineStyle.h"
 #import "CPPlotGroup.h"
 #import "CPPlotArea.h"
@@ -339,14 +340,14 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	switch ( layerType ) {
 		case CPGraphLayerTypeMinorGridLines:
 			if ( !self.minorGridLineGroup ) {
-				CPLayer *newGridLineGroup = [(CPLayer *)[CPLayer alloc] initWithFrame:self.bounds];
+				CPGridLineGroup *newGridLineGroup = [(CPGridLineGroup *)[CPGridLineGroup alloc] initWithFrame:self.bounds];
 				self.minorGridLineGroup = newGridLineGroup;
 				[newGridLineGroup release];
 			}
 			break;
 		case CPGraphLayerTypeMajorGridLines:
 			if ( !self.majorGridLineGroup ) {
-				CPLayer *newGridLineGroup = [(CPLayer *)[CPLayer alloc] initWithFrame:self.bounds];
+				CPGridLineGroup *newGridLineGroup = [(CPGridLineGroup *)[CPGridLineGroup alloc] initWithFrame:self.bounds];
 				self.majorGridLineGroup = newGridLineGroup;
 				[newGridLineGroup release];
 			}
@@ -411,7 +412,7 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	self.axisSet.borderLineStyle = newLineStyle;
 }
 
--(void)setMinorGridLineGroup:(CPLayer *)newGridLines
+-(void)setMinorGridLineGroup:(CPGridLineGroup *)newGridLines
 {
 	if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
 		[minorGridLineGroup removeFromSuperlayer];
@@ -419,13 +420,15 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		[minorGridLineGroup release];
 		minorGridLineGroup = newGridLines;
 		if ( minorGridLineGroup ) {
+			minorGridLineGroup.plotArea = self;
+			minorGridLineGroup.major = NO;
 			[self insertSublayer:minorGridLineGroup atIndex:[self indexForLayerType:CPGraphLayerTypeMinorGridLines]];
 		}
         [self setNeedsLayout];
 	}	
 }
 
--(void)setMajorGridLineGroup:(CPLayer *)newGridLines
+-(void)setMajorGridLineGroup:(CPGridLineGroup *)newGridLines
 {
 	if ( (newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
 		[majorGridLineGroup removeFromSuperlayer];
@@ -433,6 +436,8 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		[majorGridLineGroup release];
 		majorGridLineGroup = newGridLines;
 		if ( majorGridLineGroup ) {
+			majorGridLineGroup.plotArea = self;
+			majorGridLineGroup.major = YES;
 			[self insertSublayer:majorGridLineGroup atIndex:[self indexForLayerType:CPGraphLayerTypeMajorGridLines]];
 		}
         [self setNeedsLayout];

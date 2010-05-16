@@ -54,6 +54,7 @@
     // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
+	x.separateLayers = NO;
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
     x.minorTicksPerInterval = 4;
 	x.tickDirection = CPSignNone;
@@ -71,6 +72,7 @@
 	axisLineStyle.lineColor = [CPColor greenColor];
 	
     CPXYAxis *y = axisSet.yAxis;
+	y.separateLayers = YES;
     y.minorTicksPerInterval = 9;
 	y.tickDirection = CPSignNone;
 	y.axisLineStyle = axisLineStyle;

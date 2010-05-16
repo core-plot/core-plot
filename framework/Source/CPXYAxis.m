@@ -9,7 +9,6 @@
 #import "CPUtilities.h"
 #import "CPXYAxis.h"
 #import "CPXYPlotSpace.h"
-#import "CPXYGridLines.h"
 
 ///	@cond
 @interface CPXYAxis ()
@@ -196,7 +195,7 @@
     // Axis Line
 	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-        if (self.visibleRange) {
+        if ( self.visibleRange ) {
             [range intersectionPlotRange:self.visibleRange];
         }
 		CGPoint startViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
@@ -207,6 +206,57 @@
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 		CGContextStrokePath(theContext);
         [range release];
+	}
+}
+
+#pragma mark -
+#pragma mark Grid Lines
+
+-(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+{
+	CPLineStyle *lineStyle = (major ? self.majorGridLineStyle : self.minorGridLineStyle);
+	
+	if ( lineStyle ) {
+		[super renderAsVectorInContext:context];
+		
+		[self relabel];
+		
+		NSSet *locations = (major ? self.majorTickLocations : self.minorTickLocations);
+		CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+		CPPlotRange *orthogonalRange = [[self.plotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		if ( self.gridLinesRange ) {
+			[orthogonalRange intersectionPlotRange:self.gridLinesRange];
+		}
+		
+		CPPlotArea *plotArea = self.plotArea;
+		
+		CGContextBeginPath(context);
+		
+		for ( NSDecimalNumber *location in locations ) {
+			// Start point
+			NSDecimal plotPoint[2];
+			plotPoint[self.coordinate] = [location decimalValue];
+			plotPoint[orthogonalCoordinate] = orthogonalRange.location;
+			CGPoint startViewPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
+			
+			// End point
+			plotPoint[orthogonalCoordinate] = orthogonalRange.end;
+			CGPoint endViewPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
+			
+			// Align to pixels
+			startViewPoint = CPAlignPointToUserSpace(context, startViewPoint);
+			endViewPoint = CPAlignPointToUserSpace(context, endViewPoint);
+			
+			// Add grid line 
+			CGContextMoveToPoint(context, startViewPoint.x, startViewPoint.y);
+			CGContextAddLineToPoint(context, endViewPoint.x, endViewPoint.y);
+		}
+		
+		// Stroke grid lines
+		[lineStyle setLineStyleInContext:context];
+		CGContextStrokePath(context);
+		
+		[orthogonalRange release];
 	}
 }
 
@@ -272,11 +322,6 @@
 {
     orthogonalCoordinateDecimal = newCoord;
     [self updateConstraints];
-}
-
--(Class)gridLineClass
-{
-	return [CPXYGridLines class];
 }
 
 @end
