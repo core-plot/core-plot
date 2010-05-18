@@ -498,6 +498,17 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
         plotPoint[dependentCoord] = self.baseValue;
         basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+        
+        // Account for offset
+        CGFloat viewOffset = self.barOffset * self.barWidth;
+        if ( self.barsAreHorizontal ) {
+            basePoint.y += viewOffset;
+            tipPoint.y += viewOffset;
+        }
+        else {
+            basePoint.x += viewOffset;
+            tipPoint.x += viewOffset;
+        }        
                 
         // Create label
         CPTextLayer *label = nil;
