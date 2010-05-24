@@ -348,7 +348,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
 {	
     // Calculate points
-	BOOL doubleFastPath = [[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]] != NO;
+	BOOL doubleFastPath = ![[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]];
     for (NSUInteger i = 0; i < self.xValues.count; i++) {
 		id xValue = [self.xValues objectAtIndex:i];
 		id yValue = [self.yValues objectAtIndex:i];
