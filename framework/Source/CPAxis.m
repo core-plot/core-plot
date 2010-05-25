@@ -110,7 +110,7 @@
  *	@brief The position along the axis where the axis title should be centered.
  *  If NaN, the <code>defaultTitleLocation</code> will be used.
  **/
-@synthesize titleLocation;
+@dynamic titleLocation;
 
 /**	@property defaultTitleLocation
  *	@brief The position along the axis where the axis title should be centered
@@ -831,6 +831,13 @@
 	}
 }
 
+-(void)setTitleLocation:(NSDecimal)newLocation
+{
+	if ( NSDecimalCompare(&newLocation, &titleLocation) != NSOrderedSame ) {
+		titleLocation = newLocation;
+		[self setNeedsLayout];
+	}
+}
 
 -(NSDecimal)titleLocation
 {
