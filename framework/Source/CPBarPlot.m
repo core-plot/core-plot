@@ -279,10 +279,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		double doublePrecisionDelta = 1.0;
 		if ( self.barLengths.count > 1 ) {
 			delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromUnsignedInteger(self.barLengths.count - 1));
-			doublePrecisionDelta  = self.plotRange.doublePrecisionLength / (double)(self.barLengths.count - 1);
+			doublePrecisionDelta  = CPDecimalDoubleValue(self.plotRange.length) / (double)(self.barLengths.count - 1);
 		}
 		
 		NSMutableArray *newLocations = [NSMutableArray arrayWithCapacity:self.barLengths.count];
+        double locationDouble = CPDecimalDoubleValue(self.plotRange.location);
 		for ( NSUInteger ii = 0; ii < self.barLengths.count; ii++ ) {
 			id dependentCoordValue = [self.barLengths objectAtIndex:ii];
 			if ([dependentCoordValue isKindOfClass:[NSDecimalNumber class]]) {
@@ -293,8 +294,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 				[newLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
 			}
 			else {
-				double location = doublePrecisionDelta * (double)ii + self.plotRange.doublePrecisionLocation;
-				[newLocations addObject:[NSNumber numberWithDouble:location]];
+				double barLocation = doublePrecisionDelta * (double)ii + locationDouble;
+				[newLocations addObject:[NSNumber numberWithDouble:barLocation]];
 			}
 		}
 		self.barLocations = newLocations;

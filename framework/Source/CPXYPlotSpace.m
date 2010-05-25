@@ -193,8 +193,8 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 {
-	if ( !range || range.doublePrecisionLength == 0.0 ) return 0.0;
-    return viewLength * ((plotCoord - range.doublePrecisionLocation) / range.doublePrecisionLength);
+	if ( !range || range.lengthDouble == 0.0 ) return 0.0;
+    return viewLength * ((plotCoord - range.locationDouble) / range.lengthDouble);
 }
 
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint

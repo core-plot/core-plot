@@ -18,25 +18,25 @@
  **/
 @synthesize length;
 
+/** @property locationDouble
+ *  @brief The starting value of the range as a double.
+ **/
+@synthesize locationDouble;
+
+/** @property lengthDouble
+ *  @brief The length of the range as a double.
+ **/
+@synthesize lengthDouble;
+
 /** @property end
  *  @brief The ending value of the range.
  **/
 @dynamic end;
 
-/** @property doublePrecisionLocation
- *  @brief The starting value of the range, as a double.
+/** @property endDouble
+ *  @brief The ending value of the range as a double.
  **/
-@synthesize doublePrecisionLocation;
-
-/** @property doublePrecisionLength
- *  @brief The length of the range, as a double.
- **/
-@synthesize doublePrecisionLength;
-
-/** @property doublePrecisionEnd
- *  @brief The ending value of the range, as a double.
- **/
-@dynamic doublePrecisionEnd;
+@dynamic endDouble;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -59,10 +59,8 @@
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
 	if ( self = [super init] ) {
-		location = loc;
-		doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:loc] doubleValue];
-		length = len;
-		doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:len] doubleValue];
+    	self.location = loc;
+        self.length = len;
 	}
 	return self;	
 }
@@ -74,7 +72,7 @@
 {
 	if ( !CPDecimalEquals(location, newLocation) ) {
 		location = newLocation;
-		doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
+		locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 	}
 }
 
@@ -82,7 +80,7 @@
 {
 	if ( !CPDecimalEquals(length, newLength) ) {
 		length = newLength;
-		doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
+		lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
 	}
 }
 
@@ -91,25 +89,9 @@
     return CPDecimalAdd(self.location, self.length);
 }
 
--(void)setDoublePrecisionLocation:(double)newLocation
+-(double)endDouble 
 {
-	if ( doublePrecisionLocation != newLocation ) {
-		location = CPDecimalFromDouble(newLocation);
-		doublePrecisionLocation = newLocation;
-	}
-}
-
--(void)setDoublePrecisionLength:(double)newLength
-{
-	if ( doublePrecisionLength != newLength ) {
-		length = CPDecimalFromDouble(newLength);
-		doublePrecisionLength = newLength;
-	}
-}
-
--(double)doublePrecisionEnd 
-{
-	return (self.doublePrecisionLocation + self.doublePrecisionLength);
+	return (self.locationDouble + self.lengthDouble);
 }
 
 #pragma mark -
@@ -121,8 +103,8 @@
 	if ( newRange ) {
 		newRange->location = self->location;
 		newRange->length = self->length;
-		newRange->doublePrecisionLocation = self->doublePrecisionLocation;
-		newRange->doublePrecisionLength = self->doublePrecisionLength;
+		newRange->locationDouble = self->locationDouble;
+		newRange->lengthDouble = self->lengthDouble;
 	}
     return newRange;
 }
@@ -173,15 +155,28 @@
  **/
 -(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number
 {
-	CPPlotRangeComparisonResult result;
-    if ( [self contains:number.decimalValue] ) {
-        result = CPPlotRangeComparisonResultNumberInRange;
-    }
-    else if ( CPDecimalLessThan(number.decimalValue, self.location) ) {
-        result = CPPlotRangeComparisonResultNumberBelowRange;
+    CPPlotRangeComparisonResult result;
+	if ( [number isKindOfClass:[NSDecimalNumber class]] ) {
+        if ( [self contains:number.decimalValue] ) {
+            result = CPPlotRangeComparisonResultNumberInRange;
+        }
+        else if ( CPDecimalLessThan(number.decimalValue, self.location) ) {
+            result = CPPlotRangeComparisonResultNumberBelowRange;
+        }
+        else {
+            result = CPPlotRangeComparisonResultNumberAboveRange;
+        }
     }
     else {
-        result = CPPlotRangeComparisonResultNumberAboveRange;
+    	double d = [number doubleValue];
+        if ( d < self.locationDouble ) 
+        	result = CPPlotRangeComparisonResultNumberBelowRange;
+        else if ( d > self.endDouble ) 
+        	result = CPPlotRangeComparisonResultNumberAboveRange;
+        else {
+        	result = CPPlotRangeComparisonResultNumberInRange;
+        }
+
     }
     return result;
 }
