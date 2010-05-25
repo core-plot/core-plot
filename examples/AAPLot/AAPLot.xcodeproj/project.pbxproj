@@ -356,6 +356,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.2.1;
+				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};

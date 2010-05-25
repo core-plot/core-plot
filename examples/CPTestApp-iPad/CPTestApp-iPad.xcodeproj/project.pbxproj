@@ -271,6 +271,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.2;
+				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;

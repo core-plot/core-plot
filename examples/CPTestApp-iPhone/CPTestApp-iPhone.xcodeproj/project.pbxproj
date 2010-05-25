@@ -282,7 +282,7 @@
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/../../Build/Debug-iphonesimulator\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -332,6 +332,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
+				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};

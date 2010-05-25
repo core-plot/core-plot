@@ -934,7 +934,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
-				SYMROOT = build;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};

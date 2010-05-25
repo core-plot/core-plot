@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
-		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
+		07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
+		07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
 		07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C13BBA0FF9322A00BEE616 /* BlueTexture.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -25,23 +25,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0730F6D910949A6300E95162 /* PBXContainerItemProxy */ = {
+		07032B6911ABB9E000463D20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0730F600109492D800E95162;
-			remoteInfo = UnitTests;
-		};
-		076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */ = {
+		07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		07032B7311ABBA0E00463D20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
@@ -55,7 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */,
+				07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
+		07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot.framework; path = ../../../../framework/build/Debug/CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = Source/Controller.h; sourceTree = "<group>"; };
 		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Controller.m; path = Source/Controller.m; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */,
+				07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */,
 			);
@@ -104,11 +104,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		076184BD0F3CAD5900A89A76 /* Products */ = {
+		07032B6411ABB9E000463D20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
-				0730F6DA10949A6300E95162 /* UnitTests.octest */,
+				07032B6A11ABB9E000463D20 /* CorePlot.framework */,
+				07032B6C11ABB9E000463D20 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 		29B97314FDCFA39411CA2CEA /* CPTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */,
+				07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -216,7 +216,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				076184D00F3CAE1100A89A76 /* PBXTargetDependency */,
+				07032B7411ABBA0E00463D20 /* PBXTargetDependency */,
 			);
 			name = CPTestApp;
 			productInstallPath = "$(HOME)/Applications";
@@ -239,8 +239,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 076184BD0F3CAD5900A89A76 /* Products */;
-					ProjectRef = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+					ProductGroup = 07032B6411ABB9E000463D20 /* Products */;
+					ProjectRef = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -251,18 +251,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0730F6DA10949A6300E95162 /* UnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
-			remoteRef = 0730F6D910949A6300E95162 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		076184C10F3CAD5900A89A76 /* CorePlot.framework */ = {
+		07032B6A11ABB9E000463D20 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
-			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
+			remoteRef = 07032B6911ABB9E000463D20 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07032B6C11ABB9E000463D20 /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = 07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -299,10 +299,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		076184D00F3CAE1100A89A76 /* PBXTargetDependency */ = {
+		07032B7411ABBA0E00463D20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CorePlot;
-			targetProxy = 076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */;
+			targetProxy = 07032B7311ABBA0E00463D20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -323,6 +323,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -358,7 +359,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../Build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -367,6 +368,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Debug;
 		};

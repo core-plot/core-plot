@@ -321,6 +321,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
+				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};
