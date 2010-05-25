@@ -16,7 +16,7 @@ syntax: glob
 
 # build directories
 **/build/*
-**/Build/*
+build/*
 
 # XCode user data
 **.pbxuser
