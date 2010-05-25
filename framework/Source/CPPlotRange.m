@@ -1,4 +1,3 @@
-
 #import "CPPlotRange.h"
 #import "CPPlatformSpecificCategories.h"
 #import "NSDecimalNumberExtensions.h"
@@ -7,7 +6,6 @@
 
 /** @brief Defines a range of plot data
  **/
-
 @implementation CPPlotRange
 
 /** @property location
@@ -20,25 +18,25 @@
  **/
 @synthesize length;
 
+/** @property locationDouble
+ *  @brief The starting value of the range as a double.
+ **/
+@synthesize locationDouble;
+
+/** @property lengthDouble
+ *  @brief The length of the range as a double.
+ **/
+@synthesize lengthDouble;
+
 /** @property end
  *  @brief The ending value of the range.
  **/
 @dynamic end;
 
-/** @property doublePrecisionLocation
- *  @brief The starting value of the range, as a double.
+/** @property endDouble
+ *  @brief The ending value of the range as a double.
  **/
-@synthesize doublePrecisionLocation;
-
-/** @property doublePrecisionLength
- *  @brief The length of the range, as a double.
- **/
-@synthesize doublePrecisionLength;
-
-/** @property doublePrecisionEnd
- *  @brief The ending value of the range, as a double.
- **/
-@dynamic doublePrecisionEnd;
+@dynamic endDouble;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -60,41 +58,30 @@
  **/
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
-	if (self = [super init]) {
-		self.location = loc;
-		self.length = len;
+	if ( self = [super init] ) {
+    	self.location = loc;
+        self.length = len;
 	}
 	return self;	
-}
-
--(void)dealloc
-{
-	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setLocation:(NSDecimal)newLocation;
+-(void)setLocation:(NSDecimal)newLocation
 {
-	if (CPDecimalEquals(location, newLocation))
-	{
-		return;
+	if ( !CPDecimalEquals(location, newLocation) ) {
+		location = newLocation;
+		locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 	}
-	
-	location = newLocation;
-	doublePrecisionLocation = [[NSDecimalNumber decimalNumberWithDecimal:location] doubleValue];
 }
 
--(void)setLength:(NSDecimal)newLength;
+-(void)setLength:(NSDecimal)newLength
 {
-	if (CPDecimalEquals(length, newLength))
-	{
-		return;
+	if ( !CPDecimalEquals(length, newLength) ) {
+		length = newLength;
+		lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
 	}
-	
-	length = newLength;
-	doublePrecisionLength = [[NSDecimalNumber decimalNumberWithDecimal:length] doubleValue];
 }
 
 -(NSDecimal)end 
@@ -102,9 +89,9 @@
     return CPDecimalAdd(self.location, self.length);
 }
 
--(double)doublePrecisionEnd 
+-(double)endDouble 
 {
-	return (self.doublePrecisionLocation + self.doublePrecisionLength);
+	return (self.locationDouble + self.lengthDouble);
 }
 
 #pragma mark -
@@ -113,8 +100,12 @@
 -(id)copyWithZone:(NSZone *)zone 
 {
     CPPlotRange *newRange = [[CPPlotRange allocWithZone:zone] init];
-    newRange.location = self.location;
-    newRange.length = self.length;
+	if ( newRange ) {
+		newRange->location = self->location;
+		newRange->length = self->length;
+		newRange->locationDouble = self->locationDouble;
+		newRange->lengthDouble = self->lengthDouble;
+	}
     return newRange;
 }
 
@@ -125,21 +116,11 @@
 {
     [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.location]];
     [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.length]];
-    
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        [(id <NSCoding>)super encodeWithCoder:encoder];
-    }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder 
 {
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [(id <NSCoding>)super initWithCoder:decoder];
-    } else {
-        self = [super init];
-    }
-    
-    if (self) {
+    if ( self = [super init] ) {
         self.location = [[decoder decodeObject] decimalValue];
         self.length = [[decoder decodeObject] decimalValue];
     }
@@ -156,12 +137,56 @@
  **/
 -(BOOL)contains:(NSDecimal)number
 {
-	return (CPDecimalGreaterThanOrEqualTo(number, location) && CPDecimalLessThanOrEqualTo(number, self.end));
+	return (CPDecimalGreaterThanOrEqualTo(number, self.location) && CPDecimalLessThanOrEqualTo(number, self.end));
+}
+
+/** @brief Determines whether a given range is equal to the range of the receiver.
+ *  @param otherRange The range to check.
+ *  @return True if the ranges both have the same location and length.
+ **/
+-(BOOL)isEqualToRange:(CPPlotRange *)otherRange
+{
+	return (CPDecimalEquals(self.location, otherRange.location) && CPDecimalEquals(self.length, otherRange.length));
+}
+
+/** @brief Compares a number to the range, determining if it is in the range, or above or below it.
+ *  @param number The number to check.
+ *  @return The comparison result.
+ **/
+-(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number
+{
+    CPPlotRangeComparisonResult result;
+	if ( [number isKindOfClass:[NSDecimalNumber class]] ) {
+        if ( [self contains:number.decimalValue] ) {
+            result = CPPlotRangeComparisonResultNumberInRange;
+        }
+        else if ( CPDecimalLessThan(number.decimalValue, self.location) ) {
+            result = CPPlotRangeComparisonResultNumberBelowRange;
+        }
+        else {
+            result = CPPlotRangeComparisonResultNumberAboveRange;
+        }
+    }
+    else {
+    	double d = [number doubleValue];
+        if ( d < self.locationDouble ) 
+        	result = CPPlotRangeComparisonResultNumberBelowRange;
+        else if ( d > self.endDouble ) 
+        	result = CPPlotRangeComparisonResultNumberAboveRange;
+        else {
+        	result = CPPlotRangeComparisonResultNumberInRange;
+        }
+
+    }
+    return result;
 }
 
 #pragma mark -
 #pragma mark Combining ranges
 
+/** @brief Extends the range to include another range.
+ *  @param other The other plot range.
+ **/
 -(void)unionPlotRange:(CPPlotRange *)other 
 {
     NSDecimal newLocation = (CPDecimalLessThan(self.location, other.location) ? self.location : other.location);
@@ -173,29 +198,79 @@
     self.length = newLength;
 }
 
+/** @brief Sets the messaged object to the intersection with another range.
+ *  @param other The other plot range.
+ **/
+-(void)intersectionPlotRange:(CPPlotRange *)other
+{
+    NSDecimal newLocation = (CPDecimalGreaterThan(self.location, other.location) ? self.location : other.location);
+    NSDecimal max1 = self.end;
+    NSDecimal max2 = other.end;
+    NSDecimal newEnd = (CPDecimalLessThan(max1, max2) ? max1 : max2);
+    self.location = newLocation;
+    self.length = CPDecimalSubtract(newEnd, newLocation);
+}
+
 #pragma mark -
 #pragma mark Expanding/Contracting ranges
 
 /** @brief Extends/contracts the range by a factor.
  *  @param factor Factor used. A value of 1.0 gives no change.
- 	Less than 1.0 is a contraction, and greater than 1.0 is 
-    expansion.
+ *	Less than 1.0 is a contraction, and greater than 1.0 is expansion.
  **/
--(void)expandRangeByFactor:(NSDecimal)factor {
+-(void)expandRangeByFactor:(NSDecimal)factor 
+{
     NSDecimal newLength = CPDecimalMultiply(length, factor);
     NSDecimal locationOffset = CPDecimalDivide( CPDecimalSubtract(newLength, length), 
-    	CPDecimalFromInt(2));
+    	CPDecimalFromInteger(2));
     NSDecimal newLocation = CPDecimalSubtract(location, locationOffset);
     self.location = newLocation;
     self.length = newLength;
 }
 
 #pragma mark -
+#pragma mark Shifting Range
+
+/** @brief Moves the whole range so that the location fits in other range.
+ *  @param otherRange Other range.
+ *	The minimum possible shift is made. The range length is unchanged.
+ **/
+-(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange 
+{
+	if ( [otherRange contains:self.location] ) return;
+    if ( CPDecimalGreaterThan(otherRange.location, self.location) ) {
+        self.location = otherRange.location;
+    }
+    else {
+        self.location = otherRange.end;
+    }
+}
+
+/** @brief Moves the whole range so that the end point fits in other range.
+ *  @param otherRange Other range.
+ *	The minimum possible shift is made. The range length is unchanged.
+ **/
+-(void)shiftEndToFitInRange:(CPPlotRange *)otherRange
+{
+	NSDecimal currentEnd = self.end;
+    if ( [otherRange contains:currentEnd] ) return;
+    if ( CPDecimalLessThan(otherRange.end, currentEnd) ) {
+        self.location = CPDecimalSubtract(otherRange.end, self.length);
+    }
+    else {
+        self.location = CPDecimalSubtract(otherRange.location, self.length);
+    }
+}
+
+#pragma mark -
 #pragma mark Description
 
-- (NSString*)description
+-(NSString *)description
 {
-	return [NSString stringWithFormat:@"CPPlotRange from %@, length %@", NSDecimalString(&location, [NSLocale currentLocale]), NSDecimalString(&length, [NSLocale currentLocale])]; 
+	return [NSString stringWithFormat:@"<%@ {%@, %@}>",
+			[super description],
+			NSDecimalString(&location, [NSLocale currentLocale]),
+			NSDecimalString(&length, [NSLocale currentLocale])]; 
 }
 
 @end

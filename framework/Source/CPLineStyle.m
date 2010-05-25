@@ -32,8 +32,13 @@
  **/
 @synthesize lineWidth;
 
+/** @property dashPattern
+ *  @brief The dash-and-space pattern for the line.
+ **/
+@synthesize dashPattern;
+
 /** @property patternPhase
- *  @brief Sets the pattern phase of a context.
+ *  @brief Sets the starting phase of the line dash pattern.
  **/
 @synthesize patternPhase;
 
@@ -56,19 +61,21 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		self.lineCap = kCGLineCapButt;
-		self.lineJoin = kCGLineJoinMiter;
-		self.miterLimit = 10.f;
-		self.lineWidth = 1.f;
-		self.patternPhase = CGSizeMake(0.f, 0.f);
-		self.lineColor = [CPColor blackColor];
+		lineCap = kCGLineCapButt;
+		lineJoin = kCGLineJoinMiter;
+		miterLimit = 10.0;
+		lineWidth = 1.0;
+		dashPattern = nil;
+		patternPhase = 0.0;
+		lineColor = [[CPColor blackColor] retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    self.lineColor = nil;
+    [lineColor release];
+	[dashPattern release];
 	[super dealloc];
 }
 
@@ -84,7 +91,17 @@
 	CGContextSetLineJoin(theContext, lineJoin);
 	CGContextSetMiterLimit(theContext, miterLimit);
 	CGContextSetLineWidth(theContext, lineWidth);
-	CGContextSetPatternPhase(theContext, patternPhase);
+	if ( dashPattern.count > 0 ) {
+		CGFloat *dashLengths = (CGFloat *)calloc(dashPattern.count, sizeof(CGFloat));
+
+		NSUInteger dashCounter = 0;
+		for ( NSNumber *currentDashLength in dashPattern ) {
+			dashLengths[dashCounter++] = [currentDashLength doubleValue];
+		}
+		
+		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashPattern.count);
+		free(dashLengths);
+	}
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
@@ -95,14 +112,13 @@
 {
     CPLineStyle *styleCopy = [[[self class] allocWithZone:zone] init];
  	
-	styleCopy.lineCap = self.lineCap;
-	styleCopy.lineJoin = self.lineJoin;
-	styleCopy.miterLimit = self.miterLimit;
-	styleCopy.lineWidth = self.lineWidth;
-	styleCopy.patternPhase = self.patternPhase;
-    CPColor *colorCopy = [self.lineColor copy];
-    styleCopy.lineColor = colorCopy;
-    [colorCopy release];
+	styleCopy->lineCap = self->lineCap;
+	styleCopy->lineJoin = self->lineJoin;
+	styleCopy->miterLimit = self->miterLimit;
+	styleCopy->lineWidth = self->lineWidth;
+	styleCopy->dashPattern = [self->dashPattern copy];
+	styleCopy->patternPhase = self->patternPhase;
+    styleCopy->lineColor = [self->lineColor copy];
     
     return styleCopy;
 }

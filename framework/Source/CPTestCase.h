@@ -1,11 +1,15 @@
+//
+//  CPTestCase.h
+//  CorePlot
+//
+//  Created by Drew McCormack on 25/10/09.
+//  Copyright 2009 The Mental Faculty. All rights reserved.
+//
 
-#import "GTMSenTestCase.h"
-#import "GTMNSObject+UnitTesting.h"
-#import "GTMNSObject+BindingUnitTesting.h"
-#import "GTMCALayer+UnitTesting.h"
-#import "GTMAppKit+UnitTesting.h"
+#import <SenTestingKit/SenTestingKit.h>
 
-@interface CPTestCase : GTMTestCase {
+
+@interface CPTestCase : SenTestCase {
 
 }
 

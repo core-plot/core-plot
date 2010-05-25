@@ -16,9 +16,15 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		self.masksToBounds = YES;
+		identifier = nil;
 	}
 	return self;
+}
+
+-(void)dealloc
+{
+	[identifier release];
+	[super dealloc];
 }
 
 #pragma mark -
@@ -45,6 +51,14 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionPlotGroup;
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	// nothing to draw
 }
 
 @end

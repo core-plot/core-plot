@@ -5,6 +5,7 @@
 @class CPColor;
 
 @interface CPTextStyle : NSObject <NSCopying, NSCoding> {
+	@private
     NSString *fontName;
 	CGFloat fontSize;
     CPColor *color;
@@ -21,16 +22,19 @@
 
 @end
 
+/**	@category NSString(CPTextStyleExtensions)
+ *	@brief NSString extensions for drawing styled text.
+ **/
 @interface NSString(CPTextStyleExtensions)
 
 /// @name Measurement
 /// @{
--(CGSize)sizeWithStyle:(CPTextStyle *)style;
+-(CGSize)sizeWithTextStyle:(CPTextStyle *)style;
 ///	@}
 
 /// @name Drawing
 /// @{
--(void)drawAtPoint:(CGPoint)point withStyle:(CPTextStyle *)style inContext:(CGContextRef)context;
+-(void)drawAtPoint:(CGPoint)point withTextStyle:(CPTextStyle *)style inContext:(CGContextRef)context;
 ///	@}
 
 @end

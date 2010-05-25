@@ -8,9 +8,6 @@
  **/
 @implementation CPTimeFormatter
 
-/// @defgroup CPAxis CPAxis
-/// @{
-
 /**	@property dateFormatter
  *  @brief The date formatter used to generate strings from time intervals.
  **/
@@ -25,15 +22,20 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/**	@brief Initializes new instance with the a default date formatter.
+/**	@brief Initializes new instance with a default date formatter.
+ *	The default formatter uses <code>NSDateFormatterMediumStyle</code> for dates and times.
  *	@return The new instance.
  **/
 -(id)init
 {
-    NSDateFormatter *newDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
     newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
     newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
-    return [self initWithDateFormatter:newDateFormatter];
+	
+	self = [self initWithDateFormatter:newDateFormatter];
+	[newDateFormatter release];
+	
+    return self;
 }
 
 /**	@brief Initializes new instance with the date formatter passed.
@@ -43,15 +45,16 @@
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
 	if ( self = [super init] ) {
-		self.dateFormatter = aDateFormatter;
+		dateFormatter = [aDateFormatter retain];
+		referenceDate = nil;
 	}
 	return self;	
 }
 
 -(void)dealloc
 {
-    self.referenceDate = nil;
-	self.dateFormatter = nil;
+    [referenceDate release];
+	[dateFormatter release];
 	[super dealloc];
 }
 
@@ -72,11 +75,9 @@
         date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
     else
         date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
-	NSString *string = [dateFormatter stringFromDate:date];
+	NSString *string = [self.dateFormatter stringFromDate:date];
     [date release];
     return string;
 }
-
-///	@}
 
 @end

@@ -11,9 +11,6 @@
  **/
 @implementation CPAnimationTransition
 
-/// @defgroup CPAnimationTransition CPAnimationTransition
-/// @{
-
 /**	@property identifier
  *	@todo Needs documentation.
  **/
@@ -49,38 +46,42 @@
  **/
 @synthesize continuingTransition;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
+-(id)init
+{
+	if ( self = [super init] ) {
+		identifier = nil;
+		startKeyFrame = nil;
+		endKeyFrame = nil;
+		continuingTransition = nil;
+		duration = 0.0;
+		animation = nil;
+		reversible = NO;
+	}
+	return self;
+}
+
 -(void)dealloc 
 {
-    self.identifier = nil;
-    self.animation = nil;
-    self.startKeyFrame = nil;
-    self.endKeyFrame = nil;
-    self.continuingTransition = nil;
+    [identifier release];
+    [animation release];
+    [startKeyFrame release];
+    [endKeyFrame release];
+    [continuingTransition release];
     [super dealloc];
 }
 
--(BOOL)reversible 
-{
-    return NO;
-}
-
-///	@}
-
 @end
 
-///	@brief CPAnimationTransition abstract methods—must be overridden by subclasses
 @implementation CPAnimationTransition(AbstractMethods)
-
-/// @addtogroup CPAnimationTransition
-/// @{
 
 /**	@todo Needs documentation.
  **/
 -(void)performTransition
 {
-	
+	// do nothing
 }
-
-///	@}
 
 @end

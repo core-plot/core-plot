@@ -1,13 +1,13 @@
+#import "CPTestCase.h"
+#import <CorePlot/CorePlot.h>
 
-#import "CPDataSourceTestCase.h"
-#import "CPScatterPlot.h"
 
-@interface CPScatterPlotTests : CPDataSourceTestCase {
-    CPScatterPlot *plot;
+@interface CPScatterPlotTests : CPTestCase {
+	CPScatterPlot *plot;
+    CPXYPlotSpace *plotSpace;
 }
 
-@property (retain,readwrite) CPScatterPlot *plot;
-
-- (void)setPlotRanges;
+@property (retain) CPScatterPlot *plot;
+@property (retain) CPXYPlotSpace *plotSpace;
 
 @end

@@ -1,22 +1,24 @@
 
 #import <Foundation/Foundation.h>
-#import "CPLayer.h"
 #import "CPDefinitions.h"
 
+@class CPAxis;
+@class CPLayer;
 @class CPTextStyle;
 
-@interface CPAxisLabel : CPLayer {
-    NSString *text;
-	CPTextStyle *textStyle;
+@interface CPAxisLabel : NSObject {
+	@private
+	CPAxis *axis;
     CPLayer *contentLayer;
     CGFloat offset;
-    NSDecimal tickLocation;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
+    CGFloat rotation;
+    NSDecimal tickLocation;
 }
 
-@property (nonatomic, readonly, copy) NSString *text;
-@property (nonatomic, readwrite, copy) CPTextStyle *textStyle;
-@property (nonatomic, readonly, retain) CPLayer *contentLayer;
+@property (nonatomic, readwrite, retain) CPAxis *axis;
+@property (nonatomic, readwrite, retain) CPLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;
+@property (nonatomic, readwrite, assign) CGFloat rotation;
 @property (nonatomic, readwrite) NSDecimal tickLocation;
 
 /// @name Initialization

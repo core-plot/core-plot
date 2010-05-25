@@ -16,7 +16,10 @@
 {
     [super awakeFromNib];
     
-    NSDate *refDate = [NSDate dateWithNaturalLanguageString:@"0:00 Jan 1, 2007"];
+    // If you make sure your dates are calculated at noon, you shouldn't have to 
+    // worry about daylight savings. If you use midnight, you will have to adjust
+    // for daylight savings time.
+    NSDate *refDate = [NSDate dateWithNaturalLanguageString:@"12:00 Oct 29, 2009"];
     NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Create graph from theme
@@ -35,18 +38,18 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength = CPDecimalFromFloat(oneDay);
-    x.constantCoordinateValue = CPDecimalFromString(@"2");
+    x.orthogonalCoordinateDecimal = CPDecimalFromString(@"2");
     x.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
     CPTimeFormatter *timeFormatter = [[[CPTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
     timeFormatter.referenceDate = refDate;
-    x.tickLabelFormatter = timeFormatter;
+    x.labelFormatter = timeFormatter;
 
     CPXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength = CPDecimalFromString(@"0.5");
     y.minorTicksPerInterval = 5;
-    y.constantCoordinateValue = CPDecimalFromFloat(oneDay);
+    y.orthogonalCoordinateDecimal = CPDecimalFromFloat(oneDay);
             
     // Create a plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];

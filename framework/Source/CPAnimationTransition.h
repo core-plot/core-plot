@@ -5,7 +5,8 @@
 @class CPAnimationKeyFrame;
 
 @interface CPAnimationTransition : NSObject {
-    id <NSCopying> identifier;
+	@private
+    id <NSObject, NSCopying> identifier;
     CPAnimationKeyFrame *startKeyFrame;
     CPAnimationKeyFrame *endKeyFrame;
     CPAnimationTransition *continuingTransition;
@@ -14,7 +15,7 @@
 	BOOL reversible;
 }
 
-@property (nonatomic, readwrite, copy) id <NSCopying> identifier;
+@property (nonatomic, readwrite, copy) id <NSObject, NSCopying> identifier;
 @property (nonatomic, readwrite, assign) NSTimeInterval duration;
 @property (nonatomic, readonly, assign) BOOL reversible;
 @property (nonatomic, readwrite, assign) CPAnimation *animation;
@@ -24,6 +25,9 @@
 
 @end
 
+/**	@category CPAnimationTransition(AbstractMethods)
+ *	@brief CPAnimationTransition abstract methods—must be overridden by subclasses
+ **/
 @interface CPAnimationTransition(AbstractMethods)
 
 -(void)performTransition;

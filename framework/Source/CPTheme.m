@@ -5,12 +5,14 @@
 #import "CPPlainBlackTheme.h"
 #import "CPPlainWhiteTheme.h"
 #import "CPStocksTheme.h"
+#import "CPSlateTheme.h"
 #import "CPGraph.h"
 
 // theme names
 NSString * const kCPDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 NSString * const kCPPlainWhiteTheme = @"Plain White";		///< Plain white theme.
 NSString * const kCPPlainBlackTheme = @"Plain Black";		///< Plain black theme.
+NSString * const kCPSlateTheme = @"Slate";		  			///< Slate theme.
 NSString * const kCPStocksTheme = @"Stocks";				///< Stocks theme.
 
 // Registered themes
@@ -23,12 +25,15 @@ static NSMutableDictionary *themes = nil;
 @implementation CPTheme
 
 /** @property name
- *	@brief More documentation needed
+ *	@brief The name of the theme.
  **/
 @synthesize name;
 
+#pragma mark -
+#pragma mark Init/dealloc
+
 /** @property graphClass
- *	@brief More documentation needed
+ *	@brief The class used to create new graphs. Must be a subclass of CPGraph.
  **/
 @synthesize graphClass;
 
@@ -36,7 +41,7 @@ static NSMutableDictionary *themes = nil;
 {
 	if ( self = [super init] ) {
 		name = nil;
-		graphClass = nil;
+		graphClass = Nil;
 	}
 	return self;
 }
@@ -47,6 +52,9 @@ static NSMutableDictionary *themes = nil;
 	[graphClass release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Accessors
 
 -(void)setGraphClass:(Class)newGraphClass
 {
@@ -61,16 +69,13 @@ static NSMutableDictionary *themes = nil;
 	}
 }
 
-/// @defgroup CPTheme CPTheme
-/// @{
-
 /**	@brief List of the available themes.
  *	@return An NSArray with all available themes.
  **/
 +(NSArray *)themeClasses {
 	static NSArray *themeClasses = nil;
 	if ( themeClasses == nil ) {
-		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPStocksTheme class], nil];
+		themeClasses = [[NSArray alloc] initWithObjects:[CPDarkGradientTheme class], [CPPlainBlackTheme class], [CPPlainWhiteTheme class],  [CPSlateTheme class], [CPStocksTheme class], nil];
 	}
 	return themeClasses;
 }
@@ -81,7 +86,6 @@ static NSMutableDictionary *themes = nil;
  **/
 +(CPTheme *)themeNamed:(NSString *)themeName
 {
-	static NSMutableDictionary *themes = nil;
 	if ( themes == nil ) themes = [[NSMutableDictionary alloc] init];
 	
 	CPTheme *theme = [themes objectForKey:themeName];
@@ -119,20 +123,10 @@ static NSMutableDictionary *themes = nil;
 	return NSStringFromClass(self);
 }
 
-/**	@brief The name of the theme.
- *	@return The name.
- **/
 -(NSString *)name 
 {
-	return (name ? name : [[self class] defaultName]);
-}
-
-/**	@brief Creates a new graph styled with the theme.
- *	@return The new graph.
- **/
--(id)newGraph 
-{
-	return nil;
+	return [[(name ? name : [[self class] defaultName]) copy] autorelease]
+	;
 }
 
 /**	@brief Applies the theme to the provided graph.
@@ -141,8 +135,22 @@ static NSMutableDictionary *themes = nil;
 -(void)applyThemeToGraph:(CPGraph *)graph
 {
 	[self applyThemeToBackground:graph];
-	[self applyThemeToPlotArea:graph.plotArea];
+	[self applyThemeToPlotArea:graph.plotAreaFrame];
 	[self applyThemeToAxisSet:graph.axisSet];    
+}
+
+@end
+
+#pragma mark -
+
+@implementation CPTheme(AbstractMethods)
+
+/**	@brief Creates a new graph styled with the theme.
+ *	@return The new graph.
+ **/
+-(id)newGraph 
+{
+	return nil;
 }
 
 /**	@brief Applies the background theme to the provided graph.
@@ -153,9 +161,9 @@ static NSMutableDictionary *themes = nil;
 }
 
 /**	@brief Applies the theme to the provided plot area.
- *	@param plotArea The plot area to style.
+ *	@param plotAreaFrame The plot area to style.
  **/
--(void)applyThemeToPlotArea:(CPPlotArea *)plotArea
+-(void)applyThemeToPlotArea:(CPPlotAreaFrame *)plotAreaFrame
 {
 }
 
@@ -165,7 +173,5 @@ static NSMutableDictionary *themes = nil;
 -(void)applyThemeToAxisSet:(CPAxisSet *)axisSet
 {
 }
-
-///	@}
 
 @end

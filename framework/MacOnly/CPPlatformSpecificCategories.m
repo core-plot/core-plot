@@ -1,14 +1,8 @@
-
 #import <AppKit/AppKit.h>
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
 
-/**	@brief Platform-specific extensions to CPLayer.
- **/
 @implementation CPLayer(CPPlatformSpecificLayerExtensions)
-
-/// @addtogroup CPLayer
-/// @{
 
 /**	@brief Gets an image of the layer contents.
  *	@return A native image representation of the layer content.
@@ -21,10 +15,10 @@
 	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 	CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
 	
-	CGContextClearRect(context, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height));
+	CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
 	CGContextSetAllowsAntialiasing(context, true);
-	[self recursivelyRenderInContext:context];	
-	CGContextSetAllowsAntialiasing(context, false);
+	CGContextSetShouldSmoothFonts(context, false);
+	[self layoutAndRenderInContext:context];	
 	CGContextFlush(context);
 	
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
@@ -34,25 +28,20 @@
 	return [image autorelease];
 }
 
-///	@}
-
 @end
 
-/**	@brief Platform-specific extensions to CPColor.
- **/
-@implementation CPColor(CPPlatformSpecificColorExtensions)
+#pragma mark -
 
-/// @addtogroup CPColor
-/// @{
+@implementation CPColor(CPPlatformSpecificColorExtensions)
 
 /**	@property nsColor
  *	@brief Gets the color value as an NSColor.
  **/
+@dynamic nsColor;
+
 -(NSColor *)nsColor
 {
 	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
-
-///	@}
 
 @end

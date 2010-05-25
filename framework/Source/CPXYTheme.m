@@ -1,5 +1,6 @@
 
 #import "CPXYTheme.h"
+#import "CPPlotRange.h"
 #import "CPXYGraph.h"
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
@@ -11,7 +12,7 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		graphClass = [CPXYGraph class];
+		self.graphClass = [CPXYGraph class];
 	}
 	return self;
 }
@@ -31,8 +32,8 @@
 	graph.paddingBottom = 60.0;
     
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(1.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(-1.0) length:CPDecimalFromDouble(1.0)];
     
     [self applyThemeToGraph:graph];
     

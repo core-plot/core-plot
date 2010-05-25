@@ -1,18 +1,16 @@
-
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 
-@class CPPlotSpace;
-@class CPPlotArea;
-@class CPGraph;
+@class CPLineStyle;
 
 @interface CPAxisSet : CPLayer {
+	@private
     NSArray *axes;
-	CPGraph	*graph;
+	CPLineStyle *borderLineStyle;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;
-@property (nonatomic, readwrite, assign) CPGraph *graph;
+@property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
 
 -(void)relabelAxes;
 

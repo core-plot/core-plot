@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
-		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
+		07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
+		07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
 		07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C13BBA0FF9322A00BEE616 /* BlueTexture.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -18,44 +18,33 @@
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
 		BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8E74230FC0B96000DF8511 /* RotationView.m */; };
 		BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */; };
+		C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */; };
+		C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB701093E09D00B25011 /* AxisDemo.xib */; };
+		C317AB751093E17500B25011 /* AxisDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AB731093E17500B25011 /* AxisDemoController.m */; };
 		C34D4F8E0F8ED78400969C24 /* CPPlotSymbolTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */ = {
+		07032B6911ABB9E000463D20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */ = {
+		07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		07032B7311ABBA0E00463D20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
-		};
-		4CD7E7B20F4B4F0600F9BCBB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8;
-			remoteInfo = "CorePlot-UnitTests";
-		};
-		4CD7E7B40F4B4F0600F9BCBB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A;
-			remoteInfo = CPTestHarness;
-		};
-		90FFF6C20FB87D9100B42BE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
-			remoteInfo = "CorePlot-PerformanceTests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -66,7 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */,
+				07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,11 +63,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
+		07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot.framework; path = ../../../../framework/build/Debug/CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
-		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controller.m; sourceTree = "<group>"; };
-		07C13BBA0FF9322A00BEE616 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
+		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = Source/Controller.h; sourceTree = "<group>"; };
+		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Controller.m; path = Source/Controller.m; sourceTree = "<group>"; };
+		07C13BBA0FF9322A00BEE616 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueTexture.png; path = Resources/BlueTexture.png; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -88,13 +77,17 @@
 		32CA4F630368D1EE00C91783 /* CPTestApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTestApp_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* CPTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		90AF4F430F36CF1800753D26 /* CPTestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPTestApp.xib; sourceTree = "<group>"; };
+		90AF4F430F36CF1800753D26 /* CPTestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CPTestApp.xib; path = Resources/CPTestApp.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BC8E74220FC0B96000DF8511 /* RotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationView.h; sourceTree = "<group>"; };
-		BC8E74230FC0B96000DF8511 /* RotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationView.m; sourceTree = "<group>"; };
+		BC8E74220FC0B96000DF8511 /* RotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationView.h; path = Source/RotationView.h; sourceTree = "<group>"; };
+		BC8E74230FC0B96000DF8511 /* RotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationView.m; path = Source/RotationView.m; sourceTree = "<group>"; };
 		BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
-		C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPlotSymbolTestController.m; sourceTree = "<group>"; };
-		C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPlotSymbolTestController.h; sourceTree = "<group>"; };
+		C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotSymbolDemo.xib; path = Resources/PlotSymbolDemo.xib; sourceTree = "<group>"; };
+		C317AB701093E09D00B25011 /* AxisDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AxisDemo.xib; path = Resources/AxisDemo.xib; sourceTree = "<group>"; };
+		C317AB731093E17500B25011 /* AxisDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemoController.m; path = Source/AxisDemoController.m; sourceTree = "<group>"; };
+		C317AB741093E17500B25011 /* AxisDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemoController.h; path = Source/AxisDemoController.h; sourceTree = "<group>"; };
+		C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotSymbolTestController.m; path = Source/CPPlotSymbolTestController.m; sourceTree = "<group>"; };
+		C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSymbolTestController.h; path = Source/CPPlotSymbolTestController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */,
+				07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */,
 			);
@@ -111,13 +104,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		076184BD0F3CAD5900A89A76 /* Products */ = {
+		07032B6411ABB9E000463D20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
-				4CD7E7B30F4B4F0600F9BCBB /* CorePlot-UnitTests.octest */,
-				90FFF6C30FB87D9100B42BE4 /* CorePlot-PerformanceTests.octest */,
-				4CD7E7B50F4B4F0600F9BCBB /* CPTestHarness.app */,
+				07032B6A11ABB9E000463D20 /* CorePlot.framework */,
+				07032B6C11ABB9E000463D20 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,10 +116,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */,
-				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
+				C317AB741093E17500B25011 /* AxisDemoController.h */,
+				C317AB731093E17500B25011 /* AxisDemoController.m */,
 				077382AF0F3DC1FB002F10E2 /* Controller.h */,
 				077382B00F3DC1FB002F10E2 /* Controller.m */,
+				C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */,
+				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
 				BC8E74220FC0B96000DF8511 /* RotationView.h */,
 				BC8E74230FC0B96000DF8511 /* RotationView.m */,
 			);
@@ -166,7 +159,7 @@
 		29B97314FDCFA39411CA2CEA /* CPTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */,
+				07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -188,11 +181,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07C13BBA0FF9322A00BEE616 /* BlueTexture.png */,
 				BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */,
-				90AF4F430F36CF1800753D26 /* CPTestApp.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				07C13BBA0FF9322A00BEE616 /* BlueTexture.png */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				C317AB701093E09D00B25011 /* AxisDemo.xib */,
+				90AF4F430F36CF1800753D26 /* CPTestApp.xib */,
+				C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -221,7 +216,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				076184D00F3CAE1100A89A76 /* PBXTargetDependency */,
+				07032B7411ABBA0E00463D20 /* PBXTargetDependency */,
 			);
 			name = CPTestApp;
 			productInstallPath = "$(HOME)/Applications";
@@ -244,8 +239,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 076184BD0F3CAD5900A89A76 /* Products */;
-					ProjectRef = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+					ProductGroup = 07032B6411ABB9E000463D20 /* Products */;
+					ProjectRef = 07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -256,32 +251,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		076184C10F3CAD5900A89A76 /* CorePlot.framework */ = {
+		07032B6A11ABB9E000463D20 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
-			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
+			remoteRef = 07032B6911ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4CD7E7B30F4B4F0600F9BCBB /* CorePlot-UnitTests.octest */ = {
+		07032B6C11ABB9E000463D20 /* UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "CorePlot-UnitTests.octest";
-			remoteRef = 4CD7E7B20F4B4F0600F9BCBB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD7E7B50F4B4F0600F9BCBB /* CPTestHarness.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CPTestHarness.app;
-			remoteRef = 4CD7E7B40F4B4F0600F9BCBB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		90FFF6C30FB87D9100B42BE4 /* CorePlot-PerformanceTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-PerformanceTests.octest";
-			remoteRef = 90FFF6C20FB87D9100B42BE4 /* PBXContainerItemProxy */;
+			path = UnitTests.octest;
+			remoteRef = 07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -295,6 +276,8 @@
 				90AF4F440F36CF1800753D26 /* CPTestApp.xib in Resources */,
 				BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */,
 				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
+				C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */,
+				C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,16 +292,17 @@
 				077382B10F3DC1FB002F10E2 /* Controller.m in Sources */,
 				C34D4F8E0F8ED78400969C24 /* CPPlotSymbolTestController.m in Sources */,
 				BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */,
+				C317AB751093E17500B25011 /* AxisDemoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		076184D00F3CAE1100A89A76 /* PBXTargetDependency */ = {
+		07032B7411ABBA0E00463D20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CorePlot;
-			targetProxy = 076184CF0F3CAE1100A89A76 /* PBXContainerItemProxy */;
+			targetProxy = 07032B7311ABBA0E00463D20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -339,10 +323,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -363,10 +344,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"/**",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_Prefix.pch;
@@ -380,7 +357,9 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../Build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -389,13 +368,16 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

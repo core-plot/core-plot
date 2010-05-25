@@ -10,7 +10,8 @@ NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber);
 float   CPDecimalFloatValue(NSDecimal decimalNumber);
 double  CPDecimalDoubleValue(NSDecimal decimalNumber);
 
-NSDecimal CPDecimalFromInt(NSInteger i);
+NSDecimal CPDecimalFromInteger(NSInteger i);
+NSDecimal CPDecimalFromUnsignedInteger(NSUInteger i);
 NSDecimal CPDecimalFromFloat(float f);
 NSDecimal CPDecimalFromDouble(double d);
 
@@ -26,17 +27,35 @@ BOOL CPDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand);
 BOOL CPDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand);
 
 NSDecimal CPDecimalFromString(NSString *stringRepresentation);
+
+NSDecimal CPDecimalNaN(void);
 /// @}
 
+/// @name Ranges
+/// @{
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
+/// @}
 
+/// @name Coordinates
+/// @{
 CPCoordinate CPOrthogonalCoordinate(CPCoordinate coord);
+/// @}
 
+/// @name Gradient colors
+/// @{
 CPRGBAColor CPRGBAColorFromCGColor(CGColorRef color);
+/// @}
 
 /// @name Quartz Pixel-Alignment Functions
 /// @{
 CGPoint CPAlignPointToUserSpace(CGContextRef context, CGPoint p);
 CGSize CPAlignSizeToUserSpace(CGContextRef context, CGSize s);
 CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r);
+/// @}
+
+/// @name String formatting for Core Graphics structs
+/// @{
+NSString *CPStringFromPoint(CGPoint p);
+NSString *CPStringFromSize(CGSize s);
+NSString *CPStringFromRect(CGRect r);
 /// @}

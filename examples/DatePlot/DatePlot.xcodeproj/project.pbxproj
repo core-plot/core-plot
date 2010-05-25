@@ -35,26 +35,12 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		4CD7E7B20F4B4F0600F9BCBB /* PBXContainerItemProxy */ = {
+		07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8;
-			remoteInfo = "CorePlot-UnitTests";
-		};
-		4CD7E7B40F4B4F0600F9BCBB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A;
-			remoteInfo = CPTestHarness;
-		};
-		90FFF6C20FB87D9100B42BE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
-			remoteInfo = "CorePlot-PerformanceTests";
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -112,9 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
-				4CD7E7B30F4B4F0600F9BCBB /* CorePlot-UnitTests.octest */,
-				90FFF6C30FB87D9100B42BE4 /* CorePlot-PerformanceTests.octest */,
-				4CD7E7B50F4B4F0600F9BCBB /* CPTestHarness.app */,
+				07E0DF80109C4E9500F108D2 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,25 +241,11 @@
 			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4CD7E7B30F4B4F0600F9BCBB /* CorePlot-UnitTests.octest */ = {
+		07E0DF80109C4E9500F108D2 /* UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "CorePlot-UnitTests.octest";
-			remoteRef = 4CD7E7B20F4B4F0600F9BCBB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD7E7B50F4B4F0600F9BCBB /* CPTestHarness.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CPTestHarness.app;
-			remoteRef = 4CD7E7B40F4B4F0600F9BCBB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		90FFF6C30FB87D9100B42BE4 /* CorePlot-PerformanceTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-PerformanceTests.octest";
-			remoteRef = 90FFF6C20FB87D9100B42BE4 /* PBXContainerItemProxy */;
+			path = UnitTests.octest;
+			remoteRef = 07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -331,10 +301,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -355,10 +322,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"/**",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = DatePlot_Prefix.pch;
@@ -373,6 +336,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -381,6 +345,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};
@@ -388,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

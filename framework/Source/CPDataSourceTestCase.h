@@ -21,11 +21,8 @@
 @property (retain,readonly) CPPlotRange * yRange;
 @property (retain,readwrite) NSMutableArray *plots;
 
-- (void)buildData;
+-(void)buildData;
 
-/**
-If you are using this data source for more than one plot, you must call addPlot:
- for each plot.
- */
-- (void)addPlot:(CPPlot*)newPlot;
+-(void)addPlot:(CPPlot*)newPlot;
+
 @end

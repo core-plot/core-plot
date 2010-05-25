@@ -26,6 +26,9 @@
 
 @end
 
+/**	@category CPFill(AbstractMethods)
+ *	@brief CPFill abstract methods—must be overridden by subclasses
+ **/
 @interface CPFill(AbstractMethods)
 
 /// @name Drawing

@@ -20,8 +20,8 @@ extern NSString * const CPScatterPlotBindingPlotSymbols;
 /**	@brief Enumeration of scatter plot data source field types
  **/
 typedef enum _CPScatterPlotField {
-    CPScatterPlotFieldX,	///< X values.
-    CPScatterPlotFieldY		///< Y values.
+    CPScatterPlotFieldX,								///< X values.
+    CPScatterPlotFieldY 								///< Y values.
 } CPScatterPlotField;
 
 /**	@brief A scatter plot data source.
@@ -52,18 +52,19 @@ typedef enum _CPScatterPlotField {
 @end 
 
 @interface CPScatterPlot : CPPlot {
-@private
+	@private
     id observedObjectForXValues;
     id observedObjectForYValues;
     id observedObjectForPlotSymbols;
     NSString *keyPathForXValues;
     NSString *keyPathForYValues;
     NSString *keyPathForPlotSymbols;
+	NSValueTransformer *xValuesTransformer;
+    NSValueTransformer *yValuesTransformer;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
-    NSDecimal areaBaseValue;	// TODO: NSDecimal instance variables in CALayers cause an unhandled property type encoding error
-	double doublePrecisionAreaBaseValue;
+    NSDecimal areaBaseValue;
     NSArray *plotSymbols;
 } 
 
@@ -71,6 +72,8 @@ typedef enum _CPScatterPlotField {
 @property (nonatomic, readwrite, copy) CPPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
 @property (nonatomic, readwrite) NSDecimal areaBaseValue;
-@property (nonatomic, readwrite) double doublePrecisionAreaBaseValue;
+
+-(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
+-(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index;
 
 @end

@@ -1,17 +1,29 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPResponder.h"
 #import "CPPlatformSpecificDefines.h"
 
 @protocol CPLayoutManager;
+@class CPGraph;
 
-@interface CPLayer : CALayer {
+@interface CPLayer : CALayer <CPResponder> {
 @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
+	BOOL masksToBorder;
 	id <CPLayoutManager> layoutManager;
+	BOOL renderingRecursively;
+    __weak CPGraph *graph;
+	CGPathRef outerBorderPath;
+	CGPathRef innerBorderPath;
 }
+
+/// @name Graph
+/// @{
+@property (nonatomic, readwrite, assign) __weak CPGraph *graph;
+/// @}
 
 /// @name Padding
 /// @{
@@ -19,6 +31,15 @@
 @property (nonatomic, readwrite) CGFloat paddingTop;
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
+///	@}
+
+/// @name Masking
+/// @{
+@property (nonatomic, readwrite, assign) BOOL masksToBorder;
+@property (nonatomic, readwrite, assign) CGPathRef outerBorderPath;
+@property (nonatomic, readwrite, assign) CGPathRef innerBorderPath;
+@property (nonatomic, readonly, assign) CGPathRef maskingPath;
+@property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
 ///	@}
 
 /// @name Layout
@@ -35,15 +56,14 @@
 /// @{
 -(void)renderAsVectorInContext:(CGContextRef)context;
 -(void)recursivelyRenderInContext:(CGContextRef)context;
+-(void)layoutAndRenderInContext:(CGContextRef)context;
 -(NSData *)dataForPDFRepresentationOfLayer;
 ///	@}
 
-/// @name User Interaction
+/// @name Masking
 /// @{
--(void)mouseOrFingerDownAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerUpAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerDraggedAtPoint:(CGPoint)interactionPoint;
--(void)mouseOrFingerCancelled;
+-(void)applySublayerMaskToContext:(CGContextRef)context forSublayer:(CPLayer *)sublayer withOffset:(CGPoint)offset;
+-(void)applyMaskToContext:(CGContextRef)context;
 ///	@}
 
 /// @name Layout

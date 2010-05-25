@@ -1,93 +1,80 @@
 
 #import "CPXYPlotSpaceTests.h"
-#import "CPLayer.h"
+#import "CPXYGraph.h"
 #import "CPXYPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPPlotRange.h"
 #import "CPUtilities.h"
 
-@interface CPXYPlotSpace (UnitTesting)
-
-- (void)gtm_unitTestEncodeState:(NSCoder*)inCoder;
-
-@end
-
-@implementation CPXYPlotSpace (UnitTesting)
-
--(void)gtm_unitTestEncodeState:(NSCoder*)inCoder 
-{
-    [super gtm_unitTestEncodeState:inCoder];
-    
-    [inCoder encodeObject:self.xRange forKey:@"xRange"];
-    [inCoder encodeObject:self.yRange forKey:@"yRange"];
-}
-
-@end
 
 @implementation CPXYPlotSpaceTests
 
-@synthesize layer;
-@synthesize plotSpace;
+@synthesize graph;
 
-- (void)setUp 
+-(void)setUp 
 {
-    self.layer = [[(CPLayer *)[CPLayer alloc] initWithFrame:CGRectMake(0., 0., 100., 50.)] autorelease];
-    self.plotSpace = [[[CPXYPlotSpace alloc] init] autorelease];
-}
-
-- (void)tearDown
-{
-	self.layer = nil;
-    self.plotSpace = nil;
-}
-
-- (void)testViewPointForPlotPoint
-{
-    self.plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(10.)];
-    self.plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(10.)];
-    
-    GTMAssertObjectStateEqualToStateNamed(self.plotSpace, @"CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke1", @"");
-    
-    NSDecimal plotPoint[2];
-	plotPoint[CPCoordinateX] = CPDecimalFromString(@"5.0");
-	plotPoint[CPCoordinateY] = CPDecimalFromString(@"5.0");
-    
-    CGPoint viewPoint = [[self plotSpace] viewPointInLayer:self.layer forPlotPoint:plotPoint];
-    
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50., (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25., (CGFloat)0.01, @"");
-    
-    self.plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(10.)];
-    self.plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(5.)];
-    
-    GTMAssertObjectStateEqualToStateNamed(self.plotSpace, @"CPCartesianPlotSpaceTests-testViewPointForPlotPointSmoke2", @"");
-    
-    viewPoint = [[self plotSpace] viewPointInLayer:self.layer forPlotPoint:plotPoint];
-    
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50., (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50., (CGFloat)0.01, @"");
-}
-
-- (void)testPlotPointForViewPoint 
-{
-    self.plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(10.)];
-    self.plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.) 
-                                                        length:CPDecimalFromFloat(10.)];
-    
-    GTMAssertObjectStateEqualToStateNamed(self.plotSpace, @"CPCartesianPlotSpaceTests-testPlotPointForViewPoint", @"");
-    
-    NSDecimal plotPoint[2];
-    CGPoint viewPoint = CGPointMake(50., 25.);
-    
-	[[self plotSpace] plotPoint:plotPoint forViewPoint:viewPoint inLayer:self.layer];
+    self.graph = [[(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)] autorelease];
+	self.graph.paddingLeft = 0.0;
+	self.graph.paddingRight = 0.0;
+	self.graph.paddingTop = 0.0;
+	self.graph.paddingBottom = 0.0;
 	
-	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateX], CPDecimalFromString(@"5.0")), @"");
-	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateY], CPDecimalFromString(@"5.0")), @"");
+	[self.graph layoutIfNeeded];
+}
+
+-(void)tearDown
+{
+	self.graph = nil;
+}
+
+-(void)testViewPointForPlotPoint
+{
+	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)self.graph.defaultPlotSpace;
+	
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(10.0)];
+    
+    NSDecimal plotPoint[2];
+	plotPoint[CPCoordinateX] = CPDecimalFromDouble(5.0);
+	plotPoint[CPCoordinateY] = CPDecimalFromDouble(5.0);
+    
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+    
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(5.0)];
+    
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
+}
+
+-(void)testPlotPointForViewPoint 
+{
+	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) 
+                                                        length:CPDecimalFromDouble(10.0)];
+        
+    NSDecimal plotPoint[2];
+    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    NSString *errMessage;
+	
+	[plotSpace plotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+	
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPCoordinateX] was %@", NSDecimalString(&plotPoint[CPCoordinateX], nil)];
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateX], CPDecimalFromDouble(5.0)), errMessage);
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPCoordinateY] was %@", NSDecimalString(&plotPoint[CPCoordinateY], nil)];
+	STAssertTrue(CPDecimalEquals(plotPoint[CPCoordinateY], CPDecimalFromDouble(5.0)), errMessage);
 }
 
 @end

@@ -29,16 +29,16 @@
 }
 
 - (void)testGroupWithNameReturnsExistingGroup {
-    id<TMOutputGroup> group1 = [OutputGroup newInManagedObjectContext:self.moc];
+    id<TMOutputGroup> group1 = [OutputGroup insertInManagedObjectContext:self.moc];
     group1.name = @"test_name";
     group1.extension = @"test_ext";
     
-    id<TMOutputGroup> group2 = [OutputGroup newInManagedObjectContext:self.moc];
+    id<TMOutputGroup> group2 = [OutputGroup insertInManagedObjectContext:self.moc];
     
     group2.name = @"test_name2";
     group2.extension = @"test_ext";
     
-    id<TMOutputGroup> group3 = [OutputGroup newInManagedObjectContext:self.moc];
+    id<TMOutputGroup> group3 = [OutputGroup insertInManagedObjectContext:self.moc];
     
     group3.name = @"test_name";
     group3.extension = @"test_ext3";
@@ -49,11 +49,11 @@
 }
 
 - (void)testGroupWithnameRaisesForMultipleGroups {
-    id<TMOutputGroup> group1 = [OutputGroup newInManagedObjectContext:self.moc];
+    id<TMOutputGroup> group1 = [OutputGroup insertInManagedObjectContext:self.moc];
     group1.name = @"test_name";
     group1.extension = @"test_ext";
     
-    id<TMOutputGroup> group2 = [OutputGroup newInManagedObjectContext:self.moc];
+    id<TMOutputGroup> group2 = [OutputGroup insertInManagedObjectContext:self.moc];
     
     group2.name = @"test_name";
     group2.extension = @"test_ext";

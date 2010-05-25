@@ -1,9 +1,6 @@
-
 #import "CPPlotSpace.h"
 #import "CPLayer.h"
-#import "CPPlotArea.h"
 #import "CPAxisSet.h"
-#import "CPLineStyle.h"
 
 /**	@brief Plot space coordinate change notification.
  *
@@ -16,13 +13,25 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 @implementation CPPlotSpace
 
-/// @defgroup CPPlotSpace CPPlotSpace
-/// @{
-
 /**	@property identifier
  *	@brief An object used to identify the plot in collections.
  **/
 @synthesize identifier;
+
+/**	@property allowsUserInteraction
+ *	@brief Determines whether user can interactively change plot range and/or zoom.
+ **/
+@synthesize allowsUserInteraction;
+
+/** @property graph
+ *  @brief The graph of the space.
+ **/
+@synthesize graph;
+
+/** @property delegate
+ *  @brief The plot space delegate.
+ **/
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Initialize/Deallocate
@@ -31,12 +40,17 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	if ( self = [super init] ) {
 		identifier = nil;
+        allowsUserInteraction = NO;
+        graph = nil;
+        delegate = nil;
 	}
 	return self;
 }
 
 -(void)dealloc
-{
+{	
+	delegate = nil;
+	graph = nil;
 	[identifier release];
 	[super dealloc];
 }
@@ -49,51 +63,105 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 	return CPDefaultZPositionPlotSpace;
 }
 
-///	@}
+#pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+ *	@param interactionPoint The coordinates of the event in the host view.
+ *	@return Whether the plot space handled the event or not.
+ **/
+-(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
+	return eventIsHandled;
+}
+
+/**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *	@return Whether the plot space handled the event or not.
+ **/
+-(BOOL)pointingDeviceCancelledEvent:(id)event
+{
+	BOOL eventIsHandled = NO;
+	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    }
+	return eventIsHandled;
+}
 
 @end
 
-///	@brief CPPlotSpace abstract methods—must be overridden by subclasses
+#pragma mark -
+
 @implementation CPPlotSpace(AbstractMethods)
 
-/// @addtogroup CPPlotSpace
-/// @{
-
-/**	@brief Converts a data point to drawing coordinates.
- *	@param layer The layer containing the point to convert.
+/**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointInLayer:(CPLayer *)layer forPlotPoint:(NSDecimal *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-	return CGPointMake(0.0f, 0.0f);
+	return CGPointZero;
 }
 
-/**	@brief Converts a data point to drawing coordinates.
- *	@param layer The layer containing the point to convert.
+/**	@brief Converts a data point to plot area drawing coordinates.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@return The drawing coordinates of the data point.
  **/
--(CGPoint)viewPointInLayer:(CPLayer *)layer forDoublePrecisionPlotPoint:(double *)plotPoint;
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 {
-	return CGPointMake(0.0f, 0.0f);
+	return CGPointZero;
 }
 
-/**	@brief Converts a point given in drawing coordinates to the data coordinate space.
+/**	@brief Converts a point given in plot area drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
  *	@param point The drawing coordinates of the data point.
- *	@param layer The layer containing the point to convert.
  **/
--(void)plotPoint:(NSDecimal *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
 }
 
 /**	@brief Converts a point given in drawing coordinates to the data coordinate space.
  *	@param plotPoint A c-style array of data point coordinates (as doubles).
  *	@param point The drawing coordinates of the data point.
- *	@param layer The layer containing the point to convert.
  **/
--(void)doublePrecisionPlotPoint:(double *)plotPoint forViewPoint:(CGPoint)point inLayer:(CPLayer *)layer
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
+{
+}
+
+/**	@brief Sets the range of values for a given coordinate.
+ *  @param newRange The new plot range.
+ *	@param coordinate The axis coordinate.
+ **/
+-(void)setPlotRange:(CPPlotRange *)newRange forCoordinate:(CPCoordinate)coordinate
 {
 }
 
@@ -111,6 +179,5 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(void)scaleToFitPlots:(NSArray *)plots {
 }
-///	@}
 
 @end

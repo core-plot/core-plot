@@ -1,5 +1,7 @@
-
+#import "CPGraph.h"
 #import "CPPlot.h"
+#import "CPPlotArea.h"
+#import "CPPlotAreaFrame.h"
 #import "CPPlotSpace.h"
 #import "CPPlotRange.h"
 #import "NSNumberExtensions.h"
@@ -9,9 +11,12 @@
 @interface CPPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readwrite, retain) NSMutableDictionary *cachedData;
 
 @end
 ///	@endcond
+
+#pragma mark -
 
 /**	@brief An abstract plot class.
  *
@@ -34,10 +39,17 @@
  **/
 @synthesize plotSpace;
 
+/**	@property plotArea
+ *	@brief The plot area for the plot.
+ **/
+@dynamic plotArea;
+
 /**	@property dataNeedsReloading
  *	@brief If YES, the plot data will be reloaded from the data source before the layer content is drawn.
  **/
 @synthesize dataNeedsReloading;
+
+@synthesize cachedData;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -57,7 +69,6 @@
 -(void)dealloc
 {
 	[cachedData release];
-    [dataSource release];
     [identifier release];
     [plotSpace release];
     [super dealloc];
@@ -79,6 +90,11 @@
 {
 	return CPDefaultZPositionPlot;
 }
+
+-(void)layoutSublayers {
+	// do nothing
+}
+
 
 #pragma mark -
 #pragma mark Fields
@@ -117,6 +133,7 @@
 {
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 /**	@brief Gets a range of plot data for the given plot and field.
@@ -178,16 +195,24 @@
 #pragma mark -
 #pragma mark Data Caching
 
+/**	@brief Stores an array of numbers in the cache.
+ *	@param numbers An array of numbers to cache.
+ *	@param fieldEnum The field enumerator identifying the field.
+ **/
 -(void)cacheNumbers:(NSArray *)numbers forField:(NSUInteger)fieldEnum 
 {
 	if ( numbers == nil ) return;
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
-    [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
 
+/**	@brief Retrieves an array of numbers from the cache.
+ *	@param fieldEnum The field enumerator identifying the field.
+ *	@return The array of cached numbers.
+ **/
 -(NSArray *)cachedNumbersForField:(NSUInteger)fieldEnum 
 {
-    return [cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
+    return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
 
 #pragma mark -
@@ -200,11 +225,15 @@
 -(CPPlotRange *)plotRangeForField:(NSUInteger)fieldEnum 
 {
     if ( self.dataNeedsReloading ) [self reloadData];
-    NSArray *numbers = [cachedData objectForKey:[NSNumber numberWithUnsignedInt:fieldEnum]];
-    NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
-    NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
-    NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
-    return [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+    NSArray *numbers = [self cachedNumbersForField:fieldEnum];
+    CPPlotRange *range = nil;
+    if ( numbers && numbers.count > 0 ) {
+        NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
+        NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
+        NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
+        range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+    }
+    return range;
 }
 
 /**	@brief Determines the smallest plot range that fully encloses the data for a particular coordinate.
@@ -233,6 +262,7 @@
         dataSource = newSource;
         self.dataNeedsReloading = YES;
 		[self setNeedsDisplay];
+        [self setNeedsLayout];
     }
 }
 
@@ -242,6 +272,12 @@
 {
 	self.dataNeedsReloading = YES;
     [self setNeedsDisplay];
+    [self setNeedsLayout];
+}
+
+-(CPPlotArea *)plotArea
+{
+	return self.graph.plotAreaFrame.plotArea;
 }
 
 @end

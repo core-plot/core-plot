@@ -8,8 +8,9 @@
 
 @implementation _OutputFile
 
-+ (id)newInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputFile" inManagedObjectContext:moc_];									 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
+	NSParameterAssert(moc_);
+	return [NSEntityDescription insertNewObjectForEntityForName:@"OutputFile" inManagedObjectContext:moc_];
 }
 
 - (OutputFileID*)objectID {
@@ -19,39 +20,17 @@
 
 
 
-- (NSString*)path {
-	[self willAccessValueForKey:@"path"];
-	NSString *result = [self primitiveValueForKey:@"path"];
-	[self didAccessValueForKey:@"path"];
-	return result;
-}
-
-- (void)setPath:(NSString*)value_ {
-	[self willChangeValueForKey:@"path"];
-	[self setPrimitiveValue:value_ forKey:@"path"];
-	[self didChangeValueForKey:@"path"];
-}
+@dynamic path;
 
 
 
 
 
+
+@dynamic group;
 
 	
 
-- (OutputGroup*)group {
-	[self willAccessValueForKey:@"group"];
-	OutputGroup *result = [self primitiveValueForKey:@"group"];
-	[self didAccessValueForKey:@"group"];
-	return result;
-}
 
-- (void)setGroup:(OutputGroup*)value_ {
-	[self willChangeValueForKey:@"group"];
-	[self setPrimitiveValue:value_ forKey:@"group"];
-	[self didChangeValueForKey:@"group"];
-}
-
-	
 
 @end

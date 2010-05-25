@@ -21,7 +21,7 @@ NSInteger CPDecimalIntegerValue(NSDecimal decimalNumber)
  **/
 float CPDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
+	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
 }
 
 /**
@@ -39,9 +39,19 @@ double CPDecimalDoubleValue(NSDecimal decimalNumber)
  *	@param i The NSInteger value.
  *	@return The converted value.
  **/
-NSDecimal CPDecimalFromInt(NSInteger i)
+NSDecimal CPDecimalFromInteger(NSInteger i)
 {
-	return [[NSNumber numberWithInt:i] decimalValue]; 
+	return [[NSNumber numberWithInteger:i] decimalValue]; 
+}
+
+/**
+ *	@brief Converts a NSUInteger value to an NSDecimal.
+ *	@param i The NSUInteger value.
+ *	@return The converted value.
+ **/
+NSDecimal CPDecimalFromUnsignedInteger(NSUInteger i)
+{
+	return [[NSNumber numberWithUnsignedInteger:i] decimalValue]; 
 }
 
 /**
@@ -171,7 +181,11 @@ BOOL CPDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
 	return (NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedSame);	
 }
 
-
+/**
+ *	@brief Parses a string and extracts the numeric value as an NSDecimal.
+ *	@param stringRepresentation The string value.
+ *	@return The numeric value extracted from the string.
+ **/
 NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 {
 	// The following NSDecimalNumber-based creation of NSDecimals from strings is slower than 
@@ -189,6 +203,21 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 	return result;
 }
 
+/**
+ *	@brief Creates and returns an NSDecimal struct that represents the value "not a number".
+ *
+ *	Calling <code>NSDecimalIsNotANumber()</code> on this value will return <code>YES</code>.
+ *
+ *	@return An NSDecimal struct that represents the value "not a number".
+ **/
+NSDecimal CPDecimalNaN(void)
+{
+	NSDecimal decimalNaN = [[NSDecimalNumber zero] decimalValue];
+	decimalNaN._length = 0;
+	decimalNaN._isNegative = YES;
+	
+	return decimalNaN;
+}
 
 #pragma mark -
 #pragma mark Ranges
@@ -196,7 +225,7 @@ NSDecimal CPDecimalFromString(NSString *stringRepresentation)
 /**
  *	@brief Expands an NSRange by the given amount.
  *
- *	The <tt>location</tt> of the resulting NSRange will be non-negative.
+ *	The <code>location</code> of the resulting NSRange will be non-negative.
  *
  *	@param range The NSRange to expand.
  *	@param expandBy The amount the expand the range by.
@@ -340,4 +369,34 @@ CGRect CPAlignRectToUserSpace(CGContextRef context, CGRect r)
     
     // Convert back to user space.
     return CGContextConvertRectToUserSpace(context, r);
+}
+
+#pragma mark -
+#pragma mark String formatting for Core Graphics structs
+
+/**	@brief Creates a string representation of the given point.
+ *	@param p The point.
+ *	@return A string with the format <code>{x, y}</code>.
+ **/
+NSString *CPStringFromPoint(CGPoint p)
+{
+	return [NSString stringWithFormat:@"{%g, %g}", p.x, p.y];
+}
+
+/**	@brief Creates a string representation of the given point.
+ *	@param s The size.
+ *	@return A string with the format <code>{width, height}</code>.
+ **/
+NSString *CPStringFromSize(CGSize s)
+{
+	return [NSString stringWithFormat:@"{%g, %g}", s.width, s.height];
+}
+
+/**	@brief Creates a string representation of the given point.
+ *	@param r The rectangle.
+ *	@return A string with the format <code>{{x, y}, {width, height}}</code>.
+ **/
+NSString *CPStringFromRect(CGRect r)
+{
+	return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }

@@ -42,19 +42,19 @@
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
     
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInt([dataPuller.financialData count])];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromUnsignedInteger([dataPuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
     CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     
     axisSet.xAxis.majorIntervalLength = CPDecimalFromString(@"10.0");
-    axisSet.xAxis.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
+    axisSet.xAxis.orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
     axisSet.xAxis.minorTicksPerInterval = 1;
     
     NSDecimalNumber *four = [NSDecimalNumber decimalNumberWithString:@"4"];
     axisSet.yAxis.majorIntervalLength = CPDecimalDivide([length decimalValue], [four decimalValue]);
     axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.constantCoordinateValue = [[NSDecimalNumber zero] decimalValue];
+    axisSet.yAxis.orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
     [graph reloadData];
     
     

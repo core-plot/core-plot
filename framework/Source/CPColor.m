@@ -11,9 +11,6 @@
 
 @implementation CPColor
 
-/// @defgroup CPColor CPColor
-/// @{
-
 /** @property cgColor
  *  @brief The CGColor to wrap around.
  **/
@@ -31,7 +28,7 @@
     static CPColor *color = nil;
     if ( nil == color ) {
         CGColorRef clear = NULL;
-        CGFloat values[4] = {1.0, 1.0, 1.0, 0.0}; 
+        CGFloat values[4] = {0.0, 0.0, 0.0, 0.0}; 
 		clear = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values); 
         color = [[CPColor alloc] initWithCGColor:clear];
         CGColorRelease(clear);
@@ -47,14 +44,49 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef white = NULL;
-        CGFloat values[4] = {1.0, 1.0, 1.0, 1.0}; 
-		white = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);  
-        color = [[CPColor alloc] initWithCGColor:white];
-        CGColorRelease(white);
+        color = [[self colorWithGenericGray:1.0] retain];
     }
 	return color; 
 } 
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque 2/3 gray color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque 2/3 gray color.
+ **/
++(CPColor *)lightGrayColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+		color = [[self colorWithGenericGray:2.0/3.0] retain];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque 50% gray color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque 50% gray color.
+ **/
++(CPColor *)grayColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        color = [[self colorWithGenericGray:0.5] retain];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque 1/3 gray color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque 1/3 gray color.
+ **/
++(CPColor *)darkGrayColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+        color = [[self colorWithGenericGray:1.0/3.0] retain];
+    }
+	return color; 
+}
 
 /** @brief Returns a shared instance of CPColor initialized with a fully opaque black color.
  *
@@ -64,11 +96,7 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef black = NULL;
-        CGFloat values[4] = {0.0, 0.0, 0.0, 1.0}; 
-		black = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:black];
-        CGColorRelease(black);
+        color = [[self colorWithGenericGray:0.0] retain];
     }
 	return color; 
 } 
@@ -81,11 +109,7 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef red = NULL;
-        CGFloat values[4] = {1.0, 0.0, 0.0, 1.0}; 
-		red = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:red];
-        CGColorRelease(red);
+		color = [[CPColor alloc] initWithComponentRed:1.0 green:0.0 blue:0.0 alpha:1.0];
     }
 	return color; 
 } 
@@ -98,11 +122,7 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef green = NULL;
-        CGFloat values[4] = {0.0, 1.0, 0.0, 1.0}; 
-		green = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:green];
-        CGColorRelease(green);
+		color = [[CPColor alloc] initWithComponentRed:0.0 green:1.0 blue:0.0 alpha:1.0];
     }
 	return color; 
 }
@@ -115,37 +135,85 @@
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        CGColorRef blue = NULL;
-        CGFloat values[4] = {0.0, 0.0, 1.0, 1.0}; 
-		blue = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
-        color = [[CPColor alloc] initWithCGColor:blue];
-        CGColorRelease(blue);
+		color = [[CPColor alloc] initWithComponentRed:0.0 green:0.0 blue:1.0 alpha:1.0];
     }
 	return color; 
 }
 
-/** @brief Returns a shared instance of CPColor initialized with a fully opaque 40% gray color.
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque cyan color.
  *
- *  @return A shared CPColor object initialized with a fully opaque 40% gray color.
+ *  @return A shared CPColor object initialized with a fully opaque cyan color.
  **/
-+(CPColor *)darkGrayColor
++(CPColor *)cyanColor
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:0.4] retain];
+		color = [[CPColor alloc] initWithComponentRed:0.0 green:1.0 blue:1.0 alpha:1.0];
     }
 	return color; 
 }
 
-/** @brief Returns a shared instance of CPColor initialized with a fully opaque 70% gray color.
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque yellow color.
  *
- *  @return A shared CPColor object initialized with a fully opaque 70% gray color.
+ *  @return A shared CPColor object initialized with a fully opaque yellow color.
  **/
-+(CPColor *)lightGrayColor
++(CPColor *)yellowColor
 { 
     static CPColor *color = nil;
     if ( nil == color ) {
-		color = [[self colorWithGenericGray:0.7] retain];
+		color = [[CPColor alloc] initWithComponentRed:1.0 green:1.0 blue:0.0 alpha:1.0];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque magenta color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque magenta color.
+ **/
++(CPColor *)magentaColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+		color = [[CPColor alloc] initWithComponentRed:1.0 green:0.0 blue:1.0 alpha:1.0];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque orange color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque orange color.
+ **/
++(CPColor *)orangeColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+		color = [[CPColor alloc] initWithComponentRed:1.0 green:0.5 blue:0.0 alpha:1.0];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque purple color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque purple color.
+ **/
++(CPColor *)purpleColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+		color = [[CPColor alloc] initWithComponentRed:0.5 green:0.0 blue:0.5 alpha:1.0];
+    }
+	return color; 
+}
+
+/** @brief Returns a shared instance of CPColor initialized with a fully opaque brown color.
+ *
+ *  @return A shared CPColor object initialized with a fully opaque brown color.
+ **/
++(CPColor *)brownColor
+{ 
+    static CPColor *color = nil;
+    if ( nil == color ) {
+		color = [[CPColor alloc] initWithComponentRed:0.6 green:0.4 blue:0.2 alpha:1.0];
     }
 	return color; 
 }
@@ -177,9 +245,8 @@
  **/
 +(CPColor *)colorWithGenericGray:(CGFloat)gray
 {
-	CGColorRef colorRef = NULL;
 	CGFloat values[4] = {gray, gray, gray, 1.0}; 
-	colorRef = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+	CGColorRef colorRef = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
 	CPColor *color = [[CPColor alloc] initWithCGColor:colorRef];
 	CGColorRelease(colorRef);
 	return [color autorelease];
@@ -229,6 +296,12 @@
     [super dealloc];
 }
 
+-(void)finalize
+{
+    CGColorRelease(cgColor);
+	[super finalize];
+}
+
 #pragma mark -
 #pragma mark Creating colors from other colors
 
@@ -260,11 +333,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ([[super class] conformsToProtocol:@protocol(NSCoding)]) {
-        self = [(id <NSCoding>)super initWithCoder:coder];
-    } else {
-        self = [super init];
-    }
+	self = [super init];
     
     if (self) {
 		CGFloat colorComponents[4];
@@ -294,9 +363,13 @@
 
 -(BOOL)isEqual:(id)object
 {
-	if ([object isKindOfClass:[self class]]) {
+	if ( self == object ) {
+		return YES;
+	}
+	else if ([object isKindOfClass:[self class]]) {
 		return CGColorEqualToColor(self.cgColor, ((CPColor *)object).cgColor);
-	} else {
+	}
+	else {
 		return NO;
 	}
 }
@@ -304,8 +377,8 @@
 -(NSUInteger)hash
 {
 	// Equal objects must hash the same.
-	CGFloat theHash = 0.0f;
-	CGFloat multiplier = 256.0f;
+	CGFloat theHash = 0.0;
+	CGFloat multiplier = 256.0;
 
 	CGColorRef theColor = self.cgColor;
 	size_t numberOfComponents = CGColorGetNumberOfComponents(theColor);
@@ -313,12 +386,10 @@
 	
 	for (NSUInteger i = 0; i < numberOfComponents; i++) {
 		theHash += multiplier * colorComponents[i];
-		multiplier *= 256.0f;
+		multiplier *= 256.0;
 	}
 	
 	return (NSUInteger)theHash;
 }
-
-///	@}
 
 @end

@@ -1,9 +1,9 @@
-
-#import "CPAxisSet.h"
-#import "CPPlotSpace.h"
 #import "CPAxis.h"
-#import "CPPlotArea.h"
+#import "CPAxisSet.h"
 #import "CPGraph.h"
+#import "CPLineStyle.h"
+#import "CPPlotSpace.h"
+#import "CPPlotArea.h"
 
 /**	@brief A container layer for the set of axes for a graph.
  **/
@@ -14,10 +14,11 @@
  **/
 @synthesize axes;
 
-/**	@property graph
- *	@brief The graph for the axis set.
+/** @property borderLineStyle 
+ *	@brief The line style for the layer border.
+ *	If nil, the border is not drawn.
  **/
-@synthesize graph;
+@synthesize borderLineStyle;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -26,6 +27,8 @@
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		axes = [[NSArray array] retain];
+		borderLineStyle = nil;
+		
         self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -34,6 +37,7 @@
 -(void)dealloc
 {
     [axes release];
+	[borderLineStyle release];
 	[super dealloc];
 }
 
@@ -47,33 +51,7 @@
     for ( CPAxis *axis in self.axes ) {
         [axis setNeedsLayout];
         [axis setNeedsRelabel];
-    }
-}
-
-#pragma mark -
-#pragma mark Accessors
-
--(void)setGraph:(CPGraph *)newGraph
-{
-	if ( graph != newGraph ) {
-		graph = newGraph;
-		[self setNeedsLayout];
-		[self setNeedsDisplay];
-	}
-}
-
--(void)setAxes:(NSArray *)newAxes 
-{
-    if ( newAxes != axes ) {
-        for ( CPAxis *axis in axes ) {
-            [axis removeFromSuperlayer];
-        }
-        [axes release];
-        axes = [newAxes retain];
-        for ( CPAxis *axis in axes ) {
-            [self addSublayer:axis];
-        }
-		[self setNeedsDisplay];
+		[axis setNeedsDisplay];
     }
 }
 
@@ -83,6 +61,36 @@
 +(CGFloat)defaultZPosition 
 {
 	return CPDefaultZPositionAxisSet;
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setAxes:(NSArray *)newAxes 
+{
+    if ( newAxes != axes ) {
+        for ( CPAxis *axis in axes ) {
+            [axis removeFromSuperlayer];
+        }
+        [axes release];
+        axes = [newAxes retain];
+		CPPlotArea *plotArea = (CPPlotArea *)self.superlayer;
+        for ( CPAxis *axis in axes ) {
+            [self addSublayer:axis];
+			axis.plotArea = plotArea;
+        }
+        [self setNeedsLayout];
+		[self setNeedsDisplay];
+    }
+}
+
+-(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
+{
+	if ( newLineStyle != borderLineStyle ) {
+		[borderLineStyle release];
+		borderLineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+	}
 }
 
 @end

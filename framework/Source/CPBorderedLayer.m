@@ -1,19 +1,10 @@
-
 #import "CPBorderedLayer.h"
 #import "CPPathExtensions.h"
 #import "CPLineStyle.h"
 #import "CPFill.h"
 
-@interface CPBorderedLayer ()
-
--(void)setMaskingPath:(CGPathRef)newPath;
-
-@end
-
-
 /** @brief A layer with rounded corners.
  **/
-
 @implementation CPBorderedLayer
 
 /** @property borderLineStyle 
@@ -22,27 +13,23 @@
  **/
 @synthesize borderLineStyle;
 
-/** @property cornerRadius 
- *  @brief Radius for the rounded corners of the layer.
- **/
-@synthesize cornerRadius;
-
 /** @property fill 
  *  @brief The fill for the layer background.
  *	If nil, the layer background is not filled.
  **/
 @synthesize fill;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		borderLineStyle = nil;
 		fill = nil;
-		cornerRadius = 0.0f;
-        maskingPath = NULL;
 
+		self.masksToBorder = YES;
 		self.needsDisplayOnBoundsChange = YES;
-		self.masksToBounds = YES;
 	}
 	return self;
 }
@@ -51,7 +38,7 @@
 {
 	[borderLineStyle release];
     [fill release];
-	CGPathRelease(maskingPath);
+	
 	[super dealloc];
 }
 
@@ -60,112 +47,106 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-    CGPathRef roundedPath = [self maskingPath];
-	if ( self.fill ) {
-		CGContextBeginPath(context);
-        CGContextAddPath(context, roundedPath);
-		[self.fill fillPathInContext:context];
-	}
+	[super renderAsVectorInContext:context];
+	
+	BOOL useMask = self.masksToBounds;
+	self.masksToBounds = YES;
+	CGContextBeginPath(context);
+	CGContextAddPath(context, self.maskingPath);
+	[self.fill fillPathInContext:context];
+	self.masksToBounds = useMask;
+	
     if ( self.borderLineStyle ) {
-		CGContextBeginPath(context);
-        CGContextAddPath(context, roundedPath);
+		CGFloat inset = self.borderLineStyle.lineWidth / 2.0;
+		CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
+		
         [self.borderLineStyle setLineStyleInContext:context];
-        CGContextStrokePath(context);
+
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
+			CGContextBeginPath(context);
+			AddRoundedRectPath(context, selfBounds, radius);
+			CGContextStrokePath(context);
+		}
+		else {
+			CGContextStrokeRect(context, selfBounds);
+		}
     }
 }
 
 #pragma mark -
-#pragma mark Layout
-
--(void)layoutSublayers
-{
-	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
-	// Subclasses should override to lay out their own sublayers
-	// TODO: create a generic layout manager akin to CAConstraintLayoutManager ("struts and springs" is not flexible enough)
-	// Sublayers fill the super layer's bounds minus any padding by default
-	CGRect selfBounds = self.bounds;
-	CGSize subLayerSize = selfBounds.size;
-	CGFloat lineWidth = self.borderLineStyle.lineWidth;
-	
-	subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0f);
-	subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0f);
-	
-	for (CALayer *subLayer in self.sublayers) {
-		CGRect subLayerBounds = subLayer.bounds;
-		subLayerBounds.size = subLayerSize;
-		subLayer.bounds = subLayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
-	}
-}
-
-#pragma mark -
-#pragma mark <CPMasking>
-
--(void)setMaskingPath:(CGPathRef)newPath 
-{
-    if ( newPath != maskingPath ) {
-        CGPathRelease(maskingPath);
-        maskingPath = CGPathRetain(newPath);
-    }
-}
+#pragma mark Masking
 
 -(CGPathRef)maskingPath 
 {
-	if ( maskingPath ) return maskingPath;
-    
-	CGFloat inset = round(self.borderLineStyle.lineWidth / 2.0f);
-	CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
-
-	if ( self.cornerRadius > 0.0f ) {
-		CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2), selfBounds.size.height / 2);
-		[self setMaskingPath:CreateRoundedRectPath(selfBounds, radius)];
+	if ( self.masksToBounds ) {
+		CGPathRef path = self.outerBorderPath;
+		if ( path ) return path;
+		
+		CGFloat lineWidth = self.borderLineStyle.lineWidth;
+		CGRect selfBounds = self.bounds;
+		
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
+			path = CreateRoundedRectPath(selfBounds, radius);
+			self.outerBorderPath = path;
+			CGPathRelease(path);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, selfBounds);
+			self.outerBorderPath = mutablePath;
+			CGPathRelease(mutablePath);
+		}
+		
+		return self.outerBorderPath;
 	}
 	else {
-		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRect(path, NULL, selfBounds);
-		[self setMaskingPath:path];
+		return NULL;
 	}
-    
-    return maskingPath;
 }
 
-#pragma mark -
-#pragma mark Mask Layer Delegate Methods
-
--(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)context {
-	CGContextSaveGState(context);
-    CGContextAddPath(context, [self maskingPath]);
-    CGContextClip(context);
-    CGContextSetGrayFillColor(context, 0.0f, 1.0f);
-    CGContextFillRect(context, layer.bounds);
-    CGContextRestoreGState(context);
+-(CGPathRef)sublayerMaskingPath 
+{
+	if ( self.masksToBorder ) {
+		CGPathRef path = self.innerBorderPath;
+		if ( path ) return path;
+		
+		CGFloat lineWidth = self.borderLineStyle.lineWidth;
+		CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
+		
+		if ( self.cornerRadius > 0.0 ) {
+			CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / 2.0, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
+			path = CreateRoundedRectPath(selfBounds, radius);
+			self.innerBorderPath = path;
+			CGPathRelease(path);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, selfBounds);
+			self.innerBorderPath = mutablePath;
+			CGPathRelease(mutablePath);
+		}
+		
+		return self.innerBorderPath;
+	}
+	else {
+		return NULL;
+	}
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setBounds:(CGRect)newBounds 
-{
-	[self setMaskingPath:NULL];
-    [super setBounds:newBounds];    
-}
-
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {
 	if ( newLineStyle != borderLineStyle ) {
+		if ( newLineStyle.lineWidth != borderLineStyle.lineWidth ) {
+			self.outerBorderPath = NULL;
+			self.innerBorderPath = NULL;
+		}
 		[borderLineStyle release];
 		borderLineStyle = [newLineStyle copy];
-		[self setNeedsDisplay];
-	}
-}
-
--(void)setCornerRadius:(CGFloat)newRadius
-{
-	if ( newRadius != cornerRadius ) {
-		cornerRadius = ABS(newRadius);
 		[self setNeedsDisplay];
 	}
 }

@@ -4,6 +4,7 @@
 #import "CPLayer.h"
 
 @class CPPlot;
+@class CPPlotArea;
 @class CPPlotSpace;
 @class CPPlotRange;
 
@@ -40,7 +41,8 @@
 ///	@}
 
 /**	@brief Determines the record index range corresponding to a given range of data.
- *	This method is optional.
+ *	This method is optional. If the method is implemented, it could improve performance
+ *  in data sets that are only partially displayed.
  *	@param plot The plot.
  *	@param plotRange The range expressed in data values.
  *	@return The range of record indexes.
@@ -49,7 +51,10 @@
 
 @end 
 
+#pragma mark -
+
 @interface CPPlot : CPLayer {
+	@private
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
     CPPlotSpace *plotSpace;
@@ -61,6 +66,7 @@
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
 @property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readonly, retain) CPPlotArea *plotArea;
 
 /// @name Data Loading
 /// @{

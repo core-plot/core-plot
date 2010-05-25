@@ -84,8 +84,8 @@ typedef enum _CPGradientType {
 
 /// @name Information
 /// @{
--(CGColorRef)colorStopAtIndex:(NSUInteger)index;
--(CGColorRef)colorAtPosition:(CGFloat)position;
+-(CGColorRef)newColorStopAtIndex:(NSUInteger)index;
+-(CGColorRef)newColorAtPosition:(CGFloat)position;
 ///	@}
 
 /// @name Drawing
