@@ -318,9 +318,11 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
     CPPlotRangeComparisonResult *yRangeFlags = malloc(self.yValues.count * sizeof(CPPlotRangeComparisonResult));
 
     // Determine where each point lies in relation to range
+    NSArray *xValuesLocal = self.xValues;
+    NSArray *yValuesLocal = self.yValues;
     for (NSUInteger i = 0; i < n; i++) {
-        NSNumber *xValue = [self.xValues objectAtIndex:i];
-		NSNumber *yValue = [self.yValues objectAtIndex:i];
+        NSNumber *xValue = [xValuesLocal objectAtIndex:i];
+		NSNumber *yValue = [yValuesLocal objectAtIndex:i];
         xRangeFlags[i] = [xyPlotSpace.xRange compareToNumber:xValue];
 		yRangeFlags[i] = [xyPlotSpace.yRange compareToNumber:yValue];
     }
@@ -348,10 +350,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
 {	
     // Calculate points
+    NSArray *xValuesLocal = self.xValues;
+    NSArray *yValuesLocal = self.yValues;
 	BOOL doubleFastPath = ![[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]];
     for (NSUInteger i = 0; i < self.xValues.count; i++) {
-		id xValue = [self.xValues objectAtIndex:i];
-		id yValue = [self.yValues objectAtIndex:i];
+		id xValue = [xValuesLocal objectAtIndex:i];
+		id yValue = [yValuesLocal objectAtIndex:i];
 		if (doubleFastPath) {
 			double doublePrecisionPlotPoint[2];
 			doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
