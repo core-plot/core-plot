@@ -30,6 +30,8 @@
 	if ( self = [super initWithFrame:newFrame] ) {
 		plotArea = nil;
 		major = NO;
+
+		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
