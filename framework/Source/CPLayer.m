@@ -208,7 +208,8 @@
 	self.renderingRecursively = NO;
 	
 	// render sublayers
-	for ( CALayer *currentSublayer in self.sublayers ) {
+    NSArray *sublayersCopy = [[self.sublayers copy] autorelease];
+	for ( CALayer *currentSublayer in sublayersCopy ) {
 		CGContextSaveGState(context);
 		
 		// Shift origin of context to match starting coordinate of sublayer
