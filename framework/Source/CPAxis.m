@@ -991,7 +991,7 @@
 		
 		if ( majorGridLineStyle ) {
 			if ( self.separateLayers ) {
-				if ( !self.majorGridLines ) {
+				if ( !self.majorGridLines && self.plotArea ) {
 					CPGridLines *gridLines = [[CPGridLines alloc] init];
 					self.majorGridLines = gridLines;
 					[gridLines release];
@@ -1020,7 +1020,7 @@
 		
 		if ( minorGridLineStyle ) {
 			if ( self.separateLayers ) {
-				if ( !self.minorGridLines ) {
+				if ( !self.minorGridLines && self.plotArea ) {
 					CPGridLines *gridLines = [[CPGridLines alloc] init];
 					self.minorGridLines = gridLines;
 					[gridLines release];
@@ -1114,15 +1114,17 @@
 		
 		if ( plotArea ) {
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
-			if ( self.minorGridLines ) {
-				[self.minorGridLines removeFromSuperlayer];
-				[plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
+			CPGridLines *gridLines = self.minorGridLines;
+			if ( gridLines ) {
+				[gridLines removeFromSuperlayer];
+				[plotArea.minorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
-			if ( self.majorGridLines ) {
-				[self.majorGridLines removeFromSuperlayer];
-				[plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
+			gridLines = self.majorGridLines;
+			if ( gridLines ) {
+				[gridLines removeFromSuperlayer];
+				[plotArea.majorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
@@ -1149,11 +1151,21 @@
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
-			if ( self.axisTitle.contentLayer ) {
-				[self.axisTitle.contentLayer removeFromSuperlayer];
-				[plotArea.axisTitleGroup insertSublayer:self.axisTitle.contentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			CPLayer *titleContentLayer = self.axisTitle.contentLayer;
+			if ( titleContentLayer ) {
+				[titleContentLayer removeFromSuperlayer];
+				[plotArea.axisTitleGroup insertSublayer:titleContentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
 			}
 		}
+		else {
+			self.minorGridLines = nil;
+			self.majorGridLines = nil;
+			for ( CPAxisLabel *label in axisLabels ) {
+				[label.contentLayer removeFromSuperlayer];
+			}
+			[self.axisTitle.contentLayer removeFromSuperlayer];
+		}
+
 	}	
 }
 

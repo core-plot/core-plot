@@ -448,15 +448,23 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 {
 	if ( (newAxisSet != axisSet) || self.isUpdatingLayers ) {
 		[axisSet removeFromSuperlayer];
-		[newAxisSet retain];
+		if ( newAxisSet ) {
+			[newAxisSet retain];
+		}
+		else {
+			for ( CPAxis *axis in axisSet.axes ) {
+				axis.plotArea = nil;
+			}
+		}
+
 		[axisSet release];
 		axisSet = newAxisSet;
+		[self updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
 		if ( axisSet ) {
 			[self insertSublayer:axisSet atIndex:[self indexForLayerType:CPGraphLayerTypeAxisLines]];
-			[self updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
-			[self updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
-			[self updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
-			[self updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
 			for ( CPAxis *axis in axisSet.axes ) {
 				axis.plotArea = self;
 			}
