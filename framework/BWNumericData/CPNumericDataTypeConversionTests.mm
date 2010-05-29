@@ -1,9 +1,9 @@
-#import "TestCPNumericDataConversion.h"
+#import "CPNumericDataTypeConversionTests.h"
 #import "NumericDataTypeConversions.h"
 
 static const NSUInteger numberOfSamples = 5;
 
-@implementation TestNSDataTypeConversions
+@implementation CPNumericDataTypeConversionTests
 
 -(void)testFloatToDoubleConversion
 {

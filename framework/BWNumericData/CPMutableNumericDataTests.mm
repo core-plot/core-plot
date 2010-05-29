@@ -1,13 +1,13 @@
-#import "TestCPNumericData.h"
-#import "CPNumericData.h"
+#import "CPMutableNumericData.h"
+#import "CPMutableNumericDataTests.h"
 #import "CPNumericData+TypeConversion.h"
-#import "NumericDataTypeConversions.h"
+#import "CPNumericDataTypeConversions.h"
 
-@implementation TestCPNumericData
+@implementation CPMutableNumericDataTests
 
 -(void)testNilShapeGivesSingleDimension 
 {
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:1*sizeof(float)]
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:1*sizeof(float)]
 											 dataTypeString:@"=f4"
 													  shape:nil];
 	NSUInteger actual = nd.numberOfDimensions;
@@ -29,7 +29,7 @@
 				];
 	
 	NSUInteger nElems = 2*2*2;
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:shape];
 	
@@ -41,7 +41,7 @@
 -(void)testNilShapeCorrectElementCount
 {
 	NSUInteger nElems = 13;
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
 											 dataTypeString:@"=f4"
 													  shape:nil];
 	
@@ -65,7 +65,7 @@
 				(id)nil];
 	NSUInteger nElems = 5;
 	
-	STAssertThrowsSpecificNamed([[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(NSUInteger)]
+	STAssertThrowsSpecificNamed([[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(NSUInteger)]
 														   dataType:CPDataType(CPUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder())
 															  shape:shape],
 								NSException,
@@ -76,7 +76,7 @@
 
 -(void)testReturnsDataLength
 {
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:[NSMutableData dataWithLength:10*sizeof(float)]
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:10*sizeof(float)]
 											 dataTypeString:@"=f4"
 													  shape:nil];
 	
@@ -97,7 +97,7 @@
 		intData[i] = i;
 	}
 	
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder())
 													  shape:nil];
 	
@@ -117,11 +117,11 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
-	CPNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
+	CPMutableNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
 	
 	STAssertTrue([nd isEqualToData:nd2], @"equal data");
 	
@@ -145,7 +145,7 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
@@ -158,7 +158,7 @@
 		charSamples[i] = sin(i);
 	}
 	
-	nd = [[CPNumericData alloc] initWithData:data
+	nd = [[CPMutableNumericData alloc] initWithData:data
 									dataType:CPDataType(CPIntegerDataType, sizeof(char), NSHostByteOrder())
 									   shape:nil];
 	
@@ -174,7 +174,7 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *nd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
@@ -192,11 +192,11 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
-	CPNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
+	CPMutableNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
 									   sampleBytes:sizeof(double)
 										 byteOrder:NSHostByteOrder()];
 	
@@ -214,7 +214,7 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
@@ -233,7 +233,7 @@
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
+	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	

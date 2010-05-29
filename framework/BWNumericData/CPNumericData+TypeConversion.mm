@@ -1,5 +1,5 @@
 #import "CPNumericData+TypeConversion.h"
-#import "NumericDataTypeConversions.h"
+#import "CPNumericDataTypeConversions.h"
 #import "CPNumericDataType.h"
 
 @implementation CPNumericData (TypeConversion)
