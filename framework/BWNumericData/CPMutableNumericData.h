@@ -1,16 +1,16 @@
-
 #import <Cocoa/Cocoa.h>
 #import "CPNumericDataType.h"
 
 @interface CPMutableNumericData : NSMutableData {
+@private
     NSMutableData *data;
-    CPNumericDataType dtype;
+    CPNumericDataType dataType;
     NSArray *shape; //array of dimension shapes (NSNumber<unsigned>)
 }
 
-@property (assign,readonly) CPNumericDataType dtype;
-@property (copy,readonly) NSArray* shape;
-@property (readonly) NSUInteger ndims;
+@property (assign, readonly) CPNumericDataType dataType;
+@property (copy, readonly) NSArray *shape;
+@property (readonly) NSUInteger numberOfDimensions;
 
 /*!
  @method     
@@ -20,7 +20,8 @@
  the data size (length/sampleBytes(dtype)).
  */
 
--(id)initWithData:(NSMutableData *)_data
-            dtype:(CPNumericDataType)_dtype
-            shape:(NSArray *)_shape;
+-(id)initWithData:(NSMutableData *)newData
+		 dataType:(CPNumericDataType)newDataType
+            shape:(NSArray *)shapeArray;
+
 @end

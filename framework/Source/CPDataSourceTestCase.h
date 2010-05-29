@@ -1,4 +1,3 @@
-
 #import "CPTestCase.h"
 #import "CPPlot.h"
 
@@ -6,6 +5,7 @@
 @class CPPlot;
 
 @interface CPDataSourceTestCase : CPTestCase <CPPlotDataSource> {
+@private
     NSArray *xData, *yData;
     CPPlotRange *xRange, *yRange;
     

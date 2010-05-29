@@ -1,4 +1,3 @@
-
 #import <Cocoa/Cocoa.h>
 #include <vector>
 #include <memory>
@@ -17,16 +16,16 @@ namespace coreplot {
     
     
     /*!
-    @function
-    @abstract   Swap the byte order of each element in a numeric array
-    @discussion Swaps the endian byte order of each element. Obviously, the
+	 @function
+	 @abstract   Swap the byte order of each element in a numeric array
+	 @discussion Swaps the endian byte order of each element. Obviously, the
      input should contain numeric data of the same type.
-    @param      in NSData* containing numeric data of uniform type.
-    @result     NSData* containing a copy of the input with all elements' endian
+	 @param      in NSData* containing numeric data of uniform type.
+	 @result     NSData* containing a copy of the input with all elements' endian
      order swapped.
-    @templatefield T Type of the numeric data (e.g. double)
+	 @templatefield T Type of the numeric data (e.g. double)
      */
-
+	
     template<typename T>
     NSData *swap_numeric_data_byte_order(NSData *in); // usage: swap_numeric_data_byte_order<type>(data)
     
@@ -105,7 +104,7 @@ NSData *coreplot::swap_numeric_data_byte_order(NSData *in) {
     using namespace coreplot;
     return vector_to_numeric_data(swap_vector_byte_order(numeric_data_to_vector<T>(in)));
 }
-    
+
 
 template<typename T>
 void coreplot::swap_numeric_data_byte_order(NSMutableData *in) {
@@ -126,7 +125,7 @@ auto_ptr<vector<U> > coreplot::convert_data_type(auto_ptr<vector<T> > in) {
 
 template<typename InputOutputIterator>
 void coreplot::swap_byte_order(InputOutputIterator begin, 
-                            InputOutputIterator end) {
+							   InputOutputIterator end) {
     transform(begin, end, begin, pointer_to_unary_function<typename iterator_traits<InputOutputIterator>::value_type,
               typename iterator_traits<InputOutputIterator>::value_type> (coreplot::__byteswap));
 }

@@ -1,4 +1,3 @@
-
 #import "CPDataSourceTestCase.h"
 #import "CPExceptions.h"
 #import "CPScatterPlot.h"
@@ -10,7 +9,7 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
 ///	@cond
 @interface CPDataSourceTestCase ()
 
-- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray;
+-(CPPlotRange *)plotRangeForData:(NSArray *)dataArray;
 
 @end
 ///	@endcond
@@ -45,49 +44,49 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
     [[self plots] removeAllObjects];
 }
 
-- (void)buildData
+-(void)buildData
 {
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.nRecords];
-    for(NSUInteger i=0; i<self.nRecords; i++) {
+    for ( NSUInteger i=0; i < self.nRecords; i++ ) {
         [arr insertObject:[NSDecimalNumber numberWithUnsignedInteger:i] atIndex:i];
     }
     self.xData = arr;
     
     arr = [NSMutableArray arrayWithCapacity:self.nRecords];
-    for(NSUInteger i=0; i<self.nRecords; i++) {
+    for ( NSUInteger i=0; i < self.nRecords; i++ ) {
         [arr insertObject:[NSDecimalNumber numberWithFloat:sin(2*M_PI*(float)i/(float)nRecords)] atIndex:i];
     }
     self.yData = arr;
 }
 
-- (void)addPlot:(CPPlot*)newPlot
+-(void)addPlot:(CPPlot *)newPlot
 {
-    if(nil == self.plots) {
+    if ( nil == self.plots ) {
         self.plots = [NSMutableArray array];
     }
     
     [[self plots] addObject:newPlot];
 }
 
-- (CPPlotRange*)xRange
+-(CPPlotRange *)xRange
 {
     [self buildData];
     return  [self plotRangeForData:self.xData];
 }
 
-- (CPPlotRange*)yRange
+-(CPPlotRange *)yRange
 {
     [self buildData];
     CPPlotRange *range = [self plotRangeForData:self.yData];
     
-    if(self.plots.count > 1) {
+    if ( self.plots.count > 1 ) {
         range.length = CPDecimalAdd([range length], CPDecimalFromDouble(self.plots.count));
     }
     
     return range;
 }
 
-- (CPPlotRange*)plotRangeForData:(NSArray*)dataArray
+-(CPPlotRange *)plotRangeForData:(NSArray *)dataArray
 {
     double min = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
     double max = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
@@ -111,16 +110,16 @@ const CGFloat CPDataSourceTestCasePlotOffset = 0.5;
 {
     NSArray *result;
     
-    switch(fieldEnum) {
+    switch ( fieldEnum ) {
         case CPScatterPlotFieldX:
             result = [[self xData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             break;
         case CPScatterPlotFieldY:
             result = [[self yData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
-            if(self.plots.count > 1) {
+            if ( self.plots.count > 1 ) {
                 STAssertTrue([[self plots] containsObject:plot], @"Plot missing");
                 NSMutableArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
-                for(NSDecimalNumber *d in result) {
+                for ( NSDecimalNumber *d in result ) {
                     [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromDouble(CPDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot]+1))]]];
                 }
                 

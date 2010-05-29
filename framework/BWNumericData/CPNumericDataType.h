@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-typedef enum {
+typedef enum _CPDataTypeFormat {
     CPUndefinedDataType = 0,
     CPIntegerDataType,
     CPUnsignedIntegerDataType,
@@ -8,8 +8,8 @@ typedef enum {
     CPComplexFloatingPointDataType
 } CPDataTypeFormat;
 
-typedef struct {
-    CPDataTypeFormat dataType;
+typedef struct _CPNumericDataType {
+    CPDataTypeFormat dataTypeFormat;
     NSInteger sampleBytes;
     CFByteOrder byteOrder;
 } CPNumericDataType;
@@ -19,8 +19,8 @@ extern "C" {
 #endif
     
     CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder);
-    CPNumericDataType CPDataTypeWithDataTypeString(NSString * dtypeString);
-    NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype);
+    CPNumericDataType CPDataTypeWithDataTypeString(NSString *dtypeString);
+    NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType);
     
 #if __cplusplus
 }

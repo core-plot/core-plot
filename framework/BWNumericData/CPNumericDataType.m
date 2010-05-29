@@ -1,17 +1,15 @@
-
 #import "CPNumericDataType.h"
 #import "NSExceptionExtensions.h"
 
-static CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString);
-static NSInteger SampleBytesForDtypeString(NSString* dtypeString);
-static CFByteOrder ByteOrderForDtypeString(NSString* dtypeString);
-
+static CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
+static NSInteger SampleBytesForDataTypeString(NSString *dataTypeString);
+static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
 
 CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder)
 {
     CPNumericDataType result;
     
-    result.dataType = format;
+    result.dataTypeFormat = format;
     result.sampleBytes = sampleBytes;
     result.byteOrder = byteOrder;
     
@@ -19,25 +17,25 @@ CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFB
 }
 
 
-CPNumericDataType CPDataTypeWithDataTypeString(NSString* dtypeString)
+CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString)
 {
     CPNumericDataType type;
     
-    type.dataType = DataTypeForDtypeString(dtypeString);
+    type.dataTypeFormat = DataTypeForDataTypeString(dataTypeString);
     
-    type.sampleBytes = SampleBytesForDtypeString(dtypeString);
-    type.byteOrder = ByteOrderForDtypeString(dtypeString);
+    type.sampleBytes = SampleBytesForDataTypeString(dataTypeString);
+    type.byteOrder = ByteOrderForDataTypeString(dataTypeString);
     
     return type;
 }
 
 
-NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype)
+NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
 {
     NSString *byteOrderString = nil;
     NSString *typeString = nil;
     
-    switch (dtype.byteOrder) {
+    switch ( dataType.byteOrder ) {
         case NS_LittleEndian:
             byteOrderString = @"<";
             break;
@@ -46,7 +44,7 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype)
             break;
     }
     
-    switch (dtype.dataType) {
+    switch ( dataType.dataTypeFormat ) {
         case CPFloatingPointDataType:
             typeString = @"f";
             break;
@@ -66,17 +64,17 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dtype)
     return [NSString stringWithFormat:@"%@%@%u", 
             byteOrderString, 
             typeString, 
-            dtype.sampleBytes];
+            dataType.sampleBytes];
 }
 
 
-CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString)
+CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
 {
     CPDataTypeFormat result;
     
-    NSCAssert([dtypeString length] >= 3, @"dtypeString is too short");
+    NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
     
-    switch ([[dtypeString lowercaseString] characterAtIndex:1]) {
+    switch ( [[dataTypeString lowercaseString] characterAtIndex:1] ) {
         case 'f':
             result = CPFloatingPointDataType;
             break;
@@ -91,28 +89,27 @@ CPDataTypeFormat DataTypeForDtypeString(NSString *dtypeString)
             break;
         default:
             [NSException raise:NSGenericException 
-                        format:@"Unknown type in dtypestring"];
+                        format:@"Unknown type in dataTypeString"];
     }
     
     return result;
 }
 
-
-NSInteger SampleBytesForDtypeString(NSString* dtypeString)
+NSInteger SampleBytesForDataTypeString(NSString *dataTypeString)
 {
-    NSCAssert([dtypeString length] >= 3, @"dtypeString is too short");
-    NSInteger result = [[dtypeString substringFromIndex:2] integerValue];
+    NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
+    NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];
     NSCAssert(result > 0, @"sample bytes is negative.");
     
     return result;
 }
 
-CFByteOrder ByteOrderForDtypeString(NSString * dtypeString)
+CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
 {
-    NSCAssert([dtypeString length] >= 3, @"dtypeString is too short");
+    NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
     CFByteOrder result;
     
-    switch ([[dtypeString lowercaseString] characterAtIndex:0]) {
+    switch ( [[dataTypeString lowercaseString] characterAtIndex:0] ) {
         case '=':
             result = NSHostByteOrder();
             break;
@@ -124,7 +121,7 @@ CFByteOrder ByteOrderForDtypeString(NSString * dtypeString)
             break;
         default:
             [NSException raise:NSGenericException
-                        format:@"Unknown byte order in dtypestring"];
+                        format:@"Unknown byte order in dataTypeString"];
     }
     
     return result;
