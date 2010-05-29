@@ -1,5 +1,5 @@
 #import "CPNumericDataTypeConversionTests.h"
-#import "NumericDataTypeConversions.h"
+#import "CPNumericDataTypeConversions.h"
 
 static const NSUInteger numberOfSamples = 5;
 

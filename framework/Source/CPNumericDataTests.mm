@@ -1,7 +1,7 @@
 #import "CPNumericDataTests.h"
 #import "CPNumericData.h"
 #import "CPNumericData+TypeConversion.h"
-#import "NumericDataTypeConversions.h"
+#import "CPNumericDataTypeConversions.h"
 
 @implementation CPNumericDataTests
 
