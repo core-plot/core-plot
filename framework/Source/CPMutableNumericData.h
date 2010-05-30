@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "CPNumericDataType.h"
 
 @interface CPMutableNumericData : NSMutableData {

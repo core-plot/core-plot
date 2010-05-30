@@ -2,7 +2,7 @@
 #import "CPNumericDataTypeConversions.h"
 #import "CPNumericDataType.h"
 
-@implementation CPNumericData (TypeConversion)
+@implementation CPNumericData(TypeConversion)
 
 -(CPNumericData *)dataByConvertingToDataType:(CPNumericDataType)newDataType
 {

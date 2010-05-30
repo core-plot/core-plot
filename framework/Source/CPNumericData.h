@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "CPNumericDataType.h"
 
 extern NSString * const CPNumericDataException;

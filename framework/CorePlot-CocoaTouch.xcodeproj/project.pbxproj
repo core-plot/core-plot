@@ -122,7 +122,7 @@
 		C35A65D611025FE300FE24BB /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65D011025FE300FE24BB /* CPAnimationKeyFrame.m */; };
 		C35A65D711025FE300FE24BB /* CPAnimationTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65D111025FE300FE24BB /* CPAnimationTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65D811025FE300FE24BB /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65D211025FE300FE24BB /* CPAnimationTransition.m */; };
-		C35A66071102723E00FE24BB /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A66051102723E00FE24BB /* CPTextStylePlatformSpecific.h */; };
+		C35A66071102723E00FE24BB /* CPTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A66051102723E00FE24BB /* CPTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A66081102723E00FE24BB /* CPTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A66061102723E00FE24BB /* CPTextStylePlatformSpecific.m */; };
 		C3B623BD107EC7ED0009EF0B /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3B623BB107EC7ED0009EF0B /* CPLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623BE107EC7ED0009EF0B /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B623BC107EC7ED0009EF0B /* CPLayoutManager.m */; };
@@ -149,6 +149,17 @@
 		C3B623D4107EC9800009EF0B /* _CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828A0FB89E610035D8DA /* _CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D5107EC9820009EF0B /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828C0FB89E610035D8DA /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3CADE3511B188A800D36017 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3011B188A800D36017 /* CPNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CADE3611B188A800D36017 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3111B188A800D36017 /* CPNumericData.m */; };
+		C3CADE3711B188A800D36017 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CADE3811B188A800D36017 /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */; };
+		C3CADE3B11B188B600D36017 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3911B188B600D36017 /* CPNumericDataType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CADE3C11B188B600D36017 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3A11B188B600D36017 /* CPNumericDataType.m */; };
+		C3CADE3F11B188C500D36017 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CADE4011B188C500D36017 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */; };
+		C3CADE4211B1890700D36017 /* CPNumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3CADE5911B18B8700D36017 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CADE5A11B18B8700D36017 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */; };
 		C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C40CFB92107EC1B40057E828 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C40CFB93107EC1B40057E828 /* CPXYTheme.m */; };
 /* End PBXBuildFile section */
@@ -289,6 +300,19 @@
 		C35A66061102723E00FE24BB /* CPTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStylePlatformSpecific.m; path = iPhoneOnly/CPTextStylePlatformSpecific.m; sourceTree = "<group>"; };
 		C3B623BB107EC7ED0009EF0B /* CPLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayoutManager.h; path = Source/CPLayoutManager.h; sourceTree = "<group>"; };
 		C3B623BC107EC7ED0009EF0B /* CPLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayoutManager.m; path = Source/CPLayoutManager.m; sourceTree = "<group>"; };
+		C3CADE2F11B1886B00D36017 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = Source/license.txt; sourceTree = "<group>"; };
+		C3CADE3011B188A800D36017 /* CPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericData.h; path = Source/CPNumericData.h; sourceTree = "<group>"; };
+		C3CADE3111B188A800D36017 /* CPNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericData.m; path = Source/CPNumericData.m; sourceTree = "<group>"; };
+		C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPNumericData+TypeConversion.h"; path = "Source/CPNumericData+TypeConversion.h"; sourceTree = "<group>"; };
+		C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = "CPNumericData+TypeConversion.mm"; path = "Source/CPNumericData+TypeConversion.mm"; sourceTree = "<group>"; };
+		C3CADE3411B188A800D36017 /* CPNumericData+TypeConversions_Generation.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "CPNumericData+TypeConversions_Generation.py"; path = "Source/CPNumericData+TypeConversions_Generation.py"; sourceTree = "<group>"; };
+		C3CADE3911B188B600D36017 /* CPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataType.h; path = Source/CPNumericDataType.h; sourceTree = "<group>"; };
+		C3CADE3A11B188B600D36017 /* CPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericDataType.m; path = Source/CPNumericDataType.m; sourceTree = "<group>"; };
+		C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = Source/CPMutableNumericData.h; sourceTree = "<group>"; };
+		C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = Source/CPMutableNumericData.m; sourceTree = "<group>"; };
+		C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataTypeConversions.h; path = Source/CPNumericDataTypeConversions.h; sourceTree = "<group>"; };
+		C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSExceptionExtensions.h; path = Source/NSExceptionExtensions.h; sourceTree = "<group>"; };
+		C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* CPXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYTheme.h; path = Source/CPXYTheme.h; sourceTree = "<group>"; };
 		C40CFB93107EC1B40057E828 /* CPXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYTheme.m; path = Source/CPXYTheme.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -475,6 +499,7 @@
 		BC9B82520FB89B420035D8DA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C3CADE2911B1885200D36017 /* Numeric Data */,
 				BC9B82A20FB89E610035D8DA /* Types and Functions */,
 				077F28500FE18011000BCA52 /* Layers */,
 				C3B623A9107EC5460009EF0B /* Layout */,
@@ -538,6 +563,8 @@
 				BC9B82B20FB89E610035D8DA /* NSDecimalNumberExtensions.m */,
 				BC9B82B30FB89E610035D8DA /* NSNumberExtensions.h */,
 				BC9B82B40FB89E610035D8DA /* NSNumberExtensions.m */,
+				C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */,
+				C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */,
 			);
 			name = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -675,6 +702,24 @@
 			name = Layout;
 			sourceTree = "<group>";
 		};
+		C3CADE2911B1885200D36017 /* Numeric Data */ = {
+			isa = PBXGroup;
+			children = (
+				C3CADE2F11B1886B00D36017 /* license.txt */,
+				C3CADE3911B188B600D36017 /* CPNumericDataType.h */,
+				C3CADE3A11B188B600D36017 /* CPNumericDataType.m */,
+				C3CADE3011B188A800D36017 /* CPNumericData.h */,
+				C3CADE3111B188A800D36017 /* CPNumericData.m */,
+				C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */,
+				C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */,
+				C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */,
+				C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */,
+				C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */,
+				C3CADE3411B188A800D36017 /* CPNumericData+TypeConversions_Generation.py */,
+			);
+			name = "Numeric Data";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -746,6 +791,12 @@
 				C35A65D511025FE300FE24BB /* CPAnimationKeyFrame.h in Headers */,
 				C35A65D711025FE300FE24BB /* CPAnimationTransition.h in Headers */,
 				C35A66071102723E00FE24BB /* CPTextStylePlatformSpecific.h in Headers */,
+				C3CADE3511B188A800D36017 /* CPNumericData.h in Headers */,
+				C3CADE3711B188A800D36017 /* CPNumericData+TypeConversion.h in Headers */,
+				C3CADE3B11B188B600D36017 /* CPNumericDataType.h in Headers */,
+				C3CADE3F11B188C500D36017 /* CPMutableNumericData.h in Headers */,
+				C3CADE4211B1890700D36017 /* CPNumericDataTypeConversions.h in Headers */,
+				C3CADE5911B18B8700D36017 /* NSExceptionExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +921,11 @@
 				C35A65D611025FE300FE24BB /* CPAnimationKeyFrame.m in Sources */,
 				C35A65D811025FE300FE24BB /* CPAnimationTransition.m in Sources */,
 				C35A66081102723E00FE24BB /* CPTextStylePlatformSpecific.m in Sources */,
+				C3CADE3611B188A800D36017 /* CPNumericData.m in Sources */,
+				C3CADE3811B188A800D36017 /* CPNumericData+TypeConversion.mm in Sources */,
+				C3CADE3C11B188B600D36017 /* CPNumericDataType.m in Sources */,
+				C3CADE4011B188C500D36017 /* CPMutableNumericData.m in Sources */,
+				C3CADE5A11B18B8700D36017 /* NSExceptionExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,12 +939,18 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = (
+					"-lstdc++",
+					"-falign-loops=16",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Debug;
 		};
@@ -899,12 +961,18 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = (
+					"-lstdc++",
+					"-falign-loops=16",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = NO;
 			};
 			name = Release;

@@ -1,6 +1,7 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
+@interface NSException(CPExtensions)
 
-@interface NSException (CPExtensions)
-+ (void)raiseGenericFormat:(NSString*)fmt,...;
++(void)raiseGenericFormat:(NSString*)fmt,...;
+
 @end

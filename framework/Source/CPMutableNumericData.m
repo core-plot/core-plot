@@ -128,7 +128,7 @@
 #pragma mark -
 #pragma mark NSCoding
 
--(id)replacementObjectForArchiver:(NSArchiver *)archiver 
+-(id)replacementObjectForCoder:(NSCoder *)aCoder
 {
     return [[[CPSerializedMutableNumericData alloc] initWithData:self.data
 														dataType:self.dataType

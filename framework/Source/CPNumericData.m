@@ -40,7 +40,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 @implementation CPNumericData
 
 @synthesize dataType;
-@synthesize dataTypeFormat;
+@dynamic dataTypeFormat;
 @synthesize data;
 @synthesize shape;
 @dynamic numberOfDimensions;
@@ -242,7 +242,8 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 #pragma mark -
 #pragma mark NSCoding
 
--(id)replacementObjectForArchiver:(NSArchiver*)archiver {
+-(id)replacementObjectForCoder:(NSCoder *)aCoder
+{
     return [[[CPSerializedNumericData alloc] initWithData:self.data
 												 dataType:self.dataType
                                                     shape:self.shape]
