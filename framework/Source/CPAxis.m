@@ -462,16 +462,18 @@
     	// Major ticks
         if ( !self.visibleRange || [self.visibleRange contains:pointLocation.decimalValue] ) 
         	[majorLocations addObject:pointLocation];
-        pointLocation = [pointLocation decimalNumberByAdding:interval];
         
         // Minor ticks
-        if ( !minorInterval ) continue;
-        NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
-        for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
-            if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
-            	[minorLocations addObject:minorLocation];
-            minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
+        if ( minorInterval && majorIndex < numPoints - 1) {
+            NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
+            for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
+                if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
+                    [minorLocations addObject:minorLocation];
+                minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
+            }
         }
+        // Prepare for next major tick
+        pointLocation = [pointLocation decimalNumberByAdding:interval];
     }
     
     *newMajorLocations = majorLocations;
@@ -991,7 +993,7 @@
 		
 		if ( majorGridLineStyle ) {
 			if ( self.separateLayers ) {
-				if ( !self.majorGridLines && self.plotArea ) {
+				if ( !self.majorGridLines ) {
 					CPGridLines *gridLines = [[CPGridLines alloc] init];
 					self.majorGridLines = gridLines;
 					[gridLines release];
@@ -1020,7 +1022,7 @@
 		
 		if ( minorGridLineStyle ) {
 			if ( self.separateLayers ) {
-				if ( !self.minorGridLines && self.plotArea ) {
+				if ( !self.minorGridLines ) {
 					CPGridLines *gridLines = [[CPGridLines alloc] init];
 					self.minorGridLines = gridLines;
 					[gridLines release];
@@ -1114,17 +1116,15 @@
 		
 		if ( plotArea ) {
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
-			CPGridLines *gridLines = self.minorGridLines;
-			if ( gridLines ) {
-				[gridLines removeFromSuperlayer];
-				[plotArea.minorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
+			if ( self.minorGridLines ) {
+				[self.minorGridLines removeFromSuperlayer];
+				[plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
-			gridLines = self.majorGridLines;
-			if ( gridLines ) {
-				[gridLines removeFromSuperlayer];
-				[plotArea.majorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
+			if ( self.majorGridLines ) {
+				[self.majorGridLines removeFromSuperlayer];
+				[plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
@@ -1151,21 +1151,11 @@
 			}
 			
 			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
-			CPLayer *titleContentLayer = self.axisTitle.contentLayer;
-			if ( titleContentLayer ) {
-				[titleContentLayer removeFromSuperlayer];
-				[plotArea.axisTitleGroup insertSublayer:titleContentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			if ( self.axisTitle.contentLayer ) {
+				[self.axisTitle.contentLayer removeFromSuperlayer];
+				[plotArea.axisTitleGroup insertSublayer:self.axisTitle.contentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
 			}
 		}
-		else {
-			self.minorGridLines = nil;
-			self.majorGridLines = nil;
-			for ( CPAxisLabel *label in axisLabels ) {
-				[label.contentLayer removeFromSuperlayer];
-			}
-			[self.axisTitle.contentLayer removeFromSuperlayer];
-		}
-
 	}	
 }
 
