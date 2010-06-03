@@ -274,22 +274,16 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					../../framework/iPhoneOnly,
-					../../framework/Source,
-					../../framework,
-				);
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/usr/local/include";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				SDKROOT = iphonesimulator3.0;
+				SYMROOT = build;
 			};
 			name = Debug;
 		};
@@ -302,12 +296,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "../../framework/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/usr/local/include";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
