@@ -141,13 +141,31 @@
  *	@param indexRange The range of the data indexes of interest.
  *	@return An array of data points.
  **/
--(NSArray *)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
+-(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
 {
-    NSArray *numbers;
+    id numbers;  // could be NSArray or NSData
     
     if ( self.dataSource ) {
-        if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
+        if ( [self.dataSource respondsToSelector:@selector(doublesForPlot:field:recordIndexRange:)] ) {
+            numbers = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
+            double *pFieldValues = [numbers mutableBytes] ;
+            double *pDoubleValues = [self.dataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange] ;
+            memcpy( pFieldValues, pDoubleValues, sizeof(double)*indexRange.length ) ;
+            doublePrecisionCache = YES ;
+        }
+        else if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
             numbers = [NSArray arrayWithArray:[self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
+        }
+        else if ( [self.dataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
+            NSUInteger recordIndex;
+            NSMutableData *fieldValues = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
+            double *pFieldValues = [fieldValues mutableBytes] ;
+            for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
+                double number = [self.dataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
+                *pFieldValues++ = number ;
+            }
+            numbers = fieldValues ;
+            doublePrecisionCache = YES ;
         }
         else {
             BOOL respondsToSingleValueSelector = [self.dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
@@ -199,7 +217,7 @@
  *	@param numbers An array of numbers to cache.
  *	@param fieldEnum The field enumerator identifying the field.
  **/
--(void)cacheNumbers:(NSArray *)numbers forField:(NSUInteger)fieldEnum 
+-(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
 	if ( numbers == nil ) return;
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
@@ -210,7 +228,7 @@
  *	@param fieldEnum The field enumerator identifying the field.
  *	@return The array of cached numbers.
  **/
--(NSArray *)cachedNumbersForField:(NSUInteger)fieldEnum 
+-(id)cachedNumbersForField:(NSUInteger)fieldEnum 
 {
     return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
