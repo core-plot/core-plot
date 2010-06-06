@@ -4,25 +4,6 @@
 
 NSString * const CPNumericDataException = @"CPNumericDataException";
 
-@interface CPSerializedNumericData : NSObject <NSCoding> {
-@private
-    NSData *data;
-    CPNumericDataType dataType;
-    NSArray *shape;
-}
-
-@property (assign, readwrite) CPNumericDataType dataType;
-@property (copy, readwrite) NSData *data;
-@property (retain, readwrite) NSArray *shape;
-
--(id)initWithData:(NSData *)data
-		 dataType:(CPNumericDataType)dtype
-            shape:(NSArray *)shape;
-
-@end
-
-#pragma mark -
-
 @interface CPNumericData()
 
 @property (assign, readwrite) CPNumericDataType dataType;
@@ -30,7 +11,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 @property (copy, readwrite) NSArray *shape;
 
 -(void)commonInitWithData:(NSData *)newData
-				 dataType:(CPNumericDataType)dataType
+				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray;
 
 @end
@@ -43,15 +24,20 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 @dynamic dataTypeFormat;
 @synthesize data;
 @synthesize shape;
+@dynamic bytes;
+@dynamic length;
 @dynamic numberOfDimensions;
 @dynamic numberOfSamples;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 +(CPNumericData *)numericDataWithData:(NSData *)newData
-							 dataType:(CPNumericDataType)dataType
+							 dataType:(CPNumericDataType)newDataType
                                 shape:(NSArray *)shapeArray 
 {
     return [[[CPNumericData alloc] initWithData:newData
-									   dataType:dataType
+									   dataType:newDataType
                                           shape:shapeArray]
             autorelease];
 }
@@ -83,11 +69,11 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray
 {
-    self.data = newData;
-    self.dataType = newDataType;
+    data = [newData copy];
+    dataType = newDataType;
     
     if ( shapeArray == nil ) {
-        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
+        shape = [[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]] retain];
     }
 	else {
         NSUInteger prod = 1;
@@ -100,7 +86,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
                         format:@"Shape product (%u) does not match data size (%u)", prod, self.numberOfSamples];
         }
         
-        self.shape = shapeArray;
+        shape = [shapeArray copy];
     }
 }
 
@@ -112,24 +98,27 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark Accessors
+
 -(NSUInteger)numberOfDimensions 
 {
-    return [[self shape] count];
+    return self.shape.count;
 }
 
 -(const void *)bytes 
 {
-    return [[self data] bytes];
+    return self.data.bytes;
 }
 
 -(NSUInteger)length
 {
-    return [[self data] length];
+    return self.data.length;
 }
 
 -(NSUInteger)numberOfSamples
 {
-    return ([self length] / self.dataType.sampleBytes);
+    return (self.length / self.dataType.sampleBytes);
 }
 
 -(CPDataTypeFormat)dataTypeFormat 
@@ -147,6 +136,9 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
     return self.dataType.byteOrder;
 }
 
+#pragma mark -
+#pragma mark Samples
+
 // Implementation generated with CPNumericData+TypeConversion_Generation.py
 -(NSNumber *)sampleValue:(NSUInteger)sample 
 {
@@ -157,7 +149,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
 			break;
 		case CPIntegerDataType:
-			switch( [self sampleBytes] ) {
+			switch( self.sampleBytes ) {
 				case sizeof(char):
 					result = [NSNumber numberWithChar:*(char *)[self samplePointer:sample]];
 					break;
@@ -170,7 +162,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 			}
 			break;
 		case CPUnsignedIntegerDataType:
-			switch( [self sampleBytes] ) {
+			switch( self.sampleBytes ) {
 				case sizeof(unsigned char):
 					result = [NSNumber numberWithUnsignedChar:*(unsigned char *)[self samplePointer:sample]];
 					break;
@@ -183,7 +175,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 			}
 			break;
 		case CPFloatingPointDataType:
-			switch( [self sampleBytes] ) {
+			switch( self.sampleBytes ) {
 				case sizeof(float):
 					result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
 					break;
@@ -203,8 +195,11 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 -(void *)samplePointer:(NSUInteger)sample 
 {
     NSParameterAssert(sample < self.numberOfSamples);
-    return (void*) ((char*)[self bytes] + sample * [self sampleBytes]);
+    return (void*) ((char*)self.bytes + sample * self.sampleBytes);
 }
+
+#pragma mark -
+#pragma mark Description
 
 -(NSString *)description 
 {
@@ -219,7 +214,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 }
 
 #pragma mark -
-#pragma mark NSCopying and NSMutableCopying
+#pragma mark NSMutableCopying
 
 -(id)mutableCopyWithZone:(NSZone *)zone 
 {
@@ -232,6 +227,9 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
                                                              shape:self.shape];
 }
 
+#pragma mark -
+#pragma mark NSCopying
+
 -(id)copyWithZone:(NSZone *)zone
 {
     return [[[self class] allocWithZone:zone] initWithData:self.data
@@ -242,36 +240,6 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 #pragma mark -
 #pragma mark NSCoding
 
--(id)replacementObjectForCoder:(NSCoder *)aCoder
-{
-    return [[[CPSerializedNumericData alloc] initWithData:self.data
-												 dataType:self.dataType
-                                                    shape:self.shape]
-            autorelease];
-}
-
-@end
-
-#pragma mark -
-
-@implementation CPSerializedNumericData
-@synthesize data;
-@synthesize dataType;
-@synthesize shape;
-
--(id)initWithData:(NSData *)newData
-		 dataType:(CPNumericDataType)newDataType
-            shape:(NSArray *)shapeArray
-{
-    if ( self = [super init] ) {
-        self.data = newData;
-        self.dataType = newDataType;
-        self.shape = shapeArray;
-    }
-    
-    return self;
-}
-
 -(void)encodeWithCoder:(NSCoder *)encoder 
 {
     //[super encodeWithCoder:encoder];
@@ -279,18 +247,19 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
     if ( [encoder allowsKeyedCoding] ) {
         [encoder encodeObject:self.data forKey:@"data"];
         
-        [encoder encodeInteger:self.dataType.dataTypeFormat forKey:@"dataType.dataTypeFormat"];
-        [encoder encodeInteger:self.dataType.sampleBytes forKey:@"dataType.sampleBytes"];
-        [encoder encodeInteger:self.dataType.byteOrder forKey:@"dataType.byteOrder"];
+		CPNumericDataType selfDataType = self.dataType;
+		[encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"dataType.dataTypeFormat"];
+        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"dataType.sampleBytes"];
+        [encoder encodeInteger:selfDataType.byteOrder forKey:@"dataType.byteOrder"];
         
         [encoder encodeObject:self.shape forKey:@"shape"];
     }
 	else {
-        CPNumericDataType selfDataType = self.dataType;
-        
         [encoder encodeObject:self.data];
-        [encoder encodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
-        [encoder encodeValueOfObjCType:@encode(NSInteger) at:&(selfDataType.sampleBytes)];
+		
+		CPNumericDataType selfDataType = self.dataType;
+		[encoder encodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
+        [encoder encodeValueOfObjCType:@encode(NSUInteger) at:&(selfDataType.sampleBytes)];
         [encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
         
         [encoder encodeObject:self.shape];
@@ -298,52 +267,35 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
 }
 
 -(id)initWithCoder:(NSCoder *)decoder 
-{    
-    self = [super init]; //initWithCoder:decoder];
-    
-    if ( [decoder allowsKeyedCoding] ) {
-        self.data = [decoder decodeObjectForKey:@"data"];
-        
-        self.dataType = CPDataType([decoder decodeIntegerForKey:@"dataType.dataType"],
-								   [decoder decodeIntegerForKey:@"dataType.sampleBytes"],
-								   [decoder decodeIntegerForKey:@"dataType.byteOrder"]);
-        
-        self.shape = [decoder decodeObjectForKey:@"shape"];
-    }
-	else {
-        self.data = [decoder decodeObject];
-        
-        CPNumericDataType selfDataType;
-        [decoder decodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
-        [decoder decodeValueOfObjCType:@encode(NSInteger) at:&(selfDataType.sampleBytes)];
-        [decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
-        
-        self.dataType = selfDataType;
-        
-        self.shape = [decoder decodeObject];
-    }
-    
+{
+	if ( self = [super init] ) {
+		NSData *newData;
+		CPNumericDataType newDataType;
+		NSArray	*shapeArray;
+		
+		if ( [decoder allowsKeyedCoding] ) {
+			newData = [decoder decodeObjectForKey:@"data"];
+			
+			newDataType = CPDataType([decoder decodeIntegerForKey:@"dataType.dataTypeFormat"],
+									 [decoder decodeIntegerForKey:@"dataType.sampleBytes"],
+									 [decoder decodeIntegerForKey:@"dataType.byteOrder"]);
+			
+			shapeArray = [decoder decodeObjectForKey:@"shape"];
+		}
+		else {
+			newData = [decoder decodeObject];
+			
+			[decoder decodeValueOfObjCType:@encode(CPDataTypeFormat) at:&(newDataType.dataTypeFormat)];
+			[decoder decodeValueOfObjCType:@encode(NSUInteger) at:&(newDataType.sampleBytes)];
+			[decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(newDataType.byteOrder)];
+			
+			shapeArray = [decoder decodeObject];
+		}
+		
+		[self commonInitWithData:newData dataType:newDataType shape:shapeArray];
+	}
+	
     return self;
 }
 
--(id)awakeAfterUsingCoder:(NSCoder *)decoder 
-{
-    CPNumericData *replacement = [[CPNumericData alloc] initWithData:self.data
-															dataType:self.dataType
-                                                               shape:self.shape];
-    
-    [self release];
-    
-    return replacement;
-}
-
--(void)dealloc 
-{
-    [data release];
-    [shape release];
-    
-    [super dealloc];
-}
-
 @end
-

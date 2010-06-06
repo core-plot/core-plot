@@ -71,7 +71,6 @@
 								NSException,
 								CPNumericDataException,
 								@"Illegal shape should throw");
-	
 }
 
 -(void)testReturnsDataLength
@@ -81,11 +80,10 @@
 													  shape:nil];
 	
 	NSUInteger expected = 10*sizeof(float);
-	NSUInteger actual = [nd length];
+	NSUInteger actual = [nd.data length];
 	STAssertEquals(expected, actual, @"data length");
 	
 	[nd release];
-	
 }
 
 -(void)testBytesEqualDataBytes
@@ -102,8 +100,8 @@
 													  shape:nil];
 	
 	NSData *expected = data;
-	STAssertEqualObjects(data, nd, @"equal objects");
-	STAssertTrue([expected isEqualToData:nd], @"data isEqualToData:");
+	STAssertEqualObjects(data, nd.data, @"equal objects");
+	STAssertTrue([expected isEqualToData:nd.data], @"data isEqualToData:");
 	
 	[nd release];
 }	 
@@ -121,9 +119,37 @@
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
+	CPNumericData *nd2 = [NSUnarchiver unarchiveObjectWithData:[NSArchiver archivedDataWithRootObject:nd]];
+	
+	STAssertTrue([nd.data isEqualToData:nd2.data], @"equal data");
+	
+	CPNumericDataType ndType = nd.dataType;
+	CPNumericDataType nd2Type = nd2.dataType;
+	
+	STAssertEquals(ndType.dataTypeFormat, nd2Type.dataTypeFormat, @"dataType.dataTypeFormat equal");
+	STAssertEquals(ndType.sampleBytes, nd2Type.sampleBytes, @"dataType.sampleBytes equal");
+	STAssertEquals(ndType.byteOrder, nd2Type.byteOrder, @"dataType.byteOrder equal");
+	STAssertEqualObjects(nd.shape, nd2.shape, @"shapes equal");
+	
+	[nd release];
+}
+
+-(void)testKeyedArchivingRoundTrip
+{
+	NSUInteger nElems = 10;
+	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
+	float *samples = (float *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < nElems; i++ ) {
+		samples[i] = sin(i);
+	}
+	
+	CPNumericData *nd = [[CPNumericData alloc] initWithData:data
+												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+													  shape:nil];
+	
 	CPNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
 	
-	STAssertTrue([nd isEqualToData:nd2], @"equal data");
+	STAssertTrue([nd.data isEqualToData:nd2.data], @"equal data");
 	
 	CPNumericDataType ndType = nd.dataType;
 	CPNumericDataType nd2Type = nd2.dataType;
@@ -200,9 +226,9 @@
 									   sampleBytes:sizeof(double)
 										 byteOrder:NSHostByteOrder()];
 	
-	NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd, NSHostByteOrder(), NSHostByteOrder());
+	NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd.data, NSHostByteOrder(), NSHostByteOrder());
 	
-	STAssertTrue([dd isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
+	STAssertTrue([dd.data isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
 }
 
 -(void)testSamplePointerCorrect
@@ -218,9 +244,9 @@
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
 	
-	STAssertEquals(((float *)[fd bytes])+4, (float *)[fd samplePointer:4], @"%p,%p",samples+4, (float *)[fd samplePointer:4]);
-	STAssertEquals(((float *)[fd bytes]), (float *)[fd samplePointer:0], @"");
-	STAssertEquals(((float *)[fd bytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
+	STAssertEquals(((float *)[fd.data bytes])+4, (float *)[fd samplePointer:4], @"%p,%p",samples+4, (float *)[fd samplePointer:4]);
+	STAssertEquals(((float *)[fd.data bytes]), (float *)[fd samplePointer:0], @"");
+	STAssertEquals(((float *)[fd.data bytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
 	STAssertThrows([fd samplePointer:nElems], @"too many samples");
 }
 

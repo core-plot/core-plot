@@ -8,8 +8,8 @@
 -(void)testNilShapeGivesSingleDimension 
 {
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:1*sizeof(float)]
-											 dataTypeString:@"=f4"
-													  shape:nil];
+														   dataTypeString:@"=f4"
+																	shape:nil];
 	NSUInteger actual = nd.numberOfDimensions;
 	NSUInteger expected = 1;
 	STAssertEquals(actual, expected, @"numberOfDimensions == 1");
@@ -30,8 +30,8 @@
 	
 	NSUInteger nElems = 2*2*2;
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:shape];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:shape];
 	
 	STAssertEquals(nd.numberOfDimensions, nd.shape.count, @"numberOfDimensions == shape.count == 3");
 	
@@ -42,8 +42,8 @@
 {
 	NSUInteger nElems = 13;
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
-											 dataTypeString:@"=f4"
-													  shape:nil];
+														   dataTypeString:@"=f4"
+																	shape:nil];
 	
 	STAssertEquals(nd.numberOfDimensions, (NSUInteger)1, @"numberOfDimensions == 1");
 	
@@ -66,26 +66,24 @@
 	NSUInteger nElems = 5;
 	
 	STAssertThrowsSpecificNamed([[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(NSUInteger)]
-														   dataType:CPDataType(CPUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder())
-															  shape:shape],
+																  dataType:CPDataType(CPUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder())
+																	 shape:shape],
 								NSException,
 								CPNumericDataException,
 								@"Illegal shape should throw");
-	
 }
 
 -(void)testReturnsDataLength
 {
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:10*sizeof(float)]
-											 dataTypeString:@"=f4"
-													  shape:nil];
+														   dataTypeString:@"=f4"
+																	shape:nil];
 	
 	NSUInteger expected = 10*sizeof(float);
 	NSUInteger actual = [nd length];
 	STAssertEquals(expected, actual, @"data length");
 	
 	[nd release];
-	
 }
 
 -(void)testBytesEqualDataBytes
@@ -98,12 +96,11 @@
 	}
 	
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder())
+																	shape:nil];
 	
-	NSData *expected = data;
-	STAssertEqualObjects(data, nd, @"equal objects");
-	STAssertTrue([expected isEqualToData:nd], @"data isEqualToData:");
+	NSMutableData *expected = data;
+	STAssertTrue([expected isEqualToData:nd.data], @"data isEqualToData:");
 	
 	[nd release];
 }	 
@@ -118,12 +115,12 @@
 	}
 	
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
 	
 	CPMutableNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
 	
-	STAssertTrue([nd isEqualToData:nd2], @"equal data");
+	STAssertTrue([nd.data isEqualToData:nd2.data], @"equal data");
 	
 	CPNumericDataType ndType = nd.dataType;
 	CPNumericDataType nd2Type = nd2.dataType;
@@ -146,8 +143,8 @@
 	}
 	
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
 	
 	STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
 	
@@ -159,8 +156,8 @@
 	}
 	
 	nd = [[CPMutableNumericData alloc] initWithData:data
-									dataType:CPDataType(CPIntegerDataType, sizeof(char), NSHostByteOrder())
-									   shape:nil];
+										   dataType:CPDataType(CPIntegerDataType, sizeof(char), NSHostByteOrder())
+											  shape:nil];
 	
 	STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
 }
@@ -175,35 +172,37 @@
 	}
 	
 	CPMutableNumericData *nd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
 	
 	STAssertEquals([nd dataTypeFormat], CPFloatingPointDataType, @"dataTypeFormat");
 	STAssertEquals([nd sampleBytes], ((NSUInteger)sizeof(float)), @"sampleBytes");
 	STAssertEquals([nd byteOrder], NSHostByteOrder(), @"byteOrder");
 }
 
--(void)testConvertTypeConvertsType
-{
-	NSUInteger nElems = 10;
-	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
-	float *samples = (float *)[data mutableBytes];
-	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
-	}
-	
-	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
-	
-	CPMutableNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
-									   sampleBytes:sizeof(double)
-										 byteOrder:NSHostByteOrder()];
-	
-	NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd, NSHostByteOrder(), NSHostByteOrder());
-	
-	STAssertTrue([dd isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
-}
+/*
+ -(void)testConvertTypeConvertsType
+ {
+ NSUInteger nElems = 10;
+ NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
+ float *samples = (float *)[data mutableBytes];
+ for ( NSUInteger i = 0; i < nElems; i++ ) {
+ samples[i] = sin(i);
+ }
+ 
+ CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
+ dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+ shape:nil];
+ 
+ CPMutableNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
+ sampleBytes:sizeof(double)
+ byteOrder:NSHostByteOrder()];
+ 
+ NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd, NSHostByteOrder(), NSHostByteOrder());
+ 
+ STAssertTrue([dd isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
+ }
+ */
 
 -(void)testSamplePointerCorrect
 {
@@ -215,12 +214,12 @@
 	}
 	
 	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
 	
-	STAssertEquals(((float *)[fd bytes])+4, (float *)[fd samplePointer:4], @"%p,%p",samples+4, (float *)[fd samplePointer:4]);
-	STAssertEquals(((float *)[fd bytes]), (float *)[fd samplePointer:0], @"");
-	STAssertEquals(((float *)[fd bytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
+	STAssertEquals(((float *)[fd mutableBytes])+4, (float *)[fd samplePointer:4], @"%p,%p",samples+4, (float *)[fd samplePointer:4]);
+	STAssertEquals(((float *)[fd mutableBytes]), (float *)[fd samplePointer:0], @"");
+	STAssertEquals(((float *)[fd mutableBytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
 	STAssertThrows([fd samplePointer:nElems], @"too many samples");
 }
 
@@ -234,8 +233,8 @@
 	}
 	
 	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
 	
 	STAssertEqualsWithAccuracy([[fd sampleValue:0] doubleValue], sin(0), 0.01, @"sample value");
 	STAssertEqualsWithAccuracy([[fd sampleValue:1] doubleValue], sin(1), 0.01, @"sample value");

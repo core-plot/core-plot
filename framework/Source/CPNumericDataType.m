@@ -2,10 +2,10 @@
 #import "NSExceptionExtensions.h"
 
 static CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
-static NSInteger SampleBytesForDataTypeString(NSString *dataTypeString);
+static NSUInteger SampleBytesForDataTypeString(NSString *dataTypeString);
 static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
 
-CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder)
+CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder)
 {
     CPNumericDataType result;
     
@@ -15,7 +15,6 @@ CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFB
     
     return result;
 }
-
 
 CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString)
 {
@@ -28,7 +27,6 @@ CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString)
     
     return type;
 }
-
 
 NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
 {
@@ -67,7 +65,6 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
             dataType.sampleBytes];
 }
 
-
 CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
 {
     CPDataTypeFormat result;
@@ -95,7 +92,7 @@ CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
     return result;
 }
 
-NSInteger SampleBytesForDataTypeString(NSString *dataTypeString)
+NSUInteger SampleBytesForDataTypeString(NSString *dataTypeString)
 {
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
     NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];

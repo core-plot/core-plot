@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 
+//	@TODO: add CPDecimalDataType
 typedef enum _CPDataTypeFormat {
     CPUndefinedDataType = 0,
     CPIntegerDataType,
@@ -10,7 +11,7 @@ typedef enum _CPDataTypeFormat {
 
 typedef struct _CPNumericDataType {
     CPDataTypeFormat dataTypeFormat;
-    NSInteger sampleBytes;
+    NSUInteger sampleBytes;
     CFByteOrder byteOrder;
 } CPNumericDataType;
 
@@ -18,7 +19,7 @@ typedef struct _CPNumericDataType {
 extern "C" {
 #endif
     
-    CPNumericDataType CPDataType(CPDataTypeFormat format, NSInteger sampleBytes, CFByteOrder byteOrder);
+    CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder);
     CPNumericDataType CPDataTypeWithDataTypeString(NSString *dtypeString);
     NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType);
     

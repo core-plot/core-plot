@@ -1,27 +1,42 @@
 #import <Foundation/Foundation.h>
 #import "CPNumericDataType.h"
 
-@interface CPMutableNumericData : NSMutableData {
+extern NSString * const CPNumericDataException;
+
+@interface CPMutableNumericData : NSObject <NSCopying, NSMutableCopying, NSCoding> {
 @private
     NSMutableData *data;
     CPNumericDataType dataType;
-    NSArray *shape; //array of dimension shapes (NSNumber<unsigned>)
+    NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
 }
 
+@property (copy, readonly) NSMutableData *data;
 @property (assign, readonly) CPNumericDataType dataType;
-@property (copy, readonly) NSArray *shape;
+@property (copy, readwrite) NSArray *shape;
+
+@property (readonly) void *mutableBytes;
+@property (readonly) NSUInteger length;
+
 @property (readonly) NSUInteger numberOfDimensions;
+@property (readonly) NSUInteger numberOfSamples; //number of samples of dataType
 
-/*!
- @method     
- @abstract   Initialize a CPNumericData object from data, dtype, and shape.
- @discussion Data retained (not copied)
- @throws NSException if shape is non-nil and the product of the shape elements does not match
- the data size (length/sampleBytes(dtype)).
- */
+@property (readonly) CPDataTypeFormat dataTypeFormat;
+@property (readonly) NSUInteger sampleBytes;
+@property (readonly) CFByteOrder byteOrder;
 
--(id)initWithData:(NSMutableData *)newData
++(CPMutableNumericData *)numericDataWithData:(NSData *)newData
+									dataType:(CPNumericDataType)newDataType
+									   shape:(NSArray *)shapeArray;
+
+-(id)initWithData:(NSData *)newData
 		 dataType:(CPNumericDataType)newDataType
             shape:(NSArray *)shapeArray;
+
+-(id)initWithData:(NSData *)newData
+   dataTypeString:(NSString *)newDataTypeString
+            shape:(NSArray *)shapeArray;
+
+-(void *)samplePointer:(NSUInteger)sample;
+-(NSNumber *)sampleValue:(NSUInteger)sample;
 
 @end
