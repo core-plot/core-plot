@@ -23,6 +23,6 @@ done
 
 cd Distribution
 rm -f ../CorePlot.zip
-zip -r ../CorePlot.zip CorePlotSDK
+zip -r ../CorePlot.zip CorePlotSDK ../README.txt
 cd ..
 rm -r Distribution
