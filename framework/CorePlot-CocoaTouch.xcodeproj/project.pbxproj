@@ -809,7 +809,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${SRCROOT}/buildsdk\n./build.sh\nmv CorePlot.zip ~/Desktop";
+			shellScript = "cd ${SRCROOT}/SDKBuild\n./build.sh\nmv CorePlot.zip ~/Desktop";
 		};
 		C3566B7F10EED04900FB3866 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
