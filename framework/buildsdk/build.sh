@@ -22,7 +22,7 @@ for x_sdk in iphoneos iphonesimulator ; do
 done
 
 cd Distribution
-rm -f ../coreplot.zip
-zip -r ../coreplot.zip CorePlotSDK
+rm -f ../CorePlot.zip
+zip -r ../CorePlot.zip CorePlotSDK
 cd ..
 rm -r Distribution
