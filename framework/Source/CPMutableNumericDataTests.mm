@@ -2,6 +2,7 @@
 #import "CPMutableNumericDataTests.h"
 #import "CPNumericData+TypeConversion.h"
 #import "CPNumericDataTypeConversions.h"
+#import "CPExceptions.h"
 
 @implementation CPMutableNumericDataTests
 

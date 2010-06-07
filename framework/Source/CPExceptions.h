@@ -7,4 +7,5 @@
 /// @{
 extern NSString * const CPException;
 extern NSString * const CPDataException;
+extern NSString * const CPNumericDataException;
 /// @}

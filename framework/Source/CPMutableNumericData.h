@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "CPNumericDataType.h"
 
-extern NSString * const CPNumericDataException;
-
 @interface CPMutableNumericData : NSObject <NSCopying, NSMutableCopying, NSCoding> {
 @private
     NSMutableData *data;

@@ -2,8 +2,7 @@
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
 
-NSString * const CPNumericDataException = @"CPNumericDataException";
-
+///	@cond
 @interface CPNumericData()
 
 @property (assign, readwrite) CPNumericDataType dataType;
@@ -15,6 +14,7 @@ NSString * const CPNumericDataException = @"CPNumericDataException";
                     shape:(NSArray *)shapeArray;
 
 @end
+///	@endcond
 
 #pragma mark -
 
