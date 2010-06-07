@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		0760D0F311BD272D00A3C4BD /* Build SDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */;
+			buildPhases = (
+				0760D0F211BD272D00A3C4BD /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Build SDK";
+			productName = "Build SDK";
+		};
 		C3566B8010EED04900FB3866 /* Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C3566B8410EED06800FB3866 /* Build configuration list for PBXAggregateTarget "Documentation" */;
@@ -781,11 +792,25 @@
 			targets = (
 				BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */,
 				C3566B8010EED04900FB3866 /* Documentation */,
+				0760D0F311BD272D00A3C4BD /* Build SDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0760D0F211BD272D00A3C4BD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/buildsdk\n./build.sh\nmv CorePlot.zip ~/Desktop";
+		};
 		C3566B7F10EED04900FB3866 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -874,6 +899,27 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0760D0F411BD272E00A3C4BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build SDK";
+			};
+			name = Debug;
+		};
+		0760D0F511BD272E00A3C4BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build SDK";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		BC9B83480FB8A0A50035D8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -995,6 +1041,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0760D0F411BD272E00A3C4BD /* Debug */,
+				0760D0F511BD272E00A3C4BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BC9B834A0FB8A0AA0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
