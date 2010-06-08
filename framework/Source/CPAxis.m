@@ -399,7 +399,73 @@
 	*newMinorLocations = minorLocations;
 }
 
+
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
+{
+    // cache some values ;
+    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
+    NSUInteger minorTicks = self.minorTicksPerInterval ; 
+    double length = range.lengthDouble ;   
+    
+    // Create sets for locations
+    NSMutableSet *majorLocations = [NSMutableSet set];
+    NSMutableSet *minorLocations = [NSMutableSet set];
+    
+    // Filter troublesome values and return empty sets
+    if ( length == 0 || numTicks == 0 ) {
+       	*newMajorLocations = majorLocations;
+        *newMinorLocations = minorLocations;
+        return;
+    }
+    
+    // Determine interval value
+    double roughInterval = length/numTicks ;
+	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) ) ;    
+    double interval = exponentValue * trunc(roughInterval/exponentValue) ;
+    
+    // Determinie minor interval
+    double minorInterval = interval / (minorTicks + 1) ;
+        
+    // Calculate actual range location and end considering the visible range
+    CPPlotRange *theVisibleRange = self.visibleRange ;
+    double location = range.locationDouble ;
+    double end = location + length ;
+    if ( theVisibleRange ) {
+	    double visibleLocation = theVisibleRange.locationDouble ;
+    	double visibleLength = theVisibleRange.lengthDouble ;
+    	location = (location > visibleLocation ? location : visibleLocation ) ;
+        end = (end < visibleLocation+visibleLength ? end : visibleLocation+visibleLength ) ;
+    }
+    
+    // Determine the initial and final major indexes for the actual visible range
+    NSInteger initialIndex = floor(location/interval) ;  // can be negative
+    NSInteger finalIndex = ceil(end/interval) ;  // can be negative
+    
+    // Iterate through the indexes with visible ticks and build the locations sets
+    NSInteger i ;
+    for ( i = initialIndex ; i <= finalIndex ; i++ ) {
+    	double pointLocation = i * interval ;
+        NSUInteger j ;
+        for ( j = 0 ; j < minorTicks ; j++ ) {
+        	double minorPointLocation = pointLocation + minorInterval * (j+1) ;
+            if ( minorPointLocation < location ) continue ;
+            if ( minorPointLocation > end ) continue ;
+            [minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]] ;
+        }
+        
+        if ( pointLocation < location ) continue ;
+        if ( pointLocation > end ) continue ;
+        [majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]] ;
+    }
+    
+    // Return tick locations sets
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
+}
+
+/*
+-(void)autoGenerateMajorTickLocationsOld:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
     NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:self.preferredNumberOfMajorTicks];
     NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(self.preferredNumberOfMajorTicks + 1) * self.minorTicksPerInterval];
@@ -479,6 +545,7 @@
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
 }
+*/
 
 #pragma mark -
 #pragma mark Labels
