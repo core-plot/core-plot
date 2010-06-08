@@ -149,7 +149,7 @@
 		C308D69B11B0B94700067FE6 /* CPNumericDataTypeConversionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* CPNumericDataTypeConversionTests.mm */; };
 		C308D69E11B0B95800067FE6 /* CPUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */; };
 		C308D69F11B0B96400067FE6 /* CPTextStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36468A90FE5533F0064B186 /* CPTextStyleTests.m */; };
-		C308D6A011B0B97B00067FE6 /* TestNSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */; };
+		C308D6A011B0B97B00067FE6 /* NSExceptionExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF1B104D824900B554F9 /* NSExceptionExtensionsTests.m */; };
 		C308D6A111B0B98600067FE6 /* CPXYPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPXYPlotSpaceTests.m */; };
 		C308D6A211B0B98E00067FE6 /* CPScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBD61110B7E8B00E44D37 /* CPScatterPlotTests.m */; };
 		C308D6A311B0B99600067FE6 /* CPAxisLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD23FFB0FFBE78400ADD2E2 /* CPAxisLabelTests.m */; };
@@ -308,8 +308,8 @@
 		4C97EF11104D819100B554F9 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMutableNumericData.m; sourceTree = "<group>"; };
 		4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSExceptionExtensions.h; sourceTree = "<group>"; };
 		4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSExceptionExtensions.m; sourceTree = "<group>"; };
-		4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNSExceptionExtensions.h; sourceTree = "<group>"; };
-		4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNSExceptionExtensions.m; sourceTree = "<group>"; };
+		4C97EF1A104D824900B554F9 /* NSExceptionExtensionsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSExceptionExtensionsTests.h; sourceTree = "<group>"; };
+		4C97EF1B104D824900B554F9 /* NSExceptionExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSExceptionExtensionsTests.m; sourceTree = "<group>"; };
 		4C97EF4C104D843E00B554F9 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
 		4C993FF00F45EE1600DC824F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4C9A745D0FB24C7200918464 /* CPDataSourceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDataSourceTestCase.h; sourceTree = "<group>"; };
@@ -784,8 +784,8 @@
 		4C97EF18104D822700B554F9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4C97EF1A104D824900B554F9 /* TestNSExceptionExtensions.h */,
-				4C97EF1B104D824900B554F9 /* TestNSExceptionExtensions.m */,
+				4C97EF1A104D824900B554F9 /* NSExceptionExtensionsTests.h */,
+				4C97EF1B104D824900B554F9 /* NSExceptionExtensionsTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1144,7 +1144,7 @@
 				C308D69B11B0B94700067FE6 /* CPNumericDataTypeConversionTests.mm in Sources */,
 				C308D69E11B0B95800067FE6 /* CPUtilitiesTests.m in Sources */,
 				C308D69F11B0B96400067FE6 /* CPTextStyleTests.m in Sources */,
-				C308D6A011B0B97B00067FE6 /* TestNSExceptionExtensions.m in Sources */,
+				C308D6A011B0B97B00067FE6 /* NSExceptionExtensionsTests.m in Sources */,
 				C308D6A111B0B98600067FE6 /* CPXYPlotSpaceTests.m in Sources */,
 				C308D6A211B0B98E00067FE6 /* CPScatterPlotTests.m in Sources */,
 				C308D6A311B0B99600067FE6 /* CPAxisLabelTests.m in Sources */,
