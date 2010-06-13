@@ -4,6 +4,10 @@
 
 @implementation CPNumericData(TypeConversion)
 
+/** @brief Copies the current numeric data and converts the data to a new data type.
+ *  @param newDataType The new data type.
+ *	@return A copy of the current numeric data converted to the new data type.
+ **/
 -(CPNumericData *)dataByConvertingToDataType:(CPNumericDataType)newDataType
 {
     return [self dataByConvertingToType:newDataType.dataTypeFormat
@@ -11,6 +15,12 @@
                               byteOrder:newDataType.byteOrder];
 }
 
+/** @brief Copies the current numeric data and converts the data to a new data type.
+ *  @param newDataType The new data type format.
+ *  @param newSampleBytes The number of bytes used to store each sample.
+ *  @param newByteOrder The new byte order.
+ *	@return A copy of the current numeric data converted to the new data type.
+ **/
 // Code generated with "CPNumericData+TypeConversions_Generation.py"
 -(CPNumericData *)dataByConvertingToType:(CPDataTypeFormat)newDataType
                              sampleBytes:(NSUInteger)newSampleBytes

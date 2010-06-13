@@ -1,7 +1,5 @@
 #import "NSNumberExtensions.h"
 
-/**	@brief Core Plot extensions to NSNumber.
- **/
 @implementation NSNumber(CPExtensions)
 
 /**	@brief Returns the value of the receiver as an NSDecimalNumber.

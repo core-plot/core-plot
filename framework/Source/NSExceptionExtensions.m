@@ -2,6 +2,9 @@
 
 @implementation NSException(CPExtensions)
 
+/**	@brief Raises an NSGenericException with the given format and arguments.
+ *	@param fmt The format string using standard printf formatting codes.
+ **/
 +(void)raiseGenericFormat:(NSString*)fmt,...
 {
 	va_list args;

@@ -18,20 +18,82 @@
 
 #pragma mark -
 
+/** @brief An annotated NSData type.
+ *
+ *	CPNumericData combines a data buffer with information
+ *	about the data (shape, data type, size, etc.).
+ *	The data is assumed to be an array of one or more dimensions
+ *	of a single type of numeric data. Each numeric value in the array,
+ *	which can be more than one byte in size, is referred to as a "sample".
+ *	The structure of this object is similar to the NumPy ndarray
+ *	object.
+ **/
 @implementation CPNumericData
 
-@synthesize dataType;
-@dynamic dataTypeFormat;
+/** @property data
+ *	@brief The data buffer.
+ **/
 @synthesize data;
-@synthesize shape;
+
+/** @property bytes
+ *	@brief Returns a pointer to the data buffer’s contents.
+ **/
 @dynamic bytes;
+
+/** @property length
+ *	@brief Returns the number of bytes contained in the data buffer.
+ **/
 @dynamic length;
+
+/** @property dataType
+ *	@brief The type of data stored in the data buffer.
+ **/
+@synthesize dataType;
+
+/** @property dataTypeFormat
+ *	@brief The format of the data stored in the data buffer.
+ **/
+@dynamic dataTypeFormat;
+
+/** @property sampleBytes
+ *	@brief The number of bytes in a single sample of data.
+ **/
+@dynamic sampleBytes;
+
+/** @property byteOrder
+ *	@brief The byte order used to store each sample in the data buffer.
+ **/
+@dynamic byteOrder;
+
+/** @property shape
+ *	@brief The shape of the data buffer array.
+ *
+ *	The shape describes the dimensions of the sample array stored in
+ *	the data buffer. Each entry in the shape array represents the
+ *	size of the corresponding array dimension and should be an unsigned
+ *	integer encoded in an instance of NSNumber. 
+ **/
+@synthesize shape;
+
+/** @property numberOfDimensions
+ *	@brief The number dimensions in the data buffer array.
+ **/
 @dynamic numberOfDimensions;
+
+/** @property numberOfSamples
+ *	@brief The number of samples of dataType stored in the data buffer.
+ **/
 @dynamic numberOfSamples;
 
 #pragma mark -
-#pragma mark Init/Dealloc
+#pragma mark Factory Methods
 
+/** @brief Creates and returns a new CPNumericData instance.
+ *	@param newData The data buffer.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPNumericData instance.
+ **/
 +(CPNumericData *)numericDataWithData:(NSData *)newData
 							 dataType:(CPNumericDataType)newDataType
                                 shape:(NSArray *)shapeArray 
@@ -43,6 +105,15 @@
 }
 
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
+/** @brief Initializes a newly allocated CPNumericData object with the provided data.
+ *	@param newData The data buffer.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return The initialized CPNumericData instance.
+ **/
 -(id)initWithData:(NSData *)newData
 		 dataType:(CPNumericDataType)newDataType
             shape:(NSArray *)shapeArray 
@@ -56,6 +127,12 @@
     return self;
 }
 
+/** @brief Initializes a newly allocated CPNumericData object with the provided data.
+ *	@param newData The data buffer.
+ *	@param newDataTypeString The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return The initialized CPNumericData instance.
+ **/
 -(id)initWithData:(NSData *)newData
    dataTypeString:(NSString *)newDataTypeString
             shape:(NSArray *)shapeArray 
@@ -139,6 +216,10 @@
 #pragma mark -
 #pragma mark Samples
 
+/**	@brief Gets the value of a given sample in the data buffer.
+ *	@param sample The index into the sample array. The array is treated as if it only has one dimension.
+ *	@return The sample value wrapped in an instance of NSNumber.
+ **/
 // Implementation generated with CPNumericData+TypeConversion_Generation.py
 -(NSNumber *)sampleValue:(NSUInteger)sample 
 {
@@ -192,6 +273,10 @@
     return result;
 }
 
+/**	@brief Gets a pointer to a given sample in the data buffer.
+ *	@param sample The index into the sample array. The array is treated as if it only has one dimension.
+ *	@return A pointer to the sample.
+ **/
 -(void *)samplePointer:(NSUInteger)sample 
 {
     NSParameterAssert(sample < self.numberOfSamples);

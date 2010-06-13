@@ -286,4 +286,10 @@
 		</member>
 	</compound>
 
+	<!-- Core Foundation -->
+	<compound kind="struct">
+		<name>CFByteOrder</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</filename>
+	</compound>
+
 </tagfile>

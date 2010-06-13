@@ -5,6 +5,15 @@ static CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
 static NSUInteger SampleBytesForDataTypeString(NSString *dataTypeString);
 static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
 
+#pragma mark -
+#pragma mark Data type utilities
+
+/**	@brief Initializes a CPNumericDataType struct with the given parameter values.
+ *	@param format The data type format.
+ *	@param sampleBytes The number of bytes in each sample.
+ *	@param byteOrder The byte order used to store the data samples.
+ *	@return The initialized CPNumericDataType struct.
+ **/
 CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder)
 {
     CPNumericDataType result;
@@ -16,6 +25,10 @@ CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CF
     return result;
 }
 
+/**	@brief Initializes a CPNumericDataType struct from a data type string.
+ *	@param dataTypeString The data type string.
+ *	@return The initialized CPNumericDataType struct.
+ **/
 CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString)
 {
     CPNumericDataType type;
@@ -28,6 +41,10 @@ CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString)
     return type;
 }
 
+/**	@brief Generates a string representation of the given data type.
+ *	@param dataType The data type.
+ *	@return The string representation of the given data type.
+ **/
 NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
 {
     NSString *byteOrderString = nil;
@@ -64,6 +81,9 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
             typeString, 
             dataType.sampleBytes];
 }
+
+#pragma mark -
+#pragma mark Private functions
 
 CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
 {

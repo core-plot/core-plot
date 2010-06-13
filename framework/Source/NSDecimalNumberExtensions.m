@@ -1,7 +1,5 @@
 #import "NSDecimalNumberExtensions.h"
 
-/**	@brief Core Plot extensions to NSDecimalNumber.
- **/
 @implementation NSDecimalNumber(CPExtensions)
 
 /**	@brief Returns the approximate value of the receiver as a CGFloat.

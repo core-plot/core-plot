@@ -2,6 +2,7 @@
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
 
+///	@cond
 @interface CPMutableNumericData()
 
 @property (assign, readwrite) CPNumericDataType dataType;
@@ -12,6 +13,7 @@
                     shape:(NSArray *)shapeArray;
 
 @end
+///	@endcond
 
 #pragma mark -
 
