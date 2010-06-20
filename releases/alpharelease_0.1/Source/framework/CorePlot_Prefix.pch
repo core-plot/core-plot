@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'CorePlot' target in the 'CorePlot' project.
+//
+
+#ifdef __OBJC__
+    #include <TargetConditionals.h>
+    #if TARGET_OS_IPHONE // iPhone SDK
+        #import <Foundation/Foundation.h>
+        #import <UIKit/UIKit.h>
+    #else
+        #import <Cocoa/Cocoa.h>
+    #endif
+#endif

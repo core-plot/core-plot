@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'AAPLot' target in the 'AAPLot' project
+//
+
+#define DEBUG (1)
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
