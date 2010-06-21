@@ -181,29 +181,27 @@
 	STAssertEquals([nd byteOrder], NSHostByteOrder(), @"byteOrder");
 }
 
-/*
- -(void)testConvertTypeConvertsType
- {
- NSUInteger nElems = 10;
- NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
- float *samples = (float *)[data mutableBytes];
- for ( NSUInteger i = 0; i < nElems; i++ ) {
- samples[i] = sin(i);
- }
- 
- CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
- dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
- shape:nil];
- 
- CPMutableNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
- sampleBytes:sizeof(double)
- byteOrder:NSHostByteOrder()];
- 
- NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd, NSHostByteOrder(), NSHostByteOrder());
- 
- STAssertTrue([dd isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
- }
- */
+-(void)testConvertTypeConvertsType
+{
+	NSUInteger nElems = 10;
+	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
+	float *samples = (float *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < nElems; i++ ) {
+		samples[i] = sin(i);
+	}
+	
+	CPMutableNumericData *fd = [[CPMutableNumericData alloc] initWithData:data
+																 dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																	shape:nil];
+	
+	CPNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
+											  sampleBytes:sizeof(double)
+												byteOrder:NSHostByteOrder()];
+	
+	NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd.data, NSHostByteOrder(), NSHostByteOrder());
+	
+	STAssertTrue([dd.data isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
+}
 
 -(void)testSamplePointerCorrect
 {

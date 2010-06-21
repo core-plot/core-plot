@@ -2,7 +2,7 @@
 #import "CPNumericDataType.h"
 
 @interface CPNumericData : NSObject <NSCopying, NSMutableCopying, NSCoding> {
-@private
+@protected
     NSData *data;
     CPNumericDataType dataType;
     NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
@@ -34,6 +34,10 @@
 /// @{
 +(CPNumericData *)numericDataWithData:(NSData *)newData
 							 dataType:(CPNumericDataType)newDataType
+                                shape:(NSArray *)shapeArray;
+
++(CPNumericData *)numericDataWithData:(NSData *)newData
+					   dataTypeString:(NSString *)newDataTypeString
                                 shape:(NSArray *)shapeArray;
 ///	@}
 

@@ -5,10 +5,6 @@
 ///	@cond
 @interface CPNumericData()
 
-@property (assign, readwrite) CPNumericDataType dataType;
-@property (copy, readwrite) NSData *data;
-@property (copy, readwrite) NSArray *shape;
-
 -(void)commonInitWithData:(NSData *)newData
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray;
@@ -104,11 +100,26 @@
             autorelease];
 }
 
+/** @brief Creates and returns a new CPNumericData instance.
+ *	@param newData The data buffer.
+ *	@param newDataTypeString The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPNumericData instance.
+ **/
++(CPNumericData *)numericDataWithData:(NSData *)newData
+					   dataTypeString:(NSString *)newDataTypeString
+                                shape:(NSArray *)shapeArray 
+{
+    return [[[CPNumericData alloc] initWithData:newData
+									   dataType:CPDataTypeWithDataTypeString(newDataTypeString)
+                                          shape:shapeArray]
+            autorelease];
+}
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated CPNumericData object with the provided data.
+/** @brief Initializes a newly allocated CPNumericData object with the provided data. This is the designated initializer.
  *	@param newData The data buffer.
  *	@param newDataType The type of data stored in the buffer.
  *	@param shapeArray The shape of the data buffer array.

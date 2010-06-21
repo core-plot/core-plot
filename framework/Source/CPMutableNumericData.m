@@ -5,9 +5,6 @@
 ///	@cond
 @interface CPMutableNumericData()
 
-@property (assign, readwrite) CPNumericDataType dataType;
-@property (copy, readwrite) NSMutableData *data;
-
 -(void)commonInitWithData:(NSData *)newData
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray;
@@ -17,20 +14,42 @@
 
 #pragma mark -
 
+/** @brief An annotated NSMutableData type.
+ *
+ *	CPNumericData combines a mutable data buffer with information
+ *	about the data (shape, data type, size, etc.).
+ *	The data is assumed to be an array of one or more dimensions
+ *	of a single type of numeric data. Each numeric value in the array,
+ *	which can be more than one byte in size, is referred to as a "sample".
+ *	The structure of this object is similar to the NumPy ndarray
+ *	object.
+ **/
 @implementation CPMutableNumericData
 
-@synthesize dataType;
-@dynamic dataTypeFormat;
-@synthesize data;
-@synthesize shape;
+/** @property mutableBytes
+ *	@brief Returns a pointer to the data buffer’s contents.
+ **/
 @dynamic mutableBytes;
-@dynamic length;
-@dynamic numberOfDimensions;
-@dynamic numberOfSamples;
+
+/** @property shape
+ *	@brief The shape of the data buffer array.
+ *
+ *	The shape describes the dimensions of the sample array stored in
+ *	the data buffer. Each entry in the shape array represents the
+ *	size of the corresponding array dimension and should be an unsigned
+ *	integer encoded in an instance of NSNumber. 
+ **/
+@dynamic shape;
 
 #pragma mark -
-#pragma mark Init/Dealloc
+#pragma mark Factory Methods
 
+/** @brief Creates and returns a new CPMutableNumericData instance.
+ *	@param newData The data buffer.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPMutableNumericData instance.
+ **/
 +(CPMutableNumericData *)numericDataWithData:(NSData *)newData
 									dataType:(CPNumericDataType)newDataType
 									   shape:(NSArray *)shapeArray 
@@ -41,7 +60,31 @@
             autorelease];
 }
 
+/** @brief Creates and returns a new CPMutableNumericData instance.
+ *	@param newData The data buffer.
+ *	@param newDataTypeString The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPMutableNumericData instance.
+ **/
++(CPMutableNumericData *)numericDataWithData:(NSData *)newData
+							  dataTypeString:(NSString *)newDataTypeString
+									   shape:(NSArray *)shapeArray 
+{
+    return [[[CPMutableNumericData alloc] initWithData:newData
+											  dataType:CPDataTypeWithDataTypeString(newDataTypeString)
+												 shape:shapeArray]
+            autorelease];
+}
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
+/** @brief Initializes a newly allocated CPMutableNumericData object with the provided data. This is the designated initializer.
+ *	@param newData The data buffer.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return The initialized CPMutableNumericData instance.
+ **/
 -(id)initWithData:(NSData *)newData
 		 dataType:(CPNumericDataType)newDataType
             shape:(NSArray *)shapeArray 
@@ -53,15 +96,6 @@
     }
     
     return self;
-}
-
--(id)initWithData:(NSData *)newData
-   dataTypeString:(NSString *)newDataTypeString
-            shape:(NSArray *)shapeArray 
-{
-    return [self initWithData:newData
-					 dataType:CPDataTypeWithDataTypeString(newDataTypeString)
-                        shape:shapeArray];
 }
 
 -(void)commonInitWithData:(NSData *)newData
@@ -89,112 +123,12 @@
     }
 }
 
--(void)dealloc 
-{
-    [data release];
-    [shape release];
-    
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Accessors
 
--(NSUInteger)numberOfDimensions 
-{
-    return self.shape.count;
-}
-
 -(const void *)mutableBytes 
 {
-    return self.data.mutableBytes;
-}
-
--(NSUInteger)length
-{
-    return self.data.length;
-}
-
--(NSUInteger)numberOfSamples
-{
-    return (self.length / self.dataType.sampleBytes);
-}
-
--(CPDataTypeFormat)dataTypeFormat 
-{
-    return self.dataType.dataTypeFormat;
-}
-
--(NSUInteger)sampleBytes 
-{
-    return self.dataType.sampleBytes;
-}
-
--(CFByteOrder)byteOrder
-{
-    return self.dataType.byteOrder;
-}
-
-#pragma mark -
-#pragma mark Samples
-
-// Implementation generated with CPNumericData+TypeConversion_Generation.py
--(NSNumber *)sampleValue:(NSUInteger)sample 
-{
-    NSNumber *result = nil;
-    
-	switch( [self dataTypeFormat] ) {
-		case CPUndefinedDataType:
-			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
-			break;
-		case CPIntegerDataType:
-			switch( self.sampleBytes ) {
-				case sizeof(char):
-					result = [NSNumber numberWithChar:*(char *)[self samplePointer:sample]];
-					break;
-				case sizeof(short):
-					result = [NSNumber numberWithShort:*(short *)[self samplePointer:sample]];
-					break;
-				case sizeof(NSInteger):
-					result = [NSNumber numberWithInteger:*(NSInteger *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPUnsignedIntegerDataType:
-			switch( self.sampleBytes ) {
-				case sizeof(unsigned char):
-					result = [NSNumber numberWithUnsignedChar:*(unsigned char *)[self samplePointer:sample]];
-					break;
-				case sizeof(unsigned short):
-					result = [NSNumber numberWithUnsignedShort:*(unsigned short *)[self samplePointer:sample]];
-					break;
-				case sizeof(NSUInteger):
-					result = [NSNumber numberWithUnsignedInteger:*(NSUInteger *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPFloatingPointDataType:
-			switch( self.sampleBytes ) {
-				case sizeof(float):
-					result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
-					break;
-				case sizeof(double):
-					result = [NSNumber numberWithDouble:*(double *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPComplexFloatingPointDataType:
-			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPComplexFloatingPointDataType)"];
-			break;
-	}
-    
-    return result;
-}
-
--(void *)samplePointer:(NSUInteger)sample 
-{
-    NSParameterAssert(sample < self.numberOfSamples);
-    return (void*) ((char*)self.mutableBytes + sample * self.sampleBytes);
+	return [(NSMutableData *)self.data mutableBytes];
 }
 
 #pragma mark -
