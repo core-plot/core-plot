@@ -388,11 +388,17 @@
 	subLayerSize.height -= self.paddingTop + bottomPadding;
 	subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
+    NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
-		if ([subLayer isKindOfClass:[CPLayer class]]) {
+		if (![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPLayer class]]) {
             subLayer.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
 		}
 	}
+}
+
+-(NSSet *)sublayersExcludedFromAutomaticLayout 
+{
+    return [NSSet set];
 }
 
 #pragma mark -

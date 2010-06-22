@@ -35,4 +35,13 @@
     [mutableAnnotations removeObject:annotation];
 }
 
+-(NSSet *)sublayersExcludedFromAutomaticLayout 
+{
+	NSMutableSet *layers = [NSMutableSet set];
+    for ( CPAnnotation *annotation in mutableAnnotations ) {
+        [layers addObject:annotation.contentLayer];
+    }
+    return layers;
+}
+
 @end

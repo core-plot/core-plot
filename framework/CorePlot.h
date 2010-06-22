@@ -1,6 +1,8 @@
 #import <CorePlot/CPAnimation.h>
 #import <CorePlot/CPAnimationKeyFrame.h>
 #import <CorePlot/CPAnimationTransition.h>
+#import <CorePlot/CPAnnotation.h>
+#import <CorePlot/CPAnnotationLayer.h>
 #import <CorePlot/CPAxis.h>
 #import <CorePlot/CPAxisLabel.h>
 #import <CorePlot/CPAxisLabelGroup.h>
@@ -21,6 +23,7 @@
 #import <CorePlot/CPGridLines.h>
 #import <CorePlot/CPImage.h>
 #import <CorePlot/CPLayer.h>
+#import <CorePlot/CPLayerAnnotation.h>
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPPieChart.h>

@@ -45,6 +45,7 @@
 /// @name Layout
 /// @{
 @property (readwrite, retain) id <CPLayoutManager> layoutManager;
+@property (readonly) NSSet *sublayersExcludedFromAutomaticLayout;
 ///	@}
 
 /// @name Initialization

@@ -78,6 +78,20 @@ typedef struct _CPConstraints {
 	CPConstraint upper;	///< The constraint on the upper range.
 } CPConstraints;
 
+/**
+ *	@brief Locations around the edge of a rect
+ **/
+typedef enum _CPRectAnchor {
+	CPRectAnchorBottomLeft,		///< The bottom left corner
+	CPRectAnchorBottom,			///< The bottom center
+	CPRectAnchorBottomRight,	///< The bottom right corner
+	CPRectAnchorLeft,			///< The left middle
+	CPRectAnchorRight,			///< The right middle
+	CPRectAnchorTopLeft,		///< The top left corner
+	CPRectAnchorTop,			///< The top center
+    CPRectAnchorTopRight,		///< The top right
+    CPRectAnchorCenter			///< The center of the rect
+} CPRectAnchor;
 
 /// @name Default Z Positions
 /// @{

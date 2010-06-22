@@ -58,19 +58,19 @@
     switch ( newAlignment ) {
         case CPAlignmentLeft:
         case CPAlignmentBottom:
-            newPosition = lowerBound;
+            newPosition = newLowerBound;
             lowerConstraint = CPConstraintFixed;
             upperConstraint = CPConstraintNone;
             break;
         case CPAlignmentRight:
         case CPAlignmentTop:
-            newPosition = upperBound;
+            newPosition = newUpperBound;
             lowerConstraint = CPConstraintNone;
             upperConstraint = CPConstraintFixed;
             break;
         case CPAlignmentCenter:
         case CPAlignmentMiddle:
-            newPosition = (upperBound - lowerBound) * 0.5 + lowerBound;
+            newPosition = (newUpperBound - newLowerBound) * 0.5 + newLowerBound;
             lowerConstraint = CPConstraintNone;
             upperConstraint = CPConstraintNone;
             break;

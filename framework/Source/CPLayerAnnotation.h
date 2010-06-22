@@ -9,10 +9,12 @@
 	CPLayer *referenceLayer;
 	CPConstrainedPosition *xConstrainedPosition;
     CPConstrainedPosition *yConstrainedPosition;
+    CPRectAnchor rectAnchor;
 }
 
 @property (readonly, assign) CPLayer *referenceLayer;
+@property (readwrite, assign) CPRectAnchor rectAnchor;
 
--(id)initWithReferenceLayer:(CPLayer *)referenceLayer layerEdge:(CGRectEdge)edge alignment:(CPAlignment)alignment;
+-(id)initWithReferenceLayer:(CPLayer *)referenceLayer;
 
 @end
