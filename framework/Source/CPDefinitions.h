@@ -88,6 +88,5 @@ extern const CGFloat CPDefaultZPositionPlot;
 extern const CGFloat CPDefaultZPositionPlotArea; 
 extern const CGFloat CPDefaultZPositionPlotAreaFrame; 
 extern const CGFloat CPDefaultZPositionPlotGroup; 
-extern const CGFloat CPDefaultZPositionPlotSpace;
 /// @}
 
