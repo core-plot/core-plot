@@ -67,24 +67,21 @@
 
 -(void)layoutSublayers 
 {
-	[super layoutSublayers];
-	
 	CPPlotArea *thePlotArea = self.plotArea;
 	if ( thePlotArea ) {
+		CGFloat leftPadding = self.paddingLeft;
+		CGFloat bottomPadding = self.paddingBottom;
+
 		CGRect selfBounds = self.bounds;
 		CGSize subLayerSize = selfBounds.size;
 		CGFloat lineWidth = self.borderLineStyle.lineWidth;
 		
-		subLayerSize.width -= self.paddingLeft + self.paddingRight + lineWidth;
+		subLayerSize.width -= leftPadding + self.paddingRight + lineWidth;
 		subLayerSize.width = MAX(subLayerSize.width, 0.0);
-		subLayerSize.height -= self.paddingTop + self.paddingBottom + lineWidth;
+		subLayerSize.height -= self.paddingTop + bottomPadding + lineWidth;
 		subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
-		CGRect subLayerBounds = thePlotArea.bounds;
-		subLayerBounds.size = subLayerSize;
-		thePlotArea.bounds = subLayerBounds;
-		thePlotArea.anchorPoint = CGPointZero;
-		thePlotArea.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y + self.paddingBottom);
+		thePlotArea.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
 	}
 }
 

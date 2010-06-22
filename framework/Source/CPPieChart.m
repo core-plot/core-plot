@@ -144,15 +144,6 @@ static CGFloat colorLookupTable[10][3] =
 }
 
 #pragma mark -
-#pragma mark Layout
-
--(void)layoutSublayers 
-{
-    [super layoutSublayers];
-//    [self addLabelLayers];
-}
-
-#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)context
