@@ -5,7 +5,7 @@
 @class CPPlotArea;
 
 @interface CPPlotAreaFrame : CPBorderedLayer {
-@private
+	@private
     CPPlotArea *plotArea;
 }
 

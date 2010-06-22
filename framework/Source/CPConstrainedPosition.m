@@ -1,4 +1,5 @@
 #import "CPConstrainedPosition.h"
+#import "CPExceptions.h"
 
 /**	@brief Implements a spring and strut positioning algorithm for one dimension.
  **/
@@ -41,6 +42,48 @@
         constraints.lower = CPConstraintNone;
         constraints.upper = CPConstraintNone;
     }
+    return self;
+}
+
+/** @brief Initializes a newly allocated CPConstrainedPosition object with the provided alignment and bounds. 
+ *	@param newAlignment The alignment.
+ *	@param newLowerBound The lower bound.
+ *	@param newUpperBound The upper bound.
+ **/
+-(id)initWithAlignment:(CPAlignment)newAlignment lowerBound:(CGFloat)newLowerBound upperBound:(CGFloat)newUpperBound
+{
+	CGFloat newPosition;
+    CPConstraint lowerConstraint;
+    CPConstraint upperConstraint;
+    switch ( newAlignment ) {
+        case CPAlignmentLeft:
+        case CPAlignmentBottom:
+            newPosition = lowerBound;
+            lowerConstraint = CPConstraintFixed;
+            upperConstraint = CPConstraintNone;
+            break;
+        case CPAlignmentRight:
+        case CPAlignmentTop:
+            newPosition = upperBound;
+            lowerConstraint = CPConstraintNone;
+            upperConstraint = CPConstraintFixed;
+            break;
+        case CPAlignmentCenter:
+        case CPAlignmentMiddle:
+            newPosition = (upperBound - lowerBound) * 0.5 + lowerBound;
+            lowerConstraint = CPConstraintNone;
+            upperConstraint = CPConstraintNone;
+            break;
+        default:
+        	[NSException raise:CPException format:@"Invalid alignment in initWithAlignment..."];
+            break;
+    }
+    
+    if ( self = [self initWithPosition:newPosition lowerBound:newLowerBound upperBound:newUpperBound] ) {
+        constraints.lower = lowerConstraint;
+        constraints.upper = upperConstraint;
+    }
+    
     return self;
 }
 
