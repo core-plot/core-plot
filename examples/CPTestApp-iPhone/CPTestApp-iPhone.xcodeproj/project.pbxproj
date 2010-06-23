@@ -273,16 +273,9 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					../../framework/iPhoneOnly,
-					../../framework/Source,
-					../../framework,
-				);
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -299,12 +292,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "../../framework/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -323,7 +313,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../framework//**";
+				HEADER_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
@@ -341,7 +331,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../framework/;
+				HEADER_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
