@@ -47,8 +47,8 @@
 		070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B829F0FB89E610035D8DA /* CPTextLayer.m */; };
 		0718DE4D11D1EDBA00AF4851 /* CPAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0718DE4E11D1EDBA00AF4851 /* CPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */; };
-		0718DE4F11D1EDBA00AF4851 /* CPAnnotationLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4711D1EDBA00AF4851 /* CPAnnotationLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0718DE5011D1EDBA00AF4851 /* CPAnnotationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4811D1EDBA00AF4851 /* CPAnnotationLayer.m */; };
+		0718DE4F11D1EDBA00AF4851 /* CPAnnotationHostLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0718DE5011D1EDBA00AF4851 /* CPAnnotationHostLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */; };
 		0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */; };
 		0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -182,8 +182,8 @@
 		070CB83E0FC9DED400F3152B /* CPAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAxisSet.m; path = Source/CPAxisSet.m; sourceTree = "<group>"; };
 		0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnnotation.h; path = Source/CPAnnotation.h; sourceTree = "<group>"; };
 		0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnnotation.m; path = Source/CPAnnotation.m; sourceTree = "<group>"; };
-		0718DE4711D1EDBA00AF4851 /* CPAnnotationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnnotationLayer.h; path = Source/CPAnnotationLayer.h; sourceTree = "<group>"; };
-		0718DE4811D1EDBA00AF4851 /* CPAnnotationLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnnotationLayer.m; path = Source/CPAnnotationLayer.m; sourceTree = "<group>"; };
+		0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnnotationHostLayer.h; path = Source/CPAnnotationHostLayer.h; sourceTree = "<group>"; };
+		0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnnotationHostLayer.m; path = Source/CPAnnotationHostLayer.m; sourceTree = "<group>"; };
 		0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayerAnnotation.h; path = Source/CPLayerAnnotation.h; sourceTree = "<group>"; };
 		0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayerAnnotation.m; path = Source/CPLayerAnnotation.m; sourceTree = "<group>"; };
 		0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSpaceAnnotation.h; path = Source/CPPlotSpaceAnnotation.h; sourceTree = "<group>"; };
@@ -388,8 +388,8 @@
 			children = (
 				0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */,
 				0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */,
-				0718DE4711D1EDBA00AF4851 /* CPAnnotationLayer.h */,
-				0718DE4811D1EDBA00AF4851 /* CPAnnotationLayer.m */,
+				0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */,
+				0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */,
 				0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */,
 				0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */,
 				0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */,
@@ -524,7 +524,6 @@
 				C3B623A9107EC5460009EF0B /* Layout */,
 				070CB8100FC9DDED00F3152B /* Text */,
 				070CB80F0FC9DDD500F3152B /* Drawing */,
-				BC9B82AD0FB89E610035D8DA /* Value Transformers */,
 				07A2E717102DF9A500809BC5 /* Formatters */,
 				BC9B82B00FB89E610035D8DA /* Categories */,
 				BC9B82B50FB89E610035D8DA /* Graphs */,
@@ -566,13 +565,6 @@
 				BC9B82AC0FB89E610035D8DA /* CPPlotRange.m */,
 			);
 			name = "Types and Functions";
-			sourceTree = SOURCE_ROOT;
-		};
-		BC9B82AD0FB89E610035D8DA /* Value Transformers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Value Transformers";
 			sourceTree = SOURCE_ROOT;
 		};
 		BC9B82B00FB89E610035D8DA /* Categories */ = {
@@ -788,7 +780,7 @@
 				C35A66071102723E00FE24BB /* CPTextStylePlatformSpecific.h in Headers */,
 				C38DD49711A04B99002A68E7 /* CPGridLineGroup.h in Headers */,
 				0718DE4D11D1EDBA00AF4851 /* CPAnnotation.h in Headers */,
-				0718DE4F11D1EDBA00AF4851 /* CPAnnotationLayer.h in Headers */,
+				0718DE4F11D1EDBA00AF4851 /* CPAnnotationHostLayer.h in Headers */,
 				0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */,
 				0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */,
 			);
@@ -930,7 +922,7 @@
 				C35A66081102723E00FE24BB /* CPTextStylePlatformSpecific.m in Sources */,
 				C38DD49811A04B99002A68E7 /* CPGridLineGroup.m in Sources */,
 				0718DE4E11D1EDBA00AF4851 /* CPAnnotation.m in Sources */,
-				0718DE5011D1EDBA00AF4851 /* CPAnnotationLayer.m in Sources */,
+				0718DE5011D1EDBA00AF4851 /* CPAnnotationHostLayer.m in Sources */,
 				0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */,
 				0718DE5411D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m in Sources */,
 			);

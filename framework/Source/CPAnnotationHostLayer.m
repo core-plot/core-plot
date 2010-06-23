@@ -1,8 +1,15 @@
 
-#import "CPAnnotationLayer.h"
+#import "CPAnnotationHostLayer.h"
 #import "CPAnnotation.h"
 
-@implementation CPAnnotationLayer
+/** @brief An annotation host layer is a container layer for annotations
+ *
+ *  Annotations can be added to and removed from an annotation layer.
+ *
+ * @todo More documentation needed 
+ **/
+
+@implementation CPAnnotationHostLayer
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -26,12 +33,12 @@
 -(void)addAnnotation:(CPAnnotation *)annotation 
 {
     [mutableAnnotations addObject:annotation];
-    annotation.annotationLayer = self;
+    annotation.annotationHostLayer = self;
 }
 
 -(void)removeAnnotation:(CPAnnotation *)annotation
 {
-    annotation.annotationLayer = nil;
+    annotation.annotationHostLayer = nil;
     [mutableAnnotations removeObject:annotation];
 }
 

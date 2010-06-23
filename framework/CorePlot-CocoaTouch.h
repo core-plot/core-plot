@@ -2,7 +2,7 @@
 #import "Source/CPAnimationKeyFrame.h"
 #import "Source/CPAnimationTransition.h"
 #import "Source/CPAnnotation.h"
-#import "Source/CPAnnotationLayer.h"
+#import "Source/CPAnnotationHostLayer.h"
 #import "Source/CPAxis.h"
 #import "Source/CPAxisLabel.h"
 #import "Source/CPAxisLabelGroup.h"

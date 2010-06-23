@@ -1,6 +1,6 @@
 
 #import "CPLayerAnnotation.h"
-#import "CPAnnotationLayer.h"
+#import "CPAnnotationHostLayer.h"
 #import "CPConstrainedPosition.h"
 #import "CPLayer.h"
 
@@ -11,6 +11,8 @@
 
 -(void)setConstraints
 {
+	if ( CGRectIsEmpty(referenceLayer.bounds) ) return;
+    
     CPAlignment xAlign, yAlign;
     switch ( rectAnchor ) {
         case CPRectAnchorRight:
@@ -80,12 +82,13 @@
 
 -(void)positionContentLayer
 {
+	if ( !xConstrainedPosition ) [self setConstraints];
 	xConstrainedPosition.lowerBound = CGRectGetMinX(referenceLayer.bounds);
     xConstrainedPosition.upperBound = CGRectGetMaxX(referenceLayer.bounds);
     yConstrainedPosition.lowerBound = CGRectGetMinY(referenceLayer.bounds);
     yConstrainedPosition.upperBound = CGRectGetMaxY(referenceLayer.bounds);
     CGPoint referencePoint = CGPointMake(xConstrainedPosition.position, yConstrainedPosition.position);
-    CGPoint point = [referenceLayer convertPoint:referencePoint toLayer:self.annotationLayer];
+    CGPoint point = [referenceLayer convertPoint:referencePoint toLayer:self.annotationHostLayer];
     point.x = roundf(point.x + displacement.x);
     point.y = roundf(point.y + displacement.y);
     self.contentLayer.position = point;

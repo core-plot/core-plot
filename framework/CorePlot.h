@@ -2,7 +2,7 @@
 #import <CorePlot/CPAnimationKeyFrame.h>
 #import <CorePlot/CPAnimationTransition.h>
 #import <CorePlot/CPAnnotation.h>
-#import <CorePlot/CPAnnotationLayer.h>
+#import <CorePlot/CPAnnotationHostLayer.h>
 #import <CorePlot/CPAxis.h>
 #import <CorePlot/CPAxisLabel.h>
 #import <CorePlot/CPAxisLabelGroup.h>

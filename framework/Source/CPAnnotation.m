@@ -1,19 +1,26 @@
 
 #import "CPAnnotation.h"
 #import "CPLayer.h"
-#import "CPAnnotationLayer.h"
+#import "CPAnnotationHostLayer.h"
 
-
+/** @brief An annotation positions a content layer relative to some anchor point
+ *
+ *  Annotations can be used to add text or images that are anchored to a feature
+ *  of a graph. For example, the graph title is an annotation anchored to the 
+ *  plot area frame.
+ *
+ * @todo More documentation needed 
+ **/
+ 
 @implementation CPAnnotation
 
 @synthesize contentLayer;
-@synthesize annotationLayer;
+@synthesize annotationHostLayer;
 @synthesize displacement;
 
--(id)initWithAnnotationLayer:(CPLayer *)newAnnotationLayer
+-(id)init
 {
     if ( self = [super init] ) {
-    	annotationLayer = [newAnnotationLayer retain];
         displacement = CGPointZero;
     }
     return self;
@@ -22,7 +29,7 @@
 -(void)dealloc
 {
 	self.contentLayer = nil;
-    [annotationLayer release];
+    [annotationHostLayer release];
     [super dealloc];
 }
 
@@ -32,18 +39,18 @@
     	[contentLayer removeFromSuperlayer];
         [contentLayer release];
         contentLayer = [newLayer retain];
-        [annotationLayer addSublayer:contentLayer];
+        [annotationHostLayer addSublayer:contentLayer];
         [self positionContentLayer];
     }
 }
 
--(void)setAnnotationLayer:(CPAnnotationLayer *)newLayer 
+-(void)setAnnotationHostLayer:(CPAnnotationHostLayer *)newLayer 
 {
-    if ( newLayer != annotationLayer ) {
+    if ( newLayer != annotationHostLayer ) {
     	[contentLayer removeFromSuperlayer];
-        [annotationLayer release];
-        annotationLayer = [newLayer retain];
-        [annotationLayer addSublayer:contentLayer];
+        [annotationHostLayer release];
+        annotationHostLayer = [newLayer retain];
+        [annotationHostLayer addSublayer:contentLayer];
         [self positionContentLayer];
     }
 }

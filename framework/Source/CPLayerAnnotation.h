@@ -4,6 +4,7 @@
 #import "CPAnnotation.h"
 #import "CPConstrainedPosition.h"
 
+///	@file
 
 @interface CPLayerAnnotation : CPAnnotation {
 	CPLayer *referenceLayer;

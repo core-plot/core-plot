@@ -1,9 +1,11 @@
 
 #import "CPBorderedLayer.h"
 
+///	@file
+
 @class CPAnnotation;
 
-@interface CPAnnotationLayer : CPBorderedLayer {
+@interface CPAnnotationHostLayer : CPBorderedLayer {
 	NSMutableArray *mutableAnnotations;
 }
 
