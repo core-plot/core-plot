@@ -130,6 +130,17 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
+        
+        // Screen scaling
+        if ([self respondsToSelector:@selector(setContentsScale:)])
+        {
+            Class screenClass = NSClassFromString(@"UIScreen");
+            if ( screenClass != Nil)
+            {
+            	id scale = [[screenClass mainScreen] valueForKey:@"scale"];	
+                [(id)self setValue:scale forKey:@"contentsScale"]; 
+            }
+        }
     }
 	return self;
 }
