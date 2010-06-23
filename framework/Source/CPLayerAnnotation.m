@@ -92,6 +92,7 @@
     point.x = roundf(point.x + displacement.x);
     point.y = roundf(point.y + displacement.y);
     self.contentLayer.position = point;
+    [self.contentLayer pixelAlign];
 }
 
 -(void)setRectAnchor:(CPRectAnchor)newAnchor 

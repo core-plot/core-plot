@@ -11,6 +11,11 @@ void CPPushCGContext(CGContextRef context);
 void CPPopCGContext(void);
 ///	@}
 
+/// @name Graphics Context
+/// @{
+CGContextRef CPGetCurrentContext(void);
+/// @}
+
 /// @name Color Conversion
 /// @{
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);

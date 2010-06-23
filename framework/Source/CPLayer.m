@@ -333,6 +333,17 @@
 #pragma mark -
 #pragma mark Layout
 
+-(void)pixelAlign
+{
+    CGSize currentSize = self.bounds.size;
+    CGPoint currentPosition = self.position;
+	CGPoint anchor = self.anchorPoint;  
+    CGPoint newPosition = self.position;  
+    newPosition.x = roundf(currentPosition.x) - roundf(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+    newPosition.y = roundf(currentPosition.y) - roundf(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+    self.position = newPosition;
+}
+
 -(void)setPaddingLeft:(CGFloat)newPadding 
 {
     if ( newPadding != paddingLeft ) {

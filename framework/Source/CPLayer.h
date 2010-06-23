@@ -70,6 +70,7 @@
 /// @name Layout
 /// @{
 +(CGFloat)defaultZPosition;
+-(void)pixelAlign;
 ///	@}
 
 /// @name Bindings

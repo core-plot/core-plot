@@ -13,3 +13,7 @@ void CPPopCGContext(void)
     UIGraphicsPopContext();
 }
 
+CGContextRef CPGetCurrentContext(void)
+{
+    return UIGraphicsGetCurrentContext();
+}

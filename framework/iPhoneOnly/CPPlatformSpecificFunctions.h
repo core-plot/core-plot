@@ -4,3 +4,5 @@
 
 void CPPushCGContext(CGContextRef context);
 void CPPopCGContext(void);
+
+CGContextRef CPGetCurrentContext(void);
