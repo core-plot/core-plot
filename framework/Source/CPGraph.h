@@ -31,7 +31,7 @@ typedef enum _CPGraphLayerType {
     NSMutableArray *plotSpaces;
     NSString *title;
     CPTextStyle *titleTextStyle;
-    CPRectAnchor titleEdgeLocation;
+    CPRectAnchor titlePlotAreaFrameAnchor;
     CGPoint titleDisplacement;
     CPLayerAnnotation *titleAnnotation;
 }
@@ -39,7 +39,7 @@ typedef enum _CPGraphLayerType {
 @property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, assign) CGPoint titleDisplacement;
-@property (nonatomic, readwrite, assign) CPRectAnchor titleEdgeLocation;
+@property (nonatomic, readwrite, assign) CPRectAnchor titlePlotAreaFrameAnchor;
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;

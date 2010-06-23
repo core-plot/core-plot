@@ -44,4 +44,12 @@
     return layers;
 }
 
+-(void)layoutSublayers
+{
+    [super layoutSublayers];
+    for ( CPAnnotation *annotation in mutableAnnotations ) {
+    	[annotation positionContentLayer];
+	}
+}
+
 @end

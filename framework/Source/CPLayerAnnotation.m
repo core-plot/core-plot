@@ -4,9 +4,6 @@
 #import "CPConstrainedPosition.h"
 #import "CPLayer.h"
 
-static NSString *CPReferenceLayerFrameContext = @"CPReferenceLayerFrameContext";
-
-
 @implementation CPLayerAnnotation
 
 @synthesize referenceLayer;
@@ -69,31 +66,19 @@ static NSString *CPReferenceLayerFrameContext = @"CPReferenceLayerFrameContext";
         referenceLayer = newReferenceLayer;
         rectAnchor = CPRectAnchorTop;
         [self setConstraints];
-        [referenceLayer addObserver:self forKeyPath:@"frame" options:0 context:CPReferenceLayerFrameContext];
     }
     return self;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ( context == CPReferenceLayerFrameContext ) {
-        [self updateContentLayer];
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
 -(void)dealloc
 {
-	[referenceLayer removeObserver:self forKeyPath:@"frame"];
 	referenceLayer = nil;
     [xConstrainedPosition release];
     [yConstrainedPosition release];
     [super dealloc];
 }
 
--(void)updateContentLayer
+-(void)positionContentLayer
 {
 	xConstrainedPosition.lowerBound = CGRectGetMinX(referenceLayer.bounds);
     xConstrainedPosition.upperBound = CGRectGetMaxX(referenceLayer.bounds);
@@ -101,8 +86,8 @@ static NSString *CPReferenceLayerFrameContext = @"CPReferenceLayerFrameContext";
     yConstrainedPosition.upperBound = CGRectGetMaxY(referenceLayer.bounds);
     CGPoint referencePoint = CGPointMake(xConstrainedPosition.position, yConstrainedPosition.position);
     CGPoint point = [referenceLayer convertPoint:referencePoint toLayer:self.annotationLayer];
-    point.x = roundf(point.x);
-    point.y = roundf(point.y);
+    point.x = roundf(point.x + displacement.x);
+    point.y = roundf(point.y + displacement.y);
     self.contentLayer.position = point;
 }
 
@@ -111,7 +96,7 @@ static NSString *CPReferenceLayerFrameContext = @"CPReferenceLayerFrameContext";
     if ( newAnchor != rectAnchor ) {
         rectAnchor = newAnchor;
         [self setConstraints];
-        [self updateContentLayer];
+        [self positionContentLayer];
     }
 }
 

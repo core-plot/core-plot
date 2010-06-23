@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-
+#import <QuartzCore/QuartzCore.h>
 
 @class CPAnnotationLayer;
 @class CPLayer;
@@ -16,11 +16,6 @@
 @property (nonatomic, readwrite, assign) CPAnnotationLayer *annotationLayer;
 @property (nonatomic, readwrite, assign) CGPoint displacement;
 
-@end
-
-
-@interface CPAnnotation (Abstract)
-
--(void)updateContentLayer;
+-(void)positionContentLayer;
 
 @end

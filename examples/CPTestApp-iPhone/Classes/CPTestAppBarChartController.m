@@ -27,7 +27,16 @@
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
     barChart.plotAreaFrame.masksToBorder = NO;
+    
+    // Graph title
+    barChart.title = @"Graph Title";
+    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    textStyle.color = [CPColor grayColor];
+    textStyle.fontSize = 18.0f;
+    barChart.titleTextStyle = textStyle;
+    barChart.titleDisplacement = CGPointMake(0.0f, 20.0f);
 	
+    // Paddings
     barChart.paddingLeft = 70.0;
 	barChart.paddingTop = 20.0;
 	barChart.paddingRight = 20.0;

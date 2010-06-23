@@ -34,13 +34,14 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	hostView.hostedLayer = graph;
     
     // Graph title
-    graph.title = @"Test";
+    graph.title = @"This is the Graph Title";
     CPTextStyle *textStyle = [CPTextStyle textStyle];
-    textStyle.color = [CPColor whiteColor];
-    textStyle.fontName = @"Helvetica";
+    textStyle.color = [CPColor grayColor];
+    textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = 18.0f;
     graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0f, -50.0f);
+    graph.titleDisplacement = CGPointMake(0.0f, 20.0f);
+    graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;
 	
     // Graph padding
     graph.paddingLeft = 60.0;

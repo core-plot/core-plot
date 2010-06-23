@@ -33,7 +33,7 @@
         [contentLayer release];
         contentLayer = [newLayer retain];
         [annotationLayer addSublayer:contentLayer];
-        [self updateContentLayer];
+        [self positionContentLayer];
     }
 }
 
@@ -44,7 +44,7 @@
         [annotationLayer release];
         annotationLayer = [newLayer retain];
         [annotationLayer addSublayer:contentLayer];
-        [self updateContentLayer];
+        [self positionContentLayer];
     }
 }
 
@@ -52,11 +52,11 @@
 {
     if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
         displacement = newDisplacement;
-        [self updateContentLayer];
+        [self positionContentLayer];
     }
 }
 
--(void)updateContentLayer
+-(void)positionContentLayer
 {
 }
 

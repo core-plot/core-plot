@@ -76,7 +76,7 @@
  *	@brief The location of the title with respect to the plot area frame.
  *  Default is top center.
  **/
-@synthesize titleEdgeLocation;
+@synthesize titlePlotAreaFrameAnchor;
 
 /**	@property titleDisplacement
  *	@brief A vector giving the displacement of the title from the edge location.
@@ -115,7 +115,7 @@
         
         // Title
         self.title = nil;
-        self.titleEdgeLocation = CPRectAnchorTop;
+        self.titlePlotAreaFrameAnchor = CPRectAnchorTop;
         self.titleTextStyle = [CPTextStyle textStyle];
         self.titleDisplacement = CGPointZero;
         titleAnnotation = [[CPLayerAnnotation alloc] initWithReferenceLayer:plotAreaFrame];
@@ -442,6 +442,7 @@
         title = [newTitle copy];
         CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
         textLayer.text = title;
+        [textLayer sizeToFit];
     }
 }
 
@@ -452,6 +453,7 @@
         titleTextStyle = [newStyle copy];
         CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
         textLayer.textStyle = titleTextStyle;
+        [textLayer sizeToFit];
     }
 }
 
@@ -460,6 +462,14 @@
     if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
         titleDisplacement = newDisplace;
         titleAnnotation.displacement = newDisplace;
+    }
+}
+
+-(void)setTitlePlotAreaFrameAnchor:(CPRectAnchor)newAnchor
+{
+    if ( newAnchor != titlePlotAreaFrameAnchor ) {
+        titlePlotAreaFrameAnchor = newAnchor;
+        titleAnnotation.rectAnchor = titlePlotAreaFrameAnchor;
     }
 }
 
