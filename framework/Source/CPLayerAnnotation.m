@@ -52,6 +52,8 @@
             yAlign = CPAlignmentMiddle;
             break;
         default:
+            xAlign = CPAlignmentCenter;
+            yAlign = CPAlignmentMiddle;
             break;
     }
     
