@@ -72,7 +72,7 @@
  **/
 @synthesize titleTextStyle;
 
-/**	@property titleEdgeLocation
+/**	@property titlePlotAreaFrameAnchor
  *	@brief The location of the title with respect to the plot area frame.
  *  Default is top center.
  **/

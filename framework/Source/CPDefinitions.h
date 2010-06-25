@@ -71,7 +71,7 @@ typedef enum _CPConstraint {
 } CPConstraint;
 
 /**
- *	@brief Constraints for a relative position
+ *	@brief Constraints for a relative position.
  **/
 typedef struct _CPConstraints {
 	CPConstraint lower;	///< The constraint on the lower range.
@@ -79,7 +79,7 @@ typedef struct _CPConstraints {
 } CPConstraints;
 
 /**
- *	@brief Locations around the edge of a rect
+ *	@brief Locations around the edge of a rectangle.
  **/
 typedef enum _CPRectAnchor {
 	CPRectAnchorBottomLeft,		///< The bottom left corner

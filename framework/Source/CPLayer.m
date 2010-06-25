@@ -92,6 +92,11 @@
  **/
 @synthesize layoutManager;
 
+/** @property sublayersExcludedFromAutomaticLayout
+ *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
+ **/
+@dynamic sublayersExcludedFromAutomaticLayout;
+
 // Private properties
 @synthesize renderingRecursively;
 
@@ -344,14 +349,16 @@
 #pragma mark -
 #pragma mark Layout
 
+/**	@brief Align the receiver's position with pixel boundaries.
+ **/
 -(void)pixelAlign
 {
     CGSize currentSize = self.bounds.size;
     CGPoint currentPosition = self.position;
 	CGPoint anchor = self.anchorPoint;  
     CGPoint newPosition = self.position;  
-    newPosition.x = roundf(currentPosition.x) - roundf(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-    newPosition.y = roundf(currentPosition.y) - roundf(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+    newPosition.x = round(currentPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+    newPosition.y = round(currentPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
     self.position = newPosition;
 }
 
