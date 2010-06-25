@@ -4,15 +4,15 @@
 
 @interface CPLayerAnnotation : CPAnnotation {
 @private
-	CPLayer *referenceLayer;
+	CPLayer *anchorLayer;
 	CPConstrainedPosition *xConstrainedPosition;
     CPConstrainedPosition *yConstrainedPosition;
     CPRectAnchor rectAnchor;
 }
 
-@property (nonatomic, readonly, assign) CPLayer *referenceLayer;
+@property (nonatomic, readonly, assign) CPLayer *anchorLayer;
 @property (nonatomic, readwrite, assign) CPRectAnchor rectAnchor;
 
--(id)initWithReferenceLayer:(CPLayer *)referenceLayer;
+-(id)initWithAnchorLayer:(CPLayer *)anchorLayer;
 
 @end

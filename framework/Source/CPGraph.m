@@ -118,7 +118,7 @@
         self.titlePlotAreaFrameAnchor = CPRectAnchorTop;
         self.titleTextStyle = [CPTextStyle textStyle];
         self.titleDisplacement = CGPointZero;
-        titleAnnotation = [[CPLayerAnnotation alloc] initWithReferenceLayer:plotAreaFrame];
+        titleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
         titleAnnotation.contentLayer = [[[CPTextLayer alloc] initWithText:@"" style:self.titleTextStyle] autorelease];
         [self addAnnotation:titleAnnotation];
 
