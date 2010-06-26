@@ -9,7 +9,6 @@
 #import "CPPlotSymbol.h"
 #import "CPFill.h"
 
-
 NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
@@ -31,21 +30,21 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 @property (nonatomic, readwrite, retain) NSValueTransformer *yValuesTransformer;
 
 @property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForYValues;
+@property (nonatomic, readwrite, copy) NSString *keyPathForYValues;;
 @property (nonatomic, readwrite, copy) NSString *keyPathForPlotSymbols;
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
 @property (nonatomic, readwrite, copy) NSArray *yValues;
 @property (nonatomic, readwrite, retain) NSArray *plotSymbols;
 
-@property (nonatomic, readonly) double *xDValues;
-@property (nonatomic, readonly) double *yDValues;
+@property (nonatomic, readonly) double *xDoubleValues;
+@property (nonatomic, readonly) double *yDoubleValues;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)plotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags;
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound;
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
@@ -252,7 +251,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	
 	self.xValues = nil;
 	self.yValues = nil;
-    doublePrecisionCache = NO ;
 	self.plotSymbols = nil;
 	
 	if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
@@ -314,33 +312,34 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {    
-    if ( cachedDataCount == 0 ) return;
+	NSUInteger dataCount = self.cachedDataCount;
+    if ( dataCount == 0 ) return;
 
-    CPPlotRangeComparisonResult *xRangeFlags = malloc(cachedDataCount * sizeof(CPPlotRangeComparisonResult));
-    CPPlotRangeComparisonResult *yRangeFlags = malloc(cachedDataCount * sizeof(CPPlotRangeComparisonResult));
+    CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+    CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
 
     // Determine where each point lies in relation to range
-    if ( doublePrecisionCache ) {
-        double *xValuesLocal = self.xDValues;
-        double *yValuesLocal = self.yDValues;
-        double xBegin = xyPlotSpace.xRange.locationDouble ;
-        double xEnd = xyPlotSpace.xRange.endDouble ;  
-        double yBegin = xyPlotSpace.yRange.locationDouble ;
-        double yEnd = xyPlotSpace.yRange.endDouble ;  
-        for (NSUInteger i = 0; i < cachedDataCount; i++) {
-            double xValue = xValuesLocal[i] ;
-            double yValue = yValuesLocal[i] ;
+    if ( self.doublePrecisionCache ) {
+        double *xValuesLocal = self.xDoubleValues;
+        double *yValuesLocal = self.yDoubleValues;
+        double xBegin = xyPlotSpace.xRange.locationDouble;
+        double xEnd = xyPlotSpace.xRange.endDouble;  
+        double yBegin = xyPlotSpace.yRange.locationDouble;
+        double yEnd = xyPlotSpace.yRange.endDouble;  
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+            double xValue = xValuesLocal[i];
+            double yValue = yValuesLocal[i];
             xRangeFlags[i] = (xValue < xBegin ? CPPlotRangeComparisonResultNumberBelowRange : 
-                (xValue > xEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) ) ;
+							  (xValue > xEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) );
             yRangeFlags[i] = (yValue < yBegin ? CPPlotRangeComparisonResultNumberBelowRange : 
-                (yValue > yEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) ) ;
+							  (yValue > yEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) );
         }
     }
     else {
     // Determine where each point lies in relation to range
         NSArray *xValuesLocal = self.xValues;
         NSArray *yValuesLocal = self.yValues;
-        for (NSUInteger i = 0; i < cachedDataCount; i++) {
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
             NSNumber *xValue = [xValuesLocal objectAtIndex:i];
             NSNumber *yValue = [yValuesLocal objectAtIndex:i];
             xRangeFlags[i] = [xyPlotSpace.xRange compareToNumber:xValue];
@@ -352,7 +351,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
     // are included. This ensures no lines are left out that shouldn't be.
     pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
 						 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
-    for ( NSUInteger i = 1; i < cachedDataCount; i++ ) {
+    for ( NSUInteger i = 1; i < dataCount; i++ ) {
     	pointDrawFlags[i] = NO;
 		if ( !visibleOnly && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
             pointDrawFlags[i-1] = YES;
@@ -369,12 +368,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 }
 
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
-{	
+{
+	NSUInteger dataCount = self.cachedDataCount;
     // Calculate points
-    if ( doublePrecisionCache ) {
-        double *xValuesLocal = self.xDValues;
-        double *yValuesLocal = self.yDValues;
-        for (NSUInteger i = 0; i < cachedDataCount ; i++) {
+    if ( self.doublePrecisionCache ) {
+        double *xValuesLocal = self.xDoubleValues;
+        double *yValuesLocal = self.yDoubleValues;
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
             double doublePrecisionPlotPoint[2];
             doublePrecisionPlotPoint[CPCoordinateX] = xValuesLocal[i];
             doublePrecisionPlotPoint[CPCoordinateY] = yValuesLocal[i];
@@ -385,10 +385,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
         NSArray *xValuesLocal = self.xValues;
         NSArray *yValuesLocal = self.yValues;
         BOOL doubleFastPath = ![[self.xValues lastObject] isKindOfClass:[NSDecimalNumber class]];
-        for (NSUInteger i = 0; i < cachedDataCount ; i++) {
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
             id xValue = [xValuesLocal objectAtIndex:i];
             id yValue = [yValuesLocal objectAtIndex:i];
-            if (doubleFastPath) {
+            if ( doubleFastPath ) {
                 double doublePrecisionPlotPoint[2];
                 doublePrecisionPlotPoint[CPCoordinateX] = [xValue doubleValue];
                 doublePrecisionPlotPoint[CPCoordinateY] = [yValue doubleValue];
@@ -406,20 +406,21 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags
 {
-	for (NSUInteger i = 0; i < cachedDataCount; i++) {
+	NSUInteger dataCount = self.cachedDataCount;
+	for (NSUInteger i = 0; i < dataCount; i++) {
 		if ( !drawPointFlags[i] ) continue;
 		viewPoints[i] = CPAlignPointToUserSpace(theContext, viewPoints[i]);      
 	}
 }
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremumIsLowerBound:(BOOL)isLowerBound 
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound 
 {
 	NSInteger result = NSNotFound;
 	NSInteger delta = (isLowerBound ? 1 : -1);
-	NSUInteger xValuesCount = cachedDataCount ;
-	if ( xValuesCount > 0 ) {
-		NSUInteger initialIndex = (isLowerBound ? 0 : xValuesCount - 1);
-		for ( NSUInteger i = initialIndex; i < xValuesCount; i += delta ) {
+	NSUInteger dataCount = self.cachedDataCount;
+	if ( dataCount > 0 ) {
+		NSUInteger initialIndex = (isLowerBound ? 0 : dataCount - 1);
+		for ( NSUInteger i = initialIndex; i < dataCount; i += delta ) {
 			if ( pointDrawFlags[i] ) {
 				result = i;
 				break;
@@ -447,15 +448,16 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
  **/
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint 
 {
-	CGPoint *viewPoints = malloc(cachedDataCount * sizeof(CGPoint));
-	BOOL *drawPointFlags = malloc(cachedDataCount * sizeof(BOOL));	
+	NSUInteger dataCount = self.cachedDataCount;
+	CGPoint *viewPoints = malloc(dataCount * sizeof(CGPoint));
+	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));	
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
 	
-	NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
+	NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
 	if ( result != NSNotFound ) {
 		CGFloat minimumDistanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[result]);
-		for ( NSUInteger i = result + 1; i < cachedDataCount; ++i ) {
+		for ( NSUInteger i = result + 1; i < dataCount; ++i ) {
 			CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
 			if ( distanceSquared < minimumDistanceSquared ) {
 				minimumDistanceSquared = distanceSquared;
@@ -476,8 +478,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
  **/
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index 
 {
-	CGPoint *viewPoints = malloc(cachedDataCount * sizeof(CGPoint));
-	BOOL *drawPointFlags = malloc(cachedDataCount * sizeof(BOOL));
+	NSUInteger dataCount = self.cachedDataCount;
+	CGPoint *viewPoints = malloc(dataCount * sizeof(CGPoint));
+	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
 
@@ -495,25 +498,26 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	if ( self.xValues == nil || self.yValues == nil ) return;
-	if ( cachedDataCount == 0 ) return;
+	NSUInteger dataCount = self.cachedDataCount;
+	if ( dataCount == 0 ) return;
 	if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
-	if ( !doublePrecisionCache && self.xValues.count != self.yValues.count ) {
+	if ( !self.doublePrecisionCache && self.xValues.count != self.yValues.count ) {
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
 	
 	[super renderAsVectorInContext:theContext];
 	
 	// Calculate view points, and align to user space
-	CGPoint *viewPoints = malloc(cachedDataCount * sizeof(CGPoint));
-	BOOL *drawPointFlags = malloc(cachedDataCount * sizeof(BOOL));
+	CGPoint *viewPoints = malloc(dataCount * sizeof(CGPoint));
+	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));
     
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:NO];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
 	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
 	
 	// Get extreme points
-	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:NO];
-	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremumIsLowerBound:YES];
+	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
+	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
 
 	if ( firstDrawnPointIndex != NSNotFound ) {
 		// Path
@@ -531,9 +535,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		// Draw fill
 		NSDecimal temporaryAreaBaseValue = self.areaBaseValue;
 		if ( self.areaFill && (!NSDecimalIsNotANumber(&temporaryAreaBaseValue)) ) {	
-            id xValue ;
-            if ( doublePrecisionCache ) xValue = [NSNumber numberWithDouble:self.xDValues[firstDrawnPointIndex]] ;
-			else xValue = [self.xValues objectAtIndex:firstDrawnPointIndex];
+            id xValue;
+            if ( self.doublePrecisionCache ) {
+				xValue = [NSNumber numberWithDouble:self.xDoubleValues[firstDrawnPointIndex]];
+			}
+			else {
+				xValue = [self.xValues objectAtIndex:firstDrawnPointIndex];	
+			}
 			
 			CGPoint baseLinePoint;
 			NSDecimal plotPoint[2];
@@ -574,7 +582,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		
 		// Draw plot symbols
 		if (self.plotSymbol || self.plotSymbols.count) {
-			for (NSUInteger i = 0; i < cachedDataCount; i++) {
+			for (NSUInteger i = 0; i < dataCount; i++) {
 				if ( drawPointFlags[i] ) {
 					CPPlotSymbol *currentSymbol = self.plotSymbol;
 					if ( i < self.plotSymbols.count ) currentSymbol = [self.plotSymbols objectAtIndex:i];
@@ -660,10 +668,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
     return [self cachedNumbersForField:CPScatterPlotFieldX];
 }
 
--(double *)xDValues 
+-(double *)xDoubleValues 
 {
     NSData *data = [self cachedNumbersForField:CPScatterPlotFieldX];
-    return (double *)[data bytes] ;
+    return (double *)[data bytes];
 }
 
 -(void)setYValues:(NSArray *)newValues 
@@ -676,10 +684,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
     return [self cachedNumbersForField:CPScatterPlotFieldY];
 }
 
--(double *)yDValues 
+-(double *)yDoubleValues 
 {
     NSData *data = [self cachedNumbersForField:CPScatterPlotFieldY];
-    return (double *)[data bytes] ;
+    return (double *)[data bytes];
 }
 
 

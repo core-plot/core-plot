@@ -13,6 +13,9 @@
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
 @property (nonatomic, readwrite, retain) NSMutableDictionary *cachedData;
 
+@property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
+@property (nonatomic, readwrite, assign) BOOL doublePrecisionCache;
+
 @end
 ///	@endcond
 
@@ -50,6 +53,16 @@
 @synthesize dataNeedsReloading;
 
 @synthesize cachedData;
+
+/**	@property cachedDataCount
+ *	@brief The number of data points stored in the cache.
+ **/
+@synthesize cachedDataCount;
+
+/**	@property doublePrecisionCache
+ *	@brief If YES, the cache holds data of type 'double', otherwise it holds NSNumber.
+ **/
+@synthesize doublePrecisionCache;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -150,24 +163,25 @@
     if ( self.dataSource ) {
         if ( [self.dataSource respondsToSelector:@selector(doublesForPlot:field:recordIndexRange:)] ) {
             numbers = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
-            double *pFieldValues = [numbers mutableBytes] ;
-            double *pDoubleValues = [self.dataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange] ;
-            memcpy( pFieldValues, pDoubleValues, sizeof(double)*indexRange.length ) ;
-            doublePrecisionCache = YES ;
+            double *fieldValues = [numbers mutableBytes];
+            double *doubleValues = [self.dataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange];
+            memcpy( fieldValues, doubleValues, sizeof(double)*indexRange.length );
+            self.doublePrecisionCache = YES;
         }
         else if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
             numbers = [NSArray arrayWithArray:[self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
+            self.doublePrecisionCache = NO;
         }
         else if ( [self.dataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
             NSUInteger recordIndex;
-            NSMutableData *fieldValues = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
-            double *pFieldValues = [fieldValues mutableBytes] ;
+            NSMutableData *fieldData = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
+            double *fieldValues = [fieldData mutableBytes];
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
                 double number = [self.dataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
-                *pFieldValues++ = number ;
+                *fieldValues++ = number;
             }
-            numbers = fieldValues ;
-            doublePrecisionCache = YES ;
+            numbers = fieldData;
+            self.doublePrecisionCache = YES;
         }
         else {
             BOOL respondsToSingleValueSelector = [self.dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
@@ -183,10 +197,12 @@
                 }
             }
             numbers = fieldValues;
+            self.doublePrecisionCache = NO;
         }
     }
     else {
         numbers = [NSArray array];
+		self.doublePrecisionCache = NO;
     }
     
     return numbers;
@@ -221,7 +237,7 @@
  **/
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
-	cachedDataCount = [numbers count];
+	self.cachedDataCount = [numbers count];
 	if ( numbers == nil ) return;
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
     [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];

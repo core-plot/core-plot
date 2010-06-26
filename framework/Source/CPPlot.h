@@ -76,16 +76,40 @@
     CPPlotSpace *plotSpace;
     BOOL dataNeedsReloading;
     NSMutableDictionary *cachedData;
-    @protected
     NSUInteger cachedDataCount;
     BOOL doublePrecisionCache;
 }
 
+/// @name Data Source
+/// @{
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;
+///	@}
+
+/// @name Identification
+/// @{
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
+///	@}
+
+/// @name Plot Space
+/// @{
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
-@property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+///	@}
+
+/// @name Plot Area
+/// @{
 @property (nonatomic, readonly, retain) CPPlotArea *plotArea;
+///	@}
+
+/// @name Data Loading
+/// @{
+@property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+///	@}
+
+/// @name Data Cache
+/// @{
+@property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
+@property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
+///	@}
 
 /// @name Data Loading
 /// @{
