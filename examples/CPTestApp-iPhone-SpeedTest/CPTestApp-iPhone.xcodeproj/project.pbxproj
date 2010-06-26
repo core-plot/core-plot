@@ -275,24 +275,21 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joan Lluch (MV7322A4Y6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/usr/local/include";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphonesimulator3.2;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -306,19 +303,16 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/usr/local/include";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug-iphonesimulator\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.2;
 			};
 			name = Release;
 		};
@@ -326,16 +320,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../framework//**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphonesimulator3.2;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -349,12 +343,12 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../framework/;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "500DAB97-6B23-43B6-9993-DF558595C088";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.2;
 			};
 			name = Release;
 		};
