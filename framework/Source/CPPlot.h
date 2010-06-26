@@ -77,8 +77,8 @@
     BOOL dataNeedsReloading;
     NSMutableDictionary *cachedData;
     @protected
-    NSUInteger cachedDataCount ;
-    BOOL doublePrecisionCache ;
+    NSUInteger cachedDataCount;
+    BOOL doublePrecisionCache;
 }
 
 @property (nonatomic, readwrite, assign) id <CPPlotDataSource> dataSource;

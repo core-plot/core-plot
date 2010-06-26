@@ -252,7 +252,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	
 	self.xValues = nil;
 	self.yValues = nil;
-    cachedDataCount = 0 ;
     doublePrecisionCache = NO ;
 	self.plotSymbols = nil;
 	
@@ -260,7 +259,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		// Use bindings to retrieve data
 		self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
 		self.yValues = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
-        cachedDataCount = self.xValues.count ;
 
 		if ( xValuesTransformer != nil ) {
 			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:self.xValues.count];
@@ -290,7 +288,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		
 		self.xValues = [self numbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
 		self.yValues = [self numbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
-        cachedDataCount = indexRange.length ;
 		
 		// Plot symbols
 		if ( [self.dataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
@@ -355,7 +352,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
     // are included. This ensures no lines are left out that shouldn't be.
     pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
 						 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
-    for (NSUInteger i = 1; i < cachedDataCount; i++) {
+    for ( NSUInteger i = 1; i < cachedDataCount; i++ ) {
     	pointDrawFlags[i] = NO;
 		if ( !visibleOnly && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
             pointDrawFlags[i-1] = YES;

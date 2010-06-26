@@ -58,6 +58,8 @@
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		cachedData = nil;
+		cachedDataCount = 0;
+		doublePrecisionCache = NO;
 		dataSource = nil;
 		identifier = nil;
 		plotSpace = nil;
@@ -219,6 +221,7 @@
  **/
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
+	cachedDataCount = [numbers count];
 	if ( numbers == nil ) return;
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
     [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
