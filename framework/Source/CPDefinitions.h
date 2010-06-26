@@ -71,13 +71,27 @@ typedef enum _CPConstraint {
 } CPConstraint;
 
 /**
- *	@brief Constraints for a relative position
+ *	@brief Constraints for a relative position.
  **/
 typedef struct _CPConstraints {
 	CPConstraint lower;	///< The constraint on the lower range.
 	CPConstraint upper;	///< The constraint on the upper range.
 } CPConstraints;
 
+/**
+ *	@brief Locations around the edge of a rectangle.
+ **/
+typedef enum _CPRectAnchor {
+	CPRectAnchorBottomLeft,		///< The bottom left corner
+	CPRectAnchorBottom,			///< The bottom center
+	CPRectAnchorBottomRight,	///< The bottom right corner
+	CPRectAnchorLeft,			///< The left middle
+	CPRectAnchorRight,			///< The right middle
+	CPRectAnchorTopLeft,		///< The top left corner
+	CPRectAnchorTop,			///< The top center
+    CPRectAnchorTopRight,		///< The top right
+    CPRectAnchorCenter			///< The center of the rect
+} CPRectAnchor;
 
 /// @name Default Z Positions
 /// @{
@@ -88,6 +102,5 @@ extern const CGFloat CPDefaultZPositionPlot;
 extern const CGFloat CPDefaultZPositionPlotArea; 
 extern const CGFloat CPDefaultZPositionPlotAreaFrame; 
 extern const CGFloat CPDefaultZPositionPlotGroup; 
-extern const CGFloat CPDefaultZPositionPlotSpace;
 /// @}
 

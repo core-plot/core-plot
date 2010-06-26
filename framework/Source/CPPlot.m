@@ -237,8 +237,16 @@
  **/
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
-	self.cachedDataCount = [numbers count];
-	if ( numbers == nil ) return;
+	if ( numbers == nil ) {
+		self.cachedDataCount = 0;
+		return;
+	}
+	else if ( [numbers respondsToSelector:@selector(count)] ) {
+		self.cachedDataCount = [(NSArray *)numbers count];
+	}
+	else {
+		self.cachedDataCount = [(NSData *)numbers length] / sizeof(double);
+	}
     if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
     [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }

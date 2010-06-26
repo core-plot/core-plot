@@ -185,16 +185,14 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
 	
 	for (CALayer *subLayer in self.sublayers) {
-		subLayer.bounds = sublayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = sublayerPosition;
+		subLayer.frame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 	}
 	
 	// make the plot group the same size as the plot area to clip the plots
 	CPPlotGroup *thePlotGroup = self.plotGroup;
 	if ( thePlotGroup ) {
-		thePlotGroup.bounds = self.bounds;
-		thePlotGroup.position = CGPointZero;
+		CGSize selfBoundsSize = self.bounds.size;
+		thePlotGroup.frame = CGRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
 	}
 }
 

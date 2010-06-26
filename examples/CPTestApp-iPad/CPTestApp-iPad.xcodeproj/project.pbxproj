@@ -237,6 +237,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "CPTestApp_iPad-Info.plist";
 				PRODUCT_NAME = "CPTestApp-iPad";
 			};
@@ -249,6 +250,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "CPTestApp_iPad-Info.plist";
 				PRODUCT_NAME = "CPTestApp-iPad";
 				VALIDATE_PRODUCT = YES;
@@ -264,7 +266,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../framework//**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -285,7 +287,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "../../framework//**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",

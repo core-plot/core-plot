@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		0760D0F311BD272D00A3C4BD /* Build SDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */;
+			buildPhases = (
+				0760D0F211BD272D00A3C4BD /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Build SDK";
+			productName = "Build SDK";
+		};
 		C3566B8010EED04900FB3866 /* Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C3566B8410EED06800FB3866 /* Build configuration list for PBXAggregateTarget "Documentation" */;
@@ -34,6 +45,14 @@
 		070CB8470FC9DED400F3152B /* CPAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CB83D0FC9DED400F3152B /* CPAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070CB8480FC9DED400F3152B /* CPAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 070CB83E0FC9DED400F3152B /* CPAxisSet.m */; };
 		070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B829F0FB89E610035D8DA /* CPTextLayer.m */; };
+		0718DE4D11D1EDBA00AF4851 /* CPAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0718DE4E11D1EDBA00AF4851 /* CPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */; };
+		0718DE4F11D1EDBA00AF4851 /* CPAnnotationHostLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0718DE5011D1EDBA00AF4851 /* CPAnnotationHostLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */; };
+		0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */; };
+		0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0718DE5411D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0718DE4C11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m */; };
 		072E3F9D0FE2FF7300ACF62F /* CPDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 072E3F990FE2FF7300ACF62F /* CPDarkGradientTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		072E3F9E0FE2FF7300ACF62F /* CPDarkGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */; };
 		072E3F9F0FE2FF7300ACF62F /* CPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 072E3F9B0FE2FF7300ACF62F /* CPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -161,6 +180,14 @@
 		070CB83A0FC9DED400F3152B /* CPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAxis.m; path = Source/CPAxis.m; sourceTree = "<group>"; };
 		070CB83D0FC9DED400F3152B /* CPAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAxisSet.h; path = Source/CPAxisSet.h; sourceTree = "<group>"; };
 		070CB83E0FC9DED400F3152B /* CPAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAxisSet.m; path = Source/CPAxisSet.m; sourceTree = "<group>"; };
+		0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnnotation.h; path = Source/CPAnnotation.h; sourceTree = "<group>"; };
+		0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnnotation.m; path = Source/CPAnnotation.m; sourceTree = "<group>"; };
+		0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAnnotationHostLayer.h; path = Source/CPAnnotationHostLayer.h; sourceTree = "<group>"; };
+		0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAnnotationHostLayer.m; path = Source/CPAnnotationHostLayer.m; sourceTree = "<group>"; };
+		0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayerAnnotation.h; path = Source/CPLayerAnnotation.h; sourceTree = "<group>"; };
+		0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLayerAnnotation.m; path = Source/CPLayerAnnotation.m; sourceTree = "<group>"; };
+		0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSpaceAnnotation.h; path = Source/CPPlotSpaceAnnotation.h; sourceTree = "<group>"; };
+		0718DE4C11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotSpaceAnnotation.m; path = Source/CPPlotSpaceAnnotation.m; sourceTree = "<group>"; };
 		071F3CDF10FBAB9D00D0A7B6 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = ../License.txt; sourceTree = SOURCE_ROOT; };
 		072E3F990FE2FF7300ACF62F /* CPDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPDarkGradientTheme.h; path = Source/CPDarkGradientTheme.h; sourceTree = "<group>"; };
 		072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPDarkGradientTheme.m; path = Source/CPDarkGradientTheme.m; sourceTree = "<group>"; };
@@ -356,6 +383,21 @@
 			name = Axes;
 			sourceTree = "<group>";
 		};
+		0718DE4411D1ED7D00AF4851 /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				0718DE4511D1EDBA00AF4851 /* CPAnnotation.h */,
+				0718DE4611D1EDBA00AF4851 /* CPAnnotation.m */,
+				0718DE4711D1EDBA00AF4851 /* CPAnnotationHostLayer.h */,
+				0718DE4811D1EDBA00AF4851 /* CPAnnotationHostLayer.m */,
+				0718DE4911D1EDBA00AF4851 /* CPLayerAnnotation.h */,
+				0718DE4A11D1EDBA00AF4851 /* CPLayerAnnotation.m */,
+				0718DE4B11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h */,
+				0718DE4C11D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m */,
+			);
+			name = Annotations;
+			sourceTree = "<group>";
+		};
 		072E3F980FE2FF3E00ACF62F /* Themes */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,10 +520,10 @@
 			children = (
 				BC9B82A20FB89E610035D8DA /* Types and Functions */,
 				077F28500FE18011000BCA52 /* Layers */,
+				0718DE4411D1ED7D00AF4851 /* Annotations */,
 				C3B623A9107EC5460009EF0B /* Layout */,
 				070CB8100FC9DDED00F3152B /* Text */,
 				070CB80F0FC9DDD500F3152B /* Drawing */,
-				BC9B82AD0FB89E610035D8DA /* Value Transformers */,
 				07A2E717102DF9A500809BC5 /* Formatters */,
 				BC9B82B00FB89E610035D8DA /* Categories */,
 				BC9B82B50FB89E610035D8DA /* Graphs */,
@@ -523,13 +565,6 @@
 				BC9B82AC0FB89E610035D8DA /* CPPlotRange.m */,
 			);
 			name = "Types and Functions";
-			sourceTree = SOURCE_ROOT;
-		};
-		BC9B82AD0FB89E610035D8DA /* Value Transformers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Value Transformers";
 			sourceTree = SOURCE_ROOT;
 		};
 		BC9B82B00FB89E610035D8DA /* Categories */ = {
@@ -744,6 +779,10 @@
 				C35A65D711025FE300FE24BB /* CPAnimationTransition.h in Headers */,
 				C35A66071102723E00FE24BB /* CPTextStylePlatformSpecific.h in Headers */,
 				C38DD49711A04B99002A68E7 /* CPGridLineGroup.h in Headers */,
+				0718DE4D11D1EDBA00AF4851 /* CPAnnotation.h in Headers */,
+				0718DE4F11D1EDBA00AF4851 /* CPAnnotationHostLayer.h in Headers */,
+				0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */,
+				0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,11 +820,25 @@
 			targets = (
 				BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */,
 				C3566B8010EED04900FB3866 /* Documentation */,
+				0760D0F311BD272D00A3C4BD /* Build SDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0760D0F211BD272D00A3C4BD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/SDKBuild\"\n./build.sh\nmv CorePlot.zip ~/Desktop";
+		};
 		C3566B7F10EED04900FB3866 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -868,12 +921,37 @@
 				C35A65D811025FE300FE24BB /* CPAnimationTransition.m in Sources */,
 				C35A66081102723E00FE24BB /* CPTextStylePlatformSpecific.m in Sources */,
 				C38DD49811A04B99002A68E7 /* CPGridLineGroup.m in Sources */,
+				0718DE4E11D1EDBA00AF4851 /* CPAnnotation.m in Sources */,
+				0718DE5011D1EDBA00AF4851 /* CPAnnotationHostLayer.m in Sources */,
+				0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */,
+				0718DE5411D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0760D0F411BD272E00A3C4BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build SDK";
+			};
+			name = Debug;
+		};
+		0760D0F511BD272E00A3C4BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build SDK";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		BC9B83480FB8A0A50035D8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -887,7 +965,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
-				SYMROOT = build;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
@@ -904,6 +982,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				SYMROOT = "$(PROJECT_DIR)/../build";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -926,6 +1005,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-falign-loops=16";
@@ -935,7 +1015,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.2;
-				SYMROOT = build;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
@@ -957,8 +1037,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-falign-loops=16";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -966,7 +1047,8 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.2;
-				SYMROOT = build;
+				SYMROOT = "$(PROJECT_DIR)/../build";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -996,6 +1078,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0760D0F411BD272E00A3C4BD /* Debug */,
+				0760D0F511BD272E00A3C4BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BC9B834A0FB8A0AA0035D8DA /* Build configuration list for PBXNativeTarget "CorePlot-CocoaTouch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

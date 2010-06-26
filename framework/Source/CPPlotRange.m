@@ -189,6 +189,7 @@
  **/
 -(void)unionPlotRange:(CPPlotRange *)other 
 {
+	NSParameterAssert(other);
     NSDecimal newLocation = (CPDecimalLessThan(self.location, other.location) ? self.location : other.location);
     NSDecimal max1 = CPDecimalAdd(self.location, self.length);
     NSDecimal max2 = CPDecimalAdd(other.location, other.length);
@@ -203,6 +204,7 @@
  **/
 -(void)intersectionPlotRange:(CPPlotRange *)other
 {
+	NSParameterAssert(other);
     NSDecimal newLocation = (CPDecimalGreaterThan(self.location, other.location) ? self.location : other.location);
     NSDecimal max1 = self.end;
     NSDecimal max2 = other.end;
@@ -237,6 +239,7 @@
  **/
 -(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange 
 {
+	NSParameterAssert(otherRange);
 	if ( [otherRange contains:self.location] ) return;
     if ( CPDecimalGreaterThan(otherRange.location, self.location) ) {
         self.location = otherRange.location;
@@ -252,6 +255,7 @@
  **/
 -(void)shiftEndToFitInRange:(CPPlotRange *)otherRange
 {
+	NSParameterAssert(otherRange);
 	NSDecimal currentEnd = self.end;
     if ( [otherRange contains:currentEnd] ) return;
     if ( CPDecimalLessThan(otherRange.end, currentEnd) ) {

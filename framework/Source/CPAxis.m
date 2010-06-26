@@ -370,31 +370,39 @@
         [range intersectionPlotRange:self.visibleRange];
     }
 	
-	while ( range &&
-    		((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
-    		 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
-		
-		// Major tick
+	if ( CPDecimalGreaterThan(majorInterval, CPDecimalFromInteger(0)) ) {
+		while ( range &&
+			   ((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
+				(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
+				   
+			// Major tick
+			if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
+				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+			}
+
+			// Minor ticks
+			if ( self.minorTicksPerInterval > 0 ) {
+				NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
+				NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+			   
+				for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
+					if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
+						[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+					}
+					minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
+				}
+			}
+			   
+			coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+		}
+	}
+	else {
 		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
 			[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
-		}
-		
-		// Minor ticks
-		if ( self.minorTicksPerInterval > 0 ) {
-			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
-			NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
-			
-			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
-				if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
-					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
-				}
-				minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
-			}
-		}
-		
-		coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+		}		
 	}
-    [range release];
+	
+	[range release];
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }

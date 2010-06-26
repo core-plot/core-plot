@@ -82,6 +82,7 @@
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
     CPPlotRange *orthogonalRange = [xyPlotSpace plotRangeForCoordinate:orthogonalCoordinate];
+    NSAssert( orthogonalRange != nil, @"The orthogonalRange was nil in orthogonalCoordinateViewLowerBound:upperBound:" );
     CGPoint lowerBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.location axisCoordinateDecimal:zero];
     CGPoint upperBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.end axisCoordinateDecimal:zero];
     *lower = (self.coordinate == CPCoordinateX ? lowerBoundPoint.y : lowerBoundPoint.x);
@@ -283,7 +284,6 @@
 -(NSDecimal)defaultTitleLocation
 {
 	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-	
 	return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
 }
 

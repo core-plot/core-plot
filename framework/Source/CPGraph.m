@@ -3,11 +3,14 @@
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
+#import "CPTextStyle.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 #import "CPAxisSet.h"
 #import "CPAxis.h"
 #import "CPTheme.h"
+#import "CPLayerAnnotation.h"
+#import "CPTextLayer.h"
 
 ///	@cond
 @interface CPGraph()
@@ -58,6 +61,28 @@
  **/
 @dynamic topDownLayerOrder;
 
+/**	@property title
+ *	@brief The title string. 
+ *  Default is nil.
+ **/
+@synthesize title;
+
+/**	@property titleTextStyle
+ *	@brief The text style of the title.
+ **/
+@synthesize titleTextStyle;
+
+/**	@property titlePlotAreaFrameAnchor
+ *	@brief The location of the title with respect to the plot area frame.
+ *  Default is top center.
+ **/
+@synthesize titlePlotAreaFrameAnchor;
+
+/**	@property titleDisplacement
+ *	@brief A vector giving the displacement of the title from the edge location.
+ **/
+@synthesize titleDisplacement;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -87,6 +112,15 @@
 		CPAxisSet *newAxisSet = [self newAxisSet];
 		self.axisSet = newAxisSet;
 		[newAxisSet release];
+        
+        // Title
+        self.title = nil;
+        self.titlePlotAreaFrameAnchor = CPRectAnchorTop;
+        self.titleTextStyle = [CPTextStyle textStyle];
+        self.titleDisplacement = CGPointZero;
+        titleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
+        titleAnnotation.contentLayer = [[[CPTextLayer alloc] initWithText:@"" style:self.titleTextStyle] autorelease];
+        [self addAnnotation:titleAnnotation];
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -100,6 +134,9 @@
 	[plotAreaFrame release];
 	[plots release];
 	[plotSpaces release];
+    [title release];
+    [titleTextStyle release];
+    [titleAnnotation release];
 	
 	[super dealloc];
 }
@@ -396,6 +433,44 @@
 -(void)setTopDownLayerOrder:(NSArray *)newArray
 {
 	self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
+}
+
+-(void)setTitle:(NSString *)newTitle
+{
+	if ( newTitle != title ) {
+        [title release];
+        title = [newTitle copy];
+        CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
+        textLayer.text = title;
+        [textLayer sizeToFit];
+    }
+}
+
+-(void)setTitleTextStyle:(CPTextStyle *)newStyle
+{
+    if ( newStyle != titleTextStyle ) {
+        [titleTextStyle release];
+        titleTextStyle = [newStyle copy];
+        CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
+        textLayer.textStyle = titleTextStyle;
+        [textLayer sizeToFit];
+    }
+}
+
+-(void)setTitleDisplacement:(CGPoint)newDisplace
+{
+    if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
+        titleDisplacement = newDisplace;
+        titleAnnotation.displacement = newDisplace;
+    }
+}
+
+-(void)setTitlePlotAreaFrameAnchor:(CPRectAnchor)newAnchor
+{
+    if ( newAnchor != titlePlotAreaFrameAnchor ) {
+        titlePlotAreaFrameAnchor = newAnchor;
+        titleAnnotation.rectAnchor = titlePlotAreaFrameAnchor;
+    }
 }
 
 #pragma mark -

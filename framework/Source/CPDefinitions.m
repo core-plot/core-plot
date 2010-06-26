@@ -8,4 +8,3 @@ const CGFloat CPDefaultZPositionPlot = 0;			///< Default Z position for CPPlot.
 const CGFloat CPDefaultZPositionPlotArea = 0;		///< Default Z position for CPPlotArea.
 const CGFloat CPDefaultZPositionPlotAreaFrame = 0;	///< Default Z position for CPPlotAreaFrame.
 const CGFloat CPDefaultZPositionPlotGroup = 0;		///< Default Z position for CPPlotGroup.
-const CGFloat CPDefaultZPositionPlotSpace = 0;		///< Default Z position for CPPlotSpace.

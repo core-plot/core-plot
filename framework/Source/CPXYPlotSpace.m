@@ -66,8 +66,8 @@
 -(id)init
 {
 	if ( self = [super init] ) {
-		xRange = nil;
-		yRange = nil;
+		xRange = [[CPPlotRange alloc] initWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(1)];
+		yRange = [[CPPlotRange alloc] initWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(1)];;
         globalXRange = nil;
         globalYRange = nil;
 		xScaleType = CPScaleTypeLinear;
@@ -105,6 +105,7 @@
 
 -(void)setXRange:(CPPlotRange *)range 
 {
+	NSParameterAssert(range);
 	if ( ![range isEqualToRange:xRange] ) {
         CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
 		[xRange release];
@@ -118,6 +119,7 @@
 
 -(void)setYRange:(CPPlotRange *)range 
 {
+	NSParameterAssert(range);
 	if ( ![range isEqualToRange:yRange] ) {
         CPPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
 		[yRange release];

@@ -32,6 +32,16 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
+    
+    // Graph title
+    graph.title = @"This is the Graph Title";
+    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    textStyle.color = [CPColor grayColor];
+    textStyle.fontName = @"Helvetica-Bold";
+    textStyle.fontSize = 18.0f;
+    graph.titleTextStyle = textStyle;
+    graph.titleDisplacement = CGPointMake(0.0f, 20.0f);
+    graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;
 	
     // Graph padding
     graph.paddingLeft = 60.0;

@@ -286,7 +286,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = StockPlot_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
 				INFOPLIST_FILE = "StockPlot-Info.plist";
 				PRODUCT_NAME = StockPlot;
 			};
@@ -299,7 +299,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = StockPlot_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
 				INFOPLIST_FILE = "StockPlot-Info.plist";
 				PRODUCT_NAME = StockPlot;
 			};
@@ -313,7 +313,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
 				OTHER_CFLAGS = "-falign-loops=16";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -333,7 +333,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
 				OTHER_CFLAGS = "-falign-loops=16";
 				OTHER_LDFLAGS = (
 					"-all_load",
