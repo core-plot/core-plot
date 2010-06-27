@@ -284,7 +284,13 @@
 -(NSDecimal)defaultTitleLocation
 {
 	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-	return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
+	if ( axisRange ) {
+		return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
+	}
+	else {
+		return CPDecimalFromInteger(0);
+	}
+
 }
 
 #pragma mark -
