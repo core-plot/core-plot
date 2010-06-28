@@ -38,6 +38,26 @@
  **/
 @dynamic endDouble;
 
+/** @property minLimit
+ *  @brief The minimum extreme value of the range.
+ **/
+@dynamic minLimit;
+
+/** @property minLimitDouble
+ *  @brief The minimum extreme value of the range as a double.
+ **/
+@dynamic minLimitDouble;
+
+/** @property maxLimit
+ *  @brief The maximum extreme value of the range.
+ **/
+@dynamic maxLimit;
+
+/** @property maxLimitDouble
+ *  @brief The maximum extreme value of the range as a double.
+ **/
+@dynamic maxLimitDouble;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -94,6 +114,54 @@
 	return (self.locationDouble + self.lengthDouble);
 }
 
+-(NSDecimal)minLimit 
+{
+	NSDecimal loc = self.location;
+	NSDecimal len = self.length;
+	if ( CPDecimalLessThan(len, CPDecimalFromInteger(0)) ) {
+		return CPDecimalAdd(loc, len);
+	}
+	else {
+		return loc;
+	}
+}
+
+-(double)minLimitDouble 
+{
+	double doubleLoc = self.locationDouble;
+	double doubleLen = self.lengthDouble;
+	if ( doubleLen < 0.0 ) {
+		return doubleLoc + doubleLen;
+	}
+	else {
+		return doubleLoc;
+	}
+}
+
+-(NSDecimal)maxLimit 
+{
+	NSDecimal loc = self.location;
+	NSDecimal len = self.length;
+	if ( CPDecimalGreaterThan(len, CPDecimalFromInteger(0)) ) {
+		return CPDecimalAdd(loc, len);
+	}
+	else {
+		return loc;
+	}
+}
+
+-(double)maxLimitDouble 
+{
+	double doubleLoc = self.locationDouble;
+	double doubleLen = self.lengthDouble;
+	if ( doubleLen > 0.0 ) {
+		return doubleLoc + doubleLen;
+	}
+	else {
+		return doubleLoc;
+	}
+}
+
 #pragma mark -
 #pragma mark NSCopying
 
@@ -133,11 +201,20 @@
 
 /** @brief Determines whether a given number is inside the range.
  *  @param number The number to check.
- *  @return True if <tt>location</tt> ≤ <tt>number</tt> ≤ <tt>end</tt>.
+ *  @return True if <code>location</code> ≤ <code>number</code> ≤ <code>end</code>.
  **/
 -(BOOL)contains:(NSDecimal)number
 {
-	return (CPDecimalGreaterThanOrEqualTo(number, self.location) && CPDecimalLessThanOrEqualTo(number, self.end));
+	return (CPDecimalGreaterThanOrEqualTo(number, self.minLimit) && CPDecimalLessThanOrEqualTo(number, self.maxLimit));
+}
+
+/** @brief Determines whether a given number is inside the range.
+ *  @param number The number to check.
+ *  @return True if <code>location</code> ≤ <code>number</code> ≤ <code>end</code>.
+ **/
+-(BOOL)containsDouble:(double)number
+{
+	return ((number >= self.minLimitDouble) && (number <= self.maxLimitDouble));
 }
 
 /** @brief Determines whether a given range is equal to the range of the receiver.
@@ -160,7 +237,7 @@
         if ( [self contains:number.decimalValue] ) {
             result = CPPlotRangeComparisonResultNumberInRange;
         }
-        else if ( CPDecimalLessThan(number.decimalValue, self.location) ) {
+        else if ( CPDecimalLessThan(number.decimalValue, self.minLimit) ) {
             result = CPPlotRangeComparisonResultNumberBelowRange;
         }
         else {
@@ -169,15 +246,35 @@
     }
     else {
     	double d = [number doubleValue];
-        if ( d < self.locationDouble ) 
+        if ( d < self.minLimitDouble ) {
         	result = CPPlotRangeComparisonResultNumberBelowRange;
-        else if ( d > self.endDouble ) 
+		}
+        else if ( d > self.maxLimitDouble ) {
         	result = CPPlotRangeComparisonResultNumberAboveRange;
+		}
         else {
         	result = CPPlotRangeComparisonResultNumberInRange;
         }
-
     }
+    return result;
+}
+
+/** @brief Compares a number to the range, determining if it is in the range, or above or below it.
+ *  @param number The number to check.
+ *  @return The comparison result.
+ **/
+-(CPPlotRangeComparisonResult)compareToDouble:(double)number
+{
+    CPPlotRangeComparisonResult result;
+	if ( number < self.minLimitDouble ) {
+		result = CPPlotRangeComparisonResultNumberBelowRange;
+	}
+	else if ( number > self.maxLimitDouble ) {
+		result = CPPlotRangeComparisonResultNumberAboveRange;
+	}
+	else {
+		result = CPPlotRangeComparisonResultNumberInRange;
+	}
     return result;
 }
 

@@ -15,7 +15,8 @@ typedef enum _CPPlotRangeComparisonResult {
 	@private
 	NSDecimal location;
 	NSDecimal length;
-    double locationDouble, lengthDouble;
+    double locationDouble;
+	double lengthDouble;
 }
 
 @property (nonatomic, readwrite) NSDecimal location;
@@ -25,11 +26,17 @@ typedef enum _CPPlotRangeComparisonResult {
 @property (nonatomic, readonly) double lengthDouble;
 @property (nonatomic, readonly) double endDouble;
 
+@property (nonatomic, readonly) NSDecimal minLimit;
+@property (nonatomic, readonly) NSDecimal maxLimit;
+@property (nonatomic, readonly) double minLimitDouble;
+@property (nonatomic, readonly) double maxLimitDouble;
+
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 
 -(BOOL)contains:(NSDecimal)number;
+-(BOOL)containsDouble:(double)number;
 -(BOOL)isEqualToRange:(CPPlotRange *)otherRange;
 
 -(void)unionPlotRange:(CPPlotRange *)otherRange;
@@ -41,5 +48,6 @@ typedef enum _CPPlotRangeComparisonResult {
 -(void)expandRangeByFactor:(NSDecimal)factor;
 
 -(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number;
+-(CPPlotRangeComparisonResult)compareToDouble:(double)number;
 
 @end

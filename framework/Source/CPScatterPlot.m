@@ -318,21 +318,16 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
     CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
     CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
 
+	CPPlotRange *xRange = xyPlotSpace.xRange;
+	CPPlotRange *yRange = xyPlotSpace.yRange;
+	
     // Determine where each point lies in relation to range
     if ( self.doublePrecisionCache ) {
         double *xValuesLocal = self.xDoubleValues;
         double *yValuesLocal = self.yDoubleValues;
-        double xBegin = xyPlotSpace.xRange.locationDouble;
-        double xEnd = xyPlotSpace.xRange.endDouble;  
-        double yBegin = xyPlotSpace.yRange.locationDouble;
-        double yEnd = xyPlotSpace.yRange.endDouble;  
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            double xValue = xValuesLocal[i];
-            double yValue = yValuesLocal[i];
-            xRangeFlags[i] = (xValue < xBegin ? CPPlotRangeComparisonResultNumberBelowRange : 
-							  (xValue > xEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) );
-            yRangeFlags[i] = (yValue < yBegin ? CPPlotRangeComparisonResultNumberBelowRange : 
-							  (yValue > yEnd ? CPPlotRangeComparisonResultNumberAboveRange : CPPlotRangeComparisonResultNumberInRange ) );
+            xRangeFlags[i] = [xRange compareToDouble:xValuesLocal[i]];
+            yRangeFlags[i] = [yRange compareToDouble:yValuesLocal[i]];
         }
     }
     else {
@@ -342,8 +337,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             NSNumber *xValue = [xValuesLocal objectAtIndex:i];
             NSNumber *yValue = [yValuesLocal objectAtIndex:i];
-            xRangeFlags[i] = [xyPlotSpace.xRange compareToNumber:xValue];
-            yRangeFlags[i] = [xyPlotSpace.yRange compareToNumber:yValue];
+            xRangeFlags[i] = [xRange compareToNumber:xValue];
+            yRangeFlags[i] = [yRange compareToNumber:yValue];
         }
     }
     

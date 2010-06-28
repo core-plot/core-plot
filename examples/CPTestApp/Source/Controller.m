@@ -196,9 +196,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     plotSpace.globalYRange = globalYRange;
     
     // set the x and y shift to match the new ranges
-	CGFloat length = CPDecimalDoubleValue(xRange.length);
+	CGFloat length = xRange.lengthDouble;
 	self.xShift = length - 3.0;
-	length = CPDecimalDoubleValue(yRange.length);
+	length = yRange.lengthDouble;
 	self.yShift = length - 2.0;
     
     // Position y2 axis relative to the plot area, ie, not moving when dragging

@@ -366,55 +366,64 @@
 	NSDecimal majorInterval = self.majorIntervalLength;
 	NSDecimal coord = beginNumber;
 	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-    if ( self.visibleRange ) {
-        [range intersectionPlotRange:self.visibleRange];
-    }
-	
-	if ( CPDecimalGreaterThan(majorInterval, CPDecimalFromInteger(0)) ) {
-		while ( range &&
-			   ((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
-				(!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
-				   
-			// Major tick
-			if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
-				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
-			}
-
-			// Minor ticks
-			if ( self.minorTicksPerInterval > 0 ) {
-				NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
-				NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
-			   
-				for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
-					if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
-						[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
-					}
-					minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
-				}
-			}
-			   
-			coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+	if ( range ) {
+		CPPlotRange *theVisibleRange = self.visibleRange;
+		if ( theVisibleRange ) {
+			[range intersectionPlotRange:theVisibleRange];
 		}
+		
+		NSDecimal rangeMin = range.minLimit;
+		NSDecimal rangeMax = range.maxLimit;
+		
+		if ( CPDecimalGreaterThan(majorInterval, CPDecimalFromInteger(0)) ) {
+			while ( ((increasing && CPDecimalLessThanOrEqualTo(coord, rangeMax)) || 
+					 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, rangeMin))) ) {
+				
+				// Major tick
+				if ( CPDecimalLessThanOrEqualTo(coord, rangeMax) && CPDecimalGreaterThanOrEqualTo(coord, rangeMin) ) {
+					[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+				}
+				
+				// Minor ticks
+				if ( self.minorTicksPerInterval > 0 ) {
+					NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
+					NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+					
+					for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++ ) {
+						if ( CPDecimalLessThanOrEqualTo(minorCoord, rangeMax) && CPDecimalGreaterThanOrEqualTo(minorCoord, rangeMin)) {
+							[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+						}
+						minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
+					}
+				}
+				
+				coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+			}
+		}
+		else {
+			if ( CPDecimalLessThanOrEqualTo(coord, rangeMax) && CPDecimalGreaterThanOrEqualTo(coord, rangeMin) ) {
+				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+			}		
+		}
+		
+		[range release];
 	}
-	else {
-		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
-			[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
-		}		
-	}
-	
-	[range release];
+
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }
 
-
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
-    // cache some values ;
+    // cache some values
     CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+    CPPlotRange *theVisibleRange = self.visibleRange;
+    if ( theVisibleRange ) {
+        [range intersectionPlotRange:theVisibleRange];
+    }
     NSUInteger numTicks = self.preferredNumberOfMajorTicks;
-    NSUInteger minorTicks = self.minorTicksPerInterval ; 
-    double length = range.lengthDouble ;   
+    NSUInteger minorTicks = self.minorTicksPerInterval; 
+    double length = range.lengthDouble;   
     
     // Create sets for locations
     NSMutableSet *majorLocations = [NSMutableSet set];
@@ -428,132 +437,40 @@
     }
     
     // Determine interval value
-    double roughInterval = length/numTicks ;
-	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) ) ;    
-    double interval = exponentValue * trunc(roughInterval/exponentValue) ;
+    double roughInterval = length / numTicks;
+	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
+    double interval = exponentValue * trunc(roughInterval/exponentValue);
     
     // Determinie minor interval
-    double minorInterval = interval / (minorTicks + 1) ;
+    double minorInterval = interval / (minorTicks + 1);
         
-    // Calculate actual range location and end considering the visible range
-    CPPlotRange *theVisibleRange = self.visibleRange ;
-    double location = range.locationDouble ;
-    double end = location + length ;
-    if ( theVisibleRange ) {
-	    double visibleLocation = theVisibleRange.locationDouble ;
-    	double visibleLength = theVisibleRange.lengthDouble ;
-    	location = (location > visibleLocation ? location : visibleLocation ) ;
-        end = (end < visibleLocation+visibleLength ? end : visibleLocation+visibleLength ) ;
-    }
+    // Calculate actual range limits
+    double minLimit = range.minLimitDouble;
+    double maxLimit = range.maxLimitDouble;
     
     // Determine the initial and final major indexes for the actual visible range
-    NSInteger initialIndex = floor(location/interval) ;  // can be negative
-    NSInteger finalIndex = ceil(end/interval) ;  // can be negative
+    NSInteger initialIndex = floor(minLimit / interval);  // can be negative
+    NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
     
     // Iterate through the indexes with visible ticks and build the locations sets
-    NSInteger i ;
-    for ( i = initialIndex ; i <= finalIndex ; i++ ) {
-    	double pointLocation = i * interval ;
-        NSUInteger j ;
-        for ( j = 0 ; j < minorTicks ; j++ ) {
-        	double minorPointLocation = pointLocation + minorInterval * (j+1) ;
-            if ( minorPointLocation < location ) continue ;
-            if ( minorPointLocation > end ) continue ;
-            [minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]] ;
+    for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+    	double pointLocation = i * interval;
+        for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+        	double minorPointLocation = pointLocation + minorInterval * (j + 1);
+            if ( minorPointLocation < minLimit ) continue;
+            if ( minorPointLocation > maxLimit ) continue;
+            [minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
         }
         
-        if ( pointLocation < location ) continue ;
-        if ( pointLocation > end ) continue ;
-        [majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]] ;
+        if ( pointLocation < minLimit ) continue;
+        if ( pointLocation > maxLimit ) continue;
+        [majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
     }
     
     // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
 }
-
-/*
--(void)autoGenerateMajorTickLocationsOld:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
-{
-    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:self.preferredNumberOfMajorTicks];
-    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(self.preferredNumberOfMajorTicks + 1) * self.minorTicksPerInterval];
-    
-    if ( self.preferredNumberOfMajorTicks == 0 ) {
-    	*newMajorLocations = majorLocations;
-        *newMinorLocations = minorLocations;
-        return;
-    }
-    
-    // Determine starting interval
-    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
-    NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
-    NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
-    NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
-    	(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:numIntervals]];
-    
-    // Determine round number using the NSString with scientific format of numbers
-    NSString *intervalString = [NSString stringWithFormat:@"%e", [interval doubleValue]];
-    NSScanner *numberScanner = [NSScanner scannerWithString:intervalString];
-	NSInteger firstDigit;
-    [numberScanner scanInteger:&firstDigit];
-    
-    // Ignore decimal part of scientific number
-    [numberScanner scanUpToString:@"e" intoString:nil];
-    [numberScanner scanString:@"e" intoString:nil];
-    
-    // Scan the exponent
-    NSInteger exponent;
-    [numberScanner scanInteger:&exponent];
-    
-    // Set interval which has been rounded. Make sure it is not zero.
-    interval = [NSDecimalNumber decimalNumberWithMantissa:MAX(1,firstDigit) exponent:exponent isNegative:NO];
-    
-    // Determine how many points there should be now
-    NSDecimalNumber *numPointsDecimal = [rangeLength decimalNumberByDividingBy:interval];
-    NSInteger numPoints = [numPointsDecimal integerValue];
-    
-    // Find first location
-    NSDecimalNumber *rangeLocation = [NSDecimalNumber decimalNumberWithDecimal:range.location];
-    NSInteger firstPointMultiple = [[rangeLocation decimalNumberByDividingBy:interval] integerValue];
-    NSDecimalNumber *pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
-    if ( firstPointMultiple >= 0 && ![rangeLocation isEqualToNumber:pointLocation] ) {
-        firstPointMultiple++;
-        pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
-    }    
-	
-	// If the intervals divide exactly, and the first point is at the beginning of the range,
-	// you can end up with one extra tick
-	if ( [rangeLocation isEqualToNumber:pointLocation] ) numPoints++;
-	
-    // Determine all locations
-    NSInteger majorIndex;
-    NSDecimalNumber *minorInterval = nil;
-    if ( self.minorTicksPerInterval > 0 ) {
-		minorInterval = [interval decimalNumberByDividingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:self.minorTicksPerInterval+1]];
-	}
-    for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
-    	// Major ticks
-        if ( !self.visibleRange || [self.visibleRange contains:pointLocation.decimalValue] ) 
-        	[majorLocations addObject:pointLocation];
-        
-        // Minor ticks
-        if ( minorInterval && majorIndex < numPoints - 1) {
-            NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
-            for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
-                if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
-                    [minorLocations addObject:minorLocation];
-                minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
-            }
-        }
-        // Prepare for next major tick
-        pointLocation = [pointLocation decimalNumberByAdding:interval];
-    }
-    
-    *newMajorLocations = majorLocations;
-    *newMinorLocations = minorLocations;
-}
-*/
 
 #pragma mark -
 #pragma mark Labels
