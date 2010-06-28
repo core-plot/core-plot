@@ -439,7 +439,7 @@
     // Determine interval value
     double roughInterval = length / numTicks;
 	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
-    double interval = exponentValue * trunc(roughInterval/exponentValue);
+    double interval = exponentValue * round(roughInterval/exponentValue);
     
     // Determinie minor interval
     double minorInterval = interval / (minorTicks + 1);
