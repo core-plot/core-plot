@@ -23,8 +23,8 @@
 @property (nonatomic, readwrite, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 
--(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
--(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval;
+-(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations;
 
@@ -350,65 +350,73 @@
 #pragma mark -
 #pragma mark Ticks
 
--(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval
-{
-	if ( increasing ) {
-		return CPDecimalAdd(coord, interval);
-	} else {
-		return CPDecimalSubtract(coord, interval);
-	}
-}
-
--(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	NSMutableSet *majorLocations = [NSMutableSet set];
 	NSMutableSet *minorLocations = [NSMutableSet set];
+	
+	NSDecimal zero = CPDecimalFromInteger(0);
 	NSDecimal majorInterval = self.majorIntervalLength;
-	NSDecimal coord = beginNumber;
-	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-	if ( range ) {
-		CPPlotRange *theVisibleRange = self.visibleRange;
-		if ( theVisibleRange ) {
-			[range intersectionPlotRange:theVisibleRange];
-		}
-		
-		NSDecimal rangeMin = range.minLimit;
-		NSDecimal rangeMax = range.maxLimit;
-		
-		if ( CPDecimalGreaterThan(majorInterval, CPDecimalFromInteger(0)) ) {
-			while ( ((increasing && CPDecimalLessThanOrEqualTo(coord, rangeMax)) || 
-					 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, rangeMin))) ) {
+	
+	if ( CPDecimalGreaterThan(majorInterval, zero) ) {
+		CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+		if ( range ) {
+			CPPlotRange *theVisibleRange = self.visibleRange;
+			if ( theVisibleRange ) {
+				[range intersectionPlotRange:theVisibleRange];
+			}
+			
+			NSDecimal rangeMin = range.minLimit;
+			NSDecimal rangeMax = range.maxLimit;
+			
+			NSDecimal minorInterval;
+			NSUInteger minorTickCount = self.minorTicksPerInterval;
+			if ( minorTickCount > 0 ) {
+				minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval + 1));
+			}
+			else {
+				minorInterval = zero;
+			}
+			
+			// Set starting coord--should be the smallest value >= rangeMin that is a whole multiple of majorInterval away from the labelingOrigin
+			NSDecimal coord = CPDecimalDivide(CPDecimalSubtract(rangeMin, self.labelingOrigin), majorInterval);
+			NSDecimalRound(&coord, &coord, 0, NSRoundUp);
+			coord = CPDecimalAdd(CPDecimalMultiply(coord, majorInterval), self.labelingOrigin);
+			
+			// Set minor ticks between the starting point and rangeMin
+			if ( minorTickCount > 0 ) {
+				NSDecimal minorCoord = CPDecimalSubtract(coord, minorInterval);
 				
-				// Major tick
-				if ( CPDecimalLessThanOrEqualTo(coord, rangeMax) && CPDecimalGreaterThanOrEqualTo(coord, rangeMin) ) {
-					[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+				for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+					if ( CPDecimalLessThan(minorCoord, rangeMin) ) break;
+					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+					minorCoord = CPDecimalSubtract(minorCoord, minorInterval);
 				}
+			}
+
+			// Set tick locations
+			while ( CPDecimalLessThanOrEqualTo(coord, rangeMax) ) {
+				// Major tick
+				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
 				
 				// Minor ticks
-				if ( self.minorTicksPerInterval > 0 ) {
-					NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
-					NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+				if ( minorTickCount > 0 ) {
+					NSDecimal minorCoord = CPDecimalAdd(coord, minorInterval);
 					
-					for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++ ) {
-						if ( CPDecimalLessThanOrEqualTo(minorCoord, rangeMax) && CPDecimalGreaterThanOrEqualTo(minorCoord, rangeMin)) {
-							[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
-						}
-						minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
+					for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+						if ( CPDecimalGreaterThan(minorCoord, rangeMax) ) break;
+						[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+						minorCoord = CPDecimalAdd(minorCoord, minorInterval);
 					}
 				}
 				
-				coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+				coord = CPDecimalAdd(coord, majorInterval);
 			}
-		}
-		else {
-			if ( CPDecimalLessThanOrEqualTo(coord, rangeMax) && CPDecimalGreaterThanOrEqualTo(coord, rangeMin) ) {
-				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
-			}		
 		}
 		
 		[range release];
 	}
-
+	
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }
@@ -439,9 +447,9 @@
     // Determine interval value
     double roughInterval = length / numTicks;
 	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
-    double interval = exponentValue * round(roughInterval/exponentValue);
+    double interval = exponentValue * round(roughInterval / exponentValue);
     
-    // Determinie minor interval
+    // Determine minor interval
     double minorInterval = interval / (minorTicks + 1);
         
     // Calculate actual range limits
@@ -470,6 +478,44 @@
     // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
+}
+
+-(NSSet *)filteredTickLocations:(NSSet *)allLocations 
+{
+	NSArray *exclusionRanges = self.labelExclusionRanges;
+	if ( exclusionRanges ) {
+		NSMutableSet *filteredLocations = [allLocations mutableCopy];
+		for ( CPPlotRange *range in exclusionRanges ) {
+			for ( NSDecimalNumber *location in allLocations ) {
+				if ( [range contains:[location decimalValue]] ) {
+					[filteredLocations removeObject:location];	
+				}
+			}
+		}
+		return [filteredLocations autorelease];
+	}
+	else {
+		return allLocations;
+	}
+	
+}
+
+/**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of major tick locations.
+ *	@return The filtered set.
+ **/
+-(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
+}
+
+/**	@brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of minor tick locations.
+ *	@return The filtered set.
+ **/
+-(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
 }
 
 #pragma mark -
@@ -588,9 +634,8 @@
         return;
     }
 
-	NSMutableSet *allNewMajorLocations = [NSMutableSet set];
-	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
-	NSSet *newMajorLocations, *newMinorLocations;
+	NSSet *newMajorLocations = nil;
+	NSSet *newMinorLocations = nil;
 	
 	switch ( self.labelingPolicy ) {
 		case CPAxisLabelingPolicyNone:
@@ -598,21 +643,10 @@
             // Locations are set by user
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
-			// Add ticks in negative direction
-			[self tickLocationsBeginningAt:self.labelingOrigin increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-			[allNewMajorLocations unionSet:newMajorLocations];  
-			[allNewMinorLocations unionSet:newMinorLocations];  
-			
-			// Add ticks in positive direction
-			[self tickLocationsBeginningAt:self.labelingOrigin increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-			[allNewMajorLocations unionSet:newMajorLocations];
-			[allNewMinorLocations unionSet:newMinorLocations];
-			
+			[self generateFixedIntervalMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			break;
         case CPAxisLabelingPolicyAutomatic:
 			[self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-            allNewMajorLocations = (NSMutableSet *)newMajorLocations;
-			allNewMinorLocations = (NSMutableSet *)newMinorLocations;
 			break;
 		case CPAxisLabelingPolicyLogarithmic:
 			// TODO: logarithmic labeling policy
@@ -626,8 +660,8 @@
 			break;
 		default:
 			// Filter and set tick locations	
-			self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
-			self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
+			self.majorTickLocations = [self filteredMajorTickLocations:newMajorLocations];
+			self.minorTickLocations = [self filteredMinorTickLocations:newMinorLocations];
 	}
 	
     if ( self.labelingPolicy != CPAxisLabelingPolicyNone ) {
@@ -638,37 +672,6 @@
     self.needsRelabel = NO;
 	
 	[self.delegate axisDidRelabel:self];
-}
-
--(NSSet *)filteredTickLocations:(NSSet *)allLocations 
-{
-	NSMutableSet *filteredLocations = [allLocations mutableCopy];
-	for ( CPPlotRange *range in self.labelExclusionRanges ) {
-		for ( NSDecimalNumber *location in allLocations ) {
-			if ( [range contains:[location decimalValue]] ) {
-				[filteredLocations removeObject:location];	
-			}
-		}
-	}
-	return [filteredLocations autorelease];
-}
-
-/**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
- *	@param allLocations A set of major tick locations.
- *	@return The filtered set.
- **/
--(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
-{
-	return [self filteredTickLocations:allLocations];
-}
-
-/**	@brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
- *	@param allLocations A set of minor tick locations.
- *	@return The filtered set.
- **/
--(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
-{
-	return [self filteredTickLocations:allLocations];
 }
 
 #pragma mark -
