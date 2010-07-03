@@ -6,7 +6,7 @@
 {
 	// Background
 	CPBorderedLayer *background = [[(CPBorderedLayer *)[CPBorderedLayer alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
-	background.fill = [CPFill fillWithColor:[CPColor darkGrayColor]];
+	background.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	background.paddingTop = 20.0;
 	background.paddingBottom = 20.0;
 	background.paddingLeft = 20.0;
@@ -15,18 +15,22 @@
 	
     // Create graph
 	CPXYGraph *graph = [[(CPXYGraph *)[CPXYGraph alloc] initWithFrame:background.bounds] autorelease];
-	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+	graph.fill = [CPFill fillWithColor:[CPColor darkGrayColor]];
+	graph.cornerRadius = 20.0;
 	[background addSublayer:graph];
 	
 	// Plot area
-	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
 	graph.plotAreaFrame.paddingTop = 20.0;
 	graph.plotAreaFrame.paddingBottom = 50.0;
 	graph.plotAreaFrame.paddingLeft = 50.0;
 	graph.plotAreaFrame.paddingRight = 20.0;
+	graph.plotAreaFrame.cornerRadius = 10.0;
 	
 	graph.plotAreaFrame.axisSet.borderLineStyle = [CPLineStyle lineStyle];
 
+	graph.plotAreaFrame.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];

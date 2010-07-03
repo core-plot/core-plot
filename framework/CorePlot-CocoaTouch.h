@@ -34,6 +34,7 @@
 #import "CPPlatformSpecificCategories.h"
 #import "CPPathExtensions.h"
 #import "CPPlot.h"
+#import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
 #import "CPPlotGroup.h"
 #import "CPPlotRange.h"

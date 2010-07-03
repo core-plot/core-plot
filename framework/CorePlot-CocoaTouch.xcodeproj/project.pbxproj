@@ -118,7 +118,7 @@
 		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
 		C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
-		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65B411025F8A00FE24BB /* CPGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65B211025F8A00FE24BB /* CPGridLines.m */; };

@@ -34,6 +34,7 @@
 #import <CorePlot/CPPlatformSpecificCategories.h>
 #import <CorePlot/CPPathExtensions.h>
 #import <CorePlot/CPPlot.h>
+#import <CorePlot/CPPlotArea.h>
 #import <CorePlot/CPPlotAreaFrame.h>
 #import <CorePlot/CPPlotGroup.h>
 #import <CorePlot/CPPlotRange.h>
