@@ -1151,7 +1151,11 @@
 				[plotArea.axisTitleGroup insertSublayer:self.axisTitle.contentLayer atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
 			}
 		}
-	}	
+		else {
+			self.minorGridLines = nil;
+			self.majorGridLines = nil;
+		}
+	}
 }
 
 -(void)setVisibleRange:(CPPlotRange *)newRange
