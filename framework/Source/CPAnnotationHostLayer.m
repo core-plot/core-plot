@@ -1,5 +1,14 @@
 #import "CPAnnotationHostLayer.h"
 #import "CPAnnotation.h"
+#import "CPExceptions.h"
+
+///	@cond
+@interface CPAnnotationHostLayer()
+
+@property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
+
+@end
+///	@endcond
 
 /**	@brief An annotation host layer is a container layer for annotations.
  *
@@ -13,6 +22,8 @@
  *	@brief An array of annotations attached to this layer.
  **/
 @dynamic annotations;
+
+@synthesize mutableAnnotations;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -36,7 +47,7 @@
 
 -(NSArray *)annotations
 {
-    return [[mutableAnnotations copy] autorelease];
+    return [[self.mutableAnnotations copy] autorelease];
 }
 
 /**	@brief Adds an annotation to the receiver.
@@ -44,7 +55,7 @@
 -(void)addAnnotation:(CPAnnotation *)annotation 
 {
 	if ( annotation ) {
-		[mutableAnnotations addObject:annotation];
+		[self.mutableAnnotations addObject:annotation];
 		annotation.annotationHostLayer = self;
 	}
 }
@@ -53,10 +64,13 @@
  **/
 -(void)removeAnnotation:(CPAnnotation *)annotation
 {
-	if ( annotation ) {
+    if ( [self.mutableAnnotations containsObject:annotation] ) {
 		annotation.annotationHostLayer = nil;
-		[mutableAnnotations removeObject:annotation];
-	}
+		[self.mutableAnnotations removeObject:annotation];
+    }
+    else {
+        [NSException raise:CPException format:@"Tried to remove CPAnnotation from %@. Host layer was %@.", self, annotation.annotationHostLayer];
+    }
 }
 
 #pragma mark -
@@ -65,7 +79,7 @@
 -(NSSet *)sublayersExcludedFromAutomaticLayout 
 {
 	NSMutableSet *layers = [NSMutableSet set];
-    for ( CPAnnotation *annotation in mutableAnnotations ) {
+    for ( CPAnnotation *annotation in self.mutableAnnotations ) {
         [layers addObject:annotation.contentLayer];
     }
     return layers;
@@ -74,7 +88,7 @@
 -(void)layoutSublayers
 {
     [super layoutSublayers];
-    for ( CPAnnotation *annotation in mutableAnnotations ) {
+    for ( CPAnnotation *annotation in self.mutableAnnotations ) {
     	[annotation positionContentLayer];
 	}
 }
