@@ -1,6 +1,6 @@
 #import "CPAxisTitle.h"
-#import "CPTextLayer.h"
 #import "CPExceptions.h"
+#import "CPLayer.h"
 
 /**	@brief An axis title.
  *
@@ -12,7 +12,7 @@
 {
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
-	self.rotation = (coordinate == CPCoordinateX ? (M_PI / 2.0) : 0.0);
+	self.rotation = (coordinate == CPCoordinateX ? M_PI_2 : 0.0);
 	CGPoint anchor = CGPointZero;
     
     // Position the anchor point along the closest edge.
@@ -50,13 +50,5 @@
     
     [self.contentLayer setNeedsDisplay];
 }
-
-#pragma mark -
-#pragma mark Description
-
--(NSString *)description
-{
-	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
-};
 
 @end

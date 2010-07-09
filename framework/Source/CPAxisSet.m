@@ -71,8 +71,9 @@
             [axis removeFromSuperlayer];
 			axis.plotArea = nil;
         }
+		[newAxes retain];
         [axes release];
-        axes = [newAxes retain];
+        axes = newAxes;
 		CPPlotArea *plotArea = (CPPlotArea *)self.superlayer;
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];
