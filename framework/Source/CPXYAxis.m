@@ -44,8 +44,8 @@
 @synthesize constraints;
 
 /**	@property isFloatingAxis
- *	@brief True if the axis is floats independent of the plot space.
- *  If false, the axes is fixed relative to the plot space coordinates, and moves
+ *	@brief True if the axis floats independent of the plot space.
+ *  If false, the axis is fixed relative to the plot space coordinates, and moves
  *  whenever the plot space ranges change.
  *  When true, the axis must be constrained relative to the plot area, in view coordinates.
  *  The default value is NO, meaning the axis is positioned in plot coordinates.
