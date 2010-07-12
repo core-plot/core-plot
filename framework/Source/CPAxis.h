@@ -9,6 +9,7 @@
 @class CPAxisSet;
 @class CPAxisTitle;
 @class CPGridLines;
+@class CPLimitBand;
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
@@ -99,6 +100,8 @@ typedef enum _CPAxisLabelingPolicy {
 	id <CPAxisDelegate> delegate;
     CPPlotRange *visibleRange;
     CPPlotRange *gridLinesRange;
+	NSArray *alternatingBandFills;
+	NSMutableArray *backgroundLimitBands;
 	BOOL separateLayers;
 	__weak CPPlotArea *plotArea;
 	__weak CPGridLines *minorGridLines;
@@ -161,6 +164,12 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPPlotRange *gridLinesRange;
 ///	@}
 
+/// @name Background Bands
+/// @{
+@property (nonatomic, readwrite, copy) NSArray *alternatingBandFills;
+@property (nonatomic, readonly, retain) NSMutableArray *backgroundLimitBands;
+///	@}
+
 /// @name Plot Space
 /// @{
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
@@ -187,6 +196,12 @@ typedef enum _CPAxisLabelingPolicy {
 -(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations;
 ///	@}
 
+/// @name Background Bands
+/// @{
+-(void)addBackgroundLimitBand:(CPLimitBand *)limitBand;
+-(void)removeBackgroundLimitBand:(CPLimitBand *)limitBand;
+///	@}
+
 @end
 
 #pragma mark -
@@ -204,6 +219,12 @@ typedef enum _CPAxisLabelingPolicy {
 /// @name Grid Lines
 /// @{
 -(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major;
+///	@}
+
+/// @name Background Bands
+/// @{
+-(void)drawBackgroundBandsInContext:(CGContextRef)context;
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context;
 ///	@}
 
 @end

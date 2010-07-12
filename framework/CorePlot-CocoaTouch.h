@@ -25,6 +25,7 @@
 #import "CPLayerAnnotation.h"
 #import "CPLayerHostingView.h"
 #import "CPLayoutManager.h"
+#import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPPieChart.h"
 #import "CPPlainBlackTheme.h"

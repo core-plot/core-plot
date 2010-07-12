@@ -3,7 +3,13 @@
 #import "CPAxisLabelGroup.h"
 #import "CPAxisSet.h"
 #import "CPAxisTitle.h"
+#import "CPColor.h"
+#import "CPExceptions.h"
+#import "CPFill.h"
+#import "CPGradient.h"
 #import "CPGridLines.h"
+#import "CPImage.h"
+#import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPPlotRange.h"
 #import "CPPlotSpace.h"
@@ -22,6 +28,7 @@
 @property (nonatomic, readwrite, assign) __weak CPGridLines *minorGridLines;
 @property (nonatomic, readwrite, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
+@property (nonatomic, readwrite, retain) NSMutableArray *backgroundLimitBands;
 
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
@@ -244,6 +251,24 @@
  **/
 @synthesize minorGridLineStyle;
 
+// Background Bands
+
+/**	@property alternatingBandFills
+ *	@brief An array of two or more fills to be drawn between successive major tick marks.
+ *
+ *	When initializing the fills, provide an NSArray containing any combinination of CPFill,
+ *	CPColor, CPGradient, and/or CPImage objects. Blank (transparent) bands can be created
+ *	by using [NSNull null] in place of some of the CPFill objects.
+ **/
+@synthesize alternatingBandFills;
+
+/**	@property backgroundLimitBands
+ *	@brief An array of CPLimitBand objects.
+ *
+ *	The limit bands are drawn on top of the alternating band fills.
+ **/
+@dynamic backgroundLimitBands;
+
 // Layers
 
 /**	@property separateLayers
@@ -317,6 +342,8 @@
 		delegate = nil;
 		plotArea = nil;
 		separateLayers = NO;
+		alternatingBandFills = nil;
+		backgroundLimitBands = nil;
 		minorGridLines = nil;
 		majorGridLines = nil;
 		
@@ -346,6 +373,8 @@
 	[labelExclusionRanges release];
     [visibleRange release];
     [gridLinesRange release];
+	[alternatingBandFills release];
+	[backgroundLimitBands release];
 	
 	[super dealloc];
 }
@@ -673,6 +702,9 @@
     }
 
     self.needsRelabel = NO;
+	if ( self.alternatingBandFills.count > 0 ) {
+		[self.plotArea setNeedsDisplay];
+	}
 	
 	[self.delegate axisDidRelabel:self];
 }
@@ -701,6 +733,35 @@
     }
 
 	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+}
+
+#pragma mark -
+#pragma mark Background Bands
+
+/**	@brief Add a background limit band.
+ *	@param limitBand The new limit band.
+ **/
+-(void)addBackgroundLimitBand:(CPLimitBand *)limitBand
+{
+	if ( limitBand ) {
+		if ( !self.backgroundLimitBands ) {
+			self.backgroundLimitBands = [NSMutableArray array];
+		}
+		
+		[self.backgroundLimitBands addObject:limitBand];
+		[self.plotArea setNeedsDisplay];
+	}
+}
+
+/**	@brief Remove a background limit band.
+ *	@param limitBand The limit band to be removed.
+ **/
+-(void)removeBackgroundLimitBand:(CPLimitBand *)limitBand
+{
+	if ( limitBand ) {
+		[self.backgroundLimitBands removeObject:limitBand];
+		[self.plotArea setNeedsDisplay];
+	}
 }
 
 #pragma mark -
@@ -1230,6 +1291,64 @@
 	}	
 }
 
+-(void)setAlternatingBandFills:(NSArray *)newFills
+{
+	if ( newFills != alternatingBandFills ) {
+		[alternatingBandFills release];
+		
+		BOOL convertFills = NO;
+		for ( id obj in newFills ) {
+			if ( obj == [NSNull null] ) {
+				continue;
+			}
+			else if ( [obj isKindOfClass:[CPFill class]] ) {
+				continue;
+			}
+			else {
+				convertFills = YES;
+				break;
+			}
+		}
+		
+		if ( convertFills ) {
+			NSMutableArray *fillArray = [newFills mutableCopy];
+			NSInteger i = -1;
+			CPFill *newFill = nil;
+			
+			for ( id obj in newFills ) {
+				i++;
+				if ( obj == [NSNull null] ) {
+					continue;
+				}
+				else if ( [obj isKindOfClass:[CPFill class]] ) {
+					continue;
+				}
+				else if ( [obj isKindOfClass:[CPColor class]] ) {
+					newFill = [[CPFill alloc] initWithColor:obj];
+				}
+				else if ( [obj isKindOfClass:[CPGradient class]] ) {
+					newFill = [[CPFill alloc] initWithGradient:obj];
+				}
+				else if ( [obj isKindOfClass:[CPImage class]] ) {
+					newFill = [[CPFill alloc] initWithImage:obj];
+				}
+				else {
+					[NSException raise:CPException format:@"Alternating band fills must be one or more of the following: CPFill, CPColor, CPGradient, CPImage, or [NSNull null]."];
+				}
+				
+				[fillArray replaceObjectAtIndex:i withObject:newFill];
+				[newFill release];
+			}
+			
+			alternatingBandFills = fillArray;
+		}
+		else {
+			alternatingBandFills = [newFills copy];
+		}
+		[self.plotArea setNeedsDisplay];
+	}
+}
+
 -(CPAxisSet *)axisSet
 {
 	return self.plotArea.axisSet;
@@ -1255,6 +1374,22 @@
  *	@param major Draw the major grid lines if YES, minor grid lines otherwise.
  **/
 -(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+{
+	// do nothing--subclasses must override to do their drawing	
+}
+
+/**	@brief Draws alternating background bands into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawBackgroundBandsInContext:(CGContextRef)context
+{
+	// do nothing--subclasses must override to do their drawing	
+}
+
+/**	@brief Draws background limit ranges into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context
 {
 	// do nothing--subclasses must override to do their drawing	
 }

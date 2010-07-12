@@ -11,6 +11,15 @@
 		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSMutableArray</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSMutableArray_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSCoder</name>
 		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
 		<base>NSObject</base>

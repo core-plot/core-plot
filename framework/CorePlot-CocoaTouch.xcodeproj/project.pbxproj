@@ -118,6 +118,8 @@
 		BCC7EA4A1006BF5700B39451 /* CPStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPStocksTheme.m */; };
 		C30C85AB1047428100181766 /* CPPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
+		C318F4C111EA18A400595FF9 /* CPLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C318F4C211EA18A400595FF9 /* CPLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPLimitBand.m */; };
 		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -286,6 +288,8 @@
 		BCC7EA441006BF5700B39451 /* CPStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPStocksTheme.m; path = Source/CPStocksTheme.m; sourceTree = "<group>"; };
 		C30C85A91047428100181766 /* CPPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotGroup.h; path = Source/CPPlotGroup.h; sourceTree = "<group>"; };
 		C30C85AA1047428100181766 /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotGroup.m; path = Source/CPPlotGroup.m; sourceTree = "<group>"; };
+		C318F4BF11EA18A400595FF9 /* CPLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLimitBand.h; path = Source/CPLimitBand.h; sourceTree = "<group>"; };
+		C318F4C011EA18A400595FF9 /* CPLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLimitBand.m; path = Source/CPLimitBand.m; sourceTree = "<group>"; };
 		C3566B8C10EED17400FB3866 /* doxygen touch.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen touch.config"; sourceTree = SOURCE_ROOT; };
 		C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen-cocoa-touch-tags.xml"; sourceTree = SOURCE_ROOT; };
 		C3566B8E10EED1B000FB3866 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
@@ -596,6 +600,8 @@
 				BC9B82C20FB89E610035D8DA /* CPPlotAreaFrame.m */,
 				C35A65A311025EDF00FE24BB /* CPPlotArea.h */,
 				C35A65A411025EDF00FE24BB /* CPPlotArea.m */,
+				C318F4BF11EA18A400595FF9 /* CPLimitBand.h */,
+				C318F4C011EA18A400595FF9 /* CPLimitBand.m */,
 			);
 			name = "Plot Areas";
 			sourceTree = SOURCE_ROOT;
@@ -783,6 +789,7 @@
 				0718DE4F11D1EDBA00AF4851 /* CPAnnotationHostLayer.h in Headers */,
 				0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */,
 				0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */,
+				C318F4C111EA18A400595FF9 /* CPLimitBand.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +932,7 @@
 				0718DE5011D1EDBA00AF4851 /* CPAnnotationHostLayer.m in Sources */,
 				0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */,
 				0718DE5411D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m in Sources */,
+				C318F4C211EA18A400595FF9 /* CPLimitBand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -151,6 +151,8 @@
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
 		BCFC7C3710921FDB00DAECAA /* CPAxisTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = BCFC7C3510921FDB00DAECAA /* CPAxisTitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCFC7C3810921FDB00DAECAA /* CPAxisTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFC7C3610921FDB00DAECAA /* CPAxisTitle.m */; };
+		C318F4AD11EA188700595FF9 /* CPLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4AB11EA188700595FF9 /* CPLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C318F4AE11EA188700595FF9 /* CPLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4AC11EA188700595FF9 /* CPLimitBand.m */; };
 		C32BCF801054081C00639E25 /* CPLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C32BCF811054081C00639E25 /* CPLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPLayoutManager.m */; };
 		C34260200FAE096D00072842 /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C34260180FAE096C00072842 /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -326,6 +328,8 @@
 		BC89A64010239D1D009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = SOURCE_ROOT; };
 		BCFC7C3510921FDB00DAECAA /* CPAxisTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAxisTitle.h; sourceTree = "<group>"; };
 		BCFC7C3610921FDB00DAECAA /* CPAxisTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisTitle.m; sourceTree = "<group>"; };
+		C318F4AB11EA188700595FF9 /* CPLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLimitBand.h; sourceTree = "<group>"; };
+		C318F4AC11EA188700595FF9 /* CPLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLimitBand.m; sourceTree = "<group>"; };
 		C32B391610AA4C78000470D4 /* CPGridLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGridLines.h; sourceTree = "<group>"; };
 		C32B391710AA4C78000470D4 /* CPGridLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGridLines.m; sourceTree = "<group>"; };
 		C32BCF7E1054081C00639E25 /* CPLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayoutManager.h; sourceTree = "<group>"; };
@@ -610,6 +614,8 @@
 				07BF0D770F2B723A002FCEA7 /* CPPlotAreaFrame.m */,
 				C34BF5BA10A67633007F0894 /* CPPlotArea.h */,
 				C34BF5BB10A67633007F0894 /* CPPlotArea.m */,
+				C318F4AB11EA188700595FF9 /* CPLimitBand.h */,
+				C318F4AC11EA188700595FF9 /* CPLimitBand.m */,
 			);
 			name = "Plot Areas";
 			sourceTree = "<group>";
@@ -965,6 +971,7 @@
 				07E10BB611D10177000B8DAB /* CPAnnotation.h in Headers */,
 				07E10BBB11D10183000B8DAB /* CPLayerAnnotation.h in Headers */,
 				072161EB11D1F6BD009CC871 /* CPAnnotationHostLayer.h in Headers */,
+				C318F4AD11EA188700595FF9 /* CPLimitBand.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1173,6 +1180,7 @@
 				07E10BB711D10177000B8DAB /* CPAnnotation.m in Sources */,
 				07E10BBC11D10183000B8DAB /* CPLayerAnnotation.m in Sources */,
 				072161EC11D1F6BD009CC871 /* CPAnnotationHostLayer.m in Sources */,
+				C318F4AE11EA188700595FF9 /* CPLimitBand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

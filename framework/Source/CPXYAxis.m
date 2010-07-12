@@ -2,6 +2,8 @@
 #import "CPConstrainedPosition.h"
 #import "CPDefinitions.h"
 #import "CPExceptions.h"
+#import "CPFill.h"
+#import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 #import "CPPlotRange.h"
@@ -222,27 +224,32 @@
 		
 		[self relabel];
 		
+		CPPlotSpace *thePlotSpace = self.plotSpace;
 		NSSet *locations = (major ? self.majorTickLocations : self.minorTickLocations);
-		CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
-		CPPlotRange *orthogonalRange = [[self.plotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
-		if ( self.gridLinesRange ) {
-			[orthogonalRange intersectionPlotRange:self.gridLinesRange];
+		CPCoordinate selfCoordinate = self.coordinate;
+		CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+		CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPPlotRange *theGridLineRange = self.gridLinesRange;
+		if ( theGridLineRange ) {
+			[orthogonalRange intersectionPlotRange:theGridLineRange];
 		}
 		
-		CPPlotArea *plotArea = self.plotArea;
+		CPPlotArea *thePlotArea = self.plotArea;
+		NSDecimal startPlotPoint[2];
+		NSDecimal endPlotPoint[2];
+		startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+		endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
 		
 		CGContextBeginPath(context);
 		
 		for ( NSDecimalNumber *location in locations ) {
+			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = [location decimalValue];
+
 			// Start point
-			NSDecimal plotPoint[2];
-			plotPoint[self.coordinate] = [location decimalValue];
-			plotPoint[orthogonalCoordinate] = orthogonalRange.location;
-			CGPoint startViewPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
+			CGPoint startViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint] fromLayer:thePlotArea];
 			
 			// End point
-			plotPoint[orthogonalCoordinate] = orthogonalRange.end;
-			CGPoint endViewPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:plotArea];
+			CGPoint endViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint] fromLayer:thePlotArea];
 			
 			// Align to pixels
 			startViewPoint = CPAlignPointToUserSpace(context, startViewPoint);
@@ -257,6 +264,172 @@
 		[lineStyle setLineStyleInContext:context];
 		CGContextStrokePath(context);
 		
+		[orthogonalRange release];
+	}
+}
+
+#pragma mark -
+#pragma mark Background Bands
+
+-(void)drawBackgroundBandsInContext:(CGContextRef)context
+{
+	NSArray *bandArray = self.alternatingBandFills;
+	NSUInteger bandCount = bandArray.count;
+	
+	if ( bandCount > 0 ) {
+		NSArray *locations = [self.majorTickLocations allObjects];
+		
+		if ( locations.count > 0 ) {
+			CPPlotSpace *thePlotSpace = self.plotSpace;
+			
+			CPCoordinate selfCoordinate = self.coordinate;
+			CPPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+			if ( range ) {
+				CPPlotRange *theVisibleRange = self.visibleRange;
+				if ( theVisibleRange ) {
+					[range intersectionPlotRange:theVisibleRange];
+				}
+			}
+			
+			CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+			CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+			CPPlotRange *theGridLineRange = self.gridLinesRange;
+			if ( theGridLineRange ) {
+				[orthogonalRange intersectionPlotRange:theGridLineRange];
+			}
+			
+			NSDecimal zero = CPDecimalFromInteger(0);
+			NSSortDescriptor *sortDescriptor = nil;
+			if ( CPDecimalGreaterThanOrEqualTo(range.length, zero) ) {
+				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
+			}
+			else {
+				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:NO];
+			}
+			locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+			[sortDescriptor release];
+			
+			NSUInteger bandIndex = 0;
+			id null = [NSNull null];
+			NSDecimal lastLocation = range.location;
+			
+			NSDecimal startPlotPoint[2];
+			NSDecimal endPlotPoint[2];
+			startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+			endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+			
+			for ( NSDecimalNumber *location in locations ) {
+				NSDecimal currentLocation = [location decimalValue];
+				if ( !CPDecimalEquals(CPDecimalSubtract(currentLocation, lastLocation), zero) ) {
+					CPFill *bandFill = [bandArray objectAtIndex:bandIndex++];
+					bandIndex %= bandCount;
+					
+					if ( bandFill != null ) {
+						// Start point
+						startPlotPoint[selfCoordinate] = currentLocation;
+						CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+						
+						// End point
+						endPlotPoint[selfCoordinate] = lastLocation;
+						CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+						
+						// Fill band
+						CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+													 MIN(startViewPoint.y, endViewPoint.y),
+													 ABS(endViewPoint.x - startViewPoint.x),
+													 ABS(endViewPoint.y - startViewPoint.y));
+						[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+					}
+				}
+				
+				lastLocation = currentLocation;
+			}
+			
+			// Fill space between last location and the range end
+			if ( !CPDecimalEquals(lastLocation, range.end) ) {
+				CPFill *bandFill = [bandArray objectAtIndex:bandIndex];
+				
+				if ( bandFill != null ) {
+					// Start point
+					startPlotPoint[selfCoordinate] = range.end;
+					CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+					
+					// End point
+					endPlotPoint[selfCoordinate] = lastLocation;
+					CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+					
+					// Fill band
+					CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+												 MIN(startViewPoint.y, endViewPoint.y),
+												 ABS(endViewPoint.x - startViewPoint.x),
+												 ABS(endViewPoint.y - startViewPoint.y));
+					[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+				}
+			}
+			
+			[range release];
+			[orthogonalRange release];
+		}
+	}
+}
+
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context
+{
+	NSArray *limitArray = self.backgroundLimitBands;
+	
+	if ( limitArray.count > 0 ) {
+		CPPlotSpace *thePlotSpace = self.plotSpace;
+		
+		CPCoordinate selfCoordinate = self.coordinate;
+		CPPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+		if ( range ) {
+			CPPlotRange *theVisibleRange = self.visibleRange;
+			if ( theVisibleRange ) {
+				[range intersectionPlotRange:theVisibleRange];
+			}
+		}
+		
+		CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+		CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPPlotRange *theGridLineRange = self.gridLinesRange;
+		if ( theGridLineRange ) {
+			[orthogonalRange intersectionPlotRange:theGridLineRange];
+		}
+		
+		NSDecimal startPlotPoint[2];
+		NSDecimal endPlotPoint[2];
+		startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+		endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+		
+		for ( CPLimitBand *band in self.backgroundLimitBands ) {
+			CPFill *bandFill = band.fill;
+			
+			if ( bandFill ) {
+				CPPlotRange *bandRange = [band.range copy];
+				if ( bandRange ) {
+					[bandRange intersectionPlotRange:range];
+					
+					// Start point
+					startPlotPoint[selfCoordinate] = bandRange.location;
+					CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+					
+					// End point
+					endPlotPoint[selfCoordinate] = bandRange.end;
+					CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+					
+					// Fill band
+					CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+												 MIN(startViewPoint.y, endViewPoint.y),
+												 ABS(endViewPoint.x - startViewPoint.x),
+												 ABS(endViewPoint.y - startViewPoint.y));
+					[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+					
+					[bandRange release];
+				}
+			}
+		}
+		
+		[range release];
 		[orthogonalRange release];
 	}
 }

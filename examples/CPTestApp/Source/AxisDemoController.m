@@ -33,8 +33,8 @@
 	
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(-10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.5) length:CPDecimalFromDouble(10.0)];
 	
     // Line styles
     CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];
@@ -59,6 +59,7 @@
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
 	x.separateLayers = NO;
+	x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.5);
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
     x.minorTicksPerInterval = 4;
 	x.tickDirection = CPSignNone;
@@ -71,6 +72,7 @@
 	x.title = @"X Axis";
 	x.titleTextStyle = axisTitleTextStyle;
 	x.titleOffset = 25.0;
+	x.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor redColor] colorWithAlphaComponent:0.1], [[CPColor greenColor] colorWithAlphaComponent:0.1], nil];
 	
 	// Label y with an automatic label policy.
 	axisLineStyle.lineColor = [CPColor greenColor];
@@ -88,6 +90,11 @@
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0;
+	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+	
+	CPFill *bandFill = [CPFill fillWithColor:[[CPColor darkGrayColor] colorWithAlphaComponent:0.5]];
+	[y addBackgroundLimitBand:[CPLimitBand limitBandWithRange:[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(7.0) length:CPDecimalFromDouble(1.5)] fill:bandFill]];
+	[y addBackgroundLimitBand:[CPLimitBand limitBandWithRange:[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(1.5) length:CPDecimalFromDouble(3.0)] fill:bandFill]];
 }
 
 @end

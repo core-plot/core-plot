@@ -25,6 +25,7 @@
 #import <CorePlot/CPLayer.h>
 #import <CorePlot/CPLayerAnnotation.h>
 #import	<CorePlot/CPLayoutManager.h>
+#import <CorePlot/CPLimitBand.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPPieChart.h>
 #import <CorePlot/CPPlainBlackTheme.h>

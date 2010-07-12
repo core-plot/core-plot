@@ -161,10 +161,17 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	if ( self.fill ) {
-		[super renderAsVectorInContext:context];
-		
-		[self.fill fillRect:self.bounds inContext:context];
+	[super renderAsVectorInContext:context];
+	
+	[self.fill fillRect:self.bounds inContext:context];
+	
+	NSArray *theAxes = self.axisSet.axes;
+	
+	for ( CPAxis *axis in theAxes ) {
+		[axis drawBackgroundBandsInContext:context];
+	}
+	for ( CPAxis *axis in theAxes ) {
+		[axis drawBackgroundLimitsInContext:context];
 	}
 }
 
