@@ -27,14 +27,16 @@
     if ( self = [super init] ) {
         plotSpace = [newPlotSpace retain];
         anchorPlotPoint = [newPlotPoint copy];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(positionContentLayer) name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
     }
     return self;
 }
 
 -(void)dealloc 
 {
-    [plotSpace release];
-    [anchorPlotPoint release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [plotSpace release]; plotSpace = nil;
+    [anchorPlotPoint release]; anchorPlotPoint = nil;
     [super dealloc];
 }
 

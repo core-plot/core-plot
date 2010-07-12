@@ -17,7 +17,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 -(void)dealloc 
 {
     [graph release];
-    [symbolTextAnnotation release];
     [super dealloc];
 }
 
@@ -330,7 +329,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     // Setup a style for the annotation
     CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor whiteColor];
-    hitAnnotationTextStyle.fontSize = 18.0f;
+    hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
     
     // Determine point of symbol in plot coordinates
@@ -339,8 +338,16 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
     
     // Add annotation
-    symbolTextAnnotation = [[CPPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-	symbolTextAnnotation.contentLayer = [[[CPTextLayer alloc] initWithText:@"Hit!" style:hitAnnotationTextStyle] autorelease];
+    // First make a string for the y value
+    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [formatter setMaximumFractionDigits:2];
+    NSString *yString = [formatter stringFromNumber:y];
+    
+    // Now add the annotation to the plot area
+    CPTextLayer *textLayer = [[[CPTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    symbolTextAnnotation = [[[CPPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint] autorelease];
+	symbolTextAnnotation.contentLayer = textLayer;
+    symbolTextAnnotation.displacement = CGPointMake(0.0f, 20.0f);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
 }
 

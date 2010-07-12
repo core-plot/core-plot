@@ -185,13 +185,17 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(void)layoutSublayers
 {
+	[super layoutSublayers];
+    
 	CALayer *superlayer = self.superlayer;
 	CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
 	sublayerBounds.origin = CGPointZero;
 	CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
 	sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
 	
+    NSSet *excludedLayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
+    	if ( [excludedLayers containsObject:subLayer] ) continue;
 		subLayer.frame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 	}
 	
