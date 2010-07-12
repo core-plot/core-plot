@@ -17,6 +17,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 -(void)dealloc 
 {
     [graph release];
+    [symbolTextAnnotation release];
     [super dealloc];
 }
 
@@ -158,6 +159,11 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     plotSymbol.size = CGSizeMake(10.0, 10.0);
     boundLinePlot.plotSymbol = plotSymbol;
     
+    // Set plot delegate, to know when symbols have been touched
+	// We will display an annotation when a symbol is touched
+    boundLinePlot.delegate = self; 
+    boundLinePlot.plotSymbolMarginForHitDetection = 5.0f;
+
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
@@ -307,9 +313,36 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
         [changedRange shiftLocationToFitInRange:maxRange];
         newRange = changedRange;
     }
+    
     return newRange;
 }
 
+#pragma mark -
+#pragma mark CPScatterPlot delegate method
+
+-(void)scatterPlot:(CPScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	if ( symbolTextAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        symbolTextAnnotation = nil;
+    }
+    
+    // Setup a style for the annotation
+    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    hitAnnotationTextStyle.color = [CPColor whiteColor];
+    hitAnnotationTextStyle.fontSize = 18.0f;
+    hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
+    
+    // Determine point of symbol in plot coordinates
+    NSNumber *x = [[self.arrangedObjects objectAtIndex:index] valueForKey:@"x"];
+    NSNumber *y = [[self.arrangedObjects objectAtIndex:index] valueForKey:@"y"];
+	NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+    
+    // Add annotation
+    symbolTextAnnotation = [[CPPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
+	symbolTextAnnotation.contentLayer = [[[CPTextLayer alloc] initWithText:@"Hit!" style:hitAnnotationTextStyle] autorelease];
+    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
+}
 
 #pragma mark -
 #pragma mark PDF / image export
@@ -426,6 +459,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	
 	[axisDemoWindow makeKeyAndOrderFront:sender];
 }
+
 
 #pragma mark -
 #pragma mark CPRotationDelegate delegate method

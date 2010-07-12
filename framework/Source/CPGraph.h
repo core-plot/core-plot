@@ -1,5 +1,5 @@
 // Abstract class
-#import "CPAnnotationHostLayer.h"
+#import "CPBorderedLayer.h"
 #import "CPDefinitions.h"
 
 /// @file
@@ -24,7 +24,7 @@ typedef enum _CPGraphLayerType {
 	CPGraphLayerTypeAxisTitles			///< Axis titles.
 } CPGraphLayerType;
 
-@interface CPGraph : CPAnnotationHostLayer {
+@interface CPGraph : CPBorderedLayer {
 	@private
     CPPlotAreaFrame *plotAreaFrame;
     NSMutableArray *plots;

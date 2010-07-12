@@ -51,6 +51,25 @@ typedef enum _CPScatterPlotField {
 
 @end 
 
+/**	@brief Scatter plot delegate.
+ **/
+@protocol CPScatterPlotDelegate <NSObject>
+
+@optional
+
+// @name Point selection
+/// @{
+
+/**	@brief Informs delegate that a point was touched.
+ *	@param plot The scatter plot.
+ *	@param index Index of touched point
+ **/
+-(void)scatterPlot:(CPScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
+
 @interface CPScatterPlot : CPPlot {
 	@private
     id observedObjectForXValues;
@@ -65,15 +84,21 @@ typedef enum _CPScatterPlotField {
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
     NSDecimal areaBaseValue;
+    CGFloat plotSymbolMarginForHitDetection;
     NSArray *plotSymbols;
+    __weak id <CPScatterPlotDelegate> delegate;
 } 
 
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
 @property (nonatomic, readwrite) NSDecimal areaBaseValue;
+@property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
+@property (nonatomic, readwrite, assign) __weak id <CPScatterPlotDelegate> delegate;
 
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index;
+
+-(CPPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index;
 
 @end

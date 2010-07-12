@@ -93,6 +93,18 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  **/
 @synthesize areaBaseValue;
 
+/** @property plotSymbolMarginForHitDetection
+ *	@brief A margin added to each side of a symbol when determining whether it has been hit.
+ *
+ *	Default is zero. The margin is set in plot area view coordinates.
+ **/
+@synthesize plotSymbolMarginForHitDetection;
+
+/** @property delegate
+ *	@brief The scatter plot delegate.
+ **/
+@synthesize delegate;
+
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -119,6 +131,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaFill = nil;
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
+        delegate = nil;
+        plotSymbolMarginForHitDetection = 0.0f;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -148,6 +162,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[plotSymbols release];
 	[xValuesTransformer release];
     [yValuesTransformer release];
+    
+    delegate = nil;
     	
 	[super dealloc];
 }
@@ -305,6 +321,21 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 			self.plotSymbols = symbols;
 		}
 	}
+}
+
+#pragma mark -
+#pragma mark Symbols
+
+/**	@brief Returns the plot symbol to use for a given index.
+ *	@param index The index of the record.
+ *	@return The plot symbol to use, or nil if no plot symbol should be drawn.
+ **/
+-(CPPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index
+{
+    CPPlotSymbol *symbol = self.plotSymbol;
+    if ( index < self.plotSymbols.count ) symbol = [self.plotSymbols objectAtIndex:index];
+    if ( ![symbol isKindOfClass:[CPPlotSymbol class]] ) symbol = nil; // Account for NSNull values
+    return symbol;
 }
 
 #pragma mark -
@@ -579,11 +610,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		if (self.plotSymbol || self.plotSymbols.count) {
 			for (NSUInteger i = 0; i < dataCount; i++) {
 				if ( drawPointFlags[i] ) {
-					CPPlotSymbol *currentSymbol = self.plotSymbol;
-					if ( i < self.plotSymbols.count ) currentSymbol = [self.plotSymbols objectAtIndex:i];
-					if ( [currentSymbol isKindOfClass:[CPPlotSymbol class]] ) {
-						[currentSymbol renderInContext:theContext atPoint:viewPoints[i]];			
-					}
+					CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
+                    [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
 				}
 			}
 		}
@@ -621,6 +649,39 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
             break;
     }
     return result;
+}
+
+#pragma mark -
+#pragma mark Responder Chain and User interaction
+
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	BOOL result = NO;
+	if ( !self.graph || !self.plotArea ) return NO;
+    
+	if ( [delegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+    	// Inform delegate if a point was hit
+        CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
+        NSUInteger index = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
+        CGPoint center = [self plotAreaPointOfVisiblePointAtIndex:index];
+        CPPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
+        
+        CGRect symbolRect = CGRectZero;
+        symbolRect.size = symbol.size;
+        symbolRect.size.width += 2.0f * plotSymbolMarginForHitDetection;
+        symbolRect.size.height += 2.0f * plotSymbolMarginForHitDetection;
+        symbolRect.origin = CGPointMake(center.x - 0.5f*CGRectGetWidth(symbolRect), center.y - 0.5f*CGRectGetHeight(symbolRect));
+        
+        if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
+            [delegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+            result = YES;
+        }
+    }
+    else {
+        result = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+    
+	return result;
 }
 
 #pragma mark -

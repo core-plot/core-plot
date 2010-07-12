@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 #import "CPGraph.h"
+#import "CPAnnotationHostLayer.h"
 
 @class CPAxis;
 @class CPAxisLabelGroup;
@@ -10,7 +11,7 @@
 @class CPLineStyle;
 @class CPFill;
 
-@interface CPPlotArea : CPLayer {
+@interface CPPlotArea : CPAnnotationHostLayer {
 @private
 	CPGridLineGroup *minorGridLineGroup;
 	CPGridLineGroup *majorGridLineGroup;

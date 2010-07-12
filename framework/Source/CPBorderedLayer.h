@@ -1,10 +1,11 @@
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
+#import "CPAnnotationHostLayer.h"
 
 @class CPLineStyle;
 @class CPFill;
 
-@interface CPBorderedLayer : CPLayer {
+@interface CPBorderedLayer : CPAnnotationHostLayer {
 @private
 	CPLineStyle *borderLineStyle;
     CPFill *fill;

@@ -40,6 +40,7 @@
 #import <CorePlot/CPPlotGroup.h>
 #import <CorePlot/CPPlotRange.h>
 #import <CorePlot/CPPlotSpace.h>
+#import <CorePlot/CPPlotSpaceAnnotation.h>
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
 #import <CorePlot/CPResponder.h>

@@ -57,6 +57,7 @@
 	if ( annotation ) {
 		[self.mutableAnnotations addObject:annotation];
 		annotation.annotationHostLayer = self;
+        [annotation positionContentLayer];
 	}
 }
 
