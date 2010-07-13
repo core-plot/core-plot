@@ -46,10 +46,11 @@
     // Add pie chart
     CPPieChart *piePlot = [[CPPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius = 130.0;
+    piePlot.pieRadius = 100.0;
     piePlot.identifier = @"Pie Chart 1";
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
+	piePlot.centerAnchor = CGPointMake(0.5, 0.7);
     [pieChart addPlot:piePlot];
     [piePlot release];
 	

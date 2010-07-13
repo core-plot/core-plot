@@ -54,12 +54,14 @@ typedef enum _CPPieDirection {
 	CGFloat sliceLabelOffset;
 	CGFloat startAngle;
 	CPPieDirection sliceDirection;
+	CGPoint centerAnchor;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
 @property (nonatomic, readwrite) CGFloat sliceLabelOffset;
 @property (nonatomic, readwrite) CGFloat startAngle;
 @property (nonatomic, readwrite) CPPieDirection sliceDirection;
+@property (nonatomic, readwrite) CGPoint centerAnchor;
 
 /// @name Factory Methods
 /// @{

@@ -47,6 +47,12 @@
  **/
 @synthesize sliceDirection;
 
+/** @property centerAnchor
+ *	@brief The position of the center of the pie chart with the x and y coordinates
+ *	given as a fraction of the width and height, respectively. Defaults to (0.5, 0.5).
+ **/
+@synthesize centerAnchor;
+
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -76,6 +82,7 @@ static CGFloat colorLookupTable[10][3] =
 		startAngle = M_PI_2;	// pi/2
 		sliceDirection = CPPieDirectionClockwise;
 		sliceLabelOffset = 10.0;
+		centerAnchor = CGPointMake(0.5, 0.5);
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -152,7 +159,10 @@ static CGFloat colorLookupTable[10][3] =
 
 	[super renderAsVectorInContext:context];
 	CGRect plotAreaBounds = self.plotArea.bounds;
-	CGPoint centerPoint = [self convertPoint:CGPointMake(CGRectGetMidX(plotAreaBounds), CGRectGetMidY(plotAreaBounds)) fromLayer:self.plotArea];
+	CGPoint anchor = self.centerAnchor;
+	CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
+									  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
+	centerPoint = [self convertPoint:centerPoint fromLayer:self.plotArea];
 	centerPoint = CPAlignPointToUserSpace(context, centerPoint);
 	// TODO: Add NSDecimal rendering path
 	
@@ -223,8 +233,16 @@ static CGFloat colorLookupTable[10][3] =
 
 -(void)setPieRadius:(CGFloat)newPieRadius 
 {
-    if (pieRadius != newPieRadius) {
+    if ( pieRadius != newPieRadius ) {
         pieRadius = ABS(newPieRadius);
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setCenterAnchor:(CGPoint)newCenterAnchor 
+{
+    if ( !CGPointEqualToPoint(centerAnchor, newCenterAnchor) ) {
+        centerAnchor = newCenterAnchor;
         [self setNeedsDisplay];
     }
 }
