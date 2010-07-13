@@ -4,13 +4,18 @@
 #import "CPPlotArea.h"
 
 /**	@brief Positions a content layer relative to some anchor point in a plot space.
- *	@note Not implemented.
  *	@todo More documentation needed.
- *	@todo Implement CPPlotSpaceAnnotation.
  **/
 @implementation CPPlotSpaceAnnotation
 
+/** @property anchorPlotPoint
+ *	@brief An array of NSDecimalNumbers giving the anchor plot coordinates.
+ **/
 @synthesize anchorPlotPoint;
+
+/** @property plotSpace
+ *	@brief The plot space which the anchor is defined in.
+ **/
 @synthesize plotSpace;
 
 /** @brief Initializes a newly allocated CPPlotSpaceAnnotation object.
