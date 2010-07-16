@@ -19,6 +19,8 @@ typedef enum _CPPlotRangeComparisonResult {
 	double lengthDouble;
 }
 
+/// @name Range Limits
+/// @{
 @property (nonatomic, readwrite) NSDecimal location;
 @property (nonatomic, readwrite) NSDecimal length;
 @property (nonatomic, readonly) NSDecimal end;
@@ -30,24 +32,47 @@ typedef enum _CPPlotRangeComparisonResult {
 @property (nonatomic, readonly) NSDecimal maxLimit;
 @property (nonatomic, readonly) double minLimitDouble;
 @property (nonatomic, readonly) double maxLimitDouble;
+///	@}
 
+/// @name Factory Methods
+/// @{
 +(CPPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+///	@}
 
+/// @name Initialization
+/// @{
 -(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+///	@}
 
+/// @name Checking Ranges
+/// @{
 -(BOOL)contains:(NSDecimal)number;
 -(BOOL)containsDouble:(double)number;
 -(BOOL)isEqualToRange:(CPPlotRange *)otherRange;
+///	@}
 
+/// @name Combining Ranges
+/// @{
 -(void)unionPlotRange:(CPPlotRange *)otherRange;
 -(void)intersectionPlotRange:(CPPlotRange *)otherRange;
+///	@}
 
+/// @name Shifting Ranges
+/// @{
 -(void)shiftLocationToFitInRange:(CPPlotRange *)otherRange;
 -(void)shiftEndToFitInRange:(CPPlotRange *)otherRange;
+///	@}
 
+/// @name Expanding/Contracting Ranges
+/// @{
 -(void)expandRangeByFactor:(NSDecimal)factor;
+///	@}
 
+/// @name Range Comparison
+/// @{
 -(CPPlotRangeComparisonResult)compareToNumber:(NSNumber *)number;
+-(CPPlotRangeComparisonResult)compareToDecimal:(NSDecimal)number;
 -(CPPlotRangeComparisonResult)compareToDouble:(double)number;
+///	@}
 
 @end
