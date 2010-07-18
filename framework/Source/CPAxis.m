@@ -470,43 +470,41 @@
     NSMutableSet *minorLocations = [NSMutableSet set];
     
     // Filter troublesome values and return empty sets
-    if ( length == 0 || numTicks == 0 ) {
-       	*newMajorLocations = majorLocations;
-        *newMinorLocations = minorLocations;
-        return;
-    }
-    
-    // Determine interval value
-    double roughInterval = length / numTicks;
-	double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
-    double interval = exponentValue * round(roughInterval / exponentValue);
-    
-    // Determine minor interval
-    double minorInterval = interval / (minorTicks + 1);
+    if ( length > 0 && numTicks > 0 ) {
+		// Determine interval value
+		double roughInterval = length / numTicks;
+		double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
+		double interval = exponentValue * round(roughInterval / exponentValue);
+		
+		// Determine minor interval
+		double minorInterval = interval / (minorTicks + 1);
         
-    // Calculate actual range limits
-    double minLimit = range.minLimitDouble;
-    double maxLimit = range.maxLimitDouble;
-    
-    // Determine the initial and final major indexes for the actual visible range
-    NSInteger initialIndex = floor(minLimit / interval);  // can be negative
-    NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
-    
-    // Iterate through the indexes with visible ticks and build the locations sets
-    for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
-    	double pointLocation = i * interval;
-        for ( NSUInteger j = 0; j < minorTicks; j++ ) {
-        	double minorPointLocation = pointLocation + minorInterval * (j + 1);
-            if ( minorPointLocation < minLimit ) continue;
-            if ( minorPointLocation > maxLimit ) continue;
-            [minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
-        }
-        
-        if ( pointLocation < minLimit ) continue;
-        if ( pointLocation > maxLimit ) continue;
-        [majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+		// Calculate actual range limits
+		double minLimit = range.minLimitDouble;
+		double maxLimit = range.maxLimitDouble;
+		
+		// Determine the initial and final major indexes for the actual visible range
+		NSInteger initialIndex = floor(minLimit / interval);  // can be negative
+		NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
+		
+		// Iterate through the indexes with visible ticks and build the locations sets
+		for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+			double pointLocation = i * interval;
+			for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+				double minorPointLocation = pointLocation + minorInterval * (j + 1);
+				if ( minorPointLocation < minLimit ) continue;
+				if ( minorPointLocation > maxLimit ) continue;
+				[minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+			}
+			
+			if ( pointLocation < minLimit ) continue;
+			if ( pointLocation > maxLimit ) continue;
+			[majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+		}
     }
-    
+	
+	[range release];
+
     // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
