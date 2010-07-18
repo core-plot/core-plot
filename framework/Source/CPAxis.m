@@ -456,7 +456,7 @@
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
     // cache some values
-    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
     CPPlotRange *theVisibleRange = self.visibleRange;
     if ( theVisibleRange ) {
         [range intersectionPlotRange:theVisibleRange];
