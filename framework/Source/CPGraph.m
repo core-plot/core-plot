@@ -17,6 +17,7 @@
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
 @property (nonatomic, readwrite, retain) NSMutableArray *plotSpaces;
+@property (nonatomic, readwrite, retain) CPLayerAnnotation *titleAnnotation;
 
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif;
 
@@ -83,6 +84,8 @@
  **/
 @synthesize titleDisplacement;
 
+@synthesize titleAnnotation;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -114,13 +117,11 @@
 		[newAxisSet release];
         
         // Title
-        self.title = nil;
-        self.titlePlotAreaFrameAnchor = CPRectAnchorTop;
-        self.titleTextStyle = [CPTextStyle textStyle];
-        self.titleDisplacement = CGPointZero;
-        titleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
-        titleAnnotation.contentLayer = [[[CPTextLayer alloc] initWithText:@"" style:self.titleTextStyle] autorelease];
-        [self addAnnotation:titleAnnotation];
+        title = nil;
+        titlePlotAreaFrameAnchor = CPRectAnchorTop;
+        titleTextStyle = [[CPTextStyle textStyle] retain];
+        titleDisplacement = CGPointZero;
+		titleAnnotation = nil;
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -440,9 +441,27 @@
 	if ( newTitle != title ) {
         [title release];
         title = [newTitle copy];
-        CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
-        textLayer.text = title;
-        [textLayer sizeToFit];
+		CPLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
+		if ( title ) {
+			if ( theTitleAnnotation ) {
+				((CPTextLayer *)theTitleAnnotation.contentLayer).text = title;
+			}
+			else {
+				CPLayerAnnotation *newTitleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
+				CPTextLayer *newTextLayer = [[CPTextLayer alloc] initWithText:title style:self.titleTextStyle];
+				newTitleAnnotation.contentLayer = newTextLayer;
+				[self addAnnotation:newTitleAnnotation];
+				self.titleAnnotation = newTitleAnnotation;
+				[newTextLayer release];
+				[newTitleAnnotation release];
+			}
+		}
+		else {
+			if ( theTitleAnnotation ) {
+				[self removeAnnotation:theTitleAnnotation];
+				self.titleAnnotation = nil;
+			}
+		}
     }
 }
 
@@ -451,9 +470,7 @@
     if ( newStyle != titleTextStyle ) {
         [titleTextStyle release];
         titleTextStyle = [newStyle copy];
-        CPTextLayer *textLayer = (id)titleAnnotation.contentLayer;
-        textLayer.textStyle = titleTextStyle;
-        [textLayer sizeToFit];
+		((CPTextLayer *)self.titleAnnotation.contentLayer).textStyle = titleTextStyle;
     }
 }
 
