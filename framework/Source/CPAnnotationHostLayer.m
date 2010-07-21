@@ -10,6 +10,8 @@
 @end
 ///	@endcond
 
+#pragma mark -
+
 /**	@brief An annotation host layer is a container layer for annotations.
  *
  *	Annotations can be added to and removed from an annotation layer.
@@ -81,7 +83,10 @@
 {
 	NSMutableSet *layers = [NSMutableSet set];
     for ( CPAnnotation *annotation in self.mutableAnnotations ) {
-        [layers addObject:annotation.contentLayer];
+		CALayer *content = annotation.contentLayer;
+		if ( content ) {
+			[layers addObject:content];
+		}
     }
     return layers;
 }
@@ -89,9 +94,7 @@
 -(void)layoutSublayers
 {
     [super layoutSublayers];
-    for ( CPAnnotation *annotation in self.mutableAnnotations ) {
-    	[annotation positionContentLayer];
-	}
+	[self.mutableAnnotations makeObjectsPerformSelector:@selector(positionContentLayer)];
 }
 
 @end

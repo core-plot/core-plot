@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "CPLayer.h"
 #import "CPAnnotationHostLayer.h"
 
 @class CPLineStyle;

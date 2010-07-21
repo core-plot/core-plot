@@ -143,7 +143,7 @@
 
 -(void)setGlobalXRange:(CPPlotRange *)newRange 
 {
-    if ( newRange != globalXRange ) {
+    if ( ![newRange isEqualToRange:globalXRange] ) {
     	[globalXRange release];
         globalXRange = [newRange copy];
 		self.xRange = [self constrainRange:self.xRange toGlobalRange:globalXRange];
@@ -152,7 +152,7 @@
 
 -(void)setGlobalYRange:(CPPlotRange *)newRange 
 {
-    if ( newRange != globalYRange ) {
+    if ( ![newRange isEqualToRange:globalYRange] ) {
     	[globalYRange release];
         globalYRange = [newRange copy];
         self.yRange = [self constrainRange:self.yRange toGlobalRange:globalYRange];
@@ -348,11 +348,12 @@
         
 		CPPlotRange *newRangeX = [[self.xRange copy] autorelease];
         CPPlotRange *newRangeY = [[self.yRange copy] autorelease];
+
         NSDecimal shiftX = CPDecimalSubtract(lastPoint[0], newPoint[0]);
         NSDecimal shiftY = CPDecimalSubtract(lastPoint[1], newPoint[1]);
 		newRangeX.location = CPDecimalAdd(newRangeX.location, shiftX);
         newRangeY.location = CPDecimalAdd(newRangeY.location, shiftY);
-        
+
         // Delegate override
         if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
             newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPCoordinateX];

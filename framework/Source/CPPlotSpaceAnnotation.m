@@ -18,6 +18,9 @@
  **/
 @synthesize plotSpace;
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
 /** @brief Initializes a newly allocated CPPlotSpaceAnnotation object.
  *
  *	This is the designated initializer. The initialized layer will be anchored to
@@ -40,8 +43,8 @@
 -(void)dealloc 
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    [plotSpace release]; plotSpace = nil;
-    [anchorPlotPoint release]; anchorPlotPoint = nil;
+    [plotSpace release];
+    [anchorPlotPoint release];
     [super dealloc];
 }
 
@@ -50,18 +53,29 @@
 
 -(void)positionContentLayer
 {
-	// Get plot area point
-	NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorPlotPoint.count);
-    for ( NSUInteger i = 0; i < anchorPlotPoint.count; ++i ) decimalPoint[i] = [[anchorPlotPoint objectAtIndex:i] decimalValue];
-	CGPoint plotAreaViewAnchorPoint = [plotSpace plotAreaViewPointForPlotPoint:decimalPoint];
-    free(decimalPoint);
-
-	CPPlotArea *plotArea = plotSpace.graph.plotAreaFrame.plotArea;
-    CGPoint point = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:self.annotationHostLayer];
-    point.x = round(point.x + self.displacement.x);
-    point.y = round(point.y + self.displacement.y);
-    self.contentLayer.position = point;
-    [self.contentLayer pixelAlign];
+	CPLayer *content = self.contentLayer;
+	if ( content ) {
+		NSArray *anchor = self.anchorPlotPoint;
+		NSUInteger anchorCount = anchor.count;
+		
+		// Get plot area point
+		NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchor.count);
+		for ( NSUInteger i = 0; i < anchorCount; i++ ) {
+			decimalPoint[i] = [[anchor objectAtIndex:i] decimalValue];
+		}
+		CPPlotSpace *thePlotSpace = self.plotSpace;
+		CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
+		free(decimalPoint);
+		
+		CPPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
+		CGPoint point = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:self.annotationHostLayer];
+		CGPoint offset = self.displacement;
+		point.x = round(point.x + offset.x);
+		point.y = round(point.y + offset.y);
+		
+		content.position = point;
+		[content pixelAlign];
+	}
 }
 
 @end

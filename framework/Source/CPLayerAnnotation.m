@@ -62,22 +62,28 @@
 
 -(void)positionContentLayer
 {
-	if ( !xConstrainedPosition || !yConstrainedPosition ) {
-		[self setConstraints];
+	CPLayer *content = self.contentLayer;
+	if ( content ) {
+		if ( !xConstrainedPosition || !yConstrainedPosition ) {
+			[self setConstraints];
+		}
+		
+		CGRect anchorLayerBounds = self.anchorLayer.bounds;
+		xConstrainedPosition.lowerBound = CGRectGetMinX(anchorLayerBounds);
+		xConstrainedPosition.upperBound = CGRectGetMaxX(anchorLayerBounds);
+		yConstrainedPosition.lowerBound = CGRectGetMinY(anchorLayerBounds);
+		yConstrainedPosition.upperBound = CGRectGetMaxY(anchorLayerBounds);
+		
+		CGPoint referencePoint = CGPointMake(xConstrainedPosition.position, yConstrainedPosition.position);
+		CGPoint point = [self.anchorLayer convertPoint:referencePoint toLayer:self.annotationHostLayer];
+
+		CGPoint offset = self.displacement;
+		point.x = round(point.x + offset.x);
+		point.y = round(point.y + offset.y);
+		
+		content.position = point;
+		[content pixelAlign];
 	}
-	
-	CGRect anchorLayerBounds = anchorLayer.bounds;
-	xConstrainedPosition.lowerBound = CGRectGetMinX(anchorLayerBounds);
-    xConstrainedPosition.upperBound = CGRectGetMaxX(anchorLayerBounds);
-    yConstrainedPosition.lowerBound = CGRectGetMinY(anchorLayerBounds);
-    yConstrainedPosition.upperBound = CGRectGetMaxY(anchorLayerBounds);
-	
-    CGPoint referencePoint = CGPointMake(xConstrainedPosition.position, yConstrainedPosition.position);
-    CGPoint point = [anchorLayer convertPoint:referencePoint toLayer:self.annotationHostLayer];
-    point.x = round(point.x + self.displacement.x);
-    point.y = round(point.y + self.displacement.y);
-    self.contentLayer.position = point;
-    [self.contentLayer pixelAlign];
 }
 
 #pragma mark -
@@ -85,10 +91,12 @@
 
 -(void)setConstraints
 {
-	if ( CGRectIsEmpty(anchorLayer.bounds) ) return;
+	CGRect anchorBounds = self.anchorLayer.bounds;
+	
+	if ( CGRectIsEmpty(anchorBounds) ) return;
     
     CPAlignment xAlign, yAlign;
-    switch ( rectAnchor ) {
+    switch ( self.rectAnchor ) {
         case CPRectAnchorRight:
             xAlign = CPAlignmentRight;
             yAlign = CPAlignmentMiddle;
@@ -132,10 +140,10 @@
     }
     
     [xConstrainedPosition release];
-    xConstrainedPosition = [[CPConstrainedPosition alloc] initWithAlignment:xAlign lowerBound:CGRectGetMinX(anchorLayer.bounds) upperBound:CGRectGetMaxX(anchorLayer.bounds)];
+    xConstrainedPosition = [[CPConstrainedPosition alloc] initWithAlignment:xAlign lowerBound:CGRectGetMinX(anchorBounds) upperBound:CGRectGetMaxX(anchorBounds)];
     
     [yConstrainedPosition release];
-    yConstrainedPosition = [[CPConstrainedPosition alloc] initWithAlignment:yAlign lowerBound:CGRectGetMinY(anchorLayer.bounds) upperBound:CGRectGetMaxY(anchorLayer.bounds)];
+    yConstrainedPosition = [[CPConstrainedPosition alloc] initWithAlignment:yAlign lowerBound:CGRectGetMinY(anchorBounds) upperBound:CGRectGetMaxY(anchorBounds)];
 }
 
 #pragma mark -
