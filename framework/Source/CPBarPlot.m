@@ -481,7 +481,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     // Prepare to create new ones
 	self.barLabelTextLayers = [NSMutableArray array];
     BOOL dataSourceSuppliesLabels = [self.dataSource respondsToSelector:@selector(barLabelForBarPlot:recordIndex:)];
-    if ( !dataSourceSuppliesLabels || barLabelTextStyle == nil ) return;
+    if ( !dataSourceSuppliesLabels && barLabelTextStyle == nil ) return;
     
     // Iterate over bars
     CPCoordinate independentCoord = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
