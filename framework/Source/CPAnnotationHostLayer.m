@@ -76,6 +76,17 @@
     }
 }
 
+/**	@brief Removes all annotations from the receiver.
+ **/
+-(void)removeAllAnnotations
+{
+	NSMutableArray *allAnnotations = self.mutableAnnotations;
+	for ( CPAnnotation *annotation in allAnnotations ) {
+		annotation.annotationHostLayer = nil;
+	}
+	[allAnnotations removeAllObjects];
+}
+
 #pragma mark -
 #pragma mark Layout
 

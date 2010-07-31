@@ -11,5 +11,6 @@
 
 -(void)addAnnotation:(CPAnnotation *)annotation;
 -(void)removeAnnotation:(CPAnnotation *)annotation;
+-(void)removeAllAnnotations;
 
 @end
