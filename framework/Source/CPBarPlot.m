@@ -28,6 +28,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @property (nonatomic, readwrite, copy) NSArray *barLengths;
 @property (nonatomic, readwrite, retain) NSMutableArray *barLabelTextLayers;
 
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 -(void)addLabelLayers;
@@ -354,13 +355,14 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	
 	[super renderAsVectorInContext:theContext];
 
-    for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
+	NSUInteger barCount = self.barLengths.count;
+    for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
         // Draw
         [self drawBarInContext:theContext recordIndex:ii];
     }   
 }
 
--(CGMutablePathRef)createBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
     CGPoint tipPoint, basePoint;
     CPCoordinate independentCoord = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
@@ -473,7 +475,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
-	CGMutablePathRef path = [self createBarPathWithContext:context recordIndex:index];
+	CGMutablePathRef path = [self newBarPathWithContext:context recordIndex:index];
 
     CGContextSaveGState(context);
 	
@@ -520,7 +522,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CPCoordinate dependentCoord = ( self.barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
     NSArray *locations = self.barLocations;
     NSArray *lengths = self.barLengths;
-    for (NSUInteger ii = 0; ii < [lengths count]; ii++) {
+	NSUInteger barCount = lengths.count;
+    for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
         NSDecimal plotPoint[2];
         CGPoint tipPoint;
         plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
@@ -589,24 +592,27 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     }
 }
 
-
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL result = NO;
-	if ( !self.graph || !self.plotArea ) return NO;
+	CPGraph *theGraph = self.graph;
+	CPPlotArea *thePlotArea = self.plotArea;
+	if ( !theGraph || !thePlotArea ) return NO;
 	
-	if ( [delegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
+	id <CPBarPlotDelegate> theDelegate = self.delegate;
+	if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
     	// Inform delegate if a point was hit
-        CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 		
-		for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
-			CGMutablePathRef path = [self createBarPathWithContext:nil recordIndex:ii];
+		NSUInteger barCount = self.barLengths.count;
+		for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
+			CGMutablePathRef path = [self newBarPathWithContext:NULL recordIndex:ii];
 			
 			if ( CGPathContainsPoint(path, nil, plotAreaPoint, false) ) {
-				[delegate barPlot:self barWasSelectedAtRecordIndex:ii];
+				[theDelegate barPlot:self barWasSelectedAtRecordIndex:ii];
 				CGPathRelease(path);
 				return YES;
 			}
