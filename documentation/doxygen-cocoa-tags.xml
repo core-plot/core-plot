@@ -132,6 +132,13 @@
 		</member>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSNull</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSNull_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSNumber</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSNumber_Class/Reference/Reference.html</filename>
 		<base>NSValue</base>
