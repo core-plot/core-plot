@@ -253,6 +253,7 @@
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
+	barPlot.delegate = self;
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 }
 
@@ -286,6 +287,15 @@
 	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
 	self.dataForChart = contentArray;	
 }
+
+#pragma mark -
+#pragma mark CPBarPlot delegate method
+
+-(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"barWasSelectedAtRecordIndex %d", index);
+}
+
 
 #pragma mark -
 #pragma mark Plot Data Source Methods

@@ -9,7 +9,7 @@
 #import "CorePlot-CocoaTouch.h"
 
 
-@interface CPTestApp_iPadViewController : UIViewController <CPPlotDataSource, CPPieChartDataSource>
+@interface CPTestApp_iPadViewController : UIViewController <CPPlotDataSource, CPPieChartDataSource, CPBarPlotDelegate>
 {
 	IBOutlet CPLayerHostingView *scatterPlotView, *barChartView, *pieChartView;
 	CPXYGraph *graph, *barChart, *pieChart;

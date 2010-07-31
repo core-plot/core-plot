@@ -28,7 +28,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @property (nonatomic, readwrite, copy) NSArray *barLengths;
 @property (nonatomic, readwrite, retain) NSMutableArray *barLabelTextLayers;
 
--(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint recordIndex:(NSUInteger)index;
+-(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 -(void)addLabelLayers;
 
@@ -105,6 +105,11 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 @synthesize barLabelTextLayers;
 
+/** @property delegate
+ *	@brief The scatter plot delegate.
+ **/
+@synthesize delegate;
+
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -161,6 +166,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		barLabelOffset = 10.0;
 		barLabelTextStyle = nil;
         barLabelTextLayers = nil;
+		delegate = nil;
         
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -348,92 +354,111 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	
 	[super renderAsVectorInContext:theContext];
 
+    for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
+        // Draw
+        [self drawBarInContext:theContext recordIndex:ii];
+    }   
+}
+
+-(CGMutablePathRef)createBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
+{
     CGPoint tipPoint, basePoint;
     CPCoordinate independentCoord = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( self.barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
     NSArray *locations = self.barLocations;
     NSArray *lengths = self.barLengths;
-    for (NSUInteger ii = 0; ii < [lengths count]; ii++) {
-		id dependentCoordValue = [lengths objectAtIndex:ii];
-        id independentCoordValue = [locations objectAtIndex:ii];
+	
+	id dependentCoordValue = [lengths objectAtIndex:index];
+	id independentCoordValue = [locations objectAtIndex:index];
+	
+	if ( ![dependentCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
+		double plotPoint[2];
+		plotPoint[independentCoord] = [independentCoordValue doubleValue];
 		
-		if ( ![dependentCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
-			double plotPoint[2];
-            plotPoint[independentCoord] = [independentCoordValue doubleValue];
-			
-			// Tip point
-			plotPoint[dependentCoord] = [dependentCoordValue doubleValue];
-			tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
-			
-			// Base point
-			plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
-			basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
-		}
-		else {
-			NSDecimal plotPoint[2];
-            plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
-			
-			// Tip point
-			plotPoint[dependentCoord] = [[lengths objectAtIndex:ii] decimalValue];
-			tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-			
-			// Base point
-			plotPoint[dependentCoord] = baseValue;
-			basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-		}
+		// Tip point
+		plotPoint[dependentCoord] = [dependentCoordValue doubleValue];
+		tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
 		
-        // Offset
-        CGFloat viewOffset = self.barOffset * self.barWidth;
-        if ( self.barsAreHorizontal ) {
-            basePoint.y += viewOffset;
-            tipPoint.y += viewOffset;
-        }
-        else {
-            basePoint.x += viewOffset;
-            tipPoint.x += viewOffset;
-        }
-        
-        // Draw
-        [self drawBarInContext:theContext fromBasePoint:&basePoint toTipPoint:&tipPoint recordIndex:ii];
-    }   
-}
-
--(void)drawBarInContext:(CGContextRef)context fromBasePoint:(CGPoint *)basePoint toTipPoint:(CGPoint *)tipPoint recordIndex:(NSUInteger)index
-{
+		// Base point
+		plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
+		basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+	}
+	else {
+		NSDecimal plotPoint[2];
+		plotPoint[independentCoord] = [[locations objectAtIndex:index] decimalValue];
+		
+		// Tip point
+		plotPoint[dependentCoord] = [[lengths objectAtIndex:index] decimalValue];
+		tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+		
+		// Base point
+		plotPoint[dependentCoord] = baseValue;
+		basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+	}
+	
+	// Offset
+	CGFloat viewOffset = self.barOffset * self.barWidth;
+	if ( self.barsAreHorizontal ) {
+		basePoint.y += viewOffset;
+		tipPoint.y += viewOffset;
+	}
+	else {
+		basePoint.x += viewOffset;
+		tipPoint.x += viewOffset;
+	}
+	
+	// This function is used to create a path which is used for both
+	// drawing a bar and for doing hit-testing on a click/touch event
     CPCoordinate widthCoordinate = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
 	CGFloat halfBarWidth = 0.5 * self.barWidth;
 	
     CGFloat point[2];
-    point[CPCoordinateX] = basePoint->x;
-    point[CPCoordinateY] = basePoint->y;
+    point[CPCoordinateX] = basePoint.x;
+    point[CPCoordinateY] = basePoint.y;
     point[widthCoordinate] += halfBarWidth;
-	CGPoint alignedPoint1 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
+	CGPoint alignedPoint1 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
+	if (context) {
+		// may not have a context if doing hit testing
+		alignedPoint1 = CPAlignPointToUserSpace(context, alignedPoint1);
+	}	
     
-    point[CPCoordinateX] = tipPoint->x;
-    point[CPCoordinateY] = tipPoint->y;
+    point[CPCoordinateX] = tipPoint.x;
+    point[CPCoordinateY] = tipPoint.y;
     point[widthCoordinate] += halfBarWidth;
-	CGPoint alignedPoint2 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = tipPoint->x;
-    point[CPCoordinateY] = tipPoint->y;
-	CGPoint alignedPoint3 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
+	CGPoint alignedPoint2 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
+	if (context) {
+		alignedPoint2 = CPAlignPointToUserSpace(context, alignedPoint2);
+	}	
+	    
+    point[CPCoordinateX] = tipPoint.x;
+    point[CPCoordinateY] = tipPoint.y;
+	CGPoint alignedPoint3 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
+	if (context) {
+		alignedPoint3 = CPAlignPointToUserSpace(context, alignedPoint3);
+	}	
 	
-    point[CPCoordinateX] = tipPoint->x;
-    point[CPCoordinateY] = tipPoint->y;
+    point[CPCoordinateX] = tipPoint.x;
+    point[CPCoordinateY] = tipPoint.y;
     point[widthCoordinate] -= halfBarWidth;
-	CGPoint alignedPoint4 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
+	CGPoint alignedPoint4 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
+	if (context) {
+		alignedPoint4 = CPAlignPointToUserSpace(context, alignedPoint4);
+	}	
     
-    point[CPCoordinateX] = basePoint->x;
-    point[CPCoordinateY] = basePoint->y;
+    point[CPCoordinateX] = basePoint.x;
+    point[CPCoordinateY] = basePoint.y;
     point[widthCoordinate] -= halfBarWidth;
-	CGPoint alignedPoint5 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
+	CGPoint alignedPoint5 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
+	if (context) {
+		alignedPoint5 = CPAlignPointToUserSpace(context, alignedPoint5);
+	}	
 	
 	CGFloat radius = MIN(self.cornerRadius, halfBarWidth);
 	if ( self.barsAreHorizontal ) {
-		radius = MIN(radius, ABS(tipPoint->x - basePoint->x));
+		radius = MIN(radius, ABS(tipPoint.x - basePoint.x));
 	}
 	else {
-		radius = MIN(radius, ABS(tipPoint->y - basePoint->y));
+		radius = MIN(radius, ABS(tipPoint.y - basePoint.y));
 	}
 	
     CGMutablePathRef path = CGPathCreateMutable();
@@ -443,6 +468,13 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
     CGPathCloseSubpath(path);
 	
+	return path;
+}
+
+-(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
+{
+	CGMutablePathRef path = [self createBarPathWithContext:context recordIndex:index];
+
     CGContextSaveGState(context);
 	
 	// If data source returns nil, default fill is used.
@@ -556,6 +588,39 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         [self addSublayer:label];
     }
 }
+
+
+#pragma mark -
+#pragma mark Responder Chain and User interaction
+
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	BOOL result = NO;
+	if ( !self.graph || !self.plotArea ) return NO;
+	
+	if ( [delegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
+    	// Inform delegate if a point was hit
+        CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
+		
+		for (NSUInteger ii = 0; ii < [self.barLengths count]; ii++) {
+			CGMutablePathRef path = [self createBarPathWithContext:nil recordIndex:ii];
+			
+			if ( CGPathContainsPoint(path, nil, plotAreaPoint, false) ) {
+				[delegate barPlot:self barWasSelectedAtRecordIndex:ii];
+				CGPathRelease(path);
+				return YES;
+			}
+			
+			CGPathRelease(path);			
+		}   
+    }
+    else {
+        result = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+    
+	return result;
+}
+
 
 #pragma mark -
 #pragma mark Accessors

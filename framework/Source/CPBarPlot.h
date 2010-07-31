@@ -49,6 +49,26 @@ typedef enum _CPBarPlotField {
 
 @end 
 
+
+/**	@brief Bar plot delegate.
+ **/
+@protocol CPBarPlotDelegate <NSObject>
+
+@optional
+
+// @name Point selection
+/// @{
+
+/**	@brief Informs delegate that a point was touched.
+ *	@param plot The scatter plot.
+ *	@param index Index of touched point
+ **/
+-(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
+
 @interface CPBarPlot : CPPlot {
 	@private
     id observedObjectForBarLocationValues;
@@ -68,6 +88,7 @@ typedef enum _CPBarPlotField {
 	CGFloat barLabelOffset;
 	CPTextStyle *barLabelTextStyle;
     NSMutableArray *barLabelTextLayers;
+	__weak id <CPBarPlotDelegate> delegate;
 } 
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
@@ -80,6 +101,7 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
 @property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;
+@property (nonatomic, readwrite, assign) __weak id <CPBarPlotDelegate> delegate;
 
 /// @name Factory Methods
 /// @{

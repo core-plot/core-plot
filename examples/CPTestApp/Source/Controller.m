@@ -238,6 +238,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.cornerRadius = 2.0;
     barPlot.identifier = @"Bar Plot 2";
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
+	barPlot.delegate = self;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
 }
 
@@ -348,6 +349,45 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     symbolTextAnnotation = [[[CPPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint] autorelease];
 	symbolTextAnnotation.contentLayer = textLayer;
     symbolTextAnnotation.displacement = CGPointMake(0.0f, 20.0f);
+    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
+}
+
+#pragma mark -
+#pragma mark CPBarPlot delegate method
+
+-(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"barWasSelectedAtRecordIndex %d", index);
+
+	if ( symbolTextAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        symbolTextAnnotation = nil;
+    }
+    
+    // Setup a style for the annotation
+    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    hitAnnotationTextStyle.color = [CPColor redColor];
+    hitAnnotationTextStyle.fontSize = 16.0f;
+    hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
+    
+    // Determine point of symbol in plot coordinates
+	
+    NSNumber *x = [NSNumber numberWithInt:0];
+	NSNumber *y = [self numberForPlot:plot field:0 recordIndex:index];
+	NSArray *anchorPoint = [NSArray arrayWithObjects:x, [NSNumber numberWithInt:index], nil];
+    
+    // Add annotation
+    // First make a string for the y value
+    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [formatter setMaximumFractionDigits:2];
+    NSString *yString = [formatter stringFromNumber:y];
+    
+	
+    // Now add the annotation to the plot area
+    CPTextLayer *textLayer = [[[CPTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    symbolTextAnnotation = [[[CPPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint] autorelease];
+	symbolTextAnnotation.contentLayer = textLayer;
+    symbolTextAnnotation.displacement = CGPointMake(0.0f, 0.0f);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
 }
 
