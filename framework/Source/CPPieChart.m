@@ -3,6 +3,8 @@
 #import "CPColor.h"
 #import "CPFill.h"
 #import "CPUtilities.h"
+#import "CPTextLayer.h"
+#import "CPLineStyle.h"
 
 /// @cond
 @interface CPPieChart ()
@@ -53,6 +55,11 @@
  **/
 @synthesize centerAnchor;
 
+/** @property borderLineStyle
+ *	@brief The line style used to outline the pie slices.  If nil, no border is drawn.  Defaults to nil.
+ **/
+@synthesize borderLineStyle;
+
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -83,6 +90,7 @@ static CGFloat colorLookupTable[10][3] =
 		sliceDirection = CPPieDirectionClockwise;
 		sliceLabelOffset = 10.0;
 		centerAnchor = CGPointMake(0.5, 0.5);
+		borderLineStyle = nil;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -90,6 +98,7 @@ static CGFloat colorLookupTable[10][3] =
 
 -(void)dealloc
 {
+	[borderLineStyle release];
 	observedObjectForPieSliceWidthValues = nil;
 	[keyPathForPieSliceWidthValues release];
 	[super dealloc];
@@ -164,6 +173,9 @@ static CGFloat colorLookupTable[10][3] =
 									  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
 	centerPoint = [self convertPoint:centerPoint fromLayer:self.plotArea];
 	centerPoint = CPAlignPointToUserSpace(context, centerPoint);
+	
+	CGFloat labelRadius = self.pieRadius+self.sliceLabelOffset;
+	
 	// TODO: Add NSDecimal rendering path
 	
 	NSUInteger currentIndex = 0;
@@ -182,6 +194,21 @@ static CGFloat colorLookupTable[10][3] =
 		CGFloat currentWidthAsDouble = [currentWidth doubleValue];
 		
 		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidthAsDouble fill:currentFill];
+		
+		// Draw the slice label if provided
+		if ( [self.dataSource respondsToSelector:@selector(sliceLabelForPieChart:recordIndex:)] ) {
+			CPTextLayer *textLayer = [(id <CPPieChartDataSource>)self.dataSource sliceLabelForPieChart:self recordIndex:currentIndex];
+
+			if ( textLayer ) {
+				CGContextSaveGState(context);
+				
+				CGFloat labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidthAsDouble/2.0];
+				CGContextTranslateCTM(context, labelRadius*cos(labelAngle) + centerPoint.x - textLayer.bounds.size.width/2.0, labelRadius*sin(labelAngle) + centerPoint.y - textLayer.bounds.size.height/2.0);
+				[textLayer renderAsVectorInContext:context];
+			
+				CGContextRestoreGState(context);
+			}
+		}
 		
 		startingWidth += currentWidthAsDouble;
 		
@@ -211,11 +238,26 @@ static CGFloat colorLookupTable[10][3] =
 	}
     CGContextSaveGState(context);
 	
-	CGContextMoveToPoint(context, centerPoint.x, centerPoint.y);
-	CGContextAddArc(context, centerPoint.x, centerPoint.y, self.pieRadius, [self radiansForPieSliceValue:startingValue], [self radiansForPieSliceValue:startingValue + sliceWidth], direction);
-	CGContextClosePath(context);
+	CGMutablePathRef slicePath = CGPathCreateMutable();
+	CGPathMoveToPoint(slicePath, nil, centerPoint.x, centerPoint.y);
+	CGPathAddArc(slicePath, nil, centerPoint.x, centerPoint.y, self.pieRadius, [self radiansForPieSliceValue:startingValue], [self radiansForPieSliceValue:startingValue + sliceWidth], direction);
+	CGPathCloseSubpath(slicePath);
+
+	if ( sliceFill ) {
+		CGContextBeginPath(context);
+		CGContextAddPath(context, slicePath);
+		[sliceFill fillPathInContext:context]; 
+	}
 	
-	[sliceFill fillPathInContext:context]; 
+	// Draw the border line around the slice
+	if ( self.borderLineStyle ) {
+		CGContextBeginPath(context);
+		CGContextAddPath(context, slicePath);
+		[self.borderLineStyle setLineStyleInContext:context];
+		CGContextStrokePath(context);
+	}
+	
+	CGPathRelease(slicePath);
 	CGContextRestoreGState(context);
 }
 
@@ -237,6 +279,15 @@ static CGFloat colorLookupTable[10][3] =
         pieRadius = ABS(newPieRadius);
         [self setNeedsDisplay];
     }
+}
+
+- (void) setBorderLineStyle:(CPLineStyle *)newStyle
+{
+	if ( borderLineStyle != newStyle ) {
+		[borderLineStyle release];
+		borderLineStyle = [newStyle copy];
+		[self setNeedsDisplay];
+	}	
 }
 
 -(void)setCenterAnchor:(CGPoint)newCenterAnchor 

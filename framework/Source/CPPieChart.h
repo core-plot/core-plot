@@ -8,6 +8,7 @@
 @class CPFill;
 @class CPPieChart;
 @class CPTextLayer;
+@class CPLineStyle;
 
 /**	@brief Enumeration of pie chart data source field types.
  **/
@@ -55,6 +56,7 @@ typedef enum _CPPieDirection {
 	CGFloat startAngle;
 	CPPieDirection sliceDirection;
 	CGPoint centerAnchor;
+	CPLineStyle *borderLineStyle;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
@@ -62,6 +64,7 @@ typedef enum _CPPieDirection {
 @property (nonatomic, readwrite) CGFloat startAngle;
 @property (nonatomic, readwrite) CPPieDirection sliceDirection;
 @property (nonatomic, readwrite) CGPoint centerAnchor;
+@property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
 
 /// @name Factory Methods
 /// @{
