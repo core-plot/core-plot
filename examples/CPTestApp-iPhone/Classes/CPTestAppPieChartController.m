@@ -51,6 +51,7 @@
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
 	piePlot.centerAnchor = CGPointMake(0.5, 0.7);
+	piePlot.borderLineStyle = [CPLineStyle lineStyle];
     [pieChart addPlot:piePlot];
     [piePlot release];
 	

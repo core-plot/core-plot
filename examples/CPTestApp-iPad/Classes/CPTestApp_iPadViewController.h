@@ -20,9 +20,9 @@
 @property(readwrite, retain, nonatomic) NSMutableArray *dataForChart, *dataForPlot;
 
 // Plot construction methods
-- (void)constructScatterPlot;
-- (void)constructBarChart;
-- (void)constructPieChart;
+-(void)constructScatterPlot;
+-(void)constructBarChart;
+-(void)constructPieChart;
 
 @end
 

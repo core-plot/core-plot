@@ -176,7 +176,6 @@
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForPlot = contentArray;
-	
 }
 
 - (void)constructBarChart
@@ -198,7 +197,6 @@
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(16.0f)];
     
-	
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.axisLineStyle = nil;
@@ -280,6 +278,8 @@
     piePlot.identifier = @"Pie Chart 1";
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
+	piePlot.borderLineStyle = [CPLineStyle lineStyle];
+	piePlot.sliceLabelOffset = -15.0;
     [pieChart addPlot:piePlot];
     [piePlot release];
 	
@@ -295,7 +295,6 @@
 {
 	NSLog(@"barWasSelectedAtRecordIndex %d", index);
 }
-
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
@@ -349,10 +348,35 @@
     return num;
 }
 
--(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index; 
+-(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index
 {
 	return nil;
 }
 
+-(CPTextLayer *)sliceLabelForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index
+{
+	static CPTextStyle *whiteText = nil;
+	
+	if ( !whiteText ) {
+		whiteText = [[CPTextStyle alloc] init];
+		whiteText.color = [CPColor whiteColor];
+	}
+	
+	CPTextLayer *newLayer = nil;
+	
+	switch ( index ) {
+		case 0:
+			newLayer = (id)[NSNull null];
+			break;
+		case 1:
+			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
+			break;
+		default:
+			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+			break;
+	}
+	
+	return newLayer;
+}
 
 @end

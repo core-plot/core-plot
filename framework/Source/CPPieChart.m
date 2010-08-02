@@ -199,7 +199,7 @@ static CGFloat colorLookupTable[10][3] =
 		if ( [self.dataSource respondsToSelector:@selector(sliceLabelForPieChart:recordIndex:)] ) {
 			CPTextLayer *textLayer = [(id <CPPieChartDataSource>)self.dataSource sliceLabelForPieChart:self recordIndex:currentIndex];
 
-			if ( textLayer ) {
+			if ( [textLayer isKindOfClass:[CPTextLayer class]] ) {
 				CGContextSaveGState(context);
 				
 				CGFloat labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidthAsDouble/2.0];
