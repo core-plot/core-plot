@@ -1,11 +1,3 @@
-//
-//  CorePlotQCPlugInPlugIn.h
-//  CorePlotQCPlugIn
-//
-//  Created by Caleb Cannon on 8/3/09.
-//  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import <Quartz/Quartz.h>
 #import <CorePlot/CorePlot.h>
 
@@ -34,14 +26,7 @@ You can access their values in the appropriate plug-in methods using self.inputF
 @property(assign) NSUInteger inputPixelsWide;
 @property(assign) NSUInteger inputPixelsHigh;
 
-@property(assign) NSUInteger inputTopMargin;
-@property(assign) NSUInteger inputBottomMargin;
-@property(assign) NSUInteger inputLeftMargin;
-@property(assign) NSUInteger inputRightMargin;
-
-@property(assign) CGColorRef inputBackgroundColor;
 @property(assign) CGColorRef inputPlotAreaColor;
-@property(assign) CGColorRef inputBorderColor;
 
 @property(assign) CGColorRef inputAxisColor;
 @property(assign) double inputAxisLineWidth;

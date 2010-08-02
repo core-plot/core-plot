@@ -24,6 +24,7 @@
 	<array>
 		<string>CPBarPlotPlugIn</string>
 		<string>CPScatterPlotPlugIn</string>
+		<string>CPPieChartPlugIn</string>
 	</array>
 </dict>
 </plist>

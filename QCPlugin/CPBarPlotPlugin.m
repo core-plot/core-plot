@@ -1,11 +1,3 @@
-//
-//  CPBarPlotPlugIn.m
-//  CorePlotQCPlugIn
-//
-//  Created by Caleb Cannon on 8/7/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import "CPBarPlotPlugIn.h"
 
 @implementation CPBarPlotPlugIn
@@ -24,11 +16,10 @@
  Dynamic accessors for the static PlugIn inputs
  */
 @dynamic inputPixelsWide, inputPixelsHigh;
-@dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
+@dynamic inputPlotAreaColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
 @dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
-@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
@@ -51,16 +42,16 @@
 	if ([key isEqualToString:@"inputBarWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Bar Width", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:0.5], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
 				[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputBarOffset"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Bar Offset", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:0.5], QCPortAttributeDefaultValueKey,
 				nil];
-
+	
 	if ([key isEqualToString:@"inputBaseValue"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Base Value", QCPortAttributeNameKey,
@@ -71,6 +62,30 @@
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Horizontal Bars", QCPortAttributeNameKey,
 				[NSNumber numberWithBool:NO], QCPortAttributeDefaultValueKey,
+				nil];
+	
+	if ([key isEqualToString:@"inputXMin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"X Range Min", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
+				nil];
+	
+	if ([key isEqualToString:@"inputXMax"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"X Range Max", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
+				nil];
+	
+	if ([key isEqualToString:@"inputYMin"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Y Range Min", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
+				nil];
+	
+	if ([key isEqualToString:@"inputYMax"])
+		return [NSDictionary dictionaryWithObjectsAndKeys:
+				@"Y Range Max", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	return [super attributesForPropertyPortWithKey:key];
@@ -86,7 +101,7 @@
 								[NSString stringWithFormat:@"Values %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
-		
+	
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataLineColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -101,13 +116,6 @@
 								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
 								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
-								nil]];
-	
-	[self addInputPortWithType:QCPortTypeImage
-						forKey:[NSString stringWithFormat:@"plotFillImage%i",  index]
-				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Fill Image %i", index+1], QCPortAttributeNameKey,
-								QCPortTypeImage, QCPortAttributeTypeKey,
 								nil]];
 	
 	[self addInputPortWithType:QCPortTypeNumber
@@ -129,13 +137,12 @@
 - (void) removePlots:(NSUInteger)count
 {
 	// Clean up a deleted plot
-
+	
 	for (int i = numberOfPlots; i > numberOfPlots-count; i--)
 	{
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotNumbers%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%i", i-1]];
-		[self removeInputPortForKey:[NSString stringWithFormat:@"plotFillImage%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%i", i-1]];
 		
 		[graph removePlot:[[graph allPlots] lastObject]];
@@ -146,7 +153,7 @@
 {
 	// The pixel width of a single plot unit (1..2) along the x axis of the plot
 	double count = (double)[[graph allPlots] count];
-	double unitWidth = graph.plotArea.bounds.size.width / (self.inputXMax - self.inputXMin);	
+	double unitWidth = graph.plotAreaFrame.bounds.size.width / (self.inputXMax - self.inputXMin);	
 	double barWidth = self.inputBarWidth*unitWidth/count;
 	
 	// Configure scatter plots for active plot inputs
@@ -155,22 +162,12 @@
 		int index = [[graph allPlots] indexOfObject:plot];
 		plot.lineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
 		plot.lineStyle.lineWidth = [self dataLineWidth:index];
-		
 		plot.baseValue = CPDecimalFromDouble(self.inputBaseValue);
 		plot.barWidth = barWidth;
-		plot.barOffset = ((index) / count) * unitWidth / barWidth + 0.5 + self.inputBarOffset;
+		plot.barOffset = self.inputBarOffset;
+		plot.barsAreHorizontal = self.inputHorizontalBars;		
+		plot.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];
 		
-		plot.barsAreHorizontal = self.inputHorizontalBars;
-		
-		if ([self areaFillImage:index])
-		{
-			CGImageRef imageRef = [self areaFillImage:index];
-			plot.fill = [CPFill fillWithImage:[CPImage imageWithCGImage:[self areaFillImage:index]]];
-			CGImageRelease(imageRef);
-		}
-		else
-			plot.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];
-			
 		[plot reloadData];
 	}
 	
@@ -192,11 +189,11 @@
 	
 	if (![self valueForInputKey:key])
 		return 0;
-		
+	
 	return [[self valueForInputKey:key] count];
 }
 
--(NSArray *)numbersForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+- (NSArray *)numbersForPlot:(CPBarPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
 	NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
 	NSString *key = [NSString stringWithFormat:@"plotNumbers%i", plotIndex];
@@ -206,9 +203,26 @@
 	
 	NSDictionary *dict = [self valueForInputKey:key];
 	NSMutableArray *array = [NSMutableArray array];
+	
+	if (fieldEnum == CPBarPlotFieldBarLocation)
+	{
+		// Calculate horizontal position of bar - nth bar index + barWidth*plotIndex + 0.5
+		float xpos;
+		float plotCount = [[graph allPlots] count];
 		
-	for (int i = 0; i < [[dict allKeys] count]; i++)
-		[array addObject:[NSDecimalNumber decimalNumberWithString:[[dict valueForKey:[NSString stringWithFormat:@"%i", i]] stringValue]]];
+		for (int i = 0; i < [[dict allKeys] count]; i++)
+		{ 
+			xpos = (float)i + (float)plotIndex/(plotCount);
+			[array addObject:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", xpos]]];
+		}
+	}
+	else
+	{		
+		for (int i = 0; i < [[dict allKeys] count]; i++)
+		{
+			[array addObject:[NSDecimalNumber decimalNumberWithString:[[dict valueForKey:[NSString stringWithFormat:@"%i", i]] stringValue]]];
+		}
+	}
 	
 	return array;
 }

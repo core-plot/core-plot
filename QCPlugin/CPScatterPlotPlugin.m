@@ -1,11 +1,3 @@
-//
-//  CPScatterPlotPlugIn.m
-//  CorePlotQCPlugIn
-//
-//  Created by Caleb Cannon on 8/7/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import "CPScatterPlotPlugIn.h"
 
 @implementation CPScatterPlotPlugIn
@@ -24,11 +16,10 @@
  Dynamic accessors for the static PlugIn inputs
 */
 @dynamic inputPixelsWide, inputPixelsHigh;
-@dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
+@dynamic inputPlotAreaColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
 @dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
-@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 + (NSDictionary*) attributes
@@ -72,14 +63,7 @@
 								QCPortTypeColor, QCPortAttributeTypeKey,
 								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
 								nil]];
-	
-	[self addInputPortWithType:QCPortTypeImage
-						forKey:[NSString stringWithFormat:@"plotFillImage%i",  index]
-				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Fill Image %i", index+1], QCPortAttributeNameKey,
-								QCPortTypeImage, QCPortAttributeTypeKey,
-								nil]];
-	
+		
 	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -89,20 +73,24 @@
 								[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 								nil]];
 	
-	// NOTE: For some reason QC is crashing when adding more than one popup menu item.  So I haven't even bothered to implement
-	// the data symbols.  I don't know what the problem is >:/
-	/*
 	[self addInputPortWithType:QCPortTypeIndex
 						forKey:[NSString stringWithFormat:@"plotDataSymbols%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Data Symbols %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeIndex, QCPortAttributeTypeKey,
-								[NSArray arrayWithObjects:@"Empty", @"Circle", @"Square", @"Triangle", nil], QCPortAttributeMenuItemsKey,
+								[NSArray arrayWithObjects:@"Empty", @"Circle", @"Triangle", @"Square", @"Plus", @"Star", @"Diamond", @"Pentagon", @"Hexagon", @"Dash", @"Snow", nil], QCPortAttributeMenuItemsKey,								
 								[NSNumber numberWithInt:0], QCPortAttributeDefaultValueKey,
 								[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
-								[NSNumber numberWithInt:3], QCPortAttributeMaximumValueKey,
+								[NSNumber numberWithInt:10], QCPortAttributeMaximumValueKey,
+								nil]];	
+	
+	[self addInputPortWithType:QCPortTypeColor
+						forKey:[NSString stringWithFormat:@"plotDataSymbolColor%i",  index]
+				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+								[NSString stringWithFormat:@"Data Symbol Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
 								nil]];
-	*/
 	
 	// Add the new plot to the graph
 	CPScatterPlot *scatterPlot = [[[CPScatterPlot alloc] init] autorelease];
@@ -124,11 +112,49 @@
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotYNumbers%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%i", i-1]];
-		[self removeInputPortForKey:[NSString stringWithFormat:@"plotFillImage%i", i-1]];
 		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%i", i-1]];
+		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbols%i", i-1]];
+		[self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbolColor%i", i-1]];
 		
 		[graph removePlot:[[graph allPlots] lastObject]];		
 	}
+}
+
+- (CPPlotSymbol *) plotSymbol:(NSUInteger)index
+{
+	NSString *key = [NSString stringWithFormat:@"plotDataSymbols%i", index];
+	NSUInteger value = [[self valueForInputKey:key] unsignedIntValue];
+
+	switch (value) {
+		case 1:
+			return [CPPlotSymbol ellipsePlotSymbol];
+		case 2:
+			return [CPPlotSymbol trianglePlotSymbol];
+		case 3:
+			return [CPPlotSymbol rectanglePlotSymbol];
+		case 4:
+			return [CPPlotSymbol plusPlotSymbol];
+		case 5:
+			return [CPPlotSymbol starPlotSymbol];
+		case 6:
+			return [CPPlotSymbol diamondPlotSymbol];
+		case 7:
+			return [CPPlotSymbol pentagonPlotSymbol];
+		case 8:
+			return [CPPlotSymbol hexagonPlotSymbol];
+		case 9:
+			return [CPPlotSymbol dashPlotSymbol];
+		case 10:
+			return [CPPlotSymbol snowPlotSymbol];
+		default:
+			return nil;
+	}
+}
+
+- (CGColorRef) dataSymbolColor:(NSUInteger)index
+{
+	NSString *key = [NSString stringWithFormat:@"plotDataSymbolColor%i", index];
+	return (CGColorRef)[self valueForInputKey:key];
 }
 
 - (BOOL) configurePlots
@@ -138,16 +164,17 @@
 	for (CPScatterPlot* plot in [graph allPlots])
 	{		
 		int index = [[graph allPlots] indexOfObject:plot];
+		
 		plot.dataLineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
 		plot.dataLineStyle.lineWidth = [self dataLineWidth:index];
-		if ([self areaFillImage:index])
-		{
-			CGImageRef imageRef = [self areaFillImage:index];
-			plot.areaFill = [CPFill fillWithImage:[CPImage imageWithCGImage:[self areaFillImage:index]]];
-			CGImageRelease(imageRef);
-		}
-		else
-			plot.areaFill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];
+		plot.plotSymbol = [self plotSymbol:index];
+		plot.plotSymbol.lineStyle.lineWidth = [self dataLineWidth:index];
+		plot.plotSymbol.lineStyle.lineColor = [CPColor colorWithCGColor:[self dataSymbolColor:index]];
+		plot.plotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self dataSymbolColor:index]]];
+		plot.plotSymbol.size = CGSizeMake(10.0, 10.0);		
+		plot.areaFill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];
+		plot.areaBaseValue = CPDecimalFromFloat(MAX(self.inputYMin, MIN(self.inputYMax, 0.0)));
+		
 		[plot reloadData];
 	}
 	return YES;
