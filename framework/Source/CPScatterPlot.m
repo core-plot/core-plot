@@ -100,11 +100,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
-/** @property delegate
- *	@brief The scatter plot delegate.
- **/
-@synthesize delegate;
-
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -131,7 +126,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaFill = nil;
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
-        delegate = nil;
         plotSymbolMarginForHitDetection = 0.0f;
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -163,8 +157,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[xValuesTransformer release];
     [yValuesTransformer release];
     
-    delegate = nil;
-    	
 	[super dealloc];
 }
 
@@ -659,7 +651,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	BOOL result = NO;
 	if ( !self.graph || !self.plotArea ) return NO;
     
-	if ( [delegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+	id <CPScatterPlotDelegate> theDelegate = self.delegate;
+	if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
     	// Inform delegate if a point was hit
         CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
         NSUInteger index = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
@@ -673,7 +666,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
         symbolRect.origin = CGPointMake(center.x - 0.5f*CGRectGetWidth(symbolRect), center.y - 0.5f*CGRectGetHeight(symbolRect));
         
         if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
-            [delegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+            [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
             result = YES;
         }
     }

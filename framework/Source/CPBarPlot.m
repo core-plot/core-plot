@@ -106,11 +106,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 @synthesize barLabelTextLayers;
 
-/** @property delegate
- *	@brief The scatter plot delegate.
- **/
-@synthesize delegate;
-
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -167,7 +162,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		barLabelOffset = 10.0;
 		barLabelTextStyle = nil;
         barLabelTextLayers = nil;
-		delegate = nil;
         
 		self.needsDisplayOnBoundsChange = YES;
 	}

@@ -97,7 +97,6 @@ typedef enum _CPAxisLabelingPolicy {
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
-	__weak id <CPAxisDelegate> delegate;
     CPPlotRange *visibleRange;
     CPPlotRange *gridLinesRange;
 	NSArray *alternatingBandFills;
@@ -137,7 +136,6 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
-@property (nonatomic, readwrite, assign) __weak id <CPAxisDelegate> delegate;
 ///	@}
 
 /// @name Major Ticks

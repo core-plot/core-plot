@@ -86,7 +86,6 @@ typedef enum _CPScatterPlotField {
     NSDecimal areaBaseValue;
     CGFloat plotSymbolMarginForHitDetection;
     NSArray *plotSymbols;
-    __weak id <CPScatterPlotDelegate> delegate;
 } 
 
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
@@ -94,7 +93,6 @@ typedef enum _CPScatterPlotField {
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
 @property (nonatomic, readwrite) NSDecimal areaBaseValue;
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
-@property (nonatomic, readwrite, assign) __weak id <CPScatterPlotDelegate> delegate;
 
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index;

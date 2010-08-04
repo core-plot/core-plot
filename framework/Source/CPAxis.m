@@ -180,11 +180,6 @@
  **/
 @synthesize labelExclusionRanges;
 
-/**	@property delegate
- *	@brief The axis delegate.
- **/
-@synthesize delegate;
-
 // Major ticks
 
 /**	@property majorIntervalLength
@@ -339,7 +334,6 @@
 		titleLocation = CPDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
-		delegate = nil;
 		plotArea = nil;
 		separateLayers = NO;
 		alternatingBandFills = nil;

@@ -88,7 +88,6 @@ typedef enum _CPBarPlotField {
 	CGFloat barLabelOffset;
 	CPTextStyle *barLabelTextStyle;
     NSMutableArray *barLabelTextLayers;
-	__weak id <CPBarPlotDelegate> delegate;
 } 
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
@@ -101,7 +100,6 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
 @property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;
-@property (nonatomic, readwrite, assign) __weak id <CPBarPlotDelegate> delegate;
 
 /// @name Factory Methods
 /// @{
