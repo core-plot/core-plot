@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 
-@interface CPTestAppPieChartController : UIViewController <CPPieChartDataSource> 
+@interface CPTestAppPieChartController : UIViewController <CPPieChartDataSource, CPPieChartDelegate> 
 {
 	@private
 	CPXYGraph *pieChart;

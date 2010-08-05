@@ -47,6 +47,25 @@ typedef enum _CPPieDirection {
 @end 
 
 
+/**	@brief Pie chart delegate.
+ **/
+@protocol CPPieChartDelegate <NSObject>
+
+@optional
+
+// @name Point selection
+/// @{
+
+/**	@brief Informs the delegate that a pie slice was touched or clicked.
+ *	@param plot The pie chart.
+ *	@param index The index of the slice that was touched or clicked.
+ **/
+-(void)pieChart:(CPPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
+
 @interface CPPieChart : CPPlot {
 	@private
 	id observedObjectForPieSliceWidthValues;
