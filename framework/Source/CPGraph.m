@@ -149,7 +149,14 @@
  **/
 -(void)reloadData
 {
-    [[self allPlots] makeObjectsPerformSelector:@selector(reloadData)];
+    [self.plots makeObjectsPerformSelector:@selector(reloadData)];
+}
+
+/**	@brief Makes all plots reload their data if their data cache is out of date.
+ **/
+-(void)reloadDataIfNeeded
+{
+    [self.plots makeObjectsPerformSelector:@selector(reloadDataIfNeeded)];
 }
 
 /**	@brief All plots associated with the graph.
@@ -356,7 +363,7 @@
 {
     [self setNeedsLayout];
     [self.axisSet relabelAxes];
-    [[self allPlots] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    [self.plots makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 #pragma mark -

@@ -94,7 +94,7 @@
 
 -(void)drawInContext:(CGContextRef)theContext
 {
-    if ( self.dataNeedsReloading ) [self reloadData];
+    [self reloadDataIfNeeded];
     [super drawInContext:theContext];
 }
 
@@ -149,6 +149,15 @@
     self.dataNeedsReloading = NO;
     [self setNeedsDisplay];
     [self setNeedsLayout];
+}
+
+/**	@brief Reload data from the data source only if the data cache is out of date.
+ **/
+-(void)reloadDataIfNeeded
+{
+	if ( self.dataNeedsReloading ) {
+		[self reloadData];
+	}
 }
 
 /**	@brief Gets a range of plot data for the given plot and field.

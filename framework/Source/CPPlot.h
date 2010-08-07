@@ -115,6 +115,7 @@
 /// @{
 -(void)setDataNeedsReloading;
 -(void)reloadData;
+-(void)reloadDataIfNeeded;
 ///	@}
 
 /// @name Plot Data

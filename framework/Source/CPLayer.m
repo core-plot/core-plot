@@ -1,3 +1,5 @@
+#import "CPAxisSet.h"
+#import "CPGraph.h"
 #import "CPLayer.h"
 #import "CPLayoutManager.h"
 #import "CPPathExtensions.h"
@@ -274,6 +276,17 @@
  */
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
+	CPGraph *theGraph = nil;
+	if ( [self isKindOfClass:[CPGraph class]] ) {
+		theGraph = (CPGraph *)self;
+	}
+	else {
+		theGraph = self.graph;
+	}
+	if ( theGraph ) {
+		[theGraph reloadDataIfNeeded];
+		[theGraph.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
+	}
 	[self layoutIfNeeded];
 	[self recursivelyRenderInContext:context];
 }

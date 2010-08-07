@@ -24,6 +24,8 @@ typedef enum _CPGraphLayerType {
 	CPGraphLayerTypeAxisTitles			///< Axis titles.
 } CPGraphLayerType;
 
+#pragma mark -
+
 @interface CPGraph : CPBorderedLayer {
 	@private
     CPPlotAreaFrame *plotAreaFrame;
@@ -55,6 +57,7 @@ typedef enum _CPGraphLayerType {
 /// @name Data Source
 /// @{
 -(void)reloadData;
+-(void)reloadDataIfNeeded;
 ///	@}
 
 /// @name Retrieving Plots
@@ -92,6 +95,8 @@ typedef enum _CPGraphLayerType {
 /// @}
 
 @end
+
+#pragma mark -
 
 /**	@category CPGraph(AbstractFactoryMethods)
  *	@brief CPGraph abstract methods—must be overridden by subclasses
