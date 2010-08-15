@@ -457,6 +457,8 @@
 				CPLayerAnnotation *newTitleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
 				CPTextLayer *newTextLayer = [[CPTextLayer alloc] initWithText:title style:self.titleTextStyle];
 				newTitleAnnotation.contentLayer = newTextLayer;
+				newTitleAnnotation.displacement = self.titleDisplacement;
+				newTitleAnnotation.rectAnchor = self.titlePlotAreaFrameAnchor;
 				[self addAnnotation:newTitleAnnotation];
 				self.titleAnnotation = newTitleAnnotation;
 				[newTextLayer release];
