@@ -3,6 +3,7 @@
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
+#import "CPPlotSpaceAnnotation.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 #import "CPXYPlotSpace.h"
@@ -205,6 +206,8 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         barWidth = 5.0;
         stickLength = 3.0;
         barCornerRadius = 0.0;
+
+		self.labelField = CPTradingRangePlotFieldClose;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -406,6 +409,8 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	self.lowValues = nil;
 	self.closeValues = nil;
 	
+	NSRange indexRange = NSMakeRange(0, 0);
+	
 	if ( self.observedObjectForXValues && self.observedObjectForOpenValues && self.observedObjectForHighValues && self.observedObjectForLowValues && self.observedObjectForCloseValues ) {
 		// Use bindings to retrieve data
 		self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
@@ -453,10 +458,12 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 			}
 			self.closeValues = newCloseValues;
 		}
+		
+		indexRange = NSMakeRange(0, self.xValues.count);
     }
 	else if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		NSRange indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
+		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
 		
 		self.xValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldX recordIndexRange:indexRange];
 		self.openValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldOpen recordIndexRange:indexRange];
@@ -464,6 +471,9 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 		self.lowValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldLow recordIndexRange:indexRange];
 		self.closeValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldClose recordIndexRange:indexRange];
 	}
+	
+	// Labels
+	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -
@@ -706,6 +716,43 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
             break;
     }
     return result;
+}
+
+#pragma mark -
+#pragma mark Data Labels
+
+-(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
+{
+	BOOL positiveDirection = YES;
+	CPPlotRange *yRange = [self.plotSpace plotRangeForCoordinate:CPCoordinateY];
+	if ( CPDecimalLessThan(yRange.length, CPDecimalFromInteger(0)) ) {
+		positiveDirection = !positiveDirection;
+	}
+	
+	NSNumber *xValue = [self cachedNumberForField:CPTradingRangePlotFieldX recordIndex:index];
+	NSNumber *yValue;
+	NSArray *yValues = [NSArray arrayWithObjects:[self cachedNumberForField:CPTradingRangePlotFieldOpen recordIndex:index],
+						[self cachedNumberForField:CPTradingRangePlotFieldClose recordIndex:index],
+						[self cachedNumberForField:CPTradingRangePlotFieldHigh recordIndex:index],
+						[self cachedNumberForField:CPTradingRangePlotFieldLow recordIndex:index], nil];
+	NSArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
+	if ( positiveDirection ) {
+		yValue = [yValuesSorted lastObject];
+	}
+	else {
+		yValue = [yValuesSorted objectAtIndex:0];
+	}
+
+	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+	
+	if ( positiveDirection ) {
+		label.displacement = CGPointMake(0.0, self.labelOffset);
+		label.contentLayer.anchorPoint = CGPointMake(0.5, 0.0);
+	}
+	else {
+		label.displacement = CGPointMake(0.0, -self.labelOffset);
+		label.contentLayer.anchorPoint = CGPointMake(0.5, 1.0);
+	}
 }
 
 #pragma mark -

@@ -24,6 +24,8 @@ typedef enum _CPScatterPlotField {
     CPScatterPlotFieldY 								///< Y values.
 } CPScatterPlotField;
 
+#pragma mark -
+
 /**	@brief A scatter plot data source.
  **/
 @protocol CPScatterPlotDataSource <CPPlotDataSource>
@@ -51,6 +53,8 @@ typedef enum _CPScatterPlotField {
 
 @end 
 
+#pragma mark -
+
 /**	@brief Scatter plot delegate.
  **/
 @protocol CPScatterPlotDelegate <NSObject>
@@ -69,6 +73,8 @@ typedef enum _CPScatterPlotField {
 ///	@}
 
 @end
+
+#pragma mark -
 
 @interface CPScatterPlot : CPPlot {
 	@private

@@ -1,12 +1,13 @@
-
 #import "CPDefinitions.h"
 #import "CPPlotRange.h"
-#import "CPLayer.h"
+#import "CPAnnotationHostLayer.h"
 
 @class CPPlot;
 @class CPPlotArea;
 @class CPPlotSpace;
+@class CPPlotSpaceAnnotation;
 @class CPPlotRange;
+@class CPTextStyle;
 
 /**	@brief A plot data source.
  **/
@@ -56,6 +57,9 @@
 
 ///	@}
 
+/// @name Data Range
+/// @{
+
 /**	@brief Determines the record index range corresponding to a given range of data.
  *	This method is optional. If the method is implemented, it could improve performance
  *  in data sets that are only partially displayed.
@@ -65,11 +69,27 @@
  **/
 -(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRange;
 
+///	@}
+
+/// @name Data Labels
+/// @{
+
+/** @brief Gets a data label for the given plot. This method is optional.
+ *	@param plot The plot.
+ *	@param index The data index of interest.
+ *	@return The data label for the point with the given index.
+ *  If you return nil, the default data label will be used. If you return an instance of NSNull,
+ *  no label will be shown for the index in question.
+ **/
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index;
+
+///	@}
+
 @end 
 
 #pragma mark -
 
-@interface CPPlot : CPLayer {
+@interface CPPlot : CPAnnotationHostLayer {
 	@private
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
@@ -78,6 +98,15 @@
     NSMutableDictionary *cachedData;
     NSUInteger cachedDataCount;
     BOOL doublePrecisionCache;
+	BOOL needsRelabel;
+	CGFloat labelOffset;
+    CGFloat labelRotation;
+	NSUInteger labelField;
+	CPTextStyle *labelTextStyle;
+	NSNumberFormatter *labelFormatter;
+	BOOL labelFormatterChanged;
+	NSRange labelIndexRange;
+	NSMutableArray *labelAnnotations;
 }
 
 /// @name Data Source
@@ -111,6 +140,23 @@
 @property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
 ///	@}
 
+/// @name Data Labels
+/// @{
+@property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readwrite, assign) CGFloat labelOffset;
+@property (nonatomic, readwrite, assign) CGFloat labelRotation;
+@property (nonatomic, readwrite, assign) NSUInteger labelField;
+@property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
+///	@}
+
+/// @name Data Labels
+/// @{
+-(void)setNeedsRelabel;
+-(void)relabel;
+-(void)relabelIndexRange:(NSRange)indexRange;
+///	@}
+
 /// @name Data Loading
 /// @{
 -(void)setDataNeedsReloading;
@@ -127,6 +173,8 @@
 /// @name Data Cache
 /// @{
 -(id)cachedNumbersForField:(NSUInteger)fieldEnum;
+-(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
 ///	@}
 
@@ -136,6 +184,15 @@
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coord;
 ///	@}
 
+@end
+
+#pragma mark -
+
+/**	@category CPPlot(AbstractMethods)
+ *	@brief CPPlot abstract methods—must be overridden by subclasses
+ **/
+@interface CPPlot(AbstractMethods)
+
 /// @name Fields
 /// @{
 -(NSUInteger)numberOfFields;
@@ -143,7 +200,10 @@
 -(NSArray *)fieldIdentifiersForCoordinate:(CPCoordinate)coord;
 ///	@}
 
+/// @name Data Labels
+/// @{
+-(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index;
+///	@}
+
 @end
-
-
 

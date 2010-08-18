@@ -169,6 +169,10 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
+	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    whiteTextStyle.color = [CPColor whiteColor];
+	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
+	dataSourceLinePlot.labelOffset = 5.0;
     [graph addPlot:dataSourceLinePlot];
     
     // Put an area gradient under the plot above
@@ -225,8 +229,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
-    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
-    whiteTextStyle.color = [CPColor whiteColor];
     barPlot.barLabelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
     
@@ -291,14 +293,18 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	return nil;
 }
 
--(CPTextLayer *)barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index 
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
-	if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 2"] )
+	if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 2"] )
 		return (id)[NSNull null]; // Don't show any label
-	else if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
+	else if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
         return (id)[NSNull null];
-    else
+    else if ( index % 4 ) {
+        return (id)[NSNull null];
+	}
+	else {
 		return nil; // Use default label style
+	}
 }
 
 #pragma mark -

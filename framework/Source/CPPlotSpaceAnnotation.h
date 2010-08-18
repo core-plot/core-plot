@@ -8,8 +8,8 @@
     CPPlotSpace *plotSpace;
 }
 
-@property (nonatomic, readonly) NSArray *anchorPlotPoint;
-@property (nonatomic, readonly) CPPlotSpace *plotSpace;
+@property (nonatomic, readwrite, copy) NSArray *anchorPlotPoint;
+@property (nonatomic, readonly, retain) CPPlotSpace *plotSpace;
 
 -(id)initWithPlotSpace:(CPPlotSpace *)space anchorPlotPoint:(NSArray *)plotPoint;
 

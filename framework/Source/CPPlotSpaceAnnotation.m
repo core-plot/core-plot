@@ -59,7 +59,7 @@
 		NSUInteger anchorCount = anchor.count;
 		
 		// Get plot area point
-		NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchor.count);
+		NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
 		for ( NSUInteger i = 0; i < anchorCount; i++ ) {
 			decimalPoint[i] = [[anchor objectAtIndex:i] decimalValue];
 		}
@@ -75,6 +75,18 @@
 		
 		content.position = point;
 		[content pixelAlign];
+	}
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
+{
+	if ( anchorPlotPoint != newPlotPoint ) {
+		[anchorPlotPoint release];
+		anchorPlotPoint = [newPlotPoint copy];
+		[self positionContentLayer];
 	}
 }
 

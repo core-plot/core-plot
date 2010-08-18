@@ -83,6 +83,11 @@
     CPTradingRangePlot *ohlcPlot = [[[CPTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle = whiteLineStyle;
+	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    whiteTextStyle.color = [CPColor whiteColor];
+	whiteTextStyle.fontSize = 8.0;
+	ohlcPlot.labelTextStyle = whiteTextStyle;
+	ohlcPlot.labelOffset = 5.0;
     ohlcPlot.stickLength = 2.0f;
     ohlcPlot.dataSource = self;
     ohlcPlot.plotStyle = CPTradingRangePlotStyleOHLC;
@@ -175,6 +180,17 @@
     return num;
 }
 
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
+{
+	if ( ![(NSString *)plot.identifier isEqualToString:@"OHLC"] )
+		return (id)[NSNull null]; // Don't show any label
+    else if ( index % 5 ) {
+        return (id)[NSNull null];
+	}
+	else {
+		return nil; // Use default label style
+	}
+}
 
 -(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
 {

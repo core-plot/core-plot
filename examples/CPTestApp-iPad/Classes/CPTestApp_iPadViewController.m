@@ -353,7 +353,7 @@
 	return nil;
 }
 
--(CPTextLayer *)sliceLabelForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index
 {
 	static CPTextStyle *whiteText = nil;
 	

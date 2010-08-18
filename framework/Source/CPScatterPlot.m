@@ -3,6 +3,7 @@
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
+#import "CPPlotSpaceAnnotation.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 #import "CPXYPlotSpace.h"
@@ -127,6 +128,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
         plotSymbolMarginForHitDetection = 0.0f;
+		self.labelField = CPScatterPlotFieldY;
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -261,6 +263,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	self.yValues = nil;
 	self.plotSymbols = nil;
 	
+	NSRange indexRange = NSMakeRange(0, 0);
+	
 	if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
 		// Use bindings to retrieve data
 		self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
@@ -282,12 +286,14 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 			self.yValues = newYValues;
 		}
 		self.plotSymbols = [self.observedObjectForPlotSymbols valueForKeyPath:self.keyPathForPlotSymbols];
+		
+		indexRange = NSMakeRange(0, self.xValues.count);
 	}
 	else if ( self.dataSource ) {
 		// Expand the index range each end, to make sure that plot lines go to offscreen points
 		NSUInteger numberOfRecords = [self.dataSource numberOfRecordsForPlot:self];
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		NSRange indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
+		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
 		NSRange expandedRange = CPExpandedRange(indexRange, 1);
 		NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
 		indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
@@ -313,6 +319,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 			self.plotSymbols = symbols;
 		}
 	}
+	
+	// Labels
+	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -
@@ -644,6 +653,32 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 }
 
 #pragma mark -
+#pragma mark Data Labels
+
+-(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
+{
+	NSNumber *xValue = [self cachedNumberForField:CPScatterPlotFieldX recordIndex:index];
+	NSNumber *yValue = [self cachedNumberForField:CPScatterPlotFieldY recordIndex:index];
+	
+	BOOL positiveDirection = YES;
+	CPPlotRange *yRange = [self.plotSpace plotRangeForCoordinate:CPCoordinateY];
+	if ( CPDecimalLessThan(yRange.length, CPDecimalFromInteger(0)) ) {
+		positiveDirection = !positiveDirection;
+	}
+	
+	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+	
+	if ( positiveDirection ) {
+		label.displacement = CGPointMake(0.0, self.labelOffset);
+		label.contentLayer.anchorPoint = CGPointMake(0.5, 0.0);
+	}
+	else {
+		label.displacement = CGPointMake(0.0, -self.labelOffset);
+		label.contentLayer.anchorPoint = CGPointMake(0.5, 1.0);
+	}
+}
+
+#pragma mark -
 #pragma mark Responder Chain and User interaction
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
@@ -661,9 +696,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
         
         CGRect symbolRect = CGRectZero;
         symbolRect.size = symbol.size;
-        symbolRect.size.width += 2.0f * plotSymbolMarginForHitDetection;
-        symbolRect.size.height += 2.0f * plotSymbolMarginForHitDetection;
-        symbolRect.origin = CGPointMake(center.x - 0.5f*CGRectGetWidth(symbolRect), center.y - 0.5f*CGRectGetHeight(symbolRect));
+        symbolRect.size.width += 2.0 * plotSymbolMarginForHitDetection;
+        symbolRect.size.height += 2.0 * plotSymbolMarginForHitDetection;
+        symbolRect.origin = CGPointMake(center.x - 0.5 * CGRectGetWidth(symbolRect), center.y - 0.5 * CGRectGetHeight(symbolRect));
         
         if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
             [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
