@@ -1,14 +1,4 @@
-//
-//  CorePlotQCPlugInPlugIn.m
-//  CorePlotQCPlugIn
-//
-//  Created by Caleb Cannon on 8/3/09.
-//  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
-//
-
-/* It's highly recommended to use CGL macros instead of changing the current context for plug-ins that perform OpenGL rendering */
 #import <OpenGL/CGLMacro.h>
-
 #import "CorePlotQCPlugIn.h"
 
 #define	kQCPlugIn_Name				@"CorePlotQCPlugIn"
@@ -67,11 +57,10 @@ Accessor for the output image
 Dynamic accessors for the static PlugIn inputs
 */
 @dynamic inputPixelsWide, inputPixelsHigh;
-@dynamic inputBackgroundColor, inputPlotAreaColor, inputBorderColor;
+@dynamic inputPlotAreaColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
 @dynamic inputMajorGridLineWidth, inputMinorGridLineWidth;
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
-@dynamic inputLeftMargin, inputRightMargin, inputTopMargin, inputBottomMargin;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
@@ -192,17 +181,10 @@ Synthesized accessors for internal PlugIn settings
 	return [NSArray arrayWithObjects:
 			@"inputPixelsWide", 
 			@"inputPixelsHigh", 
-			@"inputBackgroundColor", 
 			@"inputPlotAreaColor", 
-			@"inputBorderColor", 
 			@"inputAxisColor", 
 			@"inputAxisLineWidth",
-			
-			@"inputLeftMargin",
-			@"inputRightMargin",
-			@"inputTopMargin",
-			@"inputBottomMargin",
-			
+						
 			@"inputXMin", 
 			@"inputXMax", 
 			@"inputYMin", 
@@ -250,30 +232,6 @@ Synthesized accessors for internal PlugIn settings
 				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
 				nil];
 
-	if ([key isEqualToString:@"inputLeftMargin"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Left Margin", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
-				nil];
-
-	if ([key isEqualToString:@"inputRightMargin"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Right Margin", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
-				nil];
-
-	if ([key isEqualToString:@"inputTopMargin"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Top Margin", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
-				nil];
-
-	if ([key isEqualToString:@"inputBottomMargin"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Bottom Margin", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:60], QCPortAttributeDefaultValueKey,
-				nil];
-	
 	if ([key isEqualToString:@"inputXMajorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"X Major Intervals", QCPortAttributeNameKey,
@@ -305,7 +263,7 @@ Synthesized accessors for internal PlugIn settings
 	if ([key isEqualToString:@"inputAxisColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Axis Color", QCPortAttributeNameKey,
-				CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0), QCPortAttributeDefaultValueKey,
+				[(id)CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisLineWidth"])
@@ -357,22 +315,11 @@ Synthesized accessors for internal PlugIn settings
 				[NSNumber numberWithDouble:0.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
-	if ([key isEqualToString:@"inputBorderColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Border Color", QCPortAttributeNameKey,
-				CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.0), QCPortAttributeDefaultValueKey,
-				nil];
-	
-	if ([key isEqualToString:@"inputBackgroundColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Background Color", QCPortAttributeNameKey,
-				CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.2), QCPortAttributeDefaultValueKey,
-				nil];
-	
+
 	if ([key isEqualToString:@"inputPlotAreaColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Plot Area Color", QCPortAttributeNameKey,
-				CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4), QCPortAttributeDefaultValueKey,
+				[(id)CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4) autorelease], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputPixelsWide"])
@@ -398,7 +345,7 @@ Synthesized accessors for internal PlugIn settings
 }
 
 #pragma mark -
-#pragma markGraph configuration
+#pragma mark Graph configuration
 
 - (void) createGraph
 { 
@@ -410,53 +357,51 @@ Synthesized accessors for internal PlugIn settings
 				
 		// Setup scatter plot space
 		CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-		[plotSpace setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(1.0)];
 		plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
 		
-		
 		// Axes
 		CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
-		axisSet.overlayLayerInsetX = -0.f;
-		axisSet.overlayLayerInsetY = -0.f;
 		
 		CPXYAxis *x = axisSet.xAxis;
-		x.majorIntervalLength = CPDecimalFromString(@"0.5");
-		x.constantCoordinateValue = CPDecimalFromString(@"0.0");
+		x.majorIntervalLength = CPDecimalFromFloat(0.5);
 		x.minorTicksPerInterval = 2;
 		
 		CPXYAxis *y = axisSet.yAxis;
-		y.majorIntervalLength = CPDecimalFromString(@"0.5");
+		y.majorIntervalLength = CPDecimalFromFloat(0.5);
 		y.minorTicksPerInterval = 5;
-		y.constantCoordinateValue = CPDecimalFromString(@"0.0");
 	}		
 }
 
 - (CGColorRef) defaultColorForPlot:(NSUInteger)index alpha:(float)alpha
 {
+	CGColorRef color;
 	switch (index) {
 		case 0:
-			return CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
+			color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
 			break;
 		case 1:
-			return CGColorCreateGenericRGB(0.0, 1.0, 0.0, alpha);
+			color = CGColorCreateGenericRGB(0.0, 1.0, 0.0, alpha);
 			break;
 		case 2:
-			return CGColorCreateGenericRGB(0.0, 0.0, 1.0, alpha);
+			color = CGColorCreateGenericRGB(0.0, 0.0, 1.0, alpha);
 			break;
 		case 3:
-			return CGColorCreateGenericRGB(1.0, 1.0, 0.0, alpha);
+			color = CGColorCreateGenericRGB(1.0, 1.0, 0.0, alpha);
 			break;
 		case 4:
-			return CGColorCreateGenericRGB(1.0, 0.0, 1.0, alpha);
+			color = CGColorCreateGenericRGB(1.0, 0.0, 1.0, alpha);
 			break;
 		case 5:
-			return CGColorCreateGenericRGB(0.0, 1.0, 1.0, alpha);
+			color = CGColorCreateGenericRGB(0.0, 1.0, 1.0, alpha);
 			break;
 		default:
-			return CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
+			color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
 			break;
 	}
+	
+	[(id)color autorelease];
+	return color;
 }
 
 - (void) addPlots:(NSUInteger)count
@@ -479,18 +424,16 @@ Synthesized accessors for internal PlugIn settings
 	set.xAxis.minorTickLineStyle.lineColor = axisColor;
 	set.yAxis.minorTickLineStyle.lineColor = axisColor;
 	
-	set.xAxis.axisLabelTextStyle.color = axisColor;
-	set.yAxis.axisLabelTextStyle.color = axisColor;
+	set.xAxis.labelTextStyle.color = axisColor;
+	set.yAxis.labelTextStyle.color = axisColor;
 	
 	double xrange = self.inputXMax - self.inputXMin;
 	set.xAxis.majorIntervalLength = CPDecimalFromDouble(xrange / (self.inputXMajorIntervals));
 	set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
-	set.xAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
 	
 	double yrange = self.inputYMax - self.inputYMin;
 	set.yAxis.majorIntervalLength = CPDecimalFromDouble(yrange / (self.inputYMajorIntervals));
 	set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
-	set.yAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
 
 	set.xAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
 	set.yAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
@@ -506,7 +449,7 @@ Synthesized accessors for internal PlugIn settings
 	set.xAxis.majorTickLength = self.inputAxisMajorTickLength;
 	set.yAxis.majorTickLength = self.inputAxisMajorTickLength;
 	
-	if ([self didValueForInputKeyChange:@"inputMajorGridLineWidth"])
+	if ([self didValueForInputKeyChange:@"inputMajorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
 		CPLineStyle *majorGridLineStyle;
 		if (self.inputMajorGridLineWidth == 0.0)
@@ -522,7 +465,7 @@ Synthesized accessors for internal PlugIn settings
 		set.yAxis.majorGridLineStyle = majorGridLineStyle;
 	}
 
-	if ([self didValueForInputKeyChange:@"inputMinorGridLineWidth"])
+	if ([self didValueForInputKeyChange:@"inputMinorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
 		CPLineStyle *minorGridLineStyle;
 		if (self.inputMinorGridLineWidth == 0.0)
@@ -761,11 +704,11 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	CGRect frame = CGRectMake(0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh));	
 	[graph setBounds:frame];
 	
-	graph.paddingLeft = self.inputLeftMargin;
-	graph.paddingRight = self.inputRightMargin;
-	graph.paddingTop = self.inputTopMargin;
-	graph.paddingBottom = self.inputBottomMargin;
-	
+	graph.paddingLeft = 0.0;
+	graph.paddingRight = 0.0;
+	graph.paddingTop = 0.0;
+	graph.paddingBottom = 0.0;
+		
 	// Perform some sanity checks.  If there is a configuration error set the error flag so that a message is displayed
 	if (self.inputXMax <= self.inputXMin || self.inputYMax <= self.inputYMin)
 		return NO;
@@ -773,26 +716,27 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	[graph layoutSublayers];
 	[graph layoutIfNeeded];
 	
-	graph.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:self.inputBackgroundColor]];
-	graph.plotArea.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:self.inputPlotAreaColor]];
+	graph.fill = nil;
+	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:self.inputPlotAreaColor]];
+	if (self.inputAxisLineWidth > 0.0)
+	{	
+		graph.plotAreaFrame.borderLineStyle = [CPLineStyle lineStyle];
+		graph.plotAreaFrame.borderLineStyle.lineWidth = self.inputAxisLineWidth;
+		graph.plotAreaFrame.borderLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+	}
+	else {
+		graph.plotAreaFrame.borderLineStyle = nil;
+	}
 	
 	// Configure the plot space and axis sets	
 	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(self.inputXMin) length:CPDecimalFromFloat(self.inputXMax-self.inputXMin)];
 	plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(self.inputYMin) length:CPDecimalFromFloat(self.inputYMax-self.inputYMin)];
 	
-	CPXYAxisSet *set = (CPXYAxisSet *)graph.axisSet;
-	[[(CPBorderedLayer *)set.overlayLayer borderLineStyle] setLineColor:[CPColor colorWithCGColor:self.inputBorderColor]];
-	set.xAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
-	set.yAxis.constantCoordinateValue = CPDecimalFromString(@"0.0");
+	[self configureAxis];
 	
-	[self configureAxis];	
-
-	
-	// TODO: for some reason certain plot elements aren't being layed out correctly when, for example,
-	// adjusting the plot ranges.
 	[graph layoutSublayers];
-	[graph layoutIfNeeded];
+	[graph setNeedsDisplay];
 
 	return YES;
 }
@@ -806,19 +750,17 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	// Configure the plot for drawing
 	configurationCheck = [self configureGraph];
 	
-	// TODO: Make sure I'm not leaking memory
-
 	// If the output image dimensions change recreate the image resources
 	if ([self didValueForInputKeyChange:@"inputPixelsWide"] || [self didValueForInputKeyChange:@"inputPixelsHigh"] || !imageProvider)
 		[self freeImageResources];
 	
+	// Verifies that the image data + bitmap context are valid
 	[self createImageResourcesWithContext:context];
 
-
-	// Draw the plot
+	// Draw the plot ...
 	CGSize boundsSize = graph.bounds.size;
 	CGContextClearRect(bitmapContext, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height));
-	CGContextSetFillColorWithColor(bitmapContext, self.inputBackgroundColor);
+	CGContextSetRGBFillColor(bitmapContext, 0.0, 0.0, 0.0, 0.0);
 	CGContextFillRect(bitmapContext, CGRectMake(0, 0, boundsSize.width, boundsSize.height));		
 	CGContextSetAllowsAntialiasing(bitmapContext, true);
 	
@@ -832,10 +774,10 @@ static void _BufferReleaseCallback(const void* address, void* context)
 		drawErrorText(bitmapContext, CGRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh));
 	}
 
-	CGContextSetAllowsAntialiasing(bitmapContext, false);
-	CGContextFlush(bitmapContext);	
+	//CGContextSetAllowsAntialiasing(bitmapContext, false);
+	CGContextFlush(bitmapContext);
 	
-	// .. and put it on the output port
+	// ... and put it on the output port
 	self.outputImage = imageProvider;
 			
 	return YES;

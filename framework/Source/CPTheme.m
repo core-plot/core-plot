@@ -86,7 +86,6 @@ static NSMutableDictionary *themes = nil;
  **/
 +(CPTheme *)themeNamed:(NSString *)themeName
 {
-	static NSMutableDictionary *themes = nil;
 	if ( themes == nil ) themes = [[NSMutableDictionary alloc] init];
 	
 	CPTheme *theme = [themes objectForKey:themeName];

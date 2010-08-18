@@ -4,6 +4,31 @@
 
 @synthesize dataForChart;
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+	return YES;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	CGFloat margin = pieChart.plotAreaFrame.borderLineStyle.lineWidth + 5.0;
+	
+	CPPlot *piePlot = [pieChart plotWithIdentifier:@"Pie Chart 1"];
+	CGRect plotBounds = pieChart.plotAreaFrame.bounds;
+	CGFloat newRadius = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - margin;
+	((CPPieChart *)piePlot).pieRadius = newRadius;
+	
+	CGFloat y = 0.0;
+	
+	if ( plotBounds.size.width > plotBounds.size.height ) {
+		y = 0.5; 
+	}
+	else {
+		y = (newRadius + margin) / plotBounds.size.height;
+	}
+	((CPPieChart *)piePlot).centerAnchor = CGPointMake(0.5, y);
+}
+
 #pragma mark -
 #pragma mark Initialization and teardown
 
@@ -23,7 +48,6 @@
     [pieChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = pieChart;
-    pieChart.plotAreaFrame.masksToBorder = NO;
 	
     pieChart.paddingLeft = 20.0;
 	pieChart.paddingTop = 20.0;
@@ -32,13 +56,18 @@
     	
 	pieChart.axisSet = nil;
 	
+	pieChart.titleTextStyle.color = [CPColor whiteColor];
+	
     // Add pie chart
     CPPieChart *piePlot = [[CPPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius = 130.0;
+	piePlot.pieRadius = 131.0;
     piePlot.identifier = @"Pie Chart 1";
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
+	piePlot.centerAnchor = CGPointMake(0.5, 0.38);
+	piePlot.borderLineStyle = [CPLineStyle lineStyle];
+	piePlot.delegate = self;
     [pieChart addPlot:piePlot];
     [piePlot release];
 	
@@ -81,5 +110,13 @@
 {
 	return nil;
 }*/
+
+#pragma mark -
+#pragma mark Delegate Methods
+
+-(void)pieChart:(CPPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", index];
+}
 
 @end

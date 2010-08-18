@@ -1,17 +1,7 @@
-//
-//  CPBarPlotPlugIn.h
-//  CorePlotQCPlugIn
-//
-//  Created by Caleb Cannon on 8/7/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import <Cocoa/Cocoa.h>
 #import "CorePlotQCPlugIn.h"
 
-@interface CPBarPlotPlugIn : CorePlotQCPlugIn<CPBarPlotDataSource>
-{
-
+@interface CPBarPlotPlugIn : CorePlotQCPlugIn<CPBarPlotDataSource> {
 }
 
 @property(assign) double inputBaseValue;

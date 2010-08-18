@@ -73,6 +73,8 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 @end
 
+#pragma mark -
+
 @interface CPPlotSpace : NSObject <CPResponder> {
 	@private
     __weak CPGraph *graph;
@@ -87,6 +89,8 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 @property (nonatomic, readwrite, assign) __weak id <CPPlotSpaceDelegate> delegate;
 
 @end
+
+#pragma mark -
 
 /**	@category CPPlotSpace(AbstractMethods)
  *	@brief CPPlotSpace abstract methods—must be overridden by subclasses

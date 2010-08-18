@@ -7,28 +7,39 @@
 #endif
 
 
-/** @brief Wrapper around CGImageRef.
- * 
- *  A wrapper class around CGImageRef.
+/**	@brief Wrapper around CGImageRef.
  *
- * @todo More documentation needed 
+ *	A wrapper class around CGImageRef.
+ *
+ *	@todo More documentation needed 
  **/
 
 @implementation CPImage
 
-/** @property image 
- * @brief The CGImageRef to wrap around.
+/**	@property image 
+ *	@brief The CGImageRef to wrap around.
  **/
 @synthesize image;
 
-/** @property tiled
- * @brief Draw as a tiled image?
+/**	@property tiled
+ *	@brief Draw as a tiled image?
  *
- * If YES, the image is drawn repeatedly to fill the current clip region.
- * Otherwise, the image is drawn one time only in the provided rectangle.
- * The default value is NO.
+ *	If YES, the image is drawn repeatedly to fill the current clip region.
+ *	Otherwise, the image is drawn one time only in the provided rectangle.
+ *	The default value is NO.
  **/
 @synthesize tiled;
+
+/**	@property tileAnchoredToContext
+ *	@brief Anchor the tiled image to the context origin?
+ *
+ *	If YES, the origin of the tiled image is anchored to the origin of the drawing context.
+ *	If NO, the origin of the tiled image is set to the orgin of rectangle passed to
+ *	<code>drawInRect:inContext:</code>.
+ *	The default value is YES.
+ *	If <code>tiled</code> is NO, this property has no effect.
+ **/
+@synthesize tileAnchoredToContext;
 
 #pragma mark -
 #pragma mark Initialization
@@ -46,6 +57,7 @@
  		CGImageRetain(anImage);
     	image = anImage;
         tiled = NO;
+		tileAnchoredToContext = YES;
     }
     return self;
 }
@@ -81,12 +93,19 @@
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	CGImageRelease(image);
+	[super finalize];
+}
+
 -(id)copyWithZone:(NSZone *)zone
 {
     CPImage *copy = [[[self class] allocWithZone:zone] init];
 	
 	copy->image = CGImageCreateCopy(self.image);
 	copy->tiled = self->tiled;
+	copy->tileAnchoredToContext = self->tileAnchoredToContext;
 	
     return copy;
 }
@@ -115,12 +134,12 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setImage:(CGImageRef)anImage
+-(void)setImage:(CGImageRef)newImage
 {
-	if ( anImage != image ) {
-		CGImageRetain(anImage);
+	if ( newImage != image ) {
+		CGImageRetain(newImage);
 		CGImageRelease(image);
-		image = anImage;
+		image = newImage;
 	}
 }
 
@@ -139,9 +158,12 @@
 {
 	CGImageRef theImage = self.image;
 	if ( theImage ) {
-		if ( self.tiled ) {
+		if ( self.isTiled ) {
 			CGContextSaveGState(context);
 			CGContextClipToRect(context, *(CGRect *)&rect);
+			if ( !self.tileAnchoredToContext ) {
+				CGContextTranslateCTM(context, rect.origin.x, rect.origin.y);
+			}
 			CGRect imageBounds = CGRectMake(0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage));
 			CGContextDrawTiledImage(context, imageBounds, theImage);
 			CGContextRestoreGState(context);

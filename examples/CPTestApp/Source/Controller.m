@@ -32,6 +32,16 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	hostView.hostedLayer = graph;
+    
+    // Graph title
+    graph.title = @"This is the Graph Title";
+    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    textStyle.color = [CPColor grayColor];
+    textStyle.fontName = @"Helvetica-Bold";
+    textStyle.fontSize = 18.0f;
+    graph.titleTextStyle = textStyle;
+    graph.titleDisplacement = CGPointMake(0.0f, 20.0f);
+    graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;
 	
     // Graph padding
     graph.paddingLeft = 60.0;
@@ -148,12 +158,21 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     plotSymbol.size = CGSizeMake(10.0, 10.0);
     boundLinePlot.plotSymbol = plotSymbol;
     
+    // Set plot delegate, to know when symbols have been touched
+	// We will display an annotation when a symbol is touched
+    boundLinePlot.delegate = self; 
+    boundLinePlot.plotSymbolMarginForHitDetection = 5.0f;
+
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
+	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    whiteTextStyle.color = [CPColor whiteColor];
+	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
+	dataSourceLinePlot.labelOffset = 5.0;
     [graph addPlot:dataSourceLinePlot];
     
     // Put an area gradient under the plot above
@@ -166,10 +185,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
-	NSUInteger i;
-	for ( i = 0; i < 60; i++ ) {
-		id x = [NSDecimalNumber numberWithDouble:1.0+i*0.05];
-		id y = [NSDecimalNumber numberWithDouble:1.2*rand()/(double)RAND_MAX + 1.2];
+	for ( NSUInteger i = 0; i < 60; i++ ) {
+		id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
+		id y = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.content = contentArray;
@@ -187,9 +205,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     plotSpace.globalYRange = globalYRange;
     
     // set the x and y shift to match the new ranges
-	CGFloat length = CPDecimalDoubleValue(xRange.length);
+	CGFloat length = xRange.lengthDouble;
 	self.xShift = length - 3.0;
-	length = CPDecimalDoubleValue(yRange.length);
+	length = yRange.lengthDouble;
 	self.yShift = length - 2.0;
     
     // Position y2 axis relative to the plot area, ie, not moving when dragging
@@ -211,8 +229,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
-    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
-    whiteTextStyle.color = [CPColor whiteColor];
     barPlot.barLabelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
     
@@ -224,13 +240,14 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.cornerRadius = 2.0;
     barPlot.identifier = @"Bar Plot 2";
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
+	barPlot.delegate = self;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
 }
 
 -(id)newObject 
 {
-	NSDecimalNumber *x1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
-	NSDecimalNumber *y1 = [NSDecimalNumber decimalNumberWithString:@"1.0"];
+	NSNumber *x1 = [NSDecimalNumber numberWithDouble:1.0 + ((NSMutableArray *)self.content).count * 0.05];
+	NSNumber *y1 = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
     return [[NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil] retain];
 }
 
@@ -256,15 +273,17 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num;
+    NSNumber *num;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
-        num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:(index+1)*(index+1)];
+        num = [NSDecimalNumber numberWithInt:(index+1)*(index+1)];
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
-            num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+            num = [(NSDecimalNumber *)num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
     }
     else {
         num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-        if ( fieldEnum == CPScatterPlotFieldY ) num = [num decimalNumberByAdding:[NSDecimalNumber one]];
+        if ( fieldEnum == CPScatterPlotFieldY ) {
+			num = [NSNumber numberWithDouble:([num doubleValue] + 1.0)];	
+		}
     }
     return num;
 }
@@ -274,14 +293,18 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	return nil;
 }
 
--(CPTextLayer *) barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index 
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
-	if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 2"] )
+	if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 2"] )
 		return (id)[NSNull null]; // Don't show any label
-	else if ( [(NSString *)barPlot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
+	else if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
         return (id)[NSNull null];
-    else
+    else if ( index % 4 ) {
+        return (id)[NSNull null];
+	}
+	else {
 		return nil; // Use default label style
+	}
 }
 
 #pragma mark -
@@ -296,9 +319,83 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
         [changedRange shiftLocationToFitInRange:maxRange];
         newRange = changedRange;
     }
+    
     return newRange;
 }
 
+#pragma mark -
+#pragma mark CPScatterPlot delegate method
+
+-(void)scatterPlot:(CPScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	if ( symbolTextAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        symbolTextAnnotation = nil;
+    }
+    
+    // Setup a style for the annotation
+    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    hitAnnotationTextStyle.color = [CPColor whiteColor];
+    hitAnnotationTextStyle.fontSize = 16.0f;
+    hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
+    
+    // Determine point of symbol in plot coordinates
+    NSNumber *x = [[self.arrangedObjects objectAtIndex:index] valueForKey:@"x"];
+    NSNumber *y = [[self.arrangedObjects objectAtIndex:index] valueForKey:@"y"];
+	NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+    
+    // Add annotation
+    // First make a string for the y value
+    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [formatter setMaximumFractionDigits:2];
+    NSString *yString = [formatter stringFromNumber:y];
+    
+    // Now add the annotation to the plot area
+    CPTextLayer *textLayer = [[[CPTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    symbolTextAnnotation = [[[CPPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint] autorelease];
+	symbolTextAnnotation.contentLayer = textLayer;
+    symbolTextAnnotation.displacement = CGPointMake(0.0f, 20.0f);
+    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
+}
+
+#pragma mark -
+#pragma mark CPBarPlot delegate method
+
+-(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"barWasSelectedAtRecordIndex %d", index);
+
+	if ( symbolTextAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        symbolTextAnnotation = nil;
+    }
+    
+    // Setup a style for the annotation
+    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    hitAnnotationTextStyle.color = [CPColor redColor];
+    hitAnnotationTextStyle.fontSize = 16.0f;
+    hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
+    
+    // Determine point of symbol in plot coordinates
+	
+    NSNumber *x = [NSNumber numberWithInt:0];
+	NSNumber *y = [self numberForPlot:plot field:0 recordIndex:index];
+	NSArray *anchorPoint = [NSArray arrayWithObjects:x, [NSNumber numberWithInt:index], nil];
+    
+    // Add annotation
+    // First make a string for the y value
+    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [formatter setMaximumFractionDigits:2];
+    NSString *yString = [formatter stringFromNumber:y];
+    
+	
+    // Now add the annotation to the plot area
+    CPTextLayer *textLayer = [[[CPTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    symbolTextAnnotation = [[[CPPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint] autorelease];
+	symbolTextAnnotation.contentLayer = textLayer;
+    symbolTextAnnotation.displacement = CGPointMake(0.0f, 0.0f);
+    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
+}
 
 #pragma mark -
 #pragma mark PDF / image export
@@ -416,6 +513,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	[axisDemoWindow makeKeyAndOrderFront:sender];
 }
 
+
 #pragma mark -
 #pragma mark CPRotationDelegate delegate method
 
@@ -437,8 +535,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     xShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.xRange copy] autorelease];
-    newRange.length = CPDecimalFromDouble(3.0+newShift);  
-    space.xRange = newRange;
+    newRange.length = CPDecimalFromDouble(3.0 + newShift);  
+	space.xRange = newRange;
 }
 
 -(void)setYShift:(CGFloat)newShift 
@@ -446,7 +544,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
  	yShift = newShift;
     CPXYPlotSpace *space = (CPXYPlotSpace *)graph.defaultPlotSpace;
     CPPlotRange *newRange = [[space.yRange copy] autorelease];
-    newRange.length = CPDecimalFromDouble(2.0+newShift);  
+    newRange.length = CPDecimalFromDouble(2.0 + newShift);  
     space.yRange = newRange;
 }
 

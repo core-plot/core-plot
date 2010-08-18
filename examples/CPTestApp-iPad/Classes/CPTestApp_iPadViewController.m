@@ -176,7 +176,6 @@
 		[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
 	}
 	self.dataForPlot = contentArray;
-	
 }
 
 - (void)constructBarChart
@@ -198,7 +197,6 @@
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(16.0f)];
     
-	
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
     CPXYAxis *x = axisSet.xAxis;
     x.axisLineStyle = nil;
@@ -253,6 +251,7 @@
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
+	barPlot.delegate = self;
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 }
 
@@ -279,12 +278,22 @@
     piePlot.identifier = @"Pie Chart 1";
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
+	piePlot.borderLineStyle = [CPLineStyle lineStyle];
+	piePlot.sliceLabelOffset = -15.0;
     [pieChart addPlot:piePlot];
     [piePlot release];
 	
 	// Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
 	self.dataForChart = contentArray;	
+}
+
+#pragma mark -
+#pragma mark CPBarPlot delegate method
+
+-(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"barWasSelectedAtRecordIndex %d", index);
 }
 
 #pragma mark -
@@ -339,10 +348,35 @@
     return num;
 }
 
--(CPFill *) barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index; 
+-(CPFill *)barFillForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSNumber *)index
 {
 	return nil;
 }
 
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index
+{
+	static CPTextStyle *whiteText = nil;
+	
+	if ( !whiteText ) {
+		whiteText = [[CPTextStyle alloc] init];
+		whiteText.color = [CPColor whiteColor];
+	}
+	
+	CPTextLayer *newLayer = nil;
+	
+	switch ( index ) {
+		case 0:
+			newLayer = (id)[NSNull null];
+			break;
+		case 1:
+			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
+			break;
+		default:
+			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+			break;
+	}
+	
+	return newLayer;
+}
 
 @end

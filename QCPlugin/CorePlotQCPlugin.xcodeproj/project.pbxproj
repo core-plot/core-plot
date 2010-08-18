@@ -26,9 +26,9 @@
 		16BA96310A7EB9AC001E4983 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BA96300A7EB9AC001E4983 /* Quartz.framework */; };
 		7238D5520DB6988600E9A42D /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7238D5500DB6988600E9A42D /* Settings.xib */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */; };
 		A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */; };
 		A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */; };
-		A8FC1E891033514100CF2266 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = A8FC1E881033514100CF2266 /* error.png */; };
 		BC21A98B1035BEC100FED2A4 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
 		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
 /* End PBXBuildFile section */
@@ -41,33 +41,19 @@
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = CorePlotQCPlugin;
 		};
+		A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
 		BC21A97E1035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = CorePlot;
-		};
-		BC21A9801035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CBF252C0F3CDED400DAE1A8;
-			remoteInfo = "CorePlot-UnitTests";
-		};
-		BC21A9821035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C2D58DE0FB78208008275E0;
-			remoteInfo = "CorePlot-PerformanceTests";
-		};
-		BC21A9841035BEAF00FED2A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C32D3560F43B36F00EDFE7A;
-			remoteInfo = CPTestHarness;
 		};
 		BC21A99B1035BF8600FED2A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -100,12 +86,13 @@
 		7238D5510DB6988600E9A42D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Settings.xib; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlotQCPlugin.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPieChartPlugin.h; sourceTree = "<group>"; };
+		A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPieChartPlugin.m; sourceTree = "<group>"; };
 		A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		A8FC1814102CBADE00CF2266 /* CPScatterPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScatterPlotPlugin.h; sourceTree = "<group>"; };
 		A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotPlugin.m; sourceTree = "<group>"; };
 		A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarPlotPlugin.h; sourceTree = "<group>"; };
 		A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarPlotPlugin.m; sourceTree = "<group>"; };
-		A8FC1E881033514100CF2266 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +134,6 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A8FC1E881033514100CF2266 /* error.png */,
 				7238D5500DB6988600E9A42D /* Settings.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 			);
@@ -163,6 +149,8 @@
 				A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */,
 				A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */,
 				A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */,
+				A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */,
+				A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -187,9 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */,
-				BC21A9811035BEAF00FED2A4 /* CorePlot-UnitTests.octest */,
-				BC21A9831035BEAF00FED2A4 /* CorePlot-PerformanceTests.octest */,
-				BC21A9851035BEAF00FED2A4 /* CPTestHarness.app */,
+				A8F18CF511FA634B00B2C42F /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,32 +228,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		A8F18CF511FA634B00B2C42F /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
 			remoteRef = BC21A97E1035BEAF00FED2A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC21A9811035BEAF00FED2A4 /* CorePlot-UnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-UnitTests.octest";
-			remoteRef = BC21A9801035BEAF00FED2A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC21A9831035BEAF00FED2A4 /* CorePlot-PerformanceTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-PerformanceTests.octest";
-			remoteRef = BC21A9821035BEAF00FED2A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BC21A9851035BEAF00FED2A4 /* CPTestHarness.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = CPTestHarness.app;
-			remoteRef = BC21A9841035BEAF00FED2A4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -278,7 +250,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7238D5520DB6988600E9A42D /* Settings.xib in Resources */,
-				A8FC1E891033514100CF2266 /* error.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +279,7 @@
 				16BA95420A7EB2EB001E4983 /* CorePlotQCPlugin.m in Sources */,
 				A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */,
 				A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */,
+				A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,12 +313,9 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"",
-					"\"$(SRCROOT)/../../framework/build/Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -356,6 +325,7 @@
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = CorePlotQCPlugin;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
@@ -365,18 +335,17 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../framework/build/Debug\"",
-					"\"$(SRCROOT)/../../framework/build/Release\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
+				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = CorePlotQCPlugin;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
@@ -386,25 +355,32 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../framework/build/Debug//**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../framework/build/Debug//**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Release;
 		};

@@ -29,10 +29,12 @@
 	return self;
 }
 
--(void)dealloc
+#pragma mark -
+#pragma mark Drawing
+
+-(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	[axis release];
-	[super dealloc];
+	[self.axis drawGridLinesInContext:theContext isMajor:self.major];
 }
 
 #pragma mark -
@@ -41,8 +43,7 @@
 -(void)setAxis:(CPAxis *)newAxis 
 {
     if ( newAxis != axis ) {
-        [axis release];
-        axis = [newAxis retain];
+        axis = newAxis;
 		[self setNeedsDisplay];		
 	}
 }

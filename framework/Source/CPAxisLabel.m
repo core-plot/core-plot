@@ -1,4 +1,3 @@
-#import "CPAxis.h"
 #import "CPAxisLabel.h"
 #import "CPLayer.h"
 #import "CPTextLayer.h"
@@ -11,11 +10,6 @@
  *	The label can be text-based or can be the content of any CPLayer provided by the user.
  **/
 @implementation CPAxisLabel
-
-/**	@property axis
- *	@brief The axis.
- **/
-@synthesize axis;
 
 /**	@property contentLayer
  *	@brief The label content.

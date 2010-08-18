@@ -2,6 +2,8 @@
 #import "CPConstrainedPosition.h"
 #import "CPDefinitions.h"
 #import "CPExceptions.h"
+#import "CPFill.h"
+#import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 #import "CPPlotRange.h"
@@ -9,7 +11,6 @@
 #import "CPUtilities.h"
 #import "CPXYAxis.h"
 #import "CPXYPlotSpace.h"
-#import "CPXYGridLines.h"
 
 ///	@cond
 @interface CPXYAxis ()
@@ -43,8 +44,8 @@
 @synthesize constraints;
 
 /**	@property isFloatingAxis
- *	@brief True if the axis is floats independent of the plot space.
- *  If false, the axes is fixed relative to the plot space coordinates, and moves
+ *	@brief True if the axis floats independent of the plot space.
+ *  If false, the axis is fixed relative to the plot space coordinates, and moves
  *  whenever the plot space ranges change.
  *  When true, the axis must be constrained relative to the plot area, in view coordinates.
  *  The default value is NO, meaning the axis is positioned in plot coordinates.
@@ -83,6 +84,7 @@
     CPCoordinate orthogonalCoordinate = (self.coordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
     CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
     CPPlotRange *orthogonalRange = [xyPlotSpace plotRangeForCoordinate:orthogonalCoordinate];
+    NSAssert( orthogonalRange != nil, @"The orthogonalRange was nil in orthogonalCoordinateViewLowerBound:upperBound:" );
     CGPoint lowerBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.location axisCoordinateDecimal:zero];
     CGPoint upperBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.end axisCoordinateDecimal:zero];
     *lower = (self.coordinate == CPCoordinateX ? lowerBoundPoint.y : lowerBoundPoint.x);
@@ -196,7 +198,7 @@
     // Axis Line
 	if ( self.axisLineStyle ) {
 		CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-        if (self.visibleRange) {
+        if ( self.visibleRange ) {
             [range intersectionPlotRange:self.visibleRange];
         }
 		CGPoint startViewPoint = CPAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
@@ -207,6 +209,228 @@
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 		CGContextStrokePath(theContext);
         [range release];
+	}
+}
+
+#pragma mark -
+#pragma mark Grid Lines
+
+-(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+{
+	CPLineStyle *lineStyle = (major ? self.majorGridLineStyle : self.minorGridLineStyle);
+	
+	if ( lineStyle ) {
+		[super renderAsVectorInContext:context];
+		
+		[self relabel];
+		
+		CPPlotSpace *thePlotSpace = self.plotSpace;
+		NSSet *locations = (major ? self.majorTickLocations : self.minorTickLocations);
+		CPCoordinate selfCoordinate = self.coordinate;
+		CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+		CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPPlotRange *theGridLineRange = self.gridLinesRange;
+		if ( theGridLineRange ) {
+			[orthogonalRange intersectionPlotRange:theGridLineRange];
+		}
+		
+		CPPlotArea *thePlotArea = self.plotArea;
+		NSDecimal startPlotPoint[2];
+		NSDecimal endPlotPoint[2];
+		startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+		endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+		
+		CGContextBeginPath(context);
+		
+		for ( NSDecimalNumber *location in locations ) {
+			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = [location decimalValue];
+
+			// Start point
+			CGPoint startViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint] fromLayer:thePlotArea];
+			
+			// End point
+			CGPoint endViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint] fromLayer:thePlotArea];
+			
+			// Align to pixels
+			startViewPoint = CPAlignPointToUserSpace(context, startViewPoint);
+			endViewPoint = CPAlignPointToUserSpace(context, endViewPoint);
+			
+			// Add grid line 
+			CGContextMoveToPoint(context, startViewPoint.x, startViewPoint.y);
+			CGContextAddLineToPoint(context, endViewPoint.x, endViewPoint.y);
+		}
+		
+		// Stroke grid lines
+		[lineStyle setLineStyleInContext:context];
+		CGContextStrokePath(context);
+		
+		[orthogonalRange release];
+	}
+}
+
+#pragma mark -
+#pragma mark Background Bands
+
+-(void)drawBackgroundBandsInContext:(CGContextRef)context
+{
+	NSArray *bandArray = self.alternatingBandFills;
+	NSUInteger bandCount = bandArray.count;
+	
+	if ( bandCount > 0 ) {
+		NSArray *locations = [self.majorTickLocations allObjects];
+		
+		if ( locations.count > 0 ) {
+			CPPlotSpace *thePlotSpace = self.plotSpace;
+			
+			CPCoordinate selfCoordinate = self.coordinate;
+			CPPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+			if ( range ) {
+				CPPlotRange *theVisibleRange = self.visibleRange;
+				if ( theVisibleRange ) {
+					[range intersectionPlotRange:theVisibleRange];
+				}
+			}
+			
+			CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+			CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+			CPPlotRange *theGridLineRange = self.gridLinesRange;
+			if ( theGridLineRange ) {
+				[orthogonalRange intersectionPlotRange:theGridLineRange];
+			}
+			
+			NSDecimal zero = CPDecimalFromInteger(0);
+			NSSortDescriptor *sortDescriptor = nil;
+			if ( CPDecimalGreaterThanOrEqualTo(range.length, zero) ) {
+				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
+			}
+			else {
+				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:NO];
+			}
+			locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+			[sortDescriptor release];
+			
+			NSUInteger bandIndex = 0;
+			id null = [NSNull null];
+			NSDecimal lastLocation = range.location;
+			
+			NSDecimal startPlotPoint[2];
+			NSDecimal endPlotPoint[2];
+			startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+			endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+			
+			for ( NSDecimalNumber *location in locations ) {
+				NSDecimal currentLocation = [location decimalValue];
+				if ( !CPDecimalEquals(CPDecimalSubtract(currentLocation, lastLocation), zero) ) {
+					CPFill *bandFill = [bandArray objectAtIndex:bandIndex++];
+					bandIndex %= bandCount;
+					
+					if ( bandFill != null ) {
+						// Start point
+						startPlotPoint[selfCoordinate] = currentLocation;
+						CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+						
+						// End point
+						endPlotPoint[selfCoordinate] = lastLocation;
+						CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+						
+						// Fill band
+						CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+													 MIN(startViewPoint.y, endViewPoint.y),
+													 ABS(endViewPoint.x - startViewPoint.x),
+													 ABS(endViewPoint.y - startViewPoint.y));
+						[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+					}
+				}
+				
+				lastLocation = currentLocation;
+			}
+			
+			// Fill space between last location and the range end
+			if ( !CPDecimalEquals(lastLocation, range.end) ) {
+				CPFill *bandFill = [bandArray objectAtIndex:bandIndex];
+				
+				if ( bandFill != null ) {
+					// Start point
+					startPlotPoint[selfCoordinate] = range.end;
+					CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+					
+					// End point
+					endPlotPoint[selfCoordinate] = lastLocation;
+					CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+					
+					// Fill band
+					CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+												 MIN(startViewPoint.y, endViewPoint.y),
+												 ABS(endViewPoint.x - startViewPoint.x),
+												 ABS(endViewPoint.y - startViewPoint.y));
+					[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+				}
+			}
+			
+			[range release];
+			[orthogonalRange release];
+		}
+	}
+}
+
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context
+{
+	NSArray *limitArray = self.backgroundLimitBands;
+	
+	if ( limitArray.count > 0 ) {
+		CPPlotSpace *thePlotSpace = self.plotSpace;
+		
+		CPCoordinate selfCoordinate = self.coordinate;
+		CPPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+		if ( range ) {
+			CPPlotRange *theVisibleRange = self.visibleRange;
+			if ( theVisibleRange ) {
+				[range intersectionPlotRange:theVisibleRange];
+			}
+		}
+		
+		CPCoordinate orthogonalCoordinate = (selfCoordinate == CPCoordinateX ? CPCoordinateY : CPCoordinateX);
+		CPPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPPlotRange *theGridLineRange = self.gridLinesRange;
+		if ( theGridLineRange ) {
+			[orthogonalRange intersectionPlotRange:theGridLineRange];
+		}
+		
+		NSDecimal startPlotPoint[2];
+		NSDecimal endPlotPoint[2];
+		startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+		endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+		
+		for ( CPLimitBand *band in self.backgroundLimitBands ) {
+			CPFill *bandFill = band.fill;
+			
+			if ( bandFill ) {
+				CPPlotRange *bandRange = [band.range copy];
+				if ( bandRange ) {
+					[bandRange intersectionPlotRange:range];
+					
+					// Start point
+					startPlotPoint[selfCoordinate] = bandRange.location;
+					CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+					
+					// End point
+					endPlotPoint[selfCoordinate] = bandRange.end;
+					CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+					
+					// Fill band
+					CGRect fillRect = CGRectMake(MIN(startViewPoint.x, endViewPoint.x),
+												 MIN(startViewPoint.y, endViewPoint.y),
+												 ABS(endViewPoint.x - startViewPoint.x),
+												 ABS(endViewPoint.y - startViewPoint.y));
+					[bandFill fillRect:CPAlignRectToUserSpace(context, fillRect) inContext:context];
+					
+					[bandRange release];
+				}
+			}
+		}
+		
+		[range release];
+		[orthogonalRange release];
 	}
 }
 
@@ -233,8 +457,13 @@
 -(NSDecimal)defaultTitleLocation
 {
 	CPPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
-	
-	return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
+	if ( axisRange ) {
+		return CPDecimalDivide(CPDecimalAdd(axisRange.location, axisRange.end), CPDecimalFromDouble(2.0));
+	}
+	else {
+		return CPDecimalFromInteger(0);
+	}
+
 }
 
 #pragma mark -
@@ -272,11 +501,6 @@
 {
     orthogonalCoordinateDecimal = newCoord;
     [self updateConstraints];
-}
-
--(Class)gridLineClass
-{
-	return [CPXYGridLines class];
 }
 
 @end

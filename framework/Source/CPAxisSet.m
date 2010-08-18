@@ -48,11 +48,9 @@
  **/
 -(void)relabelAxes
 {
-    for ( CPAxis *axis in self.axes ) {
-        [axis setNeedsLayout];
-        [axis setNeedsRelabel];
-		[axis setNeedsDisplay];
-    }
+	NSArray *theAxes = self.axes;
+	[theAxes makeObjectsPerformSelector:@selector(setNeedsLayout)];
+	[theAxes makeObjectsPerformSelector:@selector(setNeedsRelabel)];
 }
 
 #pragma mark -
@@ -71,9 +69,11 @@
     if ( newAxes != axes ) {
         for ( CPAxis *axis in axes ) {
             [axis removeFromSuperlayer];
+			axis.plotArea = nil;
         }
+		[newAxes retain];
         [axes release];
-        axes = [newAxes retain];
+        axes = newAxes;
 		CPPlotArea *plotArea = (CPPlotArea *)self.superlayer;
         for ( CPAxis *axis in axes ) {
             [self addSublayer:axis];

@@ -245,9 +245,8 @@
  **/
 +(CPColor *)colorWithGenericGray:(CGFloat)gray
 {
-	CGColorRef colorRef = NULL;
 	CGFloat values[4] = {gray, gray, gray, 1.0}; 
-	colorRef = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
+	CGColorRef colorRef = CGColorCreate([CPColorSpace genericRGBSpace].cgColorSpace, values);
 	CPColor *color = [[CPColor alloc] initWithCGColor:colorRef];
 	CGColorRelease(colorRef);
 	return [color autorelease];
@@ -295,6 +294,12 @@
 {
     CGColorRelease(cgColor);
     [super dealloc];
+}
+
+-(void)finalize
+{
+    CGColorRelease(cgColor);
+	[super finalize];
 }
 
 #pragma mark -

@@ -11,6 +11,15 @@
 		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSMutableArray</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSMutableArray_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSFastEnumeration-p</base>
+		<base>NSMutableCopying-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSCoder</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
 		<base>NSObject</base>
@@ -121,6 +130,13 @@
 			<name>mutableCopyWithZone:</name>
 			<anchor>//apple_ref/occ/intfm/NSMutableCopying/mutableCopyWithZone:</anchor>
 		</member>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSNull</name>
+		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSNull_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSNumber</name>

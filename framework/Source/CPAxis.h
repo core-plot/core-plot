@@ -9,6 +9,7 @@
 @class CPAxisSet;
 @class CPAxisTitle;
 @class CPGridLines;
+@class CPLimitBand;
 @class CPLineStyle;
 @class CPPlotSpace;
 @class CPPlotRange;
@@ -25,6 +26,8 @@ typedef enum _CPAxisLabelingPolicy {
 	// TODO: Implement logarithmic labeling
     CPAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
 } CPAxisLabelingPolicy;
+
+#pragma mark -
 
 /**	@brief Axis labeling delegate.
  **/
@@ -60,6 +63,8 @@ typedef enum _CPAxisLabelingPolicy {
 
 @end
 
+#pragma mark -
+
 @interface CPAxis : CPLayer {   
 	@private
     CPCoordinate coordinate;
@@ -92,12 +97,14 @@ typedef enum _CPAxisLabelingPolicy {
     CPSign tickDirection;
     BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
-	id <CPAxisDelegate> delegate;
     CPPlotRange *visibleRange;
     CPPlotRange *gridLinesRange;
-	CPPlotArea *plotArea;
-	CPGridLines *minorGridLines;
-	CPGridLines *majorGridLines;
+	NSArray *alternatingBandFills;
+	NSMutableArray *backgroundLimitBands;
+	BOOL separateLayers;
+	__weak CPPlotArea *plotArea;
+	__weak CPGridLines *minorGridLines;
+	__weak CPGridLines *majorGridLines;
 }
 
 /// @name Axis
@@ -114,7 +121,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, retain) CPAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
-@property (nonatomic, readwrite, retain) NSString *title;
+@property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
 @property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
 ///	@}
@@ -129,7 +136,6 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
-@property (nonatomic, readwrite, assign) id <CPAxisDelegate> delegate;
 ///	@}
 
 /// @name Major Ticks
@@ -156,6 +162,12 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, copy) CPPlotRange *gridLinesRange;
 ///	@}
 
+/// @name Background Bands
+/// @{
+@property (nonatomic, readwrite, copy) NSArray *alternatingBandFills;
+@property (nonatomic, readonly, retain) NSMutableArray *backgroundLimitBands;
+///	@}
+
 /// @name Plot Space
 /// @{
 @property (nonatomic, readwrite, retain) CPPlotSpace *plotSpace;
@@ -163,11 +175,11 @@ typedef enum _CPAxisLabelingPolicy {
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
-@property (nonatomic, readonly, retain) CPGridLines *minorGridLines;
-@property (nonatomic, readonly, retain) CPGridLines *majorGridLines;
+@property (nonatomic, readwrite, assign) BOOL separateLayers;
+@property (nonatomic, readwrite, assign) __weak CPPlotArea *plotArea;
+@property (nonatomic, readonly, assign) __weak CPGridLines *minorGridLines;
+@property (nonatomic, readonly, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readonly, retain) CPAxisSet *axisSet;
-@property (nonatomic, readonly, retain) Class gridLineClass;
 ///	@}
 
 /// @name Labels
@@ -182,7 +194,15 @@ typedef enum _CPAxisLabelingPolicy {
 -(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations;
 ///	@}
 
+/// @name Background Bands
+/// @{
+-(void)addBackgroundLimitBand:(CPLimitBand *)limitBand;
+-(void)removeBackgroundLimitBand:(CPLimitBand *)limitBand;
+///	@}
+
 @end
+
+#pragma mark -
 
 /**	@category CPAxis(AbstractMethods)
  *	@brief CPAxis abstract methods—must be overridden by subclasses
@@ -192,6 +212,17 @@ typedef enum _CPAxisLabelingPolicy {
 /// @name Coordinate Space Conversions
 /// @{
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber;
+///	@}
+
+/// @name Grid Lines
+/// @{
+-(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major;
+///	@}
+
+/// @name Background Bands
+/// @{
+-(void)drawBackgroundBandsInContext:(CGContextRef)context;
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context;
 ///	@}
 
 @end

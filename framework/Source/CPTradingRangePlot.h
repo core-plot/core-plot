@@ -35,6 +35,8 @@ typedef enum _CPTradingRangePlotField {
 	CPTradingRangePlotFieldClose		///< Close values.
 } CPTradingRangePlotField;
 
+#pragma mark -
+
 @interface CPTradingRangePlot : CPPlot {
 	@private
     id observedObjectForXValues;

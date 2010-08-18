@@ -2,12 +2,13 @@
 #import <CorePlot/CorePlot.h>
 #import "RotationView.h"
 
-@interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate, CPPlotSpaceDelegate> {
+@interface Controller : NSArrayController <CPPlotDataSource, CPRotationDelegate, CPPlotSpaceDelegate, CPBarPlotDelegate> {
     IBOutlet CPLayerHostingView *hostView;
     IBOutlet NSWindow *plotSymbolWindow;
     IBOutlet NSWindow *axisDemoWindow;
     CPXYGraph *graph;
 	RotationView *overlayRotationView;
+    CPLayerAnnotation *symbolTextAnnotation;
     CGFloat xShift;
     CGFloat yShift;
     CGFloat labelRotation;

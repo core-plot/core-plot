@@ -9,7 +9,7 @@
 #import "CorePlot-CocoaTouch.h"
 
 
-@interface CPTestApp_iPadViewController : UIViewController <CPPlotDataSource, CPPieChartDataSource>
+@interface CPTestApp_iPadViewController : UIViewController <CPPlotDataSource, CPPieChartDataSource, CPBarPlotDelegate>
 {
 	IBOutlet CPLayerHostingView *scatterPlotView, *barChartView, *pieChartView;
 	CPXYGraph *graph, *barChart, *pieChart;
@@ -20,9 +20,9 @@
 @property(readwrite, retain, nonatomic) NSMutableArray *dataForChart, *dataForPlot;
 
 // Plot construction methods
-- (void)constructScatterPlot;
-- (void)constructBarChart;
-- (void)constructPieChart;
+-(void)constructScatterPlot;
+-(void)constructBarChart;
+-(void)constructPieChart;
 
 @end
 

@@ -1,9 +1,15 @@
-
 #import "CPAxis.h"
 #import "CPAxisLabel.h"
+#import "CPAxisLabelGroup.h"
 #import "CPAxisSet.h"
 #import "CPAxisTitle.h"
+#import "CPColor.h"
+#import "CPExceptions.h"
+#import "CPFill.h"
+#import "CPGradient.h"
 #import "CPGridLines.h"
+#import "CPImage.h"
+#import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPPlotRange.h"
 #import "CPPlotSpace.h"
@@ -19,12 +25,13 @@
 @interface CPAxis ()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, retain) CPGridLines *minorGridLines;
-@property (nonatomic, readwrite, retain) CPGridLines *majorGridLines;
+@property (nonatomic, readwrite, assign) __weak CPGridLines *minorGridLines;
+@property (nonatomic, readwrite, assign) __weak CPGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
+@property (nonatomic, readwrite, retain) NSMutableArray *backgroundLimitBands;
 
--(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
--(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval;
+-(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations;
 
@@ -110,7 +117,7 @@
  *	@brief The position along the axis where the axis title should be centered.
  *  If NaN, the <code>defaultTitleLocation</code> will be used.
  **/
-@synthesize titleLocation;
+@dynamic titleLocation;
 
 /**	@property defaultTitleLocation
  *	@brief The position along the axis where the axis title should be centered
@@ -172,11 +179,6 @@
  *	@brief An array of CPPlotRange objects. Any tick marks and labels falling inside any of the ranges in the array will not be drawn.
  **/
 @synthesize labelExclusionRanges;
-
-/**	@property delegate
- *	@brief The axis delegate.
- **/
-@synthesize delegate;
 
 // Major ticks
 
@@ -244,7 +246,33 @@
  **/
 @synthesize minorGridLineStyle;
 
+// Background Bands
+
+/**	@property alternatingBandFills
+ *	@brief An array of two or more fills to be drawn between successive major tick marks.
+ *
+ *	When initializing the fills, provide an NSArray containing any combinination of CPFill,
+ *	CPColor, CPGradient, and/or CPImage objects. Blank (transparent) bands can be created
+ *	by using [NSNull null] in place of some of the CPFill objects.
+ **/
+@synthesize alternatingBandFills;
+
+/**	@property backgroundLimitBands
+ *	@brief An array of CPLimitBand objects.
+ *
+ *	The limit bands are drawn on top of the alternating band fills.
+ **/
+@dynamic backgroundLimitBands;
+
 // Layers
+
+/**	@property separateLayers
+ *  @brief Use separate layers for drawing grid lines?
+ *
+ *	If NO, the default, the major and minor grid lines are drawn in layers shared with other axes.
+ *	If YES, the grid lines are drawn in their own layers.
+ **/
+@synthesize separateLayers;
 
 /**	@property plotArea
  *  @brief The plot area that the axis belongs to.
@@ -266,11 +294,6 @@
  **/
 @dynamic axisSet;
 
-/**	@property gridLineClass
- *  @brief The Class used to draw the major and minor grid lines.
- **/
-@dynamic gridLineClass;
-
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -285,6 +308,7 @@
 		majorTickLength = 5.0;
 		labelOffset = 2.0;
         labelRotation = 0.0;
+		title = nil;
 		titleOffset = 30.0;
 		axisLineStyle = [[CPLineStyle alloc] init];
 		majorTickLineStyle = [[CPLineStyle alloc] init];
@@ -310,8 +334,10 @@
 		titleLocation = CPDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
-		delegate = nil;
 		plotArea = nil;
+		separateLayers = NO;
+		alternatingBandFills = nil;
+		backgroundLimitBands = nil;
 		minorGridLines = nil;
 		majorGridLines = nil;
 		
@@ -322,9 +348,12 @@
 
 -(void)dealloc
 {
+	self.plotArea = nil; // update layers
+	
 	[plotSpace release];	
 	[majorTickLocations release];
 	[minorTickLocations release];
+	[title release];
 	[axisLineStyle release];
 	[majorTickLineStyle release];
 	[minorTickLineStyle release];
@@ -333,13 +362,13 @@
 	[labelFormatter release];
 	[axisLabels release];
 	[labelTextStyle release];
+	[axisTitle release];
 	[titleTextStyle release];
 	[labelExclusionRanges release];
     [visibleRange release];
     [gridLinesRange release];
-	[plotArea release];
-	[minorGridLines release];
-	[majorGridLines release];
+	[alternatingBandFills release];
+	[backgroundLimitBands release];
 	
 	[super dealloc];
 }
@@ -347,132 +376,170 @@
 #pragma mark -
 #pragma mark Ticks
 
--(NSDecimal)nextLocationFromCoordinateValue:(NSDecimal)coord increasing:(BOOL)increasing interval:(NSDecimal)interval
-{
-	if ( increasing ) {
-		return CPDecimalAdd(coord, interval);
-	} else {
-		return CPDecimalSubtract(coord, interval);
-	}
-}
-
--(void)tickLocationsBeginningAt:(NSDecimal)beginNumber increasing:(BOOL)increasing majorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	NSMutableSet *majorLocations = [NSMutableSet set];
 	NSMutableSet *minorLocations = [NSMutableSet set];
-	NSDecimal majorInterval = self.majorIntervalLength;
-	NSDecimal coord = beginNumber;
-	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-    if (self.visibleRange) {
-        [range intersectionPlotRange:self.visibleRange];
-    }
 	
-	while ( range &&
-    		((increasing && CPDecimalLessThanOrEqualTo(coord, range.end)) || 
-    		 (!increasing && CPDecimalGreaterThanOrEqualTo(coord, range.location))) ) {
-		
-		// Major tick
-		if ( CPDecimalLessThanOrEqualTo(coord, range.end) && CPDecimalGreaterThanOrEqualTo(coord, range.location) ) {
-			[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
-		}
-		
-		// Minor ticks
-		if ( self.minorTicksPerInterval > 0 ) {
-			NSDecimal minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval+1));
-			NSDecimal minorCoord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:minorInterval];
+	NSDecimal zero = CPDecimalFromInteger(0);
+	NSDecimal majorInterval = self.majorIntervalLength;
+	
+	if ( CPDecimalGreaterThan(majorInterval, zero) ) {
+		CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+		if ( range ) {
+			CPPlotRange *theVisibleRange = self.visibleRange;
+			if ( theVisibleRange ) {
+				[range intersectionPlotRange:theVisibleRange];
+			}
 			
-			for ( NSUInteger minorTickIndex = 0; minorTickIndex < self.minorTicksPerInterval; minorTickIndex++) {
-				if ( CPDecimalLessThanOrEqualTo(minorCoord, range.end) && CPDecimalGreaterThanOrEqualTo(minorCoord, range.location)) {
+			NSDecimal rangeMin = range.minLimit;
+			NSDecimal rangeMax = range.maxLimit;
+			
+			NSDecimal minorInterval;
+			NSUInteger minorTickCount = self.minorTicksPerInterval;
+			if ( minorTickCount > 0 ) {
+				minorInterval = CPDecimalDivide(majorInterval, CPDecimalFromUnsignedInteger(self.minorTicksPerInterval + 1));
+			}
+			else {
+				minorInterval = zero;
+			}
+			
+			// Set starting coord--should be the smallest value >= rangeMin that is a whole multiple of majorInterval away from the labelingOrigin
+			NSDecimal coord = CPDecimalDivide(CPDecimalSubtract(rangeMin, self.labelingOrigin), majorInterval);
+			NSDecimalRound(&coord, &coord, 0, NSRoundUp);
+			coord = CPDecimalAdd(CPDecimalMultiply(coord, majorInterval), self.labelingOrigin);
+			
+			// Set minor ticks between the starting point and rangeMin
+			if ( minorTickCount > 0 ) {
+				NSDecimal minorCoord = CPDecimalSubtract(coord, minorInterval);
+				
+				for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+					if ( CPDecimalLessThan(minorCoord, rangeMin) ) break;
 					[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+					minorCoord = CPDecimalSubtract(minorCoord, minorInterval);
 				}
-				minorCoord = [self nextLocationFromCoordinateValue:minorCoord increasing:increasing interval:minorInterval];
+			}
+
+			// Set tick locations
+			while ( CPDecimalLessThanOrEqualTo(coord, rangeMax) ) {
+				// Major tick
+				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+				
+				// Minor ticks
+				if ( minorTickCount > 0 ) {
+					NSDecimal minorCoord = CPDecimalAdd(coord, minorInterval);
+					
+					for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+						if ( CPDecimalGreaterThan(minorCoord, rangeMax) ) break;
+						[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+						minorCoord = CPDecimalAdd(minorCoord, minorInterval);
+					}
+				}
+				
+				coord = CPDecimalAdd(coord, majorInterval);
 			}
 		}
 		
-		coord = [self nextLocationFromCoordinateValue:coord increasing:increasing interval:majorInterval];
+		[range release];
 	}
-    [range release];
+	
 	*newMajorLocations = majorLocations;
 	*newMinorLocations = minorLocations;
 }
 
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
-    NSMutableSet *majorLocations = [NSMutableSet setWithCapacity:self.preferredNumberOfMajorTicks];
-    NSMutableSet *minorLocations = [NSMutableSet setWithCapacity:(self.preferredNumberOfMajorTicks + 1) * self.minorTicksPerInterval];
-    
-    if ( self.preferredNumberOfMajorTicks == 0 ) {
-    	*newMajorLocations = majorLocations;
-        *newMinorLocations = minorLocations;
-        return;
+    // cache some values
+	CPPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+    CPPlotRange *theVisibleRange = self.visibleRange;
+    if ( theVisibleRange ) {
+        [range intersectionPlotRange:theVisibleRange];
     }
-    
-    // Determine starting interval
-    CPPlotRange *range = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     NSUInteger numTicks = self.preferredNumberOfMajorTicks;
-    NSUInteger numIntervals = MAX( 1, (NSInteger)numTicks - 1 );
-    NSDecimalNumber *rangeLength = [NSDecimalNumber decimalNumberWithDecimal:range.length];
-    NSDecimalNumber *interval = [rangeLength decimalNumberByDividingBy:
-    	(NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:numIntervals]];
+    NSUInteger minorTicks = self.minorTicksPerInterval; 
+    double length = range.lengthDouble;   
     
-    // Determine round number using the NSString with scientific format of numbers
-    NSString *intervalString = [NSString stringWithFormat:@"%e", [interval doubleValue]];
-    NSScanner *numberScanner = [NSScanner scannerWithString:intervalString];
-	NSInteger firstDigit;
-    [numberScanner scanInteger:&firstDigit];
+    // Create sets for locations
+    NSMutableSet *majorLocations = [NSMutableSet set];
+    NSMutableSet *minorLocations = [NSMutableSet set];
     
-    // Ignore decimal part of scientific number
-    [numberScanner scanUpToString:@"e" intoString:nil];
-    [numberScanner scanString:@"e" intoString:nil];
-    
-    // Scan the exponent
-    NSInteger exponent;
-    [numberScanner scanInteger:&exponent];
-    
-    // Set interval which has been rounded. Make sure it is not zero.
-    interval = [NSDecimalNumber decimalNumberWithMantissa:MAX(1,firstDigit) exponent:exponent isNegative:NO];
-    
-    // Determine how many points there should be now
-    NSDecimalNumber *numPointsDecimal = [rangeLength decimalNumberByDividingBy:interval];
-    NSInteger numPoints = [numPointsDecimal integerValue];
-    
-    // Find first location
-    NSDecimalNumber *rangeLocation = [NSDecimalNumber decimalNumberWithDecimal:range.location];
-    NSInteger firstPointMultiple = [[rangeLocation decimalNumberByDividingBy:interval] integerValue];
-    NSDecimalNumber *pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
-    if ( firstPointMultiple >= 0 && ![rangeLocation isEqualToNumber:pointLocation] ) {
-        firstPointMultiple++;
-        pointLocation = [interval decimalNumberByMultiplyingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:firstPointMultiple]];
-    }    
-	
-	// If the intervals divide exactly, and the first point is at the beginning of the range,
-	// you can end up with one extra tick
-	if ( [rangeLocation isEqualToNumber:pointLocation] ) numPoints++;
-	
-    // Determine all locations
-    NSInteger majorIndex;
-    NSDecimalNumber *minorInterval = nil;
-    if ( self.minorTicksPerInterval > 0 ) {
-		minorInterval = [interval decimalNumberByDividingBy:(NSDecimalNumber *)[NSDecimalNumber numberWithInteger:self.minorTicksPerInterval+1]];
-	}
-    for ( majorIndex = 0; majorIndex < numPoints; majorIndex++ ) {
-    	// Major ticks
-        if ( !self.visibleRange || [self.visibleRange contains:pointLocation.decimalValue] ) 
-        	[majorLocations addObject:pointLocation];
-        pointLocation = [pointLocation decimalNumberByAdding:interval];
+    // Filter troublesome values and return empty sets
+    if ( length > 0 && numTicks > 0 ) {
+		// Determine interval value
+		double roughInterval = length / numTicks;
+		double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
+		double interval = exponentValue * round(roughInterval / exponentValue);
+		
+		// Determine minor interval
+		double minorInterval = interval / (minorTicks + 1);
         
-        // Minor ticks
-        if ( !minorInterval ) continue;
-        NSDecimalNumber *minorLocation = [pointLocation decimalNumberByAdding:minorInterval];
-        for ( NSUInteger minorIndex = 0; minorIndex < self.minorTicksPerInterval; minorIndex++ ) {
-            if ( !self.visibleRange || [self.visibleRange contains:minorLocation.decimalValue] ) 
-            	[minorLocations addObject:minorLocation];
-            minorLocation = [minorLocation decimalNumberByAdding:minorInterval];
-        }
+		// Calculate actual range limits
+		double minLimit = range.minLimitDouble;
+		double maxLimit = range.maxLimitDouble;
+		
+		// Determine the initial and final major indexes for the actual visible range
+		NSInteger initialIndex = floor(minLimit / interval);  // can be negative
+		NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
+		
+		// Iterate through the indexes with visible ticks and build the locations sets
+		for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+			double pointLocation = i * interval;
+			for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+				double minorPointLocation = pointLocation + minorInterval * (j + 1);
+				if ( minorPointLocation < minLimit ) continue;
+				if ( minorPointLocation > maxLimit ) continue;
+				[minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+			}
+			
+			if ( pointLocation < minLimit ) continue;
+			if ( pointLocation > maxLimit ) continue;
+			[majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+		}
     }
-    
+	
+	[range release];
+
+    // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
+}
+
+-(NSSet *)filteredTickLocations:(NSSet *)allLocations 
+{
+	NSArray *exclusionRanges = self.labelExclusionRanges;
+	if ( exclusionRanges ) {
+		NSMutableSet *filteredLocations = [allLocations mutableCopy];
+		for ( CPPlotRange *range in exclusionRanges ) {
+			for ( NSDecimalNumber *location in allLocations ) {
+				if ( [range contains:[location decimalValue]] ) {
+					[filteredLocations removeObject:location];	
+				}
+			}
+		}
+		return [filteredLocations autorelease];
+	}
+	else {
+		return allLocations;
+	}
+	
+}
+
+/**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of major tick locations.
+ *	@return The filtered set.
+ **/
+-(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
+}
+
+/**	@brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
+ *	@param allLocations A set of minor tick locations.
+ *	@return The filtered set.
+ **/
+-(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
+{
+	return [self filteredTickLocations:allLocations];
 }
 
 #pragma mark -
@@ -484,11 +551,16 @@
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
 {
-	if ( [delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
-		BOOL shouldContinue = [delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+	if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+		BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
 		if ( !shouldContinue ) return;
 	}
 
+	if ( locations.count == 0 ) {
+		self.axisLabels = nil;
+		return;
+	}
+	
 	CGFloat offset = self.labelOffset;
 	switch ( self.tickDirection ) {
 		case CPSignNone:
@@ -500,9 +572,14 @@
 			break;
 	}
 	
+	
+	[self.plotArea setAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+
     NSMutableSet *newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
 	CPAxisLabel *blankLabel = [[CPAxisLabel alloc] initWithText:nil textStyle:nil];
-	
+	CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+	CALayer *lastLayer = nil;
+
 	for ( NSDecimalNumber *tickLocation in locations ) {
 		CPAxisLabel *newAxisLabel;
 		BOOL needsNewContentLayer = NO;
@@ -528,10 +605,21 @@
 			CPTextLayer *newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:self.labelTextStyle];
 			[oldAxisLabel.contentLayer removeFromSuperlayer];
 			newAxisLabel.contentLayer = newLabelLayer;
-			[self addSublayer:newLabelLayer];
+			
+			if ( lastLayer ) {
+				[axisLabelGroup insertSublayer:newLabelLayer below:lastLayer];
+			}
+			else {
+				[axisLabelGroup insertSublayer:newLabelLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+			}
+			
 			[newLabelLayer release];
+			CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:newAxisLabel.tickLocation];
+			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
 		}
 
+		lastLayer = newAxisLabel.contentLayer;
+		
 		[newAxisLabels addObject:newAxisLabel];
 		[newAxisLabel release];
 	}
@@ -570,9 +658,8 @@
         return;
     }
 
-	NSMutableSet *allNewMajorLocations = [NSMutableSet set];
-	NSMutableSet *allNewMinorLocations = [NSMutableSet set];
-	NSSet *newMajorLocations, *newMinorLocations;
+	NSSet *newMajorLocations = nil;
+	NSSet *newMinorLocations = nil;
 	
 	switch ( self.labelingPolicy ) {
 		case CPAxisLabelingPolicyNone:
@@ -580,21 +667,10 @@
             // Locations are set by user
 			break;
 		case CPAxisLabelingPolicyFixedInterval:
-			// Add ticks in negative direction
-			[self tickLocationsBeginningAt:self.labelingOrigin increasing:NO majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-			[allNewMajorLocations unionSet:newMajorLocations];  
-			[allNewMinorLocations unionSet:newMinorLocations];  
-			
-			// Add ticks in positive direction
-			[self tickLocationsBeginningAt:self.labelingOrigin increasing:YES majorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-			[allNewMajorLocations unionSet:newMajorLocations];
-			[allNewMinorLocations unionSet:newMinorLocations];
-			
+			[self generateFixedIntervalMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			break;
         case CPAxisLabelingPolicyAutomatic:
 			[self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-            allNewMajorLocations = (NSMutableSet *)newMajorLocations;
-			allNewMinorLocations = (NSMutableSet *)newMinorLocations;
 			break;
 		case CPAxisLabelingPolicyLogarithmic:
 			// TODO: logarithmic labeling policy
@@ -608,8 +684,8 @@
 			break;
 		default:
 			// Filter and set tick locations	
-			self.majorTickLocations = [self filteredMajorTickLocations:allNewMajorLocations];
-			self.minorTickLocations = [self filteredMinorTickLocations:allNewMinorLocations];
+			self.majorTickLocations = [self filteredMajorTickLocations:newMajorLocations];
+			self.minorTickLocations = [self filteredMinorTickLocations:newMinorLocations];
 	}
 	
     if ( self.labelingPolicy != CPAxisLabelingPolicyNone ) {
@@ -618,39 +694,11 @@
     }
 
     self.needsRelabel = NO;
+	if ( self.alternatingBandFills.count > 0 ) {
+		[self.plotArea setNeedsDisplay];
+	}
 	
 	[self.delegate axisDidRelabel:self];
-}
-
--(NSSet *)filteredTickLocations:(NSSet *)allLocations 
-{
-	NSMutableSet *filteredLocations = [allLocations mutableCopy];
-	for ( CPPlotRange *range in self.labelExclusionRanges ) {
-		for ( NSDecimalNumber *location in allLocations ) {
-			if ( [range contains:[location decimalValue]] ) {
-				[filteredLocations removeObject:location];	
-			}
-		}
-	}
-	return [filteredLocations autorelease];
-}
-
-/**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
- *	@param allLocations A set of major tick locations.
- *	@return The filtered set.
- **/
--(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
-{
-	return [self filteredTickLocations:allLocations];
-}
-
-/**	@brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
- *	@param allLocations A set of minor tick locations.
- *	@return The filtered set.
- **/
--(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
-{
-	return [self filteredTickLocations:allLocations];
 }
 
 #pragma mark -
@@ -680,6 +728,35 @@
 }
 
 #pragma mark -
+#pragma mark Background Bands
+
+/**	@brief Add a background limit band.
+ *	@param limitBand The new limit band.
+ **/
+-(void)addBackgroundLimitBand:(CPLimitBand *)limitBand
+{
+	if ( limitBand ) {
+		if ( !self.backgroundLimitBands ) {
+			self.backgroundLimitBands = [NSMutableArray array];
+		}
+		
+		[self.backgroundLimitBands addObject:limitBand];
+		[self.plotArea setNeedsDisplay];
+	}
+}
+
+/**	@brief Remove a background limit band.
+ *	@param limitBand The limit band to be removed.
+ **/
+-(void)removeBackgroundLimitBand:(CPLimitBand *)limitBand
+{
+	if ( limitBand ) {
+		[self.backgroundLimitBands removeObject:limitBand];
+		[self.plotArea setNeedsDisplay];
+	}
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setAxisLabels:(NSSet *)newLabels 
@@ -693,15 +770,26 @@
         [axisLabels release];
         axisLabels = newLabels;
 		
-		CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
-		
-        for ( CPAxisLabel *label in axisLabels ) {
-			label.axis = self;
-			CPLayer *contentLayer = label.contentLayer;
-			if ( contentLayer ) {
-				[axisLabelGroup addSublayer:contentLayer];
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+
+		if ( axisLabels ) {
+			CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+			CALayer *lastLayer = nil;
+			
+			for ( CPAxisLabel *label in axisLabels ) {
+				CPLayer *contentLayer = label.contentLayer;
+				if ( contentLayer ) {
+					if ( lastLayer ) {
+						[axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+					}
+					else {
+						[axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+					}
+					
+					lastLayer = contentLayer;
+				}
 			}
-        }
+		}
 		
 		[self setNeedsLayout];		
 	}
@@ -730,15 +818,28 @@
 		[axisTitle.contentLayer removeFromSuperlayer];
 		[axisTitle release];
 		axisTitle = [newTitle retain];
-		axisTitle.axis = self;
-		axisTitle.offset = self.titleOffset;
-		CPLayer *content = axisTitle.contentLayer;
-		if ( content ) {
-			[self.plotArea.axisTitleGroup addSublayer:content];
-		}
 		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
+		
+		if ( axisTitle ) {
+			axisTitle.offset = self.titleOffset;		
+			CPLayer *contentLayer = axisTitle.contentLayer;
+			if ( contentLayer ) {
+				[self.plotArea.axisTitleGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			}
+		}
 		[self setNeedsLayout];
 	}
+}
+
+-(CPAxisTitle *)axisTitle 
+{
+    if ( axisTitle == nil && title != nil ) {
+        CPAxisTitle *newTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+		self.axisTitle = newTitle;
+		[newTitle release];
+    }
+    return axisTitle;
 }
 
 -(void)setTitleTextStyle:(CPTextStyle *)newStyle 
@@ -769,22 +870,25 @@
 {
 	if ( newTitle != title ) {
 		[title release];
-		title = [newTitle retain];
-		if ( axisTitle == nil ) {
-			CPAxisTitle *newAxisTitle = [[CPAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
-			self.axisTitle = newAxisTitle;
-			[newAxisTitle release];
-		}
-		else {
-			CPLayer *contentLayer = self.axisTitle.contentLayer;
-			if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
-				[(CPTextLayer *)contentLayer setText:title];
-			}
-		}
+		title = [newTitle copy];
+    	if ( title == nil ) self.axisTitle = nil;
+        
+        CPLayer *contentLayer = self.axisTitle.contentLayer;
+        if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
+            [(CPTextLayer *)contentLayer setText:title];
+        }
+        
 		[self setNeedsLayout];
 	}
 }
 
+-(void)setTitleLocation:(NSDecimal)newLocation
+{
+	if ( NSDecimalCompare(&newLocation, &titleLocation) != NSOrderedSame ) {
+		titleLocation = newLocation;
+		[self setNeedsLayout];
+	}
+}
 
 -(NSDecimal)titleLocation
 {
@@ -821,7 +925,13 @@
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
 		[self setNeedsDisplay];
-		[self.majorGridLines setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.majorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.majorGridLineGroup setNeedsDisplay];
+		}
+
         self.needsRelabel = YES;
     }
 }
@@ -831,8 +941,14 @@
     if ( newLocations != majorTickLocations ) {
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
-		[self setNeedsDisplay];		
-		[self.minorGridLines setNeedsDisplay];
+		[self setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.minorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.minorGridLineGroup setNeedsDisplay];
+		}
+
         self.needsRelabel = YES;
     }
 }
@@ -921,7 +1037,27 @@
     if ( newLineStyle != majorGridLineStyle ) {
         [majorGridLineStyle release];
         majorGridLineStyle = [newLineStyle copy];
-        [self.majorGridLines setNeedsDisplay];
+		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+		
+		if ( majorGridLineStyle ) {
+			if ( self.separateLayers ) {
+				if ( !self.majorGridLines ) {
+					CPGridLines *gridLines = [[CPGridLines alloc] init];
+					self.majorGridLines = gridLines;
+					[gridLines release];
+				}
+				else {
+					[self.majorGridLines setNeedsDisplay];
+				}
+			}
+			else {
+				[self.plotArea.majorGridLineGroup setNeedsDisplay];
+			}
+		}
+		else {
+			self.majorGridLines = nil;
+		}
     }
 }
 
@@ -930,7 +1066,27 @@
     if ( newLineStyle != minorGridLineStyle ) {
         [minorGridLineStyle release];
         minorGridLineStyle = [newLineStyle copy];
-        [self.minorGridLines setNeedsDisplay];
+		
+		[self.plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+		
+		if ( minorGridLineStyle ) {
+			if ( self.separateLayers ) {
+				if ( !self.minorGridLines ) {
+					CPGridLines *gridLines = [[CPGridLines alloc] init];
+					self.minorGridLines = gridLines;
+					[gridLines release];
+				}
+				else {
+					[self.minorGridLines setNeedsDisplay];
+				}
+			}
+			else {
+				[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			}
+		}
+		else {
+			self.minorGridLines = nil;
+		}
     }
 }
 
@@ -991,48 +1147,126 @@
     if ( newRange != gridLinesRange ) {
         [gridLinesRange release];
         gridLinesRange = [newRange copy];
-        [self setNeedsDisplay];
+		if ( self.separateLayers ) {
+			[self.minorGridLines setNeedsDisplay];
+			[self.majorGridLines setNeedsDisplay];
+		}
+		else {
+			[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			[self.plotArea.majorGridLineGroup setNeedsDisplay];
+		}
     }
 }
 
 -(void)setPlotArea:(CPPlotArea *)newPlotArea
 {
 	if ( newPlotArea != plotArea ) {
-		[plotArea release];
-		plotArea = [newPlotArea retain];
-
-		CPGridLines *gridLines = [[self.gridLineClass alloc] init];
-		gridLines.axis = self;
-		gridLines.major = NO;
-		self.minorGridLines = gridLines;
-		[gridLines release];
+		plotArea = newPlotArea;
 		
-		gridLines = [[self.gridLineClass alloc] init];
-		gridLines.axis = self;
-		gridLines.major = YES;
-		self.majorGridLines = gridLines;
-		[gridLines release];
-	}	
+		if ( plotArea ) {
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+			CPGridLines *gridLines = self.minorGridLines;
+			if ( gridLines ) {
+				[gridLines removeFromSuperlayer];
+				[plotArea.minorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+			gridLines = self.majorGridLines;
+			if ( gridLines ) {
+				[gridLines removeFromSuperlayer];
+				[plotArea.majorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+			if ( self.axisLabels.count > 0 ) {
+				CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+				CALayer *lastLayer = nil;
+				
+				for ( CPAxisLabel *label in self.axisLabels ) {
+					CPLayer *contentLayer = label.contentLayer;
+					if ( contentLayer ) {
+						[contentLayer removeFromSuperlayer];
+						
+						if ( lastLayer ) {
+							[axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+						}
+						else {
+							[axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+						}
+						
+						lastLayer = contentLayer;
+					}
+				}
+			}
+			
+			[plotArea updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
+			CPLayer *content = self.axisTitle.contentLayer;
+			if ( content ) {
+				[content removeFromSuperlayer];
+				[plotArea.axisTitleGroup insertSublayer:content atIndex:[plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisTitles]];
+			}
+		}
+		else {
+			self.minorGridLines = nil;
+			self.majorGridLines = nil;
+			for ( CPAxisLabel *label in self.axisLabels ) {
+				[label.contentLayer removeFromSuperlayer];
+			}
+			[self.axisTitle.contentLayer removeFromSuperlayer];
+		}
+	}
 }
 
--(void)setVisibleRange:(CPPlotRange *)newRange {
+-(void)setVisibleRange:(CPPlotRange *)newRange
+{
     if ( newRange != visibleRange ) {
         [visibleRange release];
         visibleRange = [newRange copy];
         self.needsRelabel = YES;
     }
 }
-	
+
+-(void)setSeparateLayers:(BOOL)newSeparateLayers
+{
+	if ( newSeparateLayers != separateLayers ) {
+		separateLayers = newSeparateLayers;
+		if ( separateLayers ) {
+			if ( self.minorGridLineStyle ) {
+				CPGridLines *gridLines = [[CPGridLines alloc] init];
+				self.minorGridLines = gridLines;
+				[gridLines release];
+			}
+			if ( self.majorGridLineStyle ) {
+				CPGridLines *gridLines = [[CPGridLines alloc] init];
+				self.majorGridLines = gridLines;
+				[gridLines release];
+			}
+		}
+		else {
+			self.minorGridLines	= nil;
+			if ( self.minorGridLineStyle ) {
+				[self.plotArea.minorGridLineGroup setNeedsDisplay];
+			}
+			self.majorGridLines = nil;
+			if ( self.majorGridLineStyle ) {
+				[self.plotArea.majorGridLineGroup setNeedsDisplay];
+			}
+		}
+		
+	}
+}
+
 -(void)setMinorGridLines:(CPGridLines *)newGridLines
 {
 	if ( newGridLines != minorGridLines ) {
 		[minorGridLines removeFromSuperlayer];
-		[minorGridLines release];
-		minorGridLines = [newGridLines retain];
+		minorGridLines = newGridLines;
 		if ( minorGridLines ) {
-			[self.plotArea.minorGridLineGroup addSublayer:minorGridLines];
+			minorGridLines.major = NO;
+			minorGridLines.axis = self;
+			[self.plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMinorGridLines]];
 		}
-        [minorGridLines setNeedsLayout];
 	}
 }
 
@@ -1040,23 +1274,76 @@
 {
 	if ( newGridLines != majorGridLines ) {
 		[majorGridLines removeFromSuperlayer];
-		[majorGridLines release];
-		majorGridLines = [newGridLines retain];
+		majorGridLines = newGridLines;
 		if ( majorGridLines ) {
-			[self.plotArea.majorGridLineGroup addSublayer:majorGridLines];
+			majorGridLines.major = YES;
+			majorGridLines.axis = self;
+			[self.plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeMajorGridLines]];
 		}
-        [majorGridLines setNeedsLayout];
 	}	
+}
+
+-(void)setAlternatingBandFills:(NSArray *)newFills
+{
+	if ( newFills != alternatingBandFills ) {
+		[alternatingBandFills release];
+		
+		BOOL convertFills = NO;
+		for ( id obj in newFills ) {
+			if ( obj == [NSNull null] ) {
+				continue;
+			}
+			else if ( [obj isKindOfClass:[CPFill class]] ) {
+				continue;
+			}
+			else {
+				convertFills = YES;
+				break;
+			}
+		}
+		
+		if ( convertFills ) {
+			NSMutableArray *fillArray = [newFills mutableCopy];
+			NSInteger i = -1;
+			CPFill *newFill = nil;
+			
+			for ( id obj in newFills ) {
+				i++;
+				if ( obj == [NSNull null] ) {
+					continue;
+				}
+				else if ( [obj isKindOfClass:[CPFill class]] ) {
+					continue;
+				}
+				else if ( [obj isKindOfClass:[CPColor class]] ) {
+					newFill = [[CPFill alloc] initWithColor:obj];
+				}
+				else if ( [obj isKindOfClass:[CPGradient class]] ) {
+					newFill = [[CPFill alloc] initWithGradient:obj];
+				}
+				else if ( [obj isKindOfClass:[CPImage class]] ) {
+					newFill = [[CPFill alloc] initWithImage:obj];
+				}
+				else {
+					[NSException raise:CPException format:@"Alternating band fills must be one or more of the following: CPFill, CPColor, CPGradient, CPImage, or [NSNull null]."];
+				}
+				
+				[fillArray replaceObjectAtIndex:i withObject:newFill];
+				[newFill release];
+			}
+			
+			alternatingBandFills = fillArray;
+		}
+		else {
+			alternatingBandFills = [newFills copy];
+		}
+		[self.plotArea setNeedsDisplay];
+	}
 }
 
 -(CPAxisSet *)axisSet
 {
 	return self.plotArea.axisSet;
-}
-
--(Class)gridLineClass
-{
-	return [CPGridLines class];
 }
 
 @end
@@ -1072,6 +1359,31 @@
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
 {
 	return CGPointZero;
+}
+
+/**	@brief Draws grid lines into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ *	@param major Draw the major grid lines if YES, minor grid lines otherwise.
+ **/
+-(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+{
+	// do nothing--subclasses must override to do their drawing	
+}
+
+/**	@brief Draws alternating background bands into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawBackgroundBandsInContext:(CGContextRef)context
+{
+	// do nothing--subclasses must override to do their drawing	
+}
+
+/**	@brief Draws background limit ranges into the provided graphics context.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawBackgroundLimitsInContext:(CGContextRef)context
+{
+	// do nothing--subclasses must override to do their drawing	
 }
 
 @end

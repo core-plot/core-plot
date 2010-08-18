@@ -6,7 +6,7 @@
 {
 	// Background
 	CPBorderedLayer *background = [[(CPBorderedLayer *)[CPBorderedLayer alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
-	background.fill = [CPFill fillWithColor:[CPColor darkGrayColor]];
+	background.fill = [CPFill fillWithColor:[CPColor blueColor]];
 	background.paddingTop = 20.0;
 	background.paddingBottom = 20.0;
 	background.paddingLeft = 20.0;
@@ -15,22 +15,26 @@
 	
     // Create graph
 	CPXYGraph *graph = [[(CPXYGraph *)[CPXYGraph alloc] initWithFrame:background.bounds] autorelease];
-	graph.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
+	graph.fill = [CPFill fillWithColor:[CPColor darkGrayColor]];
+	graph.cornerRadius = 20.0;
 	[background addSublayer:graph];
 	
 	// Plot area
-	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor lightGrayColor]];
 	graph.plotAreaFrame.paddingTop = 20.0;
 	graph.plotAreaFrame.paddingBottom = 50.0;
 	graph.plotAreaFrame.paddingLeft = 50.0;
 	graph.plotAreaFrame.paddingRight = 20.0;
+	graph.plotAreaFrame.cornerRadius = 10.0;
 	
 	graph.plotAreaFrame.axisSet.borderLineStyle = [CPLineStyle lineStyle];
 
+	graph.plotAreaFrame.plotArea.fill = [CPFill fillWithColor:[CPColor whiteColor]];
+	
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(10.0)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(-10.0)];
+    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.5) length:CPDecimalFromDouble(10.0)];
 	
     // Line styles
     CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];
@@ -54,6 +58,8 @@
     // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     CPXYAxis *x = axisSet.xAxis;
+	x.separateLayers = NO;
+	x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.5);
     x.majorIntervalLength = CPDecimalFromString(@"0.5");
     x.minorTicksPerInterval = 4;
 	x.tickDirection = CPSignNone;
@@ -66,11 +72,13 @@
 	x.title = @"X Axis";
 	x.titleTextStyle = axisTitleTextStyle;
 	x.titleOffset = 25.0;
+	x.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor redColor] colorWithAlphaComponent:0.1], [[CPColor greenColor] colorWithAlphaComponent:0.1], nil];
 	
 	// Label y with an automatic label policy.
 	axisLineStyle.lineColor = [CPColor greenColor];
 	
     CPXYAxis *y = axisSet.yAxis;
+	y.separateLayers = YES;
     y.minorTicksPerInterval = 9;
 	y.tickDirection = CPSignNone;
 	y.axisLineStyle = axisLineStyle;
@@ -82,6 +90,11 @@
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0;
+	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+	
+	CPFill *bandFill = [CPFill fillWithColor:[[CPColor darkGrayColor] colorWithAlphaComponent:0.5]];
+	[y addBackgroundLimitBand:[CPLimitBand limitBandWithRange:[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(7.0) length:CPDecimalFromDouble(1.5)] fill:bandFill]];
+	[y addBackgroundLimitBand:[CPLimitBand limitBandWithRange:[CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(1.5) length:CPDecimalFromDouble(3.0)] fill:bandFill]];
 }
 
 @end

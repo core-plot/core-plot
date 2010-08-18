@@ -1,3 +1,5 @@
+#import "CPAxisSet.h"
+#import "CPGraph.h"
 #import "CPLayer.h"
 #import "CPLayoutManager.h"
 #import "CPPathExtensions.h"
@@ -92,6 +94,11 @@
  **/
 @synthesize layoutManager;
 
+/** @property sublayersExcludedFromAutomaticLayout
+ *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
+ **/
+@dynamic sublayersExcludedFromAutomaticLayout;
+
 // Private properties
 @synthesize renderingRecursively;
 
@@ -130,6 +137,17 @@
 		self.opaque = NO;
 		self.masksToBounds = NO;
 		self.zPosition = [self.class defaultZPosition];
+        
+        // Screen scaling
+        if ([self respondsToSelector:@selector(setContentsScale:)])
+        {
+            Class screenClass = NSClassFromString(@"UIScreen");
+            if ( screenClass != Nil)
+            {
+            	id scale = [[screenClass mainScreen] valueForKey:@"scale"];	
+                [(id)self setValue:scale forKey:@"contentsScale"]; 
+            }
+        }
     }
 	return self;
 }
@@ -148,6 +166,14 @@
 
 	[super dealloc];
 }
+
+-(void)finalize
+{
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
+	[super finalize];
+}
+
 
 #pragma mark -
 #pragma mark Animation
@@ -200,7 +226,8 @@
 	self.renderingRecursively = NO;
 	
 	// render sublayers
-	for ( CALayer *currentSublayer in self.sublayers ) {
+    NSArray *sublayersCopy = [[self.sublayers copy] autorelease];
+	for ( CALayer *currentSublayer in sublayersCopy ) {
 		CGContextSaveGState(context);
 		
 		// Shift origin of context to match starting coordinate of sublayer
@@ -249,6 +276,17 @@
  */
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
+	CPGraph *theGraph = nil;
+	if ( [self isKindOfClass:[CPGraph class]] ) {
+		theGraph = (CPGraph *)self;
+	}
+	else {
+		theGraph = self.graph;
+	}
+	if ( theGraph ) {
+		[theGraph reloadDataIfNeeded];
+		[theGraph.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
+	}
 	[self layoutIfNeeded];
 	[self recursivelyRenderInContext:context];
 }
@@ -324,6 +362,19 @@
 #pragma mark -
 #pragma mark Layout
 
+/**	@brief Align the receiver's position with pixel boundaries.
+ **/
+-(void)pixelAlign
+{
+    CGSize currentSize = self.bounds.size;
+    CGPoint currentPosition = self.position;
+	CGPoint anchor = self.anchorPoint;  
+    CGPoint newPosition = self.position;  
+    newPosition.x = round(currentPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+    newPosition.y = round(currentPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+    self.position = newPosition;
+}
+
 -(void)setPaddingLeft:(CGFloat)newPadding 
 {
     if ( newPadding != paddingLeft ) {
@@ -369,22 +420,27 @@
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
 	// Subclasses should override to lay out their own sublayers
 	// Sublayers fill the super layer's bounds minus any padding by default
+	CGFloat leftPadding = self.paddingLeft;
+	CGFloat bottomPadding = self.paddingBottom;
+	
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
-	subLayerSize.width -= self.paddingLeft + self.paddingRight;
+	subLayerSize.width -= leftPadding + self.paddingRight;
 	subLayerSize.width = MAX(subLayerSize.width, 0.0);
-	subLayerSize.height -= self.paddingTop + self.paddingBottom;
+	subLayerSize.height -= self.paddingTop + bottomPadding;
 	subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
+    NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
-		if ([subLayer isKindOfClass:[CPLayer class]]) {
-			CGRect subLayerBounds = subLayer.bounds;
-			subLayerBounds.size = subLayerSize;
-			subLayer.bounds = subLayerBounds;
-			subLayer.anchorPoint = CGPointZero;
-			subLayer.position = CGPointMake(selfBounds.origin.x + self.paddingLeft, selfBounds.origin.y	+ self.paddingBottom);
+		if (![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPLayer class]]) {
+            subLayer.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
 		}
 	}
+}
+
+-(NSSet *)sublayersExcludedFromAutomaticLayout 
+{
+    return [NSSet set];
 }
 
 #pragma mark -
@@ -507,7 +563,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 -(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:BindingsNotSupportedString];
+    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
 #else
     [super bind:binding toObject:observable withKeyPath:keyPath options:options];
 #endif
@@ -516,7 +572,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 -(void)unbind:(NSString *)binding
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:BindingsNotSupportedString];
+    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
 #else
     [super unbind:binding];
 #endif
@@ -525,7 +581,7 @@ static NSString * const BindingsNotSupportedString = @"Bindings are not supporte
 -(Class)valueClassForBinding:(NSString *)binding
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:BindingsNotSupportedString];
+    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
     return Nil;
 #else
     return [super valueClassForBinding:binding];

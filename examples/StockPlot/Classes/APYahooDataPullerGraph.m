@@ -42,21 +42,26 @@
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
     
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromUnsignedInteger([dataPuller.financialData count])];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromUnsignedInteger([dataPuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
     CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
     
-    axisSet.xAxis.majorIntervalLength = CPDecimalFromString(@"10.0");
-    axisSet.xAxis.orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
-    axisSet.xAxis.minorTicksPerInterval = 1;
+    CPXYAxis *x = axisSet.xAxis;
+    x.majorIntervalLength = CPDecimalFromDouble(10.0);
+    x.orthogonalCoordinateDecimal = CPDecimalFromInteger(0);
+    x.minorTicksPerInterval = 1;
     
-    NSDecimalNumber *four = [NSDecimalNumber decimalNumberWithString:@"4"];
-    axisSet.yAxis.majorIntervalLength = CPDecimalDivide([length decimalValue], [four decimalValue]);
-    axisSet.yAxis.minorTicksPerInterval = 4;
-    axisSet.yAxis.orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
+    CPXYAxis *y = axisSet.yAxis;
+    NSDecimal six = CPDecimalFromInteger(6);
+    y.majorIntervalLength = CPDecimalDivide([length decimalValue], six);
+	y.majorTickLineStyle = nil;
+    y.minorTicksPerInterval = 4;
+	y.minorTickLineStyle = nil;
+    y.orthogonalCoordinateDecimal = CPDecimalFromInteger(0);
+	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+	
     [graph reloadData];
-    
     
     [[self navigationItem] setTitle:[dataPuller symbol]];
 }

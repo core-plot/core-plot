@@ -3,17 +3,21 @@
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
+#import "CPTextStyle.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 #import "CPAxisSet.h"
 #import "CPAxis.h"
 #import "CPTheme.h"
+#import "CPLayerAnnotation.h"
+#import "CPTextLayer.h"
 
 ///	@cond
 @interface CPGraph()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
 @property (nonatomic, readwrite, retain) NSMutableArray *plotSpaces;
+@property (nonatomic, readwrite, retain) CPLayerAnnotation *titleAnnotation;
 
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif;
 
@@ -58,6 +62,30 @@
  **/
 @dynamic topDownLayerOrder;
 
+/**	@property title
+ *	@brief The title string. 
+ *  Default is nil.
+ **/
+@synthesize title;
+
+/**	@property titleTextStyle
+ *	@brief The text style of the title.
+ **/
+@synthesize titleTextStyle;
+
+/**	@property titlePlotAreaFrameAnchor
+ *	@brief The location of the title with respect to the plot area frame.
+ *  Default is top center.
+ **/
+@synthesize titlePlotAreaFrameAnchor;
+
+/**	@property titleDisplacement
+ *	@brief A vector giving the displacement of the title from the edge location.
+ **/
+@synthesize titleDisplacement;
+
+@synthesize titleAnnotation;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -87,6 +115,13 @@
 		CPAxisSet *newAxisSet = [self newAxisSet];
 		self.axisSet = newAxisSet;
 		[newAxisSet release];
+        
+        // Title
+        title = nil;
+        titlePlotAreaFrameAnchor = CPRectAnchorTop;
+        titleTextStyle = [[CPTextStyle textStyle] retain];
+        titleDisplacement = CGPointZero;
+		titleAnnotation = nil;
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -95,11 +130,14 @@
 
 -(void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[plotAreaFrame release];
 	[plots release];
 	[plotSpaces release];
+    [title release];
+    [titleTextStyle release];
+    [titleAnnotation release];
 	
 	[super dealloc];
 }
@@ -111,7 +149,14 @@
  **/
 -(void)reloadData
 {
-    [[self allPlots] makeObjectsPerformSelector:@selector(reloadData)];
+    [self.plots makeObjectsPerformSelector:@selector(reloadData)];
+}
+
+/**	@brief Makes all plots reload their data if their data cache is out of date.
+ **/
+-(void)reloadDataIfNeeded
+{
+    [self.plots makeObjectsPerformSelector:@selector(reloadDataIfNeeded)];
 }
 
 /**	@brief All plots associated with the graph.
@@ -298,8 +343,8 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
 
         // Remove space
+		plotSpace.graph = nil;
 		[self.plotSpaces removeObject:plotSpace];
-        plotSpace.graph = nil;
         
         // Update axes that referenced space
         for ( CPAxis *axis in self.axisSet.axes ) {
@@ -318,7 +363,7 @@
 {
     [self setNeedsLayout];
     [self.axisSet relabelAxes];
-    [[self allPlots] makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    [self.plots makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 #pragma mark -
@@ -396,6 +441,62 @@
 -(void)setTopDownLayerOrder:(NSArray *)newArray
 {
 	self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
+}
+
+-(void)setTitle:(NSString *)newTitle
+{
+	if ( newTitle != title ) {
+        [title release];
+        title = [newTitle copy];
+		CPLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
+		if ( title ) {
+			if ( theTitleAnnotation ) {
+				((CPTextLayer *)theTitleAnnotation.contentLayer).text = title;
+			}
+			else {
+				CPLayerAnnotation *newTitleAnnotation = [[CPLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
+				CPTextLayer *newTextLayer = [[CPTextLayer alloc] initWithText:title style:self.titleTextStyle];
+				newTitleAnnotation.contentLayer = newTextLayer;
+				newTitleAnnotation.displacement = self.titleDisplacement;
+				newTitleAnnotation.rectAnchor = self.titlePlotAreaFrameAnchor;
+				[self addAnnotation:newTitleAnnotation];
+				self.titleAnnotation = newTitleAnnotation;
+				[newTextLayer release];
+				[newTitleAnnotation release];
+			}
+		}
+		else {
+			if ( theTitleAnnotation ) {
+				[self removeAnnotation:theTitleAnnotation];
+				self.titleAnnotation = nil;
+			}
+		}
+    }
+}
+
+-(void)setTitleTextStyle:(CPTextStyle *)newStyle
+{
+    if ( newStyle != titleTextStyle ) {
+        [titleTextStyle release];
+        titleTextStyle = [newStyle copy];
+		((CPTextLayer *)self.titleAnnotation.contentLayer).textStyle = titleTextStyle;
+    }
+}
+
+-(void)setTitleDisplacement:(CGPoint)newDisplace
+{
+    if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
+        titleDisplacement = newDisplace;
+        titleAnnotation.displacement = newDisplace;
+    }
+}
+
+-(void)setTitlePlotAreaFrameAnchor:(CPRectAnchor)newAnchor
+{
+    if ( newAnchor != titlePlotAreaFrameAnchor ) {
+        titlePlotAreaFrameAnchor = newAnchor;
+        titleAnnotation.rectAnchor = titlePlotAreaFrameAnchor;
+    }
 }
 
 #pragma mark -

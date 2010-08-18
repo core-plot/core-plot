@@ -59,8 +59,7 @@
 
 -(CPPlotSpace *)newPlotSpace 
 {
-    CPXYPlotSpace *space;
-    space = [[CPXYPlotSpace alloc] init];
+    CPXYPlotSpace *space = [[CPXYPlotSpace alloc] init];
     space.xScaleType = self.xScaleType;
     space.yScaleType = self.yScaleType;
     return space;

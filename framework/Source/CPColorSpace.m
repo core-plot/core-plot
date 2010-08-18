@@ -57,7 +57,8 @@
  *	@param colorSpace The color space.
  *  @return The initialized CPColorSpace object.
  **/
--(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace {
+-(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
+{
     if ( self = [super init] ) {
         CGColorSpaceRetain(colorSpace);
         cgColorSpace = colorSpace;
@@ -65,15 +66,23 @@
     return self;
 }
 
--(void)dealloc {
+-(void)dealloc
+{
     CGColorSpaceRelease(cgColorSpace);
     [super dealloc];
+}
+
+-(void)finalize
+{
+    CGColorSpaceRelease(cgColorSpace);
+	[super finalize];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setCGColorSpace:(CGColorSpaceRef)newSpace {
+-(void)setCGColorSpace:(CGColorSpaceRef)newSpace
+{
     if ( newSpace != cgColorSpace ) {
         CGColorSpaceRelease(cgColorSpace);
         CGColorSpaceRetain(newSpace);

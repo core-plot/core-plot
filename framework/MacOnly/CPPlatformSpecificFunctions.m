@@ -36,6 +36,17 @@ void CPPopCGContext(void)
 }
 
 #pragma mark -
+#pragma mark Context
+
+/** @brief Get the default graphics context
+ **/
+ 
+CGContextRef CPGetCurrentContext(void)
+{
+    return [[NSGraphicsContext currentContext] graphicsPort];
+}
+
+#pragma mark -
 #pragma mark Colors
 
 /**	@brief Creates a CGColorRef from an NSColor.

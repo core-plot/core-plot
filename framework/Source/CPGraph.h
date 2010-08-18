@@ -1,5 +1,6 @@
 // Abstract class
 #import "CPBorderedLayer.h"
+#import "CPDefinitions.h"
 
 /// @file
 
@@ -8,6 +9,8 @@
 @class CPPlotAreaFrame;
 @class CPPlotSpace;
 @class CPTheme;
+@class CPTextStyle;
+@class CPLayerAnnotation;
 
 /**
  *	@brief Enumeration of graph layers.
@@ -21,21 +24,40 @@ typedef enum _CPGraphLayerType {
 	CPGraphLayerTypeAxisTitles			///< Axis titles.
 } CPGraphLayerType;
 
+#pragma mark -
+
 @interface CPGraph : CPBorderedLayer {
-@private
+	@private
     CPPlotAreaFrame *plotAreaFrame;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
+    NSString *title;
+    CPTextStyle *titleTextStyle;
+    CPRectAnchor titlePlotAreaFrameAnchor;
+    CGPoint titleDisplacement;
+    CPLayerAnnotation *titleAnnotation;
 }
 
+/// @name Title
+/// @{
+@property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
+@property (nonatomic, readwrite, assign) CGPoint titleDisplacement;
+@property (nonatomic, readwrite, assign) CPRectAnchor titlePlotAreaFrameAnchor;
+///	@}
+
+/// @name Layers
+/// @{
 @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
 @property (nonatomic, readwrite, retain) CPPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
 @property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+///	@}
 
 /// @name Data Source
 /// @{
 -(void)reloadData;
+-(void)reloadDataIfNeeded;
 ///	@}
 
 /// @name Retrieving Plots
@@ -73,6 +95,8 @@ typedef enum _CPGraphLayerType {
 /// @}
 
 @end
+
+#pragma mark -
 
 /**	@category CPGraph(AbstractFactoryMethods)
  *	@brief CPGraph abstract methods—must be overridden by subclasses

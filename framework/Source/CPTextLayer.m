@@ -94,10 +94,13 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 	// Add small margin
 	textSize.width += 2 * kCPTextLayerMarginWidth;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
-	
+    textSize.width = ceilf(textSize.width);
+    textSize.height = ceilf(textSize.height);
+
 	CGRect newBounds = self.bounds;
 	newBounds.size = textSize;
 	self.bounds = newBounds;
+    [self pixelAlign];
 	[self setNeedsDisplay];
 }
 

@@ -2,6 +2,7 @@
 #import "CPAxisLabelGroup.h"
 #import "CPAxisSet.h"
 #import "CPFill.h"
+#import "CPGridLineGroup.h"
 #import "CPLineStyle.h"
 #import "CPPlotGroup.h"
 #import "CPPlotArea.h"
@@ -124,27 +125,11 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		topDownLayerOrder = nil;
 		bottomUpLayerOrder = malloc(kCPNumberOfLayers * sizeof(CPGraphLayerType));
 		[self updateLayerOrder];
-		
-		CPLayer *newGridLines = [(CPLayer *)[CPLayer alloc] initWithFrame:newFrame];
-		self.minorGridLineGroup = newGridLines;
-		[newGridLines release];
-		
-		newGridLines = [(CPLayer *)[CPLayer alloc] initWithFrame:newFrame];
-		self.majorGridLineGroup = newGridLines;
-		[newGridLines release];
-		
+
 		CPPlotGroup *newPlotGroup = [(CPPlotGroup *)[CPPlotGroup alloc] initWithFrame:newFrame];
 		self.plotGroup = newPlotGroup;
 		[newPlotGroup release];
-		
-		CPAxisLabelGroup *newAxisLabelGroup = [(CPAxisLabelGroup *)[CPAxisLabelGroup alloc] initWithFrame:newFrame];
-		self.axisLabelGroup = newAxisLabelGroup;
-		[newAxisLabelGroup release];
-		
-		CPAxisLabelGroup *newAxisTitleGroup = [(CPAxisLabelGroup *)[CPAxisLabelGroup alloc] initWithFrame:newFrame];
-		self.axisTitleGroup = newAxisTitleGroup;
-		[newAxisTitleGroup release];
-		
+
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -165,15 +150,28 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	[super dealloc];
 }
 
+-(void)finalize
+{
+	free(bottomUpLayerOrder);
+	[super finalize];
+}
+
 #pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	if ( self.fill ) {
-		[super renderAsVectorInContext:context];
-		
-		[self.fill fillRect:self.bounds inContext:context];
+	[super renderAsVectorInContext:context];
+	
+	[self.fill fillRect:self.bounds inContext:context];
+	
+	NSArray *theAxes = self.axisSet.axes;
+	
+	for ( CPAxis *axis in theAxes ) {
+		[axis drawBackgroundBandsInContext:context];
+	}
+	for ( CPAxis *axis in theAxes ) {
+		[axis drawBackgroundLimitsInContext:context];
 	}
 }
 
@@ -187,23 +185,25 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(void)layoutSublayers
 {
+	[super layoutSublayers];
+    
 	CALayer *superlayer = self.superlayer;
 	CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
 	sublayerBounds.origin = CGPointZero;
 	CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
 	sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
 	
+    NSSet *excludedLayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
-		subLayer.bounds = sublayerBounds;
-		subLayer.anchorPoint = CGPointZero;
-		subLayer.position = sublayerPosition;
+    	if ( [excludedLayers containsObject:subLayer] ) continue;
+		subLayer.frame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 	}
 	
 	// make the plot group the same size as the plot area to clip the plots
 	CPPlotGroup *thePlotGroup = self.plotGroup;
 	if ( thePlotGroup ) {
-		thePlotGroup.bounds = self.bounds;
-		thePlotGroup.position = CGPointZero;
+		CGSize selfBoundsSize = self.bounds.size;
+		thePlotGroup.frame = CGRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
 	}
 }
 
@@ -224,10 +224,11 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		for ( NSUInteger layerIndex = 0; layerIndex < [tdLayerOrder count]; layerIndex++ ) {
 			CPGraphLayerType layerType = [[tdLayerOrder objectAtIndex:layerIndex] intValue];
 			NSUInteger i = kCPNumberOfLayers - layerIndex - 1;
-			while ( (i >= 0) && (buLayerOrder[i] != layerType) ) {
+			while ( buLayerOrder[i] != layerType ) {
+				if ( i == 0 ) break;
 				i--;
 			}
-			while ( (i >= 0) && (i < kCPNumberOfLayers - layerIndex - 1) ) {
+			while ( i < kCPNumberOfLayers - layerIndex - 1 ) {
 				buLayerOrder[i] = buLayerOrder[i + 1];
 				i++;
 			}
@@ -276,7 +277,134 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 				break;
 		}
 	}
-	NSLog(@"index for layer type %d = %u", layerType, index);
+	return index;
+}
+
+#pragma mark -
+#pragma mark Axis set layer management
+
+/**	@brief Checks for the presence of the specified layer group and adds or removes it as needed.
+ *	@param layerType The layer type being updated.
+ **/
+-(void)updateAxisSetLayersForType:(CPGraphLayerType)layerType
+{
+	BOOL needsLayer = NO;
+	CPAxisSet *theAxisSet = self.axisSet;
+	for ( CPAxis *axis in theAxisSet.axes ) {
+		switch ( layerType ) {
+			case CPGraphLayerTypeMinorGridLines:
+				if ( axis.minorGridLineStyle ) {
+					needsLayer = YES;
+				}
+				break;
+			case CPGraphLayerTypeMajorGridLines:
+				if ( axis.majorGridLineStyle ) {
+					needsLayer = YES;
+				}
+				break;
+			case CPGraphLayerTypeAxisLabels:
+				if ( axis.axisLabels.count > 0 ) {
+					needsLayer = YES;
+				}
+				break;
+			case CPGraphLayerTypeAxisTitles:
+				if ( axis.axisTitle ) {
+					needsLayer = YES;
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	
+	if ( needsLayer ) {
+		[self setAxisSetLayersForType:layerType];
+	}
+	else {
+		switch ( layerType ) {
+			case CPGraphLayerTypeMinorGridLines:
+				self.minorGridLineGroup = nil;
+				break;
+			case CPGraphLayerTypeMajorGridLines:
+				self.majorGridLineGroup = nil;
+				break;
+			case CPGraphLayerTypeAxisLabels:
+				self.axisLabelGroup = nil;
+				break;
+			case CPGraphLayerTypeAxisTitles:
+				self.axisTitleGroup = nil;
+				break;
+			default:
+				break;
+		}
+	}
+
+}
+
+/**	@brief Ensures that a group layer is set for the given layer type.
+ *	@param layerType The layer type being updated.
+ **/
+-(void)setAxisSetLayersForType:(CPGraphLayerType)layerType
+{
+	switch ( layerType ) {
+		case CPGraphLayerTypeMinorGridLines:
+			if ( !self.minorGridLineGroup ) {
+				CPGridLineGroup *newGridLineGroup = [(CPGridLineGroup *)[CPGridLineGroup alloc] initWithFrame:self.bounds];
+				self.minorGridLineGroup = newGridLineGroup;
+				[newGridLineGroup release];
+			}
+			break;
+		case CPGraphLayerTypeMajorGridLines:
+			if ( !self.majorGridLineGroup ) {
+				CPGridLineGroup *newGridLineGroup = [(CPGridLineGroup *)[CPGridLineGroup alloc] initWithFrame:self.bounds];
+				self.majorGridLineGroup = newGridLineGroup;
+				[newGridLineGroup release];
+			}
+			break;
+		case CPGraphLayerTypeAxisLabels:
+			if ( !self.axisLabelGroup ) {
+				CPAxisLabelGroup *newAxisLabelGroup = [(CPAxisLabelGroup *)[CPAxisLabelGroup alloc] initWithFrame:self.bounds];
+				self.axisLabelGroup = newAxisLabelGroup;
+				[newAxisLabelGroup release];
+			}
+			break;
+		case CPGraphLayerTypeAxisTitles:
+			if ( !self.axisTitleGroup ) {
+				CPAxisLabelGroup *newAxisTitleGroup = [(CPAxisLabelGroup *)[CPAxisLabelGroup alloc] initWithFrame:self.bounds];
+				self.axisTitleGroup = newAxisTitleGroup;
+				[newAxisTitleGroup release];
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+-(unsigned)sublayerIndexForAxis:(CPAxis *)axis layerType:(CPGraphLayerType)layerType
+{
+	unsigned index = 0;
+	
+	for ( CPAxis *currentAxis in self.graph.axisSet.axes ) {
+		if ( currentAxis == axis ) break;
+		
+		switch ( layerType ) {
+			case CPGraphLayerTypeMinorGridLines:
+				if ( currentAxis.minorGridLineStyle ) index++;
+				break;
+			case CPGraphLayerTypeMajorGridLines:
+				if ( currentAxis.majorGridLineStyle ) index++;
+				break;
+			case CPGraphLayerTypeAxisLabels:
+				if ( currentAxis.axisLabels.count > 0 ) index++;
+				break;
+			case CPGraphLayerTypeAxisTitles:
+				if ( currentAxis.axisTitle ) index++;
+				break;
+			default:
+				break;
+		}
+	}
+	
 	return index;
 }
 
@@ -293,7 +421,7 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	self.axisSet.borderLineStyle = newLineStyle;
 }
 
--(void)setMinorGridLineGroup:(CPLayer *)newGridLines
+-(void)setMinorGridLineGroup:(CPGridLineGroup *)newGridLines
 {
 	if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
 		[minorGridLineGroup removeFromSuperlayer];
@@ -301,13 +429,15 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		[minorGridLineGroup release];
 		minorGridLineGroup = newGridLines;
 		if ( minorGridLineGroup ) {
+			minorGridLineGroup.plotArea = self;
+			minorGridLineGroup.major = NO;
 			[self insertSublayer:minorGridLineGroup atIndex:[self indexForLayerType:CPGraphLayerTypeMinorGridLines]];
 		}
         [self setNeedsLayout];
 	}	
 }
 
--(void)setMajorGridLineGroup:(CPLayer *)newGridLines
+-(void)setMajorGridLineGroup:(CPGridLineGroup *)newGridLines
 {
 	if ( (newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
 		[majorGridLineGroup removeFromSuperlayer];
@@ -315,6 +445,8 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 		[majorGridLineGroup release];
 		majorGridLineGroup = newGridLines;
 		if ( majorGridLineGroup ) {
+			majorGridLineGroup.plotArea = self;
+			majorGridLineGroup.major = YES;
 			[self insertSublayer:majorGridLineGroup atIndex:[self indexForLayerType:CPGraphLayerTypeMajorGridLines]];
 		}
         [self setNeedsLayout];
@@ -325,9 +457,18 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 {
 	if ( (newAxisSet != axisSet) || self.isUpdatingLayers ) {
 		[axisSet removeFromSuperlayer];
+		for ( CPAxis *axis in axisSet.axes ) {
+			axis.plotArea = nil;
+		}
+		
 		[newAxisSet retain];
 		[axisSet release];
 		axisSet = newAxisSet;
+		[self updateAxisSetLayersForType:CPGraphLayerTypeMajorGridLines];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeMinorGridLines];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
+		[self updateAxisSetLayersForType:CPGraphLayerTypeAxisTitles];
+		
 		if ( axisSet ) {
 			[self insertSublayer:axisSet atIndex:[self indexForLayerType:CPGraphLayerTypeAxisLines]];
 			for ( CPAxis *axis in axisSet.axes ) {

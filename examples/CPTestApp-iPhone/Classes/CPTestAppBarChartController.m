@@ -8,6 +8,11 @@
 
 @implementation CPTestAppBarChartController
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+	return YES;
+}
+
 #pragma mark -
 #pragma mark Initialization and teardown
 
@@ -21,12 +26,30 @@
     [barChart applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
     hostingView.hostedLayer = barChart;
-    barChart.plotAreaFrame.masksToBorder = NO;
+    
+    // Border
+    barChart.plotAreaFrame.borderLineStyle = nil;
+    barChart.plotAreaFrame.cornerRadius = 0.0f;
 	
-    barChart.paddingLeft = 70.0;
-	barChart.paddingTop = 20.0;
-	barChart.paddingRight = 20.0;
-	barChart.paddingBottom = 80.0;
+    // Paddings
+    barChart.paddingLeft = 0.0f;
+    barChart.paddingRight = 0.0f;
+    barChart.paddingTop = 0.0f;
+    barChart.paddingBottom = 0.0f;
+
+    barChart.plotAreaFrame.paddingLeft = 70.0;
+	barChart.plotAreaFrame.paddingTop = 20.0;
+	barChart.plotAreaFrame.paddingRight = 20.0;
+	barChart.plotAreaFrame.paddingBottom = 80.0;
+    
+    // Graph title
+    barChart.title = @"Graph Title";
+    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    textStyle.color = [CPColor grayColor];
+    textStyle.fontSize = 16.0f;
+    barChart.titleTextStyle = textStyle;
+    barChart.titleDisplacement = CGPointMake(0.0f, -20.0f);
+    barChart.titlePlotAreaFrameAnchor = CPRectAnchorTop;
 	
 	// Add plot space for horizontal bar charts
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;

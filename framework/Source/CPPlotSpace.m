@@ -56,14 +56,6 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 }
 
 #pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
-{
-	return CPDefaultZPositionPlotSpace;
-}
-
-#pragma mark -
 #pragma mark Responder Chain and User interaction
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
