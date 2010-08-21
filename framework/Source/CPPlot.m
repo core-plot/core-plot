@@ -61,11 +61,6 @@
 
 @synthesize cachedData;
 
-/** @property delegate
- *	@brief The plot delegate.
- **/
-@synthesize delegate;
-
 /**	@property cachedDataCount
  *	@brief The number of data points stored in the cache.
  **/
