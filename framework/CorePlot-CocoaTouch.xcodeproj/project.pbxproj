@@ -121,6 +121,7 @@
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4C211EA18A400595FF9 /* CPLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPLimitBand.m */; };
+		C3392A2D1225F3CC008DA6BD /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */; };
 		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -170,6 +171,14 @@
 		C3B623D4107EC9800009EF0B /* _CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828A0FB89E610035D8DA /* _CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D5107EC9820009EF0B /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828C0FB89E610035D8DA /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3D68B091221650C00EB4863 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */; };
+		C3D68B0A1221650D00EB4863 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */; };
+		C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */; };
+		C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3011B188A800D36017 /* CPNumericData.h */; };
+		C3D68B0E1221651200EB4863 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3111B188A800D36017 /* CPNumericData.m */; };
+		C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3911B188B600D36017 /* CPNumericDataType.h */; };
+		C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3A11B188B600D36017 /* CPNumericDataType.m */; };
+		C3D68B111221651800EB4863 /* CPNumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */; };
 		C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C40CFB92107EC1B40057E828 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C40CFB93107EC1B40057E828 /* CPXYTheme.m */; };
 /* End PBXBuildFile section */
@@ -826,6 +835,11 @@
 				0718DE5111D1EDBA00AF4851 /* CPLayerAnnotation.h in Headers */,
 				0718DE5311D1EDBA00AF4851 /* CPPlotSpaceAnnotation.h in Headers */,
 				C318F4C111EA18A400595FF9 /* CPLimitBand.h in Headers */,
+				C3D68B091221650C00EB4863 /* CPMutableNumericData.h in Headers */,
+				C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */,
+				C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */,
+				C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */,
+				C3D68B111221651800EB4863 /* CPNumericDataTypeConversions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +983,10 @@
 				0718DE5211D1EDBA00AF4851 /* CPLayerAnnotation.m in Sources */,
 				0718DE5411D1EDBA00AF4851 /* CPPlotSpaceAnnotation.m in Sources */,
 				C318F4C211EA18A400595FF9 /* CPLimitBand.m in Sources */,
+				C3D68B0A1221650D00EB4863 /* CPMutableNumericData.m in Sources */,
+				C3D68B0E1221651200EB4863 /* CPNumericData.m in Sources */,
+				C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */,
+				C3392A2D1225F3CC008DA6BD /* CPNumericData+TypeConversion.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
