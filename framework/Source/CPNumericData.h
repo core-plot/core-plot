@@ -19,7 +19,7 @@
 /// @{
 @property (assign, readonly) CPNumericDataType dataType;
 @property (readonly) CPDataTypeFormat dataTypeFormat;
-@property (readonly) NSUInteger sampleBytes;
+@property (readonly) size_t sampleBytes;
 @property (readonly) CFByteOrder byteOrder;
 ///	@}
 

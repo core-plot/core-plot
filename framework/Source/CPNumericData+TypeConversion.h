@@ -11,7 +11,7 @@
 -(CPNumericData *)dataByConvertingToDataType:(CPNumericDataType)newDataType;
 
 -(CPNumericData *)dataByConvertingToType:(CPDataTypeFormat)newDataType
-                             sampleBytes:(NSUInteger)newSampleBytes
+                             sampleBytes:(size_t)newSampleBytes
                                byteOrder:(CFByteOrder)newByteOrder;
 ///	@}
 

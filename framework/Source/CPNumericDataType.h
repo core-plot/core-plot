@@ -17,7 +17,7 @@ typedef enum _CPDataTypeFormat {
  **/
 typedef struct _CPNumericDataType {
     CPDataTypeFormat dataTypeFormat;	///< Data type format
-    NSUInteger sampleBytes;				///< Number of bytes in each sample
+    size_t sampleBytes;					///< Number of bytes in each sample
     CFByteOrder byteOrder;				///< Byte order
 } CPNumericDataType;
 
@@ -27,14 +27,12 @@ extern "C" {
     
 	/// @name Data Type Utilities
 	/// @{
-    CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder);
+    CPNumericDataType CPDataType(CPDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder);
     CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString);
     NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType);
+	BOOL CPDataTypeIsSupported(CPNumericDataType format);
     ///	@}
 
 #if __cplusplus
 }
 #endif
-
-
-

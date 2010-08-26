@@ -102,6 +102,8 @@
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray
 {
+	NSParameterAssert(CPDataTypeIsSupported(newDataType));
+	
     data = [newData mutableCopy];
     dataType = newDataType;
     
@@ -126,7 +128,7 @@
 #pragma mark -
 #pragma mark Accessors
 
--(const void *)mutableBytes 
+-(void *)mutableBytes 
 {
 	return [(NSMutableData *)self.data mutableBytes];
 }

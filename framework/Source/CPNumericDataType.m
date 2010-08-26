@@ -2,7 +2,7 @@
 #import "NSExceptionExtensions.h"
 
 static CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
-static NSUInteger SampleBytesForDataTypeString(NSString *dataTypeString);
+static size_t SampleBytesForDataTypeString(NSString *dataTypeString);
 static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
 
 #pragma mark -
@@ -14,7 +14,7 @@ static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
  *	@param byteOrder The byte order used to store the data samples.
  *	@return The initialized CPNumericDataType struct.
  **/
-CPNumericDataType CPDataType(CPDataTypeFormat format, NSUInteger sampleBytes, CFByteOrder byteOrder)
+CPNumericDataType CPDataType(CPDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder)
 {
     CPNumericDataType result;
     
@@ -82,6 +82,81 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
             dataType.sampleBytes];
 }
 
+/**	@brief Validates a data type format.
+ *	@param format The data type format.
+ *	@return Returns YES if the format is supported by CPNumericData, NO otherwise.
+ **/
+BOOL CPDataTypeIsSupported(CPNumericDataType format)
+{
+	BOOL result = YES;
+	
+	switch ( format.byteOrder ) {
+		case CFByteOrderUnknown:
+		case CFByteOrderLittleEndian:
+		case CFByteOrderBigEndian:
+			// valid byte order--continue checking
+			break;
+		default:
+			// invalid byteorder
+			result = NO;
+			break;
+	}
+	
+	if ( result ) {
+		switch ( format.dataTypeFormat ) {
+			case CPUndefinedDataType:
+				// valid; any sampleBytes is ok
+				break;
+			case CPIntegerDataType:
+				switch ( format.sampleBytes ) {
+					case sizeof(int8_t):
+					case sizeof(int16_t):
+					case sizeof(int32_t):
+					case sizeof(int64_t):
+						// valid
+						break;
+					default:
+						result = NO;
+						break;
+				}
+				break;
+			case CPUnsignedIntegerDataType:
+				switch ( format.sampleBytes ) {
+					case sizeof(uint8_t):
+					case sizeof(uint16_t):
+					case sizeof(uint32_t):
+					case sizeof(uint64_t):
+						// valid
+						break;
+					default:
+						result = NO;
+						break;
+				}
+				break;
+			case CPFloatingPointDataType:
+				switch ( format.sampleBytes ) {
+					case sizeof(float):
+					case sizeof(double):
+						// valid
+						break;
+					default:
+						result = NO;
+						break;
+				}
+				break;
+			case CPComplexFloatingPointDataType:
+				// TODO: complex number support is incomplete
+				// valid; any sampleBytes is ok
+			default:
+				// unrecognized data type format
+				result = NO;
+				break;
+		}
+	}
+	
+	return result;
+}
+
 #pragma mark -
 #pragma mark Private functions
 
@@ -112,7 +187,7 @@ CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
     return result;
 }
 
-NSUInteger SampleBytesForDataTypeString(NSString *dataTypeString)
+size_t SampleBytesForDataTypeString(NSString *dataTypeString)
 {
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
     NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];

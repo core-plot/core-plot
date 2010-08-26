@@ -157,6 +157,8 @@
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray
 {
+	NSParameterAssert(CPDataTypeIsSupported(newDataType));
+	
     data = [newData copy];
     dataType = newDataType;
     
@@ -214,7 +216,7 @@
     return self.dataType.dataTypeFormat;
 }
 
--(NSUInteger)sampleBytes 
+-(size_t)sampleBytes 
 {
     return self.dataType.sampleBytes;
 }
@@ -236,38 +238,44 @@
 {
     NSNumber *result = nil;
     
-	switch( [self dataTypeFormat] ) {
+	switch ( self.dataTypeFormat ) {
 		case CPUndefinedDataType:
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
 			break;
 		case CPIntegerDataType:
-			switch( self.sampleBytes ) {
-				case sizeof(char):
-					result = [NSNumber numberWithChar:*(char *)[self samplePointer:sample]];
+			switch ( self.sampleBytes ) {
+				case sizeof(int8_t):
+					result = [NSNumber numberWithChar:*(int8_t *)[self samplePointer:sample]];
 					break;
-				case sizeof(short):
-					result = [NSNumber numberWithShort:*(short *)[self samplePointer:sample]];
+				case sizeof(int16_t):
+					result = [NSNumber numberWithShort:*(int16_t *)[self samplePointer:sample]];
 					break;
-				case sizeof(NSInteger):
-					result = [NSNumber numberWithInteger:*(NSInteger *)[self samplePointer:sample]];
+				case sizeof(int32_t):
+					result = [NSNumber numberWithLong:*(int32_t *)[self samplePointer:sample]];
+					break;
+				case sizeof(int64_t):
+					result = [NSNumber numberWithLongLong:*(int64_t *)[self samplePointer:sample]];
 					break;
 			}
 			break;
 		case CPUnsignedIntegerDataType:
-			switch( self.sampleBytes ) {
-				case sizeof(unsigned char):
-					result = [NSNumber numberWithUnsignedChar:*(unsigned char *)[self samplePointer:sample]];
+			switch ( self.sampleBytes ) {
+				case sizeof(uint8_t):
+					result = [NSNumber numberWithUnsignedChar:*(uint8_t *)[self samplePointer:sample]];
 					break;
-				case sizeof(unsigned short):
-					result = [NSNumber numberWithUnsignedShort:*(unsigned short *)[self samplePointer:sample]];
+				case sizeof(uint16_t):
+					result = [NSNumber numberWithUnsignedShort:*(uint16_t *)[self samplePointer:sample]];
 					break;
-				case sizeof(NSUInteger):
-					result = [NSNumber numberWithUnsignedInteger:*(NSUInteger *)[self samplePointer:sample]];
+				case sizeof(uint32_t):
+					result = [NSNumber numberWithUnsignedLong:*(uint32_t *)[self samplePointer:sample]];
+					break;
+				case sizeof(uint64_t):
+					result = [NSNumber numberWithUnsignedLongLong:*(uint64_t *)[self samplePointer:sample]];
 					break;
 			}
 			break;
 		case CPFloatingPointDataType:
-			switch( self.sampleBytes ) {
+			switch ( self.sampleBytes ) {
 				case sizeof(float):
 					result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
 					break;
@@ -291,7 +299,7 @@
 -(void *)samplePointer:(NSUInteger)sample 
 {
     NSParameterAssert(sample < self.numberOfSamples);
-    return (void*) ((char*)self.bytes + sample * self.sampleBytes);
+    return (void *) ((char *)self.bytes + sample * self.sampleBytes);
 }
 
 #pragma mark -
