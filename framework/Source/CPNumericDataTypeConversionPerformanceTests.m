@@ -10,18 +10,17 @@ static const NSUInteger numberOfReps = 5;
 
 -(void)testFloatToDoubleConversion
 {
-    float *floatArr = (float *)malloc(numberOfSamples * sizeof(float));
-    
-    for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        floatArr[i] = sinf(i);
-    }
-    
-    NSData *floatData = [NSData dataWithBytesNoCopy:floatArr
-                                             length:numberOfSamples * sizeof(float)
-                                       freeWhenDone:NO];
-	CPNumericData *floatNumericData = [CPNumericData numericDataWithData:floatData
-																dataType:CPDataType(CPFloatingPointDataType, sizeof(float), CFByteOrderGetCurrent())
-																   shape:nil];
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:numberOfSamples * sizeof(float)];
+	float *samples = (float *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sinf(i);
+	}
+	
+	CPNumericData *floatNumericData = [[CPNumericData alloc] initWithData:data
+												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), CFByteOrderGetCurrent())
+													  shape:nil];
+	
+	[data release];
 	
 	mach_timebase_info_data_t time_base_info;
 	mach_timebase_info(&time_base_info);
@@ -43,25 +42,24 @@ static const NSUInteger numberOfReps = 5;
 	}
 	
 	double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    STAssertTrue(false, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    STFail(@"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
 	
-	free(floatArr);
+	[floatNumericData release];
 }
 
 -(void)testDoubleToFloatConversion
 {
-    double *doubleArr = (double *)malloc(numberOfSamples * sizeof(double));
-    
-    for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        doubleArr[i] = sin(i);
-    }
-    
-    NSData *doubleData = [NSData dataWithBytesNoCopy:doubleArr
-											  length:numberOfSamples * sizeof(double)
-										freeWhenDone:NO];
-	CPNumericData *doubleNumericData = [CPNumericData numericDataWithData:doubleData
-																 dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
-																	shape:nil];
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:numberOfSamples * sizeof(double)];
+	double *samples = (double *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i);
+	}
+	
+	CPNumericData *doubleNumericData = [[CPNumericData alloc] initWithData:data
+																  dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
+																	 shape:nil];
+	
+	[data release];
 	
 	mach_timebase_info_data_t time_base_info;
 	mach_timebase_info(&time_base_info);
@@ -83,25 +81,24 @@ static const NSUInteger numberOfReps = 5;
 	}
 	
 	double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    STAssertTrue(false, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    STFail(@"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
 	
-	free(doubleArr);
+	[doubleNumericData release];
 }
 
 -(void)testIntegerToDoubleConversion
 {
-    NSInteger *integerArr = (NSInteger *)malloc(numberOfSamples * sizeof(NSInteger));
-    
-    for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        integerArr[i] = sin(i) * 1000.0;
-    }
-    
-    NSData *integerData = [NSData dataWithBytesNoCopy:integerArr
-                                             length:numberOfSamples * sizeof(NSInteger)
-                                       freeWhenDone:NO];
-	CPNumericData *integerNumericData = [CPNumericData numericDataWithData:integerData
-																dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), CFByteOrderGetCurrent())
-																   shape:nil];
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:numberOfSamples * sizeof(NSInteger)];
+	NSInteger *samples = (NSInteger *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i) * 1000.0;
+	}
+	
+	CPNumericData *integerNumericData = [[CPNumericData alloc] initWithData:data
+																  dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), CFByteOrderGetCurrent())
+																	 shape:nil];
+	
+	[data release];
 	
 	mach_timebase_info_data_t time_base_info;
 	mach_timebase_info(&time_base_info);
@@ -123,25 +120,24 @@ static const NSUInteger numberOfReps = 5;
 	}
 	
 	double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    STAssertTrue(false, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    STFail(@"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
 	
-	free(integerArr);
+	[integerNumericData release];
 }
 
 -(void)testDoubleToIntegerConversion
 {
-    double *doubleArr = (double *)malloc(numberOfSamples * sizeof(double));
-    
-    for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        doubleArr[i] = sin(i) * 1000.0;
-    }
-    
-    NSData *doubleData = [NSData dataWithBytesNoCopy:doubleArr
-											  length:numberOfSamples * sizeof(double)
-										freeWhenDone:NO];
-	CPNumericData *doubleNumericData = [CPNumericData numericDataWithData:doubleData
-																 dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
-																	shape:nil];
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:numberOfSamples * sizeof(double)];
+	double *samples = (double *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i) * 1000.0;
+	}
+	
+	CPNumericData *doubleNumericData = [[CPNumericData alloc] initWithData:data
+																  dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
+																	 shape:nil];
+	
+	[data release];
 	
 	mach_timebase_info_data_t time_base_info;
 	mach_timebase_info(&time_base_info);
@@ -163,9 +159,9 @@ static const NSUInteger numberOfReps = 5;
 	}
 	
 	double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    STAssertTrue(false, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    STFail(@"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
 	
-	free(doubleArr);
+	[doubleNumericData release];
 }
 
 @end

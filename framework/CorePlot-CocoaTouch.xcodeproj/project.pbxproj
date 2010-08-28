@@ -121,7 +121,7 @@
 		C30C85AC1047428100181766 /* CPPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4C211EA18A400595FF9 /* CPLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPLimitBand.m */; };
-		C3392A2D1225F3CC008DA6BD /* CPNumericData+TypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */; };
+		C3392A361225F63B008DA6BD /* CPNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3392A351225F63B008DA6BD /* CPNumericData+TypeConversion.m */; };
 		C35A65A511025EDF00FE24BB /* CPPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,14 +171,13 @@
 		C3B623D4107EC9800009EF0B /* _CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828A0FB89E610035D8DA /* _CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D5107EC9820009EF0B /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828C0FB89E610035D8DA /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C3D68B091221650C00EB4863 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */; };
+		C3D68B091221650C00EB4863 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68B0A1221650D00EB4863 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */; };
-		C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */; };
-		C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3011B188A800D36017 /* CPNumericData.h */; };
+		C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3011B188A800D36017 /* CPNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68B0E1221651200EB4863 /* CPNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3111B188A800D36017 /* CPNumericData.m */; };
-		C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3911B188B600D36017 /* CPNumericDataType.h */; };
+		C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3911B188B600D36017 /* CPNumericDataType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3A11B188B600D36017 /* CPNumericDataType.m */; };
-		C3D68B111221651800EB4863 /* CPNumericDataTypeConversions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */; };
 		C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C40CFB92107EC1B40057E828 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C40CFB93107EC1B40057E828 /* CPXYTheme.m */; };
 /* End PBXBuildFile section */
@@ -300,6 +299,7 @@
 		C30C85AA1047428100181766 /* CPPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotGroup.m; path = Source/CPPlotGroup.m; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLimitBand.h; path = Source/CPLimitBand.h; sourceTree = "<group>"; };
 		C318F4C011EA18A400595FF9 /* CPLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPLimitBand.m; path = Source/CPLimitBand.m; sourceTree = "<group>"; };
+		C3392A351225F63B008DA6BD /* CPNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPNumericData+TypeConversion.m"; path = "Source/CPNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C3566B8C10EED17400FB3866 /* doxygen touch.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen touch.config"; sourceTree = SOURCE_ROOT; };
 		C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen-cocoa-touch-tags.xml"; sourceTree = SOURCE_ROOT; };
 		C3566B8E10EED1B000FB3866 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
@@ -333,13 +333,11 @@
 		C3CADE3011B188A800D36017 /* CPNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericData.h; path = Source/CPNumericData.h; sourceTree = "<group>"; };
 		C3CADE3111B188A800D36017 /* CPNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericData.m; path = Source/CPNumericData.m; sourceTree = "<group>"; };
 		C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPNumericData+TypeConversion.h"; path = "Source/CPNumericData+TypeConversion.h"; sourceTree = "<group>"; };
-		C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = "CPNumericData+TypeConversion.mm"; path = "Source/CPNumericData+TypeConversion.mm"; sourceTree = "<group>"; };
 		C3CADE3411B188A800D36017 /* CPNumericData+TypeConversions_Generation.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "CPNumericData+TypeConversions_Generation.py"; path = "Source/CPNumericData+TypeConversions_Generation.py"; sourceTree = "<group>"; };
 		C3CADE3911B188B600D36017 /* CPNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataType.h; path = Source/CPNumericDataType.h; sourceTree = "<group>"; };
 		C3CADE3A11B188B600D36017 /* CPNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPNumericDataType.m; path = Source/CPNumericDataType.m; sourceTree = "<group>"; };
 		C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableNumericData.h; path = Source/CPMutableNumericData.h; sourceTree = "<group>"; };
 		C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = Source/CPMutableNumericData.m; sourceTree = "<group>"; };
-		C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPNumericDataTypeConversions.h; path = Source/CPNumericDataTypeConversions.h; sourceTree = "<group>"; };
 		C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSExceptionExtensions.h; path = Source/NSExceptionExtensions.h; sourceTree = "<group>"; };
 		C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* CPXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYTheme.h; path = Source/CPXYTheme.h; sourceTree = "<group>"; };
@@ -751,9 +749,8 @@
 				C3CADE3111B188A800D36017 /* CPNumericData.m */,
 				C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */,
 				C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */,
-				C3CADE4111B1890700D36017 /* CPNumericDataTypeConversions.h */,
 				C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */,
-				C3CADE3311B188A800D36017 /* CPNumericData+TypeConversion.mm */,
+				C3392A351225F63B008DA6BD /* CPNumericData+TypeConversion.m */,
 				C3CADE3411B188A800D36017 /* CPNumericData+TypeConversions_Generation.py */,
 			);
 			name = "Numeric Data";
@@ -839,7 +836,6 @@
 				C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */,
 				C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */,
 				C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */,
-				C3D68B111221651800EB4863 /* CPNumericDataTypeConversions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,7 +982,7 @@
 				C3D68B0A1221650D00EB4863 /* CPMutableNumericData.m in Sources */,
 				C3D68B0E1221651200EB4863 /* CPNumericData.m in Sources */,
 				C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */,
-				C3392A2D1225F3CC008DA6BD /* CPNumericData+TypeConversion.mm in Sources */,
+				C3392A361225F63B008DA6BD /* CPNumericData+TypeConversion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

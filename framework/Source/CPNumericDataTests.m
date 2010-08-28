@@ -1,7 +1,6 @@
 #import "CPNumericDataTests.h"
 #import "CPNumericData.h"
 #import "CPNumericData+TypeConversion.h"
-#import "CPNumericDataTypeConversions.h"
 #import "CPExceptions.h"
 
 @implementation CPNumericDataTests
@@ -177,6 +176,7 @@
 													  shape:nil];
 	
 	STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
+	[nd release];
 	
 	nElems = 10;
 	data = [NSMutableData dataWithLength:nElems*sizeof(char)];
@@ -190,6 +190,7 @@
 									   shape:nil];
 	
 	STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
+	[nd release];
 }
 
 -(void)testDataTypeAccessorsCorrectForDataType
@@ -206,19 +207,19 @@
 													  shape:nil];
 	
 	STAssertEquals([nd dataTypeFormat], CPFloatingPointDataType, @"dataTypeFormat");
-	STAssertEquals([nd sampleBytes], ((NSUInteger)sizeof(float)), @"sampleBytes");
+	STAssertEquals([nd sampleBytes], sizeof(float), @"sampleBytes");
 	STAssertEquals([nd byteOrder], NSHostByteOrder(), @"byteOrder");
 }
 
 -(void)testConvertTypeConvertsType
 {
-	NSUInteger nElems = 10;
-	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
+	NSUInteger numberOfSamples = 10;
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
-	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sinf(i);
 	}
-	
+
 	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
 												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
 													  shape:nil];
@@ -226,10 +227,13 @@
 	CPNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
 									   sampleBytes:sizeof(double)
 										 byteOrder:NSHostByteOrder()];
-	
-	NSData *ddExpected = coreplot::convert_numeric_data_type<float,double>(fd.data, NSHostByteOrder(), NSHostByteOrder());
-	
-	STAssertTrue([dd.data isEqualToData:ddExpected], @"%@ =? %@", dd, ddExpected);
+
+	[fd release];
+
+	const double *doubleSamples = (const double *)[dd.data bytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertTrue(samples[i] == doubleSamples[i], @"(float)%g != (double)%g", samples[i], doubleSamples[i]);
+	}
 }
 
 -(void)testSamplePointerCorrect
@@ -249,9 +253,11 @@
 	STAssertEquals(((float *)[fd.data bytes]), (float *)[fd samplePointer:0], @"");
 	STAssertEquals(((float *)[fd.data bytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
 	STAssertThrows([fd samplePointer:nElems], @"too many samples");
+	
+	[fd release];
 }
 
--(void)testSampleValueCorect
+-(void)testSampleValueCorrect
 {
 	NSUInteger nElems = 10;
 	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
@@ -266,6 +272,8 @@
 	
 	STAssertEqualsWithAccuracy([[fd sampleValue:0] doubleValue], sin(0), 0.01, @"sample value");
 	STAssertEqualsWithAccuracy([[fd sampleValue:1] doubleValue], sin(1), 0.01, @"sample value");
+	
+	[fd release];
 }
 
 @end
