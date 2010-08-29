@@ -28,6 +28,7 @@
 #import "CPLimitBand.h"
 #import "CPLineStyle.h"
 #import "CPMutableNumericData.h"
+#import "CPMutableNumericData+TypeConversion.h"
 #import "CPNumericData.h"
 #import "CPNumericData+TypeConversion.h"
 #import "CPNumericDataType.h"

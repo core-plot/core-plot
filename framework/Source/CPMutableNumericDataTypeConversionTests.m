@@ -1,13 +1,13 @@
-#import "CPNumericDataTypeConversionTests.h"
-#import "CPNumericData.h"
-#import "CPNumericData+TypeConversion.h"
+#import "CPMutableNumericDataTypeConversionTests.h"
+#import "CPMutableNumericData.h"
+#import "CPMutableNumericData+TypeConversion.h"
 
 static const NSUInteger numberOfSamples = 5;
 static const double precision = 1.0e-6;
 
-@implementation CPNumericDataTypeConversionTests
+@implementation CPMutableNumericDataTypeConversionTests
 
--(void)testFloatToDoubleConversion
+-(void)testFloatToDoubleInPlaceConversion
 {
 	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
@@ -15,23 +15,20 @@ static const double precision = 1.0e-6;
 		samples[i] = sinf(i);
 	}
 	
-	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																			 shape:nil];
 	
-	CPNumericData *dd = [fd dataByConvertingToType:CPFloatingPointDataType
-									   sampleBytes:sizeof(double)
-										 byteOrder:NSHostByteOrder()];
+	numericData.sampleBytes = sizeof(double);
 	
-	[fd release];
-	
-	const double *doubleSamples = (const double *)[dd.data bytes];
+	const double *doubleSamples = (const double *)[numericData.data bytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
 		STAssertEqualsWithAccuracy((double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i]);
 	}
+	[numericData release];
 }
 
--(void)testDoubleToFloatConversion
+-(void)testDoubleToFloatInPlaceConversion
 {
 	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
 	double *samples = (double *)[data mutableBytes];
@@ -39,23 +36,20 @@ static const double precision = 1.0e-6;
 		samples[i] = sin(i);
 	}
 	
-	CPNumericData *dd = [[CPNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder())
-													  shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder())
+																			 shape:nil];
 	
-	CPNumericData *fd = [dd dataByConvertingToType:CPFloatingPointDataType
-									   sampleBytes:sizeof(float)
-										 byteOrder:NSHostByteOrder()];
+	numericData.sampleBytes = sizeof(float);
 	
-	[dd release];
-	
-	const float *floatSamples = (const float *)[fd.data bytes];
+	const float *floatSamples = (const float *)[numericData.data bytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
 		STAssertEqualsWithAccuracy((double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i]);
 	}
+	[numericData release];
 }
 
--(void)testFloatToIntegerConversion
+-(void)testFloatToIntegerInPlaceConversion
 {
 	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
@@ -63,23 +57,20 @@ static const double precision = 1.0e-6;
 		samples[i] = sinf(i) * 1000.0f;
 	}
 	
-	CPNumericData *fd = [[CPNumericData alloc] initWithData:data
-												   dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
-													  shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder())
+																			 shape:nil];
 	
-	CPNumericData *intData = [fd dataByConvertingToType:CPIntegerDataType
-											sampleBytes:sizeof(NSInteger)
-											  byteOrder:NSHostByteOrder()];
+	numericData.dataType = CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder());
 	
-	[fd release];
-	
-	const NSInteger *intSamples = (const NSInteger *)[intData.data bytes];
+	const NSInteger *intSamples = (const NSInteger *)[numericData.data bytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
 		STAssertEqualsWithAccuracy((NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i]);
 	}
+	[numericData release];
 }
 
--(void)testIntegerToFloatConversion
+-(void)testIntegerToFloatInPlaceConversion
 {
 	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSInteger)];
 	NSInteger *samples = (NSInteger *)[data mutableBytes];
@@ -87,23 +78,20 @@ static const double precision = 1.0e-6;
 		samples[i] = sin(i) * 1000.0;
 	}
 	
-	CPNumericData *intData = [[CPNumericData alloc] initWithData:data
-														dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder())
-														   shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder())
+																			 shape:nil];
 	
-	CPNumericData *fd = [intData dataByConvertingToType:CPFloatingPointDataType
-											sampleBytes:sizeof(float)
-											  byteOrder:NSHostByteOrder()];
+	numericData.dataType = CPDataType(CPFloatingPointDataType, sizeof(float), NSHostByteOrder());
 	
-	[intData release];
-	
-	const float *floatSamples = (const float *)[fd.data bytes];
+	const float *floatSamples = (const float *)[numericData.data bytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
 		STAssertEqualsWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
 	}
+	[numericData release];
 }
 
--(void)testTypeConversionSwapsByteOrderInteger
+-(void)testTypeConversionSwapsByteOrderIntegerInPlace
 {
 	CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
 	CFByteOrder swappedByteOrder = (hostByteOrder == CFByteOrderBigEndian) ? CFByteOrderLittleEndian : CFByteOrderBigEndian;
@@ -113,28 +101,23 @@ static const double precision = 1.0e-6;
                                              length:sizeof(uint32_t)
                                        freeWhenDone:NO];
 	
-	CPNumericData *intData = [[CPNumericData alloc] initWithData:startData
-														dataType:CPDataType(CPUnsignedIntegerDataType, sizeof(uint32_t), hostByteOrder)
-														   shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:startData
+																		  dataType:CPDataType(CPUnsignedIntegerDataType, sizeof(uint32_t), hostByteOrder)
+																			 shape:nil];
 	
-	CPNumericData *swappedData = [intData dataByConvertingToType:CPUnsignedIntegerDataType
-													 sampleBytes:sizeof(uint32_t)
-													   byteOrder:swappedByteOrder];
+	numericData.byteOrder = swappedByteOrder;
 	
-	[intData release];
-	
-    uint32_t end = *(const uint32_t *)swappedData.bytes;
+    uint32_t end = *(const uint32_t *)numericData.bytes;
     STAssertEquals(CFSwapInt32(start), end, @"Bytes swapped");
     
-	CPNumericData *roundTripData = [swappedData dataByConvertingToType:CPUnsignedIntegerDataType
-														   sampleBytes:sizeof(uint32_t)
-															 byteOrder:hostByteOrder];
+	numericData.byteOrder = hostByteOrder;
 	
-    uint32_t startRoundTrip = *(const uint32_t *)roundTripData.bytes;
+    uint32_t startRoundTrip = *(const uint32_t *)numericData.bytes;
     STAssertEquals(start, startRoundTrip, @"Round trip");
+	[numericData release];
 }
 
--(void)testTypeConversionSwapsByteOrderDouble
+-(void)testTypeConversionSwapsByteOrderDoubleInPlace
 {
 	CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
 	CFByteOrder swappedByteOrder = (hostByteOrder == CFByteOrderBigEndian) ? CFByteOrderLittleEndian : CFByteOrderBigEndian;
@@ -144,17 +127,13 @@ static const double precision = 1.0e-6;
                                              length:sizeof(double)
                                        freeWhenDone:NO];
 	
-	CPNumericData *doubleData = [[CPNumericData alloc] initWithData:startData
-														   dataType:CPDataType(CPFloatingPointDataType, sizeof(double), hostByteOrder)
-															  shape:nil];
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:startData
+																		  dataType:CPDataType(CPFloatingPointDataType, sizeof(double), hostByteOrder)
+																			 shape:nil];
 	
-	CPNumericData *swappedData = [doubleData dataByConvertingToType:CPFloatingPointDataType
-														sampleBytes:sizeof(double)
-														  byteOrder:swappedByteOrder];
+	numericData.byteOrder = swappedByteOrder;
 	
-	[doubleData release];
-	
-    uint64_t end = *(const uint64_t *)swappedData.bytes;
+    uint64_t end = *(const uint64_t *)numericData.bytes;
     union swap {
 		double v;
 		CFSwappedFloat64 sv;
@@ -162,12 +141,11 @@ static const double precision = 1.0e-6;
     result.v = start;
     STAssertEquals(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
     
-	CPNumericData *roundTripData = [swappedData dataByConvertingToType:CPFloatingPointDataType
-														   sampleBytes:sizeof(double)
-															 byteOrder:hostByteOrder];
+	numericData.byteOrder = hostByteOrder;
 	
-    double startRoundTrip = *(const double *)roundTripData.bytes;
+    double startRoundTrip = *(const double *)numericData.bytes;
     STAssertEquals(start, startRoundTrip, @"Round trip");
+	[numericData release];
 }
 
 /*

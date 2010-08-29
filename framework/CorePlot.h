@@ -28,6 +28,7 @@
 #import <CorePlot/CPLimitBand.h>
 #import <CorePlot/CPLineStyle.h>
 #import <CorePlot/CPMutableNumericData.h>
+#import <CorePlot/CPMutableNumericData+TypeConversion.h>
 #import <CorePlot/CPNumericDataType.h>
 #import <CorePlot/CPNumericData.h>
 #import <CorePlot/CPNumericData+TypeConversion.h>

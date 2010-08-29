@@ -181,6 +181,9 @@
 		C38DD49411A04B7A002A68E7 /* CPGridLineGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C38DD49211A04B7A002A68E7 /* CPGridLineGroup.m */; };
 		C3AFC9D10FB62969005DFFDC /* CPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3BFFD1112274CB500DE22AC /* CPNumericDataTypeConversionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* CPNumericDataTypeConversionTests.m */; };
+		C3CAFB261229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CAFB241229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CAFB6B1229F5FB00F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CAFB251229E41F00F5C989 /* CPMutableNumericData+TypeConversion.m */; };
+		C3CB561C122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB561B122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.m */; };
 		C3D68A5B1220B27D00EB4863 /* CPUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E9630F4B625900F9BCBB /* CPUtilitiesTests.m */; };
 		C3D68A5C1220B29100EB4863 /* CPTextStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36468A90FE5533F0064B186 /* CPTextStyleTests.m */; };
 		C3D68A5D1220B29F00EB4863 /* NSExceptionExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF1B104D824900B554F9 /* NSExceptionExtensionsTests.m */; };
@@ -393,6 +396,10 @@
 		C3C032C810B8DEDC003A11B6 /* CPAxisLabelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAxisLabelGroup.m; sourceTree = "<group>"; };
 		C3CADDC511B167AD00D36017 /* CPMutableNumericDataTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMutableNumericDataTests.h; sourceTree = "<group>"; };
 		C3CADDC611B167AD00D36017 /* CPMutableNumericDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMutableNumericDataTests.m; sourceTree = "<group>"; };
+		C3CAFB241229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPMutableNumericData+TypeConversion.h"; sourceTree = "<group>"; };
+		C3CAFB251229E41F00F5C989 /* CPMutableNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPMutableNumericData+TypeConversion.m"; sourceTree = "<group>"; };
+		C3CB561A122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMutableNumericDataTypeConversionTests.h; sourceTree = "<group>"; };
+		C3CB561B122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMutableNumericDataTypeConversionTests.m; sourceTree = "<group>"; };
 		C3D68B83122201A700EB4863 /* CPNumericDataTypeConversionPerformanceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNumericDataTypeConversionPerformanceTests.h; sourceTree = "<group>"; };
 		C3D68B84122201A700EB4863 /* CPNumericDataTypeConversionPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNumericDataTypeConversionPerformanceTests.m; sourceTree = "<group>"; };
 		C3DA34CA107AD7710051DA02 /* CPXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXYTheme.m; sourceTree = "<group>"; };
@@ -821,6 +828,8 @@
 				4C97EF11104D819100B554F9 /* CPMutableNumericData.m */,
 				4C97EEF7104D80C400B554F9 /* CPNumericData+TypeConversion.h */,
 				C3392A371225F667008DA6BD /* CPNumericData+TypeConversion.m */,
+				C3CAFB241229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h */,
+				C3CAFB251229E41F00F5C989 /* CPMutableNumericData+TypeConversion.m */,
 				4C97EEF9104D80C400B554F9 /* CPNumericData+TypeConversions_Generation.py */,
 				4C97EF19104D822D00B554F9 /* Tests */,
 			);
@@ -841,6 +850,8 @@
 			children = (
 				C3CADDC511B167AD00D36017 /* CPMutableNumericDataTests.h */,
 				C3CADDC611B167AD00D36017 /* CPMutableNumericDataTests.m */,
+				C3CB561A122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.h */,
+				C3CB561B122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.m */,
 				4C97EF05104D80D400B554F9 /* CPNumericDataTests.h */,
 				4C97EF06104D80D400B554F9 /* CPNumericDataTests.m */,
 				4C97EF07104D80D400B554F9 /* CPNumericDataTypeConversionTests.h */,
@@ -1065,6 +1076,7 @@
 				07E10BBB11D10183000B8DAB /* CPLayerAnnotation.h in Headers */,
 				072161EB11D1F6BD009CC871 /* CPAnnotationHostLayer.h in Headers */,
 				C318F4AD11EA188700595FF9 /* CPLimitBand.h in Headers */,
+				C3CAFB261229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,6 +1217,7 @@
 				C3392A481225FB68008DA6BD /* CPMutableNumericDataTests.m in Sources */,
 				C3392A491225FB69008DA6BD /* CPNumericDataTests.m in Sources */,
 				C3BFFD1112274CB500DE22AC /* CPNumericDataTypeConversionTests.m in Sources */,
+				C3CB561C122A9E9F00FBFB61 /* CPMutableNumericDataTypeConversionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,6 +1298,7 @@
 				072161EC11D1F6BD009CC871 /* CPAnnotationHostLayer.m in Sources */,
 				C318F4AE11EA188700595FF9 /* CPLimitBand.m in Sources */,
 				C3392A381225F667008DA6BD /* CPNumericData+TypeConversion.m in Sources */,
+				C3CAFB6B1229F5FB00F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -171,6 +171,8 @@
 		C3B623D4107EC9800009EF0B /* _CPFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828A0FB89E610035D8DA /* _CPFillColor.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D5107EC9820009EF0B /* _CPFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828C0FB89E610035D8DA /* _CPFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3B623D6107EC9830009EF0B /* _CPFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3CAFB3B1229E48200F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CAFB391229E48200F5C989 /* CPMutableNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3CAFB3C1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CAFB3A1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m */; };
 		C3D68B091221650C00EB4863 /* CPMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPMutableNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68B0A1221650D00EB4863 /* CPMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */; };
 		C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -340,6 +342,8 @@
 		C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableNumericData.m; path = Source/CPMutableNumericData.m; sourceTree = "<group>"; };
 		C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSExceptionExtensions.h; path = Source/NSExceptionExtensions.h; sourceTree = "<group>"; };
 		C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
+		C3CAFB391229E48200F5C989 /* CPMutableNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPMutableNumericData+TypeConversion.h"; path = "Source/CPMutableNumericData+TypeConversion.h"; sourceTree = "<group>"; };
+		C3CAFB3A1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPMutableNumericData+TypeConversion.m"; path = "Source/CPMutableNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* CPXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYTheme.h; path = Source/CPXYTheme.h; sourceTree = "<group>"; };
 		C40CFB93107EC1B40057E828 /* CPXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYTheme.m; path = Source/CPXYTheme.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -751,6 +755,8 @@
 				C3CADE3E11B188C500D36017 /* CPMutableNumericData.m */,
 				C3CADE3211B188A800D36017 /* CPNumericData+TypeConversion.h */,
 				C3392A351225F63B008DA6BD /* CPNumericData+TypeConversion.m */,
+				C3CAFB391229E48200F5C989 /* CPMutableNumericData+TypeConversion.h */,
+				C3CAFB3A1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m */,
 				C3CADE3411B188A800D36017 /* CPNumericData+TypeConversions_Generation.py */,
 			);
 			name = "Numeric Data";
@@ -836,6 +842,7 @@
 				C3D68B0B1221650E00EB4863 /* CPNumericData+TypeConversion.h in Headers */,
 				C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */,
 				C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */,
+				C3CAFB3B1229E48200F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,6 +990,7 @@
 				C3D68B0E1221651200EB4863 /* CPNumericData.m in Sources */,
 				C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */,
 				C3392A361225F63B008DA6BD /* CPNumericData+TypeConversion.m in Sources */,
+				C3CAFB3C1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

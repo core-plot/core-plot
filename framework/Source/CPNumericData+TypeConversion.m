@@ -1,13 +1,4 @@
 #import "CPNumericData+TypeConversion.h"
-#import "CPNumericDataType.h"
-
-///	@cond
-@interface CPNumericData(TypeConversionPrivateMethods)
-
--(void)swapByteOrderForData:(NSMutableData *)sourceData sampleSize:(size_t)sampleSize;
-
-@end
-///	@endcond
 
 @implementation CPNumericData(TypeConversion)
 
@@ -66,930 +57,7 @@
 			sourceData = [self.data retain];
 		}
 		
-		// Code generated with "CPNumericData+TypeConversions_Generation.py"
-		// ========================================================================
-		
-		switch ( myDataType.dataTypeFormat ) {
-			case CPUndefinedDataType:
-				break;
-			case CPIntegerDataType:
-				switch ( myDataType.sampleBytes ) {
-					case sizeof(int8_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // int8_t -> int8_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // int8_t -> int16_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // int8_t -> int32_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // int8_t -> int64_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // int8_t -> uint8_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // int8_t -> uint16_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // int8_t -> uint32_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // int8_t -> uint64_t
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // int8_t -> float
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // int8_t -> double
-										const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-										const int8_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(int16_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // int16_t -> int8_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // int16_t -> int16_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // int16_t -> int32_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // int16_t -> int64_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // int16_t -> uint8_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // int16_t -> uint16_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // int16_t -> uint32_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // int16_t -> uint64_t
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // int16_t -> float
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // int16_t -> double
-										const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-										const int16_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(int32_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // int32_t -> int8_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // int32_t -> int16_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // int32_t -> int32_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // int32_t -> int64_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // int32_t -> uint8_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // int32_t -> uint16_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // int32_t -> uint32_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // int32_t -> uint64_t
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // int32_t -> float
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // int32_t -> double
-										const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-										const int32_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(int64_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // int64_t -> int8_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // int64_t -> int16_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // int64_t -> int32_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // int64_t -> int64_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // int64_t -> uint8_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // int64_t -> uint16_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // int64_t -> uint32_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // int64_t -> uint64_t
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // int64_t -> float
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // int64_t -> double
-										const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-										const int64_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-				}
-				break;
-			case CPUnsignedIntegerDataType:
-				switch ( myDataType.sampleBytes ) {
-					case sizeof(uint8_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // uint8_t -> int8_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // uint8_t -> int16_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // uint8_t -> int32_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // uint8_t -> int64_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // uint8_t -> uint8_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // uint8_t -> uint16_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // uint8_t -> uint32_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // uint8_t -> uint64_t
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // uint8_t -> float
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // uint8_t -> double
-										const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-										const uint8_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(uint16_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // uint16_t -> int8_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // uint16_t -> int16_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // uint16_t -> int32_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // uint16_t -> int64_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // uint16_t -> uint8_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // uint16_t -> uint16_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // uint16_t -> uint32_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // uint16_t -> uint64_t
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // uint16_t -> float
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // uint16_t -> double
-										const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-										const uint16_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(uint32_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // uint32_t -> int8_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // uint32_t -> int16_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // uint32_t -> int32_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // uint32_t -> int64_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // uint32_t -> uint8_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // uint32_t -> uint16_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // uint32_t -> uint32_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // uint32_t -> uint64_t
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // uint32_t -> float
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // uint32_t -> double
-										const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-										const uint32_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(uint64_t):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // uint64_t -> int8_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // uint64_t -> int16_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // uint64_t -> int32_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // uint64_t -> int64_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // uint64_t -> uint8_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // uint64_t -> uint16_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // uint64_t -> uint32_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // uint64_t -> uint64_t
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // uint64_t -> float
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // uint64_t -> double
-										const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-										const uint64_t *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-				}
-				break;
-			case CPFloatingPointDataType:
-				switch ( myDataType.sampleBytes ) {
-					case sizeof(float):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // float -> int8_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // float -> int16_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // float -> int32_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // float -> int64_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // float -> uint8_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // float -> uint16_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // float -> uint32_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // float -> uint64_t
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // float -> float
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // float -> double
-										const float *fromBytes = (float *)sourceData.bytes;
-										const float *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-					case sizeof(double):
-						switch ( newDataType.dataTypeFormat ) {
-							case CPUndefinedDataType:
-								break;
-							case CPIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(int8_t): { // double -> int8_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										int8_t *toBytes = (int8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int16_t): { // double -> int16_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										int16_t *toBytes = (int16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int32_t): { // double -> int32_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										int32_t *toBytes = (int32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(int64_t): { // double -> int64_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										int64_t *toBytes = (int64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPUnsignedIntegerDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(uint8_t): { // double -> uint8_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										uint8_t *toBytes = (uint8_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint16_t): { // double -> uint16_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										uint16_t *toBytes = (uint16_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint32_t): { // double -> uint32_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										uint32_t *toBytes = (uint32_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
-									}
-										break;
-									case sizeof(uint64_t): { // double -> uint64_t
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										uint64_t *toBytes = (uint64_t *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPFloatingPointDataType:
-								switch ( newDataType.sampleBytes ) {
-									case sizeof(float): { // double -> float
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										float *toBytes = (float *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
-									}
-										break;
-									case sizeof(double): { // double -> double
-										const double *fromBytes = (double *)sourceData.bytes;
-										const double *lastSample = fromBytes + sampleCount;
-										double *toBytes = (double *)((NSMutableData *)newData).mutableBytes;
-										while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
-									}
-										break;
-								}
-								break;
-							case CPComplexFloatingPointDataType:
-								break;
-						}
-						break;
-				}
-				break;
-			case CPComplexFloatingPointDataType:
-				break;
-		}
-		
-		// End of code generated with "CPNumericData+TypeConversions_Generation.py"
-		// ========================================================================
+		[self convertData:sourceData dataType:&myDataType toData:(NSMutableData *)newData dataType:&newDataType];
 		
 		[sourceData release];
 		
@@ -1005,10 +73,954 @@
 	return result;
 }
 
-@end
+#pragma mark -
+#pragma mark Data conversion utilites
 
-@implementation CPNumericData(TypeConversionPrivateMethods)
+/** @brief Copies a data buffer and converts the data to a new data type without changing the byte order.
+ *
+ *	The data is assumed to be in host byte order and no byte order conversion is performed.
+ *  @param sourceData The source data buffer.
+ *  @param sourceDataType The data type of the source.
+ *  @param destData The destination data buffer.
+ *  @param destDataType The new data type.
+ **/
+-(void)convertData:(NSData *)sourceData
+		  dataType:(CPNumericDataType *)sourceDataType
+			toData:(NSMutableData *)destData
+		  dataType:(CPNumericDataType *)destDataType
+{
+	NSUInteger sampleCount = sourceData.length / sourceDataType->sampleBytes;
+	
+	// Code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+	
+	switch ( sourceDataType->dataTypeFormat ) {
+		case CPUndefinedDataType:
+			break;
+		case CPIntegerDataType:
+			switch ( sourceDataType->sampleBytes ) {
+				case sizeof(int8_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // int8_t -> int8_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // int8_t -> int16_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // int8_t -> int32_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // int8_t -> int64_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // int8_t -> uint8_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // int8_t -> uint16_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // int8_t -> uint32_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // int8_t -> uint64_t
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // int8_t -> float
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // int8_t -> double
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(int16_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // int16_t -> int8_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // int16_t -> int16_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // int16_t -> int32_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // int16_t -> int64_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // int16_t -> uint8_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // int16_t -> uint16_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // int16_t -> uint32_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // int16_t -> uint64_t
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // int16_t -> float
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // int16_t -> double
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(int32_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // int32_t -> int8_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // int32_t -> int16_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // int32_t -> int32_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // int32_t -> int64_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // int32_t -> uint8_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // int32_t -> uint16_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // int32_t -> uint32_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // int32_t -> uint64_t
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // int32_t -> float
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // int32_t -> double
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(int64_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // int64_t -> int8_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // int64_t -> int16_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // int64_t -> int32_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // int64_t -> int64_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // int64_t -> uint8_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // int64_t -> uint16_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // int64_t -> uint32_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // int64_t -> uint64_t
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // int64_t -> float
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // int64_t -> double
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+			}
+			break;
+		case CPUnsignedIntegerDataType:
+			switch ( sourceDataType->sampleBytes ) {
+				case sizeof(uint8_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // uint8_t -> int8_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // uint8_t -> int16_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // uint8_t -> int32_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // uint8_t -> int64_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // uint8_t -> uint8_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // uint8_t -> uint16_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // uint8_t -> uint32_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // uint8_t -> uint64_t
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // uint8_t -> float
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // uint8_t -> double
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(uint16_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // uint16_t -> int8_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // uint16_t -> int16_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // uint16_t -> int32_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // uint16_t -> int64_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // uint16_t -> uint8_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // uint16_t -> uint16_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // uint16_t -> uint32_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // uint16_t -> uint64_t
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // uint16_t -> float
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // uint16_t -> double
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(uint32_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // uint32_t -> int8_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // uint32_t -> int16_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // uint32_t -> int32_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // uint32_t -> int64_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // uint32_t -> uint8_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // uint32_t -> uint16_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // uint32_t -> uint32_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // uint32_t -> uint64_t
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // uint32_t -> float
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // uint32_t -> double
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(uint64_t):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // uint64_t -> int8_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // uint64_t -> int16_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // uint64_t -> int32_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // uint64_t -> int64_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // uint64_t -> uint8_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // uint64_t -> uint16_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // uint64_t -> uint32_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // uint64_t -> uint64_t
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // uint64_t -> float
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // uint64_t -> double
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+			}
+			break;
+		case CPFloatingPointDataType:
+			switch ( sourceDataType->sampleBytes ) {
+				case sizeof(float):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // float -> int8_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // float -> int16_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // float -> int32_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // float -> int64_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // float -> uint8_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // float -> uint16_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // float -> uint32_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // float -> uint64_t
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // float -> float
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // float -> double
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+				case sizeof(double):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // double -> int8_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int16_t): { // double -> int16_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int32_t): { // double -> int32_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(int64_t): { // double -> int64_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // double -> uint8_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint16_t): { // double -> uint16_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint32_t): { // double -> uint32_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+								}
+									break;
+								case sizeof(uint64_t): { // double -> uint64_t
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // double -> float
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+								}
+									break;
+								case sizeof(double): { // double -> double
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+					}
+					break;
+			}
+			break;
+		case CPComplexFloatingPointDataType:
+			break;
+	}
+	
+	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+}
 
+/** @brief Swaps the byte order for each sample stored in a data buffer.
+ *  @param sourceData The data buffer.
+ *  @param sampleSize The number of bytes in each sample stored in sourceData.
+ **/
 -(void)swapByteOrderForData:(NSMutableData *)sourceData sampleSize:(size_t)sampleSize
 {
 	NSUInteger sampleCount;

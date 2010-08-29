@@ -18,10 +18,6 @@ nsnumber_factory = { "int8_t" : "Char",
 					 "double" : "Double"
 }
 
-newDataType = "newDataType"
-newSampleBytes = "newSampleBytes"
-newByteOrder = "newByteOrder"
-
 print "[CPNumericData sampleValue:]"
 print ""
 print "switch ( self.dataTypeFormat ) {"
@@ -43,25 +39,25 @@ print "\n\n"
 print "---------------"
 print "\n\n"
 
-print "[CPNumericData dataByConvertingToType:sampleBytes:byteOrder:]"
+print "[CPNumericData convertData:dataType:toData:dataType:]"
 print ""
-print "switch ( myDataType.dataTypeFormat ) {"
+print "switch ( sourceDataType->dataTypeFormat ) {"
 for dt in dataTypes:
     print "\tcase %s:" % dt
     if ( len(types[dt]) > 0 ):
-        print "\t\tswitch ( myDataType.sampleBytes ) {"
+        print "\t\tswitch ( sourceDataType->sampleBytes ) {"
         for t in types[dt]:
             print "\t\t\tcase sizeof(%s):" % t
-            print "\t\t\t\tswitch ( newDataType.dataTypeFormat ) {"
+            print "\t\t\t\tswitch ( destDataType->dataTypeFormat ) {"
             for ndt in dataTypes:
                 print "\t\t\t\t\tcase %s:" % ndt
                 if ( len(types[ndt]) > 0 ):
-                    print "\t\t\t\t\t\tswitch ( newDataType.sampleBytes ) {"
+                    print "\t\t\t\t\t\tswitch ( destDataType->sampleBytes ) {"
                     for nt in types[ndt]:
                         print "\t\t\t\t\t\t\tcase sizeof(%s): { // %s -> %s" % (nt, t, nt)
                         print "\t\t\t\t\t\t\t\t\tconst %s *fromBytes = (%s *)sourceData.bytes;" % (t, t)
                         print "\t\t\t\t\t\t\t\t\tconst %s *lastSample = fromBytes + sampleCount;" % t
-                        print "\t\t\t\t\t\t\t\t\t%s *toBytes = (%s *)((NSMutableData *)newData).mutableBytes;" % (nt, nt)
+                        print "\t\t\t\t\t\t\t\t\t%s *toBytes = (%s *)destData.mutableBytes;" % (nt, nt)
                         print "\t\t\t\t\t\t\t\t\twhile ( fromBytes < lastSample ) *toBytes++ = (%s)*fromBytes++;" % nt
                         print "\t\t\t\t\t\t\t\t}"
                         print "\t\t\t\t\t\t\t\tbreak;"
