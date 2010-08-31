@@ -18,6 +18,30 @@ nsnumber_factory = { "int8_t" : "Char",
 					 "double" : "Double"
 }
 
+nsnumber_methods = { "int8_t" : "char",
+					"int16_t" : "short",
+					"int32_t" : "long",
+					"int64_t" : "longLong",
+					"uint8_t" : "unsignedChar",
+				   "uint16_t" : "unsignedShort",
+				   "uint32_t" : "unsignedLong",
+				   "uint64_t" : "unsignedLongLong",
+					  "float" : "float",
+					 "double" : "double"
+}
+
+null_values = { "int8_t" : "0",
+			   "int16_t" : "0",
+			   "int32_t" : "0",
+			   "int64_t" : "0",
+			   "uint8_t" : "0",
+			  "uint16_t" : "0",
+			  "uint32_t" : "0",
+			  "uint64_t" : "0",
+				 "float" : "NAN",
+				"double" : "NAN"
+}
+
 print "[CPNumericData sampleValue:]"
 print ""
 print "switch ( self.dataTypeFormat ) {"
@@ -30,6 +54,36 @@ for dt in dataTypes:
         for t in types[dt]:
             print "\t\t\tcase sizeof(%s):" % t
             print "\t\t\t\tresult = [NSNumber numberWith%s:*(%s *)[self samplePointer:sample]];" % (nsnumber_factory[t], t)
+            print "\t\t\t\tbreak;"
+        print "\t\t}"
+    print "\t\tbreak;"
+print "}"
+
+print "\n\n"
+print "---------------"
+print "\n\n"
+
+print "[CPNumericData dataFromArray:dataType:]"
+print ""
+print "switch ( newDataType.dataTypeFormat ) {"
+for dt in dataTypes:
+    print "\tcase %s:" % dt
+    if ( len(types[dt]) == 0 ):
+        print "\t\t// Unsupported"
+    else:
+        print "\t\tswitch ( newDataType.sampleBytes ) {"
+        for t in types[dt]:
+            print "\t\t\tcase sizeof(%s): {" % t
+            print "\t\t\t\t%s *toBytes = (%s *)sampleData.mutableBytes;" % (t, t)
+            print "\t\t\t\tfor ( id sample in newData ) {"
+            print "\t\t\t\t\tif ( [sample respondsToSelector:@selector(%sValue)] ) {" % nsnumber_methods[t]
+            print "\t\t\t\t\t\t*toBytes++ = (%s)[(NSNumber *)sample %sValue];" % (t, nsnumber_methods[t])
+            print "\t\t\t\t\t}"
+            print "\t\t\t\t\telse {"
+            print "\t\t\t\t\t\t*toBytes++ = %s;" % null_values[t]
+            print "\t\t\t\t\t}"
+            print "\t\t\t\t}"
+            print "\t\t\t}"
             print "\t\t\t\tbreak;"
         print "\t\t}"
     print "\t\tbreak;"

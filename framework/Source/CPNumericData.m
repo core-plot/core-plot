@@ -1,4 +1,5 @@
 #import "CPNumericData.h"
+#import "CPNumericData+TypeConversion.h"
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
 
@@ -8,6 +9,8 @@
 -(void)commonInitWithData:(NSData *)newData
 				 dataType:(CPNumericDataType)newDataType
                     shape:(NSArray *)shapeArray;
+
+-(NSData *)dataFromArray:(NSArray *)newData dataType:(CPNumericDataType)newDataType;
 
 @end
 ///	@endcond
@@ -116,6 +119,46 @@
             autorelease];
 }
 
+/** @brief Creates and returns a new CPNumericData instance.
+ *
+ *	Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
+ *	Numbers and strings will be converted to newDataType and stored in the receiver.
+ *	Any instances of NSNull will be treated as "not a number" (NAN) values for floating point types and "0" for integer types.
+ *	@param newData An array of numbers.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPNumericData instance.
+ **/
++(CPNumericData *)numericDataWithArray:(NSArray *)newData
+							  dataType:(CPNumericDataType)newDataType
+								 shape:(NSArray *)shapeArray
+{
+    return [[[CPNumericData alloc] initWithArray:newData
+										dataType:newDataType
+										   shape:shapeArray]
+            autorelease];
+}
+
+/** @brief Creates and returns a new CPNumericData instance.
+ *
+ *	Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
+ *	Numbers and strings will be converted to newDataTypeString and stored in the receiver.
+ *	Any instances of NSNull will be treated as "not a number" (NAN) values for floating point types and "0" for integer types.
+ *	@param newData An array of numbers.
+ *	@param newDataTypeString The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return A new CPNumericData instance.
+ **/
++(CPNumericData *)numericDataWithArray:(NSArray *)newData
+						dataTypeString:(NSString *)newDataTypeString
+								 shape:(NSArray *)shapeArray
+{
+    return [[[CPNumericData alloc] initWithArray:newData
+										dataType:CPDataTypeWithDataTypeString(newDataTypeString)
+										   shape:shapeArray]
+            autorelease];
+}
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -151,6 +194,44 @@
     return [self initWithData:newData
 					 dataType:CPDataTypeWithDataTypeString(newDataTypeString)
                         shape:shapeArray];
+}
+
+/** @brief Initializes a newly allocated CPNumericData object with the provided data.
+ *
+ *	Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
+ *	Numbers and strings will be converted to newDataType and stored in the receiver.
+ *	Any instances of NSNull will be treated as "not a number" (NAN) values for floating point types and "0" for integer types.
+ *	@param newData An array of numbers.
+ *	@param newDataType The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return The initialized CPNumericData instance.
+ **/
+-(id)initWithArray:(NSArray *)newData
+		  dataType:(CPNumericDataType)newDataType
+			 shape:(NSArray *)shapeArray
+{
+    return [self initWithData:[self dataFromArray:newData dataType:newDataType]
+					 dataType:newDataType
+                        shape:shapeArray];
+}
+
+/** @brief Initializes a newly allocated CPNumericData object with the provided data.
+ *
+ *	Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
+ *	Numbers and strings will be converted to newDataTypeString and stored in the receiver.
+ *	Any instances of NSNull will be treated as "not a number" (NAN) values for floating point types and "0" for integer types.
+ *	@param newData An array of numbers.
+ *	@param newDataTypeString The type of data stored in the buffer.
+ *	@param shapeArray The shape of the data buffer array.
+ *  @return The initialized CPNumericData instance.
+ **/
+-(id)initWithArray:(NSArray *)newData
+	dataTypeString:(NSString *)newDataTypeString
+			 shape:(NSArray *)shapeArray
+{
+    return [self initWithArray:newData
+					  dataType:CPDataTypeWithDataTypeString(newDataTypeString)
+						 shape:shapeArray];
 }
 
 -(void)commonInitWithData:(NSData *)newData
@@ -236,8 +317,13 @@
 // Implementation generated with CPNumericData+TypeConversion_Generation.py
 -(NSNumber *)sampleValue:(NSUInteger)sample 
 {
+	NSParameterAssert(sample < self.numberOfSamples);
+	
     NSNumber *result = nil;
     
+	// Code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+
 	switch ( self.dataTypeFormat ) {
 		case CPUndefinedDataType:
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
@@ -288,7 +374,10 @@
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPComplexFloatingPointDataType)"];
 			break;
 	}
-    
+ 
+	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+
     return result;
 }
 
@@ -300,6 +389,186 @@
 {
     NSParameterAssert(sample < self.numberOfSamples);
     return (void *) ((char *)self.bytes + sample * self.sampleBytes);
+}
+
+/**	@brief Gets an array data samples from the receiver.
+ *	@return An NSArray of NSNumber objects representing the data from the receiver.
+ **/
+-(NSArray *)sampleArray
+{
+	NSUInteger sampleCount = self.numberOfSamples;
+	NSMutableArray *samples = [[NSMutableArray alloc] initWithCapacity:sampleCount];
+	
+	for ( NSUInteger i = 0; i < sampleCount; i++ ) {
+		[samples addObject:[self sampleValue:i]];
+	}
+	
+	NSArray *result = [NSArray arrayWithArray:samples];
+	[samples release];
+	
+	return result;
+}
+
+-(NSData *)dataFromArray:(NSArray *)newData dataType:(CPNumericDataType)newDataType
+{
+	NSParameterAssert(CPDataTypeIsSupported(newDataType));
+	NSParameterAssert(newDataType.dataTypeFormat != CPUndefinedDataType);
+	NSParameterAssert(newDataType.dataTypeFormat != CPComplexFloatingPointDataType);
+	
+	NSMutableData *sampleData = [[NSMutableData alloc] initWithLength:newData.count * newDataType.sampleBytes];
+	
+	// Code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+
+	switch ( newDataType.dataTypeFormat ) {
+		case CPUndefinedDataType:
+			// Unsupported
+			break;
+		case CPIntegerDataType:
+			switch ( newDataType.sampleBytes ) {
+				case sizeof(int8_t): {
+					int8_t *toBytes = (int8_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(charValue)] ) {
+							*toBytes++ = (int8_t)[(NSNumber *)sample charValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(int16_t): {
+					int16_t *toBytes = (int16_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(shortValue)] ) {
+							*toBytes++ = (int16_t)[(NSNumber *)sample shortValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(int32_t): {
+					int32_t *toBytes = (int32_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(longValue)] ) {
+							*toBytes++ = (int32_t)[(NSNumber *)sample longValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(int64_t): {
+					int64_t *toBytes = (int64_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(longLongValue)] ) {
+							*toBytes++ = (int64_t)[(NSNumber *)sample longLongValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+			}
+			break;
+		case CPUnsignedIntegerDataType:
+			switch ( newDataType.sampleBytes ) {
+				case sizeof(uint8_t): {
+					uint8_t *toBytes = (uint8_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(unsignedCharValue)] ) {
+							*toBytes++ = (uint8_t)[(NSNumber *)sample unsignedCharValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(uint16_t): {
+					uint16_t *toBytes = (uint16_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(unsignedShortValue)] ) {
+							*toBytes++ = (uint16_t)[(NSNumber *)sample unsignedShortValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(uint32_t): {
+					uint32_t *toBytes = (uint32_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(unsignedLongValue)] ) {
+							*toBytes++ = (uint32_t)[(NSNumber *)sample unsignedLongValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+				case sizeof(uint64_t): {
+					uint64_t *toBytes = (uint64_t *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(unsignedLongLongValue)] ) {
+							*toBytes++ = (uint64_t)[(NSNumber *)sample unsignedLongLongValue];
+						}
+						else {
+							*toBytes++ = 0;
+						}
+					}
+				}
+					break;
+			}
+			break;
+		case CPFloatingPointDataType:
+			switch ( newDataType.sampleBytes ) {
+				case sizeof(float): {
+					float *toBytes = (float *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(floatValue)] ) {
+							*toBytes++ = (float)[(NSNumber *)sample floatValue];
+						}
+						else {
+							*toBytes++ = NAN;
+						}
+					}
+				}
+					break;
+				case sizeof(double): {
+					double *toBytes = (double *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(doubleValue)] ) {
+							*toBytes++ = (double)[(NSNumber *)sample doubleValue];
+						}
+						else {
+							*toBytes++ = NAN;
+						}
+					}
+				}
+					break;
+			}
+			break;
+		case CPComplexFloatingPointDataType:
+			// Unsupported
+			break;
+	}
+	
+	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
+	// ========================================================================
+
+	if ( (newDataType.byteOrder != CFByteOrderGetCurrent()) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
+		[self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
+	}
+	
+	return [sampleData autorelease];
 }
 
 #pragma mark -

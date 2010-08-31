@@ -105,13 +105,10 @@
 		07CA11300FAC8F85000861CE /* CPGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPGradient.m */; };
 		07E10BB111D1016B000B8DAB /* CPPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E10BAF11D1016B000B8DAB /* CPPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07E10BB211D1016B000B8DAB /* CPPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BB011D1016B000B8DAB /* CPPlotSpaceAnnotation.m */; };
-		07E10BB311D1016B000B8DAB /* CPPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BB011D1016B000B8DAB /* CPPlotSpaceAnnotation.m */; };
 		07E10BB611D10177000B8DAB /* CPAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E10BB411D10177000B8DAB /* CPAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07E10BB711D10177000B8DAB /* CPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BB511D10177000B8DAB /* CPAnnotation.m */; };
-		07E10BB811D10177000B8DAB /* CPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BB511D10177000B8DAB /* CPAnnotation.m */; };
 		07E10BBB11D10183000B8DAB /* CPLayerAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E10BB911D10183000B8DAB /* CPLayerAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07E10BBC11D10183000B8DAB /* CPLayerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BBA11D10183000B8DAB /* CPLayerAnnotation.m */; };
-		07E10BBD11D10183000B8DAB /* CPLayerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BBA11D10183000B8DAB /* CPLayerAnnotation.m */; };
 		07FCF2C6115B54AE00E46606 /* CPSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FCF2C4115B54AE00E46606 /* CPSlateTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07FCF2C7115B54AE00E46606 /* CPSlateTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF2C5115B54AE00E46606 /* CPSlateTheme.m */; };
 		32484B430F530E8B002151AD /* CPPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 32484B3F0F530E8B002151AD /* CPPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1199,9 +1196,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E10BB311D1016B000B8DAB /* CPPlotSpaceAnnotation.m in Sources */,
-				07E10BB811D10177000B8DAB /* CPAnnotation.m in Sources */,
-				07E10BBD11D10183000B8DAB /* CPLayerAnnotation.m in Sources */,
 				C36E89BA11EE7F97003DE309 /* CPPlotRangeTests.m in Sources */,
 				C34F0D58121CB3EC0020FDD3 /* CPTestCase.m in Sources */,
 				C34F0D59121CB3F00020FDD3 /* CPDataSourceTestCase.m in Sources */,

@@ -39,6 +39,14 @@
 +(CPNumericData *)numericDataWithData:(NSData *)newData
 					   dataTypeString:(NSString *)newDataTypeString
                                 shape:(NSArray *)shapeArray;
+
++(CPNumericData *)numericDataWithArray:(NSArray *)newData
+							  dataType:(CPNumericDataType)newDataType
+								 shape:(NSArray *)shapeArray;
+
++(CPNumericData *)numericDataWithArray:(NSArray *)newData
+						dataTypeString:(NSString *)newDataTypeString
+								 shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Initialization
@@ -50,12 +58,21 @@
 -(id)initWithData:(NSData *)newData
    dataTypeString:(NSString *)newDataTypeString
             shape:(NSArray *)shapeArray;
+
+-(id)initWithArray:(NSArray *)newData
+		  dataType:(CPNumericDataType)newDataType
+			 shape:(NSArray *)shapeArray;
+
+-(id)initWithArray:(NSArray *)newData
+	dataTypeString:(NSString *)newDataTypeString
+			 shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Samples
 /// @{
 -(void *)samplePointer:(NSUInteger)sample;
 -(NSNumber *)sampleValue:(NSUInteger)sample;
+-(NSArray *)sampleArray;
 ///	@}
 
 @end

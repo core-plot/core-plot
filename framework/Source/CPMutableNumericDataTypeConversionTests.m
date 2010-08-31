@@ -148,31 +148,4 @@ static const double precision = 1.0e-6;
 	[numericData release];
 }
 
-/*
- -(void)testRoundTripToSTLVector
- {
- double doubleArr[numberOfSamples];
- NSData *inData = [NSData dataWithBytesNoCopy:doubleArr
- length:numberOfSamples*sizeof(double)
- freeWhenDone:NO];
- 
- auto_ptr<vector<double> > vptr(coreplot::numeric_data_to_vector<double>(inData));
- 
- NSData *roundTripData = coreplot::vector_to_numeric_data(vptr);
- 
- STAssertTrue([inData isEqualToData:roundTripData], @"double round trip");
- 
- NSInteger intArr[numberOfSamples];
- inData = [NSData dataWithBytesNoCopy:intArr
- length:numberOfSamples*sizeof(NSInteger)
- freeWhenDone:NO];
- 
- auto_ptr<vector<NSInteger> > ivptr(coreplot::numeric_data_to_vector<NSInteger>(inData));
- 
- roundTripData = coreplot::vector_to_numeric_data(ivptr);
- 
- STAssertTrue([inData isEqualToData:roundTripData], @"NSInteger round trip");
- }
- */
-
 @end

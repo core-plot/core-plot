@@ -170,31 +170,63 @@ static const double precision = 1.0e-6;
     STAssertEquals(start, startRoundTrip, @"Round trip");
 }
 
-/*
- -(void)testRoundTripToSTLVector
- {
- double doubleArr[numberOfSamples];
- NSData *inData = [NSData dataWithBytesNoCopy:doubleArr
- length:numberOfSamples*sizeof(double)
- freeWhenDone:NO];
- 
- auto_ptr<vector<double> > vptr(coreplot::numeric_data_to_vector<double>(inData));
- 
- NSData *roundTripData = coreplot::vector_to_numeric_data(vptr);
- 
- STAssertTrue([inData isEqualToData:roundTripData], @"double round trip");
- 
- NSInteger intArr[numberOfSamples];
- inData = [NSData dataWithBytesNoCopy:intArr
- length:numberOfSamples*sizeof(NSInteger)
- freeWhenDone:NO];
- 
- auto_ptr<vector<NSInteger> > ivptr(coreplot::numeric_data_to_vector<NSInteger>(inData));
- 
- roundTripData = coreplot::vector_to_numeric_data(ivptr);
- 
- STAssertTrue([inData isEqualToData:roundTripData], @"NSInteger round trip");
- }
- */
+-(void)testRoundTripToDoubleArray
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
+	double *samples = (double *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i);
+	}
+	CPNumericDataType theDataType = CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder());
+	
+	CPNumericData *doubleData = [[CPNumericData alloc] initWithData:data
+														   dataType:theDataType
+															  shape:nil];
+	
+	NSArray *doubleArray = [doubleData sampleArray];
+	STAssertEquals(doubleArray.count, numberOfSamples, @"doubleArray size");
+	
+	CPNumericData *roundTripData = [[CPNumericData alloc] initWithArray:doubleArray
+															   dataType:theDataType 
+																  shape:nil];
+	STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+	
+	const double *roundTrip = (const double *)roundTripData.bytes;
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertEquals(samples[i], roundTrip[i], @"Round trip");
+	}
+	
+	[doubleData release];
+	[roundTripData release];
+}
 
+-(void)testRoundTripToIntegerArray
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSInteger)];
+	NSInteger *samples = (NSInteger *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i) * 1000.0;
+	}
+	CPNumericDataType theDataType = CPDataType(CPIntegerDataType, sizeof(NSInteger), NSHostByteOrder());
+	
+	CPNumericData *intData = [[CPNumericData alloc] initWithData:data
+														dataType:theDataType
+														   shape:nil];
+	
+	NSArray *integerArray = [intData sampleArray];
+	STAssertEquals(integerArray.count, numberOfSamples, @"integerArray size");
+	
+	CPNumericData *roundTripData = [[CPNumericData alloc] initWithArray:integerArray
+															   dataType:theDataType 
+																  shape:nil];
+	STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+	
+	const NSInteger *roundTrip = (const NSInteger *)roundTripData.bytes;
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertEquals(samples[i], roundTrip[i], @"Round trip");
+	}
+	
+	[intData release];
+	[roundTripData release];
+}
 @end
