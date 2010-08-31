@@ -164,10 +164,6 @@
 			<anchor>//apple_ref/occ/intfm/NSObject/isEqual:</anchor>
 		</member>
 	</compound>
-	<compound kind="struct">
-		<name>NSRange</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSRange</filename>
-	</compound>
 	<compound kind="class" objc="yes">
 		<name>NSSet</name>
 		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
@@ -206,10 +202,6 @@
 		<name>UIView</name>
 		<filename>http://developer.apple.com/iPhone/library/documentation/UIKit/Reference/UIView_Class/UIView/UIView.html</filename>
 		<base>UIResponder</base>
-	</compound>
-	<compound kind="struct">
-		<name>NSZone</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSZone</filename>
 	</compound>
 
 	<!-- Core Graphics -->
@@ -314,6 +306,40 @@
 	<compound kind="struct">
 		<name>CFByteOrder</name>
 		<filename>http://developer.apple.com/iphone/library/documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</filename>
+	</compound>
+
+	<!-- Objective-C/Foundation Data Types -->
+	<compound kind="struct">
+		<name>BOOL</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>id</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSDecimal</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSRange</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSInteger</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSUInteger</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSRange</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSZone</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
 	</compound>
 
 </tagfile>
