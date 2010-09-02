@@ -1,6 +1,7 @@
 #import "CPMutableNumericDataTypeConversionTests.h"
 #import "CPMutableNumericData.h"
 #import "CPMutableNumericData+TypeConversion.h"
+#import "CPUtilities.h"
 
 static const NSUInteger numberOfSamples = 5;
 static const double precision = 1.0e-6;
@@ -87,6 +88,48 @@ static const double precision = 1.0e-6;
 	const float *floatSamples = (const float *)[numericData.data bytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
 		STAssertEqualsWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
+	}
+	[numericData release];
+}
+
+-(void)testDecimalToDoubleInPlaceConversion
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSDecimal)];
+	NSDecimal *samples = (NSDecimal *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = CPDecimalFromDouble(sin(i));
+	}
+	
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), NSHostByteOrder())
+																			 shape:nil];
+	
+	numericData.dataType = CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder());
+	
+	const double *doubleSamples = (const double *)[numericData.data bytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertEquals(CPDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPDecimalStringValue(samples[i]), doubleSamples[i]);
+	}
+	[numericData release];
+}
+
+-(void)testDoubleToDecimalInPlaceConversion
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
+	double *samples = (double *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i);
+	}
+	
+	CPMutableNumericData *numericData = [[CPMutableNumericData alloc] initWithData:data
+																		  dataType:CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder())
+																			 shape:nil];
+
+	numericData.dataType = CPDataType(CPDecimalDataType, sizeof(NSDecimal), NSHostByteOrder());
+	
+	const NSDecimal *decimalSamples = (const NSDecimal *)[numericData.data bytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertTrue(CPDecimalEquals(decimalSamples[i], CPDecimalFromDouble(samples[i])), @"(NSDecimal)%@ != (double)%g", CPDecimalStringValue(decimalSamples[i]), samples[i]);
 	}
 	[numericData release];
 }

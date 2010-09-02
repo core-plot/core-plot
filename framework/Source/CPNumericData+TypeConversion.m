@@ -1,4 +1,5 @@
 #import "CPNumericData+TypeConversion.h"
+#import "CPUtilities.h"
 
 @implementation CPNumericData(TypeConversion)
 
@@ -106,10 +107,7 @@
 						case CPIntegerDataType:
 							switch ( destDataType->sampleBytes ) {
 								case sizeof(int8_t): { // int8_t -> int8_t
-									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
-									const int8_t *lastSample = fromBytes + sampleCount;
-									int8_t *toBytes = (int8_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (int8_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(int8_t));
 								}
 									break;
 								case sizeof(int16_t): { // int8_t -> int16_t
@@ -187,6 +185,17 @@
 							break;
 						case CPComplexFloatingPointDataType:
 							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // int8_t -> NSDecimal
+									const int8_t *fromBytes = (int8_t *)sourceData.bytes;
+									const int8_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromChar(*fromBytes++);
+								}
+									break;
+							}
+							break;
 					}
 					break;
 				case sizeof(int16_t):
@@ -203,10 +212,7 @@
 								}
 									break;
 								case sizeof(int16_t): { // int16_t -> int16_t
-									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
-									const int16_t *lastSample = fromBytes + sampleCount;
-									int16_t *toBytes = (int16_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (int16_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(int16_t));
 								}
 									break;
 								case sizeof(int32_t): { // int16_t -> int32_t
@@ -277,6 +283,17 @@
 							break;
 						case CPComplexFloatingPointDataType:
 							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // int16_t -> NSDecimal
+									const int16_t *fromBytes = (int16_t *)sourceData.bytes;
+									const int16_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromShort(*fromBytes++);
+								}
+									break;
+							}
+							break;
 					}
 					break;
 				case sizeof(int32_t):
@@ -300,10 +317,7 @@
 								}
 									break;
 								case sizeof(int32_t): { // int32_t -> int32_t
-									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
-									const int32_t *lastSample = fromBytes + sampleCount;
-									int32_t *toBytes = (int32_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (int32_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(int32_t));
 								}
 									break;
 								case sizeof(int64_t): { // int32_t -> int64_t
@@ -367,6 +381,17 @@
 							break;
 						case CPComplexFloatingPointDataType:
 							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // int32_t -> NSDecimal
+									const int32_t *fromBytes = (int32_t *)sourceData.bytes;
+									const int32_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromLong(*fromBytes++);
+								}
+									break;
+							}
+							break;
 					}
 					break;
 				case sizeof(int64_t):
@@ -397,10 +422,7 @@
 								}
 									break;
 								case sizeof(int64_t): { // int64_t -> int64_t
-									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
-									const int64_t *lastSample = fromBytes + sampleCount;
-									int64_t *toBytes = (int64_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (int64_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(int64_t));
 								}
 									break;
 							}
@@ -457,6 +479,17 @@
 							break;
 						case CPComplexFloatingPointDataType:
 							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // int64_t -> NSDecimal
+									const int64_t *fromBytes = (int64_t *)sourceData.bytes;
+									const int64_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromLongLong(*fromBytes++);
+								}
+									break;
+							}
+							break;
 					}
 					break;
 			}
@@ -502,10 +535,7 @@
 						case CPUnsignedIntegerDataType:
 							switch ( destDataType->sampleBytes ) {
 								case sizeof(uint8_t): { // uint8_t -> uint8_t
-									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
-									const uint8_t *lastSample = fromBytes + sampleCount;
-									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (uint8_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(uint8_t));
 								}
 									break;
 								case sizeof(uint16_t): { // uint8_t -> uint16_t
@@ -550,6 +580,17 @@
 							}
 							break;
 						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // uint8_t -> NSDecimal
+									const uint8_t *fromBytes = (uint8_t *)sourceData.bytes;
+									const uint8_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromUnsignedChar(*fromBytes++);
+								}
+									break;
+							}
 							break;
 					}
 					break;
@@ -599,10 +640,7 @@
 								}
 									break;
 								case sizeof(uint16_t): { // uint16_t -> uint16_t
-									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
-									const uint16_t *lastSample = fromBytes + sampleCount;
-									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (uint16_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(uint16_t));
 								}
 									break;
 								case sizeof(uint32_t): { // uint16_t -> uint32_t
@@ -640,6 +678,17 @@
 							}
 							break;
 						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // uint16_t -> NSDecimal
+									const uint16_t *fromBytes = (uint16_t *)sourceData.bytes;
+									const uint16_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromUnsignedShort(*fromBytes++);
+								}
+									break;
+							}
 							break;
 					}
 					break;
@@ -696,10 +745,7 @@
 								}
 									break;
 								case sizeof(uint32_t): { // uint32_t -> uint32_t
-									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
-									const uint32_t *lastSample = fromBytes + sampleCount;
-									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (uint32_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(uint32_t));
 								}
 									break;
 								case sizeof(uint64_t): { // uint32_t -> uint64_t
@@ -730,6 +776,17 @@
 							}
 							break;
 						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // uint32_t -> NSDecimal
+									const uint32_t *fromBytes = (uint32_t *)sourceData.bytes;
+									const uint32_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromUnsignedLong(*fromBytes++);
+								}
+									break;
+							}
 							break;
 					}
 					break;
@@ -793,10 +850,7 @@
 								}
 									break;
 								case sizeof(uint64_t): { // uint64_t -> uint64_t
-									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
-									const uint64_t *lastSample = fromBytes + sampleCount;
-									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (uint64_t)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(uint64_t));
 								}
 									break;
 							}
@@ -820,6 +874,17 @@
 							}
 							break;
 						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // uint64_t -> NSDecimal
+									const uint64_t *fromBytes = (uint64_t *)sourceData.bytes;
+									const uint64_t *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromUnsignedLongLong(*fromBytes++);
+								}
+									break;
+							}
 							break;
 					}
 					break;
@@ -898,10 +963,7 @@
 						case CPFloatingPointDataType:
 							switch ( destDataType->sampleBytes ) {
 								case sizeof(float): { // float -> float
-									const float *fromBytes = (float *)sourceData.bytes;
-									const float *lastSample = fromBytes + sampleCount;
-									float *toBytes = (float *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (float)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(float));
 								}
 									break;
 								case sizeof(double): { // float -> double
@@ -914,6 +976,17 @@
 							}
 							break;
 						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // float -> NSDecimal
+									const float *fromBytes = (float *)sourceData.bytes;
+									const float *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromFloat(*fromBytes++);
+								}
+									break;
+							}
 							break;
 					}
 					break;
@@ -995,21 +1068,131 @@
 								}
 									break;
 								case sizeof(double): { // double -> double
-									const double *fromBytes = (double *)sourceData.bytes;
-									const double *lastSample = fromBytes + sampleCount;
-									double *toBytes = (double *)destData.mutableBytes;
-									while ( fromBytes < lastSample ) *toBytes++ = (double)*fromBytes++;
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(double));
 								}
 									break;
 							}
 							break;
 						case CPComplexFloatingPointDataType:
 							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // double -> NSDecimal
+									const double *fromBytes = (double *)sourceData.bytes;
+									const double *lastSample = fromBytes + sampleCount;
+									NSDecimal *toBytes = (NSDecimal *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFromDouble(*fromBytes++);
+								}
+									break;
+							}
+							break;
 					}
 					break;
 			}
 			break;
 		case CPComplexFloatingPointDataType:
+			break;
+		case CPDecimalDataType:
+			switch ( sourceDataType->sampleBytes ) {
+				case sizeof(NSDecimal):
+					switch ( destDataType->dataTypeFormat ) {
+						case CPUndefinedDataType:
+							break;
+						case CPIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(int8_t): { // NSDecimal -> int8_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									int8_t *toBytes = (int8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalCharValue(*fromBytes++);
+								}
+									break;
+								case sizeof(int16_t): { // NSDecimal -> int16_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									int16_t *toBytes = (int16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalShortValue(*fromBytes++);
+								}
+									break;
+								case sizeof(int32_t): { // NSDecimal -> int32_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									int32_t *toBytes = (int32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalLongValue(*fromBytes++);
+								}
+									break;
+								case sizeof(int64_t): { // NSDecimal -> int64_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									int64_t *toBytes = (int64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalLongLongValue(*fromBytes++);
+								}
+									break;
+							}
+							break;
+						case CPUnsignedIntegerDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(uint8_t): { // NSDecimal -> uint8_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									uint8_t *toBytes = (uint8_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalUnsignedCharValue(*fromBytes++);
+								}
+									break;
+								case sizeof(uint16_t): { // NSDecimal -> uint16_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									uint16_t *toBytes = (uint16_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalUnsignedShortValue(*fromBytes++);
+								}
+									break;
+								case sizeof(uint32_t): { // NSDecimal -> uint32_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									uint32_t *toBytes = (uint32_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalUnsignedLongValue(*fromBytes++);
+								}
+									break;
+								case sizeof(uint64_t): { // NSDecimal -> uint64_t
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									uint64_t *toBytes = (uint64_t *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalUnsignedLongLongValue(*fromBytes++);
+								}
+									break;
+							}
+							break;
+						case CPFloatingPointDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(float): { // NSDecimal -> float
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									float *toBytes = (float *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalFloatValue(*fromBytes++);
+								}
+									break;
+								case sizeof(double): { // NSDecimal -> double
+									const NSDecimal *fromBytes = (NSDecimal *)sourceData.bytes;
+									const NSDecimal *lastSample = fromBytes + sampleCount;
+									double *toBytes = (double *)destData.mutableBytes;
+									while ( fromBytes < lastSample ) *toBytes++ = CPDecimalDoubleValue(*fromBytes++);
+								}
+									break;
+							}
+							break;
+						case CPComplexFloatingPointDataType:
+							break;
+						case CPDecimalDataType:
+							switch ( destDataType->sampleBytes ) {
+								case sizeof(NSDecimal): { // NSDecimal -> NSDecimal
+									memcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(NSDecimal));
+								}
+									break;
+							}
+							break;
+					}
+					break;
+			}
 			break;
 	}
 	

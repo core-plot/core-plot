@@ -2,6 +2,7 @@
 #import "CPNumericData+TypeConversion.h"
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
+#import "CPUtilities.h"
 
 ///	@cond
 @interface CPNumericData()
@@ -323,7 +324,7 @@
     
 	// Code generated with "CPNumericData+TypeConversions_Generation.py"
 	// ========================================================================
-
+	
 	switch ( self.dataTypeFormat ) {
 		case CPUndefinedDataType:
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
@@ -373,11 +374,18 @@
 		case CPComplexFloatingPointDataType:
 			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPComplexFloatingPointDataType)"];
 			break;
+		case CPDecimalDataType:
+			switch ( self.sampleBytes ) {
+				case sizeof(NSDecimal):
+					result = [NSDecimalNumber decimalNumberWithDecimal:*(NSDecimal *)[self samplePointer:sample]];
+					break;
+			}
+			break;
 	}
- 
+	
 	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
 	// ========================================================================
-
+	
     return result;
 }
 
@@ -419,7 +427,7 @@
 	
 	// Code generated with "CPNumericData+TypeConversions_Generation.py"
 	// ========================================================================
-
+	
 	switch ( newDataType.dataTypeFormat ) {
 		case CPUndefinedDataType:
 			// Unsupported
@@ -559,11 +567,27 @@
 		case CPComplexFloatingPointDataType:
 			// Unsupported
 			break;
+		case CPDecimalDataType:
+			switch ( newDataType.sampleBytes ) {
+				case sizeof(NSDecimal): {
+					NSDecimal *toBytes = (NSDecimal *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(decimalValue)] ) {
+							*toBytes++ = (NSDecimal)[(NSNumber *)sample decimalValue];
+						}
+						else {
+							*toBytes++ = CPDecimalNaN();
+						}
+					}
+				}
+					break;
+			}
+			break;
 	}
 	
 	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
 	// ========================================================================
-
+	
 	if ( (newDataType.byteOrder != CFByteOrderGetCurrent()) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
 		[self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
 	}

@@ -3,14 +3,14 @@
 /// @file
 
 /**	@brief Enumeration of data formats for numeric data.
- *	@todo Add CPDecimalDataType support to CPNumericData and CPMutableNumericData.
  **/
 typedef enum _CPDataTypeFormat {
     CPUndefinedDataType = 0,		///< Undefined
     CPIntegerDataType,				///< Integer
     CPUnsignedIntegerDataType,		///< Unsigned integer
     CPFloatingPointDataType,		///< Floating point
-    CPComplexFloatingPointDataType	///< Complex floating point
+    CPComplexFloatingPointDataType,	///< Complex floating point
+	CPDecimalDataType				///< NSDecimal
 } CPDataTypeFormat;
 
 /**	@brief Struct that describes the encoding of numeric data samples.

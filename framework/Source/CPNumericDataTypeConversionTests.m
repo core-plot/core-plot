@@ -1,6 +1,7 @@
 #import "CPNumericDataTypeConversionTests.h"
 #import "CPNumericData.h"
 #import "CPNumericData+TypeConversion.h"
+#import "CPUtilities.h"
 
 static const NSUInteger numberOfSamples = 5;
 static const double precision = 1.0e-6;
@@ -134,6 +135,54 @@ static const double precision = 1.0e-6;
     STAssertEquals(start, startRoundTrip, @"Round trip");
 }
 
+-(void)testDecimalToDoubleConversion
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSDecimal)];
+	NSDecimal *samples = (NSDecimal *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = CPDecimalFromDouble(sin(i));
+	}
+	
+	CPNumericData *decimalData = [[CPNumericData alloc] initWithData:data
+												   dataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), NSHostByteOrder())
+													  shape:nil];
+	
+	CPNumericData *doubleData = [decimalData dataByConvertingToType:CPFloatingPointDataType
+									   sampleBytes:sizeof(double)
+										 byteOrder:NSHostByteOrder()];
+	
+	[decimalData release];
+	
+	const double *doubleSamples = (const double *)[doubleData.data bytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertEquals(CPDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPDecimalStringValue(samples[i]), doubleSamples[i]);
+	}
+}
+
+-(void)testDoubleToDecimalConversion
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
+	double *samples = (double *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = sin(i);
+	}
+	
+	CPNumericData *doubleData = [[CPNumericData alloc] initWithData:data
+												   dataType:CPDataType(CPFloatingPointDataType, sizeof(double), NSHostByteOrder())
+													  shape:nil];
+	
+	CPNumericData *decimalData = [doubleData dataByConvertingToType:CPDecimalDataType
+									   sampleBytes:sizeof(NSDecimal)
+										 byteOrder:NSHostByteOrder()];
+	
+	[doubleData release];
+	
+	const NSDecimal *decimalSamples = (const NSDecimal *)[decimalData.data bytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertTrue(CPDecimalEquals(decimalSamples[i], CPDecimalFromDouble(samples[i])), @"(NSDecimal)%@ != (double)%g", CPDecimalStringValue(decimalSamples[i]), samples[i]);
+	}
+}
+
 -(void)testTypeConversionSwapsByteOrderDouble
 {
 	CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
@@ -229,4 +278,35 @@ static const double precision = 1.0e-6;
 	[intData release];
 	[roundTripData release];
 }
+
+-(void)testRoundTripToDecimalArray
+{
+	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSDecimal)];
+	NSDecimal *samples = (NSDecimal *)[data mutableBytes];
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		samples[i] = CPDecimalFromDouble(sin(i));
+	}
+	CPNumericDataType theDataType = CPDataType(CPDecimalDataType, sizeof(NSDecimal), NSHostByteOrder());
+	
+	CPNumericData *decimalData = [[CPNumericData alloc] initWithData:data
+														   dataType:theDataType
+															  shape:nil];
+	
+	NSArray *decimalArray = [decimalData sampleArray];
+	STAssertEquals(decimalArray.count, numberOfSamples, @"doubleArray size");
+	
+	CPNumericData *roundTripData = [[CPNumericData alloc] initWithArray:decimalArray
+															   dataType:theDataType 
+																  shape:nil];
+	STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+	
+	const NSDecimal *roundTrip = (const NSDecimal *)roundTripData.bytes;
+	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
+		STAssertTrue(CPDecimalEquals(samples[i], roundTrip[i]), @"Round trip");
+	}
+	
+	[decimalData release];
+	[roundTripData release];
+}
+
 @end

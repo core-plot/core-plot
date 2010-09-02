@@ -51,10 +51,10 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
     NSString *typeString = nil;
     
     switch ( dataType.byteOrder ) {
-        case NS_LittleEndian:
+        case CFByteOrderLittleEndian:
             byteOrderString = @"<";
             break;
-        case NS_BigEndian:
+        case CFByteOrderBigEndian:
             byteOrderString = @">";
             break;
     }
@@ -72,11 +72,15 @@ NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType)
         case CPComplexFloatingPointDataType:
             typeString = @"c";
             break;
+		case CPDecimalDataType:
+			typeString = @"d";
+			break;
+
         case CPUndefinedDataType:
             [NSException raise:NSGenericException format:@"Unsupported data type"];
     }
     
-    return [NSString stringWithFormat:@"%@%@%u", 
+    return [NSString stringWithFormat:@"%@%@%lu", 
             byteOrderString, 
             typeString, 
             dataType.sampleBytes];
@@ -147,6 +151,11 @@ BOOL CPDataTypeIsSupported(CPNumericDataType format)
 			case CPComplexFloatingPointDataType:
 				// TODO: complex number support is incomplete
 				// valid; any sampleBytes is ok
+				break;
+			case CPDecimalDataType:
+				// only the native byte order is supported
+				result = (format.sampleBytes == sizeof(NSDecimal)) && (format.byteOrder == CFByteOrderGetCurrent());
+				break;
 			default:
 				// unrecognized data type format
 				result = NO;
@@ -179,6 +188,9 @@ CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
         case 'c':
             result = CPComplexFloatingPointDataType;
             break;
+        case 'd':
+            result = CPDecimalDataType;
+            break;
         default:
             [NSException raise:NSGenericException 
                         format:@"Unknown type in dataTypeString"];
@@ -193,7 +205,7 @@ size_t SampleBytesForDataTypeString(NSString *dataTypeString)
     NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];
     NSCAssert(result > 0, @"sample bytes is negative.");
     
-    return result;
+    return (size_t)result;
 }
 
 CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
@@ -203,13 +215,13 @@ CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
     
     switch ( [[dataTypeString lowercaseString] characterAtIndex:0] ) {
         case '=':
-            result = NSHostByteOrder();
+            result = CFByteOrderGetCurrent();
             break;
         case '<':
-            result = NS_LittleEndian;
+            result = CFByteOrderLittleEndian;
             break;
         case '>':
-            result = NS_BigEndian;
+            result = CFByteOrderBigEndian;
             break;
         default:
             [NSException raise:NSGenericException

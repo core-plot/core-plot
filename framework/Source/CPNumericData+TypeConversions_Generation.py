@@ -1,10 +1,11 @@
-dataTypes = ["CPUndefinedDataType", "CPIntegerDataType", "CPUnsignedIntegerDataType", "CPFloatingPointDataType", "CPComplexFloatingPointDataType"]
+dataTypes = ["CPUndefinedDataType", "CPIntegerDataType", "CPUnsignedIntegerDataType", "CPFloatingPointDataType", "CPComplexFloatingPointDataType", "CPDecimalDataType"]
 
 types = { "CPUndefinedDataType" : [],
         "CPIntegerDataType" : ["int8_t", "int16_t", "int32_t", "int64_t"],
         "CPUnsignedIntegerDataType" : ["uint8_t", "uint16_t", "uint32_t", "uint64_t"],
         "CPFloatingPointDataType" : ["float", "double"],
-        "CPComplexFloatingPointDataType" : [] }
+        "CPComplexFloatingPointDataType" : [],
+        "CPDecimalDataType" : ["NSDecimal"] }
 
 nsnumber_factory = { "int8_t" : "Char",
 					"int16_t" : "Short",
@@ -15,7 +16,8 @@ nsnumber_factory = { "int8_t" : "Char",
 				   "uint32_t" : "UnsignedLong",
 				   "uint64_t" : "UnsignedLongLong",
 					  "float" : "Float",
-					 "double" : "Double"
+					 "double" : "Double",
+				  "NSDecimal" : "Decimal"
 }
 
 nsnumber_methods = { "int8_t" : "char",
@@ -27,7 +29,8 @@ nsnumber_methods = { "int8_t" : "char",
 				   "uint32_t" : "unsignedLong",
 				   "uint64_t" : "unsignedLongLong",
 					  "float" : "float",
-					 "double" : "double"
+					 "double" : "double",
+				  "NSDecimal" : "decimal"
 }
 
 null_values = { "int8_t" : "0",
@@ -39,7 +42,8 @@ null_values = { "int8_t" : "0",
 			  "uint32_t" : "0",
 			  "uint64_t" : "0",
 				 "float" : "NAN",
-				"double" : "NAN"
+				"double" : "NAN",
+			 "NSDecimal" : "CPDecimalNaN()"
 }
 
 print "[CPNumericData sampleValue:]"
@@ -53,7 +57,13 @@ for dt in dataTypes:
         print "\t\tswitch ( self.sampleBytes ) {"
         for t in types[dt]:
             print "\t\t\tcase sizeof(%s):" % t
-            print "\t\t\t\tresult = [NSNumber numberWith%s:*(%s *)[self samplePointer:sample]];" % (nsnumber_factory[t], t)
+            if ( t == "NSDecimal" ):
+                number_class = "NSDecimalNumber"
+                number_method = "decimalNumber"
+            else:
+                number_class = "NSNumber"
+                number_method = "number"
+            print "\t\t\t\tresult = [%s %sWith%s:*(%s *)[self samplePointer:sample]];" % (number_class, number_method, nsnumber_factory[t], t)
             print "\t\t\t\tbreak;"
         print "\t\t}"
     print "\t\tbreak;"
@@ -109,10 +119,18 @@ for dt in dataTypes:
                     print "\t\t\t\t\t\tswitch ( destDataType->sampleBytes ) {"
                     for nt in types[ndt]:
                         print "\t\t\t\t\t\t\tcase sizeof(%s): { // %s -> %s" % (nt, t, nt)
-                        print "\t\t\t\t\t\t\t\t\tconst %s *fromBytes = (%s *)sourceData.bytes;" % (t, t)
-                        print "\t\t\t\t\t\t\t\t\tconst %s *lastSample = fromBytes + sampleCount;" % t
-                        print "\t\t\t\t\t\t\t\t\t%s *toBytes = (%s *)destData.mutableBytes;" % (nt, nt)
-                        print "\t\t\t\t\t\t\t\t\twhile ( fromBytes < lastSample ) *toBytes++ = (%s)*fromBytes++;" % nt
+                        if ( t == nt ):
+                            print "\t\t\t\t\t\t\t\t\tmemcpy(destData.mutableBytes, sourceData.bytes, sampleCount * sizeof(%s));" % t
+                        else:
+                            print "\t\t\t\t\t\t\t\t\tconst %s *fromBytes = (%s *)sourceData.bytes;" % (t, t)
+                            print "\t\t\t\t\t\t\t\t\tconst %s *lastSample = fromBytes + sampleCount;" % t
+                            print "\t\t\t\t\t\t\t\t\t%s *toBytes = (%s *)destData.mutableBytes;" % (nt, nt)
+                            if ( t == "NSDecimal" ):
+                                print "\t\t\t\t\t\t\t\t\twhile ( fromBytes < lastSample ) *toBytes++ = CPDecimal%sValue(*fromBytes++);" % nsnumber_factory[nt]
+                            elif ( nt == "NSDecimal" ):
+                                print "\t\t\t\t\t\t\t\t\twhile ( fromBytes < lastSample ) *toBytes++ = CPDecimalFrom%s(*fromBytes++);" % nsnumber_factory[t]
+                            else:
+                                print "\t\t\t\t\t\t\t\t\twhile ( fromBytes < lastSample ) *toBytes++ = (%s)*fromBytes++;" % nt
                         print "\t\t\t\t\t\t\t\t}"
                         print "\t\t\t\t\t\t\t\tbreak;"
                     print "\t\t\t\t\t\t}"
