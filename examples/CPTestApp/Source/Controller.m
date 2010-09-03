@@ -3,6 +3,17 @@
 
 static const CGFloat kZDistanceBetweenLayers = 20.0;
 
+@interface Controller ()
+
+-(void)setupGraph;
+-(void)setupAxes;
+-(void)setupScatterPlots;
+-(void)positionFloatingAxis;
+-(void)setupBarPlots;
+
+@end
+
+
 @implementation Controller
 
 @synthesize xShift;
@@ -27,6 +38,25 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     self.xShift = 0.0;
     self.yShift = 0.0;
 
+	[self setupGraph];
+    [self setupAxes];
+    [self setupScatterPlots];
+    [self positionFloatingAxis];
+	[self setupBarPlots];
+}
+
+-(id)newObject 
+{
+	NSNumber *x1 = [NSDecimalNumber numberWithDouble:1.0 + ((NSMutableArray *)self.content).count * 0.05];
+	NSNumber *y1 = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
+    return [[NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil] retain];
+}
+
+#pragma mark -
+#pragma mark Graph Setup Methods
+
+-(void)setupGraph
+{
     // Create graph and apply a dark theme
     graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
@@ -47,8 +77,11 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     graph.paddingLeft = 60.0;
     graph.paddingTop = 60.0;
     graph.paddingRight = 60.0;
-    graph.paddingBottom = 60.0;
-    
+    graph.paddingBottom = 60.0;    
+}
+
+-(void)setupAxes
+{
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
@@ -66,7 +99,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.5];
-
+    
     // Axes
     // Label x axis with a fixed interval policy
 	CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
@@ -77,16 +110,16 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     x.majorGridLineStyle = majorGridLineStyle;
     x.minorGridLineStyle = minorGridLineStyle;
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(2.99) length:CPDecimalFromFloat(0.02)],
-		nil];
+                                [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
+                                [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
+                                [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(2.99) length:CPDecimalFromFloat(0.02)],
+                                nil];
 	x.labelExclusionRanges = exclusionRanges;
-
+    
 	x.title = @"X Axis";
 	x.titleOffset = 30.0;
 	x.titleLocation = CPDecimalFromString(@"3.0");
-
+    
 	// Label y with an automatic label policy. 
     CPXYAxis *y = axisSet.yAxis;
     y.labelingPolicy = CPAxisLabelingPolicyAutomatic;
@@ -97,19 +130,19 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     y.minorGridLineStyle = minorGridLineStyle;
     y.labelOffset = 10.0;
 	exclusionRanges = [NSArray arrayWithObjects:
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
-		[CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(3.99) length:CPDecimalFromFloat(0.02)],
-		nil];
+                       [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.99) length:CPDecimalFromFloat(0.02)], 
+                       [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.99) length:CPDecimalFromFloat(0.02)],
+                       [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(3.99) length:CPDecimalFromFloat(0.02)],
+                       nil];
 	y.labelExclusionRanges = exclusionRanges;
     
 	y.title = @"Y Axis";
 	y.titleOffset = 30.0;
 	y.titleLocation = CPDecimalFromString(@"2.7");
-
+    
     // Rotate the labels by 45 degrees, just to show it can be done.
 	self.labelRotation = M_PI * 0.25;
-
+    
     // Add an extra y axis (red)
     // We add constraints to this axis below
     CPXYAxis *y2 = [[(CPXYAxis *)[CPXYAxis alloc] initWithFrame:CGRectZero] autorelease];
@@ -129,8 +162,11 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     y2.visibleRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromInteger(2) length:CPDecimalFromInteger(3)];
     
     // Set axes
-    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
-	
+    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];    
+}
+
+-(void)setupScatterPlots
+{
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Bindings Plot";
@@ -162,7 +198,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	// We will display an annotation when a symbol is touched
     boundLinePlot.delegate = self; 
     boundLinePlot.plotSymbolMarginForHitDetection = 5.0f;
-
+    
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
@@ -194,6 +230,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
+    CPXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
     CPPlotRange *xRange = plotSpace.xRange;
     CPPlotRange *yRange = plotSpace.yRange;
@@ -208,14 +245,21 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	CGFloat length = xRange.lengthDouble;
 	self.xShift = length - 3.0;
 	length = yRange.lengthDouble;
-	self.yShift = length - 2.0;
-    
+	self.yShift = length - 2.0;    
+}
+
+-(void)positionFloatingAxis
+{
     // Position y2 axis relative to the plot area, ie, not moving when dragging
 	CPConstraints y2Constraints = {CPConstraintNone, CPConstraintFixed};
+    CPXYAxis *y2 = [graph.axisSet.axes objectAtIndex:2];
 	y2.isFloatingAxis = YES;
 	y2.constraints = y2Constraints;
-	
-    // Add plot space for horizontal bar charts
+}
+
+-(void)setupBarPlots
+{    
+	// Add plot space for horizontal bar charts
     CPXYPlotSpace *barPlotSpace = [[CPXYPlotSpace alloc] init];
     barPlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-20.0f) length:CPDecimalFromFloat(200.0f)];
     barPlotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-7.0f) length:CPDecimalFromFloat(15.0f)];
@@ -223,6 +267,8 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     [barPlotSpace release];
     
     // First bar plot
+    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    whiteTextStyle.color = [CPColor whiteColor];
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.dataSource = self;
@@ -242,13 +288,6 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
 	barPlot.delegate = self;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
-}
-
--(id)newObject 
-{
-	NSNumber *x1 = [NSDecimalNumber numberWithDouble:1.0 + ((NSMutableArray *)self.content).count * 0.05];
-	NSNumber *y1 = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 1.2];
-    return [[NSMutableDictionary dictionaryWithObjectsAndKeys:x1, @"x", y1, @"y", nil] retain];
 }
 
 #pragma mark -
