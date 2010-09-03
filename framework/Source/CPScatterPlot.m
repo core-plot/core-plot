@@ -68,6 +68,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 @synthesize keyPathForPlotSymbols;
 @synthesize plotSymbols;
 
+/** @property interpolation
+ *	@brief The interpolation algorithm used for lines between data points. 
+ *	Default is CPScatterPlotInterpolationLinear
+ **/
+@synthesize interpolation;
+
 /** @property dataLineStyle
  *	@brief The line style for the data line.
  *	If nil, the line is not drawn.
@@ -128,6 +134,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
         plotSymbolMarginForHitDetection = 0.0f;
+        interpolation = CPScatterPlotInterpolationLinear;
 		self.labelField = CPScatterPlotFieldY;
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -554,7 +561,18 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 			CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
 			NSUInteger i = firstDrawnPointIndex + 1;
 			while ( i <= lastDrawnPointIndex ) {
-				CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+            	switch ( interpolation ) {
+                    case CPScatterPlotInterpolationLinear:
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+                        break;
+                    case CPScatterPlotInterpolationStepped:
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i-1].y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+						break;
+                    default:	
+                    	[NSException raise:CPException format:@"Interpolation method no supported in scatter plot."];
+                        break;
+                }
 				i++;
 			} 
 		}

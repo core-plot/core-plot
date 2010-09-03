@@ -24,6 +24,14 @@ typedef enum _CPScatterPlotField {
     CPScatterPlotFieldY 								///< Y values.
 } CPScatterPlotField;
 
+/**	@brief Enumeration of scatter plot interpolation algorithms
+ **/
+typedef enum _CPScatterPlotInterpolation {
+    CPScatterPlotInterpolationLinear,					///< Linear interpolation
+    CPScatterPlotInterpolationStepped,					///< Steps beginnning at data point
+    CPScatterPlotInterpolationHistogram					///< Steps centered at data point. (TODO Not implemented)
+} CPScatterPlotInterpolation;
+
 #pragma mark -
 
 /**	@brief A scatter plot data source.
@@ -86,6 +94,7 @@ typedef enum _CPScatterPlotField {
     NSString *keyPathForPlotSymbols;
 	NSValueTransformer *xValuesTransformer;
     NSValueTransformer *yValuesTransformer;
+    CPScatterPlotInterpolation interpolation;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
@@ -98,6 +107,7 @@ typedef enum _CPScatterPlotField {
 @property (nonatomic, readwrite, copy) CPPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
 @property (nonatomic, readwrite) NSDecimal areaBaseValue;
+@property (nonatomic, readwrite, assign) CPScatterPlotInterpolation interpolation;
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
 
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;

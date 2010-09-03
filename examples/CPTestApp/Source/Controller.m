@@ -202,7 +202,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.0;
+	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
 	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
@@ -210,6 +210,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
 	dataSourceLinePlot.labelOffset = 5.0;
     [graph addPlot:dataSourceLinePlot];
+    
+    // Make the data source line use stepped interpolation
+    dataSourceLinePlot.interpolation = CPScatterPlotInterpolationStepped;
     
     // Put an area gradient under the plot above
     CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
