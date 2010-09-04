@@ -1,5 +1,6 @@
 #import "CPNumericDataType.h"
 #import "NSExceptionExtensions.h"
+#import "complex.h"
 
 static CPDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
 static size_t SampleBytesForDataTypeString(NSString *dataTypeString);
@@ -149,8 +150,16 @@ BOOL CPDataTypeIsSupported(CPNumericDataType format)
 				}
 				break;
 			case CPComplexFloatingPointDataType:
-				// TODO: complex number support is incomplete
-				// valid; any sampleBytes is ok
+				switch ( format.sampleBytes ) {
+					case sizeof(float complex):
+					case sizeof(double complex):
+						// only the native byte order is supported
+						result = (format.byteOrder == CFByteOrderGetCurrent());
+						break;
+					default:
+						result = NO;
+						break;
+				}
 				break;
 			case CPDecimalDataType:
 				// only the native byte order is supported

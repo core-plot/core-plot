@@ -74,12 +74,10 @@
 	}
 	
 	NSParameterAssert(myDataType.dataTypeFormat != CPUndefinedDataType);
-	NSParameterAssert(myDataType.dataTypeFormat != CPComplexFloatingPointDataType);
 	NSParameterAssert(myDataType.byteOrder != CFByteOrderUnknown);
 	
 	NSParameterAssert(CPDataTypeIsSupported(newDataType));
 	NSParameterAssert(newDataType.dataTypeFormat != CPUndefinedDataType);
-	NSParameterAssert(newDataType.dataTypeFormat != CPComplexFloatingPointDataType);
 	NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
 	
 	dataType = newDataType;

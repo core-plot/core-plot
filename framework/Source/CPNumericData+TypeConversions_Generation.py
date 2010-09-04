@@ -4,7 +4,7 @@ types = { "CPUndefinedDataType" : [],
         "CPIntegerDataType" : ["int8_t", "int16_t", "int32_t", "int64_t"],
         "CPUnsignedIntegerDataType" : ["uint8_t", "uint16_t", "uint32_t", "uint64_t"],
         "CPFloatingPointDataType" : ["float", "double"],
-        "CPComplexFloatingPointDataType" : [],
+        "CPComplexFloatingPointDataType" : ["float complex", "double complex"],
         "CPDecimalDataType" : ["NSDecimal"] }
 
 nsnumber_factory = { "int8_t" : "Char",
@@ -17,6 +17,8 @@ nsnumber_factory = { "int8_t" : "Char",
 				   "uint64_t" : "UnsignedLongLong",
 					  "float" : "Float",
 					 "double" : "Double",
+			  "float complex" : "Float",
+			 "double complex" : "Double",
 				  "NSDecimal" : "Decimal"
 }
 
@@ -30,6 +32,8 @@ nsnumber_methods = { "int8_t" : "char",
 				   "uint64_t" : "unsignedLongLong",
 					  "float" : "float",
 					 "double" : "double",
+			  "float complex" : "float",
+			 "double complex" : "double",
 				  "NSDecimal" : "decimal"
 }
 
@@ -43,6 +47,8 @@ null_values = { "int8_t" : "0",
 			  "uint64_t" : "0",
 				 "float" : "NAN",
 				"double" : "NAN",
+		 "float complex" : "NAN",
+		"double complex" : "NAN",
 			 "NSDecimal" : "CPDecimalNaN()"
 }
 

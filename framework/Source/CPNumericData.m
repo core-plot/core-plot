@@ -3,6 +3,7 @@
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
+#import "complex.h"
 
 ///	@cond
 @interface CPNumericData()
@@ -27,6 +28,16 @@
  *	which can be more than one byte in size, is referred to as a "sample".
  *	The structure of this object is similar to the NumPy ndarray
  *	object.
+ *
+ *	The supported data types are:
+ *	- 1, 2, 4, and 8-byte signed integers
+ *	- 1, 2, 4, and 8-byte unsigned integers
+ *	- <code>float</code> and <code>double</code> floating point numbers
+ *	- <code>float complex</code> and <code>double complex</code> floating point complex numbers
+ *	- NSDecimal base-10 numbers
+ *
+ *	All integer and floating point types can be represented using big endian or little endian
+ *	byte order. Complex and decimal types support only the the host system's native byte order.
  **/
 @implementation CPNumericData
 
@@ -314,6 +325,9 @@
 /**	@brief Gets the value of a given sample in the data buffer.
  *	@param sample The index into the sample array. The array is treated as if it only has one dimension.
  *	@return The sample value wrapped in an instance of NSNumber.
+ *
+ *	NSNumber does not support complex numbers. Complex number types will be cast to
+ *	<code>float</code> or <code>double</code> before being wrapped in an instance of NSNumber.
  **/
 // Implementation generated with CPNumericData+TypeConversion_Generation.py
 -(NSNumber *)sampleValue:(NSUInteger)sample 
@@ -372,7 +386,14 @@
 			}
 			break;
 		case CPComplexFloatingPointDataType:
-			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPComplexFloatingPointDataType)"];
+			switch ( self.sampleBytes ) {
+				case sizeof(float complex):
+					result = [NSNumber numberWithFloat:*(float complex *)[self samplePointer:sample]];
+					break;
+				case sizeof(double complex):
+					result = [NSNumber numberWithDouble:*(double complex *)[self samplePointer:sample]];
+					break;
+			}
 			break;
 		case CPDecimalDataType:
 			switch ( self.sampleBytes ) {
@@ -381,7 +402,7 @@
 					break;
 			}
 			break;
-	}
+	}	
 	
 	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
 	// ========================================================================
@@ -565,7 +586,32 @@
 			}
 			break;
 		case CPComplexFloatingPointDataType:
-			// Unsupported
+			switch ( newDataType.sampleBytes ) {
+				case sizeof(float complex): {
+					float complex *toBytes = (float complex *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(floatValue)] ) {
+							*toBytes++ = (float complex)[(NSNumber *)sample floatValue];
+						}
+						else {
+							*toBytes++ = NAN;
+						}
+					}
+				}
+					break;
+				case sizeof(double complex): {
+					double complex *toBytes = (double complex *)sampleData.mutableBytes;
+					for ( id sample in newData ) {
+						if ( [sample respondsToSelector:@selector(doubleValue)] ) {
+							*toBytes++ = (double complex)[(NSNumber *)sample doubleValue];
+						}
+						else {
+							*toBytes++ = NAN;
+						}
+					}
+				}
+					break;
+			}
 			break;
 		case CPDecimalDataType:
 			switch ( newDataType.sampleBytes ) {
