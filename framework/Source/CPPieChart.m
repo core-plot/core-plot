@@ -1,3 +1,5 @@
+#import "CPMutableNumericData.h"
+#import "CPNumericData.h"
 #import "CPPieChart.h"
 #import "CPPlotArea.h"
 #import "CPPlotSpace.h"
@@ -8,13 +10,18 @@
 #import "CPTextLayer.h"
 #import "CPLineStyle.h"
 
+NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
+
+static NSString * const CPPieChartBindingPieSliceWidthContext = @"CPPieChartBindingPieSliceWidthContext";
+
 /// @cond
 @interface CPPieChart ()
 
 @property (nonatomic, readwrite, assign) id observedObjectForPieSliceWidthValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForPieSliceWidthValues;
-@property (nonatomic, readwrite, copy) NSArray *normalizedSliceWidths;
+@property (nonatomic, readwrite, copy) NSArray *sliceWidths;
 
+-(void)updateNormalizedDataInRange:(NSRange)indexRange;
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
@@ -30,6 +37,7 @@
 
 @synthesize observedObjectForPieSliceWidthValues;
 @synthesize keyPathForPieSliceWidthValues;
+@dynamic sliceWidths;
 
 /** @property pieRadius
  *	@brief The radius of the overall pie chart. Defaults to 80% of the initial frame size.
@@ -64,8 +72,6 @@
  **/
 @synthesize borderLineStyle;
 
-@dynamic normalizedSliceWidths;
-
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -87,6 +93,13 @@ static CGFloat colorLookupTable[10][3] =
 
 #pragma mark -
 #pragma mark Initialization
+
++(void)initialize
+{
+	if ( self == [CPPieChart class] ) {
+		[self exposeBinding:CPPieChartBindingPieSliceWidthValues];	
+	}
+}
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -113,6 +126,48 @@ static CGFloat colorLookupTable[10][3] =
 }
 
 #pragma mark -
+#pragma mark Bindings
+
+-(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+{
+	[super bind:binding toObject:observable withKeyPath:keyPath options:options];
+	if ( [binding isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
+		[observable addObserver:self forKeyPath:keyPath options:0 context:CPPieChartBindingPieSliceWidthContext];
+		self.observedObjectForPieSliceWidthValues = observable;
+		self.keyPathForPieSliceWidthValues = keyPath;
+		[self setDataNeedsReloading];
+	}
+}
+
+-(void)unbind:(NSString *)bindingName
+{
+	if ( [bindingName isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
+		[self.observedObjectForPieSliceWidthValues removeObserver:self forKeyPath:self.keyPathForPieSliceWidthValues];
+		self.observedObjectForPieSliceWidthValues = nil;
+		self.keyPathForPieSliceWidthValues = nil;
+		[self setDataNeedsReloading];
+	}	
+	[super unbind:bindingName];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ( context == CPPieChartBindingPieSliceWidthContext ) {
+		[self setDataNeedsReloading];
+	}
+}
+
+-(Class)valueClassForBinding:(NSString *)binding
+{
+	if ( [binding isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
+		return [NSArray class];
+	}
+	else {
+		return [super valueClassForBinding:binding];
+	}
+}
+
+#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
@@ -122,80 +177,102 @@ static CGFloat colorLookupTable[10][3] =
 	NSRange indexRange = NSMakeRange(0, 0);
 	
     // Pie slice widths
-	NSArray *rawSliceValues = nil;
     if ( self.observedObjectForPieSliceWidthValues ) {
         // Use bindings to retrieve data
-        rawSliceValues = [self.observedObjectForPieSliceWidthValues valueForKeyPath:self.keyPathForPieSliceWidthValues];
+		id rawSliceValues = [self.observedObjectForPieSliceWidthValues valueForKeyPath:self.keyPathForPieSliceWidthValues];
+		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
 		
-		indexRange = NSMakeRange(0, rawSliceValues.count);
+		indexRange = NSMakeRange(0, self.cachedDataCount);
     }
     else if ( self.dataSource ) {
 		// Grab all values from the data source
         indexRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);
-		rawSliceValues = [self numbersFromDataSourceForField:CPPieChartFieldSliceWidth recordIndexRange:indexRange];
+		id rawSliceValues = [self numbersFromDataSourceForField:CPPieChartFieldSliceWidth recordIndexRange:indexRange];
+		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
     }
+	else {
+		[self cacheNumbers:nil forField:CPPieChartFieldSliceWidth];
+	}
 	
+	[self updateNormalizedDataInRange:indexRange];
+}
+
+-(void)updateNormalizedDataInRange:(NSRange)indexRange
+{
 	// Normalize these widths to 1.0 for the whole pie
-	if ( [rawSliceValues count] > 0 ) {
-		if ( [[rawSliceValues objectAtIndex:0] isKindOfClass:[NSDecimalNumber class]] ) {
-			NSDecimal valueSum = CPDecimalFromInteger(0);
-			for ( NSNumber *currentWidth in rawSliceValues ) {
-				valueSum = CPDecimalAdd(valueSum, [currentWidth decimalValue]);
+	NSUInteger sampleCount = self.cachedDataCount;
+	if ( sampleCount > 0 ) {
+		CPMutableNumericData *rawSliceValues = [self cachedNumbersForField:CPPieChartFieldSliceWidth];
+		if ( self.doublePrecisionCache ) {
+			double valueSum = 0.0;
+			const double *dataBytes = (const double *)rawSliceValues.bytes;
+			const double *dataEnd = dataBytes + sampleCount;
+			while ( dataBytes < dataEnd ) {
+				valueSum += *dataBytes++;
 			}
-			NSMutableArray *normalizedSliceValues = [[NSMutableArray alloc] initWithCapacity:[rawSliceValues count]];
-			NSMutableArray *cumulativeSliceValues = [[NSMutableArray alloc] initWithCapacity:[rawSliceValues count]];
-			NSDecimal cumulativeSum = CPDecimalFromInteger(0);
 			
-			for ( NSNumber *currentWidth in rawSliceValues ) {
-				NSDecimal currentWidthAsDecimal = [currentWidth decimalValue];
+			CPNumericDataType dataType = CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
+			
+			CPMutableNumericData *normalizedSliceValues = [[CPMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
+			((NSMutableData *)normalizedSliceValues.data).length = sampleCount * sizeof(double);
+			CPMutableNumericData *cumulativeSliceValues = [[CPMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
+			((NSMutableData *)cumulativeSliceValues.data).length = sampleCount * sizeof(double);
+			
+			double cumulativeSum = 0.0;
+			
+			dataBytes = (const double *)rawSliceValues.bytes;
+			double *normalizedBytes = normalizedSliceValues.mutableBytes;
+			double *cumulativeBytes = cumulativeSliceValues.mutableBytes;
+			while ( dataBytes < dataEnd ) {
+				double currentWidth = *dataBytes++;
+				*normalizedBytes++ = currentWidth / valueSum;
 				
-				NSDecimal normalizedWidth = CPDecimalDivide(currentWidthAsDecimal, valueSum);
-				NSDecimalNumber *normalizedValue = [[NSDecimalNumber alloc] initWithDecimal:normalizedWidth];
-				[normalizedSliceValues addObject:normalizedValue];
-				[normalizedValue release];
-				
-				cumulativeSum = CPDecimalAdd(cumulativeSum, currentWidthAsDecimal);
-				NSDecimalNumber *normalizedSum = [[NSDecimalNumber alloc] initWithDecimal:CPDecimalDivide(cumulativeSum, valueSum)];
-				[cumulativeSliceValues addObject:normalizedSum];
-				[normalizedSum release];
+				cumulativeSum += currentWidth;
+				*cumulativeBytes++ = cumulativeSum / valueSum;
 			}
-			self.normalizedSliceWidths = normalizedSliceValues;
+			[self cacheNumbers:normalizedSliceValues forField:CPPieChartFieldSliceWidthNormalized];
 			[self cacheNumbers:cumulativeSliceValues forField:CPPieChartFieldSliceWidthSum];
 			[normalizedSliceValues release];
 			[cumulativeSliceValues release];
 		}
 		else {
-			double valueSum = 0.0;
-			for ( NSNumber *currentWidth in rawSliceValues ) {
-				valueSum += [currentWidth doubleValue];
+			NSDecimal valueSum = CPDecimalFromInteger(0);
+			const NSDecimal *dataBytes = (const NSDecimal *)rawSliceValues.bytes;
+			const NSDecimal *dataEnd = dataBytes + sampleCount;
+			while ( dataBytes < dataEnd ) {
+				valueSum = CPDecimalAdd(valueSum, *dataBytes++);
 			}
-			NSMutableArray *normalizedSliceValues = [[NSMutableArray alloc] initWithCapacity:[rawSliceValues count]];
-			NSMutableArray *cumulativeSliceValues = [[NSMutableArray alloc] initWithCapacity:[rawSliceValues count]];
-			double cumulativeSum = 0.0;
 			
-			for ( NSNumber *currentWidth in rawSliceValues ) {
-				double currentWidthAsDouble = [currentWidth doubleValue];
+			CPNumericDataType dataType = CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent());
+			
+			CPMutableNumericData *normalizedSliceValues = [[CPMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
+			((NSMutableData *)normalizedSliceValues.data).length = sampleCount * sizeof(NSDecimal);
+			CPMutableNumericData *cumulativeSliceValues = [[CPMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
+			((NSMutableData *)cumulativeSliceValues.data).length = sampleCount * sizeof(NSDecimal);
+			
+			NSDecimal cumulativeSum = CPDecimalFromInteger(0);
+			
+			dataBytes = (const NSDecimal *)rawSliceValues.bytes;
+			NSDecimal *normalizedBytes = normalizedSliceValues.mutableBytes;
+			NSDecimal *cumulativeBytes = cumulativeSliceValues.mutableBytes;
+			while ( dataBytes < dataEnd ) {
+				NSDecimal currentWidth = *dataBytes++;
+				*normalizedBytes++ = CPDecimalDivide(currentWidth, valueSum);
 				
-				NSNumber *normalizedValue = [[NSNumber alloc] initWithDouble:(currentWidthAsDouble / valueSum)];
-				[normalizedSliceValues addObject:normalizedValue];
-				[normalizedValue release];
-				
-				cumulativeSum += currentWidthAsDouble;
-				NSNumber *normalizedSum = [[NSNumber alloc] initWithDouble:(cumulativeSum / valueSum)];
-				[cumulativeSliceValues addObject:normalizedSum];
-				[normalizedSum release];
+				cumulativeSum = CPDecimalAdd(cumulativeSum, currentWidth);
+				*cumulativeBytes++ = CPDecimalDivide(cumulativeSum, valueSum);
 			}
-			self.normalizedSliceWidths = normalizedSliceValues;
+			[self cacheNumbers:normalizedSliceValues forField:CPPieChartFieldSliceWidthNormalized];
 			[self cacheNumbers:cumulativeSliceValues forField:CPPieChartFieldSliceWidthSum];
 			[normalizedSliceValues release];
 			[cumulativeSliceValues release];
 		}
 	}
 	else {
-		self.normalizedSliceWidths = nil;
+		[self cacheNumbers:nil forField:CPPieChartFieldSliceWidthNormalized];
 		[self cacheNumbers:nil forField:CPPieChartFieldSliceWidthSum];
 	}
-
+	
 	// Labels
 	[self relabelIndexRange:indexRange];
 }
@@ -205,8 +282,8 @@ static CGFloat colorLookupTable[10][3] =
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	NSArray *sliceWidths = self.normalizedSliceWidths;
-	if ( sliceWidths.count == 0 ) return;
+	NSUInteger sampleCount = self.cachedDataCount;
+	if ( sampleCount == 0 ) return;
 
 	[super renderAsVectorInContext:context];
 	CGRect plotAreaBounds = self.plotArea.bounds;
@@ -221,10 +298,11 @@ static CGFloat colorLookupTable[10][3] =
 	NSUInteger currentIndex = 0;
 	CGFloat startingWidth = 0.0;
 	id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
+	BOOL dataSourceProvidesFills = [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)];
 	
-	for ( NSNumber *currentWidth in sliceWidths ) {
+	while ( currentIndex < sampleCount ) {
 		CPFill *currentFill = nil;
-		if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
+		if ( dataSourceProvidesFills ) {
 			CPFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:currentIndex];
 			if ( nil != dataSourceFill ) currentFill = dataSourceFill;
 		}
@@ -232,11 +310,11 @@ static CGFloat colorLookupTable[10][3] =
 			currentFill = [CPFill fillWithColor:[CPPieChart defaultPieSliceColorForIndex:currentIndex]];
 		}
 		
-		CGFloat currentWidthAsDouble = [currentWidth doubleValue];
+		CGFloat currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 		
-		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidthAsDouble fill:currentFill];
+		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidth fill:currentFill];
 		
-		startingWidth += currentWidthAsDouble;
+		startingWidth += currentWidth;
 		currentIndex++;
 	}
 }	
@@ -326,7 +404,7 @@ static CGFloat colorLookupTable[10][3] =
 	if ( index > 0 ) {
 		startingWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthSum recordIndex:index - 1];
 	}
-	double currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidth recordIndex:index];
+	double currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:index];
 	
 	double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
 	
@@ -362,8 +440,8 @@ static CGFloat colorLookupTable[10][3] =
     	// Inform delegate if a slice was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 		
-		NSArray *sliceWidths = self.normalizedSliceWidths;
-		if ( sliceWidths.count == 0 ) return NO;
+		NSUInteger sampleCount = self.cachedDataCount;
+		if ( sampleCount == 0 ) return NO;
 		
 		CGRect plotAreaBounds = thePlotArea.bounds;
 		CGPoint anchor = self.centerAnchor;
@@ -378,14 +456,12 @@ static CGFloat colorLookupTable[10][3] =
 		if ( distanceSquared > chartRadius * chartRadius ) return NO;
 		
 		CGFloat touchedAngle = [self normalizedPosition:atan2(dy, dx) / (2.0 * M_PI)];
-		
-		NSUInteger currentIndex = 0;
 		CGFloat startingAngle = [self normalizedPosition:self.startAngle / (2.0 * M_PI)];
 		
 		switch ( self.sliceDirection ) {
 			case CPPieDirectionClockwise:
-				for ( NSNumber *currentWidth in sliceWidths ) {
-					CGFloat width = [currentWidth doubleValue];
+				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
+					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 					CGFloat endingAngle = startingAngle - width;
 					
 					if ( (touchedAngle <= startingAngle) && (touchedAngle >= endingAngle) ) {
@@ -402,8 +478,8 @@ static CGFloat colorLookupTable[10][3] =
 				}
 				break;
 			case CPPieDirectionCounterClockwise:
-				for ( NSNumber *currentWidth in sliceWidths ) {
-					CGFloat width = [currentWidth doubleValue];
+				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
+					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 					CGFloat endingAngle = startingAngle + width;
 					
 					if ( (touchedAngle >= startingAngle) && (touchedAngle <= endingAngle) ) {
@@ -433,13 +509,14 @@ static CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Accessors
 
--(NSArray *)normalizedSliceWidths {
-    return [self cachedNumbersForField:CPPieChartFieldSliceWidth];
+-(NSArray *)sliceWidths {
+    return [[self cachedNumbersForField:CPPieChartFieldSliceWidthNormalized] sampleArray];
 }
 
--(void)setNormalizedSliceWidths:(NSArray *)newSliceWidths 
+-(void)setSliceWidths:(NSArray *)newSliceWidths 
 {
-    [self cacheNumbers:newSliceWidths forField:CPPieChartFieldSliceWidth];
+    [self cacheNumbers:newSliceWidths forField:CPPieChartFieldSliceWidthNormalized];
+	[self updateNormalizedDataInRange:NSMakeRange(0, newSliceWidths.count)];
 }
 
 -(void)setPieRadius:(CGFloat)newPieRadius 

@@ -1,4 +1,6 @@
 #import <stdlib.h>
+#import "CPMutableNumericData.h"
+#import "CPNumericData.h"
 #import "CPTradingRangePlot.h"
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
@@ -44,11 +46,11 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 @property (nonatomic, readwrite, copy) NSString *keyPathForLowValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForCloseValues;
 
-@property (nonatomic, readwrite, copy) NSArray *xValues;
-@property (nonatomic, readwrite, copy) NSArray *openValues;
-@property (nonatomic, readwrite, copy) NSArray *highValues;
-@property (nonatomic, readwrite, copy) NSArray *lowValues;
-@property (nonatomic, readwrite, copy) NSArray *closeValues;
+@property (nonatomic, readwrite, copy) CPMutableNumericData *xValues;
+@property (nonatomic, readwrite, copy) CPMutableNumericData *openValues;
+@property (nonatomic, readwrite, copy) CPMutableNumericData *highValues;
+@property (nonatomic, readwrite, copy) CPMutableNumericData *lowValues;
+@property (nonatomic, readwrite, copy) CPMutableNumericData *closeValues;
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low;
 -(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low;
@@ -137,6 +139,12 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
  **/
 @synthesize keyPathForCloseValues;
 
+@dynamic xValues;
+@dynamic openValues;
+@dynamic highValues;
+@dynamic lowValues;
+@dynamic closeValues;
+
 /** @property lineStyle
  *	@brief The line style used to draw candlestick or OHLC symbol 
  **/
@@ -178,7 +186,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 +(void)initialize
 {
-	if (self == [CPTradingRangePlot class]) {
+	if ( self == [CPTradingRangePlot class] ) {
 		[self exposeBinding:CPTradingRangePlotBindingXValues];	
 		[self exposeBinding:CPTradingRangePlotBindingOpenValues];	
 		[self exposeBinding:CPTradingRangePlotBindingHighValues];	
@@ -403,73 +411,104 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 {	 
 	[super reloadData];
 	
-	self.xValues = nil;
-	self.openValues = nil;
-	self.highValues = nil;
-	self.lowValues = nil;
-	self.closeValues = nil;
-	
 	NSRange indexRange = NSMakeRange(0, 0);
 	
 	if ( self.observedObjectForXValues && self.observedObjectForOpenValues && self.observedObjectForHighValues && self.observedObjectForLowValues && self.observedObjectForCloseValues ) {
 		// Use bindings to retrieve data
-		self.xValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
-		self.openValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForOpenValues];
-		self.highValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForHighValues];
-		self.lowValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForLowValues];
-		self.closeValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForCloseValues];
 		
-		if ( xValuesTransformer != nil ) {
-			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:self.xValues.count];
-			for ( id val in self.xValues ) {
-				[newXValues addObject:[xValuesTransformer transformedValue:val]];
+		// X values
+		NSArray *boundXValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
+		NSValueTransformer *theXValuesTransformer = self.xValuesTransformer;
+		if ( theXValuesTransformer != nil ) {
+			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:boundXValues.count];
+			for ( id val in boundXValues ) {
+				[newXValues addObject:[theXValuesTransformer transformedValue:val]];
 			}
-			self.xValues = newXValues;
+			[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX];
+		}
+		else {
+			[self cacheNumbers:boundXValues forField:CPTradingRangePlotFieldX];
 		}
 		
-		if ( openValuesTransformer != nil ) {
-			NSMutableArray *newOpenValues = [NSMutableArray arrayWithCapacity:self.openValues.count];
-			for ( id val in self.openValues ) {
-				[newOpenValues addObject:[openValuesTransformer transformedValue:val]];
+		// Open values
+		NSArray *boundOpenValues = [self.observedObjectForOpenValues valueForKeyPath:self.keyPathForOpenValues];
+		NSValueTransformer *theOpenValuesTransformer = self.openValuesTransformer;
+		if ( theOpenValuesTransformer != nil ) {
+			NSMutableArray *newOpenValues = [NSMutableArray arrayWithCapacity:boundOpenValues.count];
+			for ( id val in boundOpenValues ) {
+				[newOpenValues addObject:[theOpenValuesTransformer transformedValue:val]];
 			}
-			self.openValues = newOpenValues;
+			[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen];
+		}
+		else {
+			[self cacheNumbers:boundOpenValues forField:CPTradingRangePlotFieldOpen];
 		}
 		
-		if ( highValuesTransformer != nil ) {
-			NSMutableArray *newHighValues = [NSMutableArray arrayWithCapacity:self.highValues.count];
-			for ( id val in self.highValues ) {
-				[newHighValues addObject:[highValuesTransformer transformedValue:val]];
+		// High values
+		NSArray *boundHighValues = [self.observedObjectForHighValues valueForKeyPath:self.keyPathForHighValues];
+		NSValueTransformer *theHighValuesTransformer = self.highValuesTransformer;
+		if ( theHighValuesTransformer != nil ) {
+			NSMutableArray *newHighValues = [NSMutableArray arrayWithCapacity:boundHighValues.count];
+			for ( id val in boundHighValues ) {
+				[newHighValues addObject:[theHighValuesTransformer transformedValue:val]];
 			}
-			self.highValues = newHighValues;
+			[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh];
+		}
+		else {
+			[self cacheNumbers:boundHighValues forField:CPTradingRangePlotFieldHigh];
 		}
 		
-		if ( lowValuesTransformer != nil ) {
-			NSMutableArray *newLowValues = [NSMutableArray arrayWithCapacity:self.lowValues.count];
-			for ( id val in self.lowValues ) {
-				[newLowValues addObject:[lowValuesTransformer transformedValue:val]];
+		// Low values
+		NSArray *boundLowValues = [self.observedObjectForLowValues valueForKeyPath:self.keyPathForLowValues];
+		NSValueTransformer *theLowValuesTransformer = self.lowValuesTransformer;
+		if ( theLowValuesTransformer != nil ) {
+			NSMutableArray *newLowValues = [NSMutableArray arrayWithCapacity:boundLowValues.count];
+			for ( id val in boundLowValues ) {
+				[newLowValues addObject:[theLowValuesTransformer transformedValue:val]];
 			}
-			self.lowValues = newLowValues;
+			[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow];
 		}
-        
-		if ( closeValuesTransformer != nil ) {
-			NSMutableArray *newCloseValues = [NSMutableArray arrayWithCapacity:self.closeValues.count];
-			for ( id val in self.closeValues ) {
-				[newCloseValues addObject:[closeValuesTransformer transformedValue:val]];
-			}
-			self.closeValues = newCloseValues;
+		else {
+			[self cacheNumbers:boundLowValues forField:CPTradingRangePlotFieldLow];
 		}
 		
-		indexRange = NSMakeRange(0, self.xValues.count);
+		// Close values
+		NSArray *boundCloseValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForCloseValues];
+		NSValueTransformer *theCloseValuesTransformer = self.closeValuesTransformer;
+		if ( theCloseValuesTransformer != nil ) {
+			NSMutableArray *newCloseValues = [NSMutableArray arrayWithCapacity:boundCloseValues.count];
+			for ( id val in boundCloseValues ) {
+				[newCloseValues addObject:[theCloseValuesTransformer transformedValue:val]];
+			}
+			[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose];
+		}
+		else {
+			[self cacheNumbers:boundCloseValues forField:CPTradingRangePlotFieldClose];
+		}
+		
+		indexRange = NSMakeRange(0, self.cachedDataCount);
     }
 	else if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
 		
-		self.xValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldX recordIndexRange:indexRange];
-		self.openValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldOpen recordIndexRange:indexRange];
-		self.highValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldHigh recordIndexRange:indexRange];
-		self.lowValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldLow recordIndexRange:indexRange];
-		self.closeValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldClose recordIndexRange:indexRange];
+		id newXValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldX recordIndexRange:indexRange];
+		[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX];
+		id newOpenValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldOpen recordIndexRange:indexRange];
+		[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen];
+		id newHighValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldHigh recordIndexRange:indexRange];
+		[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh];
+		id newLowValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldLow recordIndexRange:indexRange];
+		[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow];
+		id newCloseValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldClose recordIndexRange:indexRange];
+		[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose];
+	}
+	else {
+		self.xValues = nil;
+		self.openValues = nil;
+		self.highValues = nil;
+		self.lowValues = nil;
+		self.closeValues = nil;
 	}
 	
 	// Labels
@@ -481,10 +520,17 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-   	if ( self.xValues == nil || self.openValues == nil || self.highValues == nil|| self.lowValues == nil|| self.closeValues == nil ) return;
-	if ( self.xValues.count == 0 ) return;
+    CPMutableNumericData *locations = [self cachedNumbersForField:CPTradingRangePlotFieldX];
+    CPMutableNumericData *opens = [self cachedNumbersForField:CPTradingRangePlotFieldOpen];
+	CPMutableNumericData *highs = [self cachedNumbersForField:CPTradingRangePlotFieldHigh];
+	CPMutableNumericData *lows = [self cachedNumbersForField:CPTradingRangePlotFieldLow];
+	CPMutableNumericData *closes = [self cachedNumbersForField:CPTradingRangePlotFieldClose];
+
+	NSUInteger sampleCount = locations.numberOfSamples;
+	if ( sampleCount == 0 ) return;
+   	if ( opens == nil || highs == nil|| lows == nil|| closes == nil ) return;
     
-	if (( [self.xValues count] != [self.openValues count] ) || ( [self.xValues count] != [self.highValues count] ) || ( [self.xValues count] != [self.lowValues count] ) || ( [self.xValues count] != [self.closeValues count] )) {
+	if ( (opens.numberOfSamples != sampleCount) || (highs.numberOfSamples != sampleCount) || (lows.numberOfSamples != sampleCount) || (closes.numberOfSamples != sampleCount) ) {
 		[NSException raise:CPException format:@"Mismatching number of data values in trading range plot"];
 	}
 	
@@ -493,76 +539,94 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     CGPoint openPoint,highPoint,lowPoint, closePoint;
     CPCoordinate independentCoord = CPCoordinateX;
     CPCoordinate dependentCoord = CPCoordinateY;
-    NSArray *locations = self.xValues;
-    NSArray *opens = self.openValues;
-	NSArray *highs = self.highValues;
-	NSArray *lows = self.lowValues;
-	NSArray *closes = self.closeValues;
 	
-    for ( NSUInteger ii = 0; ii < [closes count]; ii++ ) {
-		id openCoordValue = [opens objectAtIndex:ii];
-		id highCoordValue = [highs objectAtIndex:ii];
-		id lowCoordValue = [lows objectAtIndex:ii];
-		id closeCoordValue = [closes objectAtIndex:ii];
-        
-        id independentCoordValue = [locations objectAtIndex:ii];
+	CPPlotArea *thePlotArea = self.plotArea;
+	CPPlotSpace *thePlotSpace = self.plotSpace;
+	CPTradingRangePlotStyle thePlotStyle = self.plotStyle;
+	
+    if ( self.doublePrecisionCache ) {
+        const double *locationBytes = (const double *)locations.data.bytes;
+        const double *openBytes = (const double *)opens.data.bytes;
+        const double *highBytes = (const double *)highs.data.bytes;
+        const double *lowBytes = (const double *)lows.data.bytes;
+        const double *closeBytes = (const double *)closes.data.bytes;
 		
-		if ( ![closeCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
-			double plotPoint[2];
-            plotPoint[independentCoord] = [independentCoordValue doubleValue];
+        for ( NSUInteger i = 0; i < sampleCount; i++ ) {
+            double plotPoint[2];
+            plotPoint[independentCoord] = *locationBytes++;
 			
 			// open point
-			plotPoint[dependentCoord] = [openCoordValue doubleValue];
-			openPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+			plotPoint[dependentCoord] = *openBytes++;
+			openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 			
 			// high point
-			plotPoint[dependentCoord] = [highCoordValue doubleValue];
-			highPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+			plotPoint[dependentCoord] = *highBytes++;
+			highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 			
 			// low point
-			plotPoint[dependentCoord] = [lowCoordValue doubleValue];
-			lowPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+			plotPoint[dependentCoord] = *lowBytes++;
+			lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 			
 			// close point
-			plotPoint[dependentCoord] = [closeCoordValue doubleValue];
-			closePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
-		}
-		else {
-			NSDecimal plotPoint[2];
-            plotPoint[independentCoord] = [[locations objectAtIndex:ii] decimalValue];
-			
-			// open point
-			plotPoint[dependentCoord] = [[opens objectAtIndex:ii] decimalValue];
-			openPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-	
-			// high point
-			plotPoint[dependentCoord] = [[highs objectAtIndex:ii] decimalValue];
-			highPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-	
-			// low point
-			plotPoint[dependentCoord] = [[lows objectAtIndex:ii] decimalValue];
-			lowPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-			
-			// close point
-			plotPoint[dependentCoord] = [[closes objectAtIndex:ii] decimalValue];
-			closePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-		}
-        
-        // Draw
-		switch ( self.plotStyle ) {
-            case CPTradingRangePlotStyleOHLC:
-                [self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-                break;
-            case CPTradingRangePlotStyleCandleStick:
-                [self drawCandleStickInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-                break;
-            default:
-                [NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
-                break;
-        }
-    }   
-}
+			plotPoint[dependentCoord] = *closeBytes++;
+			closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 
+			// Draw
+			switch ( thePlotStyle ) {
+				case CPTradingRangePlotStyleOHLC:
+					[self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+					break;
+				case CPTradingRangePlotStyleCandleStick:
+					[self drawCandleStickInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+					break;
+				default:
+					[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
+					break;
+			}
+		}
+    }
+    else {
+        const NSDecimal *locationBytes = (const NSDecimal *)locations.data.bytes;
+        const NSDecimal *openBytes = (const NSDecimal *)opens.data.bytes;
+        const NSDecimal *highBytes = (const NSDecimal *)highs.data.bytes;
+        const NSDecimal *lowBytes = (const NSDecimal *)lows.data.bytes;
+        const NSDecimal *closeBytes = (const NSDecimal *)closes.data.bytes;
+		
+        for ( NSUInteger i = 0; i < sampleCount; i++ ) {
+			NSDecimal plotPoint[2];
+            plotPoint[independentCoord] = *locationBytes++;
+			
+			// open point
+			plotPoint[dependentCoord] = *openBytes++;
+			openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			
+			// high point
+			plotPoint[dependentCoord] = *highBytes++;
+			highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			
+			// low point
+			plotPoint[dependentCoord] = *lowBytes++;
+			lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			
+			// close point
+			plotPoint[dependentCoord] = *closeBytes++;
+			closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+
+			// Draw
+			switch ( thePlotStyle ) {
+				case CPTradingRangePlotStyleOHLC:
+					[self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+					break;
+				case CPTradingRangePlotStyleCandleStick:
+					[self drawCandleStickInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+					break;
+				default:
+					[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
+					break;
+			}
+		}
+    }	
+}
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
@@ -792,52 +856,52 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
     [self setNeedsDisplay];
 }
 
--(void)setXValues:(NSArray *)newValues 
+-(void)setXValues:(CPMutableNumericData *)newValues 
 {
     [self cacheNumbers:newValues forField:CPTradingRangePlotFieldX];
 }
 
--(NSArray *)xValues 
+-(CPMutableNumericData *)xValues 
 {
     return [self cachedNumbersForField:CPTradingRangePlotFieldX];
 }
 
--(NSArray *)openValues 
+-(CPMutableNumericData *)openValues 
 {
     return [self cachedNumbersForField:CPTradingRangePlotFieldOpen];
 }
 
--(void)setOpenValues:(NSArray *)newValues 
+-(void)setOpenValues:(CPMutableNumericData *)newValues 
 {
     [self cacheNumbers:newValues forField:CPTradingRangePlotFieldOpen];
 }
 
--(NSArray *)highValues 
+-(CPMutableNumericData *)highValues 
 {
     return [self cachedNumbersForField:CPTradingRangePlotFieldHigh];
 }
 
--(void)setHighValues:(NSArray *)newValues 
+-(void)setHighValues:(CPMutableNumericData *)newValues 
 {
     [self cacheNumbers:newValues forField:CPTradingRangePlotFieldHigh];
 }
 
--(NSArray *)lowValues 
+-(CPMutableNumericData *)lowValues 
 {
     return [self cachedNumbersForField:CPTradingRangePlotFieldLow];
 }
 
--(void)setLowValues:(NSArray *)newValues 
+-(void)setLowValues:(CPMutableNumericData *)newValues 
 {
     [self cacheNumbers:newValues forField:CPTradingRangePlotFieldLow];
 }
 
--(NSArray *)closeValues 
+-(CPMutableNumericData *)closeValues 
 {
     return [self cachedNumbersForField:CPTradingRangePlotFieldClose];
 }
 
--(void)setCloseValues:(NSArray *)newValues 
+-(void)setCloseValues:(CPMutableNumericData *)newValues 
 {
     [self cacheNumbers:newValues forField:CPTradingRangePlotFieldClose];
 }

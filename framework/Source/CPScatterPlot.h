@@ -6,6 +6,8 @@
 ///	@file
 
 @class CPLineStyle;
+@class CPMutableNumericData;
+@class CPNumericData;
 @class CPPlotSymbol;
 @class CPScatterPlot;
 @class CPFill;

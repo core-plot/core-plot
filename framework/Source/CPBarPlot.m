@@ -1,3 +1,5 @@
+#import "CPMutableNumericData.h"
+#import "CPNumericData.h"
 #import "CPBarPlot.h"
 #import "CPXYPlotSpace.h"
 #import "CPColor.h"
@@ -25,8 +27,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @property (nonatomic, readwrite, assign) id observedObjectForBarLengthValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForBarLocationValues;
 @property (nonatomic, readwrite, copy) NSString *keyPathForBarLengthValues;
-@property (nonatomic, readwrite, copy) id barLocations;
-@property (nonatomic, readwrite, copy) id barLengths;
+@property (nonatomic, readwrite, copy) NSArray *barLocations;
+@property (nonatomic, readwrite, copy) NSArray *barLengths;
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
@@ -44,6 +46,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @synthesize observedObjectForBarLengthValues;
 @synthesize keyPathForBarLocationValues;
 @synthesize keyPathForBarLengthValues;
+@dynamic barLocations;
+@dynamic barLengths;
 
 /** @property cornerRadius
  *	@brief The corner radius for the end of the bars.
@@ -134,7 +138,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 +(void)initialize
 {
-	if (self == [CPBarPlot class]) {
+	if ( self == [CPBarPlot class] ) {
 		[self exposeBinding:CPBarPlotBindingBarLocations];
 		[self exposeBinding:CPBarPlotBindingBarLengths];
 	}
@@ -153,8 +157,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		barOffset = 0.0;
 		cornerRadius = 0.0;
 		baseValue = [[NSDecimalNumber zero] decimalValue];
-		barLocations = nil;
-		barLengths = nil;
 		barsAreHorizontal = NO;
 		plotRange = nil;
         
@@ -180,8 +182,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	[keyPathForBarLengthValues release];
 	[lineStyle release];
 	[fill release];
-	[barLocations release];
-	[barLengths release];
 	[plotRange release];
     
 	[super dealloc];
@@ -254,81 +254,118 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 {	 
 	[super reloadData];
 	
-	self.barLocations = nil;
-	self.barLengths = nil;
-	
 	NSRange indexRange = NSMakeRange(0, 0);
-
+	
 	// Bar lengths
 	if ( self.observedObjectForBarLengthValues ) {
 		// Use bindings to retrieve data
 		id lengthData = [self.observedObjectForBarLengthValues valueForKeyPath:self.keyPathForBarLengthValues];
-		self.barLengths = lengthData;
-		if ( [lengthData isKindOfClass:[NSArray class]] ) {
-			indexRange = NSMakeRange(0, [(NSArray *)lengthData count]);
-		}
-		else {
-			indexRange = NSMakeRange(0, [(NSData *)lengthData length] / sizeof(double));
-		}
-
+		[self cacheNumbers:lengthData forField:CPBarPlotFieldBarLength];
+		
+		indexRange = NSMakeRange(0, self.cachedDataCount);
 	}
 	else if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
-		self.barLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
+		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
+		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength];
 	}
+	else {
+		self.barLengths = nil;
+	}
+
 	
 	// Locations of bars
 	if ( self.plotRange ) {
 		// Spread bars evenly over the plot range
-		NSDecimal delta = CPDecimalFromInteger(1);
-		double doublePrecisionDelta = 1.0;
-		if ( indexRange.length > 1 ) {
-			delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromUnsignedInteger(indexRange.length - 1));
-			doublePrecisionDelta  = CPDecimalDoubleValue(self.plotRange.length) / (double)(indexRange.length - 1);
-		}
-		
-		NSMutableArray *newLocations = [NSMutableArray arrayWithCapacity:indexRange.length];
-        double locationDouble = CPDecimalDoubleValue(self.plotRange.location);
-		for ( NSUInteger ii = 0; ii < indexRange.length; ii++ ) {
-			id dependentCoordValue = [self.barLengths objectAtIndex:ii];
-			if ([dependentCoordValue isKindOfClass:[NSDecimalNumber class]]) {
-				NSDecimal location = CPDecimalMultiply(delta, CPDecimalFromUnsignedInteger(ii));
-				if ( self.plotRange ) {
-					location = CPDecimalAdd(location, self.plotRange.location);			
-				}
-				[newLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
+		CPMutableNumericData *locationData = nil;
+		if ( self.doublePrecisionCache ) {
+			locationData = [[CPMutableNumericData alloc] initWithData:[NSData data]
+															 dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
+																shape:nil];
+			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(double);
+			
+			double doublePrecisionDelta = 1.0;
+			if ( indexRange.length > 1 ) {
+				doublePrecisionDelta  = self.plotRange.lengthDouble / (double)(indexRange.length - 1);
 			}
-			else {
-				double barLocation = doublePrecisionDelta * (double)ii + locationDouble;
-				[newLocations addObject:[NSNumber numberWithDouble:barLocation]];
+			
+			double locationDouble = self.plotRange.locationDouble;
+			double *dataBytes = (double *)locationData.mutableBytes;
+			double *dataEnd = dataBytes + indexRange.length;
+			while ( dataBytes < dataEnd ) {
+				*dataBytes++ = locationDouble;
+				locationDouble += doublePrecisionDelta;
 			}
 		}
-		self.barLocations = newLocations;
+		else {
+			locationData = [[CPMutableNumericData alloc] initWithData:[NSData data]
+															 dataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())
+																shape:nil];
+			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(NSDecimal);
+			
+			NSDecimal delta = CPDecimalFromInteger(1);
+			if ( indexRange.length > 1 ) {
+				delta = CPDecimalDivide(self.plotRange.length, CPDecimalFromUnsignedInteger(indexRange.length - 1));
+			}
+
+			NSDecimal locationDecimal = self.plotRange.location;
+			NSDecimal *dataBytes = (NSDecimal *)locationData.mutableBytes;
+			NSDecimal *dataEnd = dataBytes + indexRange.length;
+			while ( dataBytes < dataEnd ) {
+				*dataBytes++ = locationDecimal;
+				locationDecimal = CPDecimalAdd(locationDecimal, delta);
+			}
+		}
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[locationData release];
 	}
 	else if ( self.observedObjectForBarLocationValues ) {
 		// Use bindings to retrieve locations
-		self.barLocations = [self.observedObjectForBarLocationValues valueForKeyPath:self.keyPathForBarLocationValues];
+		id locationData = [self.observedObjectForBarLocationValues valueForKeyPath:self.keyPathForBarLocationValues];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
 	}
 	else if ( self.dataSource ) {
 		// Get locations from the datasource
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		NSRange indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
-		self.barLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
+		id newBarLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
+		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation];
 	}
 	else {
 		// Make evenly spaced locations starting at zero
-		NSMutableArray *newLocations = [NSMutableArray arrayWithCapacity:indexRange.length];
-		for ( NSUInteger ii = 0; ii < indexRange.length; ii++ ) {
-			id dependentCoordValue = [self.barLengths objectAtIndex:ii];
-			if ([dependentCoordValue isKindOfClass:[NSDecimalNumber class]]) {
-				[newLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPDecimalFromUnsignedInteger(ii)]];
-			}
-			else {
-				[newLocations addObject:[NSNumber numberWithDouble:(double)ii]];
+		CPMutableNumericData *locationData = nil;
+		if ( self.doublePrecisionCache ) {
+			locationData = [[CPMutableNumericData alloc] initWithData:[NSData data]
+															 dataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
+																shape:nil];
+			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(double);
+			
+			double locationDouble = 0.0;
+			double *dataBytes = (double *)locationData.mutableBytes;
+			double *dataEnd = dataBytes + indexRange.length;
+			while ( dataBytes < dataEnd ) {
+				*dataBytes++ = locationDouble;
+				locationDouble += 1.0;
 			}
 		}
-		self.barLocations = newLocations;
+		else {
+			locationData = [[CPMutableNumericData alloc] initWithData:[NSData data]
+															 dataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())
+																shape:nil];
+			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(NSDecimal);
+			
+			NSDecimal locationDecimal = CPDecimalFromInteger(0);
+			NSDecimal *dataBytes = (NSDecimal *)locationData.mutableBytes;
+			NSDecimal *dataEnd = dataBytes + indexRange.length;
+			NSDecimal one = CPDecimalFromInteger(1);
+			while ( dataBytes < dataEnd ) {
+				*dataBytes++ = locationDecimal;
+				locationDecimal = CPDecimalAdd(locationDecimal, one);
+			}
+		}
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[locationData release];
 	}
 	
 	// Labels
@@ -340,35 +377,19 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	id cachedLocations = self.barLocations;
-	id cachedLengths = self.barLengths;
+	CPMutableNumericData *cachedLocations = [self cachedNumbersForField:CPBarPlotFieldBarLocation];
+	CPMutableNumericData *cachedLengths = [self cachedNumbersForField:CPBarPlotFieldBarLength];
 	if ( cachedLocations == nil || cachedLengths == nil ) return;
 	
-	NSUInteger barCount = 0;
-	if ( [cachedLocations isKindOfClass:[NSArray class]] ) {
-		barCount = [(NSArray *)cachedLocations count];
-	}
-	else {
-		barCount = [(NSData *)cachedLocations length] / sizeof(double);
-	}
-
+	NSUInteger barCount = self.cachedDataCount;
     if ( barCount == 0 ) return;
-
 	
-	NSUInteger barLengthCount = 0;
-	if ( [cachedLengths isKindOfClass:[NSArray class]] ) {
-		barLengthCount = [(NSArray *)cachedLengths count];
-	}
-	else {
-		barLengthCount = [(NSData *)cachedLengths length] / sizeof(double);
-	}
-	
-	if ( barCount != barLengthCount ) {
+	if ( cachedLocations.numberOfSamples != cachedLengths.numberOfSamples ) {
 		[NSException raise:CPException format:@"Number of bar locations and lengths do not match"];
 	};
 	
 	[super renderAsVectorInContext:theContext];
-
+	
     for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
         // Draw
         [self drawBarInContext:theContext recordIndex:ii];
@@ -378,42 +399,41 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
     CGPoint tipPoint, basePoint;
-    CPCoordinate independentCoord = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
-    CPCoordinate dependentCoord = ( self.barsAreHorizontal ? CPCoordinateX : CPCoordinateY );
-    NSArray *locations = self.barLocations;
-    NSArray *lengths = self.barLengths;
+	BOOL horizontalBars = self.barsAreHorizontal;
+    CPCoordinate independentCoord = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
+    CPCoordinate dependentCoord = ( horizontalBars ? CPCoordinateX : CPCoordinateY );
 	
-	id dependentCoordValue = [lengths objectAtIndex:index];
-	id independentCoordValue = [locations objectAtIndex:index];
+	CPPlotSpace *thePlotSpace = self.plotSpace;
+	CPPlotArea *thePlotArea = self.plotArea;
 	
-	if ( ![dependentCoordValue isKindOfClass:[NSDecimalNumber class]] ) {
+	if ( self.doublePrecisionCache ) {
 		double plotPoint[2];
-		plotPoint[independentCoord] = [independentCoordValue doubleValue];
+		plotPoint[independentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLocation recordIndex:index];
 		
 		// Tip point
-		plotPoint[dependentCoord] = [dependentCoordValue doubleValue];
-		tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLength recordIndex:index];
+		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
 		plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
-		basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	else {
 		NSDecimal plotPoint[2];
-		plotPoint[independentCoord] = [[locations objectAtIndex:index] decimalValue];
+		plotPoint[independentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLocation recordIndex:index];
 		
 		// Tip point
-		plotPoint[dependentCoord] = [[lengths objectAtIndex:index] decimalValue];
-		tipPoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLength recordIndex:index];
+		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		plotPoint[dependentCoord] = baseValue;
-		basePoint = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+		plotPoint[dependentCoord] = self.baseValue;
+		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	
 	// Offset
 	CGFloat viewOffset = self.barOffset * self.barWidth;
-	if ( self.barsAreHorizontal ) {
+	if ( horizontalBars ) {
 		basePoint.y += viewOffset;
 		tipPoint.y += viewOffset;
 	}
@@ -424,7 +444,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	
 	// This function is used to create a path which is used for both
 	// drawing a bar and for doing hit-testing on a click/touch event
-    CPCoordinate widthCoordinate = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
+    CPCoordinate widthCoordinate = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
 	CGFloat halfBarWidth = 0.5 * self.barWidth;
 	
     CGFloat point[2];
@@ -432,7 +452,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point[CPCoordinateY] = basePoint.y;
     point[widthCoordinate] += halfBarWidth;
 	CGPoint alignedPoint1 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
-	if (context) {
+	if ( context ) {
 		// may not have a context if doing hit testing
 		alignedPoint1 = CPAlignPointToUserSpace(context, alignedPoint1);
 	}	
@@ -441,14 +461,14 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point[CPCoordinateY] = tipPoint.y;
     point[widthCoordinate] += halfBarWidth;
 	CGPoint alignedPoint2 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
-	if (context) {
+	if ( context ) {
 		alignedPoint2 = CPAlignPointToUserSpace(context, alignedPoint2);
 	}	
-	    
+	
     point[CPCoordinateX] = tipPoint.x;
     point[CPCoordinateY] = tipPoint.y;
 	CGPoint alignedPoint3 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
-	if (context) {
+	if ( context ) {
 		alignedPoint3 = CPAlignPointToUserSpace(context, alignedPoint3);
 	}	
 	
@@ -456,7 +476,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point[CPCoordinateY] = tipPoint.y;
     point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedPoint4 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
-	if (context) {
+	if ( context ) {
 		alignedPoint4 = CPAlignPointToUserSpace(context, alignedPoint4);
 	}	
     
@@ -464,7 +484,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     point[CPCoordinateY] = basePoint.y;
     point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedPoint5 = CGPointMake(point[CPCoordinateX], point[CPCoordinateY]);
-	if (context) {
+	if ( context ) {
 		alignedPoint5 = CPAlignPointToUserSpace(context, alignedPoint5);
 	}	
 	
@@ -489,7 +509,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
 	CGMutablePathRef path = [self newBarPathWithContext:context recordIndex:index];
-
+	
     CGContextSaveGState(context);
 	
 	// If data source returns nil, default fill is used.
@@ -497,21 +517,22 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	CPFill *currentBarFill = self.fill;
 	if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
 		CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
-		if ( nil != dataSourceFill ) currentBarFill = dataSourceFill;
+		if ( dataSourceFill ) currentBarFill = dataSourceFill;
 	}
-	if ( currentBarFill != nil && ![currentBarFill isKindOfClass:[NSNull class]] ) {
+	if ( [currentBarFill isKindOfClass:[CPFill class]] ) {
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
 		[currentBarFill fillPathInContext:context]; 
 	}
 	
-	if ( self.lineStyle ) {
+	CPLineStyle *theLineStyle = self.lineStyle;
+	if ( theLineStyle ) {
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
-		[self.lineStyle setLineStyleInContext:context];
+		[theLineStyle setLineStyleInContext:context];
 		CGContextStrokePath(context);
 	}
-
+	
 	CGContextRestoreGState(context);
 	
 	CGPathRelease(path);
@@ -572,15 +593,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     	// Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 		
-		id cachedLengths = self.barLengths;
-		NSUInteger barCount = 0;
-		if ( [cachedLengths isKindOfClass:[NSArray class]] ) {
-			barCount = [(NSArray *)cachedLengths count];
-		}
-		else {
-			barCount = [(NSData *)cachedLengths length] / sizeof(double);
-		}
-
+		NSUInteger barCount = self.cachedDataCount;
+		
 		for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
 			CGMutablePathRef path = [self newBarPathWithContext:NULL recordIndex:ii];
 			
@@ -604,20 +618,20 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 #pragma mark -
 #pragma mark Accessors
 
--(id <NSCopying>)barLengths {
-    return [self cachedNumbersForField:CPBarPlotFieldBarLength];
+-(NSArray *)barLengths {
+    return [[self cachedNumbersForField:CPBarPlotFieldBarLength] sampleArray];
 }
 
--(void)setBarLengths:(id <NSCopying>)newLengths 
+-(void)setBarLengths:(NSArray *)newLengths 
 {
     [self cacheNumbers:newLengths forField:CPBarPlotFieldBarLength];
 }
 
--(id <NSCopying>)barLocations {
-    return [self cachedNumbersForField:CPBarPlotFieldBarLocation];
+-(NSArray *)barLocations {
+    return [[self cachedNumbersForField:CPBarPlotFieldBarLocation] sampleArray];
 }
 
--(void)setBarLocations:(id <NSCopying>)newLocations 
+-(void)setBarLocations:(NSArray *)newLocations 
 {
     [self cacheNumbers:newLocations forField:CPBarPlotFieldBarLocation];
 }

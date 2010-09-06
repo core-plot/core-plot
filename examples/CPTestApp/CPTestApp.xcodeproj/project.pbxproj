@@ -384,6 +384,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Release;
 		};

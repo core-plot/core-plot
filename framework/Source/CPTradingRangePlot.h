@@ -6,6 +6,8 @@
 ///	@file
 
 @class CPLineStyle;
+@class CPMutableNumericData;
+@class CPNumericData;
 @class CPTradingRangePlot;
 @class CPFill;
 

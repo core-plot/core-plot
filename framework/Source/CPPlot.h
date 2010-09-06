@@ -2,12 +2,24 @@
 #import "CPPlotRange.h"
 #import "CPAnnotationHostLayer.h"
 
+@class CPMutableNumericData;
+@class CPNumericData;
 @class CPPlot;
 @class CPPlotArea;
 @class CPPlotSpace;
 @class CPPlotSpaceAnnotation;
 @class CPPlotRange;
 @class CPTextStyle;
+
+/**	@brief Enumeration of cache precisions.
+ **/
+typedef enum _CPPlotCachePrecision {
+    CPPlotCachePrecisionAuto,		///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
+    CPPlotCachePrecisionDouble,		///< All cached data will be converted to double precision.
+    CPPlotCachePrecisionDecimal		///< All cached data will be converted to NSDecimal.
+} CPPlotCachePrecision;
+
+#pragma mark -
 
 /**	@brief A plot data source.
  **/
@@ -55,6 +67,14 @@
  **/
 -(double)doubleForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 
+/**	@brief Gets a range of plot data for the given plot and field.
+ *	@param plot The plot.
+ *	@param fieldEnum The field index.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return A one-dimensional array of data points.
+ **/
+-(CPNumericData *)dataForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+
 ///	@}
 
 /// @name Data Range
@@ -97,7 +117,7 @@
     BOOL dataNeedsReloading;
     NSMutableDictionary *cachedData;
     NSUInteger cachedDataCount;
-    BOOL doublePrecisionCache;
+    CPPlotCachePrecision cachePrecision;
 	BOOL needsRelabel;
 	CGFloat labelOffset;
     CGFloat labelRotation;
@@ -138,6 +158,7 @@
 /// @{
 @property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
 @property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
+@property (nonatomic, readwrite, assign) CPPlotCachePrecision cachePrecision;
 ///	@}
 
 /// @name Data Labels
@@ -172,9 +193,10 @@
 
 /// @name Data Cache
 /// @{
--(id)cachedNumbersForField:(NSUInteger)fieldEnum;
+-(CPMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum;
 -(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
 ///	@}
 

@@ -6,6 +6,8 @@
 ///	@file
 
 @class CPLineStyle;
+@class CPMutableNumericData;
+@class CPNumericData;
 @class CPFill;
 @class CPPlotRange;
 @class CPColor;
@@ -87,8 +89,6 @@ typedef enum _CPBarPlotField {
     CGFloat barOffset;
     CGFloat cornerRadius;
     NSDecimal baseValue;	
-    NSArray *barLocations;
-    NSArray *barLengths;
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
 } 

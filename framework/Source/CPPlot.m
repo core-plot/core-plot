@@ -1,4 +1,9 @@
+#import "CPExceptions.h"
 #import "CPGraph.h"
+#import "CPMutableNumericData.h"
+#import "CPMutableNumericData+TypeConversion.h"
+#import "CPNumericData.h"
+#import "CPNumericData+TypeConversion.h"
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
@@ -21,7 +26,8 @@
 @property (nonatomic, readwrite, retain) NSMutableArray *labelAnnotations;
 
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
-@property (nonatomic, readwrite, assign) BOOL doublePrecisionCache;
+
+-(void)setCachedDataType:(CPNumericDataType)newDataType;
 
 @end
 ///	@endcond
@@ -69,7 +75,12 @@
 /**	@property doublePrecisionCache
  *	@brief If YES, the cache holds data of type 'double', otherwise it holds NSNumber.
  **/
-@synthesize doublePrecisionCache;
+@dynamic doublePrecisionCache;
+
+/**	@property cachePrecision
+ *	@brief The numeric precision used to cache the plot data and perform all plot calculations. Defaults to CPPlotCachePrecisionAuto.
+ **/
+@synthesize cachePrecision;
 
 /**	@property needsRelabel
  *	@brief If YES, the plot needs to be relabeled before the layer content is drawn.
@@ -119,9 +130,9 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		cachedData = nil;
+		cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
 		cachedDataCount = 0;
-		doublePrecisionCache = NO;
+		cachePrecision = CPPlotCachePrecisionAuto;
 		dataSource = nil;
 		identifier = nil;
 		plotSpace = nil;
@@ -149,7 +160,7 @@
 	[labelTextStyle release];
 	[labelFormatter release];
 	[labelAnnotations release];
-
+	
     [super dealloc];
 }
 
@@ -212,57 +223,56 @@
  **/
 -(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange 
 {
-    id numbers;  // could be NSArray or NSData
-    
-    if ( self.dataSource ) {
-        if ( [self.dataSource respondsToSelector:@selector(doublesForPlot:field:recordIndexRange:)] ) {
+    id numbers;  // can be CPNumericData, NSArray, or NSData
+    id <CPPlotDataSource> theDataSource = self.dataSource;
+	
+    if ( theDataSource ) {
+		if ( [theDataSource respondsToSelector:@selector(dataForPlot:field:recordIndexRange:)] ) {
+			numbers = [theDataSource dataForPlot:self field:fieldEnum recordIndexRange:indexRange];
+		}
+        else if ( [theDataSource respondsToSelector:@selector(doublesForPlot:field:recordIndexRange:)] ) {
             numbers = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
             double *fieldValues = [numbers mutableBytes];
-            double *doubleValues = [self.dataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange];
+            double *doubleValues = [theDataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange];
             memcpy( fieldValues, doubleValues, sizeof(double)*indexRange.length );
-            self.doublePrecisionCache = YES;
         }
-        else if ( [self.dataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
-            numbers = [NSArray arrayWithArray:[self.dataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
-            self.doublePrecisionCache = NO;
+        else if ( [theDataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
+            numbers = [NSArray arrayWithArray:[theDataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
         }
-        else if ( [self.dataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
+        else if ( [theDataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
             NSUInteger recordIndex;
             NSMutableData *fieldData = [NSMutableData dataWithLength:sizeof(double)*indexRange.length];
             double *fieldValues = [fieldData mutableBytes];
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
-                double number = [self.dataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
+                double number = [theDataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
                 *fieldValues++ = number;
             }
             numbers = fieldData;
-            self.doublePrecisionCache = YES;
         }
         else {
-            BOOL respondsToSingleValueSelector = [self.dataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
+            BOOL respondsToSingleValueSelector = [theDataSource respondsToSelector:@selector(numberForPlot:field:recordIndex:)];
             NSUInteger recordIndex;
             NSMutableArray *fieldValues = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; recordIndex++ ) {
                 if ( respondsToSingleValueSelector ) {
-                    NSNumber *number = [self.dataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
+                    NSNumber *number = [theDataSource numberForPlot:self field:fieldEnum recordIndex:recordIndex];
 					if ( number ) {
 						[fieldValues addObject:number];
 					}
 					else {
 						[fieldValues addObject:[NSNull null]];
 					}
-
+					
                 }
                 else {
                     [fieldValues addObject:[NSDecimalNumber zero]];
                 }
             }
             numbers = fieldValues;
-            self.doublePrecisionCache = NO;
         }
     }
     else {
         numbers = [NSArray array];
-		self.doublePrecisionCache = NO;
     }
     
     return numbers;
@@ -276,10 +286,10 @@
  **/
 -(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange 
 {
-    if ( nil == self.dataSource ) return NSMakeRange(0, 0);
+	id <CPPlotDataSource> theDataSource = self.dataSource;
+    if ( !theDataSource ) return NSMakeRange(0, 0);
     
     NSRange resultRange;
-	id <CPPlotDataSource> theDataSource = self.dataSource;
     if ( [theDataSource respondsToSelector:@selector(recordIndexRangeForPlot:plotRange:)] ) {
         resultRange = [theDataSource recordIndexRangeForPlot:self plotRange:plotRange];
     }
@@ -293,31 +303,96 @@
 #pragma mark -
 #pragma mark Data Caching
 
-/**	@brief Stores an array of numbers in the cache.
- *	@param numbers An array of numbers to cache.
+/**	@brief Copies an array of numbers to the cache.
+ *	@param numbers An array of numbers to cache. Can be a CPNumericData, NSArray, or NSData (NSData is assumed to be of type <code>double</code>).
  *	@param fieldEnum The field enumerator identifying the field.
  **/
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
-	if ( numbers == nil ) {
-		self.cachedDataCount = 0;
-		return;
-	}
-	else if ( [numbers respondsToSelector:@selector(count)] ) {
-		self.cachedDataCount = [(NSArray *)numbers count];
+	NSNumber *cacheKey = [NSNumber numberWithUnsignedInteger:fieldEnum];
+	
+	if ( numbers ) {
+		CPMutableNumericData *mutableNumbers = nil;
+		CPNumericDataType loadedDataType;
+		
+		if ( [numbers isKindOfClass:[CPNumericData class]] ) {
+			mutableNumbers = [numbers mutableCopy];
+			loadedDataType = mutableNumbers.dataType;
+		}
+		else if ( [numbers isKindOfClass:[NSData class]] ) {
+			loadedDataType = CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
+			mutableNumbers = [[CPMutableNumericData alloc] initWithData:numbers dataType:loadedDataType shape:nil];
+		}
+		else if ( [numbers isKindOfClass:[NSArray class]] ) {
+			if ( ((NSArray *)numbers).count == 0 ) {
+				loadedDataType = CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
+			}
+			else if ( [[(NSArray *)numbers objectAtIndex:0] isKindOfClass:[NSDecimalNumber class]] ) {
+				loadedDataType = CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent());
+			} else {
+				loadedDataType = CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
+			}
+			
+			mutableNumbers = [[CPMutableNumericData alloc] initWithArray:numbers dataType:loadedDataType shape:nil];
+		}
+		else {
+			[NSException raise:CPException format:@"Unsupported number array format"];
+		}
+		
+		if ( mutableNumbers ) {
+			[self.cachedData setObject:mutableNumbers forKey:cacheKey];
+		}
+		else {
+			[self.cachedData removeObjectForKey:cacheKey];
+		}
+		
+		self.cachedDataCount = mutableNumbers.numberOfSamples;
+		[mutableNumbers release];
+		
+		switch ( self.cachePrecision ) {
+			case CPPlotCachePrecisionAuto:
+				[self setCachedDataType:loadedDataType];
+				break;
+			case CPPlotCachePrecisionDouble:
+				[self setCachedDataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())];
+				break;
+			case CPPlotCachePrecisionDecimal:
+				[self setCachedDataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())];
+				break;
+		}
 	}
 	else {
-		self.cachedDataCount = [(NSData *)numbers length] / sizeof(double);
+		[self.cachedData removeObjectForKey:cacheKey];
+		self.cachedDataCount = 0;
 	}
-    if ( cachedData == nil ) cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
-    [cachedData setObject:[[numbers copy] autorelease] forKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
+}
+
+-(BOOL)doublePrecisionCache
+{
+	BOOL result = NO;
+	switch ( self.cachePrecision ) {
+		case CPPlotCachePrecisionAuto: {
+			NSArray *cachedObjects = [self.cachedData allValues];
+			if ( cachedObjects.count > 0 ) {
+				result = (((CPMutableNumericData *)[cachedObjects objectAtIndex:0]).dataTypeFormat == CPFloatingPointDataType);
+			}
+		}
+			break;
+		case CPPlotCachePrecisionDouble:
+			result = YES;
+			break;
+		default:
+			// not double precision
+			break;
+	}
+	return result;
 }
 
 /**	@brief Retrieves an array of numbers from the cache.
  *	@param fieldEnum The field enumerator identifying the field.
  *	@return The array of cached numbers.
  **/
--(id)cachedNumbersForField:(NSUInteger)fieldEnum 
+-(CPMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum 
 {
     return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 }
@@ -329,45 +404,71 @@
  **/
 -(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    id numbers = [self cachedNumbersForField:fieldEnum];
-	if ( [numbers isKindOfClass:[NSArray class]] ) {
-		NSArray *numberArray = (NSArray *)numbers;
-		if ( index < numberArray.count ) {
-			return [numberArray objectAtIndex:index];
-		}
-	}
-	else {
-		NSData *numberData = (NSData *)numbers;
-		if ( index * sizeof(double) < numberData.length ) {
-			const double *doubleData = numberData.bytes;
-			return [NSNumber numberWithDouble:doubleData[index]];
-		}
-	}
-	return nil;
+    CPMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
+	return [numbers sampleValue:index];
 }
 
 /**	@brief Retrieves a single number from the cache.
  *	@param fieldEnum The field enumerator identifying the field.
  *	@param index The index of the desired data value.
- *	@return The cached number.
+ *	@return The cached number or NAN if no data is cached for the requested field.
  **/
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    id numbers = [self cachedNumbersForField:fieldEnum];
-	if ( [numbers isKindOfClass:[NSArray class]] ) {
-		NSArray *numberArray = (NSArray *)numbers;
-		if ( index < numberArray.count ) {
-			return [[numberArray objectAtIndex:index] doubleValue];
-		}
-	}
-	else {
-		NSData *numberData = (NSData *)numbers;
-		if ( index * sizeof(double) < numberData.length ) {
-			const double *doubleData = numberData.bytes;
-			return doubleData[index];
+    CPMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
+	if ( numbers ) {
+		switch ( numbers.dataTypeFormat ) {
+			case CPFloatingPointDataType: {
+				double *doubleNumber = (double *)[numbers samplePointer:index];
+				return *doubleNumber;
+			}
+				break;
+			case CPDecimalDataType: {
+				NSDecimal *decimalNumber = (NSDecimal *)[numbers samplePointer:index];
+				return CPDecimalDoubleValue(*decimalNumber);
+			}
+				break;
+			default:
+				[NSException raise:CPException format:@"Unsupported data type format"];
+				break;
 		}
 	}
 	return NAN;
+}
+
+/**	@brief Retrieves a single number from the cache.
+ *	@param fieldEnum The field enumerator identifying the field.
+ *	@param index The index of the desired data value.
+ *	@return The cached number or NAN if no data is cached for the requested field.
+ **/
+-(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
+    CPMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
+	if ( numbers ) {
+		switch ( numbers.dataTypeFormat ) {
+			case CPFloatingPointDataType: {
+				double *doubleNumber = (double *)[numbers samplePointer:index];
+				return CPDecimalFromDouble(*doubleNumber);
+			}
+				break;
+			case CPDecimalDataType: {
+				NSDecimal *decimalNumber = (NSDecimal *)[numbers samplePointer:index];
+				return *decimalNumber;
+			}
+				break;
+			default:
+				[NSException raise:CPException format:@"Unsupported data type format"];
+				break;
+		}
+	}
+	return CPDecimalNaN();
+}
+
+-(void)setCachedDataType:(CPNumericDataType)newDataType
+{
+	for ( CPMutableNumericData *numericData in [self.cachedData allValues] ) {
+		numericData.dataType = newDataType;
+	}
 }
 
 #pragma mark -
@@ -380,11 +481,12 @@
 -(CPPlotRange *)plotRangeForField:(NSUInteger)fieldEnum 
 {
     if ( self.dataNeedsReloading ) [self reloadData];
-    NSArray *numbers = [self cachedNumbersForField:fieldEnum];
+    CPMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
     CPPlotRange *range = nil;
-    if ( numbers && numbers.count > 0 ) {
-        NSNumber *min = [numbers valueForKeyPath:@"@min.self"];
-        NSNumber *max = [numbers valueForKeyPath:@"@max.self"];
+    if ( numbers.numberOfSamples > 0 ) {
+		NSArray *numberArray = [numbers sampleArray];
+        NSNumber *min = [numberArray valueForKeyPath:@"@min.self"];
+        NSNumber *max = [numberArray valueForKeyPath:@"@max.self"];
         NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
         range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
     }
@@ -423,10 +525,9 @@
 -(void)relabel
 {
     if ( !self.needsRelabel ) return;
-	NSLog(@"relabel %@", self);
 	
     self.needsRelabel = NO;
-
+	
 	id <CPPlotDataSource> theDataSource = self.dataSource;
 	CPTextStyle *dataLabelTextStyle = self.labelTextStyle;
 	NSNumberFormatter *dataLabelFormatter = self.labelFormatter;
@@ -445,8 +546,6 @@
 		return;
 	}
 	
-	NSLog(@"Generate labels");
-	
 	NSRange indexRange = self.labelIndexRange;
 	if ( !self.labelAnnotations ) {
 		self.labelAnnotations = [NSMutableArray arrayWithCapacity:indexRange.length];
@@ -456,8 +555,7 @@
 	NSMutableArray *labelArray = self.labelAnnotations;
 	NSUInteger oldLabelCount = labelArray.count;
 	Class nullClass = [NSNull class];
-	id labelFieldDataCache = nil;
-	BOOL doubleCache = self.doublePrecisionCache;
+	CPMutableNumericData *labelFieldDataCache = [self cachedNumbersForField:self.labelField];
 	
 	for ( NSUInteger i = 0; i < indexRange.length; i++ ) {
 		CPLayer *newLabelLayer = nil;
@@ -467,19 +565,7 @@
 		}
 		
 		if ( !newLabelLayer && plotProvidesLabels ) {
-			if ( !labelFieldDataCache ) {
-				labelFieldDataCache = [self cachedNumbersForField:self.labelField];
-			}
-			NSNumber *dataValue;
-			if ( doubleCache ) {
-				const double *dataCacheBytes = [(NSData *)labelFieldDataCache bytes];
-				double dataValueAsDouble = dataCacheBytes[indexRange.location + i];
-				dataValue = [NSNumber numberWithDouble:dataValueAsDouble];
-			}
-			else {
-				dataValue = [(NSArray *)labelFieldDataCache objectAtIndex:indexRange.location + i];
-			}
-
+			NSNumber *dataValue = [labelFieldDataCache sampleValue:indexRange.location + i];
 			NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
 			newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
 		}
@@ -499,7 +585,7 @@
 			[self addAnnotation:labelAnnotation];
 			[labelAnnotation release];
 		}
-
+		
 		labelAnnotation.contentLayer = newLabelLayer;
 		[self positionLabelAnnotation:labelAnnotation forIndex:indexRange.location + i];
 		
@@ -569,7 +655,7 @@
 	if ( newStyle != labelTextStyle ) {
 		[labelTextStyle release];
 		labelTextStyle = [newStyle copy];
-
+		
 		if ( labelTextStyle && !self.labelFormatter ) {
 			NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
 			newFormatter.minimumIntegerDigits = 1;
@@ -608,6 +694,27 @@
 		self.labelFormatterChanged = YES;
         self.needsRelabel = YES;
     }
+}
+
+-(void)setCachePrecision:(CPPlotCachePrecision)newPrecision
+{
+	if ( newPrecision != cachePrecision ) {
+		cachePrecision = newPrecision;
+		switch ( cachePrecision ) {
+			case CPPlotCachePrecisionAuto:
+				// don't change data already in the cache
+				break;
+			case CPPlotCachePrecisionDouble:
+				[self setCachedDataType:CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())];
+				break;
+			case CPPlotCachePrecisionDecimal:
+				[self setCachedDataType:CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())];
+				break;
+			default:
+				[NSException raise:NSInvalidArgumentException format:@"Invalid cache precision"];
+				break;
+		}
+	}
 }
 
 @end

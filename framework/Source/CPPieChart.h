@@ -6,15 +6,23 @@
 
 @class CPColor;
 @class CPFill;
+@class CPMutableNumericData;
+@class CPNumericData;
 @class CPPieChart;
 @class CPTextLayer;
 @class CPLineStyle;
 
+/// @name Binding Identifiers
+/// @{
+extern NSString * const CPPieChartBindingPieSliceWidthValues;
+///	@}
+
 /**	@brief Enumeration of pie chart data source field types.
  **/
 typedef enum _CPPieChartField {
-    CPPieChartFieldSliceWidth,		///< Pie slice width.
-    CPPieChartFieldSliceWidthSum	///< Cumulative sum of pie slice widths.
+    CPPieChartFieldSliceWidth,				///< Pie slice width.
+    CPPieChartFieldSliceWidthNormalized,	///< Pie slice width normalized [0, 1].
+    CPPieChartFieldSliceWidthSum			///< Cumulative sum of pie slice widths.
 } CPPieChartField;
 
 /**	@brief Enumeration of pie slice drawing directions.
