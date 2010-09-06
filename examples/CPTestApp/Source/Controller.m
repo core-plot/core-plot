@@ -13,6 +13,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 @end
 
+#pragma mark -
 
 @implementation Controller
 
@@ -202,6 +203,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
+	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
     dataSourceLinePlot.dataSource = self;
