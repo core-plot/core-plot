@@ -646,12 +646,16 @@
 
 -(NSString *)description 
 {
-    NSMutableString *descriptionString = [NSMutableString stringWithCapacity:self.numberOfSamples];
-    [descriptionString appendFormat:@"["];
-    for ( NSUInteger i = 0; i < self.numberOfSamples; i++ ) {
-        [descriptionString appendFormat:@" %@",[self sampleValue:i]];
+	NSUInteger sampleCount = self.numberOfSamples;
+    NSMutableString *descriptionString = [NSMutableString stringWithCapacity:sampleCount * 3];
+    [descriptionString appendFormat:@"<%@ [", [super description]];
+    for ( NSUInteger i = 0; i < sampleCount; i++ ) {
+		if ( i > 0 ) {
+			[descriptionString appendFormat:@","];
+		}
+        [descriptionString appendFormat:@" %@", [self sampleValue:i]];
     }
-    [descriptionString appendFormat:@" ] <%@,(%@)>", self.dataType, self.shape];
+    [descriptionString appendFormat:@" ] {%@, %@}>", CPDataTypeStringFromDataType(self.dataType), self.shape];
     
     return descriptionString;
 }

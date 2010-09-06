@@ -134,21 +134,6 @@
 }
 
 #pragma mark -
-#pragma mark Description
-
--(NSString *)description 
-{
-    NSMutableString *descriptionString = [NSMutableString stringWithCapacity:self.numberOfSamples];
-    [descriptionString appendFormat:@"["];
-    for ( NSUInteger i = 0; i < self.numberOfSamples; i++ ) {
-        [descriptionString appendFormat:@" %@",[self sampleValue:i]];
-    }
-    [descriptionString appendFormat:@" ] <%@,(%@)>", self.dataType, self.shape];
-    
-    return descriptionString;
-}
-
-#pragma mark -
 #pragma mark NSMutableCopying
 
 -(id)mutableCopyWithZone:(NSZone *)zone 
