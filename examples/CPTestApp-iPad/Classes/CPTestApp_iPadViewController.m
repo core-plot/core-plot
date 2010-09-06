@@ -335,7 +335,6 @@
 		}
     }
 	else {
-		NSLog(@"Plot: %@, fieldEnum: %d, recordIndex: %d", plot, fieldEnum, index);
 		num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
 		// Green plot gets shifted above the blue
 		if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
@@ -364,17 +363,23 @@
 	
 	CPTextLayer *newLayer = nil;
 	
-	switch ( index ) {
-		case 0:
-			newLayer = (id)[NSNull null];
-			break;
-		case 1:
-			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
-			break;
-		default:
-			newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
-			break;
+	if ( [plot isKindOfClass:[CPPieChart class]] ) {
+		switch ( index ) {
+			case 0:
+				newLayer = (id)[NSNull null];
+				break;
+			case 1:
+				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
+				break;
+			default:
+				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+				break;
+		}
 	}
+	else if ( [plot isKindOfClass:[CPScatterPlot class]] ) {
+		newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+	}
+
 	
 	return newLayer;
 }
