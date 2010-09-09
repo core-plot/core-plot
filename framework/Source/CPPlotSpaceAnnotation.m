@@ -55,27 +55,30 @@
 {
 	CPLayer *content = self.contentLayer;
 	if ( content ) {
-		NSArray *anchor = self.anchorPlotPoint;
-		if ( anchor ) {
-			NSUInteger anchorCount = anchor.count;
-			
-			// Get plot area point
-			NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
-			for ( NSUInteger i = 0; i < anchorCount; i++ ) {
-				decimalPoint[i] = [[anchor objectAtIndex:i] decimalValue];
+		CPLayer *hostLayer = self.annotationHostLayer;
+		if ( hostLayer ) {
+			NSArray *anchor = self.anchorPlotPoint;
+			if ( anchor ) {
+				NSUInteger anchorCount = anchor.count;
+				
+				// Get plot area point
+				NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
+				for ( NSUInteger i = 0; i < anchorCount; i++ ) {
+					decimalPoint[i] = [[anchor objectAtIndex:i] decimalValue];
+				}
+				CPPlotSpace *thePlotSpace = self.plotSpace;
+				CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
+				free(decimalPoint);
+				
+				CPPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
+				CGPoint point = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:hostLayer];
+				CGPoint offset = self.displacement;
+				point.x = round(point.x + offset.x);
+				point.y = round(point.y + offset.y);
+				
+				content.position = point;
+				[content pixelAlign];
 			}
-			CPPlotSpace *thePlotSpace = self.plotSpace;
-			CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
-			free(decimalPoint);
-			
-			CPPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
-			CGPoint point = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:self.annotationHostLayer];
-			CGPoint offset = self.displacement;
-			point.x = round(point.x + offset.x);
-			point.y = round(point.y + offset.y);
-			
-			content.position = point;
-			[content pixelAlign];
 		}
 	}
 }

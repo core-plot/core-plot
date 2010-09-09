@@ -6,6 +6,9 @@
 ///	@cond
 @interface CPLayerAnnotation()
 
+@property (nonatomic, readwrite, retain) CPConstrainedPosition *xConstrainedPosition;
+@property (nonatomic, readwrite, retain) CPConstrainedPosition *yConstrainedPosition;
+
 -(void)setConstraints;
 
 @end
@@ -28,6 +31,9 @@
  **/
 @synthesize rectAnchor;
 
+@synthesize xConstrainedPosition;
+@synthesize yConstrainedPosition;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -44,6 +50,8 @@
     if ( self = [super init] ) {
         anchorLayer = newAnchorLayer;
         rectAnchor = CPRectAnchorTop;
+		xConstrainedPosition = nil;
+		yConstrainedPosition = nil;
         [self setConstraints];
     }
     return self;
@@ -64,25 +72,32 @@
 {
 	CPLayer *content = self.contentLayer;
 	if ( content ) {
-		if ( !xConstrainedPosition || !yConstrainedPosition ) {
-			[self setConstraints];
+		CPAnnotationHostLayer *hostLayer = self.annotationHostLayer;
+		if ( hostLayer ) {
+			if ( !self.xConstrainedPosition || !self.yConstrainedPosition ) {
+				[self setConstraints];
+			}
+			
+			CPLayer *theAnchorLayer = self.anchorLayer;
+			CGRect anchorLayerBounds = theAnchorLayer.bounds;
+			
+			CPConstrainedPosition *xConstraint = self.xConstrainedPosition;
+			CPConstrainedPosition *yConstraint = self.yConstrainedPosition;
+			xConstraint.lowerBound = CGRectGetMinX(anchorLayerBounds);
+			xConstraint.upperBound = CGRectGetMaxX(anchorLayerBounds);
+			yConstraint.lowerBound = CGRectGetMinY(anchorLayerBounds);
+			yConstraint.upperBound = CGRectGetMaxY(anchorLayerBounds);
+			
+			CGPoint referencePoint = CGPointMake(xConstraint.position, yConstraint.position);
+			CGPoint point = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
+			
+			CGPoint offset = self.displacement;
+			point.x = round(point.x + offset.x);
+			point.y = round(point.y + offset.y);
+			
+			content.position = point;
+			[content pixelAlign];
 		}
-		
-		CGRect anchorLayerBounds = self.anchorLayer.bounds;
-		xConstrainedPosition.lowerBound = CGRectGetMinX(anchorLayerBounds);
-		xConstrainedPosition.upperBound = CGRectGetMaxX(anchorLayerBounds);
-		yConstrainedPosition.lowerBound = CGRectGetMinY(anchorLayerBounds);
-		yConstrainedPosition.upperBound = CGRectGetMaxY(anchorLayerBounds);
-		
-		CGPoint referencePoint = CGPointMake(xConstrainedPosition.position, yConstrainedPosition.position);
-		CGPoint point = [self.anchorLayer convertPoint:referencePoint toLayer:self.annotationHostLayer];
-
-		CGPoint offset = self.displacement;
-		point.x = round(point.x + offset.x);
-		point.y = round(point.y + offset.y);
-		
-		content.position = point;
-		[content pixelAlign];
 	}
 }
 
