@@ -3,6 +3,7 @@
 @implementation CPTestAppPieChartController
 
 @synthesize dataForChart;
+@synthesize timer;
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -35,12 +36,32 @@
 -(void)dealloc 
 {
 	[dataForChart release];
+	[timer release];
     [super dealloc];
 }
 
-- (void)viewDidLoad 
+-(void)viewDidAppear:(BOOL)animated
 {
-	[super viewDidLoad];
+	// Add some initial data
+	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
+	self.dataForChart = contentArray;
+
+	[self timerFired];
+#ifdef MEMORY_TEST
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self 
+												selector:@selector(timerFired) userInfo:nil repeats:YES];
+#endif
+}
+
+-(void)timerFired
+{
+#ifdef MEMORY_TEST
+	static NSUInteger counter = 0;
+	
+	NSLog(@"\n----------------------------\ntimerFired: %lu", counter++);
+#endif
+	
+	[pieChart release];
 	
     // Create pieChart from theme
     pieChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -53,10 +74,11 @@
 	pieChart.paddingTop = 20.0;
 	pieChart.paddingRight = 20.0;
 	pieChart.paddingBottom = 20.0;
-    	
+	
 	pieChart.axisSet = nil;
 	
 	pieChart.titleTextStyle.color = [CPColor whiteColor];
+	pieChart.title = @"Graph Title";
 	
     // Add pie chart
     CPPieChart *piePlot = [[CPPieChart alloc] init];
@@ -70,10 +92,6 @@
 	piePlot.delegate = self;
     [pieChart addPlot:piePlot];
     [piePlot release];
-	
-	// Add some initial data
-	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
-	self.dataForChart = contentArray;
 	
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
@@ -104,6 +122,13 @@
 	else {
 		return [NSNumber numberWithInt:index];
 	}
+}
+
+-(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
+{
+	CPTextLayer *label = [[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]];
+	label.textStyle.color = [CPColor lightGrayColor];
+	return [label autorelease];
 }
 
 /*-(CPFill *)sliceFillForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index; 
