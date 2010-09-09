@@ -42,9 +42,16 @@
 
 -(void)dealloc
 {
-	self.contentLayer = nil;
-    [annotationHostLayer release];
+	[contentLayer release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Description
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 }
 
 #pragma mark -
@@ -67,8 +74,7 @@
 {
     if ( newLayer != annotationHostLayer ) {
     	[contentLayer removeFromSuperlayer];
-        [annotationHostLayer release];
-        annotationHostLayer = [newLayer retain];
+        annotationHostLayer = newLayer;
 		if ( contentLayer ) {
 			[annotationHostLayer addSublayer:contentLayer];
 			[self positionContentLayer];
