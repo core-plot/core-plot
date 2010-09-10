@@ -3,7 +3,7 @@
 set -e -u
 
 BUILD="${PWD}/../../build"
-SDK_VERSION=4.0
+SDK_VERSION=4.1
 
 rm -rf Distribution
 
