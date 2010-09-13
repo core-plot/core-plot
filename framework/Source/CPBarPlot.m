@@ -557,11 +557,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		
 		if ( positiveDirection ) {
 			label.displacement = CGPointMake(self.labelOffset, 0.0);
-			label.contentLayer.anchorPoint = CGPointMake(0.0, 0.5);
 		}
 		else {
 			label.displacement = CGPointMake(-self.labelOffset, 0.0);
-			label.contentLayer.anchorPoint = CGPointMake(1.0, 0.5);
 		}
 	}
 	else {
@@ -569,11 +567,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		
 		if ( positiveDirection ) {
 			label.displacement = CGPointMake(0.0, self.labelOffset);
-			label.contentLayer.anchorPoint = CGPointMake(0.5, 0.0);
 		}
 		else {
 			label.displacement = CGPointMake(0.0, -self.labelOffset);
-			label.contentLayer.anchorPoint = CGPointMake(0.5, 1.0);
 		}
 	}
 }

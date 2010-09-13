@@ -27,6 +27,16 @@
  **/
 @synthesize displacement;
 
+/**	@property contentAnchorPoint
+ *	@brief The anchor point for the content layer.
+ **/
+@synthesize contentAnchorPoint;
+
+/**	@property rotation
+ *	@brief The rotation of the label in radians.
+ **/
+@synthesize rotation;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -36,6 +46,8 @@
 		annotationHostLayer = nil;
 		contentLayer = nil;
         displacement = CGPointZero;
+		contentAnchorPoint = CGPointMake(0.5, 0.5);
+		rotation = 0.0;
     }
     return self;
 }
@@ -65,7 +77,6 @@
         contentLayer = [newLayer retain];
 		if ( contentLayer ) {
 			[annotationHostLayer addSublayer:contentLayer];
-			[self positionContentLayer];
 		}
     }
 }
@@ -77,7 +88,6 @@
         annotationHostLayer = newLayer;
 		if ( contentLayer ) {
 			[annotationHostLayer addSublayer:contentLayer];
-			[self positionContentLayer];
 		}
     }
 }
@@ -86,7 +96,23 @@
 {
     if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
         displacement = newDisplacement;
-        [self positionContentLayer];
+        [self.contentLayer setNeedsLayout];
+    }
+}
+
+-(void)setContentAnchorPoint:(CGPoint)newAnchorPoint
+{
+    if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
+        contentAnchorPoint = newAnchorPoint;
+        [self.contentLayer setNeedsLayout];
+    }
+}
+
+-(void)setRotation:(CGFloat)newRotation
+{
+    if ( newRotation != rotation ) {
+        rotation = newRotation;
+        [self.contentLayer setNeedsLayout];
     }
 }
 

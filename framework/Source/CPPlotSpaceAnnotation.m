@@ -57,27 +57,38 @@
 	if ( content ) {
 		CPLayer *hostLayer = self.annotationHostLayer;
 		if ( hostLayer ) {
-			NSArray *anchor = self.anchorPlotPoint;
-			if ( anchor ) {
-				NSUInteger anchorCount = anchor.count;
+			NSArray *plotAnchor = self.anchorPlotPoint;
+			if ( plotAnchor ) {
+				NSUInteger anchorCount = plotAnchor.count;
+				CGFloat myRotation = self.rotation;
+				CGPoint anchor = self.contentAnchorPoint;
 				
 				// Get plot area point
 				NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
 				for ( NSUInteger i = 0; i < anchorCount; i++ ) {
-					decimalPoint[i] = [[anchor objectAtIndex:i] decimalValue];
+					decimalPoint[i] = [[plotAnchor objectAtIndex:i] decimalValue];
 				}
 				CPPlotSpace *thePlotSpace = self.plotSpace;
 				CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
 				free(decimalPoint);
 				
 				CPPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
-				CGPoint point = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:hostLayer];
+				CGPoint newPosition = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:hostLayer];
 				CGPoint offset = self.displacement;
-				point.x = round(point.x + offset.x);
-				point.y = round(point.y + offset.y);
+				newPosition.x = round(newPosition.x + offset.x);
+				newPosition.y = round(newPosition.y + offset.y);
 				
-				content.position = point;
-				[content pixelAlign];
+				// Pixel-align the label layer to prevent blurriness
+				if ( myRotation == 0.0 ) {
+					CGSize currentSize = content.bounds.size;
+					
+					newPosition.x = newPosition.x - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
+					newPosition.y = newPosition.y - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
+				}
+				content.anchorPoint = anchor;
+				content.position = newPosition;
+				content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+				[content setNeedsDisplay];
 			}
 		}
 	}

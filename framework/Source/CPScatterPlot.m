@@ -692,11 +692,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	
 	if ( positiveDirection ) {
 		label.displacement = CGPointMake(0.0, self.labelOffset);
-		label.contentLayer.anchorPoint = CGPointMake(0.5, 0.0);
 	}
 	else {
 		label.displacement = CGPointMake(0.0, -self.labelOffset);
-		label.contentLayer.anchorPoint = CGPointMake(0.5, 1.0);
 	}
 }
 

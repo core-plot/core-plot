@@ -69,9 +69,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     CPTextStyle *textStyle = [CPTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
-    textStyle.fontSize = 18.0f;
+    textStyle.fontSize = 18.0;
     graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0f, 20.0f);
+    graph.titleDisplacement = CGPointMake(0.0, 20.0);
     graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;
 	
     // Graph padding
@@ -211,6 +211,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     whiteTextStyle.color = [CPColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
 	dataSourceLinePlot.labelOffset = 5.0;
+	dataSourceLinePlot.labelRotation = M_PI_4;
     [graph addPlot:dataSourceLinePlot];
     
     // Make the data source line use stepped interpolation
@@ -597,6 +598,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
  	labelRotation = newRotation;
 	
 	((CPXYAxisSet *)graph.axisSet).yAxis.labelRotation = newRotation;
+	[graph plotWithIdentifier:@"Data Source Plot"].labelRotation = newRotation;
 }
 
 @end
