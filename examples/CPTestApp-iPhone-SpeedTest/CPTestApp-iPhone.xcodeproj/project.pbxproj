@@ -201,7 +201,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CPTestApp-iPhone" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CPTestApp-iPhone */;
 			projectDirPath = "";
 			projectReferences = (
@@ -289,7 +296,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -312,7 +319,7 @@
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};
@@ -326,10 +333,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -344,11 +352,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}/\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "500DAB97-6B23-43B6-9993-DF558595C088";
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};

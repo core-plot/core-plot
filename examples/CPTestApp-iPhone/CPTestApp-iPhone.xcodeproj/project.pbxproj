@@ -290,7 +290,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
 			};
 			name = Debug;
@@ -312,7 +312,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};
@@ -326,11 +326,13 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -344,10 +346,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.2;
+				SDKROOT = iphonesimulator4.1;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

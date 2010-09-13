@@ -34,7 +34,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
     // Create graph from theme
-    graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
+    graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPPlainWhiteTheme];
 	[graph applyTheme:theme]; 
 	graphView.hostedLayer = graph;
@@ -68,7 +68,7 @@
 //	borderedLayer.cornerRadius = 0.0f;
 
     // Create the main plot for the delimited data
-	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+	CPScatterPlot *dataSourceLinePlot = [[(CPScatterPlot *)[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor blackColor];
