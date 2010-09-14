@@ -551,25 +551,26 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	if ( CPDecimalLessThan(lengthRange.length, CPDecimalFromInteger(0)) ) {
 		positiveDirection = !positiveDirection;
 	}
-	
+	CGFloat viewOffset = self.barOffset * self.barWidth;
+
 	if ( self.barsAreHorizontal ) {
 		label.anchorPlotPoint = [NSArray arrayWithObjects:length, location, nil];
 		
 		if ( positiveDirection ) {
-			label.displacement = CGPointMake(self.labelOffset, 0.0);
+			label.displacement = CGPointMake(self.labelOffset, viewOffset);
 		}
 		else {
-			label.displacement = CGPointMake(-self.labelOffset, 0.0);
+			label.displacement = CGPointMake(-self.labelOffset, viewOffset);
 		}
 	}
 	else {
 		label.anchorPlotPoint = [NSArray arrayWithObjects:location, length, nil];
 		
 		if ( positiveDirection ) {
-			label.displacement = CGPointMake(0.0, self.labelOffset);
+			label.displacement = CGPointMake(viewOffset, self.labelOffset);
 		}
 		else {
-			label.displacement = CGPointMake(0.0, -self.labelOffset);
+			label.displacement = CGPointMake(viewOffset, -self.labelOffset);
 		}
 	}
 }
