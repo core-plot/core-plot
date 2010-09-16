@@ -6,6 +6,7 @@
     IBOutlet CPLayerHostingView *hostView;
     IBOutlet NSWindow *plotSymbolWindow;
     IBOutlet NSWindow *axisDemoWindow;
+	IBOutlet NSWindow *selectionDemoWindow;
     CPXYGraph *graph;
 	RotationView *overlayRotationView;
     CPLayerAnnotation *symbolTextAnnotation;
@@ -33,6 +34,7 @@
 // Demo windows
 -(IBAction)plotSymbolDemo:(id)sender;
 -(IBAction)axisDemo:(id)sender;
+-(IBAction)selectionDemo:(id)sender;
 
 @end
 

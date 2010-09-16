@@ -10,6 +10,8 @@
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+
     // Create graph
     graph = [(CPXYGraph *)[CPXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     hostView.hostedLayer = graph;
