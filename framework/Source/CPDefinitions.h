@@ -66,8 +66,8 @@ typedef enum _CPSign {
  *  @brief Enumeration of constraint types used in spring and strut model.
  **/
 typedef enum _CPConstraint {
-    CPConstraintNone,    ///< No constraint. Free movement, equivalent to 'spring'.
-    CPConstraintFixed	 ///< Distance is fixed. Equivalent to a 'strut'.
+    CPConstraintNone,    ///< No constraint. Free movement, equivalent to "spring".
+    CPConstraintFixed	 ///< Distance is fixed. Equivalent to a "strut".
 } CPConstraint;
 
 /**
@@ -92,6 +92,18 @@ typedef enum _CPRectAnchor {
     CPRectAnchorTopRight,		///< The top right
     CPRectAnchorCenter			///< The center of the rect
 } CPRectAnchor;
+
+/**
+ *	@brief Label and constraint alignment constants.
+ **/
+typedef enum _CPAlignment {
+    CPAlignmentLeft,			///< Align horizontally to the left side.
+    CPAlignmentCenter,			///< Align horizontally to the center.
+    CPAlignmentRight,			///< Align horizontally to the right side.
+    CPAlignmentTop,				///< Align vertically to the top.
+    CPAlignmentMiddle,			///< Align vertically to the middle.
+    CPAlignmentBottom			///< Align vertically to the bottom.
+} CPAlignment;
 
 /// @name Default Z Positions
 /// @{

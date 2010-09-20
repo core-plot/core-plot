@@ -1,15 +1,5 @@
-
 #import <Foundation/Foundation.h>
 #import "CPDefinitions.h"
-
-typedef enum _CPAlignment {
-    CPAlignmentLeft = 0,
-    CPAlignmentCenter,
-    CPAlignmentRight,
-    CPAlignmentTop,
-    CPAlignmentMiddle,
-    CPAlignmentBottom
-} CPAlignment;
 
 @interface CPConstrainedPosition : NSObject {
 	CGFloat position;
