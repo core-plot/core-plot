@@ -624,52 +624,20 @@
 	if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
 		displacement.y = 1.0; // put the label above the data point if zero displacement
 	}
-	double angle = atan2(displacement.y, displacement.x) - label.rotation;
-	// normalize the angle between 0.0 and 2.0
-	angle /= M_PI;
-	angle = fmod(angle, 2.0);
-	if ( angle < 0.0 ) angle += 2.0;
+	double angle = M_PI + atan2(displacement.y, displacement.x) - label.rotation;
+	double newAnchorX = cos(angle);
+	double newAnchorY = sin(angle);
 	
-	// binary search to find the anchor point
-	if ( angle < 1.125 ) {
-		if ( angle <= 0.625 ) {
-			if ( angle <= 0.125 ) {			// 0 - (1/8)pi
-				label.contentAnchorPoint = CGPointMake(0.0, 0.5);
-			}
-			else if ( angle <= 0.375 ) {	// (1/8)pi - (3/8)pi
-				label.contentAnchorPoint = CGPointMake(0.0, 0.0);
-			}
-			else {							// (3/8)pi - (5/8)pi
-				label.contentAnchorPoint = CGPointMake(0.5, 0.0);
-			}
-		}
-		else {
-			if ( angle <= 0.875 )  {		// (5/8)pi - (7/8)pi
-				label.contentAnchorPoint = CGPointMake(1.0, 0.0);
-			}
-			else {							// (7/8)pi - (9/8)pi
-				label.contentAnchorPoint = CGPointMake(1.0, 0.5);
-			}
-		}
+	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+		newAnchorX /= ABS(newAnchorY);
+		newAnchorY = signbit(newAnchorY) ? -1.0 : 1.0;
 	}
 	else {
-		if ( angle <= 1.625 ) {
-			if ( angle <= 1.375 ) {			// (9/8)pi - (11/8)pi
-				label.contentAnchorPoint = CGPointMake(1.0, 1.0);
-			}
-			else {							// (11/8)pi - (13/8)pi
-				label.contentAnchorPoint = CGPointMake(0.5, 1.0);
-			}
-		}
-		else {
-			if ( angle <= 1.875 ) {			// (13/8)pi - (15/8)pi
-				label.contentAnchorPoint = CGPointMake(0.0, 1.0);
-			}
-			else {							// (15/8)pi - 2pi
-				label.contentAnchorPoint = CGPointMake(0.0, 0.5);
-			}
-		}
+		newAnchorY /= ABS(newAnchorX);
+		newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
 	}
+
+	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 }
 
 #pragma mark -
