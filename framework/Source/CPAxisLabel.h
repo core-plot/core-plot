@@ -9,12 +9,14 @@
     CPLayer *contentLayer;
     CGFloat offset;
     CGFloat rotation;
+	CPAlignment alignment;
     NSDecimal tickLocation;
 }
 
 @property (nonatomic, readwrite, retain) CPLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;
 @property (nonatomic, readwrite, assign) CGFloat rotation;
+@property (nonatomic, readwrite, assign) CPAlignment alignment;
 @property (nonatomic, readwrite) NSDecimal tickLocation;
 
 /// @name Initialization

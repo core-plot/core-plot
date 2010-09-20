@@ -503,4 +503,40 @@
     [self updateConstraints];
 }
 
+-(void)setCoordinate:(CPCoordinate)newCoordinate 
+{
+	if ( self.coordinate != newCoordinate ) {
+		[super setCoordinate:newCoordinate];
+		switch ( newCoordinate ) {
+			case CPCoordinateX:
+				switch ( self.labelAlignment ) {
+					case CPAlignmentLeft:
+					case CPAlignmentCenter:
+					case CPAlignmentRight:
+						// ok--do nothing
+						break;
+					default:
+						self.labelAlignment = CPAlignmentCenter;
+						break;
+				}
+				break;
+			case CPCoordinateY:
+				switch ( self.labelAlignment ) {
+					case CPAlignmentTop:
+					case CPAlignmentMiddle:
+					case CPAlignmentBottom:
+						// ok--do nothing
+						break;
+					default:
+						self.labelAlignment = CPAlignmentMiddle;
+						break;
+				}
+				break;
+			default:
+				[NSException raise:NSInvalidArgumentException format:@"Invalid coordinate: %lu", newCoordinate];
+				break;
+		}
+	}
+}
+
 @end

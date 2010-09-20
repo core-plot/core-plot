@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 #import "CPDefinitions.h"
@@ -75,6 +74,7 @@ typedef enum _CPAxisLabelingPolicy {
     CGFloat minorTickLength;
 	CGFloat labelOffset;
     CGFloat labelRotation;
+	CPAlignment labelAlignment;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
@@ -131,6 +131,7 @@ typedef enum _CPAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy labelingPolicy;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
+@property (nonatomic, readwrite, assign) CPAlignment labelAlignment;
 @property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
