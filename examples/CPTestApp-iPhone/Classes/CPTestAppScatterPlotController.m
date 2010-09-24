@@ -34,6 +34,7 @@
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
+    hostingView.collapsesLayers = YES;
     hostingView.hostedLayer = graph;
 	
     graph.paddingLeft = 10.0;

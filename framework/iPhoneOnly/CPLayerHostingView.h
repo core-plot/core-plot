@@ -3,11 +3,12 @@
 @class CPLayer;
 
 @interface CPLayerHostingView : UIView {
-@protected
+	@protected
 	CPLayer *hostedLayer;
-
+	BOOL collapsesLayers;
 }
 
 @property (nonatomic, readwrite, retain) CPLayer *hostedLayer;
+@property (nonatomic, readwrite, assign) BOOL collapsesLayers;
 
 @end

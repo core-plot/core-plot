@@ -11,33 +11,40 @@
  **/
 @synthesize hostedLayer;
 
+/**	@property collapsesLayers
+ *	@brief Whether view draws all graph layers into a single layer.
+ *  Collapsing layers may improve performance in some cases.
+ **/
+@synthesize collapsesLayers;
+
 +(Class)layerClass
 {
-	return [CPLayer class];
+	return [CALayer class];
 }
 
--(id)initWithFrame:(CGRect)frame 
+-(void)commonInit
+{
+    hostedLayer = nil;
+    collapsesLayers = NO;
+
+    self.backgroundColor = [UIColor clearColor];	
+    
+    // This undoes the normal coordinate space inversion that UIViews apply to their layers
+    self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);	
+}
+
+-(id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-		hostedLayer = nil;
-		
-		// This undoes the normal coordinate space inversion that UIViews apply to their layers
-		self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
-//		self.layer.transform = CATransform3DMakeScale(1.0, -1.0, 1.0);
-		self.backgroundColor = [UIColor clearColor];		
+		[self commonInit];
     }
     return self;
 }
 
 // On the iPhone, the init method is not called when loading from a XIB
-- (void)awakeFromNib
+-(void)awakeFromNib
 {
-	hostedLayer = nil;
-	
-	// This undoes the normal coordinate space inversion that UIViews apply to their layers
-	self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
-	//		self.layer.transform = CATransform3DMakeScale(1.0, -1.0, 1.0);
-	self.backgroundColor = [UIColor clearColor];		
+    [self commonInit];
 }
 
 -(void)dealloc {
@@ -80,6 +87,18 @@
 }
 
 #pragma mark -
+#pragma mark Drawing
+
+-(void)drawRect:(CGRect)rect
+{
+    if ( !collapsesLayers ) return;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    hostedLayer.frame = self.bounds;
+    [hostedLayer layoutAndRenderInContext:context];
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setHostedLayer:(CPLayer *)newLayer
@@ -91,7 +110,25 @@
 	[hostedLayer removeFromSuperlayer];
 	[hostedLayer release];
 	hostedLayer = [newLayer retain];
-	[self.layer addSublayer:hostedLayer];
+	if ( !collapsesLayers ) 
+    	[self.layer addSublayer:hostedLayer];
+    else {
+        [self setNeedsDisplay];
+    }
+
+}
+
+-(void)setCollapsesLayers:(BOOL)yn
+{
+    if ( yn != collapsesLayers ) {
+        collapsesLayers = yn;
+        if ( !collapsesLayers ) 
+        	[self.layer addSublayer:hostedLayer];
+        else {
+            [hostedLayer removeFromSuperlayer];
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 @end
