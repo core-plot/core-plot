@@ -474,7 +474,6 @@ static CGFloat colorLookupTable[10][3] =
 					}
 					
 					startingAngle = endingAngle;
-					currentIndex++;
 				}
 				break;
 			case CPPieDirectionCounterClockwise:
@@ -492,7 +491,6 @@ static CGFloat colorLookupTable[10][3] =
 					}
 				
 					startingAngle = endingAngle;
-					currentIndex++;
 				}
 				break;
 			default:
