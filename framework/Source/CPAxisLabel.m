@@ -26,6 +26,11 @@
  **/
 @synthesize rotation;
 
+/**	@property alignment
+ *	@brief The alignment of the axis label with respect to the tick mark.
+ **/
+@synthesize alignment;
+
 /**	@property tickLocation
  *	@brief The data coordinate of the ticklocation.
  **/
@@ -63,6 +68,7 @@
 			contentLayer = [layer retain];
 			offset = 20.0;
             rotation = 0.0;
+			alignment = CPAlignmentCenter;
 			tickLocation = CPDecimalFromInteger(0);
 		}
 	}
@@ -88,49 +94,130 @@
  *  When non-zero, the anchor point is left at the center. This has consequences for 
  *  the value taken by the offset.
  *	@param point The view point.
- *	@param coordinate The coordinate in which the label is being position. Orthogonal to axis coordinate.
+ *	@param coordinate The coordinate in which the label is being position. Orthogonal to the axis coordinate.
  *	@param direction The offset direction.
  **/
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPCoordinate)coordinate inDirection:(CPSign)direction
 {
 	CPLayer *content = self.contentLayer;
+
+	if ( !content ) return;
+	
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPCoordinateX ? &(newPosition.x) : &(newPosition.y));
-	CGPoint anchor = CGPointZero;
-    
-    // If there is no rotation, position the anchor point along the closest edge.
-    // If there is rotation, leave the anchor in the center.
+    double angle = 0.0;
+	
+	CGFloat myRotation = self.rotation;
+    content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+	CGRect contentFrame = content.frame;
+	
+    // Position the anchor point along the closest edge.
     switch ( direction ) {
         case CPSignNone:
         case CPSignNegative:
             *value -= self.offset;
-			if ( self.rotation == 0.0 ) {
-				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 1.0));
-			}
-			else {
-				anchor = (coordinate == CPCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(1.0, 0.5));
+			
+			switch ( coordinate ) {
+				case CPCoordinateX:
+					angle = M_PI;
+					
+					switch ( self.alignment ) {
+						case CPAlignmentBottom:
+							newPosition.y += contentFrame.size.height / 2.0;
+							break;
+						case CPAlignmentTop:
+							newPosition.y -= contentFrame.size.height / 2.0;
+							break;
+						default: // middle
+								 // no adjustment
+							break;
+					}
+					break;
+				case CPCoordinateY:
+					angle = -M_PI_2;
+					
+					switch ( self.alignment ) {
+						case CPAlignmentLeft:
+							newPosition.x += contentFrame.size.width / 2.0;
+							break;
+						case CPAlignmentRight:
+							newPosition.x -= contentFrame.size.width / 2.0;
+							break;
+						default: // center
+								 // no adjustment
+							break;
+					}
+					break;
+				default:
+					[NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
+					break;
 			}
             break;
         case CPSignPositive:
             *value += self.offset;
-			if ( self.rotation == 0.0 ) {
-				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
-			}
-			else {
-				anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.0, 0.5));
+
+			switch ( coordinate ) {
+				case CPCoordinateX:
+					// angle = 0.0;
+					
+					switch ( self.alignment ) {
+						case CPAlignmentBottom:
+							newPosition.y += contentFrame.size.height / 2.0;
+							break;
+						case CPAlignmentTop:
+							newPosition.y -= contentFrame.size.height / 2.0;
+							break;
+						default: // middle
+								 // no adjustment
+							break;
+					}
+					break;
+				case CPCoordinateY:
+					angle = M_PI_2;
+					
+					switch ( self.alignment ) {
+						case CPAlignmentLeft:
+							newPosition.x += contentFrame.size.width / 2.0;
+							break;
+						case CPAlignmentRight:
+							newPosition.x -= contentFrame.size.width / 2.0;
+							break;
+						default: // center
+								 // no adjustment
+							break;
+					}
+					break;
+				default:
+					[NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
+					break;
 			}
 			break;
 		default:
-			[NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
+			[NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
 			break;
 	}
+	
+	angle += M_PI;
+	angle -= myRotation;
+	double newAnchorX = cos(angle);
+	double newAnchorY = sin(angle);
+	
+	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+		newAnchorX /= ABS(newAnchorY);
+		newAnchorY = signbit(newAnchorY) ? -1.0 : 1.0;
+	}
+	else {
+		newAnchorY /= ABS(newAnchorX);
+		newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
+	}
+	CGPoint anchor = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
+	
+	content.anchorPoint = anchor;
 	
 	// Pixel-align the label layer to prevent blurriness
 	CGSize currentSize = content.bounds.size;
 	
-	content.anchorPoint = anchor;
-	
-	if ( self.rotation == 0.0 ) {
+	if ( myRotation == 0.0 ) {
 		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
 		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
 	}
@@ -139,7 +226,6 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-    content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
 	[content setNeedsDisplay];
 }
 

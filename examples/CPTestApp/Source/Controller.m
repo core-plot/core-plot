@@ -558,6 +558,14 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 	[axisDemoWindow makeKeyAndOrderFront:sender];
 }
 
+-(IBAction)selectionDemo:(id)sender
+{
+	if ( !selectionDemoWindow ) {
+		[NSBundle loadNibNamed:@"SelectionDemo" owner:self];
+	}
+	
+	[axisDemoWindow makeKeyAndOrderFront:sender];
+}
 
 #pragma mark -
 #pragma mark CPRotationDelegate delegate method

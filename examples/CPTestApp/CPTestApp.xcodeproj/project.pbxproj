@@ -22,6 +22,8 @@
 		C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB701093E09D00B25011 /* AxisDemo.xib */; };
 		C317AB751093E17500B25011 /* AxisDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AB731093E17500B25011 /* AxisDemoController.m */; };
 		C34D4F8E0F8ED78400969C24 /* CPPlotSymbolTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */; };
+		C38017DD124132020052B00D /* SelectionDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38017DC124132020052B00D /* SelectionDemo.xib */; };
+		C38017E1124132610052B00D /* SelectionDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38017E0124132610052B00D /* SelectionDemoController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,9 @@
 		C317AB741093E17500B25011 /* AxisDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemoController.h; path = Source/AxisDemoController.h; sourceTree = "<group>"; };
 		C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPlotSymbolTestController.m; path = Source/CPPlotSymbolTestController.m; sourceTree = "<group>"; };
 		C34D4F8D0F8ED78400969C24 /* CPPlotSymbolTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPlotSymbolTestController.h; path = Source/CPPlotSymbolTestController.h; sourceTree = "<group>"; };
+		C38017DC124132020052B00D /* SelectionDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SelectionDemo.xib; path = Resources/SelectionDemo.xib; sourceTree = "<group>"; };
+		C38017DF124132610052B00D /* SelectionDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionDemoController.h; path = Source/SelectionDemoController.h; sourceTree = "<group>"; };
+		C38017E0124132610052B00D /* SelectionDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionDemoController.m; path = Source/SelectionDemoController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +129,8 @@
 				C34D4F8C0F8ED78400969C24 /* CPPlotSymbolTestController.m */,
 				BC8E74220FC0B96000DF8511 /* RotationView.h */,
 				BC8E74230FC0B96000DF8511 /* RotationView.m */,
+				C38017DF124132610052B00D /* SelectionDemoController.h */,
+				C38017E0124132610052B00D /* SelectionDemoController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 				C317AB701093E09D00B25011 /* AxisDemo.xib */,
 				90AF4F430F36CF1800753D26 /* CPTestApp.xib */,
 				C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */,
+				C38017DC124132020052B00D /* SelectionDemo.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
 				C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */,
 				C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */,
+				C38017DD124132020052B00D /* SelectionDemo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +309,7 @@
 				C34D4F8E0F8ED78400969C24 /* CPPlotSymbolTestController.m in Sources */,
 				BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */,
 				C317AB751093E17500B25011 /* AxisDemoController.m in Sources */,
+				C38017E1124132610052B00D /* SelectionDemoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

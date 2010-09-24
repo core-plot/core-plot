@@ -4,6 +4,8 @@
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+
 	// Background
 	CPBorderedLayer *background = [[(CPBorderedLayer *)[CPBorderedLayer alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
 	background.fill = [CPFill fillWithColor:[CPColor blueColor]];

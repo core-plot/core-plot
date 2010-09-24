@@ -150,6 +150,11 @@
  **/
 @synthesize labelRotation;
 
+/**	@property labelAlignment
+ *	@brief The alignment of the axis label with respect to the tick mark.
+ **/
+@synthesize labelAlignment;
+
 /**	@property labelTextStyle
  *	@brief The text style used to draw the label text.
  **/
@@ -308,6 +313,7 @@
 		majorTickLength = 5.0;
 		labelOffset = 2.0;
         labelRotation = 0.0;
+		labelAlignment = CPAlignmentCenter;
 		title = nil;
 		titleOffset = 30.0;
 		axisLineStyle = [[CPLineStyle alloc] init];
@@ -556,7 +562,10 @@
 		if ( !shouldContinue ) return;
 	}
 
-	if ( locations.count == 0 ) {
+	CPTextStyle *theLabelTextStyle = self.labelTextStyle;
+	NSNumberFormatter *theLabelFormatter = self.labelFormatter;
+
+	if ( locations.count == 0 || !theLabelTextStyle || !theLabelFormatter ) {
 		self.axisLabels = nil;
 		return;
 	}
@@ -572,21 +581,28 @@
 			break;
 	}
 	
-	
 	[self.plotArea setAxisSetLayersForType:CPGraphLayerTypeAxisLabels];
 
+	NSMutableSet *oldAxisLabels = [self.axisLabels mutableCopy];
     NSMutableSet *newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
 	CPAxisLabel *blankLabel = [[CPAxisLabel alloc] initWithText:nil textStyle:nil];
 	CPAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
 	CALayer *lastLayer = nil;
-
+	CPPlotArea *thePlotArea = self.plotArea;
+	
+	CGFloat theLabelRotation = self.labelRotation;
+	CPAlignment theLabelAlignment = self.labelAlignment;
+	BOOL theLabelFormatterChanged = self.labelFormatterChanged;
+	CPSign theTickDirection = self.tickDirection;
+	CPCoordinate orthogonalCoordinate = CPOrthogonalCoordinate(self.coordinate);
+	
 	for ( NSDecimalNumber *tickLocation in locations ) {
 		CPAxisLabel *newAxisLabel;
 		BOOL needsNewContentLayer = NO;
 		
 		// reuse axis labels where possible--will prevent flicker when updating layers
 		blankLabel.tickLocation = [tickLocation decimalValue];
-		CPAxisLabel *oldAxisLabel = [self.axisLabels member:blankLabel];
+		CPAxisLabel *oldAxisLabel = [oldAxisLabels member:blankLabel];
 		
 		if ( oldAxisLabel ) {
 			newAxisLabel = [oldAxisLabel retain];
@@ -597,12 +613,13 @@
 			needsNewContentLayer = YES;
 		}
 		
-		newAxisLabel.rotation = self.labelRotation;
+		newAxisLabel.rotation = theLabelRotation;
 		newAxisLabel.offset = offset;
+		newAxisLabel.alignment = theLabelAlignment;
 		
-		if ( needsNewContentLayer || self.labelFormatterChanged ) {
-			NSString *labelString = [self.labelFormatter stringForObjectValue:tickLocation];
-			CPTextLayer *newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:self.labelTextStyle];
+		if ( needsNewContentLayer || theLabelFormatterChanged ) {
+			NSString *labelString = [theLabelFormatter stringForObjectValue:tickLocation];
+			CPTextLayer *newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
 			[oldAxisLabel.contentLayer removeFromSuperlayer];
 			newAxisLabel.contentLayer = newLabelLayer;
 			
@@ -610,12 +627,12 @@
 				[axisLabelGroup insertSublayer:newLabelLayer below:lastLayer];
 			}
 			else {
-				[axisLabelGroup insertSublayer:newLabelLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
+				[axisLabelGroup insertSublayer:newLabelLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPGraphLayerTypeAxisLabels]];
 			}
 			
 			[newLabelLayer release];
 			CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:newAxisLabel.tickLocation];
-			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:CPOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:theTickDirection];
 		}
 
 		lastLayer = newAxisLabel.contentLayer;
@@ -626,7 +643,6 @@
 	[blankLabel release];
 	
 	// remove old labels that are not needed any more from the layer hierarchy
-	NSMutableSet *oldAxisLabels = [self.axisLabels mutableCopy];
 	[oldAxisLabels minusSet:newAxisLabels];
 	for ( CPAxisLabel *label in oldAxisLabels ) {
 		[label.contentLayer removeFromSuperlayer];
@@ -983,6 +999,15 @@
 {
     if ( newRotation != labelRotation ) {
         labelRotation = newRotation;
+		[self setNeedsLayout];
+        self.needsRelabel = YES;
+    }
+}
+
+-(void)setLabelAlignment:(CPAlignment)newAlignment 
+{
+    if ( newAlignment != labelAlignment ) {
+        labelAlignment = newAlignment;
 		[self setNeedsLayout];
         self.needsRelabel = YES;
     }

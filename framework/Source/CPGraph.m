@@ -361,9 +361,18 @@
 
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif 
 {
-    [self setNeedsLayout];
-    [self.axisSet relabelAxes];
-    [self.plots makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+	CPPlotSpace *plotSpace = notif.object;
+	
+	for ( CPAxis *axis in self.axisSet.axes ) {
+		if ( axis.plotSpace == plotSpace ) {
+			[axis setNeedsRelabel];
+		}
+	}
+	for ( CPPlot *plot in self.plots ) {
+		if ( plot.plotSpace == plotSpace ) {
+			[plot setNeedsDisplay];
+		}
+	}
 }
 
 #pragma mark -
