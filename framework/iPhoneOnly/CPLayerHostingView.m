@@ -94,6 +94,8 @@
     if ( !collapsesLayers ) return;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1, -1);
     hostedLayer.frame = self.bounds;
     [hostedLayer layoutAndRenderInContext:context];
 }
@@ -110,8 +112,10 @@
 	[hostedLayer removeFromSuperlayer];
 	[hostedLayer release];
 	hostedLayer = [newLayer retain];
-	if ( !collapsesLayers ) 
-    	[self.layer addSublayer:hostedLayer];
+	if ( !collapsesLayers ) {
+    	hostedLayer.frame = self.layer.bounds;
+        [self.layer addSublayer:hostedLayer];
+    }
     else {
         [self setNeedsDisplay];
     }
@@ -129,6 +133,12 @@
             [self setNeedsDisplay];
         }
     }
+}
+
+-(void)setFrame:(CGRect)newFrame
+{
+    [super setFrame:newFrame];
+    if ( !collapsesLayers ) hostedLayer.frame = self.bounds;
 }
 
 @end
