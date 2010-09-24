@@ -5,8 +5,9 @@
 
 #import "CPTestAppBarChartController.h"
 
-
 @implementation CPTestAppBarChartController
+
+@synthesize timer;
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -16,9 +17,24 @@
 #pragma mark -
 #pragma mark Initialization and teardown
 
-- (void)viewDidLoad 
+-(void)viewDidAppear:(BOOL)animated
 {
-	[super viewDidLoad];
+	[self timerFired];
+#ifdef MEMORY_TEST
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self 
+												selector:@selector(timerFired) userInfo:nil repeats:YES];
+#endif
+}
+
+-(void)timerFired
+{
+#ifdef MEMORY_TEST
+	static NSUInteger counter = 0;
+	
+	NSLog(@"\n----------------------------\ntimerFired: %lu", counter++);
+#endif
+	
+	[barChart release];
 	
     // Create barChart from theme
     barChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
@@ -36,7 +52,7 @@
     barChart.paddingRight = 0.0f;
     barChart.paddingTop = 0.0f;
     barChart.paddingBottom = 0.0f;
-
+	
     barChart.plotAreaFrame.paddingLeft = 70.0;
 	barChart.plotAreaFrame.paddingTop = 20.0;
 	barChart.plotAreaFrame.paddingRight = 20.0;
@@ -67,7 +83,7 @@
 	x.title = @"X Axis";
     x.titleLocation = CPDecimalFromFloat(7.5f);
 	x.titleOffset = 55.0f;
-
+	
 	// Define some custom labels for the data elements
 	x.labelRotation = M_PI/4;
 	x.labelingPolicy = CPAxisLabelingPolicyNone;
@@ -95,7 +111,7 @@
 	y.title = @"Y Axis";
 	y.titleOffset = 45.0f;
     y.titleLocation = CPDecimalFromFloat(150.0f);
-
+	
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];
     barPlot.baseValue = CPDecimalFromString(@"0");
@@ -112,10 +128,6 @@
     barPlot.cornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
-	
-#ifdef PERFORMANCE_TEST
-    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
-#endif
 }
 
 - (void)didReceiveMemoryWarning {
