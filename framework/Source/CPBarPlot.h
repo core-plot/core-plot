@@ -79,10 +79,6 @@ typedef enum _CPBarPlotField {
 
 @interface CPBarPlot : CPPlot {
 	@private
-    id observedObjectForBarLocationValues;
-    id observedObjectForBarLengthValues;
-    NSString *keyPathForBarLocationValues;
-    NSString *keyPathForBarLengthValues;
     CPLineStyle *lineStyle;
     CPFill *fill;
     CGFloat barWidth;

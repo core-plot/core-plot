@@ -14,6 +14,13 @@
 #import "NSNumberExtensions.h"
 #import "CPUtilities.h"
 
+NSString * const CPPlotBindingName = @"CPPlotBindingName";							///< Name.
+NSString * const CPPlotBindingContext = @"CPPlotBindingContext";					///< Context.
+
+static NSString * const CPPlotBindingObservedObject = @"CPPlotBindingObservedObject";	///< Observed object.
+static NSString * const CPPlotBindingKeyPath = @"CPPlotBindingKeyPath";					///< Key path.
+static NSString * const CPPlotBindingOptions = @"CPPlotBindingOptions";					///< Options.
+
 ///	@cond
 @interface CPPlot()
 
@@ -26,6 +33,8 @@
 @property (nonatomic, readwrite, retain) NSMutableArray *labelAnnotations;
 
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
+
+@property (nonatomic, readwrite, retain) NSMutableDictionary *plotDataBindings;
 
 -(void)setCachedDataType:(CPNumericDataType)newDataType;
 -(void)updateContentAnchorForLabel:(CPPlotSpaceAnnotation *)label;
@@ -125,6 +134,8 @@
 
 @synthesize labelAnnotations;
 
+@synthesize plotDataBindings;
+
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -147,6 +158,7 @@
 		labelFormatterChanged = YES;
 		labelIndexRange = NSMakeRange(0, 0);
 		labelAnnotations = nil;
+		plotDataBindings = nil;
 		
 		self.masksToBounds = YES;
 	}
@@ -162,8 +174,117 @@
 	[labelFormatter release];
 	[labelAnnotations release];
 	
+	for ( NSDictionary *infoDict in plotDataBindings ) {
+		[[infoDict objectForKey:CPPlotBindingObservedObject] removeObserver:self forKeyPath:[infoDict objectForKey:CPPlotBindingKeyPath]];
+	}
+	[plotDataBindings release];
+	
     [super dealloc];
 }
+
+#pragma mark -
+#pragma mark Bindings
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+
+-(NSArray *)plotDataForBinding:(NSString *)binding
+{
+	return nil;
+}
+
+#else
+
+/**	@brief Retrieves plot data from the specified binding.
+ *	@param binding The name of the binding.
+ *	@return An array of data retrieved from the observed object or nil if no binding exists with the specified name.
+ **/
+-(NSArray *)plotDataForBinding:(NSString *)binding
+{
+	NSArray *boundValues = nil;
+	NSDictionary *infoDict = [self.plotDataBindings objectForKey:binding];
+	
+	if ( infoDict ) {
+		boundValues = [[infoDict objectForKey:CPPlotBindingObservedObject] valueForKeyPath:[infoDict objectForKey:CPPlotBindingKeyPath]];
+		
+		NSString *transformerName = [[infoDict objectForKey:CPPlotBindingOptions] objectForKey:NSValueTransformerNameBindingOption];
+		if ( transformerName ) {
+			NSValueTransformer *theValueTransformer = [NSValueTransformer valueTransformerForName:transformerName];
+			NSMutableArray *newValues = [NSMutableArray arrayWithCapacity:boundValues.count];
+			for ( id val in boundValues ) {
+				[newValues addObject:[theValueTransformer transformedValue:val]];
+			}
+			boundValues = newValues;
+        }	
+	}
+	
+	return boundValues;
+}
+
+-(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+{
+	[super bind:binding toObject:observable withKeyPath:keyPath options:options];
+	
+	for ( NSDictionary *infoDict in [[self class] plotDataBindingInfo] ) {
+		if ( [binding isEqualToString:[infoDict objectForKey:CPPlotBindingName]] ) {
+			[observable addObserver:self forKeyPath:keyPath options:0 context:[infoDict objectForKey:CPPlotBindingContext]];
+			
+			NSDictionary *bindingDict = nil;
+			if ( options ) {
+				bindingDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							   observable, CPPlotBindingObservedObject,
+							   keyPath, CPPlotBindingKeyPath,
+							   options, CPPlotBindingOptions,
+							   nil];
+			}
+			else {
+				bindingDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							   observable, CPPlotBindingObservedObject,
+							   keyPath, CPPlotBindingKeyPath,
+							   nil];
+			}
+			
+			if ( !self.plotDataBindings ) {
+				self.plotDataBindings = [NSMutableDictionary dictionary];
+			}
+			[self.plotDataBindings setObject:bindingDict forKey:binding];
+			[self setDataNeedsReloading];
+			break;
+		}
+	}
+}
+
+-(void)unbind:(NSString *)bindingName
+{
+	NSDictionary *infoDict = [self.plotDataBindings objectForKey:bindingName];
+	if ( infoDict ) {
+		[[infoDict objectForKey:CPPlotBindingObservedObject] removeObserver:self forKeyPath:[infoDict objectForKey:CPPlotBindingKeyPath]];
+		[self setDataNeedsReloading];
+		[self.plotDataBindings removeObjectForKey:bindingName];
+	}
+	[super unbind:bindingName];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	for ( NSDictionary *infoDict in [[self class] plotDataBindingInfo] ) {
+		if ( context == [infoDict objectForKey:CPPlotBindingContext] ) {
+			[self setDataNeedsReloading];
+			break;
+		}
+	}
+}
+
+-(Class)valueClassForBinding:(NSString *)binding
+{
+	for ( NSDictionary *infoDict in [[self class] plotDataBindingInfo] ) {
+		if ( [binding isEqualToString:[infoDict objectForKey:CPPlotBindingName]] ) {
+			return [NSArray class];
+		}
+	}
+	return [super valueClassForBinding:binding];
+}
+
+#endif
 
 #pragma mark -
 #pragma mark Drawing
@@ -788,5 +909,25 @@
 {
 	// do nothing--implementation provided by subclasses
 }
+
+#pragma mark -
+#pragma mark Bindings
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/**	@brief Describes the bindings supported by this plot.
+ *  @return A set of NSDictionary objects describing the bindings supported by this plot.
+ *
+ *	Each binding is described by a dictionary containing the following keys:
+ *	- CPPlotBindingName: A unique name for the binding.
+ *	- CPPlotBindingContext: A unique object that identifies the observer's context.
+ **/
++(NSSet *)plotDataBindingInfo
+{
+	return [NSSet set];
+}
+
+#endif
 
 @end

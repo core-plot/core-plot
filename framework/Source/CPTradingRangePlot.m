@@ -28,24 +28,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 /// @cond
 @interface CPTradingRangePlot ()
 
-@property (nonatomic, readwrite, assign) id observedObjectForXValues;
-@property (nonatomic, readwrite, assign) id observedObjectForOpenValues;
-@property (nonatomic, readwrite, assign) id observedObjectForHighValues;
-@property (nonatomic, readwrite, assign) id observedObjectForLowValues;
-@property (nonatomic, readwrite, assign) id observedObjectForCloseValues;
-
-@property (nonatomic, readwrite, retain) NSValueTransformer *xValuesTransformer;
-@property (nonatomic, readwrite, retain) NSValueTransformer *openValuesTransformer;
-@property (nonatomic, readwrite, retain) NSValueTransformer *highValuesTransformer;
-@property (nonatomic, readwrite, retain) NSValueTransformer *lowValuesTransformer;
-@property (nonatomic, readwrite, retain) NSValueTransformer *closeValuesTransformer;
-
-@property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForOpenValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForHighValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForLowValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForCloseValues;
-
 @property (nonatomic, readwrite, copy) CPMutableNumericData *xValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *openValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *highValues;
@@ -63,81 +45,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 /** @brief A trading range financial plot.
  **/
 @implementation CPTradingRangePlot
-
-/** @property observedObjectForXValues
- *	@brief The observed object for x coordinate values when using bindings.
- **/
-@synthesize observedObjectForXValues;
-
-/** @property observedObjectForOpenValues
- *	@brief The observed object for open price values when using bindings.
- **/
-@synthesize observedObjectForOpenValues;
-
-/** @property observedObjectForHighValues
- *	@brief The observed object for high price values when using bindings.
- **/
-@synthesize observedObjectForHighValues;
-
-/** @property observedObjectForLowValues
- *	@brief The observed object for low price values when using bindings.
- **/
-@synthesize observedObjectForLowValues;
-
-/** @property observedObjectForCloseValues
- *	@brief The observed object for close price values when using bindings.
- **/
-@synthesize observedObjectForCloseValues;
-
-/** @property xValuesTransformer
- *	@brief The x price value transformer used for bindings.
- **/
-@synthesize xValuesTransformer;
-
-/** @property openValuesTransformer
- *	@brief The open price value transformer used for bindings.
- **/
-@synthesize openValuesTransformer;
-
-/** @property highValuesTransformer
- *	@brief The high price value transformer used for bindings.
- **/
-@synthesize highValuesTransformer;
-
-/** @property lowValuesTransformer
- *	@brief The low price value transformer used for bindings.
- **/
-@synthesize lowValuesTransformer;
-
-/** @property closeValuesTransformer
- *	@brief The close price value transformer used for bindings.
- **/
-@synthesize closeValuesTransformer;
-
-/** @property keyPathForXValues
- *	@brief The key path for binding x coordinate values.
- **/
-@synthesize keyPathForXValues;
-
-/** @property keyPathForOpenValues
- *	@brief The key path for binding open price values.
- **/
-@synthesize keyPathForOpenValues;
-
-/** @property keyPathForHighValues
- *	@brief The key path for binding high price values.
- **/
-@synthesize keyPathForHighValues;
-
-/** @property keyPathForLowValues
- *	@brief The key path for binding low price values.
- **/
-@synthesize keyPathForLowValues;
-
-/** @property keyPathForCloseValues
- *	@brief The key path for binding close price values.
- **/
-@synthesize keyPathForCloseValues;
 
 @dynamic xValues;
 @dynamic openValues;
@@ -184,6 +91,8 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 #pragma mark -
 #pragma mark init/dealloc
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 +(void)initialize
 {
 	if ( self == [CPTradingRangePlot class] ) {
@@ -194,19 +103,11 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 		[self exposeBinding:CPTradingRangePlotBindingCloseValues];	
 	}
 }
+#endif
 
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		observedObjectForXValues = nil;
-		observedObjectForOpenValues = nil;
-		observedObjectForHighValues = nil;
-		observedObjectForLowValues = nil;
-		observedObjectForCloseValues = nil;
-		observedObjectForPlotSymbols = nil;
-		keyPathForXValues = nil;
-		keyPathForCloseValues = nil;
-		keyPathForPlotSymbols = nil;
         plotStyle = CPTradingRangePlotStyleOHLC;
 		lineStyle = [[CPLineStyle alloc] init];
         increaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor whiteColor]];
@@ -223,36 +124,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 -(void)dealloc
 {
-	if ( observedObjectForXValues ) {
-		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
-		observedObjectForXValues = nil;	
-	}
-	if ( observedObjectForOpenValues ) {
-		[observedObjectForOpenValues removeObserver:self forKeyPath:self.keyPathForOpenValues];
-		observedObjectForOpenValues = nil;	
-	}
-	if ( observedObjectForHighValues ) {
-		[observedObjectForHighValues removeObserver:self forKeyPath:self.keyPathForHighValues];
-		observedObjectForHighValues = nil;	
-	}
-	if ( observedObjectForLowValues ) {
-		[observedObjectForLowValues removeObserver:self forKeyPath:self.keyPathForLowValues];
-		observedObjectForLowValues = nil;	
-	}
-	if ( observedObjectForCloseValues ) {
-		[observedObjectForCloseValues removeObserver:self forKeyPath:self.keyPathForCloseValues];
-		observedObjectForCloseValues = nil;	
-	}
-	
-	[keyPathForXValues release];
-	[keyPathForCloseValues release];
-	[keyPathForPlotSymbols release];
-	[xValuesTransformer release];
-    [openValuesTransformer release];
-	[highValuesTransformer release];
-    [lowValuesTransformer release];
-    [closeValuesTransformer release];
-    
 	[lineStyle release];
 	[increaseFill release];
 	[decreaseFill release];
@@ -263,146 +134,25 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 #pragma mark -
 #pragma mark Bindings
 
--(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
++(NSSet *)plotDataBindingInfo
 {
-	[super bind:binding toObject:observable withKeyPath:keyPath options:options];
-	if ([binding isEqualToString:CPTradingRangePlotBindingXValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
-		self.observedObjectForXValues = observable;
-		self.keyPathForXValues = keyPath;
-		[self setDataNeedsReloading];
-		
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.xValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }			
+	static NSSet *bindingInfo = nil;
+	if ( !bindingInfo ) {
+		bindingInfo = [[NSSet alloc] initWithObjects:
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingOpenValues, CPPlotBindingName, CPOpenValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingHighValues, CPPlotBindingName, CPHighValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingLowValues, CPPlotBindingName, CPLowValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingCloseValues, CPPlotBindingName, CPCloseValuesBindingContext, CPPlotBindingContext, nil],
+					   nil];
 	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingOpenValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPOpenValuesBindingContext];
-		self.observedObjectForOpenValues = observable;
-		self.keyPathForOpenValues = keyPath;
-		[self setDataNeedsReloading];
-        
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.openValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }	
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingHighValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPHighValuesBindingContext];
-		self.observedObjectForHighValues = observable;
-		self.keyPathForHighValues = keyPath;
-		[self setDataNeedsReloading];
-        
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.highValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }	
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingLowValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPLowValuesBindingContext];
-		self.observedObjectForLowValues = observable;
-		self.keyPathForLowValues = keyPath;
-		[self setDataNeedsReloading];
-        
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.lowValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }	
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingCloseValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPCloseValuesBindingContext];
-		self.observedObjectForCloseValues = observable;
-		self.keyPathForCloseValues = keyPath;
-		[self setDataNeedsReloading];
-        
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.closeValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }	
-	}
+	return bindingInfo;
 }
 
--(void)unbind:(NSString *)bindingName
-{
-	if ([bindingName isEqualToString:CPTradingRangePlotBindingXValues]) {
-		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
-		self.observedObjectForXValues = nil;
-		self.keyPathForXValues = nil;
-        self.xValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPTradingRangePlotBindingOpenValues]) {
-		[observedObjectForOpenValues removeObserver:self forKeyPath:self.keyPathForOpenValues];
-		self.observedObjectForOpenValues = nil;
-		self.keyPathForOpenValues = nil;
-        self.openValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPTradingRangePlotBindingHighValues]) {
-		[observedObjectForHighValues removeObserver:self forKeyPath:self.keyPathForHighValues];
-		self.observedObjectForHighValues = nil;
-		self.keyPathForHighValues = nil;
-        self.highValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPTradingRangePlotBindingLowValues]) {
-		[observedObjectForLowValues removeObserver:self forKeyPath:self.keyPathForLowValues];
-		self.observedObjectForLowValues = nil;
-		self.keyPathForLowValues = nil;
-        self.lowValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPTradingRangePlotBindingCloseValues]) {
-		[observedObjectForCloseValues removeObserver:self forKeyPath:self.keyPathForCloseValues];
-		self.observedObjectForCloseValues = nil;
-		self.keyPathForCloseValues = nil;
-        self.closeValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	[super unbind:bindingName];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if (context == CPXValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPOpenValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPHighValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPLowValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPCloseValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-}
-
--(Class)valueClassForBinding:(NSString *)binding
-{
-	if ([binding isEqualToString:CPTradingRangePlotBindingXValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingOpenValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingHighValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingLowValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPTradingRangePlotBindingCloseValues]) {
-		return [NSArray class];
-	}
-	else {
-		return [super valueClassForBinding:binding];
-	}
-}
+#endif
 
 #pragma mark -
 #pragma mark Data Loading
@@ -413,82 +163,27 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	
 	NSRange indexRange = NSMakeRange(0, 0);
 	
-	if ( self.observedObjectForXValues && self.observedObjectForOpenValues && self.observedObjectForHighValues && self.observedObjectForLowValues && self.observedObjectForCloseValues ) {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+	NSArray *boundXValues = [self plotDataForBinding:CPTradingRangePlotBindingXValues];
+	NSArray *boundOpenValues = [self plotDataForBinding:CPTradingRangePlotBindingOpenValues];
+	NSArray *boundHighValues = [self plotDataForBinding:CPTradingRangePlotBindingHighValues];
+	NSArray *boundLowValues = [self plotDataForBinding:CPTradingRangePlotBindingLowValues];
+	NSArray *boundCloseValues = [self plotDataForBinding:CPTradingRangePlotBindingCloseValues];
+
+	if ( boundXValues && boundOpenValues && boundHighValues && boundLowValues && boundCloseValues ) {
 		// Use bindings to retrieve data
-		
-		// X values
-		NSArray *boundXValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
-		NSValueTransformer *theXValuesTransformer = self.xValuesTransformer;
-		if ( theXValuesTransformer != nil ) {
-			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:boundXValues.count];
-			for ( id val in boundXValues ) {
-				[newXValues addObject:[theXValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX];
-		}
-		else {
 			[self cacheNumbers:boundXValues forField:CPTradingRangePlotFieldX];
-		}
-		
-		// Open values
-		NSArray *boundOpenValues = [self.observedObjectForOpenValues valueForKeyPath:self.keyPathForOpenValues];
-		NSValueTransformer *theOpenValuesTransformer = self.openValuesTransformer;
-		if ( theOpenValuesTransformer != nil ) {
-			NSMutableArray *newOpenValues = [NSMutableArray arrayWithCapacity:boundOpenValues.count];
-			for ( id val in boundOpenValues ) {
-				[newOpenValues addObject:[theOpenValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen];
-		}
-		else {
 			[self cacheNumbers:boundOpenValues forField:CPTradingRangePlotFieldOpen];
-		}
-		
-		// High values
-		NSArray *boundHighValues = [self.observedObjectForHighValues valueForKeyPath:self.keyPathForHighValues];
-		NSValueTransformer *theHighValuesTransformer = self.highValuesTransformer;
-		if ( theHighValuesTransformer != nil ) {
-			NSMutableArray *newHighValues = [NSMutableArray arrayWithCapacity:boundHighValues.count];
-			for ( id val in boundHighValues ) {
-				[newHighValues addObject:[theHighValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh];
-		}
-		else {
 			[self cacheNumbers:boundHighValues forField:CPTradingRangePlotFieldHigh];
-		}
-		
-		// Low values
-		NSArray *boundLowValues = [self.observedObjectForLowValues valueForKeyPath:self.keyPathForLowValues];
-		NSValueTransformer *theLowValuesTransformer = self.lowValuesTransformer;
-		if ( theLowValuesTransformer != nil ) {
-			NSMutableArray *newLowValues = [NSMutableArray arrayWithCapacity:boundLowValues.count];
-			for ( id val in boundLowValues ) {
-				[newLowValues addObject:[theLowValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow];
-		}
-		else {
 			[self cacheNumbers:boundLowValues forField:CPTradingRangePlotFieldLow];
-		}
-		
-		// Close values
-		NSArray *boundCloseValues = [self.observedObjectForCloseValues valueForKeyPath:self.keyPathForCloseValues];
-		NSValueTransformer *theCloseValuesTransformer = self.closeValuesTransformer;
-		if ( theCloseValuesTransformer != nil ) {
-			NSMutableArray *newCloseValues = [NSMutableArray arrayWithCapacity:boundCloseValues.count];
-			for ( id val in boundCloseValues ) {
-				[newCloseValues addObject:[theCloseValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose];
-		}
-		else {
 			[self cacheNumbers:boundCloseValues forField:CPTradingRangePlotFieldClose];
-		}
 		
 		indexRange = NSMakeRange(0, self.cachedDataCount);
     }
-	else if ( self.dataSource ) {
+	else
+#endif
+	if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
 		

@@ -79,10 +79,10 @@ typedef enum _CPPieDirection {
 
 @end
 
+#pragma mark -
+
 @interface CPPieChart : CPPlot {
 	@private
-	id observedObjectForPieSliceWidthValues;
-	NSString *keyPathForPieSliceWidthValues;
 	CGFloat pieRadius;
 	CGFloat startAngle;
 	CPPieDirection sliceDirection;

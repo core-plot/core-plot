@@ -17,8 +17,6 @@ static NSString * const CPPieChartBindingPieSliceWidthContext = @"CPPieChartBind
 /// @cond
 @interface CPPieChart ()
 
-@property (nonatomic, readwrite, assign) id observedObjectForPieSliceWidthValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForPieSliceWidthValues;
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
 
 -(void)updateNormalizedDataInRange:(NSRange)indexRange;
@@ -35,8 +33,6 @@ static NSString * const CPPieChartBindingPieSliceWidthContext = @"CPPieChartBind
  **/
 @implementation CPPieChart
 
-@synthesize observedObjectForPieSliceWidthValues;
-@synthesize keyPathForPieSliceWidthValues;
 @dynamic sliceWidths;
 
 /** @property pieRadius
@@ -94,12 +90,15 @@ static CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Initialization
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 +(void)initialize
 {
 	if ( self == [CPPieChart class] ) {
 		[self exposeBinding:CPPieChartBindingPieSliceWidthValues];	
 	}
 }
+#endif
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -120,52 +119,28 @@ static CGFloat colorLookupTable[10][3] =
 -(void)dealloc
 {
 	[borderLineStyle release];
-	observedObjectForPieSliceWidthValues = nil;
-	[keyPathForPieSliceWidthValues release];
+
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Bindings
 
--(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
++(NSSet *)plotDataBindingInfo
 {
-	[super bind:binding toObject:observable withKeyPath:keyPath options:options];
-	if ( [binding isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPPieChartBindingPieSliceWidthContext];
-		self.observedObjectForPieSliceWidthValues = observable;
-		self.keyPathForPieSliceWidthValues = keyPath;
-		[self setDataNeedsReloading];
+	static NSSet *bindingInfo = nil;
+	if ( !bindingInfo ) {
+		bindingInfo = [[NSSet alloc] initWithObjects:
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPPieChartBindingPieSliceWidthValues, CPPlotBindingName, CPPieChartBindingPieSliceWidthContext, CPPlotBindingContext, nil],
+					   nil];
 	}
+	return bindingInfo;
 }
 
--(void)unbind:(NSString *)bindingName
-{
-	if ( [bindingName isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
-		[self.observedObjectForPieSliceWidthValues removeObserver:self forKeyPath:self.keyPathForPieSliceWidthValues];
-		self.observedObjectForPieSliceWidthValues = nil;
-		self.keyPathForPieSliceWidthValues = nil;
-		[self setDataNeedsReloading];
-	}	
-	[super unbind:bindingName];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if ( context == CPPieChartBindingPieSliceWidthContext ) {
-		[self setDataNeedsReloading];
-	}
-}
-
--(Class)valueClassForBinding:(NSString *)binding
-{
-	if ( [binding isEqualToString:CPPieChartBindingPieSliceWidthValues] ) {
-		return [NSArray class];
-	}
-	else {
-		return [super valueClassForBinding:binding];
-	}
-}
+#endif
 
 #pragma mark -
 #pragma mark Data Loading
@@ -177,14 +152,19 @@ static CGFloat colorLookupTable[10][3] =
 	NSRange indexRange = NSMakeRange(0, 0);
 	
     // Pie slice widths
-    if ( self.observedObjectForPieSliceWidthValues ) {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+	NSArray *rawSliceValues = [self plotDataForBinding:CPPieChartBindingPieSliceWidthValues];
+	
+    if ( rawSliceValues ) {
         // Use bindings to retrieve data
-		id rawSliceValues = [self.observedObjectForPieSliceWidthValues valueForKeyPath:self.keyPathForPieSliceWidthValues];
 		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
 		
 		indexRange = NSMakeRange(0, self.cachedDataCount);
     }
-    else if ( self.dataSource ) {
+    else
+#endif
+	if ( self.dataSource ) {
 		// Grab all values from the data source
         indexRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);
 		id rawSliceValues = [self numbersFromDataSourceForField:CPPieChartFieldSliceWidth recordIndexRange:indexRange];

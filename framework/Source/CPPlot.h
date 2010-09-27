@@ -11,6 +11,14 @@
 @class CPPlotRange;
 @class CPTextStyle;
 
+///	@file
+
+/// @name Binding Information Dictionary Keys
+/// @{
+extern NSString * const CPPlotBindingName;
+extern NSString * const CPPlotBindingContext;
+///	@}
+
 /**	@brief Enumeration of cache precisions.
  **/
 typedef enum _CPPlotCachePrecision {
@@ -127,6 +135,10 @@ typedef enum _CPPlotCachePrecision {
 	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
 	NSMutableArray *labelAnnotations;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+	NSMutableDictionary *plotDataBindings;
+#endif
 }
 
 /// @name Data Source
@@ -178,6 +190,14 @@ typedef enum _CPPlotCachePrecision {
 -(void)relabelIndexRange:(NSRange)indexRange;
 ///	@}
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+/// @name Bindings
+/// @{
+-(NSArray *)plotDataForBinding:(NSString *)binding;
+///	@}
+#endif
+
 /// @name Data Loading
 /// @{
 -(void)setDataNeedsReloading;
@@ -226,6 +246,14 @@ typedef enum _CPPlotCachePrecision {
 /// @{
 -(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index;
 ///	@}
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+/// @name Bindings
+/// @{
++(NSSet *)plotDataBindingInfo;
+///	@}
+#endif
 
 @end
 
