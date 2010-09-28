@@ -161,6 +161,7 @@ static NSString * const CPPlotBindingOptions = @"CPPlotBindingOptions";					///<
 		plotDataBindings = nil;
 		
 		self.masksToBounds = YES;
+		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
@@ -186,12 +187,6 @@ static NSString * const CPPlotBindingOptions = @"CPPlotBindingOptions";					///<
 #pragma mark Bindings
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-
--(NSArray *)plotDataForBinding:(NSString *)binding
-{
-	return nil;
-}
-
 #else
 
 /**	@brief Retrieves plot data from the specified binding.

@@ -153,7 +153,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         
 		self.labelOffset = 10.0;
 		self.labelField = CPBarPlotFieldBarLength;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }

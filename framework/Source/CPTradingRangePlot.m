@@ -117,7 +117,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         barCornerRadius = 0.0;
 
 		self.labelField = CPTradingRangePlotFieldClose;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }

@@ -111,7 +111,6 @@ static CGFloat colorLookupTable[10][3] =
 		
 		self.labelOffset = 10.0;
 		self.labelField = CPPieChartFieldSliceWidth;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }

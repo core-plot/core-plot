@@ -113,7 +113,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
         plotSymbolMarginForHitDetection = 0.0f;
         interpolation = CPScatterPlotInterpolationLinear;
 		self.labelField = CPScatterPlotFieldY;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
