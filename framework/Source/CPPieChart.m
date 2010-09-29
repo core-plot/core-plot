@@ -12,8 +12,6 @@
 
 NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
 
-static NSString * const CPPieChartBindingPieSliceWidthContext = @"CPPieChartBindingPieSliceWidthContext";
-
 /// @cond
 @interface CPPieChart ()
 
@@ -123,25 +121,6 @@ static CGFloat colorLookupTable[10][3] =
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPPieChartBindingPieSliceWidthValues, CPPlotBindingName, CPPieChartBindingPieSliceWidthContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
@@ -151,18 +130,6 @@ static CGFloat colorLookupTable[10][3] =
 	NSRange indexRange = NSMakeRange(0, 0);
 	
     // Pie slice widths
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *rawSliceValues = [self plotDataForBinding:CPPieChartBindingPieSliceWidthValues];
-	
-    if ( rawSliceValues ) {
-        // Use bindings to retrieve data
-		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-    }
-    else
-#endif
 	if ( self.dataSource ) {
 		// Grab all values from the data source
         indexRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);

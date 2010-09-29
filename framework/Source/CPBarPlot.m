@@ -17,9 +17,6 @@
 NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 
-static NSString * const CPBarLocationsBindingContext = @"CPBarLocationsBindingContext";
-static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContext";
-
 /// @cond
 @interface CPBarPlot ()
 
@@ -167,26 +164,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLocations, CPPlotBindingName, CPBarLocationsBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLengths, CPPlotBindingName, CPBarLengthsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
@@ -196,18 +173,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	NSRange indexRange = NSMakeRange(0, 0);
 	
 	// Bar lengths
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *locationData = nil;
-	NSArray *lengthData = [self plotDataForBinding:CPBarPlotBindingBarLengths];
-	if ( lengthData ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:lengthData forField:CPBarPlotFieldBarLength];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
@@ -263,13 +228,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
 		[locationData release];
 	}
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	else if ( locationData = [self plotDataForBinding:CPBarPlotBindingBarLocations] ) {
-		// Use bindings to retrieve locations
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
-	}
-#endif
 	else if ( self.dataSource ) {
 		// Get locations from the datasource
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;

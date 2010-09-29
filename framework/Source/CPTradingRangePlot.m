@@ -19,12 +19,6 @@ NSString * const CPTradingRangePlotBindingHighValues = @"highValues";	///< High 
 NSString * const CPTradingRangePlotBindingLowValues = @"lowValues";		///< Low price values.
 NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Close price values.
 
-static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString * const CPOpenValuesBindingContext = @"CPOpenValuesBindingContext";
-static NSString * const CPHighValuesBindingContext = @"CPHighValuesBindingContext";
-static NSString * const CPLowValuesBindingContext = @"CPLowValuesBindingContext";
-static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingContext";
-
 /// @cond
 @interface CPTradingRangePlot ()
 
@@ -131,29 +125,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingOpenValues, CPPlotBindingName, CPOpenValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingHighValues, CPPlotBindingName, CPHighValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingLowValues, CPPlotBindingName, CPLowValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingCloseValues, CPPlotBindingName, CPCloseValuesBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
@@ -162,26 +133,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	
 	NSRange indexRange = NSMakeRange(0, 0);
 	
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *boundXValues = [self plotDataForBinding:CPTradingRangePlotBindingXValues];
-	NSArray *boundOpenValues = [self plotDataForBinding:CPTradingRangePlotBindingOpenValues];
-	NSArray *boundHighValues = [self plotDataForBinding:CPTradingRangePlotBindingHighValues];
-	NSArray *boundLowValues = [self plotDataForBinding:CPTradingRangePlotBindingLowValues];
-	NSArray *boundCloseValues = [self plotDataForBinding:CPTradingRangePlotBindingCloseValues];
-
-	if ( boundXValues && boundOpenValues && boundHighValues && boundLowValues && boundCloseValues ) {
-		// Use bindings to retrieve data
-			[self cacheNumbers:boundXValues forField:CPTradingRangePlotFieldX];
-			[self cacheNumbers:boundOpenValues forField:CPTradingRangePlotFieldOpen];
-			[self cacheNumbers:boundHighValues forField:CPTradingRangePlotFieldHigh];
-			[self cacheNumbers:boundLowValues forField:CPTradingRangePlotFieldLow];
-			[self cacheNumbers:boundCloseValues forField:CPTradingRangePlotFieldClose];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-    }
-	else
-#endif
 	if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];

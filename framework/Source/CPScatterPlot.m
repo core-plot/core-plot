@@ -16,10 +16,6 @@ NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
 
-static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
-static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
-
 /// @cond
 @interface CPScatterPlot ()
 
@@ -128,27 +124,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingYValues, CPPlotBindingName, CPYValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingPlotSymbols, CPPlotBindingName, CPPlotSymbolsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
 -(void)reloadData 
@@ -157,23 +132,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	
 	NSRange indexRange = NSMakeRange(0, 0);
 	
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *boundXValues = [self plotDataForBinding:CPScatterPlotBindingXValues];
-	NSArray *boundYValues = [self plotDataForBinding:CPScatterPlotBindingYValues];
-	
-	if ( boundXValues && boundYValues ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:boundXValues forField:CPScatterPlotFieldX];
-		[self cacheNumbers:boundYValues forField:CPScatterPlotFieldY];
-		
-		// Plot symbols
-		self.plotSymbols = [self plotDataForBinding:CPScatterPlotBindingPlotSymbols];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
 		id <CPScatterPlotDataSource> theDataSource = (id <CPScatterPlotDataSource>)self.dataSource;
 		
@@ -649,6 +607,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 -(NSArray *)yValues 
 {
     return [[self cachedNumbersForField:CPScatterPlotFieldY] sampleArray];
+}
+
+-(void)setPlotSymbols:(NSArray *)newSymbols 
+{
+    if ( newSymbols != plotSymbols ) {
+		[plotSymbols release];
+		plotSymbols = [newSymbols retain];
+		[self setNeedsDisplay];
+	}
 }
 
 @end
