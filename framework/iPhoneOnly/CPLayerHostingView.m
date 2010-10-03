@@ -31,6 +31,14 @@
     
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
     self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);	
+    
+    // Register for pinches
+    Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
+    if ( pinchClass ) {
+        id pinchRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+        self.gestureRecognizers = [NSArray arrayWithObjects:pinchRecognizer, nil];
+        [pinchRecognizer release];
+    }
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -84,6 +92,14 @@
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	[hostedLayer pointingDeviceCancelledEvent:event];
+}
+
+#pragma mark -
+#pragma mark Gestures
+
+-(void)handlePinchGesture:(id)pinchRecognizer 
+{
+    [pinchRecognizer setScale:1.0f];
 }
 
 #pragma mark -
