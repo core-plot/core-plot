@@ -41,25 +41,6 @@ typedef enum _CPTradingRangePlotField {
 
 @interface CPTradingRangePlot : CPPlot {
 	@private
-    id observedObjectForXValues;
-	id observedObjectForOpenValues;
-    id observedObjectForHighValues;
-    id observedObjectForLowValues;
-    id observedObjectForCloseValues;
-    id observedObjectForPlotSymbols;
-	
-    NSString *keyPathForXValues;
-    NSString *keyPathForOpenValues;
-	NSString *keyPathForHighValues;
-    NSString *keyPathForLowValues;
-    NSString *keyPathForCloseValues;
-    NSString *keyPathForPlotSymbols;
-	NSValueTransformer *xValuesTransformer;
-    NSValueTransformer *openValuesTransformer;
-	NSValueTransformer *highValuesTransformer;
-	NSValueTransformer *lowValuesTransformer;
-	NSValueTransformer *closeValuesTransformer;
-    
     CPLineStyle *lineStyle;
     CPFill *increaseFill;
     CPFill *decreaseFill;

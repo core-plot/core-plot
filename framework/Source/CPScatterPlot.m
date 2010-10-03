@@ -18,23 +18,10 @@ NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot
 
 static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
 static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
-static NSString * const CPLowerErrorValuesBindingContext = @"CPLowerErrorValuesBindingContext";
-static NSString * const CPUpperErrorValuesBindingContext = @"CPUpperErrorValuesBindingContext";
 static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
 
 /// @cond
 @interface CPScatterPlot ()
-
-@property (nonatomic, readwrite, assign) id observedObjectForXValues;
-@property (nonatomic, readwrite, assign) id observedObjectForYValues;
-@property (nonatomic, readwrite, assign) id observedObjectForPlotSymbols;
-
-@property (nonatomic, readwrite, retain) NSValueTransformer *xValuesTransformer;
-@property (nonatomic, readwrite, retain) NSValueTransformer *yValuesTransformer;
-
-@property (nonatomic, readwrite, copy) NSString *keyPathForXValues;
-@property (nonatomic, readwrite, copy) NSString *keyPathForYValues;;
-@property (nonatomic, readwrite, copy) NSString *keyPathForPlotSymbols;
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
 @property (nonatomic, readwrite, copy) NSArray *yValues;
@@ -57,14 +44,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  **/
 @implementation CPScatterPlot
 
-@synthesize observedObjectForXValues;
-@synthesize observedObjectForYValues;
-@synthesize observedObjectForPlotSymbols;
-@synthesize xValuesTransformer;
-@synthesize yValuesTransformer;
-@synthesize keyPathForXValues;
-@synthesize keyPathForYValues;
-@synthesize keyPathForPlotSymbols;
 @dynamic xValues;
 @dynamic yValues;
 @synthesize plotSymbols;
@@ -111,6 +90,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 #pragma mark -
 #pragma mark init/dealloc
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 +(void)initialize
 {
 	if ( self == [CPScatterPlot class] ) {
@@ -119,16 +100,11 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		[self exposeBinding:CPScatterPlotBindingPlotSymbols];	
 	}
 }
+#endif
 
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		observedObjectForXValues = nil;
-		observedObjectForYValues = nil;
-		observedObjectForPlotSymbols = nil;
-		keyPathForXValues = nil;
-		keyPathForYValues = nil;
-		keyPathForPlotSymbols = nil;
 		dataLineStyle = [[CPLineStyle alloc] init];
 		plotSymbol = nil;
 		areaFill = nil;
@@ -144,28 +120,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(void)dealloc
 {
-	if ( observedObjectForXValues ) {
-		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
-		observedObjectForXValues = nil;	
-	}
-	if ( observedObjectForYValues ) {
-		[observedObjectForYValues removeObserver:self forKeyPath:self.keyPathForYValues];
-		observedObjectForYValues = nil;	
-	}
-	if ( observedObjectForPlotSymbols ) {
-		[observedObjectForPlotSymbols removeObserver:self forKeyPath:self.keyPathForPlotSymbols];
-		observedObjectForPlotSymbols = nil;	
-	}
-
-	[keyPathForXValues release];
-	[keyPathForYValues release];
-	[keyPathForPlotSymbols release];
 	[dataLineStyle release];
 	[plotSymbol release];
 	[areaFill release];
 	[plotSymbols release];
-	[xValuesTransformer release];
-    [yValuesTransformer release];
     
 	[super dealloc];
 }
@@ -173,92 +131,23 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 #pragma mark -
 #pragma mark Bindings
 
--(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
++(NSSet *)plotDataBindingInfo
 {
-	[super bind:binding toObject:observable withKeyPath:keyPath options:options];
-	if ([binding isEqualToString:CPScatterPlotBindingXValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPXValuesBindingContext];
-		self.observedObjectForXValues = observable;
-		self.keyPathForXValues = keyPath;
-		[self setDataNeedsReloading];
-		
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.xValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }			
+	static NSSet *bindingInfo = nil;
+	if ( !bindingInfo ) {
+		bindingInfo = [[NSSet alloc] initWithObjects:
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingYValues, CPPlotBindingName, CPYValuesBindingContext, CPPlotBindingContext, nil],
+					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingPlotSymbols, CPPlotBindingName, CPPlotSymbolsBindingContext, CPPlotBindingContext, nil],
+					   nil];
 	}
-	else if ([binding isEqualToString:CPScatterPlotBindingYValues]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPYValuesBindingContext];
-		self.observedObjectForYValues = observable;
-		self.keyPathForYValues = keyPath;
-		[self setDataNeedsReloading];
-        
-		NSString *transformerName = [options objectForKey:@"NSValueTransformerNameBindingOption"];
-		if ( transformerName != nil ) {
-            self.yValuesTransformer = [NSValueTransformer valueTransformerForName:transformerName];
-        }	
-	}
-	else if ([binding isEqualToString:CPScatterPlotBindingPlotSymbols]) {
-		[observable addObserver:self forKeyPath:keyPath options:0 context:CPPlotSymbolsBindingContext];
-		self.observedObjectForPlotSymbols = observable;
-		self.keyPathForPlotSymbols = keyPath;
-		[self setDataNeedsReloading];
-	}
+	return bindingInfo;
 }
 
--(void)unbind:(NSString *)bindingName
-{
-	if ([bindingName isEqualToString:CPScatterPlotBindingXValues]) {
-		[observedObjectForXValues removeObserver:self forKeyPath:self.keyPathForXValues];
-		self.observedObjectForXValues = nil;
-		self.keyPathForXValues = nil;
-        self.xValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPScatterPlotBindingYValues]) {
-		[observedObjectForYValues removeObserver:self forKeyPath:self.keyPathForYValues];
-		self.observedObjectForYValues = nil;
-		self.keyPathForYValues = nil;
-        self.yValuesTransformer = nil;
-		[self setDataNeedsReloading];
-	}	
-	else if ([bindingName isEqualToString:CPScatterPlotBindingPlotSymbols]) {
-		[observedObjectForPlotSymbols removeObserver:self forKeyPath:self.keyPathForPlotSymbols];
-		self.observedObjectForPlotSymbols = nil;
-		self.keyPathForPlotSymbols = nil;
-		[self setDataNeedsReloading];
-	}	
-	[super unbind:bindingName];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if (context == CPXValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPYValuesBindingContext) {
-		[self setDataNeedsReloading];
-	}
-	else if (context == CPPlotSymbolsBindingContext) {
-		[self setDataNeedsReloading];
-	}
-}
-
--(Class)valueClassForBinding:(NSString *)binding
-{
-	if ([binding isEqualToString:CPScatterPlotBindingXValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPScatterPlotBindingYValues]) {
-		return [NSArray class];
-	}
-	else if ([binding isEqualToString:CPScatterPlotBindingPlotSymbols]) {
-		return [NSArray class];
-	}
-	else {
-		return [super valueClassForBinding:binding];
-	}
-}
+#endif
 
 #pragma mark -
 #pragma mark Data Loading
@@ -269,42 +158,24 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	
 	NSRange indexRange = NSMakeRange(0, 0);
 	
-	if ( self.observedObjectForXValues && self.observedObjectForYValues ) {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+	NSArray *boundXValues = [self plotDataForBinding:CPScatterPlotBindingXValues];
+	NSArray *boundYValues = [self plotDataForBinding:CPScatterPlotBindingYValues];
+	
+	if ( boundXValues && boundYValues ) {
 		// Use bindings to retrieve data
-		// X values
-		NSArray *boundXValues = [self.observedObjectForXValues valueForKeyPath:self.keyPathForXValues];
-		NSValueTransformer *theXValuesTransformer = self.xValuesTransformer;
-		if ( theXValuesTransformer != nil ) {
-			NSMutableArray *newXValues = [NSMutableArray arrayWithCapacity:boundXValues.count];
-			for ( id val in boundXValues ) {
-				[newXValues addObject:[theXValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newXValues forField:CPScatterPlotFieldX];
-		}
-		else {
-			[self cacheNumbers:boundXValues forField:CPScatterPlotFieldX];
-		}
-		
-		// Y values
-		NSArray *boundYValues = [self.observedObjectForYValues valueForKeyPath:self.keyPathForYValues];
-		NSValueTransformer *theYValuesTransformer = self.yValuesTransformer;
-		if ( theYValuesTransformer != nil ) {
-			NSMutableArray *newYValues = [NSMutableArray arrayWithCapacity:boundYValues.count];
-			for ( id val in boundYValues ) {
-				[newYValues addObject:[theYValuesTransformer transformedValue:val]];
-			}
-			[self cacheNumbers:newYValues forField:CPScatterPlotFieldY];
-		}
-		else {
-			[self cacheNumbers:boundYValues forField:CPScatterPlotFieldY];
-		}
+		[self cacheNumbers:boundXValues forField:CPScatterPlotFieldX];
+		[self cacheNumbers:boundYValues forField:CPScatterPlotFieldY];
 		
 		// Plot symbols
-		self.plotSymbols = [self.observedObjectForPlotSymbols valueForKeyPath:self.keyPathForPlotSymbols];
+		self.plotSymbols = [self plotDataForBinding:CPScatterPlotBindingPlotSymbols];
 		
 		indexRange = NSMakeRange(0, self.cachedDataCount);
 	}
-	else if ( self.dataSource ) {
+	else
+#endif
+	if ( self.dataSource ) {
 		id <CPScatterPlotDataSource> theDataSource = (id <CPScatterPlotDataSource>)self.dataSource;
 		
 		// Expand the index range each end, to make sure that plot lines go to offscreen points
