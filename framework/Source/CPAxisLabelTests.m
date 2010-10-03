@@ -1,4 +1,3 @@
-
 #import "CPAxisLabelTests.h"
 #import "CPAxisLabel.h"
 #import "CPTextStyle.h"
@@ -6,6 +5,8 @@
 #import "CPBorderedLayer.h"
 #import "CPColor.h"
 #import "CPExceptions.h"
+
+static const double precision = 1.0e-6;
 
 @implementation CPAxisLabelTests
 
@@ -26,7 +27,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
     @try {
         label = [[CPAxisLabel alloc] initWithText:@"CPAxisLabelTests-testPositionRelativeToViewPointRaisesForInvalidDirection" textStyle:[CPTextStyle textStyle]];
         
-        STAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPCoordinateX inDirection:INT_MAX], NSException, CPException, @"Should raise CPException for invalid direction (type CPSign)");
+        STAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPCoordinateX inDirection:INT_MAX], NSException, NSInvalidArgumentException, @"Should raise NSInvalidArgumentException for invalid direction (type CPSign)");
         
     }
     @finally {
@@ -56,7 +57,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		CGPoint newPosition = roundPoint(CGPointMake(start-label.offset, start), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)1.0, precision, @"Should anchor at (1.0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)0.5, precision, @"Should anchor at (1.0,0.5)");
         
         contentLayer.anchorPoint = CGPointZero;
         contentLayer.position = CGPointZero;
@@ -67,7 +69,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start-label.offset, start), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(1.0, 0.5), @"Should anchor at (1.0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)1.0, precision, @"Should anchor at (1.0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)0.5, precision, @"Should anchor at (1.0,0.5)");
         
         contentLayer.anchorPoint = CGPointZero;
         contentLayer.position = CGPointZero;
@@ -78,7 +81,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start+label.offset, start), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.0, 0.5), @"Should anchor at (0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)0.0, precision, @"Should anchor at (0.0,0.5)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)0.5, precision, @"Should anchor at (0.0,0.5)");
     }
     @finally {
         [label release];
@@ -107,7 +111,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		CGPoint newPosition = roundPoint(CGPointMake(start, start-label.offset), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)0.5, precision, @"Should anchor at (0.5,1.0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)1.0, precision, @"Should anchor at (0.5,1.0)");
         
         contentLayer.anchorPoint = CGPointZero;
         contentLayer.position = CGPointZero;
@@ -118,7 +123,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start, start-label.offset), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add negative offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 1.0), @"Should anchor at (0.5,1.0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)0.5, precision, @"Should anchor at (0.5,1.0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)1.0, precision, @"Should anchor at (0.5,1.0)");
         
         contentLayer.anchorPoint = CGPointZero;
         contentLayer.position = CGPointZero;
@@ -129,7 +135,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 		newPosition = roundPoint(CGPointMake(start, start+label.offset), contentSize, contentLayer.anchorPoint);
 
         STAssertEquals(contentLayer.position, newPosition, @"Should add positive offset, %@ != %@", NSStringFromPoint(NSPointFromCGPoint(contentLayer.position)), NSStringFromPoint(NSPointFromCGPoint(newPosition)));
-        STAssertEquals(contentLayer.anchorPoint, CGPointMake(0.5, 0.0), @"Should anchor at (0.5,0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.x, (CGFloat)0.5, precision, @"Should anchor at (0.5,0)");
+        STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, (CGFloat)0.0, precision, @"Should anchor at (0.5,0)");
     }
     @finally {
         [label release];

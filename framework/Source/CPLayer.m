@@ -548,47 +548,6 @@
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-static NSString * const BindingsNotSupportedString = @"Bindings are not supported on the iPhone in Core Plot";
-
-+(void)exposeBinding:(NSString *)binding 
-{
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-    [super exposeBinding:binding];
-#endif
-}
-
--(void)bind:(NSString *)binding toObject:(id)observable withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
-{
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
-#else
-    [super bind:binding toObject:observable withKeyPath:keyPath options:options];
-#endif
-}
-
--(void)unbind:(NSString *)binding
-{
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
-#else
-    [super unbind:binding];
-#endif
-}
-
--(Class)valueClassForBinding:(NSString *)binding
-{
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    [NSException raise:CPException format:@"%@", BindingsNotSupportedString];
-    return Nil;
-#else
-    return [super valueClassForBinding:binding];
-#endif
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 - (void)setPosition:(CGPoint)newPosition;

@@ -88,14 +88,6 @@ typedef enum _CPScatterPlotInterpolation {
 
 @interface CPScatterPlot : CPPlot {
 	@private
-    id observedObjectForXValues;
-    id observedObjectForYValues;
-    id observedObjectForPlotSymbols;
-    NSString *keyPathForXValues;
-    NSString *keyPathForYValues;
-    NSString *keyPathForPlotSymbols;
-	NSValueTransformer *xValuesTransformer;
-    NSValueTransformer *yValuesTransformer;
     CPScatterPlotInterpolation interpolation;
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
