@@ -31,6 +31,7 @@ extern "C" {
     CPNumericDataType CPDataTypeWithDataTypeString(NSString *dataTypeString);
     NSString *CPDataTypeStringFromDataType(CPNumericDataType dataType);
 	BOOL CPDataTypeIsSupported(CPNumericDataType format);
+	BOOL CPDataTypeEqualToDataType(CPNumericDataType dataType1, CPNumericDataType dataType2);
     ///	@}
 
 #if __cplusplus
