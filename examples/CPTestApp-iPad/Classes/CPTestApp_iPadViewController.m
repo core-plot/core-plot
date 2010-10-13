@@ -77,7 +77,7 @@
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
-    scatterPlotView.hostedLayer = graph;
+    scatterPlotView.hostedGraph = graph;
 	
     graph.paddingLeft = 10.0;
 	graph.paddingTop = 10.0;
@@ -184,7 +184,7 @@
     barChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [barChart applyTheme:theme];
-    barChartView.hostedLayer = barChart;
+    barChartView.hostedGraph = barChart;
     barChart.plotAreaFrame.masksToBorder = NO;
 	
     barChart.paddingLeft = 70.0;
@@ -261,7 +261,7 @@
     pieChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [pieChart applyTheme:theme];
-    pieChartView.hostedLayer = pieChart;
+    pieChartView.hostedGraph = pieChart;
     pieChart.plotAreaFrame.masksToBorder = NO;
 	
     pieChart.paddingLeft = 20.0;

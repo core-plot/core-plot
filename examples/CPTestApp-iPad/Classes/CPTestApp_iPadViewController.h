@@ -11,7 +11,7 @@
 
 @interface CPTestApp_iPadViewController : UIViewController <CPPlotDataSource, CPPieChartDataSource, CPBarPlotDelegate>
 {
-	IBOutlet CPLayerHostingView *scatterPlotView, *barChartView, *pieChartView;
+	IBOutlet CPGraphHostingView *scatterPlotView, *barChartView, *pieChartView;
 	CPXYGraph *graph, *barChart, *pieChart;
 
 	NSMutableArray *dataForChart, *dataForPlot;
