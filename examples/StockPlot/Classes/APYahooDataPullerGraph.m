@@ -32,8 +32,8 @@
         [graph addPlot:dataSourceLinePlot];
     }
     
-    if([[self.layerHost.layer sublayers] indexOfObject:graph] == NSNotFound)
-        [self.layerHost.layer addSublayer:graph];
+    if([[self.graphHost.layer sublayers] indexOfObject:graph] == NSNotFound)
+        [self.graphHost.layer addSublayer:graph];
     
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     
@@ -140,7 +140,7 @@
 
 #pragma mark accessors
 
-@synthesize layerHost;
+@synthesize graphHost;
 
 - (APYahooDataPuller *)dataPuller
 {
@@ -165,7 +165,7 @@
     if(dataPuller.delegate == self)
         [dataPuller setDelegate:nil];
     [dataPuller release]; dataPuller = nil;
-    [layerHost release]; layerHost = nil;
+    [graphHost release]; graphHost = nil;
     [graph release]; graph = nil;
     
     [super dealloc];
