@@ -1,6 +1,3 @@
-#import <CorePlot/CPAnimation.h>
-#import <CorePlot/CPAnimationKeyFrame.h>
-#import <CorePlot/CPAnimationTransition.h>
 #import <CorePlot/CPAnnotation.h>
 #import <CorePlot/CPAnnotationHostLayer.h>
 #import <CorePlot/CPAxis.h>
