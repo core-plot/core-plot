@@ -71,22 +71,34 @@
 	}
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-    [hostedLayer pointingDeviceDownEvent:event atPoint:pointInHostedLayer];
+	if (!collapsesLayers) {
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	} else {
+		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
+	}
+	[hostedLayer pointingDeviceDownEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-	[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointInHostedLayer];
+	if (!collapsesLayers) {
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	} else {
+		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
+	}
+	[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    CGPoint pointInHostedLayer = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
-	[hostedLayer pointingDeviceUpEvent:event atPoint:pointInHostedLayer];
+	if (!collapsesLayers) {
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+	} else {
+		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
+	}
+	[hostedLayer pointingDeviceUpEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
