@@ -1,6 +1,3 @@
-#import "CPAnimation.h"
-#import "CPAnimationKeyFrame.h"
-#import "CPAnimationTransition.h"
 #import "CPAnnotation.h"
 #import "CPAnnotationHostLayer.h"
 #import "CPAxis.h"

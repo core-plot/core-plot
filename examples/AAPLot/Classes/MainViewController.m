@@ -14,16 +14,16 @@
 
 @synthesize graph;
 @synthesize datapuller;
-@synthesize layerHost;
+@synthesize graphHost;
 
 -(void)dealloc
 {
     [datapuller release];
     [graph release];
-    [layerHost release];
+    [graphHost release];
     datapuller = nil;
     graph = nil;
-    layerHost = nil;    
+    graphHost = nil;    
     [super dealloc];
 }
 
@@ -33,7 +33,7 @@
     if (nil == aView)
     {
         self.graph = nil;
-        self.layerHost = nil;
+        self.graphHost = nil;
     }
 }
 
@@ -51,7 +51,7 @@
     borderLineStyle.lineColor = [CPColor whiteColor];
     borderLineStyle.lineWidth = 2.0f;
     graph.plotAreaFrame.borderLineStyle = borderLineStyle;
-	[self.layerHost.layer addSublayer:graph];
+	[self.graphHost.hostedGraph addSublayer:graph];
     
     // Axes
     CPXYAxisSet *xyAxisSet = (id)graph.axisSet;
