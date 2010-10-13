@@ -33,12 +33,6 @@
 		071F3CB910FBAB5900D0A7B6 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 071F3CB810FBAB5900D0A7B6 /* License.txt */; };
 		072161EB11D1F6BD009CC871 /* CPAnnotationHostLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 072161E911D1F6BD009CC871 /* CPAnnotationHostLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		072161EC11D1F6BD009CC871 /* CPAnnotationHostLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 072161EA11D1F6BD009CC871 /* CPAnnotationHostLayer.m */; };
-		072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00ED0FC149D400CC8842 /* CPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00EE0FC149D400CC8842 /* CPAnimation.m */; };
-		072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */; };
-		072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */; };
 		0730F67C1094995000E95162 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */; };
 		07321BC10F37370D00F423D8 /* CPExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 07321BBF0F37370D00F423D8 /* CPExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07321BC20F37370D00F423D8 /* CPExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07321BC00F37370D00F423D8 /* CPExceptions.m */; };
@@ -219,12 +213,6 @@
 		071F3CB810FBAB5900D0A7B6 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = ../License.txt; sourceTree = SOURCE_ROOT; };
 		072161E911D1F6BD009CC871 /* CPAnnotationHostLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnnotationHostLayer.h; sourceTree = "<group>"; };
 		072161EA11D1F6BD009CC871 /* CPAnnotationHostLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnnotationHostLayer.m; sourceTree = "<group>"; };
-		072B00ED0FC149D400CC8842 /* CPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimation.h; sourceTree = "<group>"; };
-		072B00EE0FC149D400CC8842 /* CPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimation.m; sourceTree = "<group>"; };
-		072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimationTransition.h; sourceTree = "<group>"; };
-		072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimationTransition.m; sourceTree = "<group>"; };
-		072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAnimationKeyFrame.h; sourceTree = "<group>"; };
-		072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAnimationKeyFrame.m; sourceTree = "<group>"; };
 		0730F600109492D800E95162 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0730F601109492D800E95162 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		0730F64C109494D100E95162 /* CPTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTestCase.h; sourceTree = "<group>"; };
@@ -480,19 +468,6 @@
 			name = "Value Transformers";
 			sourceTree = "<group>";
 		};
-		072B00EC0FC149C700CC8842 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				072B00ED0FC149D400CC8842 /* CPAnimation.h */,
-				072B00EE0FC149D400CC8842 /* CPAnimation.m */,
-				072B01040FC14E8300CC8842 /* CPAnimationKeyFrame.h */,
-				072B01050FC14E8300CC8842 /* CPAnimationKeyFrame.m */,
-				072B00F40FC14A0100CC8842 /* CPAnimationTransition.h */,
-				072B00F50FC14A0100CC8842 /* CPAnimationTransition.m */,
-			);
-			name = Animation;
-			sourceTree = "<group>";
-		};
 		073FB0350FC99645007A728E /* Text */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,7 +591,6 @@
 				07BF0D8C0F2B737A002FCEA7 /* Spaces */,
 				07BF0D890F2B736D002FCEA7 /* Plots */,
 				07BF0D920F2B73AE002FCEA7 /* Axes */,
-				072B00EC0FC149C700CC8842 /* Animation */,
 				0772C91E0FE2F70000EC4C16 /* Themes */,
 			);
 			path = Source;
@@ -1035,9 +1009,6 @@
 				0789EF4B0FB9EBD600C0A613 /* CPPlatformSpecificCategories.h in Headers */,
 				0789EF8B0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
 				0783DD550FBF097E006C3696 /* CPXYAxis.h in Headers */,
-				072B00F20FC149D400CC8842 /* CPAnimation.h in Headers */,
-				072B00F90FC14A0100CC8842 /* CPAnimationTransition.h in Headers */,
-				072B01090FC14E8300CC8842 /* CPAnimationKeyFrame.h in Headers */,
 				073FB0300FC991A3007A728E /* CPAxisLabel.h in Headers */,
 				BCFC7C3710921FDB00DAECAA /* CPAxisTitle.h in Headers */,
 				BC79F1360FD1CD6600510976 /* CPLayerHostingView.h in Headers */,
@@ -1259,9 +1230,6 @@
 				0789EF4C0FB9EBD600C0A613 /* CPPlatformSpecificCategories.m in Sources */,
 				0789EF8C0FB9EE4700C0A613 /* CPPlatformSpecificFunctions.m in Sources */,
 				0783DD560FBF097E006C3696 /* CPXYAxis.m in Sources */,
-				072B00F30FC149D400CC8842 /* CPAnimation.m in Sources */,
-				072B00FA0FC14A0100CC8842 /* CPAnimationTransition.m in Sources */,
-				072B010A0FC14E8300CC8842 /* CPAnimationKeyFrame.m in Sources */,
 				073FB0310FC991A3007A728E /* CPAxisLabel.m in Sources */,
 				BC79F1370FD1CD6600510976 /* CPLayerHostingView.m in Sources */,
 				074E46F10FD6BF2900B18E16 /* CPImage.m in Sources */,
