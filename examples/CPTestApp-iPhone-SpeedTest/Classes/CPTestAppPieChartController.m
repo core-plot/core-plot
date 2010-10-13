@@ -33,8 +33,8 @@
     pieChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [pieChart applyTheme:theme];
-	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
-    hostingView.hostedLayer = pieChart;
+	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
+    hostingView.hostedGraph = pieChart;
 	
     pieChart.paddingLeft = 20.0;
 	pieChart.paddingTop = 20.0;

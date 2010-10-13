@@ -40,8 +40,8 @@
     [graph applyTheme:theme];
     [theme release] ;
     
-	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
-    hostingView.hostedLayer = graph;
+	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
+    hostingView.hostedGraph = graph;
     
     // Setup plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
