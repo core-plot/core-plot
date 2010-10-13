@@ -33,9 +33,9 @@
     graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
-	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
+	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
     hostingView.collapsesLayers = YES;
-    hostingView.hostedLayer = graph;
+    hostingView.hostedGraph = graph;
 	
     graph.paddingLeft = 10.0;
 	graph.paddingTop = 10.0;

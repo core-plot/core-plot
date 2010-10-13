@@ -40,8 +40,8 @@
     barChart = [[CPXYGraph alloc] initWithFrame:CGRectZero];
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [barChart applyTheme:theme];
-	CPLayerHostingView *hostingView = (CPLayerHostingView *)self.view;
-    hostingView.hostedLayer = barChart;
+	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
+    hostingView.hostedGraph = barChart;
     
     // Border
     barChart.plotAreaFrame.borderLineStyle = nil;
