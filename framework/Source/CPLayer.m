@@ -547,6 +547,19 @@
 	}
 }
 
+-(void)setNeedsLayout
+{
+    [super setNeedsLayout];
+    if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
+}
+
+-(void)setNeedsDisplay
+{
+    [super setNeedsDisplay];
+    if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
+}
+
+
 #pragma mark -
 #pragma mark Accessors
 

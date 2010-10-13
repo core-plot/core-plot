@@ -13,6 +13,11 @@
 @class CPLayerAnnotation;
 
 /**
+ *  @brief Graph notifications
+ **/ 
+extern NSString * const CPGraphNeedsRedrawNotification;
+
+/**
  *	@brief Enumeration of graph layers.
  **/
 typedef enum _CPGraphLayerType {

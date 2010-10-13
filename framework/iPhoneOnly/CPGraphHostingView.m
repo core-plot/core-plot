@@ -1,15 +1,15 @@
 
-#import "CPLayerHostingView.h"
-#import "CPLayer.h"
+#import "CPGraphHostingView.h"
+#import "CPGraph.h"
 
 /**	@brief A container view for displaying a CPLayer.
  **/
-@implementation CPLayerHostingView
+@implementation CPGraphHostingView
 
-/**	@property hostedLayer
+/**	@property hostedGraph
  *	@brief The CPLayer hosted inside this view.
  **/
-@synthesize hostedLayer;
+@synthesize hostedGraph;
 
 /**	@property collapsesLayers
  *	@brief Whether view draws all graph layers into a single layer.
@@ -24,7 +24,7 @@
 
 -(void)commonInit
 {
-    hostedLayer = nil;
+    hostedGraph = nil;
     collapsesLayers = NO;
 
     self.backgroundColor = [UIColor clearColor];	
@@ -56,7 +56,7 @@
 }
 
 -(void)dealloc {
-	[hostedLayer release];
+	[hostedGraph release];
     [super dealloc];
 }
 
@@ -72,38 +72,38 @@
 	
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
 	if (!collapsesLayers) {
-		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
 	} else {
 		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
 	}
-	[hostedLayer pointingDeviceDownEvent:event atPoint:pointOfTouch];
+	[hostedGraph pointingDeviceDownEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
 	if (!collapsesLayers) {
-		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
 	} else {
 		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
 	}
-	[hostedLayer pointingDeviceDraggedEvent:event atPoint:pointOfTouch];
+	[hostedGraph pointingDeviceDraggedEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
 	if (!collapsesLayers) {
-		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedLayer];
+		pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
 	} else {
 		pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
 	}
-	[hostedLayer pointingDeviceUpEvent:event atPoint:pointOfTouch];
+	[hostedGraph pointingDeviceUpEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	[hostedLayer pointingDeviceCancelledEvent:event];
+	[hostedGraph pointingDeviceCancelledEvent:event];
 }
 
 #pragma mark -
@@ -124,30 +124,44 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
     CGContextScaleCTM(context, 1, -1);
-    hostedLayer.frame = self.bounds;
-    [hostedLayer layoutAndRenderInContext:context];
+    hostedGraph.frame = self.bounds;
+    [hostedGraph layoutAndRenderInContext:context];
+}
+
+-(void)graphNeedsRedraw:(NSNotification *)notification
+{
+    [self setNeedsDisplay];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setHostedLayer:(CPLayer *)newLayer
+-(void)updateNotifications
 {
-	if (newLayer == hostedLayer) {
-		return;
-	}
-	
-	[hostedLayer removeFromSuperlayer];
-	[hostedLayer release];
-	hostedLayer = [newLayer retain];
+    if ( collapsesLayers ) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        if ( hostedGraph ) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(graphNeedsRedraw:) name:CPGraphNeedsRedrawNotification object:hostedGraph];
+        }
+    }
+}
+
+-(void)setHostedGraph:(CPGraph *)newLayer
+{
+	if (newLayer == hostedGraph) return;
+    
+	[hostedGraph removeFromSuperlayer];
+	[hostedGraph release];
+	hostedGraph = [newLayer retain];
 	if ( !collapsesLayers ) {
-    	hostedLayer.frame = self.layer.bounds;
-        [self.layer addSublayer:hostedLayer];
+    	hostedGraph.frame = self.layer.bounds;
+        [self.layer addSublayer:hostedGraph];
     }
     else {
         [self setNeedsDisplay];
     }
-
+    
+    [self updateNotifications];
 }
 
 -(void)setCollapsesLayers:(BOOL)yn
@@ -155,18 +169,19 @@
     if ( yn != collapsesLayers ) {
         collapsesLayers = yn;
         if ( !collapsesLayers ) 
-        	[self.layer addSublayer:hostedLayer];
+        	[self.layer addSublayer:hostedGraph];
         else {
-            [hostedLayer removeFromSuperlayer];
+            [hostedGraph removeFromSuperlayer];
             [self setNeedsDisplay];
         }
+        [self updateNotifications];
     }
 }
 
 -(void)setFrame:(CGRect)newFrame
 {
     [super setFrame:newFrame];
-    if ( !collapsesLayers ) hostedLayer.frame = self.bounds;
+    if ( !collapsesLayers ) hostedGraph.frame = self.bounds;
 }
 
 @end

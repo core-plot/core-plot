@@ -12,6 +12,8 @@
 #import "CPLayerAnnotation.h"
 #import "CPTextLayer.h"
 
+NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotification";
+
 ///	@cond
 @interface CPGraph()
 

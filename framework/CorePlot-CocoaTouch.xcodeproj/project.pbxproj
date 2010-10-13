@@ -84,8 +84,8 @@
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC74A2C210FC087800E7E90D /* CPPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A2C010FC087800E7E90D /* CPPieChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC74A2C310FC087800E7E90D /* CPPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A2C110FC087800E7E90D /* CPPieChart.m */; };
-		BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */; };
+		BC79F1D50FD1DC1A00510976 /* CPGraphHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1D30FD1DC1A00510976 /* CPGraphHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC79F1D60FD1DC1A00510976 /* CPGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1D40FD1DC1A00510976 /* CPGraphHostingView.m */; };
 		BC89A79A1024AB19009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A7991024AB19009D5261 /* CorePlotProbes.d */; };
 		BC9B834E0FB8A1400035D8DA /* CPPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D30FB89E610035D8DA /* CPPlot.m */; };
 		BC9B834F0FB8A1400035D8DA /* CPScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D50FB89E610035D8DA /* CPScatterPlot.m */; };
@@ -231,8 +231,8 @@
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
 		BC74A2C010FC087800E7E90D /* CPPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPPieChart.h; path = Source/CPPieChart.h; sourceTree = "<group>"; };
 		BC74A2C110FC087800E7E90D /* CPPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPPieChart.m; path = Source/CPPieChart.m; sourceTree = "<group>"; };
-		BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLayerHostingView.h; sourceTree = "<group>"; };
-		BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLayerHostingView.m; sourceTree = "<group>"; };
+		BC79F1D30FD1DC1A00510976 /* CPGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGraphHostingView.h; sourceTree = "<group>"; };
+		BC79F1D40FD1DC1A00510976 /* CPGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGraphHostingView.m; sourceTree = "<group>"; };
 		BC89A7991024AB19009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = "<group>"; };
 		BC9B82690FB89BD10035D8DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC9B826F0FB89E610035D8DA /* CPLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPLayer.h; path = Source/CPLayer.h; sourceTree = "<group>"; };
@@ -463,8 +463,8 @@
 				0789EFB90FB9F97F00C0A613 /* CPPlatformSpecificCategories.m */,
 				0789EFBC0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h */,
 				0789EFBD0FB9F97F00C0A613 /* CPPlatformSpecificFunctions.m */,
-				BC79F1D30FD1DC1A00510976 /* CPLayerHostingView.h */,
-				BC79F1D40FD1DC1A00510976 /* CPLayerHostingView.m */,
+				BC79F1D30FD1DC1A00510976 /* CPGraphHostingView.h */,
+				BC79F1D40FD1DC1A00510976 /* CPGraphHostingView.m */,
 			);
 			name = "iPhone Specific";
 			path = iPhoneOnly;
@@ -752,7 +752,7 @@
 				0789EFC00FB9F97F00C0A613 /* CPPlatformSpecificDefines.h in Headers */,
 				0789EFBE0FB9F97F00C0A613 /* CPPlatformSpecificCategories.h in Headers */,
 				0789EFC20FB9F97F00C0A613 /* CPPlatformSpecificFunctions.h in Headers */,
-				BC79F1D50FD1DC1A00510976 /* CPLayerHostingView.h in Headers */,
+				BC79F1D50FD1DC1A00510976 /* CPGraphHostingView.h in Headers */,
 				074D7BC50FD6B65F006011BC /* CPXYPlotSpace.h in Headers */,
 				077F28550FE18048000BCA52 /* CPBorderedLayer.h in Headers */,
 				077F28570FE18048000BCA52 /* CPPathExtensions.h in Headers */,
@@ -928,7 +928,7 @@
 				070CB8440FC9DED400F3152B /* CPAxis.m in Sources */,
 				070CB8480FC9DED400F3152B /* CPAxisSet.m in Sources */,
 				070CB85E0FC9DF4700F3152B /* CPTextLayer.m in Sources */,
-				BC79F1D60FD1DC1A00510976 /* CPLayerHostingView.m in Sources */,
+				BC79F1D60FD1DC1A00510976 /* CPGraphHostingView.m in Sources */,
 				074D7BC60FD6B65F006011BC /* CPXYPlotSpace.m in Sources */,
 				077F28560FE18048000BCA52 /* CPBorderedLayer.m in Sources */,
 				077F28580FE18048000BCA52 /* CPPathExtensions.m in Sources */,

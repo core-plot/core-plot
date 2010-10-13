@@ -114,6 +114,7 @@
     	if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
             [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateX];
         }
+        if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
 	}
 }
 
@@ -128,6 +129,7 @@
         if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
             [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPCoordinateY];
         }
+        if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
 	}
 }
 
