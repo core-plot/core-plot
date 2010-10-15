@@ -166,18 +166,16 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 #pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
-{	 
-	[super reloadData];
-	
-	NSRange indexRange = NSMakeRange(0, 0);
+-(void)reloadDataInIndexRange:(NSRange)indexRange
+{
+	[super reloadDataInIndexRange:indexRange];
 	
 	// Bar lengths
 	if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength];
+		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
 	}
 	else {
 		self.barLengths = nil;
@@ -225,7 +223,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 				locationDecimal = CPDecimalAdd(locationDecimal, delta);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
 	else if ( self.dataSource ) {
@@ -233,7 +231,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		NSRange indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 	}
 	else {
 		// Make evenly spaced locations starting at zero
@@ -267,12 +265,9 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 				locationDecimal = CPDecimalAdd(locationDecimal, one);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
-	
-	// Labels
-	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -

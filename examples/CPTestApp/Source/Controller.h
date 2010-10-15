@@ -19,7 +19,10 @@
 @property CGFloat yShift;
 @property CGFloat labelRotation;
 
+// Data loading
 -(IBAction)reloadDataSourcePlot:(id)sender;
+-(IBAction)removeData:(id)sender;
+-(IBAction)insertData:(id)sender;
 
 // PDF / image export
 -(IBAction)exportToPDF:(id)sender;

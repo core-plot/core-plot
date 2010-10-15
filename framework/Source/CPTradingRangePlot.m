@@ -127,26 +127,21 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 #pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
+-(void)reloadDataInIndexRange:(NSRange)indexRange
 {	 
-	[super reloadData];
-	
-	NSRange indexRange = NSMakeRange(0, 0);
+	[super reloadDataInIndexRange:indexRange];
 	
 	if ( self.dataSource ) {
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
-		
 		id newXValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldX recordIndexRange:indexRange];
-		[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX];
+		[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX atRecordIndex:indexRange.location];
 		id newOpenValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldOpen recordIndexRange:indexRange];
-		[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen];
+		[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen atRecordIndex:indexRange.location];
 		id newHighValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldHigh recordIndexRange:indexRange];
-		[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh];
+		[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh atRecordIndex:indexRange.location];
 		id newLowValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldLow recordIndexRange:indexRange];
-		[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow];
+		[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow atRecordIndex:indexRange.location];
 		id newCloseValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldClose recordIndexRange:indexRange];
-		[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose];
+		[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose atRecordIndex:indexRange.location];
 	}
 	else {
 		self.xValues = nil;
@@ -155,9 +150,6 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 		self.lowValues = nil;
 		self.closeValues = nil;
 	}
-	
-	// Labels
-	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -

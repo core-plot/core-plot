@@ -1,5 +1,6 @@
 #import "CPDefinitions.h"
 #import "CPPlotRange.h"
+#import "CPNumericDataType.h"
 #import "CPAnnotationHostLayer.h"
 
 @class CPMutableNumericData;
@@ -161,6 +162,8 @@ typedef enum _CPPlotCachePrecision {
 @property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
 @property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
 @property (nonatomic, readwrite, assign) CPPlotCachePrecision cachePrecision;
+@property (nonatomic, readonly, assign) CPNumericDataType doubleDataType;
+@property (nonatomic, readonly, assign) CPNumericDataType decimalDataType;
 ///	@}
 
 /// @name Data Labels
@@ -185,6 +188,9 @@ typedef enum _CPPlotCachePrecision {
 -(void)setDataNeedsReloading;
 -(void)reloadData;
 -(void)reloadDataIfNeeded;
+-(void)reloadDataInIndexRange:(NSRange)indexRange;
+-(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords;
+-(void)deleteDataInIndexRange:(NSRange)indexRange;
 ///	@}
 
 /// @name Plot Data
@@ -200,6 +206,7 @@ typedef enum _CPPlotCachePrecision {
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
+-(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)index;
 ///	@}
 
 /// @name Plot Data Ranges
