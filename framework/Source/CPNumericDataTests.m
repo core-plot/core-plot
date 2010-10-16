@@ -252,7 +252,7 @@
 	STAssertEquals(((float *)[fd.data bytes])+4, (float *)[fd samplePointer:4], @"%p,%p",samples+4, (float *)[fd samplePointer:4]);
 	STAssertEquals(((float *)[fd.data bytes]), (float *)[fd samplePointer:0], @"");
 	STAssertEquals(((float *)[fd.data bytes])+nElems-1, (float *)[fd samplePointer:nElems-1], @"");
-	STAssertThrows([fd samplePointer:nElems], @"too many samples");
+	STAssertNil([fd samplePointer:nElems], @"too many samples");
 	
 	[fd release];
 }
