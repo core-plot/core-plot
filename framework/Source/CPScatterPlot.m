@@ -16,10 +16,6 @@ NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
 
-static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
-static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
-
 /// @cond
 @interface CPScatterPlot ()
 
@@ -113,7 +109,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
         plotSymbolMarginForHitDetection = 0.0f;
         interpolation = CPScatterPlotInterpolationLinear;
 		self.labelField = CPScatterPlotFieldY;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
@@ -129,95 +124,88 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingYValues, CPPlotBindingName, CPYValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingPlotSymbols, CPPlotBindingName, CPPlotSymbolsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
+-(void)reloadDataInIndexRange:(NSRange)indexRange
 {	 
-	[super reloadData];
+	[super reloadDataInIndexRange:indexRange];
 	
-	NSRange indexRange = NSMakeRange(0, 0);
-	
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *boundXValues = [self plotDataForBinding:CPScatterPlotBindingXValues];
-	NSArray *boundYValues = [self plotDataForBinding:CPScatterPlotBindingYValues];
-	
-	if ( boundXValues && boundYValues ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:boundXValues forField:CPScatterPlotFieldX];
-		[self cacheNumbers:boundYValues forField:CPScatterPlotFieldY];
-		
-		// Plot symbols
-		self.plotSymbols = [self plotDataForBinding:CPScatterPlotBindingPlotSymbols];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
 		id <CPScatterPlotDataSource> theDataSource = (id <CPScatterPlotDataSource>)self.dataSource;
 		
-		// Expand the index range each end, to make sure that plot lines go to offscreen points
-		NSUInteger numberOfRecords = [theDataSource numberOfRecordsForPlot:self];
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
-		NSRange expandedRange = CPExpandedRange(indexRange, 1);
-		NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
-		indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
-		
 		id newXValues = [self numbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
-		[self cacheNumbers:newXValues forField:CPScatterPlotFieldX];
+		[self cacheNumbers:newXValues forField:CPScatterPlotFieldX atRecordIndex:indexRange.location];
 		id newYValues = [self numbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
-		[self cacheNumbers:newYValues forField:CPScatterPlotFieldY];
+		[self cacheNumbers:newYValues forField:CPScatterPlotFieldY atRecordIndex:indexRange.location];
 		
-		// Plot symbols
-		if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
-			self.plotSymbols = [theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange];
-		}
-		else if ([theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)]) {
-			NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:indexRange.length];
-			NSUInteger indexRangeEnd = indexRange.location + indexRange.length;
-			for ( NSUInteger recordIndex = indexRange.location; recordIndex < indexRangeEnd; recordIndex++ ) {
-				CPPlotSymbol *theSymbol = [theDataSource symbolForScatterPlot:self recordIndex:recordIndex];
-				if ( theSymbol ) {
-					[symbols addObject:theSymbol];
-				}
-				else {
-					[symbols addObject:[NSNull null]];
+		BOOL datasourceProvidesSymbolArray = [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)];
+		BOOL datasourceProvidesSymbols = [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)];
+		
+		if ( datasourceProvidesSymbolArray || datasourceProvidesSymbols	) {
+			// Ensure the plot symbol array exists and is the right size
+			NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+			NSUInteger numberOfRecords = [theDataSource numberOfRecordsForPlot:self];
+			if ( !symbols ) {
+				self.plotSymbols = [NSMutableArray array];
+				symbols = (NSMutableArray *)self.plotSymbols;
+			}
+			NSNull *nullObject = [NSNull null];
+			NSUInteger i = symbols.count;
+			while ( i < numberOfRecords ) {
+				[symbols addObject:nullObject];
+				i++;
+			}
+			
+			// Update plot symbols
+			if ( datasourceProvidesSymbolArray ) {
+				[symbols replaceObjectsInRange:indexRange withObjectsFromArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange]];
+			}
+			else if ( datasourceProvidesSymbols ) {
+				NSUInteger indexRangeEnd = indexRange.location + indexRange.length;
+				for ( NSUInteger recordIndex = indexRange.location; recordIndex < indexRangeEnd; recordIndex++ ) {
+					CPPlotSymbol *theSymbol = [theDataSource symbolForScatterPlot:self recordIndex:recordIndex];
+					if ( theSymbol ) {
+						[symbols replaceObjectAtIndex:recordIndex withObject:theSymbol];
+					}
+					else {
+						[symbols replaceObjectAtIndex:recordIndex withObject:nullObject];
+					}
 				}
 			}
-			self.plotSymbols = symbols;
 		}
+		else {
+			self.plotSymbols = nil;
+		}
+
 	}
 	else {
 		self.xValues = nil;
 		self.yValues = nil;
 		self.plotSymbols = nil;
 	}
+}
+
+-(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords
+{
+	NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+	if ( index < symbols.count ) {
+		NSNull *nullObject = [NSNull null];
+
+		NSUInteger endIndex = index + numberOfRecords;
+		for ( NSUInteger i = index; i < endIndex; i++ ) {
+			[symbols insertObject:nullObject atIndex:i];
+		}
+	}
+
+	[super insertDataAtIndex:index numberOfRecords:numberOfRecords];
+}
+
+-(void)deleteDataInIndexRange:(NSRange)indexRange
+{
+	[super deleteDataInIndexRange:indexRange];
 	
-	// Labels
-	[self relabelIndexRange:indexRange];
+	NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+	[symbols removeObjectsInRange:indexRange];
 }
 
 #pragma mark -
@@ -501,8 +489,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		if ( dataLinePath ) CGPathRelease(dataLinePath);
 		
 		// Draw plot symbols
-		if (self.plotSymbol || self.plotSymbols.count) {
-			for (NSUInteger i = 0; i < dataCount; i++) {
+		if ( self.plotSymbol || self.plotSymbols.count ) {
+			for ( NSUInteger i = 0; i < dataCount; i++ ) {
 				if ( drawPointFlags[i] ) {
 					CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                     [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
@@ -650,6 +638,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 -(NSArray *)yValues 
 {
     return [[self cachedNumbersForField:CPScatterPlotFieldY] sampleArray];
+}
+
+-(void)setPlotSymbols:(NSArray *)newSymbols 
+{
+    if ( newSymbols != plotSymbols ) {
+		[plotSymbols release];
+		plotSymbols = [newSymbols mutableCopy];
+		[self setNeedsDisplay];
+	}
 }
 
 @end

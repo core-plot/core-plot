@@ -324,100 +324,103 @@
 
 /**	@brief Gets the value of a given sample in the data buffer.
  *	@param sample The index into the sample array. The array is treated as if it only has one dimension.
- *	@return The sample value wrapped in an instance of NSNumber.
+ *	@return The sample value wrapped in an instance of NSNumber or <code>nil</code> if the sample index is out of bounds.
  *
  *	NSNumber does not support complex numbers. Complex number types will be cast to
  *	<code>float</code> or <code>double</code> before being wrapped in an instance of NSNumber.
  **/
-// Implementation generated with CPNumericData+TypeConversion_Generation.py
 -(NSNumber *)sampleValue:(NSUInteger)sample 
 {
-	NSParameterAssert(sample < self.numberOfSamples);
-	
     NSNumber *result = nil;
-    
-	// Code generated with "CPNumericData+TypeConversions_Generation.py"
-	// ========================================================================
 	
-	switch ( self.dataTypeFormat ) {
-		case CPUndefinedDataType:
-			[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
-			break;
-		case CPIntegerDataType:
-			switch ( self.sampleBytes ) {
-				case sizeof(int8_t):
-					result = [NSNumber numberWithChar:*(int8_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(int16_t):
-					result = [NSNumber numberWithShort:*(int16_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(int32_t):
-					result = [NSNumber numberWithLong:*(int32_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(int64_t):
-					result = [NSNumber numberWithLongLong:*(int64_t *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPUnsignedIntegerDataType:
-			switch ( self.sampleBytes ) {
-				case sizeof(uint8_t):
-					result = [NSNumber numberWithUnsignedChar:*(uint8_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(uint16_t):
-					result = [NSNumber numberWithUnsignedShort:*(uint16_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(uint32_t):
-					result = [NSNumber numberWithUnsignedLong:*(uint32_t *)[self samplePointer:sample]];
-					break;
-				case sizeof(uint64_t):
-					result = [NSNumber numberWithUnsignedLongLong:*(uint64_t *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPFloatingPointDataType:
-			switch ( self.sampleBytes ) {
-				case sizeof(float):
-					result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
-					break;
-				case sizeof(double):
-					result = [NSNumber numberWithDouble:*(double *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPComplexFloatingPointDataType:
-			switch ( self.sampleBytes ) {
-				case sizeof(float complex):
-					result = [NSNumber numberWithFloat:*(float complex *)[self samplePointer:sample]];
-					break;
-				case sizeof(double complex):
-					result = [NSNumber numberWithDouble:*(double complex *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-		case CPDecimalDataType:
-			switch ( self.sampleBytes ) {
-				case sizeof(NSDecimal):
-					result = [NSDecimalNumber decimalNumberWithDecimal:*(NSDecimal *)[self samplePointer:sample]];
-					break;
-			}
-			break;
-	}	
-	
-	// End of code generated with "CPNumericData+TypeConversions_Generation.py"
-	// ========================================================================
+	if ( sample < self.numberOfSamples ) {
+		// Code generated with "CPNumericData+TypeConversions_Generation.py"
+		// ========================================================================
+		
+		switch ( self.dataTypeFormat ) {
+			case CPUndefinedDataType:
+				[NSException raise:NSInvalidArgumentException format:@"Unsupported data type (CPUndefinedDataType)"];
+				break;
+			case CPIntegerDataType:
+				switch ( self.sampleBytes ) {
+					case sizeof(int8_t):
+						result = [NSNumber numberWithChar:*(int8_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(int16_t):
+						result = [NSNumber numberWithShort:*(int16_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(int32_t):
+						result = [NSNumber numberWithLong:*(int32_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(int64_t):
+						result = [NSNumber numberWithLongLong:*(int64_t *)[self samplePointer:sample]];
+						break;
+				}
+				break;
+			case CPUnsignedIntegerDataType:
+				switch ( self.sampleBytes ) {
+					case sizeof(uint8_t):
+						result = [NSNumber numberWithUnsignedChar:*(uint8_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(uint16_t):
+						result = [NSNumber numberWithUnsignedShort:*(uint16_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(uint32_t):
+						result = [NSNumber numberWithUnsignedLong:*(uint32_t *)[self samplePointer:sample]];
+						break;
+					case sizeof(uint64_t):
+						result = [NSNumber numberWithUnsignedLongLong:*(uint64_t *)[self samplePointer:sample]];
+						break;
+				}
+				break;
+			case CPFloatingPointDataType:
+				switch ( self.sampleBytes ) {
+					case sizeof(float):
+						result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
+						break;
+					case sizeof(double):
+						result = [NSNumber numberWithDouble:*(double *)[self samplePointer:sample]];
+						break;
+				}
+				break;
+			case CPComplexFloatingPointDataType:
+				switch ( self.sampleBytes ) {
+					case sizeof(float complex):
+						result = [NSNumber numberWithFloat:*(float complex *)[self samplePointer:sample]];
+						break;
+					case sizeof(double complex):
+						result = [NSNumber numberWithDouble:*(double complex *)[self samplePointer:sample]];
+						break;
+				}
+				break;
+			case CPDecimalDataType:
+				switch ( self.sampleBytes ) {
+					case sizeof(NSDecimal):
+						result = [NSDecimalNumber decimalNumberWithDecimal:*(NSDecimal *)[self samplePointer:sample]];
+						break;
+				}
+				break;
+		}	
+		
+		// End of code generated with "CPNumericData+TypeConversions_Generation.py"
+		// ========================================================================
+	}
 	
     return result;
 }
 
 /**	@brief Gets a pointer to a given sample in the data buffer.
  *	@param sample The index into the sample array. The array is treated as if it only has one dimension.
- *	@return A pointer to the sample.
+ *	@return A pointer to the sample or <code>NULL</code> if the sample index is out of bounds.
  **/
 -(void *)samplePointer:(NSUInteger)sample 
 {
-    NSParameterAssert(sample < self.numberOfSamples);
-    return (void *) ((char *)self.bytes + sample * self.sampleBytes);
+	if ( sample < self.numberOfSamples ) {
+		return (void *) ((char *)self.bytes + sample * self.sampleBytes);
+	}
+	else {
+		return NULL;
+	}
 }
 
 /**	@brief Gets an array data samples from the receiver.

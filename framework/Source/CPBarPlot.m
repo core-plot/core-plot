@@ -17,9 +17,6 @@
 NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 
-static NSString * const CPBarLocationsBindingContext = @"CPBarLocationsBindingContext";
-static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContext";
-
 /// @cond
 @interface CPBarPlot ()
 
@@ -153,7 +150,6 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
         
 		self.labelOffset = 10.0;
 		self.labelField = CPBarPlotFieldBarLength;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
@@ -168,52 +164,18 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLocations, CPPlotBindingName, CPBarLocationsBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLengths, CPPlotBindingName, CPBarLengthsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
-{	 
-	[super reloadData];
-	
-	NSRange indexRange = NSMakeRange(0, 0);
+-(void)reloadDataInIndexRange:(NSRange)indexRange
+{
+	[super reloadDataInIndexRange:indexRange];
 	
 	// Bar lengths
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *locationData = nil;
-	NSArray *lengthData = [self plotDataForBinding:CPBarPlotBindingBarLengths];
-	if ( lengthData ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:lengthData forField:CPBarPlotFieldBarLength];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength];
+		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
 	}
 	else {
 		self.barLengths = nil;
@@ -261,22 +223,15 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 				locationDecimal = CPDecimalAdd(locationDecimal, delta);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	else if ( locationData = [self plotDataForBinding:CPBarPlotBindingBarLocations] ) {
-		// Use bindings to retrieve locations
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
-	}
-#endif
 	else if ( self.dataSource ) {
 		// Get locations from the datasource
 		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
 		NSRange indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 	}
 	else {
 		// Make evenly spaced locations starting at zero
@@ -310,12 +265,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 				locationDecimal = CPDecimalAdd(locationDecimal, one);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
-	
-	// Labels
-	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -

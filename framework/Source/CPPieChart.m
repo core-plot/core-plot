@@ -12,14 +12,12 @@
 
 NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
 
-static NSString * const CPPieChartBindingPieSliceWidthContext = @"CPPieChartBindingPieSliceWidthContext";
-
 /// @cond
 @interface CPPieChart ()
 
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
 
--(void)updateNormalizedDataInRange:(NSRange)indexRange;
+-(void)updateNormalizedData;
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
@@ -111,7 +109,6 @@ static CGFloat colorLookupTable[10][3] =
 		
 		self.labelOffset = 10.0;
 		self.labelField = CPPieChartFieldSliceWidth;
-		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
 }
@@ -124,60 +121,32 @@ static CGFloat colorLookupTable[10][3] =
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPPieChartBindingPieSliceWidthValues, CPPlotBindingName, CPPieChartBindingPieSliceWidthContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
-{	 
-	[super reloadData];
-
-	NSRange indexRange = NSMakeRange(0, 0);
+-(void)reloadDataInIndexRange:(NSRange)indexRange
+{
+	[super reloadDataInIndexRange:indexRange];
 	
     // Pie slice widths
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *rawSliceValues = [self plotDataForBinding:CPPieChartBindingPieSliceWidthValues];
-	
-    if ( rawSliceValues ) {
-        // Use bindings to retrieve data
-		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-    }
-    else
-#endif
 	if ( self.dataSource ) {
 		// Grab all values from the data source
-        indexRange = NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self]);
 		id rawSliceValues = [self numbersFromDataSourceForField:CPPieChartFieldSliceWidth recordIndexRange:indexRange];
-		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth];
+		[self cacheNumbers:rawSliceValues forField:CPPieChartFieldSliceWidth atRecordIndex:indexRange.location];
     }
 	else {
 		[self cacheNumbers:nil forField:CPPieChartFieldSliceWidth];
 	}
 	
-	[self updateNormalizedDataInRange:indexRange];
+	[self updateNormalizedData];
 }
 
--(void)updateNormalizedDataInRange:(NSRange)indexRange
+-(void)deleteDataInIndexRange:(NSRange)indexRange
+{
+	[super deleteDataInIndexRange:indexRange];
+	[self updateNormalizedData];
+}
+
+-(void)updateNormalizedData
 {
 	// Normalize these widths to 1.0 for the whole pie
 	NSUInteger sampleCount = self.cachedDataCount;
@@ -254,7 +223,7 @@ static CGFloat colorLookupTable[10][3] =
 	}
 	
 	// Labels
-	[self relabelIndexRange:indexRange];
+	[self relabelIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
 }
 
 #pragma mark -
@@ -494,7 +463,7 @@ static CGFloat colorLookupTable[10][3] =
 -(void)setSliceWidths:(NSArray *)newSliceWidths 
 {
     [self cacheNumbers:newSliceWidths forField:CPPieChartFieldSliceWidthNormalized];
-	[self updateNormalizedDataInRange:NSMakeRange(0, newSliceWidths.count)];
+	[self updateNormalizedData];
 }
 
 -(void)setPieRadius:(CGFloat)newPieRadius 

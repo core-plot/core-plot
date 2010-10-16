@@ -3,6 +3,11 @@
 
 static const CGFloat kZDistanceBetweenLayers = 20.0;
 
+static NSString * const bindingsPlot = @"Bindings Plot";
+static NSString * const dataSourcePlot = @"Data Source Plot";
+static NSString * const barPlot1 = @"Bar Plot 1";
+static NSString * const barPlot2 = @"Bar Plot 2";
+
 @interface Controller ()
 
 -(void)setupGraph;
@@ -170,7 +175,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 {
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    boundLinePlot.identifier = @"Bindings Plot";
+    boundLinePlot.identifier = bindingsPlot;
 	boundLinePlot.dataLineStyle.miterLimit = 1.0;
 	boundLinePlot.dataLineStyle.lineWidth = 3.0;
 	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
@@ -202,7 +207,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
+    dataSourceLinePlot.identifier = dataSourcePlot;
 	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
 	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
     dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
@@ -279,7 +284,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
-    barPlot.identifier = @"Bar Plot 1";
+    barPlot.identifier = barPlot1;
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
     barPlot.barLabelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
@@ -290,7 +295,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0;
-    barPlot.identifier = @"Bar Plot 2";
+    barPlot.identifier = barPlot2;
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
 	barPlot.delegate = self;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
@@ -301,8 +306,32 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(IBAction)reloadDataSourcePlot:(id)sender
 {
-    CPPlot *plot = [graph plotWithIdentifier:@"Data Source Plot"];
+    CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
     [plot reloadData];
+}
+
+-(IBAction)removeData:(id)sender
+{
+	NSUInteger index = self.selectionIndex;
+	
+	if ( index != NSUIntegerMax ) {
+		[self removeObjectAtArrangedObjectIndex:index];
+		
+		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
+		[plot deleteDataInIndexRange:NSMakeRange(index, 1)];
+	}
+}
+
+-(IBAction)insertData:(id)sender
+{
+	NSUInteger index = self.selectionIndex;
+	
+	if ( index != NSUIntegerMax ) {
+		[self insertObject:[self newObject] atArrangedObjectIndex:index];
+		
+		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
+		[plot insertDataAtIndex:index numberOfRecords:1];
+	}
 }
 
 #pragma mark -
@@ -321,7 +350,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     NSNumber *num;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
         num = [NSDecimalNumber numberWithInt:(index+1)*(index+1)];
-        if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
+        if ( [plot.identifier isEqual:barPlot2] ) 
             num = [(NSDecimalNumber *)num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
     }
     else {
@@ -340,9 +369,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
-	if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 2"] )
+	if ( [(NSString *)plot.identifier isEqualToString:barPlot2] )
 		return (id)[NSNull null]; // Don't show any label
-	else if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
+	else if ( [(NSString *)plot.identifier isEqualToString:barPlot1] && index < 4 ) 
         return (id)[NSNull null];
     else if ( index % 4 ) {
         return (id)[NSNull null];
@@ -606,7 +635,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
  	labelRotation = newRotation;
 	
 	((CPXYAxisSet *)graph.axisSet).yAxis.labelRotation = newRotation;
-	[graph plotWithIdentifier:@"Data Source Plot"].labelRotation = newRotation;
+	[graph plotWithIdentifier:dataSourcePlot].labelRotation = newRotation;
 }
 
 @end
