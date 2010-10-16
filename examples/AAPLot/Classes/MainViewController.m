@@ -51,7 +51,7 @@
     borderLineStyle.lineColor = [CPColor whiteColor];
     borderLineStyle.lineWidth = 2.0f;
     graph.plotAreaFrame.borderLineStyle = borderLineStyle;
-	[self.graphHost.hostedGraph addSublayer:graph];
+	self.graphHost.hostedGraph = graph;
     
     // Axes
     CPXYAxisSet *xyAxisSet = (id)graph.axisSet;
