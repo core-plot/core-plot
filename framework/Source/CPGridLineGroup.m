@@ -36,6 +36,17 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPGridLineGroup *theLayer = (CPGridLineGroup *)layer;
+		
+		plotArea = theLayer->plotArea;
+		major = theLayer->major;
+	}
+	return self;
+}
+
 #pragma mark -
 #pragma mark Drawing
 

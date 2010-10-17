@@ -29,6 +29,17 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPGridLines *theLayer = (CPGridLines *)layer;
+		
+		axis = theLayer->axis;
+		major = theLayer->major;
+	}
+	return self;
+}
+
 #pragma mark -
 #pragma mark Drawing
 

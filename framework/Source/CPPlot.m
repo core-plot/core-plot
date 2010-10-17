@@ -165,6 +165,31 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPPlot *theLayer = (CPPlot *)layer;
+		
+		cachedData = [theLayer->cachedData retain];
+		cachedDataCount = theLayer->cachedDataCount;
+		cachePrecision = theLayer->cachePrecision;
+		dataSource = theLayer->dataSource;
+		identifier = [theLayer->identifier retain];
+		plotSpace = [theLayer->plotSpace retain];
+		dataNeedsReloading = theLayer->dataNeedsReloading;
+		needsRelabel = theLayer->needsRelabel;
+		labelOffset = theLayer->labelOffset;
+		labelRotation = theLayer->labelRotation;
+		labelField = theLayer->labelField;
+		labelTextStyle = [theLayer->labelTextStyle retain];
+		labelFormatter = [theLayer->labelFormatter retain];
+		labelFormatterChanged = theLayer->labelFormatterChanged;
+		labelIndexRange = theLayer->labelIndexRange;
+		labelAnnotations = [theLayer->labelAnnotations retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[cachedData release];

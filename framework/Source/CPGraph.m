@@ -130,6 +130,23 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPGraph *theLayer = (CPGraph *)layer;
+		
+		plotAreaFrame = [theLayer->plotAreaFrame retain];
+		plots = [theLayer->plots retain];
+		plotSpaces = [theLayer->plotSpaces retain];
+		title = [theLayer->title retain];
+		titlePlotAreaFrameAnchor = theLayer->titlePlotAreaFrameAnchor;
+		titleTextStyle = [theLayer->titleTextStyle retain];
+		titleDisplacement = theLayer->titleDisplacement;
+		titleAnnotation = [theLayer->titleAnnotation retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];

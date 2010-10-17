@@ -51,6 +51,16 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPPlotAreaFrame *theLayer = (CPPlotAreaFrame *)layer;
+		
+		plotArea = [theLayer->plotArea retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[plotArea release];

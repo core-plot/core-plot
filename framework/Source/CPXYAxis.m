@@ -69,6 +69,19 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPXYAxis *theLayer = (CPXYAxis *)layer;
+		
+		isFloatingAxis = theLayer->isFloatingAxis;
+		orthogonalCoordinateDecimal = theLayer->orthogonalCoordinateDecimal;
+		constraints = theLayer->constraints;
+		constrainedPosition = [theLayer->constrainedPosition retain];
+	}
+	return self;
+}
+
 -(void)dealloc 
 {
     [constrainedPosition release];

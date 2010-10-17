@@ -113,6 +113,20 @@ static CGFloat colorLookupTable[10][3] =
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPPieChart *theLayer = (CPPieChart *)layer;
+		
+		pieRadius = theLayer->pieRadius;
+		startAngle = theLayer->startAngle;
+		sliceDirection = theLayer->sliceDirection;
+		centerAnchor = theLayer->centerAnchor;
+		borderLineStyle = [theLayer->borderLineStyle retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[borderLineStyle release];

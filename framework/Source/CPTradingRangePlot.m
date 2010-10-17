@@ -115,6 +115,22 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPTradingRangePlot *theLayer = (CPTradingRangePlot *)layer;
+		
+		plotStyle = theLayer->plotStyle;
+		lineStyle = [theLayer->lineStyle retain];
+		increaseFill = [theLayer->increaseFill retain];
+		decreaseFill = [theLayer->decreaseFill retain];
+		barWidth = theLayer->barWidth;
+		stickLength = theLayer->stickLength;
+		barCornerRadius = theLayer->barCornerRadius;
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[lineStyle release];

@@ -154,6 +154,23 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPBarPlot *theLayer = (CPBarPlot *)layer;
+		
+		lineStyle = [theLayer->lineStyle retain];
+		fill = [theLayer->fill retain];
+		barWidth = theLayer->barWidth;
+		barOffset = theLayer->barOffset;
+		cornerRadius = theLayer->cornerRadius;
+		baseValue = theLayer->baseValue;
+		barsAreHorizontal = theLayer->barsAreHorizontal;
+		plotRange = [theLayer->plotRange retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[lineStyle release];

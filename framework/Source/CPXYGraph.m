@@ -54,6 +54,17 @@
     return [self initWithFrame:newFrame xScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPXYGraph *theLayer = (CPXYGraph *)layer;
+		
+		xScaleType = theLayer->xScaleType;
+		yScaleType = theLayer->yScaleType;
+	}
+	return self;
+}
+
 #pragma mark -
 #pragma mark Factory Methods
 

@@ -53,6 +53,17 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 	return [self initWithText:newText style:[CPTextStyle textStyle]];
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPTextLayer *theLayer = (CPTextLayer *)layer;
+		
+		textStyle = [theLayer->textStyle retain];
+		text = [theLayer->text retain];
+	}
+	return self;
+}
+
 -(void)dealloc 
 {
 	[textStyle release];

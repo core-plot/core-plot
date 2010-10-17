@@ -129,6 +129,7 @@
 		masksToBorder = NO;
 		layoutManager = nil;
 		renderingRecursively = NO;
+		graph = nil;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
 
@@ -155,6 +156,25 @@
 -(id)init
 {
 	return [self initWithFrame:CGRectZero];
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPLayer *theLayer = (CPLayer *)layer;
+		
+		paddingLeft = theLayer->paddingLeft;
+		paddingTop = theLayer->paddingTop;
+		paddingRight = theLayer->paddingRight;
+		paddingBottom = theLayer->paddingBottom;
+		masksToBorder = theLayer->masksToBorder;
+		layoutManager = [theLayer->layoutManager retain];
+		renderingRecursively = theLayer->renderingRecursively;
+		graph = theLayer->graph;
+		outerBorderPath = CGPathRetain(theLayer->outerBorderPath);
+		innerBorderPath = CGPathRetain(theLayer->innerBorderPath);
+	}
+	return self;
 }
 
 -(void)dealloc

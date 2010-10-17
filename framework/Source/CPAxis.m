@@ -352,6 +352,53 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPAxis *theLayer = (CPAxis *)layer;
+		
+		plotSpace = [theLayer->plotSpace retain];
+		majorTickLocations = [theLayer->majorTickLocations retain];
+		minorTickLocations = [theLayer->minorTickLocations retain];
+		preferredNumberOfMajorTicks = theLayer->preferredNumberOfMajorTicks;
+		minorTickLength = theLayer->minorTickLength;
+		majorTickLength = theLayer->majorTickLength;
+		labelOffset = theLayer->labelOffset;
+		labelRotation = theLayer->labelRotation;
+		labelAlignment = theLayer->labelAlignment;
+		title = [theLayer->title retain];
+		titleOffset = theLayer->titleOffset;
+		axisLineStyle = [theLayer->axisLineStyle retain];
+		majorTickLineStyle = [theLayer->majorTickLineStyle retain];
+		minorTickLineStyle = [theLayer->minorTickLineStyle retain];
+		majorGridLineStyle = [theLayer->majorGridLineStyle retain];
+		minorGridLineStyle = [theLayer->minorGridLineStyle retain];
+		labelingOrigin = theLayer->labelingOrigin;
+		majorIntervalLength = theLayer->majorIntervalLength;
+		minorTicksPerInterval = theLayer->minorTicksPerInterval;
+		coordinate = theLayer->coordinate;
+		labelingPolicy = theLayer->labelingPolicy;
+		labelFormatter = [theLayer->labelFormatter retain];
+		axisLabels = [theLayer->axisLabels retain];
+		tickDirection = theLayer->tickDirection;
+		labelTextStyle = [theLayer->labelTextStyle retain];
+		axisTitle = [theLayer->axisTitle retain];
+		titleTextStyle = [theLayer->titleTextStyle retain];
+		titleLocation = theLayer->titleLocation;
+		needsRelabel = theLayer->needsRelabel;
+		labelExclusionRanges = [theLayer->labelExclusionRanges retain];
+		plotArea = theLayer->plotArea;
+		separateLayers = theLayer->separateLayers;
+		visibleRange = [theLayer->visibleRange retain];
+		gridLinesRange = [theLayer->gridLinesRange retain];
+		alternatingBandFills = [theLayer->alternatingBandFills retain];
+		backgroundLimitBands = [theLayer->backgroundLimitBands retain];
+		minorGridLines = theLayer->minorGridLines;
+		majorGridLines = theLayer->majorGridLines;
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	self.plotArea = nil; // update layers

@@ -34,6 +34,17 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPAxisSet *theLayer = (CPAxisSet *)layer;
+		
+		axes = [theLayer->axes retain];
+		borderLineStyle = [theLayer->borderLineStyle retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
     [axes release];

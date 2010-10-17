@@ -113,6 +113,22 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPScatterPlot *theLayer = (CPScatterPlot *)layer;
+		
+		dataLineStyle = [theLayer->dataLineStyle retain];
+		plotSymbol = [theLayer->plotSymbol retain];
+		areaFill = [theLayer->areaFill retain];
+		areaBaseValue = theLayer->areaBaseValue;
+		plotSymbols = [theLayer->plotSymbols retain];
+		plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
+		interpolation = theLayer->interpolation;
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[dataLineStyle release];
