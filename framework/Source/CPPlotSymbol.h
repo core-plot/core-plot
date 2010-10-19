@@ -29,9 +29,9 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolType symbolType;
 	CPLineStyle *lineStyle;
 	CPFill *fill;
-	CGMutablePathRef symbolPath;
 	CGPathRef customSymbolPath;
 	BOOL usesEvenOddClipRule;
+	CGLayerRef cachedLayer;
 }
 
 @property (nonatomic, readwrite, assign) CGSize size;
@@ -56,7 +56,6 @@ typedef enum _CPPlotSymbolType {
 +(CPPlotSymbol *)dashPlotSymbol;
 +(CPPlotSymbol *)snowPlotSymbol;
 +(CPPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath;
-//+(CPPlotSymbol *)plotSymbolWithString:(NSString *)aString;
 ///	@}
 
 /// @name Drawing
