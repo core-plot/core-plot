@@ -26,7 +26,7 @@ projectRoot = getcwd()
 
 # Make directory bundle
 desktopDir = join(environ['HOME'], 'Desktop')
-releaseRootDir = join(desktopDir, 'alpharelease_' + version)
+releaseRootDir = join(desktopDir, 'CorePlot_' + version)
 mkdir(releaseRootDir)
 
 # Copy license and READMEs

@@ -328,7 +328,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -348,7 +348,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphonesimulator4.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
