@@ -2,7 +2,7 @@
 
 from os import mkdir, makedirs, environ, chdir, getcwd, system
 from os.path import join
-from shutil import copy, copytree, move
+from shutil import copy, copytree, move, rmtree
 
 # Usage
 def Usage():
@@ -23,6 +23,11 @@ version = sys.argv[1]
 # Change to root dir of Core Plot
 chdir('..')
 projectRoot = getcwd()
+
+# Remove old docset files
+frameworkDir = join(projectRoot, 'framework')
+rmtree(join(frameworkDir, 'CorePlotDocs.docset'), True)
+rmtree(join(frameworkDir, 'CorePlotTouchDocs.docset'), True)
 
 # Make directory bundle
 desktopDir = join(environ['HOME'], 'Desktop')
@@ -62,9 +67,10 @@ RunXcode('CorePlot.xcodeproj', 'Documentation')
 RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Documentation')
 
 # Copy Docs
+docDir = join(releaseRootDir, 'Documentation')
+copytree(join(projectRoot, 'documentation'), docDir)
 homeDir = environ['HOME']
 docsetsDir = join(homeDir, 'Library/Developer/Shared/Documentation/DocSets')
-docDir = join(releaseRootDir, 'Documentation')
 copytree(join(docsetsDir, 'com.CorePlot.Framework.docset'), join(docDir, 'com.CorePlot.Framework.docset'))
 copytree(join(docsetsDir, 'com.CorePlotTouch.Framework.docset'), join(docDir, 'com.CorePlotTouch.Framework.docset'))
 
