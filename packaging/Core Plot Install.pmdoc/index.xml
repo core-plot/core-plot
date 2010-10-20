@@ -1,0 +1,69 @@
+<pkmkdoc spec="1.12"><properties><title>Core Plot Install</title><build>/Users/cormack/Desktop/Core Plot Install.pkg</build><organization>org.coreplot</organization><userSees ui="both"/><min-target os="3"/><domain anywhere="true" system="true" user="true"/></properties><distribution><versions min-spec="1.000000"/><scripts></scripts></distribution><contents><choice title="Library" id="choice16" starts_selected="true" starts_enabled="true" starts_hidden="false"><pkgref id="org.coreplot.corePlotInstall.Library.pkg"/></choice></contents><resources bg-scale="none" bg-align="topleft"><locale lang="en"><resource mime-type="text/rtf" kind="embedded" type="license"><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf320
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Copyright (c) 2010, Drew McCormack, Brad Larson, Eric Skroch, Barry Wark, Dirkjan Krijnders, Rick Maddy, Vijay Kalusani, Caleb Cannon\
+All rights reserved.\
+\
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\
+\
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\
+Neither the name of the Core Plot Project nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\
+}]]></resource><resource mime-type="text/rtf" kind="embedded" type="conclusion"><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf320
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs36 \cf0 To add the Core Plot SDKs to an iOS Project:
+\fs24 \
+\
+1. Add to your project's .PCH file:\
+\
+
+\f1 #import <CorePlot/CorePlot.h>
+\f0 \
+\
+3. Open Project -> Edit Project Settings and for 
+\b All Configurations
+\b0 :\
+\
+	3a. Add to 
+\b Additional SDKS
+\b0 : \
+\
+
+\f1 $HOME/Library/SDKs/CorePlotSDK/$\{PLATFORM_NAME\}.sdk
+\f0 \
+\
+	3b. Add to 
+\b Other Linker Flags
+\b0 :\
+\
+
+\f1 -ObjC -all_load -lCorePlot 
+\f0 \
+\
+4. Add the 
+\b QuartzCore
+\b0  framework to the project.\
+\
+5. Add a CPGraph to your application.\
+\
+\
+
+\fs36 To add the Core Plot framework to a Mac OS Project:\
+
+\fs24 \
+1. Choose the Add Existing Framework... option, and navigate to the CorePlot.framework bundle. \
+2. Add a copy build phase that copies the CorePlot.framework bundle into your applications Frameworks folder.\
+\
+\
+
+\fs36 To browse documentation:\
+
+\fs24 \
+Relaunch Xcode, and then use the Xcode documentation browser.\
+}]]></resource></locale></resources><flags/><item type="file">01library.xml</item><mod>properties.title</mod><mod>properties.customizeOption</mod><mod>properties.userDomain</mod><mod>properties.systemDomain</mod></pkmkdoc>
