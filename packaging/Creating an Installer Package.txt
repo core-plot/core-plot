@@ -6,6 +6,3 @@ Creating a Core Plot Installer Package
 3) Change into the packaging directory in Terminal, and issue this command
 
 sudo ./prepare.sh
-
-4) Open the Core Plot Installer package project and create the package
-5) Remove the temporary Library directory
