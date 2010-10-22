@@ -29,6 +29,9 @@ frameworkDir = join(projectRoot, 'framework')
 rmtree(join(frameworkDir, 'CorePlotDocs.docset'), True)
 rmtree(join(frameworkDir, 'CorePlotTouchDocs.docset'), True)
 
+# Remove old build directory
+rmtree(join(frameworkDir, 'build'), True)
+
 # Make directory bundle
 desktopDir = join(environ['HOME'], 'Desktop')
 releaseRootDir = join(desktopDir, 'CorePlot_' + version)
@@ -42,6 +45,7 @@ copytree('READMEs', join(releaseRootDir, 'READMEs'))
 sourceDir = join(releaseRootDir, 'Source')
 copytree('framework', join(sourceDir, 'framework'))
 copytree('examples', join(sourceDir, 'examples'))
+copy('License.txt', sourceDir)
 
 # Binaries
 binariesDir = join(releaseRootDir, 'Binaries')
