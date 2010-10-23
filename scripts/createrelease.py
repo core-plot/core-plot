@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from os import mkdir, makedirs, environ, chdir, getcwd, system
+from os import mkdir, makedirs, environ, chdir, getcwd, system, listdir
 from os.path import join
 from shutil import copy, copytree, move, rmtree
 
@@ -29,8 +29,12 @@ frameworkDir = join(projectRoot, 'framework')
 rmtree(join(frameworkDir, 'CorePlotDocs.docset'), True)
 rmtree(join(frameworkDir, 'CorePlotTouchDocs.docset'), True)
 
-# Remove old build directory
+# Remove old build directories
 rmtree(join(frameworkDir, 'build'), True)
+examples = listdir('examples')
+for ex in examples:
+    exampleDir = join('examples', ex)
+    rmtree(join(exampleDir, 'build'), True)
 
 # Make directory bundle
 desktopDir = join(environ['HOME'], 'Desktop')
