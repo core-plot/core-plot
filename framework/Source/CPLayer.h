@@ -15,6 +15,7 @@
 	BOOL masksToBorder;
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
+	BOOL useFastRendering;
     __weak CPGraph *graph;
 	CGPathRef outerBorderPath;
 	CGPathRef innerBorderPath;
@@ -31,6 +32,11 @@
 @property (nonatomic, readwrite) CGFloat paddingTop;
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
+///	@}
+
+/// @name Drawing
+/// @{
+@property (nonatomic, readonly, assign) BOOL useFastRendering;
 ///	@}
 
 /// @name Masking
