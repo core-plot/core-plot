@@ -29,6 +29,7 @@ typedef enum _CPPlotSymbolType {
 	CPPlotSymbolType symbolType;
 	CPLineStyle *lineStyle;
 	CPFill *fill;
+	CGPathRef cachedSymbolPath;
 	CGPathRef customSymbolPath;
 	BOOL usesEvenOddClipRule;
 	CGLayerRef cachedLayer;
@@ -61,6 +62,7 @@ typedef enum _CPPlotSymbolType {
 /// @name Drawing
 /// @{
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
+-(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
 ///	@}
 
 @end

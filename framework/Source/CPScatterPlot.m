@@ -506,10 +506,20 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		
 		// Draw plot symbols
 		if ( self.plotSymbol || self.plotSymbols.count ) {
-			for ( NSUInteger i = 0; i < dataCount; i++ ) {
-				if ( drawPointFlags[i] ) {
-					CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-                    [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
+			if ( self.useFastRendering ) {
+				for ( NSUInteger i = 0; i < dataCount; i++ ) {
+					if ( drawPointFlags[i] ) {
+						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
+						[currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
+					}
+				}
+			}
+			else {
+				for ( NSUInteger i = 0; i < dataCount; i++ ) {
+					if ( drawPointFlags[i] ) {
+						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
+						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i]];	
+					}
 				}
 			}
 		}
