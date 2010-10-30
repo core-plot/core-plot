@@ -15,7 +15,6 @@
 #import "CPPlotSpace.h"
 #import "CPPlotArea.h"
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
 #import "CPUtilities.h"
 #import "CPPlatformSpecificCategories.h"
 #import "CPUtilities.h"
@@ -327,6 +326,7 @@
 		coordinate = CPCoordinateX;
 		labelingPolicy = CPAxisLabelingPolicyFixedInterval;
 		labelTextStyle = [[CPTextStyle alloc] init];
+		labelTextStyle.delegate = self;
 		NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
 		newFormatter.minimumIntegerDigits = 1;
 		newFormatter.maximumFractionDigits = 1; 
@@ -337,6 +337,7 @@
         tickDirection = CPSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTextStyle alloc] init];
+		titleTextStyle.delegate = self;
 		titleLocation = CPDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
@@ -699,6 +700,7 @@
 	// do not use accessor because we've already updated the layer hierarchy
 	[axisLabels release];
 	axisLabels = newAxisLabels;
+	theLabelTextStyle.delegate = self;
 	[self setNeedsLayout];		
 	self.labelFormatterChanged = NO;
 }
@@ -820,6 +822,35 @@
 }
 
 #pragma mark -
+#pragma mark Text style delegate
+
+-(void)textStyleDidChange:(CPTextStyle *)textStyle
+{
+	BOOL labelsChanged = NO;
+	
+	if ( textStyle == self.labelTextStyle ) {
+		for ( CPAxisLabel *axisLabel in self.axisLabels ) {
+			CPLayer *contentLayer = axisLabel.contentLayer;
+			if ( [contentLayer conformsToProtocol:@protocol(CPTextStyleDelegate)] ) {
+				[(id <CPTextStyleDelegate>)contentLayer textStyleDidChange:textStyle];
+				labelsChanged = YES;
+			}
+		}
+	}
+	else if ( textStyle == self.titleTextStyle ) {
+		CPLayer *contentLayer = self.axisTitle.contentLayer;
+		if ( [contentLayer conformsToProtocol:@protocol(CPTextStyleDelegate)] ) {
+			[(id <CPTextStyleDelegate>)contentLayer textStyleDidChange:textStyle];
+			labelsChanged = YES;
+		}
+	}
+	
+	if ( labelsChanged ) {
+		[self setNeedsLayout];
+	}
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setAxisLabels:(NSSet *)newLabels 
@@ -861,6 +892,7 @@
 -(void)setLabelTextStyle:(CPTextStyle *)newStyle 
 {
 	if ( newStyle != labelTextStyle ) {
+		labelTextStyle.delegate = nil;
 		[labelTextStyle release];
 		labelTextStyle = [newStyle copy];
 		
@@ -870,6 +902,7 @@
 				[(CPTextLayer *)contentLayer setTextStyle:labelTextStyle];
 			}
 		}
+		labelTextStyle.delegate = self;
 		
 		[self setNeedsLayout];
 	}
@@ -908,6 +941,7 @@
 -(void)setTitleTextStyle:(CPTextStyle *)newStyle 
 {
 	if ( newStyle != titleTextStyle ) {
+		titleTextStyle.delegate = nil;
 		[titleTextStyle release];
 		titleTextStyle = [newStyle copy];
 
@@ -915,6 +949,7 @@
 		if ( [contentLayer isKindOfClass:[CPTextLayer class]] ) {
 			[(CPTextLayer *)contentLayer setTextStyle:titleTextStyle];
 		}
+		titleTextStyle.delegate = self;
 		
 		[self setNeedsLayout];
 	}

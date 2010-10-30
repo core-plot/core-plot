@@ -1,6 +1,4 @@
-
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPColor.h"
 #import "CPColorSpace.h"
@@ -86,8 +84,10 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 -(void)setTextStyle:(CPTextStyle *)newStyle 
 {
 	if ( textStyle != newStyle ) {
+		textStyle.delegate = nil;
 		[textStyle release];
 		textStyle = [newStyle retain];
+		textStyle.delegate = self;
 		[self sizeToFit];
 	}
 }
@@ -105,13 +105,14 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 	// Add small margin
 	textSize.width += 2 * kCPTextLayerMarginWidth;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
-    textSize.width = ceilf(textSize.width);
-    textSize.height = ceilf(textSize.height);
+    textSize.width = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
 
 	CGRect newBounds = self.bounds;
 	newBounds.size = textSize;
 	self.bounds = newBounds;
     [self pixelAlign];
+	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
 
@@ -131,6 +132,14 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
 #endif
+}
+
+#pragma mark -
+#pragma mark Text style delegate
+
+-(void)textStyleDidChange:(CPTextStyle *)textStyle
+{
+	[self sizeToFit];
 }
 
 #pragma mark -

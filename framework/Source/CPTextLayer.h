@@ -1,13 +1,11 @@
-
 #import "CPLayer.h"
+#import "CPTextStyle.h"
 
 ///	@file
 
-@class CPTextStyle;
-
 extern const CGFloat kCPTextLayerMarginWidth;	///< Margin width around the text.
 
-@interface CPTextLayer : CPLayer {
+@interface CPTextLayer : CPLayer <CPTextStyleDelegate> {
 	@private
 	NSString *text;
 	CPTextStyle *textStyle;

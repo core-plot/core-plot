@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 #import "CPDefinitions.h"
+#import "CPTextStyle.h"
 
 ///	@file
 
@@ -13,7 +14,6 @@
 @class CPPlotSpace;
 @class CPPlotRange;
 @class CPPlotArea;
-@class CPTextStyle;
 
 /**	@brief Enumeration of labeling policies
  **/
@@ -64,7 +64,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 #pragma mark -
 
-@interface CPAxis : CPLayer {   
+@interface CPAxis : CPLayer <CPTextStyleDelegate> {   
 	@private
     CPCoordinate coordinate;
 	CPPlotSpace *plotSpace;

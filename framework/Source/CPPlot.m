@@ -796,6 +796,8 @@
 		}
 		[labelArray removeLastObject];
 	}
+	
+	dataLabelTextStyle.delegate = self;
 }	
 
 /**	@brief Sets the labelIndexRange and informs the receiver that it needs to relabel.
@@ -829,6 +831,25 @@
 	}
 
 	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
+}
+
+#pragma mark -
+#pragma mark Text style delegate
+
+-(void)textStyleDidChange:(CPTextStyle *)textStyle
+{
+	BOOL labelsChanged = NO;
+	
+	for ( CPAnnotation *annotation in self.labelAnnotations ) {
+		CPLayer *contentLayer = annotation.contentLayer;
+		if ( [contentLayer conformsToProtocol:@protocol(CPTextStyleDelegate)] ) {
+			[(id <CPTextStyleDelegate>)contentLayer textStyleDidChange:textStyle];
+			labelsChanged = YES;
+		}
+	}
+	if ( labelsChanged ) {
+		[self setNeedsLayout];
+	}
 }
 
 #pragma mark -
@@ -870,8 +891,10 @@
 -(void)setLabelTextStyle:(CPTextStyle *)newStyle 
 {
 	if ( newStyle != labelTextStyle ) {
+		labelTextStyle.delegate = nil;
 		[labelTextStyle release];
 		labelTextStyle = [newStyle copy];
+		labelTextStyle.delegate = self;
 		
 		if ( labelTextStyle && !self.labelFormatter ) {
 			NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];

@@ -2,6 +2,7 @@
 #import "CPPlotRange.h"
 #import "CPNumericDataType.h"
 #import "CPAnnotationHostLayer.h"
+#import "CPTextStyle.h"
 
 @class CPMutableNumericData;
 @class CPNumericData;
@@ -10,7 +11,6 @@
 @class CPPlotSpace;
 @class CPPlotSpaceAnnotation;
 @class CPPlotRange;
-@class CPTextStyle;
 
 ///	@file
 
@@ -112,7 +112,7 @@ typedef enum _CPPlotCachePrecision {
 
 #pragma mark -
 
-@interface CPPlot : CPAnnotationHostLayer {
+@interface CPPlot : CPAnnotationHostLayer <CPTextStyleDelegate> {
 	@private
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
