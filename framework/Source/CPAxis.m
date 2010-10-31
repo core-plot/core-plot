@@ -7,6 +7,7 @@
 #import "CPExceptions.h"
 #import "CPFill.h"
 #import "CPGradient.h"
+#import "CPGridLineGroup.h"
 #import "CPGridLines.h"
 #import "CPImage.h"
 #import "CPLimitBand.h"
