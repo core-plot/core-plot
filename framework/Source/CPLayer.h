@@ -1,12 +1,13 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPLineStyle.h"
 #import "CPResponder.h"
 #import "CPPlatformSpecificDefines.h"
 
 @protocol CPLayoutManager;
 @class CPGraph;
 
-@interface CPLayer : CALayer <CPResponder> {
+@interface CPLayer : CALayer <CPResponder, CPLineStyleDelegate> {
 @private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;

@@ -147,6 +147,19 @@
 }
 
 #pragma mark -
+#pragma mark Line style delegate
+
+-(void)lineStyleDidChange:(CPLineStyle *)lineStyle
+{
+	[super lineStyleDidChange:lineStyle];
+	
+	if ( lineStyle == self.borderLineStyle ) {
+		self.outerBorderPath = NULL;
+		self.innerBorderPath = NULL;
+	}
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
@@ -156,8 +169,10 @@
 			self.outerBorderPath = NULL;
 			self.innerBorderPath = NULL;
 		}
+		borderLineStyle.delegate = nil;
 		[borderLineStyle release];
 		borderLineStyle = [newLineStyle copy];
+		borderLineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}
 }

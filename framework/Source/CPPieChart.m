@@ -492,8 +492,10 @@ static CGFloat colorLookupTable[10][3] =
 - (void) setBorderLineStyle:(CPLineStyle *)newStyle
 {
 	if ( borderLineStyle != newStyle ) {
+		borderLineStyle.delegate = nil;
 		[borderLineStyle release];
 		borderLineStyle = [newStyle copy];
+		borderLineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}	
 }

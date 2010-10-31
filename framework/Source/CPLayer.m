@@ -588,6 +588,13 @@
     if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
 }
 
+#pragma mark -
+#pragma mark Line style delegate
+
+-(void)lineStyleDidChange:(CPLineStyle *)lineStyle
+{
+	[self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Accessors

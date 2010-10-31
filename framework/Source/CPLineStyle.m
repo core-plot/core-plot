@@ -1,4 +1,3 @@
-
 #import "CPLineStyle.h"
 #import "CPLayer.h"
 #import "CPColor.h"
@@ -12,23 +11,28 @@
 
 @implementation CPLineStyle
 
+/** @property delegate
+ *  @brief The line style delegate.
+ **/
+@synthesize delegate;
+
 /** @property lineCap
- *  @brief Sets the style for the endpoints of lines drawn in a graphics context.
+ *  @brief The style for the endpoints of lines drawn in a graphics context.
  **/
 @synthesize lineCap;
 
 /** @property lineJoin
- *  @brief Sets the style for the joins of connected lines in a graphics context.
+ *  @brief The style for the joins of connected lines in a graphics context.
  **/
 @synthesize lineJoin;
 
 /** @property miterLimit
- *  @brief Sets the miter limit for the joins of connected lines in a graphics context.
+ *  @brief The miter limit for the joins of connected lines in a graphics context.
  **/
 @synthesize miterLimit;
 
 /** @property lineWidth
- *  @brief Sets the line width for a graphics context.
+ *  @brief The line width for a graphics context.
  **/
 @synthesize lineWidth;
 
@@ -38,12 +42,12 @@
 @synthesize dashPattern;
 
 /** @property patternPhase
- *  @brief Sets the starting phase of the line dash pattern.
+ *  @brief The starting phase of the line dash pattern.
  **/
 @synthesize patternPhase;
 
 /** @property lineColor
- *  @brief Sets the current stroke color in a context.
+ *  @brief The current stroke color in a context.
  **/
 @synthesize lineColor;
 
@@ -61,6 +65,7 @@
 -(id)init
 {
 	if ( self = [super init] ) {
+		delegate = nil;
 		lineCap = kCGLineCapButt;
 		lineJoin = kCGLineJoinMiter;
 		miterLimit = 10.0;
@@ -112,6 +117,7 @@
 {
     CPLineStyle *styleCopy = [[[self class] allocWithZone:zone] init];
  	
+	styleCopy->delegate = self->delegate;
 	styleCopy->lineCap = self->lineCap;
 	styleCopy->lineJoin = self->lineJoin;
 	styleCopy->miterLimit = self->miterLimit;
@@ -121,6 +127,67 @@
     styleCopy->lineColor = [self->lineColor copy];
     
     return styleCopy;
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setLineCap:(CGLineCap)newLineCap
+{
+	if ( lineCap != newLineCap ) {
+		lineCap = newLineCap;
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setLineJoin:(CGLineJoin)newLineJoin
+{
+	if ( lineJoin != newLineJoin ) {
+		lineJoin = newLineJoin;
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setMiterLimit:(CGFloat)newMiterLimit
+{
+	if ( miterLimit != newMiterLimit ) {
+		miterLimit = newMiterLimit;
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setLineWidth:(CGFloat)newLineWidth
+{
+	if ( lineWidth != newLineWidth ) {
+		lineWidth = newLineWidth;
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setDashPattern:(NSArray *)newDashPattern
+{
+	if ( dashPattern != newDashPattern ) {
+		[dashPattern release];
+		dashPattern = [newDashPattern retain];
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setPatternPhase:(CGFloat)newPatternPhase
+{
+	if ( patternPhase != newPatternPhase ) {
+		patternPhase = newPatternPhase;
+		[self.delegate lineStyleDidChange:self];
+	}
+}
+
+-(void)setLineColor:(CPColor *)newLineColor
+{
+	if ( lineColor != newLineColor ) {
+		[lineColor release];
+		lineColor = [newLineColor retain];
+		[self.delegate lineStyleDidChange:self];
+	}
 }
 
 @end

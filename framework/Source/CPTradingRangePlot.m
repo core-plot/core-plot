@@ -104,6 +104,7 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 	if ( self = [super initWithFrame:newFrame] ) {
         plotStyle = CPTradingRangePlotStyleOHLC;
 		lineStyle = [[CPLineStyle alloc] init];
+		lineStyle.delegate = self;
         increaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor whiteColor]];
         decreaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor blackColor]];
         barWidth = 5.0;
@@ -473,38 +474,49 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 #pragma mark -
 #pragma mark Accessors
 
--(void)setLineStyle:(CPLineStyle *)value {
-	if (lineStyle != value) {
+-(void)setLineStyle:(CPLineStyle *)newLineStyle
+{
+	if ( lineStyle != newLineStyle ) {
+		lineStyle.delegate = nil;
 		[lineStyle release];
-		lineStyle = [value copy];
+		lineStyle = [newLineStyle copy];
+		lineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setIncreaseFill:(CPFill *)value {
-	if (increaseFill != value) {
+-(void)setIncreaseFill:(CPFill *)newFill
+{
+	if ( increaseFill != newFill ) {
 		[increaseFill release];
-		increaseFill = [value copy];
+		increaseFill = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setDecreaseFill:(CPFill *)value {
-	if (decreaseFill != value) {
+-(void)setDecreaseFill:(CPFill *)newFill
+{
+	if ( decreaseFill != newFill ) {
 		[decreaseFill release];
-		decreaseFill = [value copy];
+		decreaseFill = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setBarWidth:(CGFloat)value {
-	barWidth = value;
-    [self setNeedsDisplay];
+-(void)setBarWidth:(CGFloat)newWidth
+{
+	if ( barWidth != newWidth ) {
+		barWidth = newWidth;
+		[self setNeedsDisplay];
+	}
 }
 
--(void)setStickLengthh:(CGFloat)value {
-	stickLength = value;
-    [self setNeedsDisplay];
+-(void)setStickLength:(CGFloat)newLength
+{
+	if ( stickLength != newLength ) {
+		stickLength = newLength;
+		[self setNeedsDisplay];
+	}
 }
 
 -(void)setXValues:(CPMutableNumericData *)newValues 

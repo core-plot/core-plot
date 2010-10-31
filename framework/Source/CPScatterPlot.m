@@ -102,6 +102,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		dataLineStyle = [[CPLineStyle alloc] init];
+		dataLineStyle.delegate = self;
 		plotSymbol = nil;
 		areaFill = nil;
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
@@ -629,10 +630,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 }
 
--(void)setDataLineStyle:(CPLineStyle *)value {
-	if ( dataLineStyle != value ) {
+-(void)setDataLineStyle:(CPLineStyle *)newLineStyle
+{
+	if ( dataLineStyle != newLineStyle ) {
+		dataLineStyle.delegate = nil;
 		[dataLineStyle release];
-		dataLineStyle = [value copy];
+		dataLineStyle = [newLineStyle copy];
+		dataLineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}
 }

@@ -140,6 +140,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		lineStyle = [[CPLineStyle alloc] init];
+		lineStyle.delegate = self;
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = 10.0;
 		barOffset = 0.0;
@@ -551,8 +552,10 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 -(void)setLineStyle:(CPLineStyle *)newLineStyle 
 {
     if (lineStyle != newLineStyle) {
+		lineStyle.delegate = nil;
         [lineStyle release];
         lineStyle = [newLineStyle copy];
+		lineStyle.delegate = self;
         [self setNeedsDisplay];
     }
 }
