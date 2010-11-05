@@ -657,6 +657,14 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 #pragma mark -
 #pragma mark Accessors
 
+-(void)setInterpolation:(CPScatterPlotInterpolation)newInterpolation
+{
+	if ( newInterpolation != interpolation ) {
+		interpolation = newInterpolation;
+		[self setNeedsDisplay];
+	}
+}
+
 -(void)setPlotSymbol:(CPPlotSymbol *)aSymbol
 {
 	if ( aSymbol != plotSymbol ) {
@@ -673,6 +681,24 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[dataLineStyle release];
 		dataLineStyle = [newLineStyle copy];
 		dataLineStyle.delegate = self;
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setAreaFill:(CPFill *)newFill
+{
+	if ( newFill != areaFill ) {
+		[areaFill release];
+		areaFill = [newFill copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setAreaFill2:(CPFill *)newFill
+{
+	if ( newFill != areaFill2 ) {
+		[areaFill2 release];
+		areaFill2 = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
