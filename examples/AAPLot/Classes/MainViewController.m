@@ -76,6 +76,13 @@
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"320.0");
     
+	areaColor = [CPColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
+    areaGradient = [CPGradient gradientWithBeginningColor:[CPColor clearColor] endingColor:areaColor];
+    areaGradient.angle = -90.0f;
+	areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    dataSourceLinePlot.areaFill2 = areaGradientFill;
+    dataSourceLinePlot.areaBaseValue2 = CPDecimalFromDouble(700.0);
+    
     // OHLC plot
     CPLineStyle *whiteLineStyle = [CPLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPColor whiteColor];

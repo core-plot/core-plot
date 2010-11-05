@@ -68,6 +68,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  **/
 @synthesize areaFill;
 
+/** @property areaFill2
+ *	@brief The fill style for the area above the data line.
+ *	If nil, the area is not filled.
+ **/
+@synthesize areaFill2;
+
 /** @property areaBaseValue
  *	@brief The Y coordinate of the straight boundary of the area fill.
  *	If not a number, the area is not filled.
@@ -75,6 +81,14 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
  **/
 @synthesize areaBaseValue;
+
+/** @property areaBaseValue2
+ *	@brief The Y coordinate of the straight boundary of the secondary area fill.
+ *	If not a number, the area is not filled.
+ *
+ *	Typically set to the maximum value of the Y range, but it can be any value that gives the desired appearance.
+ **/
+@synthesize areaBaseValue2;
 
 /** @property plotSymbolMarginForHitDetection
  *	@brief A margin added to each side of a symbol when determining whether it has been hit.
@@ -105,6 +119,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		dataLineStyle.delegate = self;
 		plotSymbol = nil;
 		areaFill = nil;
+		areaFill2 = nil;
+		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
         plotSymbolMarginForHitDetection = 0.0f;
@@ -122,7 +138,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		dataLineStyle = [theLayer->dataLineStyle retain];
 		plotSymbol = [theLayer->plotSymbol retain];
 		areaFill = [theLayer->areaFill retain];
+		areaFill2 = [theLayer->areaFill2 retain];
 		areaBaseValue = theLayer->areaBaseValue;
+		areaBaseValue2 = theLayer->areaBaseValue2;
 		plotSymbols = [theLayer->plotSymbols retain];
 		plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
 		interpolation = theLayer->interpolation;
@@ -135,6 +153,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[dataLineStyle release];
 	[plotSymbol release];
 	[areaFill release];
+	[areaFill2 release];
 	[plotSymbols release];
     
 	[super dealloc];
@@ -421,7 +440,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( xValueData == nil || yValueData == nil ) return;
 	NSUInteger dataCount = self.cachedDataCount;
 	if ( dataCount == 0 ) return;
-	if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
+	if ( !(self.dataLineStyle || self.areaFill || self.areaFill2 || self.plotSymbol || self.plotSymbols.count) ) return;
 	if ( xValueData.numberOfSamples != yValueData.numberOfSamples ) {
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
@@ -444,7 +463,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( firstDrawnPointIndex != NSNotFound ) {
 		// Path
 		CGMutablePathRef dataLinePath = NULL;
-		if ( self.dataLineStyle || self.areaFill ) {
+		if ( self.dataLineStyle || self.areaFill || self.areaFill2 ) {
 			dataLinePath = CGPathCreateMutable();
 			CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
 			NSUInteger i = firstDrawnPointIndex + 1;
@@ -465,35 +484,52 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 			} 
 		}
         
-		// Draw fill
-		NSDecimal theAreaBaseValue = self.areaBaseValue;
-		if ( self.areaFill && (!NSDecimalIsNotANumber(&theAreaBaseValue)) ) {	
-            NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
-			NSDecimal plotPoint[2];
-			plotPoint[CPCoordinateX] = [xValue decimalValue];
-			plotPoint[CPCoordinateY] = theAreaBaseValue;
-			CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-			
-			CGFloat baseLineYValue = baseLinePoint.y;
-			
-			CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
-			baseViewPoint1.y = baseLineYValue;
-			baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
-			
-			CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
-			baseViewPoint2.y = baseLineYValue;
-			baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
-			
-			CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
-			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
-			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
-			CGPathCloseSubpath(fillPath);
-			
-			CGContextBeginPath(theContext);
-			CGContextAddPath(theContext, fillPath);
-			[self.areaFill fillPathInContext:theContext];
-			
-			CGPathRelease(fillPath);
+		// Draw fills
+		NSDecimal theAreaBaseValue;
+		CPFill *theFill;
+		
+		for ( NSUInteger i = 0; i < 2; i++ ) {
+			switch ( i ) {
+				case 0:
+					theAreaBaseValue = self.areaBaseValue;
+					theFill = self.areaFill;
+					break;
+				case 1:
+					theAreaBaseValue = self.areaBaseValue2;
+					theFill = self.areaFill2;
+					break;
+
+				default:
+					break;
+			}
+			if ( theFill && (!NSDecimalIsNotANumber(&theAreaBaseValue)) ) {	
+				NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
+				NSDecimal plotPoint[2];
+				plotPoint[CPCoordinateX] = [xValue decimalValue];
+				plotPoint[CPCoordinateY] = theAreaBaseValue;
+				CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+				
+				CGFloat baseLineYValue = baseLinePoint.y;
+				
+				CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
+				baseViewPoint1.y = baseLineYValue;
+				baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
+				
+				CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
+				baseViewPoint2.y = baseLineYValue;
+				baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
+				
+				CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
+				CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
+				CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
+				CGPathCloseSubpath(fillPath);
+				
+				CGContextBeginPath(theContext);
+				CGContextAddPath(theContext, fillPath);
+				[theFill fillPathInContext:theContext];
+				
+				CGPathRelease(fillPath);
+			}
 		}
 		
 		// Draw line
@@ -647,6 +683,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		return;
 	}
 	areaBaseValue = newAreaBaseValue;
+	[self setNeedsDisplay];
+}
+
+-(void)setAreaBaseValue2:(NSDecimal)newAreaBaseValue
+{
+	if ( CPDecimalEquals(areaBaseValue2, newAreaBaseValue) ) {
+		return;
+	}
+	areaBaseValue2 = newAreaBaseValue;
 	[self setNeedsDisplay];
 }
 

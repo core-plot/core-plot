@@ -92,7 +92,9 @@ typedef enum _CPScatterPlotInterpolation {
 	CPLineStyle *dataLineStyle;
 	CPPlotSymbol *plotSymbol;
     CPFill *areaFill;
+    CPFill *areaFill2;
     NSDecimal areaBaseValue;
+    NSDecimal areaBaseValue2;
     CGFloat plotSymbolMarginForHitDetection;
     NSArray *plotSymbols;
 } 
@@ -100,7 +102,9 @@ typedef enum _CPScatterPlotInterpolation {
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPFill *areaFill;
+@property (nonatomic, readwrite, copy) CPFill *areaFill2;
 @property (nonatomic, readwrite) NSDecimal areaBaseValue;
+@property (nonatomic, readwrite) NSDecimal areaBaseValue2;
 @property (nonatomic, readwrite, assign) CPScatterPlotInterpolation interpolation;
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
 
