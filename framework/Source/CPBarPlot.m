@@ -190,8 +190,6 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 	
 	// Bar lengths
 	if ( self.dataSource ) {
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
 		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
 	}
@@ -246,8 +244,6 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 	}
 	else if ( self.dataSource ) {
 		// Get locations from the datasource
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		NSRange indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
 		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 	}

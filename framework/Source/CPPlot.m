@@ -387,28 +387,6 @@
     return numbers;
 }
 
-/**	@brief Determines the record index range corresponding to a given range of data.
- *	@param plotRange The range expressed in data values.
- *	@return The range of record indexes.
- *	Returns <code>{0, numberOfRecords}</code> if the datasource does not implement the 
- *	-recordIndexRangeForPlot:plotRange: method.
- **/
--(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange 
-{
-	id <CPPlotDataSource> theDataSource = self.dataSource;
-    if ( !theDataSource ) return NSMakeRange(0, 0);
-    
-    NSRange resultRange;
-    if ( [theDataSource respondsToSelector:@selector(recordIndexRangeForPlot:plotRange:)] ) {
-        resultRange = [theDataSource recordIndexRangeForPlot:self plotRange:plotRange];
-    }
-    else {
-        resultRange = NSMakeRange(0, [theDataSource numberOfRecordsForPlot:self]);
-    }
-    
-    return resultRange;
-}
-
 #pragma mark -
 #pragma mark Data Caching
 

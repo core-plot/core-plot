@@ -89,6 +89,7 @@ typedef enum _CPPlotCachePrecision {
  *	@param plot The plot.
  *	@param plotRange The range expressed in data values.
  *	@return The range of record indexes.
+ *	@deprecated This method is no longer used and will be removed from a later release.
  **/
 -(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRange;
 
@@ -196,7 +197,6 @@ typedef enum _CPPlotCachePrecision {
 /// @name Plot Data
 /// @{
 -(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
--(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
 ///	@}
 
 /// @name Data Cache
