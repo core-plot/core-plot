@@ -282,7 +282,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -291,6 +291,7 @@
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
 				SYMROOT = build;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
 			name = Debug;
 		};
@@ -303,7 +304,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTestApp_iPhone_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -311,19 +312,21 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTestApp-iPhone";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -331,25 +334,28 @@
 				SDKROOT = iphonesimulator4.1;
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}${EFFECTIVE_PLATFORM_NAME}\"/**";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator4.1;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
 			name = Release;
 		};
