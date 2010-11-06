@@ -464,11 +464,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		// Path
 		CGMutablePathRef dataLinePath = NULL;
 		if ( self.dataLineStyle || self.areaFill || self.areaFill2 ) {
+			CPScatterPlotInterpolation theInterpolation = self.interpolation;
 			dataLinePath = CGPathCreateMutable();
 			CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
 			NSUInteger i = firstDrawnPointIndex + 1;
 			while ( i <= lastDrawnPointIndex ) {
-            	switch ( interpolation ) {
+            	switch ( theInterpolation ) {
                     case CPScatterPlotInterpolationLinear:
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
                         break;
@@ -476,8 +477,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i-1].y);
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
 						break;
+                    case CPScatterPlotInterpolationHistogram: {
+						CGFloat x = (viewPoints[i-1].x + viewPoints[i].x) / 2.0;
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i-1].y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i].y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
+					}
+						break;
                     default:	
-                    	[NSException raise:CPException format:@"Interpolation method no supported in scatter plot."];
+                    	[NSException raise:CPException format:@"Interpolation method not supported in scatter plot."];
                         break;
                 }
 				i++;

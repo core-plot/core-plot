@@ -29,9 +29,9 @@ typedef enum _CPScatterPlotField {
 /**	@brief Enumeration of scatter plot interpolation algorithms
  **/
 typedef enum _CPScatterPlotInterpolation {
-    CPScatterPlotInterpolationLinear,					///< Linear interpolation
-    CPScatterPlotInterpolationStepped,					///< Steps beginnning at data point
-    CPScatterPlotInterpolationHistogram					///< Steps centered at data point. (TODO Not implemented)
+    CPScatterPlotInterpolationLinear,					///< Linear interpolation.
+    CPScatterPlotInterpolationStepped,					///< Steps beginnning at data point.
+    CPScatterPlotInterpolationHistogram					///< Steps centered at data point.
 } CPScatterPlotInterpolation;
 
 #pragma mark -
