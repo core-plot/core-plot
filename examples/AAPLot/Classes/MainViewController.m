@@ -30,8 +30,7 @@
 -(void)setView:(UIView *)aView;
 {
     [super setView:aView];
-    if (nil == aView)
-    {
+    if ( nil == aView ) {
         self.graph = nil;
         self.graphHost = nil;
     }
@@ -74,14 +73,14 @@
     areaGradient.angle = -90.0f;
 	CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"320.0");
+    dataSourceLinePlot.areaBaseValue = CPDecimalFromDouble(200.0);
     
 	areaColor = [CPColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
     areaGradient = [CPGradient gradientWithBeginningColor:[CPColor clearColor] endingColor:areaColor];
     areaGradient.angle = -90.0f;
 	areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2 = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue2 = CPDecimalFromDouble(700.0);
+    dataSourceLinePlot.areaBaseValue2 = CPDecimalFromDouble(400.0);
     
     // OHLC plot
     CPLineStyle *whiteLineStyle = [CPLineStyle lineStyle];
@@ -115,7 +114,9 @@
     [graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
 	
     // Data puller
-    APYahooDataPuller *dp = [[APYahooDataPuller alloc] init];
+    NSDate *start = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 7.0 * 12.0]; // 12 weeks ago
+    NSDate *end = [NSDate date];
+    APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:@"AAPL" targetStartDate:start targetEndDate:end];
     [self setDatapuller:dp];
     [dp setDelegate:self];
     [dp release];
@@ -212,10 +213,9 @@
 																						   exponent:-2
 																						 isNegative:NO];
 	
-	
-	NSDecimalNumber *lengthDisplacementValue = [length decimalNumberByMultiplyingBy:pricePlotSpaceDisplacementPercent]   ;
-	NSDecimalNumber *lowDisplayLocation = [low decimalNumberBySubtracting:lengthDisplacementValue]  ;
-	NSDecimalNumber *lengthDisplayLocation = [length decimalNumberByAdding:lengthDisplacementValue]  ;
+	NSDecimalNumber *lengthDisplacementValue = [length decimalNumberByMultiplyingBy:pricePlotSpaceDisplacementPercent];
+	NSDecimalNumber *lowDisplayLocation = [low decimalNumberBySubtracting:lengthDisplacementValue];
+	NSDecimalNumber *lengthDisplayLocation = [length decimalNumberByAdding:lengthDisplacementValue];
 	
     plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0f) length:CPDecimalFromInteger([datapuller.financialData count])];
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
@@ -225,23 +225,18 @@
 	NSDecimalNumber *overallVolumeHigh		= [datapuller overallVolumeHigh];
     NSDecimalNumber *overallVolumeLow		= [datapuller overallVolumeLow];
 	NSDecimalNumber *volumeLength			= [overallVolumeHigh decimalNumberBySubtracting:overallVolumeLow];
-	
-	
     	
 	// make the length aka height for y 3 times more so that we get a 1/3 area covered by volume
 	NSDecimalNumber *volumePlotSpaceDisplacementPercent = [NSDecimalNumber decimalNumberWithMantissa:3
 																							exponent:0
 																						  isNegative:NO];
 	
-	NSDecimalNumber *volumeLengthDisplacementValue = [volumeLength decimalNumberByMultiplyingBy:volumePlotSpaceDisplacementPercent]   ;
+	NSDecimalNumber *volumeLengthDisplacementValue = [volumeLength decimalNumberByMultiplyingBy:volumePlotSpaceDisplacementPercent];
 	NSDecimalNumber *volumeLowDisplayLocation = overallVolumeLow;
-	NSDecimalNumber *volumeLengthDisplayLocation = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue]  ;
-	
-	
+	NSDecimalNumber *volumeLengthDisplayLocation = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 	
 	volumePlotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromInteger([datapuller.financialData count])];
 	volumePlotSpace.yRange = [CPPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]length:[volumeLengthDisplayLocation decimalValue]];
-	
 
     axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
     
@@ -252,7 +247,7 @@
 								 [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0) length:[low decimalValue]],
 								 nil];
 	
-	 axisSet.yAxis.labelExclusionRanges = exclusionRanges;
+	axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 	
     [graph reloadData];
 }
