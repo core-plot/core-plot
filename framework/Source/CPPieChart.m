@@ -171,7 +171,10 @@ static CGFloat colorLookupTable[10][3] =
 			const double *dataBytes = (const double *)rawSliceValues.bytes;
 			const double *dataEnd = dataBytes + sampleCount;
 			while ( dataBytes < dataEnd ) {
-				valueSum += *dataBytes++;
+				double currentWidth = *dataBytes++;
+				if ( !isnan(currentWidth) ) {
+					valueSum += currentWidth;
+				}
 			}
 			
 			CPNumericDataType dataType = CPDataType(CPFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
@@ -188,9 +191,13 @@ static CGFloat colorLookupTable[10][3] =
 			double *cumulativeBytes = cumulativeSliceValues.mutableBytes;
 			while ( dataBytes < dataEnd ) {
 				double currentWidth = *dataBytes++;
-				*normalizedBytes++ = currentWidth / valueSum;
-				
-				cumulativeSum += currentWidth;
+				if ( isnan(currentWidth) ) {
+					*normalizedBytes++ = NAN;
+				}
+				else {
+					*normalizedBytes++ = currentWidth / valueSum;
+					cumulativeSum += currentWidth;
+				}
 				*cumulativeBytes++ = cumulativeSum / valueSum;
 			}
 			[self cacheNumbers:normalizedSliceValues forField:CPPieChartFieldSliceWidthNormalized];
@@ -203,7 +210,10 @@ static CGFloat colorLookupTable[10][3] =
 			const NSDecimal *dataBytes = (const NSDecimal *)rawSliceValues.bytes;
 			const NSDecimal *dataEnd = dataBytes + sampleCount;
 			while ( dataBytes < dataEnd ) {
-				valueSum = CPDecimalAdd(valueSum, *dataBytes++);
+				NSDecimal currentWidth = *dataBytes++;
+				if ( !NSDecimalIsNotANumber(&currentWidth) ) {
+					valueSum = CPDecimalAdd(valueSum, *dataBytes++);
+				}
 			}
 			
 			CPNumericDataType dataType = CPDataType(CPDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent());
@@ -215,14 +225,19 @@ static CGFloat colorLookupTable[10][3] =
 			
 			NSDecimal cumulativeSum = CPDecimalFromInteger(0);
 			
+			NSDecimal decimalNAN = CPDecimalNaN();
 			dataBytes = (const NSDecimal *)rawSliceValues.bytes;
 			NSDecimal *normalizedBytes = normalizedSliceValues.mutableBytes;
 			NSDecimal *cumulativeBytes = cumulativeSliceValues.mutableBytes;
 			while ( dataBytes < dataEnd ) {
 				NSDecimal currentWidth = *dataBytes++;
-				*normalizedBytes++ = CPDecimalDivide(currentWidth, valueSum);
-				
-				cumulativeSum = CPDecimalAdd(cumulativeSum, currentWidth);
+				if ( NSDecimalIsNotANumber(&currentWidth) ) {
+					*normalizedBytes++ = decimalNAN;
+				}
+				else {
+					*normalizedBytes++ = CPDecimalDivide(currentWidth, valueSum);
+					cumulativeSum = CPDecimalAdd(cumulativeSum, currentWidth);
+				}
 				*cumulativeBytes++ = CPDecimalDivide(cumulativeSum, valueSum);
 			}
 			[self cacheNumbers:normalizedSliceValues forField:CPPieChartFieldSliceWidthNormalized];
@@ -264,20 +279,22 @@ static CGFloat colorLookupTable[10][3] =
 	BOOL dataSourceProvidesFills = [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)];
 	
 	while ( currentIndex < sampleCount ) {
-		CPFill *currentFill = nil;
-		if ( dataSourceProvidesFills ) {
-			CPFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:currentIndex];
-			if ( nil != dataSourceFill ) currentFill = dataSourceFill;
-		}
-		else {
-			currentFill = [CPFill fillWithColor:[CPPieChart defaultPieSliceColorForIndex:currentIndex]];
-		}
-		
 		CGFloat currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 		
-		[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidth fill:currentFill];
-		
-		startingWidth += currentWidth;
+		if ( !isnan(currentWidth) ) {
+			CPFill *currentFill = nil;
+			if ( dataSourceProvidesFills ) {
+				CPFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:currentIndex];
+				if ( nil != dataSourceFill ) currentFill = dataSourceFill;
+			}
+			else {
+				currentFill = [CPFill fillWithColor:[CPPieChart defaultPieSliceColorForIndex:currentIndex]];
+			}
+			
+			[self drawSliceInContext:context centerPoint:centerPoint startingValue:startingWidth width:currentWidth fill:currentFill];
+			
+			startingWidth += currentWidth;
+		}
 		currentIndex++;
 	}
 }	
@@ -372,6 +389,8 @@ static CGFloat colorLookupTable[10][3] =
 	double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
 	
 	label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
+
+	label.contentLayer.hidden = isnan(currentWidth);
 }
 
 #pragma mark -

@@ -737,8 +737,14 @@
 		
 		if ( !newLabelLayer && plotProvidesLabels ) {
 			NSNumber *dataValue = [labelFieldDataCache sampleValue:i];
-			NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
-			newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
+			
+			if ( isnan([dataValue doubleValue]) ) {
+				newLabelLayer = nil;
+			}
+			else {
+				NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
+				newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
+			}
 		}
 		
 		if ( [newLabelLayer isKindOfClass:nullClass] ) {

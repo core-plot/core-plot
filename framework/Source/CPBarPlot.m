@@ -310,6 +310,9 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
+	NSDecimal theBaseValue = self.baseValue;
+	if ( NSDecimalIsNotANumber(&theBaseValue) ) return NULL;
+		
     CGPoint tipPoint, basePoint;
 	BOOL horizontalBars = self.barsAreHorizontal;
     CPCoordinate independentCoord = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
@@ -321,25 +324,29 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 	if ( self.doublePrecisionCache ) {
 		double plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLocation recordIndex:index];
+		if ( isnan(plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLength recordIndex:index];
+		if ( isnan(plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
+		plotPoint[dependentCoord] = CPDecimalDoubleValue(theBaseValue);
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	else {
 		NSDecimal plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLocation recordIndex:index];
+		if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLength recordIndex:index];
+		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		plotPoint[dependentCoord] = self.baseValue;
+		plotPoint[dependentCoord] = theBaseValue;
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	
@@ -422,32 +429,34 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 {
 	CGMutablePathRef path = [self newBarPathWithContext:context recordIndex:index];
 	
-    CGContextSaveGState(context);
-	
-	// If data source returns nil, default fill is used.
-	// If data source returns NSNull object, no fill is drawn.
-	CPFill *currentBarFill = self.fill;
-	if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
-		CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
-		if ( dataSourceFill ) currentBarFill = dataSourceFill;
+	if ( path ) {
+		CGContextSaveGState(context);
+		
+		// If data source returns nil, default fill is used.
+		// If data source returns NSNull object, no fill is drawn.
+		CPFill *currentBarFill = self.fill;
+		if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+			CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
+			if ( dataSourceFill ) currentBarFill = dataSourceFill;
+		}
+		if ( [currentBarFill isKindOfClass:[CPFill class]] ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, path);
+			[currentBarFill fillPathInContext:context]; 
+		}
+		
+		CPLineStyle *theLineStyle = self.lineStyle;
+		if ( theLineStyle ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, path);
+			[theLineStyle setLineStyleInContext:context];
+			CGContextStrokePath(context);
+		}
+		
+		CGContextRestoreGState(context);
+		
+		CGPathRelease(path);
 	}
-	if ( [currentBarFill isKindOfClass:[CPFill class]] ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, path);
-		[currentBarFill fillPathInContext:context]; 
-	}
-	
-	CPLineStyle *theLineStyle = self.lineStyle;
-	if ( theLineStyle ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, path);
-		[theLineStyle setLineStyleInContext:context];
-		CGContextStrokePath(context);
-	}
-	
-	CGContextRestoreGState(context);
-	
-	CGPathRelease(path);
 }
 
 #pragma mark -
@@ -485,6 +494,8 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 			label.displacement = CGPointMake(viewOffset, -self.labelOffset);
 		}
 	}
+
+	label.contentLayer.hidden = isnan([location doubleValue]) || isnan([length doubleValue]);
 }
 
 #pragma mark -

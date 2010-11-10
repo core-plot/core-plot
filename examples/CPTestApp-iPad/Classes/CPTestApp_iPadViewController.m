@@ -114,32 +114,6 @@
 					   nil];
 	y.labelExclusionRanges = exclusionRanges;
 	
-	// Create a blue plot area
-	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    boundLinePlot.identifier = @"Blue Plot";
-	boundLinePlot.dataLineStyle.miterLimit = 1.0f;
-	boundLinePlot.dataLineStyle.lineWidth = 3.0f;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
-    boundLinePlot.dataSource = self;
-	[graph addPlot:boundLinePlot];
-	
-	// Do a blue gradient
-	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
-    CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
-    areaGradient1.angle = -90.0f;
-    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient1];
-    boundLinePlot.areaFill = areaGradientFill;
-    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
-	
-	// Add plot symbols
-	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
-	symbolLineStyle.lineColor = [CPColor blackColor];
-	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
-	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
-	plotSymbol.lineStyle = symbolLineStyle;
-    plotSymbol.size = CGSizeMake(10.0, 10.0);
-    boundLinePlot.plotSymbol = plotSymbol;
-	
     // Create a green plot area
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Green Plot";
@@ -152,12 +126,13 @@
     CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
     CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
     areaGradient.angle = -90.0f;
-    areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
 	
 	// Animate in the new plot, as an example
 	dataSourceLinePlot.opacity = 0.0f;
+	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDecimal;
     [graph addPlot:dataSourceLinePlot];
 	
 	CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -166,6 +141,34 @@
 	fadeInAnimation.fillMode = kCAFillModeForwards;
 	fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
 	[dataSourceLinePlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
+	
+	// Create a blue plot area
+	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    boundLinePlot.identifier = @"Blue Plot";
+	boundLinePlot.dataLineStyle.miterLimit = 1.0f;
+	boundLinePlot.dataLineStyle.lineWidth = 3.0f;
+	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.dataSource = self;
+	boundLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
+	boundLinePlot.interpolation = CPScatterPlotInterpolationHistogram;
+	[graph addPlot:boundLinePlot];
+	
+	// Do a blue gradient
+	CPColor *areaColor1 = [CPColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
+    CPGradient *areaGradient1 = [CPGradient gradientWithBeginningColor:areaColor1 endingColor:[CPColor clearColor]];
+    areaGradient1.angle = -90.0f;
+    areaGradientFill = [CPFill fillWithGradient:areaGradient1];
+    boundLinePlot.areaFill = areaGradientFill;
+    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
+	
+	// Add plot symbols
+	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+	symbolLineStyle.lineColor = [CPColor blackColor];
+	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
+	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
+	plotSymbol.lineStyle = symbolLineStyle;
+    plotSymbol.size = CGSizeMake(10.0, 10.0);
+    boundLinePlot.plotSymbol = plotSymbol;
 	
     // Add some initial data
 	NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
@@ -284,7 +287,7 @@
     [piePlot release];
 	
 	// Add some initial data
-	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
+	NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:NAN], [NSNumber numberWithDouble:60.0], nil];
 	self.dataForChart = contentArray;	
 }
 
@@ -316,31 +319,47 @@
 		if ( index >= [self.dataForChart count] ) return nil;
 		
 		if ( fieldEnum == CPPieChartFieldSliceWidth ) {
-			return [self.dataForChart objectAtIndex:index];
+			num = [self.dataForChart objectAtIndex:index];
 		}
 		else {
-			return [NSNumber numberWithInt:index];
+			num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
 		}
 	}
     else if ( [plot isKindOfClass:[CPBarPlot class]] ) {
 		switch ( fieldEnum ) {
 			case CPBarPlotFieldBarLocation:
-				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+				if ( index == 4 ) {
+					num = [NSDecimalNumber notANumber];
+				}
+				else {
+					num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+				}
 				break;
 			case CPBarPlotFieldBarLength:
-				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index+1)*(index+1)];
-				if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
-					num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+				if ( index == 8 ) {
+					num = [NSDecimalNumber notANumber];
+				}
+				else {
+					num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index+1)*(index+1)];
+					if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
+						num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+					}
+				}
 				break;
 		}
     }
 	else {
-		num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-		// Green plot gets shifted above the blue
-		if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
-		{
-			if ( fieldEnum == CPScatterPlotFieldY ) 
-				num = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:[num doubleValue] + 1.0];
+		if ( index % 8 ) {
+			num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
+			// Green plot gets shifted above the blue
+			if ( [(NSString *)plot.identifier isEqualToString:@"Green Plot"] ) {
+				if ( fieldEnum == CPScatterPlotFieldY ) {
+					num = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:[num doubleValue] + 1.0];
+				}
+			}
+		}
+		else {
+			num = [NSDecimalNumber notANumber];
 		}
 	}
 	
@@ -368,11 +387,8 @@
 			case 0:
 				newLayer = (id)[NSNull null];
 				break;
-			case 1:
-				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
-				break;
 			default:
-				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
 				break;
 		}
 	}
