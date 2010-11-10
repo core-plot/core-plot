@@ -262,68 +262,76 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 }
 
 #pragma mark -
-#pragma mark Determing Which Points to Draw
+#pragma mark Determining Which Points to Draw
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {    
 	NSUInteger dataCount = self.cachedDataCount;
     if ( dataCount == 0 ) return;
 	
-    CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-    CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-    BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
-	
-	CPPlotRange *xRange = xyPlotSpace.xRange;
-	CPPlotRange *yRange = xyPlotSpace.yRange;
-	
-    // Determine where each point lies in relation to range
-    if ( self.doublePrecisionCache ) {
-        const double *xBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-			const double x = *xBytes++;
-			const double y = *yBytes++;
-			
-            xRangeFlags[i] = [xRange compareToDouble:x];
-            yRangeFlags[i] = [yRange compareToDouble:y];
-			nanFlags[i] = isnan(x) || isnan(y);
-        }
-    }
-    else {
+	if ( self.areaFill || self.areaFill2 || self.dataLineStyle.dashPattern ) {
+		// show all points to preserve the line dash and area fills
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			pointDrawFlags[i] = YES;
+		}
+	}
+	else {
+		CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+		CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+		BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
+		
+		CPPlotRange *xRange = xyPlotSpace.xRange;
+		CPPlotRange *yRange = xyPlotSpace.yRange;
+		
 		// Determine where each point lies in relation to range
-        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
-        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
- 			const NSDecimal *x = xBytes++;
-			const NSDecimal *y = yBytes++;
-			
-			xRangeFlags[i] = [xRange compareToDecimal:*x];
-            yRangeFlags[i] = [yRange compareToDecimal:*y];
-			nanFlags[i] = NSDecimalIsNotANumber(x) || NSDecimalIsNotANumber(y);
-        }
-    }
-    
-    // Ensure that whenever the path crosses over a region boundary, both points 
-    // are included. This ensures no lines are left out that shouldn't be.
-    pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
-						 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange &&
-						 !nanFlags[0]);
-    for ( NSUInteger i = 1; i < dataCount; i++ ) {
-		pointDrawFlags[i] = NO;
-		if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
-            pointDrawFlags[i-1] = YES;
-            pointDrawFlags[i] = YES;
-        }
-        else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
-				 (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) &&
-				 !nanFlags[i]) {
-            pointDrawFlags[i] = YES;
-        }
-    }
-	
-    free(xRangeFlags);
-	free(yRangeFlags);
-	free(nanFlags);
+		if ( self.doublePrecisionCache ) {
+			const double *xBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
+			const double *yBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
+			for ( NSUInteger i = 0; i < dataCount; i++ ) {
+				const double x = *xBytes++;
+				const double y = *yBytes++;
+				
+				xRangeFlags[i] = [xRange compareToDouble:x];
+				yRangeFlags[i] = [yRange compareToDouble:y];
+				nanFlags[i] = isnan(x) || isnan(y);
+			}
+		}
+		else {
+			// Determine where each point lies in relation to range
+			const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
+			const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
+			for ( NSUInteger i = 0; i < dataCount; i++ ) {
+				const NSDecimal *x = xBytes++;
+				const NSDecimal *y = yBytes++;
+				
+				xRangeFlags[i] = [xRange compareToDecimal:*x];
+				yRangeFlags[i] = [yRange compareToDecimal:*y];
+				nanFlags[i] = NSDecimalIsNotANumber(x) || NSDecimalIsNotANumber(y);
+			}
+		}
+		
+		// Ensure that whenever the path crosses over a region boundary, both points 
+		// are included. This ensures no lines are left out that shouldn't be.
+		pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
+							 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange &&
+							 !nanFlags[0]);
+		for ( NSUInteger i = 1; i < dataCount; i++ ) {
+			pointDrawFlags[i] = NO;
+			if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
+				pointDrawFlags[i-1] = YES;
+				pointDrawFlags[i] = YES;
+			}
+			else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
+					 (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) &&
+					 !nanFlags[i]) {
+				pointDrawFlags[i] = YES;
+			}
+		}
+		
+		free(xRangeFlags);
+		free(yRangeFlags);
+		free(nanFlags);
+	}
 }
 
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
