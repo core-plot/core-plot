@@ -95,21 +95,30 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Layout
 
-/**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+/** @brief Determine the minimum size needed to fit the text
  **/
--(void)sizeToFit
-{	
-	if ( self.text == nil ) return;
+-(CGSize)sizeThatFits
+{
+    if ( self.text == nil ) return CGSizeZero;
 	CGSize textSize = [self.text sizeWithTextStyle:textStyle];
-
+    
 	// Add small margin
 	textSize.width += 2 * kCPTextLayerMarginWidth;
 	textSize.height += 2 * kCPTextLayerMarginWidth;
     textSize.width = ceil(textSize.width);
     textSize.height = ceil(textSize.height);
+    
+	return textSize;    
+}
 
+/**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+ **/
+-(void)sizeToFit
+{	
+	if ( self.text == nil ) return;
+	CGSize sizeThatFits = [self sizeThatFits];
 	CGRect newBounds = self.bounds;
-	newBounds.size = textSize;
+	newBounds.size = sizeThatFits;
 	self.bounds = newBounds;
     [self pixelAlign];
 	[self setNeedsLayout];
