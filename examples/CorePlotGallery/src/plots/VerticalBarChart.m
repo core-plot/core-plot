@@ -46,7 +46,7 @@
 
 - (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme
 {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
@@ -71,7 +71,6 @@
     barPlot.dataSource = self;
     int barCount = [self numberOfRecordsForPlot:barPlot];
 
-    barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
     barPlot.barWidth = 0.8 * bounds.size.width / barCount;
     barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0)
@@ -80,8 +79,9 @@
     whiteTextStyle.color = [CPColor whiteColor];
     barPlot.barLabelTextStyle = whiteTextStyle;
     barPlot.delegate = self;
-
+	
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
+	graph.axisSet = nil;
 }
 
 - (void)dealloc
