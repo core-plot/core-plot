@@ -30,7 +30,8 @@
 #pragma mark -
 #pragma mark Plot construction methods
 
-#if !TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 
 - (void)setFrameSize:(NSSize)newSize
 {
@@ -56,7 +57,7 @@
 
 #endif
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 - (void)renderInView:(UIView *)hostingView withTheme:(CPTheme *)theme
 #else
 - (void)renderInView:(NSView *)hostingView withTheme:(CPTheme *)theme
@@ -64,7 +65,7 @@
 {
     [self killGraph];
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect viewRect = [hostingView bounds];
 
     scatterPlotView = [[CPGraphHostingView alloc] initWithFrame:CGRectMake(0.0f,
@@ -120,7 +121,7 @@
 
 - (void)killGraph
 {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     scatterPlotView.hostedGraph = nil;
     barChartView.hostedGraph = nil;
     pieChartView.hostedGraph = nil;
@@ -250,7 +251,7 @@
 
 - (void)renderBarPlotInLayer:(CPGraphHostingView*)layerHostingView withTheme:(CPTheme*)theme
 {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
@@ -348,7 +349,7 @@
 
 - (void)renderPieChartInLayer:(CPGraphHostingView*)layerHostingView withTheme:(CPTheme*)theme
 {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);

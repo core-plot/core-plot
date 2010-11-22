@@ -50,10 +50,22 @@
     // If you make sure your dates are calculated at noon, you shouldn't have to 
     // worry about daylight savings. If you use midnight, you will have to adjust
     // for daylight savings time.
-    NSDate *refDate = [NSDate dateWithNaturalLanguageString:@"12:00 Oct 29, 2009"];
+	NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+	[dateComponents setMonth:10];
+	[dateComponents setDay:29];
+	[dateComponents setYear:2009];
+	[dateComponents setHour:12];
+	[dateComponents setMinute:0];
+	[dateComponents setSecond:0];
+	NSCalendar *gregorian = [[NSCalendar alloc]
+							 initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDate *refDate = [gregorian dateFromComponents:dateComponents];
+	[dateComponents release];
+	[gregorian release];
+	
     NSTimeInterval oneDay = 24 * 60 * 60;
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);

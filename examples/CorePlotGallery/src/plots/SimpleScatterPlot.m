@@ -54,7 +54,7 @@
 
 - (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme
 {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);

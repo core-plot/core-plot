@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 
@@ -32,15 +32,10 @@ typedef NSRect CGNSRect;
 
     NSMutableArray      *graphs;
     NSString            *title;
-
-#if TARGET_OS_IPHONE
-    UIImage             *cachedImage;
-#else
-    NSImage             *cachedImage;
-#endif
+    CPNativeImage       *cachedImage;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 @property (nonatomic, retain) CPGraphHostingView *defaultLayerHostingView;
 #else
 @property (nonatomic, retain) CPLayerHostingView *defaultLayerHostingView;
@@ -51,14 +46,13 @@ typedef NSRect CGNSRect;
 
 + (void)registerPlotItem:(id)item;
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 - (void)renderInView:(UIView *)hostingView withTheme:(CPTheme *)theme;
-- (UIImage *)image;
 #else
 - (void)renderInView:(NSView *)hostingView withTheme:(CPTheme *)theme;
-- (NSImage *)image;
 - (void)setFrameSize:(NSSize)size;
 #endif
+- (CPNativeImage *)image;
 
 
 - (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme;

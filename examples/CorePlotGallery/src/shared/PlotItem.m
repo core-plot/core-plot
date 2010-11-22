@@ -9,7 +9,8 @@
 #import "PlotGallery.h"
 #import "PlotItem.h"
 
-#if !TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 // For IKImageBrowser
 #import <Quartz/Quartz.h>
 #endif
@@ -50,7 +51,7 @@
     [graphs addObject:graph];
 
     if (layerHostingView) {
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     layerHostingView.hostedGraph = graph;
 #else
     layerHostingView.hostedLayer = graph;
@@ -69,7 +70,7 @@
     if (defaultLayerHostingView) {
         [defaultLayerHostingView removeFromSuperview];
         
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         defaultLayerHostingView.hostedGraph = nil;
 #else
         defaultLayerHostingView.hostedLayer = nil;
@@ -123,7 +124,7 @@
     graph.paddingBottom = boundsPadding;    
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
 // There's a UIImage function to scale and orient an existing image,
 // but this will also work in pre-4.0 iOS
@@ -242,14 +243,15 @@
     }
 }
 
-#if !TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 - (void)setFrameSize:(NSSize)size
 {
 }
 #endif
 
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 - (void)renderInView:(UIView*)hostingView withTheme:(CPTheme*)theme
 #else
 - (void)renderInView:(NSView*)hostingView withTheme:(CPTheme*)theme
@@ -259,7 +261,7 @@
 
     defaultLayerHostingView = [[CPGraphHostingView alloc] initWithFrame:[hostingView bounds]];
 
-#if TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;
 #else
     [defaultLayerHostingView setAutoresizesSubviews:YES];
@@ -286,7 +288,8 @@
 #pragma mark -
 #pragma mark IKImageBrowserItem methods
 
-#if !TARGET_OS_IPHONE
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
 
 - (NSString *)imageUID
 {

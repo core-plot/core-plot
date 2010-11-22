@@ -16,7 +16,7 @@ static PlotGallery *sharedPlotGallery = nil;
 {
     @synchronized(self) {
         if (sharedPlotGallery == nil) {
-            [[self alloc] init];
+            sharedPlotGallery = [[self alloc] init];
         }
     }
     return sharedPlotGallery;
