@@ -38,10 +38,10 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 @dynamic barLocations;
 @dynamic barLengths;
 
-/** @property cornerRadius
+/** @property barCornerRadius
  *	@brief The corner radius for the end of the bars.
  **/
-@synthesize cornerRadius;
+@synthesize barCornerRadius;
 
 /** @property barOffset
  *	@brief The starting offset of the first bar in units of bar width.
@@ -144,7 +144,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = 10.0;
 		barOffset = 0.0;
-		cornerRadius = 0.0;
+		barCornerRadius = 0.0;
 		baseValue = [[NSDecimalNumber zero] decimalValue];
 		barsAreHorizontal = NO;
 		plotRange = nil;
@@ -164,7 +164,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 		fill = [theLayer->fill retain];
 		barWidth = theLayer->barWidth;
 		barOffset = theLayer->barOffset;
-		cornerRadius = theLayer->cornerRadius;
+		barCornerRadius = theLayer->barCornerRadius;
 		baseValue = theLayer->baseValue;
 		barsAreHorizontal = theLayer->barsAreHorizontal;
 		plotRange = [theLayer->plotRange retain];
@@ -592,10 +592,10 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
     }
 }
 
--(void)setCornerRadius:(CGFloat)newCornerRadius 
+-(void)setBarCornerRadius:(CGFloat)newCornerRadius 
 {
-    if (cornerRadius != newCornerRadius) {
-        cornerRadius = ABS(newCornerRadius);
+    if ( barCornerRadius != newCornerRadius) {
+        barCornerRadius = ABS(newCornerRadius);
         [self setNeedsDisplay];
     }
 }
