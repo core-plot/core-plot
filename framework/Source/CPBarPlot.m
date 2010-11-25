@@ -115,7 +115,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 	[barLineStyle release];
 	barPlot.barsAreHorizontal = horizontal;
 	barPlot.barWidth = 10.0;
-	barPlot.cornerRadius = 2.0;
+	barPlot.barCornerRadius = 2.0;
 	CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
 	fillGradient.angle = (horizontal ? -90.0 : 0.0);
 	barPlot.fill = [CPFill fillWithGradient:fillGradient];
@@ -407,7 +407,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 		alignedPoint5 = CPAlignPointToUserSpace(context, alignedPoint5);
 	}	
 	
-	CGFloat radius = MIN(self.cornerRadius, halfBarWidth);
+	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 	if ( self.barsAreHorizontal ) {
 		radius = MIN(radius, ABS(tipPoint.x - basePoint.x));
 	}
