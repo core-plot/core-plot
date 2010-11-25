@@ -131,6 +131,11 @@
 	return [label autorelease];
 }
 
+-(CGFloat)radialOffsetForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index
+{
+    return ( index == 0 ? 30.0f : 0.0f );
+}
+
 /*-(CPFill *)sliceFillForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index; 
 {
 	return nil;
