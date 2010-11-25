@@ -252,6 +252,8 @@
  **/
 -(void)reloadData
 {
+	[self.cachedData removeAllObjects];
+	self.cachedDataCount = 0;
 	[self reloadDataInIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
 }
 
@@ -483,8 +485,8 @@
 			memcpy(cachePtr, mutableNumbers.bytes, numberOfBytes);
 			
 			[self relabelIndexRange:NSMakeRange(index, sampleCount)];
-			[self setNeedsDisplay];
 		}
+		[self setNeedsDisplay];
 	}
 }
 
