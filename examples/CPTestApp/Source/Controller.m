@@ -314,7 +314,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 {
 	NSUInteger index = self.selectionIndex;
 	
-	if ( index != NSUIntegerMax ) {
+	if ( index != NSNotFound ) {
 		[self removeObjectAtArrangedObjectIndex:index];
 		
 		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
@@ -326,7 +326,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 {
 	NSUInteger index = self.selectionIndex;
 	
-	if ( index != NSUIntegerMax ) {
+	if ( index != NSNotFound ) {
 		[self insertObject:[self newObject] atArrangedObjectIndex:index];
 		
 		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
