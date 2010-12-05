@@ -21,6 +21,7 @@ NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pi
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
+-(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle;
 
 @end
 /// @endcond
@@ -131,7 +132,7 @@ static CGFloat colorLookupTable[10][3] =
 -(void)dealloc
 {
 	[borderLineStyle release];
-
+	
 	[super dealloc];
 }
 
@@ -263,7 +264,7 @@ static CGFloat colorLookupTable[10][3] =
 {
 	NSUInteger sampleCount = self.cachedDataCount;
 	if ( sampleCount == 0 ) return;
-
+	
 	[super renderAsVectorInContext:context];
 	CGRect plotAreaBounds = self.plotArea.bounds;
 	CGPoint anchor = self.centerAnchor;
@@ -279,7 +280,7 @@ static CGFloat colorLookupTable[10][3] =
 	id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
 	BOOL dataSourceProvidesFills = [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)];
     BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
-
+	
 	while ( currentIndex < sampleCount ) {
 		CGFloat currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 		
@@ -293,7 +294,7 @@ static CGFloat colorLookupTable[10][3] =
 				currentFill = [CPFill fillWithColor:[CPPieChart defaultPieSliceColorForIndex:currentIndex]];
 			}
             
-            CGFloat radialOffset = 0.0f;
+            CGFloat radialOffset = 0.0;
             if ( dataSourceProvidesRadialOffsets ) {
                 radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
             }
@@ -328,12 +329,17 @@ static CGFloat colorLookupTable[10][3] =
     CGFloat startingAngle = [self radiansForPieSliceValue:startingValue];
     CGFloat finishingAngle = [self radiansForPieSliceValue:startingValue + sliceWidth];
     
-    CGFloat xOffset = 0.0f;
-    CGFloat yOffset = 0.0f;
-    if ( radialOffset != 0.0f ) {
-        CGFloat medianAngle = 0.5f * (startingAngle + finishingAngle);
+    CGFloat xOffset = 0.0;
+    CGFloat yOffset = 0.0;
+    if ( radialOffset != 0.0 ) {
+        CGFloat medianAngle = 0.5 * (startingAngle + finishingAngle);
+#if CGFLOAT_IS_DOUBLE
         xOffset = round(cos(medianAngle) * radialOffset);
         yOffset = round(sin(medianAngle) * radialOffset);
+#else
+        xOffset = roundf(cosf(medianAngle) * radialOffset);
+        yOffset = roundf(sinf(medianAngle) * radialOffset);
+#endif
     }
     
     CGFloat centerX = centerPoint.x + xOffset;
@@ -342,7 +348,7 @@ static CGFloat colorLookupTable[10][3] =
 	CGPathMoveToPoint(slicePath, nil, centerX, centerY);
 	CGPathAddArc(slicePath, nil, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
 	CGPathCloseSubpath(slicePath);
-
+	
 	if ( sliceFill ) {
 		CGContextBeginPath(context);
 		CGContextAddPath(context, slicePath);
@@ -398,10 +404,11 @@ static CGFloat colorLookupTable[10][3] =
 	[xValue release];
 	[yValue release];
     
-    BOOL dataSourceProvidesRadialOffsets = [self.dataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
-    CGFloat radialOffset = 0.0f;
+	id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
+    BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
+    CGFloat radialOffset = 0.0;
     if ( dataSourceProvidesRadialOffsets ) {
-        radialOffset = [self.dataSource radialOffsetForPieChart:self recordIndex:index];
+        radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:index];
     }
 	
 	CGFloat labelRadius = self.pieRadius + self.labelOffset + radialOffset;
@@ -412,8 +419,12 @@ static CGFloat colorLookupTable[10][3] =
 	}
 	double currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:index];
 	double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
+#if CGFLOAT_IS_DOUBLE
 	label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
-
+#else
+	label.displacement = CGPointMake(labelRadius * cosf(labelAngle), labelRadius * sinf(labelAngle));
+#endif
+	
 	label.contentLayer.hidden = isnan(currentWidth);
 }
 
@@ -423,15 +434,44 @@ static CGFloat colorLookupTable[10][3] =
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition
 {
 	CGFloat result = rawPosition;
-	if ( result < 0.0 ) {
-		result = 1.0 + result;
-	}
 #if CGFLOAT_IS_DOUBLE
+	result /= 2.0 * M_PI;
+	if ( result < 0.0 ) {
+		result += 1.0;
+	}
 	result = fmod(result, 1.0);
 #else
+	result /= 2.0f * (float)M_PI;
+	if ( result < 0.0f ) {
+		result += 1.0f;
+	}
 	result = fmodf(result, 1.0f);
 #endif
 	return result;
+}
+
+-(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle
+{
+	switch ( self.sliceDirection ) {
+		case CPPieDirectionClockwise:
+			if ( (touchedAngle <= startingAngle) && (touchedAngle >= endingAngle) ) {
+				return YES;
+			}
+			else if ( (endingAngle < 0.0) && (touchedAngle - 1.0 >= endingAngle) ) {
+				return YES;
+			}
+			break;
+			
+		case CPPieDirectionCounterClockwise:
+			if ( (touchedAngle >= startingAngle) && (touchedAngle <= endingAngle) ) {
+				return YES;
+			}
+			else if ( (endingAngle > 1.0) && (touchedAngle + 1.0 <= endingAngle) ) {
+				return YES;
+			}
+			break;
+	}
+	return NO;
 }
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
@@ -455,47 +495,130 @@ static CGFloat colorLookupTable[10][3] =
 										  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
 		centerPoint = [self convertPoint:centerPoint fromLayer:thePlotArea];
 		
+		id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
+		BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
+		
 		CGFloat chartRadius = self.pieRadius;
+		CGFloat chartRadiusSquared = chartRadius * chartRadius;
 		CGFloat dx = plotAreaPoint.x - centerPoint.x;
 		CGFloat dy = plotAreaPoint.y - centerPoint.y;
 		CGFloat distanceSquared = dx * dx + dy * dy;
-		if ( distanceSquared > chartRadius * chartRadius ) return NO;
 		
-		CGFloat touchedAngle = [self normalizedPosition:atan2(dy, dx) / (2.0 * M_PI)];
-		CGFloat startingAngle = [self normalizedPosition:self.startAngle / (2.0 * M_PI)];
+#if CGFLOAT_IS_DOUBLE
+		CGFloat touchedAngle = [self normalizedPosition:atan2(dy, dx)];
+#else
+		CGFloat touchedAngle = [self normalizedPosition:atan2f(dy, dx)];
+#endif
+		CGFloat startingAngle = [self normalizedPosition:self.startAngle];
 		
 		switch ( self.sliceDirection ) {
 			case CPPieDirectionClockwise:
 				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
+					// calculate angles for this slice
 					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 					CGFloat endingAngle = startingAngle - width;
 					
-					if ( (touchedAngle <= startingAngle) && (touchedAngle >= endingAngle) ) {
-						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
-						return YES;
+					// offset the center point of the slice if needed
+					CGPoint offsetCenter = centerPoint;
+					CGFloat offsetTouchedAngle = touchedAngle;
+					CGFloat offsetDistanceSquared = distanceSquared;
+					CGFloat radialOffset = 0.0;
+					if ( dataSourceProvidesRadialOffsets ) {
+						radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
+						
+						if ( radialOffset != 0.0 ) {
+							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
+#if CGFLOAT_IS_DOUBLE
+							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
+													   centerPoint.y + sin(medianAngle) * radialOffset);
+#else
+							offsetCenter = CGPointMake(centerPoint.x + cosf(medianAngle) * radialOffset,
+													   centerPoint.y + sinf(medianAngle) * radialOffset);
+#endif
+							dx = plotAreaPoint.x - offsetCenter.x;
+							dy = plotAreaPoint.y - offsetCenter.y;
+#if CGFLOAT_IS_DOUBLE
+							offsetTouchedAngle = [self normalizedPosition:atan2(dy, dx)];
+#else
+							offsetTouchedAngle = [self normalizedPosition:atan2f(dy, dx)];
+#endif
+							offsetDistanceSquared = dx * dx + dy * dy;
+						}
 					}
-					else if ( (endingAngle < 0.0) && (touchedAngle - 1 >= endingAngle) ) {
+
+					// check angles
+					BOOL angleInSlice = NO;
+					if ( [self angle:touchedAngle betweenStartAngle:startingAngle endAngle:endingAngle] ) {
+						if ( [self angle:offsetTouchedAngle betweenStartAngle:startingAngle endAngle:endingAngle] ) {
+							angleInSlice = YES;
+						}
+						else {
+							return NO;
+						}
+					}
+					
+					// check distance
+					if ( angleInSlice && (offsetDistanceSquared <= chartRadiusSquared) ) {
 						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
 						return YES;
 					}
 					
+					// save angle for the next slice
 					startingAngle = endingAngle;
 				}
 				break;
 			case CPPieDirectionCounterClockwise:
 				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
+					// calculate angles for this slice
 					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 					CGFloat endingAngle = startingAngle + width;
 					
-					if ( (touchedAngle >= startingAngle) && (touchedAngle <= endingAngle) ) {
+					// offset the center point of the slice if needed
+					CGPoint offsetCenter = centerPoint;
+					CGFloat offsetTouchedAngle = touchedAngle;
+					CGFloat offsetDistanceSquared = distanceSquared;
+					CGFloat radialOffset = 0.0;
+					if ( dataSourceProvidesRadialOffsets ) {
+						radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
+						
+						if ( radialOffset != 0.0 ) {
+							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
+#if CGFLOAT_IS_DOUBLE
+							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
+													   centerPoint.y + sin(medianAngle) * radialOffset);
+#else
+							offsetCenter = CGPointMake(centerPoint.x + cosf(medianAngle) * radialOffset,
+													   centerPoint.y + sinf(medianAngle) * radialOffset);
+#endif
+							dx = plotAreaPoint.x - offsetCenter.x;
+							dy = plotAreaPoint.y - offsetCenter.y;
+#if CGFLOAT_IS_DOUBLE
+							offsetTouchedAngle = [self normalizedPosition:atan2(dy, dx)];
+#else
+							offsetTouchedAngle = [self normalizedPosition:atan2f(dy, dx)];
+#endif
+							offsetDistanceSquared = dx * dx + dy * dy;
+						}
+					}
+					
+					// check angles
+					BOOL angleInSlice = NO;
+					if ( [self angle:touchedAngle betweenStartAngle:startingAngle endAngle:endingAngle] ) {
+						if ( [self angle:offsetTouchedAngle betweenStartAngle:startingAngle endAngle:endingAngle] ) {
+							angleInSlice = YES;
+						}
+						else {
+							return NO;
+						}
+					}
+					
+					// check distance
+					if ( angleInSlice && (offsetDistanceSquared <= chartRadiusSquared) ) {
 						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
 						return YES;
 					}
-					else if ( (endingAngle > 1.0) && (touchedAngle + 1 <= endingAngle) ) {
-						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
-						return YES;
-					}
-				
+					
+					// save angle for the next slice
 					startingAngle = endingAngle;
 				}
 				break;

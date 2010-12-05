@@ -56,7 +56,7 @@ typedef enum _CPPieDirection {
  **/
 -(CPTextLayer *)sliceLabelForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index;
 
-/** @brief Offsets the slice radially from the center point. Can be used to 'explode' chart.
+/** @brief Offsets the slice radially from the center point. Can be used to "explode" the chart.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The radial offset in view coordinates. Zero is no offset.
