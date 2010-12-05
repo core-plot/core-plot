@@ -516,6 +516,7 @@ static CGFloat colorLookupTable[10][3] =
 				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
 					// calculate angles for this slice
 					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
+					if ( isnan(width) ) continue;
 					CGFloat endingAngle = startingAngle - width;
 					
 					// offset the center point of the slice if needed
@@ -571,6 +572,7 @@ static CGFloat colorLookupTable[10][3] =
 				for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
 					// calculate angles for this slice
 					CGFloat width = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
+					if ( isnan(width) ) continue;
 					CGFloat endingAngle = startingAngle + width;
 					
 					// offset the center point of the slice if needed
