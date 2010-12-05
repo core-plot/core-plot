@@ -28,6 +28,7 @@
 		4FABDD421291110D003A2DB7 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		4FABDD4612911127003A2DB7 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,8 @@
 		4F8E1CC012908B0000D2035F /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
 		4F8E1CC112908B0000D2035F /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
+		C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +231,8 @@
 				4F22FF9B12342D7C006BF615 /* CompositePlot.m */,
 				4F8E1C12129077C200D2035F /* DatePlot.h */,
 				4F8E1C13129077C200D2035F /* DatePlot.m */,
+				C3F34F1312AB2598008FBDC3 /* DonutChart.h */,
+				C3F34F1412AB2598008FBDC3 /* DonutChart.m */,
 				4F22FF9C12342D7C006BF615 /* GradientScatterPlot.h */,
 				4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */,
 				4F8E1C84129083B000D2035F /* SteppedScatterPlot.h */,
@@ -353,6 +358,7 @@
 				4F8E1C14129077C200D2035F /* DatePlot.m in Sources */,
 				4F8E1C86129083B000D2035F /* SteppedScatterPlot.m in Sources */,
 				4F8E1CC212908B0000D2035F /* AxisDemo.m in Sources */,
+				C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

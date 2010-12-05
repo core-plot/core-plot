@@ -33,12 +33,16 @@ NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pi
 @implementation CPPieChart
 
 @dynamic sliceWidths;
-@dynamic dataSource;
 
 /** @property pieRadius
  *	@brief The radius of the overall pie chart. Defaults to 80% of the initial frame size.
  **/
 @synthesize pieRadius;
+
+/** @property pieInnerRadius
+ *	@brief The inner radius of the pie chart, used to create a "donut hole". Defaults to 0.
+ **/
+@synthesize pieInnerRadius;
 
 /** @property sliceLabelOffset
  *	@brief The radial offset of the slice labels from the edge of each slice. Defaults to 10.0
@@ -104,6 +108,7 @@ static CGFloat colorLookupTable[10][3] =
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		pieRadius = 0.8 * (MIN(newFrame.size.width, newFrame.size.height) / 2.0);
+		pieInnerRadius = 0.0;
 		startAngle = M_PI_2;	// pi/2
 		sliceDirection = CPPieDirectionClockwise;
 		centerAnchor = CGPointMake(0.5, 0.5);
@@ -121,6 +126,7 @@ static CGFloat colorLookupTable[10][3] =
 		CPPieChart *theLayer = (CPPieChart *)layer;
 		
 		pieRadius = theLayer->pieRadius;
+		pieInnerRadius = theLayer->pieInnerRadius;
 		startAngle = theLayer->startAngle;
 		sliceDirection = theLayer->sliceDirection;
 		centerAnchor = theLayer->centerAnchor;
@@ -344,9 +350,18 @@ static CGFloat colorLookupTable[10][3] =
     
     CGFloat centerX = centerPoint.x + xOffset;
     CGFloat centerY = centerPoint.y + yOffset;
+	CGFloat innerRadius = self.pieInnerRadius;
+	
 	CGMutablePathRef slicePath = CGPathCreateMutable();
-	CGPathMoveToPoint(slicePath, nil, centerX, centerY);
-	CGPathAddArc(slicePath, nil, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
+	if ( innerRadius > 0.0 ) {
+		CGPathAddArc(slicePath, NULL, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
+		CGPathAddArc(slicePath, NULL, centerX, centerY, innerRadius, finishingAngle, startingAngle, !direction);
+	}
+	else {
+		CGPathMoveToPoint(slicePath, NULL, centerX, centerY);
+		CGPathAddArc(slicePath, NULL, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
+	}
+
 	CGPathCloseSubpath(slicePath);
 	
 	if ( sliceFill ) {
@@ -500,6 +515,8 @@ static CGFloat colorLookupTable[10][3] =
 		
 		CGFloat chartRadius = self.pieRadius;
 		CGFloat chartRadiusSquared = chartRadius * chartRadius;
+		CGFloat chartInnerRadius = self.pieInnerRadius;
+		CGFloat chartInnerRadiusSquared = chartInnerRadius * chartInnerRadius;
 		CGFloat dx = plotAreaPoint.x - centerPoint.x;
 		CGFloat dy = plotAreaPoint.y - centerPoint.y;
 		CGFloat distanceSquared = dx * dx + dy * dy;
@@ -559,7 +576,7 @@ static CGFloat colorLookupTable[10][3] =
 					}
 					
 					// check distance
-					if ( angleInSlice && (offsetDistanceSquared <= chartRadiusSquared) ) {
+					if ( angleInSlice && (offsetDistanceSquared >= chartInnerRadiusSquared) && (offsetDistanceSquared <= chartRadiusSquared) ) {
 						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
 						return YES;
 					}
@@ -615,7 +632,7 @@ static CGFloat colorLookupTable[10][3] =
 					}
 					
 					// check distance
-					if ( angleInSlice && (offsetDistanceSquared <= chartRadiusSquared) ) {
+					if ( angleInSlice && (offsetDistanceSquared >= chartInnerRadiusSquared) && (offsetDistanceSquared <= chartRadiusSquared) ) {
 						[theDelegate pieChart:self sliceWasSelectedAtRecordIndex:currentIndex];
 						return YES;
 					}
@@ -654,6 +671,14 @@ static CGFloat colorLookupTable[10][3] =
         pieRadius = ABS(newPieRadius);
         [self setNeedsDisplay];
 		[self setNeedsRelabel];
+    }
+}
+
+-(void)setPieInnerRadius:(CGFloat)newPieRadius 
+{
+    if ( pieInnerRadius != newPieRadius ) {
+        pieInnerRadius = ABS(newPieRadius);
+        [self setNeedsDisplay];
     }
 }
 

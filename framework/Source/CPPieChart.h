@@ -91,14 +91,15 @@ typedef enum _CPPieDirection {
 @interface CPPieChart : CPPlot {
 	@private
 	CGFloat pieRadius;
+	CGFloat pieInnerRadius;
 	CGFloat startAngle;
 	CPPieDirection sliceDirection;
 	CGPoint centerAnchor;
 	CPLineStyle *borderLineStyle;
 }
 
-@property (nonatomic, readwrite, assign) id <CPPieChartDataSource> dataSource;
 @property (nonatomic, readwrite) CGFloat pieRadius;
+@property (nonatomic, readwrite) CGFloat pieInnerRadius;
 @property (nonatomic, readwrite) CGFloat sliceLabelOffset;
 @property (nonatomic, readwrite) CGFloat startAngle;
 @property (nonatomic, readwrite) CPPieDirection sliceDirection;
