@@ -34,7 +34,7 @@
 	CPTheme *theme = [CPTheme themeNamed:kCPDarkGradientTheme];
     [graph applyTheme:theme];
 	CPGraphHostingView *hostingView = (CPGraphHostingView *)self.view;
-    hostingView.collapsesLayers = YES;
+    hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     hostingView.hostedGraph = graph;
 	
     graph.paddingLeft = 10.0;
