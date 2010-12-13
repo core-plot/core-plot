@@ -46,7 +46,7 @@
     graph.paddingLeft = 50.0f;
     graph.plotAreaFrame.masksToBorder = NO;
     graph.plotAreaFrame.cornerRadius = 0.0f;
-    CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor whiteColor];
     borderLineStyle.lineWidth = 2.0f;
     graph.plotAreaFrame.borderLineStyle = borderLineStyle;
@@ -55,7 +55,10 @@
     // Axes
     CPXYAxisSet *xyAxisSet = (id)graph.axisSet;
     CPXYAxis *xAxis = xyAxisSet.xAxis;
-    xAxis.axisLineStyle.lineCap = kCGLineCapButt;	
+    CPMutableLineStyle *lineStyle = [xAxis.axisLineStyle mutableCopy];
+    lineStyle.lineCap = kCGLineCapButt;
+    xAxis.axisLineStyle = lineStyle;
+	[lineStyle release];
     xAxis.labelingPolicy = CPAxisLabelingPolicyNone;
     
     CPXYAxis *yAxis = xyAxisSet.yAxis;
@@ -83,13 +86,13 @@
     dataSourceLinePlot.areaBaseValue2 = CPDecimalFromDouble(400.0);
     
     // OHLC plot
-    CPLineStyle *whiteLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *whiteLineStyle = [CPMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPColor whiteColor];
     whiteLineStyle.lineWidth = 1.0f;
     CPTradingRangePlot *ohlcPlot = [[[CPTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle = whiteLineStyle;
-	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+	CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 8.0;
 	ohlcPlot.labelTextStyle = whiteTextStyle;
@@ -107,7 +110,12 @@
 	
 	CPBarPlot *volumePlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blackColor] horizontalBars:NO];
     volumePlot.dataSource = self;
-	volumePlot.lineStyle.lineColor = [CPColor whiteColor];
+    
+    lineStyle = [volumePlot.lineStyle mutableCopy];
+    lineStyle.lineColor = [CPColor whiteColor];
+    volumePlot.lineStyle = lineStyle;
+    [lineStyle release];
+    
     volumePlot.fill = nil; 
 	volumePlot.barWidth = 1.0f;
     volumePlot.identifier = @"Volume Plot";
