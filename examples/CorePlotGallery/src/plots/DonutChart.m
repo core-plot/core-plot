@@ -54,7 +54,7 @@ NSString * const outerChartName = @"Outer";
     [self applyTheme:theme toGraph:graph withDefault:[CPTheme themeNamed:kCPDarkGradientTheme]];
 
     graph.title = title;
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = bounds.size.height / 20.0f;
@@ -73,7 +73,7 @@ NSString * const outerChartName = @"Outer";
 
     graph.axisSet = nil;
 
-	CPLineStyle *whiteLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *whiteLineStyle = [CPMutableLineStyle lineStyle];
 	whiteLineStyle.lineColor = [CPColor whiteColor];
 	
     // Add pie chart
@@ -134,13 +134,13 @@ NSString * const outerChartName = @"Outer";
 
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index
 {
-    static CPTextStyle *whiteText = nil;
+    static CPMutableTextStyle *whiteText = nil;
 	
 	CPTextLayer *newLayer = nil;
 	
 	if ( [(NSString *)plot.identifier isEqualToString:outerChartName] ) {
 		if ( !whiteText ) {
-			whiteText = [[CPTextStyle alloc] init];
+			whiteText = [[CPMutableTextStyle alloc] init];
 			whiteText.color = [CPColor whiteColor];
 		}
 		

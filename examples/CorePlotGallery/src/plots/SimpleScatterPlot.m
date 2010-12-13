@@ -73,15 +73,15 @@
     plotSpace.delegate = self;
 
     // Grid line styles
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [[CPColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
 
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
 
-    CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *redLineStyle = [CPMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.5];
 
@@ -123,8 +123,12 @@
     // Create a plot that uses the data source method
     CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-    dataSourceLinePlot.dataLineStyle.lineWidth = 3.0;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    lineStyle.lineWidth = 3.0;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
@@ -151,7 +155,7 @@
     yShift = length - 2.0;
 
     // Add plot symbols
-    CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
     symbolLineStyle.lineColor = [CPColor blackColor];
     CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
     plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
@@ -220,7 +224,7 @@
     }
 
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor whiteColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";

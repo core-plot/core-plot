@@ -59,7 +59,7 @@
     [self applyTheme:theme toGraph:graph withDefault:[CPTheme themeNamed:kCPDarkGradientTheme]];
 
     graph.title = title;
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = bounds.size.height / 20.0f;
@@ -95,10 +95,10 @@
 
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index
 {
-    static CPTextStyle *whiteText = nil;
+    static CPMutableTextStyle *whiteText = nil;
 
     if (!whiteText) {
-        whiteText = [[CPTextStyle alloc] init];
+        whiteText = [[CPMutableTextStyle alloc] init];
         whiteText.color = [CPColor whiteColor];
     }
 

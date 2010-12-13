@@ -99,7 +99,7 @@
 - (void)setTitleDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds
 {
     graph.title = title;
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = bounds.size.height / 20.0f;

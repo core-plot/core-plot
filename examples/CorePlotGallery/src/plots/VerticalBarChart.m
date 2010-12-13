@@ -75,7 +75,8 @@
     barPlot.barWidth = 0.8 * bounds.size.width / barCount;
     barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0)
                                                     length:CPDecimalFromDouble(barCount - 1.0)];
-    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+                                                    
+    CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
     barPlot.barLabelTextStyle = whiteTextStyle;
     barPlot.delegate = self;
@@ -117,7 +118,7 @@
     }
 
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor cyanColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";

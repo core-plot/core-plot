@@ -107,8 +107,12 @@
     // Create a plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Date Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 3.f;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 }

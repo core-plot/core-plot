@@ -55,11 +55,15 @@
     
     CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
 	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    lineStyle.lineWidth = 1.0;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+
     dataSourceLinePlot.dataSource = self;
 
-	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+	CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
 	dataSourceLinePlot.labelOffset = 5.0;
