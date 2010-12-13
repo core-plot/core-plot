@@ -59,7 +59,7 @@
 	y.minorTicksPerInterval = 5;
 	y.orthogonalCoordinateDecimal = CPDecimalFromDouble(minimumValueForXAxis);
 	
-		CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
     borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
     borderLineStyle.lineWidth = 0.0f;
 	
@@ -70,8 +70,12 @@
     // Create the main plot for the delimited data
 	CPScatterPlot *dataSourceLinePlot = [[(CPScatterPlot *)[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor blackColor];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 1.f;
+    lineStyle.lineColor = [CPColor blackColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
