@@ -74,10 +74,12 @@
   
 	// Create a blue plot area
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+    lineStyle.miterLimit = 1.0f;
+	lineStyle.lineWidth = 3.0f;
+	lineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.dataLineStyle = lineStyle;
     boundLinePlot.identifier = @"Blue Plot";
-	boundLinePlot.dataLineStyle.miterLimit = 1.0f;
-	boundLinePlot.dataLineStyle.lineWidth = 3.0f;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
     boundLinePlot.dataSource = self;
 	[graph addPlot:boundLinePlot];
 	
@@ -90,7 +92,7 @@
     boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
  
 	// Add plot symbols
-	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];
 	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
@@ -100,10 +102,12 @@
 
     // Create a green plot area
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
+    lineStyle = [CPMutableLineStyle lineStyle];
+    lineStyle.lineWidth = 3.f;
+    lineStyle.lineColor = [CPColor greenColor];
+	lineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
     dataSourceLinePlot.identifier = @"Green Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
-	dataSourceLinePlot.dataLineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
     dataSourceLinePlot.dataSource = self;
 
    // Put an area gradient under the plot above

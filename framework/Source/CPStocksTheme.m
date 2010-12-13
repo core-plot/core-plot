@@ -9,7 +9,7 @@
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
-#import "CPLineStyle.h"
+#import "CPMutableLineStyle.h"
 #import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
@@ -38,7 +38,7 @@
     stocksBackgroundGradient.angle = 270.0;
 	plotAreaFrame.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
 
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
 	borderLineStyle.lineWidth = 0.0;
 	
@@ -48,12 +48,12 @@
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
 {	
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
     majorLineStyle.lineColor = [CPColor whiteColor];
     majorLineStyle.lineWidth = 3.0;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineColor = [CPColor whiteColor];
     minorLineStyle.lineWidth = 3.0;
 	

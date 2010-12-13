@@ -24,6 +24,7 @@
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLimitBand.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPMutableLineStyle.h>
 #import <CorePlot/CPMutableNumericData.h>
 #import <CorePlot/CPMutableNumericData+TypeConversion.h>
 #import <CorePlot/CPMutableTextStyle.h>

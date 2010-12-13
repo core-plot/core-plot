@@ -1,6 +1,11 @@
 #import "CPMutableTextStyle.h"
 #import "CPColor.h"
 
+/** @brief Mutable wrapper for text style properties.
+ *  
+ *  Use this whenever you need to customize the properties of a text style.
+ **/
+
 @implementation CPMutableTextStyle
 
 /** @property fontSize

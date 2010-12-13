@@ -75,8 +75,10 @@
 		07A2E6FC102DF47900809BC5 /* CPTimeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A2E6FA102DF47900809BC5 /* CPTimeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A2E6FD102DF47900809BC5 /* CPTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E6FB102DF47900809BC5 /* CPTimeFormatter.m */; };
 		07AEF24910BBED050012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF1FD10BBE1F10012BEFF /* CPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07B69A5D12B6215000F4C16C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B69A5B12B6215000F4C16C /* CPTextStyle.h */; };
+		07B69A5D12B6215000F4C16C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B69A5B12B6215000F4C16C /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B69A5E12B6215000F4C16C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B69A5C12B6215000F4C16C /* CPTextStyle.m */; };
+		07B69B1712B62ABB00F4C16C /* CPMutableLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B69B1512B62ABB00F4C16C /* CPMutableLineStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07B69B1812B62ABB00F4C16C /* CPMutableLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B69B1612B62ABB00F4C16C /* CPMutableLineStyle.m */; };
 		07BF0D640F2B70B8002FCEA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D610F2B70B8002FCEA7 /* CoreData.framework */; };
 		07BF0D660F2B70B8002FCEA7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		07BF0D720F2B718F002FCEA7 /* CPGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BF0D700F2B718F002FCEA7 /* CPGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -261,6 +263,8 @@
 		07AEF1FD10BBE1F10012BEFF /* CPResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPResponder.h; sourceTree = "<group>"; };
 		07B69A5B12B6215000F4C16C /* CPTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTextStyle.h; sourceTree = "<group>"; };
 		07B69A5C12B6215000F4C16C /* CPTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTextStyle.m; sourceTree = "<group>"; };
+		07B69B1512B62ABB00F4C16C /* CPMutableLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMutableLineStyle.h; sourceTree = "<group>"; };
+		07B69B1612B62ABB00F4C16C /* CPMutableLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMutableLineStyle.m; sourceTree = "<group>"; };
 		07BF0D610F2B70B8002FCEA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		07BF0D620F2B70B8002FCEA7 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -892,6 +896,8 @@
 				C3AFC9D00FB62969005DFFDC /* CPImage.m */,
 				906156BC0F375598001B75FC /* CPLineStyle.h */,
 				906156BD0F375598001B75FC /* CPLineStyle.m */,
+				07B69B1512B62ABB00F4C16C /* CPMutableLineStyle.h */,
+				07B69B1612B62ABB00F4C16C /* CPMutableLineStyle.m */,
 				070622300FDF1B250066A6C4 /* CPPathExtensions.h */,
 				070622310FDF1B250066A6C4 /* CPPathExtensions.m */,
 				0704A2100FB56B9400A09979 /* Fills */,
@@ -1052,6 +1058,7 @@
 				C318F4AD11EA188700595FF9 /* CPLimitBand.h in Headers */,
 				C3CAFB261229E41F00F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */,
 				07B69A5D12B6215000F4C16C /* CPTextStyle.h in Headers */,
+				07B69B1712B62ABB00F4C16C /* CPMutableLineStyle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,6 +1283,7 @@
 				C3392A381225F667008DA6BD /* CPNumericData+TypeConversion.m in Sources */,
 				C3CAFB6B1229F5FB00F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */,
 				07B69A5E12B6215000F4C16C /* CPTextStyle.m in Sources */,
+				07B69B1812B62ABB00F4C16C /* CPMutableLineStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

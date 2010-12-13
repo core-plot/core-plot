@@ -3,7 +3,7 @@
 #import "CPBarPlot.h"
 #import "CPXYPlotSpace.h"
 #import "CPColor.h"
-#import "CPLineStyle.h"
+#import "CPMutableLineStyle.h"
 #import "CPFill.h"
 #import "CPPlotArea.h"
 #import "CPPlotRange.h"
@@ -108,7 +108,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 +(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal
 {
 	CPBarPlot *barPlot = [[CPBarPlot alloc] init];
-	CPLineStyle *barLineStyle = [[CPLineStyle alloc] init];
+	CPMutableLineStyle *barLineStyle = [[CPMutableLineStyle alloc] init];
 	barLineStyle.lineWidth = 1.0;
 	barLineStyle.lineColor = [CPColor blackColor];
 	barPlot.lineStyle = barLineStyle;
@@ -140,7 +140,6 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 {
 	if ( self = [super initWithFrame:newFrame] ) {
 		lineStyle = [[CPLineStyle alloc] init];
-		lineStyle.delegate = self;
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = 10.0;
 		barOffset = 0.0;
@@ -559,10 +558,8 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
 -(void)setLineStyle:(CPLineStyle *)newLineStyle 
 {
     if (lineStyle != newLineStyle) {
-		lineStyle.delegate = nil;
         [lineStyle release];
         lineStyle = [newLineStyle copy];
-		lineStyle.delegate = self;
         [self setNeedsDisplay];
     }
 }

@@ -317,11 +317,8 @@
 		title = nil;
 		titleOffset = 30.0;
 		axisLineStyle = [[CPLineStyle alloc] init];
-		axisLineStyle.delegate = self;
 		majorTickLineStyle = [[CPLineStyle alloc] init];
-		majorTickLineStyle.delegate = self;
 		minorTickLineStyle = [[CPLineStyle alloc] init];
-		minorTickLineStyle.delegate = self;
 		majorGridLineStyle = nil;
 		minorGridLineStyle = nil;
 		labelingOrigin = [[NSDecimalNumber zero] decimalValue];
@@ -1083,10 +1080,8 @@
 -(void)setAxisLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != axisLineStyle ) {
-		axisLineStyle.delegate = nil;
         [axisLineStyle release];
         axisLineStyle = [newLineStyle copy];
-		axisLineStyle.delegate = self;
 		[self setNeedsDisplay];			
     }
 }
@@ -1094,10 +1089,8 @@
 -(void)setMajorTickLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != majorTickLineStyle ) {
-		majorTickLineStyle.delegate = nil;
         [majorTickLineStyle release];
         majorTickLineStyle = [newLineStyle copy];
-		majorTickLineStyle.delegate = self;
         [self setNeedsDisplay];
     }
 }
@@ -1105,10 +1098,8 @@
 -(void)setMinorTickLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != minorTickLineStyle ) {
-		minorTickLineStyle.delegate = nil;
         [minorTickLineStyle release];
         minorTickLineStyle = [newLineStyle copy];
-		minorTickLineStyle.delegate = self;
         [self setNeedsDisplay];
     }
 }
@@ -1116,7 +1107,6 @@
 -(void)setMajorGridLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != majorGridLineStyle ) {
-		majorGridLineStyle.delegate = nil;
         [majorGridLineStyle release];
         majorGridLineStyle = [newLineStyle copy];
 		
@@ -1132,11 +1122,9 @@
 				else {
 					[self.majorGridLines setNeedsDisplay];
 				}
-				majorGridLineStyle.delegate = self.majorGridLines;
 			}
 			else {
 				[self.plotArea.majorGridLineGroup setNeedsDisplay];
-				majorGridLineStyle.delegate = self.plotArea.majorGridLineGroup;
 			}
 		}
 		else {
@@ -1148,7 +1136,6 @@
 -(void)setMinorGridLineStyle:(CPLineStyle *)newLineStyle 
 {
     if ( newLineStyle != minorGridLineStyle ) {
-		minorGridLineStyle.delegate = nil;
         [minorGridLineStyle release];
         minorGridLineStyle = [newLineStyle copy];
 		
@@ -1164,11 +1151,9 @@
 				else {
 					[self.minorGridLines setNeedsDisplay];
 				}
-				minorGridLineStyle.delegate = self.minorGridLines;
 			}
 			else {
 				[self.plotArea.minorGridLineGroup setNeedsDisplay];
-				minorGridLineStyle.delegate = self.plotArea.minorGridLineGroup;
 			}
 		}
 		else {
@@ -1322,25 +1307,21 @@
 			if ( self.minorGridLineStyle ) {
 				CPGridLines *gridLines = [[CPGridLines alloc] init];
 				self.minorGridLines = gridLines;
-				self.minorGridLineStyle.delegate = gridLines;
 				[gridLines release];
 			}
 			if ( self.majorGridLineStyle ) {
 				CPGridLines *gridLines = [[CPGridLines alloc] init];
 				self.majorGridLines = gridLines;
-				self.majorGridLineStyle.delegate = gridLines;
 				[gridLines release];
 			}
 		}
 		else {
 			self.minorGridLines	= nil;
 			if ( self.minorGridLineStyle ) {
-				self.minorGridLineStyle.delegate = self.plotArea.minorGridLineGroup;
 				[self.plotArea.minorGridLineGroup setNeedsDisplay];
 			}
 			self.majorGridLines = nil;
 			if ( self.majorGridLineStyle ) {
-				self.majorGridLineStyle.delegate = self.plotArea.majorGridLineGroup;
 				[self.plotArea.majorGridLineGroup setNeedsDisplay];
 			}
 		}

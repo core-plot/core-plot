@@ -104,7 +104,6 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 	if ( self = [super initWithFrame:newFrame] ) {
         plotStyle = CPTradingRangePlotStyleOHLC;
 		lineStyle = [[CPLineStyle alloc] init];
-		lineStyle.delegate = self;
         increaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor whiteColor]];
         decreaseFill = [(CPFill *)[CPFill alloc] initWithColor:[CPColor blackColor]];
         barWidth = 5.0;
@@ -531,10 +530,8 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 -(void)setLineStyle:(CPLineStyle *)newLineStyle
 {
 	if ( lineStyle != newLineStyle ) {
-		lineStyle.delegate = nil;
 		[lineStyle release];
 		lineStyle = [newLineStyle copy];
-		lineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}
 }

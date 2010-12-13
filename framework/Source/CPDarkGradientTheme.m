@@ -9,7 +9,7 @@
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
-#import "CPLineStyle.h"
+#import "CPMutableLineStyle.h"
 #import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
@@ -66,7 +66,7 @@
     gradient.angle = 90.0;
 	plotAreaFrame.fill = [CPFill fillWithGradient:gradient]; 
 
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
 	borderLineStyle.lineWidth = 4.0;
 	
@@ -75,12 +75,12 @@
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
     majorLineStyle.lineWidth = 2.0;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPColor darkGrayColor];
     minorLineStyle.lineWidth = 1.0;

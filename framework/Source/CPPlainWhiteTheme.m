@@ -9,7 +9,7 @@
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
-#import "CPLineStyle.h"
+#import "CPMutableLineStyle.h"
 #import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 
@@ -31,7 +31,7 @@
 {	
 	plotAreaFrame.fill = [CPFill fillWithColor:[CPColor whiteColor]]; 
 
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor blackColor];
 	borderLineStyle.lineWidth = 1.0;
 	
@@ -41,12 +41,12 @@
 	
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
 {	
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapButt;
     majorLineStyle.lineColor = [CPColor colorWithGenericGray:0.5];
     majorLineStyle.lineWidth = 1.0;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapButt;
     minorLineStyle.lineColor = [CPColor blackColor];
     minorLineStyle.lineWidth = 1.0;

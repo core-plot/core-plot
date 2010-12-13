@@ -7,8 +7,8 @@
 @protocol CPLayoutManager;
 @class CPGraph;
 
-@interface CPLayer : CALayer <CPResponder, CPLineStyleDelegate> {
-@private
+@interface CPLayer : CALayer <CPResponder> {
+	@private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;

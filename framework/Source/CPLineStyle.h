@@ -2,22 +2,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class CPColor;
-@class CPLineStyle;
 
-/**	@brief A line style delegate.
- **/
-@protocol CPLineStyleDelegate <NSObject>
-
-/**	@brief This method is called when the line style changes.
- *	@param lineStyle The line style that changed.
- **/
--(void)lineStyleDidChange:(CPLineStyle *)lineStyle; 
-
-@end
-
-@interface CPLineStyle : NSObject <NSCopying> {
-@private
-	__weak id <CPLineStyleDelegate> delegate;
+@interface CPLineStyle : NSObject <NSCopying, NSMutableCopying> {
+	@private
 	CGLineCap lineCap;
 //	CGLineDash lineDash; // We should make a struct to keep this information
 	CGLineJoin lineJoin;
@@ -29,18 +16,17 @@
     CPColor *lineColor;
 }
 
-@property (nonatomic, readwrite, assign) __weak id <CPLineStyleDelegate> delegate; 
-@property (nonatomic, readwrite, assign) CGLineCap lineCap;
-@property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
-@property (nonatomic, readwrite, assign) CGFloat miterLimit;
-@property (nonatomic, readwrite, assign) CGFloat lineWidth;
-@property (nonatomic, readwrite, retain) NSArray *dashPattern;
-@property (nonatomic, readwrite, assign) CGFloat patternPhase;
-@property (nonatomic, readwrite, retain) CPColor *lineColor;
+@property (nonatomic, readonly, assign) CGLineCap lineCap;
+@property (nonatomic, readonly, assign) CGLineJoin lineJoin;
+@property (nonatomic, readonly, assign) CGFloat miterLimit;
+@property (nonatomic, readonly, assign) CGFloat lineWidth;
+@property (nonatomic, readonly, retain) NSArray *dashPattern;
+@property (nonatomic, readonly, assign) CGFloat patternPhase;
+@property (nonatomic, readonly, retain) CPColor *lineColor;
 
 /// @name Factory Methods
 /// @{
-+(CPLineStyle *)lineStyle;
++(id)lineStyle;
 ///	@}
 
 /// @name Drawing

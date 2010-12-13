@@ -98,10 +98,8 @@
 -(void)setBorderLineStyle:(CPLineStyle *)newLineStyle
 {
 	if ( newLineStyle != borderLineStyle ) {
-		borderLineStyle.delegate = nil;
 		[borderLineStyle release];
 		borderLineStyle = [newLineStyle copy];
-		borderLineStyle.delegate = self;
 		[self setNeedsDisplay];
 	}
 }
