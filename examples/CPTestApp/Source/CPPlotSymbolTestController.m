@@ -38,8 +38,12 @@
 	for (NSUInteger i = CPPlotSymbolTypeNone; i <= CPPlotSymbolTypeCustom; i++) {
 		CPScatterPlot *dataSourceLinePlot = [[(CPScatterPlot *)[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
-		dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-		dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
+        
+        CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+		lineStyle.lineWidth = 1.f;
+		lineStyle.lineColor = [CPColor redColor];
+        dataSourceLinePlot.dataLineStyle = lineStyle;
+        
 		dataSourceLinePlot.dataSource = self;
 		
 		[graph addPlot:dataSourceLinePlot];

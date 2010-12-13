@@ -39,20 +39,20 @@
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.5) length:CPDecimalFromDouble(10.0)];
 	
     // Line styles
-    CPLineStyle *axisLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *axisLineStyle = [CPMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 3.0;
 	axisLineStyle.lineCap = kCGLineCapRound;
     
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [CPColor redColor];
     
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [CPColor blueColor];
 	
 	// Text styles
-	CPTextStyle *axisTitleTextStyle = [CPTextStyle textStyle];
+	CPMutableTextStyle *axisTitleTextStyle = [CPMutableTextStyle textStyle];
 	axisTitleTextStyle.fontName = @"Helvetica Bold";
 	axisTitleTextStyle.fontSize = 14.0;
 	

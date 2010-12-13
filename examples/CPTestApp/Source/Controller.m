@@ -71,7 +71,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     
     // Graph title
     graph.title = @"This is the Graph Title";
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = 18.0;
@@ -94,15 +94,15 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     plotSpace.delegate = self;
     
     // Grid line styles
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [[CPColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
     
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
     
-    CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *redLineStyle = [CPMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.5];
     
@@ -176,9 +176,13 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = bindingsPlot;
-	boundLinePlot.dataLineStyle.miterLimit = 1.0;
-	boundLinePlot.dataLineStyle.lineWidth = 3.0;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
+    
+    CPMutableLineStyle *lineStyle = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.miterLimit = 1.0;
+	lineStyle.lineWidth = 3.0;
+	lineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.dataLineStyle = lineStyle;
+    
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
@@ -192,7 +196,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     boundLinePlot.areaBaseValue = [[NSDecimalNumber one] decimalValue];
     
 	// Add plot symbols
-	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];
 	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
@@ -209,12 +213,18 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = dataSourcePlot;
 	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 1.0;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
-	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    
+	CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
+    
 	dataSourceLinePlot.labelOffset = 5.0;
 	dataSourceLinePlot.labelRotation = M_PI_4;
     [graph addPlot:dataSourceLinePlot];
@@ -278,7 +288,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     [barPlotSpace release];
     
     // First bar plot
-    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
     barPlot.baseValue = CPDecimalFromString(@"20");
@@ -408,7 +418,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     }
     
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor whiteColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
@@ -445,7 +455,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     }
     
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor redColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
