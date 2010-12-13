@@ -117,9 +117,13 @@
     // Create a green plot area
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Green Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 3.f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
-	dataSourceLinePlot.dataLineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 3.f;
+    lineStyle.lineColor = [CPColor greenColor];
+	lineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
 	
 	// Put an area gradient under the plot above
@@ -145,9 +149,13 @@
 	// Create a blue plot area
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Blue Plot";
-	boundLinePlot.dataLineStyle.miterLimit = 1.0f;
-	boundLinePlot.dataLineStyle.lineWidth = 3.0f;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
+    
+    lineStyle = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.miterLimit = 1.0f;
+	lineStyle.lineWidth = 3.0f;
+	lineStyle.lineColor = [CPColor blueColor];
+    lineStyle = lineStyle;
+    
     boundLinePlot.dataSource = self;
 	boundLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
 	boundLinePlot.interpolation = CPScatterPlotInterpolationHistogram;
@@ -162,7 +170,7 @@
     boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];    
 	
 	// Add plot symbols
-	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];
 	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
@@ -373,10 +381,10 @@
 
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index
 {
-	static CPTextStyle *whiteText = nil;
+	static CPMutableTextStyle *whiteText = nil;
 	
 	if ( !whiteText ) {
-		whiteText = [[CPTextStyle alloc] init];
+		whiteText = [[CPMutableTextStyle alloc] init];
 		whiteText.color = [CPColor whiteColor];
 	}
 	
