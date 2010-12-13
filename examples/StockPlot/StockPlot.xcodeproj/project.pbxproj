@@ -323,7 +323,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
@@ -346,7 +346,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};
 			name = Release;
