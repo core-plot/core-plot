@@ -10,14 +10,14 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPLineStyle.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
 ///	@cond
 @interface CPDarkGradientTheme ()
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle;
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle;
 
 @end
 ///	@endcond
@@ -33,7 +33,7 @@
 	return kCPDarkGradientTheme;
 }
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle
 {
 	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength = CPDecimalFromDouble(0.5);
@@ -85,7 +85,7 @@
     minorLineStyle.lineColor = [CPColor darkGrayColor];
     minorLineStyle.lineWidth = 1.0;
 	
-	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *whiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
 	

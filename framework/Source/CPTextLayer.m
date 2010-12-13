@@ -84,10 +84,8 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 -(void)setTextStyle:(CPTextStyle *)newStyle 
 {
 	if ( textStyle != newStyle ) {
-		textStyle.delegate = nil;
 		[textStyle release];
 		textStyle = [newStyle retain];
-		textStyle.delegate = self;
 		[self sizeToFit];
 	}
 }

@@ -3,7 +3,7 @@
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 #import "CPAxisSet.h"
@@ -121,7 +121,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
         // Title
         title = nil;
         titlePlotAreaFrameAnchor = CPRectAnchorTop;
-        titleTextStyle = [[CPTextStyle textStyle] retain];
+        titleTextStyle = [[CPMutableTextStyle textStyle] retain];
         titleDisplacement = CGPointZero;
 		titleAnnotation = nil;
 
@@ -502,7 +502,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     }
 }
 
--(void)setTitleTextStyle:(CPTextStyle *)newStyle
+-(void)setTitleTextStyle:(CPMutableTextStyle *)newStyle
 {
     if ( newStyle != titleTextStyle ) {
         [titleTextStyle release];

@@ -10,7 +10,7 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPLineStyle.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 
 /** @brief Creates a CPXYGraph instance formatted with white backgrounds and black lines.
@@ -52,7 +52,7 @@
     minorLineStyle.lineWidth = 1.0;
 	
     CPXYAxis *x = axisSet.xAxis;
-	CPTextStyle *blackTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *blackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	blackTextStyle.color = [CPColor blackColor];
 	blackTextStyle.fontSize = 14.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;

@@ -2,7 +2,7 @@
 #import "CPPlotRange.h"
 #import "CPNumericDataType.h"
 #import "CPAnnotationHostLayer.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 
 @class CPMutableNumericData;
 @class CPNumericData;
@@ -113,7 +113,7 @@ typedef enum _CPPlotCachePrecision {
 
 #pragma mark -
 
-@interface CPPlot : CPAnnotationHostLayer <CPTextStyleDelegate> {
+@interface CPPlot : CPAnnotationHostLayer {
 	@private
     id <CPPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
@@ -126,7 +126,7 @@ typedef enum _CPPlotCachePrecision {
 	CGFloat labelOffset;
     CGFloat labelRotation;
 	NSUInteger labelField;
-	CPTextStyle *labelTextStyle;
+	CPMutableTextStyle *labelTextStyle;
 	NSNumberFormatter *labelFormatter;
 	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
@@ -173,7 +173,7 @@ typedef enum _CPPlotCachePrecision {
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
-@property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, copy) CPMutableTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
 ///	@}
 

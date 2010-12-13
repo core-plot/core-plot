@@ -9,7 +9,7 @@
 @class CPPlotAreaFrame;
 @class CPPlotSpace;
 @class CPTheme;
-@class CPTextStyle;
+@class CPMutableTextStyle;
 @class CPLayerAnnotation;
 
 /**
@@ -37,7 +37,7 @@ typedef enum _CPGraphLayerType {
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
     NSString *title;
-    CPTextStyle *titleTextStyle;
+    CPMutableTextStyle *titleTextStyle;
     CPRectAnchor titlePlotAreaFrameAnchor;
     CGPoint titleDisplacement;
     CPLayerAnnotation *titleAnnotation;
@@ -46,7 +46,7 @@ typedef enum _CPGraphLayerType {
 /// @name Title
 /// @{
 @property (nonatomic, readwrite, copy) NSString *title;
-@property (nonatomic, readwrite, copy) CPTextStyle *titleTextStyle;
+@property (nonatomic, readwrite, copy) CPMutableTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, assign) CGPoint titleDisplacement;
 @property (nonatomic, readwrite, assign) CPRectAnchor titlePlotAreaFrameAnchor;
 ///	@}

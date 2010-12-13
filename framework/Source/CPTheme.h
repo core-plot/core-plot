@@ -4,7 +4,7 @@
 @class CPGraph;
 @class CPPlotAreaFrame;
 @class CPAxisSet;
-@class CPTextStyle;
+@class CPMutableTextStyle;
 
 /// @file
 

@@ -10,7 +10,7 @@
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 #import "CPLineStyle.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
@@ -52,7 +52,7 @@
     minorLineStyle.lineWidth = 3.0;
 	
     CPXYAxis *x = axisSet.xAxis;
-	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *whiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;

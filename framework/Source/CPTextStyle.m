@@ -1,15 +1,22 @@
+
 #import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPColor.h"
+
+
+@interface CPTextStyle ()
+
+@property(readwrite, copy, nonatomic) NSString *fontName;
+@property(readwrite, assign, nonatomic) CGFloat fontSize; 
+@property(readwrite, copy, nonatomic) CPColor *color;
+
+@end
+
 
 /** @brief Wrapper for various text style properties.
  **/
 
 @implementation CPTextStyle
-
-/** @property delegate
- *  @brief The text style delegate.
- **/
-@synthesize delegate;
 
 /** @property fontSize
  *  @brief The font size.
@@ -27,12 +34,22 @@
 @synthesize color;
 
 #pragma mark -
+#pragma mark Factory Methods
+
+/** @brief Creates and returns a new CPTextStyle instance.
+ *  @return A new CPTextStyle instance.
+ **/
++(id)textStyle
+{
+	return [[[self alloc] init] autorelease];
+}
+
+#pragma mark -
 #pragma mark Initialization and teardown
 
 -(id)init 
 {
 	if ( self = [super init] ) {
-		delegate = nil;
 		fontName = @"Helvetica";
 		fontSize = 12.0;
 		color = [[CPColor blackColor] retain];
@@ -45,30 +62,6 @@
 	[fontName release];
 	[color release];
 	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Factory Methods
-
-/** @brief Creates and returns a new CPTextStyle instance.
- *  @return A new CPTextStyle instance.
- **/
-+(CPTextStyle *)textStyle
-{
-	return [[[self alloc] init] autorelease];
-}
-
-#pragma mark -
-#pragma mark Copying
-
--(id)copyWithZone:(NSZone *)zone 
-{
-	CPTextStyle *newCopy = [[CPTextStyle allocWithZone:zone] init];
-	newCopy->delegate = self->delegate;
-	newCopy->fontName = [self->fontName copy];
-	newCopy->color = [self->color copy];
-	newCopy->fontSize = self->fontSize;
-	return newCopy;
 }
 
 #pragma mark -
@@ -86,41 +79,32 @@
 	self = [super init];
     
     if ( self ) {
-		self.delegate = nil;
-		self.fontName = [coder decodeObjectForKey:@"fontName"];
-		self.fontSize = [coder decodeDoubleForKey:@"fontSize"];
-		self.color = [coder decodeObjectForKey:@"color"];
+		self->fontName = [[coder decodeObjectForKey:@"fontName"] copy];
+		self->fontSize = [coder decodeDoubleForKey:@"fontSize"];
+		self->color = [[coder decodeObjectForKey:@"color"] copy];
 	}
     return self;
 }
 
 #pragma mark -
-#pragma mark Accessors
+#pragma mark Copying
 
--(void)setFontName:(NSString *)newName
+-(id)copyWithZone:(NSZone *)zone 
 {
-	if ( fontName != newName ) {
-		[fontName release];
-		fontName = [newName copy];
-		[self.delegate textStyleDidChange:self];
-	}
+	CPTextStyle *newCopy = [[CPTextStyle allocWithZone:zone] init];
+	newCopy->fontName = [self->fontName copy];
+	newCopy->color = [self->color copy];
+	newCopy->fontSize = self->fontSize;
+	return newCopy;
 }
 
--(void)setColor:(CPColor *)newColor
+-(id)mutableCopyWithZone:(NSZone *)zone 
 {
-	if ( color != newColor ) {
-		[color release];
-		color = [newColor copy];
-		[self.delegate textStyleDidChange:self];
-	}
-}
-
--(void)setFontSize:(CGFloat)newSize
-{
-	if ( fontSize != newSize ) {
-		fontSize = newSize;
-		[self.delegate textStyleDidChange:self];
-	}
+	CPTextStyle *newCopy = [[CPMutableTextStyle allocWithZone:zone] init];
+	newCopy->fontName = [self->fontName copy];
+	newCopy->color = [self->color copy];
+	newCopy->fontSize = self->fontSize;
+	return newCopy;
 }
 
 @end

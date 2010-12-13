@@ -60,7 +60,7 @@
     
     // Graph title
     barChart.title = @"Graph Title";
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontSize = 16.0f;
     barChart.titleTextStyle = textStyle;

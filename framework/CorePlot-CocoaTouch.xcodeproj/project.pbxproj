@@ -79,6 +79,8 @@
 		07A62FB50FE2234900CD765C /* CPTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB30FE2234900CD765C /* CPTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FB60FE2234900CD765C /* CPTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTextStyle.m */; };
 		07AEF30310BBF99A0012BEFF /* CPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF30110BBF99A0012BEFF /* CPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07B69AB912B6281100F4C16C /* CPMutableTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B69AB712B6281100F4C16C /* CPMutableTextStyle.h */; };
+		07B69ABA12B6281100F4C16C /* CPMutableTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B69AB812B6281100F4C16C /* CPMutableTextStyle.m */; };
 		07FCF2D3115B54DE00E46606 /* CPSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 07FCF2D1115B54DE00E46606 /* CPSlateTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07FCF2D4115B54DE00E46606 /* CPSlateTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF2D2115B54DE00E46606 /* CPSlateTheme.m */; };
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -221,6 +223,8 @@
 		07A62FB30FE2234900CD765C /* CPTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTextStyle.h; path = Source/CPTextStyle.h; sourceTree = "<group>"; };
 		07A62FB40FE2234900CD765C /* CPTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTextStyle.m; path = Source/CPTextStyle.m; sourceTree = "<group>"; };
 		07AEF30110BBF99A0012BEFF /* CPResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPResponder.h; path = Source/CPResponder.h; sourceTree = "<group>"; };
+		07B69AB712B6281100F4C16C /* CPMutableTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPMutableTextStyle.h; path = Source/CPMutableTextStyle.h; sourceTree = "<group>"; };
+		07B69AB812B6281100F4C16C /* CPMutableTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPMutableTextStyle.m; path = Source/CPMutableTextStyle.m; sourceTree = "<group>"; };
 		07D84EC6126EDFC100A458B5 /* build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
 		07D84EC7126EDFC100A458B5 /* cp.sed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cp.sed; sourceTree = "<group>"; };
 		07D84EC8126EDFC100A458B5 /* iphoneos-SDKSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iphoneos-SDKSettings.plist"; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 				BC9B829F0FB89E610035D8DA /* CPTextLayer.m */,
 				07A62FB30FE2234900CD765C /* CPTextStyle.h */,
 				07A62FB40FE2234900CD765C /* CPTextStyle.m */,
+				07B69AB712B6281100F4C16C /* CPMutableTextStyle.h */,
+				07B69AB812B6281100F4C16C /* CPMutableTextStyle.m */,
 				C35A6602110271EB00FE24BB /* iPhone Specific */,
 			);
 			name = Text;
@@ -832,6 +838,7 @@
 				C3D68B0D1221651200EB4863 /* CPNumericData.h in Headers */,
 				C3D68B0F1221651500EB4863 /* CPNumericDataType.h in Headers */,
 				C3CAFB3B1229E48200F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */,
+				07B69AB912B6281100F4C16C /* CPMutableTextStyle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,6 +991,7 @@
 				C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */,
 				C3392A361225F63B008DA6BD /* CPNumericData+TypeConversion.m in Sources */,
 				C3CAFB3C1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */,
+				07B69ABA12B6281100F4C16C /* CPMutableTextStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,7 +1091,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1116,7 +1124,7 @@
 					"-ObjC",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

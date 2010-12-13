@@ -127,7 +127,10 @@
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
 	CPTextLayer *label = [[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]];
-	label.textStyle.color = [CPColor lightGrayColor];
+    CPMutableTextStyle *textStyle = [label.textStyle mutableCopy];
+	textStyle.color = [CPColor lightGrayColor];
+    label.textStyle = textStyle;
+    [textStyle release];
 	return [label autorelease];
 }
 

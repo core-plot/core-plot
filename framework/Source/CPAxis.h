@@ -64,7 +64,7 @@ typedef enum _CPAxisLabelingPolicy {
 
 #pragma mark -
 
-@interface CPAxis : CPLayer <CPTextStyleDelegate> {   
+@interface CPAxis : CPLayer {   
 	@private
     CPCoordinate coordinate;
 	CPPlotSpace *plotSpace;

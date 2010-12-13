@@ -12,7 +12,7 @@
 #import "CPUtilities.h"
 #import "CPExceptions.h"
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 
 NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
@@ -629,12 +629,12 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
     self.labelOffset = newOffset;
 }
 
--(CPTextStyle *)barLabelTextStyle
+-(CPMutableTextStyle *)barLabelTextStyle
 {
 	return self.labelTextStyle;
 }
 
--(void)setBarLabelTextStyle:(CPTextStyle *)newStyle 
+-(void)setBarLabelTextStyle:(CPMutableTextStyle *)newStyle 
 {
     self.labelTextStyle = newStyle;
 }

@@ -13,7 +13,7 @@
 @class CPColor;
 @class CPBarPlot;
 @class CPTextLayer;
-@class CPTextStyle;
+@class CPMutableTextStyle;
 
 /// @name Binding Identifiers
 /// @{
@@ -98,7 +98,7 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite) NSDecimal baseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
-@property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;
+@property (nonatomic, readwrite, copy) CPMutableTextStyle *barLabelTextStyle;
 
 /// @name Factory Methods
 /// @{

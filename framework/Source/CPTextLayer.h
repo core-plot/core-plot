@@ -5,7 +5,7 @@
 
 extern const CGFloat kCPTextLayerMarginWidth;	///< Margin width around the text.
 
-@interface CPTextLayer : CPLayer <CPTextStyleDelegate> {
+@interface CPTextLayer : CPLayer {
 	@private
 	NSString *text;
 	CPTextStyle *textStyle;

@@ -1,6 +1,6 @@
 #import "CPAxisLabelTests.h"
 #import "CPAxisLabel.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPFill.h"
 #import "CPBorderedLayer.h"
 #import "CPColor.h"
