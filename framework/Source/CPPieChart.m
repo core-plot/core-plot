@@ -682,7 +682,23 @@ static CGFloat colorLookupTable[10][3] =
     }
 }
 
-- (void) setBorderLineStyle:(CPLineStyle *)newStyle
+-(void)setStartAngle:(CGFloat)newAngle
+{
+    if ( newAngle != startAngle ) {
+        startAngle = newAngle;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setSliceDirection:(CPPieDirection)newDirection
+{
+    if ( newDirection != sliceDirection ) {
+        sliceDirection = newDirection;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setBorderLineStyle:(CPLineStyle *)newStyle
 {
 	if ( borderLineStyle != newStyle ) {
 		[borderLineStyle release];
