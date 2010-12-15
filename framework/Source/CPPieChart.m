@@ -687,6 +687,7 @@ static CGFloat colorLookupTable[10][3] =
     if ( newAngle != startAngle ) {
         startAngle = newAngle;
         [self setNeedsDisplay];
+        [self setNeedsRelabel];
     }
 }
 
@@ -695,6 +696,7 @@ static CGFloat colorLookupTable[10][3] =
     if ( newDirection != sliceDirection ) {
         sliceDirection = newDirection;
         [self setNeedsDisplay];
+        [self setNeedsRelabel];
     }
 }
 
