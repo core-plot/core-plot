@@ -537,7 +537,6 @@ static CGFloat colorLookupTable[10][3] =
 					CGFloat endingAngle = startingAngle - width;
 					
 					// offset the center point of the slice if needed
-					CGPoint offsetCenter = centerPoint;
 					CGFloat offsetTouchedAngle = touchedAngle;
 					CGFloat offsetDistanceSquared = distanceSquared;
 					CGFloat radialOffset = 0.0;
@@ -545,6 +544,7 @@ static CGFloat colorLookupTable[10][3] =
 						radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
 						
 						if ( radialOffset != 0.0 ) {
+							CGPoint offsetCenter;
 							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
 #if CGFLOAT_IS_DOUBLE
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
@@ -593,7 +593,6 @@ static CGFloat colorLookupTable[10][3] =
 					CGFloat endingAngle = startingAngle + width;
 					
 					// offset the center point of the slice if needed
-					CGPoint offsetCenter = centerPoint;
 					CGFloat offsetTouchedAngle = touchedAngle;
 					CGFloat offsetDistanceSquared = distanceSquared;
 					CGFloat radialOffset = 0.0;
@@ -601,6 +600,7 @@ static CGFloat colorLookupTable[10][3] =
 						radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
 						
 						if ( radialOffset != 0.0 ) {
+							CGPoint offsetCenter;
 							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
 #if CGFLOAT_IS_DOUBLE
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
