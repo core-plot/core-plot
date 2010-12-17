@@ -284,13 +284,13 @@
 -(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords
 {
 	NSParameterAssert(index <= self.cachedDataCount);
-
+	
 	for ( CPMutableNumericData *numericData in [self.cachedData allValues] ) {
 		size_t sampleSize = numericData.sampleBytes;
 		size_t length = sampleSize * numberOfRecords;
-
+		
 		[(NSMutableData *)numericData.data increaseLengthBy:length];
-
+		
 		void *start = [numericData samplePointer:index];
 		size_t bytesToMove = numericData.data.length - (index + numberOfRecords) * sampleSize;
 		if ( bytesToMove > 0 ) {
@@ -399,7 +399,7 @@
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum 
 {
 	NSNumber *cacheKey = [NSNumber numberWithUnsignedInteger:fieldEnum];
-		  
+	
 	if ( numbers ) {
 		CPMutableNumericData *mutableNumbers = [self numericDataForNumbers:numbers];
 		
@@ -442,7 +442,7 @@
 {
 	if ( numbers ) {
 		CPMutableNumericData *mutableNumbers = [self numericDataForNumbers:numbers];
-
+		
 		NSUInteger sampleCount = mutableNumbers.numberOfSamples;
 		if ( sampleCount > 0 ) {
 			// Ensure the new data is the same type as the cache
@@ -463,7 +463,7 @@
 				}
 					break;
 			}
-
+			
 			// Ensure the data cache exists and is the right size
 			NSNumber *cacheKey = [NSNumber numberWithUnsignedInteger:fieldEnum];
 			CPMutableNumericData *cachedNumbers = [self.cachedData objectForKey:cacheKey];
@@ -718,7 +718,7 @@
 	NSUInteger sampleCount = self.cachedDataCount;
 	NSRange indexRange = self.labelIndexRange;
 	NSUInteger maxIndex = NSMaxRange(indexRange);
-		
+	
 	if ( !self.labelAnnotations ) {
 		self.labelAnnotations = [NSMutableArray arrayWithCapacity:sampleCount];
 	}
@@ -733,25 +733,25 @@
 	for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
 		CPLayer *newLabelLayer = nil;
 		
-		if ( dataSourceProvidesLabels ) {
-			newLabelLayer = [[theDataSource dataLabelForPlot:self recordIndex:i] retain];
-		}
+		NSNumber *dataValue = [labelFieldDataCache sampleValue:i];
 		
-		if ( !newLabelLayer && plotProvidesLabels ) {
-			NSNumber *dataValue = [labelFieldDataCache sampleValue:i];
-			
-			if ( isnan([dataValue doubleValue]) ) {
-				newLabelLayer = nil;
+		if ( isnan([dataValue doubleValue]) ) {
+			newLabelLayer = nil;
+		}
+		else {
+			if ( dataSourceProvidesLabels ) {
+				newLabelLayer = [[theDataSource dataLabelForPlot:self recordIndex:i] retain];
 			}
-			else {
+			
+			if ( !newLabelLayer && plotProvidesLabels ) {
 				NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
 				newLabelLayer = [[CPTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
 			}
-		}
-		
-		if ( [newLabelLayer isKindOfClass:nullClass] ) {
-			[newLabelLayer release];
-			newLabelLayer = nil;
+			
+			if ( [newLabelLayer isKindOfClass:nullClass] ) {
+				[newLabelLayer release];
+				newLabelLayer = nil;
+			}
 		}
 		
 		CPPlotSpaceAnnotation *labelAnnotation;
@@ -813,7 +813,7 @@
 		newAnchorY /= ABS(newAnchorX);
 		newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
 	}
-
+	
 	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 }
 

@@ -406,41 +406,48 @@ static CGFloat colorLookupTable[10][3] =
 
 -(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
-	CGRect plotAreaBounds = self.plotArea.bounds;
-	CGPoint anchor = self.centerAnchor;
-	CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
-									  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
-	
-	NSDecimal plotPoint[2];
-	[self.plotSpace plotPoint:plotPoint forPlotAreaViewPoint:centerPoint];
-	NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPCoordinateX]];
-	NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPCoordinateY]];
-	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
-	[xValue release];
-	[yValue release];
-    
-	id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
-    BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
-    CGFloat radialOffset = 0.0;
-    if ( dataSourceProvidesRadialOffsets ) {
-        radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:index];
-    }
-	
-	CGFloat labelRadius = self.pieRadius + self.labelOffset + radialOffset;
-	
-	double startingWidth = 0.0;
-	if ( index > 0 ) {
-		startingWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthSum recordIndex:index - 1];
-	}
-	double currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:index];
-	double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
+	if ( label.contentLayer ) {
+		CGRect plotAreaBounds = self.plotArea.bounds;
+		CGPoint anchor = self.centerAnchor;
+		CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
+										  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
+		
+		NSDecimal plotPoint[2];
+		[self.plotSpace plotPoint:plotPoint forPlotAreaViewPoint:centerPoint];
+		NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPCoordinateX]];
+		NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPCoordinateY]];
+		label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+		[xValue release];
+		[yValue release];
+		
+		id <CPPieChartDataSource> theDataSource = (id <CPPieChartDataSource>)self.dataSource;
+		BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
+		CGFloat radialOffset = 0.0;
+		if ( dataSourceProvidesRadialOffsets ) {
+			radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:index];
+		}
+		
+		CGFloat labelRadius = self.pieRadius + self.labelOffset + radialOffset;
+		
+		double startingWidth = 0.0;
+		if ( index > 0 ) {
+			startingWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthSum recordIndex:index - 1];
+		}
+		double currentWidth = [self cachedDoubleForField:CPPieChartFieldSliceWidthNormalized recordIndex:index];
+		double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
 #if CGFLOAT_IS_DOUBLE
-	label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
+		label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
 #else
-	label.displacement = CGPointMake(labelRadius * cosf(labelAngle), labelRadius * sinf(labelAngle));
+		label.displacement = CGPointMake(labelRadius * cosf(labelAngle), labelRadius * sinf(labelAngle));
 #endif
-	
-	label.contentLayer.hidden = isnan(currentWidth);
+		
+		label.contentLayer.hidden = isnan(currentWidth);
+	}
+	else {
+		label.anchorPlotPoint = nil;
+		label.displacement = CGPointZero;
+	}
+
 }
 
 #pragma mark -
