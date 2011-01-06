@@ -96,6 +96,7 @@ typedef enum _CPPieDirection {
 	CPPieDirection sliceDirection;
 	CGPoint centerAnchor;
 	CPLineStyle *borderLineStyle;
+    CPFill *overlayFill;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
@@ -105,6 +106,7 @@ typedef enum _CPPieDirection {
 @property (nonatomic, readwrite) CPPieDirection sliceDirection;
 @property (nonatomic, readwrite) CGPoint centerAnchor;
 @property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
+@property (nonatomic, readwrite, copy) CPFill *overlayFill;
 
 /// @name Factory Methods
 /// @{

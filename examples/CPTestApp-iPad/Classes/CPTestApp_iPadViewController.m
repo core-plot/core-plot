@@ -281,6 +281,13 @@
 	pieChart.paddingBottom = 20.0;
 	
 	pieChart.axisSet = nil;
+    
+    // Prepare a radial overlay gradient for shading/gloss
+    CPGradient *overlayGradient = [[[CPGradient alloc] init] autorelease];
+    overlayGradient.gradientType = CPGradientTypeRadial;
+	overlayGradient = [overlayGradient addColorStop:[[CPColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.0];
+    overlayGradient = [overlayGradient addColorStop:[[CPColor blackColor] colorWithAlphaComponent:0.3] atPosition:0.9];
+	overlayGradient = [overlayGradient addColorStop:[[CPColor blackColor] colorWithAlphaComponent:0.7] atPosition:1.0];
 	
     // Add pie chart
     CPPieChart *piePlot = [[CPPieChart alloc] init];
@@ -290,7 +297,8 @@
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPPieDirectionCounterClockwise;
 	piePlot.borderLineStyle = [CPLineStyle lineStyle];
-	piePlot.sliceLabelOffset = -15.0;
+	piePlot.sliceLabelOffset = 5.0;
+    piePlot.overlayFill = [CPFill fillWithGradient:overlayGradient];
     [pieChart addPlot:piePlot];
     [piePlot release];
 	
@@ -396,7 +404,7 @@
 				newLayer = (id)[NSNull null];
 				break;
 			default:
-				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:[CPTextStyle textStyle]] autorelease];
+				newLayer = [[[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
 				break;
 		}
 	}

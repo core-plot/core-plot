@@ -18,10 +18,13 @@ NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pi
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
 
 -(void)updateNormalizedData;
--(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
 -(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle;
+
+-(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle;
+-(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
+-(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint;
 
 @end
 /// @endcond
@@ -71,6 +74,13 @@ NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pi
  *	@brief The line style used to outline the pie slices.  If nil, no border is drawn.  Defaults to nil.
  **/
 @synthesize borderLineStyle;
+
+/** @property overlayFill
+ *	@brief A fill drawn on top of the pie chart. 
+ *  Can be used to add shading/gloss effects. Defaults to nil.
+ **/
+@synthesize overlayFill;
+
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
@@ -311,6 +321,8 @@ static CGFloat colorLookupTable[10][3] =
 		}
 		currentIndex++;
 	}
+    
+    [self drawOverlayInContext:context centerPoint:centerPoint];
 }	
 
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue
@@ -327,9 +339,22 @@ static CGFloat colorLookupTable[10][3] =
 	return angle;
 }
 
--(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
+-(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle
 {
 	bool direction = (self.sliceDirection == CPPieDirectionClockwise) ? true : false;
+	CGFloat innerRadius = self.pieInnerRadius;
+    if ( innerRadius > 0.0 ) {
+		CGPathAddArc(slicePath, NULL, center.x, center.y, self.pieRadius, startingAngle, finishingAngle, direction);
+		CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, finishingAngle, startingAngle, !direction);
+	}
+	else {
+		CGPathMoveToPoint(slicePath, NULL, center.x, center.y);
+		CGPathAddArc(slicePath, NULL, center.x, center.y, self.pieRadius, startingAngle, finishingAngle, direction);
+	}    
+}
+
+-(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPFill *)sliceFill;
+{
     CGContextSaveGState(context);
 	
     CGFloat startingAngle = [self radiansForPieSliceValue:startingValue];
@@ -350,18 +375,9 @@ static CGFloat colorLookupTable[10][3] =
     
     CGFloat centerX = centerPoint.x + xOffset;
     CGFloat centerY = centerPoint.y + yOffset;
-	CGFloat innerRadius = self.pieInnerRadius;
 	
 	CGMutablePathRef slicePath = CGPathCreateMutable();
-	if ( innerRadius > 0.0 ) {
-		CGPathAddArc(slicePath, NULL, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
-		CGPathAddArc(slicePath, NULL, centerX, centerY, innerRadius, finishingAngle, startingAngle, !direction);
-	}
-	else {
-		CGPathMoveToPoint(slicePath, NULL, centerX, centerY);
-		CGPathAddArc(slicePath, NULL, centerX, centerY, self.pieRadius, startingAngle, finishingAngle, direction);
-	}
-
+    [self addSliceToPath:slicePath centerPoint:CGPointMake(centerX, centerY) startingAngle:startingAngle finishingAngle:finishingAngle];
 	CGPathCloseSubpath(slicePath);
 	
 	if ( sliceFill ) {
@@ -381,6 +397,24 @@ static CGFloat colorLookupTable[10][3] =
 	
 	CGPathRelease(slicePath);
 	CGContextRestoreGState(context);
+}
+
+-(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint
+{
+	if ( !overlayFill ) return;
+    
+    CGContextSaveGState(context);
+    
+	CGMutablePathRef fillPath = CGPathCreateMutable();
+    [self addSliceToPath:fillPath centerPoint:CGPointMake(centerPoint.x, centerPoint.y) startingAngle:0.0f finishingAngle:2*M_PI];
+	CGPathCloseSubpath(fillPath);
+    
+    CGContextBeginPath(context);
+    CGContextAddPath(context, fillPath);
+    [overlayFill fillPathInContext:context]; 
+    
+    CGPathRelease(fillPath);
+    CGContextRestoreGState(context);
 }
 
 #pragma mark -
