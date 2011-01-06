@@ -47,6 +47,7 @@
 #import "CPPlotSpaceAnnotation.h"
 #import "CPPlotSymbol.h"
 #import "CPPolarPlotSpace.h"
+#import "CPRangePlot.h"
 #import "CPResponder.h"
 #import "CPScatterPlot.h"
 #import "CPSlateTheme.h"

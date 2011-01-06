@@ -180,6 +180,8 @@
 		C3D68B101221651600EB4863 /* CPNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3A11B188B600D36017 /* CPNumericDataType.m */; };
 		C40CFB94107EC1B40057E828 /* CPXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C40CFB92107EC1B40057E828 /* CPXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40CFB95107EC1B40057E828 /* CPXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C40CFB93107EC1B40057E828 /* CPXYTheme.m */; };
+		D0C047BF12D6568500DA8047 /* CPRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C047BD12D6568500DA8047 /* CPRangePlot.m */; };
+		D0C047C012D6568500DA8047 /* CPRangePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = D0C047BE12D6568500DA8047 /* CPRangePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -347,6 +349,8 @@
 		C3CAFB3A1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPMutableNumericData+TypeConversion.m"; path = "Source/CPMutableNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* CPXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPXYTheme.h; path = Source/CPXYTheme.h; sourceTree = "<group>"; };
 		C40CFB93107EC1B40057E828 /* CPXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPXYTheme.m; path = Source/CPXYTheme.m; sourceTree = "<group>"; };
+		D0C047BD12D6568500DA8047 /* CPRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPRangePlot.m; path = Source/CPRangePlot.m; sourceTree = "<group>"; };
+		D0C047BE12D6568500DA8047 /* CPRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPRangePlot.h; path = Source/CPRangePlot.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -667,6 +671,8 @@
 		BC9B82CE0FB89E610035D8DA /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				D0C047BD12D6568500DA8047 /* CPRangePlot.m */,
+				D0C047BE12D6568500DA8047 /* CPRangePlot.h */,
 				C30C85A91047428100181766 /* CPPlotGroup.h */,
 				C30C85AA1047428100181766 /* CPPlotGroup.m */,
 				BC9B82D20FB89E610035D8DA /* CPPlot.h */,
@@ -846,6 +852,7 @@
 				C3CAFB3B1229E48200F5C989 /* CPMutableNumericData+TypeConversion.h in Headers */,
 				07B69AB912B6281100F4C16C /* CPMutableTextStyle.h in Headers */,
 				07B69B7112B62E9600F4C16C /* CPMutableLineStyle.h in Headers */,
+				D0C047C012D6568500DA8047 /* CPRangePlot.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,6 +1007,7 @@
 				C3CAFB3C1229E48200F5C989 /* CPMutableNumericData+TypeConversion.m in Sources */,
 				07B69ABA12B6281100F4C16C /* CPMutableTextStyle.m in Sources */,
 				07B69B7212B62E9600F4C16C /* CPMutableLineStyle.m in Sources */,
+				D0C047BF12D6568500DA8047 /* CPRangePlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

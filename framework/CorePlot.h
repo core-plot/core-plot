@@ -47,6 +47,7 @@
 #import <CorePlot/CPPlotSpaceAnnotation.h>
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
+#import <CorePlot/CPRangePlot.h>
 #import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPSlateTheme.h>
