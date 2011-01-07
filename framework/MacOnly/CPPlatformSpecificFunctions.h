@@ -1,9 +1,12 @@
-
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CPDefinitions.h"
 
 ///	@file
+
+#if __cplusplus
+extern "C" {
+#endif
 
 /// @name Graphics Context Save Stack
 /// @{
@@ -21,3 +24,7 @@ CGContextRef CPGetCurrentContext(void);
 CGColorRef CPNewCGColorFromNSColor(NSColor *nsColor);
 CPRGBAColor CPRGBAColorFromNSColor(NSColor *nsColor);
 ///	@}
+
+#if __cplusplus
+}
+#endif

@@ -455,10 +455,6 @@
 				072E3F9A0FE2FF7300ACF62F /* CPDarkGradientTheme.m */,
 				07FCF2D1115B54DE00E46606 /* CPSlateTheme.h */,
 				07FCF2D2115B54DE00E46606 /* CPSlateTheme.m */,
-				072E3F9B0FE2FF7300ACF62F /* CPTheme.h */,
-				072E3F9C0FE2FF7300ACF62F /* CPTheme.m */,
-				C40CFB92107EC1B40057E828 /* CPXYTheme.h */,
-				C40CFB93107EC1B40057E828 /* CPXYTheme.m */,
 			);
 			name = Themes;
 			sourceTree = "<group>";

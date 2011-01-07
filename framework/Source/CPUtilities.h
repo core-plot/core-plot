@@ -3,6 +3,10 @@
 
 /// @file
 
+#if __cplusplus
+extern "C" {
+#endif
+
 /// @name Convert NSDecimal to primitive types
 /// @{
 int8_t CPDecimalCharValue(NSDecimal decimalNumber);
@@ -97,3 +101,7 @@ NSString *CPStringFromPoint(CGPoint p);
 NSString *CPStringFromSize(CGSize s);
 NSString *CPStringFromRect(CGRect r);
 /// @}
+
+#if __cplusplus
+}
+#endif
