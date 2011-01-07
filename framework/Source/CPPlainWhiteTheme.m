@@ -55,7 +55,9 @@
 	CPMutableTextStyle *blackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	blackTextStyle.color = [CPColor blackColor];
 	blackTextStyle.fontSize = 14.0;
-    x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
+	CPMutableTextStyle *minorTickBlackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
+	minorTickBlackTextStyle.color = [CPColor blackColor];
+	minorTickBlackTextStyle.fontSize = 12.0;    x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = CPDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
 	x.tickDirection = CPSignNone;
@@ -66,6 +68,7 @@
     x.majorTickLength = 7.0;
     x.minorTickLength = 5.0;
 	x.labelTextStyle = blackTextStyle;
+	x.minorTickLabelTextStyle = blackTextStyle;
 	x.titleTextStyle = blackTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
@@ -80,6 +83,7 @@
     y.majorTickLength = 7.0;
     y.minorTickLength = 5.0;
 	y.labelTextStyle = blackTextStyle;
+	y.minorTickLabelTextStyle = minorTickBlackTextStyle;
 	y.titleTextStyle = blackTextStyle;
 }
 
