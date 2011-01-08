@@ -16,7 +16,7 @@
 ///	@cond
 @interface CPSlateTheme ()
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle;
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle minorTickTextStyle:(CPMutableTextStyle *)minorTickTextStyle;
 
 @end
 ///	@endcond
@@ -32,7 +32,7 @@
 	return kCPSlateTheme;
 }
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle minorTickTextStyle:(CPMutableTextStyle *)minorTickTextStyle
 {
 	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength = CPDecimalFromDouble(0.5);
@@ -45,6 +45,7 @@
     axis.majorTickLength = 7.0;
     axis.minorTickLength = 5.0;
 	axis.labelTextStyle = textStyle; 
+	axis.minorTickLabelTextStyle = minorTickTextStyle; 
 	axis.titleTextStyle = textStyle;
 }
 
@@ -81,9 +82,13 @@
 	CPMutableTextStyle *blackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	blackTextStyle.color = [CPColor blackColor];
 	blackTextStyle.fontSize = 14.0;
+
+	CPMutableTextStyle *minorTickBlackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
+	minorTickBlackTextStyle.color = [CPColor blackColor];
+	minorTickBlackTextStyle.fontSize = 12.0;
 	
     for (CPXYAxis *axis in axisSet.axes) {
-        [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle];
+        [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle minorTickTextStyle:minorTickBlackTextStyle];
     }
 }
 

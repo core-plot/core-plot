@@ -61,6 +61,9 @@
 	CPMutableTextStyle *whiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
+	CPMutableTextStyle *minorTickWhiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
+	minorTickWhiteTextStyle.color = [CPColor whiteColor];
+	minorTickWhiteTextStyle.fontSize = 12.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = CPDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
@@ -72,6 +75,7 @@
     x.majorTickLength = 7.0;
     x.minorTickLength = 5.0;
 	x.labelTextStyle = whiteTextStyle;
+	x.minorTickLabelTextStyle = minorTickWhiteTextStyle;
 	x.titleTextStyle = whiteTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
@@ -86,6 +90,7 @@
     y.majorTickLength = 7.0;
     y.minorTickLength = 5.0;
 	y.labelTextStyle = whiteTextStyle;
+	y.minorTickLabelTextStyle = minorTickWhiteTextStyle;
 	y.titleTextStyle = whiteTextStyle;
 }
 
