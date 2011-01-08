@@ -91,7 +91,7 @@
     barPlot.dataSource = self;
     barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.barOffset = 0.25f;
-    barPlot.cornerRadius = 2.0f;
+    barPlot.barCornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 	

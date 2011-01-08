@@ -19,12 +19,6 @@ NSString * const CPTradingRangePlotBindingHighValues = @"highValues";	///< High 
 NSString * const CPTradingRangePlotBindingLowValues = @"lowValues";		///< Low price values.
 NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Close price values.
 
-static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString * const CPOpenValuesBindingContext = @"CPOpenValuesBindingContext";
-static NSString * const CPHighValuesBindingContext = @"CPHighValuesBindingContext";
-static NSString * const CPLowValuesBindingContext = @"CPLowValuesBindingContext";
-static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingContext";
-
 /// @cond
 @interface CPTradingRangePlot ()
 
@@ -115,9 +109,24 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         barWidth = 5.0;
         stickLength = 3.0;
         barCornerRadius = 0.0;
-
+		
 		self.labelField = CPTradingRangePlotFieldClose;
-		self.needsDisplayOnBoundsChange = YES;
+	}
+	return self;
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPTradingRangePlot *theLayer = (CPTradingRangePlot *)layer;
+		
+		plotStyle = theLayer->plotStyle;
+		lineStyle = [theLayer->lineStyle retain];
+		increaseFill = [theLayer->increaseFill retain];
+		decreaseFill = [theLayer->decreaseFill retain];
+		barWidth = theLayer->barWidth;
+		stickLength = theLayer->stickLength;
+		barCornerRadius = theLayer->barCornerRadius;
 	}
 	return self;
 }
@@ -132,71 +141,23 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingOpenValues, CPPlotBindingName, CPOpenValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingHighValues, CPPlotBindingName, CPHighValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingLowValues, CPPlotBindingName, CPLowValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPTradingRangePlotBindingCloseValues, CPPlotBindingName, CPCloseValuesBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
+-(void)reloadDataInIndexRange:(NSRange)indexRange
 {	 
-	[super reloadData];
+	[super reloadDataInIndexRange:indexRange];
 	
-	NSRange indexRange = NSMakeRange(0, 0);
-	
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *boundXValues = [self plotDataForBinding:CPTradingRangePlotBindingXValues];
-	NSArray *boundOpenValues = [self plotDataForBinding:CPTradingRangePlotBindingOpenValues];
-	NSArray *boundHighValues = [self plotDataForBinding:CPTradingRangePlotBindingHighValues];
-	NSArray *boundLowValues = [self plotDataForBinding:CPTradingRangePlotBindingLowValues];
-	NSArray *boundCloseValues = [self plotDataForBinding:CPTradingRangePlotBindingCloseValues];
-
-	if ( boundXValues && boundOpenValues && boundHighValues && boundLowValues && boundCloseValues ) {
-		// Use bindings to retrieve data
-			[self cacheNumbers:boundXValues forField:CPTradingRangePlotFieldX];
-			[self cacheNumbers:boundOpenValues forField:CPTradingRangePlotFieldOpen];
-			[self cacheNumbers:boundHighValues forField:CPTradingRangePlotFieldHigh];
-			[self cacheNumbers:boundLowValues forField:CPTradingRangePlotFieldLow];
-			[self cacheNumbers:boundCloseValues forField:CPTradingRangePlotFieldClose];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-    }
-	else
-#endif
 	if ( self.dataSource ) {
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
-		
 		id newXValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldX recordIndexRange:indexRange];
-		[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX];
+		[self cacheNumbers:newXValues forField:CPTradingRangePlotFieldX atRecordIndex:indexRange.location];
 		id newOpenValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldOpen recordIndexRange:indexRange];
-		[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen];
+		[self cacheNumbers:newOpenValues forField:CPTradingRangePlotFieldOpen atRecordIndex:indexRange.location];
 		id newHighValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldHigh recordIndexRange:indexRange];
-		[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh];
+		[self cacheNumbers:newHighValues forField:CPTradingRangePlotFieldHigh atRecordIndex:indexRange.location];
 		id newLowValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldLow recordIndexRange:indexRange];
-		[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow];
+		[self cacheNumbers:newLowValues forField:CPTradingRangePlotFieldLow atRecordIndex:indexRange.location];
 		id newCloseValues = [self numbersFromDataSourceForField:CPTradingRangePlotFieldClose recordIndexRange:indexRange];
-		[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose];
+		[self cacheNumbers:newCloseValues forField:CPTradingRangePlotFieldClose atRecordIndex:indexRange.location];
 	}
 	else {
 		self.xValues = nil;
@@ -205,9 +166,6 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 		self.lowValues = nil;
 		self.closeValues = nil;
 	}
-	
-	// Labels
-	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -
@@ -220,7 +178,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	CPMutableNumericData *highs = [self cachedNumbersForField:CPTradingRangePlotFieldHigh];
 	CPMutableNumericData *lows = [self cachedNumbersForField:CPTradingRangePlotFieldLow];
 	CPMutableNumericData *closes = [self cachedNumbersForField:CPTradingRangePlotFieldClose];
-
+	
 	NSUInteger sampleCount = locations.numberOfSamples;
 	if ( sampleCount == 0 ) return;
    	if ( opens == nil || highs == nil|| lows == nil|| closes == nil ) return;
@@ -230,10 +188,11 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	}
 	
 	[super renderAsVectorInContext:theContext];
+    [self.lineStyle setLineStyleInContext:theContext];
 	
-    CGPoint openPoint,highPoint,lowPoint, closePoint;
-    CPCoordinate independentCoord = CPCoordinateX;
-    CPCoordinate dependentCoord = CPCoordinateY;
+    CGPoint openPoint, highPoint, lowPoint, closePoint;
+    const CPCoordinate independentCoord = CPCoordinateX;
+    const CPCoordinate dependentCoord = CPCoordinateY;
 	
 	CPPlotArea *thePlotArea = self.plotArea;
 	CPPlotSpace *thePlotSpace = self.plotSpace;
@@ -249,34 +208,74 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         for ( NSUInteger i = 0; i < sampleCount; i++ ) {
             double plotPoint[2];
             plotPoint[independentCoord] = *locationBytes++;
+			if ( isnan(plotPoint[independentCoord]) ) {
+				openBytes++;
+				highBytes++;
+				lowBytes++;
+				closeBytes++;
+				continue;
+			}
 			
 			// open point
 			plotPoint[dependentCoord] = *openBytes++;
-			openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( isnan(plotPoint[dependentCoord]) ) {
+				openPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// high point
 			plotPoint[dependentCoord] = *highBytes++;
-			highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( isnan(plotPoint[dependentCoord]) ) {
+				highPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// low point
 			plotPoint[dependentCoord] = *lowBytes++;
-			lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( isnan(plotPoint[dependentCoord]) ) {
+				lowPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// close point
 			plotPoint[dependentCoord] = *closeBytes++;
-			closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-
-			// Draw
-			switch ( thePlotStyle ) {
-				case CPTradingRangePlotStyleOHLC:
-					[self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-					break;
-				case CPTradingRangePlotStyleCandleStick:
-					[self drawCandleStickInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-					break;
-				default:
-					[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
-					break;
+			if ( isnan(plotPoint[dependentCoord]) ) {
+				closePoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
+			
+			CGFloat xCoord = openPoint.x;
+			if ( isnan(xCoord) ) {
+				xCoord = highPoint.x;
+			}
+			else if ( isnan(xCoord) ) {
+				xCoord = lowPoint.x;
+			}
+			else if ( isnan(xCoord) ) {
+				xCoord = closePoint.x;
+			}
+			
+			if ( !isnan(xCoord) ) {
+				// Draw
+				switch ( thePlotStyle ) {
+					case CPTradingRangePlotStyleOHLC:
+						[self drawOHLCInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						break;
+					case CPTradingRangePlotStyleCandleStick:
+						[self drawCandleStickInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						break;
+					default:
+						[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
+						break;
+				}
 			}
 		}
     }
@@ -290,34 +289,74 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
         for ( NSUInteger i = 0; i < sampleCount; i++ ) {
 			NSDecimal plotPoint[2];
             plotPoint[independentCoord] = *locationBytes++;
+			if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) {
+				openBytes++;
+				highBytes++;
+				lowBytes++;
+				closeBytes++;
+				continue;
+			}
 			
 			// open point
 			plotPoint[dependentCoord] = *openBytes++;
-			openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+				openPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// high point
 			plotPoint[dependentCoord] = *highBytes++;
-			highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+				highPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// low point
 			plotPoint[dependentCoord] = *lowBytes++;
-			lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+				lowPoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
 			
 			// close point
 			plotPoint[dependentCoord] = *closeBytes++;
-			closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-
-			// Draw
-			switch ( thePlotStyle ) {
-				case CPTradingRangePlotStyleOHLC:
-					[self drawOHLCInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-					break;
-				case CPTradingRangePlotStyleCandleStick:
-					[self drawCandleStickInContext:theContext x:openPoint.x open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
-					break;
-				default:
-					[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
-					break;
+			if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+				closePoint = CGPointMake(NAN, NAN);
+			}
+			else {
+				closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
+			
+			CGFloat xCoord = openPoint.x;
+			if ( isnan(xCoord) ) {
+				xCoord = highPoint.x;
+			}
+			else if ( isnan(xCoord) ) {
+				xCoord = lowPoint.x;
+			}
+			else if ( isnan(xCoord) ) {
+				xCoord = closePoint.x;
+			}
+			
+			if ( !isnan(xCoord) ) {
+				// Draw
+				switch ( thePlotStyle ) {
+					case CPTradingRangePlotStyleOHLC:
+						[self drawOHLCInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						break;
+					case CPTradingRangePlotStyleCandleStick:
+						[self drawCandleStickInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						break;
+					default:
+						[NSException raise:CPException format:@"Invalid plot style in renderAsVectorInContext"];
+						break;
+				}
 			}
 		}
     }	
@@ -325,113 +364,84 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
-    CPCoordinate widthCoordinate = CPCoordinateX;
-	CGFloat halfBarWidth = 0.5 * self.barWidth;
+ 	CGFloat halfBarWidth = 0.5 * self.barWidth;
 	
-    CGFloat point[2];
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = open;
-    point[widthCoordinate] += halfBarWidth;
-	CGPoint alignedPoint1 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = close;
-    point[widthCoordinate] += halfBarWidth;
-	CGPoint alignedPoint2 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = close;
-	CGPoint alignedPoint3 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = close;
-    point[widthCoordinate] -= halfBarWidth;
-	CGPoint alignedPoint4 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = open;
-    point[widthCoordinate] -= halfBarWidth;
-	CGPoint alignedPoint5 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-	point[CPCoordinateX] = x;
-    point[CPCoordinateY] = high;
-    CGPoint alignedCenterPoint1 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-	point[CPCoordinateX] = x;
-    point[CPCoordinateY] = low;
-	CGPoint alignedCenterPoint2 = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
-	radius = MIN(radius, ABS(close - open));
-	
-    [self.lineStyle setLineStyleInContext:context];
-
-    CGMutablePathRef path = CGPathCreateMutable();
-	CGContextMoveToPoint(context, alignedCenterPoint1.x, alignedCenterPoint1.y);
-	CGContextAddLineToPoint(context, alignedCenterPoint2.x, alignedCenterPoint2.y);
-	CGContextStrokePath(context);
-	CFRelease(path);
-	
-	path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
-	CGPathAddArcToPoint(path, NULL, alignedPoint2.x, alignedPoint2.y, alignedPoint3.x, alignedPoint3.y, radius);
-    CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, radius);
-    CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
-    CGPathCloseSubpath(path);
-	
-    CGContextSaveGState(context);
-	 
-	CPFill *currentBarFill = ( open <= close ? self.increaseFill : self.decreaseFill ); 
-    if ( currentBarFill != nil ) {
+	// high - low
+	if ( !isnan(high) && !isnan(low) ) {
+		CGPoint alignedCenterPoint1 = CPAlignPointToUserSpace(context, CGPointMake(x, high));
+		CGPoint alignedCenterPoint2 = CPAlignPointToUserSpace(context, CGPointMake(x, low));
+		
+		CGMutablePathRef path = CGPathCreateMutable();
+		CGPathMoveToPoint(path, NULL, alignedCenterPoint1.x, alignedCenterPoint1.y);
+		CGPathAddLineToPoint(path, NULL, alignedCenterPoint2.x, alignedCenterPoint2.y);
+		
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
-		[currentBarFill fillPathInContext:context]; 
+		CGContextStrokePath(context);
+
+		CGPathRelease(path);
 	}
 	
-	CGContextRestoreGState(context);
-	
-	CGPathRelease(path);
+	// open-close
+	if ( !isnan(open) && !isnan(close) ) {
+		CPFill *currentBarFill = ( open <= close ? self.increaseFill : self.decreaseFill ); 
+		if ( currentBarFill ) {
+			CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
+			radius = MIN(radius, ABS(close - open));
+			
+			CGPoint alignedPoint1 = CPAlignPointToUserSpace(context, CGPointMake(x + halfBarWidth, open));
+			CGPoint alignedPoint2 = CPAlignPointToUserSpace(context, CGPointMake(x + halfBarWidth, close));
+			CGPoint alignedPoint3 = CPAlignPointToUserSpace(context, CGPointMake(x, close));
+			CGPoint alignedPoint4 = CPAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, close));
+			CGPoint alignedPoint5 = CPAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, open));
+			
+			CGMutablePathRef path = CGPathCreateMutable();
+			CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
+			CGPathAddArcToPoint(path, NULL, alignedPoint2.x, alignedPoint2.y, alignedPoint3.x, alignedPoint3.y, radius);
+			CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, radius);
+			CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
+			CGPathCloseSubpath(path);
+			
+			CGContextBeginPath(context);
+			CGContextAddPath(context, path);
+			[currentBarFill fillPathInContext:context]; 
+			
+			CGPathRelease(path);
+		}
+	}
 }
 
 -(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
-    CGFloat point[2];
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = open;
-	CGPoint alignedOpenStartPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = open;
-    point[CPCoordinateX] += self.stickLength;	// right side
-	CGPoint alignedOpenEndPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = close;
-	CGPoint alignedCloseStartPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-    point[CPCoordinateX] = x;
-    point[CPCoordinateY] = close;
-    point[CPCoordinateX] -= self.stickLength;	// left side
-	CGPoint alignedCloseEndPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-    
-	
-	point[CPCoordinateX] = x;
-    point[CPCoordinateY] = high;
-    CGPoint alignedHighPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-	point[CPCoordinateX] = x;
-    point[CPCoordinateY] = low;
-	CGPoint alignedLowPoint = CPAlignPointToUserSpace(context, CGPointMake(point[CPCoordinateX], point[CPCoordinateY]));
-	
-    [self.lineStyle setLineStyleInContext:context];
-    
+	CGFloat theStickLength = self.stickLength;
     CGMutablePathRef path = CGPathCreateMutable();
-	CGContextMoveToPoint(context, alignedHighPoint.x, alignedHighPoint.y);
-	CGContextAddLineToPoint(context, alignedLowPoint.x, alignedLowPoint.y);
-	CGContextMoveToPoint(context, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
-	CGContextAddLineToPoint(context, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
-	CGContextMoveToPoint(context, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
-	CGContextAddLineToPoint(context, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
+	
+	// high-low
+	if ( !isnan(high) && !isnan(low) ) {
+		CGPoint alignedHighPoint = CPAlignPointToUserSpace(context, CGPointMake(x, high));
+		CGPoint alignedLowPoint = CPAlignPointToUserSpace(context, CGPointMake(x, low));
+		CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
+		CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
+	}
+	
+	// open
+	if ( !isnan(open) ) {
+		CGPoint alignedOpenStartPoint = CPAlignPointToUserSpace(context, CGPointMake(x, open));
+		CGPoint alignedOpenEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x + theStickLength, open)); // right side
+		CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
+		CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
+	}
+	
+	// close
+	if ( !isnan(close) ) {
+		CGPoint alignedCloseStartPoint = CPAlignPointToUserSpace(context, CGPointMake(x, close));
+		CGPoint alignedCloseEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x - theStickLength, close)); // left side
+		CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
+		CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
+	}
+	
+	CGContextBeginPath(context);
+	CGContextAddPath(context, path);
 	CGContextStrokePath(context);
 	CGPathRelease(path);
 }
@@ -447,12 +457,12 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 -(NSArray *)fieldIdentifiers 
 {
     return [NSArray arrayWithObjects:
-    	[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldX], 
-        [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldOpen], 
-        [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldClose], 
-        [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldHigh], 
-        [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldLow], 
-        nil];
+			[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldX], 
+			[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldOpen], 
+			[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldClose], 
+			[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldHigh], 
+			[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldLow], 
+			nil];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPCoordinate)coord 
@@ -464,11 +474,11 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
             break;
         case CPCoordinateY:
             result = [NSArray arrayWithObjects:
-            	[NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldOpen], 
-                [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldLow], 
-                [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldHigh], 
-                [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldClose], 
-                nil];
+					  [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldOpen], 
+					  [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldLow], 
+					  [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldHigh], 
+					  [NSNumber numberWithUnsignedInt:CPTradingRangePlotFieldClose], 
+					  nil];
             break;
         default:
         	[NSException raise:CPException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];
@@ -501,7 +511,7 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	else {
 		yValue = [yValuesSorted objectAtIndex:0];
 	}
-
+	
 	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
 	
 	if ( positiveDirection ) {
@@ -510,43 +520,54 @@ static NSString * const CPCloseValuesBindingContext = @"CPCloseValuesBindingCont
 	else {
 		label.displacement = CGPointMake(0.0, -self.labelOffset);
 	}
+	
+	label.contentLayer.hidden = isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setLineStyle:(CPLineStyle *)value {
-	if (lineStyle != value) {
+-(void)setLineStyle:(CPLineStyle *)newLineStyle
+{
+	if ( lineStyle != newLineStyle ) {
 		[lineStyle release];
-		lineStyle = [value copy];
+		lineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setIncreaseFill:(CPFill *)value {
-	if (increaseFill != value) {
+-(void)setIncreaseFill:(CPFill *)newFill
+{
+	if ( increaseFill != newFill ) {
 		[increaseFill release];
-		increaseFill = [value copy];
+		increaseFill = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setDecreaseFill:(CPFill *)value {
-	if (decreaseFill != value) {
+-(void)setDecreaseFill:(CPFill *)newFill
+{
+	if ( decreaseFill != newFill ) {
 		[decreaseFill release];
-		decreaseFill = [value copy];
+		decreaseFill = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setBarWidth:(CGFloat)value {
-	barWidth = value;
-    [self setNeedsDisplay];
+-(void)setBarWidth:(CGFloat)newWidth
+{
+	if ( barWidth != newWidth ) {
+		barWidth = newWidth;
+		[self setNeedsDisplay];
+	}
 }
 
--(void)setStickLengthh:(CGFloat)value {
-	stickLength = value;
-    [self setNeedsDisplay];
+-(void)setStickLength:(CGFloat)newLength
+{
+	if ( stickLength != newLength ) {
+		stickLength = newLength;
+		[self setNeedsDisplay];
+	}
 }
 
 -(void)setXValues:(CPMutableNumericData *)newValues 

@@ -1,0 +1,8 @@
+Creating a Core Plot Installer Package
+--------------------------------------
+
+1) Build the SDK using the scripts/createrelease.py script.
+2) Move the SDK to the packaging directory, and rename 'CorePlot'
+3) Change into the packaging directory in Terminal, and issue this command
+
+sudo ./prepare.sh

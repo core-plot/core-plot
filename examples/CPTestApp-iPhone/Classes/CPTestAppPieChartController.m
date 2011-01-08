@@ -127,8 +127,16 @@
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
 	CPTextLayer *label = [[CPTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]];
-	label.textStyle.color = [CPColor lightGrayColor];
+    CPMutableTextStyle *textStyle = [label.textStyle mutableCopy];
+	textStyle.color = [CPColor lightGrayColor];
+    label.textStyle = textStyle;
+    [textStyle release];
 	return [label autorelease];
+}
+
+-(CGFloat)radialOffsetForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index
+{
+    return ( index == 0 ? 30.0f : 0.0f );
 }
 
 /*-(CPFill *)sliceFillForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index; 

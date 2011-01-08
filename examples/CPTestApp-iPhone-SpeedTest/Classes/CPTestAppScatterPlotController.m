@@ -52,16 +52,24 @@
 	// Create a blue plot area
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     boundLinePlot.identifier = @"Blue Plot";
-	boundLinePlot.dataLineStyle.lineWidth = 1.0f;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
+    
+    CPMutableLineStyle *lineStyle = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 1.0f;
+	lineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.dataLineStyle = lineStyle;
+    
     boundLinePlot.dataSource = self;
 	[graph addPlot:boundLinePlot];
     
     // Create a green plot area
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Green Plot";
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0f;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 1.0f;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot] ;
     

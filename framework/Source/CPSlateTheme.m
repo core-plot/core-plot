@@ -8,15 +8,15 @@
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
-#import "CPLineStyle.h"
-#import "CPTextStyle.h"
+#import "CPMutableLineStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
 ///	@cond
 @interface CPSlateTheme ()
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle;
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle minorTickTextStyle:(CPMutableTextStyle *)minorTickTextStyle;
 
 @end
 ///	@endcond
@@ -32,7 +32,7 @@
 	return kCPSlateTheme;
 }
 
--(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPTextStyle *)textStyle
+-(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle minorTickTextStyle:(CPMutableTextStyle *)minorTickTextStyle
 {
 	axis.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength = CPDecimalFromDouble(0.5);
@@ -45,6 +45,7 @@
     axis.majorTickLength = 7.0;
     axis.minorTickLength = 5.0;
 	axis.labelTextStyle = textStyle; 
+	axis.minorTickLabelTextStyle = minorTickTextStyle; 
 	axis.titleTextStyle = textStyle;
 }
 
@@ -59,7 +60,7 @@
     gradient.angle = 90.0;
 	plotAreaFrame.fill = [CPFill fillWithGradient:gradient]; 
 	
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
 	borderLineStyle.lineWidth = 1.0;
 	
@@ -68,22 +69,26 @@
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPColor colorWithComponentRed:0.0f green:0.25f blue:0.50f alpha:1.0f];
     majorLineStyle.lineWidth = 2.0;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPColor blackColor];
     minorLineStyle.lineWidth = 1.0;
 	
-	CPTextStyle *blackTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *blackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	blackTextStyle.color = [CPColor blackColor];
 	blackTextStyle.fontSize = 14.0;
+
+	CPMutableTextStyle *minorTickBlackTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
+	minorTickBlackTextStyle.color = [CPColor blackColor];
+	minorTickBlackTextStyle.fontSize = 12.0;
 	
     for (CPXYAxis *axis in axisSet.axes) {
-        [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle];
+        [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle minorTickTextStyle:minorTickBlackTextStyle];
     }
 }
 

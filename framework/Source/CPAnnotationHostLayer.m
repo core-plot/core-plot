@@ -38,6 +38,16 @@
     return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPAnnotationHostLayer *theLayer = (CPAnnotationHostLayer *)layer;
+		
+		mutableAnnotations = [theLayer->mutableAnnotations retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
     [mutableAnnotations release];

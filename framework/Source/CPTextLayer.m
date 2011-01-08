@@ -1,6 +1,4 @@
-
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
 #import "CPPlatformSpecificFunctions.h"
 #import "CPColor.h"
 #import "CPColorSpace.h"
@@ -53,6 +51,17 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 	return [self initWithText:newText style:[CPTextStyle textStyle]];
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPTextLayer *theLayer = (CPTextLayer *)layer;
+		
+		textStyle = [theLayer->textStyle retain];
+		text = [theLayer->text retain];
+	}
+	return self;
+}
+
 -(void)dealloc 
 {
 	[textStyle release];
@@ -84,23 +93,33 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Layout
 
+/** @brief Determine the minimum size needed to fit the text
+ **/
+-(CGSize)sizeThatFits
+{
+    if ( self.text == nil ) return CGSizeZero;
+	CGSize textSize = [self.text sizeWithTextStyle:textStyle];
+    
+	// Add small margin
+	textSize.width += 2 * kCPTextLayerMarginWidth;
+	textSize.height += 2 * kCPTextLayerMarginWidth;
+    textSize.width = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
+    
+	return textSize;    
+}
+
 /**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
  **/
 -(void)sizeToFit
 {	
 	if ( self.text == nil ) return;
-	CGSize textSize = [self.text sizeWithTextStyle:textStyle];
-
-	// Add small margin
-	textSize.width += 2 * kCPTextLayerMarginWidth;
-	textSize.height += 2 * kCPTextLayerMarginWidth;
-    textSize.width = ceilf(textSize.width);
-    textSize.height = ceilf(textSize.height);
-
+	CGSize sizeThatFits = [self sizeThatFits];
 	CGRect newBounds = self.bounds;
-	newBounds.size = textSize;
+	newBounds.size = sizeThatFits;
 	self.bounds = newBounds;
     [self pixelAlign];
+	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
 
@@ -120,6 +139,14 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
 #endif
+}
+
+#pragma mark -
+#pragma mark Text style delegate
+
+-(void)textStyleDidChange:(CPTextStyle *)textStyle
+{
+	[self sizeToFit];
 }
 
 #pragma mark -

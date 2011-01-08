@@ -1,7 +1,7 @@
 #import "CPAxisLabel.h"
 #import "CPLayer.h"
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 
@@ -45,7 +45,7 @@
  *	@param newStyle The text style for the label.
  *  @return The initialized CPAxisLabel object.
  **/
--(id)initWithText:(NSString *)newText textStyle:(CPTextStyle *)newStyle
+-(id)initWithText:(NSString *)newText textStyle:(CPMutableTextStyle *)newStyle
 {
 	CPTextLayer *newLayer = [[CPTextLayer alloc] initWithText:newText];
 	newLayer.textStyle = newStyle;

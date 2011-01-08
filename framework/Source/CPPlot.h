@@ -1,6 +1,8 @@
 #import "CPDefinitions.h"
 #import "CPPlotRange.h"
+#import "CPNumericDataType.h"
 #import "CPAnnotationHostLayer.h"
+#import "CPMutableTextStyle.h"
 
 @class CPMutableNumericData;
 @class CPNumericData;
@@ -9,15 +11,8 @@
 @class CPPlotSpace;
 @class CPPlotSpaceAnnotation;
 @class CPPlotRange;
-@class CPTextStyle;
 
 ///	@file
-
-/// @name Binding Information Dictionary Keys
-/// @{
-extern NSString * const CPPlotBindingName;
-extern NSString * const CPPlotBindingContext;
-///	@}
 
 /**	@brief Enumeration of cache precisions.
  **/
@@ -94,6 +89,7 @@ typedef enum _CPPlotCachePrecision {
  *	@param plot The plot.
  *	@param plotRange The range expressed in data values.
  *	@return The range of record indexes.
+ *	@deprecated This method is no longer used and will be removed from a later release.
  **/
 -(NSRange)recordIndexRangeForPlot:(CPPlot *)plot plotRange:(CPPlotRange *)plotRange;
 
@@ -130,15 +126,11 @@ typedef enum _CPPlotCachePrecision {
 	CGFloat labelOffset;
     CGFloat labelRotation;
 	NSUInteger labelField;
-	CPTextStyle *labelTextStyle;
+	CPMutableTextStyle *labelTextStyle;
 	NSNumberFormatter *labelFormatter;
 	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
 	NSMutableArray *labelAnnotations;
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSMutableDictionary *plotDataBindings;
-#endif
 }
 
 /// @name Data Source
@@ -171,6 +163,8 @@ typedef enum _CPPlotCachePrecision {
 @property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
 @property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
 @property (nonatomic, readwrite, assign) CPPlotCachePrecision cachePrecision;
+@property (nonatomic, readonly, assign) CPNumericDataType doubleDataType;
+@property (nonatomic, readonly, assign) CPNumericDataType decimalDataType;
 ///	@}
 
 /// @name Data Labels
@@ -179,7 +173,7 @@ typedef enum _CPPlotCachePrecision {
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
-@property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, copy) CPMutableTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
 ///	@}
 
@@ -190,25 +184,19 @@ typedef enum _CPPlotCachePrecision {
 -(void)relabelIndexRange:(NSRange)indexRange;
 ///	@}
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-/// @name Bindings
-/// @{
--(NSArray *)plotDataForBinding:(NSString *)binding;
-///	@}
-#endif
-
 /// @name Data Loading
 /// @{
 -(void)setDataNeedsReloading;
 -(void)reloadData;
 -(void)reloadDataIfNeeded;
+-(void)reloadDataInIndexRange:(NSRange)indexRange;
+-(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords;
+-(void)deleteDataInIndexRange:(NSRange)indexRange;
 ///	@}
 
 /// @name Plot Data
 /// @{
 -(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
--(NSRange)recordIndexRangeForPlotRange:(CPPlotRange *)plotRange;
 ///	@}
 
 /// @name Data Cache
@@ -218,6 +206,7 @@ typedef enum _CPPlotCachePrecision {
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
+-(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)index;
 ///	@}
 
 /// @name Plot Data Ranges
@@ -246,14 +235,6 @@ typedef enum _CPPlotCachePrecision {
 /// @{
 -(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index;
 ///	@}
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-/// @name Bindings
-/// @{
-+(NSSet *)plotDataBindingInfo;
-///	@}
-#endif
 
 @end
 

@@ -175,6 +175,18 @@ BOOL CPDataTypeIsSupported(CPNumericDataType format)
 	return result;
 }
 
+/**	@brief Compares two data types for equality.
+ *	@param dataType1 The first data type format.
+ *	@param dataType2 The second data type format.
+ *	@return Returns YES if the two data types have the same format, size, and byte order.
+ **/
+BOOL CPDataTypeEqualToDataType(CPNumericDataType dataType1, CPNumericDataType dataType2)
+{
+	return (dataType1.dataTypeFormat == dataType2.dataTypeFormat) && 
+			  (dataType1.sampleBytes == dataType2.sampleBytes) &&
+				(dataType1.byteOrder == dataType2.byteOrder);
+}
+
 #pragma mark -
 #pragma mark Private functions
 

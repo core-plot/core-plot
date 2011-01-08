@@ -26,8 +26,12 @@
 
         CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
         dataSourceLinePlot.identifier = @"Data Source Plot";
-        dataSourceLinePlot.dataLineStyle.lineWidth = 1.f;
-        dataSourceLinePlot.dataLineStyle.lineColor = [CPColor redColor];
+        
+        CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+        lineStyle.lineWidth = 1.f;
+        lineStyle.lineColor = [CPColor redColor];
+        dataSourceLinePlot.dataLineStyle = lineStyle;
+        
         dataSourceLinePlot.dataSource = self;
         [graph addPlot:dataSourceLinePlot];
     }

@@ -62,25 +62,25 @@
 }
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet {
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPColor grayColor];
     majorLineStyle.lineWidth = 2.0f;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineCap = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPColor grayColor];
     minorLineStyle.lineWidth = 1.0f;
     
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.1f;
     majorGridLineStyle.lineColor = [CPColor lightGrayColor];
     
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25f;
     minorGridLineStyle.lineColor = [CPColor blueColor];
 	
-	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *whiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0f;
 

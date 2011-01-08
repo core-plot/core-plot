@@ -1,26 +1,50 @@
 
 #import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPColor.h"
 
-/** @brief Wrapper for various text style properties.
+
+@interface CPTextStyle ()
+
+@property(readwrite, copy, nonatomic) NSString *fontName;
+@property(readwrite, assign, nonatomic) CGFloat fontSize; 
+@property(readwrite, copy, nonatomic) CPColor *color;
+
+@end
+
+
+/** @brief Immutable wrapper for various text style properties.
+ *
+ *  If you need to customize properties, you should create a CPMutableTextStyle.
  **/
 
 @implementation CPTextStyle
 
 /** @property fontSize
- *  @brief Sets the font size.
+ *  @brief The font size.
  **/
 @synthesize fontSize;
 
 /** @property fontName
- *  @brief Sets the font name.
+ *  @brief The font name.
  **/
 @synthesize fontName;
 
 /** @property color
- *  @brief Sets the current text color.
+ *  @brief The current text color.
  **/
 @synthesize color;
+
+#pragma mark -
+#pragma mark Factory Methods
+
+/** @brief Creates and returns a new CPTextStyle instance.
+ *  @return A new CPTextStyle instance.
+ **/
++(id)textStyle
+{
+	return [[[self alloc] init] autorelease];
+}
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -43,14 +67,25 @@
 }
 
 #pragma mark -
-#pragma mark Factory Methods
+#pragma mark NSCoding methods
 
-/** @brief Creates and returns a new CPTextStyle instance.
- *  @return A new CPTextStyle instance.
- **/
-+(CPTextStyle *)textStyle
+-(void)encodeWithCoder:(NSCoder *)coder
 {
-	return [[[self alloc] init] autorelease];
+	[coder encodeObject:self.fontName forKey:@"fontName"];
+	[coder encodeDouble:self.fontSize forKey:@"fontSize"];
+	[coder encodeObject:self.color forKey:@"color"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	self = [super init];
+    
+    if ( self ) {
+		self->fontName = [[coder decodeObjectForKey:@"fontName"] copy];
+		self->fontSize = [coder decodeDoubleForKey:@"fontSize"];
+		self->color = [[coder decodeObjectForKey:@"color"] copy];
+	}
+    return self;
 }
 
 #pragma mark -
@@ -65,26 +100,13 @@
 	return newCopy;
 }
 
-#pragma mark -
-#pragma mark NSCoding methods
-
--(void)encodeWithCoder:(NSCoder *)coder
+-(id)mutableCopyWithZone:(NSZone *)zone 
 {
-	[coder encodeObject:self.fontName forKey:@"fontName"];
-	[coder encodeDouble:self.fontSize forKey:@"fontSize"];
-	[coder encodeObject:self.color forKey:@"color"];
-}
-
--(id)initWithCoder:(NSCoder *)coder
-{
-	self = [super init];
-    
-    if (self) {
-		self.fontName = [coder decodeObjectForKey:@"fontName"];
-		self.fontSize = [coder decodeDoubleForKey:@"fontSize"];
-		self.color = [coder decodeObjectForKey:@"color"];
-	}
-    return self;
+	CPTextStyle *newCopy = [[CPMutableTextStyle allocWithZone:zone] init];
+	newCopy->fontName = [self->fontName copy];
+	newCopy->color = [self->color copy];
+	newCopy->fontSize = self->fontSize;
+	return newCopy;
 }
 
 @end

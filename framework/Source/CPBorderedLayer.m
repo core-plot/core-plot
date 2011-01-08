@@ -34,6 +34,17 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPBorderedLayer *theLayer = (CPBorderedLayer *)layer;
+		
+		borderLineStyle = [theLayer->borderLineStyle retain];
+		fill = [theLayer->fill retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[borderLineStyle release];

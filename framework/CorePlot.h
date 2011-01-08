@@ -24,8 +24,10 @@
 #import	<CorePlot/CPLayoutManager.h>
 #import <CorePlot/CPLimitBand.h>
 #import <CorePlot/CPLineStyle.h>
+#import <CorePlot/CPMutableLineStyle.h>
 #import <CorePlot/CPMutableNumericData.h>
 #import <CorePlot/CPMutableNumericData+TypeConversion.h>
+#import <CorePlot/CPMutableTextStyle.h>
 #import <CorePlot/CPNumericDataType.h>
 #import <CorePlot/CPNumericData.h>
 #import <CorePlot/CPNumericData+TypeConversion.h>
@@ -45,6 +47,7 @@
 #import <CorePlot/CPPlotSpaceAnnotation.h>
 #import <CorePlot/CPPlotSymbol.h>
 #import <CorePlot/CPPolarPlotSpace.h>
+#import <CorePlot/CPRangePlot.h>
 #import <CorePlot/CPResponder.h>
 #import <CorePlot/CPScatterPlot.h>
 #import <CorePlot/CPSlateTheme.h>

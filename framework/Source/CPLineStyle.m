@@ -1,34 +1,48 @@
-
 #import "CPLineStyle.h"
 #import "CPLayer.h"
 #import "CPColor.h"
+#import "CPMutableLineStyle.h"
 
-/** @brief Wrapper for various line drawing properties.
+@interface CPLineStyle ()
+
+@property (nonatomic, readwrite, assign) CGLineCap lineCap;
+@property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
+@property (nonatomic, readwrite, assign) CGFloat miterLimit;
+@property (nonatomic, readwrite, assign) CGFloat lineWidth;
+@property (nonatomic, readwrite, retain) NSArray *dashPattern;
+@property (nonatomic, readwrite, assign) CGFloat patternPhase;
+@property (nonatomic, readwrite, retain) CPColor *lineColor;
+
+@end
+
+/** @brief Immutable wrapper for various line drawing properties.
  *
  *	@see See Apple's <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF105">Quartz 2D</a>
  *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a> 
  *	documentation for more information about each of these properties.
+ *
+ *  In general, you will want to create a CPMutableLineStyle if you want to customize properties.
  **/
 
 @implementation CPLineStyle
 
 /** @property lineCap
- *  @brief Sets the style for the endpoints of lines drawn in a graphics context.
+ *  @brief The style for the endpoints of lines drawn in a graphics context.
  **/
 @synthesize lineCap;
 
 /** @property lineJoin
- *  @brief Sets the style for the joins of connected lines in a graphics context.
+ *  @brief The style for the joins of connected lines in a graphics context.
  **/
 @synthesize lineJoin;
 
 /** @property miterLimit
- *  @brief Sets the miter limit for the joins of connected lines in a graphics context.
+ *  @brief The miter limit for the joins of connected lines in a graphics context.
  **/
 @synthesize miterLimit;
 
 /** @property lineWidth
- *  @brief Sets the line width for a graphics context.
+ *  @brief The line width for a graphics context.
  **/
 @synthesize lineWidth;
 
@@ -38,12 +52,12 @@
 @synthesize dashPattern;
 
 /** @property patternPhase
- *  @brief Sets the starting phase of the line dash pattern.
+ *  @brief The starting phase of the line dash pattern.
  **/
 @synthesize patternPhase;
 
 /** @property lineColor
- *  @brief Sets the current stroke color in a context.
+ *  @brief The current stroke color in a context.
  **/
 @synthesize lineColor;
 
@@ -53,7 +67,7 @@
 /** @brief Creates and returns a new CPLineStyle instance.
  *  @return A new CPLineStyle instance.
  **/
-+(CPLineStyle *)lineStyle
++(id)lineStyle
 {
     return [[[self alloc] init] autorelease];
 }
@@ -110,7 +124,22 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-    CPLineStyle *styleCopy = [[[self class] allocWithZone:zone] init];
+    CPLineStyle *styleCopy = [[CPLineStyle allocWithZone:zone] init];
+ 	
+	styleCopy->lineCap = self->lineCap;
+	styleCopy->lineJoin = self->lineJoin;
+	styleCopy->miterLimit = self->miterLimit;
+	styleCopy->lineWidth = self->lineWidth;
+	styleCopy->dashPattern = [self->dashPattern copy];
+	styleCopy->patternPhase = self->patternPhase;
+    styleCopy->lineColor = [self->lineColor copy];
+    
+    return styleCopy;
+}
+
+-(id)mutableCopyWithZone:(NSZone *)zone
+{
+    CPLineStyle *styleCopy = [[CPMutableLineStyle allocWithZone:zone] init];
  	
 	styleCopy->lineCap = self->lineCap;
 	styleCopy->lineJoin = self->lineJoin;

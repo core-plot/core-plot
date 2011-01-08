@@ -3,7 +3,7 @@
 #import "CPBarPlot.h"
 #import "CPXYPlotSpace.h"
 #import "CPColor.h"
-#import "CPLineStyle.h"
+#import "CPMutableLineStyle.h"
 #import "CPFill.h"
 #import "CPPlotArea.h"
 #import "CPPlotRange.h"
@@ -12,13 +12,10 @@
 #import "CPUtilities.h"
 #import "CPExceptions.h"
 #import "CPTextLayer.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 
 NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
-
-static NSString * const CPBarLocationsBindingContext = @"CPBarLocationsBindingContext";
-static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContext";
 
 /// @cond
 @interface CPBarPlot ()
@@ -41,10 +38,10 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 @dynamic barLocations;
 @dynamic barLengths;
 
-/** @property cornerRadius
+/** @property barCornerRadius
  *	@brief The corner radius for the end of the bars.
  **/
-@synthesize cornerRadius;
+@synthesize barCornerRadius;
 
 /** @property barOffset
  *	@brief The starting offset of the first bar in units of bar width.
@@ -111,14 +108,14 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 +(CPBarPlot *)tubularBarPlotWithColor:(CPColor *)color horizontalBars:(BOOL)horizontal
 {
 	CPBarPlot *barPlot = [[CPBarPlot alloc] init];
-	CPLineStyle *barLineStyle = [[CPLineStyle alloc] init];
+	CPMutableLineStyle *barLineStyle = [[CPMutableLineStyle alloc] init];
 	barLineStyle.lineWidth = 1.0;
 	barLineStyle.lineColor = [CPColor blackColor];
 	barPlot.lineStyle = barLineStyle;
 	[barLineStyle release];
 	barPlot.barsAreHorizontal = horizontal;
 	barPlot.barWidth = 10.0;
-	barPlot.cornerRadius = 2.0;
+	barPlot.barCornerRadius = 2.0;
 	CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
 	fillGradient.angle = (horizontal ? -90.0 : 0.0);
 	barPlot.fill = [CPFill fillWithGradient:fillGradient];
@@ -146,14 +143,30 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = 10.0;
 		barOffset = 0.0;
-		cornerRadius = 0.0;
+		barCornerRadius = 0.0;
 		baseValue = [[NSDecimalNumber zero] decimalValue];
 		barsAreHorizontal = NO;
 		plotRange = nil;
         
 		self.labelOffset = 10.0;
 		self.labelField = CPBarPlotFieldBarLength;
-		self.needsDisplayOnBoundsChange = YES;
+	}
+	return self;
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPBarPlot *theLayer = (CPBarPlot *)layer;
+		
+		lineStyle = [theLayer->lineStyle retain];
+		fill = [theLayer->fill retain];
+		barWidth = theLayer->barWidth;
+		barOffset = theLayer->barOffset;
+		barCornerRadius = theLayer->barCornerRadius;
+		baseValue = theLayer->baseValue;
+		barsAreHorizontal = theLayer->barsAreHorizontal;
+		plotRange = [theLayer->plotRange retain];
 	}
 	return self;
 }
@@ -168,52 +181,16 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLocations, CPPlotBindingName, CPBarLocationsBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPBarPlotBindingBarLengths, CPPlotBindingName, CPBarLengthsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
-{	 
-	[super reloadData];
-	
-	NSRange indexRange = NSMakeRange(0, 0);
+-(void)reloadDataInIndexRange:(NSRange)indexRange
+{
+	[super reloadDataInIndexRange:indexRange];
 	
 	// Bar lengths
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *locationData = nil;
-	NSArray *lengthData = [self plotDataForBinding:CPBarPlotBindingBarLengths];
-	if ( lengthData ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:lengthData forField:CPBarPlotFieldBarLength];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength];
+		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
 	}
 	else {
 		self.barLengths = nil;
@@ -261,22 +238,13 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 				locationDecimal = CPDecimalAdd(locationDecimal, delta);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	else if ( locationData = [self plotDataForBinding:CPBarPlotBindingBarLocations] ) {
-		// Use bindings to retrieve locations
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
-	}
-#endif
 	else if ( self.dataSource ) {
 		// Get locations from the datasource
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		NSRange indexRange = [self recordIndexRangeForPlotRange:(self.barsAreHorizontal ? xyPlotSpace.yRange : xyPlotSpace.xRange)];
 		id newBarLocations = [self numbersFromDataSourceForField:CPBarPlotFieldBarLocation recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:newBarLocations forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 	}
 	else {
 		// Make evenly spaced locations starting at zero
@@ -310,12 +278,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 				locationDecimal = CPDecimalAdd(locationDecimal, one);
 			}
 		}
-		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation];
+		[self cacheNumbers:locationData forField:CPBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
 	}
-	
-	// Labels
-	[self relabelIndexRange:indexRange];
 }
 
 #pragma mark -
@@ -344,6 +309,9 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
+	NSDecimal theBaseValue = self.baseValue;
+	if ( NSDecimalIsNotANumber(&theBaseValue) ) return NULL;
+		
     CGPoint tipPoint, basePoint;
 	BOOL horizontalBars = self.barsAreHorizontal;
     CPCoordinate independentCoord = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
@@ -355,25 +323,29 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 	if ( self.doublePrecisionCache ) {
 		double plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLocation recordIndex:index];
+		if ( isnan(plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLength recordIndex:index];
+		if ( isnan(plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		plotPoint[dependentCoord] = CPDecimalDoubleValue(self.baseValue);
+		plotPoint[dependentCoord] = CPDecimalDoubleValue(theBaseValue);
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	else {
 		NSDecimal plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLocation recordIndex:index];
+		if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLength recordIndex:index];
+		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		plotPoint[dependentCoord] = self.baseValue;
+		plotPoint[dependentCoord] = theBaseValue;
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	
@@ -434,7 +406,7 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 		alignedPoint5 = CPAlignPointToUserSpace(context, alignedPoint5);
 	}	
 	
-	CGFloat radius = MIN(self.cornerRadius, halfBarWidth);
+	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 	if ( self.barsAreHorizontal ) {
 		radius = MIN(radius, ABS(tipPoint.x - basePoint.x));
 	}
@@ -456,32 +428,34 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 {
 	CGMutablePathRef path = [self newBarPathWithContext:context recordIndex:index];
 	
-    CGContextSaveGState(context);
-	
-	// If data source returns nil, default fill is used.
-	// If data source returns NSNull object, no fill is drawn.
-	CPFill *currentBarFill = self.fill;
-	if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
-		CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
-		if ( dataSourceFill ) currentBarFill = dataSourceFill;
+	if ( path ) {
+		CGContextSaveGState(context);
+		
+		// If data source returns nil, default fill is used.
+		// If data source returns NSNull object, no fill is drawn.
+		CPFill *currentBarFill = self.fill;
+		if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+			CPFill *dataSourceFill = [(id <CPBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
+			if ( dataSourceFill ) currentBarFill = dataSourceFill;
+		}
+		if ( [currentBarFill isKindOfClass:[CPFill class]] ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, path);
+			[currentBarFill fillPathInContext:context]; 
+		}
+		
+		CPLineStyle *theLineStyle = self.lineStyle;
+		if ( theLineStyle ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, path);
+			[theLineStyle setLineStyleInContext:context];
+			CGContextStrokePath(context);
+		}
+		
+		CGContextRestoreGState(context);
+		
+		CGPathRelease(path);
 	}
-	if ( [currentBarFill isKindOfClass:[CPFill class]] ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, path);
-		[currentBarFill fillPathInContext:context]; 
-	}
-	
-	CPLineStyle *theLineStyle = self.lineStyle;
-	if ( theLineStyle ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, path);
-		[theLineStyle setLineStyleInContext:context];
-		CGContextStrokePath(context);
-	}
-	
-	CGContextRestoreGState(context);
-	
-	CGPathRelease(path);
 }
 
 #pragma mark -
@@ -519,6 +493,8 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
 			label.displacement = CGPointMake(viewOffset, -self.labelOffset);
 		}
 	}
+
+	label.contentLayer.hidden = isnan([location doubleValue]) || isnan([length doubleValue]);
 }
 
 #pragma mark -
@@ -613,10 +589,10 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     }
 }
 
--(void)setCornerRadius:(CGFloat)newCornerRadius 
+-(void)setBarCornerRadius:(CGFloat)newCornerRadius 
 {
-    if (cornerRadius != newCornerRadius) {
-        cornerRadius = ABS(newCornerRadius);
+    if ( barCornerRadius != newCornerRadius) {
+        barCornerRadius = ABS(newCornerRadius);
         [self setNeedsDisplay];
     }
 }
@@ -650,12 +626,12 @@ static NSString * const CPBarLengthsBindingContext = @"CPBarLengthsBindingContex
     self.labelOffset = newOffset;
 }
 
--(CPTextStyle *)barLabelTextStyle
+-(CPMutableTextStyle *)barLabelTextStyle
 {
 	return self.labelTextStyle;
 }
 
--(void)setBarLabelTextStyle:(CPTextStyle *)newStyle 
+-(void)setBarLabelTextStyle:(CPMutableTextStyle *)newStyle 
 {
     self.labelTextStyle = newStyle;
 }

@@ -54,7 +54,7 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
     
     // Graph title
     graph.title = @"This is the Graph Title";
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = 18.0;
@@ -79,11 +79,11 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
 #endif
     
     // Grid line styles
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [[CPColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
     
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
     
@@ -117,8 +117,12 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = MAIN_PLOT;
 	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
-	dataSourceLinePlot.dataLineStyle.lineWidth = 2.0;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 2.0;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
     
@@ -131,8 +135,12 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
 	CPScatterPlot *selectionPlot = [[[CPScatterPlot alloc] init] autorelease];
     selectionPlot.identifier = SELECTION_PLOT;
 	selectionPlot.cachePrecision = CPPlotCachePrecisionDouble;
-	selectionPlot.dataLineStyle.lineWidth = 3.0;
-    selectionPlot.dataLineStyle.lineColor = [CPColor redColor];
+    
+    lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 3.0;
+    lineStyle.lineColor = [CPColor redColor];
+    selectionPlot.dataLineStyle = lineStyle;
+    
     selectionPlot.dataSource = self;
     [graph addPlot:selectionPlot];
     

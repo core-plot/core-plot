@@ -135,6 +135,25 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPPlotArea *theLayer = (CPPlotArea *)layer;
+		
+		minorGridLineGroup = [theLayer->minorGridLineGroup retain];
+		majorGridLineGroup = [theLayer->majorGridLineGroup retain];
+		axisSet = [theLayer->axisSet retain];
+		plotGroup = [theLayer->plotGroup retain];
+		axisLabelGroup = [theLayer->axisLabelGroup retain];
+		axisTitleGroup = [theLayer->axisTitleGroup retain];
+		fill = [theLayer->fill retain];
+		topDownLayerOrder = [theLayer->topDownLayerOrder retain];
+		bottomUpLayerOrder = malloc(kCPNumberOfLayers * sizeof(CPGraphLayerType));
+		memcpy(bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPNumberOfLayers * sizeof(CPGraphLayerType));
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[minorGridLineGroup release];

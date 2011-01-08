@@ -3,6 +3,11 @@
 
 static const CGFloat kZDistanceBetweenLayers = 20.0;
 
+static NSString * const bindingsPlot = @"Bindings Plot";
+static NSString * const dataSourcePlot = @"Data Source Plot";
+static NSString * const barPlot1 = @"Bar Plot 1";
+static NSString * const barPlot2 = @"Bar Plot 2";
+
 @interface Controller ()
 
 -(void)setupGraph;
@@ -66,7 +71,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     
     // Graph title
     graph.title = @"This is the Graph Title";
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = 18.0;
@@ -89,15 +94,15 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     plotSpace.delegate = self;
     
     // Grid line styles
-    CPLineStyle *majorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorGridLineStyle = [CPMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [[CPColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
     
-    CPLineStyle *minorGridLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorGridLineStyle = [CPMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [[CPColor whiteColor] colorWithAlphaComponent:0.1];    
     
-    CPLineStyle *redLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *redLineStyle = [CPMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPColor redColor] colorWithAlphaComponent:0.5];
     
@@ -170,10 +175,14 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 {
     // Create one plot that uses bindings
 	CPScatterPlot *boundLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    boundLinePlot.identifier = @"Bindings Plot";
-	boundLinePlot.dataLineStyle.miterLimit = 1.0;
-	boundLinePlot.dataLineStyle.lineWidth = 3.0;
-	boundLinePlot.dataLineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.identifier = bindingsPlot;
+    
+    CPMutableLineStyle *lineStyle = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.miterLimit = 1.0;
+	lineStyle.lineWidth = 3.0;
+	lineStyle.lineColor = [CPColor blueColor];
+    boundLinePlot.dataLineStyle = lineStyle;
+    
     [graph addPlot:boundLinePlot];
 	[boundLinePlot bind:CPScatterPlotBindingXValues toObject:self withKeyPath:@"arrangedObjects.x" options:nil];
 	[boundLinePlot bind:CPScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
@@ -187,7 +196,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     boundLinePlot.areaBaseValue = [[NSDecimalNumber one] decimalValue];
     
 	// Add plot symbols
-	CPLineStyle *symbolLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *symbolLineStyle = [CPMutableLineStyle lineStyle];
 	symbolLineStyle.lineColor = [CPColor blackColor];
 	CPPlotSymbol *plotSymbol = [CPPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill = [CPFill fillWithColor:[CPColor blueColor]];
@@ -202,14 +211,20 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     
     // Create a second plot that uses the data source method
 	CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
+    dataSourceLinePlot.identifier = dataSourcePlot;
 	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
-	dataSourceLinePlot.dataLineStyle.lineWidth = 1.0;
-    dataSourceLinePlot.dataLineStyle.lineColor = [CPColor greenColor];
+    
+    lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	lineStyle.lineWidth = 1.0;
+    lineStyle.lineColor = [CPColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
     dataSourceLinePlot.dataSource = self;
-	CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    
+	CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
+    
 	dataSourceLinePlot.labelOffset = 5.0;
 	dataSourceLinePlot.labelRotation = M_PI_4;
     [graph addPlot:dataSourceLinePlot];
@@ -273,13 +288,13 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     [barPlotSpace release];
     
     // First bar plot
-    CPTextStyle *whiteTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
-    barPlot.identifier = @"Bar Plot 1";
+    barPlot.identifier = barPlot1;
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
     barPlot.barLabelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
@@ -290,7 +305,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     barPlot.baseValue = CPDecimalFromString(@"20");
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0;
-    barPlot.identifier = @"Bar Plot 2";
+    barPlot.identifier = barPlot2;
 	barPlot.plotRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromDouble(7.0)];
 	barPlot.delegate = self;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
@@ -301,8 +316,32 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(IBAction)reloadDataSourcePlot:(id)sender
 {
-    CPPlot *plot = [graph plotWithIdentifier:@"Data Source Plot"];
+    CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
     [plot reloadData];
+}
+
+-(IBAction)removeData:(id)sender
+{
+	NSUInteger index = self.selectionIndex;
+	
+	if ( index != NSNotFound ) {
+		[self removeObjectAtArrangedObjectIndex:index];
+		
+		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
+		[plot deleteDataInIndexRange:NSMakeRange(index, 1)];
+	}
+}
+
+-(IBAction)insertData:(id)sender
+{
+	NSUInteger index = self.selectionIndex;
+	
+	if ( index != NSNotFound ) {
+		[self insertObject:[self newObject] atArrangedObjectIndex:index];
+		
+		CPPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
+		[plot insertDataAtIndex:index numberOfRecords:1];
+	}
 }
 
 #pragma mark -
@@ -321,7 +360,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     NSNumber *num;
     if ( [plot isKindOfClass:[CPBarPlot class]] ) {
         num = [NSDecimalNumber numberWithInt:(index+1)*(index+1)];
-        if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
+        if ( [plot.identifier isEqual:barPlot2] ) 
             num = [(NSDecimalNumber *)num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
     }
     else {
@@ -340,9 +379,9 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 -(CPLayer *)dataLabelForPlot:(CPPlot *)plot recordIndex:(NSUInteger)index 
 {
-	if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 2"] )
+	if ( [(NSString *)plot.identifier isEqualToString:barPlot2] )
 		return (id)[NSNull null]; // Don't show any label
-	else if ( [(NSString *)plot.identifier isEqualToString:@"Bar Plot 1"] && index < 4 ) 
+	else if ( [(NSString *)plot.identifier isEqualToString:barPlot1] && index < 4 ) 
         return (id)[NSNull null];
     else if ( index % 4 ) {
         return (id)[NSNull null];
@@ -379,7 +418,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     }
     
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor whiteColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
@@ -416,7 +455,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
     }
     
     // Setup a style for the annotation
-    CPTextStyle *hitAnnotationTextStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *hitAnnotationTextStyle = [CPMutableTextStyle textStyle];
     hitAnnotationTextStyle.color = [CPColor redColor];
     hitAnnotationTextStyle.fontSize = 16.0f;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
@@ -606,7 +645,7 @@ static const CGFloat kZDistanceBetweenLayers = 20.0;
  	labelRotation = newRotation;
 	
 	((CPXYAxisSet *)graph.axisSet).yAxis.labelRotation = newRotation;
-	[graph plotWithIdentifier:@"Data Source Plot"].labelRotation = newRotation;
+	[graph plotWithIdentifier:dataSourcePlot].labelRotation = newRotation;
 }
 
 @end

@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "CPLayer.h"
 #import "CPDefinitions.h"
+#import "CPTextStyle.h"
 
 ///	@file
 
@@ -13,7 +14,6 @@
 @class CPPlotSpace;
 @class CPPlotRange;
 @class CPPlotArea;
-@class CPTextStyle;
 
 /**	@brief Enumeration of labeling policies
  **/
@@ -73,8 +73,11 @@ typedef enum _CPAxisLabelingPolicy {
     CGFloat majorTickLength;
     CGFloat minorTickLength;
 	CGFloat labelOffset;
+	CGFloat minorTickLabelOffset;
     CGFloat labelRotation;
+    CGFloat minorTickLabelRotation;
 	CPAlignment labelAlignment;
+	CPAlignment minorTickLabelAlignment;
     CPLineStyle *axisLineStyle;
     CPLineStyle *majorTickLineStyle;
     CPLineStyle *minorTickLineStyle;
@@ -86,10 +89,13 @@ typedef enum _CPAxisLabelingPolicy {
     NSUInteger preferredNumberOfMajorTicks;
     CPAxisLabelingPolicy labelingPolicy;
 	CPTextStyle *labelTextStyle;
+	CPTextStyle *minorTickLabelTextStyle;
 	CPTextStyle *titleTextStyle;
 	NSNumberFormatter *labelFormatter;
+	NSNumberFormatter *minorTickLabelFormatter;
 	BOOL labelFormatterChanged;
 	NSSet *axisLabels;
+	NSSet *minorTickAxisLabels;
 	CPAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat titleOffset;
@@ -130,11 +136,17 @@ typedef enum _CPAxisLabelingPolicy {
 /// @{
 @property (nonatomic, readwrite, assign) CPAxisLabelingPolicy labelingPolicy;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
+@property (nonatomic, readwrite, assign) CGFloat minorTickLabelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
+@property (nonatomic, readwrite, assign) CGFloat minorTickLabelRotation;
 @property (nonatomic, readwrite, assign) CPAlignment labelAlignment;
+@property (nonatomic, readwrite, assign) CPAlignment minorTickLabelAlignment;
 @property (nonatomic, readwrite, copy) CPTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, copy) CPTextStyle *minorTickLabelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
+@property (nonatomic, readwrite, retain) NSNumberFormatter *minorTickLabelFormatter;
 @property (nonatomic, readwrite, retain) NSSet *axisLabels;
+@property (nonatomic, readwrite, retain) NSSet *minorTickAxisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
 ///	@}

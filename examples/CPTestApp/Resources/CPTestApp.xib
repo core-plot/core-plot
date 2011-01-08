@@ -12,8 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="465"/>
-			<integer value="296"/>
+			<integer value="447"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1629,6 +1628,46 @@
 								<int key="NSSliderType">1</int>
 							</object>
 						</object>
+						<object class="NSButton" id="284978033">
+							<reference key="NSNextResponder" ref="1019331462"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{97, 4}, {99, 27}}</string>
+							<reference key="NSSuperview" ref="1019331462"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="253358570">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Insert Record</string>
+								<reference key="NSSupport" ref="1045082357"/>
+								<reference key="NSControlView" ref="284978033"/>
+								<int key="NSButtonFlags">-2033434369</int>
+								<int key="NSButtonFlags2">160</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
+						<object class="NSButton" id="324940129">
+							<reference key="NSNextResponder" ref="1019331462"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{202, 3}, {105, 27}}</string>
+							<reference key="NSSuperview" ref="1019331462"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="173725831">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Delete Record</string>
+								<reference key="NSSupport" ref="1045082357"/>
+								<reference key="NSControlView" ref="324940129"/>
+								<int key="NSButtonFlags">-2033434369</int>
+								<int key="NSButtonFlags2">160</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 					</object>
 					<string key="NSFrameSize">{944, 525}</string>
 					<reference key="NSSuperview"/>
@@ -2334,6 +2373,54 @@
 						<reference key="destination" ref="556934666"/>
 					</object>
 					<int key="connectionID">540</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeData:</string>
+						<reference key="source" ref="862234084"/>
+						<reference key="destination" ref="324940129"/>
+					</object>
+					<int key="connectionID">545</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">insertData:</string>
+						<reference key="source" ref="862234084"/>
+						<reference key="destination" ref="284978033"/>
+					</object>
+					<int key="connectionID">546</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: isEditable</string>
+						<reference key="source" ref="284978033"/>
+						<reference key="destination" ref="862234084"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="284978033"/>
+							<reference key="NSDestination" ref="862234084"/>
+							<string key="NSLabel">enabled: isEditable</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">isEditable</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: isEditable</string>
+						<reference key="source" ref="324940129"/>
+						<reference key="destination" ref="862234084"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="324940129"/>
+							<reference key="NSDestination" ref="862234084"/>
+							<string key="NSLabel">enabled: isEditable</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">isEditable</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">551</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3241,10 +3328,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="975736856"/>
 							<reference ref="308164598"/>
-							<reference ref="519419721"/>
 							<reference ref="242160170"/>
 							<reference ref="595640194"/>
 							<reference ref="986630464"/>
+							<reference ref="519419721"/>
+							<reference ref="284978033"/>
+							<reference ref="324940129"/>
 						</object>
 						<reference key="parent" ref="496158795"/>
 					</object>
@@ -3484,6 +3573,34 @@
 						<reference key="object" ref="556934666"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">541</int>
+						<reference key="object" ref="284978033"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="253358570"/>
+						</object>
+						<reference key="parent" ref="1019331462"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">542</int>
+						<reference key="object" ref="253358570"/>
+						<reference key="parent" ref="284978033"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">543</int>
+						<reference key="object" ref="324940129"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="173725831"/>
+						</object>
+						<reference key="parent" ref="1019331462"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">544</int>
+						<reference key="object" ref="173725831"/>
+						<reference key="parent" ref="324940129"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3700,6 +3817,7 @@
 					<string>493.IBNumberFormatterLocalizesFormatMetadataKey</string>
 					<string>493.IBPluginDependency</string>
 					<string>496.IBPluginDependency</string>
+					<string>496.IBViewBoundsToFrameTransform</string>
 					<string>497.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
@@ -3726,6 +3844,12 @@
 					<string>538.IBNumberFormatterLocalizesFormatMetadataKey</string>
 					<string>538.IBPluginDependency</string>
 					<string>539.IBPluginDependency</string>
+					<string>541.IBPluginDependency</string>
+					<string>541.IBViewBoundsToFrameTransform</string>
+					<string>542.IBPluginDependency</string>
+					<string>543.IBPluginDependency</string>
+					<string>543.IBViewBoundsToFrameTransform</string>
+					<string>544.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -3827,7 +3951,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{196, 435}, {243, 243}}</string>
+					<string>{{196, 435}, {240, 243}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{365, 632}, {243, 243}}</string>
@@ -3903,7 +4027,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{240, 635}, {86, 43}}</string>
+					<string>{{240, 635}, {83, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3973,6 +4097,9 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABCIAAAwegAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4000,8 +4127,18 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABCwgAAwegAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDPQAAweAAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{57, 495}, {213, 183}}</string>
+					<string>{{57, 495}, {210, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -4023,7 +4160,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{154, 425}, {203, 253}}</string>
+					<string>{{154, 425}, {200, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{323, 672}, {199, 203}}</string>
@@ -4051,7 +4188,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">540</int>
+			<int key="maxID">551</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4067,13 +4204,17 @@
 							<string>explodeLayers:</string>
 							<string>exportToPDF:</string>
 							<string>exportToPNG:</string>
+							<string>insertData:</string>
 							<string>plotSymbolDemo:</string>
 							<string>reassembleLayers:</string>
 							<string>reloadDataSourcePlot:</string>
+							<string>removeData:</string>
 							<string>selectionDemo:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4092,9 +4233,11 @@
 							<string>explodeLayers:</string>
 							<string>exportToPDF:</string>
 							<string>exportToPNG:</string>
+							<string>insertData:</string>
 							<string>plotSymbolDemo:</string>
 							<string>reassembleLayers:</string>
 							<string>reloadDataSourcePlot:</string>
+							<string>removeData:</string>
 							<string>selectionDemo:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4116,6 +4259,10 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">insertData:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">plotSymbolDemo:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -4125,6 +4272,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">reloadDataSourcePlot:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeData:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

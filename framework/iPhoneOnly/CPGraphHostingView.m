@@ -2,7 +2,7 @@
 #import "CPGraphHostingView.h"
 #import "CPGraph.h"
 
-/**	@brief A container view for displaying a CPLayer.
+/**	@brief A container view for displaying a CPGraph.
  **/
 @implementation CPGraphHostingView
 
@@ -26,7 +26,7 @@
 {
     hostedGraph = nil;
     collapsesLayers = NO;
-
+    
     self.backgroundColor = [UIColor clearColor];	
     
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
@@ -181,7 +181,16 @@
 -(void)setFrame:(CGRect)newFrame
 {
     [super setFrame:newFrame];
-    if ( !collapsesLayers ) hostedGraph.frame = self.bounds;
+    if ( !collapsesLayers ) 
+    	hostedGraph.frame = self.bounds;
+    else 
+    	[self setNeedsDisplay];
+}
+
+-(void)setBounds:(CGRect)newBounds
+{
+    [super setBounds:newBounds];
+    if ( collapsesLayers ) [self setNeedsDisplay];
 }
 
 @end

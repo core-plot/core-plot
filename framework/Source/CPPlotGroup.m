@@ -21,6 +21,16 @@
 	return self;
 }
 
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPPlotGroup *theLayer = (CPPlotGroup *)layer;
+		
+		identifier = [theLayer->identifier retain];
+	}
+	return self;
+}
+
 -(void)dealloc
 {
 	[identifier release];

@@ -3,7 +3,7 @@
 #import "CPPlot.h"
 #import "CPPlotArea.h"
 #import "CPPlotAreaFrame.h"
-#import "CPTextStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPPlotSpace.h"
 #import "CPFill.h"
 #import "CPAxisSet.h"
@@ -121,11 +121,28 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
         // Title
         title = nil;
         titlePlotAreaFrameAnchor = CPRectAnchorTop;
-        titleTextStyle = [[CPTextStyle textStyle] retain];
+        titleTextStyle = [[CPMutableTextStyle textStyle] retain];
         titleDisplacement = CGPointZero;
 		titleAnnotation = nil;
 
 		self.needsDisplayOnBoundsChange = YES;
+	}
+	return self;
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPGraph *theLayer = (CPGraph *)layer;
+		
+		plotAreaFrame = [theLayer->plotAreaFrame retain];
+		plots = [theLayer->plots retain];
+		plotSpaces = [theLayer->plotSpaces retain];
+		title = [theLayer->title retain];
+		titlePlotAreaFrameAnchor = theLayer->titlePlotAreaFrameAnchor;
+		titleTextStyle = [theLayer->titleTextStyle retain];
+		titleDisplacement = theLayer->titleDisplacement;
+		titleAnnotation = [theLayer->titleAnnotation retain];
 	}
 	return self;
 }
@@ -485,7 +502,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     }
 }
 
--(void)setTitleTextStyle:(CPTextStyle *)newStyle
+-(void)setTitleTextStyle:(CPMutableTextStyle *)newStyle
 {
     if ( newStyle != titleTextStyle ) {
         [titleTextStyle release];

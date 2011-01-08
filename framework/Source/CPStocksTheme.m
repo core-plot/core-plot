@@ -9,8 +9,8 @@
 #import "CPUtilities.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
-#import "CPLineStyle.h"
-#import "CPTextStyle.h"
+#import "CPMutableLineStyle.h"
+#import "CPMutableTextStyle.h"
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
@@ -38,7 +38,7 @@
     stocksBackgroundGradient.angle = 270.0;
 	plotAreaFrame.fill = [CPFill fillWithGradient:stocksBackgroundGradient];
 
-	CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+	CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPColor colorWithGenericGray:0.2];
 	borderLineStyle.lineWidth = 0.0;
 	
@@ -48,19 +48,22 @@
 
 -(void)applyThemeToAxisSet:(CPXYAxisSet *)axisSet 
 {	
-    CPLineStyle *majorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *majorLineStyle = [CPMutableLineStyle lineStyle];
     majorLineStyle.lineCap = kCGLineCapRound;
     majorLineStyle.lineColor = [CPColor whiteColor];
     majorLineStyle.lineWidth = 3.0;
     
-    CPLineStyle *minorLineStyle = [CPLineStyle lineStyle];
+    CPMutableLineStyle *minorLineStyle = [CPMutableLineStyle lineStyle];
     minorLineStyle.lineColor = [CPColor whiteColor];
     minorLineStyle.lineWidth = 3.0;
 	
     CPXYAxis *x = axisSet.xAxis;
-	CPTextStyle *whiteTextStyle = [[[CPTextStyle alloc] init] autorelease];
+	CPMutableTextStyle *whiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
 	whiteTextStyle.color = [CPColor whiteColor];
 	whiteTextStyle.fontSize = 14.0;
+	CPMutableTextStyle *minorTickWhiteTextStyle = [[[CPMutableTextStyle alloc] init] autorelease];
+	minorTickWhiteTextStyle.color = [CPColor whiteColor];
+	minorTickWhiteTextStyle.fontSize = 12.0;
     x.labelingPolicy = CPAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = CPDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPDecimalFromDouble(0.0);
@@ -72,6 +75,7 @@
     x.majorTickLength = 7.0;
     x.minorTickLength = 5.0;
 	x.labelTextStyle = whiteTextStyle;
+	x.minorTickLabelTextStyle = minorTickWhiteTextStyle;
 	x.titleTextStyle = whiteTextStyle;
 	
     CPXYAxis *y = axisSet.yAxis;
@@ -86,6 +90,7 @@
     y.majorTickLength = 7.0;
     y.minorTickLength = 5.0;
 	y.labelTextStyle = whiteTextStyle;
+	y.minorTickLabelTextStyle = minorTickWhiteTextStyle;
 	y.titleTextStyle = whiteTextStyle;
 }
 

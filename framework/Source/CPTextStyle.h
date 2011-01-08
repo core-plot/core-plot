@@ -4,23 +4,24 @@
 
 @class CPColor;
 
-@interface CPTextStyle : NSObject <NSCopying, NSCoding> {
-	@private
+@interface CPTextStyle : NSObject <NSCoding, NSCopying, NSMutableCopying> {
+	@protected
     NSString *fontName;
 	CGFloat fontSize;
     CPColor *color;
 }
 
-@property(readwrite, copy, nonatomic) NSString *fontName;
-@property(readwrite, assign, nonatomic) CGFloat fontSize; 
-@property(readwrite, copy, nonatomic) CPColor *color;
+@property(readonly, copy, nonatomic) NSString *fontName;
+@property(readonly, assign, nonatomic) CGFloat fontSize; 
+@property(readonly, copy, nonatomic) CPColor *color;
 
 /// @name Factory Methods
 /// @{
-+(CPTextStyle *)textStyle;
++(id)textStyle;
 ///	@}
 
 @end
+
 
 /**	@category NSString(CPTextStyleExtensions)
  *	@brief NSString extensions for drawing styled text.

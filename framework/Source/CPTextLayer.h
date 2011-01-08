@@ -1,9 +1,7 @@
-
 #import "CPLayer.h"
+#import "CPTextStyle.h"
 
 ///	@file
-
-@class CPTextStyle;
 
 extern const CGFloat kCPTextLayerMarginWidth;	///< Margin width around the text.
 
@@ -24,6 +22,7 @@ extern const CGFloat kCPTextLayerMarginWidth;	///< Margin width around the text.
 
 /// @name Layout
 /// @{
+-(CGSize)sizeThatFits;
 -(void)sizeToFit;
 ///	@}
 

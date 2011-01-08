@@ -60,7 +60,7 @@
     
     // Graph title
     barChart.title = @"Graph Title";
-    CPTextStyle *textStyle = [CPTextStyle textStyle];
+    CPMutableTextStyle *textStyle = [CPTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontSize = 16.0f;
     barChart.titleTextStyle = textStyle;
@@ -125,7 +125,7 @@
     barPlot.dataSource = self;
     barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.barOffset = 0.25f;
-    barPlot.cornerRadius = 2.0f;
+    barPlot.barCornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 }

@@ -16,10 +16,6 @@ NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
 
-static NSString * const CPXValuesBindingContext = @"CPXValuesBindingContext";
-static NSString * const CPYValuesBindingContext = @"CPYValuesBindingContext";
-static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingContext";
-
 /// @cond
 @interface CPScatterPlot ()
 
@@ -32,6 +28,8 @@ static NSString * const CPPlotSymbolsBindingContext = @"CPPlotSymbolsBindingCont
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
 
 -(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound;
+
+-(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
 
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
@@ -72,6 +70,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  **/
 @synthesize areaFill;
 
+/** @property areaFill2
+ *	@brief The fill style for the area above the data line.
+ *	If nil, the area is not filled.
+ **/
+@synthesize areaFill2;
+
 /** @property areaBaseValue
  *	@brief The Y coordinate of the straight boundary of the area fill.
  *	If not a number, the area is not filled.
@@ -79,6 +83,14 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
  *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
  **/
 @synthesize areaBaseValue;
+
+/** @property areaBaseValue2
+ *	@brief The Y coordinate of the straight boundary of the secondary area fill.
+ *	If not a number, the area is not filled.
+ *
+ *	Typically set to the maximum value of the Y range, but it can be any value that gives the desired appearance.
+ **/
+@synthesize areaBaseValue2;
 
 /** @property plotSymbolMarginForHitDetection
  *	@brief A margin added to each side of a symbol when determining whether it has been hit.
@@ -108,12 +120,31 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		dataLineStyle = [[CPLineStyle alloc] init];
 		plotSymbol = nil;
 		areaFill = nil;
+		areaFill2 = nil;
+		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
         plotSymbolMarginForHitDetection = 0.0f;
         interpolation = CPScatterPlotInterpolationLinear;
 		self.labelField = CPScatterPlotFieldY;
-		self.needsDisplayOnBoundsChange = YES;
+	}
+	return self;
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPScatterPlot *theLayer = (CPScatterPlot *)layer;
+		
+		dataLineStyle = [theLayer->dataLineStyle retain];
+		plotSymbol = [theLayer->plotSymbol retain];
+		areaFill = [theLayer->areaFill retain];
+		areaFill2 = [theLayer->areaFill2 retain];
+		areaBaseValue = theLayer->areaBaseValue;
+		areaBaseValue2 = theLayer->areaBaseValue2;
+		plotSymbols = [theLayer->plotSymbols retain];
+		plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
+		interpolation = theLayer->interpolation;
 	}
 	return self;
 }
@@ -123,101 +154,95 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[dataLineStyle release];
 	[plotSymbol release];
 	[areaFill release];
+	[areaFill2 release];
 	[plotSymbols release];
     
 	[super dealloc];
 }
 
 #pragma mark -
-#pragma mark Bindings
-
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-
-+(NSSet *)plotDataBindingInfo
-{
-	static NSSet *bindingInfo = nil;
-	if ( !bindingInfo ) {
-		bindingInfo = [[NSSet alloc] initWithObjects:
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingXValues, CPPlotBindingName, CPXValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingYValues, CPPlotBindingName, CPYValuesBindingContext, CPPlotBindingContext, nil],
-					   [NSDictionary dictionaryWithObjectsAndKeys:CPScatterPlotBindingPlotSymbols, CPPlotBindingName, CPPlotSymbolsBindingContext, CPPlotBindingContext, nil],
-					   nil];
-	}
-	return bindingInfo;
-}
-
-#endif
-
-#pragma mark -
 #pragma mark Data Loading
 
--(void)reloadData 
+-(void)reloadDataInIndexRange:(NSRange)indexRange
 {	 
-	[super reloadData];
+	[super reloadDataInIndexRange:indexRange];
 	
-	NSRange indexRange = NSMakeRange(0, 0);
-	
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-	NSArray *boundXValues = [self plotDataForBinding:CPScatterPlotBindingXValues];
-	NSArray *boundYValues = [self plotDataForBinding:CPScatterPlotBindingYValues];
-	
-	if ( boundXValues && boundYValues ) {
-		// Use bindings to retrieve data
-		[self cacheNumbers:boundXValues forField:CPScatterPlotFieldX];
-		[self cacheNumbers:boundYValues forField:CPScatterPlotFieldY];
-		
-		// Plot symbols
-		self.plotSymbols = [self plotDataForBinding:CPScatterPlotBindingPlotSymbols];
-		
-		indexRange = NSMakeRange(0, self.cachedDataCount);
-	}
-	else
-#endif
 	if ( self.dataSource ) {
 		id <CPScatterPlotDataSource> theDataSource = (id <CPScatterPlotDataSource>)self.dataSource;
 		
-		// Expand the index range each end, to make sure that plot lines go to offscreen points
-		NSUInteger numberOfRecords = [theDataSource numberOfRecordsForPlot:self];
-		CPXYPlotSpace *xyPlotSpace = (CPXYPlotSpace *)self.plotSpace;
-		indexRange = [self recordIndexRangeForPlotRange:xyPlotSpace.xRange];
-		NSRange expandedRange = CPExpandedRange(indexRange, 1);
-		NSRange completeIndexRange = NSMakeRange(0, numberOfRecords);
-		indexRange = NSIntersectionRange(expandedRange, completeIndexRange);
-		
 		id newXValues = [self numbersFromDataSourceForField:CPScatterPlotFieldX recordIndexRange:indexRange];
-		[self cacheNumbers:newXValues forField:CPScatterPlotFieldX];
+		[self cacheNumbers:newXValues forField:CPScatterPlotFieldX atRecordIndex:indexRange.location];
 		id newYValues = [self numbersFromDataSourceForField:CPScatterPlotFieldY recordIndexRange:indexRange];
-		[self cacheNumbers:newYValues forField:CPScatterPlotFieldY];
+		[self cacheNumbers:newYValues forField:CPScatterPlotFieldY atRecordIndex:indexRange.location];
 		
-		// Plot symbols
-		if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
-			self.plotSymbols = [theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange];
-		}
-		else if ([theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)]) {
-			NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:indexRange.length];
-			NSUInteger indexRangeEnd = indexRange.location + indexRange.length;
-			for ( NSUInteger recordIndex = indexRange.location; recordIndex < indexRangeEnd; recordIndex++ ) {
-				CPPlotSymbol *theSymbol = [theDataSource symbolForScatterPlot:self recordIndex:recordIndex];
-				if ( theSymbol ) {
-					[symbols addObject:theSymbol];
-				}
-				else {
-					[symbols addObject:[NSNull null]];
+		BOOL datasourceProvidesSymbolArray = [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)];
+		BOOL datasourceProvidesSymbols = [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)];
+		
+		if ( datasourceProvidesSymbolArray || datasourceProvidesSymbols	) {
+			// Ensure the plot symbol array exists and is the right size
+			NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+			NSUInteger numberOfRecords = [theDataSource numberOfRecordsForPlot:self];
+			if ( !symbols ) {
+				self.plotSymbols = [NSMutableArray array];
+				symbols = (NSMutableArray *)self.plotSymbols;
+			}
+			NSNull *nullObject = [NSNull null];
+			NSUInteger i = symbols.count;
+			while ( i < numberOfRecords ) {
+				[symbols addObject:nullObject];
+				i++;
+			}
+			
+			// Update plot symbols
+			if ( datasourceProvidesSymbolArray ) {
+				[symbols replaceObjectsInRange:indexRange withObjectsFromArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange]];
+			}
+			else if ( datasourceProvidesSymbols ) {
+				NSUInteger indexRangeEnd = indexRange.location + indexRange.length;
+				for ( NSUInteger recordIndex = indexRange.location; recordIndex < indexRangeEnd; recordIndex++ ) {
+					CPPlotSymbol *theSymbol = [theDataSource symbolForScatterPlot:self recordIndex:recordIndex];
+					if ( theSymbol ) {
+						[symbols replaceObjectAtIndex:recordIndex withObject:theSymbol];
+					}
+					else {
+						[symbols replaceObjectAtIndex:recordIndex withObject:nullObject];
+					}
 				}
 			}
-			self.plotSymbols = symbols;
 		}
+		else {
+			self.plotSymbols = nil;
+		}
+		
 	}
 	else {
 		self.xValues = nil;
 		self.yValues = nil;
 		self.plotSymbols = nil;
 	}
+}
+
+-(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords
+{
+	NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+	if ( index < symbols.count ) {
+		NSNull *nullObject = [NSNull null];
+		
+		NSUInteger endIndex = index + numberOfRecords;
+		for ( NSUInteger i = index; i < endIndex; i++ ) {
+			[symbols insertObject:nullObject atIndex:i];
+		}
+	}
 	
-	// Labels
-	[self relabelIndexRange:indexRange];
+	[super insertDataAtIndex:index numberOfRecords:numberOfRecords];
+}
+
+-(void)deleteDataInIndexRange:(NSRange)indexRange
+{
+	[super deleteDataInIndexRange:indexRange];
+	
+	NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
+	[symbols removeObjectsInRange:indexRange];
 }
 
 #pragma mark -
@@ -236,56 +261,76 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 }
 
 #pragma mark -
-#pragma mark Determing Which Points to Draw
+#pragma mark Determining Which Points to Draw
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {    
 	NSUInteger dataCount = self.cachedDataCount;
     if ( dataCount == 0 ) return;
-
-    CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-    CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-
-	CPPlotRange *xRange = xyPlotSpace.xRange;
-	CPPlotRange *yRange = xyPlotSpace.yRange;
 	
-    // Determine where each point lies in relation to range
-    if ( self.doublePrecisionCache ) {
-        const double *xBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            xRangeFlags[i] = [xRange compareToDouble:*xBytes++];
-            yRangeFlags[i] = [yRange compareToDouble:*yBytes++];
-        }
-    }
-    else {
-    // Determine where each point lies in relation to range
-        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
-        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            xRangeFlags[i] = [xRange compareToDecimal:*xBytes++];
-            yRangeFlags[i] = [yRange compareToDecimal:*yBytes++];
-        }
-    }
-    
-    // Ensure that whenever the path crosses over a region boundary, both points 
-    // are included. This ensures no lines are left out that shouldn't be.
-    pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
-						 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange);
-    for ( NSUInteger i = 1; i < dataCount; i++ ) {
-    	pointDrawFlags[i] = NO;
-		if ( !visibleOnly && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
-            pointDrawFlags[i-1] = YES;
-            pointDrawFlags[i] = YES;
-        }
-        else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
-			      (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) ) {
-            pointDrawFlags[i] = YES;
-        }
-    }
-
-    free(xRangeFlags);
-	free(yRangeFlags);
+	if ( self.areaFill || self.areaFill2 || self.dataLineStyle.dashPattern ) {
+		// show all points to preserve the line dash and area fills
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			pointDrawFlags[i] = YES;
+		}
+	}
+	else {
+		CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+		CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+		BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
+		
+		CPPlotRange *xRange = xyPlotSpace.xRange;
+		CPPlotRange *yRange = xyPlotSpace.yRange;
+		
+		// Determine where each point lies in relation to range
+		if ( self.doublePrecisionCache ) {
+			const double *xBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
+			const double *yBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
+			for ( NSUInteger i = 0; i < dataCount; i++ ) {
+				const double x = *xBytes++;
+				const double y = *yBytes++;
+				
+				xRangeFlags[i] = [xRange compareToDouble:x];
+				yRangeFlags[i] = [yRange compareToDouble:y];
+				nanFlags[i] = isnan(x) || isnan(y);
+			}
+		}
+		else {
+			// Determine where each point lies in relation to range
+			const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
+			const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
+			for ( NSUInteger i = 0; i < dataCount; i++ ) {
+				const NSDecimal *x = xBytes++;
+				const NSDecimal *y = yBytes++;
+				
+				xRangeFlags[i] = [xRange compareToDecimal:*x];
+				yRangeFlags[i] = [yRange compareToDecimal:*y];
+				nanFlags[i] = NSDecimalIsNotANumber(x) || NSDecimalIsNotANumber(y);
+			}
+		}
+		
+		// Ensure that whenever the path crosses over a region boundary, both points 
+		// are included. This ensures no lines are left out that shouldn't be.
+		pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
+							 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange &&
+							 !nanFlags[0]);
+		for ( NSUInteger i = 1; i < dataCount; i++ ) {
+			pointDrawFlags[i] = NO;
+			if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
+				pointDrawFlags[i-1] = YES;
+				pointDrawFlags[i] = YES;
+			}
+			else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
+					 (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) &&
+					 !nanFlags[i]) {
+				pointDrawFlags[i] = YES;
+			}
+		}
+		
+		free(xRangeFlags);
+		free(yRangeFlags);
+		free(nanFlags);
+	}
 }
 
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
@@ -299,20 +344,34 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
         const double *xBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
         const double *yBytes = (const double *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            double plotPoint[2];
-            plotPoint[CPCoordinateX] = *xBytes++;
-            plotPoint[CPCoordinateY] = *yBytes++;
-            viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			const double x = *xBytes++;
+			const double y = *yBytes++;
+			if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
+				viewPoints[i] = CGPointMake(NAN, NAN);
+			}
+			else {
+				double plotPoint[2];
+				plotPoint[CPCoordinateX] = x;
+				plotPoint[CPCoordinateY] = y;
+				viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
         }
     }
     else {
         const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldX].data.bytes;
         const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPScatterPlotFieldY].data.bytes;
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
-			NSDecimal plotPoint[2];
-			plotPoint[CPCoordinateX] = *xBytes++;
-			plotPoint[CPCoordinateY] = *yBytes++;
-			viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			const NSDecimal x = *xBytes++;
+			const NSDecimal y = *yBytes++;
+			if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
+				viewPoints[i] = CGPointMake(NAN, NAN);
+			}
+			else {
+				NSDecimal plotPoint[2];
+				plotPoint[CPCoordinateX] = x;
+				plotPoint[CPCoordinateY] = y;
+				viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+			}
         }
     }	
 }
@@ -320,9 +379,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags
 {
 	NSUInteger dataCount = self.cachedDataCount;
-	for (NSUInteger i = 0; i < dataCount; i++) {
-		if ( !drawPointFlags[i] ) continue;
-		viewPoints[i] = CPAlignPointToUserSpace(theContext, viewPoints[i]);      
+	for ( NSUInteger i = 0; i < dataCount; i++ ) {
+		if ( drawPointFlags[i] ) {
+			viewPoints[i] = CPAlignPointToUserSpace(theContext, viewPoints[i]);      
+		}
 	}
 }
 
@@ -396,7 +456,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
-
+	
 	CGPoint result = viewPoints[index];
 	
 	free(viewPoints);
@@ -416,7 +476,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( xValueData == nil || yValueData == nil ) return;
 	NSUInteger dataCount = self.cachedDataCount;
 	if ( dataCount == 0 ) return;
-	if ( !(self.dataLineStyle || self.areaFill || self.plotSymbol || self.plotSymbols.count) ) return;
+	if ( !(self.dataLineStyle || self.areaFill || self.areaFill2 || self.plotSymbol || self.plotSymbols.count) ) return;
 	if ( xValueData.numberOfSamples != yValueData.numberOfSamples ) {
 		[NSException raise:CPException format:@"Number of x and y values do not match"];
 	}
@@ -435,77 +495,71 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	// Get extreme points
 	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
 	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
-
+	
 	if ( firstDrawnPointIndex != NSNotFound ) {
-		// Path
-		CGMutablePathRef dataLinePath = NULL;
-		if ( self.dataLineStyle || self.areaFill ) {
-			dataLinePath = CGPathCreateMutable();
-			CGPathMoveToPoint(dataLinePath, NULL, viewPoints[firstDrawnPointIndex].x, viewPoints[firstDrawnPointIndex].y);
-			NSUInteger i = firstDrawnPointIndex + 1;
-			while ( i <= lastDrawnPointIndex ) {
-            	switch ( interpolation ) {
-                    case CPScatterPlotInterpolationLinear:
-                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
-                        break;
-                    case CPScatterPlotInterpolationStepped:
-                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i-1].y);
-                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoints[i].x, viewPoints[i].y);
-						break;
-                    default:	
-                    	[NSException raise:CPException format:@"Interpolation method no supported in scatter plot."];
-                        break;
-                }
-				i++;
-			} 
-		}
-        
-		// Draw fill
-		NSDecimal theAreaBaseValue = self.areaBaseValue;
-		if ( self.areaFill && (!NSDecimalIsNotANumber(&theAreaBaseValue)) ) {	
-            NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
-			NSDecimal plotPoint[2];
-			plotPoint[CPCoordinateX] = [xValue decimalValue];
-			plotPoint[CPCoordinateY] = theAreaBaseValue;
-			CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
-			
-			CGFloat baseLineYValue = baseLinePoint.y;
-			
-			CGPoint baseViewPoint1 = viewPoints[lastDrawnPointIndex];
-			baseViewPoint1.y = baseLineYValue;
-			baseViewPoint1 = CPAlignPointToUserSpace(theContext, baseViewPoint1);
-			
-			CGPoint baseViewPoint2 = viewPoints[firstDrawnPointIndex];
-			baseViewPoint2.y = baseLineYValue;
-			baseViewPoint2 = CPAlignPointToUserSpace(theContext, baseViewPoint2);
-			
-			CGMutablePathRef fillPath = CGPathCreateMutableCopy(dataLinePath);
-			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint1.x, baseViewPoint1.y);
-			CGPathAddLineToPoint(fillPath, NULL, baseViewPoint2.x, baseViewPoint2.y);
-			CGPathCloseSubpath(fillPath);
-			
-			CGContextBeginPath(theContext);
-			CGContextAddPath(theContext, fillPath);
-			[self.areaFill fillPathInContext:theContext];
-			
-			CGPathRelease(fillPath);
+		NSRange viewIndexRange = NSMakeRange(firstDrawnPointIndex, lastDrawnPointIndex - firstDrawnPointIndex);
+		
+		// Draw fills
+		NSDecimal theAreaBaseValue;
+		CPFill *theFill;
+		
+		for ( NSUInteger i = 0; i < 2; i++ ) {
+			switch ( i ) {
+				case 0:
+					theAreaBaseValue = self.areaBaseValue;
+					theFill = self.areaFill;
+					break;
+				case 1:
+					theAreaBaseValue = self.areaBaseValue2;
+					theFill = self.areaFill2;
+					break;
+					
+				default:
+					break;
+			}
+			if ( theFill && (!NSDecimalIsNotANumber(&theAreaBaseValue)) ) {	
+				NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
+				NSDecimal plotPoint[2];
+				plotPoint[CPCoordinateX] = [xValue decimalValue];
+				plotPoint[CPCoordinateY] = theAreaBaseValue;
+				CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+				
+				CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:baseLinePoint.y];
+				
+				CGContextBeginPath(theContext);
+				CGContextAddPath(theContext, dataLinePath);
+				[theFill fillPathInContext:theContext];
+				
+				CGPathRelease(dataLinePath);
+			}
 		}
 		
 		// Draw line
 		if ( self.dataLineStyle ) {
+			CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
 			CGContextBeginPath(theContext);
 			CGContextAddPath(theContext, dataLinePath);
 			[self.dataLineStyle setLineStyleInContext:theContext];
 			CGContextStrokePath(theContext);
+			CGPathRelease(dataLinePath);
 		}
-		if ( dataLinePath ) CGPathRelease(dataLinePath);
 		
 		// Draw plot symbols
-		if (self.plotSymbol || self.plotSymbols.count) {
-			for (NSUInteger i = 0; i < dataCount; i++) {
-				if ( drawPointFlags[i] ) {
-					CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-                    [currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
+		if ( self.plotSymbol || self.plotSymbols.count ) {
+			if ( self.useFastRendering ) {
+				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+					if ( drawPointFlags[i] ) {
+						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
+						[currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
+					}
+				}
+			}
+			else {
+				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+					if ( drawPointFlags[i] ) {
+						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
+						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i]];	
+					}
 				}
 			}
 		}
@@ -513,6 +567,66 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	
 	free(viewPoints);
 	free(drawPointFlags);
+}
+
+-(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+{
+	CGMutablePathRef dataLinePath = CGPathCreateMutable();
+	CPScatterPlotInterpolation theInterpolation = self.interpolation;
+	BOOL lastPointSkipped = YES;
+	CGFloat firstXValue = 0.0;
+	CGFloat lastXValue = 0.0;
+	NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
+	for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+		CGPoint viewPoint = viewPoints[i];
+		
+		if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
+			if ( !lastPointSkipped ) {
+				if ( !isnan(baselineYValue) ) {
+					CGPathAddLineToPoint(dataLinePath, NULL, lastXValue, baselineYValue);
+					CGPathAddLineToPoint(dataLinePath, NULL, firstXValue, baselineYValue);
+					CGPathCloseSubpath(dataLinePath);
+				}
+				lastPointSkipped = YES;
+			}
+		}
+		else {
+			if ( lastPointSkipped ) {
+				CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+				lastPointSkipped = NO;
+				firstXValue = viewPoint.x;
+			} else {
+				switch ( theInterpolation ) {
+					case CPScatterPlotInterpolationLinear:
+						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+						break;
+					case CPScatterPlotInterpolationStepped:
+						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoints[i-1].y);
+						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+						break;
+					case CPScatterPlotInterpolationHistogram: {
+						CGFloat x = (viewPoints[i-1].x + viewPoints[i].x) / 2.0;
+						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i-1].y);
+						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
+						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+					}
+						break;
+					default:	
+						[NSException raise:CPException format:@"Interpolation method not supported in scatter plot."];
+						break;
+				}
+			}
+			lastXValue = viewPoint.x;
+		}
+	}
+	
+	if ( !lastPointSkipped && !isnan(baselineYValue) ) {
+		CGPathAddLineToPoint(dataLinePath, NULL, lastXValue, baselineYValue);
+		CGPathAddLineToPoint(dataLinePath, NULL, firstXValue, baselineYValue);
+		CGPathCloseSubpath(dataLinePath);
+	}
+	
+	return dataLinePath;
 }
 
 #pragma mark -
@@ -560,6 +674,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 	
 	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+	label.contentLayer.hidden = isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 	
 	if ( positiveDirection ) {
 		label.displacement = CGPointMake(0.0, self.labelOffset);
@@ -606,6 +721,14 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 #pragma mark -
 #pragma mark Accessors
 
+-(void)setInterpolation:(CPScatterPlotInterpolation)newInterpolation
+{
+	if ( newInterpolation != interpolation ) {
+		interpolation = newInterpolation;
+		[self setNeedsDisplay];
+	}
+}
+
 -(void)setPlotSymbol:(CPPlotSymbol *)aSymbol
 {
 	if ( aSymbol != plotSymbol ) {
@@ -615,10 +738,29 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 }
 
--(void)setDataLineStyle:(CPLineStyle *)value {
-	if ( dataLineStyle != value ) {
+-(void)setDataLineStyle:(CPLineStyle *)newLineStyle
+{
+	if ( dataLineStyle != newLineStyle ) {
 		[dataLineStyle release];
-		dataLineStyle = [value copy];
+		dataLineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setAreaFill:(CPFill *)newFill
+{
+	if ( newFill != areaFill ) {
+		[areaFill release];
+		areaFill = [newFill copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setAreaFill2:(CPFill *)newFill
+{
+	if ( newFill != areaFill2 ) {
+		[areaFill2 release];
+		areaFill2 = [newFill copy];
 		[self setNeedsDisplay];
 	}
 }
@@ -629,6 +771,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		return;
 	}
 	areaBaseValue = newAreaBaseValue;
+	[self setNeedsDisplay];
+}
+
+-(void)setAreaBaseValue2:(NSDecimal)newAreaBaseValue
+{
+	if ( CPDecimalEquals(areaBaseValue2, newAreaBaseValue) ) {
+		return;
+	}
+	areaBaseValue2 = newAreaBaseValue;
 	[self setNeedsDisplay];
 }
 
@@ -650,6 +801,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 -(NSArray *)yValues 
 {
     return [[self cachedNumbersForField:CPScatterPlotFieldY] sampleArray];
+}
+
+-(void)setPlotSymbols:(NSArray *)newSymbols 
+{
+    if ( newSymbols != plotSymbols ) {
+		[plotSymbols release];
+		plotSymbols = [newSymbols mutableCopy];
+		[self setNeedsDisplay];
+	}
 }
 
 @end

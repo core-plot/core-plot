@@ -56,6 +56,13 @@ typedef enum _CPPieDirection {
  **/
 -(CPTextLayer *)sliceLabelForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index;
 
+/** @brief Offsets the slice radially from the center point. Can be used to "explode" the chart.
+ *	@param pieChart The pie chart.
+ *	@param index The data index of interest.
+ *	@return The radial offset in view coordinates. Zero is no offset.
+ **/
+-(CGFloat)radialOffsetForPieChart:(CPPieChart *)pieChart recordIndex:(NSUInteger)index;
+
 @end 
 
 #pragma mark -
@@ -84,18 +91,22 @@ typedef enum _CPPieDirection {
 @interface CPPieChart : CPPlot {
 	@private
 	CGFloat pieRadius;
+	CGFloat pieInnerRadius;
 	CGFloat startAngle;
 	CPPieDirection sliceDirection;
 	CGPoint centerAnchor;
 	CPLineStyle *borderLineStyle;
+    CPFill *overlayFill;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
+@property (nonatomic, readwrite) CGFloat pieInnerRadius;
 @property (nonatomic, readwrite) CGFloat sliceLabelOffset;
 @property (nonatomic, readwrite) CGFloat startAngle;
 @property (nonatomic, readwrite) CPPieDirection sliceDirection;
 @property (nonatomic, readwrite) CGPoint centerAnchor;
 @property (nonatomic, readwrite, copy) CPLineStyle *borderLineStyle;
+@property (nonatomic, readwrite, copy) CPFill *overlayFill;
 
 /// @name Factory Methods
 /// @{

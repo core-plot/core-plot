@@ -14,6 +14,7 @@
 @interface CPLayer()
 
 @property (nonatomic, readwrite, getter=isRenderingRecursively) BOOL renderingRecursively;
+@property (nonatomic, readwrite, assign) BOOL useFastRendering;
 
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
 
@@ -99,6 +100,11 @@
  **/
 @dynamic sublayersExcludedFromAutomaticLayout;
 
+/** @property useFastRendering 
+ *  @brief If YES, subclasses should optimize their drawing for speed over precision.
+ **/
+@synthesize useFastRendering;
+
 // Private properties
 @synthesize renderingRecursively;
 
@@ -129,6 +135,8 @@
 		masksToBorder = NO;
 		layoutManager = nil;
 		renderingRecursively = NO;
+		useFastRendering = NO;
+		graph = nil;
 		outerBorderPath = NULL;
 		innerBorderPath = NULL;
 
@@ -155,6 +163,25 @@
 -(id)init
 {
 	return [self initWithFrame:CGRectZero];
+}
+
+-(id)initWithLayer:(id)layer
+{
+	if ( self = [super initWithLayer:layer] ) {
+		CPLayer *theLayer = (CPLayer *)layer;
+		
+		paddingLeft = theLayer->paddingLeft;
+		paddingTop = theLayer->paddingTop;
+		paddingRight = theLayer->paddingRight;
+		paddingBottom = theLayer->paddingBottom;
+		masksToBorder = theLayer->masksToBorder;
+		layoutManager = [theLayer->layoutManager retain];
+		renderingRecursively = theLayer->renderingRecursively;
+		graph = theLayer->graph;
+		outerBorderPath = CGPathRetain(theLayer->outerBorderPath);
+		innerBorderPath = CGPathRetain(theLayer->innerBorderPath);
+	}
+	return self;
 }
 
 -(void)dealloc
@@ -188,7 +215,9 @@
 
 -(void)drawInContext:(CGContextRef)context
 {
+	self.useFastRendering = YES;
 	[self renderAsVectorInContext:context];
+	self.useFastRendering = NO;
 }
 
 /**	@brief Draws layer content into the provided graphics context.
@@ -559,6 +588,13 @@
     if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPGraphNeedsRedrawNotification object:self.graph];
 }
 
+#pragma mark -
+#pragma mark Line style delegate
+
+-(void)lineStyleDidChange:(CPLineStyle *)lineStyle
+{
+	[self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Accessors

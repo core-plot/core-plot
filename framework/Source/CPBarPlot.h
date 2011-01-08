@@ -13,7 +13,7 @@
 @class CPColor;
 @class CPBarPlot;
 @class CPTextLayer;
-@class CPTextStyle;
+@class CPMutableTextStyle;
 
 /// @name Binding Identifiers
 /// @{
@@ -83,7 +83,7 @@ typedef enum _CPBarPlotField {
     CPFill *fill;
     CGFloat barWidth;
     CGFloat barOffset;
-    CGFloat cornerRadius;
+    CGFloat barCornerRadius;
     NSDecimal baseValue;	
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
@@ -91,14 +91,14 @@ typedef enum _CPBarPlotField {
 
 @property (nonatomic, readwrite, assign) CGFloat barWidth;
 @property (nonatomic, readwrite, assign) CGFloat barOffset;     // In units of bar width
-@property (nonatomic, readwrite, assign) CGFloat cornerRadius;
+@property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
 @property (nonatomic, readwrite, copy) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, copy) CPFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
 @property (nonatomic, readwrite) NSDecimal baseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
-@property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;
+@property (nonatomic, readwrite, copy) CPMutableTextStyle *barLabelTextStyle;
 
 /// @name Factory Methods
 /// @{

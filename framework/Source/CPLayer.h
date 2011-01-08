@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CPLineStyle.h"
 #import "CPResponder.h"
 #import "CPPlatformSpecificDefines.h"
 
@@ -7,7 +8,7 @@
 @class CPGraph;
 
 @interface CPLayer : CALayer <CPResponder> {
-@private
+	@private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
 	CGFloat paddingRight;
@@ -15,6 +16,7 @@
 	BOOL masksToBorder;
 	id <CPLayoutManager> layoutManager;
 	BOOL renderingRecursively;
+	BOOL useFastRendering;
     __weak CPGraph *graph;
 	CGPathRef outerBorderPath;
 	CGPathRef innerBorderPath;
@@ -31,6 +33,11 @@
 @property (nonatomic, readwrite) CGFloat paddingTop;
 @property (nonatomic, readwrite) CGFloat paddingRight;
 @property (nonatomic, readwrite) CGFloat paddingBottom;
+///	@}
+
+/// @name Drawing
+/// @{
+@property (nonatomic, readonly, assign) BOOL useFastRendering;
 ///	@}
 
 /// @name Masking
