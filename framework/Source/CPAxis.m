@@ -438,7 +438,7 @@
 		visibleRange = [theLayer->visibleRange retain];
 		gridLinesRange = [theLayer->gridLinesRange retain];
 		alternatingBandFills = [theLayer->alternatingBandFills retain];
-		backgroundLimitBands = [theLayer->backgroundLimitBands retain];
+		mutableBackgroundLimitBands = [theLayer->mutableBackgroundLimitBands retain];
 		minorGridLines = theLayer->minorGridLines;
 		majorGridLines = theLayer->majorGridLines;
 	}
