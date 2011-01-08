@@ -100,7 +100,7 @@ typedef enum _CPAxisLabelingPolicy {
     CPPlotRange *visibleRange;
     CPPlotRange *gridLinesRange;
 	NSArray *alternatingBandFills;
-	NSMutableArray *backgroundLimitBands;
+	NSMutableArray *mutableBackgroundLimitBands;
 	BOOL separateLayers;
 	__weak CPPlotArea *plotArea;
 	__weak CPGridLines *minorGridLines;
@@ -166,7 +166,7 @@ typedef enum _CPAxisLabelingPolicy {
 /// @name Background Bands
 /// @{
 @property (nonatomic, readwrite, copy) NSArray *alternatingBandFills;
-@property (nonatomic, readonly, retain) NSMutableArray *backgroundLimitBands;
+@property (nonatomic, readonly, retain) NSArray *backgroundLimitBands;
 ///	@}
 
 /// @name Plot Space
