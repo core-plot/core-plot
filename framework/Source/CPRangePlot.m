@@ -11,6 +11,7 @@
 #import "CPUtilities.h"
 #import "CPXYPlotSpace.h"
 #import "CPPlotSpace.h"
+#import "CPFill.h"
 
 NSString * const CPRangePlotBindingXValues = @"xValues";		///< X values.
 NSString * const CPRangePlotBindingYValues = @"yValues";		///< Y values.
@@ -40,6 +41,10 @@ typedef struct CGPointError CGPointError;
 
 @end
 
+/**	@brief A plot class representing a range of values in one coordinate,
+ *  such as typically used to show errors.
+ *  A range plot can show bars (error bars), or an area fill, or both.
+ **/
 @implementation CPRangePlot
 
 @dynamic xValues;
@@ -48,7 +53,35 @@ typedef struct CGPointError CGPointError;
 @dynamic lowValues;
 @dynamic leftValues;
 @dynamic rightValues;
-@synthesize dataLineStyle, showsRangeBars, showsVerticalRangeFill, barWidth, gapHeight, gapWidth;
+
+/** @property areaFill
+ *	@brief The fill used to render the area.
+ *	Set to nil to have no fill. Default is nil.
+ **/
+@synthesize areaFill;
+
+/** @property barLineStyle
+ *	@brief The line style of the range bars.
+ *	Set to nil to have no bars. Default is a black line style.
+ **/
+@synthesize barLineStyle;
+
+/** @property barWidth
+ *	@brief Width of the lateral sections of the bars.
+ **/
+@synthesize barWidth;
+
+/** @property gapHeight
+ *	@brief Height of the central gap.
+ *  Set to zero to have no gap.
+ **/
+@synthesize gapHeight;
+
+/** @property gapWidth
+ *	@brief Width of the central gap.
+ *  Set to zero to have no gap.
+ **/
+@synthesize gapWidth;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -71,9 +104,8 @@ typedef struct CGPointError CGPointError;
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( self = [super initWithFrame:newFrame] ) {
-		dataLineStyle = [[CPLineStyle alloc] init];
-        showsRangeBars = YES;
-        showsVerticalRangeFill = NO;
+		barLineStyle = [[CPLineStyle alloc] init];
+		areaFill = nil;
 	}
 	return self;
 }
@@ -82,9 +114,8 @@ typedef struct CGPointError CGPointError;
 {
 	if ( self = [super initWithLayer:layer] ) {
 		CPRangePlot *theLayer = (CPRangePlot *)layer;
-		dataLineStyle = [theLayer->dataLineStyle retain];
-        showsRangeBars = YES;
-        showsVerticalRangeFill = NO;
+		barLineStyle = [theLayer->barLineStyle retain];
+		areaFill = nil;
 	}
 	return self;
 }
@@ -92,7 +123,8 @@ typedef struct CGPointError CGPointError;
 
 -(void)dealloc
 {
-	[dataLineStyle release];
+	[barLineStyle release];
+	[areaFill release];
 	[super dealloc];
 }
 
@@ -104,69 +136,61 @@ typedef struct CGPointError CGPointError;
 	NSUInteger dataCount = self.cachedDataCount;
     if ( dataCount == 0 ) return;
 	
-	if ( NO ) {//self.areaFill || self.areaFill2 || self.dataLineStyle.dashPattern ) {
-		// show all points to preserve the line dash and area fills
-		for ( NSUInteger i = 0; i < dataCount; i++ ) {
-			pointDrawFlags[i] = YES;
-		}
-	}
-	else {
-		CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-		CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
-		BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
-		
-		CPPlotRange *xRange = xyPlotSpace.xRange;
-		CPPlotRange *yRange = xyPlotSpace.yRange;
-		
-		// Determine where each point lies in relation to range
-		if ( self.doublePrecisionCache ) {
-			const double *xBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
-			const double *yBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldY].data.bytes;
-			for ( NSUInteger i = 0; i < dataCount; i++ ) {
-				const double x = *xBytes++;
-				const double y = *yBytes++;
-				xRangeFlags[i] = [xRange compareToDouble:x];
-				yRangeFlags[i] = [yRange compareToDouble:y];
-				nanFlags[i] = isnan(x) || isnan(y); 
-			}
-		}
-		else {
-			// Determine where each point lies in relation to range
-			const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
-			const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPRangePlotFieldY].data.bytes;
-			
-			for ( NSUInteger i = 0; i < dataCount; i++ ) {
-				const NSDecimal *x = xBytes++;
-				const NSDecimal *y = yBytes++;
-				
-				xRangeFlags[i] = [xRange compareToDecimal:*x];
-				yRangeFlags[i] = [yRange compareToDecimal:*y];
-				nanFlags[i] = NSDecimalIsNotANumber(x);// || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
-			}
-		}
-		
-		// Ensure that whenever the path crosses over a region boundary, both points 
-		// are included. This ensures no lines are left out that shouldn't be.
-		pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
-							 yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
-							 !nanFlags[0]);
-		for ( NSUInteger i = 1; i < dataCount; i++ ) {
-			pointDrawFlags[i] = NO;
-			if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (xRangeFlags[i-1] != xRangeFlags[i]))) {
-				pointDrawFlags[i-1] = YES;
-				pointDrawFlags[i] = YES;
-			}
-			else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
-					 (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) &&
-					 !nanFlags[i]) {
-				pointDrawFlags[i] = YES;
-			}
-		}
-		
-		free(xRangeFlags);
-		free(yRangeFlags);
-		free(nanFlags);
-	}
+    CPPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+    CPPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPPlotRangeComparisonResult));
+    BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
+    
+    CPPlotRange *xRange = xyPlotSpace.xRange;
+    CPPlotRange *yRange = xyPlotSpace.yRange;
+    
+    // Determine where each point lies in relation to range
+    if ( self.doublePrecisionCache ) {
+        const double *xBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
+        const double *yBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldY].data.bytes;
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+            const double x = *xBytes++;
+            const double y = *yBytes++;
+            xRangeFlags[i] = [xRange compareToDouble:x];
+            yRangeFlags[i] = [yRange compareToDouble:y];
+            nanFlags[i] = isnan(x) || isnan(y); 
+        }
+    }
+    else {
+        // Determine where each point lies in relation to range
+        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
+        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPRangePlotFieldY].data.bytes;
+        
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+            const NSDecimal *x = xBytes++;
+            const NSDecimal *y = yBytes++;
+            
+            xRangeFlags[i] = [xRange compareToDecimal:*x];
+            yRangeFlags[i] = [yRange compareToDecimal:*y];
+            nanFlags[i] = NSDecimalIsNotANumber(x);// || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
+        }
+    }
+    
+    // Ensure that whenever the path crosses over a region boundary, both points 
+    // are included. This ensures no lines are left out that shouldn't be.
+    pointDrawFlags[0] = (xRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
+                         yRangeFlags[0] == CPPlotRangeComparisonResultNumberInRange && 
+                         !nanFlags[0]);
+    for ( NSUInteger i = 1; i < dataCount; i++ ) {
+        pointDrawFlags[i] = NO;
+        if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (xRangeFlags[i-1] != xRangeFlags[i]))) {
+            pointDrawFlags[i-1] = YES;
+            pointDrawFlags[i] = YES;
+        }
+        else if ( (xRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) && 
+                 (yRangeFlags[i] == CPPlotRangeComparisonResultNumberInRange) &&
+                 !nanFlags[i]) {
+            pointDrawFlags[i] = YES;
+        }
+    }
+    
+    free(xRangeFlags);
+    free(yRangeFlags);
+    free(nanFlags);
 }
 
 -(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
@@ -389,16 +413,17 @@ typedef struct CGPointError CGPointError;
 	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
 
 	if ( firstDrawnPointIndex != NSNotFound ) {
-        if ( showsVerticalRangeFill ) {
+        if ( areaFill ) {
             CGMutablePathRef fillPath = CGPathCreateMutable();
-            //First do the top points
+            
+            // First do the top points
             for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
                 CGFloat x = viewPoints[i].x;
                 CGFloat y = viewPoints[i].high;
                 if(isnan(y))
                     y = viewPoints[i].y;
                 
-                if (!isnan(x) && !isnan(y)) { //depending coordinates
+                if (!isnan(x) && !isnan(y)) { 
                     CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(x,y));
                     if (i == firstDrawnPointIndex) {
                         CGPathMoveToPoint(fillPath, NULL, alignedPoint.x, alignedPoint.y);
@@ -407,19 +432,20 @@ typedef struct CGPointError CGPointError;
                     }
                 }
             }
-            //Then reverse over bottom points
+            
+            // Then reverse over bottom points
             for ( NSUInteger j = lastDrawnPointIndex; j >= firstDrawnPointIndex; j-- ) {
                 CGFloat x = viewPoints[j].x;
                 CGFloat y = viewPoints[j].low;
                 if(isnan(y))
                     y = viewPoints[j].y;
 
-                if (!isnan(x) && !isnan(y)) { //depending coordinates
+                if (!isnan(x) && !isnan(y)) { 
                     CGPoint alignedPoint = CPAlignPointToUserSpace(theContext, CGPointMake(x,y));
                     CGPathAddLineToPoint(fillPath, NULL, alignedPoint.x, alignedPoint.y);
                 }
                 if (j == firstDrawnPointIndex) {
-                    //This could be done a bit more elegant
+                    // This could be done a bit more elegant
                     break;
                 }
             }
@@ -427,19 +453,18 @@ typedef struct CGPointError CGPointError;
             CGContextBeginPath(theContext);
             CGContextAddPath(theContext, fillPath);
             
-            //Close the path to have a closed loop
+            // Close the path to have a closed loop
             CGPathCloseSubpath(fillPath);
             
             CGContextSaveGState(theContext);
-            //Pick the current linestyle with a low alpha component
-            CPColor *plotColor = self.dataLineStyle.lineColor;
-            CGContextSetFillColorWithColor(theContext, [[plotColor colorWithAlphaComponent:0.2] cgColor]);
-            CGContextFillPath(theContext);
-            CGContextRestoreGState(theContext);
+            
+            // Pick the current linestyle with a low alpha component
+            [areaFill fillPathInContext:theContext];
             
             CGPathRelease(fillPath);
         }
-        if ( showsRangeBars ) {
+        
+        if ( barLineStyle ) {
             for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
                 if (!isnan(viewPoints[i].x) && !isnan(viewPoints[i].y)) { //depending coordinates
                     CGMutablePathRef path = CGPathCreateMutable();
@@ -511,14 +536,15 @@ typedef struct CGPointError CGPointError;
                     
                     CGContextBeginPath(theContext);
                     CGContextAddPath(theContext, path);
-                    [self.dataLineStyle setLineStyleInContext:theContext];
+                    [self.barLineStyle setLineStyleInContext:theContext];
                     CGContextStrokePath(theContext);
                     CGPathRelease(path);
                 }
             }
         }
-	free(viewPoints);
-	free(drawPointFlags);	
+        
+		free(viewPoints);
+		free(drawPointFlags);	
 	}
 }
 	
@@ -597,27 +623,20 @@ typedef struct CGPointError CGPointError;
 #pragma mark -
 #pragma mark Accessors
 
--(void)setDataLineStyle:(CPLineStyle *)newLineStyle
+-(void)setBarLineStyle:(CPLineStyle *)newLineStyle
 {
-	if ( dataLineStyle != newLineStyle ) {
-		[dataLineStyle release];
-		dataLineStyle = [newLineStyle copy];
+	if ( barLineStyle != newLineStyle ) {
+		[barLineStyle release];
+		barLineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
 	}
 }
 
--(void)setShowsRangeBars:(BOOL)newShowsRangeBars
+-(void)setAreaFill:(CPFill *)newFill
 {
-    if ( showsRangeBars != newShowsRangeBars ) {
-        showsRangeBars = newShowsRangeBars;
-        [self setNeedsDisplay];
-    }
-}
-
--(void)setShowsVerticalRangeFill:(BOOL)newShowsVerticalRangeFill
-{
-    if ( showsVerticalRangeFill != newShowsVerticalRangeFill ) {
-        showsVerticalRangeFill = newShowsVerticalRangeFill;
+    if ( newFill != areaFill ) {
+    	[areaFill release];
+        areaFill = [newFill copy];
         [self setNeedsDisplay];
     }
 }

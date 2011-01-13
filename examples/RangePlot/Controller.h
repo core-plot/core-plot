@@ -7,6 +7,8 @@
     IBOutlet CPLayerHostingView *hostView;
     CPXYGraph *graph;
     NSArray *plotData;
+    CPFill *areaFill;
+    CPLineStyle *barLineStyle;
 }
 
 @end

@@ -12,9 +12,12 @@
 #import "CPPlotSymbol.h"
 #import "CPFill.h"
 
+/// @name Binding Identifiers
+/// @{
 NSString * const CPScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
+/// @}
 
 /// @cond
 @interface CPScatterPlot ()

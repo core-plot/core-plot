@@ -9,6 +9,8 @@
 {
 	[plotData release];
     [graph release];
+    [areaFill release];
+    [barLineStyle release];
     [super dealloc];
 }
 
@@ -65,18 +67,25 @@
     dataSourceLinePlot.identifier = @"Date Plot";
 
 	// Add line style
-	CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+	CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
 	lineStyle.lineWidth = 1.0f;
     lineStyle.lineColor = [CPColor greenColor];
-    dataSourceLinePlot.dataLineStyle = lineStyle;
+    barLineStyle = [lineStyle retain];
+    dataSourceLinePlot.barLineStyle = barLineStyle;
+    
+    // Bar properties
 	dataSourceLinePlot.barWidth = 10.0f;
 	dataSourceLinePlot.gapWidth = 20.0f;
 	dataSourceLinePlot.gapHeight = 20.0f;
     dataSourceLinePlot.dataSource = self;
     
+    // Add plot
     [graph addPlot:dataSourceLinePlot];
-    
     graph.defaultPlotSpace.delegate = self;
+    
+    // Store area fill for use later
+    CPColor *transparentGreen = [[CPColor greenColor] colorWithAlphaComponent:0.2];
+    areaFill = [[CPFill alloc] initWithColor:(id)transparentGreen];
     	
     // Add some data
 	NSMutableArray *newData = [NSMutableArray array];
@@ -118,8 +127,8 @@
 
 - (BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point {
     CPRangePlot *rangePlot = (CPRangePlot *)[graph plotWithIdentifier:@"Date Plot"];
-    rangePlot.showsVerticalRangeFill = !rangePlot.showsVerticalRangeFill;
-    rangePlot.showsRangeBars = !rangePlot.showsRangeBars;
+    rangePlot.areaFill = ( rangePlot.areaFill ? nil : areaFill );
+    rangePlot.barLineStyle = ( rangePlot.barLineStyle ? nil : barLineStyle );
     
     return NO;
 } 
