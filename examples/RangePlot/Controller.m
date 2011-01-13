@@ -28,6 +28,15 @@
 	[graph applyTheme:theme];
 	hostView.hostedLayer = graph;
     
+    // Title
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
+	textStyle.color = [CPColor whiteColor];
+    textStyle.fontSize = 18.0f;
+    textStyle.fontName = @"Helvetica";
+    graph.title = @"Click to Toggle Range Plot Style";
+    graph.titleTextStyle = textStyle;
+    graph.titleDisplacement = CGPointMake(0.0f, -20.0f);
+    
     // Setup scatter plot space
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval xLow = oneDay*0.5f;

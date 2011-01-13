@@ -1,6 +1,5 @@
 
 #import "CPRangePlot.h"
-//#import <stdlib.h>
 #import "CPMutableNumericData.h"
 #import "CPNumericData.h"
 #import "CPLineStyle.h"
@@ -11,8 +10,8 @@
 #import "CPExceptions.h"
 #import "CPUtilities.h"
 #import "CPXYPlotSpace.h"
-
 #import "CPPlotSpace.h"
+
 NSString * const CPRangePlotBindingXValues = @"xValues";		///< X values.
 NSString * const CPRangePlotBindingYValues = @"yValues";		///< Y values.
 NSString * const CPRangePlotBindingHighValues = @"highValues";	///< high values.
@@ -20,16 +19,29 @@ NSString * const CPRangePlotBindingLowValues = @"lowValues";	///< low values.
 NSString * const CPRangePlotBindingLeftValues = @"leftValues";	///< left price values.
 NSString * const CPRangePlotBindingRightValues = @"rightValues";///< right price values.
 
+struct CGPointError {
+	CGFloat x;
+	CGFloat y;
+	CGFloat high;
+	CGFloat low;
+	CGFloat left;
+	CGFloat right;
+};
+typedef struct CGPointError CGPointError;
+
 @interface CPRangePlot ()
+
 @property (nonatomic, readwrite, copy) NSArray *xValues;
 @property (nonatomic, readwrite, copy) NSArray *yValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *highValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *lowValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *rightValues;
+
 @end
 
 @implementation CPRangePlot
+
 @dynamic xValues;
 @dynamic yValues;
 @dynamic highValues;

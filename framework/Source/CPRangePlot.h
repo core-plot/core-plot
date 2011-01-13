@@ -18,16 +18,6 @@ typedef enum _CPErrorPlotField {
 	CPRangePlotFieldRight,	///< relative Right values.
 } CPErrorPlotField;
 
-struct CGPointError {
-	CGFloat x;
-	CGFloat y;
-	CGFloat high;
-	CGFloat low;
-	CGFloat left;
-	CGFloat right;
-};
-typedef struct CGPointError CGPointError;
-
 @interface CPRangePlot : CPPlot {
 	CPLineStyle *dataLineStyle;
 	CGFloat barWidth, gapHeight, gapWidth;
