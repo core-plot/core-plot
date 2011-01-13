@@ -64,8 +64,10 @@
 	dataSourceLinePlot.gapWidth = 20.0f;
 	dataSourceLinePlot.gapHeight = 20.0f;
     dataSourceLinePlot.dataSource = self;
-
+    
     [graph addPlot:dataSourceLinePlot];
+    
+    graph.defaultPlotSpace.delegate = self;
     	
     // Add some data
 	NSMutableArray *newData = [NSMutableArray array];
@@ -104,5 +106,13 @@
     NSDecimalNumber *num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithInt:fieldEnum]];
     return num;
 }
+
+- (BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point {
+    CPRangePlot *rangePlot = (CPRangePlot *)[graph plotWithIdentifier:@"Date Plot"];
+    rangePlot.showsVerticalRangeFill = !rangePlot.showsVerticalRangeFill;
+    rangePlot.showsRangeBars = !rangePlot.showsRangeBars;
+    
+    return NO;
+} 
 
 @end

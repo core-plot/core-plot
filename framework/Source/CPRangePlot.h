@@ -31,9 +31,13 @@ typedef struct CGPointError CGPointError;
 @interface CPRangePlot : CPPlot {
 	CPLineStyle *dataLineStyle;
 	CGFloat barWidth, gapHeight, gapWidth;
+    BOOL showsVerticalRangeFill, showsRangeBars;
 }
 @property (nonatomic, readwrite, copy) CPLineStyle *dataLineStyle;
 @property (nonatomic, readwrite) CGFloat barWidth, gapHeight, gapWidth;
+@property (nonatomic, readwrite) BOOL showsVerticalRangeFill;
+@property (nonatomic, readwrite) BOOL showsRangeBars;
+
 -(void)renderAsVectorInContext:(CGContextRef)context;
 
 @end
