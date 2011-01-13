@@ -103,7 +103,7 @@ typedef struct CGPointError CGPointError;
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		barLineStyle = [[CPLineStyle alloc] init];
 		areaFill = nil;
 	}
@@ -112,7 +112,7 @@ typedef struct CGPointError CGPointError;
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPRangePlot *theLayer = (CPRangePlot *)layer;
 		barLineStyle = [theLayer->barLineStyle retain];
 		areaFill = nil;
@@ -202,7 +202,7 @@ typedef struct CGPointError CGPointError;
     // Calculate points
     if ( self.doublePrecisionCache ) {
         const double *xBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldX].data.bytes;
+        const double *yBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldY].data.bytes;
         const double *highBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldHigh].data.bytes;
         const double *lowBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldLow].data.bytes;
         const double *leftBytes = (const double *)[self cachedNumbersForField:CPRangePlotFieldLeft].data.bytes;
@@ -220,6 +220,7 @@ typedef struct CGPointError CGPointError;
 			}
 			else {
 				double plotPoint[2];
+				plotPoint[CPCoordinateX] = x;
 				plotPoint[CPCoordinateY] = y;
 				CGPoint pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 				viewPoints[i].x = pos.x;
