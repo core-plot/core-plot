@@ -427,7 +427,7 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 	// open
 	if ( !isnan(open) ) {
 		CGPoint alignedOpenStartPoint = CPAlignPointToUserSpace(context, CGPointMake(x, open));
-		CGPoint alignedOpenEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x + theStickLength, open)); // right side
+		CGPoint alignedOpenEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x - theStickLength, open)); // left side
 		CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
 		CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
 	}
@@ -435,7 +435,7 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 	// close
 	if ( !isnan(close) ) {
 		CGPoint alignedCloseStartPoint = CPAlignPointToUserSpace(context, CGPointMake(x, close));
-		CGPoint alignedCloseEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x - theStickLength, close)); // left side
+		CGPoint alignedCloseEndPoint = CPAlignPointToUserSpace(context, CGPointMake(x + theStickLength, close)); // right side
 		CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
 		CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
 	}
