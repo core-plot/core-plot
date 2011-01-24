@@ -415,17 +415,23 @@ Synthesized accessors for internal PlugIn settings
 	CPColor *axisColor = [CPColor colorWithCGColor:self.inputAxisColor];
 	
 	CPXYAxisSet *set = (CPXYAxisSet *)graph.axisSet;
-	set.xAxis.axisLineStyle.lineColor = axisColor;
-	set.yAxis.axisLineStyle.lineColor = axisColor;
+    CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+    lineStyle.lineColor = axisColor;
+    lineStyle.lineWidth = self.inputAxisLineWidth;
+	set.xAxis.axisLineStyle = lineStyle;
+	set.yAxis.axisLineStyle = lineStyle;
 	
-	set.xAxis.majorTickLineStyle.lineColor = axisColor;
-	set.yAxis.majorTickLineStyle.lineColor = axisColor;
+    lineStyle.lineWidth = self.inputAxisMajorTickWidth;
+	set.xAxis.majorTickLineStyle = lineStyle;
+	set.yAxis.majorTickLineStyle = lineStyle;
+    
+    lineStyle.lineWidth = self.inputAxisMinorTickWidth;
+	set.xAxis.minorTickLineStyle = lineStyle;
+	set.yAxis.minorTickLineStyle = lineStyle;
 	
-	set.xAxis.minorTickLineStyle.lineColor = axisColor;
-	set.yAxis.minorTickLineStyle.lineColor = axisColor;
-	
-	set.xAxis.labelTextStyle.color = axisColor;
-	set.yAxis.labelTextStyle.color = axisColor;
+    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
+    textStyle.color = axisColor;
+	set.xAxis.labelTextStyle = textStyle;
 	
 	double xrange = self.inputXMax - self.inputXMin;
 	set.xAxis.majorIntervalLength = CPDecimalFromDouble(xrange / (self.inputXMajorIntervals));
@@ -434,14 +440,6 @@ Synthesized accessors for internal PlugIn settings
 	double yrange = self.inputYMax - self.inputYMin;
 	set.yAxis.majorIntervalLength = CPDecimalFromDouble(yrange / (self.inputYMajorIntervals));
 	set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
-
-	set.xAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
-	set.yAxis.axisLineStyle.lineWidth = self.inputAxisLineWidth;
-
-	set.xAxis.minorTickLineStyle.lineWidth = self.inputAxisMinorTickWidth;
-	set.yAxis.minorTickLineStyle.lineWidth = self.inputAxisMinorTickWidth;
-	set.xAxis.majorTickLineStyle.lineWidth = self.inputAxisMajorTickWidth;
-	set.yAxis.majorTickLineStyle.lineWidth = self.inputAxisMajorTickWidth;
 	
 	set.xAxis.minorTickLength = self.inputAxisMinorTickLength;
 	set.yAxis.minorTickLength = self.inputAxisMinorTickLength;
@@ -451,12 +449,12 @@ Synthesized accessors for internal PlugIn settings
 	
 	if ([self didValueForInputKeyChange:@"inputMajorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
-		CPLineStyle *majorGridLineStyle;
+		CPMutableLineStyle *majorGridLineStyle = nil;
 		if (self.inputMajorGridLineWidth == 0.0)
 			majorGridLineStyle = nil;
 		else
 		{
-			majorGridLineStyle = [CPLineStyle lineStyle];
+			majorGridLineStyle = [CPMutableLineStyle lineStyle];
 			majorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
 			majorGridLineStyle.lineWidth = self.inputMajorGridLineWidth;
 		}
@@ -467,12 +465,12 @@ Synthesized accessors for internal PlugIn settings
 
 	if ([self didValueForInputKeyChange:@"inputMinorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
-		CPLineStyle *minorGridLineStyle;
+		CPMutableLineStyle *minorGridLineStyle;
 		if (self.inputMinorGridLineWidth == 0.0)
 			minorGridLineStyle = nil;
 		else
 		{
-			minorGridLineStyle = [CPLineStyle lineStyle];
+			minorGridLineStyle = [CPMutableLineStyle lineStyle];
 			minorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
 			minorGridLineStyle.lineWidth = self.inputMinorGridLineWidth;
 		}
@@ -720,9 +718,10 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:self.inputPlotAreaColor]];
 	if (self.inputAxisLineWidth > 0.0)
 	{	
-		graph.plotAreaFrame.borderLineStyle = [CPLineStyle lineStyle];
-		graph.plotAreaFrame.borderLineStyle.lineWidth = self.inputAxisLineWidth;
-		graph.plotAreaFrame.borderLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+    	CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+        lineStyle.lineWidth = self.inputAxisLineWidth;
+        lineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+		graph.plotAreaFrame.borderLineStyle = lineStyle;
 	}
 	else {
 		graph.plotAreaFrame.borderLineStyle = nil;

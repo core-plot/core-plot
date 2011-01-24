@@ -95,8 +95,12 @@
 	// Add the new plot to the graph
 	CPScatterPlot *scatterPlot = [[[CPScatterPlot alloc] init] autorelease];
 	scatterPlot.identifier = [NSString stringWithFormat:@"Data Source Plot %i", index+1];
-	scatterPlot.dataLineStyle.lineWidth = 3.f;
-	scatterPlot.dataLineStyle.lineColor = [CPColor colorWithCGColor:[self defaultColorForPlot:index alpha:1.0]];
+    
+    // Line Style
+    CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+    lineStyle.lineWidth = 3.f;
+    lineStyle.lineColor = [CPColor colorWithCGColor:[self defaultColorForPlot:index alpha:1.0]];
+    scatterPlot.dataLineStyle = lineStyle;
 	scatterPlot.areaFill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self defaultColorForPlot:index alpha:0.25]]];
 	scatterPlot.dataSource = self;
 	[graph addPlot:scatterPlot];			
@@ -165,11 +169,14 @@
 	{		
 		int index = [[graph allPlots] indexOfObject:plot];
 		
-		plot.dataLineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
-		plot.dataLineStyle.lineWidth = [self dataLineWidth:index];
+        CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+        lineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
+        lineStyle.lineWidth = [self dataLineWidth:index];
+		plot.dataLineStyle = lineStyle;
+        
+        lineStyle.lineColor = [CPColor colorWithCGColor:[self dataSymbolColor:index]];
 		plot.plotSymbol = [self plotSymbol:index];
-		plot.plotSymbol.lineStyle.lineWidth = [self dataLineWidth:index];
-		plot.plotSymbol.lineStyle.lineColor = [CPColor colorWithCGColor:[self dataSymbolColor:index]];
+		plot.plotSymbol.lineStyle = lineStyle;
 		plot.plotSymbol.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self dataSymbolColor:index]]];
 		plot.plotSymbol.size = CGSizeMake(10.0, 10.0);		
 		plot.areaFill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];

@@ -182,7 +182,7 @@
 
 		if (self.inputBorderWidth > 0.0)
 		{
-			CPLineStyle *borderLineStyle = [CPLineStyle lineStyle];
+			CPMutableLineStyle *borderLineStyle = [CPMutableLineStyle lineStyle];
 			borderLineStyle.lineWidth = self.inputBorderWidth;
 			borderLineStyle.lineColor = [CPColor colorWithCGColor:self.inputBorderColor];
 			borderLineStyle.lineCap = kCGLineCapSquare;
@@ -261,7 +261,7 @@
 	CPTextLayer *layer = [[[CPTextLayer alloc] initWithText:label] autorelease];
 	[layer sizeToFit];
 
-	CPTextStyle *style = [CPTextStyle textStyle];
+	CPMutableTextStyle *style = [CPMutableTextStyle textStyle];
 	style.color = [CPColor colorWithCGColor:self.inputLabelColor];
 	layer.textStyle = style;
 	

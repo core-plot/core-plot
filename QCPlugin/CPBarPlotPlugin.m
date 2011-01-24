@@ -160,8 +160,10 @@
 	for (CPBarPlot* plot in [graph allPlots])
 	{
 		int index = [[graph allPlots] indexOfObject:plot];
-		plot.lineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
-		plot.lineStyle.lineWidth = [self dataLineWidth:index];
+        CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+        lineStyle.lineColor = [CPColor colorWithCGColor:[self dataLineColor:index]];
+        lineStyle.lineWidth = [self dataLineWidth:index];
+        plot.lineStyle = lineStyle;
 		plot.baseValue = CPDecimalFromDouble(self.inputBaseValue);
 		plot.barWidth = barWidth;
 		plot.barOffset = self.inputBarOffset;
