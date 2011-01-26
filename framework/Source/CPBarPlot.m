@@ -626,7 +626,7 @@ NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
     self.labelOffset = newOffset;
 }
 
--(CPMutableTextStyle *)barLabelTextStyle
+-(CPTextStyle *)barLabelTextStyle
 {
 	return self.labelTextStyle;
 }
