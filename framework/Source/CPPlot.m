@@ -652,11 +652,14 @@
     CPMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
     CPPlotRange *range = nil;
     if ( numbers.numberOfSamples > 0 ) {
-		NSArray *numberArray = [numbers sampleArray];
+		NSMutableArray *numberArray = [[numbers sampleArray] mutableCopy];
+        [numberArray removeObject:[NSNull null]];
+        [numberArray removeObject:[NSDecimalNumber notANumber]];
         NSNumber *min = [numberArray valueForKeyPath:@"@min.self"];
         NSNumber *max = [numberArray valueForKeyPath:@"@max.self"];
         NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
         range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+        [numberArray release];
     }
     return range;
 }
