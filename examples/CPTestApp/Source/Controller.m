@@ -291,7 +291,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
     whiteTextStyle.color = [CPColor whiteColor];
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:YES];
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithMantissa:20 exponent:0 isNegative:NO];
+    barPlot.baseValue = CPDecimalFromFloat(20.0f);
     barPlot.dataSource = self;
     barPlot.barOffset = -0.25f;
     barPlot.identifier = barPlot1;
@@ -302,7 +302,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:YES];
     barPlot.dataSource = self;
-    barPlot.baseValue = [NSDecimalNumber decimalNumberWithMantissa:20 exponent:0 isNegative:NO];
+    barPlot.baseValue = CPDecimalFromFloat(20.0f);
     barPlot.barOffset = 0.25f;
     barPlot.cornerRadius = 2.0;
     barPlot.identifier = barPlot2;

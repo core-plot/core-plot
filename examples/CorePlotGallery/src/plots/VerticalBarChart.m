@@ -168,9 +168,7 @@
 	CPBarPlot *barPlot = [[[CPBarPlot alloc] init] autorelease];
 	barPlot.lineStyle = barLineStyle;
 	barPlot.fill = [CPFill fillWithColor:[CPColor colorWithComponentRed:1.0f green:0.0f blue:0.5f alpha:0.5f]];
-//	barPlot.baseValue = [NSDecimalNumber zero];
-//	barPlot.baseValue = [NSDecimalNumber decimalNumberWithMantissa:10 exponent:0 isNegative:NO];
-	barPlot.baseValue = nil; // value is queried using the -numberForPlot:field:recordIndex: delegate method
+	barPlot.barBasesVary = YES;
     barPlot.barWidth = 0.5; // bar is 50% of the available space
 	barPlot.barCornerRadius = 10.0f;
 #if HORIZONTAL
@@ -193,11 +191,9 @@
     // Create second bar plot
     CPBarPlot *barPlot2 = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
 
-//	barPlot2.lineStyle = nil;
 	barPlot2.lineStyle = barLineStyle;
 	barPlot2.fill = [CPFill fillWithColor:[CPColor colorWithComponentRed:0.0f green:1.0f blue:0.5f alpha:0.5f]];
-//	barPlot2.baseValue = [NSDecimalNumber decimalNumberWithMantissa:5 exponent:0 isNegative:NO];
-	barPlot2.baseValue = nil; // value is queried using the -numberForPlot:field:recordIndex: delegate method
+	barPlot2.barBasesVary = YES;
 
 	barPlot2.barWidth = 1.0f; // bar is full (100%) width
 //	barPlot2.barOffset = -0.125f; // shifted left by 12.5%

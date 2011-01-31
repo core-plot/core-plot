@@ -86,8 +86,9 @@ typedef enum _CPBarPlotField {
     CGFloat barWidth;
     CGFloat barOffset;
     CGFloat barCornerRadius;
-    NSDecimalNumber *baseValue;	
+    NSDecimal baseValue;	
     BOOL barsAreHorizontal;
+    BOOL barBasesVary;
     CPPlotRange *plotRange;
 } 
 
@@ -97,7 +98,8 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, copy) CPFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
-@property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
+@property (nonatomic, readwrite, assign) NSDecimal baseValue;
+@property (nonatomic, readwrite, assign) BOOL barBasesVary;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
 @property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;

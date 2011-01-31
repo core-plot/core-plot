@@ -76,10 +76,17 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 @synthesize barsAreHorizontal;
 
 /** @property baseValue
- *	@brief The coordinate value of the fixed end of the bars. If the value is nil, the delegate will be queried
- *  for an appropriate value of CPBarPlotFieldBarBase.
+ *	@brief The coordinate value of the fixed end of the bars. 
+ *  This is only used if barsHaveVariableBases is NO. Otherwise, the data source
+ *  will be queried for an appropriate value of CPBarPlotFieldBarBase.
  **/
 @synthesize baseValue;
+
+/** @property barBasesVary
+ *  @brief If YES, a constant base value is used for all bars (baseValue).
+ *  If NO, the data source is queried to supply a base value for each bar.
+ **/
+@synthesize barBasesVary;
 
 /** @property plotRange
  *	@brief Sets the plot range for the independent axis.
@@ -151,8 +158,9 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		barWidth = 0.5;
 		barOffset = 0.0;
 		barCornerRadius = 0.0;
-		baseValue = [[NSDecimalNumber zero] copy];
+		baseValue = CPDecimalFromString(@"0");
 		barsAreHorizontal = NO;
+        barBasesVary = NO;
 		plotRange = nil;
         
 		self.labelOffset = 10.0;
@@ -172,6 +180,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		barOffset = theLayer->barOffset;
 		barCornerRadius = theLayer->barCornerRadius;
 		baseValue = theLayer->baseValue;
+        barBasesVary = theLayer->barBasesVary;
 		barsAreHorizontal = theLayer->barsAreHorizontal;
 		plotRange = [theLayer->plotRange retain];
 	}
@@ -183,7 +192,6 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	[lineStyle release];
 	[fill release];
 	[plotRange release];
-    
 	[super dealloc];
 }
 
@@ -198,7 +206,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	if ( self.dataSource ) {
 		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
 		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
-		if ( ! self.baseValue ) {
+		if ( barBasesVary ) {
 			id newBarBases = [self numbersFromDataSourceForField:CPBarPlotFieldBarBase recordIndexRange:indexRange];
 			[self cacheNumbers:newBarBases forField:CPBarPlotFieldBarBase atRecordIndex:indexRange.location];
 		}
@@ -308,7 +316,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	if ( cachedLocations == nil || cachedLengths == nil ) return;
 
 	CPMutableNumericData *cachedBases = [self cachedNumbersForField:CPBarPlotFieldBarBase];
-	if ( self.baseValue == nil && cachedBases == nil ) return;
+	if ( barBasesVary && cachedBases == nil ) return;
 	
 	NSUInteger barCount = self.cachedDataCount;
     if ( barCount == 0 ) return;
@@ -317,7 +325,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		[NSException raise:CPException format:@"Number of bar locations and lengths do not match"];
 	};
 	
-	if ( self.baseValue == nil && cachedLengths.numberOfSamples != cachedBases.numberOfSamples ) {
+	if ( barBasesVary && cachedLengths.numberOfSamples != cachedBases.numberOfSamples ) {
 		[NSException raise:CPException format:@"Number of bar lengths and bases do not match"];
 	};
 
@@ -330,9 +338,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 }
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
-{
-	NSDecimalNumber *theBaseValue = self.baseValue;
-		
+{		
     CGPoint tipPoint, basePoint;
 	BOOL horizontalBars = self.barsAreHorizontal;
     CPCoordinate independentCoord = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
@@ -352,8 +358,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		if ( theBaseValue ) {
-			plotPoint[dependentCoord] = [theBaseValue doubleValue];
+		if ( !barBasesVary ) {
+			plotPoint[dependentCoord] = CPDecimalDoubleValue(baseValue);
 		}
 		else {
 			plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarBase recordIndex:index];
@@ -372,8 +378,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
-		if ( theBaseValue ) {
-			plotPoint[dependentCoord] = [theBaseValue decimalValue];
+		if ( !barBasesVary ) {
+			plotPoint[dependentCoord] = baseValue;
 		}
 		else {
 			plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarBase recordIndex:index];
@@ -513,8 +519,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(void)positionLabelAnnotation:(CPPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
 	NSDecimal theBaseDecimalValue;
-	if ( self.baseValue ) {
-		theBaseDecimalValue = [self.baseValue decimalValue];
+	if ( !barBasesVary ) {
+		theBaseDecimalValue = baseValue;
 	}
 	else {
 		theBaseDecimalValue = [self cachedDecimalForField:CPBarPlotFieldBarBase recordIndex:index];
@@ -682,14 +688,23 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     }
 }
 
--(void)setBaseValue:(NSDecimalNumber *)newBaseValue 
+-(void)setBaseValue:(NSDecimal)newBaseValue 
 {
-	if (![baseValue isEqualToNumber:newBaseValue]) {
-		[baseValue release];
-		baseValue = [newBaseValue copy];
+	if ( !CPDecimalEquals(baseValue, newBaseValue) ) {
+		baseValue = newBaseValue;
 		[self setNeedsDisplay];
         [self setNeedsLayout];
 	}
+}
+
+-(void)setBarBasesVary:(BOOL)newBasesVary
+{
+    if ( newBasesVary != barBasesVary ) {
+        barBasesVary = newBasesVary;
+        [self setDataNeedsReloading];
+        [self setNeedsDisplay];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)setBarsAreHorizontal:(BOOL)newBarsAreHorizontal 
