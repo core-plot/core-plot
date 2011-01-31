@@ -19,13 +19,15 @@
 /// @{
 extern NSString * const CPBarPlotBindingBarLocations;
 extern NSString * const CPBarPlotBindingBarLengths;
+extern NSString * const CPBarPlotBindingBarBases;
 ///	@}
 
 /**	@brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPBarPlotField {
     CPBarPlotFieldBarLocation = 2,  ///< Bar location on independent coordinate axis.
-    CPBarPlotFieldBarLength   = 3	///< Bar length.
+    CPBarPlotFieldBarLength   = 3,	///< Bar length.
+    CPBarPlotFieldBarBase     = 4	///< Bar base (if baseValue is nil.)
 } CPBarPlotField;
 
 #pragma mark -
@@ -84,7 +86,7 @@ typedef enum _CPBarPlotField {
     CGFloat barWidth;
     CGFloat barOffset;
     CGFloat barCornerRadius;
-    NSDecimal baseValue;	
+    NSDecimalNumber *baseValue;	
     BOOL barsAreHorizontal;
     CPPlotRange *plotRange;
 } 
@@ -95,7 +97,7 @@ typedef enum _CPBarPlotField {
 @property (nonatomic, readwrite, copy) CPLineStyle *lineStyle;
 @property (nonatomic, readwrite, copy) CPFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
-@property (nonatomic, readwrite) NSDecimal baseValue;
+@property (nonatomic, readwrite, copy) NSDecimalNumber *baseValue;
 @property (nonatomic, readwrite, copy) CPPlotRange *plotRange;
 @property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
 @property (nonatomic, readwrite, copy) CPTextStyle *barLabelTextStyle;

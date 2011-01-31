@@ -288,7 +288,7 @@
 
     CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)barChart.defaultPlotSpace;
     plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(300.0f)];
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(16.0f)];
+    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0f) length:CPDecimalFromFloat(17.0f)];
 
     if (drawAxis) {        
         CPXYAxisSet *axisSet = (CPXYAxisSet *)barChart.axisSet;
@@ -338,17 +338,14 @@
 	
     // First bar plot
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor redColor] horizontalBars:NO];
-    barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.dataSource = self;
-    barPlot.barOffset = -0.25f;
     barPlot.identifier = @"Bar Plot 1";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
     barPlot.dataSource = self;
-    barPlot.baseValue = CPDecimalFromString(@"0");
-    barPlot.barOffset = 0.25f;
+    barPlot.barOffset = 0.25f; // 25% offset, 75% overlap
     barPlot.barCornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     barPlot.delegate = self;

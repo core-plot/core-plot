@@ -102,15 +102,15 @@
     CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
     textStyle.color = [CPColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
-    textStyle.fontSize = bounds.size.height / 20.0f;
+    textStyle.fontSize = round(bounds.size.height / 20.0f);
     graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0f, bounds.size.height / 18.0f);
+    graph.titleDisplacement = CGPointMake(0.0f, round(bounds.size.height / 18.0f)); // Ensure that title displacement falls on an integral pixel
     graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;    
 }
 
 - (void)setPaddingDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds
 {
-    float boundsPadding = bounds.size.width / 20.0f;
+    float boundsPadding = round(bounds.size.width / 20.0f); // Ensure that padding falls on an integral pixel
     graph.paddingLeft = boundsPadding;
 
     if (graph.titleDisplacement.y > 0.0) {
@@ -259,7 +259,12 @@
 {
     [self killGraph];
 
-    defaultLayerHostingView = [[CPGraphHostingView alloc] initWithFrame:[hostingView bounds]];
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+	CGRect bounds = [hostingView bounds];
+#else
+    CGRect bounds = NSRectToCGRect([hostingView bounds]);
+#endif
+    defaultLayerHostingView = [[CPGraphHostingView alloc] initWithFrame:bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;

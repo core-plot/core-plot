@@ -50,7 +50,6 @@ const float CP_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 
     [self setupThemes];
 
-
 #ifdef EMBED_NU
     // Setup a Nu console without the help of the Nu include files or
     // an explicit link of the Nu framework, which may not be installed
