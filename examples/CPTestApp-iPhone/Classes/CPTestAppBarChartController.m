@@ -150,7 +150,7 @@
 			case CPBarPlotFieldBarLocation:
 				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
 				break;
-			case CPBarPlotFieldBarLength:
+			case CPBarPlotFieldBarTip:
 				num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index+1)*(index+1)];
 				if ( [plot.identifier isEqual:@"Bar Plot 2"] ) 
 					num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];

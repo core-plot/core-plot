@@ -231,7 +231,7 @@
 
 -(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSNumber *value = [self numberForPlot:plot field:CPBarPlotFieldBarLength recordIndex:index];
+    NSNumber *value = [self numberForPlot:plot field:CPBarPlotFieldBarTip recordIndex:index];
 
     NSLog(@"bar was selected at index %d. Value = %f", (int)index, [value floatValue]);
 
@@ -293,7 +293,7 @@
 			num = [NSDecimalNumber numberWithInt:index];
 		}
 	}
-	else if (fieldEnum == CPBarPlotFieldBarLength) {
+	else if (fieldEnum == CPBarPlotFieldBarTip) {
 		// length
 		if ([plot.identifier isEqual:@"Bar Plot 2"]) {
 			num = [NSDecimalNumber numberWithInt:index];

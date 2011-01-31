@@ -15,7 +15,7 @@
 #import "CPMutableTextStyle.h"
 
 NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
-NSString * const CPBarPlotBindingBarLengths = @"barLengths";		///< Bar lengths.
+NSString * const CPBarPlotBindingBarTips = @"barTips";				///< Bar tips.
 NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 /// @cond
@@ -144,7 +144,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 {
 	if ( self == [CPBarPlot class] ) {
 		[self exposeBinding:CPBarPlotBindingBarLocations];
-		[self exposeBinding:CPBarPlotBindingBarLengths];
+		[self exposeBinding:CPBarPlotBindingBarTips];
 		[self exposeBinding:CPBarPlotBindingBarBases];
 	}
 }
@@ -164,7 +164,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		plotRange = nil;
         
 		self.labelOffset = 10.0;
-		self.labelField = CPBarPlotFieldBarLength;
+		self.labelField = CPBarPlotFieldBarTip;
 	}
 	return self;
 }
@@ -204,8 +204,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	
 	// Bar lengths
 	if ( self.dataSource ) {
-		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarLength recordIndexRange:indexRange];
-		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarLength atRecordIndex:indexRange.location];
+		id newBarLengths = [self numbersFromDataSourceForField:CPBarPlotFieldBarTip recordIndexRange:indexRange];
+		[self cacheNumbers:newBarLengths forField:CPBarPlotFieldBarTip atRecordIndex:indexRange.location];
 		if ( barBasesVary ) {
 			id newBarBases = [self numbersFromDataSourceForField:CPBarPlotFieldBarBase recordIndexRange:indexRange];
 			[self cacheNumbers:newBarBases forField:CPBarPlotFieldBarBase atRecordIndex:indexRange.location];
@@ -312,7 +312,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	CPMutableNumericData *cachedLocations = [self cachedNumbersForField:CPBarPlotFieldBarLocation];
-	CPMutableNumericData *cachedLengths = [self cachedNumbersForField:CPBarPlotFieldBarLength];
+	CPMutableNumericData *cachedLengths = [self cachedNumbersForField:CPBarPlotFieldBarTip];
 	if ( cachedLocations == nil || cachedLengths == nil ) return;
 
 	CPMutableNumericData *cachedBases = [self cachedNumbersForField:CPBarPlotFieldBarBase];
@@ -353,7 +353,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		if ( isnan(plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
-		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLength recordIndex:index];
+		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarTip recordIndex:index];
 		if ( isnan(plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
@@ -373,7 +373,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) return NULL;
 		
 		// Tip point
-		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLength recordIndex:index];
+		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarTip recordIndex:index];
 		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NULL;
 		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
@@ -529,7 +529,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	CPPlotSpace *thePlotSpace = self.plotSpace;
 
 	NSNumber *location = [self cachedNumberForField:CPBarPlotFieldBarLocation recordIndex:index];
-	NSNumber *length = [self cachedNumberForField:CPBarPlotFieldBarLength recordIndex:index];
+	NSNumber *length = [self cachedNumberForField:CPBarPlotFieldBarTip recordIndex:index];
 	
 	BOOL positiveDirection = CPDecimalGreaterThanOrEqualTo([length decimalValue], theBaseDecimalValue);
 	CPPlotRange *lengthRange = [thePlotSpace plotRangeForCoordinate:self.barsAreHorizontal ? CPCoordinateX : CPCoordinateY];
@@ -620,12 +620,12 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 #pragma mark Accessors
 
 -(NSArray *)barLengths {
-    return [[self cachedNumbersForField:CPBarPlotFieldBarLength] sampleArray];
+    return [[self cachedNumbersForField:CPBarPlotFieldBarTip] sampleArray];
 }
 
 -(void)setBarLengths:(NSArray *)newLengths 
 {
-    [self cacheNumbers:newLengths forField:CPBarPlotFieldBarLength];
+    [self cacheNumbers:newLengths forField:CPBarPlotFieldBarTip];
 }
 
 -(NSArray *)barBases {
@@ -746,7 +746,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(NSArray *)fieldIdentifiers 
 {
-    return [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPBarPlotFieldBarLocation], [NSNumber numberWithUnsignedInt:CPBarPlotFieldBarLength], nil];
+    return [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPBarPlotFieldBarLocation], [NSNumber numberWithUnsignedInt:CPBarPlotFieldBarTip], nil];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPCoordinate)coord 
@@ -754,10 +754,10 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	NSArray *result = nil;
 	switch (coord) {
         case CPCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPBarPlotFieldBarLength : CPBarPlotFieldBarLocation)]];
+            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPBarPlotFieldBarTip : CPBarPlotFieldBarLocation)]];
             break;
         case CPCoordinateY:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPBarPlotFieldBarLocation : CPBarPlotFieldBarLength)]];
+            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPBarPlotFieldBarLocation : CPBarPlotFieldBarTip)]];
             break;
         default:
         	[NSException raise:CPException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];

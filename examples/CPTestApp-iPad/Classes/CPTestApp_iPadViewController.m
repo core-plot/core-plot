@@ -351,7 +351,7 @@
 					num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
 				}
 				break;
-			case CPBarPlotFieldBarLength:
+			case CPBarPlotFieldBarTip:
 				if ( index == 8 ) {
 					num = [NSDecimalNumber notANumber];
 				}

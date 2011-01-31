@@ -18,7 +18,7 @@
 /// @name Binding Identifiers
 /// @{
 extern NSString * const CPBarPlotBindingBarLocations;
-extern NSString * const CPBarPlotBindingBarLengths;
+extern NSString * const CPBarPlotBindingBarTips;
 extern NSString * const CPBarPlotBindingBarBases;
 ///	@}
 
@@ -26,7 +26,7 @@ extern NSString * const CPBarPlotBindingBarBases;
  **/
 typedef enum _CPBarPlotField {
     CPBarPlotFieldBarLocation = 2,  ///< Bar location on independent coordinate axis.
-    CPBarPlotFieldBarLength   = 3,	///< Bar length.
+    CPBarPlotFieldBarTip   	  = 3,	///< Bar tip value.
     CPBarPlotFieldBarBase     = 4	///< Bar base (if baseValue is nil.)
 } CPBarPlotField;
 

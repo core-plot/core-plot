@@ -6,7 +6,11 @@
 //  Copyright 2010 Jeff Buck. All rights reserved.
 //
 
-#import <CorePlot/CorePlot.h>
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	#import "CorePlot-CocoaTouch.h"
+#else
+	#import <CorePlot/CorePlot.h>
+#endif
 #import "PlotItem.h"
 #import "PlotGallery.h"
 

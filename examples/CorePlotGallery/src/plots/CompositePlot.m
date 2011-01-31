@@ -6,7 +6,12 @@
 //  Copyright 2010 Jeff Buck. All rights reserved.
 //
 
-#import <CorePlot/CorePlot.h>
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	#import "CorePlot-CocoaTouch.h"
+#else
+	#import <CorePlot/CorePlot.h>
+#endif
+
 #import "CompositePlot.h"
 
 @implementation CompositePlot
@@ -435,7 +440,7 @@
             case CPBarPlotFieldBarLocation:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
                 break;
-            case CPBarPlotFieldBarLength:
+            case CPBarPlotFieldBarTip:
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index+1)*(index+1)];
                 if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
                     num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
