@@ -29,8 +29,10 @@ typedef enum _CPPlotRangeComparisonResult {
 @property (nonatomic, readonly) double endDouble;
 
 @property (nonatomic, readonly) NSDecimal minLimit;
+@property (nonatomic, readonly) NSDecimal midPoint;
 @property (nonatomic, readonly) NSDecimal maxLimit;
 @property (nonatomic, readonly) double minLimitDouble;
+@property (nonatomic, readonly) double midPointDouble;
 @property (nonatomic, readonly) double maxLimitDouble;
 ///	@}
 

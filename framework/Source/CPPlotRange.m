@@ -19,12 +19,12 @@
 @synthesize length;
 
 /** @property locationDouble
- *  @brief The starting value of the range as a double.
+ *  @brief The starting value of the range as a <code>double</code>.
  **/
 @synthesize locationDouble;
 
 /** @property lengthDouble
- *  @brief The length of the range as a double.
+ *  @brief The length of the range as a <code>double</code>.
  **/
 @synthesize lengthDouble;
 
@@ -34,7 +34,7 @@
 @dynamic end;
 
 /** @property endDouble
- *  @brief The ending value of the range as a double.
+ *  @brief The ending value of the range as a <code>double</code>.
  **/
 @dynamic endDouble;
 
@@ -44,9 +44,19 @@
 @dynamic minLimit;
 
 /** @property minLimitDouble
- *  @brief The minimum extreme value of the range as a double.
+ *  @brief The minimum extreme value of the range as a <code>double</code>.
  **/
 @dynamic minLimitDouble;
+
+/** @property midPoint
+ *  @brief The middle value of the range.
+ **/
+@dynamic midPoint;
+
+/** @property midPointDouble
+ *  @brief The middle value of the range as a <code>double</code>.
+ **/
+@dynamic midPointDouble;
 
 /** @property maxLimit
  *  @brief The maximum extreme value of the range.
@@ -54,7 +64,7 @@
 @dynamic maxLimit;
 
 /** @property maxLimitDouble
- *  @brief The maximum extreme value of the range as a double.
+ *  @brief The maximum extreme value of the range as a <code>double</code>.
  **/
 @dynamic maxLimitDouble;
 
@@ -142,6 +152,16 @@
 	else {
 		return doubleLoc;
 	}
+}
+
+-(NSDecimal)midPoint 
+{
+	return CPDecimalAdd(self.location, CPDecimalDivide(self.length, CPDecimalFromInteger(2)));
+}
+
+-(double)midPointDouble 
+{
+	return fma(self.lengthDouble, 0.5, self.locationDouble);
 }
 
 -(NSDecimal)maxLimit 
