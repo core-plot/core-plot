@@ -541,19 +541,16 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	double unitPlotPoint[2] = {1.0, 1.0};
 	CGPoint originPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:originPlotPoint];
 	CGPoint unitPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:unitPlotPoint];
-	CGFloat barWidthLength;
 	CGFloat barOffsetLength;
 	if ( self.barsAreHorizontal ) {
-		barWidthLength = (unitPoint.y - originPoint.y) * self.barWidth;
 		barOffsetLength = (unitPoint.y - originPoint.y) * self.barOffset;
 	}
 	else {
-		barWidthLength = (unitPoint.x - originPoint.x) * self.barWidth;
 		barOffsetLength = (unitPoint.x - originPoint.x) * self.barOffset;
 	}
 
 	// Offset
-	CGFloat viewOffset = barOffsetLength / 2.0f;
+	CGFloat viewOffset = barOffsetLength / 2.0;
 
 	if ( self.barsAreHorizontal ) {
 		label.anchorPlotPoint = [NSArray arrayWithObjects:length, location, nil];
