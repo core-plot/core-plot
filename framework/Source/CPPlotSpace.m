@@ -66,7 +66,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	BOOL eventIsHandled = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
-        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
     }
 	return eventIsHandled;
 }
@@ -79,7 +79,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	BOOL eventIsHandled = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
-        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
     }
 	return eventIsHandled;
 }
@@ -92,7 +92,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	BOOL eventIsHandled = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
-        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
     }
 	return eventIsHandled;
 }
@@ -104,7 +104,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 {
 	BOOL eventIsHandled = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
-        eventIsHandled = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
     }
 	return eventIsHandled;
 }
