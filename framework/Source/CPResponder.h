@@ -8,6 +8,14 @@
 /// @name User Interaction
 /// @{
 
+/** @brief Informs the receiver that a pinch gesture occurred
+ *  @param pinchGestureRecognizer The pinch gesture itself.
+ *  @param interactionPoint The coordinates of the gesture's centroid.
+ *  @param interactionScale The scale of the pinching gesture.
+ *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
+ **/
+-(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale;
+
 /**	@brief Informs the receiver that the user has pressed the mouse button (Mac OS) or touched the screen (iPhone OS).
  *	@param event The OS event.
  *	@param interactionPoint The coordinates of the interaction.

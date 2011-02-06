@@ -349,6 +349,17 @@
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
+/** @brief Informs the receiver that a pinch gesture occurred
+ *  @param pinchGestureRecognizer The pinch gesture itself.
+ *  @param interactionPoint The coordinates of the gesture's centroid.
+ *  @param interactionScale The scale of the pinching gesture.
+ *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
+ **/
+-(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
+{
+  return NO;
+}
+
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *  @param event Native event object of device.
  *	@param interactionPoint The coordinates of the event in the host view.

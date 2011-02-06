@@ -17,6 +17,15 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Scrolling
 /// @{
 
+/** @brief Informs the receiver that a pinch gesture occurred
+ *  @param space            The plot space.
+ *  @param pinchGestureRecognizer     The pinch gesture itself.
+ *  @param interactionPoint The coordinates of the gesture's centroid.
+ *  @param interactionScale The scale of the pinching gesture.
+ *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
+ **/
+-(BOOL) plotSpace:(CPPlotSpace*)space recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale;
+
 /**	@brief Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
