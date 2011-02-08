@@ -58,29 +58,17 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
-/** @brief Informs the receiver that a pinch gesture occurred
- *  @param pinchGestureRecognizer The pinch gesture itself.
- *  @param interactionPoint       The coordinates of the gesture's centroid.
- *  @param interactionScale       The scale of the pinching gesture.
- *  @return                       YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
- **/
--(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
-{
-  return ([delegate respondsToSelector:@selector(plotSpace:recognizer:atPoint:withScale:)] &&
-          [delegate plotSpace:self recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale]);
-}
-
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL eventIsHandled = NO;
+	BOOL handledByDelegate = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
-        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
     }
-	return eventIsHandled;
+	return handledByDelegate;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
@@ -89,11 +77,11 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL eventIsHandled = NO;
+	BOOL handledByDelegate = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
-        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
     }
-	return eventIsHandled;
+	return handledByDelegate;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
@@ -102,11 +90,11 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL eventIsHandled = NO;
+	BOOL handledByDelegate = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
-        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
     }
-	return eventIsHandled;
+	return handledByDelegate;
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
@@ -114,11 +102,11 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
-	BOOL eventIsHandled = NO;
+	BOOL handledByDelegate = NO;
 	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
-        eventIsHandled = [delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
     }
-	return eventIsHandled;
+	return handledByDelegate;
 }
 
 @end
@@ -182,6 +170,14 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
  *	@param plots An array of the plots that have to fit in the visible area.
  **/
 -(void)scaleToFitPlots:(NSArray *)plots {
+}
+
+/**	@brief Zooms the plot space equally in each dimension.
+ *	@param scalingFactor The scaling factor. One gives no scaling.
+ *  @param point The plot area view point about which the scaling occurs.
+ **/
+-(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint
+{
 }
 
 @end

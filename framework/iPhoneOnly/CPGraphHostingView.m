@@ -1,6 +1,10 @@
 
 #import "CPGraphHostingView.h"
 #import "CPGraph.h"
+#import "CPPlotAreaFrame.h"
+#import "CPPlotArea.h"
+#import "CPPlotSpace.h"
+
 
 /**	@brief A container view for displaying a CPGraph.
  **/
@@ -110,24 +114,21 @@
 #pragma mark -
 #pragma mark Gestures
 
--(void) handlePinchGesture:(id)pinchGestureRecognizer
+-(void)handlePinchGesture:(id)pinchGestureRecognizer
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-  CGPoint interactionPoint = [pinchGestureRecognizer locationInView:self];
-
-
-	if (!collapsesLayers)
+	CGPoint interactionPoint = [pinchGestureRecognizer locationInView:self];
+	if ( !collapsesLayers )
 		interactionPoint = [self.layer convertPoint:interactionPoint toLayer:hostedGraph];
 	else
 		interactionPoint.y = self.frame.size.height-interactionPoint.y;
- // reset only scale if pinch gesture has been processed: a receiver might have refused to handle the
- // pinch gesture because of a too small scale difference compared with 1.0; if the scale is reset
- // the receiver will very likely never have the chance to interfere but by letting the scale increase
- // in case of unhandled gestures the scale value might become larger than the receiver's interaction
- // threshold value
-  if ([hostedGraph recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:[(UIPinchGestureRecognizer*)pinchGestureRecognizer scale]])
+        
+    CGPoint pointInPlotArea = [hostedGraph convertPoint:interactionPoint toLayer:hostedGraph.plotAreaFrame.plotArea];
+    
+    for ( CPPlotSpace *space in hostedGraph.allPlotSpaces ) {
+        [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] floatValue] aboutPoint:pointInPlotArea];
+    }
+    
     [pinchGestureRecognizer setScale:1.0f];
-#endif
 }
 
 #pragma mark -

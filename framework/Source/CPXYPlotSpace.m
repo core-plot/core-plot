@@ -285,56 +285,54 @@
 }
 
 #pragma mark -
-#pragma mark Interaction
+#pragma mark Scaling
 
--(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
+-(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
-  if ([super recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale])
-    return YES; // delegate handled pinch gesture
-
-	if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame || (interactionScale <= 0.0f))
-    return NO;
-
-  CGPoint plotAreaInteractionPoint = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
-
-  if ( [self.graph.plotAreaFrame containsPoint:plotAreaInteractionPoint] )
-  {
+	if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame || interactionScale <= 1.e-6 ) return;
+	if ( ![self.graph.plotAreaFrame.plotArea containsPoint:plotAreaPoint] ) return;
+    
+    // Ask the delegate if it is OK
+    BOOL shouldScale = YES;
+    if ( [self.delegate respondsToSelector:@selector(plotSpace:shouldScaleBy:aboutPoint:)] ) {
+        shouldScale = [self.delegate plotSpace:self shouldScaleBy:interactionScale aboutPoint:plotAreaPoint];
+    }
+    if ( !shouldScale ) return;
+    
+    // Determine point in plot coordinates
     NSDecimal const decimalScale = CPDecimalFromFloat(interactionScale);
-
     NSDecimal plotInteractionPoint[2];
-
-    [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaInteractionPoint];
+    [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
         
-   // ..LengthX/Y describe the length from the interaction point to the limits of the range
-    NSDecimal oldFirstLengthX  = CPDecimalSubtract(plotInteractionPoint[0],self.xRange.minLimit);
-    NSDecimal oldSecondLengthX = CPDecimalSubtract(self.xRange.maxLimit,   plotInteractionPoint[0]);
-    NSDecimal oldFirstLengthY  = CPDecimalSubtract(plotInteractionPoint[1],self.yRange.minLimit);
-    NSDecimal oldSecondLengthY = CPDecimalSubtract(self.yRange.maxLimit,   plotInteractionPoint[1]);
-   // length are scaled by the pinch gesture inverse proportional
+    // Original Lengths
+    NSDecimal oldFirstLengthX  = CPDecimalSubtract(plotInteractionPoint[0], self.xRange.minLimit);
+    NSDecimal oldSecondLengthX = CPDecimalSubtract(self.xRange.maxLimit, plotInteractionPoint[0]);
+    NSDecimal oldFirstLengthY  = CPDecimalSubtract(plotInteractionPoint[1], self.yRange.minLimit);
+    NSDecimal oldSecondLengthY = CPDecimalSubtract(self.yRange.maxLimit, plotInteractionPoint[1]);
+    
+    // Lengths are scaled by the pinch gesture inverse proportional
     NSDecimal newFirstLengthX  = CPDecimalDivide(oldFirstLengthX, decimalScale);
-    NSDecimal newSecondLengthX = CPDecimalDivide(oldSecondLengthX,decimalScale);
+    NSDecimal newSecondLengthX = CPDecimalDivide(oldSecondLengthX, decimalScale);
     NSDecimal newFirstLengthY  = CPDecimalDivide(oldFirstLengthY, decimalScale);
-    NSDecimal newSecondLengthY = CPDecimalDivide(oldSecondLengthY,decimalScale);
+    NSDecimal newSecondLengthY = CPDecimalDivide(oldSecondLengthY, decimalScale);
 
-    CPPlotRange* newRangeX = [[[CPPlotRange alloc] initWithLocation:CPDecimalSubtract(plotInteractionPoint[0],newFirstLengthX)
-                                                             length:CPDecimalAdd(newFirstLengthX,newSecondLengthX)] autorelease];
-    CPPlotRange* newRangeY = [[[CPPlotRange alloc] initWithLocation:CPDecimalSubtract(plotInteractionPoint[1],newFirstLengthY)
-                                                             length:CPDecimalAdd(newFirstLengthY,newSecondLengthY)] autorelease];
+	// New ranges
+    CPPlotRange *newRangeX = [[[CPPlotRange alloc] initWithLocation:CPDecimalSubtract(plotInteractionPoint[0],newFirstLengthX) length:CPDecimalAdd(newFirstLengthX,newSecondLengthX)] autorelease];
+    CPPlotRange *newRangeY = [[[CPPlotRange alloc] initWithLocation:CPDecimalSubtract(plotInteractionPoint[1],newFirstLengthY) length:CPDecimalAdd(newFirstLengthY,newSecondLengthY)] autorelease];
 
-   // delegate may still veto/modify the range
-    if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] )
-    {
+    // delegate may still veto/modify the range
+    if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
       newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPCoordinateX];
       newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPCoordinateY];
     }
-   
+
     self.xRange = newRangeX;
     self.yRange = newRangeY;
-        
-    return YES;
-  }
-	return NO;
 }
+
+
+#pragma mark -
+#pragma mark Interaction
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {

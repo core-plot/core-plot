@@ -17,20 +17,21 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Scrolling
 /// @{
 
-/** @brief Informs the receiver that a pinch gesture occurred
- *  @param space            The plot space.
- *  @param pinchGestureRecognizer     The pinch gesture itself.
- *  @param interactionPoint The coordinates of the gesture's centroid.
- *  @param interactionScale The scale of the pinching gesture.
- *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
+/** @brief Informs the receiver that it should uniformly scale (eg in response to a pinch on iOS)
+ *  @param space The plot space.
+ *  @param interactionScale The scaling factor.
+ *  @param interactionPoint The coordinates of the scaling centroid.
+ *  @return YES should be returned if the gesture should be handled by the plot space, and NO to prevent handling.
+ *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL) plotSpace:(CPPlotSpace*)space recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale;
+-(BOOL)plotSpace:(CPPlotSpace*)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 
 /**	@brief Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
  *  @param point The point in the host view.
- *	@return Whether the device should handle the event.
+ *	@return Whether the plot space should handle the event or not.
+ *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point;
 
@@ -38,14 +39,16 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
  *  @param point The point in the host view.
- *	@return Whether the device should handle the event.
+ *	@return Whether the plot space should handle the event or not.
+ *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point;
 
 /**	@brief Notifies that plot space intercepted a device cancelled event.
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
- *	@return Whether the device should handle the event.
+ *	@return Whether the plot space should handle the event or not.
+ *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event;
 
@@ -53,7 +56,8 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
  *	@param space The plot space.
  *  @param event The native event (eg UIEvent on iPhone)
  *  @param point The point in the host view.
- *	@return Whether the device should handle the event.
+ *	@return Whether the plot space should handle the event or not.
+ *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point;
 
@@ -101,10 +105,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-/**	@category CPPlotSpace(AbstractMethods)
+/**	@category CPPlotSpace (AbstractMethods)
  *	@brief CPPlotSpace abstract methods—must be overridden by subclasses
  **/
-@interface CPPlotSpace(AbstractMethods)
+@interface CPPlotSpace (AbstractMethods)
 
 /// @name Coordinate Space Conversions
 /// @{
@@ -120,9 +124,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 -(CPPlotRange *)plotRangeForCoordinate:(CPCoordinate)coordinate;
 ///	@}
 
-/// @name Adjusting Ranges to Plot Data
+/// @name Adjusting Ranges
 /// @{
 -(void)scaleToFitPlots:(NSArray *)plots;
+-(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 ///	@}
 
 @end

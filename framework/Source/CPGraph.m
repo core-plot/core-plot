@@ -628,28 +628,6 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     return handledEvent;
 }
 
-#pragma mark -
-#pragma mark Gestures
--(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
-{
- // Plots
-  for ( CPPlot* plot in self.plots )
-    if ( [plot recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale] ) return YES;
-  
- // Axes Set
-  if ( [self.axisSet recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale] ) return YES;
-  
- // Plot area
-  if ( [self.plotAreaFrame recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale] ) return YES;
-  
- // Plot spaces
-  BOOL handledEvent = NO;
-  for ( CPPlotSpace* space in self.plotSpaces )
-    handledEvent |= [space recognizer:pinchGestureRecognizer atPoint:interactionPoint withScale:interactionScale];
-  
-  return handledEvent;
-}
-
 @end
 
 #pragma mark -
