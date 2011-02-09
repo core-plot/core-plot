@@ -8,7 +8,7 @@
  *	of a graph. For example, the graph title is an annotation anchored to the 
  *	plot area frame.
  *
- *	@todo More documentation needed 
+ *	@todo More documentation needed.
  **/
 @implementation CPAnnotation
 

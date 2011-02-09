@@ -8,9 +8,9 @@
 @private
 	__weak CPAnnotationHostLayer *annotationHostLayer;
 	CPLayer *contentLayer;
-    CGPoint contentAnchorPoint;
-    CGPoint displacement;
-    CGFloat rotation;
+	CGPoint contentAnchorPoint;
+	CGPoint displacement;
+	CGFloat rotation;
 }
 
 @property (nonatomic, readwrite, retain) CPLayer *contentLayer;

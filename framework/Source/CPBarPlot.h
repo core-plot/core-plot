@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPPlot.h"
 #import "CPDefinitions.h"
@@ -50,7 +49,7 @@ typedef enum _CPBarPlotField {
  *	@return The bar label for the point with the given index.
  *  If you return nil, the default bar label will be used. If you return an instance of NSNull,
  *  no label will be shown for the index in question.
- *	@deprecated This method has been replaced by the CPPlotDataSource <code>-dataLabelForPlot:recordIndex:</code>  method and is no longer used.
+ *	@deprecated This method has been replaced by the CPPlotDataSource::dataLabelForPlot:recordIndex: method and is no longer used.
  **/
 -(CPTextLayer *)barLabelForBarPlot:(CPBarPlot *)barPlot recordIndex:(NSUInteger)index;
 

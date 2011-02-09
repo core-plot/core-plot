@@ -2,7 +2,7 @@
 #import "CPMutableNumericData.h"
 #import "CPExceptions.h"
 
-///	@cond
+/**	@cond */
 @interface CPMutableNumericData()
 
 -(void)commonInitWithData:(NSData *)newData
@@ -10,7 +10,7 @@
                     shape:(NSArray *)shapeArray;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

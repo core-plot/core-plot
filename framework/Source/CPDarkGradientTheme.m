@@ -1,4 +1,3 @@
-
 #import "CPDarkGradientTheme.h"
 #import "CPXYGraph.h"
 #import "CPColor.h"
@@ -14,13 +13,13 @@
 #import "CPBorderedLayer.h"
 #import "CPExceptions.h"
 
-///	@cond
+/**	@cond */
 @interface CPDarkGradientTheme ()
 
 -(void)applyThemeToAxis:(CPXYAxis *)axis usingMajorLineStyle:(CPLineStyle *)majorLineStyle minorLineStyle:(CPLineStyle *)minorLineStyle textStyle:(CPMutableTextStyle *)textStyle minorTickTextStyle:(CPMutableTextStyle *)minorTickTextStyle;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

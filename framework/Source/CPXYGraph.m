@@ -1,18 +1,17 @@
-
 #import "CPXYGraph.h"
 #import "CPXYPlotSpace.h"
 #import "CPExceptions.h"
 #import "CPXYAxisSet.h"
 #import "CPXYAxis.h"
 
-///	@cond
+/**	@cond */
 @interface CPXYGraph()
 
 @property (nonatomic, readwrite, assign) CPScaleType xScaleType;
 @property (nonatomic, readwrite, assign) CPScaleType yScaleType;
 
 @end
-///	@endcond
+/**	@endcond */
 
 /**	@brief A graph using a cartesian (X-Y) plot space.
  **/

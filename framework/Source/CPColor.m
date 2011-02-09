@@ -6,13 +6,12 @@
  *
  *  A wrapper class around CGColorRef
  *
- * @todo More documentation needed 
+ * @todo More documentation needed.
  **/
-
 @implementation CPColor
 
-/** @property cgColor
- *  @brief The CGColor to wrap around.
+/**	@property cgColor
+ *	@brief The CGColor to wrap around.
  **/
 @synthesize cgColor;
 

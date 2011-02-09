@@ -19,7 +19,7 @@ NSString * const CPScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
 /// @}
 
-/// @cond
+/**	@cond */
 @interface CPScatterPlot ()
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
@@ -37,7 +37,7 @@ NSString * const CPScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 @end
-/// @endcond
+/**	@endcond */
 
 #pragma mark -
 

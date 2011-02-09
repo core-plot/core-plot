@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPPlot.h"
 #import "CPDefinitions.h"
@@ -6,9 +5,12 @@
 @class CPLineStyle;
 @class CPFill;
 
-extern NSString * const CPErrorPlotBindingXValues;
-extern NSString * const CPErrorPlotBindingHighValues;
-extern NSString * const CPErrorPlotBindingLowValues;
+extern NSString * const CPRangePlotBindingXValues;
+extern NSString * const CPRangePlotBindingYValues;
+extern NSString * const CPRangePlotBindingHighValues;
+extern NSString * const CPRangePlotBindingLowValues;
+extern NSString * const CPRangePlotBindingLeftValues;
+extern NSString * const CPRangePlotBindingRightValues;
 
 /**	@brief Enumeration of range plot data source field types
  **/

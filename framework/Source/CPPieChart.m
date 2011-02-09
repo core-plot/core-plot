@@ -12,7 +12,7 @@
 
 NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
 
-/// @cond
+/**	@cond */
 @interface CPPieChart ()
 
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
@@ -27,7 +27,7 @@ NSString * const CPPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pi
 -(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint;
 
 @end
-/// @endcond
+/**	@endcond */
 
 #pragma mark -
 

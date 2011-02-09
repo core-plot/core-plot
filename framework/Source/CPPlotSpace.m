@@ -173,8 +173,8 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 }
 
 /**	@brief Zooms the plot space equally in each dimension.
- *	@param scalingFactor The scaling factor. One gives no scaling.
- *  @param point The plot area view point about which the scaling occurs.
+ *	@param interactionScale The scaling factor. One gives no scaling.
+ *  @param interactionPoint The plot area view point about which the scaling occurs.
  **/
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint
 {

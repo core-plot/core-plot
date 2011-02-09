@@ -14,7 +14,7 @@
 #import "NSNumberExtensions.h"
 #import "CPUtilities.h"
 
-///	@cond
+/**	@cond */
 @interface CPPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
@@ -32,7 +32,7 @@
 -(void)updateContentAnchorForLabel:(CPPlotSpaceAnnotation *)label;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

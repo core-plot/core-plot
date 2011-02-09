@@ -9,7 +9,7 @@
 
 static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
-///	@cond
+/**	@cond */
 @interface CPPlotArea()
 
 @property (nonatomic, readwrite, assign) CPGraphLayerType *bottomUpLayerOrder;
@@ -19,7 +19,7 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 -(unsigned)indexForLayerType:(CPGraphLayerType)layerType;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

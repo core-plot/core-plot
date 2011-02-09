@@ -32,6 +32,7 @@
  *	@param newPosition The position.
  *	@param newLowerBound The lower bound.
  *	@param newUpperBound The upper bound.
+ *  @return A CPConstrainedPosition instance initialized with the provided position and bounds.
  **/
 -(id)initWithPosition:(CGFloat)newPosition lowerBound:(CGFloat)newLowerBound upperBound:(CGFloat)newUpperBound
 {
@@ -49,6 +50,7 @@
  *	@param newAlignment The alignment.
  *	@param newLowerBound The lower bound.
  *	@param newUpperBound The upper bound.
+ *  @return A CPConstrainedPosition instance initialized with the provided alignment and bounds.
  **/
 -(id)initWithAlignment:(CPAlignment)newAlignment lowerBound:(CGFloat)newLowerBound upperBound:(CGFloat)newUpperBound
 {

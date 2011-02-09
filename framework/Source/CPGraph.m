@@ -14,7 +14,7 @@
 
 NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotification";
 
-///	@cond
+/**	@cond */
 @interface CPGraph()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
@@ -24,7 +24,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

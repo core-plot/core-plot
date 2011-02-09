@@ -18,7 +18,7 @@ NSString * const CPBarPlotBindingBarLocations = @"barLocations";	///< Bar locati
 NSString * const CPBarPlotBindingBarTips = @"barTips";				///< Bar tips.
 NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
-/// @cond
+/**	@cond */
 @interface CPBarPlot ()
 
 @property (nonatomic, readwrite, copy) NSArray *barLocations;
@@ -29,7 +29,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 @end
-/// @endcond
+/**	@endcond */
 
 #pragma mark -
 

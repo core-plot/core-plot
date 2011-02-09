@@ -1,4 +1,3 @@
-
 #import "CPTimeFormatter.h"
 
 /**	@brief A number formatter that converts time intervals to dates.

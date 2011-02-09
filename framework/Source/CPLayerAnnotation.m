@@ -3,7 +3,7 @@
 #import "CPConstrainedPosition.h"
 #import "CPLayer.h"
 
-///	@cond
+/**	@cond */
 @interface CPLayerAnnotation()
 
 @property (nonatomic, readwrite, retain) CPConstrainedPosition *xConstrainedPosition;
@@ -12,7 +12,7 @@
 -(void)setConstraints;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

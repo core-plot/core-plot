@@ -105,10 +105,10 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-/**	@category CPPlotSpace (AbstractMethods)
+/**	@category CPPlotSpace(AbstractMethods)
  *	@brief CPPlotSpace abstract methods—must be overridden by subclasses
  **/
-@interface CPPlotSpace (AbstractMethods)
+@interface CPPlotSpace(AbstractMethods)
 
 /// @name Coordinate Space Conversions
 /// @{

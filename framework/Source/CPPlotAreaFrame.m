@@ -5,13 +5,13 @@
 #import "CPLineStyle.h"
 #import "CPPlotArea.h"
 
-///	@cond
+/**	@cond */
 @interface CPPlotAreaFrame()
 
 @property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

@@ -1,4 +1,3 @@
-
 #import "CPRangePlot.h"
 #import "CPMutableNumericData.h"
 #import "CPNumericData.h"
@@ -20,6 +19,7 @@ NSString * const CPRangePlotBindingLowValues = @"lowValues";	///< low values.
 NSString * const CPRangePlotBindingLeftValues = @"leftValues";	///< left price values.
 NSString * const CPRangePlotBindingRightValues = @"rightValues";///< right price values.
 
+/**	@cond */
 struct CGPointError {
 	CGFloat x;
 	CGFloat y;
@@ -40,6 +40,7 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPMutableNumericData *rightValues;
 
 @end
+/**	@endcond */
 
 /**	@brief A plot class representing a range of values in one coordinate,
  *  such as typically used to show errors.

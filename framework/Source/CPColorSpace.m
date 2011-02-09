@@ -1,13 +1,12 @@
-
 #import "CPColorSpace.h"
 
-///	@cond
+/**	@cond */
 @interface CPColorSpace ()
 
 @property (nonatomic, readwrite, assign) CGColorSpaceRef cgColorSpace;
 
 @end
-///	@endcond
+/**	@endcond */
 
 /** @brief Wrapper around CGColorSpaceRef
  *

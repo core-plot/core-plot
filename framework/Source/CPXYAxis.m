@@ -12,7 +12,7 @@
 #import "CPXYAxis.h"
 #import "CPXYPlotSpace.h"
 
-///	@cond
+/**	@cond */
 @interface CPXYAxis ()
 
 @property (readwrite, retain) CPConstrainedPosition *constrainedPosition;
@@ -24,7 +24,7 @@
 -(void)updateConstraints;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

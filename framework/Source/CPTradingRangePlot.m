@@ -19,7 +19,7 @@ NSString * const CPTradingRangePlotBindingHighValues = @"highValues";	///< High 
 NSString * const CPTradingRangePlotBindingLowValues = @"lowValues";		///< Low price values.
 NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Close price values.
 
-/// @cond
+/**	@cond */
 @interface CPTradingRangePlot ()
 
 @property (nonatomic, readwrite, copy) CPMutableNumericData *xValues;
@@ -32,7 +32,7 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 -(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low;
 
 @end
-/// @endcond
+/**	@endcond */
 
 #pragma mark -
 

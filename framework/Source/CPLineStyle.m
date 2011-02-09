@@ -3,6 +3,7 @@
 #import "CPColor.h"
 #import "CPMutableLineStyle.h"
 
+/**	@cond */
 @interface CPLineStyle ()
 
 @property (nonatomic, readwrite, assign) CGLineCap lineCap;
@@ -14,6 +15,7 @@
 @property (nonatomic, readwrite, retain) CPColor *lineColor;
 
 @end
+/**	@endcond */
 
 /** @brief Immutable wrapper for various line drawing properties.
  *

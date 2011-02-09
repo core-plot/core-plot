@@ -2,13 +2,13 @@
 #import "CPAnnotation.h"
 #import "CPExceptions.h"
 
-///	@cond
+/**	@cond */
 @interface CPAnnotationHostLayer()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 
@@ -16,7 +16,7 @@
  *
  *	Annotations can be added to and removed from an annotation layer.
  *
- *	@todo More documentation needed 
+ *	@todo More documentation needed.
  **/
 @implementation CPAnnotationHostLayer
 

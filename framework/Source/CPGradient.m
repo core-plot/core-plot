@@ -1,4 +1,3 @@
-
 #import "CPGradient.h"
 #import "CPUtilities.h"
 #import "CPLayer.h"
@@ -6,7 +5,7 @@
 #import "CPColor.h"
 #import <tgmath.h>
 
-///	@cond
+/**	@cond */
 @interface CPGradient()
 
 @property (retain, readwrite) CPColorSpace *colorspace;
@@ -25,7 +24,7 @@
 -(void)removeAllElements;
 
 @end
-///	@endcond
+/**	@endcond */
 
 // C Fuctions for color blending
 static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);

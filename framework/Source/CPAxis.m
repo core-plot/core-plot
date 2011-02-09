@@ -21,7 +21,7 @@
 #import "CPUtilities.h"
 #import "NSDecimalNumberExtensions.h"
 
-///	@cond
+/**	@cond */
 @interface CPAxis ()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
@@ -36,7 +36,7 @@
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels labelAlignment:(CPAlignment)theLabelAlignment labelOffset:(CGFloat)theLabelOffset labelRotation:(CGFloat)theLabelRotation textStyle:(CPTextStyle *)theLabelTextStyle labelFormatter:(NSNumberFormatter *)theLabelFormatter;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

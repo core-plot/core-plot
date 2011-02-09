@@ -1,4 +1,3 @@
-
 #import "CPXYPlotSpace.h"
 #import "CPUtilities.h"
 #import "CPExceptions.h"
@@ -11,7 +10,7 @@
 #import "CPPlotArea.h"
 #import "CPGraph.h"
 
-/// @cond
+/**	@cond */
 @interface CPXYPlotSpace ()
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
@@ -20,7 +19,7 @@
 -(CPPlotRange *)constrainRange:(CPPlotRange *)existingRange toGlobalRange:(CPPlotRange *)globalRange;
 
 @end
-/// @endcond
+/**	@endcond */
 
 #pragma mark -
 

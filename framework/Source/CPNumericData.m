@@ -5,7 +5,7 @@
 #import "CPUtilities.h"
 #import "complex.h"
 
-///	@cond
+/**	@cond */
 @interface CPNumericData()
 
 -(void)commonInitWithData:(NSData *)newData
@@ -15,7 +15,7 @@
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPNumericDataType)newDataType;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

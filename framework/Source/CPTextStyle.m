@@ -1,9 +1,8 @@
-
 #import "CPTextStyle.h"
 #import "CPMutableTextStyle.h"
 #import "CPColor.h"
 
-
+/**	@cond */
 @interface CPTextStyle ()
 
 @property(readwrite, copy, nonatomic) NSString *fontName;
@@ -11,7 +10,7 @@
 @property(readwrite, copy, nonatomic) CPColor *color;
 
 @end
-
+/**	@endcond */
 
 /** @brief Immutable wrapper for various text style properties.
  *

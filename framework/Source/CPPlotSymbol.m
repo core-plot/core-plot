@@ -3,7 +3,7 @@
 #import "CPFill.h"
 #import "CPPlotSymbol.h"
 
-///	@cond
+/**	@cond */
 @interface CPPlotSymbol()
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedSymbolPath;
@@ -12,7 +12,7 @@
 -(CGPathRef)newSymbolPath;
 
 @end
-///	@endcond
+/**	@endcond */
 
 #pragma mark -
 

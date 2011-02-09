@@ -10,7 +10,7 @@
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
 
-///	@cond
+/**	@cond */
 @interface CPLayer()
 
 @property (nonatomic, readwrite, getter=isRenderingRecursively) BOOL renderingRecursively;
@@ -19,7 +19,9 @@
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
 
 @end
-///	@endcond
+/**	@endcond */
+
+#pragma mark -
 
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
@@ -28,9 +30,6 @@
  *
  *	@todo More documentation needed 
  **/
-
-#pragma mark -
-
 @implementation CPLayer
 
 /**	@property graph

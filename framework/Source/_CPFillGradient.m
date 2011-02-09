@@ -1,14 +1,13 @@
-
 #import "_CPFillGradient.h"
 #import "CPGradient.h"
 
-///	@cond
+/**	@cond */
 @interface _CPFillGradient()
 
 @property (nonatomic, readwrite, copy) CPGradient *fillGradient;
 
 @end
-///	@endcond
+/**	@endcond */
 
 /** @brief Draws CPGradient area fills.
  *

@@ -9,12 +9,14 @@
 
 /** @property borderLineStyle 
  *  @brief The line style for the layer border.
+ *
  *	If nil, the border is not drawn.
  **/
 @synthesize borderLineStyle;
 
 /** @property fill 
  *  @brief The fill for the layer background.
+ *
  *	If nil, the layer background is not filled.
  **/
 @synthesize fill;
