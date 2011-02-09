@@ -3,7 +3,6 @@
 set -e -u
 
 BUILD="${PWD}/../../build"
-SDK_VERSION=4.1
 
 rm -rf Distribution
 
@@ -11,7 +10,7 @@ XCODEBUILDFLAGS="-parallelizeTargets -configuration Release -target CorePlot-Coc
 
 for x_sdk in iphoneos iphonesimulator ; do 
 	BASESDK_DIR=Distribution/CorePlotSDK/${x_sdk}.sdk
-	xcodebuild $XCODEBUILDFLAGS SYMROOT="$BUILD" -sdk ${x_sdk}${SDK_VERSION}
+	xcodebuild $XCODEBUILDFLAGS SYMROOT="$BUILD" -sdk ${x_sdk}
 	mkdir -p "$BASESDK_DIR/usr/include/CorePlot"
 	mkdir -p "$BASESDK_DIR/usr/lib"
 
