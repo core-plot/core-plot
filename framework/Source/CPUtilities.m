@@ -202,7 +202,18 @@ NSDecimal CPDecimalFromLongLong(int64_t i)
  **/
 NSDecimal CPDecimalFromInt(int i)
 {
-	return [[NSNumber numberWithInt:i] decimalValue]; 
+    // We use CPDecimalFromInt() for {0,1,2} all the time, so
+    // caching these really improves speed.
+    static NSDecimal cache[3];
+	static BOOL cacheValueInitialized[3] = {NO};
+	if (i >= 0 && i < 3) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithInt:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+	}
+	return [[NSNumber numberWithInt:i] decimalValue];
 }
 
 /**
@@ -212,7 +223,18 @@ NSDecimal CPDecimalFromInt(int i)
  **/
 NSDecimal CPDecimalFromInteger(NSInteger i)
 {
-	return [[NSNumber numberWithInteger:i] decimalValue]; 
+	// We use CPDecimalFromInteger() for {0,1,2} all the time, so
+	// caching these really improves speed.
+	static NSDecimal cache[3];
+    static BOOL cacheValueInitialized[3] = {NO};
+    if (i >= 0 && i < 3) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithInteger:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
+	return [[NSNumber numberWithInteger:i] decimalValue];
 }
 
 /**
