@@ -1,5 +1,10 @@
 #import "CPUtilities.h"
 
+// cache common values to improve performance
+#define kCacheSize 3
+static NSDecimal cache[kCacheSize];
+static BOOL cacheValueInitialized[kCacheSize] = {NO, NO, NO};
+
 #pragma mark Convert NSDecimal to primitive types
 
 /**
@@ -162,7 +167,14 @@ NSString *CPDecimalStringValue(NSDecimal decimalNumber)
  **/
 NSDecimal CPDecimalFromChar(int8_t i)
 {
-	return [[NSNumber numberWithChar:i] decimalValue]; 
+	if ( (i >= 0) && (i < kCacheSize) ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithChar:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+	}
+	return [[NSNumber numberWithChar:i] decimalValue];
 }
 
 /**
@@ -172,7 +184,14 @@ NSDecimal CPDecimalFromChar(int8_t i)
  **/
 NSDecimal CPDecimalFromShort(int16_t i)
 {
-	return [[NSNumber numberWithShort:i] decimalValue]; 
+	if ( (i >= 0) && (i < kCacheSize) ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithShort:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+	}
+	return [[NSNumber numberWithShort:i] decimalValue];
 }
 
 /**
@@ -182,7 +201,14 @@ NSDecimal CPDecimalFromShort(int16_t i)
  **/
 NSDecimal CPDecimalFromLong(int32_t i)
 {
-	return [[NSNumber numberWithLong:i] decimalValue]; 
+	if ( (i >= 0) && (i < kCacheSize) ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithLong:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+	}
+	return [[NSNumber numberWithLong:i] decimalValue];
 }
 
 /**
@@ -192,7 +218,14 @@ NSDecimal CPDecimalFromLong(int32_t i)
  **/
 NSDecimal CPDecimalFromLongLong(int64_t i)
 {
-	return [[NSNumber numberWithLongLong:i] decimalValue]; 
+	if ( (i >= 0) && (i < kCacheSize) ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithLongLong:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+	}
+	return [[NSNumber numberWithLongLong:i] decimalValue];
 }
 
 /**
@@ -202,11 +235,7 @@ NSDecimal CPDecimalFromLongLong(int64_t i)
  **/
 NSDecimal CPDecimalFromInt(int i)
 {
-    // We use CPDecimalFromInt() for {0,1,2} all the time, so
-    // caching these really improves speed.
-    static NSDecimal cache[3];
-	static BOOL cacheValueInitialized[3] = {NO};
-	if (i >= 0 && i < 3) {
+	if ( (i >= 0) && (i < kCacheSize) ) {
 		if ( !cacheValueInitialized[i] ) {
 			cache[i] = [[NSNumber numberWithInt:i] decimalValue];
 			cacheValueInitialized[i] = YES;
@@ -223,11 +252,7 @@ NSDecimal CPDecimalFromInt(int i)
  **/
 NSDecimal CPDecimalFromInteger(NSInteger i)
 {
-	// We use CPDecimalFromInteger() for {0,1,2} all the time, so
-	// caching these really improves speed.
-	static NSDecimal cache[3];
-    static BOOL cacheValueInitialized[3] = {NO};
-    if (i >= 0 && i < 3) {
+	if ( (i >= 0) && (i < kCacheSize) ) {
 		if ( !cacheValueInitialized[i] ) {
 			cache[i] = [[NSNumber numberWithInteger:i] decimalValue];
 			cacheValueInitialized[i] = YES;
@@ -244,6 +269,13 @@ NSDecimal CPDecimalFromInteger(NSInteger i)
  **/
 NSDecimal CPDecimalFromUnsignedChar(uint8_t i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedChar:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedChar:i] decimalValue]; 
 }
 
@@ -254,6 +286,13 @@ NSDecimal CPDecimalFromUnsignedChar(uint8_t i)
  **/
 NSDecimal CPDecimalFromUnsignedShort(uint16_t i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedShort:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedShort:i] decimalValue]; 
 }
 
@@ -264,6 +303,13 @@ NSDecimal CPDecimalFromUnsignedShort(uint16_t i)
  **/
 NSDecimal CPDecimalFromUnsignedLong(uint32_t i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedLong:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedLong:i] decimalValue]; 
 }
 
@@ -274,6 +320,13 @@ NSDecimal CPDecimalFromUnsignedLong(uint32_t i)
  **/
 NSDecimal CPDecimalFromUnsignedLongLong(uint64_t i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedLongLong:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedLongLong:i] decimalValue]; 
 }
 
@@ -284,6 +337,13 @@ NSDecimal CPDecimalFromUnsignedLongLong(uint64_t i)
  **/
 NSDecimal CPDecimalFromUnsignedInt(unsigned int i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedInt:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedInt:i] decimalValue]; 
 }
 
@@ -294,6 +354,13 @@ NSDecimal CPDecimalFromUnsignedInt(unsigned int i)
  **/
 NSDecimal CPDecimalFromUnsignedInteger(NSUInteger i)
 {
+	if ( i < kCacheSize ) {
+		if ( !cacheValueInitialized[i] ) {
+			cache[i] = [[NSNumber numberWithUnsignedInteger:i] decimalValue];
+			cacheValueInitialized[i] = YES;
+		}
+		return cache[i];
+    }
 	return [[NSNumber numberWithUnsignedInteger:i] decimalValue]; 
 }
 
