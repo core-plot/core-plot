@@ -136,10 +136,16 @@
 {
     if ( !globalRange ) return existingRange;
     if ( !existingRange ) return nil;
-    CPPlotRange *newRange = [[existingRange copy] autorelease];
-    [newRange shiftEndToFitInRange:globalRange];
-    [newRange shiftLocationToFitInRange:globalRange];
-    return newRange;
+	
+	if ( CPDecimalGreaterThanOrEqualTo(existingRange.length, globalRange.length) ) {
+		return [[globalRange copy] autorelease];
+	}
+	else {
+		CPPlotRange *newRange = [[existingRange copy] autorelease];
+		[newRange shiftEndToFitInRange:globalRange];
+		[newRange shiftLocationToFitInRange:globalRange];
+		return newRange;
+	}
 }
 
 -(void)setGlobalXRange:(CPPlotRange *)newRange 
