@@ -238,10 +238,10 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 -(void)removePlot:(CPPlot *)plot
 {
     if ( [self.plots containsObject:plot] ) {
-		[self.plots removeObject:plot];
         plot.plotSpace = nil;
         plot.graph = nil;
 		[self.plotAreaFrame.plotGroup removePlot:plot];
+        [self.plots removeObject:plot];
     }
     else {
         [NSException raise:CPException format:@"Tried to remove CPPlot which did not exist."];
