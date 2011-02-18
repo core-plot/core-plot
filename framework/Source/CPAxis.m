@@ -301,7 +301,9 @@
  *
  *	The limit bands are drawn on top of the alternating band fills.
  **/
-@dynamic mutableBackgroundLimitBands;
+@dynamic backgroundLimitBands;
+
+@synthesize mutableBackgroundLimitBands;
 
 // Layers
 
@@ -883,7 +885,7 @@
 -(void)removeBackgroundLimitBand:(CPLimitBand *)limitBand
 {
 	if ( limitBand ) {
-		[mutableBackgroundLimitBands removeObject:limitBand];
+		[self.mutableBackgroundLimitBands removeObject:limitBand];
 		[self.plotArea setNeedsDisplay];
 	}
 }
@@ -1592,7 +1594,7 @@
 
 -(NSArray *)backgroundLimitBands
 {
-    return mutableBackgroundLimitBands;
+    return [[self.mutableBackgroundLimitBands copy] autorelease];
 }
 
 -(CPAxisSet *)axisSet
