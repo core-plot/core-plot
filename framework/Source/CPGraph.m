@@ -381,16 +381,21 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif 
 {
 	CPPlotSpace *plotSpace = notif.object;
+	BOOL backgroundBandsNeedRedraw = NO;
 	
 	for ( CPAxis *axis in self.axisSet.axes ) {
 		if ( axis.plotSpace == plotSpace ) {
 			[axis setNeedsRelabel];
+			backgroundBandsNeedRedraw |= (axis.backgroundLimitBands.count > 0);
 		}
 	}
 	for ( CPPlot *plot in self.plots ) {
 		if ( plot.plotSpace == plotSpace ) {
 			[plot setNeedsDisplay];
 		}
+	}
+	if ( backgroundBandsNeedRedraw ) {
+		[self.plotAreaFrame.plotArea setNeedsDisplay];
 	}
 }
 
