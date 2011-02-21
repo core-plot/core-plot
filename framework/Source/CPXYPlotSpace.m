@@ -170,17 +170,21 @@
 	if ( plots.count == 0 ) return;
     
 	// Determine union of ranges
-	CPPlotRange *unionXRange = [[plots objectAtIndex:0] plotRangeForCoordinate:CPCoordinateX];
-    CPPlotRange *unionYRange = [[plots objectAtIndex:0] plotRangeForCoordinate:CPCoordinateY];
+	CPPlotRange *unionXRange = nil;
+    CPPlotRange *unionYRange = nil;
     for ( CPPlot *plot in plots ) {
-    	[unionXRange unionPlotRange:[plot plotRangeForCoordinate:CPCoordinateX]];
-        [unionYRange unionPlotRange:[plot plotRangeForCoordinate:CPCoordinateY]];
+    	CPPlotRange *currentXRange = [plot plotRangeForCoordinate:CPCoordinateX];
+        CPPlotRange *currentYRange = [plot plotRangeForCoordinate:CPCoordinateY];
+        if ( !unionXRange ) unionXRange = currentXRange;
+        if ( !unionYRange ) unionYRange = currentYRange;
+    	[unionXRange unionPlotRange:currentXRange];
+        [unionYRange unionPlotRange:currentYRange];
     }
     
     // Set range
     NSDecimal zero = CPDecimalFromInteger(0);
-    if ( !CPDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
-    if ( !CPDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
+    if ( unionXRange && !CPDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
+    if ( unionYRange && !CPDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
 }
 
 #pragma mark -

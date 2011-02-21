@@ -655,10 +655,12 @@
 		NSMutableArray *numberArray = [[numbers sampleArray] mutableCopy];
         [numberArray removeObject:[NSNull null]];
         [numberArray removeObject:[NSDecimalNumber notANumber]];
-        NSNumber *min = [numberArray valueForKeyPath:@"@min.self"];
-        NSNumber *max = [numberArray valueForKeyPath:@"@max.self"];
-        NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
-        range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+        if ( numberArray.count > 0 ) {
+            NSNumber *min = [numberArray valueForKeyPath:@"@min.self"];
+            NSNumber *max = [numberArray valueForKeyPath:@"@max.self"];
+            NSDecimal length = CPDecimalSubtract([max decimalValue], [min decimalValue]);
+            range = [CPPlotRange plotRangeWithLocation:[min decimalValue] length:length];
+        }
         [numberArray release];
     }
     return range;
@@ -673,9 +675,13 @@
     NSArray *fields = [self fieldIdentifiersForCoordinate:coord];
     if ( fields.count == 0 ) return nil;
     
-    CPPlotRange *unionRange = [self plotRangeForField:[[fields lastObject] unsignedIntValue]];
+    CPPlotRange *unionRange = nil;
     for ( NSNumber *field in fields ) {
-        [unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntValue]];
+    	CPPlotRange *currentRange = [self plotRangeForField:field.unsignedIntValue];
+    	if ( !unionRange ) 
+        	unionRange = currentRange;
+        else
+        	[unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntValue]];
     }
     
     return unionRange;
