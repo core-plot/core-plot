@@ -314,7 +314,7 @@
  **/
 -(void)unionPlotRange:(CPPlotRange *)other 
 {
-	NSParameterAssert(other);
+	if ( !other ) return;
 
 	NSDecimal min1 = self.minLimit;
 	NSDecimal min2 = other.minLimit;
@@ -343,7 +343,7 @@
  **/
 -(void)intersectionPlotRange:(CPPlotRange *)other
 {
-	NSParameterAssert(other);
+	if ( !other ) return;
 	
 	NSDecimal min1 = self.minLimit;
 	NSDecimal min2 = other.minLimit;
