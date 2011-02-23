@@ -396,8 +396,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	CGPoint unitPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:unitPlotPoint];
 	CGFloat barWidthLength;
 	CGFloat barOffsetLength;
-	if ( horizontalBars ) 
-	{
+	if ( horizontalBars ) {
 		CGFloat dy = unitPoint.y - originPoint.y;
 		barWidthLength = dy * self.barWidth;
 		barOffsetLength = dy * self.barOffset;
@@ -529,14 +528,12 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		theBaseDecimalValue = [self cachedDecimalForField:CPBarPlotFieldBarBase recordIndex:index];
 	}
 	
-	CPPlotSpace *thePlotSpace = self.plotSpace;
-
 	NSNumber *location = [self cachedNumberForField:CPBarPlotFieldBarLocation recordIndex:index];
 	NSNumber *length = [self cachedNumberForField:CPBarPlotFieldBarTip recordIndex:index];
 	
 	BOOL positiveDirection = CPDecimalGreaterThanOrEqualTo([length decimalValue], theBaseDecimalValue);
 	BOOL horizontalBars = self.barsAreHorizontal;
-	CPPlotRange *lengthRange = [thePlotSpace plotRangeForCoordinate:horizontalBars ? CPCoordinateX : CPCoordinateY];
+	CPPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:horizontalBars ? CPCoordinateX : CPCoordinateY];
 	if ( CPDecimalLessThan(lengthRange.length, CPDecimalFromInteger(0)) ) {
 		positiveDirection = !positiveDirection;
 	}
@@ -544,9 +541,9 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	NSNumber *offsetLocation;
 	if ( self.doublePrecisionCache ) {
 #if CGFLOAT_IS_DOUBLE
-		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] * self.barOffset)];
+		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] + self.barOffset)];
 #else
-		offsetLocation = [NSNumber numberWithFloat:([location floatValue] * self.barOffset)];
+		offsetLocation = [NSNumber numberWithFloat:([location floatValue] + self.barOffset)];
 #endif
 	}
 	else {
