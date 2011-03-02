@@ -254,7 +254,7 @@
 	self.renderingRecursively = NO;
 	
 	// render sublayers
-    NSArray *sublayersCopy = [[self.sublayers copy] autorelease];
+    NSArray *sublayersCopy = [self.sublayers copy];
 	for ( CALayer *currentSublayer in sublayersCopy ) {
 		CGContextSaveGState(context);
 		
@@ -275,6 +275,8 @@
 		}
 		CGContextRestoreGState(context);
 	}
+    [sublayersCopy release];
+    
 	CGContextRestoreGState(context);
 }
 

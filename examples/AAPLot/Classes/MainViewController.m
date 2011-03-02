@@ -117,7 +117,7 @@
     [lineStyle release];
     
     volumePlot.fill = nil; 
-	volumePlot.barWidth = 1.0f;
+	volumePlot.barWidth = CPDecimalFromFloat(1.0f);
     volumePlot.identifier = @"Volume Plot";
     [graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
 	

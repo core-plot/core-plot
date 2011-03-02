@@ -116,7 +116,7 @@
     CPBarPlot *barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor darkGrayColor] horizontalBars:NO];
     barPlot.baseValue = CPDecimalFromString(@"0");
     barPlot.dataSource = self;
-    barPlot.barOffset = -0.25f;
+    barPlot.barOffset = CPDecimalFromFloat(-0.25f);
     barPlot.identifier = @"Bar Plot 1";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
     
@@ -124,7 +124,7 @@
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
     barPlot.dataSource = self;
     barPlot.baseValue = CPDecimalFromString(@"0");
-    barPlot.barOffset = 0.25f;
+    barPlot.barOffset = CPDecimalFromFloat(0.25f);
     barPlot.barCornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
