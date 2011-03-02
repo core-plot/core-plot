@@ -169,7 +169,7 @@
 	barPlot.lineStyle = barLineStyle;
 	barPlot.fill = [CPFill fillWithColor:[CPColor colorWithComponentRed:1.0f green:0.0f blue:0.5f alpha:0.5f]];
 	barPlot.barBasesVary = YES;
-    barPlot.barWidth = 0.5; // bar is 50% of the available space
+    barPlot.barWidth = CPDecimalFromFloat(0.5f); // bar is 50% of the available space
 	barPlot.barCornerRadius = 10.0f;
 #if HORIZONTAL
 	barPlot.barsAreHorizontal = YES;
@@ -195,7 +195,7 @@
 	barPlot2.fill = [CPFill fillWithColor:[CPColor colorWithComponentRed:0.0f green:1.0f blue:0.5f alpha:0.5f]];
 	barPlot2.barBasesVary = YES;
 
-	barPlot2.barWidth = 1.0f; // bar is full (100%) width
+	barPlot2.barWidth = CPDecimalFromFloat(1.0f); // bar is full (100%) width
 //	barPlot2.barOffset = -0.125f; // shifted left by 12.5%
     barPlot2.barCornerRadius = 2.0f;
 #if HORIZONTAL

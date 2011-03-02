@@ -350,7 +350,7 @@
     // Second bar plot
     barPlot = [CPBarPlot tubularBarPlotWithColor:[CPColor blueColor] horizontalBars:NO];
     barPlot.dataSource = self;
-    barPlot.barOffset = 0.25f; // 25% offset, 75% overlap
+    barPlot.barOffset = CPDecimalFromFloat(0.25f); // 25% offset, 75% overlap
     barPlot.barCornerRadius = 2.0f;
     barPlot.identifier = @"Bar Plot 2";
     barPlot.delegate = self;

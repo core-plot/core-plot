@@ -28,6 +28,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
+-(CGFloat)lengthInView:(NSDecimal)plotLength;
+
 @end
 /**	@endcond */
 
@@ -51,11 +53,18 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
  **/
 @synthesize barOffset;
 
+/** @property barWidthsAreInViewCoordinates
+ *  @brief Whether the bar width and bar offset is in view coordinates, or in plot coordinates.
+ *  Default is NO, meaning plot coordinates are used.
+ **/
+@synthesize barWidthsAreInViewCoordinates;
+
 /** @property barWidth
- *	@brief The width of each bar as a percentage of the location data units.
+ *	@brief The width of each bar. Either view or plot coordinates can be used. See barWidthsAreInViewCoordinates.
  *
- *	If the bar locations are one data unit apart (e.g., 1, 2, 3, etc.), a value of 1.0 will result in bars that touch each other;
- *  a value of 0.5 will result in bars that are as wide as the gap between them.
+ *	With plot coordinates, the bar locations are one data unit apart (e.g., 1, 2, 3, etc.), 
+ *  a value of 1.0 will result in bars that touch each other; a value of 0.5 will result in bars that are as wide 
+ *  as the gap between them.
  **/
 @synthesize barWidth;
 
@@ -128,7 +137,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	barPlot.lineStyle = barLineStyle;
 	[barLineStyle release];
 	barPlot.barsAreHorizontal = horizontal;
-	barPlot.barWidth = 0.8;
+	barPlot.barWidth = CPDecimalFromDouble(0.8);
+    barPlot.barWidthsAreInViewCoordinates = NO;
 	barPlot.barCornerRadius = 2.0;
 	CPGradient *fillGradient = [CPGradient gradientWithBeginningColor:color endingColor:[CPColor blackColor]];
 	fillGradient.angle = (horizontal ? -90.0 : 0.0);
@@ -156,8 +166,9 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	if ( self = [super initWithFrame:newFrame] ) {
 		lineStyle = [[CPLineStyle alloc] init];
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
-		barWidth = 0.5;
-		barOffset = 0.0;
+		barWidth = CPDecimalFromDouble(0.5);
+        barWidthsAreInViewCoordinates = NO;
+		barOffset = CPDecimalFromDouble(0.0);
 		barCornerRadius = 0.0;
 		baseValue = CPDecimalFromInteger(0);
 		barsAreHorizontal = NO;
@@ -178,6 +189,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		lineStyle = [theLayer->lineStyle retain];
 		fill = [theLayer->fill retain];
 		barWidth = theLayer->barWidth;
+        barWidthsAreInViewCoordinates = theLayer->barWidthsAreInViewCoordinates;
 		barOffset = theLayer->barOffset;
 		barCornerRadius = theLayer->barCornerRadius;
 		baseValue = theLayer->baseValue;
@@ -308,6 +320,67 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 }
 
 #pragma mark -
+#pragma mark Length Conversions for Independent Coordinate (eg widths, offsets)
+
+-(CGFloat)lengthInView:(NSDecimal)decimalLength
+{
+    CPCoordinate coordinate = ( self.barsAreHorizontal ? CPCoordinateY : CPCoordinateX );
+    CGFloat length;
+    if ( !barWidthsAreInViewCoordinates ) {
+        NSDecimal originPlotPoint[2] = {CPDecimalFromInteger(0), CPDecimalFromInteger(0)};
+        NSDecimal displacedPlotPoint[2] = {decimalLength, decimalLength};
+        CGPoint originPoint = [self.plotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
+        CGPoint displacedPoint = [self.plotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
+		length = ( coordinate == CPCoordinateX ? displacedPoint.x - originPoint.x : displacedPoint.y - originPoint.y );
+    }
+    else {
+        length = CPDecimalFloatValue(decimalLength);
+    }
+    return length;
+}
+
+-(double)doubleLengthInPlotCoordinates:(NSDecimal)decimalLength
+{
+    double length;
+    if ( barWidthsAreInViewCoordinates ) {
+    	CGFloat floatLength = CPDecimalFloatValue(decimalLength);
+        CGPoint originViewPoint = CGPointZero;
+        CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
+        double originPlotPoint[2], displacedPlotPoint[2];
+        [self.plotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+        [self.plotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+		length = ( !barsAreHorizontal ? displacedPlotPoint[0] - originPlotPoint[0] : displacedPlotPoint[1] - originPlotPoint[1]);
+    }
+    else {
+        length = CPDecimalDoubleValue(decimalLength);
+    }
+	return length;
+}
+
+-(NSDecimal)lengthInPlotCoordinates:(NSDecimal)decimalLength
+{
+    NSDecimal length;
+    if ( barWidthsAreInViewCoordinates ) {
+    	CGFloat floatLength = CPDecimalFloatValue(decimalLength);
+        CGPoint originViewPoint = CGPointZero;
+        CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
+        NSDecimal originPlotPoint[2], displacedPlotPoint[2];
+        [self.plotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+        [self.plotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+        if ( !barsAreHorizontal ) {
+        	length = CPDecimalSubtract(displacedPlotPoint[0], originPlotPoint[0]);
+        }
+        else {
+            length = CPDecimalSubtract(displacedPlotPoint[1], originPlotPoint[1]);
+        }
+    }
+    else {
+        length = decimalLength;
+    }
+    return length;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
@@ -390,23 +463,9 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	
-    // Determine bar width
-	NSDecimal originPlotPoint[2] = {CPDecimalFromInteger(0), CPDecimalFromInteger(0)};
-	NSDecimal unitPlotPoint[2] = {CPDecimalFromInteger(1), CPDecimalFromInteger(1)};
-	CGPoint originPoint = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
-	CGPoint unitPoint = [thePlotSpace plotAreaViewPointForPlotPoint:unitPlotPoint];
-	CGFloat barWidthLength;
-	CGFloat barOffsetLength;
-	if ( horizontalBars ) {
-		CGFloat dy = unitPoint.y - originPoint.y;
-		barWidthLength = dy * self.barWidth;
-		barOffsetLength = dy * self.barOffset;
-	}
-	else {
-		CGFloat dx = unitPoint.x - originPoint.x;
-		barWidthLength = dx * self.barWidth;
-		barOffsetLength = dx * self.barOffset;
-	}
+    // Determine bar width and offset. 
+    CGFloat barWidthLength = [self lengthInView:self.barWidth];
+    CGFloat barOffsetLength = [self lengthInView:self.barOffset];
 
 	// Offset
 	if ( horizontalBars ) {
@@ -543,19 +602,11 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 	NSNumber *offsetLocation;
 	if ( self.doublePrecisionCache ) {
-#if CGFLOAT_IS_DOUBLE
-		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] * self.barOffset)];
-#else
-		offsetLocation = [NSNumber numberWithFloat:([location floatValue] * self.barOffset)];
-#endif
+		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] + [self doubleLengthInPlotCoordinates:self.barOffset])];
 	}
 	else {
 		NSDecimal decimalLocation = [location decimalValue];
-#if CGFLOAT_IS_DOUBLE
-		NSDecimal offset = CPDecimalFromDouble(self.barOffset);
-#else
-		NSDecimal offset = CPDecimalFromFloat(self.barOffset);
-#endif
+		NSDecimal offset = [self lengthInPlotCoordinates:self.barOffset];
 		offsetLocation = [NSDecimalNumber decimalNumberWithDecimal:CPDecimalAdd(decimalLocation, offset)];
 	}
 	
@@ -669,20 +720,16 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     }
 }
 
--(void)setBarWidth:(CGFloat)newBarWidth {
-	if (barWidth != newBarWidth) {
-		barWidth = ABS(newBarWidth);
-		[self setNeedsDisplay];
-	}
+-(void)setBarWidth:(NSDecimal)newBarWidth {
+    barWidth = newBarWidth;
+    [self setNeedsDisplay];
 }
 
--(void)setBarOffset:(CGFloat)newBarOffset 
+-(void)setBarOffset:(NSDecimal)newBarOffset 
 {
-    if (barOffset != newBarOffset) {
-        barOffset = newBarOffset;
-        [self setNeedsDisplay];
-        [self setNeedsLayout];
-    }
+    barOffset = newBarOffset;
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
 }
 
 -(void)setBarCornerRadius:(CGFloat)newCornerRadius 
