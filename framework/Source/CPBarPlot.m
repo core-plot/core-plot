@@ -390,14 +390,14 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	
-	double originPlotPoint[2] = {0.0, 0.0};
-	double unitPlotPoint[2] = {1.0, 1.0};
-	CGPoint originPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:originPlotPoint];
-	CGPoint unitPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:unitPlotPoint];
+    // Determine bar width
+	NSDecimal originPlotPoint[2] = {CPDecimalFromInteger(0), CPDecimalFromInteger(0)};
+	NSDecimal unitPlotPoint[2] = {CPDecimalFromInteger(1), CPDecimalFromInteger(1)};
+	CGPoint originPoint = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
+	CGPoint unitPoint = [thePlotSpace plotAreaViewPointForPlotPoint:unitPlotPoint];
 	CGFloat barWidthLength;
 	CGFloat barOffsetLength;
-	if ( horizontalBars ) 
-	{
+	if ( horizontalBars ) {
 		CGFloat dy = unitPoint.y - originPoint.y;
 		barWidthLength = dy * self.barWidth;
 		barOffsetLength = dy * self.barOffset;
