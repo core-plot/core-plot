@@ -60,7 +60,8 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 @synthesize barWidthsAreInViewCoordinates;
 
 /** @property barWidth
- *	@brief The width of each bar. Either view or plot coordinates can be used. See barWidthsAreInViewCoordinates.
+ *	@brief The width of each bar. Either view or plot coordinates can be used.
+ *	@see barWidthsAreInViewCoordinates
  *
  *	With plot coordinates, the bar locations are one data unit apart (e.g., 1, 2, 3, etc.), 
  *  a value of 1.0 will result in bars that touch each other; a value of 0.5 will result in bars that are as wide 
@@ -320,7 +321,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 }
 
 #pragma mark -
-#pragma mark Length Conversions for Independent Coordinate (eg widths, offsets)
+#pragma mark Length Conversions for Independent Coordinate (e.g., widths, offsets)
 
 -(CGFloat)lengthInView:(NSDecimal)decimalLength
 {

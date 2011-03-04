@@ -550,7 +550,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
-    // the same event sequence (eg dragging coordinate translation)
+    // the same event sequence (e.g., dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
         BOOL handled = [space pointingDeviceDownEvent:event atPoint:interactionPoint];
@@ -575,7 +575,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
-    // the same event sequence (eg dragging coordinate translation)
+    // the same event sequence (e.g., dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
         BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
@@ -600,7 +600,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
     
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
-    // the same event sequence (eg dragging coordinate translation)
+    // the same event sequence (e.g., dragging coordinate translation)
     BOOL handledEvent = NO;
     for ( CPPlotSpace *space in self.plotSpaces ) {
         BOOL handled = [space pointingDeviceDraggedEvent:event atPoint:interactionPoint];

@@ -70,7 +70,7 @@
 /**	@property tickDirection
  *	@brief The tick direction.
  *  The direction is given as the sign that ticks extend along
- *  the axis (eg positive, or negative).
+ *  the axis (e.g., positive, or negative).
  **/
 @synthesize tickDirection;
 
@@ -184,7 +184,7 @@
 /**	@property labelFormatter
  *	@brief The number formatter used to format the label text.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
- *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
+ *  the numerical plot coordinate into a string (e.g., "Jan 10, 2010"). 
  *  The CPTimeFormatter is useful for this purpose.
  **/
 @synthesize labelFormatter;
@@ -192,7 +192,7 @@
 /**	@property minorTickLabelFormatter
  *	@brief The number formatter used to format the label text of minor ticks.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
- *  the numerical plot coordinate into a string (eg 'Jan 10, 2010'). 
+ *  the numerical plot coordinate into a string (e.g., "Jan 10, 2010"). 
  *  The CPTimeFormatter is useful for this purpose.
  **/
 @synthesize minorTickLabelFormatter;
