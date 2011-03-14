@@ -25,10 +25,13 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 @property (nonatomic, readwrite, copy) NSArray *barLengths;
 @property (nonatomic, readwrite, copy) NSArray *barBases;
 
--(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index;
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)recordIndex;
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 -(CGFloat)lengthInView:(NSDecimal)plotLength;
+
+-(BOOL)barIsVisibleWithBasePoint:(CGPoint)basePoint;
 
 @end
 /**	@endcond */
@@ -412,25 +415,24 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     }   
 }
 
--(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)index
-{		
-    CGPoint tipPoint, basePoint;
-	BOOL horizontalBars = self.barsAreHorizontal;
+-(BOOL)barAtRecordIndex:(NSUInteger)index basePoint:(CGPoint *)basePoint tipPoint:(CGPoint *)tipPoint
+{    
+    BOOL horizontalBars = self.barsAreHorizontal;
     CPCoordinate independentCoord = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
     CPCoordinate dependentCoord = ( horizontalBars ? CPCoordinateX : CPCoordinateY );
 	
 	CPPlotSpace *thePlotSpace = self.plotSpace;
 	CPPlotArea *thePlotArea = self.plotArea;
-	
-	if ( self.doublePrecisionCache ) {
+    
+    if ( self.doublePrecisionCache ) {
 		double plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarLocation recordIndex:index];
-		if ( isnan(plotPoint[independentCoord]) ) return NULL;
+		if ( isnan(plotPoint[independentCoord]) ) return NO;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarTip recordIndex:index];
-		if ( isnan(plotPoint[dependentCoord]) ) return NULL;
-		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+		if ( isnan(plotPoint[dependentCoord]) ) return NO;
+		*tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
 		if ( !self.barBasesVary ) {
@@ -439,18 +441,18 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		else {
 			plotPoint[dependentCoord] = [self cachedDoubleForField:CPBarPlotFieldBarBase recordIndex:index];
 		}
-		if ( isnan(plotPoint[dependentCoord]) ) return NULL;
-		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+		if ( isnan(plotPoint[dependentCoord]) ) return NO;
+		*basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
 	else {
 		NSDecimal plotPoint[2];
 		plotPoint[independentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarLocation recordIndex:index];
-		if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) return NULL;
+		if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) return NO;
 		
 		// Tip point
 		plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarTip recordIndex:index];
-		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NULL;
-		tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NO;
+		*tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 		
 		// Base point
 		if ( !self.barBasesVary ) {
@@ -459,27 +461,45 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		else {
 			plotPoint[dependentCoord] = [self cachedDecimalForField:CPBarPlotFieldBarBase recordIndex:index];
 		}
-		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NULL;
-		basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+		if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) return NO;
+		*basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
 	}
-	
+    
     // Determine bar width and offset. 
-    CGFloat barWidthLength = [self lengthInView:self.barWidth];
     CGFloat barOffsetLength = [self lengthInView:self.barOffset];
-
+    
 	// Offset
 	if ( horizontalBars ) {
-		basePoint.y += barOffsetLength;
-		tipPoint.y += barOffsetLength;
+		basePoint->y += barOffsetLength;
+		tipPoint->y += barOffsetLength;
 	}
 	else {
-		basePoint.x += barOffsetLength;
-		tipPoint.x += barOffsetLength;
+		basePoint->x += barOffsetLength;
+		tipPoint->x += barOffsetLength;
 	}
+    
+	return YES;    
+}
+
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)recordIndex {
+	// Get base and tip points
+    CGPoint basePoint, tipPoint;
+    BOOL barExists = [self barAtRecordIndex:recordIndex basePoint:&basePoint tipPoint:&tipPoint];
+    if ( !barExists ) return NULL;
+    
+	CGMutablePathRef path = [self newBarPathWithContext:context basePoint:basePoint tipPoint:tipPoint];
+    
+    return path;
+}
+
+-(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint
+{		
+	BOOL horizontalBars = self.barsAreHorizontal;
 	
 	// This function is used to create a path which is used for both
 	// drawing a bar and for doing hit-testing on a click/touch event
     CPCoordinate widthCoordinate = ( horizontalBars ? CPCoordinateY : CPCoordinateX );
+    CGFloat barWidthLength = [self lengthInView:self.barWidth];
 	CGFloat halfBarWidth = 0.5 * barWidthLength;
 	
     CGFloat point[2];
@@ -541,9 +561,32 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	return path;
 }
 
--(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
+-(BOOL)barIsVisibleWithBasePoint:(CGPoint)basePoint
 {
-	CGMutablePathRef path = [self newBarPathWithContext:context recordIndex:index];
+	BOOL horizontalBars = self.barsAreHorizontal;
+    CGFloat barWidthLength = [self lengthInView:self.barWidth];
+	CGFloat halfBarWidth = 0.5 * barWidthLength;
+    
+    CPPlotArea *thePlotArea = self.plotArea;
+	
+    CGFloat lowerBound = ( horizontalBars ? CGRectGetMinY(thePlotArea.bounds) : CGRectGetMinX(thePlotArea.bounds) );
+    CGFloat upperBound = ( horizontalBars ? CGRectGetMaxY(thePlotArea.bounds) : CGRectGetMaxX(thePlotArea.bounds) );
+    CGFloat base = ( horizontalBars ? basePoint.y : basePoint.x );
+    
+    return ( base + halfBarWidth > lowerBound ) && ( base - halfBarWidth < upperBound );
+}
+
+-(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
+{    
+	// Get base and tip points
+    CGPoint basePoint, tipPoint;
+    BOOL barExists = [self barAtRecordIndex:index basePoint:&basePoint tipPoint:&tipPoint];
+    if ( !barExists ) return;
+    
+    // Return if bar is off screen
+	if ( ![self barIsVisibleWithBasePoint:basePoint] ) return;
+    
+	CGMutablePathRef path = [self newBarPathWithContext:context basePoint:basePoint tipPoint:tipPoint];
 	
 	if ( path ) {
 		CGContextSaveGState(context);
