@@ -21,6 +21,12 @@
  **/
 @synthesize collapsesLayers;
 
+/**	@property allowPinchScaling
+ *	@brief Whether a pinch will trigger plot space scaling.
+ *  Default is YES. This causes gesture recognizers to be added to identify pinches.
+ **/
+@synthesize allowPinchScaling;
+
 +(Class)layerClass
 {
 	return [CALayer class];
@@ -31,24 +37,17 @@
     hostedGraph = nil;
     collapsesLayers = NO;
     
-    self.backgroundColor = [UIColor clearColor];	
+    self.backgroundColor = [UIColor clearColor];
+	
+    self.allowPinchScaling = YES;
     
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
     self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);	
-    
-    // Register for pinches
-    Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
-    if ( pinchClass )
-    {
-      id pinchRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-      [self addGestureRecognizer:pinchRecognizer];
-      [pinchRecognizer release];
-    }
 }
 
 -(id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+    if ( (self = [super initWithFrame:frame]) ) {
 		[self commonInit];
     }
     return self;
@@ -114,9 +113,29 @@
 #pragma mark -
 #pragma mark Gestures
 
--(void)handlePinchGesture:(id)pinchGestureRecognizer
+-(void)setAllowPinchScaling:(BOOL)yn
 {
-	CGPoint interactionPoint = [pinchGestureRecognizer locationInView:self];
+    if ( allowPinchScaling != yn ) {
+        allowPinchScaling = yn;
+        if ( allowPinchScaling ) {
+            // Register for pinches
+            Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
+            if ( pinchClass ) {
+                pinchGestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+                [self addGestureRecognizer:pinchGestureRecognizer];
+                [pinchGestureRecognizer release];
+            }
+        }
+        else {
+            if ( pinchGestureRecognizer ) [self removeGestureRecognizer:pinchGestureRecognizer];
+            pinchGestureRecognizer = nil;
+        }
+    }
+}
+
+-(void)handlePinchGesture:(id)aPinchGestureRecognizer
+{
+	CGPoint interactionPoint = [aPinchGestureRecognizer locationInView:self];
 	if ( !collapsesLayers )
 		interactionPoint = [self.layer convertPoint:interactionPoint toLayer:hostedGraph];
 	else

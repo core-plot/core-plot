@@ -6,9 +6,12 @@
 	@protected
 	CPGraph *hostedGraph;
 	BOOL collapsesLayers;
+    BOOL allowPinchScaling;
+    id pinchGestureRecognizer;
 }
 
 @property (nonatomic, readwrite, retain) CPGraph *hostedGraph;
 @property (nonatomic, readwrite, assign) BOOL collapsesLayers;
+@property (nonatomic, readwrite, assign) BOOL allowPinchScaling;
 
 @end
