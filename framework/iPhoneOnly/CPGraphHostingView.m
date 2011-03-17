@@ -60,6 +60,7 @@
 }
 
 -(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[hostedGraph release];
     [super dealloc];
 }
