@@ -3,6 +3,7 @@
 #import "APYahooDataPuller.h"
 #import "APFinancialData.h"
 
+
 @interface MainViewController()
 
 @property(nonatomic, retain) CPXYGraph *graph;
@@ -161,10 +162,10 @@
         }
     }
 	else if ( [plot.identifier isEqual:@"Volume Plot"] ) {
-        if (fieldEnum == CPScatterPlotFieldX) {
+        if (fieldEnum == CPBarPlotFieldBarLocation) {
             num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
         }
-        else if (fieldEnum == CPScatterPlotFieldY) {
+        else if (fieldEnum == CPBarPlotFieldBarTip ) {
             NSArray *financialData = self.datapuller.financialData;
             
             NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];

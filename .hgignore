@@ -22,6 +22,9 @@ build/*
 **.pbxuser
 **.mode?v?
 **.perspectivev?
+**.xcuserstate
+**/xcuserdata/*
+
 
 # documentation
 **.docset/*
