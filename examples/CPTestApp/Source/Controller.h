@@ -15,9 +15,9 @@
     CGFloat labelRotation;
 }
 
-@property CGFloat xShift;
-@property CGFloat yShift;
-@property CGFloat labelRotation;
+@property (nonatomic) CGFloat xShift;
+@property (nonatomic) CGFloat yShift;
+@property (nonatomic) CGFloat labelRotation;
 
 // Data loading
 -(IBAction)reloadDataSourcePlot:(id)sender;

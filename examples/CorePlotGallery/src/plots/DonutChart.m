@@ -12,7 +12,7 @@ NSString * const outerChartName = @"Outer";
 
 - (id)init
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
         title = @"Donut Chart";
     }
 

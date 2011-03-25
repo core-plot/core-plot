@@ -26,7 +26,7 @@
 
 - (id)init
 {
-    if (self = [super init]) {
+    if ( (self = [super init]) ) {
         title = @"Composite Plot";
     }
 	

@@ -447,7 +447,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 
 -(void)barPlot:(CPBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
-	NSLog(@"barWasSelectedAtRecordIndex %d", index);
+	NSLog(@"barWasSelectedAtRecordIndex %lu", index);
 
 	if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
