@@ -17,7 +17,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Scrolling
 /// @{
 
-/** @brief Informs the receiver that it should uniformly scale (eg in response to a pinch on iOS)
+/** @brief Informs the receiver that it should uniformly scale (e.g., in response to a pinch on iOS)
  *  @param space The plot space.
  *  @param interactionScale The scaling factor.
  *  @param interactionPoint The coordinates of the scaling centroid.
@@ -28,7 +28,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /**	@brief Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
- *  @param event The native event (eg UIEvent on iPhone)
+ *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
@@ -37,7 +37,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /**	@brief Notifies that plot space intercepted a device dragged event.
  *	@param space The plot space.
- *  @param event The native event (eg UIEvent on iPhone)
+ *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
@@ -46,7 +46,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /**	@brief Notifies that plot space intercepted a device cancelled event.
  *	@param space The plot space.
- *  @param event The native event (eg UIEvent on iPhone)
+ *  @param event The native event (e.g., UIEvent on iPhone)
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
@@ -54,7 +54,7 @@ extern NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification;
 
 /**	@brief Notifies that plot space intercepted a device up event.
  *	@param space The plot space.
- *  @param event The native event (eg UIEvent on iPhone)
+ *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
