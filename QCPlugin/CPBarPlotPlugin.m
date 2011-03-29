@@ -165,8 +165,8 @@
         lineStyle.lineWidth = [self dataLineWidth:index];
         plot.lineStyle = lineStyle;
 		plot.baseValue = CPDecimalFromDouble(self.inputBaseValue);
-		plot.barWidth = barWidth;
-		plot.barOffset = self.inputBarOffset;
+		plot.barWidth = CPDecimalFromDouble(barWidth);
+		plot.barOffset = CPDecimalFromDouble(self.inputBarOffset);
 		plot.barsAreHorizontal = self.inputHorizontalBars;		
 		plot.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:[self areaFillColor:index]]];
 		
