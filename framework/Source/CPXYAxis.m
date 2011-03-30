@@ -150,7 +150,7 @@
     
 	[lineStyle setLineStyleInContext:theContext];
 	CGContextBeginPath(theContext);
-
+    
     for ( NSDecimalNumber *tickLocation in locations ) {
         // Tick end points
         CGPoint baseViewPoint = [self viewPointForCoordinateDecimalNumber:[tickLocation decimalValue]];
@@ -257,7 +257,7 @@
 		
 		for ( NSDecimalNumber *location in locations ) {
 			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = [location decimalValue];
-
+            
 			// Start point
 			CGPoint startViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint] fromLayer:thePlotArea];
 			
@@ -476,7 +476,7 @@
 	else {
 		return CPDecimalFromInteger(0);
 	}
-
+    
 }
 
 #pragma mark -
@@ -506,14 +506,20 @@
 
 -(void)setConstraints:(CPConstraints)newConstraints
 {
-    constraints = newConstraints;
-	[self updateConstraints];
+    if ( (constraints.lower != newConstraints.lower) || (constraints.upper != newConstraints.upper) ) {
+        constraints = newConstraints;
+        [self updateConstraints];
+    }
 }
 
 -(void)setOrthogonalCoordinateDecimal:(NSDecimal)newCoord 
 {
-    orthogonalCoordinateDecimal = newCoord;
-    [self updateConstraints];
+    if ( NSDecimalCompare(&orthogonalCoordinateDecimal, &newCoord) != NSOrderedSame ) {
+        orthogonalCoordinateDecimal = newCoord;
+        [self updateConstraints];
+        [self setNeedsDisplay];
+        [self setNeedsLayout];
+    }
 }
 
 -(void)setCoordinate:(CPCoordinate)newCoordinate 
