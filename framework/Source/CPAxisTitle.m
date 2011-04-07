@@ -24,7 +24,7 @@
             break;
         case CPSignPositive:
             *value += self.offset;
-			anchor = (coordinate == CPCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 0.0));
+			anchor = (coordinate == CPCoordinateX ? CGPointMake(0.5, 1.0) : CGPointMake(0.5, 0.0));
             break;
         default:
             [NSException raise:CPException format:@"Invalid sign in positionRelativeToViewPoint:inDirection:"];
