@@ -308,7 +308,7 @@
 	copy.lineStyle = [[self.lineStyle copy] autorelease];
 	copy.fill = [[self.fill copy] autorelease];
 	
-	if (self.customSymbolPath) {
+	if ( self.customSymbolPath ) {
 		CGPathRef pathCopy = CGPathCreateCopy(self.customSymbolPath);
 		copy.customSymbolPath = pathCopy;
 		CGPathRelease(pathCopy);
@@ -320,7 +320,7 @@
 #pragma mark -
 #pragma mark Drawing
 
-/** @brief Draws the plot symbol into the given graphics context centered at the provided point.
+/** @brief Draws the plot symbol into the given graphics context centered at the provided point using the cached symbol image.
  *  @param theContext The graphics context to draw into.
  *  @param center The center point of the symbol.
  **/
@@ -331,10 +331,10 @@
 	if ( !theCachedLayer ) {
 		const CGFloat symbolMargin = 2.0;
 		
-		CGSize symbolSize = CGPathGetBoundingBox(self.cachedSymbolPath).size;
-		CGFloat lineWidth = self.lineStyle.lineWidth;
-		symbolSize.width += lineWidth + symbolMargin;
-		symbolSize.height += lineWidth + symbolMargin;
+		CGSize symbolSize = self.size;
+		CGFloat margin = self.lineStyle.lineWidth + symbolMargin;
+		symbolSize.width += margin;
+		symbolSize.height += margin;
 		
 		theCachedLayer = CGLayerCreateWithContext(theContext, symbolSize, NULL);
 		
@@ -347,10 +347,19 @@
 	
 	if ( theCachedLayer ) {
 		CGSize layerSize = CGLayerGetSize(theCachedLayer);
-		CGContextDrawLayerAtPoint(theContext, CGPointMake(center.x - layerSize.width / 2.0, center.y - layerSize.height / 2.0), theCachedLayer);
+#if CGFLOAT_IS_DOUBLE
+		CGPoint centerPoint = CGPointMake(round(center.x - layerSize.width / 2.0), round(center.y - layerSize.height / 2.0));
+#else
+		CGPoint centerPoint = CGPointMake(roundf(center.x - layerSize.width / 2.0f), roundf(center.y - layerSize.height / 2.0f));
+#endif
+		CGContextDrawLayerAtPoint(theContext, centerPoint, theCachedLayer);
 	}
 }
 
+/** @brief Draws the plot symbol into the given graphics context centered at the provided point.
+ *  @param theContext The graphics context to draw into.
+ *  @param center The center point of the symbol.
+ **/
 -(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center
 {
 	CGPathRef theSymbolPath = self.cachedSymbolPath;
@@ -427,8 +436,7 @@
 	CGFloat dx, dy;
 	CGSize symbolSize = self.size;
 	CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
-	CGRect bounds = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
-	
+
 	CGMutablePathRef symbolPath = CGPathCreateMutable();
 	
 	switch ( self.symbolType ) {
@@ -436,25 +444,25 @@
 			// empty path
 			break;
 		case CPPlotSymbolTypeRectangle:
-			CGPathAddRect(symbolPath, NULL, bounds);
+			CGPathAddRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
 			break;
 		case CPPlotSymbolTypeEllipse:
-			CGPathAddEllipseInRect(symbolPath, NULL, bounds);
+			CGPathAddEllipseInRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
 			break;
 		case CPPlotSymbolTypeCross:
-			CGPathMoveToPoint(symbolPath,    NULL, CGRectGetMinX(bounds), CGRectGetMaxY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMaxX(bounds), CGRectGetMinY(bounds));
-			CGPathMoveToPoint(symbolPath,    NULL, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMinX(bounds), CGRectGetMinY(bounds));
+			CGPathMoveToPoint(symbolPath,    NULL, -halfSize.width,  halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL, halfSize.width,  -halfSize.height);
+			CGPathMoveToPoint(symbolPath,    NULL, halfSize.width,   halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL, -halfSize.width, -halfSize.height);
 			break;
 		case CPPlotSymbolTypePlus:
-			CGPathMoveToPoint(symbolPath,    NULL, 0.0,                   CGRectGetMaxY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL, 0.0,                   CGRectGetMinY(bounds));
-			CGPathMoveToPoint(symbolPath,    NULL, CGRectGetMinX(bounds), 0.0);
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMaxX(bounds), 0.0);
+			CGPathMoveToPoint(symbolPath,    NULL, 0.0,             halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL, 0.0,            -halfSize.height);
+			CGPathMoveToPoint(symbolPath,    NULL, -halfSize.width, 0.0);
+			CGPathAddLineToPoint(symbolPath, NULL, halfSize.width,  0.0);
 			break;
 		case CPPlotSymbolTypePentagon:
-			CGPathMoveToPoint(symbolPath,    NULL,	0.0,                             CGRectGetMaxY(bounds));
+			CGPathMoveToPoint(symbolPath,    NULL,	0.0,                             halfSize.height);
 			CGPathAddLineToPoint(symbolPath, NULL,  halfSize.width * 0.95105651630,  halfSize.height * 0.30901699437);
 			CGPathAddLineToPoint(symbolPath, NULL,  halfSize.width * 0.58778525229, -halfSize.height * 0.80901699437);
 			CGPathAddLineToPoint(symbolPath, NULL, -halfSize.width * 0.58778525229, -halfSize.height * 0.80901699437);
@@ -462,7 +470,7 @@
 			CGPathCloseSubpath(symbolPath);
 			break;
 		case CPPlotSymbolTypeStar:
-			CGPathMoveToPoint(symbolPath,    NULL,  0.0,                             CGRectGetMaxY(bounds));
+			CGPathMoveToPoint(symbolPath,    NULL,  0.0,                             halfSize.height);
 			CGPathAddLineToPoint(symbolPath, NULL,  halfSize.width * 0.22451398829,  halfSize.height * 0.30901699437);
 			CGPathAddLineToPoint(symbolPath, NULL,  halfSize.width * 0.95105651630,  halfSize.height * 0.30901699437);
 			CGPathAddLineToPoint(symbolPath, NULL,  halfSize.width * 0.36327126400, -halfSize.height * 0.11803398875);
@@ -475,33 +483,33 @@
 			CGPathCloseSubpath(symbolPath);
 			break;
 		case CPPlotSymbolTypeDiamond:
-			CGPathMoveToPoint(symbolPath,    NULL, 0.0,                   CGRectGetMaxY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMaxX(bounds), 0.0);
-			CGPathAddLineToPoint(symbolPath, NULL, 0.0,                   CGRectGetMinY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMinX(bounds), 0.0);
+			CGPathMoveToPoint(symbolPath,    NULL, 0.0,             halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL, halfSize.width,  0.0);
+			CGPathAddLineToPoint(symbolPath, NULL, 0.0,            -halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL, -halfSize.width, 0.0);
 			CGPathCloseSubpath(symbolPath);
 			break;
 		case CPPlotSymbolTypeTriangle:
 			dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
 			dy = halfSize.height / 2.0;
-			
-			CGPathMoveToPoint(symbolPath,    NULL,  0.0, CGRectGetMaxY(bounds));
+            
+			CGPathMoveToPoint(symbolPath,    NULL,  0.0, halfSize.height);
 			CGPathAddLineToPoint(symbolPath, NULL,  dx, -dy);
 			CGPathAddLineToPoint(symbolPath, NULL, -dx, -dy);
 			CGPathCloseSubpath(symbolPath);
 			break;
 		case CPPlotSymbolTypeDash:
-			CGPathMoveToPoint(symbolPath,    NULL, CGRectGetMinX(bounds), 0.0);
-			CGPathAddLineToPoint(symbolPath, NULL, CGRectGetMaxX(bounds), 0.0);
+			CGPathMoveToPoint(symbolPath,    NULL, halfSize.width,  0.0);
+			CGPathAddLineToPoint(symbolPath, NULL, -halfSize.width, 0.0);
 			break;
 		case CPPlotSymbolTypeHexagon:
 			dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
 			dy = halfSize.height / 2.0;
 			
-			CGPathMoveToPoint(symbolPath,    NULL, 0.0,  CGRectGetMaxY(bounds));
+			CGPathMoveToPoint(symbolPath,    NULL, 0.0,  halfSize.height);
 			CGPathAddLineToPoint(symbolPath, NULL, dx,   dy);
 			CGPathAddLineToPoint(symbolPath, NULL, dx,  -dy);
-			CGPathAddLineToPoint(symbolPath, NULL, 0.0,  CGRectGetMinY(bounds));
+			CGPathAddLineToPoint(symbolPath, NULL, 0.0, -halfSize.height);
 			CGPathAddLineToPoint(symbolPath, NULL, -dx, -dy);
 			CGPathAddLineToPoint(symbolPath, NULL, -dx,  dy);
 			CGPathCloseSubpath(symbolPath);
@@ -510,12 +518,12 @@
 			dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
 			dy = halfSize.height / 2.0;
 			
-			CGPathMoveToPoint(symbolPath,    NULL,  0.0, CGRectGetMaxY(bounds));
-			CGPathAddLineToPoint(symbolPath, NULL,  0.0, CGRectGetMinY(bounds));
-			CGPathMoveToPoint(symbolPath,    NULL,  dx, -dy);
-			CGPathAddLineToPoint(symbolPath, NULL, -dx,  dy);
-			CGPathMoveToPoint(symbolPath,    NULL, -dx, -dy);
-			CGPathAddLineToPoint(symbolPath, NULL,  dx,  dy);
+			CGPathMoveToPoint(symbolPath,    NULL,  0.0,  halfSize.height);
+			CGPathAddLineToPoint(symbolPath, NULL,  0.0, -halfSize.height);
+			CGPathMoveToPoint(symbolPath,    NULL,  dx,  -dy);
+			CGPathAddLineToPoint(symbolPath, NULL, -dx,   dy);
+			CGPathMoveToPoint(symbolPath,    NULL, -dx,  -dy);
+			CGPathAddLineToPoint(symbolPath, NULL,  dx,   dy);
 			break;
 		case CPPlotSymbolTypeCustom: {
 			CGPathRef customPath = self.customSymbolPath;
@@ -524,10 +532,9 @@
 				CGAffineTransform scaleTransform = CGAffineTransformIdentity;
 				
 				oldBounds = CGPathGetBoundingBox(customPath);
-				CGFloat dx1 = bounds.size.width / oldBounds.size.width;
-				CGFloat dy1 = bounds.size.height / oldBounds.size.height;
-				CGFloat f = dx1 < dy1 ? dx1 : dy1;
-				scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, f, f);
+				CGFloat dx1 = symbolSize.width / oldBounds.size.width;
+				CGFloat dy1 = symbolSize.height / oldBounds.size.height;
+				scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, dx1, dy1);
 				scaleTransform = CGAffineTransformConcat(scaleTransform,
 														 CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
 				CGPathAddPath(symbolPath, &scaleTransform, customPath);
