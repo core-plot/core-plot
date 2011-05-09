@@ -1,6 +1,6 @@
 #import "NSNumberExtensions.h"
 
-@implementation NSNumber(CPExtensions)
+@implementation NSNumber(CPTExtensions)
 
 /**	@brief Returns the value of the receiver as an NSDecimalNumber.
  *	@return The value of the receiver as an NSDecimalNumber.

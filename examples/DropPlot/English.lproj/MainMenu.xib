@@ -3061,7 +3061,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">CPPlotDocument</string>
+					<string key="className">CPTPlotDocument</string>
 					<string key="superclassName">NSDocument</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3078,11 +3078,11 @@
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">graphView</string>
-						<string key="NS.object.0">CPLayerHostingView</string>
+						<string key="NS.object.0">CPTLayerHostingView</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">CPPlotDocument.h</string>
+						<string key="minorKey">CPTPlotDocument.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

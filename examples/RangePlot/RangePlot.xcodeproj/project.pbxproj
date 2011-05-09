@@ -141,7 +141,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CPTestApp */ = {
+		29B97314FDCFA39411CA2CEA /* CPTTestApp */ = {
 			isa = PBXGroup;
 			children = (
 				076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */,
@@ -151,7 +151,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
-			name = CPTestApp;
+			name = CPTTestApp;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
@@ -203,7 +203,7 @@
 			);
 			name = RangePlot;
 			productInstallPath = "$(HOME)/Applications";
-			productName = CPTestApp;
+			productName = CPTTestApp;
 			productReference = 8D1107320486CEB800E47090 /* RangePlot.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -225,7 +225,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CPTestApp */;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CPTTestApp */;
 			projectDirPath = "";
 			projectReferences = (
 				{

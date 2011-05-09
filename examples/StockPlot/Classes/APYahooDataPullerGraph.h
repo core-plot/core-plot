@@ -10,15 +10,15 @@
 #import "APYahooDataPuller.h"
 #import "CorePlot-CocoaTouch.h"
 
-@interface APYahooDataPullerGraph : UIViewController <APYahooDataPullerDelegate, CPPlotDataSource> {
-    CPGraphHostingView *graphHost;
+@interface APYahooDataPullerGraph : UIViewController <APYahooDataPullerDelegate, CPTPlotDataSource> {
+    CPTGraphHostingView *graphHost;
     APYahooDataPuller *dataPuller;
 
 @private
-    CPXYGraph *graph;
+    CPTXYGraph *graph;
 }
 
-@property (nonatomic, retain) IBOutlet CPGraphHostingView *graphHost;
+@property (nonatomic, retain) IBOutlet CPTGraphHostingView *graphHost;
 @property (nonatomic, retain) APYahooDataPuller *dataPuller;
 
 @end

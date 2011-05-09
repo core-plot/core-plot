@@ -1,6 +1,6 @@
-#import "CPTestCase.h"
+#import "CPTTestCase.h"
 
-@interface NSExceptionExtensionsTests : CPTestCase {
+@interface NSExceptionExtensionsTests : CPTTestCase {
 
 }
 

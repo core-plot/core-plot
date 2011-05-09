@@ -38,7 +38,7 @@
     }
 }
 
-- (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme
+- (void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = layerHostingView.bounds;
@@ -46,54 +46,54 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
     
-    CPGraph* graph = [[[CPXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
+    CPTGraph* graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
     [self addGraph:graph toHostingView:layerHostingView];
-    [self applyTheme:theme toGraph:graph withDefault:[CPTheme themeNamed:kCPSlateTheme]];
+    [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
     
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
     
-    CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] init] autorelease];
-	dataSourceLinePlot.cachePrecision = CPPlotCachePrecisionDouble;
+    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+	dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
     
-    CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
     lineStyle.lineWidth = 1.0;
-    lineStyle.lineColor = [CPColor greenColor];
+    lineStyle.lineColor = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
 
-	CPMutableTextStyle *whiteTextStyle = [CPMutableTextStyle textStyle];
-    whiteTextStyle.color = [CPColor whiteColor];
+	CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
+    whiteTextStyle.color = [CPTColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
 	dataSourceLinePlot.labelOffset = 5.0;
 	dataSourceLinePlot.labelRotation = M_PI_4;
     [graph addPlot:dataSourceLinePlot];
 
     // Make the data source line use stepped interpolation
-    dataSourceLinePlot.interpolation = CPScatterPlotInterpolationStepped;
+    dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationStepped;
     
     // Put an area gradient under the plot above
-    CPColor *areaColor = [CPColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
-    CPGradient *areaGradient = [CPGradient gradientWithBeginningColor:areaColor endingColor:[CPColor clearColor]];
+    CPTColor *areaColor = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = -90.0;
-    CPFill *areaGradientFill = [CPFill fillWithGradient:areaGradient];
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPDecimalFromString(@"1.75");
+    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 	
     [self generateData];
     
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
-    CPXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
-    CPPlotRange *xRange = plotSpace.xRange;
-    CPPlotRange *yRange = plotSpace.yRange;
-    [yRange expandRangeByFactor:CPDecimalFromDouble(1.1)];
+    CPTPlotRange *xRange = plotSpace.xRange;
+    CPTPlotRange *yRange = plotSpace.yRange;
+    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
     
     // Restrict y range to a global range
-    CPPlotRange *globalYRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(0.0f) length:CPDecimalFromFloat(6.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
     plotSpace.globalYRange = globalYRange;
     
     // set the x and y shift to match the new ranges
@@ -113,15 +113,15 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     return [plotData count];
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSNumber* num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPScatterPlotFieldX ? @"x" : @"y")];
-    if (fieldEnum == CPScatterPlotFieldY) {
+    NSNumber* num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+    if (fieldEnum == CPTScatterPlotFieldY) {
         num = [NSNumber numberWithDouble:[num doubleValue]];
     }
     

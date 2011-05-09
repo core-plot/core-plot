@@ -17,28 +17,28 @@ typedef CGRect CGNSRect;
 #else
 
 #import <CorePlot/CorePlot.h>
-typedef CPLayerHostingView CPGraphHostingView;
+typedef CPTLayerHostingView CPTGraphHostingView;
 
 typedef NSRect CGNSRect;
 
 #endif
 
-@class CPGraph;
-@class CPTheme;
+@class CPTGraph;
+@class CPTTheme;
 
 @interface PlotItem : NSObject
 {
-    CPGraphHostingView  *defaultLayerHostingView;
+    CPTGraphHostingView  *defaultLayerHostingView;
 
     NSMutableArray      *graphs;
     NSString            *title;
-    CPNativeImage       *cachedImage;
+    CPTNativeImage       *cachedImage;
 }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-@property (nonatomic, retain) CPGraphHostingView *defaultLayerHostingView;
+@property (nonatomic, retain) CPTGraphHostingView *defaultLayerHostingView;
 #else
-@property (nonatomic, retain) CPLayerHostingView *defaultLayerHostingView;
+@property (nonatomic, retain) CPTLayerHostingView *defaultLayerHostingView;
 #endif
 
 @property (nonatomic, retain) NSMutableArray *graphs;
@@ -47,24 +47,24 @@ typedef NSRect CGNSRect;
 + (void)registerPlotItem:(id)item;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-- (void)renderInView:(UIView *)hostingView withTheme:(CPTheme *)theme;
+- (void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme;
 #else
-- (void)renderInView:(NSView *)hostingView withTheme:(CPTheme *)theme;
+- (void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme;
 - (void)setFrameSize:(NSSize)size;
 #endif
-- (CPNativeImage *)image;
+- (CPTNativeImage *)image;
 
 
-- (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme;
+- (void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
 
-- (void)setTitleDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds;
-- (void)setPaddingDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds;
+- (void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
+- (void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
 
 - (void)reloadData;
-- (void)applyTheme:(CPTheme *)theme toGraph:(CPGraph *)graph withDefault:(CPTheme *)defaultTheme;
+- (void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme;
 
-- (void)addGraph:(CPGraph *)graph;
-- (void)addGraph:(CPGraph *)graph toHostingView:(CPGraphHostingView *)layerHostingView;
+- (void)addGraph:(CPTGraph *)graph;
+- (void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView;
 - (void)killGraph;
 
 - (NSComparisonResult)titleCompare:(PlotItem *)other;

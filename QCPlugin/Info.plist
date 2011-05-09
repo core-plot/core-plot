@@ -15,16 +15,16 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleGetInfoString</key>
-	<string>CorePlotQCPlugin version 1.0, Copyright YourCompany.</string>
+	<string>CorePlotQCPTlugin version 1.0, Copyright YourCompany.</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>QCPlugInClasses</key>
+	<key>QCPTlugInClasses</key>
 	<array>
-		<string>CPBarPlotPlugIn</string>
-		<string>CPScatterPlotPlugIn</string>
-		<string>CPPieChartPlugIn</string>
+		<string>CPTBarPlotPlugIn</string>
+		<string>CPTScatterPlotPlugIn</string>
+		<string>CPTPieChartPlugIn</string>
 	</array>
 </dict>
 </plist>

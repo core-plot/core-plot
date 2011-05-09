@@ -9,9 +9,9 @@
 #import "PlotItem.h"
 #import "PlotGallery.h"
 
-@interface DatePlot : PlotItem < CPPlotSpaceDelegate,
-                                 CPPlotDataSource,
-                                 CPScatterPlotDelegate>
+@interface DatePlot : PlotItem < CPTPlotSpaceDelegate,
+                                 CPTPlotDataSource,
+                                 CPTScatterPlotDelegate>
 {    
     CGFloat     labelRotation;
     NSArray     *plotData;

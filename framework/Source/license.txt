@@ -1,4 +1,4 @@
-CPNumericData
+CPTNumericData
 Copyright (c) 2009, University of Washington
 All rights reserved.
 

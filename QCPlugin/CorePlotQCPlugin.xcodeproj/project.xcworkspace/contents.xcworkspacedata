@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CorePlotQCPlugin.xcodeproj">
+      location = "self:CorePlotQCPTlugin.xcodeproj">
    </FileRef>
 </Workspace>

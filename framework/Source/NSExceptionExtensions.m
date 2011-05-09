@@ -1,6 +1,6 @@
 #import "NSExceptionExtensions.h"
 
-@implementation NSException(CPExtensions)
+@implementation NSException(CPTExtensions)
 
 /**	@brief Raises an NSGenericException with the given format and arguments.
  *	@param fmt The format string using standard printf formatting codes.

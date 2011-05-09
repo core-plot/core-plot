@@ -20,7 +20,7 @@
     [themes addObject:kThemeTableViewControllerDefaultTheme];
     [themes addObject:kThemeTableViewControllerNoTheme];
 
-    for (Class c in [CPTheme themeClasses]) {
+    for (Class c in [CPTTheme themeClasses]) {
         [themes addObject:[c defaultName]];
     }
 }

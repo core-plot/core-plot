@@ -1,6 +1,6 @@
 #import "NSDecimalNumberExtensions.h"
 
-@implementation NSDecimalNumber(CPExtensions)
+@implementation NSDecimalNumber(CPTExtensions)
 
 /**	@brief Returns the approximate value of the receiver as a CGFloat.
  *	@return The approximate value of the receiver as a CGFloat.

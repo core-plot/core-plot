@@ -20,7 +20,7 @@ To add a new plot:
 
 3. If you are only generating a single plot, override
    the renderInLayer:withTheme method to create your
-   graphs.  Make sure you add your CPGraph object to
+   graphs.  Make sure you add your CPTGraph object to
    the graphs array.
 
 4. Add any delegate methods you need for handling
@@ -29,7 +29,7 @@ To add a new plot:
 If your view consists of multiple plots, you also
 need to override the 
 	renderInView:withTheme 
-method to set up your CPLayers. You should also 
+method to set up your CPTLayers. You should also 
 override the 
 	setFrameSize:  
 on the Mac and 

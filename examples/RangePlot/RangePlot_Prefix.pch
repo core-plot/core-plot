@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'CPTestApp' target in the 'CPTestApp' project
+// Prefix header for all source files of the 'CPTTestApp' target in the 'CPTTestApp' project
 //
 
 #ifdef __OBJC__

@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) UIPopoverController *popoverController;
 
-- (CPTheme *)currentTheme;
+- (CPTTheme *)currentTheme;
 
 @end
 
@@ -149,9 +149,9 @@
 #pragma mark -
 #pragma mark Theme Selection
 
-- (CPTheme *)currentTheme
+- (CPTTheme *)currentTheme
 {
-    CPTheme *theme;
+    CPTTheme *theme;
 
     if (currentThemeName == kThemeTableViewControllerNoTheme) {
         theme = (id)[NSNull null];
@@ -160,7 +160,7 @@
         theme = nil;
     }
 	else {
-        theme = [CPTheme themeNamed:currentThemeName];
+        theme = [CPTTheme themeNamed:currentThemeName];
     }
 
     return theme;

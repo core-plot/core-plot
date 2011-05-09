@@ -23,4 +23,4 @@ Installing the Core Plot SDK for Developing on iPhone/iPad
 
 5. Add the QuartzCore framework to the project.
 
-6. Add a CPGraph to your application.
+6. Add a CPTGraph to your application.

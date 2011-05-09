@@ -1159,7 +1159,7 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrameSize">{912, 526}</string>
 							<reference key="NSSuperview" ref="1019331462"/>
-							<string key="NSClassName">CPLayerHostingView</string>
+							<string key="NSClassName">CPTLayerHostingView</string>
 						</object>
 					</object>
 					<string key="NSFrameSize">{912, 526}</string>
@@ -3178,7 +3178,7 @@
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">hostView</string>
-						<string key="NS.object.0">CPLayerHostingView</string>
+						<string key="NS.object.0">CPTLayerHostingView</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -3201,11 +3201,11 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">CPLayerHostingView</string>
+					<string key="className">CPTLayerHostingView</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">CorePlot.framework/Headers/CPLayerHostingView.h</string>
+						<string key="minorKey">CorePlot.framework/Headers/CPTLayerHostingView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
