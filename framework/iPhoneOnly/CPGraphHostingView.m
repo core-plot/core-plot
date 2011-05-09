@@ -206,7 +206,7 @@
     if ( yn != collapsesLayers ) {
         collapsesLayers = yn;
         if ( !collapsesLayers ) 
-        	[self.layer addSublayer:hostedGraph];
+        	if ( hostedGraph ) [self.layer addSublayer:hostedGraph];
         else {
             [hostedGraph removeFromSuperlayer];
             [self setNeedsDisplay];
