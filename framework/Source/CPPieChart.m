@@ -278,6 +278,8 @@ static CGFloat colorLookupTable[10][3] =
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	if ( self.hidden ) return;
+	
 	NSUInteger sampleCount = self.cachedDataCount;
 	if ( sampleCount == 0 ) return;
 	

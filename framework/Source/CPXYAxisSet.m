@@ -44,6 +44,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	if ( self.hidden ) return;
+	
 	if ( self.borderLineStyle ) {
 		[super renderAsVectorInContext:context];
 		

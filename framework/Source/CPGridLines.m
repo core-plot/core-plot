@@ -45,6 +45,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
 	[self.axis drawGridLinesInContext:theContext isMajor:self.major];
 }
 

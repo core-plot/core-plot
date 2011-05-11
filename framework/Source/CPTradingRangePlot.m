@@ -173,6 +173,8 @@ NSString * const CPTradingRangePlotBindingCloseValues = @"closeValues";	///< Clo
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
     CPMutableNumericData *locations = [self cachedNumbersForField:CPTradingRangePlotFieldX];
     CPMutableNumericData *opens = [self cachedNumbersForField:CPTradingRangePlotFieldOpen];
 	CPMutableNumericData *highs = [self cachedNumbersForField:CPTradingRangePlotFieldHigh];

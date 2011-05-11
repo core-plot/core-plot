@@ -52,6 +52,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
 	for ( CPAxis *axis in self.plotArea.axisSet.axes ) {
 		if ( !axis.separateLayers ) {
 			[axis drawGridLinesInContext:theContext isMajor:self.major];

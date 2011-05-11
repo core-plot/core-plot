@@ -60,6 +60,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	if ( self.hidden ) return;
+	
 	[super renderAsVectorInContext:context];
 	
 	BOOL useMask = self.masksToBounds;

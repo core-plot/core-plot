@@ -391,6 +391,8 @@ typedef struct CGPointError CGPointError;
 
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
+	if ( self.hidden ) return;
+	
 	CPMutableNumericData *xValueData = [self cachedNumbersForField:CPRangePlotFieldX];
 	CPMutableNumericData *yValueData = [self cachedNumbersForField:CPRangePlotFieldY];
 	
