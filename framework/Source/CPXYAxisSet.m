@@ -23,7 +23,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		CPXYAxis *xAxis = [(CPXYAxis *)[CPXYAxis alloc] initWithFrame:newFrame];
 		xAxis.coordinate = CPCoordinateX;
         xAxis.tickDirection = CPSignNegative;

@@ -39,7 +39,7 @@ static NSMutableDictionary *themes = nil;
 
 -(id)init
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		name = nil;
 		graphClass = Nil;
 	}

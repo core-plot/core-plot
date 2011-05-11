@@ -64,7 +64,7 @@
 
 -(id)init
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		xRange = [[CPPlotRange alloc] initWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(1)];
 		yRange = [[CPPlotRange alloc] initWithLocation:CPDecimalFromInteger(0) length:CPDecimalFromInteger(1)];;
         globalXRange = nil;
@@ -309,7 +309,11 @@
     if ( !shouldScale ) return;
     
     // Determine point in plot coordinates
+#if CGFLOAT_IS_DOUBLE
+    NSDecimal const decimalScale = CPDecimalFromDouble(interactionScale);
+#else
     NSDecimal const decimalScale = CPDecimalFromFloat(interactionScale);
+#endif
     NSDecimal plotInteractionPoint[2];
     [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
         

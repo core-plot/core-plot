@@ -36,7 +36,7 @@
  **/
 -(id)initWithRange:(CPPlotRange *)newRange fill:(CPFill *)newFill
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
     	range = [newRange retain];
         fill = [newFill retain];
 	}

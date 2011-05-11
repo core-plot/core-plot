@@ -15,7 +15,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		identifier = nil;
 	}
 	return self;
@@ -23,7 +23,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPPlotGroup *theLayer = (CPPlotGroup *)layer;
 		
 		identifier = [theLayer->identifier retain];

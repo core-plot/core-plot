@@ -89,7 +89,7 @@
 		 dataType:(CPNumericDataType)newDataType
             shape:(NSArray *)shapeArray 
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         [self commonInitWithData:newData
 						dataType:newDataType
                            shape:shapeArray];
@@ -188,7 +188,7 @@
 
 -(id)initWithCoder:(NSCoder *)decoder 
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		NSData *newData;
 		CPNumericDataType newDataType;
 		NSArray	*shapeArray;

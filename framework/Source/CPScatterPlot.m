@@ -119,7 +119,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		dataLineStyle = [[CPLineStyle alloc] init];
 		plotSymbol = nil;
 		areaFill = nil;
@@ -136,7 +136,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPScatterPlot *theLayer = (CPScatterPlot *)layer;
 		
 		dataLineStyle = [theLayer->dataLineStyle retain];

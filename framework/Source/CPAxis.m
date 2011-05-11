@@ -340,7 +340,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		plotSpace = nil;
 		majorTickLocations = [[NSSet set] retain];
 		minorTickLocations = [[NSSet set] retain];
@@ -396,7 +396,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPAxis *theLayer = (CPAxis *)layer;
 		
 		plotSpace = [theLayer->plotSpace retain];

@@ -59,7 +59,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
     	CPConstraints newConstraints = {CPConstraintNone, CPConstraintNone};
         orthogonalCoordinateDecimal = [[NSDecimalNumber zero] decimalValue];
         isFloatingAxis = NO;
@@ -71,7 +71,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPXYAxis *theLayer = (CPXYAxis *)layer;
 		
 		isFloatingAxis = theLayer->isFloatingAxis;

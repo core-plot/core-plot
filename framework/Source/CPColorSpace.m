@@ -58,7 +58,7 @@
  **/
 -(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         CGColorSpaceRetain(colorSpace);
         cgColorSpace = colorSpace;
     }

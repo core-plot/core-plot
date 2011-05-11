@@ -167,7 +167,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		lineStyle = [[CPLineStyle alloc] init];
 		fill = [[CPFill fillWithColor:[CPColor blackColor]] retain];
 		barWidth = CPDecimalFromDouble(0.5);
@@ -187,7 +187,7 @@ NSString * const CPBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPBarPlot *theLayer = (CPBarPlot *)layer;
 		
 		lineStyle = [theLayer->lineStyle retain];

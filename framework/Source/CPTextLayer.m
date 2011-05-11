@@ -31,7 +31,7 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
  **/
 -(id)initWithText:(NSString *)newText style:(CPTextStyle *)newStyle
 {
-	if (self = [super initWithFrame:CGRectZero]) {	
+	if ( (self = [super initWithFrame:CGRectZero]) ) {
 		textStyle = [newStyle retain];
 		text = [newText copy];
 
@@ -53,7 +53,7 @@ const CGFloat kCPTextLayerMarginWidth = 1.0;
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPTextLayer *theLayer = (CPTextLayer *)layer;
 		
 		textStyle = [theLayer->textStyle retain];

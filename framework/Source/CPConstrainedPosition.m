@@ -36,7 +36,7 @@
  **/
 -(id)initWithPosition:(CGFloat)newPosition lowerBound:(CGFloat)newLowerBound upperBound:(CGFloat)newUpperBound
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         position = newPosition;
         lowerBound = newLowerBound;
         upperBound = newUpperBound;
@@ -81,7 +81,7 @@
             break;
     }
     
-    if ( self = [self initWithPosition:newPosition lowerBound:newLowerBound upperBound:newUpperBound] ) {
+    if ( (self = [self initWithPosition:newPosition lowerBound:newLowerBound upperBound:newUpperBound]) ) {
         constraints.lower = lowerConstraint;
         constraints.upper = upperConstraint;
     }

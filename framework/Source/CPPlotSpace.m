@@ -38,7 +38,7 @@ NSString * const CPPlotSpaceCoordinateMappingDidChangeNotification = @"CPPlotSpa
 
 -(id)init
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		identifier = nil;
         allowsUserInteraction = NO;
         graph = nil;

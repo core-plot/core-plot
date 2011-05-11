@@ -93,7 +93,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		plots = [[NSMutableArray alloc] init];
         
         // Margins
@@ -132,7 +132,7 @@ NSString * const CPGraphNeedsRedrawNotification = @"CPGraphNeedsRedrawNotificati
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPGraph *theLayer = (CPGraph *)layer;
 		
 		plotAreaFrame = [theLayer->plotAreaFrame retain];

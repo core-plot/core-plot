@@ -76,7 +76,7 @@
 
 -(id)init
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		lineCap = kCGLineCapButt;
 		lineJoin = kCGLineJoinMiter;
 		miterLimit = 10.0;

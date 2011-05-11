@@ -70,7 +70,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(id)init
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         [self commonInit];
 		
         self.blendingMode = CPLinearBlendingMode;
@@ -145,7 +145,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
 		[self commonInit];
 		
 		gradientType = [coder decodeIntForKey:@"CPGradientType"];

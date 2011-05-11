@@ -47,7 +47,7 @@
  **/
 -(id)initWithAnchorLayer:(CPLayer *)newAnchorLayer
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         anchorLayer = newAnchorLayer;
         rectAnchor = CPRectAnchorTop;
 		xConstrainedPosition = nil;

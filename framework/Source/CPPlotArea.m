@@ -114,7 +114,7 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		minorGridLineGroup = nil;
 		majorGridLineGroup = nil;
 		axisSet = nil;
@@ -137,7 +137,7 @@ static const int kCPNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPPlotArea *theLayer = (CPPlotArea *)layer;
 		
 		minorGridLineGroup = [theLayer->minorGridLineGroup retain];

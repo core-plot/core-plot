@@ -25,7 +25,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		axes = [[NSArray array] retain];
 		borderLineStyle = nil;
 		
@@ -36,7 +36,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPAxisSet *theLayer = (CPAxisSet *)layer;
 		
 		axes = [theLayer->axes retain];

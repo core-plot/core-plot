@@ -126,7 +126,7 @@
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		paddingLeft = 0.0;
 		paddingTop = 0.0;
 		paddingRight = 0.0;
@@ -146,11 +146,9 @@
 		self.zPosition = [self.class defaultZPosition];
         
         // Screen scaling
-        if ([self respondsToSelector:@selector(setContentsScale:)])
-        {
+        if ( [self respondsToSelector:@selector(setContentsScale:)] ) {
             Class screenClass = NSClassFromString(@"UIScreen");
-            if ( screenClass != Nil)
-            {
+            if ( screenClass != Nil ) {
             	id scale = [[screenClass mainScreen] valueForKey:@"scale"];	
                 [(id)self setValue:scale forKey:@"contentsScale"]; 
             }
@@ -166,7 +164,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPLayer *theLayer = (CPLayer *)layer;
 		
 		paddingLeft = theLayer->paddingLeft;

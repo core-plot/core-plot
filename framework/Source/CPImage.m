@@ -53,7 +53,7 @@
  **/
 -(id)initWithCGImage:(CGImageRef)anImage
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
  		CGImageRetain(anImage);
     	image = anImage;
         tiled = NO;

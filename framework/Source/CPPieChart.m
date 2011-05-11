@@ -116,7 +116,7 @@ static CGFloat colorLookupTable[10][3] =
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		pieRadius = 0.8 * (MIN(newFrame.size.width, newFrame.size.height) / 2.0);
 		pieInnerRadius = 0.0;
 		startAngle = M_PI_2;	// pi/2
@@ -132,7 +132,7 @@ static CGFloat colorLookupTable[10][3] =
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPPieChart *theLayer = (CPPieChart *)layer;
 		
 		pieRadius = theLayer->pieRadius;

@@ -62,7 +62,7 @@
 
 -(id)init
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		size = CGSizeMake(5.0, 5.0);
 		symbolType = CPPlotSymbolTypeNone;
 		lineStyle = [[CPLineStyle alloc] init];

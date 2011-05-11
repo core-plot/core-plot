@@ -12,7 +12,7 @@
 
 -(id)initWithFrame:(NSRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+    if ( (self = [super initWithFrame:frame]) ) {
         hostedLayer = nil;
         CPLayer *mainLayer = [(CPLayer *)[CPLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;

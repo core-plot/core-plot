@@ -141,7 +141,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
 		cachedDataCount = 0;
 		cachePrecision = CPPlotCachePrecisionAuto;
@@ -167,7 +167,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPPlot *theLayer = (CPPlot *)layer;
 		
 		cachedData = [theLayer->cachedData retain];
