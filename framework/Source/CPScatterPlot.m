@@ -550,10 +550,16 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		// Draw plot symbols
 		if ( self.plotSymbol || self.plotSymbols.count ) {
 			if ( self.useFastRendering ) {
+				CGFloat scale = 1.0;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+				if ( [self respondsToSelector:@selector(contentsScale)] ) {
+					scale = [self contentsScale];
+				}
+#endif
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-						[currentSymbol renderInContext:theContext atPoint:viewPoints[i]];	
+						[currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale];	
 					}
 				}
 			}
@@ -561,7 +567,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i]];	
+						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];	
 					}
 				}
 			}

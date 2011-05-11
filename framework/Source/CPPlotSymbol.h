@@ -61,8 +61,8 @@ typedef enum _CPPlotSymbolType {
 
 /// @name Drawing
 /// @{
--(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
--(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center;
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale;
+-(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale;
 ///	@}
 
 @end
