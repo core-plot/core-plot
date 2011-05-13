@@ -552,10 +552,27 @@ NSDecimal CPDecimalNaN(void)
  **/
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy) 
 {
-    NSInteger loc = MAX(0, (int)range.location - expandBy);
+    NSInteger loc = MAX(0, (NSInteger)range.location - expandBy);
     NSInteger lowerExpansion = range.location - loc;
     NSInteger length = range.length + lowerExpansion + expandBy;
     return NSMakeRange(loc, length);
+}
+
+#pragma mark -
+#pragma mark Constraints
+
+/**
+ *	@brief Initializes a CPConstraints struct with the given constraints.
+ *	@param lower The lower constraint.
+ *	@param upper The upper constraint.
+ *	@return The initialized struct.
+ **/
+CPConstraints CPMakeConstraints(CPConstraint lower, CPConstraint upper)
+{ 
+    CPConstraints constraints; 
+    constraints.lower = lower; 
+    constraints.upper = upper; 
+    return constraints; 
 }
 
 #pragma mark -

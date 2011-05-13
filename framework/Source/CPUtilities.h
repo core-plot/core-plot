@@ -78,6 +78,11 @@ NSDecimal CPDecimalNaN(void);
 NSRange CPExpandedRange(NSRange range, NSInteger expandBy);
 /// @}
 
+/// @name Constraints
+/// @{
+CPConstraints CPMakeConstraints(CPConstraint lower, CPConstraint upper);
+/// @}
+	
 /// @name Coordinates
 /// @{
 CPCoordinate CPOrthogonalCoordinate(CPCoordinate coord);
