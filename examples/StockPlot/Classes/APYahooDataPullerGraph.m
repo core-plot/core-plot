@@ -16,20 +16,20 @@
 {
     if(!graph)
     {
-    	graph = [[CPXYGraph alloc] initWithFrame:CGRectZero];
-        CPTheme *theme = [CPTheme themeNamed:@"Dark Gradients"];
+    	graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+        CPTTheme *theme = [CPTTheme themeNamed:@"Dark Gradients"];
         [graph applyTheme:theme];
         graph.paddingTop = 30.0;
         graph.paddingBottom = 30.0;
         graph.paddingLeft = 50.0;
         graph.paddingRight = 50.0;
 
-        CPScatterPlot *dataSourceLinePlot = [[[CPScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+        CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
         dataSourceLinePlot.identifier = @"Data Source Plot";
         
-        CPMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+        CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
         lineStyle.lineWidth = 1.f;
-        lineStyle.lineColor = [CPColor redColor];
+        lineStyle.lineColor = [CPTColor redColor];
         dataSourceLinePlot.dataLineStyle = lineStyle;
         
         dataSourceLinePlot.dataSource = self;
@@ -39,31 +39,31 @@
     if([[self.graphHost.layer sublayers] indexOfObject:graph] == NSNotFound)
         [self.graphHost.layer addSublayer:graph];
     
-    CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     
     NSDecimalNumber *high = [dataPuller overallHigh];
     NSDecimalNumber *low = [dataPuller overallLow];
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
     
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromDouble(0.0) length:CPDecimalFromUnsignedInteger([dataPuller.financialData count])];
-    plotSpace.yRange = [CPPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([dataPuller.financialData count])];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
     // Axes
-    CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     
-    CPXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = CPDecimalFromDouble(10.0);
-    x.orthogonalCoordinateDecimal = CPDecimalFromInteger(0);
+    CPTXYAxis *x = axisSet.xAxis;
+    x.majorIntervalLength = CPTDecimalFromDouble(10.0);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
     x.minorTicksPerInterval = 1;
     
-    CPXYAxis *y = axisSet.yAxis;
-    NSDecimal six = CPDecimalFromInteger(6);
-    y.majorIntervalLength = CPDecimalDivide([length decimalValue], six);
+    CPTXYAxis *y = axisSet.yAxis;
+    NSDecimal six = CPTDecimalFromInteger(6);
+    y.majorIntervalLength = CPTDecimalDivide([length decimalValue], six);
 	y.majorTickLineStyle = nil;
     y.minorTicksPerInterval = 4;
 	y.minorTickLineStyle = nil;
-    y.orthogonalCoordinateDecimal = CPDecimalFromInteger(0);
-	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+    y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
+	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
 	
     [graph reloadData];
     
@@ -120,13 +120,13 @@
     return self.dataPuller.financialData.count;
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     NSDecimalNumber *num = [NSDecimalNumber zero];
-    if (fieldEnum == CPScatterPlotFieldX) 
+    if (fieldEnum == CPTScatterPlotFieldX) 
     {
         num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
     }
-    else if (fieldEnum == CPScatterPlotFieldY)
+    else if (fieldEnum == CPTScatterPlotFieldY)
     {
         NSArray *financialData = self.dataPuller.financialData;
         
@@ -175,7 +175,7 @@
     [super dealloc];
 }
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot {
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
 	return [self numberOfRecords];
 }
 

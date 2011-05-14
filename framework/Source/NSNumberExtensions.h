@@ -1,9 +1,9 @@
 #import <Foundation/Foundation.h>
 
-/**	@category NSNumber(CPExtensions)
+/**	@category NSNumber(CPTExtensions)
  *	@brief Core Plot extensions to NSNumber.
  **/
-@interface NSNumber(CPExtensions)
+@interface NSNumber(CPTExtensions)
 
 -(NSDecimalNumber *)decimalNumber;
 

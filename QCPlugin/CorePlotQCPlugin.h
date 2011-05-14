@@ -1,15 +1,15 @@
 #import <Quartz/Quartz.h>
 #import <CorePlot/CorePlot.h>
 
-@interface CorePlotQCPlugIn : QCPlugIn <CPPlotDataSource>
+@interface CorePlotQCPTlugIn : QCPTlugIn <CPTPlotDataSource>
 {	
 	NSUInteger numberOfPlots;
 	BOOL configurationCheck;
 	
 	void *imageData;
 	CGContextRef bitmapContext;
-	id<QCPlugInOutputImageProvider> imageProvider;
-	CPGraph *graph;
+	id<QCPTlugInOutputImageProvider> imageProvider;
+	CPTGraph *graph;
 }
 
 /*
@@ -19,7 +19,7 @@ Declare here the Obj-C 2.0 properties to be used as input and output ports for t
 You can access their values in the appropriate plug-in methods using self.inputFoo or self.inputBar
 */
 
-@property(assign) id<QCPlugInOutputImageProvider> outputImage;
+@property(assign) id<QCPTlugInOutputImageProvider> outputImage;
 
 @property(assign) NSUInteger numberOfPlots;
 
@@ -55,7 +55,7 @@ You can access their values in the appropriate plug-in methods using self.inputF
 - (BOOL) configurePlots;
 - (BOOL) configureAxis;
 
-- (NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot;
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot;
 - (CGColorRef) defaultColorForPlot:(NSUInteger)index alpha:(float)alpha;
 
 - (void) freeResources;

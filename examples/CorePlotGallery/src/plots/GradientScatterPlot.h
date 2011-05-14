@@ -9,11 +9,11 @@
 #import "PlotItem.h"
 #import "PlotGallery.h"
 
-@interface GradientScatterPlot : PlotItem <	CPPlotSpaceDelegate,
-                                            CPPlotDataSource,
-                                            CPScatterPlotDelegate>
+@interface GradientScatterPlot : PlotItem <	CPTPlotSpaceDelegate,
+                                            CPTPlotDataSource,
+                                            CPTScatterPlotDelegate>
 {
-    CPLayerAnnotation   *symbolTextAnnotation;
+    CPTLayerAnnotation   *symbolTextAnnotation;
 
     CGFloat             xShift;
     CGFloat             yShift;

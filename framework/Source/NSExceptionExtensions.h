@@ -1,9 +1,9 @@
 #import <Foundation/Foundation.h>
 
-/**	@category NSException(CPExtensions)
+/**	@category NSException(CPTExtensions)
  *	@brief Core Plot extensions to NSException.
  **/
-@interface NSException(CPExtensions)
+@interface NSException(CPTExtensions)
 
 +(void)raiseGenericFormat:(NSString*)fmt,...;
 

@@ -46,7 +46,7 @@
     return self;
 }
 
-- (void)addGraph:(CPGraph *)graph toHostingView:(CPGraphHostingView *)layerHostingView
+- (void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView
 {
     [graphs addObject:graph];
 
@@ -59,14 +59,14 @@
     }
 }
 
-- (void)addGraph:(CPGraph *)graph
+- (void)addGraph:(CPTGraph *)graph
 {
     [self addGraph:graph toHostingView:nil];
 }
 
 - (void)killGraph
 {
-    // Remove the CPLayerHostingView
+    // Remove the CPTLayerHostingView
     if (defaultLayerHostingView) {
         [defaultLayerHostingView removeFromSuperview];
         
@@ -96,19 +96,19 @@
     return [title caseInsensitiveCompare:other.title];
 }
 
-- (void)setTitleDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds
+- (void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
     graph.title = title;
-    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
-    textStyle.color = [CPColor grayColor];
+    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+    textStyle.color = [CPTColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = round(bounds.size.height / 20.0f);
     graph.titleTextStyle = textStyle;
     graph.titleDisplacement = CGPointMake(0.0f, round(bounds.size.height / 18.0f)); // Ensure that title displacement falls on an integral pixel
-    graph.titlePlotAreaFrameAnchor = CPRectAnchorTop;    
+    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;    
 }
 
-- (void)setPaddingDefaultsForGraph:(CPGraph *)graph withBounds:(CGRect)bounds
+- (void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
     float boundsPadding = round(bounds.size.width / 20.0f); // Ensure that padding falls on an integral pixel
     graph.paddingLeft = boundsPadding;
@@ -233,7 +233,7 @@
 
 #endif
 
-- (void)applyTheme:(CPTheme *)theme toGraph:(CPGraph *)graph withDefault:(CPTheme *)defaultTheme
+- (void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme
 {
     if (theme == nil) {
         [graph applyTheme:defaultTheme];
@@ -252,9 +252,9 @@
 
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-- (void)renderInView:(UIView*)hostingView withTheme:(CPTheme*)theme
+- (void)renderInView:(UIView*)hostingView withTheme:(CPTTheme*)theme
 #else
-- (void)renderInView:(NSView*)hostingView withTheme:(CPTheme*)theme
+- (void)renderInView:(NSView*)hostingView withTheme:(CPTTheme*)theme
 #endif
 {
     [self killGraph];
@@ -264,7 +264,7 @@
 #else
     CGRect bounds = NSRectToCGRect([hostingView bounds]);
 #endif
-    defaultLayerHostingView = [[CPGraphHostingView alloc] initWithFrame:bounds];
+    defaultLayerHostingView = [[CPTGraphHostingView alloc] initWithFrame:bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;
@@ -277,14 +277,14 @@
     [self renderInLayer:defaultLayerHostingView withTheme:theme];
 }
 
-- (void)renderInLayer:(CPGraphHostingView *)layerHostingView withTheme:(CPTheme *)theme
+- (void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }
 
 - (void)reloadData
 {
-    for (CPGraph *g in graphs) {
+    for (CPTGraph *g in graphs) {
         [g reloadData];
     }
 }

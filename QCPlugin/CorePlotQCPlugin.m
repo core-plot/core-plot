@@ -1,8 +1,8 @@
 #import <OpenGL/CGLMacro.h>
-#import "CorePlotQCPlugIn.h"
+#import "CorePlotQCPTlugIn.h"
 
-#define	kQCPlugIn_Name				@"CorePlotQCPlugIn"
-#define	kQCPlugIn_Description		@"CorePlotQCPlugIn base plugin."
+#define	kQCPTlugIn_Name				@"CorePlotQCPTlugIn"
+#define	kQCPTlugIn_Description		@"CorePlotQCPTlugIn base plugin."
 
 
 // Draws the string "ERROR" in the given context in big red letters
@@ -44,7 +44,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
 
 
-@implementation CorePlotQCPlugIn
+@implementation CorePlotQCPTlugIn
 
 // TODO: Make the port accessors dynamic, that way certain inputs can be removed based on settings and subclasses won't need the @dynamic declarations
 
@@ -71,31 +71,31 @@ Synthesized accessors for internal PlugIn settings
 + (NSDictionary*) attributes
 {
 	/*
-	Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
+	Return a dictionary of attributes describing the plug-in (QCPTlugInAttributeNameKey, QCPTlugInAttributeDescriptionKey...).
 	*/
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			kQCPlugIn_Name, QCPlugInAttributeNameKey, 
-			kQCPlugIn_Description, QCPlugInAttributeDescriptionKey, 
+			kQCPTlugIn_Name, QCPTlugInAttributeNameKey, 
+			kQCPTlugIn_Description, QCPTlugInAttributeDescriptionKey, 
 			nil];
 }
 
-+ (QCPlugInExecutionMode) executionMode
++ (QCPTlugInExecutionMode) executionMode
 {
 	/*
-	Return the execution mode of the plug-in: kQCPlugInExecutionModeProvider, kQCPlugInExecutionModeProcessor, or kQCPlugInExecutionModeConsumer.
+	Return the execution mode of the plug-in: kQCPTlugInExecutionModeProvider, kQCPTlugInExecutionModeProcessor, or kQCPTlugInExecutionModeConsumer.
 	*/
 	
-	return kQCPlugInExecutionModeProcessor;
+	return kQCPTlugInExecutionModeProcessor;
 }
 
-+ (QCPlugInTimeMode) timeMode
++ (QCPTlugInTimeMode) timeMode
 {
 	/*
-	Return the time dependency mode of the plug-in: kQCPlugInTimeModeNone, kQCPlugInTimeModeIdle or kQCPlugInTimeModeTimeBase.
+	Return the time dependency mode of the plug-in: kQCPTlugInTimeModeNone, kQCPTlugInTimeModeIdle or kQCPTlugInTimeModeTimeBase.
 	*/
 	
-	return kQCPlugInTimeModeNone;
+	return kQCPTlugInTimeModeNone;
 }
 
 - (id) init
@@ -163,14 +163,14 @@ Synthesized accessors for internal PlugIn settings
 	}
 }
 
-- (QCPlugInViewController*) createViewController
+- (QCPTlugInViewController*) createViewController
 {
 	/*
-	Return a new QCPlugInViewController to edit the internal settings of this plug-in instance.
-	You can return a subclass of QCPlugInViewController if necessary.
+	Return a new QCPTlugInViewController to edit the internal settings of this plug-in instance.
+	You can return a subclass of QCPTlugInViewController if necessary.
 	*/
 	
-	return [[QCPlugInViewController alloc] initWithPlugIn:self viewNibName:@"Settings"];
+	return [[QCPTlugInViewController alloc] initWithPlugIn:self viewNibName:@"Settings"];
 }
 
 #pragma mark -
@@ -205,140 +205,140 @@ Synthesized accessors for internal PlugIn settings
 + (NSDictionary*) attributesForPropertyPortWithKey:(NSString*)key
 {
 	/*
-	 Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
+	 Specify the optional attributes for property based ports (QCPTortAttributeNameKey, QCPTortAttributeDefaultValueKey...).
 	 */
 	
 	if ([key isEqualToString:@"inputXMin"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Range Min", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:-1.0], QCPortAttributeDefaultValueKey,
+				@"X Range Min", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:-1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputXMax"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Range Max", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
+				@"X Range Max", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMin"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Range Min", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:-1.0], QCPortAttributeDefaultValueKey,
+				@"Y Range Min", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:-1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMax"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Range Max", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
+				@"Y Range Max", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 
 	if ([key isEqualToString:@"inputXMajorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Major Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
-				[NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
+				@"X Major Intervals", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:4], QCPTortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:0], QCPTortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMajorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Major Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
-				[NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
+				@"Y Major Intervals", QCPTortAttributeNameKey,
+				[NSNumber numberWithFloat:4], QCPTortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:0], QCPTortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputXMinorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Minor Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
-				[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
+				@"X Minor Intervals", QCPTortAttributeNameKey,
+				[NSNumber numberWithInt:1], QCPTortAttributeDefaultValueKey,
+				[NSNumber numberWithInt:0], QCPTortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMinorIntervals"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Minor Intervals", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
-				[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
+				@"Y Minor Intervals", QCPTortAttributeNameKey,
+				[NSNumber numberWithInt:1], QCPTortAttributeDefaultValueKey,
+				[NSNumber numberWithInt:0], QCPTortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Axis Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
+				@"Axis Color", QCPTortAttributeNameKey,
+				[(id)CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0) autorelease], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisLineWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Axis Line Width", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
+				@"Axis Line Width", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisMajorTickWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Major Tick Width", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:2.0], QCPortAttributeDefaultValueKey,
+				@"Major Tick Width", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:2.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisMinorTickWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Minor Tick Width", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
+				@"Minor Tick Width", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisMajorTickLength"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Major Tick Length", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:10.0], QCPortAttributeDefaultValueKey,
+				@"Major Tick Length", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:10.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputAxisMinorTickLength"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Minor Tick Length", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:3.0], QCPortAttributeDefaultValueKey,
+				@"Minor Tick Length", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:3.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputMajorGridLineWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Major Grid Line Width", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
+				@"Major Grid Line Width", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:1.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputMinorGridLineWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Minor Grid Line Width", QCPortAttributeNameKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithDouble:0.0], QCPortAttributeDefaultValueKey,
+				@"Minor Grid Line Width", QCPTortAttributeNameKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithDouble:0.0], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 
 	if ([key isEqualToString:@"inputPlotAreaColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Plot Area Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4) autorelease], QCPortAttributeDefaultValueKey,
+				@"Plot Area Color", QCPTortAttributeNameKey,
+				[(id)CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4) autorelease], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputPixelsWide"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Pixels Wide", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:1], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithInt:512], QCPortAttributeDefaultValueKey,
+				@"Pixels Wide", QCPTortAttributeNameKey,
+				[NSNumber numberWithInt:1], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithInt:512], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputPixelsHigh"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Pixels High", QCPortAttributeNameKey,
-				[NSNumber numberWithInt:1], QCPortAttributeMinimumValueKey,
-				[NSNumber numberWithInt:512], QCPortAttributeDefaultValueKey,
+				@"Pixels High", QCPTortAttributeNameKey,
+				[NSNumber numberWithInt:1], QCPTortAttributeMinimumValueKey,
+				[NSNumber numberWithInt:512], QCPTortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"outputImage"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Image", QCPortAttributeNameKey,
+				@"Image", QCPTortAttributeNameKey,
 				nil];
 	
 	return nil;
@@ -352,23 +352,23 @@ Synthesized accessors for internal PlugIn settings
 	if (!graph)
 	{
 		// Create graph from theme
-		CPTheme *theme = [CPTheme themeNamed:kCPPlainBlackTheme];
-		graph = (CPXYGraph *)[theme newGraph];
+		CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainBlackTheme];
+		graph = (CPTXYGraph *)[theme newGraph];
 				
 		// Setup scatter plot space
-		CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-		plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(1.0) length:CPDecimalFromFloat(1.0)];
-		plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(-1.0) length:CPDecimalFromFloat(1.0)];
+		CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(1.0)];
+		plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(1.0)];
 		
 		// Axes
-		CPXYAxisSet *axisSet = (CPXYAxisSet *)graph.axisSet;
+		CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 		
-		CPXYAxis *x = axisSet.xAxis;
-		x.majorIntervalLength = CPDecimalFromFloat(0.5);
+		CPTXYAxis *x = axisSet.xAxis;
+		x.majorIntervalLength = CPTDecimalFromFloat(0.5);
 		x.minorTicksPerInterval = 2;
 		
-		CPXYAxis *y = axisSet.yAxis;
-		y.majorIntervalLength = CPDecimalFromFloat(0.5);
+		CPTXYAxis *y = axisSet.yAxis;
+		y.majorIntervalLength = CPTDecimalFromFloat(0.5);
 		y.minorTicksPerInterval = 5;
 	}		
 }
@@ -412,10 +412,10 @@ Synthesized accessors for internal PlugIn settings
 
 - (BOOL) configureAxis
 {
-	CPColor *axisColor = [CPColor colorWithCGColor:self.inputAxisColor];
+	CPTColor *axisColor = [CPTColor colorWithCGColor:self.inputAxisColor];
 	
-	CPXYAxisSet *set = (CPXYAxisSet *)graph.axisSet;
-    CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+	CPTXYAxisSet *set = (CPTXYAxisSet *)graph.axisSet;
+    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
     lineStyle.lineColor = axisColor;
     lineStyle.lineWidth = self.inputAxisLineWidth;
 	set.xAxis.axisLineStyle = lineStyle;
@@ -429,16 +429,16 @@ Synthesized accessors for internal PlugIn settings
 	set.xAxis.minorTickLineStyle = lineStyle;
 	set.yAxis.minorTickLineStyle = lineStyle;
 	
-    CPMutableTextStyle *textStyle = [CPMutableTextStyle textStyle];
+    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color = axisColor;
 	set.xAxis.labelTextStyle = textStyle;
 	
 	double xrange = self.inputXMax - self.inputXMin;
-	set.xAxis.majorIntervalLength = CPDecimalFromDouble(xrange / (self.inputXMajorIntervals));
+	set.xAxis.majorIntervalLength = CPTDecimalFromDouble(xrange / (self.inputXMajorIntervals));
 	set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
 	
 	double yrange = self.inputYMax - self.inputYMin;
-	set.yAxis.majorIntervalLength = CPDecimalFromDouble(yrange / (self.inputYMajorIntervals));
+	set.yAxis.majorIntervalLength = CPTDecimalFromDouble(yrange / (self.inputYMajorIntervals));
 	set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
 	
 	set.xAxis.minorTickLength = self.inputAxisMinorTickLength;
@@ -449,13 +449,13 @@ Synthesized accessors for internal PlugIn settings
 	
 	if ([self didValueForInputKeyChange:@"inputMajorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
-		CPMutableLineStyle *majorGridLineStyle = nil;
+		CPTMutableLineStyle *majorGridLineStyle = nil;
 		if (self.inputMajorGridLineWidth == 0.0)
 			majorGridLineStyle = nil;
 		else
 		{
-			majorGridLineStyle = [CPMutableLineStyle lineStyle];
-			majorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+			majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+			majorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor];
 			majorGridLineStyle.lineWidth = self.inputMajorGridLineWidth;
 		}
 		
@@ -465,13 +465,13 @@ Synthesized accessors for internal PlugIn settings
 
 	if ([self didValueForInputKeyChange:@"inputMinorGridLineWidth"] || [self didValueForInputKeyChange:@"inputAxisColor"])
 	{
-		CPMutableLineStyle *minorGridLineStyle;
+		CPTMutableLineStyle *minorGridLineStyle;
 		if (self.inputMinorGridLineWidth == 0.0)
 			minorGridLineStyle = nil;
 		else
 		{
-			minorGridLineStyle = [CPMutableLineStyle lineStyle];
-			minorGridLineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+			minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+			minorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor];
 			minorGridLineStyle.lineWidth = self.inputMinorGridLineWidth;
 		}
 		
@@ -504,14 +504,14 @@ Synthesized accessors for internal PlugIn settings
 - (CGImageRef) areaFillImage:(NSUInteger)index
 {
 	NSString *key = [NSString stringWithFormat:@"plotFillImage%i", index];
-	id<QCPlugInInputImageSource> img = [self valueForInputKey:key];
+	id<QCPTlugInInputImageSource> img = [self valueForInputKey:key];
 	if (!img)
 		return nil;
 	
 	#if __BIG_ENDIAN__
-    NSString *pixelFormat = QCPlugInPixelFormatARGB8;
+    NSString *pixelFormat = QCPTlugInPixelFormatARGB8;
 	#else
-    NSString *pixelFormat = QCPlugInPixelFormatBGRA8;
+    NSString *pixelFormat = QCPTlugInPixelFormatBGRA8;
 	#endif
 	
 	[img lockBufferRepresentationWithPixelFormat:pixelFormat colorSpace:CGColorSpaceCreateDeviceRGB() forBounds:[img imageBounds]];
@@ -544,7 +544,7 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	// Don't do anything.  We release the buffer manually when it's recreated or during dealloc
 }
 
-- (void) createImageResourcesWithContext:(id<QCPlugInContext>)context
+- (void) createImageResourcesWithContext:(id<QCPTlugInContext>)context
 {
 	// Create a CG bitmap for drawing.  The image data is released when QC calls _BufferReleaseCallback
 	CGSize boundsSize = graph.bounds.size;
@@ -582,7 +582,7 @@ static void _BufferReleaseCallback(const void* address, void* context)
 		
 	// Note: I don't have a PPC to test on so this may or may not cause some color issues
 	#if __BIG_ENDIAN__
-	imageProvider = [context outputImageProviderFromBufferWithPixelFormat:QCPlugInPixelFormatBGRA8
+	imageProvider = [context outputImageProviderFromBufferWithPixelFormat:QCPTlugInPixelFormatBGRA8
 															   pixelsWide:(NSInteger)boundsSize.width
 															   pixelsHigh:(NSInteger)boundsSize.height
 															  baseAddress:imageData 
@@ -592,7 +592,7 @@ static void _BufferReleaseCallback(const void* address, void* context)
 															   colorSpace:[context colorSpace] 
 														 shouldColorMatch:YES];
 	#else
-	imageProvider = [context outputImageProviderFromBufferWithPixelFormat:QCPlugInPixelFormatARGB8
+	imageProvider = [context outputImageProviderFromBufferWithPixelFormat:QCPTlugInPixelFormatARGB8
 															   pixelsWide:(NSInteger)boundsSize.width
 															   pixelsHigh:(NSInteger)boundsSize.height
 															  baseAddress:imageData
@@ -607,12 +607,12 @@ static void _BufferReleaseCallback(const void* address, void* context)
 #pragma mark -
 #pragma markData source methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPPlot *)plot 
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot 
 {	
 	return 0;
 }
 
--(NSNumber *)numberForPlot:(CPPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
 {
 	return [NSNumber numberWithInt:0];
 }
@@ -715,12 +715,12 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	[graph layoutIfNeeded];
 	
 	graph.fill = nil;
-	graph.plotAreaFrame.fill = [CPFill fillWithColor:[CPColor colorWithCGColor:self.inputPlotAreaColor]];
+	graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:self.inputPlotAreaColor]];
 	if (self.inputAxisLineWidth > 0.0)
 	{	
-    	CPMutableLineStyle *lineStyle = [CPMutableLineStyle lineStyle];
+    	CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
         lineStyle.lineWidth = self.inputAxisLineWidth;
-        lineStyle.lineColor = [CPColor colorWithCGColor:self.inputAxisColor];
+        lineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor];
 		graph.plotAreaFrame.borderLineStyle = lineStyle;
 	}
 	else {
@@ -728,9 +728,9 @@ static void _BufferReleaseCallback(const void* address, void* context)
 	}
 	
 	// Configure the plot space and axis sets	
-	CPXYPlotSpace *plotSpace = (CPXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(self.inputXMin) length:CPDecimalFromFloat(self.inputXMax-self.inputXMin)];
-	plotSpace.yRange = [CPPlotRange plotRangeWithLocation:CPDecimalFromFloat(self.inputYMin) length:CPDecimalFromFloat(self.inputYMax-self.inputYMin)];
+	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputXMin) length:CPTDecimalFromFloat(self.inputXMax-self.inputXMin)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputYMin) length:CPTDecimalFromFloat(self.inputYMax-self.inputYMin)];
 	
 	[self configureAxis];
 	
@@ -742,9 +742,9 @@ static void _BufferReleaseCallback(const void* address, void* context)
 
 @end
 
-@implementation CorePlotQCPlugIn (Execution)
+@implementation CorePlotQCPTlugIn (Execution)
 
-- (BOOL) execute:(id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(NSDictionary*)arguments
+- (BOOL) execute:(id<QCPTlugInContext>)context atTime:(NSTimeInterval)time withArguments:(NSDictionary*)arguments
 {	
 	// Configure the plot for drawing
 	configurationCheck = [self configureGraph];

@@ -166,7 +166,7 @@
 					<string>UIResponder</string>
 					<string>{{164, 160}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>CPGraphHostingView</string>
+					<string>CPTGraphHostingView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -197,13 +197,13 @@
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">graphHost</string>
-						<string key="NS.object.0">CPGraphHostingView</string>
+						<string key="NS.object.0">CPTGraphHostingView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<string key="NS.key.0">graphHost</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">graphHost</string>
-							<string key="candidateClassName">CPGraphHostingView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
