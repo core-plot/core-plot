@@ -323,23 +323,27 @@
 /** @brief Draws the plot symbol into the given graphics context centered at the provided point using the cached symbol image.
  *  @param theContext The graphics context to draw into.
  *  @param center The center point of the symbol.
+ *  @param scale The drawing scale factor. Must be greater than zero (0).
  **/
--(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale
 {
+	static const CGFloat symbolMargin = 2.0;
+	
 	CGLayerRef theCachedLayer = self.cachedLayer;
 	
 	if ( !theCachedLayer ) {
-		const CGFloat symbolMargin = 2.0;
-		
 		CGSize symbolSize = self.size;
 		CGFloat margin = self.lineStyle.lineWidth + symbolMargin;
+		symbolSize.width *= scale;
 		symbolSize.width += margin;
+		symbolSize.height *= scale;
 		symbolSize.height += margin;
 		
 		theCachedLayer = CGLayerCreateWithContext(theContext, symbolSize, NULL);
 		
 		[self renderAsVectorInContext:CGLayerGetContext(theCachedLayer)
-							  atPoint:CGPointMake(symbolSize.width / 2.0, symbolSize.height / 2.0)];
+							  atPoint:CGPointMake(symbolSize.width / 2.0, symbolSize.height / 2.0)
+								scale:scale];
 		
 		self.cachedLayer = theCachedLayer;
 		CGLayerRelease(theCachedLayer);
@@ -347,20 +351,24 @@
 	
 	if ( theCachedLayer ) {
 		CGSize layerSize = CGLayerGetSize(theCachedLayer);
+		layerSize.width /= scale;
+		layerSize.height /= scale;
+
 #if CGFLOAT_IS_DOUBLE
-		CGPoint centerPoint = CGPointMake(round(center.x - layerSize.width / 2.0), round(center.y - layerSize.height / 2.0));
+		CGPoint origin = CGPointMake(round(center.x - layerSize.width / 2.0), round(center.y - layerSize.height / 2.0));
 #else
-		CGPoint centerPoint = CGPointMake(roundf(center.x - layerSize.width / 2.0f), roundf(center.y - layerSize.height / 2.0f));
+		CGPoint origin = CGPointMake(roundf(center.x - layerSize.width / 2.0f), roundf(center.y - layerSize.height / 2.0f));
 #endif
-		CGContextDrawLayerAtPoint(theContext, centerPoint, theCachedLayer);
+		CGContextDrawLayerInRect(theContext, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
 	}
 }
 
 /** @brief Draws the plot symbol into the given graphics context centered at the provided point.
  *  @param theContext The graphics context to draw into.
  *  @param center The center point of the symbol.
+ *  @param scale The drawing scale factor. Must be greater than zero (0).
  **/
--(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center
+-(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale
 {
 	CGPathRef theSymbolPath = self.cachedSymbolPath;
 	
@@ -393,6 +401,7 @@
 		if ( theLineStyle || theFill ) {
 			CGContextSaveGState(theContext);
 			CGContextTranslateCTM(theContext, center.x, center.y);
+			CGContextScaleCTM(theContext, scale, scale);
 			
 			if ( theFill ) {
 				// use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
