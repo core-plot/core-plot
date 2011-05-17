@@ -652,9 +652,20 @@
 /**	@brief Updates the set of axis labels using the given locations.
  *	Existing axis label objects and content layers are reused where possible.
  *	@param locations A set of NSDecimalNumber label locations.
+ *	@param useMajorAxisLabels If YES, label the major ticks, otherwise label the minor ticks.
+ *	@param theLabelAlignment The alignment of each label.
+ *	@param theLabelOffset The label offset.
+ *	@param theLabelRotation The rotation angle of each label in radians.
+ *	@param theLabelTextStyle The text style used to draw each label.
+ *	@param theLabelFormatter The number formatter used to format each label.
  **/
--(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels labelAlignment:(CPTAlignment)theLabelAlignment labelOffset:(CGFloat)theLabelOffset labelRotation:(CGFloat)theLabelRotation textStyle:(CPTTextStyle *)theLabelTextStyle labelFormatter:(NSNumberFormatter *)theLabelFormatter;
-
+-(void)updateAxisLabelsAtLocations:(NSSet *)locations
+				useMajorAxisLabels:(BOOL)useMajorAxisLabels
+					labelAlignment:(CPTAlignment)theLabelAlignment
+					   labelOffset:(CGFloat)theLabelOffset
+					 labelRotation:(CGFloat)theLabelRotation
+						 textStyle:(CPTTextStyle *)theLabelTextStyle
+					labelFormatter:(NSNumberFormatter *)theLabelFormatter
 {
 	if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
 		BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
@@ -662,7 +673,7 @@
 	}
 
 	if ( locations.count == 0 || !theLabelTextStyle || !theLabelFormatter ) {
-		if (useMajorAxisLabels) {
+		if ( useMajorAxisLabels ) {
 			self.axisLabels = nil;
 		} else {
 			self.minorTickAxisLabels = nil;
