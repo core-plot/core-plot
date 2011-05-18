@@ -27,7 +27,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		plotArea = nil;
 		major = NO;
 
@@ -38,7 +38,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPTGridLineGroup *theLayer = (CPTGridLineGroup *)layer;
 		
 		plotArea = theLayer->plotArea;

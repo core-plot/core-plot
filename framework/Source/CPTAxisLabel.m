@@ -64,7 +64,7 @@
 -(id)initWithContentLayer:(CPTLayer *)layer
 {
 	if ( layer ) {
-		if ( self = [super init] ) {
+		if ( (self = [super init]) ) {
 			contentLayer = [layer retain];
 			offset = 20.0;
             rotation = 0.0;

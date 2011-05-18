@@ -32,7 +32,7 @@
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-    if ( self = [super initWithFrame:newFrame] ) {
+    if ( (self = [super initWithFrame:newFrame]) ) {
         mutableAnnotations = [[NSMutableArray alloc] init];
     }
     return self;
@@ -40,7 +40,7 @@
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPTAnnotationHostLayer *theLayer = (CPTAnnotationHostLayer *)layer;
 		
 		mutableAnnotations = [theLayer->mutableAnnotations retain];

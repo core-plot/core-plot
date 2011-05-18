@@ -167,7 +167,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
 		lineStyle = [[CPTLineStyle alloc] init];
 		fill = [[CPTFill fillWithColor:[CPTColor blackColor]] retain];
 		barWidth = CPTDecimalFromDouble(0.5);
@@ -187,7 +187,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPTBarPlot *theLayer = (CPTBarPlot *)layer;
 		
 		lineStyle = [theLayer->lineStyle retain];

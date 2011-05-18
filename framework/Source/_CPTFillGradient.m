@@ -30,7 +30,7 @@
  **/
 -(id)initWithGradient:(CPTGradient *)aGradient 
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		fillGradient = [aGradient retain];
 	}
 	return self;
@@ -89,7 +89,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		fillGradient = [[coder decodeObjectForKey:@"fillGradient"] retain];
 	}
 	return self;

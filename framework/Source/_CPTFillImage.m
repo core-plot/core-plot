@@ -30,7 +30,7 @@
  **/
 -(id)initWithImage:(CPTImage *)anImage 
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		fillImage = [anImage retain];
 	}
 	return self;
@@ -94,7 +94,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
 		fillImage = [[coder decodeObjectForKey:@"fillImage"] retain];
 	}
     return self;

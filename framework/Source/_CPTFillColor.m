@@ -30,7 +30,7 @@
  **/
 -(id)initWithColor:(CPTColor *)aColor 
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
         fillColor = [aColor retain];
 	}
 	return self;
@@ -94,7 +94,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
 		fillColor = [[coder decodeObjectForKey:@"fillColor"] retain];
 	}
     return self;

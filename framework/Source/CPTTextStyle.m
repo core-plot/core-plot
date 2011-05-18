@@ -50,7 +50,7 @@
 
 -(id)init 
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		fontName = @"Helvetica";
 		fontSize = 12.0;
 		color = [[CPTColor blackColor] retain];

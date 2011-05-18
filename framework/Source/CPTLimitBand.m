@@ -36,7 +36,7 @@
  **/
 -(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
     	range = [newRange retain];
         fill = [newFill retain];
 	}

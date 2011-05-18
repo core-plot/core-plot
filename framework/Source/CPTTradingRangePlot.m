@@ -101,7 +101,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( self = [super initWithFrame:newFrame] ) {
+	if ( (self = [super initWithFrame:newFrame]) ) {
         plotStyle = CPTTradingRangePlotStyleOHLC;
 		lineStyle = [[CPTLineStyle alloc] init];
         increaseFill = [(CPTFill *)[CPTFill alloc] initWithColor:[CPTColor whiteColor]];
@@ -117,7 +117,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 
 -(id)initWithLayer:(id)layer
 {
-	if ( self = [super initWithLayer:layer] ) {
+	if ( (self = [super initWithLayer:layer]) ) {
 		CPTTradingRangePlot *theLayer = (CPTTradingRangePlot *)layer;
 		
 		plotStyle = theLayer->plotStyle;

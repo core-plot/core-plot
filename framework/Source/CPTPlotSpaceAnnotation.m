@@ -32,7 +32,7 @@
  **/
 -(id)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
 {
-    if ( self = [super init] ) {
+    if ( (self = [super init]) ) {
         plotSpace = [newPlotSpace retain];
         anchorPlotPoint = [newPlotPoint copy];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(positionContentLayer) name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
