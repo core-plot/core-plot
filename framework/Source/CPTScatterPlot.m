@@ -473,6 +473,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
 	CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTScatterPlotFieldX];
 	CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTScatterPlotFieldY];
 	

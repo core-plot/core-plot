@@ -361,6 +361,7 @@ typedef struct CGPointError CGPointError;
 
 #pragma mark -
 #pragma mark Data Loading
+
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {	 
 	[super reloadDataInIndexRange:indexRange];
@@ -389,8 +390,12 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
+#pragma mark -
+#pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext {
+	if ( self.hidden ) return;
+	
 	CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTRangePlotFieldX];
 	CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTRangePlotFieldY];
 	

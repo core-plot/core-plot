@@ -128,6 +128,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	if ( self.hidden ) return;
+	
 	[super renderAsVectorInContext:context];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

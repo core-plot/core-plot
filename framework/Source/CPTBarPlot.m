@@ -389,6 +389,8 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
 	CPTMutableNumericData *cachedLocations = [self cachedNumbersForField:CPTBarPlotFieldBarLocation];
 	CPTMutableNumericData *cachedLengths = [self cachedNumbersForField:CPTBarPlotFieldBarTip];
 	if ( cachedLocations == nil || cachedLengths == nil ) return;

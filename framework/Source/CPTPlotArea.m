@@ -180,6 +180,8 @@ static const int kCPTNumberOfLayers = 6;	// number of primary layers to arrange
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+	if ( self.hidden ) return;
+	
 	[super renderAsVectorInContext:context];
 	
 	[self.fill fillRect:self.bounds inContext:context];

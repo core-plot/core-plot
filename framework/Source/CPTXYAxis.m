@@ -200,6 +200,8 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
+	if ( self.hidden ) return;
+	
 	[super renderAsVectorInContext:theContext];
 	
 	[self relabel];
