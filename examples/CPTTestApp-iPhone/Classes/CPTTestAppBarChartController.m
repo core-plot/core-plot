@@ -59,10 +59,11 @@
 	barChart.plotAreaFrame.paddingBottom = 80.0;
     
     // Graph title
-    barChart.title = @"Graph Title";
+    barChart.title = @"Graph Title\nLine 2";
     CPTMutableTextStyle *textStyle = [CPTTextStyle textStyle];
     textStyle.color = [CPTColor grayColor];
     textStyle.fontSize = 16.0f;
+	textStyle.textAlignment = CPTTextAlignmentCenter;
     barChart.titleTextStyle = textStyle;
     barChart.titleDisplacement = CGPointMake(0.0f, -20.0f);
     barChart.titlePlotAreaFrameAnchor = CPTRectAnchorTop;

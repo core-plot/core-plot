@@ -8,6 +8,7 @@
 @property(readwrite, copy, nonatomic) NSString *fontName;
 @property(readwrite, assign, nonatomic) CGFloat fontSize; 
 @property(readwrite, copy, nonatomic) CPTColor *color;
+@property(readwrite, assign, nonatomic) CPTTextAlignment textAlignment;
 
 @end
 /**	@endcond */
@@ -34,6 +35,11 @@
  **/
 @synthesize color;
 
+/** @property textAlignment
+ *  @brief The paragraph alignment for multi-line text.
+ **/
+@synthesize textAlignment;
+
 #pragma mark -
 #pragma mark Factory Methods
 
@@ -54,6 +60,7 @@
 		fontName = @"Helvetica";
 		fontSize = 12.0;
 		color = [[CPTColor blackColor] retain];
+		textAlignment = CPTTextAlignmentLeft;
 	}
 	return self;
 }
@@ -73,6 +80,7 @@
 	[coder encodeObject:self.fontName forKey:@"fontName"];
 	[coder encodeDouble:self.fontSize forKey:@"fontSize"];
 	[coder encodeObject:self.color forKey:@"color"];
+	[coder encodeInteger:self.textAlignment forKey:@"textAlignment"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -83,6 +91,7 @@
 		self->fontName = [[coder decodeObjectForKey:@"fontName"] copy];
 		self->fontSize = [coder decodeDoubleForKey:@"fontSize"];
 		self->color = [[coder decodeObjectForKey:@"color"] copy];
+		self->textAlignment = [coder decodeIntegerForKey:@"textAlignment"];
 	}
     return self;
 }
@@ -96,6 +105,7 @@
 	newCopy->fontName = [self->fontName copy];
 	newCopy->color = [self->color copy];
 	newCopy->fontSize = self->fontSize;
+	newCopy->textAlignment = self->textAlignment;
 	return newCopy;
 }
 
@@ -105,6 +115,7 @@
 	newCopy->fontName = [self->fontName copy];
 	newCopy->color = [self->color copy];
 	newCopy->fontSize = self->fontSize;
+	newCopy->textAlignment = self->textAlignment;
 	return newCopy;
 }
 

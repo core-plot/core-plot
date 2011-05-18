@@ -1,4 +1,3 @@
-
 #import "CPTMutableTextStyle.h"
 #import "CPTTextStylePlatformSpecific.h"
 #import "CPTPlatformSpecificCategories.h"
@@ -13,15 +12,21 @@
  *	@param style The text style.
  *	@return The size of the text when drawn with the given style.
  **/
--(CGSize)sizeWithTextStyle:(CPTMutableTextStyle *)style
+-(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {	
 	NSFont *theFont = [NSFont fontWithName:style.fontName size:style.fontSize];
 	
 	CGSize textSize;
-	if (theFont) {
-		textSize = NSSizeToCGSize([self sizeWithAttributes:[NSDictionary dictionaryWithObject:theFont forKey:NSFontAttributeName]]);
+	if ( theFont ) {
+		NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+									theFont, NSFontAttributeName,
+									nil];
+
+		textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
+		
+		[attributes release];
 	} else {
-		textSize = CGSizeMake(0.0, 0.0);
+		textSize = CGSizeZero;
 	}
 	
 	return textSize;
@@ -31,11 +36,11 @@
 #pragma mark Drawing
 
 /** @brief Draws the text into the given graphics context using the given style.
- *  @param point The origin of the drawing position.
+ *  @param rect The bounding rectangle in which to draw the text.
  *	@param style The text style.
  *  @param context The graphics context to draw into.
  **/
--(void)drawAtPoint:(CGPoint)point withTextStyle:(CPTMutableTextStyle *)style inContext:(CGContextRef)context
+-(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context
 {	
 	if ( style.color == nil ) return;
 	
@@ -46,10 +51,36 @@
 	
 	CPTPushCGContext(context);	
 	NSFont *theFont = [NSFont fontWithName:style.fontName size:style.fontSize];
-	if (theFont) {
+	if ( theFont ) {
 		NSColor *foregroundColor = style.color.nsColor;
-		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:theFont, NSFontAttributeName, foregroundColor, NSForegroundColorAttributeName, nil];
-		[self drawAtPoint:NSPointFromCGPoint(point) withAttributes:attributes];
+		NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+		
+		switch ( style.textAlignment ) {
+			case CPTTextAlignmentLeft:
+				paragraphStyle.alignment = NSLeftTextAlignment;
+				break;
+				
+			case CPTTextAlignmentCenter:
+				paragraphStyle.alignment = NSCenterTextAlignment;
+				break;
+				
+			case CPTTextAlignmentRight:
+				paragraphStyle.alignment = NSRightTextAlignment;
+				break;
+				
+			default:
+				break;
+		}
+		
+		NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+									theFont, NSFontAttributeName,
+									foregroundColor, NSForegroundColorAttributeName,
+									paragraphStyle, NSParagraphStyleAttributeName,
+									nil];
+		[self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
+		
+		[paragraphStyle release];
+		[attributes release];
 	}
 	CPTPopCGContext();
 }

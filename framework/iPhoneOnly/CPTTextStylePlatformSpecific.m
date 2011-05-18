@@ -1,4 +1,3 @@
-
 #import "CPTTextStyle.h"
 #import "CPTTextStylePlatformSpecific.h"
 #import "CPTPlatformSpecificCategories.h"
@@ -17,7 +16,7 @@
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {	
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	CGSize textSize = [self sizeWithFont:theFont];	
+	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];	
 	return textSize;
 }
 
@@ -25,11 +24,11 @@
 #pragma mark Drawing
 
 /** @brief Draws the text into the given graphics context using the given style.
- *  @param point The origin of the drawing position.
+ *  @param rect The bounding rectangle in which to draw the text.
  *	@param style The text style.
  *  @param context The graphics context to draw into.
  **/
--(void)drawAtPoint:(CGPoint)point withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context
+-(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context
 {	
 	if ( style.color == nil ) return;
     
@@ -42,7 +41,11 @@
 	CPTPushCGContext(context);	
 	
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	[self drawAtPoint:point withFont:theFont];
+	
+	[self drawInRect:rect
+			withFont:theFont
+	   lineBreakMode:UILineBreakModeWordWrap
+		   alignment:(UITextAlignment)style.textAlignment];
 	
 	CGContextRestoreGState(context);
 	CPTPopCGContext();

@@ -23,4 +23,9 @@
  **/
 @dynamic color;
 
+/** @property textAlignment
+ *  @brief The paragraph alignment for multi-line text.
+ **/
+@dynamic textAlignment;
+
 @end

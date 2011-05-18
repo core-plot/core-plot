@@ -70,13 +70,14 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 	hostView.hostedLayer = graph;
     
     // Graph title
-    graph.title = @"This is the Graph Title";
+    graph.title = @"This is the Graph Title\nThis is the Second Line";
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color = [CPTColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
     textStyle.fontSize = 18.0;
+	textStyle.textAlignment = CPTTextAlignmentCenter;
     graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0, 20.0);
+    graph.titleDisplacement = CGPointMake(0.0, 25.0);
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 	
     // Graph padding
@@ -122,7 +123,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
                                 nil];
 	x.labelExclusionRanges = exclusionRanges;
     
-	x.title = @"X Axis";
+	x.title = @"X Axis\nLine 2";
 	x.titleOffset = 30.0;
 	x.titleLocation = CPTDecimalFromString(@"3.0");
     
@@ -142,7 +143,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
                        nil];
 	y.labelExclusionRanges = exclusionRanges;
     
-	y.title = @"Y Axis";
+	y.title = @"Y Axis\nLine 2";
 	y.titleOffset = 30.0;
 	y.titleLocation = CPTDecimalFromString(@"2.7");
     
@@ -166,7 +167,8 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     y2.minorTickLineStyle = nil;
     y2.labelTextStyle = nil;
     y2.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(2) length:CPTDecimalFromInteger(3)];
-    
+	y2.title = @"Y2 title";
+	y2.titleLocation = CPTDecimalFromInteger(3);    
     // Set axes
     graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];    
 }
