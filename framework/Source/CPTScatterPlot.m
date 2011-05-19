@@ -293,9 +293,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 				const double x = *xBytes++;
 				const double y = *yBytes++;
 				
-				xRangeFlags[i] = [xRange compareToDouble:x];
-				yRangeFlags[i] = [yRange compareToDouble:y];
-				nanFlags[i] = isnan(x) || isnan(y);
+				CPTPlotRangeComparisonResult xFlag = [xRange compareToDouble:x];
+				xRangeFlags[i] = xFlag;
+				if ( xFlag != CPTPlotRangeComparisonResultNumberInRange ) {
+					yRangeFlags[i] = CPTPlotRangeComparisonResultNumberInRange;  // if x is out of range, then y doesn't matter
+				}
+				else {
+					yRangeFlags[i] = [yRange compareToDouble:y];					
+				}
+ 				nanFlags[i] = isnan(x) || isnan(y);
 			}
 		}
 		else {
@@ -306,26 +312,35 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 				const NSDecimal *x = xBytes++;
 				const NSDecimal *y = yBytes++;
 				
-				xRangeFlags[i] = [xRange compareToDecimal:*x];
-				yRangeFlags[i] = [yRange compareToDecimal:*y];
+				CPTPlotRangeComparisonResult xFlag = [xRange compareToDecimal:*x];
+				xRangeFlags[i] = xFlag;
+				if ( xFlag != CPTPlotRangeComparisonResultNumberInRange ) {
+					yRangeFlags[i] = CPTPlotRangeComparisonResultNumberInRange;  // if x is out of range, then y doesn't matter
+				}
+				else {
+					yRangeFlags[i] = [yRange compareToDecimal:*y];					
+				}
+				
 				nanFlags[i] = NSDecimalIsNotANumber(x) || NSDecimalIsNotANumber(y);
 			}
 		}
 		
 		// Ensure that whenever the path crosses over a region boundary, both points 
 		// are included. This ensures no lines are left out that shouldn't be.
-		pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange && 
-							 yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
-							 !nanFlags[0]);
+		memset(pointDrawFlags, NO, dataCount * sizeof(BOOL));
+		if ( dataCount > 0 ) {
+			pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange && 
+								 yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
+								 !nanFlags[0]);
+		}
 		for ( NSUInteger i = 1; i < dataCount; i++ ) {
-			pointDrawFlags[i] = NO;
 			if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (yRangeFlags[i-1] != yRangeFlags[i])) ) {
 				pointDrawFlags[i-1] = YES;
 				pointDrawFlags[i] = YES;
 			}
 			else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) && 
-					 (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-					 !nanFlags[i]) {
+					  (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+					   !nanFlags[i]) {
 				pointDrawFlags[i] = YES;
 			}
 		}
