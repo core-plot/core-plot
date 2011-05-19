@@ -386,7 +386,11 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	
 	// open-close
 	if ( !isnan(open) && !isnan(close) ) {
-		CPTFill *currentBarFill = ( open <= close ? self.increaseFill : self.decreaseFill ); 
+        CPTFill *currentBarFill;
+        if(open<close) currentBarFill = self.increaseFill;
+        if(open>close) currentBarFill = self.decreaseFill;
+        if(open==close) currentBarFill = [CPTFill fillWithColor: lineStyle.lineColor];
+        
 		if ( currentBarFill ) {
 			CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 			radius = MIN(radius, ABS(close - open));
@@ -396,6 +400,17 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 			CGPoint alignedPoint3 = CPTAlignPointToUserSpace(context, CGPointMake(x, close));
 			CGPoint alignedPoint4 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, close));
 			CGPoint alignedPoint5 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, open));
+            
+            if(open==close){
+                // #285 Draw a cross with open/close values marked
+                CGFloat halfLineWidth = 0.5 * self.lineStyle.lineWidth;
+                
+                alignedPoint1.y -= halfLineWidth;
+                alignedPoint2.y += halfLineWidth;
+                alignedPoint3.y += halfLineWidth;
+                alignedPoint4.y += halfLineWidth;
+                alignedPoint5.y -= halfLineWidth;
+            }
 			
 			CGMutablePathRef path = CGPathCreateMutable();
 			CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
