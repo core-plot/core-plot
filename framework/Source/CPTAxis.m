@@ -113,6 +113,12 @@
  **/
 @synthesize title;
 
+/**	@property titleRotation
+ *	@brief The rotation angle of the axis title in radians.
+ *  If NaN (the default), the title will be parallel to the axis.
+ **/
+@synthesize titleRotation;
+
 /**	@property titleLocation
  *	@brief The position along the axis where the axis title should be centered.
  *  If NaN, the <code>defaultTitleLocation</code> will be used.
@@ -379,6 +385,7 @@
         tickDirection = CPTSignNone;
 		axisTitle = nil;
 		titleTextStyle = [[CPTTextStyle alloc] init];
+		titleRotation = NAN;
 		titleLocation = CPTDecimalNaN();
         needsRelabel = YES;
 		labelExclusionRanges = nil;
@@ -432,6 +439,7 @@
 		minorTickLabelTextStyle = [theLayer->minorTickLabelTextStyle retain];
 		axisTitle = [theLayer->axisTitle retain];
 		titleTextStyle = [theLayer->titleTextStyle retain];
+		titleRotation = theLayer->titleRotation;
 		titleLocation = theLayer->titleLocation;
 		needsRelabel = theLayer->needsRelabel;
 		labelExclusionRanges = [theLayer->labelExclusionRanges retain];
@@ -1024,6 +1032,7 @@
 {
     if ( axisTitle == nil && title != nil ) {
         CPTAxisTitle *newTitle = [[CPTAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+		newTitle.rotation = self.titleRotation;
 		self.axisTitle = newTitle;
 		[newTitle release];
     }
@@ -1050,6 +1059,15 @@
     if ( newOffset != titleOffset ) {
         titleOffset = newOffset;
 		self.axisTitle.offset = titleOffset;
+		[self setNeedsLayout];
+    }
+}
+
+-(void)setTitleRotation:(CGFloat)newRotation 
+{
+    if ( newRotation != titleOffset ) {
+        titleRotation = newRotation;
+		self.axisTitle.rotation = titleRotation;
 		[self setNeedsLayout];
     }
 }

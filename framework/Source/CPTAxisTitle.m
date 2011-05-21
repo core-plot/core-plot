@@ -12,7 +12,10 @@
 {
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y));
-	self.rotation = (coordinate == CPTCoordinateX ? M_PI_2 : 0.0);
+	CGFloat titleRotation = self.rotation;
+	if ( isnan(titleRotation) ) {
+		titleRotation = (coordinate == CPTCoordinateX ? M_PI_2 : 0.0);
+	}
 	CGPoint anchor = CGPointZero;
     
     // Position the anchor point along the closest edge.
@@ -37,7 +40,7 @@
 	
 	content.anchorPoint = anchor;
 
-	if ( self.rotation == 0.0 ) {
+	if ( titleRotation == 0.0 ) {
 		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
 		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
 	}
@@ -46,7 +49,7 @@
 		newPosition.y = round(newPosition.y);
 	}
 	content.position = newPosition;
-    content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
+    content.transform = CATransform3DMakeRotation(titleRotation, 0.0, 0.0, 1.0);
     
     [self.contentLayer setNeedsDisplay];
 }
