@@ -47,9 +47,9 @@ typedef enum _CPTGradientType {
 	CPTGradientType gradientType;
 }
 
-@property (assign, readonly) CPTGradientBlendingMode blendingMode;
-@property (assign) CGFloat angle;
-@property (assign) CPTGradientType gradientType;
+@property (nonatomic, readonly, assign) CPTGradientBlendingMode blendingMode;
+@property (nonatomic, readwrite, assign) CGFloat angle;
+@property (nonatomic, readwrite, assign) CPTGradientType gradientType;
 
 /// @name Factory Methods
 /// @{
