@@ -867,17 +867,19 @@
 
 -(void)layoutSublayers
 {
+	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
+	CPTSign direction = self.tickDirection;
+	
     for ( CPTAxisLabel *label in self.axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPTOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
     }
     for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:CPTOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
     }
 	
-	
-	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:CPTOrthogonalCoordinate(self.coordinate) inDirection:self.tickDirection];
+	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:orthogonalCoordinate inDirection:direction];
 }
 
 #pragma mark -
