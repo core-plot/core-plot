@@ -9,9 +9,9 @@
 	BOOL tileAnchoredToContext;
 }
 
-@property (assign) CGImageRef image;
-@property (assign, getter=isTiled) BOOL tiled;
-@property (assign) BOOL	tileAnchoredToContext;
+@property (nonatomic, readwrite, assign) CGImageRef image;
+@property (nonatomic, readwrite, assign, getter=isTiled) BOOL tiled;
+@property (nonatomic, readwrite, assign) BOOL	tileAnchoredToContext;
 
 /// @name Factory Methods
 /// @{

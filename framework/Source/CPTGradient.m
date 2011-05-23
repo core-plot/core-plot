@@ -8,8 +8,8 @@
 /**	@cond */
 @interface CPTGradient()
 
-@property (retain, readwrite) CPTColorSpace *colorspace;
-@property (assign, readwrite) CPTGradientBlendingMode blendingMode;
+@property (nonatomic, readwrite, retain) CPTColorSpace *colorspace;
+@property (nonatomic, readwrite, assign) CPTGradientBlendingMode blendingMode;
 
 -(void)commonInit;
 -(void)addElement:(CPTGradientElement*)newElement;

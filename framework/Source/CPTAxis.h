@@ -99,6 +99,7 @@ typedef enum _CPTAxisLabelingPolicy {
 	CPTAxisTitle *axisTitle;
 	NSString *title;
 	CGFloat titleOffset;
+	CGFloat titleRotation;
 	NSDecimal titleLocation;	
     CPTSign tickDirection;
     BOOL needsRelabel;
@@ -128,6 +129,7 @@ typedef enum _CPTAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) CPTAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
 @property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, assign) CGFloat titleRotation;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
 @property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
 ///	@}
