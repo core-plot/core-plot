@@ -450,7 +450,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		CGFloat minimumDistanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[result]);
 		for ( NSUInteger i = result + 1; i < dataCount; ++i ) {
 			CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
-			if ( distanceSquared < minimumDistanceSquared ) {
+			if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
 				minimumDistanceSquared = distanceSquared;
 				result = i;
 			}
