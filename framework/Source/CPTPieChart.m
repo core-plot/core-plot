@@ -408,8 +408,16 @@ static CGFloat colorLookupTable[10][3] =
     CGContextSaveGState(context);
     
 	CGMutablePathRef fillPath = CGPathCreateMutable();
-    [self addSliceToPath:fillPath centerPoint:CGPointMake(centerPoint.x, centerPoint.y) startingAngle:0.0f finishingAngle:2*M_PI];
-	CGPathCloseSubpath(fillPath);
+    CGFloat innerRadius = self.pieInnerRadius;
+    if ( innerRadius > 0.0 ) {
+		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0f, 2*M_PI, false);
+		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, innerRadius, 2*M_PI, 0.0f, true);
+	}
+	else {
+		CGPathMoveToPoint(fillPath, NULL, centerPoint.x, centerPoint.y);
+		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0f, 2*M_PI, false);
+	}    
+    CGPathCloseSubpath(fillPath);
     
     CGContextBeginPath(context);
     CGContextAddPath(context, fillPath);
