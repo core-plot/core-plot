@@ -77,6 +77,13 @@
     graph.paddingBottom = boundsPadding;
 
     graph.axisSet = nil;
+    
+    // Overlay gradient for pie chart
+    CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
+    overlayGradient.gradientType = CPTGradientTypeRadial;
+	overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.0];
+    overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.3] atPosition:0.9];
+	overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.7] atPosition:1.0];
 
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
@@ -86,6 +93,8 @@
     piePlot.identifier = title;
     piePlot.startAngle = M_PI_4;
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
+    piePlot.overlayFill = [CPTFill fillWithGradient:overlayGradient];
+
     piePlot.delegate = self;
     [graph addPlot:piePlot];
     [piePlot release];
