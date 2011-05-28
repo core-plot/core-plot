@@ -387,9 +387,15 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	// open-close
 	if ( !isnan(open) && !isnan(close) ) {
         CPTFill *currentBarFill;
-        if(open<close) currentBarFill = self.increaseFill;
-        if(open>close) currentBarFill = self.decreaseFill;
-        if(open==close) currentBarFill = [CPTFill fillWithColor: lineStyle.lineColor];
+        if (open < close ) {
+			currentBarFill = self.increaseFill;
+		}
+		else if ( open > close ) {
+			currentBarFill = self.decreaseFill;
+		}
+		else {
+			currentBarFill = [CPTFill fillWithColor: lineStyle.lineColor];
+		}
         
 		if ( currentBarFill ) {
 			CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
