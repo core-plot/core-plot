@@ -8,6 +8,26 @@
  **/
 @implementation CPTAxisTitle
 
+#pragma mark -
+#pragma mark Init/Dealloc
+
+-(id)initWithContentLayer:(CPTLayer *)layer
+{
+	if ( layer ) {
+		if ( (self = [super initWithContentLayer:layer]) ) {
+            self.rotation = NAN;
+		}
+	}
+	else {
+		[self release];
+		self = nil;
+	}
+    return self;
+}
+
+#pragma mark -
+#pragma mark Layout
+
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
 	CGPoint newPosition = point;
