@@ -1067,7 +1067,7 @@
 
 -(void)setTitleRotation:(CGFloat)newRotation 
 {
-    if ( newRotation != titleOffset ) {
+    if ( newRotation != titleRotation ) {
         titleRotation = newRotation;
 		self.axisTitle.rotation = titleRotation;
 		[self setNeedsLayout];
