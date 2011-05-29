@@ -27,11 +27,10 @@ typedef enum _CPTErrorBarType {
  **/
 typedef enum _CPTScaleType {
     CPTScaleTypeLinear,		///< Linear axis scale
-    CPTScaleTypeLogN,		///< Log base <i>n</i> axis scale
-    CPTScaleTypeLog10,		///< Log base 10 axis scale
-    CPTScaleTypeAngular,		///< Angular axis scale
-	CPTScaleTypeDateTime,	///< Date/time axis scale
-	CPTScaleTypeCategory		///< Category axis scale
+    CPTScaleTypeLog,		///< Logarithmic axis scale
+    CPTScaleTypeAngular,	///< Angular axis scale (not implemented)
+	CPTScaleTypeDateTime,	///< Date/time axis scale (not implemented)
+	CPTScaleTypeCategory	///< Category axis scale (not implemented)
 } CPTScaleType;
 
 /**

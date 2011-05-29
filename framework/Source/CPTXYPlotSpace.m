@@ -16,6 +16,8 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+
 -(CPTPlotRange *)constrainRange:(CPTPlotRange *)existingRange toGlobalRange:(CPTPlotRange *)globalRange;
 
 @end
@@ -89,17 +91,78 @@
 
 -(void)setPlotRange:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
-	if ( coordinate == CPTCoordinateX ) {
-        self.xRange = newRange;
-    }
-    else {
-        self.yRange = newRange;
-    }
+	switch ( coordinate ) {
+		case CPTCoordinateX:
+			self.xRange = newRange;
+			break;
+			
+		case CPTCoordinateY:
+			self.yRange = newRange;
+			break;
+			
+		default:
+			// invalid coordinate--do nothing
+			break;
+	}
 }
 
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coordinate
 {
-	return ( coordinate == CPTCoordinateX ? self.xRange : self.yRange );
+	CPTPlotRange *theRange = nil;
+	
+	switch ( coordinate ) {
+		case CPTCoordinateX:
+			theRange = self.xRange;
+			break;
+			
+		case CPTCoordinateY:
+			theRange = self.yRange;
+			break;
+			
+		default:
+			// invalid coordinate
+			break;
+	}
+
+	return theRange;
+}
+
+-(void)setScaleType:(CPTScaleType)newType forCoordinate:(CPTCoordinate)coordinate
+{
+	switch ( coordinate ) {
+		case CPTCoordinateX:
+			self.xScaleType = newType;
+			break;
+			
+		case CPTCoordinateY:
+			self.yScaleType = newType;
+			break;
+			
+		default:
+			// invalid coordinate--do nothing
+			break;
+	}
+}
+
+-(CPTScaleType)scaleTypeForCoordinate:(CPTCoordinate)coordinate
+{
+	CPTScaleType theScaleType = CPTScaleTypeLinear;
+	
+	switch ( coordinate ) {
+		case CPTCoordinateX:
+			theScaleType = self.xScaleType;
+			break;
+			
+		case CPTCoordinateY:
+			theScaleType = self.yScaleType;
+			break;
+			
+		default:
+			// invalid coordinate
+			break;
+	}
+	
+	return theScaleType;
 }
 
 -(void)setXRange:(CPTPlotRange *)range 
@@ -187,9 +250,26 @@
     if ( unionYRange && !CPTDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
 }
 
+-(void)setXScaleType:(CPTScaleType)newScaleType
+{
+	if ( newScaleType != xScaleType ) {
+		xScaleType = newScaleType;
+        if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+	}
+}
+
+-(void)setYScaleType:(CPTScaleType)newScaleType
+{
+	if ( newScaleType != yScaleType ) {
+		yScaleType = newScaleType;
+        if ( self.graph ) [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+	}
+}
+
 #pragma mark -
 #pragma mark Point Conversion
 
+// Linear
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord 
 {	 
 	if ( !range ) return 0.0;
@@ -210,6 +290,19 @@
     return viewLength * ((plotCoord - range.locationDouble) / range.lengthDouble);
 }
 
+// Natural log (only one version since there are no trancendental functions for NSDecimal)
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+{
+	if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) || (plotCoord <= 0.0) ) return 0.0;
+	
+	double logLoc = log10(range.locationDouble);
+	double logCoord = log10(plotCoord);
+	double logEnd = log10(range.endDouble);
+	
+	return viewLength * (logCoord - logLoc) / (logEnd - logLoc);
+}
+
+// Plot area view point for plot point
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
 	CGFloat viewX = 0.0, viewY = 0.0;
@@ -219,6 +312,11 @@
 		case CPTScaleTypeLinear:
 			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
 			break;
+		case CPTScaleTypeLog: {
+			double x = [[NSDecimalNumber decimalNumberWithDecimal:plotPoint[CPTCoordinateX]] doubleValue];
+			viewX = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:x];
+		}
+			break;
 		default:
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
 	}
@@ -226,6 +324,11 @@
 	switch ( self.yScaleType ) {
 		case CPTScaleTypeLinear:
 			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
+			break;
+		case CPTScaleTypeLog: {
+			double y = [[NSDecimalNumber decimalNumberWithDecimal:plotPoint[CPTCoordinateY]] doubleValue];
+			viewY = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
+		}
 			break;
 		default:
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
@@ -243,6 +346,9 @@
 		case CPTScaleTypeLinear:
 			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
 			break;
+		case CPTScaleTypeLog:
+			viewX = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+			break;
 		default:
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
 	}
@@ -251,6 +357,9 @@
 		case CPTScaleTypeLinear:
 			viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
 			break;
+		case CPTScaleTypeLog:
+			viewY = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+			break;
 		default:
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
 	}
@@ -258,6 +367,7 @@
 	return CGPointMake(viewX, viewY);
 }
 
+// Plot point for view point
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
 	NSDecimal pointx = CPTDecimalFromDouble(point.x);

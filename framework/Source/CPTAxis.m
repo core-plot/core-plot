@@ -35,6 +35,8 @@
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels labelAlignment:(CPTAlignment)theLabelAlignment labelOffset:(CGFloat)theLabelOffset labelRotation:(CGFloat)theLabelRotation textStyle:(CPTTextStyle *)theLabelTextStyle labelFormatter:(NSNumberFormatter *)theLabelFormatter;
 
+double niceNum(double x, BOOL round);
+
 @end
 /**	@endcond */
 
@@ -251,6 +253,7 @@
 /**	@property preferredNumberOfMajorTicks
  *	@brief The number of ticks that should be targeted when autogenerating positions.
  *  This property only applies when the CPTAxisLabelingPolicyAutomatic policy is in use.
+ *	If zero (0) (the default), Core Plot will choose a reasonable number of ticks.
  **/
 @synthesize preferredNumberOfMajorTicks;
 
@@ -350,7 +353,7 @@
 		plotSpace = nil;
 		majorTickLocations = [[NSSet set] retain];
 		minorTickLocations = [[NSSet set] retain];
-        preferredNumberOfMajorTicks = 5;
+        preferredNumberOfMajorTicks = 0;
 		minorTickLength = 3.0;
 		majorTickLength = 5.0;
 		labelOffset = 2.0;
@@ -561,51 +564,137 @@
 
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
-    // cache some values
+	// Get plot range
 	CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
     CPTPlotRange *theVisibleRange = self.visibleRange;
     if ( theVisibleRange ) {
         [range intersectionPlotRange:theVisibleRange];
     }
-    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
-    NSUInteger minorTicks = self.minorTicksPerInterval; 
-    double length = range.lengthDouble;   
+
+	// Validate scale type
+	CPTScaleType scaleType = [self.plotSpace scaleTypeForCoordinate:self.coordinate];
+	
+	switch ( scaleType ) {
+		case CPTScaleTypeLinear:
+			// supported scale type
+			break;
+			
+		case CPTScaleTypeLog:
+			// supported scale type--check range
+			if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) ) {
+				*newMajorLocations = [NSMutableSet set];
+				*newMinorLocations = [NSMutableSet set];
+				[range release];
+				return;
+			}
+			break;
+			
+		default:
+			// unsupported scale type--bail out
+			*newMajorLocations = [NSMutableSet set];
+			*newMinorLocations = [NSMutableSet set];
+			[range release];
+			return;
+			
+			break;
+	}
     
+	// Cache some values
+    NSUInteger numTicks = self.preferredNumberOfMajorTicks;
+    NSUInteger minorTicks = self.minorTicksPerInterval + 1; 
+    double length = fabs(range.lengthDouble);
+	
     // Create sets for locations
     NSMutableSet *majorLocations = [NSMutableSet set];
     NSMutableSet *minorLocations = [NSMutableSet set];
     
     // Filter troublesome values and return empty sets
-    if ( length > 0 && numTicks > 0 ) {
-		// Determine interval value
-		double roughInterval = length / numTicks;
-		double exponentValue = pow( 10.0, floor(log10(fabs(roughInterval))) );    
-		double interval = exponentValue * round(roughInterval / exponentValue);
-		
-		// Determine minor interval
-		double minorInterval = interval / (minorTicks + 1);
-        
-		// Calculate actual range limits
-		double minLimit = range.minLimitDouble;
-		double maxLimit = range.maxLimitDouble;
-		
-		// Determine the initial and final major indexes for the actual visible range
-		NSInteger initialIndex = floor(minLimit / interval);  // can be negative
-		NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
-		
-		// Iterate through the indexes with visible ticks and build the locations sets
-		for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
-			double pointLocation = i * interval;
-			for ( NSUInteger j = 0; j < minorTicks; j++ ) {
-				double minorPointLocation = pointLocation + minorInterval * (j + 1);
-				if ( minorPointLocation < minLimit ) continue;
-				if ( minorPointLocation > maxLimit ) continue;
-				[minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+    if ( length != 0.0 ) {
+		switch ( scaleType ) {
+			case CPTScaleTypeLinear: {
+				// Determine interval value
+				if ( numTicks == 0 ) {
+					numTicks = 5;
+				}
+				
+				length = niceNum(length, NO);
+				double interval = niceNum(length / (numTicks - 1), YES);
+				
+				// Determine minor interval
+				double minorInterval = interval / minorTicks;
+				
+				// Calculate actual range limits
+				double minLimit = range.minLimitDouble;
+				double maxLimit = range.maxLimitDouble;
+				
+				// Determine the initial and final major indexes for the actual visible range
+				NSInteger initialIndex = floor(minLimit / interval);  // can be negative
+				NSInteger finalIndex = ceil(maxLimit / interval);  // can be negative
+				
+				// Iterate through the indexes with visible ticks and build the locations sets
+				for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+					double pointLocation = i * interval;
+					for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+						double minorPointLocation = pointLocation + minorInterval * j;
+						if ( minorPointLocation < minLimit ) continue;
+						if ( minorPointLocation > maxLimit ) continue;
+						[minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+					}
+					
+					if ( pointLocation < minLimit ) continue;
+					if ( pointLocation > maxLimit ) continue;
+					[majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+				}
 			}
-			
-			if ( pointLocation < minLimit ) continue;
-			if ( pointLocation > maxLimit ) continue;
-			[majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+				break;
+				
+			case CPTScaleTypeLog: {
+				// Determine interval value
+				if ( numTicks == 0 ) {
+					numTicks = 5;
+				}
+				
+				length = log10(length);
+				double interval;
+				if ( fabs(length) >= numTicks ) {
+					interval = niceNum(length / (numTicks - 1), YES);
+				}
+				else {
+					interval = signbit(length) ? -1.0 : 1.0;
+				}
+				double intervalStep = pow(10.0, fabs(interval));
+				
+				// Calculate actual range limits
+				double minLimit = range.minLimitDouble;
+				double maxLimit = range.maxLimitDouble;
+				
+				// Determine minor interval
+				double minorInterval = intervalStep * pow(10.0, floor(log10(minLimit))) / minorTicks;
+				
+				// Determine the initial and final major indexes for the actual visible range
+				NSInteger initialIndex = floor(log10(minLimit / fabs(interval)));  // can be negative
+				NSInteger finalIndex = ceil(log10(maxLimit / fabs(interval)));  // can be negative
+				
+				// Iterate through the indexes with visible ticks and build the locations sets
+				for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+					double pointLocation = pow(10.0, i * interval);
+					for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+						double minorPointLocation = pointLocation + minorInterval * j;
+						if ( minorPointLocation < minLimit ) continue;
+						if ( minorPointLocation > maxLimit ) continue;
+						[minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+					}
+					minorInterval *= intervalStep;
+					
+					if ( pointLocation < minLimit ) continue;
+					if ( pointLocation > maxLimit ) continue;
+					[majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+				}
+			}
+				break;
+				
+			default:
+				break;
 		}
     }
 	
@@ -614,6 +703,52 @@
     // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
+}
+
+double niceNum(double x, BOOL round)
+{
+	if ( x == 0.0 ) return 0.0;
+	
+	BOOL xIsNegative = (x < 0.0);
+	if ( xIsNegative ) x = -x;
+	
+	double exponent = floor(log10(x));
+	double fraction = x / pow(10.0, exponent);
+	
+	double roundedFraction;
+	
+	if ( round ) {
+		if ( fraction < 1.5 ) {
+			roundedFraction = 1.0;
+		}
+		else if ( fraction < 3.0 ) {
+			roundedFraction = 2.0;
+		}
+		else if ( fraction < 7.0 ) {
+			roundedFraction = 5.0;
+		}
+		else {
+			roundedFraction = 10.0;
+		}
+	}
+	else {
+		if ( fraction <= 1.0 ) {
+			roundedFraction = 1.0;
+		}
+		else if ( fraction <= 2.0 ) {
+			roundedFraction = 2.0;
+		}
+		else if ( fraction <= 5.0 ) {
+			roundedFraction = 5.0;
+		}
+		else {
+			roundedFraction = 10.0;
+		}
+	}
+	
+	if ( xIsNegative ) roundedFraction = -roundedFraction;
+	
+	return roundedFraction * pow(10.0, exponent);
 }
 
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations 
@@ -816,9 +951,6 @@
 			break;
         case CPTAxisLabelingPolicyAutomatic:
 			[self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
-			break;
-		case CPTAxisLabelingPolicyLogarithmic:
-			// TODO: logarithmic labeling policy
 			break;
 	}
 	
@@ -1366,6 +1498,16 @@
         labelingPolicy = newPolicy;
         self.needsRelabel = YES;
     }
+}
+
+-(void)setPreferredNumberOfMajorTicks:(NSUInteger)newPreferredNumberOfMajorTicks
+{
+	if ( newPreferredNumberOfMajorTicks != preferredNumberOfMajorTicks ) {
+		preferredNumberOfMajorTicks = newPreferredNumberOfMajorTicks;
+		if ( self.labelingPolicy == CPTAxisLabelingPolicyAutomatic ) {
+			self.needsRelabel = YES;
+		}
+	}
 }
 
 -(void)setLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter 

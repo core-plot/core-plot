@@ -124,6 +124,12 @@ extern NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coordinate;
 ///	@}
 
+/// @name Scale Types
+/// @{
+-(void)setScaleType:(CPTScaleType)newType forCoordinate:(CPTCoordinate)coordinate;
+-(CPTScaleType)scaleTypeForCoordinate:(CPTCoordinate)coordinate;
+///	@}
+
 /// @name Adjusting Ranges
 /// @{
 -(void)scaleToFitPlots:(NSArray *)plots;

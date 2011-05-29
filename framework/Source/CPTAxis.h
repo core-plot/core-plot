@@ -21,9 +21,7 @@ typedef enum _CPTAxisLabelingPolicy {
     CPTAxisLabelingPolicyNone,					///< No labels provided; user sets labels and locations.
     CPTAxisLabelingPolicyLocationsProvided,		///< User sets locations; class makes labels.
     CPTAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
-	CPTAxisLabelingPolicyAutomatic,				///< Automatic labeling policy.
-	// TODO: Implement logarithmic labeling
-    CPTAxisLabelingPolicyLogarithmic				///< logarithmic labeling policy (not implemented). 
+	CPTAxisLabelingPolicyAutomatic				///< Automatic labeling policy.
 } CPTAxisLabelingPolicy;
 
 #pragma mark -

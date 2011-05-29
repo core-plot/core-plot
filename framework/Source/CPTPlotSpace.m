@@ -166,6 +166,23 @@ NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotS
 	return nil;
 }
 
+/**	@brief Sets the scale type for a given coordinate.
+ *  @param newType The new scale type.
+ *	@param coordinate The axis coordinate.
+ **/
+-(void)setScaleType:(CPTScaleType)newType forCoordinate:(CPTCoordinate)coordinate
+{
+}
+
+/**	@brief Gets the scale type for a given coordinate.
+ *	@param coordinate The axis coordinate.
+ *	@return The scale type.
+ **/
+-(CPTScaleType)scaleTypeForCoordinate:(CPTCoordinate)coordinate
+{
+	return CPTScaleTypeLinear;
+}
+
 /**	@brief Scales the plot ranges so that the plots just fit in the visible space.
  *	@param plots An array of the plots that have to fit in the visible area.
  **/

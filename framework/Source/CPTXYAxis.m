@@ -471,9 +471,35 @@
 // Center title in the plot range by default
 -(NSDecimal)defaultTitleLocation
 {
-	CPTPlotRange *axisRange = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CPTPlotSpace *thePlotSpace = self.plotSpace;
+	CPTCoordinate theCoordinate = self.coordinate;
+	
+	CPTPlotRange *axisRange = [thePlotSpace plotRangeForCoordinate:theCoordinate];
 	if ( axisRange ) {
-		return CPTDecimalDivide(CPTDecimalAdd(axisRange.location, axisRange.end), CPTDecimalFromDouble(2.0));
+		CPTScaleType scaleType = [thePlotSpace scaleTypeForCoordinate:theCoordinate];
+		
+		switch ( scaleType ) {
+			case CPTScaleTypeLinear:
+				return axisRange.midPoint;
+				break;
+				
+			case CPTScaleTypeLog: {
+				double loc = axisRange.locationDouble;
+				double end = axisRange.endDouble;
+				
+				if ( (loc > 0.0) && (end >= 0.0) ) {
+					return CPTDecimalFromDouble(pow(10.0, (log10(loc) + log10(end)) / 2.0));
+				}
+				else {
+					return axisRange.midPoint;
+				}
+					}
+				break;
+				
+			default:
+				return axisRange.midPoint;
+				break;
+		}
 	}
 	else {
 		return CPTDecimalFromInteger(0);

@@ -36,7 +36,8 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-10.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.5) length:CPTDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.5) length:CPTDecimalFromDouble(1500.0)];
+	plotSpace.yScaleType = CPTScaleTypeLog;
 	
     // Line styles
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -75,6 +76,7 @@
 	x.titleTextStyle = axisTitleTextStyle;
 	x.titleOffset = 25.0;
 	x.alternatingBandFills = [NSArray arrayWithObjects:[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1], nil];
+	x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 	
 	// Label y with an automatic label policy.
 	axisLineStyle.lineColor = [CPTColor greenColor];
@@ -93,6 +95,7 @@
 	y.titleTextStyle = axisTitleTextStyle;
 	y.titleOffset = 30.0;
 	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+	y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 	
 	CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
 	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];

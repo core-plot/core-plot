@@ -9,8 +9,8 @@
 	CPTPlotRange *yRange;
     CPTPlotRange *globalXRange;
 	CPTPlotRange *globalYRange;
-    CPTScaleType xScaleType; // TODO: Implement scale types
-    CPTScaleType yScaleType; // TODO: Implement scale types
+    CPTScaleType xScaleType;
+    CPTScaleType yScaleType;
     CGPoint lastDragPoint;
     BOOL isDragging;
 }
