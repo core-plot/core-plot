@@ -617,7 +617,6 @@ double niceNum(double x, BOOL round);
 					numTicks = 5;
 				}
 				
-				length = niceNum(length, NO);
 				double interval = niceNum(length / (numTicks - 1), YES);
 				
 				// Determine minor interval
