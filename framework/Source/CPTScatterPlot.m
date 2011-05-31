@@ -447,7 +447,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	
 	NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
 	if ( result != NSNotFound ) {
-		CGFloat minimumDistanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[result]);
+		CGFloat minimumDistanceSquared = NAN;
 		for ( NSUInteger i = result; i < dataCount; ++i ) {
 			CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
 			if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
