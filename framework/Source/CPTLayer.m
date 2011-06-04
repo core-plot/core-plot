@@ -623,6 +623,16 @@
 	}
 }
 
+-(void)setHidden:(BOOL)newHidden
+{
+	if ( newHidden != self.hidden ) {
+		self.hidden = newHidden;
+		if ( !newHidden ) {
+			[self setNeedsDisplay];
+		}
+	}
+}
+
 -(void)setOuterBorderPath:(CGPathRef)newPath
 {
 	if ( newPath != outerBorderPath ) {
