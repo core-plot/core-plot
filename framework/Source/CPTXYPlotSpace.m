@@ -426,29 +426,50 @@
 #endif
     NSDecimal plotInteractionPoint[2];
     [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
-        
-    // Original Lengths
-    NSDecimal oldFirstLengthX  = CPTDecimalSubtract(plotInteractionPoint[0], self.xRange.minLimit);
-    NSDecimal oldSecondLengthX = CPTDecimalSubtract(self.xRange.maxLimit, plotInteractionPoint[0]);
-    NSDecimal oldFirstLengthY  = CPTDecimalSubtract(plotInteractionPoint[1], self.yRange.minLimit);
-    NSDecimal oldSecondLengthY = CPTDecimalSubtract(self.yRange.maxLimit, plotInteractionPoint[1]);
-    
+	
+	// Cache old ranges
+	CPTPlotRange *oldRangeX = self.xRange;
+	CPTPlotRange *oldRangeY = self.yRange;
+	
     // Lengths are scaled by the pinch gesture inverse proportional
-    NSDecimal newFirstLengthX  = CPTDecimalDivide(oldFirstLengthX, decimalScale);
-    NSDecimal newSecondLengthX = CPTDecimalDivide(oldSecondLengthX, decimalScale);
-    NSDecimal newFirstLengthY  = CPTDecimalDivide(oldFirstLengthY, decimalScale);
-    NSDecimal newSecondLengthY = CPTDecimalDivide(oldSecondLengthY, decimalScale);
-
+	NSDecimal newLengthX = CPTDecimalDivide(oldRangeX.length, decimalScale);
+	NSDecimal newLengthY = CPTDecimalDivide(oldRangeY.length, decimalScale);
+	
+	// New locations
+	NSDecimal newLocationX;
+	if ( CPTDecimalGreaterThanOrEqualTo(oldRangeX.length, CPTDecimalFromInteger(0)) ) {
+		NSDecimal oldFirstLengthX  = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], oldRangeX.minLimit); // x - minX
+		NSDecimal newFirstLengthX  = CPTDecimalDivide(oldFirstLengthX, decimalScale);							  // (x - minX) / scale
+		newLocationX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], newFirstLengthX);
+	}
+	else {
+		NSDecimal oldSecondLengthX = CPTDecimalSubtract(oldRangeX.maxLimit, plotInteractionPoint[0]); // maxX - x
+		NSDecimal newSecondLengthX = CPTDecimalDivide(oldSecondLengthX, decimalScale);				 // (maxX - x) / scale
+		newLocationX = CPTDecimalAdd(plotInteractionPoint[CPTCoordinateX], newSecondLengthX);
+	}
+	
+	NSDecimal newLocationY;
+	if ( CPTDecimalGreaterThanOrEqualTo(oldRangeY.length, CPTDecimalFromInteger(0)) ) {
+		NSDecimal oldFirstLengthY  = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], oldRangeY.minLimit); // y - minY
+		NSDecimal newFirstLengthY  = CPTDecimalDivide(oldFirstLengthY, decimalScale);							  // (y - minY) / scale
+		newLocationY = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], newFirstLengthY);
+	}
+	else {
+		NSDecimal oldSecondLengthY = CPTDecimalSubtract(oldRangeY.maxLimit, plotInteractionPoint[1]); // maxY - y
+		NSDecimal newSecondLengthY = CPTDecimalDivide(oldSecondLengthY, decimalScale);				 // (maxY - y) / scale
+		newLocationY = CPTDecimalAdd(plotInteractionPoint[CPTCoordinateY], newSecondLengthY);
+	}
+	
 	// New ranges
-    CPTPlotRange *newRangeX = [[[CPTPlotRange alloc] initWithLocation:CPTDecimalSubtract(plotInteractionPoint[0],newFirstLengthX) length:CPTDecimalAdd(newFirstLengthX,newSecondLengthX)] autorelease];
-    CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:CPTDecimalSubtract(plotInteractionPoint[1],newFirstLengthY) length:CPTDecimalAdd(newFirstLengthY,newSecondLengthY)] autorelease];
-
-    // delegate may still veto/modify the range
+    CPTPlotRange *newRangeX = [[[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX] autorelease];
+    CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY] autorelease];
+	
+    // Delegate may still veto/modify the range
     if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-      newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-      newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
+		newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
+		newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
     }
-
+	
     self.xRange = newRangeX;
     self.yRange = newRangeY;
 }
