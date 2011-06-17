@@ -12,7 +12,9 @@
 @interface CPTTestApp_iPadViewController : UIViewController <CPTPlotDataSource, CPTPieChartDataSource, CPTBarPlotDelegate>
 {
 	IBOutlet CPTGraphHostingView *scatterPlotView, *barChartView, *pieChartView;
-	CPTXYGraph *graph, *barChart, *pieChart;
+	CPTXYGraph *graph, *barChart, *pieGraph;
+    CPTPieChart *piePlot;
+    BOOL piePlotIsRotating;
 
 	NSMutableArray *dataForChart, *dataForPlot;
 }
