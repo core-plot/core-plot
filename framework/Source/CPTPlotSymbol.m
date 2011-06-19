@@ -410,13 +410,15 @@
 				CGRect bounds = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 				
 				CGContextSaveGState(theContext);
-				CGContextBeginPath(theContext);
-				CGContextAddPath(theContext, theSymbolPath);
-				if ( self.usesEvenOddClipRule ) {
-					CGContextEOClip(theContext);
-				}
-				else {
-					CGContextClip(theContext);
+				if ( !CGPathIsEmpty(theSymbolPath) ) {
+					CGContextBeginPath(theContext);
+					CGContextAddPath(theContext, theSymbolPath);
+					if ( self.usesEvenOddClipRule ) {
+						CGContextEOClip(theContext);
+					}
+					else {
+						CGContextClip(theContext);
+					}
 				}
 				[theFill fillRect:bounds inContext:theContext];
 				CGContextRestoreGState(theContext);
@@ -428,7 +430,7 @@
 				CGContextAddPath(theContext, theSymbolPath);
 				CGContextStrokePath(theContext);
 			}
-
+			
 			CGContextRestoreGState(theContext);
 		}
 	}
