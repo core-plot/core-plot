@@ -4,6 +4,7 @@
 #import "CPTAnnotationHostLayer.h"
 #import "CPTMutableTextStyle.h"
 
+@class CPTLegend;
 @class CPTMutableNumericData;
 @class CPTNumericData;
 @class CPTPlot;
@@ -117,6 +118,7 @@ typedef enum _CPTPlotCachePrecision {
 	@private
     id <CPTPlotDataSource> dataSource;
     id <NSCopying, NSObject> identifier;
+	NSString *title;
     CPTPlotSpace *plotSpace;
     BOOL dataNeedsReloading;
     NSMutableDictionary *cachedData;
@@ -141,6 +143,7 @@ typedef enum _CPTPlotCachePrecision {
 /// @name Identification
 /// @{
 @property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
+@property (nonatomic, readwrite, copy) NSString *title;
 ///	@}
 
 /// @name Plot Space
@@ -213,6 +216,13 @@ typedef enum _CPTPlotCachePrecision {
 /// @{
 -(CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord;
+///	@}
+
+/// @name Legends
+/// @{
+-(NSUInteger)numberOfLegendEntries;
+-(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index;
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context;
 ///	@}
 
 @end

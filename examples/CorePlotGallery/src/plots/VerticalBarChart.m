@@ -60,7 +60,12 @@
 
 	[self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
+#if HORIZONTAL
+	graph.plotAreaFrame.paddingBottom += 30.0;
+#else
+	graph.plotAreaFrame.paddingLeft += 30.0;
+#endif
+	
     // Add plot space for bar charts
     CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
 #if HORIZONTAL
@@ -89,11 +94,12 @@
 #if HORIZONTAL
 		x.majorIntervalLength = CPTDecimalFromInteger(10);
 		x.minorTicksPerInterval = 9;
+		x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5);
 #else
 		x.majorIntervalLength = CPTDecimalFromInteger(1);
 		x.minorTicksPerInterval = 0;
-#endif
 		x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
+#endif
 		x.majorGridLineStyle = majorGridLineStyle;
 		x.minorGridLineStyle = minorGridLineStyle;
 		x.axisLineStyle = nil;
@@ -124,11 +130,12 @@
 #if HORIZONTAL
 		y.majorIntervalLength = CPTDecimalFromInteger(1);
 		y.minorTicksPerInterval = 0;
+		y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
 #else
 		y.majorIntervalLength = CPTDecimalFromInteger(10);
 		y.minorTicksPerInterval = 9;
+		y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5);
 #endif
-		y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
 		y.preferredNumberOfMajorTicks = 8;
 		y.majorGridLineStyle = majorGridLineStyle;
 		y.minorGridLineStyle = minorGridLineStyle;
@@ -208,6 +215,36 @@
     barPlot2.identifier = @"Bar Plot 2";
 
     [graph addPlot:barPlot2 toPlotSpace:barPlotSpace];
+
+	// Add legend
+	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
+	theLegend.numberOfColumns = 1;
+	theLegend.fill = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
+	theLegend.borderLineStyle = barLineStyle;
+	theLegend.cornerRadius = 10.0;
+	theLegend.swatchSize = CGSizeMake(20.0, 20.0);
+	whiteTextStyle.fontSize = 16.0;
+	theLegend.textStyle = whiteTextStyle;
+	theLegend.rowMargin = 10.0;
+	theLegend.paddingLeft = 12.0;
+	theLegend.paddingTop = 12.0;
+	theLegend.paddingRight = 12.0;
+	theLegend.paddingBottom = 12.0;
+	
+#if HORIZONTAL
+	NSArray *plotPoint = [NSArray arrayWithObjects:[NSNumber numberWithInteger:95], [NSNumber numberWithInteger:0], nil];
+#else
+	NSArray *plotPoint = [NSArray arrayWithObjects:[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:95], nil];
+#endif
+	CPTPlotSpaceAnnotation *legendAnnotation = [[[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint] autorelease];
+	legendAnnotation.contentLayer = theLegend;
+
+#if HORIZONTAL
+	legendAnnotation.contentAnchorPoint = CGPointMake(1.0, 0.0);
+#else
+	legendAnnotation.contentAnchorPoint = CGPointMake(0.0, 1.0);
+#endif
+	[graph.plotAreaFrame.plotArea addAnnotation:legendAnnotation];
 }
 
 - (void)dealloc

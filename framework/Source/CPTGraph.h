@@ -5,6 +5,7 @@
 /// @file
 
 @class CPTAxisSet;
+@class CPTLegend;
 @class CPTPlot;
 @class CPTPlotAreaFrame;
 @class CPTPlotSpace;
@@ -41,6 +42,11 @@ typedef enum _CPTGraphLayerType {
     CPTRectAnchor titlePlotAreaFrameAnchor;
     CGPoint titleDisplacement;
     CPTLayerAnnotation *titleAnnotation;
+	CPTLegend *legend;
+	CPTLayerAnnotation *legendAnnotation;
+	CPTRectAnchor legendAnchor;
+	CGPoint legendDisplacement;
+
 }
 
 /// @name Title
@@ -57,6 +63,13 @@ typedef enum _CPTGraphLayerType {
 @property (nonatomic, readwrite, retain) CPTPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, retain) CPTPlotSpace *defaultPlotSpace;
 @property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+///	@}
+
+/// @name Legend
+/// @{
+@property (nonatomic, readwrite, retain) CPTLegend *legend;
+@property (nonatomic, readwrite, assign) CPTRectAnchor legendAnchor;
+@property (nonatomic, readwrite, assign) CGPoint legendDisplacement;
 ///	@}
 
 /// @name Data Source
@@ -77,6 +90,7 @@ typedef enum _CPTGraphLayerType {
 -(void)addPlot:(CPTPlot *)plot; 
 -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPTPlotSpace *)space;
 -(void)removePlot:(CPTPlot *)plot;
+-(void)removePlotWithIdentifier:(id <NSCopying>)identifier;
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space;
 ///	@}

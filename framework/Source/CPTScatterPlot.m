@@ -655,6 +655,31 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	return dataLinePath;
 }
 
+/**	@brief Draws the legend swatch of a legend entry.
+ *	Subclasses should call super to draw the background fill and border.
+ *	@param index The index of the desired swatch.
+ *	@param rect The bounding rectangle where the swatch should be drawn.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+{
+	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+	
+	CPTLineStyle *theLineStyle = self.dataLineStyle;
+	
+	if ( theLineStyle ) {
+		[theLineStyle setLineStyleInContext:context];
+		
+		CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMidY(rect));
+		CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
+		CGContextStrokePath(context);
+	}
+	
+	[self.plotSymbol renderInContext:context
+							 atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
+							   scale:1.0];
+}
+
 #pragma mark -
 #pragma mark Fields
 

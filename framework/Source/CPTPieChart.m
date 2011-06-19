@@ -1,5 +1,7 @@
+#import "CPTLegend.h"
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData.h"
+#import "CPTPathExtensions.h"
 #import "CPTPieChart.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
@@ -23,6 +25,7 @@ NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< P
 -(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle;
 
 -(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle;
+-(CPTFill *)sliceFillForIndex:(NSUInteger)index;
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPTFill *)sliceFill;
 -(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint;
 
@@ -296,21 +299,13 @@ static CGFloat colorLookupTable[10][3] =
 	NSUInteger currentIndex = 0;
 	CGFloat startingWidth = 0.0;
 	id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
-	BOOL dataSourceProvidesFills = [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)];
     BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
 	
 	while ( currentIndex < sampleCount ) {
 		CGFloat currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 		
 		if ( !isnan(currentWidth) ) {
-			CPTFill *currentFill = nil;
-			if ( dataSourceProvidesFills ) {
-				CPTFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:currentIndex];
-				if ( nil != dataSourceFill ) currentFill = dataSourceFill;
-			}
-			else {
-				currentFill = [CPTFill fillWithColor:[CPTPieChart defaultPieSliceColorForIndex:currentIndex]];
-			}
+			CPTFill *currentFill = [self sliceFillForIndex:currentIndex];
             
             CGFloat radialOffset = 0.0;
             if ( dataSourceProvidesRadialOffsets ) {
@@ -353,6 +348,22 @@ static CGFloat colorLookupTable[10][3] =
 		CGPathMoveToPoint(slicePath, NULL, center.x, center.y);
 		CGPathAddArc(slicePath, NULL, center.x, center.y, self.pieRadius, startingAngle, finishingAngle, direction);
 	}    
+}
+
+-(CPTFill *)sliceFillForIndex:(NSUInteger)index
+{
+	id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
+	CPTFill *currentFill = nil;
+	
+	if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
+		CPTFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:index];
+		if ( nil != dataSourceFill ) currentFill = dataSourceFill;
+	}
+	else {
+		currentFill = [CPTFill fillWithColor:[CPTPieChart defaultPieSliceColorForIndex:index]];
+	}
+	
+	return currentFill;
 }
 
 -(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPTFill *)sliceFill;
@@ -427,6 +438,49 @@ static CGFloat colorLookupTable[10][3] =
     CGContextRestoreGState(context);
 }
 
+/**	@brief Draws the legend swatch of a legend entry.
+ *	Subclasses should call super to draw the background fill and border.
+ *	@param index The index of the desired swatch.
+ *	@param rect The bounding rectangle where the swatch should be drawn.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+{
+	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+	
+	CPTFill *theFill = [self sliceFillForIndex:index];
+	CPTLineStyle *theLineStyle = self.borderLineStyle;
+	
+	if ( theFill || theLineStyle ) {
+		CGPathRef swatchPath;
+		CGFloat radius = legend.swatchCornerRadius;
+		if ( radius > 0.0 ) {
+			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+			swatchPath = CreateRoundedRectPath(rect, radius);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, rect);
+			swatchPath = mutablePath;
+		}
+		
+		if ( theFill ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			[theFill fillPathInContext:context];
+		}
+		
+		if ( theLineStyle ) {
+			[theLineStyle setLineStyleInContext:context];
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			CGContextStrokePath(context);
+		}
+		
+		CGPathRelease(swatchPath);
+	}
+}
+
 #pragma mark -
 #pragma mark Fields
 
@@ -492,6 +546,37 @@ static CGFloat colorLookupTable[10][3] =
 		label.displacement = CGPointZero;
 	}
 
+}
+
+#pragma mark -
+#pragma mark Legends
+
+/**	@brief The number of legend entries provided by this plot.
+ *	@return The number of legend entries.
+ **/
+-(NSUInteger)numberOfLegendEntries
+{
+	[self reloadDataIfNeeded];
+	return self.cachedDataCount;
+}
+
+/**	@brief The title text of a legend entry.
+ *	@param index The index of the desired title.
+ *	@return The title of the legend entry at the requested index.
+ **/
+-(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index
+{
+	NSString *legendTitle = nil;
+	id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+	
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForPieChart:recordIndex:)] ) {
+		legendTitle = [theDataSource legendTitleForPieChart:self recordIndex:index];
+	}
+	else {
+		legendTitle = [super titleForLegendEntryAtIndex:index];
+	}
+	
+	return legendTitle;
 }
 
 #pragma mark -
