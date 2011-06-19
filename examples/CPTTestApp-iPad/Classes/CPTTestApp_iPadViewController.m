@@ -5,6 +5,7 @@
 //  Created by Brad Larson on 4/1/2010.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "CPTTestApp_iPadViewController.h"
 
 @implementation CPTTestApp_iPadViewController
@@ -21,6 +22,29 @@
 	[self constructScatterPlot];
 	[self constructBarChart];
 	[self constructPieChart];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Add a rotation animation
+    CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];    
+    rotation.removedOnCompletion = YES;
+    rotation.fromValue = [NSNumber numberWithFloat:M_PI*5];
+    rotation.toValue = [NSNumber numberWithFloat:0.0f];
+    rotation.duration = 1.0f;
+    rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    rotation.delegate = self;
+    [piePlot addAnimation:rotation forKey:@"rotation"];
+    
+    piePlotIsRotating = YES;
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+    piePlotIsRotating = NO;
+    [piePlot performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
@@ -269,18 +293,18 @@
 - (void)constructPieChart
 {
 	// Create pieChart from theme
-    pieChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    pieGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [pieChart applyTheme:theme];
-    pieChartView.hostedGraph = pieChart;
-    pieChart.plotAreaFrame.masksToBorder = NO;
+    [pieGraph applyTheme:theme];
+    pieChartView.hostedGraph = pieGraph;
+    pieGraph.plotAreaFrame.masksToBorder = NO;
 	
-    pieChart.paddingLeft = 20.0;
-	pieChart.paddingTop = 20.0;
-	pieChart.paddingRight = 20.0;
-	pieChart.paddingBottom = 20.0;
+    pieGraph.paddingLeft = 20.0;
+	pieGraph.paddingTop = 20.0;
+	pieGraph.paddingRight = 20.0;
+	pieGraph.paddingBottom = 20.0;
 	
-	pieChart.axisSet = nil;
+	pieGraph.axisSet = nil;
     
     // Prepare a radial overlay gradient for shading/gloss
     CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
@@ -290,7 +314,7 @@
 	overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.7] atPosition:1.0];
 	
     // Add pie chart
-    CPTPieChart *piePlot = [[CPTPieChart alloc] init];
+    piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
     piePlot.pieRadius = 130.0;
     piePlot.identifier = @"Pie Chart 1";
@@ -299,7 +323,7 @@
 	piePlot.borderLineStyle = [CPTLineStyle lineStyle];
 	piePlot.sliceLabelOffset = 5.0;
     piePlot.overlayFill = [CPTFill fillWithGradient:overlayGradient];
-    [pieChart addPlot:piePlot];
+    [pieGraph addPlot:piePlot];
     [piePlot release];
 	
 	// Add some initial data
@@ -389,6 +413,8 @@
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
+    if ( piePlotIsRotating ) return nil;
+    
 	static CPTMutableTextStyle *whiteText = nil;
 	
 	if ( !whiteText ) {
