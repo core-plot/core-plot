@@ -148,6 +148,7 @@ static CGFloat colorLookupTable[10][3] =
 -(void)dealloc
 {
 	[borderLineStyle release];
+    [overlayFill release];
 	
 	[super dealloc];
 }
