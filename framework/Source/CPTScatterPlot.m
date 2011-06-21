@@ -675,9 +675,15 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		CGContextStrokePath(context);
 	}
 	
+	CGFloat scale = 1.0;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+	if ( [self respondsToSelector:@selector(contentsScale)] ) {
+		scale = [self contentsScale];
+	}
+#endif
 	[self.plotSymbol renderInContext:context
 							 atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
-							   scale:1.0];
+							   scale:scale];
 }
 
 #pragma mark -
