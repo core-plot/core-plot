@@ -1,5 +1,6 @@
 #import "CPTGraph.h"
 #import "CPTExceptions.h"
+#import "CPTLegend.h"
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
@@ -20,8 +21,10 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
 @property (nonatomic, readwrite, retain) NSMutableArray *plotSpaces;
 @property (nonatomic, readwrite, retain) CPTLayerAnnotation *titleAnnotation;
+@property (nonatomic, readwrite, retain) CPTLayerAnnotation *legendAnnotation;
 
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif;
+-(CGPoint)contentAnchorForLegend;
 
 @end
 /**	@endcond */
@@ -86,7 +89,28 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
  **/
 @synthesize titleDisplacement;
 
+/**	@property legend
+ *	@brief The graph legend.
+ *	Setting this property will automatically anchor the legend to the graph and position it
+ *	using the legendAnchor and legendDisplacement properties. This is a convenience property
+ *	only—the legend may be inserted in the layer tree and positioned like any other CPTLayer
+ *	if more flexibility is needed.
+ **/
+@dynamic legend;
+
+/**	@property legendAnchor
+ *	@brief The location of the legend with respect to the graph frame.
+ *  Default is bottom center.
+ **/
+@synthesize legendAnchor;
+
+/**	@property legendDisplacement
+ *	@brief A vector giving the displacement of the legend from the edge location.
+ **/
+@synthesize legendDisplacement;
+
 @synthesize titleAnnotation;
+@synthesize legendAnnotation;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -125,6 +149,12 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
         titleDisplacement = CGPointZero;
 		titleAnnotation = nil;
 
+		// Legend
+		legend = nil;
+		legendAnnotation = nil;
+		legendAnchor = CPTRectAnchorBottom;
+		legendDisplacement = CGPointZero;
+		
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -143,6 +173,10 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 		titleTextStyle = [theLayer->titleTextStyle retain];
 		titleDisplacement = theLayer->titleDisplacement;
 		titleAnnotation = [theLayer->titleAnnotation retain];
+		legend = [theLayer->legend retain];
+		legendAnnotation = [theLayer->legendAnnotation retain];
+		legendAnchor = theLayer->legendAnchor;
+		legendDisplacement = theLayer->legendDisplacement;
 	}
 	return self;
 }
@@ -157,6 +191,8 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
     [title release];
     [titleTextStyle release];
     [titleAnnotation release];
+	[legend release];
+	[legendAnnotation release];
 	
 	[super dealloc];
 }
@@ -432,6 +468,103 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 }
 
 #pragma mark -
+#pragma mark Legend
+
+-(CPTLegend *)legend
+{
+	return (CPTLegend *)self.legendAnnotation.contentLayer;
+}
+
+-(void)setLegend:(CPTLegend *)newLegend
+{
+	if ( newLegend != legend ) {
+        [legend release];
+        legend = [newLegend retain];
+		CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
+		if ( legend ) {
+			if ( theLegendAnnotation ) {
+				theLegendAnnotation.contentLayer = legend;
+			}
+			else {
+				CPTLayerAnnotation *newLegendAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self];
+				newLegendAnnotation.contentLayer = legend;
+				newLegendAnnotation.displacement = self.legendDisplacement;
+				newLegendAnnotation.rectAnchor = self.legendAnchor;
+				newLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
+				[self addAnnotation:newLegendAnnotation];
+				self.legendAnnotation = newLegendAnnotation;
+				[newLegendAnnotation release];
+			}
+		}
+		else {
+			if ( theLegendAnnotation ) {
+				[self removeAnnotation:theLegendAnnotation];
+				self.legendAnnotation = nil;
+			}
+		}
+    }
+}
+
+-(void)setLegendAnchor:(CPTRectAnchor)newLegendAnchor
+{
+	if ( newLegendAnchor != legendAnchor ) {
+		legendAnchor = newLegendAnchor;
+		CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
+		if ( theLegendAnnotation ) {
+			theLegendAnnotation.rectAnchor = newLegendAnchor;
+			theLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
+		}
+	}
+}
+
+-(void)setLegendDisplacement:(CGPoint)newLegendDisplacement
+{
+	if ( !CGPointEqualToPoint(newLegendDisplacement, legendDisplacement) ) {
+		legendDisplacement = newLegendDisplacement;
+		self.legendAnnotation.displacement = newLegendDisplacement;
+	}
+}
+
+-(CGPoint)contentAnchorForLegend
+{
+	CGPoint contentAnchor = CGPointZero;
+	
+	switch ( self.legendAnchor ) {
+		case CPTRectAnchorBottomLeft:
+			contentAnchor = CGPointMake(0.0, 0.0);
+			break;
+		case CPTRectAnchorBottom:
+			contentAnchor = CGPointMake(0.5, 0.0);
+			break;
+		case CPTRectAnchorBottomRight:
+			contentAnchor = CGPointMake(1.0, 0.0);
+			break;
+		case CPTRectAnchorLeft:
+			contentAnchor = CGPointMake(0.0, 0.5);
+			break;
+		case CPTRectAnchorRight:
+			contentAnchor = CGPointMake(1.0, 0.5);
+			break;
+		case CPTRectAnchorTopLeft:
+			contentAnchor = CGPointMake(0.0, 1.0);
+			break;
+		case CPTRectAnchorTop:
+			contentAnchor = CGPointMake(0.5, 1.0);
+			break;
+		case CPTRectAnchorTopRight:
+			contentAnchor = CGPointMake(1.0, 1.0);
+			break;
+		case CPTRectAnchorCenter:
+			contentAnchor = CGPointMake(0.5, 0.5);
+			break;
+		default:
+			break;
+	}
+	
+	return contentAnchor;
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setPaddingLeft:(CGFloat)newPadding 
@@ -487,7 +620,7 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 				((CPTTextLayer *)theTitleAnnotation.contentLayer).text = title;
 			}
 			else {
-				CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:plotAreaFrame];
+				CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
 				CPTTextLayer *newTextLayer = [[CPTTextLayer alloc] initWithText:title style:self.titleTextStyle];
 				newTitleAnnotation.contentLayer = newTextLayer;
 				newTitleAnnotation.displacement = self.titleDisplacement;

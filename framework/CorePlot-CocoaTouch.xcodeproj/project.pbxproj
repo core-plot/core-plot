@@ -132,6 +132,8 @@
 		BCC7EA481006BF5700B39451 /* CPTPlainWhiteTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA421006BF5700B39451 /* CPTPlainWhiteTheme.m */; };
 		BCC7EA491006BF5700B39451 /* CPTStocksTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC7EA431006BF5700B39451 /* CPTStocksTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC7EA4A1006BF5700B39451 /* CPTStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC7EA441006BF5700B39451 /* CPTStocksTheme.m */; };
+		C30550E91399BE2000E0151F /* CPTLegendEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = C30550E71399BE2000E0151F /* CPTLegendEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30550EA1399BE2000E0151F /* CPTLegendEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C30550E81399BE2000E0151F /* CPTLegendEntry.m */; };
 		C30C85AB1047428100181766 /* CPTPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPTPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30C85AC1047428100181766 /* CPTPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPTPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -155,6 +157,8 @@
 		C35A66081102723E00FE24BB /* CPTTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A66061102723E00FE24BB /* CPTTextStylePlatformSpecific.m */; };
 		C38DD49711A04B99002A68E7 /* CPTGridLineGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C38DD49511A04B99002A68E7 /* CPTGridLineGroup.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C38DD49811A04B99002A68E7 /* CPTGridLineGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C38DD49611A04B99002A68E7 /* CPTGridLineGroup.m */; };
+		C3920ACF1395B7680045F3BB /* CPTLegend.h in Headers */ = {isa = PBXBuildFile; fileRef = C3920ACD1395B7680045F3BB /* CPTLegend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3920AD01395B7680045F3BB /* CPTLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = C3920ACE1395B7680045F3BB /* CPTLegend.m */; };
 		C3B623BD107EC7ED0009EF0B /* CPTLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3B623BB107EC7ED0009EF0B /* CPTLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623BE107EC7ED0009EF0B /* CPTLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B623BC107EC7ED0009EF0B /* CPTLayoutManager.m */; };
 		C3B623C0107EC9370009EF0B /* CPTBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82DA0FB89E610035D8DA /* CPTBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -317,6 +321,8 @@
 		BCC7EA421006BF5700B39451 /* CPTPlainWhiteTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlainWhiteTheme.m; path = Source/CPTPlainWhiteTheme.m; sourceTree = "<group>"; };
 		BCC7EA431006BF5700B39451 /* CPTStocksTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTStocksTheme.h; path = Source/CPTStocksTheme.h; sourceTree = "<group>"; };
 		BCC7EA441006BF5700B39451 /* CPTStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTStocksTheme.m; path = Source/CPTStocksTheme.m; sourceTree = "<group>"; };
+		C30550E71399BE2000E0151F /* CPTLegendEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLegendEntry.h; path = Source/CPTLegendEntry.h; sourceTree = "<group>"; };
+		C30550E81399BE2000E0151F /* CPTLegendEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLegendEntry.m; path = Source/CPTLegendEntry.m; sourceTree = "<group>"; };
 		C30C85A91047428100181766 /* CPTPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotGroup.h; path = Source/CPTPlotGroup.h; sourceTree = "<group>"; };
 		C30C85AA1047428100181766 /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotGroup.m; path = Source/CPTPlotGroup.m; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLimitBand.h; path = Source/CPTLimitBand.h; sourceTree = "<group>"; };
@@ -343,6 +349,8 @@
 		C35A66061102723E00FE24BB /* CPTTextStylePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTTextStylePlatformSpecific.m; path = iPhoneOnly/CPTTextStylePlatformSpecific.m; sourceTree = "<group>"; };
 		C38DD49511A04B99002A68E7 /* CPTGridLineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTGridLineGroup.h; path = Source/CPTGridLineGroup.h; sourceTree = "<group>"; };
 		C38DD49611A04B99002A68E7 /* CPTGridLineGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTGridLineGroup.m; path = Source/CPTGridLineGroup.m; sourceTree = "<group>"; };
+		C3920ACD1395B7680045F3BB /* CPTLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLegend.h; path = Source/CPTLegend.h; sourceTree = "<group>"; };
+		C3920ACE1395B7680045F3BB /* CPTLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLegend.m; path = Source/CPTLegend.m; sourceTree = "<group>"; };
 		C3B623BB107EC7ED0009EF0B /* CPTLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLayoutManager.h; path = Source/CPTLayoutManager.h; sourceTree = "<group>"; };
 		C3B623BC107EC7ED0009EF0B /* CPTLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLayoutManager.m; path = Source/CPTLayoutManager.m; sourceTree = "<group>"; };
 		C3CADE2F11B1886B00D36017 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = Source/license.txt; sourceTree = "<group>"; };
@@ -590,6 +598,7 @@
 				BC9B82C50FB89E610035D8DA /* Spaces */,
 				BC9B82CE0FB89E610035D8DA /* Plots */,
 				070CB8380FC9DEB900F3152B /* Axes */,
+				C3920ACC1395B7410045F3BB /* Legends */,
 				072E3F980FE2FF3E00ACF62F /* Themes */,
 			);
 			name = Source;
@@ -749,6 +758,17 @@
 			name = "iPhone Specific";
 			sourceTree = "<group>";
 		};
+		C3920ACC1395B7410045F3BB /* Legends */ = {
+			isa = PBXGroup;
+			children = (
+				C3920ACD1395B7680045F3BB /* CPTLegend.h */,
+				C3920ACE1395B7680045F3BB /* CPTLegend.m */,
+				C30550E71399BE2000E0151F /* CPTLegendEntry.h */,
+				C30550E81399BE2000E0151F /* CPTLegendEntry.m */,
+			);
+			name = Legends;
+			sourceTree = "<group>";
+		};
 		C3B623A9107EC5460009EF0B /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,6 +880,8 @@
 				07B69AB912B6281100F4C16C /* CPTMutableTextStyle.h in Headers */,
 				07B69B7112B62E9600F4C16C /* CPTMutableLineStyle.h in Headers */,
 				D0C047C012D6568500DA8047 /* CPTRangePlot.h in Headers */,
+				C3920ACF1395B7680045F3BB /* CPTLegend.h in Headers */,
+				C30550E91399BE2000E0151F /* CPTLegendEntry.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1051,8 @@
 				07B69ABA12B6281100F4C16C /* CPTMutableTextStyle.m in Sources */,
 				07B69B7212B62E9600F4C16C /* CPTMutableLineStyle.m in Sources */,
 				D0C047BF12D6568500DA8047 /* CPTRangePlot.m in Sources */,
+				C3920AD01395B7680045F3BB /* CPTLegend.m in Sources */,
+				C30550EA1399BE2000E0151F /* CPTLegendEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,6 +22,8 @@
 #import <CorePlot/CPTLayer.h>
 #import <CorePlot/CPTLayerAnnotation.h>
 #import	<CorePlot/CPTLayoutManager.h>
+#import <CorePlot/CPTLegend.h>
+#import <CorePlot/CPTLegendEntry.h>
 #import <CorePlot/CPTLimitBand.h>
 #import <CorePlot/CPTLineStyle.h>
 #import <CorePlot/CPTMutableLineStyle.h>

@@ -1,9 +1,13 @@
 #import "CPTExceptions.h"
+#import "CPTFill.h"
 #import "CPTGraph.h"
+#import "CPTLegend.h"
+#import "CPTLineStyle.h"
 #import "CPTMutableNumericData.h"
 #import "CPTMutableNumericData+TypeConversion.h"
 #import "CPTNumericData.h"
 #import "CPTNumericData+TypeConversion.h"
+#import "CPTPathExtensions.h"
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
@@ -51,6 +55,11 @@
  *	@brief An object used to identify the plot in collections.
  **/
 @synthesize identifier;
+
+/**	@property title
+ *	@brief The title of the plot displayed in the legend.
+ **/
+@synthesize title;
 
 /**	@property plotSpace
  *	@brief The plot space for the plot.
@@ -147,6 +156,7 @@
 		cachePrecision = CPTPlotCachePrecisionAuto;
 		dataSource = nil;
 		identifier = nil;
+		title = nil;
 		plotSpace = nil;
         dataNeedsReloading = NO;
 		needsRelabel = YES;
@@ -175,6 +185,7 @@
 		cachePrecision = theLayer->cachePrecision;
 		dataSource = theLayer->dataSource;
 		identifier = [theLayer->identifier retain];
+		title = [theLayer->title retain];
 		plotSpace = [theLayer->plotSpace retain];
 		dataNeedsReloading = theLayer->dataNeedsReloading;
 		needsRelabel = theLayer->needsRelabel;
@@ -194,6 +205,7 @@
 {
 	[cachedData release];
     [identifier release];
+	[title release];
     [plotSpace release];
 	[labelTextStyle release];
 	[labelFormatter release];
@@ -824,6 +836,75 @@
 	}
 	
 	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
+}
+
+#pragma mark -
+#pragma mark Legends
+
+/**	@brief The number of legend entries provided by this plot.
+ *	@return The number of legend entries.
+ **/
+-(NSUInteger)numberOfLegendEntries
+{
+	return 1;
+}
+
+/**	@brief The title text of a legend entry.
+ *	@param index The index of the desired title.
+ *	@return The title of the legend entry at the requested index.
+ **/
+-(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index
+{
+	NSString *legendTitle = self.title;
+	
+	if ( !legendTitle ) {
+		if ( [self.identifier isKindOfClass:[NSString class]] ) {
+			legendTitle = (NSString *)self.identifier;
+		}
+	}
+	
+	return legendTitle;
+}
+
+/**	@brief Draws the legend swatch of a legend entry.
+ *	Subclasses should call super to draw the background fill and border.
+ *	@param index The index of the desired swatch.
+ *	@param rect The bounding rectangle where the swatch should be drawn.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+{
+	CPTFill *theFill = legend.swatchFill;
+	CPTLineStyle *theLineStyle = legend.swatchBorderLineStyle;
+	
+	if ( theFill || theLineStyle ) {
+		CGPathRef swatchPath;
+		CGFloat radius = legend.swatchCornerRadius;
+		if ( radius > 0.0 ) {
+			radius = MIN(MIN(self.cornerRadius, rect.size.width / 2.0), rect.size.height / 2.0);
+			swatchPath = CreateRoundedRectPath(rect, radius);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, rect);
+			swatchPath = mutablePath;
+		}
+
+		if ( theFill ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			[theFill fillPathInContext:context];
+		}
+		
+		if ( theLineStyle ) {
+			[theLineStyle setLineStyleInContext:context];
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			CGContextStrokePath(context);
+		}
+		
+		CGPathRelease(swatchPath);
+	}
 }
 
 #pragma mark -

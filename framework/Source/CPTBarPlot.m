@@ -5,6 +5,7 @@
 #import "CPTColor.h"
 #import "CPTMutableLineStyle.h"
 #import "CPTFill.h"
+#import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotRange.h"
 #import "CPTPlotSpaceAnnotation.h"
@@ -618,6 +619,49 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		CGContextRestoreGState(context);
 		
 		CGPathRelease(path);
+	}
+}
+
+/**	@brief Draws the legend swatch of a legend entry.
+ *	Subclasses should call super to draw the background fill and border.
+ *	@param index The index of the desired swatch.
+ *	@param rect The bounding rectangle where the swatch should be drawn.
+ *	@param context The graphics context to draw into.
+ **/
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+{
+	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+	
+	CPTFill *theFill = self.fill;
+	CPTLineStyle *theLineStyle = self.lineStyle;
+	
+	if ( theFill || theLineStyle ) {
+		CGPathRef swatchPath;
+		CGFloat radius = self.barCornerRadius;
+		if ( radius > 0.0 ) {
+			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+			swatchPath = CreateRoundedRectPath(rect, radius);
+		}
+		else {
+			CGMutablePathRef mutablePath = CGPathCreateMutable();
+			CGPathAddRect(mutablePath, NULL, rect);
+			swatchPath = mutablePath;
+		}
+		
+		if ( theFill ) {
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			[theFill fillPathInContext:context];
+		}
+		
+		if ( theLineStyle ) {
+			[theLineStyle setLineStyleInContext:context];
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			CGContextStrokePath(context);
+		}
+		
+		CGPathRelease(swatchPath);
 	}
 }
 

@@ -70,7 +70,7 @@
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Graph padding
-    float boundsPadding = bounds.size.width / 20.0f;
+    CGFloat boundsPadding = bounds.size.width / 20.0f;
     graph.paddingLeft = boundsPadding;
     graph.paddingTop = graph.titleDisplacement.y * 2;
     graph.paddingRight = boundsPadding;
@@ -99,6 +99,19 @@
     [graph addPlot:piePlot];
     [piePlot release];
 
+	// Add legend
+	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
+	theLegend.numberOfColumns = 1;
+	theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
+	theLegend.borderLineStyle = [CPTLineStyle lineStyle];
+	theLegend.cornerRadius = 5.0;
+	
+	graph.legend = theLegend;
+
+	graph.legendAnchor = CPTRectAnchorRight;
+	graph.legendDisplacement = CGPointMake(-boundsPadding - 10.0, 0.0);
+	
+	// Generate data
     [self generateData];
 }
 
@@ -106,7 +119,7 @@
 {
     static CPTMutableTextStyle *whiteText = nil;
 
-    if (!whiteText) {
+    if ( !whiteText ) {
         whiteText = [[CPTMutableTextStyle alloc] init];
         whiteText.color = [CPTColor whiteColor];
     }
@@ -140,6 +153,11 @@
     }
 
     return num;
+}
+
+-(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+{
+	return [NSString stringWithFormat:@"Pie Slice %u", index];
 }
 
 @end
