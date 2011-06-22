@@ -6,6 +6,4 @@
  **/
 @interface NSDecimalNumber(CPTExtensions)
 
--(CGFloat)floatValue;
-
 @end

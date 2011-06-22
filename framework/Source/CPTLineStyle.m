@@ -2,6 +2,7 @@
 #import "CPTLayer.h"
 #import "CPTColor.h"
 #import "CPTMutableLineStyle.h"
+#import "NSNumberExtensions.h"
 
 /**	@cond */
 @interface CPTLineStyle ()
@@ -112,7 +113,7 @@
 
 		NSUInteger dashCounter = 0;
 		for ( NSNumber *currentDashLength in dashPattern ) {
-			dashLengths[dashCounter++] = [currentDashLength doubleValue];
+			dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
 		}
 		
 		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashPattern.count);

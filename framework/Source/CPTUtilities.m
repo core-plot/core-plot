@@ -134,7 +134,7 @@ NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
  **/
 float CPTDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
+	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
 }
 
 /**
@@ -145,6 +145,20 @@ float CPTDecimalFloatValue(NSDecimal decimalNumber)
 double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 {
 	return (double)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
+}
+
+/**
+ *	@brief Converts an NSDecimal value to a CGFloat.
+ *	@param decimalNumber The NSDecimal value.
+ *	@return The converted value.
+ **/
+CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
+{
+#if CGFLOAT_IS_DOUBLE
+	return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue]; 
+#else
+	return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue]; 
+#endif
 }
 
 /**
@@ -382,6 +396,20 @@ NSDecimal CPTDecimalFromFloat(float f)
 NSDecimal CPTDecimalFromDouble(double d)
 {
 	return [[NSNumber numberWithDouble:d] decimalValue]; 
+}
+
+/**
+ *	@brief Converts a CGFloat value to an NSDecimal.
+ *	@param f The CGFloat value.
+ *	@return The converted value.
+ **/
+NSDecimal CPTDecimalFromCGFloat(CGFloat f)
+{
+#if CGFLOAT_IS_DOUBLE
+	return [[NSNumber numberWithDouble:f] decimalValue];
+#else
+	return [[NSNumber numberWithFloat:f] decimalValue]; 
+#endif
 }
 
 /**

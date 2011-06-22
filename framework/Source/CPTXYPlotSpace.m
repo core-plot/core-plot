@@ -9,6 +9,7 @@
 #import "CPTPlotRange.h"
 #import "CPTPlotArea.h"
 #import "CPTGraph.h"
+#import "NSNumberExtensions.h"
 
 /**	@cond */
 @interface CPTXYPlotSpace ()
@@ -279,7 +280,7 @@
 		factor = CPTDecimalFromInteger(0);
 	}
 	
-	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] doubleValue];
+	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] cgFloatValue];
     
     return viewCoordinate;
 }
@@ -419,11 +420,7 @@
     if ( !shouldScale ) return;
     
     // Determine point in plot coordinates
-#if CGFLOAT_IS_DOUBLE
-	NSDecimal const decimalScale = CPTDecimalFromDouble(interactionScale);
-#else
-	NSDecimal const decimalScale = CPTDecimalFromFloat(interactionScale);
-#endif
+	NSDecimal const decimalScale = CPTDecimalFromCGFloat(interactionScale);
     NSDecimal plotInteractionPoint[2];
     [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
 	

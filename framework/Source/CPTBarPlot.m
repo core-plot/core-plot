@@ -339,7 +339,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		length = ( coordinate == CPTCoordinateX ? displacedPoint.x - originPoint.x : displacedPoint.y - originPoint.y );
     }
     else {
-        length = CPTDecimalFloatValue(decimalLength);
+        length = CPTDecimalCGFloatValue(decimalLength);
     }
     return length;
 }
@@ -348,7 +348,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 {
     double length;
     if ( barWidthsAreInViewCoordinates ) {
-    	CGFloat floatLength = CPTDecimalFloatValue(decimalLength);
+    	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
         CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
         double originPlotPoint[2], displacedPlotPoint[2];
@@ -366,7 +366,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 {
     NSDecimal length;
     if ( barWidthsAreInViewCoordinates ) {
-    	CGFloat floatLength = CPTDecimalFloatValue(decimalLength);
+    	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
         CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
         NSDecimal originPlotPoint[2], displacedPlotPoint[2];

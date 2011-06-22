@@ -11,6 +11,7 @@
 #import "CPTUtilities.h"
 #import "CPTTextLayer.h"
 #import "CPTLineStyle.h"
+#import <tgmath.h>
 
 NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
 
@@ -378,13 +379,8 @@ static CGFloat colorLookupTable[10][3] =
     CGFloat yOffset = 0.0;
     if ( radialOffset != 0.0 ) {
         CGFloat medianAngle = 0.5 * (startingAngle + finishingAngle);
-#if CGFLOAT_IS_DOUBLE
         xOffset = round(cos(medianAngle) * radialOffset);
         yOffset = round(sin(medianAngle) * radialOffset);
-#else
-        xOffset = roundf(cosf(medianAngle) * radialOffset);
-        yOffset = roundf(sinf(medianAngle) * radialOffset);
-#endif
     }
     
     CGFloat centerX = centerPoint.x + xOffset;
@@ -534,11 +530,7 @@ static CGFloat colorLookupTable[10][3] =
 		}
 		double currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:index];
 		double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
-#if CGFLOAT_IS_DOUBLE
 		label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
-#else
-		label.displacement = CGPointMake(labelRadius * cosf(labelAngle), labelRadius * sinf(labelAngle));
-#endif
 		
 		label.contentLayer.hidden = isnan(currentWidth);
 	}
@@ -586,19 +578,12 @@ static CGFloat colorLookupTable[10][3] =
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition
 {
 	CGFloat result = rawPosition;
-#if CGFLOAT_IS_DOUBLE
 	result /= 2.0 * M_PI;
 	if ( result < 0.0 ) {
 		result += 1.0;
 	}
 	result = fmod(result, 1.0);
-#else
-	result /= 2.0f * (float)M_PI;
-	if ( result < 0.0f ) {
-		result += 1.0f;
-	}
-	result = fmodf(result, 1.0f);
-#endif
+
 	return result;
 }
 
@@ -658,11 +643,7 @@ static CGFloat colorLookupTable[10][3] =
 		CGFloat dy = plotAreaPoint.y - centerPoint.y;
 		CGFloat distanceSquared = dx * dx + dy * dy;
 		
-#if CGFLOAT_IS_DOUBLE
 		CGFloat touchedAngle = [self normalizedPosition:atan2(dy, dx)];
-#else
-		CGFloat touchedAngle = [self normalizedPosition:atan2f(dy, dx)];
-#endif
 		CGFloat startingAngle = [self normalizedPosition:self.startAngle];
 		
 		switch ( self.sliceDirection ) {
@@ -683,20 +664,13 @@ static CGFloat colorLookupTable[10][3] =
 						if ( radialOffset != 0.0 ) {
 							CGPoint offsetCenter;
 							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
-#if CGFLOAT_IS_DOUBLE
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
 													   centerPoint.y + sin(medianAngle) * radialOffset);
-#else
-							offsetCenter = CGPointMake(centerPoint.x + cosf(medianAngle) * radialOffset,
-													   centerPoint.y + sinf(medianAngle) * radialOffset);
-#endif
+							
 							dx = plotAreaPoint.x - offsetCenter.x;
 							dy = plotAreaPoint.y - offsetCenter.y;
-#if CGFLOAT_IS_DOUBLE
+
 							offsetTouchedAngle = [self normalizedPosition:atan2(dy, dx)];
-#else
-							offsetTouchedAngle = [self normalizedPosition:atan2f(dy, dx)];
-#endif
 							offsetDistanceSquared = dx * dx + dy * dy;
 						}
 					}
@@ -739,20 +713,13 @@ static CGFloat colorLookupTable[10][3] =
 						if ( radialOffset != 0.0 ) {
 							CGPoint offsetCenter;
 							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
-#if CGFLOAT_IS_DOUBLE
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
 													   centerPoint.y + sin(medianAngle) * radialOffset);
-#else
-							offsetCenter = CGPointMake(centerPoint.x + cosf(medianAngle) * radialOffset,
-													   centerPoint.y + sinf(medianAngle) * radialOffset);
-#endif
+
 							dx = plotAreaPoint.x - offsetCenter.x;
 							dy = plotAreaPoint.y - offsetCenter.y;
-#if CGFLOAT_IS_DOUBLE
+
 							offsetTouchedAngle = [self normalizedPosition:atan2(dy, dx)];
-#else
-							offsetTouchedAngle = [self normalizedPosition:atan2f(dy, dx)];
-#endif
 							offsetDistanceSquared = dx * dx + dy * dy;
 						}
 					}

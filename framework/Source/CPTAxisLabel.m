@@ -4,6 +4,7 @@
 #import "CPTMutableTextStyle.h"
 #import "CPTExceptions.h"
 #import "CPTUtilities.h"
+#import <tgmath.h>
 
 /**	@brief An axis label.
  *
@@ -105,7 +106,7 @@
 	
 	CGPoint newPosition = point;
 	CGFloat *value = (coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y));
-    double angle = 0.0;
+    CGFloat angle = 0.0;
 	
 	CGFloat myRotation = self.rotation;
     content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
@@ -199,8 +200,8 @@
 	
 	angle += M_PI;
 	angle -= myRotation;
-	double newAnchorX = cos(angle);
-	double newAnchorY = sin(angle);
+	CGFloat newAnchorX = cos(angle);
+	CGFloat newAnchorY = sin(angle);
 	
 	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
 		newAnchorX /= ABS(newAnchorY);

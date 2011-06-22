@@ -6,6 +6,7 @@
 #import "CPTPlot.h"
 #import "CPTTextStyle.h"
 #import "CPTUtilities.h"
+#import "NSNumberExtensions.h"
 
 /**	@cond */
 @interface CPTLegend()
@@ -269,11 +270,7 @@
 		else {
 			colWidth = [computedColumnWidths objectAtIndex:col];
 		}
-#if CGFLOAT_IS_DOUBLE		
-		CGFloat width = [colWidth doubleValue];
-#else
-		CGFloat width = [colWidth floatValue];
-#endif
+		CGFloat width = [colWidth cgFloatValue];
 		actualColumnWidths[col] = width;
 		if ( col < columnCount - 1 ) {
 			columnPositions[col + 1] = columnPositions[col] + width + theOffset + theSwatchSize.width + theColumnMargin;
@@ -350,11 +347,7 @@
 		
 		NSMutableArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:desiredColumnCount];
 		for ( NSUInteger i = 0; i < desiredColumnCount; i++ ) {
-#if CGFLOAT_IS_DOUBLE
-			[maxColumnWidths addObject:[NSNumber numberWithDouble:maxTitleWidth[i]]];
-#else
-			[maxColumnWidths addObject:[NSNumber numberWithFloat:maxTitleWidth[i]]];
-#endif
+			[maxColumnWidths addObject:[NSNumber numberWithCGFloat:maxTitleWidth[i]]];
 		}
 		self.columnWidthsThatFit = maxColumnWidths;
 
@@ -363,21 +356,12 @@
 		CGSize theSwatchSize = self.swatchSize;
 		
 		if ( self.equalColumns ) {
-#if CGFLOAT_IS_DOUBLE
 			NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.doubleValue"];
-			legendSize.width += [maxWidth doubleValue] * desiredColumnCount;
-#else
-			NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.floatValue"];
-			legendSize.width += [maxWidth floatValue] * desiredColumnCount;
-#endif
+			legendSize.width += [maxWidth cgFloatValue] * desiredColumnCount;
 		}
 		else {
 			for ( NSNumber *width in maxColumnWidths ) {
-#if CGFLOAT_IS_DOUBLE
-				legendSize.width += [width doubleValue];
-#else
-				legendSize.width += [width floatValue];
-#endif
+				legendSize.width += [width cgFloatValue];
 			}
 		}
 		legendSize.width += ((theSwatchSize.width + self.titleOffset) * desiredColumnCount) + (self.columnMargin * (desiredColumnCount - 1));

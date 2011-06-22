@@ -2,6 +2,7 @@
 #import "CPTLineStyle.h"
 #import "CPTFill.h"
 #import "CPTPlotSymbol.h"
+#import <tgmath.h>
 
 /**	@cond */
 @interface CPTPlotSymbol()
@@ -354,11 +355,7 @@
 		layerSize.width /= scale;
 		layerSize.height /= scale;
 
-#if CGFLOAT_IS_DOUBLE
 		CGPoint origin = CGPointMake(round(center.x - layerSize.width / 2.0), round(center.y - layerSize.height / 2.0));
-#else
-		CGPoint origin = CGPointMake(roundf(center.x - layerSize.width / 2.0f), roundf(center.y - layerSize.height / 2.0f));
-#endif
 		CGContextDrawLayerInRect(theContext, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
 	}
 }

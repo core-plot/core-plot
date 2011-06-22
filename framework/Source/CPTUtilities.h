@@ -25,6 +25,7 @@ NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber);
 
 float CPTDecimalFloatValue(NSDecimal decimalNumber);
 double CPTDecimalDoubleValue(NSDecimal decimalNumber);
+CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber);
 
 NSString * CPTDecimalStringValue(NSDecimal decimalNumber);
 /// @}
@@ -47,6 +48,7 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger i);
 
 NSDecimal CPTDecimalFromFloat(float f);
 NSDecimal CPTDecimalFromDouble(double d);
+NSDecimal CPTDecimalFromCGFloat(CGFloat f);
 
 NSDecimal CPTDecimalFromString(NSString *stringRepresentation);
 /// @}
