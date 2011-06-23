@@ -34,6 +34,9 @@
 		4F754284126D0C5F00313026 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F754283126D0C5F00313026 /* DetailView.xib */; };
 		4F8E1C6012907C1800D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */; };
 		4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */; };
+		C360E1C913B18ABC007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C813B18ABC007994B6 /* OHLCPlot.m */; };
+		C360E1DA13B18B24007994B6 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1D913B18B24007994B6 /* AxisDemo.m */; };
+		C360E1EE13B18CCC007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */; };
 		C3A14C1513AEE7CC00D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14C1413AEE7CC00D103EA /* RangePlot.m */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
@@ -100,6 +103,12 @@
 		4F8E1C9E129089D600D2035F /* SteppedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SteppedScatterPlot.h; path = src/plots/SteppedScatterPlot.h; sourceTree = "<group>"; };
 		4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SteppedScatterPlot.m; path = src/plots/SteppedScatterPlot.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Plot_Gallery-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Plot_Gallery-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C360E1C713B18ABC007994B6 /* OHLCPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OHLCPlot.h; path = src/plots/OHLCPlot.h; sourceTree = "<group>"; };
+		C360E1C813B18ABC007994B6 /* OHLCPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OHLCPlot.m; path = src/plots/OHLCPlot.m; sourceTree = "<group>"; };
+		C360E1D813B18B24007994B6 /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
+		C360E1D913B18B24007994B6 /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; };
+		C360E1EC13B18CCC007994B6 /* CandlestickPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CandlestickPlot.h; path = src/plots/CandlestickPlot.h; sourceTree = "<group>"; };
+		C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CandlestickPlot.m; path = src/plots/CandlestickPlot.m; sourceTree = "<group>"; };
 		C3A14C1313AEE7CC00D103EA /* RangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RangePlot.h; path = src/plots/RangePlot.h; sourceTree = "<group>"; };
 		C3A14C1413AEE7CC00D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
 		C3F34F2812AB25AE008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
@@ -219,22 +228,28 @@
 		4F5EBAFA1229818000D147E7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
+				C360E1D813B18B24007994B6 /* AxisDemo.h */,
+				C360E1D913B18B24007994B6 /* AxisDemo.m */,
+				C360E1EC13B18CCC007994B6 /* CandlestickPlot.h */,
+				C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */,
 				4F22FE3C123404C2006BF615 /* CompositePlot.h */,
 				4F22FE3D123404C2006BF615 /* CompositePlot.m */,
-				4F22FE3E123404C2006BF615 /* GradientScatterPlot.h */,
-				4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */,
-				4F8E1C9E129089D600D2035F /* SteppedScatterPlot.h */,
-				4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */,
 				4F8E1C5E12907C1800D2035F /* DatePlot.h */,
 				4F8E1C5F12907C1800D2035F /* DatePlot.m */,
 				C3F34F2812AB25AE008FBDC3 /* DonutChart.h */,
 				C3F34F2912AB25AE008FBDC3 /* DonutChart.m */,
+				4F22FE3E123404C2006BF615 /* GradientScatterPlot.h */,
+				4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */,
+				C360E1C713B18ABC007994B6 /* OHLCPlot.h */,
+				C360E1C813B18ABC007994B6 /* OHLCPlot.m */,
 				C3A14C1313AEE7CC00D103EA /* RangePlot.h */,
 				C3A14C1413AEE7CC00D103EA /* RangePlot.m */,
 				4F22FE40123404C2006BF615 /* SimplePieChart.h */,
 				4F22FE41123404C2006BF615 /* SimplePieChart.m */,
 				4F22FE42123404C2006BF615 /* SimpleScatterPlot.h */,
 				4F22FE43123404C2006BF615 /* SimpleScatterPlot.m */,
+				4F8E1C9E129089D600D2035F /* SteppedScatterPlot.h */,
+				4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */,
 				4F22FE44123404C2006BF615 /* VerticalBarChart.h */,
 				4F22FE45123404C2006BF615 /* VerticalBarChart.m */,
 			);
@@ -342,6 +357,9 @@
 				4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */,
 				C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */,
 				C3A14C1513AEE7CC00D103EA /* RangePlot.m in Sources */,
+				C360E1C913B18ABC007994B6 /* OHLCPlot.m in Sources */,
+				C360E1DA13B18B24007994B6 /* AxisDemo.m in Sources */,
+				C360E1EE13B18CCC007994B6 /* CandlestickPlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

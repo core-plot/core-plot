@@ -5,7 +5,7 @@
 
 #import "RangePlot.h"
 
-const NSTimeInterval oneDay = 24 * 60 * 60;
+static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 @implementation RangePlot
 

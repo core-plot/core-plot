@@ -12,8 +12,7 @@
 
 + (void)load
 {
-    // Not working yet...
-	//[super registerPlotItem:self];
+	[super registerPlotItem:self];
 }
 
 - (id)init
