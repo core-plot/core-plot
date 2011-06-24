@@ -868,6 +868,7 @@
 
 /**	@brief Draws the legend swatch of a legend entry.
  *	Subclasses should call super to draw the background fill and border.
+ *	@param legend The legend being drawn.
  *	@param index The index of the desired swatch.
  *	@param rect The bounding rectangle where the swatch should be drawn.
  *	@param context The graphics context to draw into.

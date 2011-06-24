@@ -125,6 +125,7 @@
 #pragma mark Factory Methods
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given array.
+ *	@param newPlots An array of plots.
  *  @return A new CPTLegend instance.
  **/
 +(id)legendWithPlots:(NSArray *)newPlots
@@ -133,6 +134,7 @@
 }
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given graph.
+ *	@param graph The graph.
  *  @return A new CPTLegend instance.
  **/
 +(id)legendWithGraph:(CPTGraph *)graph
@@ -173,7 +175,7 @@
 }
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given array.
- *	@param plots An array of plots.
+ *	@param newPlots An array of plots.
  *  @return The initialized CPTLegend object.
  **/
 -(id)initWithPlots:(NSArray *)newPlots
