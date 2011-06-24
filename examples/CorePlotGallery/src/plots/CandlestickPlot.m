@@ -97,6 +97,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Line plot with gradient fill
 	CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
+	dataSourceLinePlot.title = @"Close Values";
 	dataSourceLinePlot.dataLineStyle = nil;
     dataSourceLinePlot.dataSource = self;
 	[graph addPlot:dataSourceLinePlot];
@@ -127,7 +128,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	whiteTextStyle.fontSize = 12.0;
 	ohlcPlot.labelTextStyle = whiteTextStyle;
 	ohlcPlot.labelOffset = 5.0;
-    ohlcPlot.stickLength = 10.0;
+    ohlcPlot.barCornerRadius = 3.0;
 	ohlcPlot.barWidth = 15.0;
 	ohlcPlot.increaseFill = [CPTFill fillWithColor:[CPTColor greenColor]];
 	ohlcPlot.decreaseFill = [CPTFill fillWithColor:[CPTColor redColor]];
@@ -135,6 +136,18 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     ohlcPlot.plotStyle = CPTTradingRangePlotStyleCandleStick;
     [graph addPlot:ohlcPlot];
     
+	// Add legend
+	graph.legend = [CPTLegend legendWithGraph:graph];
+	graph.legend.numberOfColumns = 2;
+	graph.legend.textStyle = xAxis.titleTextStyle;
+	graph.legend.fill = graph.plotAreaFrame.fill;
+	graph.legend.borderLineStyle = graph.plotAreaFrame.borderLineStyle;
+	graph.legend.cornerRadius = 5.0;
+	graph.legend.swatchSize = CGSizeMake(25.0, 25.0);
+	graph.legend.swatchCornerRadius = 5.0;
+	graph.legendAnchor = CPTRectAnchorBottom;
+	graph.legendDisplacement = CGPointMake(0.0, 12.0);
+
     [self generateData];
 	
 	// Set plot ranges
