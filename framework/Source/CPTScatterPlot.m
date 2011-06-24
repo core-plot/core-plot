@@ -2,7 +2,9 @@
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData.h"
 #import "CPTScatterPlot.h"
+#import "CPTLegend.h"
 #import "CPTLineStyle.h"
+#import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
@@ -655,12 +657,6 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	return dataLinePath;
 }
 
-/**	@brief Draws the legend swatch of a legend entry.
- *	Subclasses should call super to draw the background fill and border.
- *	@param index The index of the desired swatch.
- *	@param rect The bounding rectangle where the swatch should be drawn.
- *	@param context The graphics context to draw into.
- **/
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
 {
 	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
@@ -670,20 +666,76 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( theLineStyle ) {
 		[theLineStyle setLineStyleInContext:context];
 		
-		CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMidY(rect));
-		CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
+		CGPoint alignedStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect)));
+		CGPoint alignedEndPoint = CPTAlignPointToUserSpace(context, CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect)));
+		CGContextMoveToPoint(context, alignedStartPoint.x, alignedStartPoint.y);
+		CGContextAddLineToPoint(context, alignedEndPoint.x, alignedEndPoint.y);
+
 		CGContextStrokePath(context);
 	}
 	
-	CGFloat scale = 1.0;
+	CPTPlotSymbol *thePlotSymbol = self.plotSymbol;
+	
+	if ( thePlotSymbol ) {
+		CGFloat scale = 1.0;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	if ( [self respondsToSelector:@selector(contentsScale)] ) {
-		scale = [self contentsScale];
-	}
+		if ( [self respondsToSelector:@selector(contentsScale)] ) {
+			scale = [self contentsScale];
+		}
 #endif
-	[self.plotSymbol renderInContext:context
-							 atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
-							   scale:scale];
+		[thePlotSymbol renderInContext:context
+							   atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
+								 scale:scale];
+	}
+	
+	// if no line or plot symbol, use the area fills to draw the swatch
+	if ( !theLineStyle && !thePlotSymbol ) {
+		CPTFill *fill1 = self.areaFill;
+		CPTFill *fill2 = self.areaFill2;
+		
+		if ( fill1 || fill2 ) {
+			CGPathRef swatchPath;
+			CGFloat radius = legend.swatchCornerRadius;
+			if ( radius > 0.0 ) {
+				radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+				swatchPath = CreateRoundedRectPath(rect, radius);
+			}
+			else {
+				CGMutablePathRef mutablePath = CGPathCreateMutable();
+				CGPathAddRect(mutablePath, NULL, rect);
+				swatchPath = mutablePath;
+			}
+			
+			if ( fill1 && !fill2 ) {
+				CGContextBeginPath(context);
+				CGContextAddPath(context, swatchPath);
+				[fill1 fillPathInContext:context];
+			}
+			else if ( !fill1 && fill2 ) {
+				CGContextBeginPath(context);
+				CGContextAddPath(context, swatchPath);
+				[fill2 fillPathInContext:context];
+			}
+			else {
+				CGContextSaveGState(context);
+				CGContextAddPath(context, swatchPath);
+				CGContextClip(context);
+				
+				if ( CPTDecimalGreaterThanOrEqualTo(self.areaBaseValue2, self.areaBaseValue) ) {
+					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+				}
+				else {
+					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+				}
+				
+				CGContextRestoreGState(context);
+			}
+			
+			CGPathRelease(swatchPath);
+		}
+	}
 }
 
 #pragma mark -

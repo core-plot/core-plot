@@ -882,7 +882,7 @@
 		CGPathRef swatchPath;
 		CGFloat radius = legend.swatchCornerRadius;
 		if ( radius > 0.0 ) {
-			radius = MIN(MIN(self.cornerRadius, rect.size.width / 2.0), rect.size.height / 2.0);
+			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
 			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {
