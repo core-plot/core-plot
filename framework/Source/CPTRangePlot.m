@@ -699,6 +699,7 @@ typedef struct CGPointError CGPointError;
 		[barLineStyle release];
 		barLineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -708,6 +709,7 @@ typedef struct CGPointError CGPointError;
     	[areaFill release];
         areaFill = [newFill copy];
         [self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
 }
 

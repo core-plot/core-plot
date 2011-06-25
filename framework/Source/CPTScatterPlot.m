@@ -844,6 +844,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[plotSymbol release];
 		plotSymbol = [aSymbol copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -853,6 +854,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[dataLineStyle release];
 		dataLineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -862,6 +864,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[areaFill release];
 		areaFill = [newFill copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -871,6 +874,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[areaFill2 release];
 		areaFill2 = [newFill copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -881,6 +885,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 	areaBaseValue = newAreaBaseValue;
 	[self setNeedsDisplay];
+	[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 }
 
 -(void)setAreaBaseValue2:(NSDecimal)newAreaBaseValue
@@ -890,6 +895,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 	areaBaseValue2 = newAreaBaseValue;
 	[self setNeedsDisplay];
+	[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 }
 
 -(void)setXValues:(NSArray *)newValues 

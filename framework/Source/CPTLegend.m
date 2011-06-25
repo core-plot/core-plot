@@ -8,6 +8,8 @@
 #import "CPTUtilities.h"
 #import "NSNumberExtensions.h"
 
+NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedrawForPlotNotification";
+
 /**	@cond */
 @interface CPTLegend()
 
@@ -18,6 +20,7 @@
 
 -(void)recalculateLayout;
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot;
+-(void)legendNeedsRedraw:(NSNotification *)notif;
 
 @end
 /**	@endcond */
@@ -228,6 +231,8 @@
 
 -(void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[plots release];
 	[legendEntries release];
 	[textStyle release];
@@ -442,6 +447,7 @@
 				[newLegendEntry release];
 			}
 		}
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsRedraw:) name:CPTLegendNeedsRedrawForPlotNotification object:plot];
 	}
 }
 
@@ -485,6 +491,7 @@
 				[newLegendEntry release];
 			}
 		}
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsRedraw:) name:CPTLegendNeedsRedrawForPlotNotification object:plot];
 	}
 }
 
@@ -497,6 +504,7 @@
         [self.plots removeObjectIdenticalTo:plot];
 		[self removeLegendEntriesForPlot:plot];
 		self.layoutChanged = YES;
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsRedrawForPlotNotification object:plot];
     }
     else {
         [NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
@@ -513,6 +521,7 @@
 		[self.plots removeObjectIdenticalTo:plotToRemove];
 		[self removeLegendEntriesForPlot:plotToRemove];
 		self.layoutChanged = YES;
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsRedrawForPlotNotification object:plotToRemove];
 	}
 }
 
@@ -532,6 +541,11 @@
 	[theLegendEntries removeObjectsInArray:entriesToRemove];
 	
 	[entriesToRemove release];
+}
+
+-(void)legendNeedsRedraw:(NSNotification *)notif
+{
+	[self setNeedsDisplay];
 }
 
 #pragma mark -

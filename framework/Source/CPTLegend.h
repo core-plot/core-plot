@@ -1,9 +1,16 @@
 #import <Foundation/Foundation.h>
 #import "CPTBorderedLayer.h"
 
+/// @file
+
 @class CPTLegend;
 @class CPTPlot;
 @class CPTTextStyle;
+
+/**
+ *  @brief Legend notifications
+ **/
+extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
 
 /**	@brief Axis labeling delegate.
  **/

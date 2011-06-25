@@ -804,6 +804,7 @@ static CGFloat colorLookupTable[10][3] =
 		[borderLineStyle release];
 		borderLineStyle = [newStyle copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}	
 }
 

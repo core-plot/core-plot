@@ -2,6 +2,7 @@
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData.h"
 #import "CPTTradingRangePlot.h"
+#import "CPTLegend.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
@@ -472,6 +473,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
 {
 	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+    [self.lineStyle setLineStyleInContext:context];
 	
 	switch ( self.plotStyle ) {
 		case CPTTradingRangePlotStyleOHLC:
@@ -578,12 +580,22 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 #pragma mark -
 #pragma mark Accessors
 
+-(void)setPlotStyle:(CPTTradingRangePlotStyle)newPlotStyle
+{
+	if ( plotStyle != newPlotStyle ) {
+		plotStyle = newPlotStyle;
+		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
+}
+
 -(void)setLineStyle:(CPTLineStyle *)newLineStyle
 {
 	if ( lineStyle != newLineStyle ) {
 		[lineStyle release];
 		lineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -593,6 +605,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		[increaseFill release];
 		increaseFill = [newFill copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -602,6 +615,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		[decreaseFill release];
 		decreaseFill = [newFill copy];
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -610,6 +624,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	if ( barWidth != newWidth ) {
 		barWidth = newWidth;
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -618,6 +633,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	if ( stickLength != newLength ) {
 		stickLength = newLength;
 		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 

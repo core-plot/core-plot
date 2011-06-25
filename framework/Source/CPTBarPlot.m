@@ -14,6 +14,7 @@
 #import "CPTExceptions.h"
 #import "CPTTextLayer.h"
 #import "CPTMutableTextStyle.h"
+#import "CPTLegend.h"
 
 NSString * const CPTBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPTBarPlotBindingBarTips = @"barTips";				///< Bar tips.
@@ -790,6 +791,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
         [lineStyle release];
         lineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
 }
 
@@ -799,6 +801,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
         [fill release];
         fill = [newFill copy];
         [self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
 }
 
@@ -819,6 +822,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     if ( barCornerRadius != newCornerRadius) {
         barCornerRadius = ABS(newCornerRadius);
         [self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
 }
 
