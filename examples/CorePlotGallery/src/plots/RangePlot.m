@@ -79,7 +79,11 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	textStyle.fontSize = 14.0;
 	textStyle.fontName = @"Helvetica";
 	
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+	CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:@"Touch to Toggle Range Plot Style" style:textStyle];
+#else
 	CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:@"Click to Toggle Range Plot Style" style:textStyle];
+#endif
 	CPTLayerAnnotation *instructionsAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:graph.plotAreaFrame.plotArea];
 	instructionsAnnotation.contentLayer = textLayer;
 	instructionsAnnotation.rectAnchor = CPTRectAnchorBottom;
@@ -100,8 +104,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval xLow = oneDay * 0.5;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(xLow) length:CPTDecimalFromFloat(oneDay * 5.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(3.0)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(xLow) length:CPTDecimalFromDouble(oneDay * 5.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.5)];
     
     // Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -134,6 +138,18 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Add plot
     [graph addPlot:rangePlot];
     graph.defaultPlotSpace.delegate = self;
+
+	// Add legend
+	graph.legend = [CPTLegend legendWithGraph:graph];
+	graph.legend.numberOfColumns = 1;
+	graph.legend.textStyle = x.titleTextStyle;
+	graph.legend.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
+	graph.legend.borderLineStyle = x.axisLineStyle;
+	graph.legend.cornerRadius = 5.0;
+	graph.legend.swatchSize = CGSizeMake(25.0, 25.0);
+	graph.legend.swatchCornerRadius = 3.0;
+	graph.legendAnchor = CPTRectAnchorBottom;
+	graph.legendDisplacement = CGPointMake(0.0, 12.0);
 
     [self generateData];
 }
@@ -168,7 +184,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 {
     CPTRangePlot *rangePlot = (CPTRangePlot *)[graph plotWithIdentifier:@"Range Plot"];
     rangePlot.areaFill = ( rangePlot.areaFill ? nil : areaFill );
-    rangePlot.barLineStyle = ( rangePlot.barLineStyle ? nil : barLineStyle );
+	//    rangePlot.barLineStyle = ( rangePlot.barLineStyle ? nil : barLineStyle );
     
     return NO;
 } 
