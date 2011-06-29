@@ -408,9 +408,9 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
     return [self.plots objectAtIndex:index];
 }
 
-/**	@brief Gets the plot with the given identifier.
+/**	@brief Gets the plot with the given identifier from the plot array.
  *	@param identifier A plot identifier.
- *	@return The plot with the given identifier.
+ *	@return The plot with the given identifier or nil if it was not found.
  **/
 -(CPTPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
 {

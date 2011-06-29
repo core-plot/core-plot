@@ -1,11 +1,21 @@
 
 #import "CPTGraphHostingView.h"
 #import "CPTGraph.h"
+#import "NSNumberExtensions.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 
 
+/**	@cond */
+@interface CPTGraphHostingView()
+
+@property (nonatomic, readwrite, assign) __weak id pinchGestureRecognizer;
+
+@end
+/**	@endcond */
+
+#pragma mark -
 /**	@brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
@@ -26,6 +36,14 @@
  *  Default is YES. This causes gesture recognizers to be added to identify pinches.
  **/
 @synthesize allowPinchScaling;
+
+/**	@property pinchGestureRecognizer
+ *	@brief The pinch gesture recognizer for this view.
+ **/
+@synthesize pinchGestureRecognizer;
+
+#pragma mark -
+#pragma mark init/dealloc
 
 +(Class)layerClass
 {
@@ -53,7 +71,7 @@
     return self;
 }
 
-// On the iPhone, the init method is not called when loading from a XIB
+// On iOS, the init method is not called when loading from a XIB
 -(void)awakeFromNib
 {
     [self commonInit];
@@ -137,15 +155,17 @@
 -(void)handlePinchGesture:(id)aPinchGestureRecognizer
 {
 	CGPoint interactionPoint = [aPinchGestureRecognizer locationInView:self];
-	if ( !collapsesLayers )
+	if ( !collapsesLayers ) {
 		interactionPoint = [self.layer convertPoint:interactionPoint toLayer:hostedGraph];
-	else
+	}
+	else {
 		interactionPoint.y = self.frame.size.height-interactionPoint.y;
+	}
         
     CGPoint pointInPlotArea = [hostedGraph convertPoint:interactionPoint toLayer:hostedGraph.plotAreaFrame.plotArea];
     
     for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
-        [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] floatValue] aboutPoint:pointInPlotArea];
+        [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
     }
     
     [pinchGestureRecognizer setScale:1.0f];

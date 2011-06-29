@@ -231,9 +231,9 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
     return [self.plots objectAtIndex:index];
 }
 
-/**	@brief Gets the plot with the given identifier.
+/**	@brief Gets the plot with the given identifier from the plot array.
  *	@param identifier A plot identifier.
- *	@return The plot with the given identifier.
+ *	@return The plot with the given identifier or nil if it was not found.
  **/
 -(CPTPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
 {
@@ -346,9 +346,9 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 	return ( self.plotSpaces.count > index ? [self.plotSpaces objectAtIndex:index] : nil );
 }
 
-/**	@brief Gets the plot space with the given identifier.
+/**	@brief Gets the plot space with the given identifier from the plot space array.
  *	@param identifier A plot space identifier.
- *	@return The plot space with the given identifier.
+ *	@return The plot space with the given identifier or nil if it was not found.
  **/
 -(CPTPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier
 {
