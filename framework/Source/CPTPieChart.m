@@ -175,12 +175,28 @@ static CGFloat colorLookupTable[10][3] =
 	}
 	
 	[self updateNormalizedData];
+
+	id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+	
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForPieChart:recordIndex:)] ||
+		 [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
 }
 
 -(void)deleteDataInIndexRange:(NSRange)indexRange
 {
 	[super deleteDataInIndexRange:indexRange];
 	[self updateNormalizedData];
+
+	id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+	
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForPieChart:recordIndex:)] ||
+		[theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
 }
 
 -(void)updateNormalizedData

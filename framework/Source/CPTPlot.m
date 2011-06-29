@@ -911,6 +911,15 @@
 #pragma mark -
 #pragma mark Accessors
 
+-(void)setTitle:(NSString *)newTitle
+{
+    if ( newTitle != title ) {
+        [title release];
+        title = [newTitle copy];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+}
+
 -(void)setDataSource:(id <CPTPlotDataSource>)newSource 
 {
     if ( newSource != dataSource ) {
