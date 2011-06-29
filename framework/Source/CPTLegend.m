@@ -375,7 +375,10 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 		
 		NSUInteger rows = row;
 		if ( col ) rows++;
-		legendSize.height += (theSwatchSize.height * rows) + (self.rowMargin * (rows - 1));
+		legendSize.height += (theSwatchSize.height * rows);
+		if ( rows > 0 ) {
+			legendSize.height += (self.rowMargin * (rows - 1));
+		}
 
 		[maxColumnWidths release];
 	}
@@ -546,6 +549,14 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 -(void)legendNeedsRedraw:(NSNotification *)notif
 {
 	[self setNeedsDisplay];
+}
+
+#pragma mark -
+#pragma mark Description
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"<%@ for plots %@>", [super description], self.plots];
 }
 
 #pragma mark -
