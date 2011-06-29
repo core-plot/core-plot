@@ -24,19 +24,6 @@
     return self;
 }
 
-- (void)generateData
-{
-    if (plotData == nil) {
-        NSMutableArray *contentArray = [NSMutableArray array];
-        for (NSUInteger i = 0; i < 10; i++) {
-            id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
-            id y = [NSDecimalNumber numberWithDouble:1.2 * rand()/(double)RAND_MAX + 0.5];
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
-        }
-        plotData = [contentArray retain];
-    }
-}
-
 - (void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_OS_IPHONE
@@ -132,30 +119,6 @@
 	CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
 	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
 	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.0)] fill:bandFill]];
-}
-
-- (void)dealloc
-{
-    [plotData release];
-	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Plot Data Source Methods
-
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
-{
-    return [plotData count];
-}
-
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
-{
-    NSNumber* num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
-    if (fieldEnum == CPTScatterPlotFieldY) {
-        num = [NSNumber numberWithDouble:[num doubleValue]];
-    }
-    
-    return num;
 }
 
 @end

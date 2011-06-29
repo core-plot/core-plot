@@ -148,8 +148,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	graph.legendAnchor = CPTRectAnchorBottom;
 	graph.legendDisplacement = CGPointMake(0.0, 12.0);
 
-    [self generateData];
-	
 	// Set plot ranges
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.5 * oneDay) length:CPTDecimalFromDouble(oneDay * plotData.count)];

@@ -81,8 +81,6 @@
     dataSourceLinePlot.areaFill = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 	
-    [self generateData];
-    
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;

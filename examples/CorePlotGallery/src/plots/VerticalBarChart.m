@@ -350,8 +350,6 @@
 		}
 	}
 
-	NSLog(@"identifier = %@, field = %ld, index = %ld -> %@", plot.identifier, fieldEnum, index, num);
-
     return num;
 }
 

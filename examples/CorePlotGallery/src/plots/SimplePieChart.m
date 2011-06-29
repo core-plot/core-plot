@@ -110,9 +110,6 @@
 
 	graph.legendAnchor = CPTRectAnchorRight;
 	graph.legendDisplacement = CGPointMake(-boundsPadding - 10.0, 0.0);
-	
-	// Generate data
-    [self generateData];
 }
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index

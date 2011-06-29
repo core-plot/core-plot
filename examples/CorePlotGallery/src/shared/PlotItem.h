@@ -67,6 +67,8 @@ typedef NSRect CGNSRect;
 - (void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView;
 - (void)killGraph;
 
+- (void)generateData;
+
 - (NSComparisonResult)titleCompare:(PlotItem *)other;
 
 @end

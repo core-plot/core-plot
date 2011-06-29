@@ -102,8 +102,6 @@
     y.minorTicksPerInterval = 5;
     y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(oneDay);
     
-    [self generateData];
-    
     // Create a plot that uses the data source method
 	CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
     dataSourceLinePlot.identifier = @"Date Plot";

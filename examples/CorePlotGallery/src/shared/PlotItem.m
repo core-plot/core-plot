@@ -91,6 +91,11 @@
     [super dealloc];
 }
 
+// override to generate data for the plot if needed
+- (void)generateData
+{
+}
+
 - (NSComparisonResult)titleCompare:(PlotItem *)other
 {
     return [title caseInsensitiveCompare:other.title];
@@ -274,6 +279,7 @@
 #endif
 
     [hostingView addSubview:defaultLayerHostingView];
+	[self generateData];
     [self renderInLayer:defaultLayerHostingView withTheme:theme];
 }
 

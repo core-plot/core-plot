@@ -150,8 +150,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	graph.legend.swatchCornerRadius = 3.0;
 	graph.legendAnchor = CPTRectAnchorBottom;
 	graph.legendDisplacement = CGPointMake(0.0, 12.0);
-
-    [self generateData];
 }
 
 - (void)dealloc

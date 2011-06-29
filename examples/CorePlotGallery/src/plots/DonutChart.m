@@ -102,8 +102,6 @@ NSString * const outerChartName = @"Outer";
     piePlot.delegate = self;
     [graph addPlot:piePlot];
     [piePlot release];
-	
-    [self generateData];
 }
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index

@@ -132,8 +132,6 @@
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
-    [self generateData];
-    
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
