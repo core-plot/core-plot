@@ -211,8 +211,10 @@
 	[hostedGraph release];
 	hostedGraph = [newLayer retain];
 	if ( !collapsesLayers ) {
-    	hostedGraph.frame = self.layer.bounds;
-        [self.layer addSublayer:hostedGraph];
+		if ( hostedGraph ) {
+			hostedGraph.frame = self.layer.bounds;
+			[self.layer addSublayer:hostedGraph];
+		}
     }
     else {
         [self setNeedsDisplay];
