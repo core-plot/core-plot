@@ -289,16 +289,30 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	CGFloat bottom = self.bounds.size.height - self.paddingTop - theSwatchSize.height;
 	
 	// draw legend entries
+	id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+	BOOL delegateCanDraw = [theDelegate respondsToSelector:@selector(legend:shouldDrawSwatchAtIndex:forPlot:inRect:inContext:)];
+	
 	for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
 		NSUInteger row = legendEntry.row;
 		NSUInteger col = legendEntry.column;
 		
 		CGFloat left = columnPositions[col];
 		CGFloat rowPosition = bottom - row * rowHeight;
-		[legendEntry.plot drawSwatchForLegend:self
-									  atIndex:legendEntry.index
-									   inRect:CPTAlignRectToUserSpace(context, CGRectMake(left, rowPosition, theSwatchSize.width, theSwatchSize.height))
-									inContext:context];
+		CGRect swatchRect = CPTAlignRectToUserSpace(context, CGRectMake(left, rowPosition, theSwatchSize.width, theSwatchSize.height));
+		BOOL legendShouldDrawSwatch = YES;
+		if ( delegateCanDraw ) {
+			legendShouldDrawSwatch = [theDelegate legend:self
+								 shouldDrawSwatchAtIndex:legendEntry.index
+												 forPlot:legendEntry.plot
+												  inRect:swatchRect
+											   inContext:context];
+		}
+		if ( legendShouldDrawSwatch ) {
+			[legendEntry.plot drawSwatchForLegend:self
+										  atIndex:legendEntry.index
+										   inRect:swatchRect
+										inContext:context];
+		}
 		
 		left += theSwatchSize.width + theOffset;
 		
