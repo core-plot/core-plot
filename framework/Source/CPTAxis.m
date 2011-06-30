@@ -460,7 +460,13 @@ double niceNum(double x, BOOL round);
 
 -(void)dealloc
 {
-	self.plotArea = nil; // update layers
+	plotArea = nil;
+	minorGridLines = nil;
+	majorGridLines = nil;
+	for ( CPTAxisLabel *label in axisLabels ) {
+		[label.contentLayer removeFromSuperlayer];
+	}
+	[axisTitle.contentLayer removeFromSuperlayer];
 	
 	[plotSpace release];	
 	[majorTickLocations release];
