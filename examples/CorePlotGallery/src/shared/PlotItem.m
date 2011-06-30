@@ -159,7 +159,7 @@
 - (UIImage *)image
 {
     if (cachedImage == nil) {
-        CGRect imageFrame = CGRectMake(0, 0, 100, 75);
+        CGRect imageFrame = CGRectMake(0, 0, 400, 300);
         UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
         [imageView setOpaque:YES];
         [imageView setUserInteractionEnabled:NO];
@@ -175,12 +175,9 @@
             [imageView.layer renderInContext:c];
             cachedImage = [UIGraphicsGetImageFromCurrentImageContext() retain];
         
-            // This code was to rescale a graph that needed a larger rendering
-            // area because of absolute pixel sizing. All of the sample plots
-            // are now aware of device/screen sizes and should render properly
-            // even to a thumbnail size.
-            //UIImage* bigImage = UIGraphicsGetImageFromCurrentImageContext();
-            //cachedImage = [[UIImage imageWithCGImage:[self scaleCGImage:[bigImage CGImage] toSize:CGSizeMake(100.0f, 75.0f)]] retain];
+            // rescale graph
+            UIImage* bigImage = UIGraphicsGetImageFromCurrentImageContext();
+            cachedImage = [[UIImage imageWithCGImage:[self scaleCGImage:[bigImage CGImage] toSize:CGSizeMake(100.0f, 75.0f)]] retain];
 
         UIGraphicsEndImageContext();
 
