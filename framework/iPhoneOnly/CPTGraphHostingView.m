@@ -240,6 +240,7 @@
 -(void)setFrame:(CGRect)newFrame
 {
     [super setFrame:newFrame];
+	[hostedGraph setNeedsLayout];
     if ( !collapsesLayers ) 
     	hostedGraph.frame = self.bounds;
     else 
@@ -249,6 +250,7 @@
 -(void)setBounds:(CGRect)newBounds
 {
     [super setBounds:newBounds];
+	[hostedGraph setNeedsLayout];
     if ( collapsesLayers ) [self setNeedsDisplay];
 }
 
