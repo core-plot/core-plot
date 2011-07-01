@@ -15,6 +15,7 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
 @property (nonatomic, readwrite, retain) NSMutableArray *legendEntries;
+@property (nonatomic, readwrite, retain) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, retain) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) BOOL layoutChanged;
 
@@ -54,36 +55,70 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 
 /**	@property swatchBorderLineStyle
  *	@brief The line style for the border drawn around each swatch.
- *	If nil, no border is drawn.
+ *	If nil (the default), no border is drawn.
  **/
 @synthesize swatchBorderLineStyle;
 
 /**	@property swatchCornerRadius
- *	@brief The corner radius for each swatch.
+ *	@brief The corner radius for each swatch. Default is 0.0;
  **/
 @synthesize swatchCornerRadius;
 
 /**	@property swatchFill
  *	@brief The background fill drawn behind each swatch.
+ *	If nil (the default), no fill is drawn.
  **/
 @synthesize swatchFill;
 
+/**	@property numberOfRows
+ *	@brief The desired number of rows of legend entries.
+ *	If zero (0) (the default), the number of rows will be automatically determined.
+ *	If both numberOfRows and numberOfColumns are greater than zero but their product is less than
+ *	the total number of legend entries, some entries will not be shown.
+ **/
+@synthesize numberOfRows;
+
 /**	@property numberOfColumns
  *	@brief The desired number of columns of legend entries.
- *	If 0, the number of columns will be automatically determined based on the available space and the size of each legend entry.
+ *	If zero (0) (the default), the number of columns will be automatically determined.
+ *	If both numberOfRows and numberOfColumns are greater than zero but their product is less than
+ *	the total number of legend entries, some entries will not be shown.
  **/
 @synthesize numberOfColumns;
 
+/**	@property equalRows
+ *	@brief If YES (the default) each row of legend entries will have the same height, otherwise rows will be sized to best fit the entries.
+ **/
+@synthesize equalRows;
+
 /**	@property equalColumns
  *	@brief If YES each column of legend entries will have the same width, otherwise columns will be sized to best fit the entries.
+ *	Default is NO, meaning columns will be sized for the best fit.
  **/
 @synthesize equalColumns;
+
+/**	@property rowHeights
+ *	@brief The desired height of each row of legend entries, including the swatch and title.
+ *	Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
+ *	Rows are numbered from top to bottom starting from zero (0). If nil, all rows will be sized automatically.
+ *	If there are more rows in the legend than specified in this array, the remaining rows will be sized automatically.
+ *	Default is nil.
+ **/
+@synthesize rowHeights;
+
+/**	@property rowHeightsThatFit
+ *	@brief The computed best-fit height of each row of legend entries, including the swatch and title.
+ *	Each element in this array is an NSNumber representing the height of the corresponding row in device units.
+ *	Rows are numbered from top to bottom starting from zero (0).
+ **/
+@synthesize rowHeightsThatFit;
 
 /**	@property columnWidths
  *	@brief The desired width of each column of legend entries, including the swatch, title, and title offset.
  *	Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
  *	Columns are numbered from left to right starting from zero (0). If nil, all columns will be sized automatically.
  *	If there are more columns in the legend than specified in this array, the remaining columns will be sized automatically.
+ *	Default is nil.
  **/
 @synthesize columnWidths;
 
@@ -95,17 +130,17 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 @synthesize columnWidthsThatFit;
 
 /**	@property columnMargin
- *	@brief The margin between columns, specified in device units.
+ *	@brief The margin between columns, specified in device units. Default is 10.0.
  **/
 @synthesize columnMargin;
 
 /**	@property rowMargin
- *	@brief The margin between rows, specified in device units.
+ *	@brief The margin between rows, specified in device units. Default is 5.0.
  **/
 @synthesize rowMargin;
 
 /**	@property titleOffset
- *	@brief The distance between each swatch and its title, specified in device units.
+ *	@brief The distance between each swatch and its title, specified in device units. Default is 5.0.
  **/
 @synthesize titleOffset;
 
@@ -160,8 +195,12 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 		swatchBorderLineStyle = nil;
 		swatchCornerRadius = 0.0;
 		swatchFill = nil;
+		numberOfRows = 0;
 		numberOfColumns = 0;
+		equalRows = YES;
 		equalColumns = NO;
+		rowHeights = nil;
+		rowHeightsThatFit = nil;
 		columnWidths = nil;
 		columnWidthsThatFit = nil;
 		columnMargin = 10.0;
@@ -218,8 +257,12 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 		swatchBorderLineStyle = [theLayer->swatchBorderLineStyle retain];
 		swatchCornerRadius = theLayer->swatchCornerRadius;
 		swatchFill = [theLayer->swatchFill retain];
+		numberOfRows = theLayer->numberOfRows;
 		numberOfColumns = theLayer->numberOfColumns;
+		equalRows = theLayer->equalRows;
 		equalColumns = theLayer->equalColumns;
+		rowHeights = [theLayer->rowHeights retain];
+		rowHeightsThatFit = [theLayer->rowHeightsThatFit retain];
 		columnWidths = [theLayer->columnWidths retain];
 		columnWidthsThatFit = [theLayer->columnWidthsThatFit retain];
 		columnMargin = theLayer->columnMargin;
@@ -238,6 +281,8 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	[textStyle release];
 	[swatchBorderLineStyle release];
 	[swatchFill release];
+	[rowHeights release];
+	[rowHeightsThatFit release];
 	[columnWidths release];
 	[columnWidthsThatFit release];
 	
@@ -327,6 +372,8 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 #pragma mark -
 #pragma mark Layout
 
+/**	@brief Marks the receiver as needing to update the layout of its legend entries.
+ **/
 -(void)setLayoutChanged
 {
 	self.layoutChanged = YES;
@@ -339,66 +386,97 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	[self recalculateLayout];
 }
 
-// TODO: implement auto layout
 -(void)recalculateLayout
 {
 	if ( !self.layoutChanged ) return;
 	
-	CGSize legendSize = CGSizeMake(self.paddingLeft + self.paddingRight, self.paddingTop + self.paddingBottom);
+	// compute the number of rows and columns needed to hold the legend entries
+	NSUInteger desiredRowCount = self.numberOfRows;
 	NSUInteger desiredColumnCount = self.numberOfColumns;
 	
-	if ( desiredColumnCount > 0 ) { // User set number of columns
-		NSUInteger row = 0;
-		NSUInteger col = 0;
-		CGFloat *maxTitleWidth = malloc(desiredColumnCount * sizeof(CGFloat));
-		
-		for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
-			legendEntry.row = row;
-			legendEntry.column = col;
-			
-			CGSize titleSize = legendEntry.titleSize;
-			maxTitleWidth[col] = MAX(maxTitleWidth[col], titleSize.width);
-			
-			col++;
-			if ( col >= desiredColumnCount ) {
-				row++;
-				col = 0;
-			}
+	NSUInteger legendEntryCount = self.legendEntries.count;
+	if ( (desiredRowCount == 0) && (desiredColumnCount == 0) ) {
+		desiredRowCount = (NSUInteger)sqrt((double)legendEntryCount);
+		if ( desiredRowCount * desiredRowCount < legendEntryCount ) {
+			desiredRowCount++;
 		}
-		
-		NSMutableArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:desiredColumnCount];
-		for ( NSUInteger i = 0; i < desiredColumnCount; i++ ) {
-			[maxColumnWidths addObject:[NSNumber numberWithCGFloat:maxTitleWidth[i]]];
-		}
-		self.columnWidthsThatFit = maxColumnWidths;
-
-		free(maxTitleWidth);
-		
-		CGSize theSwatchSize = self.swatchSize;
-		
-		if ( self.equalColumns ) {
-			NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.doubleValue"];
-			legendSize.width += [maxWidth cgFloatValue] * desiredColumnCount;
-		}
-		else {
-			for ( NSNumber *width in maxColumnWidths ) {
-				legendSize.width += [width cgFloatValue];
-			}
-		}
-		legendSize.width += ((theSwatchSize.width + self.titleOffset) * desiredColumnCount) + (self.columnMargin * (desiredColumnCount - 1));
-		
-		NSUInteger rows = row;
-		if ( col ) rows++;
-		legendSize.height += (theSwatchSize.height * rows);
-		if ( rows > 0 ) {
-			legendSize.height += (self.rowMargin * (rows - 1));
-		}
-
-		[maxColumnWidths release];
+		desiredColumnCount = desiredRowCount;
 	}
-	else { // Calculate number of columns automatically
-		
+	else if ( (desiredRowCount == 0) && (desiredColumnCount > 0) ) {
+		desiredRowCount = legendEntryCount / desiredColumnCount;
+		if ( legendEntryCount % desiredColumnCount ) {
+			desiredRowCount++;
+		}
 	}
+	else if ( (desiredRowCount > 0) && (desiredColumnCount == 0) ) {
+		desiredColumnCount = legendEntryCount / desiredRowCount;
+		if ( legendEntryCount % desiredRowCount ) {
+			desiredColumnCount++;
+		}
+	}
+	
+	// compute row heights and column widths
+	NSUInteger row = 0;
+	NSUInteger col = 0;
+	CGFloat *maxTitleHeight = malloc(desiredRowCount * sizeof(CGFloat));
+	CGFloat *maxTitleWidth = malloc(desiredColumnCount * sizeof(CGFloat));
+	
+	for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
+		legendEntry.row = row;
+		legendEntry.column = col;
+		
+		CGSize titleSize = legendEntry.titleSize;
+		maxTitleHeight[row] = MAX(maxTitleHeight[row], titleSize.height);
+		maxTitleWidth[col] = MAX(maxTitleWidth[col], titleSize.width);
+		
+		col++;
+		if ( col >= desiredColumnCount ) {
+			row++;
+			col = 0;
+			if ( row >= desiredRowCount) break;
+		}
+	}
+	
+	// save row heights and column widths
+	NSMutableArray *maxRowHeights = [[NSMutableArray alloc] initWithCapacity:desiredRowCount];
+	for ( NSUInteger i = 0; i < desiredRowCount; i++ ) {
+		[maxRowHeights addObject:[NSNumber numberWithCGFloat:maxTitleHeight[i]]];
+	}
+	self.rowHeightsThatFit = maxRowHeights;
+	
+	NSMutableArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:desiredColumnCount];
+	for ( NSUInteger i = 0; i < desiredColumnCount; i++ ) {
+		[maxColumnWidths addObject:[NSNumber numberWithCGFloat:maxTitleWidth[i]]];
+	}
+	self.columnWidthsThatFit = maxColumnWidths;
+	
+	free(maxTitleHeight);
+	free(maxTitleWidth);
+	
+	// compute the size needed to contain all legend entries, margins, and padding
+	CGSize legendSize = CGSizeMake(self.paddingLeft + self.paddingRight, self.paddingTop + self.paddingBottom);
+	CGSize theSwatchSize = self.swatchSize;
+	
+	if ( self.equalColumns ) {
+		NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.doubleValue"];
+		legendSize.width += [maxWidth cgFloatValue] * desiredColumnCount;
+	}
+	else {
+		for ( NSNumber *width in maxColumnWidths ) {
+			legendSize.width += [width cgFloatValue];
+		}
+	}
+	legendSize.width += ((theSwatchSize.width + self.titleOffset) * desiredColumnCount) + (self.columnMargin * (desiredColumnCount - 1));
+	
+	NSUInteger rows = row;
+	if ( col ) rows++;
+	legendSize.height += (theSwatchSize.height * rows);
+	if ( rows > 0 ) {
+		legendSize.height += (self.rowMargin * (rows - 1));
+	}
+	
+	[maxRowHeights release];
+	[maxColumnWidths release];
 	
 	self.bounds = CGRectMake(0.0, 0.0, legendSize.width, legendSize.height);
 	
@@ -637,6 +715,14 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	}
 }
 
+-(void)setNumberOfRows:(NSUInteger)newNumberOfRows
+{
+	if ( newNumberOfRows != numberOfRows ) {
+		numberOfRows = newNumberOfRows;
+		self.layoutChanged = YES;
+	}
+}
+
 -(void)setNumberOfColumns:(NSUInteger)newNumberOfColumns
 {
 	if ( newNumberOfColumns != numberOfColumns ) {
@@ -645,10 +731,27 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	}
 }
 
+-(void)setEqualRows:(BOOL)newEqualRows
+{
+	if ( newEqualRows != equalRows ) {
+		equalRows = newEqualRows;
+		self.layoutChanged = YES;
+	}
+}
+
 -(void)setEqualColumns:(BOOL)newEqualColumns
 {
 	if ( newEqualColumns != equalColumns ) {
 		equalColumns = newEqualColumns;
+		self.layoutChanged = YES;
+	}
+}
+
+-(void)setRowHeights:(NSArray *)newRowHeights
+{
+	if ( newRowHeights != rowHeights ) {
+		[rowHeights release];
+		rowHeights = [newRowHeights copy];
 		self.layoutChanged = YES;
 	}
 }
@@ -691,10 +794,19 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	if ( newLayoutChanged != layoutChanged ) {
 		layoutChanged = newLayoutChanged;
 		if ( newLayoutChanged ) {
+			self.rowHeightsThatFit = nil;
 			self.columnWidthsThatFit = nil;
 			[self setNeedsLayout];
 		}
 	}
+}
+
+-(NSArray *)rowHeightsThatFit
+{
+	if ( !rowHeightsThatFit ) {
+		[self recalculateLayout];
+	}
+	return rowHeightsThatFit;
 }
 
 -(NSArray *)columnWidthsThatFit

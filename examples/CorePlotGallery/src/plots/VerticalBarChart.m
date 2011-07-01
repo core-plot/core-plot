@@ -218,7 +218,7 @@
 
 	// Add legend
 	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-	theLegend.numberOfColumns = 1;
+	theLegend.numberOfRows = 2;
 	theLegend.fill = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
 	theLegend.borderLineStyle = barLineStyle;
 	theLegend.cornerRadius = 10.0;

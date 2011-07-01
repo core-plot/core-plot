@@ -135,7 +135,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     
 	// Add legend
 	graph.legend = [CPTLegend legendWithGraph:graph];
-	graph.legend.numberOfColumns = 2;
 	graph.legend.textStyle = xAxis.titleTextStyle;
 	graph.legend.fill = graph.plotAreaFrame.fill;
 	graph.legend.borderLineStyle = graph.plotAreaFrame.borderLineStyle;

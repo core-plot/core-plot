@@ -80,6 +80,10 @@
 #pragma mark -
 #pragma mark Drawing
 
+/**	@brief Draws the legend title centered vertically in the given rectangle.
+ *	@param rect The bounding rectangle where the title should be drawn.
+ *	@param context The graphics context to draw into.
+ **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context;
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

@@ -168,7 +168,6 @@
 
 	// Add legend
 	graph.legend = [CPTLegend legendWithGraph:graph];
-	graph.legend.numberOfColumns = 1;
 	graph.legend.textStyle = x.titleTextStyle;
 	graph.legend.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 	graph.legend.borderLineStyle = x.axisLineStyle;

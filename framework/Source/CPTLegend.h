@@ -48,8 +48,12 @@ extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
 	CPTLineStyle *swatchBorderLineStyle;
 	CGFloat swatchCornerRadius;
 	CPTFill *swatchFill;
+	NSUInteger numberOfRows;
 	NSUInteger numberOfColumns;
+	BOOL equalRows;
 	BOOL equalColumns;
+	NSArray *rowHeights;
+	NSArray *rowHeightsThatFit;
 	NSArray *columnWidths;
 	NSArray *columnWidthsThatFit;
 	CGFloat columnMargin;
@@ -69,8 +73,12 @@ extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
 /// @name Layout
 /// @{
 @property (nonatomic, readonly, assign) BOOL layoutChanged;
+@property (nonatomic, readwrite, assign) NSUInteger numberOfRows;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfColumns;
+@property (nonatomic, readwrite, assign) BOOL equalRows;
 @property (nonatomic, readwrite, assign) BOOL equalColumns;
+@property (nonatomic, readwrite, copy) NSArray *rowHeights;
+@property (nonatomic, readonly, retain) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, copy) NSArray *columnWidths;
 @property (nonatomic, readonly, retain) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
