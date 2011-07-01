@@ -48,9 +48,19 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 @dynamic closeValues;
 
 /** @property lineStyle
- *	@brief The line style used to draw candlestick or OHLC symbol 
+ *	@brief The line style used to draw candlestick or OHLC symbols.
  **/
 @synthesize lineStyle;
+
+/** @property increaseLineStyle
+ *	@brief The line style used to outline candlestick symbols when close >= open. If nil, will use lineStyle instead.
+ **/
+@synthesize increaseLineStyle;
+
+/** @property decreaseLineStyle
+ *	@brief The line style used to outline candlestick symbols when close < open. If nil, will use lineStyle instead.
+ **/
+@synthesize decreaseLineStyle;
 
 /** @property increaseFill
  *	@brief The fill used with a candlestick plot when close >= open.
@@ -105,6 +115,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	if ( (self = [super initWithFrame:newFrame]) ) {
         plotStyle = CPTTradingRangePlotStyleOHLC;
 		lineStyle = [[CPTLineStyle alloc] init];
+		increaseLineStyle = nil;
+		decreaseLineStyle = nil;
         increaseFill = [(CPTFill *)[CPTFill alloc] initWithColor:[CPTColor whiteColor]];
         decreaseFill = [(CPTFill *)[CPTFill alloc] initWithColor:[CPTColor blackColor]];
         barWidth = 5.0;
@@ -123,6 +135,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		
 		plotStyle = theLayer->plotStyle;
 		lineStyle = [theLayer->lineStyle retain];
+		increaseLineStyle = [theLayer->increaseLineStyle retain];
+		decreaseLineStyle = [theLayer->decreaseLineStyle retain];
 		increaseFill = [theLayer->increaseFill retain];
 		decreaseFill = [theLayer->decreaseFill retain];
 		barWidth = theLayer->barWidth;
@@ -135,6 +149,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 -(void)dealloc
 {
 	[lineStyle release];
+	[increaseLineStyle release];
+	[decreaseLineStyle release];
 	[increaseFill release];
 	[decreaseFill release];
     
@@ -367,38 +383,50 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
- 	CGFloat halfBarWidth = 0.5 * self.barWidth;
+ 	const CGFloat halfBarWidth = 0.5 * self.barWidth;
+	CPTFill *currentBarFill = nil;
+	CPTLineStyle *theBorderLineStyle = nil;
+	if ( !isnan(open) && !isnan(close) ) {
+        if (open < close ) {
+			theBorderLineStyle = self.increaseLineStyle;
+			if ( !theBorderLineStyle ) {
+				theBorderLineStyle = self.lineStyle;
+			}
+			currentBarFill = self.increaseFill;
+		}
+		else if ( open > close ) {
+			theBorderLineStyle = self.decreaseLineStyle;
+			if ( !theBorderLineStyle ) {
+				theBorderLineStyle = self.lineStyle;
+			}
+			currentBarFill = self.decreaseFill;
+		}
+		else {
+			theBorderLineStyle = self.lineStyle;
+			currentBarFill = [CPTFill fillWithColor:theBorderLineStyle.lineColor];
+		}
+	}
+	[theBorderLineStyle setLineStyleInContext:context];
 	
-	// high - low
-	if ( !isnan(high) && !isnan(low) ) {
-		CGPoint alignedCenterPoint1 = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
-		CGPoint alignedCenterPoint2 = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
+	// high - low only
+	if ( !isnan(high) && !isnan(low) && (isnan(open) || isnan(close)) ) {
+		CGPoint alignedHighPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
+		CGPoint alignedLowPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
 		
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathMoveToPoint(path, NULL, alignedCenterPoint1.x, alignedCenterPoint1.y);
-		CGPathAddLineToPoint(path, NULL, alignedCenterPoint2.x, alignedCenterPoint2.y);
+		CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
+		CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
 		CGContextStrokePath(context);
-
+		
 		CGPathRelease(path);
 	}
 	
 	// open-close
 	if ( !isnan(open) && !isnan(close) ) {
-        CPTFill *currentBarFill;
-        if (open < close ) {
-			currentBarFill = self.increaseFill;
-		}
-		else if ( open > close ) {
-			currentBarFill = self.decreaseFill;
-		}
-		else {
-			currentBarFill = [CPTFill fillWithColor:self.lineStyle.lineColor];
-		}
-        
-		if ( currentBarFill ) {
+		if ( currentBarFill || theBorderLineStyle ) {
 			CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 			radius = MIN(radius, ABS(close - open));
 			
@@ -408,9 +436,9 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 			CGPoint alignedPoint4 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, close));
 			CGPoint alignedPoint5 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, open));
             
-            if(open==close){
+            if ( open == close ) {
                 // #285 Draw a cross with open/close values marked
-                CGFloat halfLineWidth = 0.5 * self.lineStyle.lineWidth;
+                const CGFloat halfLineWidth = 0.5 * self.lineStyle.lineWidth;
                 
                 alignedPoint1.y -= halfLineWidth;
                 alignedPoint2.y += halfLineWidth;
@@ -426,9 +454,35 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 			CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
 			CGPathCloseSubpath(path);
 			
-			CGContextBeginPath(context);
-			CGContextAddPath(context, path);
-			[currentBarFill fillPathInContext:context]; 
+			if ( currentBarFill ) {
+				CGContextBeginPath(context);
+				CGContextAddPath(context, path);
+				[currentBarFill fillPathInContext:context]; 
+			}
+			
+			if ( theBorderLineStyle ) {
+				if ( !isnan(low) ) {
+					if ( low < MIN(open, close) ) {
+						CGPoint alignedStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, MIN(open, close)));
+						CGPoint alignedLowPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
+						
+						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
+						CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
+					}
+				}
+				if ( !isnan(high) ) {
+					if ( high > MAX(open, close) ) {
+						CGPoint alignedStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, MAX(open, close)));
+						CGPoint alignedHighPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
+						
+						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
+						CGPathAddLineToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
+					}
+				}
+				CGContextBeginPath(context);
+				CGContextAddPath(context, path);
+				CGContextStrokePath(context);
+			}
 			
 			CGPathRelease(path);
 		}
@@ -594,6 +648,26 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	if ( lineStyle != newLineStyle ) {
 		[lineStyle release];
 		lineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
+}
+
+-(void)setIncreaseLineStyle:(CPTLineStyle *)newLineStyle
+{
+	if ( increaseLineStyle != newLineStyle ) {
+		[increaseLineStyle release];
+		increaseLineStyle = [newLineStyle copy];
+		[self setNeedsDisplay];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
+}
+
+-(void)setDecreaseLineStyle:(CPTLineStyle *)newLineStyle
+{
+	if ( decreaseLineStyle != newLineStyle ) {
+		[decreaseLineStyle release];
+		decreaseLineStyle = [newLineStyle copy];
 		[self setNeedsDisplay];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}

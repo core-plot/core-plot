@@ -131,7 +131,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     ohlcPlot.barCornerRadius = 3.0;
 	ohlcPlot.barWidth = 15.0;
 	ohlcPlot.increaseFill = [CPTFill fillWithColor:[CPTColor greenColor]];
-	ohlcPlot.decreaseFill = [CPTFill fillWithColor:[CPTColor redColor]];
+	ohlcPlot.decreaseFill = nil;
     ohlcPlot.dataSource = self;
     ohlcPlot.plotStyle = CPTTradingRangePlotStyleCandleStick;
     [graph addPlot:ohlcPlot];

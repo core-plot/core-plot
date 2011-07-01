@@ -42,6 +42,8 @@ typedef enum _CPTTradingRangePlotField {
 @interface CPTTradingRangePlot : CPTPlot {
 	@private
     CPTLineStyle *lineStyle;
+    CPTLineStyle *increaseLineStyle;
+    CPTLineStyle *decreaseLineStyle;
     CPTFill *increaseFill;
     CPTFill *decreaseFill;
 
@@ -53,6 +55,8 @@ typedef enum _CPTTradingRangePlotField {
 } 
 
 @property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, copy) CPTLineStyle *increaseLineStyle;
+@property (nonatomic, readwrite, copy) CPTLineStyle *decreaseLineStyle;
 @property (nonatomic, readwrite, copy) CPTFill *increaseFill;
 @property (nonatomic, readwrite, copy) CPTFill *decreaseFill;
 @property (nonatomic, readwrite, assign) CPTTradingRangePlotStyle plotStyle;
