@@ -4,6 +4,7 @@
 #import "CPTColorSpace.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTUtilities.h"
+#import <tgmath.h>
 
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
@@ -137,8 +138,9 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0, -1.0);
 #endif
-	[self.text drawInRect:CPTAlignRectToUserSpace(context, CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth))
-			withTextStyle:self.textStyle inContext:context];
+	[self.text drawInRect:CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth)
+			withTextStyle:self.textStyle
+				inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
 #endif
