@@ -111,7 +111,7 @@
 	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
 	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
+		samples[i] = sinf(i);
 	}
 	
 	CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
@@ -139,7 +139,7 @@
 	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
 	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
+		samples[i] = sinf(i);
 	}
 	
 	CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
@@ -170,7 +170,7 @@
 	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
 	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
+		samples[i] = sinf(i);
 	}
 	
 	CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
@@ -190,7 +190,7 @@
 	NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
 	for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-		samples[i] = sin(i);
+		samples[i] = sinf(i);
 	}
 	
 	CPTMutableNumericData *fd = [[CPTMutableNumericData alloc] initWithData:data
@@ -236,7 +236,7 @@
 	NSMutableData *data = [NSMutableData dataWithLength:nElems*sizeof(float)];
 	float *samples = (float *)[data mutableBytes];
 	for ( NSUInteger i = 0; i < nElems; i++ ) {
-		samples[i] = sin(i);
+		samples[i] = sinf(i);
 	}
 	
 	CPTMutableNumericData *fd = [[CPTMutableNumericData alloc] initWithData:data

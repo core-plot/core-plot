@@ -17,6 +17,7 @@
 #import "CPTTextLayer.h"
 #import "NSNumberExtensions.h"
 #import "CPTUtilities.h"
+#import <tgmath.h>
 
 /**	@cond */
 @interface CPTPlot()
@@ -822,9 +823,9 @@
 	if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
 		displacement.y = 1.0; // put the label above the data point if zero displacement
 	}
-	double angle = M_PI + atan2(displacement.y, displacement.x) - label.rotation;
-	double newAnchorX = cos(angle);
-	double newAnchorY = sin(angle);
+	CGFloat angle = (CGFloat)M_PI + atan2(displacement.y, displacement.x) - label.rotation;
+	CGFloat newAnchorX = cos(angle);
+	CGFloat newAnchorY = sin(angle);
 	
 	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
 		newAnchorX /= ABS(newAnchorY);

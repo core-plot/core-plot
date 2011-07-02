@@ -2,6 +2,7 @@
 #import "CPTAnnotationHostLayer.h"
 #import "CPTConstrainedPosition.h"
 #import "CPTLayer.h"
+#import <tgmath.h>
 
 /**	@cond */
 @interface CPTLayerAnnotation()

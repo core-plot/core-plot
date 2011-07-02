@@ -5,6 +5,7 @@
 #import "CPTBorderedLayer.h"
 #import "CPTColor.h"
 #import "CPTExceptions.h"
+#import <tgmath.h>
 
 static const double precision = 1.0e-6;
 

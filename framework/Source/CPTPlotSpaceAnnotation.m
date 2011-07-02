@@ -2,6 +2,7 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotArea.h"
+#import <tgmath.h>
 
 /**	@brief Positions a content layer relative to some anchor point in a plot space.
  *	@todo More documentation needed.

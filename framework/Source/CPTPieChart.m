@@ -345,10 +345,10 @@ static CGFloat colorLookupTable[10][3] =
 	CGFloat angle = self.startAngle;
 	switch ( self.sliceDirection ) {
 		case CPTPieDirectionClockwise:
-			angle -= pieSliceValue * M_PI * 2.0;
+			angle -= pieSliceValue * (CGFloat)M_PI * 2.0;
 			break;
 		case CPTPieDirectionCounterClockwise:
-			angle += pieSliceValue * M_PI * 2.0;
+			angle += pieSliceValue * (CGFloat)M_PI * 2.0;
 			break;
 	}
 	return angle;
@@ -673,7 +673,7 @@ static CGFloat colorLookupTable[10][3] =
 						
 						if ( radialOffset != 0.0 ) {
 							CGPoint offsetCenter;
-							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
+							CGFloat medianAngle = (CGFloat)M_PI * (startingAngle + endingAngle);
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
 													   centerPoint.y + sin(medianAngle) * radialOffset);
 							
@@ -722,7 +722,7 @@ static CGFloat colorLookupTable[10][3] =
 						
 						if ( radialOffset != 0.0 ) {
 							CGPoint offsetCenter;
-							CGFloat medianAngle = M_PI * (startingAngle + endingAngle);
+							CGFloat medianAngle = (CGFloat)M_PI * (startingAngle + endingAngle);
 							offsetCenter = CGPointMake(centerPoint.x + cos(medianAngle) * radialOffset,
 													   centerPoint.y + sin(medianAngle) * radialOffset);
 

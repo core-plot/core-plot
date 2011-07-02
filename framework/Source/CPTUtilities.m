@@ -1,4 +1,5 @@
 #import "CPTUtilities.h"
+#import <tgmath.h>
 
 // cache common values to improve performance
 #define kCacheSize 3

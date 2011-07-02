@@ -9,6 +9,7 @@
 #import "CPTUtilities.h"
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
+#import <tgmath.h>
 
 /**	@cond */
 @interface CPTLayer()

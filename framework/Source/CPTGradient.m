@@ -828,7 +828,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         CGFloat length;
         CGFloat deltax, deltay;
 		
-        CGFloat rangle = self.angle * M_PI / 180.0;	//convert the angle to radians
+        CGFloat rangle = self.angle * (CGFloat)(M_PI / 180.0);	//convert the angle to radians
 		
         if ( fabs(tan(rangle)) <= 1.0 ) {  //for range [-45,45], [135,225]
             x = CGRectGetWidth(rect);
