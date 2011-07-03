@@ -74,7 +74,7 @@
 	
 	// Text styles
 	CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
-	axisTitleTextStyle.fontName = @"Helvetica Bold";
+	axisTitleTextStyle.fontName = @"Helvetica-Bold";
 	axisTitleTextStyle.fontSize = 14.0;
 	
     // Axes

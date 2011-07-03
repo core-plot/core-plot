@@ -63,7 +63,7 @@ static const CGFloat titleOffset = 25.0;
 	
 	// Text styles
 	CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
-	axisTitleTextStyle.fontName = @"Helvetica Bold";
+	axisTitleTextStyle.fontName = @"Helvetica-Bold";
 	axisTitleTextStyle.fontSize = 14.0;
 	
 	// Plot Spaces
