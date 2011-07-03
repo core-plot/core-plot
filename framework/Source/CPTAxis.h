@@ -18,10 +18,11 @@
 /**	@brief Enumeration of labeling policies
  **/
 typedef enum _CPTAxisLabelingPolicy {
-    CPTAxisLabelingPolicyNone,					///< No labels provided; user sets labels and locations.
-    CPTAxisLabelingPolicyLocationsProvided,		///< User sets locations; class makes labels.
+    CPTAxisLabelingPolicyNone,					///< No labels provided; user sets labels and tick locations.
+    CPTAxisLabelingPolicyLocationsProvided,		///< User sets tick locations; axis makes labels.
     CPTAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
-	CPTAxisLabelingPolicyAutomatic				///< Automatic labeling policy.
+	CPTAxisLabelingPolicyAutomatic,				///< Automatic labeling policy.
+	CPTAxisLabelingPolicyEqualDivisions			///< Divide the plot range into equal parts.
 } CPTAxisLabelingPolicy;
 
 #pragma mark -

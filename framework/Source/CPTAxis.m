@@ -32,6 +32,7 @@
 
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels labelAlignment:(CPTAlignment)theLabelAlignment labelOffset:(CGFloat)theLabelOffset labelRotation:(CGFloat)theLabelRotation textStyle:(CPTTextStyle *)theLabelTextStyle labelFormatter:(NSNumberFormatter *)theLabelFormatter;
 
@@ -252,7 +253,8 @@ double niceNum(double x, BOOL round);
 
 /**	@property preferredNumberOfMajorTicks
  *	@brief The number of ticks that should be targeted when autogenerating positions.
- *  This property only applies when the CPTAxisLabelingPolicyAutomatic policy is in use.
+ *  This property only applies when the CPTAxisLabelingPolicyAutomatic or 
+ *	CPTAxisLabelingEqualDivisions policies are in use.
  *	If zero (0) (the default), Core Plot will choose a reasonable number of ticks.
  **/
 @synthesize preferredNumberOfMajorTicks;
@@ -519,7 +521,7 @@ double niceNum(double x, BOOL round);
 			NSDecimal minorInterval;
 			NSUInteger minorTickCount = self.minorTicksPerInterval;
 			if ( minorTickCount > 0 ) {
-				minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(self.minorTicksPerInterval + 1));
+				minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(minorTickCount + 1));
 			}
 			else {
 				minorInterval = zero;
@@ -619,8 +621,16 @@ double niceNum(double x, BOOL round);
 		switch ( scaleType ) {
 			case CPTScaleTypeLinear: {
 				// Determine interval value
-				if ( numTicks == 0 ) {
-					numTicks = 5;
+				switch ( numTicks ) {
+					case 0:
+						numTicks = 5;
+						break;
+					case 1:
+						numTicks = 2;
+						break;
+					default:
+						// ok
+						break;
 				}
 				
 				double interval = niceNum(length / (numTicks - 1), YES);
@@ -708,6 +718,71 @@ double niceNum(double x, BOOL round);
     // Return tick locations sets
     *newMajorLocations = majorLocations;
     *newMinorLocations = minorLocations;
+}
+
+-(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+{
+	NSMutableSet *majorLocations = [NSMutableSet set];
+	NSMutableSet *minorLocations = [NSMutableSet set];
+	
+	CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+	if ( range ) {
+		CPTPlotRange *theVisibleRange = self.visibleRange;
+		if ( theVisibleRange ) {
+			[range intersectionPlotRange:theVisibleRange];
+		}
+		
+		if ( range.lengthDouble != 0.0 ) {
+			NSDecimal zero = CPTDecimalFromInteger(0);
+			NSDecimal rangeMin = range.minLimit;
+			NSDecimal rangeMax = range.maxLimit;
+			
+			NSUInteger majorTickCount = self.preferredNumberOfMajorTicks;
+			
+			if ( majorTickCount < 2 ) {
+				majorTickCount = 2;
+			}
+			NSDecimal majorInterval = CPTDecimalDivide(range.length, CPTDecimalFromUnsignedInteger(majorTickCount - 1));
+			if ( CPTDecimalLessThan(majorInterval, zero) ) {
+				majorInterval = CPTDecimalMultiply(majorInterval, CPTDecimalFromInteger(-1));
+			}
+			
+			NSDecimal minorInterval;
+			NSUInteger minorTickCount = self.minorTicksPerInterval;
+			if ( minorTickCount > 0 ) {
+				minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(minorTickCount + 1));
+			}
+			else {
+				minorInterval = zero;
+			}
+			
+			NSDecimal coord = rangeMin;
+			
+			// Set tick locations
+			while ( CPTDecimalLessThanOrEqualTo(coord, rangeMax) ) {
+				// Major tick
+				[majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+				
+				// Minor ticks
+				if ( minorTickCount > 0 ) {
+					NSDecimal minorCoord = CPTDecimalAdd(coord, minorInterval);
+					
+					for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+						if ( CPTDecimalGreaterThan(minorCoord, rangeMax) ) break;
+						[minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+						minorCoord = CPTDecimalAdd(minorCoord, minorInterval);
+					}
+				}
+				
+				coord = CPTDecimalAdd(coord, majorInterval);
+			}
+		}
+	}
+	
+	[range release];
+	
+	*newMajorLocations = majorLocations;
+	*newMinorLocations = minorLocations;
 }
 
 double niceNum(double x, BOOL round)
@@ -956,6 +1031,9 @@ double niceNum(double x, BOOL round)
 			break;
         case CPTAxisLabelingPolicyAutomatic:
 			[self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
+			break;
+		case CPTAxisLabelingPolicyEqualDivisions:
+			[self generateEqualMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations];
 			break;
 	}
 	

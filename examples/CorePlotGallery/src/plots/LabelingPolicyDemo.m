@@ -52,7 +52,7 @@ static const CGFloat titleOffset = 25.0;
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(100)];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(4.5) length:CPTDecimalFromInteger(-4)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.75) length:CPTDecimalFromInteger(-5)];
 	
     // Line styles
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -162,8 +162,25 @@ static const CGFloat titleOffset = 25.0;
 	axisAutomatic.titleTextStyle = axisTitleTextStyle;
 	axisAutomatic.titleOffset = titleOffset;
 
+	// CPTAxisLabelingPolicyEqualDivisions
+    CPTXYAxis *axisEqualDivisions = [[[CPTXYAxis alloc] init] autorelease];
+	axisEqualDivisions.plotSpace = graph.defaultPlotSpace;
+	axisEqualDivisions.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
+	axisEqualDivisions.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(5);
+	axisEqualDivisions.preferredNumberOfMajorTicks = 7;
+	axisEqualDivisions.minorTicksPerInterval = 4;
+	axisEqualDivisions.tickDirection = CPTSignNone;
+	axisEqualDivisions.axisLineStyle = axisLineStyle;
+	axisEqualDivisions.majorTickLength = majorTickLength;
+	axisEqualDivisions.majorTickLineStyle = majorTickLineStyle;
+	axisEqualDivisions.minorTickLength = minorTickLength;
+	axisEqualDivisions.minorTickLineStyle = minorTickLineStyle;
+	axisEqualDivisions.title = @"CPTAxisLabelingPolicyEqualDivisions";
+	axisEqualDivisions.titleTextStyle = axisTitleTextStyle;
+	axisEqualDivisions.titleOffset = titleOffset;
+	
 	// Add axes to the graph
-	graph.axisSet.axes = [NSArray arrayWithObjects:axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, nil];
+	graph.axisSet.axes = [NSArray arrayWithObjects:axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, axisEqualDivisions, nil];
 }
 
 @end
