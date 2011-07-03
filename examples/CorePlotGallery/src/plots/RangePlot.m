@@ -66,7 +66,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #endif
     
 	[graph release];
-    graph = [[CPTXYGraph alloc] initWithFrame:bounds];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 	

@@ -4,7 +4,6 @@
 //
 
 #import "PlotItem.h"
-#import "PlotGallery.h"
 
 @interface CandlestickPlot : PlotItem <CPTPlotSpaceDelegate, CPTPlotDataSource>
 {

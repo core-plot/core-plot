@@ -7,7 +7,6 @@
 //
 
 #import "PlotGallery.h"
-#import "PlotItem.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -261,12 +260,7 @@
 {
     [self killGraph];
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGRect bounds = [hostingView bounds];
-#else
-    CGRect bounds = NSRectToCGRect([hostingView bounds]);
-#endif
-    defaultLayerHostingView = [[CPTGraphHostingView alloc] initWithFrame:bounds];
+    defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;

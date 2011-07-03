@@ -7,7 +7,6 @@
 //
 
 #import "PlotItem.h"
-#import "PlotGallery.h"
 
 @interface DatePlot : PlotItem < CPTPlotSpaceDelegate,
                                  CPTPlotDataSource,

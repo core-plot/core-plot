@@ -41,7 +41,6 @@
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
     
 	graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
-	graph.cornerRadius = 20.0;
 	
 	// Plot area
 	graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor lightGrayColor]];

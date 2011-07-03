@@ -4,7 +4,6 @@
 //
 
 #import "PlotItem.h"
-#import "PlotGallery.h"
 
 @interface RangePlot : PlotItem <CPTPlotSpaceDelegate, CPTPlotDataSource>
 {

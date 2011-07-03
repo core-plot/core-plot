@@ -4,7 +4,6 @@
 //
 
 #import "PlotItem.h"
-#import "PlotGallery.h"
 
 @interface OHLCPlot : PlotItem <CPTPlotDataSource>
 {

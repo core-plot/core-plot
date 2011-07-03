@@ -7,7 +7,6 @@
 //
 
 #import "PlotItem.h"
-#import "PlotGallery.h"
 
 @interface SteppedScatterPlot : PlotItem <CPTPlotSpaceDelegate,
                                           CPTPlotDataSource,
