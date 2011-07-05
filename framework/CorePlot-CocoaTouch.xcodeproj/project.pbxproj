@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		0760D0F311BD272D00A3C4BD /* Build SDK */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */;
-			buildPhases = (
-				0760D0F211BD272D00A3C4BD /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "Build SDK";
-			productName = "Build SDK";
-		};
 		0799D97A137318CF0026072C /* Universal Library */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 0799D97D137318CF0026072C /* Build configuration list for PBXAggregateTarget "Universal Library" */;
@@ -926,26 +915,12 @@
 			targets = (
 				BC9B83460FB8A0A40035D8DA /* CorePlot-CocoaTouch */,
 				C3566B8010EED04900FB3866 /* Documentation */,
-				0760D0F311BD272D00A3C4BD /* Build SDK */,
 				0799D97A137318CF0026072C /* Universal Library */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0760D0F211BD272D00A3C4BD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/SDKBuild\"\n./build.sh\nmv CorePlot.zip ~/Desktop";
-		};
 		0799D97F137318D80026072C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1059,27 +1034,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0760D0F411BD272E00A3C4BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Build SDK";
-			};
-			name = Debug;
-		};
-		0760D0F511BD272E00A3C4BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Build SDK";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		0799D97B137318CF0026072C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1231,15 +1185,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0760D0FC11BD274600A3C4BD /* Build configuration list for PBXAggregateTarget "Build SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0760D0F411BD272E00A3C4BD /* Debug */,
-				0760D0F511BD272E00A3C4BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		0799D97D137318CF0026072C /* Build configuration list for PBXAggregateTarget "Universal Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

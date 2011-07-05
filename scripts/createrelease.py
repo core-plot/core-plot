@@ -2,11 +2,11 @@
 
 from os import mkdir, makedirs, environ, chdir, getcwd, system, listdir
 from os.path import join
-from shutil import copy, copytree, move, rmtree
+from shutil import copy, copytree, move, rmtree, ignore_patterns
 
 # Usage
 def Usage():
-    return 'Usage: createversion.py <version>'
+    return 'Usage: createrelease.py <version>'
 
 # Run Xcode
 def RunXcode(project, target):
@@ -43,12 +43,12 @@ mkdir(releaseRootDir)
 
 # Copy license and READMEs
 copy('License.txt', releaseRootDir)
-copytree('READMEs', join(releaseRootDir, 'READMEs'))
+copytree('READMEs', join(releaseRootDir, 'READMEs'), ignore=ignore_patterns('*.orig'))
 
 # Add source code
 sourceDir = join(releaseRootDir, 'Source')
-copytree('framework', join(sourceDir, 'framework'))
-copytree('examples', join(sourceDir, 'examples'))
+copytree('framework', join(sourceDir, 'framework'), ignore=ignore_patterns('*.orig'))
+copytree('examples', join(sourceDir, 'examples'), ignore=ignore_patterns('*.orig'))
 copy('License.txt', sourceDir)
 
 # Binaries
@@ -65,10 +65,12 @@ macProductsDir = join(projectRoot, 'build/Release')
 macFramework = join(macProductsDir, 'CorePlot.framework')
 copytree(macFramework, join(macosDir, 'CorePlot.framework'))
 
-# Build iOS SDK
-RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Build SDK')
-sdkZipFile = join(desktopDir, 'CorePlot.zip')
-move(sdkZipFile, iosDir)
+# Build iOS Static Library
+RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Universal Library')
+iOSLibFile = join(join(projectRoot, 'build/Release-universal'), 'libCorePlot-CocoaTouch.a')
+copy(iOSLibFile, iosDir)
+iOSHeaderFile = join(join(projectRoot, 'build/Release-iphoneos'), 'usr/local/include')
+copytree(iOSHeaderFile, join(iosDir, 'CorePlotHeaders'))
 
 # Build Docs
 RunXcode('CorePlot.xcodeproj', 'Documentation')
@@ -76,9 +78,8 @@ RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Documentation')
 
 # Copy Docs
 docDir = join(releaseRootDir, 'Documentation')
-copytree(join(projectRoot, 'documentation'), docDir)
+copytree(join(projectRoot, 'documentation'), docDir, ignore=ignore_patterns('*.orig'))
 homeDir = environ['HOME']
 docsetsDir = join(homeDir, 'Library/Developer/Shared/Documentation/DocSets')
 copytree(join(docsetsDir, 'com.CorePlot.Framework.docset'), join(docDir, 'com.CorePlot.Framework.docset'))
 copytree(join(docsetsDir, 'com.CorePlotTouch.Framework.docset'), join(docDir, 'com.CorePlotTouch.Framework.docset'))
-
