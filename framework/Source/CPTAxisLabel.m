@@ -48,9 +48,7 @@
  **/
 -(id)initWithText:(NSString *)newText textStyle:(CPTMutableTextStyle *)newStyle
 {
-	CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText];
-	newLayer.textStyle = newStyle;
-	[newLayer sizeToFit];
+	CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
 	self = [self initWithContentLayer:newLayer];
 	[newLayer release];
 	
