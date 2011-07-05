@@ -89,7 +89,7 @@ NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< P
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
-static CGFloat colorLookupTable[10][3] = 
+static const CGFloat colorLookupTable[10][3] = 
 {    
 	{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}, {1.0, 1.0, 0.0}, {0.25, 0.5, 0.25},   
 	{1.0, 0.0, 1.0}, {0.5, 0.5, 0.5}, {0.25, 0.5, 0.0}, {0.25, 0.25, 0.25}, {0.0, 1.0, 1.0}
@@ -312,8 +312,6 @@ static CGFloat colorLookupTable[10][3] =
 	centerPoint = [self convertPoint:centerPoint fromLayer:self.plotArea];
 	centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
 	
-	// TODO: Add NSDecimal rendering path
-	
 	NSUInteger currentIndex = 0;
 	CGFloat startingWidth = 0.0;
 	id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
@@ -525,24 +523,29 @@ static CGFloat colorLookupTable[10][3] =
 		[xValue release];
 		[yValue release];
 		
-		id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
-		BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
-		CGFloat radialOffset = 0.0;
-		if ( dataSourceProvidesRadialOffsets ) {
-			radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:index];
-		}
-		
-		CGFloat labelRadius = self.pieRadius + self.labelOffset + radialOffset;
-		
-		double startingWidth = 0.0;
-		if ( index > 0 ) {
-			startingWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthSum recordIndex:index - 1];
-		}
 		double currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:index];
-		double labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
-		label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
-		
-		label.contentLayer.hidden = isnan(currentWidth);
+		if ( isnan(currentWidth) ) {
+			label.contentLayer.hidden = YES;
+		}
+		else {
+			id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
+			BOOL dataSourceProvidesRadialOffsets = [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
+			CGFloat radialOffset = 0.0;
+			if ( dataSourceProvidesRadialOffsets ) {
+				radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:index];
+			}
+			
+			CGFloat labelRadius = self.pieRadius + self.labelOffset + radialOffset;
+			
+			double startingWidth = 0.0;
+			if ( index > 0 ) {
+				startingWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthSum recordIndex:index - 1];
+			}
+			CGFloat labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
+
+			label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
+			label.contentLayer.hidden = NO;
+		}
 	}
 	else {
 		label.anchorPlotPoint = nil;
