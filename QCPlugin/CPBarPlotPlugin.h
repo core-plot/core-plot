@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
-#import "CorePlotQCPTlugIn.h"
+#import "CorePlotQCPlugIn.h"
 
-@interface CPTBarPlotPlugIn : CorePlotQCPTlugIn<CPTBarPlotDataSource> {
+@interface CPBarPlotPlugIn : CorePlotQCPlugIn<CPTBarPlotDataSource> {
 }
 
 @property(assign) double inputBaseValue;

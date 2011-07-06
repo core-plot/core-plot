@@ -1,6 +1,6 @@
-#import "CPTScatterPlotPlugIn.h"
+#import "CPScatterPlotPlugIn.h"
 
-@implementation CPTScatterPlotPlugIn
+@implementation CPScatterPlotPlugIn
 
 /*
  NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -25,8 +25,8 @@
 + (NSDictionary*) attributes
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"Core Plot Scatter Plot", QCPTlugInAttributeNameKey, 
-			@"Scatter plot", QCPTlugInAttributeDescriptionKey, 
+			@"Core Plot Scatter Plot", QCPlugInAttributeNameKey, 
+			@"Scatter plot", QCPlugInAttributeDescriptionKey, 
 			nil];
 }
 
@@ -34,62 +34,62 @@
 {
 	// Create input ports for the new plot
 	
-	[self addInputPortWithType:QCPTortTypeStructure
+	[self addInputPortWithType:QCPortTypeStructure
 						forKey:[NSString stringWithFormat:@"plotXNumbers%i", index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"X Values %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeStructure, QCPTortAttributeTypeKey,
+								[NSString stringWithFormat:@"X Values %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeStructure
+	[self addInputPortWithType:QCPortTypeStructure
 						forKey:[NSString stringWithFormat:@"plotYNumbers%i", index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Y Values %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeStructure, QCPTortAttributeTypeKey,
+								[NSString stringWithFormat:@"Y Values %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeColor
+	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataLineColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeColor, QCPTortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:1.0], QCPTortAttributeDefaultValueKey,
+								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:1.0], QCPortAttributeDefaultValueKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeColor
+	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeColor, QCPTortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPTortAttributeDefaultValueKey,
+								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
 								nil]];
 		
-	[self addInputPortWithType:QCPTortTypeNumber
+	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Line Width %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeNumber, QCPTortAttributeTypeKey,
-								[NSNumber numberWithInt:1.0], QCPTortAttributeDefaultValueKey,
-								[NSNumber numberWithFloat:0.0], QCPTortAttributeMinimumValueKey,
+								[NSString stringWithFormat:@"Plot Line Width %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeNumber, QCPortAttributeTypeKey,
+								[NSNumber numberWithInt:1.0], QCPortAttributeDefaultValueKey,
+								[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeIndex
+	[self addInputPortWithType:QCPortTypeIndex
 						forKey:[NSString stringWithFormat:@"plotDataSymbols%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Data Symbols %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeIndex, QCPTortAttributeTypeKey,
-								[NSArray arrayWithObjects:@"Empty", @"Circle", @"Triangle", @"Square", @"Plus", @"Star", @"Diamond", @"Pentagon", @"Hexagon", @"Dash", @"Snow", nil], QCPTortAttributeMenuItemsKey,								
-								[NSNumber numberWithInt:0], QCPTortAttributeDefaultValueKey,
-								[NSNumber numberWithInt:0], QCPTortAttributeMinimumValueKey,
-								[NSNumber numberWithInt:10], QCPTortAttributeMaximumValueKey,
+								[NSString stringWithFormat:@"Data Symbols %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeIndex, QCPortAttributeTypeKey,
+								[NSArray arrayWithObjects:@"Empty", @"Circle", @"Triangle", @"Square", @"Plus", @"Star", @"Diamond", @"Pentagon", @"Hexagon", @"Dash", @"Snow", nil], QCPortAttributeMenuItemsKey,								
+								[NSNumber numberWithInt:0], QCPortAttributeDefaultValueKey,
+								[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
+								[NSNumber numberWithInt:10], QCPortAttributeMaximumValueKey,
 								nil]];	
 	
-	[self addInputPortWithType:QCPTortTypeColor
+	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataSymbolColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Data Symbol Color %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeColor, QCPTortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPTortAttributeDefaultValueKey,
+								[NSString stringWithFormat:@"Data Symbol Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
 								nil]];
 	
 	// Add the new plot to the graph

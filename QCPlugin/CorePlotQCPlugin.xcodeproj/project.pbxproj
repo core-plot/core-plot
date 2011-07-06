@@ -22,13 +22,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		16BA95420A7EB2EB001E4983 /* CorePlotQCPTlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BA95410A7EB2EB001E4983 /* CorePlotQCPTlugin.m */; };
+		16BA95420A7EB2EB001E4983 /* CorePlotQCPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BA95410A7EB2EB001E4983 /* CorePlotQCPlugin.m */; };
 		16BA96310A7EB9AC001E4983 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BA96300A7EB9AC001E4983 /* Quartz.framework */; };
 		7238D5520DB6988600E9A42D /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7238D5500DB6988600E9A42D /* Settings.xib */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		A819AA3E11FD450D006D1C2D /* CPTPieChartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */; };
-		A8FC1816102CBADE00CF2266 /* CPTScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */; };
-		A8FC1819102CBAEA00CF2266 /* CPTBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */; };
+		A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */; };
+		A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */; };
+		A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */; };
 		BC21A98B1035BEC100FED2A4 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
 		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
-			remoteInfo = CorePlotQCPTlugin;
+			remoteInfo = CorePlotQCPlugin;
 		};
 		A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -79,20 +79,20 @@
 
 /* Begin PBXFileReference section */
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		16AA5C440A7EEE7300888E31 /* CorePlotQCPTlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CorePlotQCPTlugin_Prefix.pch; sourceTree = "<group>"; };
-		16BA95400A7EB2EB001E4983 /* CorePlotQCPTlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CorePlotQCPTlugin.h; sourceTree = "<group>"; };
-		16BA95410A7EB2EB001E4983 /* CorePlotQCPTlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CorePlotQCPTlugin.m; sourceTree = "<group>"; };
+		16AA5C440A7EEE7300888E31 /* CorePlotQCPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CorePlotQCPlugin_Prefix.pch; sourceTree = "<group>"; };
+		16BA95400A7EB2EB001E4983 /* CorePlotQCPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CorePlotQCPlugin.h; sourceTree = "<group>"; };
+		16BA95410A7EB2EB001E4983 /* CorePlotQCPlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CorePlotQCPlugin.m; sourceTree = "<group>"; };
 		16BA96300A7EB9AC001E4983 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		7238D5510DB6988600E9A42D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Settings.xib; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* CorePlotQCPTlugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlotQCPTlugin.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlotQCPlugin.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A819AA0311FD3F23006D1C2D /* CPTPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPieChartPlugin.h; sourceTree = "<group>"; };
-		A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPieChartPlugin.m; sourceTree = "<group>"; };
+		A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CPPieChartPlugin.h; sourceTree = "<group>"; };
+		A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPieChartPlugin.m; sourceTree = "<group>"; };
 		A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
-		A8FC1814102CBADE00CF2266 /* CPTScatterPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTScatterPlotPlugin.h; sourceTree = "<group>"; };
-		A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTScatterPlotPlugin.m; sourceTree = "<group>"; };
-		A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBarPlotPlugin.h; sourceTree = "<group>"; };
-		A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTBarPlotPlugin.m; sourceTree = "<group>"; };
+		A8FC1814102CBADE00CF2266 /* CPScatterPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CPScatterPlotPlugin.h; sourceTree = "<group>"; };
+		A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotPlugin.m; sourceTree = "<group>"; };
+		A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CPBarPlotPlugin.h; sourceTree = "<group>"; };
+		A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarPlotPlugin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,14 +143,14 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				16BA95400A7EB2EB001E4983 /* CorePlotQCPTlugin.h */,
-				16BA95410A7EB2EB001E4983 /* CorePlotQCPTlugin.m */,
-				A8FC1814102CBADE00CF2266 /* CPTScatterPlotPlugin.h */,
-				A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */,
-				A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */,
-				A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */,
-				A819AA0311FD3F23006D1C2D /* CPTPieChartPlugin.h */,
-				A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */,
+				16BA95400A7EB2EB001E4983 /* CorePlotQCPlugin.h */,
+				16BA95410A7EB2EB001E4983 /* CorePlotQCPlugin.m */,
+				A8FC1814102CBADE00CF2266 /* CPScatterPlotPlugin.h */,
+				A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */,
+				A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */,
+				A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */,
+				A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */,
+				A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -158,7 +158,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* CorePlotQCPTlugin.plugin */,
+				8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,7 +166,7 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				16AA5C440A7EEE7300888E31 /* CorePlotQCPTlugin_Prefix.pch */,
+				16AA5C440A7EEE7300888E31 /* CorePlotQCPlugin_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -183,9 +183,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* CorePlotQCPTlugin */ = {
+		8D5B49AC048680CD000E48DA /* CorePlotQCPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "CorePlotQCPTlugin" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "CorePlotQCPlugin" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
@@ -197,10 +197,10 @@
 			dependencies = (
 				BC21A99C1035BF8600FED2A4 /* PBXTargetDependency */,
 			);
-			name = CorePlotQCPTlugin;
+			name = CorePlotQCPlugin;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = "Quartz Composer Plug In";
-			productReference = 8D5B49B6048680CD000E48DA /* CorePlotQCPTlugin.plugin */;
+			productReference = 8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +228,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* CorePlotQCPTlugin */,
+				8D5B49AC048680CD000E48DA /* CorePlotQCPlugin */,
 				233E2C640A83C768005A62DF /* Build & Copy */,
 			);
 		};
@@ -274,7 +274,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This shell script simply copies the built plug-in to \"~/Library/Graphics/Quartz Composer Plug-Ins\" and overrides any previous version at that location\n\nmkdir -p \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins\"\nrm -rf \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/CorePlotQCPTlugin.plugin\"\ncp -rf \"$BUILT_PRODUCTS_DIR/CorePlotQCPTlugin.plugin\" \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/\"\n";
+			shellScript = "# This shell script simply copies the built plug-in to \"~/Library/Graphics/Quartz Composer Plug-Ins\" and overrides any previous version at that location\n\nmkdir -p \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins\"\nrm -rf \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/CorePlotQCPlugin.plugin\"\ncp -rf \"$BUILT_PRODUCTS_DIR/CorePlotQCPlugin.plugin\" \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -283,10 +283,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16BA95420A7EB2EB001E4983 /* CorePlotQCPTlugin.m in Sources */,
-				A8FC1816102CBADE00CF2266 /* CPTScatterPlotPlugin.m in Sources */,
-				A8FC1819102CBAEA00CF2266 /* CPTBarPlotPlugin.m in Sources */,
-				A819AA3E11FD450D006D1C2D /* CPTPieChartPlugin.m in Sources */,
+				16BA95420A7EB2EB001E4983 /* CorePlotQCPlugin.m in Sources */,
+				A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */,
+				A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */,
+				A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +295,7 @@
 /* Begin PBXTargetDependency section */
 		233E2C660A83C76D005A62DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8D5B49AC048680CD000E48DA /* CorePlotQCPTlugin */;
+			target = 8D5B49AC048680CD000E48DA /* CorePlotQCPlugin */;
 			targetProxy = 233E2C650A83C76D005A62DF /* PBXContainerItemProxy */;
 		};
 		BC21A99C1035BF8600FED2A4 /* PBXTargetDependency */ = {
@@ -329,11 +329,11 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CorePlotQCPTlugin_Prefix.pch;
+				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = CorePlotQCPTlugin;
+				PRODUCT_NAME = CorePlotQCPlugin;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -348,12 +348,12 @@
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CorePlotQCPTlugin_Prefix.pch;
+				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
 				GCC_VERSION = 4.2;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = CorePlotQCPTlugin;
+				PRODUCT_NAME = CorePlotQCPlugin;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -404,7 +404,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "CorePlotQCPTlugin" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "CorePlotQCPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,

@@ -6,6 +6,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleGetInfoString</key>
+	<string>CorePlotQCPlugin version 1.0, Copyright YourCompany.</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -14,17 +16,15 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleGetInfoString</key>
-	<string>CorePlotQCPTlugin version 1.0, Copyright YourCompany.</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>QCPTlugInClasses</key>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>QCPlugInClasses</key>
 	<array>
-		<string>CPTBarPlotPlugIn</string>
-		<string>CPTScatterPlotPlugIn</string>
-		<string>CPTPieChartPlugIn</string>
+		<string>CPBarPlotPlugIn</string>
+		<string>CPScatterPlotPlugIn</string>
+		<string>CPPieChartPlugIn</string>
 	</array>
 </dict>
 </plist>

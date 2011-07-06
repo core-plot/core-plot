@@ -1,6 +1,6 @@
-#import "CPTPieChartPlugin.h"
+#import "CPPieChartPlugin.h"
 
-@implementation CPTPieChartPlugIn
+@implementation CPPieChartPlugIn
 
 /*
  NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -28,8 +28,8 @@
 + (NSDictionary*) attributes
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"Core Plot Pie Chart", QCPTlugInAttributeNameKey, 
-			@"Pie chart", QCPTlugInAttributeDescriptionKey, 
+			@"Core Plot Pie Chart", QCPlugInAttributeNameKey, 
+			@"Pie chart", QCPlugInAttributeDescriptionKey, 
 			nil];
 }
 
@@ -40,7 +40,7 @@
 
 // Pie charts only support one layer so we override the createViewController method (to hide the number of charts button)
 
-- (QCPTlugInViewController*) createViewController
+- (QCPlugInViewController*) createViewController
 {
 	return nil;
 }
@@ -57,48 +57,48 @@
 	// A few additional ports for the pie chart type ...
 	if ([key isEqualToString:@"inputPieRadius"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Pie Radius", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeMinimumValueKey,
-				[NSNumber numberWithFloat:0.75], QCPTortAttributeDefaultValueKey,
+				@"Pie Radius", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
+				[NSNumber numberWithFloat:0.75], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputSliceLabelOffset"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Label Offset", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:20.0], QCPTortAttributeDefaultValueKey,
+				@"Label Offset", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:20.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputStartAngle"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Start Angle", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeDefaultValueKey,
+				@"Start Angle", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputSliceDirection"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Slice Direction", QCPTortAttributeNameKey,
-				[NSNumber numberWithInt:1], QCPTortAttributeMaximumValueKey,
-				[NSArray arrayWithObjects:@"Clockwise", @"Counter-Clockwise", nil], QCPTortAttributeMenuItemsKey,
-				[NSNumber numberWithInt:0], QCPTortAttributeDefaultValueKey,
+				@"Slice Direction", QCPortAttributeNameKey,
+				[NSNumber numberWithInt:1], QCPortAttributeMaximumValueKey,
+				[NSArray arrayWithObjects:@"Clockwise", @"Counter-Clockwise", nil], QCPortAttributeMenuItemsKey,
+				[NSNumber numberWithInt:0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputBorderWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Border Width", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeMinimumValueKey,
-				[NSNumber numberWithFloat:1.0], QCPTortAttributeDefaultValueKey,
+				@"Border Width", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
+				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputBorderColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Border Color", QCPTortAttributeNameKey,
-				[(id)CGColorCreateGenericGray(0.0, 1.0) autorelease], QCPTortAttributeDefaultValueKey,
+				@"Border Color", QCPortAttributeNameKey,
+				[(id)CGColorCreateGenericGray(0.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	else if ([key isEqualToString:@"inputLabelColor"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Label Color", QCPTortAttributeNameKey,
-				[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPTortAttributeDefaultValueKey,
+				@"Label Color", QCPortAttributeNameKey,
+				[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
 				nil];	
 
 	else
@@ -109,28 +109,28 @@
 {
 	if (index == 0)
 	{
-		[self addInputPortWithType:QCPTortTypeStructure
+		[self addInputPortWithType:QCPortTypeStructure
 							forKey:[NSString stringWithFormat:@"plotNumbers%i", index]
 					withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithFormat:@"Data Values", index+1], QCPTortAttributeNameKey,
-									QCPTortTypeStructure, QCPTortAttributeTypeKey,
+									[NSString stringWithFormat:@"Data Values", index+1], QCPortAttributeNameKey,
+									QCPortTypeStructure, QCPortAttributeTypeKey,
 									nil]];
 
-		[self addInputPortWithType:QCPTortTypeStructure
+		[self addInputPortWithType:QCPortTypeStructure
 							forKey:[NSString stringWithFormat:@"plotLabels%i", index]
 					withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithFormat:@"Data Labels", index+1], QCPTortAttributeNameKey,
-									QCPTortTypeStructure, QCPTortAttributeTypeKey,
+									[NSString stringWithFormat:@"Data Labels", index+1], QCPortAttributeNameKey,
+									QCPortTypeStructure, QCPortAttributeTypeKey,
 									nil]];
 		
 		// TODO: add support for used defined fill colors.  As of now we use a single color
 		// multiplied against the 'default' pie chart colors
-		[self addInputPortWithType:QCPTortTypeColor
+		[self addInputPortWithType:QCPortTypeColor
 							forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 					withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithFormat:@"Primary Fill Color", index+1], QCPTortAttributeNameKey,
-									QCPTortTypeColor, QCPTortAttributeTypeKey,
-									[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPTortAttributeDefaultValueKey,
+									[NSString stringWithFormat:@"Primary Fill Color", index+1], QCPortAttributeNameKey,
+									QCPortTypeColor, QCPortAttributeTypeKey,
+									[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
 									nil]];
 		
 		// Add the new plot to the graph
@@ -239,11 +239,11 @@
 												   plotColorComponents[2]*inputColorComponents[2],
 												   plotColorComponents[3]*inputColorComponents[3]);	
 	
-	CPTColor *fillCPTColor = [CPTColor colorWithCGColor:fillColor];
+	CPTColor *fillCPColor = [CPTColor colorWithCGColor:fillColor];
 
 	CGColorRelease(fillColor);
 	
-	return [[(CPTFill *)[CPTFill alloc] initWithColor:fillCPTColor] autorelease];
+	return [[(CPTFill *)[CPTFill alloc] initWithColor:fillCPColor] autorelease];
 }
 
 - (CPTTextLayer *) sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index

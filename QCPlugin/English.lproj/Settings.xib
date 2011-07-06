@@ -26,7 +26,7 @@
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="490272018">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSCustomObject" id="824655778">
-				<string key="NSClassName">QCPTlugInViewController</string>
+				<string key="NSClassName">QCPlugInViewController</string>
 			</object>
 			<object class="NSCustomObject" id="238358193">
 				<string key="NSClassName">FirstResponder</string>
@@ -484,7 +484,7 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../CorePlotQCPTlugin.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../CorePlotQCPlugin.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

@@ -1,6 +1,6 @@
-#import "CPTBarPlotPlugIn.h"
+#import "CPBarPlotPlugIn.h"
 
-@implementation CPTBarPlotPlugIn
+@implementation CPBarPlotPlugIn
 
 /*
  NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -30,8 +30,8 @@
 + (NSDictionary*) attributes
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"Core Plot Bar Chart", QCPTlugInAttributeNameKey, 
-			@"Bar chart", QCPTlugInAttributeDescriptionKey, 
+			@"Core Plot Bar Chart", QCPlugInAttributeNameKey, 
+			@"Bar chart", QCPlugInAttributeDescriptionKey, 
 			nil];
 }
 
@@ -41,51 +41,51 @@
 	
 	if ([key isEqualToString:@"inputBarWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Bar Width", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:1.0], QCPTortAttributeDefaultValueKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeMinimumValueKey,
+				@"Bar Width", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputBarOffset"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Bar Offset", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.5], QCPTortAttributeDefaultValueKey,
+				@"Bar Offset", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.5], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputBaseValue"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Base Value", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeDefaultValueKey,
+				@"Base Value", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputHorizontalBars"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Horizontal Bars", QCPTortAttributeNameKey,
-				[NSNumber numberWithBool:NO], QCPTortAttributeDefaultValueKey,
+				@"Horizontal Bars", QCPortAttributeNameKey,
+				[NSNumber numberWithBool:NO], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputXMin"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Range Min", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeDefaultValueKey,
+				@"X Range Min", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputXMax"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"X Range Max", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:5.0], QCPTortAttributeDefaultValueKey,
+				@"X Range Max", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMin"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Range Min", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:0.0], QCPTortAttributeDefaultValueKey,
+				@"Y Range Min", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	if ([key isEqualToString:@"inputYMax"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Y Range Max", QCPTortAttributeNameKey,
-				[NSNumber numberWithFloat:5.0], QCPTortAttributeDefaultValueKey,
+				@"Y Range Max", QCPortAttributeNameKey,
+				[NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
 	return [super attributesForPropertyPortWithKey:key];
@@ -95,36 +95,36 @@
 {
 	// Create input ports for the new plot
 	
-	[self addInputPortWithType:QCPTortTypeStructure
+	[self addInputPortWithType:QCPortTypeStructure
 						forKey:[NSString stringWithFormat:@"plotNumbers%i", index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Values %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeStructure, QCPTortAttributeTypeKey,
+								[NSString stringWithFormat:@"Values %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeColor
+	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataLineColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeColor, QCPTortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:1.0], QCPTortAttributeDefaultValueKey,
+								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:1.0], QCPortAttributeDefaultValueKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeColor
+	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeColor, QCPTortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPTortAttributeDefaultValueKey,
+								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeColor, QCPortAttributeTypeKey,
+								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
 								nil]];
 	
-	[self addInputPortWithType:QCPTortTypeNumber
+	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-								[NSString stringWithFormat:@"Plot Line Width %i", index+1], QCPTortAttributeNameKey,
-								QCPTortTypeNumber, QCPTortAttributeTypeKey,
-								[NSNumber numberWithInt:1.0], QCPTortAttributeDefaultValueKey,
-								[NSNumber numberWithFloat:0.0], QCPTortAttributeMinimumValueKey,
+								[NSString stringWithFormat:@"Plot Line Width %i", index+1], QCPortAttributeNameKey,
+								QCPortTypeNumber, QCPortAttributeTypeKey,
+								[NSNumber numberWithInt:1.0], QCPortAttributeDefaultValueKey,
+								[NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
 								nil]];
 	
 	// Add the new plot to the graph
