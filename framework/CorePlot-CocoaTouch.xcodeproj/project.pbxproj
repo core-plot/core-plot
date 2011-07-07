@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -166,7 +166,6 @@
 		C3B623CD107EC9630009EF0B /* CPTPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D00FB89E610035D8DA /* CPTPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CE107EC9640009EF0B /* CPTPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82CC0FB89E610035D8DA /* CPTPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CF107EC9680009EF0B /* CPTScatterPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D40FB89E610035D8DA /* CPTScatterPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3B623D0107EC96B0009EF0B /* CPTTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B829E0FB89E610035D8DA /* CPTTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623D1107EC96E0009EF0B /* CPTUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A70FB89E610035D8DA /* CPTUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623D2107EC9760009EF0B /* CPTXYGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B80FB89E610035D8DA /* CPTXYGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623D3107EC97A0009EF0B /* NSNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B30FB89E610035D8DA /* NSNumberExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -836,7 +835,6 @@
 				C3B623CD107EC9630009EF0B /* CPTPlotSymbol.h in Headers */,
 				C3B623CE107EC9640009EF0B /* CPTPolarPlotSpace.h in Headers */,
 				C3B623CF107EC9680009EF0B /* CPTScatterPlot.h in Headers */,
-				C3B623D0107EC96B0009EF0B /* CPTTextLayer.h in Headers */,
 				C3B623D1107EC96E0009EF0B /* CPTUtilities.h in Headers */,
 				C3B623D2107EC9760009EF0B /* CPTXYGraph.h in Headers */,
 				C3B623D3107EC97A0009EF0B /* NSNumberExtensions.h in Headers */,
@@ -899,8 +897,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CorePlot-CocoaTouch" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1037,6 +1038,7 @@
 		0799D97B137318CF0026072C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = UniversalLibrary;
 			};
 			name = Debug;
@@ -1044,6 +1046,7 @@
 		0799D97C137318CF0026072C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = UniversalLibrary;
 			};
 			name = Release;
@@ -1055,6 +1058,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_CFLAGS = (
 					"-lstdc++",
 					"-falign-loops=16",
@@ -1064,7 +1068,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
@@ -1076,8 +1079,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				OTHER_CFLAGS = (
 					"-lstdc++",
 					"-falign-loops=16",
@@ -1087,7 +1090,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
@@ -1123,7 +1125,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
@@ -1136,7 +1137,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1160,7 +1161,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
@@ -1175,6 +1175,7 @@
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = Documentation;
 			};
 			name = Debug;
@@ -1185,7 +1186,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				PRODUCT_NAME = Documentation;
 				ZERO_LINK = NO;
 			};
