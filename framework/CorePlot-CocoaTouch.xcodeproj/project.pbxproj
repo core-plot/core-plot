@@ -234,11 +234,6 @@
 		07B69AB812B6281100F4C16C /* CPTMutableTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutableTextStyle.m; path = Source/CPTMutableTextStyle.m; sourceTree = "<group>"; };
 		07B69B6F12B62E9600F4C16C /* CPTMutableLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutableLineStyle.h; path = Source/CPTMutableLineStyle.h; sourceTree = "<group>"; };
 		07B69B7012B62E9600F4C16C /* CPTMutableLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutableLineStyle.m; path = Source/CPTMutableLineStyle.m; sourceTree = "<group>"; };
-		07D84EC6126EDFC100A458B5 /* build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
-		07D84EC7126EDFC100A458B5 /* cp.sed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cp.sed; sourceTree = "<group>"; };
-		07D84EC8126EDFC100A458B5 /* iphoneos-SDKSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iphoneos-SDKSettings.plist"; sourceTree = "<group>"; };
-		07D84EC9126EDFC100A458B5 /* iphonesimulator-SDKSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iphonesimulator-SDKSettings.plist"; sourceTree = "<group>"; };
-		07D84ECA126EDFC100A458B5 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		07FCF2D1115B54DE00E46606 /* CPTSlateTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTSlateTheme.h; path = Source/CPTSlateTheme.h; sourceTree = "<group>"; };
 		07FCF2D2115B54DE00E46606 /* CPTSlateTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTSlateTheme.m; path = Source/CPTSlateTheme.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -503,18 +498,6 @@
 			name = Formatters;
 			sourceTree = "<group>";
 		};
-		07D84EC5126EDFC100A458B5 /* SDKBuild */ = {
-			isa = PBXGroup;
-			children = (
-				07D84EC6126EDFC100A458B5 /* build.sh */,
-				07D84EC7126EDFC100A458B5 /* cp.sed */,
-				07D84EC8126EDFC100A458B5 /* iphoneos-SDKSettings.plist */,
-				07D84EC9126EDFC100A458B5 /* iphonesimulator-SDKSettings.plist */,
-				07D84ECA126EDFC100A458B5 /* README.txt */,
-			);
-			path = SDKBuild;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,7 +509,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				07D84EC5126EDFC100A458B5 /* SDKBuild */,
 				BC9B82520FB89B420035D8DA /* Source */,
 				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				C3566B8610EED12700FB3866 /* Documentation */,
