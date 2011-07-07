@@ -1069,7 +1069,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
-				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
@@ -1091,7 +1090,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
-				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				ZERO_LINK = NO;
 			};
@@ -1102,7 +1100,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1127,6 +1125,8 @@
 				);
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1163,6 +1163,8 @@
 				);
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
