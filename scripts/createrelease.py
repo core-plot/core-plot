@@ -63,7 +63,7 @@ chdir('framework')
 RunXcode('CorePlot.xcodeproj', 'CorePlot')
 macProductsDir = join(projectRoot, 'build/Release')
 macFramework = join(macProductsDir, 'CorePlot.framework')
-copytree(macFramework, join(macosDir, 'CorePlot.framework'))
+copytree(macFramework, join(macosDir, 'CorePlot.framework'), symlinks=True)
 
 # Build iOS Static Library
 RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Universal Library')
