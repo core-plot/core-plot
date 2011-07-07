@@ -1052,8 +1052,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = (
 					"-lstdc++",
@@ -1066,6 +1066,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
@@ -1074,9 +1075,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				OTHER_CFLAGS = (
 					"-lstdc++",
 					"-falign-loops=16",
@@ -1088,6 +1089,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				ZERO_LINK = NO;
 			};
@@ -1098,7 +1100,9 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1121,6 +1125,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1131,7 +1136,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1154,6 +1162,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				SEPARATE_STRIP = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
