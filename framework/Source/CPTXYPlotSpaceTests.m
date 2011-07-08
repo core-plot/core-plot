@@ -65,12 +65,12 @@
 -(void)testPlotPointForViewPoint 
 {
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
-
+	
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) 
-                                                        length:CPTDecimalFromDouble(10.0)];
+													length:CPTDecimalFromDouble(10.0)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) 
-                                                        length:CPTDecimalFromDouble(10.0)];
-        
+													length:CPTDecimalFromDouble(10.0)];
+	
     NSDecimal plotPoint[2];
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
     NSString *errMessage;
@@ -81,6 +81,27 @@
 	STAssertTrue(CPTDecimalEquals(plotPoint[CPTCoordinateX], CPTDecimalFromDouble(5.0)), errMessage);
 	errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %@", NSDecimalString(&plotPoint[CPTCoordinateY], nil)];
 	STAssertTrue(CPTDecimalEquals(plotPoint[CPTCoordinateY], CPTDecimalFromDouble(5.0)), errMessage);
+}
+
+-(void)testDoublePrecisionPlotPointForViewPoint 
+{
+	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+	
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) 
+													length:CPTDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) 
+													length:CPTDecimalFromDouble(10.0)];
+	
+    double plotPoint[2];
+    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    NSString *errMessage;
+	
+	[plotSpace doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+	
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %g", plotPoint[CPTCoordinateX]];
+	STAssertEquals(plotPoint[CPTCoordinateX], 5.0, errMessage);
+	errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %g", plotPoint[CPTCoordinateY]];
+	STAssertEquals(plotPoint[CPTCoordinateY], 5.0, errMessage);
 }
 
 -(void)testConstrainNilRanges

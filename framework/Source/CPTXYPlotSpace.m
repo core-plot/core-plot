@@ -401,7 +401,18 @@
 
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point 
 {
-	//	TODO: implement doublePrecisionPlotPoint:forViewPoint:
+	CGSize boundsSize = self.graph.plotAreaFrame.plotArea.bounds.size;
+	
+	double x = point.x / boundsSize.width;
+	x *= xRange.lengthDouble;
+	x += xRange.locationDouble;
+	
+	double y = point.y / boundsSize.height;
+	y *= yRange.lengthDouble;
+	y += yRange.locationDouble;
+
+	plotPoint[CPTCoordinateX] = x;
+	plotPoint[CPTCoordinateY] = y;
 }
 
 #pragma mark -
