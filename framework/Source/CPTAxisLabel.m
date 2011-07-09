@@ -233,13 +233,12 @@
  *	@param secondPoint The second view point.
  *	@param coordinate The axis coordinate.
  *	@param direction The offset direction.
- *	@note Not implemented.
- *	@todo Write implementation for positioning label between ticks.
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-	// TODO: Write implementation for positioning label between ticks
-	[NSException raise:CPTException format:@"positionBetweenViewPoint:andViewPoint:forCoordinate:inDirection: not implemented"];
+	[self positionRelativeToViewPoint:CGPointMake((firstPoint.x + secondPoint.x) / 2.0, (firstPoint.y + secondPoint.y) / 2.0)
+						forCoordinate:coordinate
+						  inDirection:direction];
 }
 
 #pragma mark -
