@@ -28,6 +28,7 @@
 		4FABDD421291110D003A2DB7 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		4FABDD4612911127003A2DB7 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
 		C360E1C613B18AAF007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; };
 		C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
 		C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; };
@@ -114,6 +115,8 @@
 		4F8E1CC012908B0000D2035F /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
 		4F8E1CC112908B0000D2035F /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C354C0D513C7CDBE00DA8822 /* RealTimePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealTimePlot.h; path = src/plots/RealTimePlot.h; sourceTree = "<group>"; };
+		C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealTimePlot.m; path = src/plots/RealTimePlot.m; sourceTree = "<group>"; };
 		C360E1C413B18AAF007994B6 /* OHLCPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OHLCPlot.h; path = src/plots/OHLCPlot.h; sourceTree = "<group>"; };
 		C360E1C513B18AAF007994B6 /* OHLCPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OHLCPlot.m; path = src/plots/OHLCPlot.m; sourceTree = "<group>"; };
 		C360E1DE13B18CAE007994B6 /* CandlestickPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CandlestickPlot.h; path = src/plots/CandlestickPlot.h; sourceTree = "<group>"; };
@@ -260,6 +263,8 @@
 				C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */,
 				C3A14BEA13AEB7E700D103EA /* RangePlot.h */,
 				C3A14BEB13AEB7E700D103EA /* RangePlot.m */,
+				C354C0D513C7CDBE00DA8822 /* RealTimePlot.h */,
+				C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */,
 				4F8E1C84129083B000D2035F /* SteppedScatterPlot.h */,
 				4F8E1C85129083B000D2035F /* SteppedScatterPlot.m */,
 				4F22FF9E12342D7C006BF615 /* SimplePieChart.h */,
@@ -389,6 +394,7 @@
 				C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */,
 				C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */,
+				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
