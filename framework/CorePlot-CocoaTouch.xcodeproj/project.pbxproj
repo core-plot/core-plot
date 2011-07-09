@@ -75,7 +75,7 @@
 		0789EFC30FB9F97F00C0A613 /* CPTPlatformSpecificFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0789EFBD0FB9F97F00C0A613 /* CPTPlatformSpecificFunctions.m */; };
 		07A2E71E102DFAD300809BC5 /* CPTTimeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A2E71C102DFAD300809BC5 /* CPTTimeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A2E71F102DFAD300809BC5 /* CPTTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A2E71D102DFAD300809BC5 /* CPTTimeFormatter.m */; };
-		07A5E24C104E47E900B7AB80 /* CPTTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B829E0FB89E610035D8DA /* CPTTextLayer.h */; };
+		07A5E24C104E47E900B7AB80 /* CPTTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B829E0FB89E610035D8DA /* CPTTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FB50FE2234900CD765C /* CPTTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07A62FB30FE2234900CD765C /* CPTTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07A62FB60FE2234900CD765C /* CPTTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A62FB40FE2234900CD765C /* CPTTextStyle.m */; };
 		07AEF30310BBF99A0012BEFF /* CPTResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 07AEF30110BBF99A0012BEFF /* CPTResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
