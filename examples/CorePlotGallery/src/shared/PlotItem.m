@@ -164,7 +164,6 @@
         [imageView setUserInteractionEnabled:NO];
 
         [self renderInView:imageView withTheme:nil];        
-        [self reloadData];
 
         UIGraphicsBeginImageContext(imageView.bounds.size);
             CGContextRef c = UIGraphicsGetCurrentContext();
@@ -197,7 +196,6 @@
         [imageView setWantsLayer:YES];
 
         [self renderInView:imageView withTheme:nil];
-        [self reloadData];
 
         CGSize boundsSize = imageFrame.size;
 

@@ -76,12 +76,12 @@ static PlotGallery *sharedPlotGallery = nil;
     [plotItems addObject:plotItem];
 }
 
-- (int)count
+- (NSUInteger)count
 {
     return [plotItems count];
 }
 
-- (PlotItem *)objectAtIndex:(int)index
+- (PlotItem *)objectAtIndex:(NSUInteger)index
 {
     return [plotItems objectAtIndex:index];
 }

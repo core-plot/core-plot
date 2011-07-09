@@ -18,7 +18,7 @@
 - (void)addPlotItem:(PlotItem *)plotItem;
 
 - (void)sortByTitle;
-- (int)count;
-- (PlotItem *)objectAtIndex:(int)index;
+- (NSUInteger)count;
+- (PlotItem *)objectAtIndex:(NSUInteger)index;
 
 @end

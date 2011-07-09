@@ -155,9 +155,9 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
 {
-    int index = [[browser selectionIndexes] firstIndex];
+    NSUInteger index = [[browser selectionIndexes] firstIndex];
 
-    if (index >= 0) {
+    if (index != NSNotFound) {
         PlotItem *item = [[PlotGallery sharedPlotGallery] objectAtIndex:index];
         self.plotItem = item;
     }
