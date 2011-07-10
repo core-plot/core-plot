@@ -145,7 +145,7 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
         // Title
         title = nil;
         titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-        titleTextStyle = [[CPTMutableTextStyle textStyle] retain];
+        titleTextStyle = [[CPTTextStyle textStyle] retain];
         titleDisplacement = CGPointZero;
 		titleAnnotation = nil;
 
