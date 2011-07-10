@@ -75,26 +75,6 @@
 	return CPTDefaultZPositionPlotAreaFrame;
 }
 
--(void)layoutSublayers 
-{
-	CPTPlotArea *thePlotArea = self.plotArea;
-	if ( thePlotArea ) {
-		CGFloat leftPadding = self.paddingLeft;
-		CGFloat bottomPadding = self.paddingBottom;
-
-		CGRect selfBounds = self.bounds;
-		CGSize subLayerSize = selfBounds.size;
-		CGFloat lineWidth = self.borderLineStyle.lineWidth;
-		
-		subLayerSize.width -= leftPadding + self.paddingRight + lineWidth;
-		subLayerSize.width = MAX(subLayerSize.width, 0.0);
-		subLayerSize.height -= self.paddingTop + bottomPadding + lineWidth;
-		subLayerSize.height = MAX(subLayerSize.height, 0.0);
-		
-		thePlotArea.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
-	}
-}
-
 #pragma mark -
 #pragma mark Accessors
 

@@ -71,11 +71,12 @@
 	[self.fill fillPathInContext:context];
 	self.masksToBounds = useMask;
 	
-    if ( self.borderLineStyle ) {
-		CGFloat inset = self.borderLineStyle.lineWidth / 2.0;
+	CPTLineStyle *theLineStyle = self.borderLineStyle;
+    if ( theLineStyle ) {
+		CGFloat inset = theLineStyle.lineWidth / 2.0;
 		CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
 		
-        [self.borderLineStyle setLineStyleInContext:context];
+        [theLineStyle setLineStyleInContext:context];
 
 		if ( self.cornerRadius > 0.0 ) {
 			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
@@ -87,6 +88,24 @@
 			CGContextStrokeRect(context, selfBounds);
 		}
     }
+}
+
+#pragma mark -
+#pragma mark Layout
+
+-(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
+{
+	[super sublayerMarginLeft:left top:top right:right bottom:bottom];
+	
+	CPTLineStyle *theLineStyle = self.borderLineStyle;
+    if ( theLineStyle ) {
+		CGFloat inset = theLineStyle.lineWidth / 2.0;
+		
+		*left += inset;
+		*top += inset;
+		*right += inset;
+		*bottom += inset;
+	}
 }
 
 #pragma mark -

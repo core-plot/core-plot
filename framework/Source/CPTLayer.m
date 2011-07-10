@@ -460,20 +460,22 @@
 	// This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
 	// Subclasses should override to lay out their own sublayers
 	// Sublayers fill the super layer's bounds minus any padding by default
-	CGFloat leftPadding = self.paddingLeft;
-	CGFloat bottomPadding = self.paddingBottom;
+	CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
+	[self sublayerMarginLeft:&leftPadding top:&topPadding right:&rightPadding bottom:&bottomPadding];
 	
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
-	subLayerSize.width -= leftPadding + self.paddingRight;
+	subLayerSize.width -= leftPadding + rightPadding;
 	subLayerSize.width = MAX(subLayerSize.width, 0.0);
-	subLayerSize.height -= self.paddingTop + bottomPadding;
+	subLayerSize.height -= topPadding + bottomPadding;
 	subLayerSize.height = MAX(subLayerSize.height, 0.0);
 		
     NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
 		if (![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPTLayer class]]) {
             subLayer.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
+			[subLayer setNeedsLayout];
+			[subLayer setNeedsDisplay];
 		}
 	}
 }
@@ -481,6 +483,20 @@
 -(NSSet *)sublayersExcludedFromAutomaticLayout 
 {
     return [NSSet set];
+}
+
+/**	@brief Returns the margins that should be left between the bounds of the receiver and all sublayers.
+ *	@param left The left margin.
+ *	@param top The top margin.
+ *	@param right The right margin.
+ *	@param bottom The bottom margin.
+ **/
+-(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
+{
+	*left = self.paddingLeft;
+	*top = self.paddingTop;
+	*right = self.paddingRight;
+	*bottom = self.paddingBottom;
 }
 
 #pragma mark -

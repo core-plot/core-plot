@@ -72,15 +72,6 @@
 	return CPTDefaultZPositionAxisSet;
 }
 
--(void)layoutSublayers
-{
-	[super layoutSublayers];
-	
-	NSArray *theAxes = self.axes;
-	[theAxes makeObjectsPerformSelector:@selector(setNeedsLayout)];
-	[theAxes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-}
-
 #pragma mark -
 #pragma mark Accessors
 
