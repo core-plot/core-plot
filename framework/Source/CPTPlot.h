@@ -128,7 +128,7 @@ typedef enum _CPTPlotCachePrecision {
 	CGFloat labelOffset;
     CGFloat labelRotation;
 	NSUInteger labelField;
-	CPTMutableTextStyle *labelTextStyle;
+	CPTTextStyle *labelTextStyle;
 	NSNumberFormatter *labelFormatter;
 	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
@@ -176,7 +176,7 @@ typedef enum _CPTPlotCachePrecision {
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
-@property (nonatomic, readwrite, copy) CPTMutableTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
 ///	@}
 

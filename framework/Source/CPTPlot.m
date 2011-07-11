@@ -720,7 +720,7 @@
     self.needsRelabel = NO;
 	
 	id <CPTPlotDataSource> theDataSource = self.dataSource;
-	CPTMutableTextStyle *dataLabelTextStyle = self.labelTextStyle;
+	CPTTextStyle *dataLabelTextStyle = self.labelTextStyle;
 	NSNumberFormatter *dataLabelFormatter = self.labelFormatter;
 	
 	BOOL dataSourceProvidesLabels = [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)];
@@ -954,7 +954,7 @@
     }
 }
 
--(void)setLabelTextStyle:(CPTMutableTextStyle *)newStyle 
+-(void)setLabelTextStyle:(CPTTextStyle *)newStyle 
 {
 	if ( newStyle != labelTextStyle ) {
 		[labelTextStyle release];
