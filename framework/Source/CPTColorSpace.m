@@ -1,4 +1,5 @@
 #import "CPTColorSpace.h"
+#import "NSCoderExtensions.h"
 
 /**	@cond */
 @interface CPTColorSpace ()
@@ -7,6 +8,8 @@
 
 @end
 /**	@endcond */
+
+#pragma mark -
 
 /** @brief Wrapper around CGColorSpaceRef
  *
@@ -39,7 +42,7 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		cgSpace = CGColorSpaceCreateDeviceRGB();
 #else
-		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB); 
+		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 #endif
         space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
 		CGColorSpaceRelease(cgSpace);
@@ -75,6 +78,22 @@
 {
     CGColorSpaceRelease(cgColorSpace);
 	[super finalize];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
+	}
+    return self;
 }
 
 #pragma mark -

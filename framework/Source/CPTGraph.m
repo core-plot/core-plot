@@ -12,6 +12,7 @@
 #import "CPTTheme.h"
 #import "CPTLayerAnnotation.h"
 #import "CPTTextLayer.h"
+#import "NSCoderExtensions.h"
 
 NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotification";
 
@@ -195,6 +196,46 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 	[legendAnnotation release];
 	
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.plotAreaFrame forKey:@"CPTGraph.plotAreaFrame"];
+	[coder encodeObject:self.plots forKey:@"CPTGraph.plots"];
+	[coder encodeObject:self.plotSpaces forKey:@"CPTGraph.plotSpaces"];
+	[coder encodeObject:self.title forKey:@"CPTGraph.title"];
+	[coder encodeObject:self.titleTextStyle forKey:@"CPTGraph.titleTextStyle"];
+	[coder encodeInteger:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
+	[coder encodeCPTPoint:self.titleDisplacement forKey:@"CPTGraph.titleDisplacement"];
+	[coder encodeObject:self.titleAnnotation forKey:@"CPTGraph.titleAnnotation"];
+	[coder encodeObject:self.legend forKey:@"CPTGraph.legend"];
+	[coder encodeObject:self.legendAnnotation forKey:@"CPTGraph.legendAnnotation"];
+	[coder encodeInteger:self.legendAnchor forKey:@"CPTGraph.legendAnchor"];
+	[coder encodeCPTPoint:self.legendDisplacement forKey:@"CPTGraph.legendDisplacement"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		plotAreaFrame = [[coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"] retain];
+		plots = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
+		plotSpaces = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
+		title = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
+		titleTextStyle = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
+		titlePlotAreaFrameAnchor = [coder decodeIntegerForKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
+		titleDisplacement = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
+		titleAnnotation = [[coder decodeObjectForKey:@"CPTGraph.titleAnnotation"] retain];
+		legend = [[coder decodeObjectForKey:@"CPTGraph.legend"] retain];
+		legendAnnotation = [[coder decodeObjectForKey:@"CPTGraph.legendAnnotation"] retain];
+		legendAnchor = [coder decodeIntegerForKey:@"CPTGraph.legendAnchor"];
+		legendDisplacement = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
+	}
+    return self;
 }
 
 #pragma mark -

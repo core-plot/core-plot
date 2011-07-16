@@ -13,6 +13,7 @@
 #import "CPTXYPlotSpace.h"
 #import "CPTPlotSpace.h"
 #import "CPTFill.h"
+#import "NSCoderExtensions.h"
 
 NSString * const CPTRangePlotBindingXValues = @"xValues";		///< X values.
 NSString * const CPTRangePlotBindingYValues = @"yValues";		///< Y values.
@@ -131,6 +132,29 @@ typedef struct CGPointError CGPointError;
 	[barLineStyle release];
 	[areaFill release];
 	[super dealloc];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.barLineStyle forKey:@"CPTRangePlot.barLineStyle"];
+	[coder encodeCGFloat:self.barWidth forKey:@"CPTRangePlot.barWidth"];
+	[coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
+	[coder encodeCGFloat:self.gapWidth forKey:@"CPTRangePlot.gapWidth"];
+	[coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		barLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];
+		barWidth = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
+		gapHeight = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
+		gapWidth = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
+		areaFill = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+	}
+    return self;
 }
 
 #pragma mark -

@@ -9,6 +9,7 @@
 #import "CPTUtilities.h"
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /**	@cond */
@@ -199,6 +200,46 @@
 	[super finalize];
 }
 
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeCGFloat:self.paddingLeft forKey:@"CPTLayer.paddingLeft"];
+	[coder encodeCGFloat:self.paddingTop forKey:@"CPTLayer.paddingTop"];
+	[coder encodeCGFloat:self.paddingRight forKey:@"CPTLayer.paddingRight"];
+	[coder encodeCGFloat:self.paddingBottom forKey:@"CPTLayer.paddingBottom"];
+	[coder encodeBool:self.masksToBorder forKey:@"CPTLayer.masksToBorder"];
+	if ( [self.layoutManager conformsToProtocol:@protocol(NSCoding)] ) {
+		[coder encodeObject:self.layoutManager forKey:@"CPTLayer.layoutManager"];
+	}
+	[coder encodeConditionalObject:self.graph forKey:@"CPTLayer.graph"];
+
+	// No need to archive these properties:
+	// renderingRecursively
+	// outerBorderPath
+	// innerBorderPath
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		paddingLeft = [coder decodeCGFloatForKey:@"CPTLayer.paddingLeft"];
+		paddingTop = [coder decodeCGFloatForKey:@"CPTLayer.paddingTop"];
+		paddingRight = [coder decodeCGFloatForKey:@"CPTLayer.paddingRight"];
+		paddingBottom = [coder decodeCGFloatForKey:@"CPTLayer.paddingBottom"];
+		masksToBorder = [coder decodeBoolForKey:@"CPTLayer.masksToBorder"];
+		layoutManager = [[coder decodeObjectForKey:@"CPTLayer.layoutManager"] retain];
+		graph = [coder decodeObjectForKey:@"CPTLayer.graph"];
+		
+		renderingRecursively = NO;
+		outerBorderPath = NULL;
+		innerBorderPath = NULL;
+	}
+    return self;
+}
 
 #pragma mark -
 #pragma mark Animation

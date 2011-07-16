@@ -56,6 +56,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.borderLineStyle forKey:@"CPTBorderedLayer.borderLineStyle"];
+	[coder encodeObject:self.fill forKey:@"CPTBorderedLayer.fill"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		borderLineStyle = [[coder decodeObjectForKey:@"CPTBorderedLayer.borderLineStyle"] copy];
+		fill = [[coder decodeObjectForKey:@"CPTBorderedLayer.fill"] copy];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)context

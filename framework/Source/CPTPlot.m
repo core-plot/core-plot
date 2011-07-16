@@ -15,8 +15,9 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTTextLayer.h"
-#import "NSNumberExtensions.h"
 #import "CPTUtilities.h"
+#import "NSCoderExtensions.h"
+#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /**	@cond */
@@ -213,6 +214,61 @@
 	[labelAnnotations release];
 	
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+
+	if ( [self.dataSource conformsToProtocol:@protocol(NSCoding)] ) {
+		[coder encodeConditionalObject:self.dataSource forKey:@"CPTPlot.dataSource"];
+	}
+	[coder encodeObject:self.identifier forKey:@"CPTPlot.identifier"];
+	[coder encodeObject:self.title forKey:@"CPTPlot.title"];
+	[coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
+	[coder encodeInteger:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
+	[coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
+	[coder encodeCGFloat:self.labelOffset forKey:@"CPTPlot.labelOffset"];
+	[coder encodeCGFloat:self.labelRotation forKey:@"CPTPlot.labelRotation"];
+	[coder encodeInteger:self.labelField forKey:@"CPTPlot.labelField"];
+	[coder encodeObject:self.labelTextStyle forKey:@"CPTPlot.labelTextStyle"];
+	[coder encodeObject:self.labelFormatter forKey:@"CPTPlot.labelFormatter"];
+	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTPlot.labelFormatterChanged"];
+	[coder encodeObject:[NSValue valueWithRange:self.labelIndexRange] forKey:@"CPTPlot.labelIndexRange"];
+	[coder encodeObject:self.labelAnnotations forKey:@"CPTPlot.labelAnnotations"];
+
+	// No need to archive these properties:
+	// dataNeedsReloading
+	// cachedData
+	// cachedDataCount
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		dataSource = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
+		identifier = [[coder decodeObjectForKey:@"CPTPlot.identifier"] copy];
+		title = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
+		plotSpace = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
+		cachePrecision = [coder decodeIntegerForKey:@"CPTPlot.cachePrecision"];
+		needsRelabel = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
+		labelOffset = [coder decodeCGFloatForKey:@"CPTPlot.labelOffset"];
+		labelRotation = [coder decodeCGFloatForKey:@"CPTPlot.labelRotation"];
+		labelField = [coder decodeIntegerForKey:@"CPTPlot.labelField"];
+		labelTextStyle = [[coder decodeObjectForKey:@"CPTPlot.labelTextStyle"] copy];
+		labelFormatter = [[coder decodeObjectForKey:@"CPTPlot.labelFormatter"] retain];
+		labelFormatterChanged = [coder decodeBoolForKey:@"CPTPlot.labelFormatterChanged"];
+		labelIndexRange = [[coder decodeObjectForKey:@"CPTPlot.labelIndexRange"] rangeValue];
+		labelAnnotations = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
+		
+		cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
+		cachedDataCount = 0;
+		dataNeedsReloading = YES;
+	}
+    return self;
 }
 
 #pragma mark -

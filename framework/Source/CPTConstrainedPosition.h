@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "CPTDefinitions.h"
 
-@interface CPTConstrainedPosition : NSObject {
+@interface CPTConstrainedPosition : NSObject <NSCoding> {
 	CGFloat position;
     CGFloat lowerBound;
     CGFloat upperBound;

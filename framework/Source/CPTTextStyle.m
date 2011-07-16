@@ -1,6 +1,7 @@
 #import "CPTTextStyle.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTColor.h"
+#import "NSCoderExtensions.h"
 
 /**	@cond */
 @interface CPTTextStyle ()
@@ -77,10 +78,10 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fontName forKey:@"fontName"];
-	[coder encodeDouble:self.fontSize forKey:@"fontSize"];
-	[coder encodeObject:self.color forKey:@"color"];
-	[coder encodeInteger:self.textAlignment forKey:@"textAlignment"];
+	[coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
+	[coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
+	[coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
+	[coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -88,16 +89,16 @@
 	self = [super init];
     
     if ( self ) {
-		self->fontName = [[coder decodeObjectForKey:@"fontName"] copy];
-		self->fontSize = [coder decodeDoubleForKey:@"fontSize"];
-		self->color = [[coder decodeObjectForKey:@"color"] copy];
-		self->textAlignment = [coder decodeIntegerForKey:@"textAlignment"];
+		self->fontName = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
+		self->fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+		self->color = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+		self->textAlignment = [coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
 	}
     return self;
 }
 
 #pragma mark -
-#pragma mark Copying
+#pragma mark NSCopying
 
 -(id)copyWithZone:(NSZone *)zone 
 {
@@ -108,6 +109,9 @@
 	newCopy->textAlignment = self->textAlignment;
 	return newCopy;
 }
+
+#pragma mark -
+#pragma mark NSMutableCopying
 
 -(id)mutableCopyWithZone:(NSZone *)zone 
 {

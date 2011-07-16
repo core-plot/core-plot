@@ -13,6 +13,7 @@
 #import "CPTXYPlotSpace.h"
 #import "CPTPlotSymbol.h"
 #import "CPTFill.h"
+#import "NSCoderExtensions.h"
 
 /// @name Binding Identifiers
 /// @{
@@ -163,6 +164,40 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[plotSymbols release];
     
 	[super dealloc];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
+	[coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
+	[coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
+	[coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
+	[coder encodeObject:self.areaFill2 forKey:@"CPTScatterPlot.areaFill2"];
+	[coder encodeDecimal:self.areaBaseValue forKey:@"CPTScatterPlot.areaBaseValue"];
+	[coder encodeDecimal:self.areaBaseValue2 forKey:@"CPTScatterPlot.areaBaseValue2"];
+	[coder encodeCGFloat:self.plotSymbolMarginForHitDetection forKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
+
+	// No need to archive these properties:
+	// plotSymbols
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		interpolation = [coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
+		dataLineStyle = [[coder decodeObjectForKey:@"CPTScatterPlot.dataLineStyle"] copy];
+		plotSymbol = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
+		areaFill = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];
+		areaFill2 = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill2"] copy];
+		areaBaseValue = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue"];
+		areaBaseValue2 = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue2"];
+		plotSymbolMarginForHitDetection = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
+
+		plotSymbols = nil;
+	}
+    return self;
 }
 
 #pragma mark -

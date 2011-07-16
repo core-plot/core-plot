@@ -1,4 +1,3 @@
-
 #import "CPTTheme.h"
 #import "CPTExceptions.h"
 #import "CPTDarkGradientTheme.h"
@@ -54,15 +53,38 @@ static NSMutableDictionary *themes = nil;
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.name forKey:@"CPTTheme.name"];
+	
+	// No need to archive these properties:
+	// graphClass
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	// use [self init] to initialize graphClass
+    if ( (self = [self init]) ) {
+		name = [[coder decodeObjectForKey:@"CPTTheme.name"] retain];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 -(void)setGraphClass:(Class)newGraphClass
 {
 	if ( graphClass != newGraphClass ) {
-		if ( [newGraphClass isEqual:[CPTGraph class]] ) {
+		if ( ![newGraphClass isSubclassOfClass:[CPTGraph class]] ) {
 			[NSException raise:CPTException format:@"Invalid graph class for theme; must be a subclass of CPTGraph"];
-		} else
-		{
+		}
+		else if ( [newGraphClass isEqual:[CPTGraph class]] ) {
+			[NSException raise:CPTException format:@"Invalid graph class for theme; must be a subclass of CPTGraph"];
+		}
+		else {
 			[graphClass release];
 			graphClass = [newGraphClass retain];
 		}
@@ -125,8 +147,7 @@ static NSMutableDictionary *themes = nil;
 
 -(NSString *)name 
 {
-	return [[(name ? name : [[self class] defaultName]) copy] autorelease]
-	;
+	return [[(name ? name : [[self class] defaultName]) copy] autorelease];
 }
 
 /**	@brief Applies the theme to the provided graph.

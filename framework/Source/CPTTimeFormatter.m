@@ -58,6 +58,39 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.dateFormatter forKey:@"CPTTimeFormatter.dateFormatter"];
+	[coder encodeObject:self.referenceDate forKey:@"CPTTimeFormatter.referenceDate"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		dateFormatter = [[coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"] retain];
+		referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
+	}
+    return self;
+}
+
+#pragma mark -
+#pragma mark NSCopying
+
+-(id)copyWithZone:(NSZone *)zone 
+{
+    CPTTimeFormatter *newFormatter = [[CPTTimeFormatter allocWithZone:zone] init];
+	if ( newFormatter ) {
+		newFormatter->dateFormatter = [self->dateFormatter copyWithZone:zone];
+		newFormatter->referenceDate = [self->referenceDate copyWithZone:zone];
+	}
+    return newFormatter;
+}
+
+#pragma mark -
 #pragma mark Formatting
 
 /**	@brief Converts decimal number for the time into a date string.

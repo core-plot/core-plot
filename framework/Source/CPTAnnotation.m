@@ -1,6 +1,7 @@
 #import "CPTAnnotation.h"
 #import "CPTLayer.h"
 #import "CPTAnnotationHostLayer.h"
+#import "NSCoderExtensions.h"
 
 /**	@brief An annotation positions a content layer relative to some anchor point.
  *
@@ -56,6 +57,30 @@
 {
 	[contentLayer release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeConditionalObject:self.annotationHostLayer forKey:@"CPTAnnotation.annotationHostLayer"];
+	[coder encodeObject:self.contentLayer forKey:@"CPTAnnotation.contentLayer"];
+	[coder encodeCPTPoint:self.contentAnchorPoint forKey:@"CPTAnnotation.contentAnchorPoint"];
+	[coder encodeCPTPoint:self.displacement forKey:@"CPTAnnotation.displacement"];
+	[coder encodeCGFloat:self.rotation forKey:@"CPTAnnotation.rotation"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
+		contentLayer = [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
+		contentAnchorPoint = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
+		displacement = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
+		rotation = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
+	}
+    return self;
 }
 
 #pragma mark -

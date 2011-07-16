@@ -13,6 +13,7 @@
 #import "CPTPlotSymbol.h"
 #import "CPTFill.h"
 #import "CPTColor.h"
+#import "NSCoderExtensions.h"
 
 NSString * const CPTTradingRangePlotBindingXValues = @"xValues";			///< X values.
 NSString * const CPTTradingRangePlotBindingOpenValues = @"openValues";	///< Open price values.
@@ -155,6 +156,37 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	[decreaseFill release];
     
 	[super dealloc];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.lineStyle forKey:@"CPTTradingRangePlot.lineStyle"];
+	[coder encodeObject:self.increaseLineStyle forKey:@"CPTTradingRangePlot.increaseLineStyle"];
+	[coder encodeObject:self.decreaseLineStyle forKey:@"CPTTradingRangePlot.decreaseLineStyle"];
+	[coder encodeObject:self.increaseFill forKey:@"CPTTradingRangePlot.increaseFill"];
+	[coder encodeObject:self.decreaseFill forKey:@"CPTTradingRangePlot.decreaseFill"];
+	[coder encodeInteger:self.plotStyle forKey:@"CPTTradingRangePlot.plotStyle"];
+	[coder encodeCGFloat:self.barWidth forKey:@"CPTTradingRangePlot.barWidth"];
+	[coder encodeCGFloat:self.stickLength forKey:@"CPTTradingRangePlot.stickLength"];
+	[coder encodeCGFloat:self.barCornerRadius forKey:@"CPTTradingRangePlot.barCornerRadius"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		lineStyle = [[coder decodeObjectForKey:@"CPTTradingRangePlot.lineStyle"] copy];
+		increaseLineStyle = [[coder decodeObjectForKey:@"CPTTradingRangePlot.increaseLineStyle"] copy];
+		decreaseLineStyle = [[coder decodeObjectForKey:@"CPTTradingRangePlot.decreaseLineStyle"] copy];
+		increaseFill = [[coder decodeObjectForKey:@"CPTTradingRangePlot.increaseFill"] copy];
+		decreaseFill = [[coder decodeObjectForKey:@"CPTTradingRangePlot.decreaseFill"] copy];
+		plotStyle = [coder decodeIntegerForKey:@"CPTTradingRangePlot.plotStyle"];
+		barWidth = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
+		stickLength = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
+		barCornerRadius = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+	}
+    return self;
 }
 
 #pragma mark -

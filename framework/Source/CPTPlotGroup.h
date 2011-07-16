@@ -4,10 +4,10 @@
 
 @interface CPTPlotGroup : CPTLayer {
 	@private
-	id <NSCopying, NSObject> identifier;
+	id <NSCopying, NSCoding, NSObject> identifier;
 }
 
-@property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
+@property (nonatomic, readwrite, copy) id <NSCopying, NSCoding, NSObject> identifier;
 
 /// @name Adding and Removing Plots
 /// @{

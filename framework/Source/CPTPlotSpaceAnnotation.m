@@ -50,6 +50,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.anchorPlotPoint forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"];
+	[coder encodeConditionalObject:self.plotSpace forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
+		plotSpace = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"] retain];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Layout
 
 -(void)positionContentLayer

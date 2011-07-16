@@ -38,6 +38,24 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.identifier forKey:@"CPTPlotGroup.identifier"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		identifier = [[coder decodeObjectForKey:@"CPTPlotGroup.identifier"] copy];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Organizing Plots
 
 /**	@brief Add a plot to the default plot space.

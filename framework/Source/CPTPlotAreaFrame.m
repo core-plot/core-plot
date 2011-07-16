@@ -68,6 +68,24 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Layout
 
 +(CGFloat)defaultZPosition 

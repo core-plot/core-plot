@@ -1,7 +1,7 @@
 #import "CPTLineStyle.h"
-#import "CPTLayer.h"
 #import "CPTColor.h"
 #import "CPTMutableLineStyle.h"
+#import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
 /**	@cond */
@@ -97,6 +97,34 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeInteger:self.lineCap forKey:@"CPTLineStyle.lineCap"];
+	[coder encodeInteger:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
+	[coder encodeCGFloat:self.miterLimit forKey:@"CPTLineStyle.miterLimit"];
+	[coder encodeCGFloat:self.lineWidth forKey:@"CPTLineStyle.lineWidth"];
+	[coder encodeObject:self.dashPattern forKey:@"CPTLineStyle.dashPattern"];
+	[coder encodeCGFloat:self.patternPhase forKey:@"CPTLineStyle.patternPhase"];
+	[coder encodeObject:self.lineColor forKey:@"CPTLineStyle.lineColor"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		lineCap = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
+		lineJoin = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
+		miterLimit = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
+		lineWidth = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
+		dashPattern = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
+		patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
+		lineColor = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 /** @brief Sets all of the line drawing properties in the given graphics context.
@@ -139,6 +167,9 @@
     
     return styleCopy;
 }
+
+#pragma mark -
+#pragma mark NSMutableCopying methods
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {

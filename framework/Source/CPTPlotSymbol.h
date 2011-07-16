@@ -23,7 +23,7 @@ typedef enum _CPTPlotSymbolType {
 	CPTPlotSymbolTypeCustom		///< Custom symbol.
 } CPTPlotSymbolType;
 
-@interface CPTPlotSymbol : NSObject <NSCopying> {
+@interface CPTPlotSymbol : NSObject <NSCoding, NSCopying> {
 @private
 	CGSize size;
 	CPTPlotSymbolType symbolType;

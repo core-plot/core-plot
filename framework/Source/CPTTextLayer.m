@@ -1,9 +1,5 @@
 #import "CPTTextLayer.h"
-#import "CPTPlatformSpecificFunctions.h"
-#import "CPTColor.h"
-#import "CPTColorSpace.h"
 #import "CPTPlatformSpecificCategories.h"
-#import "CPTUtilities.h"
 #import <tgmath.h>
 
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
@@ -68,6 +64,26 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	[textStyle release];
 	[text release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.textStyle forKey:@"CPTTextLayer.textStyle"];
+	[coder encodeObject:self.text forKey:@"CPTTextLayer.text"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		textStyle = [[coder decodeObjectForKey:@"CPTTextLayer.textStyle"] retain];
+		text = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
+	}
+    return self;
 }
 
 #pragma mark -

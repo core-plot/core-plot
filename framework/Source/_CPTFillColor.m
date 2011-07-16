@@ -89,13 +89,13 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fillColor forKey:@"fillColor"];
+	[coder encodeObject:self.fillColor forKey:@"_CPTFillColor.fillColor"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-		fillColor = [[coder decodeObjectForKey:@"fillColor"] retain];
+		fillColor = [[coder decodeObjectForKey:@"_CPTFillColor.fillColor"] retain];
 	}
     return self;
 }

@@ -3,6 +3,7 @@
 #import "CPTLayer.h"
 #import "CPTColorSpace.h"
 #import "CPTColor.h"
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /**	@cond */
@@ -134,10 +135,10 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             count++;
             currentElement = currentElement->nextElement;
         }
-        [coder encodeInteger:count forKey:@"CPTGradientElementCount"];
-        [coder encodeInt:blendingMode forKey:@"CPTGradientBlendingMode"];
-        [coder encodeDouble:angle forKey:@"CPTGradientAngle"];
-        [coder encodeInt:gradientType forKey:@"CPTGradientType"];
+        [coder encodeInteger:count forKey:@"CPTGradient.elementCount"];
+        [coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
+        [coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
+        [coder encodeInt:gradientType forKey:@"CPTGradient.type"];
 	} else {
         [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
 	}
@@ -148,11 +149,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     if ( (self = [super init]) ) {
 		[self commonInit];
 		
-		gradientType = [coder decodeIntForKey:@"CPTGradientType"];
-		angle = [coder decodeDoubleForKey:@"CPTGradientAngle"];
-		self.blendingMode = [coder decodeIntForKey:@"CPTGradientBlendingMode"];
+		gradientType = [coder decodeIntForKey:@"CPTGradient.type"];
+		angle = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
+		self.blendingMode = [coder decodeIntForKey:@"CPTGradient.blendingMode"];
 		
-		NSUInteger count = [coder decodeIntegerForKey:@"CPTGradientElementCount"];
+		NSUInteger count = [coder decodeIntegerForKey:@"CPTGradient.elementCount"];
 		
 		while (count != 0) {
 			CPTGradientElement newElement;

@@ -53,6 +53,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.axes forKey:@"CPTAxisSet.axes"];
+	[coder encodeObject:self.borderLineStyle forKey:@"CPTAxisSet.borderLineStyle"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		axes = [[coder decodeObjectForKey:@"CPTAxisSet.axes"] copy];
+		borderLineStyle = [[coder decodeObjectForKey:@"CPTAxisSet.borderLineStyle"] copy];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Labeling
 
 /**	@brief Updates the axis labels for each axis in the axis set.

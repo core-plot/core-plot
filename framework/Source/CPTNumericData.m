@@ -695,14 +695,14 @@
     //[super encodeWithCoder:encoder];
     
     if ( [encoder allowsKeyedCoding] ) {
-        [encoder encodeObject:self.data forKey:@"data"];
+        [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
         
 		CPTNumericDataType selfDataType = self.dataType;
-		[encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"dataType.dataTypeFormat"];
-        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"dataType.sampleBytes"];
-        [encoder encodeInteger:selfDataType.byteOrder forKey:@"dataType.byteOrder"];
+		[encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
+        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
+        [encoder encodeInteger:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
         
-        [encoder encodeObject:self.shape forKey:@"shape"];
+        [encoder encodeObject:self.shape forKey:@"CPTNumericData.shape"];
     }
 	else {
         [encoder encodeObject:self.data];
@@ -724,13 +724,13 @@
 		NSArray	*shapeArray;
 		
 		if ( [decoder allowsKeyedCoding] ) {
-			newData = [decoder decodeObjectForKey:@"data"];
+			newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 			
-			newDataType = CPTDataType([decoder decodeIntegerForKey:@"dataType.dataTypeFormat"],
-									 [decoder decodeIntegerForKey:@"dataType.sampleBytes"],
-									 [decoder decodeIntegerForKey:@"dataType.byteOrder"]);
+			newDataType = CPTDataType([decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
+									 [decoder decodeIntegerForKey:@"CPTNumericData.dataType.sampleBytes"],
+									 [decoder decodeIntegerForKey:@"CPTNumericData.dataType.byteOrder"]);
 			
-			shapeArray = [decoder decodeObjectForKey:@"shape"];
+			shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
 		}
 		else {
 			newData = [decoder decodeObject];

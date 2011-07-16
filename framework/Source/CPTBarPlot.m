@@ -15,6 +15,7 @@
 #import "CPTTextLayer.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTLegend.h"
+#import "NSCoderExtensions.h"
 
 NSString * const CPTBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPTBarPlotBindingBarTips = @"barTips";				///< Bar tips.
@@ -212,6 +213,39 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	[fill release];
 	[plotRange release];
 	[super dealloc];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.lineStyle forKey:@"CPTBarPlot.lineStyle"];
+	[coder encodeObject:self.fill forKey:@"CPTBarPlot.fill"];
+	[coder encodeDecimal:self.barWidth forKey:@"CPTBarPlot.barWidth"];
+	[coder encodeDecimal:self.barOffset forKey:@"CPTBarPlot.barOffset"];
+	[coder encodeCGFloat:self.barCornerRadius forKey:@"CPTBarPlot.barCornerRadius"];
+	[coder encodeDecimal:self.baseValue forKey:@"CPTBarPlot.baseValue"];
+	[coder encodeBool:self.barsAreHorizontal forKey:@"CPTBarPlot.barsAreHorizontal"];
+	[coder encodeBool:self.barBasesVary forKey:@"CPTBarPlot.barBasesVary"];
+	[coder encodeBool:self.barWidthsAreInViewCoordinates forKey:@"CPTBarPlot.barWidthsAreInViewCoordinates"];
+	[coder encodeObject:self.plotRange forKey:@"CPTBarPlot.plotRange"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		lineStyle = [[coder decodeObjectForKey:@"CPTBarPlot.lineStyle"] copy];
+		fill = [[coder decodeObjectForKey:@"CPTBarPlot.fill"] copy];
+		barWidth = [coder decodeDecimalForKey:@"CPTBarPlot.barWidth"];
+		barOffset = [coder decodeDecimalForKey:@"CPTBarPlot.barOffset"];
+		barCornerRadius = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
+		baseValue = [coder decodeDecimalForKey:@"CPTBarPlot.baseValue"];
+		barsAreHorizontal = [coder decodeBoolForKey:@"CPTBarPlot.barsAreHorizontal"];
+		barBasesVary = [coder decodeBoolForKey:@"CPTBarPlot.barBasesVary"];
+		barWidthsAreInViewCoordinates = [coder decodeBoolForKey:@"CPTBarPlot.barWidthsAreInViewCoordinates"];
+		plotRange = [[coder decodeObjectForKey:@"CPTBarPlot.plotRange"] copy];
+	}
+    return self;
 }
 
 #pragma mark -

@@ -74,6 +74,8 @@
         globalYRange = nil;
 		xScaleType = CPTScaleTypeLinear;
 		yScaleType = CPTScaleTypeLinear;
+		lastDragPoint = CGPointZero;
+		isDragging = NO;
 	}
 	return self;
 }
@@ -85,6 +87,41 @@
     [globalXRange release];
     [globalYRange release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.xRange forKey:@"CPTXYPlotSpace.xRange"];
+	[coder encodeObject:self.yRange forKey:@"CPTXYPlotSpace.yRange"];
+	[coder encodeObject:self.globalXRange forKey:@"CPTXYPlotSpace.globalXRange"];
+	[coder encodeObject:self.globalYRange forKey:@"CPTXYPlotSpace.globalYRange"];
+	[coder encodeInteger:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
+	[coder encodeInteger:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
+	
+	// No need to archive these properties:
+	// lastDragPoint
+	// isDragging
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		xRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.xRange"] copy];
+		yRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"] copy];
+		globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
+		globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
+		xScaleType = [coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
+		yScaleType = [coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
+		
+		lastDragPoint = CGPointZero;
+		isDragging = NO;
+	}
+    return self;
 }
 
 #pragma mark -

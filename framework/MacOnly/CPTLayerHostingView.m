@@ -29,6 +29,29 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.hostedLayer forKey:@"CPTLayerHostingView.hostedLayer"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
+        self.layer = mainLayer;
+        [mainLayer release];
+
+		hostedLayer = nil;
+		self.hostedLayer = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedLayer"]; // setup layers
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Mouse handling
 
 -(BOOL)acceptsFirstMouse:(NSEvent *)theEvent

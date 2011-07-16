@@ -11,6 +11,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
 #import "CPTXYPlotSpace.h"
+#import "NSCoderExtensions.h"
 
 /**	@cond */
 @interface CPTXYAxis ()
@@ -86,6 +87,32 @@
 {
     [constrainedPosition release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeBool:self.isFloatingAxis forKey:@"CPTXYAxis.isFloatingAxis"];
+	[coder encodeDecimal:self.orthogonalCoordinateDecimal forKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
+	[coder encodeInteger:self.constraints.lower forKey:@"CPTXYAxis.constraints.lower"];
+	[coder encodeInteger:self.constraints.upper forKey:@"CPTXYAxis.constraints.upper"];
+	[coder encodeObject:self.constrainedPosition forKey:@"CPTXYAxis.constrainedPosition"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		isFloatingAxis = [coder decodeBoolForKey:@"CPTXYAxis.isFloatingAxis"];
+		orthogonalCoordinateDecimal = [coder decodeDecimalForKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
+		constraints.lower = [coder decodeIntegerForKey:@"CPTXYAxis.constraints.lower"];
+		constraints.upper = [coder decodeIntegerForKey:@"CPTXYAxis.constraints.upper"];
+		constrainedPosition = [[coder decodeObjectForKey:@"CPTXYAxis.constrainedPosition"] retain];
+	}
+    return self;
 }
 
 #pragma mark -

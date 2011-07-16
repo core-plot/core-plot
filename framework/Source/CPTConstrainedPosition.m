@@ -1,5 +1,6 @@
 #import "CPTConstrainedPosition.h"
 #import "CPTExceptions.h"
+#import "NSCoderExtensions.h"
 
 /**	@brief Implements a spring and strut positioning algorithm for one dimension.
  **/
@@ -86,6 +87,30 @@
         constraints.upper = upperConstraint;
     }
     
+    return self;
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeCGFloat:self.position forKey:@"CPTConstrainedPosition.position"];
+	[coder encodeCGFloat:self.lowerBound forKey:@"CPTConstrainedPosition.lowerBound"];
+	[coder encodeCGFloat:self.upperBound forKey:@"CPTConstrainedPosition.upperBound"];
+	[coder encodeInteger:self.constraints.lower forKey:@"CPTConstrainedPosition.constraints.lower"];
+	[coder encodeInteger:self.constraints.upper forKey:@"CPTConstrainedPosition.constraints.upper"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		position = [coder decodeCGFloatForKey:@"CPTConstrainedPosition.position"];
+		lowerBound = [coder decodeCGFloatForKey:@"CPTConstrainedPosition.lowerBound"];
+		upperBound = [coder decodeCGFloatForKey:@"CPTConstrainedPosition.upperBound"];
+		constraints.lower = [coder decodeIntegerForKey:@"CPTConstrainedPosition.constraints.lower"];
+		constraints.upper = [coder decodeIntegerForKey:@"CPTConstrainedPosition.constraints.upper"];
+	}
     return self;
 }
 

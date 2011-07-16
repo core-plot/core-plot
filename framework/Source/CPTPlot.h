@@ -117,7 +117,7 @@ typedef enum _CPTPlotCachePrecision {
 @interface CPTPlot : CPTAnnotationHostLayer {
 	@private
     id <CPTPlotDataSource> dataSource;
-    id <NSCopying, NSObject> identifier;
+    id <NSCopying, NSCoding, NSObject> identifier;
 	NSString *title;
     CPTPlotSpace *plotSpace;
     BOOL dataNeedsReloading;
@@ -142,7 +142,7 @@ typedef enum _CPTPlotCachePrecision {
 
 /// @name Identification
 /// @{
-@property (nonatomic, readwrite, copy) id <NSCopying, NSObject> identifier;
+@property (nonatomic, readwrite, copy) id <NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite, copy) NSString *title;
 ///	@}
 

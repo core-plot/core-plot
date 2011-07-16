@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 
 @class CPTGraph;
@@ -17,7 +16,7 @@ extern NSString * const kCPTSlateTheme;
 extern NSString * const kCPTStocksTheme;
 /// @}
 
-@interface CPTTheme : NSObject {
+@interface CPTTheme : NSObject <NSCoding> {
 	@private
 	NSString *name;
 	Class graphClass;

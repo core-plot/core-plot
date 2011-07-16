@@ -4,7 +4,7 @@
 @class CPTLayer;
 @class CPTTextStyle;
 
-@interface CPTAxisLabel : NSObject {
+@interface CPTAxisLabel : NSObject <NSCoding> {
 	@private
     CPTLayer *contentLayer;
     CGFloat offset;

@@ -1,4 +1,5 @@
 #import "CPTImage.h"
+#import "NSCoderExtensions.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 // iPhone-specific image library as equivalent to ImageIO?
@@ -98,6 +99,29 @@
 	CGImageRelease(image);
 	[super finalize];
 }
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeCGImage:self.image forKey:@"CPTImage.image"];
+	[coder encodeBool:self.tiled forKey:@"CPTImage.tiled"];
+	[coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		image = [coder newCGImageDecodeForKey:@"CPTImage.image"];
+		tiled = [coder decodeBoolForKey:@"CPTImage.tiled"];
+		tileAnchoredToContext = [coder decodeBoolForKey:@"CPTImage.tileAnchoredToContext"];
+	}
+    return self;
+}
+
+#pragma mark -
+#pragma mark NSCopying
 
 -(id)copyWithZone:(NSZone *)zone
 {

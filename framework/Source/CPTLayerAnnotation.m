@@ -67,6 +67,30 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeConditionalObject:self.anchorLayer forKey:@"CPTLayerAnnotation.anchorLayer"];
+	[coder encodeObject:self.xConstrainedPosition forKey:@"CPTLayerAnnotation.xConstrainedPosition"];
+	[coder encodeObject:self.yConstrainedPosition forKey:@"CPTLayerAnnotation.yConstrainedPosition"];
+	[coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		anchorLayer = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
+		xConstrainedPosition = [[coder decodeObjectForKey:@"CPTLayerAnnotation.xConstrainedPosition"] retain];
+		yConstrainedPosition = [[coder decodeObjectForKey:@"CPTLayerAnnotation.yConstrainedPosition"] retain];
+		rectAnchor = [coder decodeIntegerForKey:@"CPTLayerAnnotation.rectAnchor"];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Layout
 
 -(void)positionContentLayer

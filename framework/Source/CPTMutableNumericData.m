@@ -168,9 +168,9 @@
         [encoder encodeObject:self.data forKey:@"data"];
         
 		CPTNumericDataType selfDataType = self.dataType;
-		[encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"dataType.dataTypeFormat"];
-        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"dataType.sampleBytes"];
-        [encoder encodeInteger:selfDataType.byteOrder forKey:@"dataType.byteOrder"];
+		[encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTMutableNumericData.dataType.dataTypeFormat"];
+        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"CPTMutableNumericData.dataType.sampleBytes"];
+        [encoder encodeInteger:selfDataType.byteOrder forKey:@"CPTMutableNumericData.dataType.byteOrder"];
         
         [encoder encodeObject:self.shape forKey:@"shape"];
     }
@@ -196,9 +196,9 @@
 		if ( [decoder allowsKeyedCoding] ) {
 			newData = [decoder decodeObjectForKey:@"data"];
 			
-			newDataType = CPTDataType([decoder decodeIntegerForKey:@"dataType.dataTypeFormat"],
-									 [decoder decodeIntegerForKey:@"dataType.sampleBytes"],
-									 [decoder decodeIntegerForKey:@"dataType.byteOrder"]);
+			newDataType = CPTDataType([decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.dataTypeFormat"],
+									 [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.sampleBytes"],
+									 [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.byteOrder"]);
 			
 			shapeArray = [decoder decodeObjectForKey:@"shape"];
 		}

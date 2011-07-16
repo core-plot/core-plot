@@ -84,13 +84,13 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fillGradient forKey:@"fillGradient"];
+	[coder encodeObject:self.fillGradient forKey:@"_CPTFillGradient.fillGradient"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
 	if ( (self = [super init]) ) {
-		fillGradient = [[coder decodeObjectForKey:@"fillGradient"] retain];
+		fillGradient = [[coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"] retain];
 	}
 	return self;
 }

@@ -48,6 +48,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeConditionalObject:self.plotArea forKey:@"CPTGridLineGroup.plotArea"];
+	[coder encodeBool:self.major forKey:@"CPTGridLineGroup.major"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		plotArea = [coder decodeObjectForKey:@"CPTGridLineGroup.plotArea"];
+		major = [coder decodeBoolForKey:@"CPTGridLineGroup.major"];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

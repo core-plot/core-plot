@@ -3,6 +3,7 @@
 #import "NSDecimalNumberExtensions.h"
 #import "CPTUtilities.h"
 #import "CPTDefinitions.h"
+#import "NSCoderExtensions.h"
 
 /** @brief Defines a range of plot data
  **/
@@ -208,15 +209,15 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder 
 {
-    [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.location]];
-    [encoder encodeObject:[NSDecimalNumber decimalNumberWithDecimal:self.length]];
+    [encoder encodeDecimal:self.location forKey:@"CPTPlotRange.location"];
+    [encoder encodeDecimal:self.length forKey:@"CPTPlotRange.length"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder 
 {
     if ( (self = [super init]) ) {
-        self.location = [[decoder decodeObject] decimalValue];
-        self.length = [[decoder decodeObject] decimalValue];
+        self.location = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];
+        self.length = [decoder decodeDecimalForKey:@"CPTPlotRange.length"];
     }
     
     return self;

@@ -46,7 +46,6 @@ typedef enum _CPTGraphLayerType {
 	CPTLayerAnnotation *legendAnnotation;
 	CPTRectAnchor legendAnchor;
 	CGPoint legendDisplacement;
-
 }
 
 /// @name Title

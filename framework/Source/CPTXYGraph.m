@@ -67,6 +67,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
+	[coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		xScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
+		yScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.yScaleType"];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Factory Methods
 
 -(CPTPlotSpace *)newPlotSpace 

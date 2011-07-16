@@ -2,6 +2,7 @@
 
 #import "CPTPlot.h"
 #import "CPTTextStyle.h"
+#import "NSCoderExtensions.h"
 
 /**	@cond */
 @interface CPTLegendEntry()
@@ -75,6 +76,34 @@
 	[textStyle release];
 	
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeConditionalObject:self.plot forKey:@"CPTLegendEntry.plot"];
+	[coder encodeInteger:self.index forKey:@"CPTLegendEntry.index"];
+	[coder encodeInteger:self.row forKey:@"CPTLegendEntry.row"];
+	[coder encodeInteger:self.column forKey:@"CPTLegendEntry.column"];
+	[coder encodeObject:self.title forKey:@"CPTLegendEntry.title"];
+	[coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
+	[coder encodeCPTSize:self.titleSize forKey:@"CPTLegendEntry.titleSize"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		plot = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+		index = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+		row = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+		column = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
+		title = [[coder decodeObjectForKey:@"CPTLegendEntry.title"] retain];
+		textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
+		titleSize = [coder decodeCPTSizeForKey:@"CPTLegendEntry.titleSize"];
+	}
+    return self;
 }
 
 #pragma mark -

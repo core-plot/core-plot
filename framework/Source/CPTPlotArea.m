@@ -176,6 +176,45 @@ static const int kCPTNumberOfLayers = 6;	// number of primary layers to arrange
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.minorGridLineGroup forKey:@"CPTPlotArea.minorGridLineGroup"];
+	[coder encodeObject:self.majorGridLineGroup forKey:@"CPTPlotArea.majorGridLineGroup"];
+	[coder encodeObject:self.axisSet forKey:@"CPTPlotArea.axisSet"];
+	[coder encodeObject:self.plotGroup forKey:@"CPTPlotArea.plotGroup"];
+	[coder encodeObject:self.axisLabelGroup forKey:@"CPTPlotArea.axisLabelGroup"];
+	[coder encodeObject:self.axisTitleGroup forKey:@"CPTPlotArea.axisTitleGroup"];
+	[coder encodeObject:self.fill forKey:@"CPTPlotArea.fill"];
+	[coder encodeObject:self.topDownLayerOrder forKey:@"CPTPlotArea.topDownLayerOrder"];
+
+	// No need to archive these properties:
+	// bottomUpLayerOrder
+	// updatingLayers
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		minorGridLineGroup = [[coder decodeObjectForKey:@"CPTPlotArea.minorGridLineGroup"] retain];
+		majorGridLineGroup = [[coder decodeObjectForKey:@"CPTPlotArea.majorGridLineGroup"] retain];
+		axisSet = [[coder decodeObjectForKey:@"CPTPlotArea.axisSet"] retain];
+		plotGroup = [[coder decodeObjectForKey:@"CPTPlotArea.plotGroup"] retain];
+		axisLabelGroup = [[coder decodeObjectForKey:@"CPTPlotArea.axisLabelGroup"] retain];
+		axisTitleGroup = [[coder decodeObjectForKey:@"CPTPlotArea.axisTitleGroup"] retain];
+		fill = [[coder decodeObjectForKey:@"CPTPlotArea.fill"] copy];
+		topDownLayerOrder = [[coder decodeObjectForKey:@"CPTPlotArea.topDownLayerOrder"] retain];
+
+		bottomUpLayerOrder = malloc(kCPTNumberOfLayers * sizeof(CPTGraphLayerType));
+		[self updateLayerOrder];
+}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)context

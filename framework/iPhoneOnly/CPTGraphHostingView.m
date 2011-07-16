@@ -84,6 +84,36 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeBool:self.collapsesLayers forKey:@"CPTGraphHostingView.collapsesLayers"];
+	[coder encodeObject:self.hostedGraph forKey:@"CPTGraphHostingView.hostedGraph"];
+	[coder encodeBool:self.allowPinchScaling forKey:@"CPTGraphHostingView.allowPinchScaling"];
+
+	// No need to archive these properties:
+	// pinchGestureRecognizer
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		collapsesLayers = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
+		hostedGraph = nil;
+		self.hostedGraph = [[coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"] retain]; // setup layers
+
+		allowPinchScaling = NO;
+		pinchGestureRecognizer = nil;
+		
+		self.allowPinchScaling = [coder decodeBoolForKey:@"CPTGraphHostingView.allowPinchScaling"]; // set gesture recognizer if needed
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Touch handling
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

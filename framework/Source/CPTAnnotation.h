@@ -4,7 +4,7 @@
 @class CPTAnnotationHostLayer;
 @class CPTLayer;
 
-@interface CPTAnnotation : NSObject {
+@interface CPTAnnotation : NSObject <NSCoding> {
 @private
 	__weak CPTAnnotationHostLayer *annotationHostLayer;
 	CPTLayer *contentLayer;

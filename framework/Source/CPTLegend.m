@@ -6,6 +6,7 @@
 #import "CPTPlot.h"
 #import "CPTTextStyle.h"
 #import "CPTUtilities.h"
+#import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
 NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedrawForPlotNotification";
@@ -287,6 +288,60 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	[columnWidthsThatFit release];
 	
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeObject:self.plots forKey:@"CPTLegend.plots"];
+	[coder encodeObject:self.legendEntries forKey:@"CPTLegend.legendEntries"];
+	[coder encodeBool:self.layoutChanged forKey:@"CPTLegend.layoutChanged"];
+	[coder encodeObject:self.textStyle forKey:@"CPTLegend.textStyle"];
+	[coder encodeCPTSize:self.swatchSize forKey:@"CPTLegend.swatchSize"];
+	[coder encodeObject:self.swatchBorderLineStyle forKey:@"CPTLegend.swatchBorderLineStyle"];
+	[coder encodeCGFloat:self.swatchCornerRadius forKey:@"CPTLegend.swatchCornerRadius"];
+	[coder encodeObject:self.swatchFill forKey:@"CPTLegend.swatchFill"];
+	[coder encodeInteger:self.numberOfRows forKey:@"CPTLegend.numberOfRows"];
+	[coder encodeInteger:self.numberOfColumns forKey:@"CPTLegend.numberOfColumns"];
+	[coder encodeBool:self.equalRows forKey:@"CPTLegend.equalRows"];
+	[coder encodeBool:self.equalColumns forKey:@"CPTLegend.equalColumns"];
+	[coder encodeObject:self.rowHeights forKey:@"CPTLegend.rowHeights"];
+	[coder encodeObject:self.rowHeightsThatFit forKey:@"CPTLegend.rowHeightsThatFit"];
+	[coder encodeObject:self.columnWidths forKey:@"CPTLegend.columnWidths"];
+	[coder encodeObject:self.columnWidthsThatFit forKey:@"CPTLegend.columnWidthsThatFit"];
+	[coder encodeCGFloat:self.columnMargin forKey:@"CPTLegend.columnMargin"];
+	[coder encodeCGFloat:self.rowMargin forKey:@"CPTLegend.rowMargin"];
+	[coder encodeCGFloat:self.titleOffset forKey:@"CPTLegend.titleOffset"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		plots = [[coder decodeObjectForKey:@"CPTLegend.plots"] mutableCopy];
+		legendEntries = [[coder decodeObjectForKey:@"CPTLegend.legendEntries"] mutableCopy];
+		layoutChanged = [coder decodeBoolForKey:@"CPTLegend.layoutChanged"];
+		textStyle = [[coder decodeObjectForKey:@"CPTLegend.textStyle"] copy];
+		swatchSize = [coder decodeCPTSizeForKey:@"CPTLegend.swatchSize"];
+		swatchBorderLineStyle = [[coder decodeObjectForKey:@"CPTLegend.swatchBorderLineStyle"] copy];
+		swatchCornerRadius = [coder decodeCGFloatForKey:@"CPTLegend.swatchCornerRadius"];
+		swatchFill = [[coder decodeObjectForKey:@"CPTLegend.swatchFill"] copy];
+		numberOfRows = [coder decodeIntegerForKey:@"CPTLegend.numberOfRows"];
+		numberOfColumns = [coder decodeIntegerForKey:@"CPTLegend.numberOfColumns"];
+		equalRows = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
+		equalColumns = [coder decodeBoolForKey:@"CPTLegend.equalColumns"];
+		rowHeights = [[coder decodeObjectForKey:@"CPTLegend.rowHeights"] copy];
+		rowHeightsThatFit = [[coder decodeObjectForKey:@"CPTLegend.rowHeightsThatFit"] retain];
+		columnWidths = [[coder decodeObjectForKey:@"CPTLegend.columnWidths"] copy];
+		columnWidthsThatFit = [[coder decodeObjectForKey:@"CPTLegend.columnWidthsThatFit"] retain];
+		columnMargin = [coder decodeCGFloatForKey:@"CPTLegend.columnMargin"];
+		rowMargin = [coder decodeCGFloatForKey:@"CPTLegend.rowMargin"];
+		titleOffset = [coder decodeCGFloatForKey:@"CPTLegend.titleOffset"];
+	}
+    return self;
 }
 
 #pragma mark -

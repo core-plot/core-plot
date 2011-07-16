@@ -41,6 +41,26 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeConditionalObject:self.axis forKey:@"CPTGridLines.axis"];
+	[coder encodeBool:self.major forKey:@"CPTGridLines.major"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		axis = [coder decodeObjectForKey:@"CPTGridLines.axis"];
+		major = [coder decodeBoolForKey:@"CPTGridLines.major"];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

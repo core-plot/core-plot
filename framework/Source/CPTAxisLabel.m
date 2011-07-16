@@ -4,6 +4,7 @@
 #import "CPTMutableTextStyle.h"
 #import "CPTExceptions.h"
 #import "CPTUtilities.h"
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /**	@brief An axis label.
@@ -82,6 +83,30 @@
 {
 	[contentLayer release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
+	[coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
+	[coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
+	[coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
+	[coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		contentLayer = [[coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"] retain];
+		offset = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
+		rotation = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
+		alignment = [coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
+		tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
+	}
+    return self;
 }
 
 #pragma mark -

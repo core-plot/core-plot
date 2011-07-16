@@ -3,7 +3,7 @@
 
 @class CPTColor;
 
-@interface CPTLineStyle : NSObject <NSCopying, NSMutableCopying> {
+@interface CPTLineStyle : NSObject <NSCoding, NSCopying, NSMutableCopying> {
 	@private
 	CGLineCap lineCap;
 //	CGLineDash lineDash; // We should make a struct to keep this information

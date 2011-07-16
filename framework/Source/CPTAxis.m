@@ -19,6 +19,7 @@
 #import "CPTUtilities.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTUtilities.h"
+#import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"
 
 /**	@cond */
@@ -494,6 +495,114 @@ double niceNum(double x, BOOL round);
 	[mutableBackgroundLimitBands release];
 	
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+	
+	[coder encodeInteger:self.coordinate forKey:@"CPTAxis.coordinate"];
+	[coder encodeObject:self.plotSpace forKey:@"CPTAxis.plotSpace"];
+	[coder encodeObject:self.majorTickLocations forKey:@"CPTAxis.majorTickLocations"];
+	[coder encodeObject:self.minorTickLocations forKey:@"CPTAxis.minorTickLocations"];
+	[coder encodeCGFloat:self.majorTickLength forKey:@"CPTAxis.majorTickLength"];
+	[coder encodeCGFloat:self.minorTickLength forKey:@"CPTAxis.minorTickLength"];
+	[coder encodeCGFloat:self.labelOffset forKey:@"CPTAxis.labelOffset"];
+	[coder encodeCGFloat:self.minorTickLabelOffset forKey:@"CPTAxis.minorTickLabelOffset"];
+	[coder encodeCGFloat:self.labelRotation forKey:@"CPTAxis.labelRotation"];
+	[coder encodeCGFloat:self.minorTickLabelRotation forKey:@"CPTAxis.minorTickLabelRotation"];
+	[coder encodeInteger:self.labelAlignment forKey:@"CPTAxis.labelAlignment"];
+	[coder encodeInteger:self.minorTickLabelAlignment forKey:@"CPTAxis.minorTickLabelAlignment"];
+	[coder encodeObject:self.axisLineStyle forKey:@"CPTAxis.axisLineStyle"];
+	[coder encodeObject:self.majorTickLineStyle forKey:@"CPTAxis.majorTickLineStyle"];
+	[coder encodeObject:self.minorTickLineStyle forKey:@"CPTAxis.minorTickLineStyle"];
+	[coder encodeObject:self.majorGridLineStyle forKey:@"CPTAxis.majorGridLineStyle"];
+	[coder encodeObject:self.minorGridLineStyle forKey:@"CPTAxis.minorGridLineStyle"];
+	[coder encodeDecimal:self.labelingOrigin forKey:@"CPTAxis.labelingOrigin"];
+	[coder encodeDecimal:self.majorIntervalLength forKey:@"CPTAxis.majorIntervalLength"];
+	[coder encodeInteger:self.minorTicksPerInterval forKey:@"CPTAxis.minorTicksPerInterval"];
+	[coder encodeInteger:self.preferredNumberOfMajorTicks forKey:@"CPTAxis.preferredNumberOfMajorTicks"];
+	[coder encodeInteger:self.labelingPolicy forKey:@"CPTAxis.labelingPolicy"];
+	[coder encodeObject:self.labelTextStyle forKey:@"CPTAxis.labelTextStyle"];
+	[coder encodeObject:self.minorTickLabelTextStyle forKey:@"CPTAxis.minorTickLabelTextStyle"];
+	[coder encodeObject:self.titleTextStyle forKey:@"CPTAxis.titleTextStyle"];
+	[coder encodeObject:self.labelFormatter forKey:@"CPTAxis.labelFormatter"];
+	[coder encodeObject:self.minorTickLabelFormatter forKey:@"CPTAxis.minorTickLabelFormatter"];
+	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTAxis.labelFormatterChanged"];
+	[coder encodeObject:self.axisLabels forKey:@"CPTAxis.axisLabels"];
+	[coder encodeObject:self.minorTickAxisLabels forKey:@"CPTAxis.minorTickAxisLabels"];
+	[coder encodeObject:self.axisTitle forKey:@"CPTAxis.axisTitle"];
+	[coder encodeObject:self.title forKey:@"CPTAxis.title"];
+	[coder encodeCGFloat:self.titleOffset forKey:@"CPTAxis.titleOffset"];
+	[coder encodeCGFloat:self.titleRotation forKey:@"CPTAxis.titleRotation"];
+	[coder encodeDecimal:self.titleLocation forKey:@"CPTAxis.titleLocation"];
+	[coder encodeInteger:self.tickDirection forKey:@"CPTAxis.tickDirection"];
+	[coder encodeBool:self.needsRelabel forKey:@"CPTAxis.needsRelabel"];
+	[coder encodeObject:self.labelExclusionRanges forKey:@"CPTAxis.labelExclusionRanges"];
+	[coder encodeObject:self.visibleRange forKey:@"CPTAxis.visibleRange"];
+	[coder encodeObject:self.gridLinesRange forKey:@"CPTAxis.gridLinesRange"];
+	[coder encodeObject:self.alternatingBandFills forKey:@"CPTAxis.alternatingBandFills"];
+	[coder encodeObject:self.mutableBackgroundLimitBands forKey:@"CPTAxis.mutableBackgroundLimitBands"];
+	[coder encodeBool:self.separateLayers forKey:@"CPTAxis.separateLayers"];
+	[coder encodeConditionalObject:self.plotArea forKey:@"CPTAxis.plotArea"];
+	[coder encodeConditionalObject:self.minorGridLines forKey:@"CPTAxis.minorGridLines"];
+	[coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		coordinate = [coder decodeIntegerForKey:@"CPTAxis.coordinate"];
+		plotSpace = [[coder decodeObjectForKey:@"CPTAxis.plotSpace"] retain];
+		majorTickLocations = [[coder decodeObjectForKey:@"CPTAxis.majorTickLocations"] retain];
+		minorTickLocations = [[coder decodeObjectForKey:@"CPTAxis.minorTickLocations"] retain];
+		majorTickLength = [coder decodeCGFloatForKey:@"CPTAxis.majorTickLength"];
+		minorTickLength = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLength"];
+		labelOffset = [coder decodeCGFloatForKey:@"CPTAxis.labelOffset"];
+		minorTickLabelOffset = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelOffset"];
+		labelRotation = [coder decodeCGFloatForKey:@"CPTAxis.labelRotation"];
+		minorTickLabelRotation = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelRotation"];
+		labelAlignment = [coder decodeIntegerForKey:@"CPTAxis.labelAlignment"];
+		minorTickLabelAlignment = [coder decodeIntegerForKey:@"CPTAxis.minorTickLabelAlignment"];
+		axisLineStyle = [[coder decodeObjectForKey:@"CPTAxis.axisLineStyle"] copy];
+		majorTickLineStyle = [[coder decodeObjectForKey:@"CPTAxis.majorTickLineStyle"] copy];
+		minorTickLineStyle = [[coder decodeObjectForKey:@"CPTAxis.minorTickLineStyle"] copy];
+		majorGridLineStyle = [[coder decodeObjectForKey:@"CPTAxis.majorGridLineStyle"] copy];
+		minorGridLineStyle = [[coder decodeObjectForKey:@"CPTAxis.minorGridLineStyle"] copy];
+		labelingOrigin = [coder decodeDecimalForKey:@"CPTAxis.labelingOrigin"];
+		majorIntervalLength = [coder decodeDecimalForKey:@"CPTAxis.majorIntervalLength"];
+		minorTicksPerInterval = [coder decodeIntegerForKey:@"CPTAxis.minorTicksPerInterval"];
+		preferredNumberOfMajorTicks = [coder decodeIntegerForKey:@"CPTAxis.preferredNumberOfMajorTicks"];
+		labelingPolicy = [coder decodeIntegerForKey:@"CPTAxis.labelingPolicy"];
+		labelTextStyle = [[coder decodeObjectForKey:@"CPTAxis.labelTextStyle"] copy];
+		minorTickLabelTextStyle = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelTextStyle"] copy];
+		titleTextStyle = [[coder decodeObjectForKey:@"CPTAxis.titleTextStyle"] copy];
+		labelFormatter = [[coder decodeObjectForKey:@"CPTAxis.labelFormatter"] retain];
+		minorTickLabelFormatter = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelFormatter"] retain];
+		labelFormatterChanged = [coder decodeBoolForKey:@"CPTAxis.labelFormatterChanged"];
+		axisLabels = [[coder decodeObjectForKey:@"CPTAxis.axisLabels"] retain];
+		minorTickAxisLabels = [[coder decodeObjectForKey:@"CPTAxis.minorTickAxisLabels"] retain];
+		axisTitle = [[coder decodeObjectForKey:@"CPTAxis.axisTitle"] retain];
+		title = [[coder decodeObjectForKey:@"CPTAxis.title"] copy];
+		titleOffset = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
+		titleRotation = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
+		titleLocation = [coder decodeDecimalForKey:@"CPTAxis.titleLocation"];
+		tickDirection = [coder decodeIntegerForKey:@"CPTAxis.tickDirection"];
+		needsRelabel = [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
+		labelExclusionRanges = [[coder decodeObjectForKey:@"CPTAxis.labelExclusionRanges"] retain];
+		visibleRange = [[coder decodeObjectForKey:@"CPTAxis.visibleRange"] copy];
+		gridLinesRange = [[coder decodeObjectForKey:@"CPTAxis.gridLinesRange"] copy];
+		alternatingBandFills = [[coder decodeObjectForKey:@"CPTAxis.alternatingBandFills"] copy];
+		mutableBackgroundLimitBands = [[coder decodeObjectForKey:@"CPTAxis.mutableBackgroundLimitBands"] mutableCopy];
+		separateLayers = [coder decodeBoolForKey:@"CPTAxis.separateLayers"];
+		plotArea = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
+		minorGridLines = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
+		majorGridLines = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
+	}
+    return self;
 }
 
 #pragma mark -

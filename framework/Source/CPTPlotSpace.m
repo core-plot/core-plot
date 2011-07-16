@@ -56,6 +56,30 @@ NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotS
 }
 
 #pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeConditionalObject:self.graph forKey:@"CPTPlotSpace.graph"];
+	[coder encodeObject:self.identifier forKey:@"CPTPlotSpace.identifier"];
+	if ( [self.delegate conformsToProtocol:@protocol(NSCoding)] ) {
+		[coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
+	}
+	[coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		graph = [coder decodeObjectForKey:@"CPTPlotSpace.graph"];
+		identifier = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
+		delegate = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
+		allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
+	}
+    return self;
+}
+
+#pragma mark -
 #pragma mark Responder Chain and User interaction
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.

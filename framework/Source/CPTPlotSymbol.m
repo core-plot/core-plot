@@ -2,6 +2,7 @@
 #import "CPTLineStyle.h"
 #import "CPTFill.h"
 #import "CPTPlotSymbol.h"
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /**	@cond */
@@ -93,6 +94,39 @@
 	CGPathRelease(customSymbolPath);
 	CGLayerRelease(cachedLayer);
 	[super finalize];
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeCPTSize:self.size forKey:@"CPTPlotSymbol.size"];
+	[coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
+	[coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
+	[coder encodeObject:self.fill forKey:@"CPTPlotSymbol.fill"];
+	[coder encodeCGPath:self.customSymbolPath forKey:@"CPTPlotSymbol.customSymbolPath"];
+	[coder encodeBool:self.usesEvenOddClipRule forKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
+	
+	// No need to archive these properties:
+	// cachedSymbolPath
+	// cachedLayer
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super init]) ) {
+		size = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
+		symbolType = [coder decodeIntegerForKey:@"CPTPlotSymbol.symbolType"];
+		lineStyle = [[coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"] retain];
+		fill = [[coder decodeObjectForKey:@"CPTPlotSymbol.fill"] retain];
+		customSymbolPath = [coder newCGPathDecodeForKey:@"CPTPlotSymbol.customSymbolPath"];
+		usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
+		
+		cachedSymbolPath = NULL;
+		cachedLayer = NULL;
+	}
+    return self;
 }
 
 #pragma mark -

@@ -11,6 +11,7 @@
 #import "CPTUtilities.h"
 #import "CPTTextLayer.h"
 #import "CPTLineStyle.h"
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
@@ -155,6 +156,33 @@ static const CGFloat colorLookupTable[10][3] =
     [overlayFill release];
 	
 	[super dealloc];
+}
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[super encodeWithCoder:coder];
+
+	[coder encodeCGFloat:self.pieRadius forKey:@"CPTPieChart.pieRadius"];
+	[coder encodeCGFloat:self.pieInnerRadius forKey:@"CPTPieChart.pieInnerRadius"];
+	[coder encodeCGFloat:self.startAngle forKey:@"CPTPieChart.startAngle"];
+	[coder encodeInteger:self.sliceDirection forKey:@"CPTPieChart.sliceDirection"];
+	[coder encodeCPTPoint:self.centerAnchor forKey:@"CPTPieChart.centerAnchor"];
+	[coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
+	[coder encodeObject:self.overlayFill forKey:@"CPTPieChart.overlayFill"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+    if ( (self = [super initWithCoder:coder]) ) {
+		pieRadius = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
+		pieInnerRadius = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
+		startAngle = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
+		sliceDirection = [coder decodeIntegerForKey:@"CPTPieChart.sliceDirection"];
+		centerAnchor = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
+		borderLineStyle = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
+		overlayFill = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
+	}
+    return self;
 }
 
 #pragma mark -

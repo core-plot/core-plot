@@ -89,13 +89,13 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fillImage forKey:@"fillImage"];
+	[coder encodeObject:self.fillImage forKey:@"_CPTFillImage.fillImage"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-		fillImage = [[coder decodeObjectForKey:@"fillImage"] retain];
+		fillImage = [[coder decodeObjectForKey:@"_CPTFillImage.fillImage"] retain];
 	}
     return self;
 }

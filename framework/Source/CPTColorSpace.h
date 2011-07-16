@@ -1,8 +1,7 @@
-
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface CPTColorSpace : NSObject {
+@interface CPTColorSpace : NSObject <NSCoding> {
 	@private
     CGColorSpaceRef cgColorSpace;
 }
