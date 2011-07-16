@@ -132,20 +132,18 @@
 
 // There's a UIImage function to scale and orient an existing image,
 // but this will also work in pre-4.0 iOS
-- (CGImageRef)scaleCGImage:(CGImageRef)image toSize:(CGSize)size
+- (CGImageRef)newCGImageFromImage:(CGImageRef)image scaledToSize:(CGSize)size
 {
-    CGColorSpaceRef colorspace = CGImageGetColorSpace(image);
     CGContextRef c = CGBitmapContextCreate(NULL,
                                            size.width,
                                            size.height,
                                            CGImageGetBitsPerComponent(image),
                                            CGImageGetBytesPerRow(image),
-                                           colorspace,
+                                           CGImageGetColorSpace(image),
                                            CGImageGetAlphaInfo(image));
-    CGColorSpaceRelease(colorspace);
 
-    if (c == NULL) {
-        return nil;
+    if ( c == NULL ) {
+        return NULL;
     }
 
     CGContextDrawImage(c, CGRectMake(0, 0, size.width, size.height), image);
@@ -175,8 +173,9 @@
         
             // rescale graph
             UIImage* bigImage = UIGraphicsGetImageFromCurrentImageContext();
-            cachedImage = [[UIImage imageWithCGImage:[self scaleCGImage:[bigImage CGImage] toSize:CGSizeMake(100.0f, 75.0f)]] retain];
-
+			CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake(100.0f, 75.0f)];
+            cachedImage = [[UIImage imageWithCGImage:scaledImage] retain];
+			CGImageRelease(scaledImage);
         UIGraphicsEndImageContext();
 
         [imageView release];
