@@ -76,7 +76,6 @@
 
 /// @name Layout
 /// @{
-+(CGFloat)defaultZPosition;
 -(void)pixelAlign;
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom;
 ///	@}

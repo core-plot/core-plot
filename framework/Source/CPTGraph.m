@@ -501,14 +501,6 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 }
 
 #pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionGraph;
-}
-
-#pragma mark -
 #pragma mark Legend
 
 -(CPTLegend *)legend

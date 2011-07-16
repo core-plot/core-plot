@@ -238,11 +238,6 @@ static const int kCPTNumberOfLayers = 6;	// number of primary layers to arrange
 #pragma mark -
 #pragma mark Layout
 
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionPlotArea;
-}
-
 -(void)layoutSublayers
 {
 	[super layoutSublayers];

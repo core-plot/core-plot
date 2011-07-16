@@ -119,7 +119,6 @@
  *	- needsDisplayOnBoundsChange = NO
  *	- opaque = NO
  *	- masksToBounds = NO
- *	- zPosition = defaultZPosition
  *	- padding = 0 on all four sides
  *	- Default animations for changes in position, bounds, and sublayers are turned off.
  *
@@ -145,7 +144,6 @@
 		self.needsDisplayOnBoundsChange = NO;
 		self.opaque = NO;
 		self.masksToBounds = NO;
-		self.zPosition = [self.class defaultZPosition];
         
         // Screen scaling
         if ( [self respondsToSelector:@selector(setContentsScale:)] ) {
@@ -486,14 +484,6 @@
         paddingBottom = newPadding;
         [self setNeedsLayout];
     }
-}
-
-/**	@brief The default z-position for the layer.
- *	@return The z-position.
- **/
-+(CGFloat)defaultZPosition 
-{
-	return 0.0;
 }
 
 -(void)layoutSublayers

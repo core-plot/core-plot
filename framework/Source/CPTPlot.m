@@ -296,11 +296,6 @@
 #pragma mark -
 #pragma mark Layout
 
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionPlot;
-}
-
 -(void)layoutSublayers 
 {
 	[self relabel];

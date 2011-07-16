@@ -74,14 +74,6 @@
 }
 
 #pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionPlotGroup;
-}
-
-#pragma mark -
 #pragma mark Drawing
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext

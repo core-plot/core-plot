@@ -85,14 +85,6 @@
 }
 
 #pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionAxisSet;
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 -(void)setAxes:(NSArray *)newAxes 

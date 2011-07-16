@@ -86,14 +86,6 @@
 }
 
 #pragma mark -
-#pragma mark Layout
-
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionPlotAreaFrame;
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 -(void)setPlotArea:(CPTPlotArea *)newPlotArea

@@ -1184,11 +1184,6 @@ double niceNum(double x, BOOL round)
 #pragma mark -
 #pragma mark Layout
 
-+(CGFloat)defaultZPosition 
-{
-	return CPTDefaultZPositionAxis;
-}
-
 -(void)layoutSublayers
 {
 	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);

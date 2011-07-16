@@ -103,15 +103,3 @@ typedef enum _CPTAlignment {
     CPTAlignmentMiddle,			///< Align vertically to the middle.
     CPTAlignmentBottom			///< Align vertically to the bottom.
 } CPTAlignment;
-
-/// @name Default Z Positions
-/// @{
-extern const CGFloat CPTDefaultZPositionAxis;
-extern const CGFloat CPTDefaultZPositionAxisSet;
-extern const CGFloat CPTDefaultZPositionGraph;
-extern const CGFloat CPTDefaultZPositionPlot;
-extern const CGFloat CPTDefaultZPositionPlotArea; 
-extern const CGFloat CPTDefaultZPositionPlotAreaFrame; 
-extern const CGFloat CPTDefaultZPositionPlotGroup; 
-/// @}
-
