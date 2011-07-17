@@ -1,4 +1,3 @@
-
 #import "CPTPlainBlackTheme.h"
 #import "CPTXYGraph.h"
 #import "CPTColor.h"
@@ -14,14 +13,24 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
+// theme name
+NSString * const kCPTPlainBlackTheme = @"Plain Black";	///< Plain black theme.
+
 /** @brief Creates a CPTXYGraph instance formatted with black backgrounds and white lines.
  **/
 @implementation CPTPlainBlackTheme
 
-+(NSString *)defaultName 
++(void)load
+{
+	[self registerTheme:self];
+}
+
++(NSString *)name 
 {
 	return kCPTPlainBlackTheme;
 }
+
+#pragma mark -
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph 
 {

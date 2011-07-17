@@ -13,6 +13,9 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
+// theme name
+NSString * const kCPTDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
+
 /**	@cond */
 @interface CPTDarkGradientTheme ()
 
@@ -27,10 +30,17 @@
  **/
 @implementation CPTDarkGradientTheme
 
-+(NSString *)defaultName 
++(void)load
+{
+	[self registerTheme:self];
+}
+
++(NSString *)name 
 {
 	return kCPTDarkGradientTheme;
 }
+
+#pragma mark -
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle
 {

@@ -5,32 +5,19 @@
 @class CPTAxisSet;
 @class CPTMutableTextStyle;
 
-/// @file
-
-/// @name Theme Names
-/// @{
-extern NSString * const kCPTDarkGradientTheme;
-extern NSString * const kCPTPlainWhiteTheme;
-extern NSString * const kCPTPlainBlackTheme;
-extern NSString * const kCPTSlateTheme;
-extern NSString * const kCPTStocksTheme;
-/// @}
-
 @interface CPTTheme : NSObject <NSCoding> {
 	@private
-	NSString *name;
 	Class graphClass;
 }
 
-@property (nonatomic, readwrite, copy) NSString *name;
 @property (nonatomic, readwrite, retain) Class graphClass;
 
 /// @name Theme Management
 /// @{
++(void)registerTheme:(Class)themeClass;
 +(NSArray *)themeClasses;
 +(CPTTheme *)themeNamed:(NSString *)theme;
-+(void)addTheme:(CPTTheme *)newTheme;
-+(NSString *)defaultName;
++(NSString *)name;
 /// @}
 
 /// @name Theme Usage

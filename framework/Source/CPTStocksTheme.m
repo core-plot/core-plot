@@ -1,4 +1,3 @@
-
 #import "CPTStocksTheme.h"
 #import "CPTXYGraph.h"
 #import "CPTColor.h"
@@ -14,14 +13,24 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
+// theme name
+NSString * const kCPTStocksTheme = @"Stocks";	///< Stocks theme.
+
 /** @brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.
  **/
 @implementation CPTStocksTheme
 
-+(NSString *)defaultName 
++(void)load
+{
+	[self registerTheme:self];
+}
+
++(NSString *)name 
 {
 	return kCPTStocksTheme;
 }
+
+#pragma mark -
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph 
 {	
