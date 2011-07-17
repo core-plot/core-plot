@@ -19,6 +19,7 @@
 -(CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(CGContextRef)context;
 
 -(CPTGradientElement *)elementAtIndex:(NSUInteger)index;
+-(NSUInteger)elementCount;
 
 -(CPTGradientElement)removeElementAtIndex:(NSUInteger)index;
 -(CPTGradientElement)removeElementAtPosition:(CGFloat)position;
@@ -103,6 +104,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	[super finalize];
 }
 
+#pragma mark -
+#pragma mark NSCopying
+
 -(id)copyWithZone:(NSZone *)zone
 {
     CPTGradient *copy = [[[self class] allocWithZone:zone] init];
@@ -120,17 +124,20 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return copy;
 }
 
+#pragma mark -
+#pragma mark NSCoding
+
 -(void)encodeWithCoder:(NSCoder *)coder
 {
     if ( [coder allowsKeyedCoding] ) {
         NSUInteger count = 0;
         CPTGradientElement *currentElement = elementList;
         while (currentElement != NULL) {
-            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.red)];
-            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.green)];
-            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.blue)];
-            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->color.alpha)];
-            [coder encodeValueOfObjCType:@encode(double) at:&(currentElement->position)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
             
             count++;
             currentElement = currentElement->nextElement;
@@ -158,11 +165,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 		while (count != 0) {
 			CPTGradientElement newElement;
 			
-			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.red)];
-			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.green)];
-			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.blue)];
-			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.color.alpha)];
-			[coder decodeValueOfObjCType:@encode(double) at:&(newElement.position)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.red)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.green)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.blue)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.alpha)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.position)];
 			
 			count--;
 			[self addElement:&newElement];
@@ -807,6 +814,87 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 }
 
 #pragma mark -
+#pragma mark Gradient comparison
+
+-(BOOL)isEqual:(id)object
+{
+	if ( self == object ) {
+		return YES;
+	}
+	else if ([object isKindOfClass:[self class]]) {
+		CPTGradient *otherGradient = (CPTGradient *)object;
+		
+		BOOL equalGradients =	(self.blendingMode == otherGradient.blendingMode) &&
+								(self.angle == otherGradient.angle) &&
+								(self.gradientType == otherGradient.gradientType);
+		
+		if ( equalGradients ) {
+			equalGradients = ([self elementCount] == [otherGradient elementCount]);
+		}
+		
+		if ( equalGradients ) {
+			CPTGradientElement *selfCurrentElement = self->elementList;
+			CPTGradientElement *otherCurrentElement = otherGradient->elementList;
+			
+			while ( selfCurrentElement && otherCurrentElement ) {
+				if ( selfCurrentElement->color.red != otherCurrentElement->color.red ) {
+					equalGradients = NO;
+					break;
+				}
+				if ( selfCurrentElement->color.green != otherCurrentElement->color.green ) {
+					equalGradients = NO;
+					break;
+				}
+				if ( selfCurrentElement->color.blue != otherCurrentElement->color.blue ) {
+					equalGradients = NO;
+					break;
+				}
+				if ( selfCurrentElement->color.alpha != otherCurrentElement->color.alpha ) {
+					equalGradients = NO;
+					break;
+				}
+				if ( selfCurrentElement->position != otherCurrentElement->position ) {
+					equalGradients = NO;
+					break;
+				}
+				
+				selfCurrentElement = selfCurrentElement->nextElement;
+				otherCurrentElement = otherCurrentElement->nextElement;
+			}
+		}
+		
+		return equalGradients;
+	}
+	else {
+		return NO;
+	}
+}
+
+-(NSUInteger)hash
+{
+	// Equal objects must hash the same.
+	CGFloat theHash = 0.0;
+	CGFloat multiplier = 256.0;
+	
+	if ( elementList ) {
+		CPTRGBAColor color = elementList->color;
+
+		theHash += multiplier * color.red;
+		multiplier *= 256.0;
+		theHash += multiplier * color.green;
+		multiplier *= 256.0;
+		theHash += multiplier * color.blue;
+		multiplier *= 256.0;
+		theHash += multiplier * color.alpha;
+		
+		return (NSUInteger)theHash;
+	}
+	else {
+		return self.blendingMode + self.gradientType;
+	}
+}
+
+#pragma mark -
 #pragma mark Private Methods
 
 -(CGShadingRef)newAxialGradientInRect:(CGRect)rect
@@ -1068,6 +1156,19 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
 	
     return NULL;
+}
+
+-(NSUInteger)elementCount
+{
+    NSUInteger count = 0;
+    CPTGradientElement *currentElement = elementList;
+	
+    while ( currentElement ) {
+        count++;
+        currentElement = currentElement->nextElement;
+    }
+	
+    return count;
 }
 
 #pragma mark -
