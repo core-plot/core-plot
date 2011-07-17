@@ -297,7 +297,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     barPlot.barOffset = CPTDecimalFromFloat(-0.25f);
     barPlot.identifier = barPlot1;
 	barPlot.plotRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(7.0)];
-    barPlot.barLabelTextStyle = whiteTextStyle;
+    barPlot.labelTextStyle = whiteTextStyle;
     [graph addPlot:barPlot toPlotSpace:barPlotSpace];
     
     // Second bar plot
