@@ -118,7 +118,7 @@
 		return [self initWithImage:fill];
 	}
 	
-	return nil;
+	return self;
 }
 
 @end
