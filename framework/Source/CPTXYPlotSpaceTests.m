@@ -226,4 +226,33 @@
 	STAssertTrue([plotSpace.yRange isEqualToRange:expectedRangeY], errMessage);
 }
 
+#pragma mark -
+#pragma mark NSCoding
+
+-(void)testKeyedArchivingRoundTrip
+{
+	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+    plotSpace.globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) 
+														  length:CPTDecimalFromDouble(10.0)];
+    plotSpace.globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(10.0) 
+														  length:CPTDecimalFromDouble(-10.0)];
+	
+	CPTXYPlotSpace *newPlotSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:plotSpace]];
+	
+	NSString *errMessage = [NSString stringWithFormat:@"xRange was %@, expected %@", plotSpace.xRange, newPlotSpace.xRange, nil];
+	STAssertTrue([plotSpace.xRange isEqualToRange:newPlotSpace.xRange], errMessage);
+	
+	errMessage = [NSString stringWithFormat:@"yRange was %@, expected %@", plotSpace.yRange, newPlotSpace.yRange, nil];
+	STAssertTrue([plotSpace.yRange isEqualToRange:newPlotSpace.yRange], errMessage);
+	
+	errMessage = [NSString stringWithFormat:@"globalXRange was %@, expected %@", plotSpace.globalXRange, newPlotSpace.globalXRange, nil];
+	STAssertTrue([plotSpace.globalXRange isEqualToRange:newPlotSpace.globalXRange], errMessage);
+	
+	errMessage = [NSString stringWithFormat:@"globalYRange was %@, expected %@", plotSpace.globalYRange, newPlotSpace.globalYRange, nil];
+	STAssertTrue([plotSpace.globalYRange isEqualToRange:newPlotSpace.globalYRange], errMessage);
+	
+	STAssertEquals(plotSpace.xScaleType, newPlotSpace.xScaleType, @"xScaleType not equal");
+	STAssertEquals(plotSpace.yScaleType, newPlotSpace.yScaleType, @"yScaleType not equal");
+}
+
 @end

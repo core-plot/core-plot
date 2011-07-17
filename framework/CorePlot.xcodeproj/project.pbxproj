@@ -193,6 +193,14 @@
 		C3D68A611220B2C800EB4863 /* CPTDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */; };
 		C3D68A621220B2C900EB4863 /* CPTDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */; };
 		C3D68A631220B2CC00EB4863 /* CPTThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPTThemeTests.m */; };
+		C3D979A413D2136700145DFF /* CPTPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979A313D2136600145DFF /* CPTPlotSpaceTests.m */; };
+		C3D979A913D2328000145DFF /* CPTTimeFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979A813D2328000145DFF /* CPTTimeFormatterTests.m */; };
+		C3D979AC13D2332500145DFF /* CPTColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979AB13D2332500145DFF /* CPTColorTests.m */; };
+		C3D979AF13D2337E00145DFF /* CPTColorSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979AE13D2337E00145DFF /* CPTColorSpaceTests.m */; };
+		C3D979B213D233C100145DFF /* CPTGradientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979B113D233C000145DFF /* CPTGradientTests.m */; };
+		C3D979B513D2340000145DFF /* CPTImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979B413D2340000145DFF /* CPTImageTests.m */; };
+		C3D979B813D2344100145DFF /* CPTLineStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979B713D2344000145DFF /* CPTLineStyleTests.m */; };
+		C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979BA13D2347300145DFF /* CPTFillTests.m */; };
 		C3DA34CC107AD7710051DA02 /* CPTXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* CPTXYTheme.m */; };
 		C3DA34CD107AD7710051DA02 /* CPTXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* CPTXYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3F31DE91045EB470058520A /* CPTPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31DE71045EB470058520A /* CPTPlotGroup.m */; };
@@ -408,6 +416,22 @@
 		C3CB561B122A9E9F00FBFB61 /* CPTMutableNumericDataTypeConversionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTMutableNumericDataTypeConversionTests.m; sourceTree = "<group>"; };
 		C3D68B83122201A700EB4863 /* CPTNumericDataTypeConversionPerformanceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTNumericDataTypeConversionPerformanceTests.h; sourceTree = "<group>"; };
 		C3D68B84122201A700EB4863 /* CPTNumericDataTypeConversionPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTNumericDataTypeConversionPerformanceTests.m; sourceTree = "<group>"; };
+		C3D979A213D2136600145DFF /* CPTPlotSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotSpaceTests.h; sourceTree = "<group>"; };
+		C3D979A313D2136600145DFF /* CPTPlotSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotSpaceTests.m; sourceTree = "<group>"; };
+		C3D979A713D2328000145DFF /* CPTTimeFormatterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTimeFormatterTests.h; sourceTree = "<group>"; };
+		C3D979A813D2328000145DFF /* CPTTimeFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTimeFormatterTests.m; sourceTree = "<group>"; };
+		C3D979AA13D2332500145DFF /* CPTColorTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTColorTests.h; sourceTree = "<group>"; };
+		C3D979AB13D2332500145DFF /* CPTColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTColorTests.m; sourceTree = "<group>"; };
+		C3D979AD13D2337E00145DFF /* CPTColorSpaceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTColorSpaceTests.h; sourceTree = "<group>"; };
+		C3D979AE13D2337E00145DFF /* CPTColorSpaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTColorSpaceTests.m; sourceTree = "<group>"; };
+		C3D979B013D233C000145DFF /* CPTGradientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGradientTests.h; sourceTree = "<group>"; };
+		C3D979B113D233C000145DFF /* CPTGradientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTGradientTests.m; sourceTree = "<group>"; };
+		C3D979B313D2340000145DFF /* CPTImageTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTImageTests.h; sourceTree = "<group>"; };
+		C3D979B413D2340000145DFF /* CPTImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTImageTests.m; sourceTree = "<group>"; };
+		C3D979B613D2344000145DFF /* CPTLineStyleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLineStyleTests.h; sourceTree = "<group>"; };
+		C3D979B713D2344000145DFF /* CPTLineStyleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTLineStyleTests.m; sourceTree = "<group>"; };
+		C3D979B913D2347300145DFF /* CPTFillTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTFillTests.h; sourceTree = "<group>"; };
+		C3D979BA13D2347300145DFF /* CPTFillTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTFillTests.m; sourceTree = "<group>"; };
 		C3DA34CA107AD7710051DA02 /* CPTXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTXYTheme.m; sourceTree = "<group>"; };
 		C3DA34CB107AD7710051DA02 /* CPTXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYTheme.h; sourceTree = "<group>"; };
 		C3F31DE71045EB470058520A /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotGroup.m; sourceTree = "<group>"; };
@@ -520,6 +544,8 @@
 		076A776C0FBF0C36003F6D97 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C3D979A213D2136600145DFF /* CPTPlotSpaceTests.h */,
+				C3D979A313D2136600145DFF /* CPTPlotSpaceTests.m */,
 				4C422A620FB1FCD5000CAA43 /* CPTXYPlotSpaceTests.h */,
 				4C422A630FB1FCD5000CAA43 /* CPTXYPlotSpaceTests.m */,
 			);
@@ -580,6 +606,7 @@
 			children = (
 				07A2E6FA102DF47900809BC5 /* CPTTimeFormatter.h */,
 				07A2E6FB102DF47900809BC5 /* CPTTimeFormatter.m */,
+				C3D979A513D2159400145DFF /* Tests */,
 			);
 			name = Formatters;
 			sourceTree = "<group>";
@@ -921,6 +948,7 @@
 				070622300FDF1B250066A6C4 /* CPTPathExtensions.h */,
 				070622310FDF1B250066A6C4 /* CPTPathExtensions.m */,
 				0704A2100FB56B9400A09979 /* Fills */,
+				C3D979A613D215AD00145DFF /* Tests */,
 			);
 			name = Drawing;
 			sourceTree = "<group>";
@@ -994,6 +1022,34 @@
 				C3C032C810B8DEDC003A11B6 /* CPTAxisLabelGroup.m */,
 			);
 			name = Labels;
+			sourceTree = "<group>";
+		};
+		C3D979A513D2159400145DFF /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3D979A713D2328000145DFF /* CPTTimeFormatterTests.h */,
+				C3D979A813D2328000145DFF /* CPTTimeFormatterTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		C3D979A613D215AD00145DFF /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3D979AA13D2332500145DFF /* CPTColorTests.h */,
+				C3D979AB13D2332500145DFF /* CPTColorTests.m */,
+				C3D979AD13D2337E00145DFF /* CPTColorSpaceTests.h */,
+				C3D979AE13D2337E00145DFF /* CPTColorSpaceTests.m */,
+				C3D979B913D2347300145DFF /* CPTFillTests.h */,
+				C3D979BA13D2347300145DFF /* CPTFillTests.m */,
+				C3D979B013D233C000145DFF /* CPTGradientTests.h */,
+				C3D979B113D233C000145DFF /* CPTGradientTests.m */,
+				C3D979B313D2340000145DFF /* CPTImageTests.h */,
+				C3D979B413D2340000145DFF /* CPTImageTests.m */,
+				C3D979B613D2344000145DFF /* CPTLineStyleTests.h */,
+				C3D979B713D2344000145DFF /* CPTLineStyleTests.m */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		E1620CBB100F034700A84E77 /* Tests */ = {
@@ -1239,6 +1295,14 @@
 				C3392A491225FB69008DA6BD /* CPTNumericDataTests.m in Sources */,
 				C3BFFD1112274CB500DE22AC /* CPTNumericDataTypeConversionTests.m in Sources */,
 				C3CB561C122A9E9F00FBFB61 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
+				C3D979A413D2136700145DFF /* CPTPlotSpaceTests.m in Sources */,
+				C3D979A913D2328000145DFF /* CPTTimeFormatterTests.m in Sources */,
+				C3D979AC13D2332500145DFF /* CPTColorTests.m in Sources */,
+				C3D979AF13D2337E00145DFF /* CPTColorSpaceTests.m in Sources */,
+				C3D979B213D233C100145DFF /* CPTGradientTests.m in Sources */,
+				C3D979B513D2340000145DFF /* CPTImageTests.m in Sources */,
+				C3D979B813D2344100145DFF /* CPTLineStyleTests.m in Sources */,
+				C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

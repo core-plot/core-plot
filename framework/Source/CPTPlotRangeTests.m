@@ -350,6 +350,16 @@
 }
 
 #pragma mark -
+#pragma mark NSCoding
+
+-(void)testKeyedArchivingRoundTrip
+{
+	CPTPlotRange *newRange = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self.plotRange]];
+	
+	STAssertTrue([self.plotRange isEqualToRange:newRange], @"Ranges equal");
+}
+
+#pragma mark -
 #pragma mark Private Methods
 
 -(void)checkRangeWithLocation:(double)loc length:(double)len

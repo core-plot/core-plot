@@ -86,9 +86,7 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	self = [super init];
-    
-    if ( self ) {
+    if ( (self = [super init]) ) {
 		self->fontName = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
 		self->fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
 		self->color = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
