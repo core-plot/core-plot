@@ -77,9 +77,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
 #else
-	CFDataRef iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
-	[self encodeObject:(NSData *)iccProfile forKey:key];
-	CFRelease(iccProfile);
+	if ( colorSpace ) {
+		CFDataRef iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
+		[self encodeObject:(NSData *)iccProfile forKey:key];
+		CFRelease(iccProfile);
+	}
 #endif
 }
 
@@ -217,6 +219,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 	CFDataRef providerData = CGDataProviderCopyData(provider);
 	newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
 	[self encodeObject:(NSData *)providerData forKey:newKey];
+	if ( providerData ) {
+		CFRelease(providerData);
+	}
 	[newKey release];
 	
 	const CGFloat * decodeArray = CGImageGetDecode(image);
