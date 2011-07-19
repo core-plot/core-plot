@@ -668,10 +668,6 @@
 
 -(id)mutableCopyWithZone:(NSZone *)zone 
 {
-    if ( NSShouldRetainWithZone(self, zone)) {
-        return [self retain];
-    }
-    
     return [[CPTMutableNumericData allocWithZone:zone] initWithData:self.data
 														  dataType:self.dataType
                                                              shape:self.shape];

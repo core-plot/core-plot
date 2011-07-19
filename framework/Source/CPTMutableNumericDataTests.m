@@ -1,6 +1,7 @@
 #import "CPTMutableNumericData.h"
 #import "CPTMutableNumericDataTests.h"
 #import "CPTNumericData+TypeConversion.h"
+#import "CPTMutableNumericData+TypeConversion.h"
 #import "CPTExceptions.h"
 
 @implementation CPTMutableNumericDataTests
@@ -247,6 +248,19 @@
 	STAssertEqualsWithAccuracy([[fd sampleValue:1] doubleValue], sin(1), 0.01, @"sample value");
 	
 	[fd release];
+}
+
+-(void)testMutableCopy
+{
+	const NSUInteger nElems = 10;
+	CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems*sizeof(float)]
+													 dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder())
+														shape:nil];
+	
+	CPTMutableNumericData *ndCopy = [nd mutableCopy];
+
+	// should be mutable--if not, this will error
+	ndCopy.dataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder());
 }
 
 @end
