@@ -538,7 +538,7 @@
 				[self.cachedData setObject:cachedNumbers forKey:cacheKey];
 			}
 			NSUInteger numberOfRecords = [self.dataSource numberOfRecordsForPlot:self];
-			((NSMutableData *)cachedNumbers.data).length = numberOfRecords * cachedNumbers.sampleBytes;
+			cachedNumbers.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:numberOfRecords]];
 			
 			// Update the cache
 			self.cachedDataCount = numberOfRecords;

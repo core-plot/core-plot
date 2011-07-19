@@ -32,7 +32,7 @@
 @dynamic mutableBytes;
 
 /** @property shape
- *	@brief The shape of the data buffer array.
+ *	@brief The shape of the data buffer array. Set a new shape to change the size of the data buffer.
  *
  *	The shape describes the dimensions of the sample array stored in
  *	the data buffer. Each entry in the shape array represents the
@@ -106,7 +106,7 @@
 	
     data = [newData mutableCopy];
     dataType = newDataType;
-    
+	
     if ( shapeArray == nil ) {
         shape = [[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]] retain];
     }
@@ -131,6 +131,21 @@
 -(void *)mutableBytes 
 {
 	return [(NSMutableData *)self.data mutableBytes];
+}
+
+-(void)setShape:(NSArray *)newShape
+{
+	if ( newShape != shape ) {
+		[shape release];
+		shape = [newShape copy];
+
+		NSUInteger sampleCount = 1;
+        for ( NSNumber *num in shape ) {
+            sampleCount *= [num unsignedIntegerValue];
+        }
+		
+		((NSMutableData *)data).length = sampleCount * self.sampleBytes;
+	}
 }
 
 #pragma mark -

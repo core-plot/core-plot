@@ -247,9 +247,9 @@ static const CGFloat colorLookupTable[10][3] =
 			CPTNumericDataType dataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent());
 			
 			CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-			((NSMutableData *)normalizedSliceValues.data).length = sampleCount * sizeof(double);
+			normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
 			CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-			((NSMutableData *)cumulativeSliceValues.data).length = sampleCount * sizeof(double);
+			cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
 			
 			double cumulativeSum = 0.0;
 			
@@ -286,9 +286,9 @@ static const CGFloat colorLookupTable[10][3] =
 			CPTNumericDataType dataType = CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent());
 			
 			CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-			((NSMutableData *)normalizedSliceValues.data).length = sampleCount * sizeof(NSDecimal);
+			normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
 			CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-			((NSMutableData *)cumulativeSliceValues.data).length = sampleCount * sizeof(NSDecimal);
+			cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
 			
 			NSDecimal cumulativeSum = CPTDecimalFromInteger(0);
 			

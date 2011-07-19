@@ -280,7 +280,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 			locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
 															 dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
 																shape:nil];
-			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(double);
+			locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 			
 			double doublePrecisionDelta = 1.0;
 			if ( indexRange.length > 1 ) {
@@ -299,7 +299,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 			locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
 															 dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())
 																shape:nil];
-			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(NSDecimal);
+			locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 			
 			NSDecimal delta = CPTDecimalFromInteger(1);
 			if ( indexRange.length > 1 ) {
@@ -329,7 +329,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 			locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
 															 dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
 																shape:nil];
-			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(double);
+			locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 			
 			double locationDouble = 0.0;
 			double *dataBytes = (double *)locationData.mutableBytes;
@@ -343,8 +343,8 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 			locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
 															 dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent())
 																shape:nil];
-			((NSMutableData *)locationData.data).length = indexRange.length * sizeof(NSDecimal);
-			
+			locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+
 			NSDecimal locationDecimal = CPTDecimalFromInteger(0);
 			NSDecimal *dataBytes = (NSDecimal *)locationData.mutableBytes;
 			NSDecimal *dataEnd = dataBytes + indexRange.length;
