@@ -10,7 +10,7 @@
 @class CPTTradingRangePlot;
 @class CPTFill;
 
-///	@ingroup plotBindings
+///	@ingroup plotBindingsTradingRangePlot
 /// @{
 extern NSString * const CPTTradingRangePlotBindingXValues;
 extern NSString * const CPTTradingRangePlotBindingOpenValues;

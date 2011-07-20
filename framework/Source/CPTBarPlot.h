@@ -14,7 +14,7 @@
 @class CPTTextLayer;
 @class CPTTextStyle;
 
-///	@ingroup plotBindings
+///	@ingroup plotBindingsBarPlot
 /// @{
 extern NSString * const CPTBarPlotBindingBarLocations;
 extern NSString * const CPTBarPlotBindingBarTips;

@@ -15,6 +15,10 @@
 #import "CPTFill.h"
 #import "NSCoderExtensions.h"
 
+/**	@defgroup plotBindingsScatterPlot Scatter Plot Bindings
+ *	@ingroup plotBindings
+ **/
+
 NSString * const CPTScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPTScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPTScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.

@@ -12,7 +12,7 @@
 @class CPTScatterPlot;
 @class CPTFill;
 
-///	@ingroup plotBindings
+///	@ingroup plotBindingsScatterPlot
 /// @{
 extern NSString * const CPTScatterPlotBindingXValues;
 extern NSString * const CPTScatterPlotBindingYValues;

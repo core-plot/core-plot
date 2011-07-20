@@ -17,6 +17,10 @@
 #import "CPTLegend.h"
 #import "NSCoderExtensions.h"
 
+/**	@defgroup plotBindingsBarPlot Bar Plot Bindings
+ *	@ingroup plotBindings
+ **/
+
 NSString * const CPTBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
 NSString * const CPTBarPlotBindingBarTips = @"barTips";				///< Bar tips.
 NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.

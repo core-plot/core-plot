@@ -15,6 +15,10 @@
 #import "CPTFill.h"
 #import "NSCoderExtensions.h"
 
+/**	@defgroup plotBindingsRangePlot Range Plot Bindings
+ *	@ingroup plotBindings
+ **/
+
 NSString * const CPTRangePlotBindingXValues = @"xValues";		///< X values.
 NSString * const CPTRangePlotBindingYValues = @"yValues";		///< Y values.
 NSString * const CPTRangePlotBindingHighValues = @"highValues";	///< high values.

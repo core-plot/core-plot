@@ -14,6 +14,10 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
+/**	@defgroup plotBindingsPieChart Pie Chart Bindings
+ *	@ingroup plotBindings
+ **/
+
 NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< Pie slice widths.
 
 /**	@cond */

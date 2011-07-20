@@ -5,7 +5,7 @@
 @class CPTLineStyle;
 @class CPTFill;
 
-///	@ingroup plotBindings
+///	@ingroup plotBindingsRangePlot
 ///	@{
 extern NSString * const CPTRangePlotBindingXValues;
 extern NSString * const CPTRangePlotBindingYValues;

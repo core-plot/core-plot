@@ -15,6 +15,10 @@
 #import "CPTColor.h"
 #import "NSCoderExtensions.h"
 
+/**	@defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
+ *	@ingroup plotBindings
+ **/
+
 NSString * const CPTTradingRangePlotBindingXValues = @"xValues";			///< X values.
 NSString * const CPTTradingRangePlotBindingOpenValues = @"openValues";		///< Open price values.
 NSString * const CPTTradingRangePlotBindingHighValues = @"highValues";		///< High price values.
