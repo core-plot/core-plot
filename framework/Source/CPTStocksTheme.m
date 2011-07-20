@@ -13,7 +13,6 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
-///	@ingroup themeNames
 NSString * const kCPTStocksTheme = @"Stocks";	///< Stocks theme.
 
 /** @brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.

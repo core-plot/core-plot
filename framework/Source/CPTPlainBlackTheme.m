@@ -13,7 +13,6 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
-///	@ingroup themeNames
 NSString * const kCPTPlainBlackTheme = @"Plain Black";	///< Plain black theme.
 
 /** @brief Creates a CPTXYGraph instance formatted with black backgrounds and white lines.

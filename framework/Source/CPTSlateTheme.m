@@ -13,7 +13,6 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
-///	@ingroup themeNames
 NSString * const kCPTSlateTheme = @"Slate";	///< Slate theme.
 
 /**	@cond */

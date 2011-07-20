@@ -1,8 +1,6 @@
 #import "CPTXYTheme.h"
 
-/// @file
-
-/// @name Theme Names
+///	@ingroup themeNames
 /// @{
 extern NSString * const kCPTDarkGradientTheme;
 /// @}
