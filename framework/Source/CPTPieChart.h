@@ -12,7 +12,7 @@
 @class CPTTextLayer;
 @class CPTLineStyle;
 
-/// @name Binding Identifiers
+///	@ingroup plotBindings
 /// @{
 extern NSString * const CPTPieChartBindingPieSliceWidthValues;
 ///	@}

@@ -20,6 +20,8 @@
 #import "NSNumberExtensions.h"
 #import <tgmath.h>
 
+///	@defgroup plotBindings Plot Binding Identifiers
+
 /**	@cond */
 @interface CPTPlot()
 

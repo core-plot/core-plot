@@ -15,12 +15,9 @@
 #import "CPTFill.h"
 #import "NSCoderExtensions.h"
 
-/// @name Binding Identifiers
-/// @{
 NSString * const CPTScatterPlotBindingXValues = @"xValues";							///< X values.
 NSString * const CPTScatterPlotBindingYValues = @"yValues";							///< Y values.
 NSString * const CPTScatterPlotBindingPlotSymbols = @"plotSymbols";					///< Plot symbols.
-/// @}
 
 /**	@cond */
 @interface CPTScatterPlot ()

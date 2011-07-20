@@ -5,12 +5,15 @@
 @class CPTLineStyle;
 @class CPTFill;
 
+///	@ingroup plotBindings
+///	@{
 extern NSString * const CPTRangePlotBindingXValues;
 extern NSString * const CPTRangePlotBindingYValues;
 extern NSString * const CPTRangePlotBindingHighValues;
 extern NSString * const CPTRangePlotBindingLowValues;
 extern NSString * const CPTRangePlotBindingLeftValues;
 extern NSString * const CPTRangePlotBindingRightValues;
+///	@}
 
 /**	@brief Enumeration of range plot data source field types
  **/

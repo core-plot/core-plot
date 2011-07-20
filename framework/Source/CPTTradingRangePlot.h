@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "CPTPlot.h"
 #import "CPTDefinitions.h"
@@ -11,7 +10,7 @@
 @class CPTTradingRangePlot;
 @class CPTFill;
 
-/// @name Binding Identifiers
+///	@ingroup plotBindings
 /// @{
 extern NSString * const CPTTradingRangePlotBindingXValues;
 extern NSString * const CPTTradingRangePlotBindingOpenValues;

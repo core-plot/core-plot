@@ -16,8 +16,8 @@
 #import "NSCoderExtensions.h"
 
 NSString * const CPTTradingRangePlotBindingXValues = @"xValues";			///< X values.
-NSString * const CPTTradingRangePlotBindingOpenValues = @"openValues";	///< Open price values.
-NSString * const CPTTradingRangePlotBindingHighValues = @"highValues";	///< High price values.
+NSString * const CPTTradingRangePlotBindingOpenValues = @"openValues";		///< Open price values.
+NSString * const CPTTradingRangePlotBindingHighValues = @"highValues";		///< High price values.
 NSString * const CPTTradingRangePlotBindingLowValues = @"lowValues";		///< Low price values.
 NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Close price values.
 
