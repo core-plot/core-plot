@@ -2,6 +2,8 @@
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
 
+///	@defgroup themeNames Theme Names
+
 // Registered themes
 static NSMutableSet *themes = nil;
 

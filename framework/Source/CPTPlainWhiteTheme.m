@@ -12,7 +12,7 @@
 #import "CPTMutableTextStyle.h"
 #import "CPTBorderedLayer.h"
 
-// theme name
+///	@ingroup themeNames
 NSString * const kCPTPlainWhiteTheme = @"Plain White";	///< Plain white theme.
 
 /** @brief Creates a CPTXYGraph instance formatted with white backgrounds and black lines.

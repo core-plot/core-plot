@@ -13,7 +13,7 @@
 #import "CPTBorderedLayer.h"
 #import "CPTExceptions.h"
 
-// theme name
+///	@ingroup themeNames
 NSString * const kCPTDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 
 /**	@cond */
