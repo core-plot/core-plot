@@ -342,23 +342,40 @@
 			
 			NSDecimal zero = CPTDecimalFromInteger(0);
 			NSSortDescriptor *sortDescriptor = nil;
-			if ( CPTDecimalGreaterThanOrEqualTo(range.length, zero) ) {
-				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
+			if ( range ) {
+				if ( CPTDecimalGreaterThanOrEqualTo(range.length, zero) ) {
+					sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
+				}
+				else {
+					sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:NO];
+				}
 			}
 			else {
-				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:NO];
+				sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
 			}
 			locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 			[sortDescriptor release];
 			
 			NSUInteger bandIndex = 0;
 			id null = [NSNull null];
-			NSDecimal lastLocation = range.location;
+			NSDecimal lastLocation;
+			if ( range ) {
+				lastLocation = range.location;
+			}
+			else {
+				lastLocation = CPTDecimalNaN();
+			}
 			
 			NSDecimal startPlotPoint[2];
 			NSDecimal endPlotPoint[2];
-			startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
-			endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+			if ( orthogonalRange ) {
+				startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
+				endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+			}
+			else {
+				startPlotPoint[orthogonalCoordinate] = CPTDecimalNaN();
+				endPlotPoint[orthogonalCoordinate] = CPTDecimalNaN();
+			}
 			
 			for ( NSDecimalNumber *location in locations ) {
 				NSDecimal currentLocation = [location decimalValue];
@@ -388,7 +405,14 @@
 			}
 			
 			// Fill space between last location and the range end
-			if ( !CPTDecimalEquals(lastLocation, range.end) ) {
+			NSDecimal endLocation;
+			if ( range ) {
+				endLocation = range.end;
+			}
+			else {
+				endLocation = CPTDecimalNaN();
+			}
+			if ( !CPTDecimalEquals(lastLocation, endLocation) ) {
 				CPTFill *bandFill = [bandArray objectAtIndex:bandIndex];
 				
 				if ( bandFill != null ) {
