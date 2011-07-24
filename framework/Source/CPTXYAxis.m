@@ -417,7 +417,7 @@
 				
 				if ( bandFill != null ) {
 					// Start point
-					startPlotPoint[selfCoordinate] = range.end;
+					startPlotPoint[selfCoordinate] = endLocation;
 					CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
 					
 					// End point
