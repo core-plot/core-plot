@@ -103,7 +103,7 @@
     if ( (self = [super initWithCoder:coder]) ) {
 		collapsesLayers = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
 		hostedGraph = nil;
-		self.hostedGraph = [[coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"] retain]; // setup layers
+		self.hostedGraph = [coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"]; // setup layers
 
 		allowPinchScaling = NO;
 		pinchGestureRecognizer = nil;
