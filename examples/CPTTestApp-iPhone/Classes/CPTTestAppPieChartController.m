@@ -14,10 +14,9 @@
 {
 	CGFloat margin = pieChart.plotAreaFrame.borderLineStyle.lineWidth + 5.0;
 	
-	CPTPlot *piePlot = [pieChart plotWithIdentifier:@"Pie Chart 1"];
+	CPTPieChart *piePlot = (CPTPieChart *)[pieChart plotWithIdentifier:@"Pie Chart 1"];
 	CGRect plotBounds = pieChart.plotAreaFrame.bounds;
 	CGFloat newRadius = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - margin;
-	((CPTPieChart *)piePlot).pieRadius = newRadius;
 	
 	CGFloat y = 0.0;
 	
@@ -27,7 +26,27 @@
 	else {
 		y = (newRadius + margin) / plotBounds.size.height;
 	}
-	((CPTPieChart *)piePlot).centerAnchor = CGPointMake(0.5, y);
+	CGPoint newAnchor = CGPointMake(0.5, y);
+	
+	// Animate the change
+	[CATransaction begin];
+	{
+		[CATransaction setAnimationDuration:1.0];
+		[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+		
+		CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"pieRadius"];
+		animation.toValue = [NSNumber numberWithDouble:newRadius];
+		animation.fillMode = kCAFillModeForwards;
+		animation.delegate = self;
+		[piePlot addAnimation:animation forKey:@"pieRadius"];
+		
+		animation = [CABasicAnimation animationWithKeyPath:@"centerAnchor"];
+		animation.toValue = [NSValue valueWithBytes:&newAnchor objCType:@encode(CGPoint)];
+		animation.fillMode = kCAFillModeForwards;
+		animation.delegate = self;
+		[piePlot addAnimation:animation forKey:@"centerAnchor"];
+	}
+	[CATransaction commit];
 }
 
 #pragma mark -
@@ -77,7 +96,10 @@
 	
 	pieChart.axisSet = nil;
 	
-	pieChart.titleTextStyle.color = [CPTColor whiteColor];
+	CPTMutableTextStyle *whiteText = [CPTMutableTextStyle textStyle];
+	whiteText.color = [CPTColor whiteColor];
+	
+	pieChart.titleTextStyle = whiteText;
 	pieChart.title = @"Graph Title";
 	
     // Add pie chart
@@ -134,9 +156,15 @@
 	return [label autorelease];
 }
 
--(CGFloat)radialOffsetForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(CGFloat)radialOffsetForPieChart:(CPTPieChart *)piePlot recordIndex:(NSUInteger)index
 {
-    return ( index == 0 ? 30.0f : 0.0f );
+	CGFloat offset = 0.0;
+	
+	if ( index == 0 ) {
+		offset = piePlot.pieRadius / 8.0;
+	}
+	
+    return offset;
 }
 
 /*-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index; 
@@ -150,6 +178,16 @@
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
 	pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", index];
+}
+
+-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+	CPTPieChart *piePlot = (CPTPieChart *)[pieChart plotWithIdentifier:@"Pie Chart 1"];
+	CABasicAnimation *basicAnimation = (CABasicAnimation *)theAnimation;
+	
+	[piePlot removeAnimationForKey:basicAnimation.keyPath];
+	[piePlot setValue:basicAnimation.toValue forKey:basicAnimation.keyPath];
+	[piePlot repositionAllLabelAnnotations];
 }
 
 @end

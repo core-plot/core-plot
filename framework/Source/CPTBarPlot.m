@@ -17,8 +17,14 @@
 #import "CPTLegend.h"
 #import "NSCoderExtensions.h"
 
-/**	@defgroup plotBindingsBarPlot Bar Plot Bindings
+/**	@defgroup plotAnimationBarPlot Bar Plot
+ *	@ingroup plotAnimation
+ **/
+
+/**	@if MacOnly
+ *	@defgroup plotBindingsBarPlot Bar Plot Bindings
  *	@ingroup plotBindings
+ *	@endif
  **/
 
 NSString * const CPTBarPlotBindingBarLocations = @"barLocations";	///< Bar locations.
@@ -55,6 +61,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 /** @property barCornerRadius
  *	@brief The corner radius for the end of the bars.
+ *	@ingroup plotAnimationBarPlot
  **/
 @synthesize barCornerRadius;
 
@@ -62,6 +69,12 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
  *	@brief The starting offset of the first bar in location data units.
  **/
 @synthesize barOffset;
+
+/** @property barOffsetScale
+ *	@brief An animatable scaling factor for the bar offset. Default is 1.0.
+ *	@ingroup plotAnimationBarPlot
+ **/
+@synthesize barOffsetScale;
 
 /** @property barWidthsAreInViewCoordinates
  *  @brief Whether the bar width and bar offset is in view coordinates, or in plot coordinates.
@@ -71,13 +84,20 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 /** @property barWidth
  *	@brief The width of each bar. Either view or plot coordinates can be used.
- *	@see barWidthsAreInViewCoordinates
  *
  *	With plot coordinates, the bar locations are one data unit apart (e.g., 1, 2, 3, etc.), 
  *  a value of 1.0 will result in bars that touch each other; a value of 0.5 will result in bars that are as wide 
  *  as the gap between them.
+ *
+ *	@see barWidthsAreInViewCoordinates
  **/
 @synthesize barWidth;
+
+/** @property barWidthScale
+ *	@brief An animatable scaling factor for the bar width. Default is 1.0.
+ *	@ingroup plotAnimationBarPlot
+ **/
+@synthesize barWidthScale;
 
 /** @property lineStyle
  *	@brief The line style for the bar outline.
@@ -178,8 +198,10 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		lineStyle = [[CPTLineStyle alloc] init];
 		fill = [[CPTFill fillWithColor:[CPTColor blackColor]] retain];
 		barWidth = CPTDecimalFromDouble(0.5);
+		barWidthScale = 1.0;
         barWidthsAreInViewCoordinates = NO;
 		barOffset = CPTDecimalFromDouble(0.0);
+		barOffsetScale = 1.0;
 		barCornerRadius = 0.0;
 		baseValue = CPTDecimalFromInteger(0);
 		barsAreHorizontal = NO;
@@ -200,8 +222,10 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		lineStyle = [theLayer->lineStyle retain];
 		fill = [theLayer->fill retain];
 		barWidth = theLayer->barWidth;
+		barWidthScale = theLayer->barWidthScale;
         barWidthsAreInViewCoordinates = theLayer->barWidthsAreInViewCoordinates;
 		barOffset = theLayer->barOffset;
+		barOffsetScale = theLayer->barOffsetScale;
 		barCornerRadius = theLayer->barCornerRadius;
 		baseValue = theLayer->baseValue;
         barBasesVary = theLayer->barBasesVary;
@@ -226,7 +250,9 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	[coder encodeObject:self.lineStyle forKey:@"CPTBarPlot.lineStyle"];
 	[coder encodeObject:self.fill forKey:@"CPTBarPlot.fill"];
 	[coder encodeDecimal:self.barWidth forKey:@"CPTBarPlot.barWidth"];
+	[coder encodeCGFloat:self.barWidthScale forKey:@"CPTBarPlot.barWidthScale"];
 	[coder encodeDecimal:self.barOffset forKey:@"CPTBarPlot.barOffset"];
+	[coder encodeCGFloat:self.barOffsetScale forKey:@"CPTBarPlot.barOffsetScale"];
 	[coder encodeCGFloat:self.barCornerRadius forKey:@"CPTBarPlot.barCornerRadius"];
 	[coder encodeDecimal:self.baseValue forKey:@"CPTBarPlot.baseValue"];
 	[coder encodeBool:self.barsAreHorizontal forKey:@"CPTBarPlot.barsAreHorizontal"];
@@ -241,7 +267,9 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		lineStyle = [[coder decodeObjectForKey:@"CPTBarPlot.lineStyle"] copy];
 		fill = [[coder decodeObjectForKey:@"CPTBarPlot.fill"] copy];
 		barWidth = [coder decodeDecimalForKey:@"CPTBarPlot.barWidth"];
+		barWidthScale = [coder decodeCGFloatForKey:@"CPTBarPlot.barWidthScale"];
 		barOffset = [coder decodeDecimalForKey:@"CPTBarPlot.barOffset"];
+		barOffsetScale = [coder decodeCGFloatForKey:@"CPTBarPlot.barOffsetScale"];
 		barCornerRadius = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
 		baseValue = [coder decodeDecimalForKey:@"CPTBarPlot.baseValue"];
 		barsAreHorizontal = [coder decodeBoolForKey:@"CPTBarPlot.barsAreHorizontal"];
@@ -509,7 +537,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	}
     
     // Determine bar width and offset. 
-    CGFloat barOffsetLength = [self lengthInView:self.barOffset];
+    CGFloat barOffsetLength = [self lengthInView:self.barOffset] * self.barOffsetScale;
     
 	// Offset
 	if ( horizontalBars ) {
@@ -542,7 +570,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	// This function is used to create a path which is used for both
 	// drawing a bar and for doing hit-testing on a click/touch event
     CPTCoordinate widthCoordinate = ( horizontalBars ? CPTCoordinateY : CPTCoordinateX );
-    CGFloat barWidthLength = [self lengthInView:self.barWidth];
+    CGFloat barWidthLength = [self lengthInView:self.barWidth] * self.barWidthScale;
 	CGFloat halfBarWidth = 0.5 * barWidthLength;
 	
     CGFloat point[2];
@@ -607,7 +635,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(BOOL)barIsVisibleWithBasePoint:(CGPoint)basePoint
 {
 	BOOL horizontalBars = self.barsAreHorizontal;
-    CGFloat barWidthLength = [self lengthInView:self.barWidth];
+    CGFloat barWidthLength = [self lengthInView:self.barWidth] * self.barWidthScale;
 	CGFloat halfBarWidth = 0.5 * barWidthLength;
     
     CPTPlotArea *thePlotArea = self.plotArea;
@@ -699,6 +727,29 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 }
 
 #pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"barCornerRadius",
+				@"barOffsetScale", 
+				@"barWidthScale", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
+}
+
+#pragma mark -
 #pragma mark Data Labels
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
@@ -723,11 +774,11 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 	NSNumber *offsetLocation;
 	if ( self.doublePrecisionCache ) {
-		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] + [self doubleLengthInPlotCoordinates:self.barOffset])];
+		offsetLocation = [NSNumber numberWithDouble:([location doubleValue] + [self doubleLengthInPlotCoordinates:self.barOffset] * self.barOffsetScale)];
 	}
 	else {
 		NSDecimal decimalLocation = [location decimalValue];
-		NSDecimal offset = [self lengthInPlotCoordinates:self.barOffset];
+		NSDecimal offset = CPTDecimalMultiply([self lengthInPlotCoordinates:self.barOffset], CPTDecimalFromCGFloat(self.barOffsetScale));
 		offsetLocation = [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalAdd(decimalLocation, offset)];
 	}
 	
@@ -843,16 +894,38 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     }
 }
 
--(void)setBarWidth:(NSDecimal)newBarWidth {
-    barWidth = newBarWidth;
-    [self setNeedsDisplay];
+-(void)setBarWidth:(NSDecimal)newBarWidth
+{
+	if ( NSDecimalCompare(&barWidth, &newBarWidth) != NSOrderedSame ) {
+		barWidth = newBarWidth;
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setBarWidthScale:(CGFloat)newBarWidthScale
+{
+	if ( barWidthScale != newBarWidthScale ) {
+		barWidthScale = newBarWidthScale;
+		[self setNeedsDisplay];
+	}
 }
 
 -(void)setBarOffset:(NSDecimal)newBarOffset 
 {
-    barOffset = newBarOffset;
-    [self setNeedsDisplay];
-    [self setNeedsLayout];
+	if ( NSDecimalCompare(&barOffset, &newBarOffset) != NSOrderedSame ) {
+		barOffset = newBarOffset;
+		[self setNeedsDisplay];
+		[self repositionAllLabelAnnotations];
+	}
+}
+
+-(void)setBarOffsetScale:(CGFloat)newBarOffsetScale
+{
+	if ( barOffsetScale != newBarOffsetScale ) {
+		barOffsetScale = newBarOffsetScale;
+		[self setNeedsDisplay];
+		[self repositionAllLabelAnnotations];
+	}
 }
 
 -(void)setBarCornerRadius:(CGFloat)newCornerRadius 

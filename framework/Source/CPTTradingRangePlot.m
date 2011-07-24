@@ -15,8 +15,14 @@
 #import "CPTColor.h"
 #import "NSCoderExtensions.h"
 
-/**	@defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
+/**	@defgroup plotAnimationTradingRangePlot Trading Range Plot
+ *	@ingroup plotAnimation
+ **/
+
+/**	@if MacOnly
+ *	@defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
  *	@ingroup plotBindings
+ *	@endif
  **/
 
 NSString * const CPTTradingRangePlotBindingXValues = @"xValues";			///< X values.
@@ -84,17 +90,20 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 
 /** @property barWidth
  *	@brief The width of bars in candlestick plots (view coordinates).
+ *	@ingroup plotAnimationTradingRangePlot
  **/
 @synthesize barWidth;
 
 /** @property stickLength
  *	@brief The length of close and open sticks on OHLC plots (view coordinates).
+ *	@ingroup plotAnimationTradingRangePlot
  **/
 @synthesize stickLength;
 
 /** @property barCornerRadius
  *	@brief The corner radius used for candlestick plots.
  *  Defaults to 0.0.
+ *	@ingroup plotAnimationTradingRangePlot
  **/
 @synthesize barCornerRadius;
 
@@ -590,6 +599,29 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 }
 
 #pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"barWidth",
+				@"stickLength", 
+				@"barCornerRadius", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
+}
+
+#pragma mark -
 #pragma mark Fields
 
 -(NSUInteger)numberOfFields 
@@ -744,6 +776,14 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		stickLength = newLength;
 		[self setNeedsDisplay];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+	}
+}
+
+-(void)setBarCornerRadius:(CGFloat)newBarCornerRadius
+{
+	if ( barCornerRadius != newBarCornerRadius ) {
+		barCornerRadius = newBarCornerRadius;
+		[self setNeedsDisplay];
 	}
 }
 

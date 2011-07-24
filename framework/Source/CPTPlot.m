@@ -20,7 +20,21 @@
 #import "NSNumberExtensions.h"
 #import <tgmath.h>
 
-///	@defgroup plotBindings Plot Binding Identifiers
+/**	@defgroup plotAnimation Animatable Plot Properties
+ *	@brief Plot properties that can be animated using Core Animation.
+ *	@if MacOnly
+ *	@since Custom layer property animation is supported on MacOS 10.6 and later.
+ *	@endif
+ **/
+
+/**	@defgroup plotAnimationAllPlots All Plots
+ *	@ingroup plotAnimation
+ **/
+
+/**	@if MacOnly
+ *	@defgroup plotBindings Plot Binding Identifiers
+ *	@endif
+ **/
 
 /**	@cond */
 @interface CPTPlot()
@@ -114,12 +128,14 @@
 
 /**	@property labelOffset
  *	@brief The distance that labels should be offset from their anchor points. The direction of the offset is defined by subclasses.
+ *	@ingroup plotAnimationAllPlots
  **/
 @synthesize labelOffset;
 
 /**	@property labelRotation
  *	@brief The rotation of the data labels in radians.
  *  Set this property to <code>M_PI/2.0</code> to have labels read up the screen, for example.
+ *	@ingroup plotAnimationAllPlots
  **/
 @synthesize labelRotation;
 
@@ -293,6 +309,28 @@
 {
     [self reloadDataIfNeeded];
     [super drawInContext:theContext];
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"labelOffset",
+				@"labelRotation", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
 }
 
 #pragma mark -
@@ -892,6 +930,18 @@
 	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 }
 
+/**	@brief Repositions all existing label annotations.
+ **/
+-(void)repositionAllLabelAnnotations
+{
+	NSArray *annotations = self.labelAnnotations;
+	NSUInteger labelCount = annotations.count;
+	
+	for ( NSUInteger i = 0; i < labelCount; i++ ) {
+		[self positionLabelAnnotation:[annotations objectAtIndex:i] forIndex:i];
+	}
+}
+
 #pragma mark -
 #pragma mark Legends
 
@@ -1030,7 +1080,7 @@
 {
     if ( newOffset != labelOffset ) {
         labelOffset = newOffset;
-		self.needsRelabel = YES;
+		[self repositionAllLabelAnnotations];
     }
 }
 
@@ -1038,7 +1088,10 @@
 {
     if ( newRotation != labelRotation ) {
         labelRotation = newRotation;
-		self.needsRelabel = YES;
+		for ( CPTPlotSpaceAnnotation *label in self.labelAnnotations ) {
+			label.rotation = labelRotation;
+			[self updateContentAnchorForLabel:label];
+		}
     }
 }
 

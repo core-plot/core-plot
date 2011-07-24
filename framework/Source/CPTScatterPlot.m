@@ -15,8 +15,14 @@
 #import "CPTFill.h"
 #import "NSCoderExtensions.h"
 
-/**	@defgroup plotBindingsScatterPlot Scatter Plot Bindings
+/**	@defgroup plotAnimationScatterPlot Scatter Plot
+ *	@ingroup plotAnimation
+ **/
+
+/**	@if MacOnly
+ *	@defgroup plotBindingsScatterPlot Scatter Plot Bindings
  *	@ingroup plotBindings
+ *	@endif
  **/
 
 NSString * const CPTScatterPlotBindingXValues = @"xValues";							///< X values.
@@ -771,6 +777,26 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 			
 			CGPathRelease(swatchPath);
 		}
+	}
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
 	}
 }
 

@@ -185,6 +185,7 @@ typedef enum _CPTPlotCachePrecision {
 -(void)setNeedsRelabel;
 -(void)relabel;
 -(void)relabelIndexRange:(NSRange)indexRange;
+-(void)repositionAllLabelAnnotations;
 ///	@}
 
 /// @name Data Loading

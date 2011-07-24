@@ -472,7 +472,6 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
     [formatter setMaximumFractionDigits:2];
     NSString *yString = [formatter stringFromNumber:y];
-    
 	
     // Now add the annotation to the plot area
     CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
@@ -480,6 +479,14 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 	symbolTextAnnotation.contentLayer = textLayer;
     symbolTextAnnotation.displacement = CGPointMake(0.0f, 0.0f);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];    
+
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"barWidthScale"];
+	animation.duration = 0.25;
+	animation.toValue = [NSNumber numberWithDouble:0.0];
+	animation.repeatCount = 1;
+	animation.autoreverses = YES;
+	animation.removedOnCompletion = YES;
+	[plot addAnimation:animation forKey:@"barWidthScale"];
 }
 
 #pragma mark -
