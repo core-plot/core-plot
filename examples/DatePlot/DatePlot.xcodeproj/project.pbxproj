@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		071BCBD71079EBE00045E43D /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071BCBD61079EBE00045E43D /* CorePlot.framework */; };
 		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
 		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
@@ -87,7 +86,6 @@
 				0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */,
-				071BCBD71079EBE00045E43D /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
