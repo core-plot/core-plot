@@ -338,7 +338,9 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 	NSUInteger index = self.selectionIndex;
 	
 	if ( index != NSNotFound ) {
-		[self insertObject:[self newObject] atArrangedObjectIndex:index];
+		id newData = [self newObject];
+		[self insertObject:newData atArrangedObjectIndex:index];
+		[newData release];
 		
 		CPTPlot *plot = [graph plotWithIdentifier:dataSourcePlot];
 		[plot insertDataAtIndex:index numberOfRecords:1];

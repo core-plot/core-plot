@@ -89,18 +89,26 @@
 				[NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
 				nil];
 	
-	else if ([key isEqualToString:@"inputBorderColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
+	else if ([key isEqualToString:@"inputBorderColor"]) {
+		CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
+		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Border Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericGray(0.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
+				grayColor, QCPortAttributeDefaultValueKey,
 				nil];
+		CGColorRelease(grayColor);
+		return result;
+	}
 	
-	else if ([key isEqualToString:@"inputLabelColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
+	else if ([key isEqualToString:@"inputLabelColor"]) {
+		CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
+		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Label Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
+				grayColor, QCPortAttributeDefaultValueKey,
 				nil];	
-
+		CGColorRelease(grayColor);
+		return result;
+	}
+	
 	else
 		return [super attributesForPropertyPortWithKey:key];
 }
@@ -125,13 +133,15 @@
 		
 		// TODO: add support for used defined fill colors.  As of now we use a single color
 		// multiplied against the 'default' pie chart colors
+		CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
 		[self addInputPortWithType:QCPortTypeColor
 							forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 					withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 									[NSString stringWithFormat:@"Primary Fill Color", index+1], QCPortAttributeNameKey,
 									QCPortTypeColor, QCPortAttributeTypeKey,
-									[(id)CGColorCreateGenericGray(1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
+									grayColor, QCPortAttributeDefaultValueKey,
 									nil]];
+		CGColorRelease(grayColor);
 		
 		// Add the new plot to the graph
 		CPTPieChart *pieChart = [[[CPTPieChart alloc] init] autorelease];
@@ -175,7 +185,7 @@
 		pieChart.plotArea.borderLineStyle = nil;
 		
 		pieChart.pieRadius = self.inputPieRadius*MIN(self.inputPixelsWide, self.inputPixelsHigh)/2.0;
-		pieChart.sliceLabelOffset = self.inputSliceLabelOffset;
+		pieChart.labelOffset = self.inputSliceLabelOffset;
 		pieChart.startAngle = self.inputStartAngle*M_PI/180.0;	// QC typically works in degrees
 		pieChart.centerAnchor = CGPointMake(0.5, 0.5);
 		pieChart.sliceDirection = (self.inputSliceDirection == 0) ? CPTPieDirectionClockwise : CPTPieDirectionCounterClockwise;

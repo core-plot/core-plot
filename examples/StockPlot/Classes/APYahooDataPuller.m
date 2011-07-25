@@ -323,7 +323,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 	
     NSString *csv = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
     [self populateWithString:csv];
-    
+    [csv release];
+	
     self.receivedData = nil;
     [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
 }
