@@ -22,6 +22,14 @@
 #import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"
 
+/**	@defgroup axisAnimation Axes
+ *	@brief Axis properties that can be animated using Core Animation.
+ *	@if MacOnly
+ *	@since Custom layer property animation is supported on MacOS 10.6 and later.
+ *	@endif
+ *	@ingroup animation
+ **/
+
 /**	@cond */
 @interface CPTAxis ()
 
@@ -109,6 +117,7 @@ double niceNum(double x, BOOL round);
 
 /**	@property titleOffset
  *	@brief The offset distance between the axis title and the axis line.
+ *	@ingroup axisAnimation
  **/
 @synthesize titleOffset;
 
@@ -120,6 +129,7 @@ double niceNum(double x, BOOL round);
 /**	@property titleRotation
  *	@brief The rotation angle of the axis title in radians.
  *  If NaN (the default), the title will be parallel to the axis.
+ *	@ingroup axisAnimation
  **/
 @synthesize titleRotation;
 
@@ -151,23 +161,27 @@ double niceNum(double x, BOOL round);
 
 /**	@property labelOffset
  *	@brief The offset distance between the tick marks and labels.
+ *	@ingroup axisAnimation
  **/
 @synthesize labelOffset;
 
 /**	@property minorTickLabelOffset
  *	@brief The offset distance between the minor tick marks and labels.
+ *	@ingroup axisAnimation
  **/
 @synthesize minorTickLabelOffset;
 
 /**	@property labelRotation
  *	@brief The rotation of the axis labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
+ *	@ingroup axisAnimation
  **/
 @synthesize labelRotation;
 
 /**	@property minorTickLabelRotation
  *	@brief The rotation of the axis minor tick labels in radians.
  *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
+ *	@ingroup axisAnimation
  **/
 @synthesize minorTickLabelRotation;
 
@@ -603,6 +617,32 @@ double niceNum(double x, BOOL round);
 		majorGridLines = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
 	}
     return self;
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"titleOffset",
+				@"titleRotation",
+				@"labelOffset",
+				@"minorTickLabelOffset",
+				@"labelRotation", 
+				@"minorTickLabelRotation", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
 }
 
 #pragma mark -
@@ -1157,20 +1197,63 @@ double niceNum(double x, BOOL round)
 			self.minorTickLocations = [self filteredMinorTickLocations:newMinorLocations];
 	}
 	
-    if ( self.labelingPolicy != CPTAxisLabelingPolicyNone ) {
-        // Label ticks
-		[self updateAxisLabelsAtLocations:self.majorTickLocations useMajorAxisLabels:YES labelAlignment:self.labelAlignment labelOffset: self.labelOffset labelRotation:self.labelRotation textStyle:self.labelTextStyle labelFormatter:self.labelFormatter];
-		if (self.minorTickLabelFormatter) {
-			[self updateAxisLabelsAtLocations:self.minorTickLocations useMajorAxisLabels:NO labelAlignment:self.minorTickLabelAlignment labelOffset: self.minorTickLabelOffset labelRotation:self.minorTickLabelRotation textStyle:self.minorTickLabelTextStyle labelFormatter:self.minorTickLabelFormatter];
+	// Label ticks
+	if ( self.labelingPolicy != CPTAxisLabelingPolicyNone ) {
+		NSNumberFormatter *theFormatter = self.labelFormatter;
+		if ( theFormatter ) {
+			[self updateAxisLabelsAtLocations:self.majorTickLocations
+						   useMajorAxisLabels:YES
+							   labelAlignment:self.labelAlignment
+								  labelOffset:self.labelOffset
+								labelRotation:self.labelRotation
+									textStyle:self.labelTextStyle
+							   labelFormatter:theFormatter];
 		}
-    }
 
+		theFormatter = self.minorTickLabelFormatter;
+		if ( theFormatter ) {
+			[self updateAxisLabelsAtLocations:self.minorTickLocations
+						   useMajorAxisLabels:NO
+							   labelAlignment:self.minorTickLabelAlignment
+								  labelOffset:self.minorTickLabelOffset
+								labelRotation:self.minorTickLabelRotation
+									textStyle:self.minorTickLabelTextStyle
+							   labelFormatter:theFormatter];
+		}
+	}
+	
     self.needsRelabel = NO;
 	if ( self.alternatingBandFills.count > 0 ) {
 		[self.plotArea setNeedsDisplay];
 	}
 	
 	[self.delegate axisDidRelabel:self];
+}
+
+/**	@brief Update the major tick mark labels.
+ **/
+-(void)updateMajorTickLabels
+{
+	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
+	CPTSign direction = self.tickDirection;
+	
+    for ( CPTAxisLabel *label in self.axisLabels ) {
+        CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
+    }
+}
+
+/**	@brief Update the minor tick mark labels.
+ **/
+-(void)updateMinorTickLabels
+{
+	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
+	CPTSign direction = self.tickDirection;
+	
+    for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+        CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
+        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
+    }
 }
 
 #pragma mark -
@@ -1186,19 +1269,12 @@ double niceNum(double x, BOOL round)
 
 -(void)layoutSublayers
 {
-	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
-	CPTSign direction = self.tickDirection;
+	[self updateMajorTickLabels];
+	[self updateMinorTickLabels];
 	
-    for ( CPTAxisLabel *label in self.axisLabels ) {
-        CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
-    }
-    for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-        CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
-        [label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
-    }
-	
-	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation] forCoordinate:orthogonalCoordinate inDirection:direction];
+	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
+								  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
+									inDirection:self.tickDirection];
 }
 
 #pragma mark -
@@ -1380,7 +1456,9 @@ double niceNum(double x, BOOL round)
     if ( newOffset != titleOffset ) {
         titleOffset = newOffset;
 		self.axisTitle.offset = titleOffset;
-		[self setNeedsLayout];
+		[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
+									  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
+										inDirection:self.tickDirection];
     }
 }
 
@@ -1389,7 +1467,9 @@ double niceNum(double x, BOOL round)
     if ( newRotation != titleRotation ) {
         titleRotation = newRotation;
 		self.axisTitle.rotation = titleRotation;
-		[self setNeedsLayout];
+		[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
+									  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
+										inDirection:self.tickDirection];
     }
 }
 
@@ -1451,7 +1531,6 @@ double niceNum(double x, BOOL round)
     if ( newLocations != majorTickLocations ) {
         [majorTickLocations release];
         majorTickLocations = [newLocations retain];
-		[self setNeedsDisplay];
 		if ( self.separateLayers ) {
 			[self.majorGridLines setNeedsDisplay];
 		}
@@ -1468,7 +1547,6 @@ double niceNum(double x, BOOL round)
     if ( newLocations != majorTickLocations ) {
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
-		[self setNeedsDisplay];
 		if ( self.separateLayers ) {
 			[self.minorGridLines setNeedsDisplay];
 		}
@@ -1484,7 +1562,6 @@ double niceNum(double x, BOOL round)
 {
     if ( newLength != majorTickLength ) {
         majorTickLength = newLength;
-        [self setNeedsDisplay];
         self.needsRelabel = YES;
     }
 }
@@ -1493,7 +1570,7 @@ double niceNum(double x, BOOL round)
 {
     if ( newLength != minorTickLength ) {
         minorTickLength = newLength;
-        [self setNeedsDisplay];
+        self.needsRelabel = YES;
     }
 }
 
@@ -1501,8 +1578,7 @@ double niceNum(double x, BOOL round)
 {
     if ( newOffset != labelOffset ) {
         labelOffset = newOffset;
-		[self setNeedsLayout];
-        self.needsRelabel = YES;
+        [self updateMajorTickLabels];
     }
 }
 
@@ -1510,8 +1586,7 @@ double niceNum(double x, BOOL round)
 {
     if ( newOffset != minorTickLabelOffset ) {
         minorTickLabelOffset = newOffset;
-		[self setNeedsLayout];
-        self.needsRelabel = YES;
+        [self updateMinorTickLabels];
     }
 }
 
@@ -1519,8 +1594,7 @@ double niceNum(double x, BOOL round)
 {
     if ( newRotation != labelRotation ) {
         labelRotation = newRotation;
-		[self setNeedsLayout];
-        self.needsRelabel = YES;
+        [self updateMajorTickLabels];
     }
 }
 
@@ -1528,8 +1602,7 @@ double niceNum(double x, BOOL round)
 {
     if ( newRotation != minorTickLabelRotation ) {
         minorTickLabelRotation = newRotation;
-		[self setNeedsLayout];
-        self.needsRelabel = YES;
+        [self updateMinorTickLabels];
     }
 }
 
@@ -1537,7 +1610,6 @@ double niceNum(double x, BOOL round)
 {
     if ( newAlignment != labelAlignment ) {
         labelAlignment = newAlignment;
-		[self setNeedsLayout];
         self.needsRelabel = YES;
     }
 }
@@ -1546,7 +1618,6 @@ double niceNum(double x, BOOL round)
 {
     if ( newAlignment != minorTickLabelAlignment ) {
         minorTickLabelAlignment = newAlignment;
-		[self setNeedsLayout];
         self.needsRelabel = YES;
     }
 }
@@ -1728,7 +1799,6 @@ double niceNum(double x, BOOL round)
 {
     if ( newDirection != tickDirection ) {
         tickDirection = newDirection;
-		[self setNeedsLayout];
         self.needsRelabel = YES;
     }
 }

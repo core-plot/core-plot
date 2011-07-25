@@ -20,11 +20,12 @@
 #import "NSNumberExtensions.h"
 #import <tgmath.h>
 
-/**	@defgroup plotAnimation Animatable Plot Properties
+/**	@defgroup plotAnimation Plots
  *	@brief Plot properties that can be animated using Core Animation.
  *	@if MacOnly
  *	@since Custom layer property animation is supported on MacOS 10.6 and later.
  *	@endif
+ *	@ingroup animation
  **/
 
 /**	@defgroup plotAnimationAllPlots All Plots

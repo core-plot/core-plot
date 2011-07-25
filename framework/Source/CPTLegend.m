@@ -9,6 +9,14 @@
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
+/**	@defgroup legendAnimation Legends
+ *	@brief Legend properties that can be animated using Core Animation.
+ *	@if MacOnly
+ *	@since Custom layer property animation is supported on MacOS 10.6 and later.
+ *	@endif
+ *	@ingroup animation
+ **/
+
 NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedrawForPlotNotification";
 
 /**	@cond */
@@ -61,7 +69,8 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 @synthesize swatchBorderLineStyle;
 
 /**	@property swatchCornerRadius
- *	@brief The corner radius for each swatch. Default is 0.0;
+ *	@brief The corner radius for each swatch. Default is 0.0.
+ *	@ingroup legendAnimation
  **/
 @synthesize swatchCornerRadius;
 
@@ -422,6 +431,31 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	
 	free(actualColumnWidths);
 	free(columnPositions);
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"swatchSize",
+				@"swatchCornerRadius", 
+				@"columnMargin", 
+				@"rowMargin", 
+				@"titleOffset", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
 }
 
 #pragma mark -

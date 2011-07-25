@@ -14,6 +14,14 @@
 #import "CPTTextLayer.h"
 #import "NSCoderExtensions.h"
 
+/**	@defgroup graphAnimation Graphs
+ *	@brief Graph properties that can be animated using Core Animation.
+ *	@if MacOnly
+ *	@since Custom layer property animation is supported on MacOS 10.6 and later.
+ *	@endif
+ *	@ingroup animation
+ **/
+
 NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotification";
 
 /**	@cond */
@@ -87,6 +95,7 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 
 /**	@property titleDisplacement
  *	@brief A vector giving the displacement of the title from the edge location.
+ *	@ingroup graphAnimation
  **/
 @synthesize titleDisplacement;
 
@@ -107,6 +116,7 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 
 /**	@property legendDisplacement
  *	@brief A vector giving the displacement of the legend from the edge location.
+ *	@ingroup graphAnimation
  **/
 @synthesize legendDisplacement;
 
@@ -236,6 +246,28 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 		legendDisplacement = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
 	}
     return self;
+}
+
+#pragma mark -
+#pragma mark Animation
+
++(BOOL)needsDisplayForKey:(NSString *)aKey
+{
+	static NSArray *keys = nil;
+	
+	if ( !keys ) {
+		keys = [[NSArray alloc] initWithObjects:
+				@"titleDisplacement",
+				@"legendDisplacement", 
+				nil];
+	}
+	
+	if ( [keys containsObject:aKey] ) {
+		return YES;
+	}
+	else {
+		return [super needsDisplayForKey:aKey];
+	}
 }
 
 #pragma mark -

@@ -200,6 +200,8 @@ typedef enum _CPTAxisLabelingPolicy {
 /// @{
 -(void)relabel;
 -(void)setNeedsRelabel;
+-(void)updateMajorTickLabels;
+-(void)updateMinorTickLabels;
 ///	@}
 
 /// @name Ticks
