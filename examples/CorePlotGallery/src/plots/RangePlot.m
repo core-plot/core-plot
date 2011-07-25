@@ -90,6 +90,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	instructionsAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
 	instructionsAnnotation.displacement = CGPointMake(0.0, 10.0);
 	[graph.plotAreaFrame.plotArea addAnnotation:instructionsAnnotation];
+	[textLayer release];
 	[instructionsAnnotation release];
 	
 	// Setup fill and bar style

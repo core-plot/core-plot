@@ -158,6 +158,9 @@ static const CGFloat titleOffset = 25.0;
 	
 	// Add axes to the graph
 	graph.axisSet.axes = [NSArray arrayWithObjects:linearAxis, negativeLinearAxis, logAxis, negativeLogAxis, nil];
+	
+	[majorTickLineStyle release];
+	[minorTickLineStyle release];
 }
 
 @end
