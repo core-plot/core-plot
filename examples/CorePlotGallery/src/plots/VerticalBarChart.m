@@ -186,7 +186,7 @@
 
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
     whiteTextStyle.color = [CPTColor whiteColor];
-    barPlot.barLabelTextStyle = whiteTextStyle;
+    barPlot.labelTextStyle = whiteTextStyle;
  
 	barPlot.delegate = self;
     barPlot.dataSource = self;

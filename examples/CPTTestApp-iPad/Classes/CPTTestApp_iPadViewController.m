@@ -178,7 +178,6 @@
 	lineStyle.miterLimit = 1.0f;
 	lineStyle.lineWidth = 3.0f;
 	lineStyle.lineColor = [CPTColor blueColor];
-    lineStyle = lineStyle;
     
     boundLinePlot.dataSource = self;
 	boundLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
@@ -321,7 +320,7 @@
 	piePlot.startAngle = M_PI_4;
 	piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
 	piePlot.borderLineStyle = [CPTLineStyle lineStyle];
-	piePlot.sliceLabelOffset = 5.0;
+	piePlot.labelOffset = 5.0;
     piePlot.overlayFill = [CPTFill fillWithGradient:overlayGradient];
     [pieGraph addPlot:piePlot];
     [piePlot release];
