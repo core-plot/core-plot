@@ -6,7 +6,9 @@
 //#define USE_NSDECIMAL
 
 +(void)initialize {
-    [NSValueTransformer setValueTransformer:[CPTDecimalNumberValueTransformer new] forName:@"CPTDecimalNumberValueTransformer"];
+	CPTDecimalNumberValueTransformer *valueTransformer = [[CPTDecimalNumberValueTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:valueTransformer forName:@"CPTDecimalNumberValueTransformer"];
+	[valueTransformer release];
 }
 
 - (id)init
@@ -126,7 +128,7 @@
 		
 		// Read headers from the first line of the file
 		[fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
-		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
+//		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
 //		NSArray *columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 //		NSLog([columnHeaders objectAtIndex:0]);
 		
@@ -174,27 +176,27 @@
 -(IBAction)exportToPDF:(id)sender;
 {
 	NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
-	[pdfSavingDialog setRequiredFileType:@"pdf"];
+	[pdfSavingDialog setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
 	
-	if ( [pdfSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	if ( [pdfSavingDialog runModal] == NSOKButton )
 	{
 		NSData *dataForPDF = [graph dataForPDFRepresentationOfLayer];
-		[dataForPDF writeToFile:[pdfSavingDialog filename] atomically:NO];
+		[dataForPDF writeToURL:[pdfSavingDialog URL] atomically:NO];
 	}		
 }
 
 -(IBAction)exportToPNG:(id)sender;
 {
 	NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
-	[pngSavingDialog setRequiredFileType:@"png"];
+	[pngSavingDialog setAllowedFileTypes:[NSArray arrayWithObject:@"png"]];
 	
-	if ( [pngSavingDialog runModalForDirectory:nil file:nil] == NSOKButton )
+	if ( [pngSavingDialog runModal] == NSOKButton )
 	{
 		NSImage *image = [graph imageOfLayer];
         NSData *tiffData = [image TIFFRepresentation];
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
         NSData *pngData = [tiffRep representationUsingType:NSPNGFileType properties:nil];
-		[pngData writeToFile:[pngSavingDialog filename] atomically:NO];
+		[pngData writeToURL:[pngSavingDialog URL] atomically:NO];
 	}		
 }
 
