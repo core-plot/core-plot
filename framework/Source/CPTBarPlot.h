@@ -43,16 +43,6 @@ typedef enum _CPTBarPlotField {
  **/
 -(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 
-/** @brief Gets a bar label for the given bar plot. This method is no longer used.
- *	@param barPlot The bar plot.
- *	@param index The data index of interest.
- *	@return The bar label for the point with the given index.
- *  If you return nil, the default bar label will be used. If you return an instance of NSNull,
- *  no label will be shown for the index in question.
- *	@deprecated This method has been replaced by the CPTPlotDataSource::dataLabelForPlot:recordIndex: method and is no longer used.
- **/
--(CPTTextLayer *)barLabelForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
-
 @end 
 
 #pragma mark -
@@ -106,8 +96,6 @@ typedef enum _CPTBarPlotField {
 @property (nonatomic, readwrite, assign) NSDecimal baseValue;
 @property (nonatomic, readwrite, assign) BOOL barBasesVary;
 @property (nonatomic, readwrite, copy) CPTPlotRange *plotRange;
-@property (nonatomic, readwrite, assign) CGFloat barLabelOffset;
-@property (nonatomic, readwrite, copy) CPTTextStyle *barLabelTextStyle;
 
 /// @name Factory Methods
 /// @{

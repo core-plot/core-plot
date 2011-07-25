@@ -139,18 +139,6 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
  **/
 @synthesize plotRange;
 
-/** @property barLabelOffset
- *  @brief Sets the offset of the value label above the bar
- *	@deprecated This property has been replaced by the CPTPlot::labelOffset property.
- **/
-@dynamic barLabelOffset;
-
-/** @property barLabelTextStyle
- *  @brief Sets the textstyle of the value label above the bar
- *	@deprecated This property has been replaced by the CPTPlot::labelTextStyle property.
- **/
-@dynamic barLabelTextStyle;
-
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -963,26 +951,6 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		[self setNeedsDisplay];
         [self setNeedsLayout];
 	}
-}
-
--(CGFloat)barLabelOffset
-{
-	return self.labelOffset;
-}
-
--(void)setBarLabelOffset:(CGFloat)newOffset 
-{
-    self.labelOffset = newOffset;
-}
-
--(CPTTextStyle *)barLabelTextStyle
-{
-	return self.labelTextStyle;
-}
-
--(void)setBarLabelTextStyle:(CPTMutableTextStyle *)newStyle 
-{
-    self.labelTextStyle = newStyle;
 }
 
 #pragma mark -

@@ -64,12 +64,6 @@ NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< P
  **/
 @synthesize pieInnerRadius;
 
-/** @property sliceLabelOffset
- *	@brief The radial offset of the slice labels from the edge of each slice. Defaults to 10.0
- *	@deprecated This property has been replaced by the CPTPlot::labelOffset property.
- **/
-@dynamic sliceLabelOffset;
-
 /** @property startAngle
  *	@brief The starting angle for the first slice in radians. Defaults to pi/2.
  *	@ingroup plotAnimationPieChart
@@ -900,16 +894,6 @@ static const CGFloat colorLookupTable[10][3] =
         [self setNeedsDisplay];
 		[self repositionAllLabelAnnotations];
     }
-}
-
--(CGFloat)sliceLabelOffset
-{
-	return self.labelOffset;
-}
-
--(void)setSliceLabelOffset:(CGFloat)newOffset 
-{
-    self.labelOffset = newOffset;
 }
 
 @end

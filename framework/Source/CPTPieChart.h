@@ -46,16 +46,6 @@ typedef enum _CPTPieDirection {
  **/
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index; 
 
-/** @brief Gets a label for the given pie chart slice. This method is no longer used.
- *	@param pieChart The pie chart.
- *	@param index The data index of interest.
- *	@return The pie slice label for the slice with the given index.
- *  If you return nil, the default pie slice label will be used. If you return an instance of NSNull,
- *  no label will be shown for the index in question.
- *	@deprecated This method has been replaced by the CPTPlotDataSource::dataLabelForPlot:recordIndex: method and is no longer used.
- **/
--(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
-
 /** @brief Offsets the slice radially from the center point. Can be used to "explode" the chart.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
@@ -114,7 +104,6 @@ typedef enum _CPTPieDirection {
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
 @property (nonatomic, readwrite) CGFloat pieInnerRadius;
-@property (nonatomic, readwrite) CGFloat sliceLabelOffset;
 @property (nonatomic, readwrite) CGFloat startAngle;
 @property (nonatomic, readwrite) CPTPieDirection sliceDirection;
 @property (nonatomic, readwrite) CGPoint centerAnchor;
