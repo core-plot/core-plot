@@ -457,7 +457,7 @@
 
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
-	if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame || interactionScale <= 1.e-6 ) return;
+	if ( !self.graph.plotAreaFrame || interactionScale <= 1.e-6 ) return;
 	if ( ![self.graph.plotAreaFrame.plotArea containsPoint:plotAreaPoint] ) return;
     
     // Ask the delegate if it is OK
