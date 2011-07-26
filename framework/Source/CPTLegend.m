@@ -443,10 +443,7 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	if ( !keys ) {
 		keys = [[NSArray alloc] initWithObjects:
 				@"swatchSize",
-				@"swatchCornerRadius", 
-				@"columnMargin", 
-				@"rowMargin", 
-				@"titleOffset", 
+				@"swatchCornerRadius",
 				nil];
 	}
 	
