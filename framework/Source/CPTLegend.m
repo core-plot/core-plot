@@ -483,10 +483,13 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	NSUInteger legendEntryCount = self.legendEntries.count;
 	if ( (desiredRowCount == 0) && (desiredColumnCount == 0) ) {
 		desiredRowCount = (NSUInteger)sqrt((double)legendEntryCount);
-		if ( desiredRowCount * desiredRowCount < legendEntryCount ) {
+		desiredColumnCount = desiredRowCount;
+		if ( desiredRowCount * desiredColumnCount < legendEntryCount ) {
+			desiredColumnCount++;
+		}
+		if ( desiredRowCount * desiredColumnCount < legendEntryCount ) {
 			desiredRowCount++;
 		}
-		desiredColumnCount = desiredRowCount;
 	}
 	else if ( (desiredRowCount == 0) && (desiredColumnCount > 0) ) {
 		desiredRowCount = legendEntryCount / desiredColumnCount;
@@ -504,8 +507,8 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 	// compute row heights and column widths
 	NSUInteger row = 0;
 	NSUInteger col = 0;
-	CGFloat *maxTitleHeight = malloc(desiredRowCount * sizeof(CGFloat));
-	CGFloat *maxTitleWidth = malloc(desiredColumnCount * sizeof(CGFloat));
+	CGFloat *maxTitleHeight = calloc(desiredRowCount, sizeof(CGFloat));
+	CGFloat *maxTitleWidth = calloc(desiredColumnCount, sizeof(CGFloat));
 	
 	for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
 		legendEntry.row = row;
@@ -553,7 +556,7 @@ NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedra
 		}
 	}
 	legendSize.width += ((theSwatchSize.width + self.titleOffset) * desiredColumnCount) + (self.columnMargin * (desiredColumnCount - 1));
-	
+
 	NSUInteger rows = row;
 	if ( col ) rows++;
 	legendSize.height += (theSwatchSize.height * rows);
