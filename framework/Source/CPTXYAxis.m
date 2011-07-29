@@ -4,6 +4,7 @@
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLimitBand.h"
+#import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotRange.h"
@@ -238,18 +239,55 @@
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
     
     // Axis Line
-	if ( self.axisLineStyle ) {
+	CPTLineStyle *theLineStyle = self.axisLineStyle;
+	CPTLineCap *minCap = self.axisLineCapMin;
+	CPTLineCap *maxCap = self.axisLineCapMax;
+	
+	if ( theLineStyle || minCap || maxCap ) {
 		CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
-        if ( self.visibleRange ) {
-            [range intersectionPlotRange:self.visibleRange];
+		CPTPlotRange *theVisibleRange = self.visibleRange;
+        if ( theVisibleRange ) {
+            [range intersectionPlotRange:theVisibleRange];
         }
-		CGPoint startViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
-		CGPoint endViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
-		[self.axisLineStyle setLineStyleInContext:theContext];
-		CGContextBeginPath(theContext);
-		CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
-		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
-		CGContextStrokePath(theContext);
+		
+		if ( theLineStyle ) {
+			CGPoint startViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
+			CGPoint endViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
+			[theLineStyle setLineStyleInContext:theContext];
+			CGContextBeginPath(theContext);
+			CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
+			CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
+			CGContextStrokePath(theContext);
+		}
+
+		CGPoint axisDirection = CGPointZero;
+		if ( minCap || maxCap ) {
+			switch ( self.coordinate ) {
+				case CPTCoordinateX:
+					axisDirection = (range.lengthDouble >= 0.0) ? CGPointMake(1.0, 0.0) : CGPointMake(-1.0, 0.0);
+					break;
+
+				case CPTCoordinateY:
+					axisDirection = (range.lengthDouble >= 0.0) ? CGPointMake(0.0, 1.0) : CGPointMake(0.0, -1.0);
+					break;
+					
+				default:
+					break;
+			}
+		}
+		
+		if ( minCap ) {
+			NSDecimal endPoint = range.minLimit;
+			CGPoint viewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:endPoint]);
+			[minCap renderAsVectorInContext:theContext atPoint:viewPoint inDirection:CGPointMake(-axisDirection.x, -axisDirection.y)];
+		}
+		
+		if ( maxCap ) {
+			NSDecimal endPoint = range.maxLimit;
+			CGPoint viewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:endPoint]);
+			[maxCap renderAsVectorInContext:theContext atPoint:viewPoint inDirection:axisDirection];
+		}
+		
         [range release];
 	}
 }

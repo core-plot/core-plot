@@ -31,6 +31,7 @@
 		C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
 		C360E1C613B18AAF007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; };
 		C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
+		C367249313E103910070F47A /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249213E103910070F47A /* LineCapDemo.m */; };
 		C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; };
 		C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; };
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
@@ -121,6 +122,8 @@
 		C360E1C513B18AAF007994B6 /* OHLCPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OHLCPlot.m; path = src/plots/OHLCPlot.m; sourceTree = "<group>"; };
 		C360E1DE13B18CAE007994B6 /* CandlestickPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CandlestickPlot.h; path = src/plots/CandlestickPlot.h; sourceTree = "<group>"; };
 		C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CandlestickPlot.m; path = src/plots/CandlestickPlot.m; sourceTree = "<group>"; };
+		C367249113E103910070F47A /* LineCapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineCapDemo.h; path = src/plots/LineCapDemo.h; sourceTree = "<group>"; };
+		C367249213E103910070F47A /* LineCapDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineCapDemo.m; path = src/plots/LineCapDemo.m; sourceTree = "<group>"; };
 		C39C4E3F13BFE1A900CD9194 /* LabelingPolicyDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelingPolicyDemo.h; path = src/plots/LabelingPolicyDemo.h; sourceTree = "<group>"; };
 		C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LabelingPolicyDemo.m; path = src/plots/LabelingPolicyDemo.m; sourceTree = "<group>"; };
 		C39C4E4213BFE1B400CD9194 /* PlotSpaceDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotSpaceDemo.h; path = src/plots/PlotSpaceDemo.h; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */,
 				C39C4E3F13BFE1A900CD9194 /* LabelingPolicyDemo.h */,
 				C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */,
+				C367249113E103910070F47A /* LineCapDemo.h */,
+				C367249213E103910070F47A /* LineCapDemo.m */,
 				C360E1C413B18AAF007994B6 /* OHLCPlot.h */,
 				C360E1C513B18AAF007994B6 /* OHLCPlot.m */,
 				C39C4E4213BFE1B400CD9194 /* PlotSpaceDemo.h */,
@@ -398,6 +403,7 @@
 				C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */,
 				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
+				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

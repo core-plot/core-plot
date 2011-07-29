@@ -91,6 +91,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     timeFormatter.referenceDate = refDate;
     xAxis.labelFormatter = timeFormatter;
 	
+	CPTLineCap *lineCap = [[CPTLineCap alloc] init];
+	lineCap.lineStyle = xAxis.axisLineStyle;
+	lineCap.lineCapType = CPTLineCapTypeSweptArrow;
+	lineCap.size = CGSizeMake(12.0, 15.0);
+	lineCap.fill = [CPTFill fillWithColor:xAxis.axisLineStyle.lineColor];
+	xAxis.axisLineCapMax = lineCap;
+	[lineCap release];
+	
 	CPTXYAxis *yAxis = xyAxisSet.yAxis;
 	yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
 	

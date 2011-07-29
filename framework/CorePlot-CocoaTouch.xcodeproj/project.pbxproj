@@ -178,6 +178,8 @@
 		C3B623D6107EC9830009EF0B /* _CPTFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPTFillImage.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3CAFB3B1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CAFB391229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3CAFB3C1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CAFB3A1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m */; };
+		C3D3AD3413DF8E9D0004EA73 /* CPTLineCap.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3D3AD3513DF8E9D0004EA73 /* CPTLineCap.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */; };
 		C3D68B091221650C00EB4863 /* CPTMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPTMutableNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68B0A1221650D00EB4863 /* CPTMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3E11B188C500D36017 /* CPTMutableNumericData.m */; };
 		C3D68B0B1221650E00EB4863 /* CPTNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3211B188A800D36017 /* CPTNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -355,6 +357,8 @@
 		C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
 		C3CAFB391229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPTMutableNumericData+TypeConversion.h"; path = "Source/CPTMutableNumericData+TypeConversion.h"; sourceTree = "<group>"; };
 		C3CAFB3A1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPTMutableNumericData+TypeConversion.m"; path = "Source/CPTMutableNumericData+TypeConversion.m"; sourceTree = "<group>"; };
+		C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLineCap.h; path = Source/CPTLineCap.h; sourceTree = "<group>"; };
+		C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLineCap.m; path = Source/CPTLineCap.m; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* CPTXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTXYTheme.h; path = Source/CPTXYTheme.h; sourceTree = "<group>"; };
 		C40CFB93107EC1B40057E828 /* CPTXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTXYTheme.m; path = Source/CPTXYTheme.m; sourceTree = "<group>"; };
 		D0C047BD12D6568500DA8047 /* CPTRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTRangePlot.m; path = Source/CPTRangePlot.m; sourceTree = "<group>"; };
@@ -387,6 +391,8 @@
 				BC9B82990FB89E610035D8DA /* CPTGradient.m */,
 				BC9B829A0FB89E610035D8DA /* CPTImage.h */,
 				BC9B829B0FB89E610035D8DA /* CPTImage.m */,
+				C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */,
+				C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */,
 				BC9B829C0FB89E610035D8DA /* CPTLineStyle.h */,
 				BC9B829D0FB89E610035D8DA /* CPTLineStyle.m */,
 				07B69B6F12B62E9600F4C16C /* CPTMutableLineStyle.h */,
@@ -861,6 +867,7 @@
 				C30550E91399BE2000E0151F /* CPTLegendEntry.h in Headers */,
 				C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */,
 				C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */,
+				C3D3AD3413DF8E9D0004EA73 /* CPTLineCap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1030,7 @@
 				C30550EA1399BE2000E0151F /* CPTLegendEntry.m in Sources */,
 				C3978E1113CE65C600A420D9 /* NSCoderExtensions.m in Sources */,
 				C3978E1213CE65EA00A420D9 /* NSExceptionExtensions.m in Sources */,
+				C3D3AD3513DF8E9D0004EA73 /* CPTLineCap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "CPTGridLines.h"
 #import "CPTImage.h"
 #import "CPTLimitBand.h"
+#import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotRange.h"
 #import "CPTPlotSpace.h"
@@ -100,6 +101,18 @@ double niceNum(double x, BOOL round);
  *  Set to nil for no restriction.
  **/
 @synthesize gridLinesRange;
+
+/**	@property axisLineCapMin
+ *	@brief The line cap for the end of the axis line with the minimum value.
+ *	@see axisLineCapMax
+ **/
+@synthesize axisLineCapMin;
+
+/**	@property axisLineCapMax
+ *	@brief The line cap for the end of the axis line with the maximum value.
+ *	@see axisLineCapMin
+ **/
+@synthesize axisLineCapMax;
 
 
 // Title
@@ -386,6 +399,8 @@ double niceNum(double x, BOOL round);
 		minorTickLineStyle = [[CPTLineStyle alloc] init];
 		majorGridLineStyle = nil;
 		minorGridLineStyle = nil;
+		axisLineCapMin = nil;
+		axisLineCapMax = nil;
 		labelingOrigin = [[NSDecimalNumber zero] decimalValue];
 		majorIntervalLength = [[NSDecimalNumber one] decimalValue];
 		minorTicksPerInterval = 1;
@@ -445,6 +460,8 @@ double niceNum(double x, BOOL round);
 		minorTickLineStyle = [theLayer->minorTickLineStyle retain];
 		majorGridLineStyle = [theLayer->majorGridLineStyle retain];
 		minorGridLineStyle = [theLayer->minorGridLineStyle retain];
+		axisLineCapMin = [theLayer->axisLineCapMin retain];
+		axisLineCapMax = [theLayer->axisLineCapMax retain];
 		labelingOrigin = theLayer->labelingOrigin;
 		majorIntervalLength = theLayer->majorIntervalLength;
 		minorTicksPerInterval = theLayer->minorTicksPerInterval;
@@ -494,6 +511,8 @@ double niceNum(double x, BOOL round);
 	[minorTickLineStyle release];
     [majorGridLineStyle release];
     [minorGridLineStyle release];
+	[axisLineCapMin release];
+	[axisLineCapMax release];
 	[labelFormatter release];
 	[minorTickLabelFormatter release];
 	[axisLabels release];
@@ -535,6 +554,8 @@ double niceNum(double x, BOOL round);
 	[coder encodeObject:self.minorTickLineStyle forKey:@"CPTAxis.minorTickLineStyle"];
 	[coder encodeObject:self.majorGridLineStyle forKey:@"CPTAxis.majorGridLineStyle"];
 	[coder encodeObject:self.minorGridLineStyle forKey:@"CPTAxis.minorGridLineStyle"];
+	[coder encodeObject:self.axisLineCapMin forKey:@"CPTAxis.axisLineCapMin"];
+	[coder encodeObject:self.axisLineCapMax forKey:@"CPTAxis.axisLineCapMax"];
 	[coder encodeDecimal:self.labelingOrigin forKey:@"CPTAxis.labelingOrigin"];
 	[coder encodeDecimal:self.majorIntervalLength forKey:@"CPTAxis.majorIntervalLength"];
 	[coder encodeInteger:self.minorTicksPerInterval forKey:@"CPTAxis.minorTicksPerInterval"];
@@ -586,6 +607,8 @@ double niceNum(double x, BOOL round);
 		minorTickLineStyle = [[coder decodeObjectForKey:@"CPTAxis.minorTickLineStyle"] copy];
 		majorGridLineStyle = [[coder decodeObjectForKey:@"CPTAxis.majorGridLineStyle"] copy];
 		minorGridLineStyle = [[coder decodeObjectForKey:@"CPTAxis.minorGridLineStyle"] copy];
+		axisLineCapMin = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMin"] copy];
+		axisLineCapMax = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMax"] copy];
 		labelingOrigin = [coder decodeDecimalForKey:@"CPTAxis.labelingOrigin"];
 		majorIntervalLength = [coder decodeDecimalForKey:@"CPTAxis.majorIntervalLength"];
 		minorTicksPerInterval = [coder decodeIntegerForKey:@"CPTAxis.minorTicksPerInterval"];
@@ -1722,6 +1745,24 @@ double niceNum(double x, BOOL round)
 			self.minorGridLines = nil;
 		}
     }
+}
+
+-(void)setAxisLineCapMin:(CPTLineCap *)newAxisLineCapMin
+{
+	if ( newAxisLineCapMin != axisLineCapMin ) {
+		[axisLineCapMin release];
+		axisLineCapMin = [newAxisLineCapMin copy];
+		[self setNeedsDisplay];
+	}
+}
+
+-(void)setAxisLineCapMax:(CPTLineCap *)newAxisLineCapMax
+{
+	if ( newAxisLineCapMax != axisLineCapMax ) {
+		[axisLineCapMax release];
+		axisLineCapMax = [newAxisLineCapMax copy];
+		[self setNeedsDisplay];
+	}
 }
 
 -(void)setLabelingOrigin:(NSDecimal)newLabelingOrigin

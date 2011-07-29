@@ -25,6 +25,7 @@
 #import <CorePlot/CPTLegend.h>
 #import <CorePlot/CPTLegendEntry.h>
 #import <CorePlot/CPTLimitBand.h>
+#import <CorePlot/CPTLineCap.h>
 #import <CorePlot/CPTLineStyle.h>
 #import <CorePlot/CPTMutableLineStyle.h>
 #import <CorePlot/CPTMutableNumericData.h>

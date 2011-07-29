@@ -10,6 +10,7 @@
 @class CPTAxisTitle;
 @class CPTGridLines;
 @class CPTLimitBand;
+@class CPTLineCap;
 @class CPTLineStyle;
 @class CPTPlotSpace;
 @class CPTPlotRange;
@@ -82,6 +83,8 @@ typedef enum _CPTAxisLabelingPolicy {
     CPTLineStyle *minorTickLineStyle;
     CPTLineStyle *majorGridLineStyle;
     CPTLineStyle *minorGridLineStyle;
+	CPTLineCap *axisLineCapMin;
+	CPTLineCap *axisLineCapMax;
     NSDecimal labelingOrigin;			
     NSDecimal majorIntervalLength;	
     NSUInteger minorTicksPerInterval;
@@ -120,6 +123,8 @@ typedef enum _CPTAxisLabelingPolicy {
 @property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPTSign tickDirection;
 @property (nonatomic, readwrite, copy) CPTPlotRange *visibleRange;
+@property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMin;
+@property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMax;
 ///	@}
 
 /// @name Title
