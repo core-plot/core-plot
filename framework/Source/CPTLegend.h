@@ -11,6 +11,7 @@
  *  @brief Legend notifications
  **/
 extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
+extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
 
 /**	@brief Axis labeling delegate.
  **/

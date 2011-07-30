@@ -1021,7 +1021,7 @@
     if ( newTitle != title ) {
         [title release];
         title = [newTitle copy];
-		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
     }
 }
 
