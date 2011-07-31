@@ -14,6 +14,7 @@
 #import "CPTPlotSymbol.h"
 #import "CPTFill.h"
 #import "NSCoderExtensions.h"
+#import "NSNumberExtensions.h"
 
 /**	@defgroup plotAnimationScatterPlot Scatter Plot
  *	@ingroup plotAnimation
@@ -612,11 +613,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		if ( self.plotSymbol || self.plotSymbols.count ) {
 			if ( self.useFastRendering ) {
 				CGFloat scale = 1.0;
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-					if ( [self respondsToSelector:@selector(contentsScale)] ) {
-						scale = [self contentsScale];
-					}
-#endif
+				if ( [self respondsToSelector:@selector(contentsScale)] ) {
+					scale = [(NSNumber *)[self valueForKey:@"contentsScale"] cgFloatValue];
+				}
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
@@ -720,11 +719,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	
 	if ( thePlotSymbol ) {
 		CGFloat scale = 1.0;
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		if ( [self respondsToSelector:@selector(contentsScale)] ) {
-			scale = [self contentsScale];
+			scale = [(NSNumber *)[self valueForKey:@"contentsScale"] cgFloatValue];
 		}
-#endif
 		[thePlotSymbol renderInContext:context
 							   atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
 								 scale:scale];
