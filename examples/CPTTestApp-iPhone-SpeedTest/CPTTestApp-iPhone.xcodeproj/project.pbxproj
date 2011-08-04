@@ -298,6 +298,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "CPTTestApp-iPhone";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -320,7 +321,7 @@
 				);
 				PRODUCT_NAME = "CPTTestApp-iPhone";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
