@@ -40,6 +40,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 #pragma mark -
 
 /**	@brief A graph legend.
+ *
  *	The legend consists of one or more legend entries associated with plots. Each legend
  *	entry is made up of a graphical "swatch" that corresponds with the plot and a text
  *	title or label to identify the data series to the viewer. The swatches provide a visual

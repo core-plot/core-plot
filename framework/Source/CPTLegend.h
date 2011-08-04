@@ -7,11 +7,17 @@
 @class CPTPlot;
 @class CPTTextStyle;
 
-/**
- *  @brief Legend notifications
+/// @name Legend notifications
+/// @{
+
+/**	@brief Notification sent by plots to tell the legend it should redraw itself.
  **/
 extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
+
+/**	@brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
+ **/
 extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
+///	@}
 
 /**	@brief Axis labeling delegate.
  **/
@@ -21,6 +27,7 @@ extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
 /// @{
 
 /**	@brief This method gives the delegate a chance to draw custom swatches for each legend entry.
+ *
  *	The "swatch" is the graphical part of the legend entry, usually accompanied by a text title
  *	that will be drawn by the legend. Returning NO will cause the legend to not draw the default
  *	legend graphics. It is then the delegate's responsiblity to do this.
