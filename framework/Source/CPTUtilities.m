@@ -588,23 +588,6 @@ NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
 }
 
 #pragma mark -
-#pragma mark Constraints
-
-/**
- *	@brief Initializes a CPConstraints struct with the given constraints.
- *	@param lower The lower constraint.
- *	@param upper The upper constraint.
- *	@return The initialized struct.
- **/
-CPTConstraints CPTMakeConstraints(CPTConstraint lower, CPTConstraint upper)
-{ 
-    CPTConstraints constraints; 
-    constraints.lower = lower; 
-    constraints.upper = upper; 
-    return constraints; 
-}
-
-#pragma mark -
 #pragma mark Colors
 
 /**

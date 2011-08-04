@@ -276,7 +276,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     // Position y2 axis relative to the plot area, ie, not moving when dragging
     CPTXYAxis *y2 = [graph.axisSet.axes objectAtIndex:2];
 	y2.isFloatingAxis = YES;
-	y2.constraints = CPTMakeConstraints(CPTConstraintNone, CPTConstraintFixed);
+	y2.axisConstraints = [CPTConstraints constraintWithUpperOffset:150.0];
 }
 
 -(void)setupBarPlots

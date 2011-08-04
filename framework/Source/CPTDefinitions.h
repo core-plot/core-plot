@@ -9,8 +9,8 @@
  **/
 typedef enum  _CPTNumericType {
     CPTNumericTypeInteger,	///< Integer
-    CPTNumericTypeFloat,		///< Float
-    CPTNumericTypeDouble		///< Double
+    CPTNumericTypeFloat,	///< Float
+    CPTNumericTypeDouble	///< Double
 } CPTNumericType;
 
 /**
@@ -19,7 +19,7 @@ typedef enum  _CPTNumericType {
 typedef enum _CPTErrorBarType {
     CPTErrorBarTypeCustom,			///< Custom error bars
     CPTErrorBarTypeConstantRatio,	///< Constant ratio error bars
-    CPTErrorBarTypeConstantValue		///< Constant value error bars
+    CPTErrorBarTypeConstantValue	///< Constant value error bars
 } CPTErrorBarType;
 
 /**
@@ -62,27 +62,11 @@ typedef enum _CPTSign {
 } CPTSign;
 
 /**
- *  @brief Enumeration of constraint types used in spring and strut model.
- **/
-typedef enum _CPTConstraint {
-    CPTConstraintNone,    ///< No constraint. Free movement, equivalent to "spring".
-    CPTConstraintFixed	 ///< Distance is fixed. Equivalent to a "strut".
-} CPTConstraint;
-
-/**
- *	@brief Constraints for a relative position.
- **/
-typedef struct _CPTConstraints {
-	CPTConstraint lower;	///< The constraint on the lower range.
-	CPTConstraint upper;	///< The constraint on the upper range.
-} CPTConstraints;
-
-/**
  *	@brief Locations around the edge of a rectangle.
  **/
 typedef enum _CPTRectAnchor {
-	CPTRectAnchorBottomLeft,		///< The bottom left corner
-	CPTRectAnchorBottom,			///< The bottom center
+	CPTRectAnchorBottomLeft,	///< The bottom left corner
+	CPTRectAnchorBottom,		///< The bottom center
 	CPTRectAnchorBottomRight,	///< The bottom right corner
 	CPTRectAnchorLeft,			///< The left middle
 	CPTRectAnchorRight,			///< The right middle
@@ -99,7 +83,7 @@ typedef enum _CPTAlignment {
     CPTAlignmentLeft,			///< Align horizontally to the left side.
     CPTAlignmentCenter,			///< Align horizontally to the center.
     CPTAlignmentRight,			///< Align horizontally to the right side.
-    CPTAlignmentTop,				///< Align vertically to the top.
+    CPTAlignmentTop,			///< Align vertically to the top.
     CPTAlignmentMiddle,			///< Align vertically to the middle.
     CPTAlignmentBottom			///< Align vertically to the bottom.
 } CPTAlignment;

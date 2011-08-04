@@ -9,7 +9,7 @@
 #import <CorePlot/CPTBorderedLayer.h>
 #import <CorePlot/CPTColor.h>
 #import <CorePlot/CPTColorSpace.h>
-#import <CorePlot/CPTConstrainedPosition.h>
+#import <CorePlot/CPTConstraints.h>
 #import <CorePlot/CPTDarkGradientTheme.h>
 #import <CorePlot/CPTDecimalNumberValueTransformer.h>
 #import <CorePlot/CPTDefinitions.h>

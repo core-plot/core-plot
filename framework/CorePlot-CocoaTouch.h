@@ -9,7 +9,7 @@
 #import "CPTBorderedLayer.h"
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
-#import "CPTConstrainedPosition.h"
+#import "CPTConstraints.h"
 #import "CPTDarkGradientTheme.h"
 #import "CPTDefinitions.h"
 #import "CPTExceptions.h"

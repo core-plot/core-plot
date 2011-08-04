@@ -80,11 +80,6 @@ NSDecimal CPTDecimalNaN(void);
 NSRange CPTExpandedRange(NSRange range, NSInteger expandBy);
 /// @}
 
-/// @name Constraints
-/// @{
-CPTConstraints CPTMakeConstraints(CPTConstraint lower, CPTConstraint upper);
-/// @}
-
 /// @name Coordinates
 /// @{
 CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord);
