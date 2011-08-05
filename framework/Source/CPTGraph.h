@@ -13,10 +13,15 @@
 @class CPTTextStyle;
 @class CPTLayerAnnotation;
 
-/**
- *  @brief Graph notifications
- **/ 
+/// @name Graph
+/// @{
+
+/**	@brief Notification sent by various objects to tell the graph it should redraw itself.
+ *	@ingroup notification
+ **/
 extern NSString * const CPTGraphNeedsRedrawNotification;
+
+///	@}
 
 /**
  *	@brief Enumeration of graph layers.

@@ -6,7 +6,18 @@
 @class CPTGraph;
 @class CPTPlotSpace;
 
+/// @name Plot Space
+/// @{
+
+/**	@brief Plot space coordinate change notification.
+ *
+ *	This notification is posted to the default notification center whenever the mapping between
+ *	the plot space coordinate system and drawing coordinates changes.
+ *	@ingroup notification
+ **/
 extern NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification;
+
+/// @}
 
 /**	@brief Plot space delegate.
  **/

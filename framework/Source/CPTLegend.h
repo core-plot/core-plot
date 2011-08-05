@@ -7,14 +7,16 @@
 @class CPTPlot;
 @class CPTTextStyle;
 
-/// @name Legend notifications
+/// @name Legend
 /// @{
 
 /**	@brief Notification sent by plots to tell the legend it should redraw itself.
+ *	@ingroup notification
  **/
 extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
 
 /**	@brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
+ *	@ingroup notification
  **/
 extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
 ///	@}

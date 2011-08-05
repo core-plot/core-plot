@@ -2,11 +2,6 @@
 #import "CPTLayer.h"
 #import "CPTAxisSet.h"
 
-/**	@brief Plot space coordinate change notification.
- *
- *	This notification is posted to the default notification center whenever the mapping between
- *	the plot space coordinate system and drawing coordinates changes.
- **/
 NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
 /**	@brief Defines the coordinate system of a plot.

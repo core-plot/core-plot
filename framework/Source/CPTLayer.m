@@ -19,6 +19,10 @@
  *	@endif
  **/
 
+/**	@defgroup notification Notifications
+ *	@brief Notifications used by Core Plot.
+ **/
+
 /**	@cond */
 @interface CPTLayer()
 
