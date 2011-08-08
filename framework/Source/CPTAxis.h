@@ -15,6 +15,7 @@
 @class CPTPlotSpace;
 @class CPTPlotRange;
 @class CPTPlotArea;
+@class CPTShadow;
 
 /**	@brief Enumeration of labeling policies
  **/
@@ -111,6 +112,7 @@ typedef enum _CPTAxisLabelingPolicy {
 	NSArray *alternatingBandFills;
 	NSMutableArray *mutableBackgroundLimitBands;
 	BOOL separateLayers;
+	CPTShadow *labelShadow;
 	__weak CPTPlotArea *plotArea;
 	__weak CPTGridLines *minorGridLines;
 	__weak CPTGridLines *majorGridLines;
@@ -155,6 +157,7 @@ typedef enum _CPTAxisLabelingPolicy {
 @property (nonatomic, readwrite, retain) NSSet *minorTickAxisLabels;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
+@property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
 ///	@}
 
 /// @name Major Ticks

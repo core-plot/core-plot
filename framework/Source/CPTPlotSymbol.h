@@ -1,9 +1,11 @@
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 /// @file
 
 @class CPTLineStyle;
 @class CPTFill;
+@class CPTShadow;
 
 /**	@brief Plot symbol types.
  **/
@@ -33,12 +35,14 @@ typedef enum _CPTPlotSymbolType {
 	CGPathRef customSymbolPath;
 	BOOL usesEvenOddClipRule;
 	CGLayerRef cachedLayer;
+	CPTShadow *shadow;
 }
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTPlotSymbolType symbolType;
 @property (nonatomic, readwrite, retain) CPTLineStyle *lineStyle;
 @property (nonatomic, readwrite, retain) CPTFill *fill;
+@property (nonatomic, readwrite, copy) CPTShadow *shadow;
 @property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 

@@ -30,6 +30,7 @@
 #import <CorePlot/CPTMutableLineStyle.h>
 #import <CorePlot/CPTMutableNumericData.h>
 #import <CorePlot/CPTMutableNumericData+TypeConversion.h>
+#import <CorePlot/CPTMutableShadow.h>
 #import <CorePlot/CPTMutableTextStyle.h>
 #import <CorePlot/CPTNumericDataType.h>
 #import <CorePlot/CPTNumericData.h>
@@ -53,6 +54,7 @@
 #import <CorePlot/CPTRangePlot.h>
 #import <CorePlot/CPTResponder.h>
 #import <CorePlot/CPTScatterPlot.h>
+#import <CorePlot/CPTShadow.h>
 #import <CorePlot/CPTSlateTheme.h>
 #import <CorePlot/CPTStocksTheme.h>
 #import <CorePlot/CPTTextLayer.h>

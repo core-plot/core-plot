@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
+#import "CPTPlotSymbol.h"
 #import "CPTLineStyle.h"
 #import "CPTFill.h"
-#import "CPTPlotSymbol.h"
+#import "CPTShadow.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
@@ -44,6 +44,11 @@
  **/
 @synthesize fill;
 
+/**	@property shadow
+ *	@brief The shadow applied to each plot symbol.
+ **/
+@synthesize shadow;
+
 /** @property customSymbolPath 
  *  @brief The drawing path for a custom plot symbol. It will be scaled to size before being drawn.
  **/
@@ -69,6 +74,7 @@
 		symbolType = CPTPlotSymbolTypeNone;
 		lineStyle = [[CPTLineStyle alloc] init];
 		fill = nil;
+		shadow = nil;
 		cachedSymbolPath = NULL;
 		customSymbolPath = NULL;
 		usesEvenOddClipRule = NO;
@@ -81,6 +87,7 @@
 {
 	[lineStyle release];
 	[fill release];
+	[shadow release];
 	CGPathRelease(cachedSymbolPath);
 	CGPathRelease(customSymbolPath);
 	CGLayerRelease(cachedLayer);
@@ -105,6 +112,7 @@
 	[coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
 	[coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
 	[coder encodeObject:self.fill forKey:@"CPTPlotSymbol.fill"];
+	[coder encodeObject:self.shadow forKey:@"CPTPlotSymbol.shadow"];
 	[coder encodeCGPath:self.customSymbolPath forKey:@"CPTPlotSymbol.customSymbolPath"];
 	[coder encodeBool:self.usesEvenOddClipRule forKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
 	
@@ -120,6 +128,7 @@
 		symbolType = [coder decodeIntegerForKey:@"CPTPlotSymbol.symbolType"];
 		lineStyle = [[coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"] retain];
 		fill = [[coder decodeObjectForKey:@"CPTPlotSymbol.fill"] retain];
+		shadow = [[coder decodeObjectForKey:@"CPTPlotSymbol.shadow"] copy];
 		customSymbolPath = [coder newCGPathDecodeForKey:@"CPTPlotSymbol.customSymbolPath"];
 		usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
 		
@@ -144,6 +153,15 @@
 {
 	if ( newType != symbolType ) {
 		symbolType = newType;
+		self.cachedSymbolPath = NULL;
+	}
+}
+
+-(void)setShadow:(CPTShadow *)newShadow
+{
+	if ( newShadow != shadow ) {
+		[shadow release];
+		shadow = [newShadow copy];
 		self.cachedSymbolPath = NULL;
 	}
 }
@@ -364,15 +382,23 @@
 {
 	static const CGFloat symbolMargin = 2.0;
 	
+	CPTShadow *myShadow = self.shadow;
+	CGSize shadowOffset = myShadow.shadowOffset;
+	CGFloat shadowRadius = myShadow.shadowBlurRadius;
+	
 	CGLayerRef theCachedLayer = self.cachedLayer;
 	
 	if ( !theCachedLayer ) {
 		CGSize symbolSize = self.size;
-		CGFloat margin = self.lineStyle.lineWidth + symbolMargin;
+		CGFloat lineWidth = self.lineStyle.lineWidth;
+		
+		symbolSize.width += (ABS(shadowOffset.width) + shadowRadius) * 2.0 + lineWidth;
 		symbolSize.width *= scale;
-		symbolSize.width += margin;
+		symbolSize.width += symbolMargin;
+		
+		symbolSize.height += (ABS(shadowOffset.height) + shadowRadius) * 2.0 + lineWidth;
 		symbolSize.height *= scale;
-		symbolSize.height += margin;
+		symbolSize.height += symbolMargin;
 		
 		theCachedLayer = CGLayerCreateWithContext(theContext, symbolSize, NULL);
 		
@@ -433,6 +459,7 @@
 			CGContextSaveGState(theContext);
 			CGContextTranslateCTM(theContext, center.x, center.y);
 			CGContextScaleCTM(theContext, scale, scale);
+			[self.shadow setShadowInContext:theContext];
 			
 			if ( theFill ) {
 				// use fillRect instead of fillPath so that images and gradients are properly centered in the symbol

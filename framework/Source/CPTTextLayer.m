@@ -1,4 +1,5 @@
 #import "CPTTextLayer.h"
+#import "CPTShadow.h"
 #import "CPTPlatformSpecificCategories.h"
 #import <tgmath.h>
 
@@ -107,6 +108,14 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 }
 
+-(void)setShadow:(CPTShadow *)newShadow
+{
+	if ( newShadow != self.shadow ) {
+		[super setShadow:newShadow];
+		[self sizeToFit];
+	}
+}
+
 #pragma mark -
 #pragma mark Layout
 
@@ -116,11 +125,15 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 {
     if ( self.text == nil ) return CGSizeZero;
 	CGSize textSize = [self.text sizeWithTextStyle:self.textStyle];
-    
+	CPTShadow *myShadow = self.shadow;
+    CGSize shadowOffset = myShadow.shadowOffset;
+	CGFloat shadowRadius = myShadow.shadowBlurRadius;
+	
 	// Add small margin
-	textSize.width += 2 * kCPTTextLayerMarginWidth;
-	textSize.height += 2 * kCPTTextLayerMarginWidth;
+	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * 2.0;
     textSize.width = ceil(textSize.width);
+
+	textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * 2.0;
     textSize.height = ceil(textSize.height);
     
 	return textSize;    
@@ -148,13 +161,20 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	if ( self.hidden ) return;
 	
 	[super renderAsVectorInContext:context];
-
+	
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0, -1.0);
 #endif
-	[self.text drawInRect:CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth)
+	
+	CPTShadow *myShadow = self.shadow;
+    CGSize shadowOffset = myShadow.shadowOffset;
+	CGFloat shadowRadius = myShadow.shadowBlurRadius;
+	
+	[self.text drawInRect:CGRectInset(self.bounds, 
+									  ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
+									  ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth)
 			withTextStyle:self.textStyle
 				inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

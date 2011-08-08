@@ -18,6 +18,7 @@
 #import "CPTPlotArea.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
+#import "CPTShadow.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
@@ -256,6 +257,11 @@ double niceNum(double x, BOOL round);
  **/
 @synthesize labelExclusionRanges;
 
+/**	@property labelShadow
+ *	@brief The shadow applied to each axis label.
+ **/
+@synthesize labelShadow;
+
 // Major ticks
 
 /**	@property majorIntervalLength
@@ -426,6 +432,7 @@ double niceNum(double x, BOOL round);
 		labelExclusionRanges = nil;
 		plotArea = nil;
 		separateLayers = NO;
+		labelShadow = nil;
 		alternatingBandFills = nil;
 		mutableBackgroundLimitBands = nil;
 		minorGridLines = nil;
@@ -482,6 +489,7 @@ double niceNum(double x, BOOL round);
 		labelExclusionRanges = [theLayer->labelExclusionRanges retain];
 		plotArea = theLayer->plotArea;
 		separateLayers = theLayer->separateLayers;
+		labelShadow = [theLayer->labelShadow retain];
 		visibleRange = [theLayer->visibleRange retain];
 		gridLinesRange = [theLayer->gridLinesRange retain];
 		alternatingBandFills = [theLayer->alternatingBandFills retain];
@@ -526,6 +534,7 @@ double niceNum(double x, BOOL round);
     [gridLinesRange release];
 	[alternatingBandFills release];
 	[mutableBackgroundLimitBands release];
+	[labelShadow release];
 	
 	[super dealloc];
 }
@@ -582,6 +591,7 @@ double niceNum(double x, BOOL round);
 	[coder encodeObject:self.alternatingBandFills forKey:@"CPTAxis.alternatingBandFills"];
 	[coder encodeObject:self.mutableBackgroundLimitBands forKey:@"CPTAxis.mutableBackgroundLimitBands"];
 	[coder encodeBool:self.separateLayers forKey:@"CPTAxis.separateLayers"];
+	[coder encodeObject:self.labelShadow forKey:@"CPTAxis.labelShadow"];
 	[coder encodeConditionalObject:self.plotArea forKey:@"CPTAxis.plotArea"];
 	[coder encodeConditionalObject:self.minorGridLines forKey:@"CPTAxis.minorGridLines"];
 	[coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
@@ -635,6 +645,7 @@ double niceNum(double x, BOOL round);
 		alternatingBandFills = [[coder decodeObjectForKey:@"CPTAxis.alternatingBandFills"] copy];
 		mutableBackgroundLimitBands = [[coder decodeObjectForKey:@"CPTAxis.mutableBackgroundLimitBands"] mutableCopy];
 		separateLayers = [coder decodeBoolForKey:@"CPTAxis.separateLayers"];
+		labelShadow = [[coder decodeObjectForKey:@"CPTAxis.labelShadow"] retain];
 		plotArea = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
 		minorGridLines = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
 		majorGridLines = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
@@ -1099,12 +1110,13 @@ double niceNum(double x, BOOL round)
     NSMutableSet *newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
 	CPTAxisLabel *blankLabel = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
 	CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
-	CALayer *lastLayer = nil;
+	CPTLayer *lastLayer = nil;
 	CPTPlotArea *thePlotArea = self.plotArea;
 	
 	BOOL theLabelFormatterChanged = self.labelFormatterChanged;
 	CPTSign theTickDirection = self.tickDirection;
 	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
+	CPTShadow *theShadow = self.labelShadow;
 	
 	for ( NSDecimalNumber *tickLocation in locations ) {
 		CPTAxisLabel *newAxisLabel;
@@ -1146,6 +1158,7 @@ double niceNum(double x, BOOL round)
 		}
 
 		lastLayer = newAxisLabel.contentLayer;
+		lastLayer.shadow = theShadow;
 		
 		[newAxisLabels addObject:newAxisLabel];
 		[newAxisLabel release];
@@ -1643,6 +1656,17 @@ double niceNum(double x, BOOL round)
         minorTickLabelAlignment = newAlignment;
         self.needsRelabel = YES;
     }
+}
+
+-(void)setLabelShadow:(CPTShadow *)newLabelShadow
+{
+	if ( newLabelShadow != labelShadow ) {
+		[labelShadow release];
+		labelShadow = [newLabelShadow retain];
+		for ( CPTAxisLabel *label in self.axisLabels ) {
+			label.contentLayer.shadow = labelShadow;
+		}
+	}
 }
 
 -(void)setPlotSpace:(CPTPlotSpace *)newSpace 

@@ -1,11 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CPTLineStyle.h"
 #import "CPTResponder.h"
-#import "CPTPlatformSpecificDefines.h"
 
 @protocol CPTLayoutManager;
 @class CPTGraph;
+@class CPTShadow;
 
 @interface CPTLayer : CALayer <CPTResponder> {
 	@private
@@ -14,6 +13,7 @@
 	CGFloat paddingRight;
 	CGFloat paddingBottom;
 	BOOL masksToBorder;
+	CPTShadow *shadow;
 	id <CPTLayoutManager> layoutManager;
 	BOOL renderingRecursively;
 	BOOL useFastRendering;
@@ -38,6 +38,7 @@
 /// @name Drawing
 /// @{
 @property (nonatomic, readonly, assign) BOOL useFastRendering;
+@property (nonatomic, readwrite, copy) CPTShadow *shadow;
 ///	@}
 
 /// @name Masking

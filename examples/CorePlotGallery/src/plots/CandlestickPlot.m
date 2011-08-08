@@ -124,6 +124,11 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     dataSourceLinePlot.areaFill2 = areaGradientFill;
     dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(5.0);
     
+	CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
+	whiteShadow.shadowOffset = CGSizeMake(2.0, -2.0);
+	whiteShadow.shadowBlurRadius = 4.0;
+	whiteShadow.shadowColor = [CPTColor whiteColor];
+	
     // OHLC plot
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
@@ -135,13 +140,15 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     whiteTextStyle.color = [CPTColor whiteColor];
 	whiteTextStyle.fontSize = 12.0;
 	ohlcPlot.labelTextStyle = whiteTextStyle;
-	ohlcPlot.labelOffset = 5.0;
+	ohlcPlot.labelOffset = 0.0;
     ohlcPlot.barCornerRadius = 3.0;
 	ohlcPlot.barWidth = 15.0;
 	ohlcPlot.increaseFill = [CPTFill fillWithColor:[CPTColor greenColor]];
 	ohlcPlot.decreaseFill = nil;
     ohlcPlot.dataSource = self;
     ohlcPlot.plotStyle = CPTTradingRangePlotStyleCandleStick;
+	ohlcPlot.shadow = whiteShadow;
+	ohlcPlot.labelShadow = whiteShadow;
     [graph addPlot:ohlcPlot];
     
 	// Add legend

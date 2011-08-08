@@ -118,6 +118,7 @@ typedef enum _CPTPlotCachePrecision {
 	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
 	NSMutableArray *labelAnnotations;
+	CPTShadow *labelShadow;
 }
 
 /// @name Data Source
@@ -163,6 +164,7 @@ typedef enum _CPTPlotCachePrecision {
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
+@property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
 ///	@}
 
 /// @name Data Labels

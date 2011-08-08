@@ -76,6 +76,11 @@ NSString * const outerChartName = @"Outer";
 	CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
 	whiteLineStyle.lineColor = [CPTColor whiteColor];
 	
+	CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
+	whiteShadow.shadowOffset = CGSizeMake(2.0, -4.0);
+	whiteShadow.shadowBlurRadius = 4.0;
+	whiteShadow.shadowColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
+
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
@@ -87,6 +92,7 @@ NSString * const outerChartName = @"Outer";
 	piePlot.borderLineStyle = whiteLineStyle;
     piePlot.startAngle = M_PI_4;
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
+	piePlot.shadow = whiteShadow;
     piePlot.delegate = self;
     [graph addPlot:piePlot];
     [piePlot release];
@@ -99,6 +105,7 @@ NSString * const outerChartName = @"Outer";
 	piePlot.borderLineStyle = whiteLineStyle;
     piePlot.startAngle = M_PI_4;
     piePlot.sliceDirection = CPTPieDirectionClockwise;
+	piePlot.shadow = whiteShadow;
     piePlot.delegate = self;
     [graph addPlot:piePlot];
     [piePlot release];
@@ -142,7 +149,7 @@ NSString * const outerChartName = @"Outer";
 			whiteText.color = [CPTColor whiteColor];
 		}
 		
-		newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%3.0f", [[plotData objectAtIndex:index] floatValue]] style:whiteText] autorelease];
+		newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [[plotData objectAtIndex:index] floatValue]] style:whiteText] autorelease];
 	}
 	
     return newLayer;

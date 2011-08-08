@@ -611,6 +611,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		
 		// Draw plot symbols
 		if ( self.plotSymbol || self.plotSymbols.count ) {
+			// clear the plot shadow if any--symbols draw their own shadows
+			CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
+			
 			if ( self.useFastRendering ) {
 				CGFloat scale = 1.0;
 				if ( [self respondsToSelector:@selector(contentsScale)] ) {

@@ -34,11 +34,17 @@
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(11.0)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(14.0)];
     
-    // Create a series of plots that uses the data source method
+ 	CPTMutableShadow *lineShadow = [CPTMutableShadow shadow];
+	lineShadow.shadowOffset = CGSizeMake(3.0, -3.0);
+	lineShadow.shadowBlurRadius = 4.0;
+	lineShadow.shadowColor = [CPTColor redColor];
+	
+	// Create a series of plots that uses the data source method
 	for (NSUInteger i = CPTPlotSymbolTypeNone; i <= CPTPlotSymbolTypeCustom; i++) {
 		CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
 		dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
-        
+        dataSourceLinePlot.shadow = lineShadow;
+		
         CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
 		lineStyle.lineWidth = 1.f;
 		lineStyle.lineColor = [CPTColor redColor];
@@ -79,11 +85,16 @@
 {
 	CPTGradient *gradientFill = [CPTGradient rainbowGradient];
 	gradientFill.gradientType = CPTGradientTypeRadial;
-	gradientFill.angle = 90;
+	
+	CPTMutableShadow *symbolShadow = [CPTMutableShadow shadow];
+	symbolShadow.shadowOffset = CGSizeMake(3.0, -3.0);
+	symbolShadow.shadowBlurRadius = 3.0;
+	symbolShadow.shadowColor = [CPTColor blackColor];
 	
 	CPTPlotSymbol *symbol = [[[CPTPlotSymbol alloc] init] autorelease];
 	symbol.symbolType = [(NSString *)plot.identifier intValue];
 	symbol.fill = [CPTFill fillWithGradient:gradientFill];
+	symbol.shadow = symbolShadow;
 	
 	if (index > 0) {
 		symbol.size = CGSizeMake(index * 4, index * 4);

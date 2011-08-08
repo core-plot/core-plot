@@ -160,6 +160,11 @@
  **/
 @synthesize labelFormatter;
 
+/**	@property labelShadow
+ *	@brief The shadow applied to each data label.
+ **/
+@synthesize labelShadow;
+
 @synthesize labelFormatterChanged;
 
 @synthesize labelIndexRange;
@@ -186,6 +191,7 @@
 		labelField = 0;
 		labelTextStyle = nil;
 		labelFormatter = nil;
+		labelShadow = nil;
 		labelFormatterChanged = YES;
 		labelIndexRange = NSMakeRange(0, 0);
 		labelAnnotations = nil;
@@ -215,6 +221,7 @@
 		labelField = theLayer->labelField;
 		labelTextStyle = [theLayer->labelTextStyle retain];
 		labelFormatter = [theLayer->labelFormatter retain];
+		labelShadow = [theLayer->labelShadow retain];
 		labelFormatterChanged = theLayer->labelFormatterChanged;
 		labelIndexRange = theLayer->labelIndexRange;
 		labelAnnotations = [theLayer->labelAnnotations retain];
@@ -230,6 +237,7 @@
     [plotSpace release];
 	[labelTextStyle release];
 	[labelFormatter release];
+	[labelShadow release];
 	[labelAnnotations release];
 	
     [super dealloc];
@@ -255,6 +263,7 @@
 	[coder encodeInteger:self.labelField forKey:@"CPTPlot.labelField"];
 	[coder encodeObject:self.labelTextStyle forKey:@"CPTPlot.labelTextStyle"];
 	[coder encodeObject:self.labelFormatter forKey:@"CPTPlot.labelFormatter"];
+	[coder encodeObject:self.labelShadow forKey:@"CPTPlot.labelShadow"];
 	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTPlot.labelFormatterChanged"];
 	[coder encodeObject:[NSValue valueWithRange:self.labelIndexRange] forKey:@"CPTPlot.labelIndexRange"];
 	[coder encodeObject:self.labelAnnotations forKey:@"CPTPlot.labelAnnotations"];
@@ -279,6 +288,7 @@
 		labelField = [coder decodeIntegerForKey:@"CPTPlot.labelField"];
 		labelTextStyle = [[coder decodeObjectForKey:@"CPTPlot.labelTextStyle"] copy];
 		labelFormatter = [[coder decodeObjectForKey:@"CPTPlot.labelFormatter"] retain];
+		labelShadow = [[coder decodeObjectForKey:@"CPTPlot.labelShadow"] retain];
 		labelFormatterChanged = [coder decodeBoolForKey:@"CPTPlot.labelFormatterChanged"];
 		labelIndexRange = [[coder decodeObjectForKey:@"CPTPlot.labelIndexRange"] rangeValue];
 		labelAnnotations = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
@@ -843,6 +853,7 @@
 	NSUInteger oldLabelCount = labelArray.count;
 	Class nullClass = [NSNull class];
 	CPTMutableNumericData *labelFieldDataCache = [self cachedNumbersForField:self.labelField];
+	CPTShadow *theShadow = self.labelShadow;
 	
 	for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
 		CPTLayer *newLabelLayer = nil;
@@ -867,6 +878,7 @@
 				newLabelLayer = nil;
 			}
 		}
+		newLabelLayer.shadow = theShadow;
 		
 		CPTPlotSpaceAnnotation *labelAnnotation;
 		if ( i < oldLabelCount ) {
@@ -1104,6 +1116,17 @@
 		self.labelFormatterChanged = YES;
         self.needsRelabel = YES;
     }
+}
+
+-(void)setLabelShadow:(CPTShadow *)newLabelShadow
+{
+	if ( newLabelShadow != labelShadow ) {
+		[labelShadow release];
+		labelShadow = [newLabelShadow retain];
+		for ( CPTAnnotation *label in self.labelAnnotations ) {
+			label.contentLayer.shadow = labelShadow;
+		}
+	}
 }
 
 -(void)setCachePrecision:(CPTPlotCachePrecision)newPrecision

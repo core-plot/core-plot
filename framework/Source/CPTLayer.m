@@ -3,9 +3,11 @@
 #import "CPTLayer.h"
 #import "CPTLayoutManager.h"
 #import "CPTPathExtensions.h"
+#import "CPTPlatformSpecificDefines.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTExceptions.h"
 #import "CPTLineStyle.h"
+#import "CPTShadow.h"
 #import "CPTUtilities.h"
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
@@ -74,6 +76,11 @@
  *  @brief If YES, a sublayer mask is applied to clip sublayer content to the inside of the border.
  **/
 @synthesize masksToBorder;
+
+/** @property shadow 
+ *  @brief The shadow drawn under the layer content. If nil (the default), no shadow is drawn.
+ **/
+@synthesize shadow;
 
 /** @property outerBorderPath
  *  @brief A drawing path that encompasses the outer boundary of the layer border.
@@ -144,6 +151,7 @@
 		paddingRight = 0.0;
 		paddingBottom = 0.0;
 		masksToBorder = NO;
+		shadow = nil;
 		layoutManager = nil;
 		renderingRecursively = NO;
 		useFastRendering = NO;
@@ -183,6 +191,7 @@
 		paddingRight = theLayer->paddingRight;
 		paddingBottom = theLayer->paddingBottom;
 		masksToBorder = theLayer->masksToBorder;
+		shadow = [theLayer->shadow retain];
 		layoutManager = [theLayer->layoutManager retain];
 		renderingRecursively = theLayer->renderingRecursively;
 		graph = theLayer->graph;
@@ -195,6 +204,7 @@
 -(void)dealloc
 {
 	graph = nil;
+	[shadow release];
 	[layoutManager release];
 	CGPathRelease(outerBorderPath);
 	CGPathRelease(innerBorderPath);
@@ -221,6 +231,7 @@
 	[coder encodeCGFloat:self.paddingRight forKey:@"CPTLayer.paddingRight"];
 	[coder encodeCGFloat:self.paddingBottom forKey:@"CPTLayer.paddingBottom"];
 	[coder encodeBool:self.masksToBorder forKey:@"CPTLayer.masksToBorder"];
+	[coder encodeObject:self.shadow forKey:@"CPTLayer.shadow"];
 	if ( [self.layoutManager conformsToProtocol:@protocol(NSCoding)] ) {
 		[coder encodeObject:self.layoutManager forKey:@"CPTLayer.layoutManager"];
 	}
@@ -240,6 +251,7 @@
 		paddingRight = [coder decodeCGFloatForKey:@"CPTLayer.paddingRight"];
 		paddingBottom = [coder decodeCGFloatForKey:@"CPTLayer.paddingBottom"];
 		masksToBorder = [coder decodeBoolForKey:@"CPTLayer.masksToBorder"];
+		shadow = [[coder decodeObjectForKey:@"CPTLayer.shadow"] copy];
 		layoutManager = [[coder decodeObjectForKey:@"CPTLayer.layoutManager"] retain];
 		graph = [coder decodeObjectForKey:@"CPTLayer.graph"];
 		
@@ -280,6 +292,7 @@
 {
 	// This is where subclasses do their drawing
 	[self applyMaskToContext:context];
+	[self.shadow setShadowInContext:context];
 }
 
 /**	@brief Draws layer content and the content of all sublayers into the provided graphics context.
@@ -689,6 +702,15 @@
 		if ( !newHidden ) {
 			[self setNeedsDisplay];
 		}
+	}
+}
+
+-(void)setShadow:(CPTShadow *)newShadow
+{
+	if ( newShadow != shadow ) {
+		[shadow release];
+		shadow = [newShadow copy];
+		[self setNeedsDisplay];
 	}
 }
 

@@ -127,6 +127,10 @@
 		C30C85AC1047428100181766 /* CPTPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPTPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4C211EA18A400595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPTLimitBand.m */; };
+		C32EE1BD13EC4AF900038266 /* CPTShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = C32EE1BB13EC4AF900038266 /* CPTShadow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C32EE1BE13EC4AF900038266 /* CPTShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = C32EE1BC13EC4AF900038266 /* CPTShadow.m */; };
+		C32EE1C813EC4C7200038266 /* CPTMutableShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = C32EE1C613EC4C7200038266 /* CPTMutableShadow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C32EE1C913EC4C7200038266 /* CPTMutableShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = C32EE1C713EC4C7200038266 /* CPTMutableShadow.m */; };
 		C3392A361225F63B008DA6BD /* CPTNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3392A351225F63B008DA6BD /* CPTNumericData+TypeConversion.m */; };
 		C35A65A511025EDF00FE24BB /* CPTPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPTPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPTPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPTPlotArea.m */; };
@@ -320,6 +324,10 @@
 		C30C85AA1047428100181766 /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotGroup.m; path = Source/CPTPlotGroup.m; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLimitBand.h; path = Source/CPTLimitBand.h; sourceTree = "<group>"; };
 		C318F4C011EA18A400595FF9 /* CPTLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLimitBand.m; path = Source/CPTLimitBand.m; sourceTree = "<group>"; };
+		C32EE1BB13EC4AF900038266 /* CPTShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTShadow.h; path = Source/CPTShadow.h; sourceTree = "<group>"; };
+		C32EE1BC13EC4AF900038266 /* CPTShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTShadow.m; path = Source/CPTShadow.m; sourceTree = "<group>"; };
+		C32EE1C613EC4C7200038266 /* CPTMutableShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutableShadow.h; path = Source/CPTMutableShadow.h; sourceTree = "<group>"; };
+		C32EE1C713EC4C7200038266 /* CPTMutableShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutableShadow.m; path = Source/CPTMutableShadow.m; sourceTree = "<group>"; };
 		C3392A351225F63B008DA6BD /* CPTNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPTNumericData+TypeConversion.m"; path = "Source/CPTNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C3566B8C10EED17400FB3866 /* doxygen touch.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen touch.config"; sourceTree = SOURCE_ROOT; };
 		C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen-cocoa-touch-tags.xml"; sourceTree = SOURCE_ROOT; };
@@ -407,6 +415,10 @@
 				07B69B7012B62E9600F4C16C /* CPTMutableLineStyle.m */,
 				077F28530FE18048000BCA52 /* CPTPathExtensions.h */,
 				077F28540FE18048000BCA52 /* CPTPathExtensions.m */,
+				C32EE1BB13EC4AF900038266 /* CPTShadow.h */,
+				C32EE1BC13EC4AF900038266 /* CPTShadow.m */,
+				C32EE1C613EC4C7200038266 /* CPTMutableShadow.h */,
+				C32EE1C713EC4C7200038266 /* CPTMutableShadow.m */,
 				BC9B82870FB89E610035D8DA /* Fills */,
 			);
 			name = Drawing;
@@ -882,6 +894,8 @@
 				C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */,
 				C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */,
 				C3D3AD3413DF8E9D0004EA73 /* CPTLineCap.h in Headers */,
+				C32EE1BD13EC4AF900038266 /* CPTShadow.h in Headers */,
+				C32EE1C813EC4C7200038266 /* CPTMutableShadow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,6 +1061,8 @@
 				C3D3AD3513DF8E9D0004EA73 /* CPTLineCap.m in Sources */,
 				C3CCA04913E8D94800CE6DB1 /* _CPTConstraintsFixed.m in Sources */,
 				C3CCA04B13E8D94800CE6DB1 /* _CPTConstraintsRelative.m in Sources */,
+				C32EE1BE13EC4AF900038266 /* CPTShadow.m in Sources */,
+				C32EE1C913EC4C7200038266 /* CPTMutableShadow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
