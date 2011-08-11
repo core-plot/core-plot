@@ -698,7 +698,7 @@
 -(void)setHidden:(BOOL)newHidden
 {
 	if ( newHidden != self.hidden ) {
-		self.hidden = newHidden;
+		[super setHidden:newHidden];
 		if ( !newHidden ) {
 			[self setNeedsDisplay];
 		}
