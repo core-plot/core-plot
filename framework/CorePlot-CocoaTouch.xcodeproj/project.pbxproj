@@ -96,7 +96,6 @@
 		BC9B83500FB8A1400035D8DA /* CPTBarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82DB0FB89E610035D8DA /* CPTBarPlot.m */; };
 		BC9B83510FB8A1400035D8DA /* CPTPlotSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82D10FB89E610035D8DA /* CPTPlotSymbol.m */; };
 		BC9B83520FB8A1400035D8DA /* CPTPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C70FB89E610035D8DA /* CPTPlotSpace.m */; };
-		BC9B83540FB8A1400035D8DA /* CPTPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82CD0FB89E610035D8DA /* CPTPolarPlotSpace.m */; };
 		BC9B83550FB8A1400035D8DA /* CPTPlotAreaFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82C20FB89E610035D8DA /* CPTPlotAreaFrame.m */; };
 		BC9B83560FB8A1400035D8DA /* CPTGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B70FB89E610035D8DA /* CPTGraph.m */; };
 		BC9B83570FB8A1400035D8DA /* CPTXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B82B90FB89E610035D8DA /* CPTXYGraph.m */; };
@@ -172,7 +171,6 @@
 		C3B623CB107EC9610009EF0B /* CPTPlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82AB0FB89E610035D8DA /* CPTPlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CC107EC9620009EF0B /* CPTPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82C60FB89E610035D8DA /* CPTPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CD107EC9630009EF0B /* CPTPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D00FB89E610035D8DA /* CPTPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3B623CE107EC9640009EF0B /* CPTPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82CC0FB89E610035D8DA /* CPTPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623CF107EC9680009EF0B /* CPTScatterPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82D40FB89E610035D8DA /* CPTScatterPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623D1107EC96E0009EF0B /* CPTUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A70FB89E610035D8DA /* CPTUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623D2107EC9760009EF0B /* CPTXYGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B80FB89E610035D8DA /* CPTXYGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -300,8 +298,6 @@
 		BC9B82C20FB89E610035D8DA /* CPTPlotAreaFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotAreaFrame.m; path = Source/CPTPlotAreaFrame.m; sourceTree = "<group>"; };
 		BC9B82C60FB89E610035D8DA /* CPTPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotSpace.h; path = Source/CPTPlotSpace.h; sourceTree = SOURCE_ROOT; };
 		BC9B82C70FB89E610035D8DA /* CPTPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotSpace.m; path = Source/CPTPlotSpace.m; sourceTree = SOURCE_ROOT; };
-		BC9B82CC0FB89E610035D8DA /* CPTPolarPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPolarPlotSpace.h; path = Source/CPTPolarPlotSpace.h; sourceTree = SOURCE_ROOT; };
-		BC9B82CD0FB89E610035D8DA /* CPTPolarPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPolarPlotSpace.m; path = Source/CPTPolarPlotSpace.m; sourceTree = SOURCE_ROOT; };
 		BC9B82D00FB89E610035D8DA /* CPTPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotSymbol.h; path = Source/CPTPlotSymbol.h; sourceTree = SOURCE_ROOT; };
 		BC9B82D10FB89E610035D8DA /* CPTPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotSymbol.m; path = Source/CPTPlotSymbol.m; sourceTree = SOURCE_ROOT; };
 		BC9B82D20FB89E610035D8DA /* CPTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlot.h; path = Source/CPTPlot.h; sourceTree = SOURCE_ROOT; };
@@ -682,8 +678,6 @@
 				BC9B82C70FB89E610035D8DA /* CPTPlotSpace.m */,
 				074D7BC30FD6B65E006011BC /* CPTXYPlotSpace.h */,
 				074D7BC40FD6B65F006011BC /* CPTXYPlotSpace.m */,
-				BC9B82CC0FB89E610035D8DA /* CPTPolarPlotSpace.h */,
-				BC9B82CD0FB89E610035D8DA /* CPTPolarPlotSpace.m */,
 			);
 			name = Spaces;
 			sourceTree = SOURCE_ROOT;
@@ -853,7 +847,6 @@
 				C3B623CB107EC9610009EF0B /* CPTPlotRange.h in Headers */,
 				C3B623CC107EC9620009EF0B /* CPTPlotSpace.h in Headers */,
 				C3B623CD107EC9630009EF0B /* CPTPlotSymbol.h in Headers */,
-				C3B623CE107EC9640009EF0B /* CPTPolarPlotSpace.h in Headers */,
 				C3B623CF107EC9680009EF0B /* CPTScatterPlot.h in Headers */,
 				C3B623D1107EC96E0009EF0B /* CPTUtilities.h in Headers */,
 				C3B623D2107EC9760009EF0B /* CPTXYGraph.h in Headers */,
@@ -987,7 +980,6 @@
 				BC9B83500FB8A1400035D8DA /* CPTBarPlot.m in Sources */,
 				BC9B83510FB8A1400035D8DA /* CPTPlotSymbol.m in Sources */,
 				BC9B83520FB8A1400035D8DA /* CPTPlotSpace.m in Sources */,
-				BC9B83540FB8A1400035D8DA /* CPTPolarPlotSpace.m in Sources */,
 				BC9B83550FB8A1400035D8DA /* CPTPlotAreaFrame.m in Sources */,
 				BC9B83560FB8A1400035D8DA /* CPTGraph.m in Sources */,
 				BC9B83570FB8A1400035D8DA /* CPTXYGraph.m in Sources */,

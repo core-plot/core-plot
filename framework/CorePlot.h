@@ -50,7 +50,6 @@
 #import <CorePlot/CPTPlotSpace.h>
 #import <CorePlot/CPTPlotSpaceAnnotation.h>
 #import <CorePlot/CPTPlotSymbol.h>
-#import <CorePlot/CPTPolarPlotSpace.h>
 #import <CorePlot/CPTRangePlot.h>
 #import <CorePlot/CPTResponder.h>
 #import <CorePlot/CPTScatterPlot.h>

@@ -50,7 +50,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTPlotSymbol.h"
-#import "CPTPolarPlotSpace.h"
 #import "CPTRangePlot.h"
 #import "CPTResponder.h"
 #import "CPTScatterPlot.h"
