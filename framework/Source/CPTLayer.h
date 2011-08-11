@@ -2,7 +2,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CPTResponder.h"
 
-@protocol CPTLayoutManager;
 @class CPTGraph;
 @class CPTShadow;
 
@@ -14,7 +13,6 @@
 	CGFloat paddingBottom;
 	BOOL masksToBorder;
 	CPTShadow *shadow;
-	id <CPTLayoutManager> layoutManager;
 	BOOL renderingRecursively;
 	BOOL useFastRendering;
     __weak CPTGraph *graph;
@@ -52,7 +50,6 @@
 
 /// @name Layout
 /// @{
-@property (readwrite, retain) id <CPTLayoutManager> layoutManager;
 @property (readonly) NSSet *sublayersExcludedFromAutomaticLayout;
 ///	@}
 

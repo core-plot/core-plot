@@ -155,8 +155,6 @@
 		C3978E1113CE65C600A420D9 /* NSCoderExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */; };
 		C3978E1213CE65EA00A420D9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */; };
 		C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C3B623BD107EC7ED0009EF0B /* CPTLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3B623BB107EC7ED0009EF0B /* CPTLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3B623BE107EC7ED0009EF0B /* CPTLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B623BC107EC7ED0009EF0B /* CPTLayoutManager.m */; };
 		C3B623C0107EC9370009EF0B /* CPTBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82DA0FB89E610035D8DA /* CPTBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C1107EC9400009EF0B /* CPTDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A30FB89E610035D8DA /* CPTDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C2107EC9430009EF0B /* CPTExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A50FB89E610035D8DA /* CPTExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -350,8 +348,6 @@
 		C3920ACE1395B7680045F3BB /* CPTLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLegend.m; path = Source/CPTLegend.m; sourceTree = "<group>"; };
 		C3978E0E13CE65C600A420D9 /* NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCoderExtensions.h; path = Source/NSCoderExtensions.h; sourceTree = "<group>"; };
 		C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoderExtensions.m; path = Source/NSCoderExtensions.m; sourceTree = "<group>"; };
-		C3B623BB107EC7ED0009EF0B /* CPTLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLayoutManager.h; path = Source/CPTLayoutManager.h; sourceTree = "<group>"; };
-		C3B623BC107EC7ED0009EF0B /* CPTLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLayoutManager.m; path = Source/CPTLayoutManager.m; sourceTree = "<group>"; };
 		C3CADE2F11B1886B00D36017 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = Source/license.txt; sourceTree = "<group>"; };
 		C3CADE3011B188A800D36017 /* CPTNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTNumericData.h; path = Source/CPTNumericData.h; sourceTree = "<group>"; };
 		C3CADE3111B188A800D36017 /* CPTNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTNumericData.m; path = Source/CPTNumericData.m; sourceTree = "<group>"; };
@@ -770,8 +766,6 @@
 		C3B623A9107EC5460009EF0B /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				C3B623BB107EC7ED0009EF0B /* CPTLayoutManager.h */,
-				C3B623BC107EC7ED0009EF0B /* CPTLayoutManager.m */,
 				074FADF7112024C500394B90 /* CPTConstraints.h */,
 				074FADF8112024C500394B90 /* CPTConstraints.m */,
 				C3CCA04413E8D94800CE6DB1 /* _CPTConstraintsFixed.h */,
@@ -831,7 +825,6 @@
 				07A5E24C104E47E900B7AB80 /* CPTTextLayer.h in Headers */,
 				C30C85AB1047428100181766 /* CPTPlotGroup.h in Headers */,
 				C40CFB94107EC1B40057E828 /* CPTXYTheme.h in Headers */,
-				C3B623BD107EC7ED0009EF0B /* CPTLayoutManager.h in Headers */,
 				C3B623C0107EC9370009EF0B /* CPTBarPlot.h in Headers */,
 				BC74A2C210FC087800E7E90D /* CPTPieChart.h in Headers */,
 				C3B623C1107EC9400009EF0B /* CPTDefinitions.h in Headers */,
@@ -1019,7 +1012,6 @@
 				07A2E71F102DFAD300809BC5 /* CPTTimeFormatter.m in Sources */,
 				C30C85AC1047428100181766 /* CPTPlotGroup.m in Sources */,
 				C40CFB95107EC1B40057E828 /* CPTXYTheme.m in Sources */,
-				C3B623BE107EC7ED0009EF0B /* CPTLayoutManager.m in Sources */,
 				0772B4F410E26A12009CD04C /* CPTTradingRangePlot.m in Sources */,
 				BC74A2C310FC087800E7E90D /* CPTPieChart.m in Sources */,
 				074FADFA112024C500394B90 /* CPTConstraints.m in Sources */,

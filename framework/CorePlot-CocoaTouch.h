@@ -21,7 +21,6 @@
 #import "CPTImage.h"
 #import "CPTLayer.h"
 #import "CPTLayerAnnotation.h"
-#import "CPTLayoutManager.h"
 #import "CPTLegend.h"
 #import "CPTLegendEntry.h"
 #import "CPTLimitBand.h"

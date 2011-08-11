@@ -1,7 +1,6 @@
 #import "CPTAxisSet.h"
 #import "CPTGraph.h"
 #import "CPTLayer.h"
-#import "CPTLayoutManager.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificDefines.h"
 #import "CPTPlatformSpecificFunctions.h"
@@ -109,11 +108,6 @@
  **/
 @dynamic sublayerMaskingPath;
 
-/** @property layoutManager
- *  @brief The layout manager for this layer.
- **/
-@synthesize layoutManager;
-
 /** @property sublayersExcludedFromAutomaticLayout
  *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
  **/
@@ -152,7 +146,6 @@
 		paddingBottom = 0.0;
 		masksToBorder = NO;
 		shadow = nil;
-		layoutManager = nil;
 		renderingRecursively = NO;
 		useFastRendering = NO;
 		graph = nil;
@@ -192,7 +185,6 @@
 		paddingBottom = theLayer->paddingBottom;
 		masksToBorder = theLayer->masksToBorder;
 		shadow = [theLayer->shadow retain];
-		layoutManager = [theLayer->layoutManager retain];
 		renderingRecursively = theLayer->renderingRecursively;
 		graph = theLayer->graph;
 		outerBorderPath = CGPathRetain(theLayer->outerBorderPath);
@@ -205,7 +197,6 @@
 {
 	graph = nil;
 	[shadow release];
-	[layoutManager release];
 	CGPathRelease(outerBorderPath);
 	CGPathRelease(innerBorderPath);
 
@@ -232,9 +223,6 @@
 	[coder encodeCGFloat:self.paddingBottom forKey:@"CPTLayer.paddingBottom"];
 	[coder encodeBool:self.masksToBorder forKey:@"CPTLayer.masksToBorder"];
 	[coder encodeObject:self.shadow forKey:@"CPTLayer.shadow"];
-	if ( [self.layoutManager conformsToProtocol:@protocol(NSCoding)] ) {
-		[coder encodeObject:self.layoutManager forKey:@"CPTLayer.layoutManager"];
-	}
 	[coder encodeConditionalObject:self.graph forKey:@"CPTLayer.graph"];
 
 	// No need to archive these properties:
@@ -252,7 +240,6 @@
 		paddingBottom = [coder decodeCGFloatForKey:@"CPTLayer.paddingBottom"];
 		masksToBorder = [coder decodeBoolForKey:@"CPTLayer.masksToBorder"];
 		shadow = [[coder decodeObjectForKey:@"CPTLayer.shadow"] copy];
-		layoutManager = [[coder decodeObjectForKey:@"CPTLayer.layoutManager"] retain];
 		graph = [coder decodeObjectForKey:@"CPTLayer.graph"];
 		
 		renderingRecursively = NO;

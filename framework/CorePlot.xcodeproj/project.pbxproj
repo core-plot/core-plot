@@ -147,8 +147,6 @@
 		C30550EE1399BE5400E0151F /* CPTLegendEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C30550EC1399BE5400E0151F /* CPTLegendEntry.m */; };
 		C318F4AD11EA188700595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4AB11EA188700595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4AE11EA188700595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4AC11EA188700595FF9 /* CPTLimitBand.m */; };
-		C32BCF801054081C00639E25 /* CPTLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C32BCF7E1054081C00639E25 /* CPTLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C32BCF811054081C00639E25 /* CPTLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C32BCF7F1054081C00639E25 /* CPTLayoutManager.m */; };
 		C32EE1B613EC4AA800038266 /* CPTShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = C32EE1B413EC4AA800038266 /* CPTShadow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C32EE1B713EC4AA800038266 /* CPTShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = C32EE1B513EC4AA800038266 /* CPTShadow.m */; };
 		C32EE1C113EC4BE700038266 /* CPTMutableShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = C32EE1BF13EC4BE700038266 /* CPTMutableShadow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -384,8 +382,6 @@
 		C318F4AC11EA188700595FF9 /* CPTLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTLimitBand.m; sourceTree = "<group>"; };
 		C32B391610AA4C78000470D4 /* CPTGridLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGridLines.h; sourceTree = "<group>"; };
 		C32B391710AA4C78000470D4 /* CPTGridLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTGridLines.m; sourceTree = "<group>"; };
-		C32BCF7E1054081C00639E25 /* CPTLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLayoutManager.h; sourceTree = "<group>"; };
-		C32BCF7F1054081C00639E25 /* CPTLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTLayoutManager.m; sourceTree = "<group>"; };
 		C32EE1B413EC4AA800038266 /* CPTShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTShadow.h; sourceTree = "<group>"; };
 		C32EE1B513EC4AA800038266 /* CPTShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTShadow.m; sourceTree = "<group>"; };
 		C32EE1BF13EC4BE700038266 /* CPTMutableShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutableShadow.h; sourceTree = "<group>"; };
@@ -994,8 +990,6 @@
 		C32BCF7D105407B000639E25 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				C32BCF7E1054081C00639E25 /* CPTLayoutManager.h */,
-				C32BCF7F1054081C00639E25 /* CPTLayoutManager.m */,
 				070064E7111F2BAA003DE087 /* CPTConstraints.h */,
 				070064E8111F2BAA003DE087 /* CPTConstraints.m */,
 				C3CCA03913E8D85800CE6DB1 /* _CPTConstraintsFixed.h */,
@@ -1150,7 +1144,6 @@
 				4C97EF12104D819100B554F9 /* CPTMutableNumericData.h in Headers */,
 				4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */,
 				C3F31DEA1045EB470058520A /* CPTPlotGroup.h in Headers */,
-				C32BCF801054081C00639E25 /* CPTLayoutManager.h in Headers */,
 				C3DA34CD107AD7710051DA02 /* CPTXYTheme.h in Headers */,
 				07AEF24910BBED050012BEFF /* CPTResponder.h in Headers */,
 				0772B43A10E24D5C009CD04C /* CPTTradingRangePlot.h in Headers */,
@@ -1389,7 +1382,6 @@
 				4C97EF13104D819100B554F9 /* CPTMutableNumericData.m in Sources */,
 				4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */,
 				C3F31DE91045EB470058520A /* CPTPlotGroup.m in Sources */,
-				C32BCF811054081C00639E25 /* CPTLayoutManager.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* CPTXYTheme.m in Sources */,
 				BCFC7C3810921FDB00DAECAA /* CPTAxisTitle.m in Sources */,
 				0772B43B10E24D5C009CD04C /* CPTTradingRangePlot.m in Sources */,
