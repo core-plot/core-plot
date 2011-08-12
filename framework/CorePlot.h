@@ -2,7 +2,6 @@
 #import <CorePlot/CPTAnnotationHostLayer.h>
 #import <CorePlot/CPTAxis.h>
 #import <CorePlot/CPTAxisLabel.h>
-#import <CorePlot/CPTAxisLabelGroup.h>
 #import <CorePlot/CPTAxisSet.h>
 #import <CorePlot/CPTAxisTitle.h>
 #import <CorePlot/CPTBarPlot.h>
@@ -16,7 +15,6 @@
 #import <CorePlot/CPTFill.h>
 #import <CorePlot/CPTGradient.h>
 #import <CorePlot/CPTGraph.h>
-#import <CorePlot/CPTGridLines.h>
 #import <CorePlot/CPTImage.h>
 #import <CorePlot/CPTLayer.h>
 #import <CorePlot/CPTLayerAnnotation.h>
@@ -41,7 +39,6 @@
 #import <CorePlot/CPTPlot.h>
 #import <CorePlot/CPTPlotArea.h>
 #import <CorePlot/CPTPlotAreaFrame.h>
-#import <CorePlot/CPTPlotGroup.h>
 #import <CorePlot/CPTPlotRange.h>
 #import <CorePlot/CPTPlotSpace.h>
 #import <CorePlot/CPTPlotSpaceAnnotation.h>

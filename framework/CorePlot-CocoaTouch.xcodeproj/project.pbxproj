@@ -120,7 +120,7 @@
 		C304565313F4AC9A004D04BC /* _CPTDarkGradientTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C304565213F4AC9A004D04BC /* _CPTDarkGradientTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C30550E91399BE2000E0151F /* CPTLegendEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = C30550E71399BE2000E0151F /* CPTLegendEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30550EA1399BE2000E0151F /* CPTLegendEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C30550E81399BE2000E0151F /* CPTLegendEntry.m */; };
-		C30C85AB1047428100181766 /* CPTPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPTPlotGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30C85AB1047428100181766 /* CPTPlotGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C30C85A91047428100181766 /* CPTPlotGroup.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C30C85AC1047428100181766 /* CPTPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPTPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4C211EA18A400595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPTLimitBand.m */; };
@@ -133,13 +133,13 @@
 		C3436C5113F4AC6000739AC2 /* _CPTSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3436C5013F4AC6000739AC2 /* _CPTSlateTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C35A65A511025EDF00FE24BB /* CPTPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPTPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPTPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPTPlotArea.m */; };
-		C35A65B311025F8A00FE24BB /* CPTGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPTGridLines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C35A65B311025F8A00FE24BB /* CPTGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPTGridLines.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C35A65B411025F8A00FE24BB /* CPTGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65B211025F8A00FE24BB /* CPTGridLines.m */; };
 		C35A65B911025FA900FE24BB /* CPTAxisLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B511025FA900FE24BB /* CPTAxisLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65BA11025FA900FE24BB /* CPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65B611025FA900FE24BB /* CPTAxisLabel.m */; };
 		C35A65BB11025FA900FE24BB /* CPTAxisTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B711025FA900FE24BB /* CPTAxisTitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65BC11025FA900FE24BB /* CPTAxisTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65B811025FA900FE24BB /* CPTAxisTitle.m */; };
-		C35A65BF11025FB300FE24BB /* CPTAxisLabelGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65BD11025FB300FE24BB /* CPTAxisLabelGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C35A65BF11025FB300FE24BB /* CPTAxisLabelGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65BD11025FB300FE24BB /* CPTAxisLabelGroup.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C35A65C011025FB300FE24BB /* CPTAxisLabelGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65BE11025FB300FE24BB /* CPTAxisLabelGroup.m */; };
 		C35A65C711025FCC00FE24BB /* CPTXYAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65C111025FCC00FE24BB /* CPTXYAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65C811025FCC00FE24BB /* CPTXYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65C211025FCC00FE24BB /* CPTXYAxis.m */; };
