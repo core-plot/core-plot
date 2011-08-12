@@ -1,5 +1,5 @@
 #import "CPTDarkGradientThemeTests.h"
-#import "CPTDarkGradientTheme.h"
+#import "_CPTDarkGradientTheme.h"
 #import "CPTGraph.h"
 #import "CPTXYGraph.h"
 #import "CPTDerivedXYGraph.h"
@@ -9,7 +9,7 @@
 -(void)testNewThemeShouldBeCPTXYGraph
 {
 	// Arrange
-	CPTDarkGradientTheme *theme = [[CPTDarkGradientTheme alloc] init];
+	_CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
     
 	// Act
 	CPTGraph *graph = [theme newGraph];
@@ -22,7 +22,7 @@
 -(void)testNewThemeSetGraphClassReturnedClassShouldBeOfCorrectType
 {
 	// Arrange
-	CPTDarkGradientTheme *theme = [[CPTDarkGradientTheme alloc] init];
+	_CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
 	[theme setGraphClass:[CPTDerivedXYGraph class]];
     
 	// Act

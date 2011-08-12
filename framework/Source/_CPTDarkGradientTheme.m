@@ -1,4 +1,5 @@
-#import "CPTDarkGradientTheme.h"
+#import "_CPTDarkGradientTheme.h"
+
 #import "CPTXYGraph.h"
 #import "CPTColor.h"
 #import "CPTGradient.h"
@@ -16,7 +17,7 @@
 NSString * const kCPTDarkGradientTheme = @"Dark Gradients";	///< Dark gradient theme.
 
 /**	@cond */
-@interface CPTDarkGradientTheme ()
+@interface _CPTDarkGradientTheme ()
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
 
@@ -27,7 +28,7 @@ NSString * const kCPTDarkGradientTheme = @"Dark Gradients";	///< Dark gradient t
 
 /** @brief Creates a CPTXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
  **/
-@implementation CPTDarkGradientTheme
+@implementation _CPTDarkGradientTheme
 
 +(void)load
 {
@@ -105,6 +106,14 @@ NSString * const kCPTDarkGradientTheme = @"Dark Gradients";	///< Dark gradient t
     for (CPTXYAxis *axis in axisSet.axes) {
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:whiteTextStyle minorTickTextStyle:whiteMinorTickTextStyle];
     }
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(Class)classForCoder
+{
+	return [CPTTheme class];
 }
 
 @end

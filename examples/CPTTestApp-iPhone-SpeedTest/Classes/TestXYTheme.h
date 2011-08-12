@@ -12,7 +12,7 @@
 #import "CorePlot-CocoaTouch.h"
 
 
-@interface TestXYTheme : CPTXYTheme 
+@interface TestXYTheme : CPTTheme 
 {
 
 }

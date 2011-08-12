@@ -1,4 +1,5 @@
-#import "CPTSlateTheme.h"
+#import "_CPTSlateTheme.h"
+
 #import "CPTXYGraph.h"
 #import "CPTColor.h"
 #import "CPTGradient.h"
@@ -16,7 +17,7 @@
 NSString * const kCPTSlateTheme = @"Slate";	///< Slate theme.
 
 /**	@cond */
-@interface CPTSlateTheme ()
+@interface _CPTSlateTheme ()
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
 
@@ -27,7 +28,7 @@ NSString * const kCPTSlateTheme = @"Slate";	///< Slate theme.
 
 /** @brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
  **/
-@implementation CPTSlateTheme
+@implementation _CPTSlateTheme
 
 +(void)load
 {
@@ -99,6 +100,14 @@ NSString * const kCPTSlateTheme = @"Slate";	///< Slate theme.
     for (CPTXYAxis *axis in axisSet.axes) {
         [self applyThemeToAxis:axis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle textStyle:blackTextStyle minorTickTextStyle:minorTickBlackTextStyle];
     }
+}
+
+#pragma mark -
+#pragma mark NSCoding methods
+
+-(Class)classForCoder
+{
+	return [CPTTheme class];
 }
 
 @end

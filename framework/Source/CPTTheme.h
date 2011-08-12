@@ -1,5 +1,14 @@
 #import <Foundation/Foundation.h>
 
+///	@ingroup themeNames
+/// @{
+extern NSString * const kCPTDarkGradientTheme;
+extern NSString * const kCPTPlainBlackTheme;
+extern NSString * const kCPTPlainWhiteTheme;
+extern NSString * const kCPTSlateTheme;
+extern NSString * const kCPTStocksTheme;
+/// @}
+
 @class CPTGraph;
 @class CPTPlotAreaFrame;
 @class CPTAxisSet;

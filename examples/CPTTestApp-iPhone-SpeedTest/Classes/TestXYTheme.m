@@ -11,12 +11,20 @@
 
 @implementation TestXYTheme
 
-
-
-+(NSString *)defaultName 
++(NSString *)name 
 {
-	return kCPTDarkGradientTheme;
+	return @"TestXYTheme";
 }
+
+-(id)init
+{
+	if ( (self = [super init]) ) {
+		self.graphClass = [CPTXYGraph class];
+	}
+	return self;
+}
+
+#pragma mark -
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle 
 	minorLineStyle:(CPTLineStyle *)minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:(CPTTextStyle *)textStyle

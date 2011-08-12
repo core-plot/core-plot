@@ -10,7 +10,6 @@
 #import <CorePlot/CPTColor.h>
 #import <CorePlot/CPTColorSpace.h>
 #import <CorePlot/CPTConstraints.h>
-#import <CorePlot/CPTDarkGradientTheme.h>
 #import <CorePlot/CPTDecimalNumberValueTransformer.h>
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTExceptions.h>
@@ -35,8 +34,6 @@
 #import <CorePlot/CPTNumericData.h>
 #import <CorePlot/CPTNumericData+TypeConversion.h>
 #import <CorePlot/CPTPieChart.h>
-#import <CorePlot/CPTPlainBlackTheme.h>
-#import <CorePlot/CPTPlainWhiteTheme.h>
 #import <CorePlot/CPTPlatformSpecificDefines.h>
 #import <CorePlot/CPTPlatformSpecificFunctions.h>
 #import <CorePlot/CPTPlatformSpecificCategories.h>
@@ -53,8 +50,6 @@
 #import <CorePlot/CPTResponder.h>
 #import <CorePlot/CPTScatterPlot.h>
 #import <CorePlot/CPTShadow.h>
-#import <CorePlot/CPTSlateTheme.h>
-#import <CorePlot/CPTStocksTheme.h>
 #import <CorePlot/CPTTextLayer.h>
 #import <CorePlot/CPTTextStyle.h>
 #import <CorePlot/CPTTradingRangePlot.h>
@@ -65,5 +60,4 @@
 #import <CorePlot/CPTXYAxisSet.h>
 #import <CorePlot/CPTXYGraph.h>
 #import <CorePlot/CPTXYPlotSpace.h>
-#import <CorePlot/CPTXYTheme.h>
 #import <CorePlot/CPTLayerHostingView.h>
