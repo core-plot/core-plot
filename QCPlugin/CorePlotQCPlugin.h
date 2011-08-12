@@ -56,13 +56,13 @@ You can access their values in the appropriate plug-in methods using self.inputF
 - (BOOL) configureAxis;
 
 - (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot;
-- (CGColorRef) defaultColorForPlot:(NSUInteger)index alpha:(float)alpha;
+- (CGColorRef) newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha;
 
 - (void) freeResources;
 
-- (CGColorRef) dataLineColor:(NSUInteger)index;
+- (id) dataLineColor:(NSUInteger)index;
 - (CGFloat) dataLineWidth:(NSUInteger)index;
-- (CGColorRef) areaFillColor:(NSUInteger)index;
-- (CGImageRef) areaFillImage:(NSUInteger)index;
+- (id) areaFillColor:(NSUInteger)index;
+- (CGImageRef) newAreaFillImage:(NSUInteger)index;
 
 @end

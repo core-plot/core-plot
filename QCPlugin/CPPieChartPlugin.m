@@ -238,7 +238,7 @@
 - (CPTFill *) sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index	
 {
 	CGColorRef plotFillColor = [[CPTPieChart defaultPieSliceColorForIndex:index] cgColor];
-	CGColorRef inputFillColor = [self areaFillColor:0];
+	CGColorRef inputFillColor = (CGColorRef)[self areaFillColor:0];
 	
 	const CGFloat *plotColorComponents = CGColorGetComponents(plotFillColor);
 	const CGFloat *inputColorComponents = CGColorGetComponents(inputFillColor);

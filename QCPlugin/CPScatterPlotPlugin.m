@@ -48,21 +48,25 @@
 								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
 	
+	CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataLineColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:1.0], QCPortAttributeDefaultValueKey,
+								lineColor, QCPortAttributeDefaultValueKey,
 								nil]];
+	CGColorRelease(lineColor);
 	
+	CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
+								fillColor, QCPortAttributeDefaultValueKey,
 								nil]];
+	CGColorRelease(fillColor);
 		
 	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i",  index]
@@ -84,26 +88,33 @@
 								[NSNumber numberWithInt:10], QCPortAttributeMaximumValueKey,
 								nil]];	
 	
+	CGColorRef symbolColor = [self newDefaultColorForPlot:index alpha:0.25];
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataSymbolColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Data Symbol Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
+								symbolColor, QCPortAttributeDefaultValueKey,
 								nil]];
+	CGColorRelease(symbolColor);
 	
 	// Add the new plot to the graph
 	CPTScatterPlot *scatterPlot = [[[CPTScatterPlot alloc] init] autorelease];
 	scatterPlot.identifier = [NSString stringWithFormat:@"Data Source Plot %i", index+1];
     
     // Line Style
+	lineColor = [self newDefaultColorForPlot:index alpha:1.0];
+	fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
     lineStyle.lineWidth = 3.f;
-    lineStyle.lineColor = [CPTColor colorWithCGColor:[self defaultColorForPlot:index alpha:1.0]];
+    lineStyle.lineColor = [CPTColor colorWithCGColor:lineColor];
     scatterPlot.dataLineStyle = lineStyle;
-	scatterPlot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self defaultColorForPlot:index alpha:0.25]]];
+	scatterPlot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
 	scatterPlot.dataSource = self;
 	[graph addPlot:scatterPlot];			
+
+	CGColorRelease(lineColor);
+	CGColorRelease(fillColor);
 }
 
 - (void) removePlots:(NSUInteger)count
@@ -170,7 +181,7 @@
 		int index = [[graph allPlots] indexOfObject:plot];
 		
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineColor = [CPTColor colorWithCGColor:[self dataLineColor:index]];
+        lineStyle.lineColor = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor:index]];
         lineStyle.lineWidth = [self dataLineWidth:index];
 		plot.dataLineStyle = lineStyle;
         
@@ -179,7 +190,7 @@
 		plot.plotSymbol.lineStyle = lineStyle;
 		plot.plotSymbol.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self dataSymbolColor:index]]];
 		plot.plotSymbol.size = CGSizeMake(10.0, 10.0);		
-		plot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
+		plot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
 		plot.areaBaseValue = CPTDecimalFromFloat(MAX(self.inputYMin, MIN(self.inputYMax, 0.0)));
 		
 		[plot reloadData];

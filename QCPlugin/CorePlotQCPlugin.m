@@ -12,9 +12,8 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
 	CGContextSaveGState(context);
 	
-    float w, h;
-    w = rect.size.width;
-    h = rect.size.height;
+    CGFloat w = rect.size.width;
+    CGFloat h = rect.size.height;
 	
     CGContextSelectFont (context, "Verdana", h/4, kCGEncodingMacRoman);
     CGContextSetTextDrawingMode (context, kCGTextFillStroke);
@@ -30,11 +29,11 @@ void drawErrorText(CGContextRef context, CGRect rect)
     CGContextShowText(context, "ERROR", 5); // 10
 	CGPoint r1 = CGContextGetTextPosition(context);
 	
-	float width = r1.x - r0.x;
-	float height = h/3;
+	CGFloat width = r1.x - r0.x;
+	CGFloat height = h/3;
 
-	float x = rect.origin.x + rect.size.width/2.0 - width/2.0;
-	float y = rect.origin.y + rect.size.height/2.0 - height/2.0;
+	CGFloat x = rect.origin.x + w/2.0 - width/2.0;
+	CGFloat y = rect.origin.y + h/2.0 - height/2.0;
 	
 	CGContextSetTextDrawingMode(context, kCGTextFillStroke);
     CGContextShowTextAtPoint (context, x, y, "ERROR", 5);
@@ -260,11 +259,15 @@ Synthesized accessors for internal PlugIn settings
 				[NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
 				nil];
 	
-	if ([key isEqualToString:@"inputAxisColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Axis Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0) autorelease], QCPortAttributeDefaultValueKey,
-				nil];
+	if ([key isEqualToString:@"inputAxisColor"]) {
+		CGColorRef axisColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
+		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
+								@"Axis Color", QCPortAttributeNameKey,
+								(id)axisColor, QCPortAttributeDefaultValueKey,
+								nil];
+		CGColorRelease(axisColor);
+		return result;
+	}
 	
 	if ([key isEqualToString:@"inputAxisLineWidth"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -316,11 +319,15 @@ Synthesized accessors for internal PlugIn settings
 				nil];
 	
 
-	if ([key isEqualToString:@"inputPlotAreaColor"])
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Plot Area Color", QCPortAttributeNameKey,
-				[(id)CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4) autorelease], QCPortAttributeDefaultValueKey,
-				nil];
+	if ([key isEqualToString:@"inputPlotAreaColor"]) {
+		CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
+		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
+								@"Plot Area Color", QCPortAttributeNameKey,
+								(id)plotAreaColor, QCPortAttributeDefaultValueKey,
+								nil];
+		CGColorRelease(plotAreaColor);
+		return result;
+	}
 	
 	if ([key isEqualToString:@"inputPixelsWide"])
 		return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -373,7 +380,7 @@ Synthesized accessors for internal PlugIn settings
 	}		
 }
 
-- (CGColorRef) defaultColorForPlot:(NSUInteger)index alpha:(float)alpha
+- (CGColorRef) newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha
 {
 	CGColorRef color;
 	switch (index) {
@@ -400,7 +407,6 @@ Synthesized accessors for internal PlugIn settings
 			break;
 	}
 	
-	[(id)color autorelease];
 	return color;
 }
 
@@ -483,10 +489,10 @@ Synthesized accessors for internal PlugIn settings
 }	
 
 
-- (CGColorRef) dataLineColor:(NSUInteger)index
+- (id) dataLineColor:(NSUInteger)index
 {
 	NSString *key = [NSString stringWithFormat:@"plotDataLineColor%i", index];
-	return (CGColorRef)[self valueForInputKey:key];
+	return [self valueForInputKey:key];
 }
 
 - (CGFloat) dataLineWidth:(NSUInteger)index
@@ -495,13 +501,13 @@ Synthesized accessors for internal PlugIn settings
 	return [[self valueForInputKey:key] floatValue];
 }
 
-- (CGColorRef) areaFillColor:(NSUInteger)index
+- (id) areaFillColor:(NSUInteger)index
 {
 	NSString *key = [NSString stringWithFormat:@"plotFillColor%i", index];
-	return (CGColorRef)[self valueForInputKey:key];
+	return [self valueForInputKey:key];
 }
 
-- (CGImageRef) areaFillImage:(NSUInteger)index
+- (CGImageRef) newAreaFillImage:(NSUInteger)index
 {
 	NSString *key = [NSString stringWithFormat:@"plotFillImage%i", index];
 	id<QCPlugInInputImageSource> img = [self valueForInputKey:key];
@@ -514,7 +520,9 @@ Synthesized accessors for internal PlugIn settings
     NSString *pixelFormat = QCPlugInPixelFormatBGRA8;
 	#endif
 	
-	[img lockBufferRepresentationWithPixelFormat:pixelFormat colorSpace:CGColorSpaceCreateDeviceRGB() forBounds:[img imageBounds]];
+	CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+	[img lockBufferRepresentationWithPixelFormat:pixelFormat colorSpace:rgbColorSpace forBounds:[img imageBounds]];
+	CGColorSpaceRelease(rgbColorSpace);
 	void *baseAddress = (void *)[img bufferBaseAddress];
 	NSUInteger pixelsWide = [img bufferPixelsWide];
 	NSUInteger pixelsHigh = [img bufferPixelsHigh];

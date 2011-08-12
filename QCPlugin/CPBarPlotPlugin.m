@@ -102,21 +102,25 @@
 								QCPortTypeStructure, QCPortAttributeTypeKey,
 								nil]];
 	
+	CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotDataLineColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Plot Line Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:1.0], QCPortAttributeDefaultValueKey,
+								lineColor, QCPortAttributeDefaultValueKey,
 								nil]];
+	CGColorRelease(lineColor);
 	
+	CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
 	[self addInputPortWithType:QCPortTypeColor
 						forKey:[NSString stringWithFormat:@"plotFillColor%i",  index]
 				withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[NSString stringWithFormat:@"Plot Fill Color %i", index+1], QCPortAttributeNameKey,
 								QCPortTypeColor, QCPortAttributeTypeKey,
-								[self defaultColorForPlot:index alpha:0.25], QCPortAttributeDefaultValueKey,
+								fillColor, QCPortAttributeDefaultValueKey,
 								nil]];
+	CGColorRelease(fillColor);
 	
 	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i",  index]
@@ -161,14 +165,14 @@
 	{
 		int index = [[graph allPlots] indexOfObject:plot];
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineColor = [CPTColor colorWithCGColor:[self dataLineColor:index]];
+        lineStyle.lineColor = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor:index]];
         lineStyle.lineWidth = [self dataLineWidth:index];
         plot.lineStyle = lineStyle;
 		plot.baseValue = CPTDecimalFromDouble(self.inputBaseValue);
 		plot.barWidth = CPTDecimalFromDouble(barWidth);
 		plot.barOffset = CPTDecimalFromDouble(self.inputBarOffset);
 		plot.barsAreHorizontal = self.inputHorizontalBars;		
-		plot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
+		plot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
 		
 		[plot reloadData];
 	}
