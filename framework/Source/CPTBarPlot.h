@@ -39,9 +39,18 @@ typedef enum _CPTBarPlotField {
 /**	@brief Gets a bar fill for the given bar plot. This method is optional.
  *	@param barPlot The bar plot.
  *	@param index The data index of interest.
- *	@return The bar fill for the point with the given index.
+ *	@return The bar fill for the bar with the given index. If the data source returns nil, the default fill is used.
+ *	If the data source returns an NSNull object, no fill is drawn.
  **/
 -(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
+
+/**	@brief Gets a bar line style for the given bar plot. This method is optional.
+ *	@param barPlot The bar plot.
+ *	@param index The data index of interest.
+ *	@return The bar line style for the bar with the given index. If the data source returns nil, the default line style is used.
+ *	If the data source returns an NSNull object, no line is drawn.
+ **/
+-(CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index; 
 
 @end 
 

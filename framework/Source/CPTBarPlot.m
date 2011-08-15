@@ -650,21 +650,25 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	if ( path ) {
 		CGContextSaveGState(context);
 		
-		// If data source returns nil, default fill is used.
-		// If data source returns NSNull object, no fill is drawn.
-		CPTFill *currentBarFill = self.fill;
-		if ( [self.dataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
-			CPTFill *dataSourceFill = [(id <CPTBarPlotDataSource>)self.dataSource barFillForBarPlot:self recordIndex:index];
-			if ( dataSourceFill ) currentBarFill = dataSourceFill;
+		id <CPTBarPlotDataSource> theDataSource = (id <CPTBarPlotDataSource>)self.dataSource;
+		
+		CPTFill *theBarFill = self.fill;
+		if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+			CPTFill *dataSourceFill = [theDataSource barFillForBarPlot:self recordIndex:index];
+			if ( dataSourceFill ) theBarFill = dataSourceFill;
 		}
-		if ( [currentBarFill isKindOfClass:[CPTFill class]] ) {
+		if ( [theBarFill isKindOfClass:[CPTFill class]] ) {
 			CGContextBeginPath(context);
 			CGContextAddPath(context, path);
-			[currentBarFill fillPathInContext:context]; 
+			[theBarFill fillPathInContext:context]; 
 		}
 		
 		CPTLineStyle *theLineStyle = self.lineStyle;
-		if ( theLineStyle ) {
+		if ( [theDataSource respondsToSelector:@selector(barLineStyleForBarPlot:recordIndex:)] ) {
+			CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForBarPlot:self recordIndex:index];
+			if ( dataSourceLineStyle ) theLineStyle = dataSourceLineStyle;
+		}
+		if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
 			CGContextBeginPath(context);
 			CGContextAddPath(context, path);
 			[theLineStyle setLineStyleInContext:context];
