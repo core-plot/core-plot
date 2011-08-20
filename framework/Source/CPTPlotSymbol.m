@@ -506,7 +506,7 @@
 	CGFloat dx, dy;
 	CGSize symbolSize = self.size;
 	CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
-
+	
 	CGMutablePathRef symbolPath = CGPathCreateMutable();
 	
 	switch ( self.symbolType ) {
@@ -514,10 +514,10 @@
 			// empty path
 			break;
 		case CPTPlotSymbolTypeRectangle:
-			CGPathAddRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
+			CGPathAddRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height));
 			break;
 		case CPTPlotSymbolTypeEllipse:
-			CGPathAddEllipseInRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
+			CGPathAddEllipseInRect(symbolPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height));
 			break;
 		case CPTPlotSymbolTypeCross:
 			CGPathMoveToPoint(symbolPath,    NULL, -halfSize.width,  halfSize.height);
@@ -612,6 +612,7 @@
 		}
 			break;
 	}
+	
 	return symbolPath;
 }
 
