@@ -52,6 +52,25 @@
 }
 
 #pragma mark -
+#pragma mark Drawing
+
+-(void)drawRect:(NSRect)dirtyRect
+{
+	NSLog(@"drawRect:");
+	
+	if ( hostedLayer ) {
+		NSWindow *myWindow = self.window;
+		// backingScaleFactor property is available in MacOS 10.7 and later
+		if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
+			self.layer.contentsScale = myWindow.backingScaleFactor;
+		}
+		else {
+			self.layer.contentsScale = 1.0;
+		}
+	}
+}
+
+#pragma mark -
 #pragma mark Mouse handling
 
 -(BOOL)acceptsFirstMouse:(NSEvent *)theEvent
@@ -85,13 +104,24 @@
 
 -(void)setHostedLayer:(CPTLayer *)newLayer
 {
-	if (newLayer != hostedLayer) {
+	if ( newLayer != hostedLayer ) {
         self.wantsLayer = YES;
 		[hostedLayer removeFromSuperlayer];
 		[hostedLayer release];
 		hostedLayer = [newLayer retain];
-		if (hostedLayer) {
-			[self.layer addSublayer:hostedLayer];
+		if ( hostedLayer ) {
+			CPTLayer *myLayer = (CPTLayer *)self.layer;
+			
+			NSWindow *myWindow = self.window;
+			// backingScaleFactor property is available in MacOS 10.7 and later
+			if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
+				myLayer.contentsScale = myWindow.backingScaleFactor;
+			}
+			else {
+				myLayer.contentsScale = 1.0;
+			}
+			
+			[myLayer addSublayer:hostedLayer];
 		}
     }
 }
