@@ -136,16 +136,20 @@
 	CGContextSetLineJoin(theContext, lineJoin);
 	CGContextSetMiterLimit(theContext, miterLimit);
 	CGContextSetLineWidth(theContext, lineWidth);
-	if ( dashPattern.count > 0 ) {
-		CGFloat *dashLengths = (CGFloat *)calloc(dashPattern.count, sizeof(CGFloat));
-
+	NSUInteger dashCount = dashPattern.count;
+	if ( dashCount > 0 ) {
+		CGFloat *dashLengths = (CGFloat *)calloc(dashCount, sizeof(CGFloat));
+		
 		NSUInteger dashCounter = 0;
 		for ( NSNumber *currentDashLength in dashPattern ) {
 			dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
 		}
 		
-		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashPattern.count);
+		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashCount);
 		free(dashLengths);
+	}
+	else {
+		CGContextSetLineDash(theContext, 0.0, NULL, 0);
 	}
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }

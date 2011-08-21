@@ -35,6 +35,7 @@
 
 /// @name Drawing
 /// @{
+@property (readwrite, assign) CGFloat contentsScale;
 @property (nonatomic, readonly, assign) BOOL useFastRendering;
 @property (nonatomic, readwrite, copy) CPTShadow *shadow;
 ///	@}

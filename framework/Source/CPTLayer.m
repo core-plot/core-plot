@@ -11,6 +11,7 @@
 #import "CorePlotProbes.h"
 #import <objc/runtime.h>
 #import "NSCoderExtensions.h"
+#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /**	@defgroup animation Animatable Properties
@@ -75,6 +76,11 @@
  *  @brief If YES, a sublayer mask is applied to clip sublayer content to the inside of the border.
  **/
 @synthesize masksToBorder;
+
+/** @property contentsScale 
+ *  @brief The scale factor applied to the layer.
+ **/
+@dynamic contentsScale;
 
 /** @property shadow 
  *  @brief The shadow drawn under the layer content. If nil (the default), no shadow is drawn.
@@ -156,16 +162,7 @@
 		self.needsDisplayOnBoundsChange = NO;
 		self.opaque = NO;
 		self.masksToBounds = NO;
-        
-        // Screen scaling
-        if ( [self respondsToSelector:@selector(setContentsScale:)] ) {
-            Class screenClass = NSClassFromString(@"UIScreen");
-            if ( screenClass != Nil ) {
-            	id scale = [[screenClass mainScreen] valueForKey:@"scale"];	
-                [(id)self setValue:scale forKey:@"contentsScale"]; 
-            }
-        }
-    }
+	}
 	return self;
 }
 
@@ -542,6 +539,67 @@
 }
 
 #pragma mark -
+#pragma mark Sublayers
+
+-(void)setSublayers:(NSArray *)sublayers
+{
+	[super setSublayers:sublayers];
+	
+	Class layerClass = [CPTLayer class];
+	CGFloat scale = self.contentsScale;
+	for ( CALayer *layer in sublayers ) {
+		if ( [layer isKindOfClass:layerClass] ) {
+			((CPTLayer *)layer).contentsScale = scale;
+		}
+	}
+}
+
+-(void)addSublayer:(CALayer *)layer
+{
+	[super addSublayer:layer];
+	
+	if ( [layer isKindOfClass:[CPTLayer class]] ) {
+		((CPTLayer *)layer).contentsScale = self.contentsScale;
+	}
+}
+
+-(void)insertSublayer:(CALayer *)layer atIndex:(unsigned)idx
+{
+	[super insertSublayer:layer atIndex:idx];
+	
+	if ( [layer isKindOfClass:[CPTLayer class]] ) {
+		((CPTLayer *)layer).contentsScale = self.contentsScale;
+	}
+}
+
+-(void)insertSublayer:(CALayer *)layer below:(CALayer *)sibling
+{
+	[super insertSublayer:layer below:sibling];
+	
+	if ( [layer isKindOfClass:[CPTLayer class]] ) {
+		((CPTLayer *)layer).contentsScale = self.contentsScale;
+	}
+}
+
+-(void)insertSublayer:(CALayer *)layer above:(CALayer *)sibling
+{
+	[super insertSublayer:layer above:sibling];
+	
+	if ( [layer isKindOfClass:[CPTLayer class]] ) {
+		((CPTLayer *)layer).contentsScale = self.contentsScale;
+	}
+}
+
+-(void)replaceSublayer:(CALayer *)layer with:(CALayer *)layer2
+{
+	[super replaceSublayer:layer with:layer2];
+	
+	if ( [layer2 isKindOfClass:[CPTLayer class]] ) {
+		((CPTLayer *)layer2).contentsScale = self.contentsScale;
+	}
+}
+
+#pragma mark -
 #pragma mark Masking
 
 // default path is the rounded rect layer bounds
@@ -690,6 +748,36 @@
 			[self setNeedsDisplay];
 		}
 	}
+}
+
+-(void)setContentsScale:(CGFloat)newContentsScale
+{
+	NSParameterAssert(newContentsScale > 0.0);
+	
+	if ( self.contentsScale != newContentsScale ) {
+		if ( [super respondsToSelector:@selector(setContentsScale:)] ) {
+			super.contentsScale = newContentsScale;
+			[self setNeedsDisplay];
+			
+			Class layerClass = [CPTLayer class];
+			for ( CALayer *subLayer in self.sublayers ) {
+				if ( [subLayer isKindOfClass:layerClass] ) {
+					((CPTLayer *)subLayer).contentsScale = newContentsScale;
+				}
+			}
+		}
+	}
+}
+
+-(CGFloat)contentsScale
+{
+	CGFloat scale = 1.0;
+	
+	if ( [super respondsToSelector:@selector(contentsScale)] ) {
+		scale = super.contentsScale;
+	}
+
+	return scale;
 }
 
 -(void)setShadow:(CPTShadow *)newShadow

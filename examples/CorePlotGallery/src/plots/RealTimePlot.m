@@ -105,7 +105,6 @@ NSString * kPlotIdentifier = @"Data Source Plot";
     y.labelOffset = 5.0;
     y.title = @"Y Axis";
     y.titleOffset = 30.0;
-	y.isFloatingAxis = YES;
 	y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
 	
     // Rotate the labels by 45 degrees, just to show it can be done.

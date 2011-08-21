@@ -5,7 +5,6 @@
 
 @interface CPTXYAxis : CPTAxis {
 @private
-    BOOL isFloatingAxis;
     NSDecimal orthogonalCoordinateDecimal;
 	CPTConstraints *axisConstraints;
 }
@@ -14,7 +13,6 @@
 /// @{
 @property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
 @property (nonatomic, readwrite, retain) CPTConstraints *axisConstraints;
-@property (nonatomic, readwrite) BOOL isFloatingAxis;
 ///	@}
 
 @end

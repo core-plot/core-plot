@@ -615,10 +615,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 			CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
 			
 			if ( self.useFastRendering ) {
-				CGFloat scale = 1.0;
-				if ( [self respondsToSelector:@selector(contentsScale)] ) {
-					scale = [(NSNumber *)[self valueForKey:@"contentsScale"] cgFloatValue];
-				}
+				CGFloat scale = self.contentsScale;
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
@@ -721,13 +718,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	CPTPlotSymbol *thePlotSymbol = self.plotSymbol;
 	
 	if ( thePlotSymbol ) {
-		CGFloat scale = 1.0;
-		if ( [self respondsToSelector:@selector(contentsScale)] ) {
-			scale = [(NSNumber *)[self valueForKey:@"contentsScale"] cgFloatValue];
-		}
 		[thePlotSymbol renderInContext:context
 							   atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
-								 scale:scale];
+								 scale:self.contentsScale];
 	}
 	
 	// if no line or plot symbol, use the area fills to draw the swatch

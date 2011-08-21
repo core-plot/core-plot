@@ -240,6 +240,17 @@
 	[hostedGraph removeFromSuperlayer];
 	[hostedGraph release];
 	hostedGraph = [newLayer retain];
+	
+	// Screen scaling
+	UIScreen *screen = [UIScreen mainScreen];
+	// scale property is available in iOS 4.0 and later
+	if ( [screen respondsToSelector:@selector(scale)] ) {
+		hostedGraph.contentsScale = screen.scale;
+	}
+	else {
+		hostedGraph.contentsScale = 1.0;
+	}
+
 	if ( !collapsesLayers ) {
 		if ( hostedGraph ) {
 			hostedGraph.frame = self.layer.bounds;

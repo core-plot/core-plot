@@ -38,19 +38,10 @@
 
 /**	@property axisConstraints
  *	@brief The constraints used when positioning relative to the plot area.
- *  For axes fixed in the plot coordinate system, this is ignored.
+ *  If nil (the default), the axis is fixed relative to the plot space coordinates, and moves
+ *  whenever the plot space ranges change.
  **/
 @synthesize axisConstraints;
-
-/**	@property isFloatingAxis
- *	@brief True if the axis floats independent of the plot space.
- *
- *  If false, the axis is fixed relative to the plot space coordinates, and moves
- *  whenever the plot space ranges change.
- *  When true, the axis must be constrained relative to the plot area, in view coordinates.
- *  The default value is NO, meaning the axis is positioned in plot coordinates.
- **/
-@synthesize isFloatingAxis;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -59,7 +50,6 @@
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
         orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-        isFloatingAxis = NO;
 		axisConstraints = nil;
 		self.tickDirection = CPTSignNone;
 	}
@@ -71,7 +61,6 @@
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTXYAxis *theLayer = (CPTXYAxis *)layer;
 		
-		isFloatingAxis = theLayer->isFloatingAxis;
 		orthogonalCoordinateDecimal = theLayer->orthogonalCoordinateDecimal;
 		axisConstraints = [theLayer->axisConstraints retain];
 	}
@@ -91,7 +80,6 @@
 {
 	[super encodeWithCoder:coder];
 	
-	[coder encodeBool:self.isFloatingAxis forKey:@"CPTXYAxis.isFloatingAxis"];
 	[coder encodeDecimal:self.orthogonalCoordinateDecimal forKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
 	[coder encodeObject:self.axisConstraints forKey:@"CPTXYAxis.axisConstraints"];
 }
@@ -99,7 +87,6 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-		isFloatingAxis = [coder decodeBoolForKey:@"CPTXYAxis.isFloatingAxis"];
 		orthogonalCoordinateDecimal = [coder decodeDecimalForKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
 		axisConstraints = [[coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"] retain];
 	}
@@ -149,33 +136,29 @@
 }
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
-{    
-    CGPoint point = [self viewPointForOrthogonalCoordinateDecimal:self.orthogonalCoordinateDecimal axisCoordinateDecimal:coordinateDecimalNumber];
+{
+    CGPoint point = [self viewPointForOrthogonalCoordinateDecimal:self.orthogonalCoordinateDecimal
+											axisCoordinateDecimal:coordinateDecimalNumber];
     
-    if ( self.isFloatingAxis ) {
-		CPTConstraints *theAxisConstraints = self.axisConstraints;
-        if ( theAxisConstraints ) {
-        	CGFloat lb, ub;
-            [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];
-			CGFloat constrainedPosition = [theAxisConstraints positionForLowerBound:lb upperBound:ub];
-
-			switch ( self.coordinate ) {
-				case CPTCoordinateX:
-					point.y = constrainedPosition;
-					break;
-					
-				case CPTCoordinateY:
-					point.x = constrainedPosition;
-					break;
-					
-				default:
-					break;
-			}
-        }
-        else {
-			[NSException raise:CPTException format:@"Plot area relative positioning requires axisConstraints"];
-        }
-    }
+	CPTConstraints *theAxisConstraints = self.axisConstraints;
+	if ( theAxisConstraints ) {
+		CGFloat lb, ub;
+		[self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];
+		CGFloat constrainedPosition = [theAxisConstraints positionForLowerBound:lb upperBound:ub];
+		
+		switch ( self.coordinate ) {
+			case CPTCoordinateX:
+				point.y = constrainedPosition;
+				break;
+				
+			case CPTCoordinateY:
+				point.x = constrainedPosition;
+				break;
+				
+			default:
+				break;
+		}
+	}
     
     return point;
 }
