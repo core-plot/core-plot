@@ -5,9 +5,9 @@ Everyone has a their own preferred coding style, and no one way can be considere
 
 Naming
 ------
-Standard naming conventions are used throughout Core Plot, with the 'CP' prefix used to avoid conflicts with other frameworks.
+Standard naming conventions are used throughout Core Plot, with the 'CPT' prefix used to avoid conflicts with other frameworks.
 
-As is typical in Cocoa, mixed case is used for identifiers, with classes beginning with a uppercase letter (e.g., `CPPlot`, `CPDecimalNumberValueTransformer`), and variables beginning with a lowercase letter (e.g., `plot`, `newTransformer`). Functions should begin with an uppercase letter (e.g., `CPDecimalFromInt`), and constants should begin with the prefix 'kCP' (e.g., `kCPAxisExtent`).
+As is typical in Cocoa, mixed case is used for identifiers, with classes beginning with a uppercase letter (e.g., `CPTPlot`, `CPTDecimalNumberValueTransformer`), and variables beginning with a lowercase letter (e.g., `plot`, `newTransformer`). Functions should begin with an uppercase letter (e.g., `CPTDecimalFromInt`), and constants should begin with the prefix 'kCPT' (e.g., `kCPTAxisExtent`).
 
 Curly Brackets
 --------------
@@ -15,27 +15,24 @@ There are many different ways to indent code in C. In Core Plot, two different s
 
 When declaring the interface of a class, curly brackets occur at the end of the first line, and on a separate line after all instance variables have been declared. All declarations inside the block are indented.
 
-    @interface CPGraph : CPLayer {
-        CPAxisSet *axisSet;
-        CPPlotArea *plotArea;
+    @interface CPTGraph : CPTLayer {
+        CPTAxisSet *axisSet;
+        CPTPlotArea *plotArea;
         NSMutableArray *plots;
         NSMutableArray *plotSpaces;
-    	CPFill *fill;
+    	CPTFill *fill;
     }
     
 In defining a function or method, both curly brackets are isolated on a line.
 
-    -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
+    -(CPTPlot *)plotWithIdentifier:(id <NSCopying>)identifier 
     {
-    	for (CPPlot *plot in plots) {
-            if ( [[plot identifier] isEqual:identifier] ) return plot;
-    	}
-        return nil;
+    	...
     }
     
 In all other uses (e.g., `for` loops, `if` statements), the first bracket is at the end of the first line in the block.
 
-    for (CPPlot *plot in plots) {
+    for (CPTPlot *plot in plots) {
         if ( [[plot identifier] isEqual:identifier] ) return plot;
     }
     
@@ -84,18 +81,18 @@ The example above shows that a space *is* used before any pointer-delimiting ast
 
 Whitespace should be used to help delimit blocks of code, but not excessively. A single line should be used between methods in a class, and other code blocks, as demonstrated by the following sample
 
-    #import "CPXYAxisSet.h"
-    #import "CPXYAxis.h"
-    #import "CPDefinitions.h"
+    #import "CPTXYAxisSet.h"
+    #import "CPTXYAxis.h"
+    #import "CPTDefinitions.h"
 
-    @implementation CPXYAxisSet
+    @implementation CPTXYAxisSet
 
     -(id)init
     {
-    	if (self = [super init]) {
-    		CPXYAxis *xAxis = [[CPXYAxis alloc] init];
+    	if ((self = [super init])) {
+    		CPTXYAxis *xAxis = [[CPTXYAxis alloc] init];
     		xAxis.majorTickLength = 10.f;
-    		CPXYAxis *yAxis = [[CPXYAxis alloc] init];
+    		CPTXYAxis *yAxis = [[CPTXYAxis alloc] init];
     		yAxis.majorTickLength = -10.f;
 		
     		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
@@ -105,43 +102,43 @@ Whitespace should be used to help delimit blocks of code, but not excessively. A
     	return self;
     }
 
-    -(CPAxis *)xAxis 
+    -(CPTAxis *)xAxis 
     {
-        return [self.axes objectAtIndex:CPCoordinateX];
+        return [self.axes objectAtIndex:CPTCoordinateX];
     }
 
 Whitespace should be used inside expressions to make them more readable. Note, for example, that `self = [super init]` has been used in the initializer above, rather than the more compact but less readable `self=[super init]`. In the same way, a single space should be used after commas:
 
-    CPPlot *plotOne, *plotTwo, *plotThree = nil;
+    CPTPlot *plotOne, *plotTwo, *plotThree = nil;
 
 Asterisk
 --------
 The convention used in Core Plot to locate an asterisk representing the pointer operator is to pair it with the variable to which it applies. 
 
     NSString *string;
-    CPPlot *plotOne, *plotTwo;
+    CPTPlot *plotOne, *plotTwo;
     
 The following variants *should not* be used
 
     NSString* string;
-    CPPlot * plotOne;
+    CPTPlot * plotOne;
 
 Instance Variables
 ------------------
 Instance variables should be private or protected. No special naming convention should be used for instance variables, such as a standard letter prefix or underscore (e.g., `mString`, `_string`).
 
-    @interface CPGraph : CPLayer {
+    @interface CPTGraph : CPTLayer {
         @protected
-        CPAxisSet *axisSet;
-        CPPlotArea *plotArea;
+        CPTAxisSet *axisSet;
+        CPTPlotArea *plotArea;
         NSMutableArray *plots;
         NSMutableArray *plotSpaces;
-    	CPFill *fill;
+    	CPTFill *fill;
     }
 
 Methods
 -------
-Methods are declared in a class header only if they have not already been declared in an ancestor class (e.g., `super`). Methods such as `init` and `dealloc` thus need not be re-declared.
+Methods are declared in a class header only if they have not already been declared in an ancestor class (e.g., `super`) or protocol. Methods such as `init` and `dealloc` thus need not be re-declared.
 
 Method definitions *should not* include a semi-colon in the signature
 
@@ -154,15 +151,15 @@ Although this can occasionally simplify coding, it is confusing to some develope
 
 Private methods should be declared in a category in the class implementation (.m) file.
 
-    @interface CPXYAxis ()
+    @interface CPTXYAxis ()
 
     -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimalNumber *)coordinateDecimal;
 
     @end
 
-Abstract methods&mdash;those that have no implementation in the declaring class, but are defined in a descendent class&mdash;can be declared in the header file in a separate category. This documents to developers that the method is abstract, and prevents the compiler issuing warnings about the missing implementation.
+Abstract methods &mdash; those that have no implementation in the declaring class, but are defined in a descendent class &mdash; can be declared in the header file in a separate category. This documents to developers that the method is abstract, and prevents the compiler issuing warnings about the missing implementation.
 
-    @interface CPAxis (AbstractMethods)
+    @interface CPTAxis (AbstractMethods)
 
     -(void)drawInContext:(CGContextRef)theContext;
 
@@ -177,7 +174,7 @@ Pragmas are used in implementation (.m) files to split the file into easy to nav
 
     -(id)init 
     {
-        return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPScaleTypeLinear];
+        return [self initWithXScaleType:CPScaleTypeLinear yScaleType:CPTScaleTypeLinear];
     }
 
     #pragma mark -
@@ -192,28 +189,28 @@ Pragmas appear in pairs; the single hyphen in the first pragma is an indication 
 
 Properties
 ----------
-Core Plot is designed to run on Mac OS X 10.5 and later, and iPhone OS 2.0 and later. Core Plot makes use of Objective-C 2.0 features, such as properties, and embraces the so-called 'dot notation'. Where possible, synthesized properties should be used in place of hand written accessor methods.
+Core Plot is designed to run on Mac OS X 10.5 and later, and iOS 3.0 and later. Core Plot makes use of Objective-C 2.0 features, such as properties, and embraces the so-called 'dot notation'. Where possible, synthesized properties should be used in place of hand written accessor methods.
 
 Properties are declared just under the instance variable block, like so
 
-    @interface CPGraph : CPLayer {
+    @interface CPTGraph : CPTLayer {
         @protected
-        CPAxisSet *axisSet;
-        CPPlotArea *plotArea;
+        CPTAxisSet *axisSet;
+        CPTPlotArea *plotArea;
         NSMutableArray *plots;
         NSMutableArray *plotSpaces;
-    	CPFill *fill;
+    	CPTFill *fill;
     }
 
-    @property (nonatomic, readwrite, retain) CPAxisSet *axisSet;
-    @property (nonatomic, readwrite, retain) CPPlotArea *plotArea;
-    @property (nonatomic, readonly, retain) CPPlotSpace *defaultPlotSpace;
+    @property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
+    @property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
+    @property (nonatomic, readonly, retain) CPTPlotSpace *defaultPlotSpace;
     @property (nonatomic, readwrite, assign) CGRect plotAreaFrame;
-    @property (nonatomic, readwrite, retain) CPFill *fill;
+    @property (nonatomic, readwrite, retain) CPTFill *fill;
     
 The `@synthesize` and/or `@dynamic` keywords should appear in the main class implementation at the top, before any methods are defined.
 
-    @implementation CPGraph
+    @implementation CPTGraph
 
     @synthesize axisSet;
     @synthesize plotArea;
@@ -226,7 +223,7 @@ The `@synthesize` and/or `@dynamic` keywords should appear in the main class imp
     -(id)init
     {
 
-Where possible, instance variables should not be accessed directly outside of the `init()` and `dealloc()` methods. Properties should be used everywhere else to provide support for KVO. Private read-write properties can be defined for those instance variables that should be read-only or inaccessible to other code. Simply include the `@property` declaration in a category in the implementation file as described above for private methods. For read-only properties, include the read-only `@property` declaration in the header file as always and redeclare the property in the implementation file using the `readwrite` attribute and keeping the other attributes the same.
+Where possible, instance variables should not be accessed directly outside of the `init` and `dealloc` methods. Properties should be used everywhere else to provide support for KVO. Private read-write properties can be defined for those instance variables that should be read-only or inaccessible to other code. Simply include the `@property` declaration in a category in the implementation file as described above for private methods. For read-only properties, include the read-only `@property` declaration in the header file as always and redeclare the property in the implementation file using the `readwrite` attribute and keeping the other attributes the same.
 
 Comments
 --------
@@ -236,8 +233,8 @@ Where code is already self documenting, no comments should be used, other than a
 
 The following is an example of good use of comments in Core Plot.
 
-    -(void)drawInContext:(CGContextRef)theContext {
-
+    -(void)drawInContext:(CGContextRef)theContext 
+    {
         // Ticks
         for ( NSDecimalNumber *tickLocation in self.majorTickLocations ) {
             // Tick end points
@@ -286,28 +283,28 @@ Comments are used in Core Plot headers to group related methods, in much the sam
 
     // Retrieving plots
     -(NSArray *)allPlots;
-    -(CPPlot *)plotAtIndex:(NSUInteger)index;
-    -(CPPlot *)plotWithIdentifier:(id <NSCopying>)identifier;
+    -(CPTPlot *)plotAtIndex:(NSUInteger)index;
+    -(CPTPlot *)plotWithIdentifier:(id <NSCopying>)identifier;
 
     // Organizing plots
-    -(void)addPlot:(CPPlot *)plot; 
-    -(void)addPlot:(CPPlot *)plot toPlotSpace:(CPPlotSpace *)space;
-    -(void)removePlot:(CPPlot *)plot;
-    -(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index;
-    -(void)insertPlot:(CPPlot*)plot atIndex:(NSUInteger)index intoPlotSpace:(CPPlotSpace *)space;
+    -(void)addPlot:(CPTPlot *)plot; 
+    -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPPlotSpace *)space;
+    -(void)removePlot:(CPTPlot *)plot;
+    -(void)insertPlot:(CPTPlot*)plot atIndex:(NSUInteger)index;
+    -(void)insertPlot:(CPTPlot*)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space;
 
     // Retrieving plot spaces
     -(NSArray *)allPlotSpaces;
-    -(CPPlotSpace *)plotSpaceAtIndex:(NSUInteger)index;
-    -(CPPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier;
+    -(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)index;
+    -(CPTPlotSpace *)plotSpaceWithIdentifier:(id <NSCopying>)identifier;
 
     // Adding and removing plot spaces
-    -(void)addPlotSpace:(CPPlotSpace *)space; 
-    -(void)removePlotSpace:(CPPlotSpace *)plotSpace;
+    -(void)addPlotSpace:(CPTPlotSpace *)space; 
+    -(void)removePlotSpace:(CPTPlotSpace *)plotSpace;
 
 In-Code Documentation
 ---------------------
-Core Plot uses doxygen to document the project. See <http://code.google.com/p/core-plot/wiki/DocumentationPolicy> for more information.
+Core Plot uses Doxygen to document the project. See <http://code.google.com/p/core-plot/wiki/DocumentationPolicy> for more information.
 
 Constants
 ---------
@@ -317,42 +314,34 @@ Constant variables are often declared as preprocessor macros in Objective-C code
     
 In Core Plot, where possible, such constants should be declared as true variables at the top file scope. This allows the compiler to do type checking, and is generally cleaner than relying on the preprocessor.
 
-    const CPFloat kCPSomeConstant = 10.0f;
+    const CPTFloat kCPTSomeConstant = 10.0f;
     
 Where a variable may take a finite number of discrete values, an enum should be declared.
 
-    typedef enum _CPScaleType {
-        CPScaleTypeLinear,
-        CPScaleTypeLogN,
-        CPScaleTypeLog10,
-        CPScaleTypeAngular
-    } CPScaleType;
+    typedef enum _CPTScaleType {
+        CPTScaleTypeLinear,
+        CPTScaleTypeLogN,
+        CPTScaleTypeLog10,
+        CPTScaleTypeAngular
+    } CPTScaleType;
     
 and any string constants should also be declared as variables, rather than hard coded as literals throughout the code (e.g., when declaring notifications). For example, a binding name would be declared in the header as
 
-    extern NSString * const CPScatterPlotBindingXValues;
+    extern NSString * const kCPTScatterPlotBindingXValues;
 
 and defined in the implementation file as
 
-    NSString * const CPScatterPlotBindingXValues = @"xValues";
+    NSString * const kCPTScatterPlotBindingXValues = @"xValues";
 
 Numeric Data Types
 ------------------
-Core Plot declares a number of numeric types.
+Internally, Core Plot has been designed to work with `NSDecimalNumber` and `NSDecimal`, so that user data can be handled with high precision. This does not mean `NSDecimal` should be used for all aspects of Core Plot. When drawing, there is no point using numbers with higher precision than `CGFloat`, the standard numeric type for Core Graphics.
 
-    typedef NSInteger CPInteger;
-    typedef CGFloat   CPFloat;
-    typedef double    CPDouble;
-    
-These types should be used when working with data in the plotting coordinate space, but should not be used in other contexts, such as defining view coordinates. For the latter, the native Core Graphics types should be used (e.g., `CGFloat`).
-
-Internally, Core Plot has been designed to work with `NSDecimalNumber` and `NSDecimal`, so that user data can be handled with high precision. This does not mean `NSDecimal` should be used for all aspects of Core Plot. Again, when drawing, there is no point using numbers with higher precision than `CGFloat`, the standard numeric type for Core Graphics.
-
-In summary, when handling user data, work with Core Plot types like `CPInteger`, `CPFloat`, `CPDouble`, `NSDecimal` or `NSDecimalNumber`&mdash;depending on the context&mdash;and when drawing or carrying out other standard Cocoa operations, use the native Cocoa numerical types (e.g., `CGFloat`, `NSUInteger`, `NSInteger`).
+In summary, when handling user data, work with `double`, `NSDecimal` or `NSDecimalNumber` &mdash; depending on the context &mdash; and when drawing or carrying out other standard Cocoa operations, use the native Cocoa numerical types (e.g., `CGFloat`, `NSUInteger`, `NSInteger`).
 
 Memory Management
 -----------------
-Core Plot has been designed to work with both garbage collected (GC) and non-GC apps. This means that internally, manual memory management techniques (e.g., `retain`/`release`/`autorelease`) must be utilized. And because Core Plot must also function on low memory devices like iPhone, care should be taken not to overuse autoreleased objects, and to avoid excessive use of memory.
+Core Plot has been designed to work with apps utilizing garbage collected (GC), manual reference counting, and automatic reference counting (ARC). This means that internally, manual memory management techniques (e.g., `retain`/`release`/`autorelease`) must be utilized. And because Core Plot must also function on low memory devices like iPhone, care should be taken not to overuse autoreleased objects, and to avoid excessive use of memory.
 
 Initialization and Deallocation
 -------------------------------
@@ -360,14 +349,13 @@ The initializers in Core Plot assign values to the instance variables directly, 
 
     -(id)init
     {
-    	if ( self = [super init] ) {
+    	if ( (self = [super init]) ) {
     		lineCap = kCGLineCapButt;
     		lineJoin = kCGLineJoinMiter;
     		lineWidth = 1.f;
     		patternPhase = CGSizeMake(0.f, 0.f);
-    		lineColor = [[CPColor blackColor] retain];
+    		lineColor = [[CPTColor blackColor] retain];
     	}
-
     	return self;
     }
     
@@ -379,17 +367,19 @@ The `dealloc` method should release any object instance variables directly and n
     	[super dealloc];
     }
     
-Invoking an accessor can cause unwanted side effects during deallocation, especially in classes derived from `CPLayer` where the accessors may try to set properties on other objects that may also be in the process of being deallocated.
+Invoking an accessor can cause unwanted side effects during deallocation, especially in classes derived from `CPTLayer` where the accessors may try to set properties on other objects that may also be in the process of being deallocated.
 
 Accessors
 ---------
 Wherever possible, Objective-C 2.0 properties should be used in place of handwritten accessor methods. When accessor methods are used they should take this form
 
-    -(NSString *)name {
+    -(NSString *)name 
+    {
         return [[name retain] autorelease];
     }
     
-    -(void)setName:(NSString *)newName {
+    -(void)setName:(NSString *)newName 
+	{
         if ( newName != name ) {
             [name release];
             name = [newName copy];
@@ -402,7 +392,7 @@ The dummy argument passed to the setter method should begin with 'new', to preve
 
 Platform Dependencies
 ---------------------
-Core Plot is designed to run on both the Mac and iPhone. Even though many frameworks are very similar on the two platforms, the overlap is not 100%. Core Graphics on the iPhone is not exactly the same as on the Mac. The Mac uses AppKit classes like `NSColor` for drawing, where the iPhone uses `UIColor`. Image handling is also totally different on the two platforms.
+Core Plot is designed to run on both the Mac OS X and iOS. Even though many frameworks are very similar on the two platforms, the overlap is not 100%. Core Graphics on iOS is not exactly the same as on the Mac. The Mac uses AppKit classes like `NSColor` for drawing, where iOS uses `UIColor`. Image handling is also totally different on the two platforms.
 
 Because of these differences, it is unavoidable that some platform specific code be introduced into Core Plot. One way to do this is to use branching in the preprocessor to modify the code used by each platform. For example,
 
@@ -419,10 +409,7 @@ Sometimes code like this cannot easily be avoided, but where possible, it should
 
 When platform code is needed, it should be split off into a separate file, as a function, or a new class. A different copy of the file can then be used for each platform. This allows preprocessor branching to be completely removed from the code, and is much cleaner and easy to maintain.
 
-One last aspect of platform dependency is frameworks. Many frameworks are only available on one platform. For example, you shouldn't use AppKit in Core Plot, other than in the Mac-specific code. Similarly, UIKit can only be imported into iPhone-Specific code.
+One last aspect of platform dependency is frameworks. Many frameworks are only available on one platform. For example, you shouldn't use AppKit in Core Plot, other than in the Mac-specific code. Similarly, UIKit can only be imported into iOS-Specific code.
 
-In general, you should test you changes both in the Mac and iPhone projects, to make sure you haven't inadvertently introduced platform dependencies.
+In general, you should test your changes in both the Mac and iOS projects, to make sure you haven't inadvertently introduced platform dependencies.
 
-Unit Tests
-----------
-TBW

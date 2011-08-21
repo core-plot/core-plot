@@ -1,22 +1,20 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf320
+{\rtf1\ansi\ansicpg1252\cocoartf1138
 {\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fmodern\fcharset0 CourierNewPSMT;}
 {\colortbl;\red255\green255\blue255;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
-\margl1440\margr1440\vieww13120\viewh13480\viewkind0
+\paperw12240\paperh15840\margl1440\margr1440\vieww13120\viewh13480\viewkind0
 \deftab720
-\pard\tx560\pardeftab720\ql\qnatural
+\pard\tx560\pardeftab720
 
 \f0\b\fs24 \cf0 Drawing Order:\
 
 \b0 \
-\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\pard\tx220\tx720\pardeftab720\li720\fi-720
 \ls1\ilvl0\cf0 {\listtext	1.	}Background fill\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
-\ls1\ilvl0\cf0 {\listtext	2.	}Even/odd background fills\
+{\listtext	2.	}Even/odd background fills\
 {\listtext	3.	}Arbitrary background fill ranges\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
-\ls1\ilvl0\cf0 {\listtext	4.	}Minor grid lines \
+{\listtext	4.	}Minor grid lines \
 {\listtext	5.	}Major grid lines\
 {\listtext	6.	}Background border\
 {\listtext	7.	}Minor tick marks\
@@ -25,31 +23,31 @@
 {\listtext	10.	}Plots\
 {\listtext	11.	}Axis labels\
 {\listtext	12.	}Axis titles\
-\pard\tx560\pardeftab720\ql\qnatural
+\pard\tx560\pardeftab720
 \cf0 \
 
 \b Layers:\
 
 \b0 \
-\pard\tx560\pardeftab720\ql\qnatural
+\pard\tx560\pardeftab720
 
-\f1 \cf0 CPGraph (1)\
-  |--CPPlotAreaFrame (*)\
-       |--CPPlotArea (1) \{1, 2, 3\}\
-            |--CPGridLineGroup (1) [minor grid lines]\
-            |    |-CPGridLines (*) \{4\}\
-            |--CPGridLineGroup (1) [major grid lines]\
-            |    |-CPGridLines (*) \{5\}\
-            |--CPAxisSet (1) \{6\}\
-            |    |-CPAxis (*) \{7, 8, 9\}\
-            |--CPPlotGroup (1)\
-            |    |-CPPlot (*) \{10\}\
-            |--CPLayer (1) [axis labels]\
-            |    |-CPAxisLabel (content layers) (*) \{11\}\
-            |--CPLayer (1) [axis titles]\
-                 |-CPAxisTitle (content layers) (*) \{12\}\
+\f1 \cf0 CPTGraph (1)\
+  |--CPTPlotAreaFrame (*)\
+       |--CPTPlotArea (1) \{1, 2, 3\}\
+            |--CPTGridLineGroup (1) [minor grid lines]\
+            |    |-CPTGridLines (*) \{4\}\
+            |--CPTGridLineGroup (1) [major grid lines]\
+            |    |-CPTGridLines (*) \{5\}\
+            |--CPTAxisSet (1) \{6\}\
+            |    |-CPTAxis (*) \{7, 8, 9\}\
+            |--CPTPlotGroup (1)\
+            |    |-CPTPlot (*) \{10\}\
+            |--CPTLayer (1) [axis labels]\
+            |    |-CPTAxisLabel (content layers) (*) \{11\}\
+            |--CPTLayer (1) [axis titles]\
+                 |-CPTAxisTitle (content layers) (*) \{12\}\
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural
 
 \f0\b \cf0 Key:\
 
