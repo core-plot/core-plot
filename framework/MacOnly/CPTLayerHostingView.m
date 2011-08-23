@@ -56,8 +56,6 @@
 
 -(void)drawRect:(NSRect)dirtyRect
 {
-	NSLog(@"drawRect:");
-	
 	if ( hostedLayer ) {
 		NSWindow *myWindow = self.window;
 		// backingScaleFactor property is available in MacOS 10.7 and later
