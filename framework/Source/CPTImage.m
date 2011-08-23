@@ -2,9 +2,7 @@
 #import "NSCoderExtensions.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-// iPhone-specific image library as equivalent to ImageIO?
-#else
-//#import <ImageIO/ImageIO.h>
+#import <UIKit/UIKit.h>
 #endif
 
 
@@ -21,6 +19,11 @@
  *	@brief The CGImageRef to wrap around.
  **/
 @synthesize image;
+
+/**	@property scale 
+ *	@brief The image scale. Must be greater than zero.
+ **/
+@synthesize scale;
 
 /**	@property tiled
  *	@brief Draw as a tiled image?
@@ -50,17 +53,30 @@
  *	This is the designated initializer.
  *
  *  @param anImage The image to wrap.
+ *	@param newScale The image scale. Must be greater than zero.
  *  @return A CPTImage instance initialized with the provided CGImageRef.
  **/
--(id)initWithCGImage:(CGImageRef)anImage
+-(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
+	NSParameterAssert(newScale > 0.0);
+
 	if ( (self = [super init]) ) {
  		CGImageRetain(anImage);
     	image = anImage;
+		scale = newScale;
         tiled = NO;
 		tileAnchoredToContext = YES;
     }
     return self;
+}
+
+/** @brief Initializes a CPTImage instance with the provided CGImageRef and scale 1.0.
+ *  @param anImage The image to wrap.
+ *  @return A CPTImage instance initialized with the provided CGImageRef.
+ **/
+-(id)initWithCGImage:(CGImageRef)anImage
+{
+    return [self initWithCGImage:anImage scale:1.0];
 }
 
 -(id)init
@@ -69,15 +85,60 @@
 }
 
 /** @brief Initializes a CPTImage instance with the contents of a PNG file.
+ *
+ *	On systems that support hi-dpi or "Retina" displays, this method will look for a
+ *	double-resolution image with the given name followed by "@2x". If the "@2x" image
+ *	is not available, the named image file will be loaded.
+ *
  *  @param path The file system path of the file.
  *  @return A CPTImage instance initialized with the contents of the PNG file.
  **/
 -(id)initForPNGFile:(NSString *)path 
 {
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
-    CGImageRef cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+	CGDataProviderRef dataProvider = NULL;
+    CGImageRef cgImage = NULL;
+	CGFloat imageScale = 1.0;
+	
+	// Try to load @2x file if the system supports hi-dpi display
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+	UIScreen *screen = [UIScreen mainScreen];
+	// scale property is available in iOS 4.0 and later
+	if ( [screen respondsToSelector:@selector(scale)] ) {
+		imageScale = screen.scale;
+	}
+#else
+	NSScreen *screen = [NSScreen mainScreen];
+	// backingScaleFactor property is available in MacOS 10.7 and later
+	if ( [screen respondsToSelector:@selector(backingScaleFactor)] ) {
+		imageScale = screen.backingScaleFactor;
+	}
+#endif
+	
+	if ( imageScale > 1.0 ) {
+		NSMutableString *hiDpiPath = [path mutableCopy];
+		NSUInteger replaceCount = [hiDpiPath replaceOccurrencesOfString:@".png"
+															 withString:@"@2x.png"
+																options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
+																  range:NSMakeRange(hiDpiPath.length - 4, 4)];
+		if ( replaceCount == 1 ) {
+			dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
+		}
+		[hiDpiPath release];
+		if ( !dataProvider ) {
+			imageScale = 1.0;
+		}
+	}
+	
+	// if hi-dpi display or @2x image not available, load the 1x image at the original path
+	if ( !dataProvider ) {
+		dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+	if ( dataProvider ) {
+		cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+	}
+	
     if ( cgImage ) {
-        self = [self initWithCGImage:cgImage];
+        self = [self initWithCGImage:cgImage scale:imageScale];
     }
     else {
         [self release];
@@ -106,6 +167,7 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeCGImage:self.image forKey:@"CPTImage.image"];
+	[coder encodeCGFloat:self.scale forKey:@"CPTImage.scale"];
 	[coder encodeBool:self.tiled forKey:@"CPTImage.tiled"];
 	[coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
 }
@@ -114,6 +176,7 @@
 {
     if ( (self = [super init]) ) {
 		image = [coder newCGImageDecodeForKey:@"CPTImage.image"];
+		scale = [coder decodeCGFloatForKey:@"CPTImage.scale"];
 		tiled = [coder decodeBoolForKey:@"CPTImage.tiled"];
 		tileAnchoredToContext = [coder decodeBoolForKey:@"CPTImage.tileAnchoredToContext"];
 	}
@@ -128,6 +191,7 @@
     CPTImage *copy = [[[self class] allocWithZone:zone] init];
 	
 	copy->image = CGImageCreateCopy(self.image);
+	copy->scale = self->scale;
 	copy->tiled = self->tiled;
 	copy->tileAnchoredToContext = self->tileAnchoredToContext;
 	
@@ -139,6 +203,16 @@
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided CGImageRef.
  *  @param anImage The image to wrap.
+ *	@param newScale The image scale.
+ *  @return A new CPTImage instance initialized with the provided CGImageRef.
+ **/
++(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
+{
+	return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
+}
+
+/** @brief Creates and returns a new CPTImage instance initialized with the provided CGImageRef and scale 1.0.
+ *  @param anImage The image to wrap.
  *  @return A new CPTImage instance initialized with the provided CGImageRef.
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage
@@ -147,6 +221,11 @@
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the contents of a PNG file.
+ *
+ *	On systems that support hi-dpi or "Retina" displays, this method will look for a
+ *	double-resolution image with the given name followed by "@2x". If the "@2x" image
+ *	is not available, the named image file will be loaded.
+ *
  *  @param path The file system path of the file.
  *  @return A new CPTImage instance initialized with the contents of the PNG file.
  **/
@@ -166,7 +245,8 @@
 	else if ([object isKindOfClass:[self class]]) {
 		CPTImage *otherImage = (CPTImage *)object;
 		
-		BOOL equalImages =	(self.tiled == otherImage.tiled) &&
+		BOOL equalImages =	(self.scale == otherImage.scale) &&
+							(self.tiled == otherImage.tiled) &&
 							(self.tileAnchoredToContext == otherImage.tileAnchoredToContext);
 		
 		CGImageRef selfCGImage = self.image;
@@ -279,7 +359,7 @@
 			CGImageGetBytesPerRow(selfCGImage) +
 			CGImageGetBitmapInfo(selfCGImage) +
 			CGImageGetShouldInterpolate(selfCGImage) +
-			CGImageGetRenderingIntent(selfCGImage);
+			CGImageGetRenderingIntent(selfCGImage) * self.scale;
 }
 
 #pragma mark -
@@ -291,6 +371,15 @@
 		CGImageRetain(newImage);
 		CGImageRelease(image);
 		image = newImage;
+	}
+}
+
+-(void)setScale:(CGFloat)newScale
+{
+	NSParameterAssert(newScale > 0.0);
+
+	if ( newScale != scale ) {
+		scale = newScale;
 	}
 }
 
@@ -309,18 +398,33 @@
 {
 	CGImageRef theImage = self.image;
 	if ( theImage ) {
+		CGFloat imageScale = self.scale;
+		CGFloat contextScale = 1.0;
+		
+		if ( rect.size.height != 0.0 ) {
+			CGRect deviceRect = CGContextConvertRectToDeviceSpace( context, rect );
+			contextScale = deviceRect.size.height / rect.size.height;
+		}
+		
+		CGFloat scaleRatio = contextScale / imageScale;
+
+		CGContextSaveGState(context);
+		
 		if ( self.isTiled ) {
-			CGContextSaveGState(context);
 			CGContextClipToRect(context, *(CGRect *)&rect);
 			if ( !self.tileAnchoredToContext ) {
 				CGContextTranslateCTM(context, rect.origin.x, rect.origin.y);
 			}
+			CGContextScaleCTM(context, scaleRatio, scaleRatio);
+
 			CGRect imageBounds = CGRectMake(0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage));
 			CGContextDrawTiledImage(context, imageBounds, theImage);
-			CGContextRestoreGState(context);
 		} else {
+			CGContextScaleCTM(context, scaleRatio, scaleRatio);
 			CGContextDrawImage(context, rect, theImage);
 		}
+
+		CGContextRestoreGState(context);
 	}
 }
 
