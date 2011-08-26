@@ -138,7 +138,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		areaBaseValue = [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols = nil;
-        plotSymbolMarginForHitDetection = 0.0f;
+        plotSymbolMarginForHitDetection = 0.0;
         interpolation = CPTScatterPlotInterpolationLinear;
 		self.labelField = CPTScatterPlotFieldY;
 	}

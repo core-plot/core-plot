@@ -386,11 +386,12 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 {
     CPTCoordinate coordinate = ( self.barsAreHorizontal ? CPTCoordinateY : CPTCoordinateX );
     CGFloat length;
-    if ( !barWidthsAreInViewCoordinates ) {
+    if ( !self.barWidthsAreInViewCoordinates ) {
         NSDecimal originPlotPoint[2] = {CPTDecimalFromInteger(0), CPTDecimalFromInteger(0)};
         NSDecimal displacedPlotPoint[2] = {decimalLength, decimalLength};
-        CGPoint originPoint = [self.plotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
-        CGPoint displacedPoint = [self.plotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
+		CPTPlotSpace *thePlotSpace = self.plotSpace;
+        CGPoint originPoint = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
+        CGPoint displacedPoint = [thePlotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
 		length = ( coordinate == CPTCoordinateX ? displacedPoint.x - originPoint.x : displacedPoint.y - originPoint.y );
     }
     else {
@@ -402,14 +403,15 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(double)doubleLengthInPlotCoordinates:(NSDecimal)decimalLength
 {
     double length;
-    if ( barWidthsAreInViewCoordinates ) {
+    if ( self.barWidthsAreInViewCoordinates ) {
     	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
         CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
         double originPlotPoint[2], displacedPlotPoint[2];
-        [self.plotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [self.plotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
-		length = ( !barsAreHorizontal ? displacedPlotPoint[0] - originPlotPoint[0] : displacedPlotPoint[1] - originPlotPoint[1]);
+		CPTPlotSpace *thePlotSpace = self.plotSpace;
+        [thePlotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+        [thePlotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+		length = ( !self.barsAreHorizontal ? displacedPlotPoint[0] - originPlotPoint[0] : displacedPlotPoint[1] - originPlotPoint[1]);
     }
     else {
         length = CPTDecimalDoubleValue(decimalLength);
@@ -420,14 +422,15 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 -(NSDecimal)lengthInPlotCoordinates:(NSDecimal)decimalLength
 {
     NSDecimal length;
-    if ( barWidthsAreInViewCoordinates ) {
+    if ( self.barWidthsAreInViewCoordinates ) {
     	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
         CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
         NSDecimal originPlotPoint[2], displacedPlotPoint[2];
-        [self.plotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [self.plotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
-        if ( !barsAreHorizontal ) {
+		CPTPlotSpace *thePlotSpace = self.plotSpace;
+        [thePlotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+        [thePlotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+        if ( !self.barsAreHorizontal ) {
         	length = CPTDecimalSubtract(displacedPlotPoint[0], originPlotPoint[0]);
         }
         else {
