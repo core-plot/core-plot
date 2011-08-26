@@ -923,24 +923,26 @@
 
 -(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label
 {
-	CGPoint displacement = label.displacement;
-	if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
-		displacement.y = 1.0; // put the label above the data point if zero displacement
+	if ( label ) {
+		CGPoint displacement = label.displacement;
+		if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
+			displacement.y = 1.0; // put the label above the data point if zero displacement
+		}
+		CGFloat angle = (CGFloat)M_PI + atan2(displacement.y, displacement.x) - label.rotation;
+		CGFloat newAnchorX = cos(angle);
+		CGFloat newAnchorY = sin(angle);
+		
+		if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+			newAnchorX /= ABS(newAnchorY);
+			newAnchorY = signbit(newAnchorY) ? -1.0 : 1.0;
+		}
+		else {
+			newAnchorY /= ABS(newAnchorX);
+			newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
+		}
+		
+		label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 	}
-	CGFloat angle = (CGFloat)M_PI + atan2(displacement.y, displacement.x) - label.rotation;
-	CGFloat newAnchorX = cos(angle);
-	CGFloat newAnchorY = sin(angle);
-	
-	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
-		newAnchorX /= ABS(newAnchorY);
-		newAnchorY = signbit(newAnchorY) ? -1.0 : 1.0;
-	}
-	else {
-		newAnchorY /= ABS(newAnchorX);
-		newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
-	}
-	
-	label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 }
 
 /**	@brief Repositions all existing label annotations.

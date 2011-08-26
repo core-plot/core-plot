@@ -343,9 +343,18 @@
 // Plot area view point for plot point
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-	CGFloat viewX = 0.0, viewY = 0.0;
-	CGSize layerSize = self.graph.plotAreaFrame.plotArea.bounds.size;
+	CGSize layerSize = CGSizeZero;
+	CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+	if ( plotArea ) {
+		layerSize = plotArea.bounds.size;
+	}
+	else {
+		return CGPointZero;
+	}
 	
+	CGFloat viewX = 0.0;
+	CGFloat viewY = 0.0;
+
 	switch ( self.xScaleType ) {
 		case CPTScaleTypeLinear:
 			viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
@@ -377,8 +386,17 @@
 
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
-	CGFloat viewX = 0.0, viewY = 0.0;
-	CGSize layerSize = self.graph.plotAreaFrame.plotArea.bounds.size;
+	CGSize layerSize = CGSizeZero;
+	CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+	if ( plotArea ) {
+		layerSize = plotArea.bounds.size;
+	}
+	else {
+		return CGPointZero;
+	}
+	
+	CGFloat viewX = 0.0;
+	CGFloat viewY = 0.0;
 
 	switch ( self.xScaleType ) {
 		case CPTScaleTypeLinear:
@@ -408,9 +426,20 @@
 // Plot point for view point
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
+	CGSize boundsSize = CGSizeZero;
+	CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+	if ( plotArea ) {
+		boundsSize = plotArea.bounds.size;
+	}
+	else {
+		NSDecimal zero = CPTDecimalFromInteger(0);
+		plotPoint[CPTCoordinateX] = zero;
+		plotPoint[CPTCoordinateY] = zero;
+		return;
+	}
+
 	NSDecimal pointx = CPTDecimalFromDouble(point.x);
 	NSDecimal pointy = CPTDecimalFromDouble(point.y);
-	CGSize boundsSize = self.graph.plotAreaFrame.plotArea.bounds.size;
 	NSDecimal boundsw = CPTDecimalFromDouble(boundsSize.width);
 	NSDecimal boundsh = CPTDecimalFromDouble(boundsSize.height);
 	
@@ -438,7 +467,16 @@
 
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point 
 {
-	CGSize boundsSize = self.graph.plotAreaFrame.plotArea.bounds.size;
+	CGSize boundsSize = CGSizeZero;
+	CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+	if ( plotArea ) {
+		boundsSize = plotArea.bounds.size;
+	}
+	else {
+		plotPoint[CPTCoordinateX] = 0.0;
+		plotPoint[CPTCoordinateY] = 0.0;
+		return;
+	}
 	
 	double x = point.x / boundsSize.width;
 	x *= xRange.lengthDouble;
@@ -569,8 +607,8 @@
         return NO;
     }
     
-    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
     if ( isDragging ) {
+		CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
     	CGPoint displacement = CGPointMake(pointInPlotArea.x-lastDragPoint.x, pointInPlotArea.y-lastDragPoint.y);
         CGPoint pointToUse = pointInPlotArea;
         

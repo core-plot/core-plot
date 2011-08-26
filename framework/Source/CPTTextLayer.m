@@ -125,9 +125,13 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 {
     if ( self.text == nil ) return CGSizeZero;
 	CGSize textSize = [self.text sizeWithTextStyle:self.textStyle];
+    CGSize shadowOffset = CGSizeZero;
+	CGFloat shadowRadius = 0.0;
 	CPTShadow *myShadow = self.shadow;
-    CGSize shadowOffset = myShadow.shadowOffset;
-	CGFloat shadowRadius = myShadow.shadowBlurRadius;
+	if ( myShadow ) {
+		shadowOffset = myShadow.shadowOffset;
+		shadowRadius = myShadow.shadowBlurRadius;
+	}
 	
 	// Add small margin
 	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * 2.0;
@@ -168,9 +172,13 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	CGContextScaleCTM(context, 1.0, -1.0);
 #endif
 	
+    CGSize shadowOffset = CGSizeZero;
+	CGFloat shadowRadius = 0.0;
 	CPTShadow *myShadow = self.shadow;
-    CGSize shadowOffset = myShadow.shadowOffset;
-	CGFloat shadowRadius = myShadow.shadowBlurRadius;
+	if ( myShadow ) {
+		shadowOffset = myShadow.shadowOffset;
+		shadowRadius = myShadow.shadowBlurRadius;
+	}
 	
 	[self.text drawInRect:CGRectInset(self.bounds, 
 									  ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,

@@ -340,8 +340,12 @@ static const CGFloat colorLookupTable[10][3] =
 	NSUInteger sampleCount = self.cachedDataCount;
 	if ( sampleCount == 0 ) return;
 	
+	CPTPlotArea *thePlotArea = self.plotArea;
+	if ( !thePlotArea ) return;
+	
 	[super renderAsVectorInContext:context];
-	CGRect plotAreaBounds = self.plotArea.bounds;
+	
+	CGRect plotAreaBounds = thePlotArea.bounds;
 	CGPoint anchor = self.centerAnchor;
 	CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
 									  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
@@ -569,8 +573,11 @@ static const CGFloat colorLookupTable[10][3] =
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
-	if ( label.contentLayer ) {
-		CGRect plotAreaBounds = self.plotArea.bounds;
+	CPTLayer *contentLayer = label.contentLayer;
+	CPTPlotArea *thePlotArea = self.plotArea;
+	
+	if ( contentLayer && thePlotArea ) {
+		CGRect plotAreaBounds = thePlotArea.bounds;
 		CGPoint anchor = self.centerAnchor;
 		CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
 										  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
@@ -585,7 +592,7 @@ static const CGFloat colorLookupTable[10][3] =
 		
 		double currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:index];
 		if ( isnan(currentWidth) ) {
-			label.contentLayer.hidden = YES;
+			contentLayer.hidden = YES;
 		}
 		else {
 			id <CPTPieChartDataSource> theDataSource = (id <CPTPieChartDataSource>)self.dataSource;
@@ -604,14 +611,13 @@ static const CGFloat colorLookupTable[10][3] =
 			CGFloat labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / 2.0];
 
 			label.displacement = CGPointMake(labelRadius * cos(labelAngle), labelRadius * sin(labelAngle));
-			label.contentLayer.hidden = NO;
+			contentLayer.hidden = NO;
 		}
 	}
 	else {
 		label.anchorPlotPoint = nil;
 		label.displacement = CGPointZero;
 	}
-
 }
 
 #pragma mark -

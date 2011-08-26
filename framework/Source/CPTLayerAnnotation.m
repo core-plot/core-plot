@@ -43,11 +43,13 @@
  *	This is the designated initializer. The initialized layer will be anchored to
  *	CPTRectAnchor#CPTRectAnchorTop by default.
  *
- *	@param newAnchorLayer The reference layer.
+ *	@param newAnchorLayer The reference layer. Must be non-nil.
  *  @return The initialized CPTLayerAnnotation object.
  **/
 -(id)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
 {
+	NSParameterAssert(newAnchorLayer);
+	
     if ( (self = [super init]) ) {
         anchorLayer = newAnchorLayer;
         rectAnchor = CPTRectAnchorTop;

@@ -382,10 +382,14 @@
 {
 	static const CGFloat symbolMargin = 2.0;
 	
+	CGSize shadowOffset = CGSizeZero;
+	CGFloat shadowRadius = 0.0;
 	CPTShadow *myShadow = self.shadow;
-	CGSize shadowOffset = myShadow.shadowOffset;
-	CGFloat shadowRadius = myShadow.shadowBlurRadius;
-	
+	if ( myShadow ) {
+		shadowOffset = myShadow.shadowOffset;
+		shadowRadius = myShadow.shadowBlurRadius;
+	}
+
 	CGLayerRef theCachedLayer = self.cachedLayer;
 	
 	if ( !theCachedLayer ) {
