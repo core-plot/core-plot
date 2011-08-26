@@ -755,7 +755,7 @@
 	NSParameterAssert(newContentsScale > 0.0);
 	
 	if ( self.contentsScale != newContentsScale ) {
-		if ( [super respondsToSelector:@selector(setContentsScale:)] ) {
+		if ( [CALayer instancesRespondToSelector:@selector(setContentsScale:)] ) {
 			super.contentsScale = newContentsScale;
 			[self setNeedsDisplay];
 			
@@ -773,7 +773,7 @@
 {
 	CGFloat scale = 1.0;
 	
-	if ( [super respondsToSelector:@selector(contentsScale)] ) {
+	if ( [CALayer instancesRespondToSelector:@selector(contentsScale)] ) {
 		scale = super.contentsScale;
 	}
 
