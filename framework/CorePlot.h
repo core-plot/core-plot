@@ -57,4 +57,4 @@
 #import <CorePlot/CPTXYAxisSet.h>
 #import <CorePlot/CPTXYGraph.h>
 #import <CorePlot/CPTXYPlotSpace.h>
-#import <CorePlot/CPTLayerHostingView.h>
+#import <CorePlot/CPTGraphHostingView.h>

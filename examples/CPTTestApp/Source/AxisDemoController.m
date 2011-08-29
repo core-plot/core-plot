@@ -6,20 +6,11 @@
 {
     [super awakeFromNib];
 
-	// Background
-	CPTBorderedLayer *background = [[(CPTBorderedLayer *)[CPTBorderedLayer alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
-	background.fill = [CPTFill fillWithColor:[CPTColor blueColor]];
-	background.paddingTop = 20.0;
-	background.paddingBottom = 20.0;
-	background.paddingLeft = 20.0;
-	background.paddingRight = 20.0;
-    hostView.hostedLayer = background;
-	
     // Create graph
-	CPTXYGraph *graph = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:background.bounds] autorelease];
+	CPTXYGraph *graph = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
 	graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 	graph.cornerRadius = 20.0;
-	[background addSublayer:graph];
+    hostView.hostedGraph = graph;
 	
 	// Plot area
 	graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor lightGrayColor]];

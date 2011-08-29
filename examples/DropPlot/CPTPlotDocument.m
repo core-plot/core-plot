@@ -39,7 +39,7 @@
     graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectZero];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
 	[graph applyTheme:theme]; 
-	graphView.hostedLayer = graph;
+	graphView.hostedGraph = graph;
 	
 	graph.paddingTop = 40.0;
 	graph.paddingRight = 40.0;

@@ -138,8 +138,8 @@
 		BC55023710059F22005DF982 /* _CPTStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55023110059F22005DF982 /* _CPTStocksTheme.m */; };
 		BC74A33010FC402600E7E90D /* CPTPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A32E10FC402600E7E90D /* CPTPieChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC74A33110FC402600E7E90D /* CPTPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A32F10FC402600E7E90D /* CPTPieChart.m */; };
-		BC79F1360FD1CD6600510976 /* CPTLayerHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPTLayerHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC79F1370FD1CD6600510976 /* CPTLayerHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPTLayerHostingView.m */; };
+		BC79F1360FD1CD6600510976 /* CPTGraphHostingView.h in Headers */ = {isa = PBXBuildFile; fileRef = BC79F1340FD1CD6600510976 /* CPTGraphHostingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC79F1370FD1CD6600510976 /* CPTGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC79F1350FD1CD6600510976 /* CPTGraphHostingView.m */; };
 		BC89A64110239D1D009D5261 /* CorePlotProbes.d in Sources */ = {isa = PBXBuildFile; fileRef = BC89A64010239D1D009D5261 /* CorePlotProbes.d */; };
 		BCFC7C3710921FDB00DAECAA /* CPTAxisTitle.h in Headers */ = {isa = PBXBuildFile; fileRef = BCFC7C3510921FDB00DAECAA /* CPTAxisTitle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCFC7C3810921FDB00DAECAA /* CPTAxisTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFC7C3610921FDB00DAECAA /* CPTAxisTitle.m */; };
@@ -371,8 +371,8 @@
 		BC55023110059F22005DF982 /* _CPTStocksTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTStocksTheme.m; sourceTree = "<group>"; };
 		BC74A32E10FC402600E7E90D /* CPTPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPieChart.h; sourceTree = "<group>"; };
 		BC74A32F10FC402600E7E90D /* CPTPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPieChart.m; sourceTree = "<group>"; };
-		BC79F1340FD1CD6600510976 /* CPTLayerHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLayerHostingView.h; sourceTree = "<group>"; };
-		BC79F1350FD1CD6600510976 /* CPTLayerHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTLayerHostingView.m; sourceTree = "<group>"; };
+		BC79F1340FD1CD6600510976 /* CPTGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGraphHostingView.h; sourceTree = "<group>"; };
+		BC79F1350FD1CD6600510976 /* CPTGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTGraphHostingView.m; sourceTree = "<group>"; };
 		BC89A64010239D1D009D5261 /* CorePlotProbes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = CorePlotProbes.d; path = TestResources/CorePlotProbes.d; sourceTree = SOURCE_ROOT; };
 		BCFC7C3510921FDB00DAECAA /* CPTAxisTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisTitle.h; sourceTree = "<group>"; };
 		BCFC7C3610921FDB00DAECAA /* CPTAxisTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTAxisTitle.m; sourceTree = "<group>"; };
@@ -632,8 +632,8 @@
 				0789EF480FB9EBD600C0A613 /* CPTPlatformSpecificCategories.m */,
 				0789EF890FB9EE4700C0A613 /* CPTPlatformSpecificFunctions.h */,
 				0789EF8A0FB9EE4700C0A613 /* CPTPlatformSpecificFunctions.m */,
-				BC79F1340FD1CD6600510976 /* CPTLayerHostingView.h */,
-				BC79F1350FD1CD6600510976 /* CPTLayerHostingView.m */,
+				BC79F1340FD1CD6600510976 /* CPTGraphHostingView.h */,
+				BC79F1350FD1CD6600510976 /* CPTGraphHostingView.m */,
 			);
 			name = "Mac Specific";
 			path = MacOnly;
@@ -1127,7 +1127,7 @@
 				0783DD550FBF097E006C3696 /* CPTXYAxis.h in Headers */,
 				073FB0300FC991A3007A728E /* CPTAxisLabel.h in Headers */,
 				BCFC7C3710921FDB00DAECAA /* CPTAxisTitle.h in Headers */,
-				BC79F1360FD1CD6600510976 /* CPTLayerHostingView.h in Headers */,
+				BC79F1360FD1CD6600510976 /* CPTGraphHostingView.h in Headers */,
 				070622320FDF1B250066A6C4 /* CPTPathExtensions.h in Headers */,
 				0706223C0FDF215C0066A6C4 /* CPTBorderedLayer.h in Headers */,
 				07C4679B0FE1A24C00299939 /* CPTMutableTextStyle.h in Headers */,
@@ -1364,7 +1364,7 @@
 				0789EF8C0FB9EE4700C0A613 /* CPTPlatformSpecificFunctions.m in Sources */,
 				0783DD560FBF097E006C3696 /* CPTXYAxis.m in Sources */,
 				073FB0310FC991A3007A728E /* CPTAxisLabel.m in Sources */,
-				BC79F1370FD1CD6600510976 /* CPTLayerHostingView.m in Sources */,
+				BC79F1370FD1CD6600510976 /* CPTGraphHostingView.m in Sources */,
 				074E46F10FD6BF2900B18E16 /* CPTImage.m in Sources */,
 				070622330FDF1B250066A6C4 /* CPTPathExtensions.m in Sources */,
 				0706223D0FDF215C0066A6C4 /* CPTBorderedLayer.m in Sources */,

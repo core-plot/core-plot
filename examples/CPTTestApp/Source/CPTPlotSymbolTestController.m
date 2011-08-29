@@ -14,7 +14,7 @@
 
     // Create graph
     graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-    hostView.hostedLayer = graph;
+    hostView.hostedGraph = graph;
 	
 	// Remove axes
     graph.axisSet = nil;

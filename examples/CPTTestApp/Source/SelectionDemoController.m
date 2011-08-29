@@ -50,7 +50,7 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
     graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
     [graph applyTheme:theme];
-	hostView.hostedLayer = graph;
+	hostView.hostedGraph = graph;
     
     // Graph title
     graph.title = @"This is the Graph Title";

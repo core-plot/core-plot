@@ -50,11 +50,7 @@
     [graphs addObject:graph];
 
     if (layerHostingView) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    layerHostingView.hostedGraph = graph;
-#else
-    layerHostingView.hostedLayer = graph;
-#endif
+		layerHostingView.hostedGraph = graph;
     }
 }
 
@@ -69,11 +65,7 @@
     if (defaultLayerHostingView) {
         [defaultLayerHostingView removeFromSuperview];
         
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         defaultLayerHostingView.hostedGraph = nil;
-#else
-        defaultLayerHostingView.hostedLayer = nil;
-#endif
         [defaultLayerHostingView release];
         defaultLayerHostingView = nil;
     }

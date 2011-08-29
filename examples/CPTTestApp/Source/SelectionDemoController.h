@@ -2,7 +2,7 @@
 #import <CorePlot/CorePlot.h>
 
 @interface SelectionDemoController : NSObject <CPTScatterPlotDataSource, CPTPlotSpaceDelegate> {
-    IBOutlet CPTLayerHostingView *hostView;
+    IBOutlet CPTGraphHostingView *hostView;
 	CPTXYGraph *graph;
 	NSMutableArray *dataForPlot;
 	NSUInteger selectedIndex;

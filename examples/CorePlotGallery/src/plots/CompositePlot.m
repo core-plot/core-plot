@@ -127,15 +127,9 @@
 
 - (void)killGraph
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     scatterPlotView.hostedGraph = nil;
     barChartView.hostedGraph = nil;
     pieChartView.hostedGraph = nil;
-#else
-    scatterPlotView.hostedLayer = nil;
-    barChartView.hostedLayer = nil;
-    pieChartView.hostedLayer = nil;
-#endif
     
     [scatterPlotView removeFromSuperview];
     [barChartView removeFromSuperview];

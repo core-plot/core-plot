@@ -26,7 +26,7 @@
     graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectZero];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 	[graph applyTheme:theme];
-	hostView.hostedLayer = graph;
+	hostView.hostedGraph = graph;
     
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;

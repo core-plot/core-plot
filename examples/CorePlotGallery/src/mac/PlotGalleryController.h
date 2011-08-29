@@ -22,7 +22,7 @@
     IBOutlet NSPopUpButton      *themePopUpButton;
 
     IBOutlet PlotView           *hostingView;
-    CPTLayerHostingView          *defaultLayerHostingView;
+    CPTGraphHostingView         *defaultGraphHostingView;
 
     PlotItem                    *plotItem;
 

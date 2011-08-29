@@ -3,7 +3,7 @@
 
 @interface CPTPlotDocument : NSDocument <CPTPlotDataSource>
 {
-	IBOutlet CPTLayerHostingView *graphView;
+	IBOutlet CPTGraphHostingView *graphView;
     CPTXYGraph *graph;
 	
 	double minimumValueForXAxis, maximumValueForXAxis, minimumValueForYAxis, maximumValueForYAxis;

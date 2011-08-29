@@ -67,7 +67,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
     graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
-	hostView.hostedLayer = graph;
+	hostView.hostedGraph = graph;
     
     // Graph title
     graph.title = @"This is the Graph Title\nThis is the Second Line";

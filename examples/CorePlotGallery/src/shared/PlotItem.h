@@ -17,8 +17,6 @@ typedef CGRect CGNSRect;
 #else
 
 #import <CorePlot/CorePlot.h>
-typedef CPTLayerHostingView CPTGraphHostingView;
-
 typedef NSRect CGNSRect;
 
 #endif
@@ -35,12 +33,7 @@ typedef NSRect CGNSRect;
     CPTNativeImage       *cachedImage;
 }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 @property (nonatomic, retain) CPTGraphHostingView *defaultLayerHostingView;
-#else
-@property (nonatomic, retain) CPTLayerHostingView *defaultLayerHostingView;
-#endif
-
 @property (nonatomic, retain) NSMutableArray *graphs;
 @property (nonatomic, retain) NSString *title;
 

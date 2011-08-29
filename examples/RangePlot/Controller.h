@@ -4,7 +4,7 @@
 #import <CorePlot/CorePlot.h>
 
 @interface Controller : NSObject <CPTPlotDataSource> {
-    IBOutlet CPTLayerHostingView *hostView;
+    IBOutlet CPTGraphHostingView *hostView;
     CPTXYGraph *graph;
     NSArray *plotData;
     CPTFill *areaFill;

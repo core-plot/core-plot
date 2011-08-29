@@ -3,7 +3,7 @@
 
 
 @interface AxisDemoController : NSObject {
-    IBOutlet CPTLayerHostingView *hostView;
+    IBOutlet CPTGraphHostingView *hostView;
 }
 
 @end

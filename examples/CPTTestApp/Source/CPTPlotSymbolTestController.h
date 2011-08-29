@@ -3,7 +3,7 @@
 
 
 @interface CPTPlotSymbolTestController : NSObject <CPTScatterPlotDataSource> {
-    IBOutlet CPTLayerHostingView *hostView;
+    IBOutlet CPTGraphHostingView *hostView;
 	CPTXYGraph *graph;
 }
 
