@@ -136,6 +136,7 @@ static const CGFloat colorLookupTable[10][3] =
 		sliceDirection = CPTPieDirectionClockwise;
 		centerAnchor = CGPointMake(0.5, 0.5);
 		borderLineStyle = nil;
+		overlayFill = nil;
 		
 		self.labelOffset = 10.0;
 		self.labelField = CPTPieChartFieldSliceWidth;
@@ -154,6 +155,7 @@ static const CGFloat colorLookupTable[10][3] =
 		sliceDirection = theLayer->sliceDirection;
 		centerAnchor = theLayer->centerAnchor;
 		borderLineStyle = [theLayer->borderLineStyle retain];
+		overlayFill = [theLayer->overlayFill retain];
 	}
 	return self;
 }
