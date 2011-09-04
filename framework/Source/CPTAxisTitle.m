@@ -57,22 +57,12 @@
 	
 	// Pixel-align the title layer to prevent blurriness
 	CPTLayer *content = self.contentLayer;
-	CGSize currentSize = content.bounds.size;
 	
 	content.anchorPoint = anchor;
-
-	if ( titleRotation == 0.0 ) {
-		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
-	}
-	else {
-		newPosition.x = round(newPosition.x);
-		newPosition.y = round(newPosition.y);
-	}
 	content.position = newPosition;
     content.transform = CATransform3DMakeRotation(titleRotation, 0.0, 0.0, 1.0);
-    
-    [self.contentLayer setNeedsDisplay];
+    [content pixelAlign];
+    [content setNeedsDisplay];
 }
 
 @end

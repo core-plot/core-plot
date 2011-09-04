@@ -402,7 +402,7 @@
  *  @param interactionScale The scale of the pinching gesture.
  *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
  **/
--(BOOL) recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
+-(BOOL)recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
 {
   return NO;
 }
@@ -453,13 +453,28 @@
  **/
 -(void)pixelAlign
 {
-    CGSize currentSize = self.bounds.size;
+	CGFloat scale = self.contentsScale;
     CGPoint currentPosition = self.position;
-	CGPoint anchor = self.anchorPoint;  
-    CGPoint newPosition = self.position;  
-    newPosition.x = round(currentPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-    newPosition.y = round(currentPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
-    self.position = newPosition;
+	
+	CGPoint newPosition;
+	if ( scale == 1.0 ) {
+		newPosition.x = round(currentPosition.x);
+		newPosition.y = round(currentPosition.y);
+	}
+	else {
+		newPosition.x = round(currentPosition.x * scale) / scale;
+		newPosition.y = round(currentPosition.y * scale) / scale;
+	}
+	
+	if ( CATransform3DIsIdentity(self.transform) ) {
+		CGSize currentSize = self.bounds.size;
+		CGPoint anchor = self.anchorPoint;  
+		
+		newPosition.x += (currentSize.width * anchor.x) - round(currentSize.width * anchor.x);
+		newPosition.y += (currentSize.height * anchor.y) - round(currentSize.height * anchor.y);
+    }
+	
+	self.position = newPosition;
 }
 
 -(void)setPaddingLeft:(CGFloat)newPadding 

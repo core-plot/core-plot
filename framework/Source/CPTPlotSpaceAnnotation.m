@@ -2,7 +2,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotArea.h"
-#import <tgmath.h>
 
 /**	@brief Positions a content layer relative to some anchor point in a plot space.
  *	@todo More documentation needed.
@@ -83,8 +82,6 @@
 			NSArray *plotAnchor = self.anchorPlotPoint;
 			if ( plotAnchor ) {
 				NSUInteger anchorCount = plotAnchor.count;
-				CGFloat myRotation = self.rotation;
-				CGPoint anchor = self.contentAnchorPoint;
 				
 				// Get plot area point
 				NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
@@ -104,19 +101,13 @@
 					newPosition = CGPointZero;
 				}
 				CGPoint offset = self.displacement;
-				newPosition.x = round(newPosition.x + offset.x);
-				newPosition.y = round(newPosition.y + offset.y);
+				newPosition.x += offset.x;
+				newPosition.y += offset.y;
 				
-				// Pixel-align the label layer to prevent blurriness
-				if ( myRotation == 0.0 ) {
-					CGSize currentSize = content.bounds.size;
-					
-					newPosition.x = newPosition.x - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-					newPosition.y = newPosition.y - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
-				}
-				content.anchorPoint = anchor;
+				content.anchorPoint = self.contentAnchorPoint;
 				content.position = newPosition;
-				content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+				content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
+				[content pixelAlign];
 				[content setNeedsDisplay];
 			}
 		}

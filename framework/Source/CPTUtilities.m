@@ -711,7 +711,7 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
     r.origin.y = round(r.origin.y) + 0.5f;
     
     // Ensure that the width and height are an integer number of
-    // device pixels. We now use ceil to make something at least as large as the original
+    // device pixels.
     r.size.width = round(r.size.width);
     r.size.height = round(r.size.height);
     

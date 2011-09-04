@@ -424,7 +424,12 @@ static const CGFloat colorLookupTable[10][3] =
 	return currentFill;
 }
 
--(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPTFill *)sliceFill;
+-(void)drawSliceInContext:(CGContextRef)context
+			  centerPoint:(CGPoint)centerPoint
+			 radialOffset:(CGFloat)radialOffset
+			startingValue:(CGFloat)startingValue
+					width:(CGFloat)sliceWidth
+					 fill:(CPTFill *)sliceFill;
 {
     CGContextSaveGState(context);
 	
@@ -435,15 +440,15 @@ static const CGFloat colorLookupTable[10][3] =
     CGFloat yOffset = 0.0;
     if ( radialOffset != 0.0 ) {
         CGFloat medianAngle = 0.5 * (startingAngle + finishingAngle);
-        xOffset = round(cos(medianAngle) * radialOffset);
-        yOffset = round(sin(medianAngle) * radialOffset);
+        xOffset = cos(medianAngle) * radialOffset;
+        yOffset = sin(medianAngle) * radialOffset;
     }
     
-    CGFloat centerX = centerPoint.x + xOffset;
-    CGFloat centerY = centerPoint.y + yOffset;
-	
+    CGPoint center = CGPointMake(centerPoint.x + xOffset, centerPoint.y + yOffset);
+	center = CPTAlignPointToUserSpace(context, center);
+
 	CGMutablePathRef slicePath = CGPathCreateMutable();
-    [self addSliceToPath:slicePath centerPoint:CGPointMake(centerX, centerY) startingAngle:startingAngle finishingAngle:finishingAngle];
+    [self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle];
 	CGPathCloseSubpath(slicePath);
 	
 	if ( sliceFill ) {

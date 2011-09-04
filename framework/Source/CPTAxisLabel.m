@@ -237,19 +237,8 @@
 	CGPoint anchor = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
 	
 	content.anchorPoint = anchor;
-	
-	// Pixel-align the label layer to prevent blurriness
-	CGSize currentSize = content.bounds.size;
-	
-	if ( myRotation == 0.0 ) {
-		newPosition.x = round(newPosition.x) - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-		newPosition.y = round(newPosition.y) - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
-	}
-	else {
-		newPosition.x = round(newPosition.x);
-		newPosition.y = round(newPosition.y);
-	}
 	content.position = newPosition;
+	[content pixelAlign];
 	[content setNeedsDisplay];
 }
 

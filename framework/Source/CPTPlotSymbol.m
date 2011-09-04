@@ -380,7 +380,7 @@
  **/
 -(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale
 {
-	static const CGFloat symbolMargin = 2.0;
+	const CGFloat symbolMargin = 2.0;
 	
 	CGSize shadowOffset = CGSizeZero;
 	CGFloat shadowRadius = 0.0;
@@ -416,10 +416,23 @@
 	
 	if ( theCachedLayer ) {
 		CGSize layerSize = CGLayerGetSize(theCachedLayer);
-		layerSize.width /= scale;
-		layerSize.height /= scale;
-
-		CGPoint origin = CGPointMake(round(center.x - layerSize.width / 2.0), round(center.y - layerSize.height / 2.0));
+		if ( scale != 1.0 ) {
+			layerSize.width /= scale;
+			layerSize.height /= scale;
+		}
+		
+		CGPoint origin = CGPointMake(center.x - layerSize.width / 2.0,
+									 center.y - layerSize.height / 2.0);
+		
+		if ( scale == 1.0 ) {
+			origin.x = round(origin.x);
+			origin.y = round(origin.y);
+		}
+		else {
+			origin.x = round(origin.x * scale) / scale;
+			origin.y = round(origin.y * scale) / scale;
+		}
+		
 		CGContextDrawLayerInRect(theContext, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
 	}
 }

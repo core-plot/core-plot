@@ -2,7 +2,6 @@
 #import "CPTAnnotationHostLayer.h"
 #import "CPTConstraints.h"
 #import "CPTLayer.h"
-#import <tgmath.h>
 
 /**	@cond */
 @interface CPTLayerAnnotation()
@@ -101,9 +100,6 @@
 	if ( content ) {
 		CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
 		if ( hostLayer ) {
-			CGFloat myRotation = self.rotation;
-			CGPoint anchor = self.contentAnchorPoint;
-			
 			CPTLayer *theAnchorLayer = self.anchorLayer;
 			CGRect anchorLayerBounds = theAnchorLayer.bounds;
 			
@@ -116,19 +112,13 @@
 			CGPoint newPosition = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
 			
 			CGPoint offset = self.displacement;
-			newPosition.x = round(newPosition.x + offset.x);
-			newPosition.y = round(newPosition.y + offset.y);
-			
-			// Pixel-align the label layer to prevent blurriness
-			if ( myRotation == 0.0 ) {
-				CGSize currentSize = content.bounds.size;
-				
-				newPosition.x = newPosition.x - round(currentSize.width * anchor.x) + (currentSize.width * anchor.x);
-				newPosition.y = newPosition.y - round(currentSize.height * anchor.y) + (currentSize.height * anchor.y);
-			}
-			content.anchorPoint = anchor;
+			newPosition.x += offset.x;
+			newPosition.y += offset.y;
+
+			content.anchorPoint = self.contentAnchorPoint;
 			content.position = newPosition;
-			content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+			content.transform = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
+			[content pixelAlign];
 			[content setNeedsDisplay];
 		}
 	}
