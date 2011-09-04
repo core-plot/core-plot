@@ -517,8 +517,8 @@ typedef struct CGPointError CGPointError;
         if ( theBarLineStyle ) {
 			[theBarLineStyle setLineStyleInContext:theContext];
 			
-			CGSize halfGapSize = CGSizeMake(self.gapWidth * 0.5, self.gapHeight * 0.5);
-			CGFloat halfBarWidth = self.barWidth * 0.5;
+			CGSize halfGapSize = CGSizeMake(self.gapWidth * (CGFloat)0.5, self.gapHeight * (CGFloat)0.5);
+			CGFloat halfBarWidth = self.barWidth * (CGFloat)0.5;
 			
             for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 				[self drawRangeInContext:theContext
@@ -619,7 +619,7 @@ typedef struct CGPointError CGPointError;
 		CGPathRef swatchPath;
 		CGFloat radius = legend.swatchCornerRadius;
 		if ( radius > 0.0 ) {
-			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+			radius = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
 			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {
@@ -650,8 +650,8 @@ typedef struct CGPointError CGPointError;
 		
 		[self drawRangeInContext:context
 					   viewPoint:&viewPoint
-					 halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / 2.0) * 0.5, MIN(self.gapHeight, rect.size.height / 2.0) * 0.5)
-					halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * 0.5];
+					 halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / (CGFloat)2.0) * (CGFloat)0.5, MIN(self.gapHeight, rect.size.height / (CGFloat)2.0) * (CGFloat)0.5)
+					halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * (CGFloat)0.5];
 	}
 }
 

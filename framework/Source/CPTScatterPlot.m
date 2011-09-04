@@ -674,7 +674,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
 						break;
 					case CPTScatterPlotInterpolationHistogram: {
-						CGFloat x = (viewPoints[i-1].x + viewPoints[i].x) / 2.0;
+						CGFloat x = (viewPoints[i-1].x + viewPoints[i].x) / (CGFloat)2.0;
 						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i-1].y);
 						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
 						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
@@ -732,7 +732,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 			CGPathRef swatchPath;
 			CGFloat radius = legend.swatchCornerRadius;
 			if ( radius > 0.0 ) {
-				radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+				radius = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
 				swatchPath = CreateRoundedRectPath(rect, radius);
 			}
 			else {
@@ -757,12 +757,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				CGContextClip(context);
 				
 				if ( CPTDecimalGreaterThanOrEqualTo(self.areaBaseValue2, self.areaBaseValue) ) {
-					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
-					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
+					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
 				}
 				else {
-					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
-					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / 2.0) inContext:context];
+					[fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
+					[fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
 				}
 				
 				CGContextRestoreGState(context);
@@ -866,9 +866,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
         
         CGRect symbolRect = CGRectZero;
         symbolRect.size = symbol.size;
-        symbolRect.size.width += 2.0 * plotSymbolMarginForHitDetection;
-        symbolRect.size.height += 2.0 * plotSymbolMarginForHitDetection;
-        symbolRect.origin = CGPointMake(center.x - 0.5 * CGRectGetWidth(symbolRect), center.y - 0.5 * CGRectGetHeight(symbolRect));
+        symbolRect.size.width += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
+        symbolRect.size.height += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
+        symbolRect.origin = CGPointMake(center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect));
         
         if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
             [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];

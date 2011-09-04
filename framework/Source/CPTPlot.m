@@ -941,7 +941,7 @@
 			newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
 		}
 		
-		label.contentAnchorPoint = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
+		label.contentAnchorPoint = CGPointMake((newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0);
 	}
 }
 
@@ -1001,7 +1001,7 @@
 		CGPathRef swatchPath;
 		CGFloat radius = legend.swatchCornerRadius;
 		if ( radius > 0.0 ) {
-			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+			radius = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
 			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {

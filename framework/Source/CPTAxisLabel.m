@@ -147,10 +147,10 @@
 					
 					switch ( self.alignment ) {
 						case CPTAlignmentBottom:
-							newPosition.y += contentFrame.size.height / 2.0;
+							newPosition.y += contentFrame.size.height / (CGFloat)2.0;
 							break;
 						case CPTAlignmentTop:
-							newPosition.y -= contentFrame.size.height / 2.0;
+							newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
 							break;
 						default: // middle
 								 // no adjustment
@@ -162,10 +162,10 @@
 					
 					switch ( self.alignment ) {
 						case CPTAlignmentLeft:
-							newPosition.x += contentFrame.size.width / 2.0;
+							newPosition.x += contentFrame.size.width / (CGFloat)2.0;
 							break;
 						case CPTAlignmentRight:
-							newPosition.x -= contentFrame.size.width / 2.0;
+							newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
 							break;
 						default: // center
 								 // no adjustment
@@ -186,10 +186,10 @@
 					
 					switch ( self.alignment ) {
 						case CPTAlignmentBottom:
-							newPosition.y += contentFrame.size.height / 2.0;
+							newPosition.y += contentFrame.size.height / (CGFloat)2.0;
 							break;
 						case CPTAlignmentTop:
-							newPosition.y -= contentFrame.size.height / 2.0;
+							newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
 							break;
 						default: // middle
 								 // no adjustment
@@ -201,10 +201,10 @@
 					
 					switch ( self.alignment ) {
 						case CPTAlignmentLeft:
-							newPosition.x += contentFrame.size.width / 2.0;
+							newPosition.x += contentFrame.size.width / (CGFloat)2.0;
 							break;
 						case CPTAlignmentRight:
-							newPosition.x -= contentFrame.size.width / 2.0;
+							newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
 							break;
 						default: // center
 								 // no adjustment
@@ -234,7 +234,7 @@
 		newAnchorY /= ABS(newAnchorX);
 		newAnchorX = signbit(newAnchorX) ? -1.0 : 1.0;
 	}
-	CGPoint anchor = CGPointMake((newAnchorX + 1.0) / 2.0, (newAnchorY + 1.0) / 2.0);
+	CGPoint anchor = CGPointMake((newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0);
 	
 	content.anchorPoint = anchor;
 	content.position = newPosition;
@@ -250,7 +250,7 @@
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-	[self positionRelativeToViewPoint:CGPointMake((firstPoint.x + secondPoint.x) / 2.0, (firstPoint.y + secondPoint.y) / 2.0)
+	[self positionRelativeToViewPoint:CGPointMake((firstPoint.x + secondPoint.x) / (CGFloat)2.0, (firstPoint.y + secondPoint.y) / (CGFloat)2.0)
 						forCoordinate:coordinate
 						  inDirection:direction];
 }

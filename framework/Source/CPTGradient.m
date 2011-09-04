@@ -530,7 +530,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	
     for( NSUInteger i = 0; i < 4; i++ ) {
 		CGFloat color[4];
-		color[0] = colorBands[i].hue - 180.0 * colorBands[i].width;
+		color[0] = colorBands[i].hue - (CGFloat)180.0 * colorBands[i].width;
 		color[1] = 1.0;
 		color[2] = 0.001;
 		color[3] = 1.0;
@@ -556,7 +556,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 		band.color.alpha = color[3];
 		band.position = colorBands[i].position;
 		
-		color[0] = colorBands[i].hue + 180.0 * colorBands[i].width;
+		color[0] = colorBands[i].hue + (CGFloat)180.0 * colorBands[i].width;
 		color[1] = 1.0;
 		color[2] = 0.001;
 		color[3] = 1.0;
@@ -929,8 +929,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             
             length = x / fabs(cosa) + (y - x * fabs(tana)) * fabs(sina);
             
-            deltax = length * cosa / 2.0;
-            deltay = length * sina / 2.0;
+            deltax = length * cosa / (CGFloat)2.0;
+            deltay = length * sina / (CGFloat)2.0;
 		} else {		//for range [45,135], [225,315]
             x = CGRectGetHeight(rect);
             y = CGRectGetWidth(rect);
@@ -943,8 +943,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             
             length = x / fabs(cosa) + (y - x * fabs(tana)) * fabs(sina);
             
-            deltax = -length * sina / 2.0;
-            deltay = length * cosa / 2.0;
+            deltax = -length * sina / (CGFloat)2.0;
+            deltay = length * cosa / (CGFloat)2.0;
         }
 		
         startPoint = CGPointMake(CGRectGetMidX(rect) - deltax, CGRectGetMidY(rect) - deltay);
@@ -971,14 +971,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         startPoint.x /= scalex;
         endPoint.x /= scalex;
         scaley = 1.0;
-        endRadius = CGRectGetHeight(rect) / 2.0;
+        endRadius = CGRectGetHeight(rect) / (CGFloat)2.0;
     }
 	else {
         scalex = 1.0;
         scaley = CGRectGetHeight(rect) / CGRectGetWidth(rect);
         startPoint.y /= scaley;
         endPoint.y /= scaley;
-        endRadius = CGRectGetWidth(rect) / 2.0;
+        endRadius = CGRectGetWidth(rect) / (CGFloat)2.0;
     }
 	
 	CGContextScaleCTM(context, scalex, scaley);
@@ -1410,17 +1410,17 @@ void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 	
 	if ( MAX == R ) {
         if ( G >= B ) {
-            H = 60.0 * (G - B) / (MAX - MIN) + 0.0;
+            H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)0.0;
 		}
 		else {
-            H = 60.0 * (G - B) / (MAX - MIN) + 360.0;
+            H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)360.0;
 		}
 	}
 	else if ( MAX == G ) {
-		H = 60 * (B - R) / (MAX - MIN) + 120.0;
+		H = (CGFloat)60.0 * (B - R) / (MAX - MIN) + (CGFloat)120.0;
 	}
 	else if ( MAX == B ) {
-		H = 60 * (R - G) / (MAX - MIN) + 240.0;
+		H = (CGFloat)60.0 * (R - G) / (MAX - MIN) + (CGFloat)240.0;
 	}
 	
     S = MAX == 0 ? 0 : 1 - MIN/MAX;
@@ -1434,15 +1434,15 @@ void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
 	CGFloat R = 0.0, G = 0.0, B = 0.0;
-	CGFloat H = fmod(components[0], 360.0);	//map to [0,360)
+	CGFloat H = fmod(components[0], (CGFloat)360.0);	//map to [0,360)
 	CGFloat S = components[1];
 	CGFloat V = components[2];
 	
-	int Hi = (int)floor(H / 60.0) % 6;
-	CGFloat f  = H / 60.0 - Hi;
-	CGFloat p  = V * (1.0 - S);
-	CGFloat q  = V * (1.0 - f * S);
-	CGFloat t  = V * (1.0 - (1.0 - f) * S);
+	int Hi = (int)floor(H / (CGFloat)60.0) % 6;
+	CGFloat f  = H / (CGFloat)60.0 - Hi;
+	CGFloat p  = V * ((CGFloat)1.0 - S);
+	CGFloat q  = V * ((CGFloat)1.0 - f * S);
+	CGFloat t  = V * ((CGFloat)1.0 - ((CGFloat)1.0 - f) * S);
 	
 	switch ( Hi) {
 		case 0:

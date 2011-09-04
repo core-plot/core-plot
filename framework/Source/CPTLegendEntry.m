@@ -125,7 +125,7 @@
 	CGRect textRect = rect;
 	CGSize theTitleSize = self.titleSize;
 	if ( theTitleSize.height < textRect.size.height ) {
-		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / 2.0);
+		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0);
 	}
 	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

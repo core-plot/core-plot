@@ -1090,7 +1090,7 @@ double niceNum(double x, BOOL round)
 	CGFloat offset = theLabelOffset;
 	switch ( self.tickDirection ) {
 		case CPTSignNone:
-			offset += self.majorTickLength / 2.0;
+			offset += self.majorTickLength / (CGFloat)2.0;
 			break;
 		case CPTSignPositive:
 		case CPTSignNegative:

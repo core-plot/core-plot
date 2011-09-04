@@ -562,7 +562,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	// drawing a bar and for doing hit-testing on a click/touch event
     CPTCoordinate widthCoordinate = ( horizontalBars ? CPTCoordinateY : CPTCoordinateX );
     CGFloat barWidthLength = [self lengthInView:self.barWidth] * self.barWidthScale;
-	CGFloat halfBarWidth = 0.5 * barWidthLength;
+	CGFloat halfBarWidth = (CGFloat)0.5 * barWidthLength;
 	
     CGFloat point[2];
     point[CPTCoordinateX] = basePoint.x;
@@ -627,7 +627,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 {
 	BOOL horizontalBars = self.barsAreHorizontal;
     CGFloat barWidthLength = [self lengthInView:self.barWidth] * self.barWidthScale;
-	CGFloat halfBarWidth = 0.5 * barWidthLength;
+	CGFloat halfBarWidth = (CGFloat)0.5 * barWidthLength;
     
     CPTPlotArea *thePlotArea = self.plotArea;
 	
@@ -695,7 +695,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		CGPathRef swatchPath;
 		CGFloat radius = self.barCornerRadius;
 		if ( radius > 0.0 ) {
-			radius = MIN(MIN(radius, rect.size.width / 2.0), rect.size.height / 2.0);
+			radius = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
 			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {

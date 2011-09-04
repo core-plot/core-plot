@@ -419,7 +419,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 			CGFloat left = columnPositions[col];
 			CGFloat rowPosition = rowPositions[row];
 			CGRect swatchRect = CPTAlignRectToUserSpace(context, CGRectMake(left,
-																			rowPosition + (actualRowHeights[row] - theSwatchSize.height) / 2.0,
+																			rowPosition + (actualRowHeights[row] - theSwatchSize.height) / (CGFloat)2.0,
 																			theSwatchSize.width,
 																			theSwatchSize.height));
 			BOOL legendShouldDrawSwatch = YES;

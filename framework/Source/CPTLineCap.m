@@ -381,7 +381,7 @@
 			if ( theFill ) {
 				// use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
 				CGSize symbolSize = self.size;
-				CGSize halfSize = CGSizeMake(symbolSize.width / 2.0, symbolSize.height / 2.0);
+				CGSize halfSize = CGSizeMake(symbolSize.width / (CGFloat)2.0, symbolSize.height / (CGFloat)2.0);
 				CGRect bounds = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 				
 				CGContextSaveGState(theContext);
@@ -423,7 +423,7 @@
 {
 	CGFloat dx, dy;
 	CGSize lineCapSize = self.size;
-	CGSize halfSize = CGSizeMake(lineCapSize.width / 2.0, lineCapSize.height / 2.0);
+	CGSize halfSize = CGSizeMake(lineCapSize.width / (CGFloat)2.0, lineCapSize.height / (CGFloat)2.0);
 
 	CGMutablePathRef lineCapPath = CGPathCreateMutable();
 	
@@ -446,14 +446,14 @@
 			CGPathMoveToPoint(lineCapPath,	  NULL, -halfSize.width, -halfSize.height);
 			CGPathAddLineToPoint(lineCapPath, NULL,  0.0,			  0.0);
 			CGPathAddLineToPoint(lineCapPath, NULL,  halfSize.width, -halfSize.height);
-			CGPathAddLineToPoint(lineCapPath, NULL,  0.0,			 -lineCapSize.height * 0.375);
+			CGPathAddLineToPoint(lineCapPath, NULL,  0.0,			 -lineCapSize.height * (CGFloat)0.375);
 			CGPathCloseSubpath(lineCapPath);
 			break;
 		case CPTLineCapTypeRectangle:
-			CGPathAddRect(lineCapPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
+			CGPathAddRect(lineCapPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * (CGFloat)2.0, halfSize.height * (CGFloat)2.0));
 			break;
 		case CPTLineCapTypeEllipse:
-			CGPathAddEllipseInRect(lineCapPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * 2.0, halfSize.height * 2.0));
+			CGPathAddEllipseInRect(lineCapPath, NULL, CGRectMake(-halfSize.width, -halfSize.height, halfSize.width * (CGFloat)2.0, halfSize.height * (CGFloat)2.0));
 			break;
 		case CPTLineCapTypeDiamond:
 			CGPathMoveToPoint(lineCapPath,    NULL, 0.0,             halfSize.height);
@@ -463,16 +463,16 @@
 			CGPathCloseSubpath(lineCapPath);
 			break;
 		case CPTLineCapTypePentagon:
-			CGPathMoveToPoint(lineCapPath,    NULL,	 0.0,                             halfSize.height);
-			CGPathAddLineToPoint(lineCapPath, NULL,  halfSize.width * 0.95105651630,  halfSize.height * 0.30901699437);
-			CGPathAddLineToPoint(lineCapPath, NULL,  halfSize.width * 0.58778525229, -halfSize.height * 0.80901699437);
-			CGPathAddLineToPoint(lineCapPath, NULL, -halfSize.width * 0.58778525229, -halfSize.height * 0.80901699437);
-			CGPathAddLineToPoint(lineCapPath, NULL, -halfSize.width * 0.95105651630,  halfSize.height * 0.30901699437);
+			CGPathMoveToPoint(lineCapPath,    NULL,	 0.0,                                      halfSize.height);
+			CGPathAddLineToPoint(lineCapPath, NULL,  halfSize.width * (CGFloat)0.95105651630,  halfSize.height * (CGFloat)0.30901699437);
+			CGPathAddLineToPoint(lineCapPath, NULL,  halfSize.width * (CGFloat)0.58778525229, -halfSize.height * (CGFloat)0.80901699437);
+			CGPathAddLineToPoint(lineCapPath, NULL, -halfSize.width * (CGFloat)0.58778525229, -halfSize.height * (CGFloat)0.80901699437);
+			CGPathAddLineToPoint(lineCapPath, NULL, -halfSize.width * (CGFloat)0.95105651630,  halfSize.height * (CGFloat)0.30901699437);
 			CGPathCloseSubpath(lineCapPath);
 			break;
 		case CPTLineCapTypeHexagon:
-			dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
-			dy = halfSize.height / 2.0;
+			dx = halfSize.width * (CGFloat)0.86602540378; // sqrt(3.0) / 2.0;
+			dy = halfSize.height / (CGFloat)2.0;
 			
 			CGPathMoveToPoint(lineCapPath,    NULL, 0.0,  halfSize.height);
 			CGPathAddLineToPoint(lineCapPath, NULL, dx,   dy);
@@ -493,8 +493,8 @@
 			CGPathAddLineToPoint(lineCapPath, NULL, -halfSize.width, -halfSize.height);
 			break;
 		case CPTLineCapTypeSnow:
-			dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
-			dy = halfSize.height / 2.0;
+			dx = halfSize.width * (CGFloat)0.86602540378; // sqrt(3.0) / 2.0;
+			dy = halfSize.height / (CGFloat)2.0;
 			
 			CGPathMoveToPoint(lineCapPath,    NULL,  0.0,  halfSize.height);
 			CGPathAddLineToPoint(lineCapPath, NULL,  0.0, -halfSize.height);

@@ -428,7 +428,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
 {
- 	const CGFloat halfBarWidth = 0.5 * self.barWidth;
+ 	const CGFloat halfBarWidth = (CGFloat)0.5 * self.barWidth;
 	CPTFill *currentBarFill = nil;
 	CPTLineStyle *theBorderLineStyle = nil;
 	if ( !isnan(open) && !isnan(close) ) {
@@ -483,7 +483,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
             
             if ( open == close ) {
                 // #285 Draw a cross with open/close values marked
-                const CGFloat halfLineWidth = 0.5 * self.lineStyle.lineWidth;
+                const CGFloat halfLineWidth = (CGFloat)0.5 * self.lineStyle.lineWidth;
                 
                 alignedPoint1.y -= halfLineWidth;
                 alignedPoint2.y += halfLineWidth;
@@ -578,8 +578,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		case CPTTradingRangePlotStyleOHLC:
 			[self drawOHLCInContext:context
 								  x:CGRectGetMidX(rect)
-							   open:CGRectGetMinY(rect) + rect.size.height / 3.0
-							  close:CGRectGetMinY(rect) + rect.size.height * 2.0 / 3.0
+							   open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
+							  close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
 							   high:CGRectGetMaxY(rect) 
 								low:CGRectGetMinY(rect)];
 			break;
@@ -587,8 +587,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 		case CPTTradingRangePlotStyleCandleStick:
 			[self drawCandleStickInContext:context
 										 x:CGRectGetMidX(rect)
-									  open:CGRectGetMinY(rect) + rect.size.height / 3.0
-									 close:CGRectGetMinY(rect) + rect.size.height * 2.0 / 3.0
+									  open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
+									 close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
 									  high:CGRectGetMaxY(rect) 
 									   low:CGRectGetMinY(rect)];
 			break;

@@ -134,10 +134,10 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 	
 	// Add small margin
-	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * 2.0;
+	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
     textSize.width = ceil(textSize.width);
 
-	textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * 2.0;
+	textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
     textSize.height = ceil(textSize.height);
     
 	return textSize;    

@@ -520,9 +520,9 @@
 	CGRect selfBounds = self.bounds;
 	CGSize subLayerSize = selfBounds.size;
 	subLayerSize.width -= leftPadding + rightPadding;
-	subLayerSize.width = MAX(subLayerSize.width, 0.0);
+	subLayerSize.width = MAX(subLayerSize.width, (CGFloat)0.0);
 	subLayerSize.height -= topPadding + bottomPadding;
-	subLayerSize.height = MAX(subLayerSize.height, 0.0);
+	subLayerSize.height = MAX(subLayerSize.height, (CGFloat)0.0);
 		
     NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
@@ -627,7 +627,7 @@
 		CGRect selfBounds = self.bounds;
 		
 		if ( self.cornerRadius > 0.0 ) {
-			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / 2.0), selfBounds.size.height / 2.0);
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
 			path = CreateRoundedRectPath(selfBounds, radius);
 			self.outerBorderPath = path;
 			CGPathRelease(path);

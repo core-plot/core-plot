@@ -658,8 +658,8 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p)
     
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
-    p.x = round(p.x) + 0.5f;
-    p.y = round(p.y) + 0.5f;
+    p.x = round(p.x) + (CGFloat)0.5;
+    p.y = round(p.y) + (CGFloat)0.5;
     
     // Convert the device aligned coordinate back to user space.
     return CGContextConvertPointToUserSpace(context, p);
@@ -707,8 +707,8 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
     r = CGContextConvertRectToDeviceSpace(context, r);
     
     // Ensure that the x and y coordinates are at a pixel corner.
-    r.origin.x = round(r.origin.x) + 0.5f;
-    r.origin.y = round(r.origin.y) + 0.5f;
+    r.origin.x = round(r.origin.x) + (CGFloat)0.5;
+    r.origin.y = round(r.origin.y) + (CGFloat)0.5;
     
     // Ensure that the width and height are an integer number of
     // device pixels.

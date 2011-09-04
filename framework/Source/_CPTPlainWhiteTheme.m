@@ -66,7 +66,8 @@ NSString * const kCPTPlainWhiteTheme = @"Plain White";	///< Plain white theme.
 	blackTextStyle.fontSize = 14.0;
 	CPTMutableTextStyle *minorTickBlackTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
 	minorTickBlackTextStyle.color = [CPTColor blackColor];
-	minorTickBlackTextStyle.fontSize = 12.0;    x.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
+	minorTickBlackTextStyle.fontSize = 12.0;
+    x.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength = CPTDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 	x.tickDirection = CPTSignNone;
