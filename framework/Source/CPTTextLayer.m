@@ -152,7 +152,6 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	CGRect newBounds = self.bounds;
 	newBounds.size = sizeThatFits;
 	self.bounds = newBounds;
-    [self pixelAlign];
 	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
