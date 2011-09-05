@@ -65,7 +65,7 @@ typedef enum _CPTPlotSymbolType {
 
 /// @name Drawing
 /// @{
--(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale;
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels;
 -(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale;
 ///	@}
 

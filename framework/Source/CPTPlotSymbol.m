@@ -377,8 +377,9 @@
  *  @param theContext The graphics context to draw into.
  *  @param center The center point of the symbol.
  *  @param scale The drawing scale factor. Must be greater than zero (0).
+ *	@param alignToPixels If YES, the symbol position is aligned with device pixels to reduce anti-aliasing artifacts.
  **/
--(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale
+-(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels
 {
 	const CGFloat symbolMargin = 2.0;
 	
@@ -424,13 +425,15 @@
 		CGPoint origin = CGPointMake(center.x - layerSize.width / (CGFloat)2.0,
 									 center.y - layerSize.height / (CGFloat)2.0);
 		
-		if ( scale == 1.0 ) {
-			origin.x = round(origin.x);
-			origin.y = round(origin.y);
-		}
-		else {
-			origin.x = round(origin.x * scale) / scale;
-			origin.y = round(origin.y * scale) / scale;
+		if ( alignToPixels ) {
+			if ( scale == 1.0 ) {
+				origin.x = round(origin.x);
+				origin.y = round(origin.y);
+			}
+			else {
+				origin.x = round(origin.x * scale) / scale;
+				origin.y = round(origin.y * scale) / scale;
+			}
 		}
 		
 		CGContextDrawLayerInRect(theContext, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);

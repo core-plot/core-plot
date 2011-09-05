@@ -555,7 +555,11 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
-	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
+	
+	BOOL pixelAlign = self.alignsPointsToPixels;
+	if ( pixelAlign ) {
+		[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
+	}
 	
 	// Get extreme points
 	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
@@ -619,7 +623,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-						[currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale];	
+						[currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];	
 					}
 				}
 			}
@@ -627,7 +631,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 					if ( drawPointFlags[i] ) {
 						CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];	
+						[currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];
 					}
 				}
 			}
@@ -720,7 +724,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( thePlotSymbol ) {
 		[thePlotSymbol renderInContext:context
 							   atPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
-								 scale:self.contentsScale];
+								 scale:self.contentsScale
+						 alignToPixels:YES];
 	}
 	
 	// if no line or plot symbol, use the area fills to draw the swatch

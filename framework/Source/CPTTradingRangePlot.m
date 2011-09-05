@@ -40,8 +40,20 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *lowValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *closeValues;
 
--(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low;
--(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low;
+-(void)drawCandleStickInContext:(CGContextRef)context
+							  x:(CGFloat)x
+						   open:(CGFloat)open
+						  close:(CGFloat)close
+						   high:(CGFloat)high
+							low:(CGFloat)low
+					alignPoints:(BOOL)alignPoints;
+-(void)drawOHLCInContext:(CGContextRef)context
+					   x:(CGFloat)x
+					open:(CGFloat)open
+				   close:(CGFloat)close
+					high:(CGFloat)high
+					 low:(CGFloat)low
+			 alignPoints:(BOOL)alignPoints;
 
 @end
 /**	@endcond */
@@ -331,10 +343,22 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				// Draw
 				switch ( thePlotStyle ) {
 					case CPTTradingRangePlotStyleOHLC:
-						[self drawOHLCInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						[self drawOHLCInContext:theContext
+											  x:xCoord
+										   open:openPoint.y
+										  close:closePoint.y
+										   high:highPoint.y
+											low:lowPoint.y
+									alignPoints:self.alignsPointsToPixels];
 						break;
 					case CPTTradingRangePlotStyleCandleStick:
-						[self drawCandleStickInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						[self drawCandleStickInContext:theContext
+													 x:xCoord
+												  open:openPoint.y
+												 close:closePoint.y
+												  high:highPoint.y
+												   low:lowPoint.y
+										   alignPoints:self.alignsPointsToPixels];
 						break;
 					default:
 						[NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
@@ -412,10 +436,22 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				// Draw
 				switch ( thePlotStyle ) {
 					case CPTTradingRangePlotStyleOHLC:
-						[self drawOHLCInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						[self drawOHLCInContext:theContext
+											  x:xCoord
+										   open:openPoint.y
+										  close:closePoint.y
+										   high:highPoint.y
+											low:lowPoint.y
+									alignPoints:self.alignsPointsToPixels];
 						break;
 					case CPTTradingRangePlotStyleCandleStick:
-						[self drawCandleStickInContext:theContext x:xCoord open:openPoint.y close:closePoint.y high:highPoint.y low:lowPoint.y];
+						[self drawCandleStickInContext:theContext
+													 x:xCoord
+												  open:openPoint.y
+												 close:closePoint.y
+												  high:highPoint.y
+												   low:lowPoint.y
+										   alignPoints:self.alignsPointsToPixels];
 						break;
 					default:
 						[NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
@@ -426,7 +462,13 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
     }	
 }
 
--(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
+-(void)drawCandleStickInContext:(CGContextRef)context
+							  x:(CGFloat)x
+						   open:(CGFloat)open
+						  close:(CGFloat)close
+						   high:(CGFloat)high
+							low:(CGFloat)low
+					alignPoints:(BOOL)alignPoints
 {
  	const CGFloat halfBarWidth = (CGFloat)0.5 * self.barWidth;
 	CPTFill *currentBarFill = nil;
@@ -455,8 +497,12 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	
 	// high - low only
 	if ( !isnan(high) && !isnan(low) && (isnan(open) || isnan(close)) ) {
-		CGPoint alignedHighPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
-		CGPoint alignedLowPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
+		CGPoint alignedHighPoint = CGPointMake(x, high);
+		CGPoint alignedLowPoint = CGPointMake(x, low);
+		if ( alignPoints ) {
+			alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
+			alignedLowPoint = CPTAlignPointToUserSpace(context, alignedLowPoint);
+		}
 		
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
@@ -475,11 +521,18 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 			CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 			radius = MIN(radius, ABS(close - open));
 			
-			CGPoint alignedPoint1 = CPTAlignPointToUserSpace(context, CGPointMake(x + halfBarWidth, open));
-			CGPoint alignedPoint2 = CPTAlignPointToUserSpace(context, CGPointMake(x + halfBarWidth, close));
-			CGPoint alignedPoint3 = CPTAlignPointToUserSpace(context, CGPointMake(x, close));
-			CGPoint alignedPoint4 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, close));
-			CGPoint alignedPoint5 = CPTAlignPointToUserSpace(context, CGPointMake(x - halfBarWidth, open));
+			CGPoint alignedPoint1 = CGPointMake(x + halfBarWidth, open);
+			CGPoint alignedPoint2 = CGPointMake(x + halfBarWidth, close);
+			CGPoint alignedPoint3 = CGPointMake(x, close);
+			CGPoint alignedPoint4 = CGPointMake(x - halfBarWidth, close);
+			CGPoint alignedPoint5 = CGPointMake(x - halfBarWidth, open);
+			if ( alignPoints ) {
+				alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
+				alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
+				alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
+				alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
+				alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+			}
             
             if ( open == close ) {
                 // #285 Draw a cross with open/close values marked
@@ -508,8 +561,12 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 			if ( theBorderLineStyle ) {
 				if ( !isnan(low) ) {
 					if ( low < MIN(open, close) ) {
-						CGPoint alignedStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, MIN(open, close)));
-						CGPoint alignedLowPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
+						CGPoint alignedStartPoint = CGPointMake(x, MIN(open, close));
+						CGPoint alignedLowPoint = CGPointMake(x, low);
+						if ( alignPoints ) {
+							alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
+							alignedLowPoint = CPTAlignPointToUserSpace(context, alignedLowPoint);
+						}
 						
 						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
 						CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -517,8 +574,12 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				}
 				if ( !isnan(high) ) {
 					if ( high > MAX(open, close) ) {
-						CGPoint alignedStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, MAX(open, close)));
-						CGPoint alignedHighPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
+						CGPoint alignedStartPoint = CGPointMake(x, MAX(open, close));
+						CGPoint alignedHighPoint = CGPointMake(x, high);
+						if ( alignPoints ) {
+							alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
+							alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
+						}
 						
 						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
 						CGPathAddLineToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
@@ -534,31 +595,49 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	}
 }
 
--(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low
+-(void)drawOHLCInContext:(CGContextRef)context
+					   x:(CGFloat)x
+					open:(CGFloat)open
+				   close:(CGFloat)close
+					high:(CGFloat)high
+					 low:(CGFloat)low
+			 alignPoints:(BOOL)alignPoints
 {
 	CGFloat theStickLength = self.stickLength;
     CGMutablePathRef path = CGPathCreateMutable();
 	
 	// high-low
 	if ( !isnan(high) && !isnan(low) ) {
-		CGPoint alignedHighPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, high));
-		CGPoint alignedLowPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, low));
+		CGPoint alignedHighPoint = CGPointMake(x, high);
+		CGPoint alignedLowPoint = CGPointMake(x, low);
+		if ( alignPoints ) {
+			alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
+			alignedLowPoint = CPTAlignPointToUserSpace(context, alignedLowPoint);
+		}
 		CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 		CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 	}
 	
 	// open
 	if ( !isnan(open) ) {
-		CGPoint alignedOpenStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, open));
-		CGPoint alignedOpenEndPoint = CPTAlignPointToUserSpace(context, CGPointMake(x - theStickLength, open)); // left side
+		CGPoint alignedOpenStartPoint = CGPointMake(x, open);
+		CGPoint alignedOpenEndPoint = CGPointMake(x - theStickLength, open); // left side
+		if ( alignPoints ) {
+			alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
+			alignedOpenEndPoint = CPTAlignPointToUserSpace(context, alignedOpenEndPoint);
+		}
 		CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
 		CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
 	}
 	
 	// close
 	if ( !isnan(close) ) {
-		CGPoint alignedCloseStartPoint = CPTAlignPointToUserSpace(context, CGPointMake(x, close));
-		CGPoint alignedCloseEndPoint = CPTAlignPointToUserSpace(context, CGPointMake(x + theStickLength, close)); // right side
+		CGPoint alignedCloseStartPoint = CGPointMake(x, close);
+		CGPoint alignedCloseEndPoint = CGPointMake(x + theStickLength, close); // right side
+		if ( alignPoints ) {
+			alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
+			alignedCloseEndPoint = CPTAlignPointToUserSpace(context, alignedCloseEndPoint);
+		}
 		CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
 		CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
 	}
@@ -581,7 +660,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 							   open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
 							  close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
 							   high:CGRectGetMaxY(rect) 
-								low:CGRectGetMinY(rect)];
+								low:CGRectGetMinY(rect)
+						alignPoints:YES];
 			break;
 			
 		case CPTTradingRangePlotStyleCandleStick:
@@ -590,7 +670,8 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 									  open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
 									 close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
 									  high:CGRectGetMaxY(rect) 
-									   low:CGRectGetMinY(rect)];
+									   low:CGRectGetMinY(rect)
+							   alignPoints:YES];
 			break;
 			
 		default:

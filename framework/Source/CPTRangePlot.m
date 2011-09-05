@@ -52,7 +52,11 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *rightValues;
 
--(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth;
+-(void)drawRangeInContext:(CGContextRef)theContext
+				viewPoint:(CGPointError *)viewPoint
+			  halfGapSize:(CGSize)halfGapSize
+			 halfBarWidth:(CGFloat)halfBarWidth
+			  alignPoints:(BOOL)alignPoints;
 
 @end
 /**	@endcond */
@@ -454,7 +458,9 @@ typedef struct CGPointError CGPointError;
 	CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
-	[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
+	if ( self.alignsPointsToPixels ) {
+		[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
+	}
 	
 	// Get extreme points
 	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
@@ -468,15 +474,16 @@ typedef struct CGPointError CGPointError;
             for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
                 CGFloat x = viewPoints[i].x;
                 CGFloat y = viewPoints[i].high;
-                if(isnan(y))
+                if ( isnan(y) ) {
                     y = viewPoints[i].y;
+				}
                 
-                if (!isnan(x) && !isnan(y)) { 
-                    CGPoint alignedPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(x,y));
+                if (!isnan(x) && !isnan(y)) {
                     if (i == firstDrawnPointIndex) {
-                        CGPathMoveToPoint(fillPath, NULL, alignedPoint.x, alignedPoint.y);
-                    } else {
-                        CGPathAddLineToPoint(fillPath, NULL, alignedPoint.x, alignedPoint.y);
+                        CGPathMoveToPoint(fillPath, NULL, x, y);
+                    }
+					else {
+                        CGPathAddLineToPoint(fillPath, NULL, x, y);
                     }
                 }
             }
@@ -485,12 +492,12 @@ typedef struct CGPointError CGPointError;
             for ( NSUInteger j = lastDrawnPointIndex; j >= firstDrawnPointIndex; j-- ) {
                 CGFloat x = viewPoints[j].x;
                 CGFloat y = viewPoints[j].low;
-                if(isnan(y))
+                if ( isnan(y) ) {
                     y = viewPoints[j].y;
+				}
 				
-                if (!isnan(x) && !isnan(y)) { 
-                    CGPoint alignedPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(x,y));
-                    CGPathAddLineToPoint(fillPath, NULL, alignedPoint.x, alignedPoint.y);
+                if (!isnan(x) && !isnan(y)) {
+                    CGPathAddLineToPoint(fillPath, NULL, x, y);
                 }
                 if (j == firstDrawnPointIndex) {
                     // This could be done a bit more elegant
@@ -519,12 +526,14 @@ typedef struct CGPointError CGPointError;
 			
 			CGSize halfGapSize = CGSizeMake(self.gapWidth * (CGFloat)0.5, self.gapHeight * (CGFloat)0.5);
 			CGFloat halfBarWidth = self.barWidth * (CGFloat)0.5;
+			BOOL alignPoints = self.alignsPointsToPixels;
 			
             for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 				[self drawRangeInContext:theContext
 							   viewPoint:&viewPoints[i]
 							 halfGapSize:halfGapSize
-							halfBarWidth:halfBarWidth];
+							halfBarWidth:halfBarWidth
+							 alignPoints:alignPoints];
             }
         }
         
@@ -533,71 +542,107 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
--(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth
+-(void)drawRangeInContext:(CGContextRef)theContext
+				viewPoint:(CGPointError *)viewPoint
+			  halfGapSize:(CGSize)halfGapSize
+			 halfBarWidth:(CGFloat)halfBarWidth
+			  alignPoints:(BOOL)alignPoints
 {
 	if ( !isnan(viewPoint->x) && !isnan(viewPoint->y) ) {
 		CGMutablePathRef path = CGPathCreateMutable();
 		
 		// centre-high
 		if ( !isnan(viewPoint->high) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x, viewPoint->y + halfGapSize.height));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x, viewPoint->high));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y + halfGapSize.height);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->x, viewPoint->high);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// centre-low
 		if ( !isnan(viewPoint->low) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x, viewPoint->y - halfGapSize.height));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x, viewPoint->low));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y - halfGapSize.height);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->x, viewPoint->low);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// top bar
 		if ( !isnan(viewPoint->high) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x - halfBarWidth, viewPoint->high));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x + halfBarWidth, viewPoint->high));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->high);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// bottom bar
 		if ( !isnan(viewPoint->low) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x - halfBarWidth, viewPoint->low));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x + halfBarWidth, viewPoint->low));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->low);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// centre-left
 		if ( !isnan(viewPoint->left) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x - halfGapSize.width, viewPoint->y));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->left, viewPoint->y));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfGapSize.width, viewPoint->y);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->left, viewPoint->y);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// centre-right
 		if ( !isnan(viewPoint->right) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->x + halfGapSize.width, viewPoint->y));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->right, viewPoint->y));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->x + halfGapSize.width, viewPoint->y);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->right, viewPoint->y);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		} 
 		
 		// left bar
 		if ( !isnan(viewPoint->left) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->left, viewPoint->y - halfBarWidth));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->left, viewPoint->y + halfBarWidth));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->left, viewPoint->y - halfBarWidth);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
 		
 		// right bar
 		if ( !isnan(viewPoint->right) ) {
-			CGPoint alignedHighPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->right, viewPoint->y - halfBarWidth));
-			CGPoint alignedLowPoint = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoint->right, viewPoint->y + halfBarWidth));
+			CGPoint alignedHighPoint = CGPointMake(viewPoint->right, viewPoint->y - halfBarWidth);
+			CGPoint alignedLowPoint = CGPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
+			if ( alignPoints ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
+				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
@@ -651,7 +696,8 @@ typedef struct CGPointError CGPointError;
 		[self drawRangeInContext:context
 					   viewPoint:&viewPoint
 					 halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / (CGFloat)2.0) * (CGFloat)0.5, MIN(self.gapHeight, rect.size.height / (CGFloat)2.0) * (CGFloat)0.5)
-					halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * (CGFloat)0.5];
+					halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * (CGFloat)0.5
+					 alignPoints:YES];
 	}
 }
 

@@ -569,42 +569,35 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     point[CPTCoordinateY] = basePoint.y;
     point[widthCoordinate] += halfBarWidth;
 	CGPoint alignedPoint1 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-	if ( context ) {
-		// may not have a context if doing hit testing
-		alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-	}	
     
     point[CPTCoordinateX] = tipPoint.x;
     point[CPTCoordinateY] = tipPoint.y;
     point[widthCoordinate] += halfBarWidth;
 	CGPoint alignedPoint2 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-	if ( context ) {
-		alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-	}	
 	
     point[CPTCoordinateX] = tipPoint.x;
     point[CPTCoordinateY] = tipPoint.y;
 	CGPoint alignedPoint3 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-	if ( context ) {
-		alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-	}	
 	
     point[CPTCoordinateX] = tipPoint.x;
     point[CPTCoordinateY] = tipPoint.y;
     point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedPoint4 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-	if ( context ) {
-		alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-	}	
     
     point[CPTCoordinateX] = basePoint.x;
     point[CPTCoordinateY] = basePoint.y;
     point[widthCoordinate] -= halfBarWidth;
 	CGPoint alignedPoint5 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-	if ( context ) {
+	
+	// may not have a context if doing hit testing
+	if ( self.alignsPointsToPixels && context ) {
+		alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
+		alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
+		alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
+		alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
 		alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
 	}	
-	
+
 	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
 	if ( horizontalBars ) {
 		radius = MIN(radius, ABS(tipPoint.x - basePoint.x));

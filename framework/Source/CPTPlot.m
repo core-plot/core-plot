@@ -171,6 +171,11 @@
 
 @synthesize labelAnnotations;
 
+/**	@property alignsPointsToPixels
+ *	@brief If YES (the default), all plot points will be aligned to device pixels when drawing.
+ **/
+@synthesize alignsPointsToPixels;
+
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -195,6 +200,7 @@
 		labelFormatterChanged = YES;
 		labelIndexRange = NSMakeRange(0, 0);
 		labelAnnotations = nil;
+		alignsPointsToPixels = YES;
 		
 		self.masksToBounds = YES;
 		self.needsDisplayOnBoundsChange = YES;
@@ -225,6 +231,7 @@
 		labelFormatterChanged = theLayer->labelFormatterChanged;
 		labelIndexRange = theLayer->labelIndexRange;
 		labelAnnotations = [theLayer->labelAnnotations retain];
+		alignsPointsToPixels = theLayer->alignsPointsToPixels;
 	}
 	return self;
 }
@@ -267,6 +274,7 @@
 	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTPlot.labelFormatterChanged"];
 	[coder encodeObject:[NSValue valueWithRange:self.labelIndexRange] forKey:@"CPTPlot.labelIndexRange"];
 	[coder encodeObject:self.labelAnnotations forKey:@"CPTPlot.labelAnnotations"];
+	[coder encodeBool:self.alignsPointsToPixels forKey:@"CPTPlot.alignsPointsToPixels"];
 
 	// No need to archive these properties:
 	// dataNeedsReloading
@@ -292,6 +300,7 @@
 		labelFormatterChanged = [coder decodeBoolForKey:@"CPTPlot.labelFormatterChanged"];
 		labelIndexRange = [[coder decodeObjectForKey:@"CPTPlot.labelIndexRange"] rangeValue];
 		labelAnnotations = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
+		alignsPointsToPixels = [coder decodeBoolForKey:@"CPTPlot.alignsPointsToPixels"];
 		
 		cachedData = [[NSMutableDictionary alloc] initWithCapacity:5];
 		cachedDataCount = 0;
@@ -1149,6 +1158,14 @@
 				[NSException raise:NSInvalidArgumentException format:@"Invalid cache precision"];
 				break;
 		}
+	}
+}
+
+-(void)setAlignsPointsToPixels:(BOOL)newAlignsPointsToPixels
+{
+	if ( newAlignsPointsToPixels != alignsPointsToPixels ) {
+		alignsPointsToPixels = newAlignsPointsToPixels;
+		[self setNeedsDisplay];
 	}
 }
 

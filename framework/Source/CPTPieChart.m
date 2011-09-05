@@ -355,7 +355,9 @@ static const CGFloat colorLookupTable[10][3] =
 	CGPoint centerPoint = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
 									  plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
 	centerPoint = [self convertPoint:centerPoint fromLayer:self.plotArea];
-	centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
+	if ( self.alignsPointsToPixels ) {
+		centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
+	}
 	
 	NSUInteger currentIndex = 0;
 	CGFloat startingWidth = 0.0;
@@ -448,7 +450,9 @@ static const CGFloat colorLookupTable[10][3] =
     }
     
     CGPoint center = CGPointMake(centerPoint.x + xOffset, centerPoint.y + yOffset);
-	center = CPTAlignPointToUserSpace(context, center);
+	if ( self.alignsPointsToPixels ) {
+		center = CPTAlignPointToUserSpace(context, center);
+	}
 
 	CGMutablePathRef slicePath = CGPathCreateMutable();
     [self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle];
