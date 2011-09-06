@@ -195,7 +195,9 @@
     CGPoint pointInPlotArea = [hostedGraph convertPoint:interactionPoint toLayer:hostedGraph.plotAreaFrame.plotArea];
     
     for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
-        [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+		if ( space.allowsUserInteraction ) {
+			[space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+		}
     }
     
     [pinchGestureRecognizer setScale:1.0f];
