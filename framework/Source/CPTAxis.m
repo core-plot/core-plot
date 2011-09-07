@@ -1420,9 +1420,10 @@ double niceNum(double x, BOOL round)
 		[labelTextStyle release];
 		labelTextStyle = [newStyle copy];
 		
+		Class textLayerClass = [CPTTextLayer class];
 		for ( CPTAxisLabel *axisLabel in self.axisLabels ) {
 			CPTLayer *contentLayer = axisLabel.contentLayer;
-			if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
+			if ( [contentLayer isKindOfClass:textLayerClass] ) {
 				[(CPTTextLayer *)contentLayer setTextStyle:labelTextStyle];
 			}
 		}
@@ -1436,6 +1437,14 @@ double niceNum(double x, BOOL round)
 	if ( newStyle != minorTickLabelTextStyle ) {
 		[minorTickLabelTextStyle release];
 		minorTickLabelTextStyle = [newStyle copy];
+
+		Class textLayerClass = [CPTTextLayer class];
+		for ( CPTAxisLabel *axisLabel in self.minorTickAxisLabels ) {
+			CPTLayer *contentLayer = axisLabel.contentLayer;
+			if ( [contentLayer isKindOfClass:textLayerClass] ) {
+				[(CPTTextLayer *)contentLayer setTextStyle:minorTickLabelTextStyle];
+			}
+		}
 
 		[self setNeedsLayout];
 	}
