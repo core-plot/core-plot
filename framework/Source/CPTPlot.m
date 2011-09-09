@@ -775,17 +775,53 @@
     if ( self.dataNeedsReloading ) [self reloadData];
     CPTMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
     CPTPlotRange *range = nil;
-    if ( numbers.numberOfSamples > 0 ) {
-		NSMutableArray *numberArray = [[numbers sampleArray] mutableCopy];
-        [numberArray removeObject:[NSNull null]];
-        [numberArray removeObject:[NSDecimalNumber notANumber]];
-        if ( numberArray.count > 0 ) {
-            NSNumber *min = [numberArray valueForKeyPath:@"@min.self"];
-            NSNumber *max = [numberArray valueForKeyPath:@"@max.self"];
-            NSDecimal length = CPTDecimalSubtract([max decimalValue], [min decimalValue]);
-            range = [CPTPlotRange plotRangeWithLocation:[min decimalValue] length:length];
-        }
-        [numberArray release];
+	
+	NSUInteger numberOfSamples = numbers.numberOfSamples;
+    if ( numberOfSamples > 0 ) {
+		if ( self.doublePrecisionCache ) {
+			// TODO: Should use Accelerate framework for min and max as soon as the minimum iOS version is 4.0
+			
+			double min = INFINITY;
+			double max = -INFINITY;
+
+			const double *doubles = (const double *)numbers.bytes;
+			const double *lastSample = doubles + numberOfSamples;
+			while ( doubles < lastSample ) {
+				double value = *doubles++;
+				
+				if ( !isnan(value) ) {
+					min = MIN(min, value);
+					max = MAX(max, value);
+				}
+			}
+			
+			if ( max > min ) {
+				range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min) length:CPTDecimalFromDouble(max - min)];
+			}
+		}
+		else {
+			NSDecimal min = CPTDecimalFromDouble(INFINITY);
+			NSDecimal max = CPTDecimalFromDouble(-INFINITY);
+			
+			const NSDecimal *decimals = (const NSDecimal *)numbers.bytes;
+			const NSDecimal *lastSample = decimals + numberOfSamples;
+			while ( decimals < lastSample ) {
+				NSDecimal value = *decimals++;
+				
+				if ( !NSDecimalIsNotANumber(&value) ) {
+					if ( CPTDecimalLessThan(value, min) ) {
+						min = value;
+					}
+					if ( CPTDecimalGreaterThan(value, max) ) {
+						max = value;
+					}
+				}
+			}
+			
+			if ( CPTDecimalGreaterThan(max, min) ) {
+				range = [CPTPlotRange plotRangeWithLocation:min length:CPTDecimalSubtract(max, min)];
+			}
+		}
     }
     return range;
 }
