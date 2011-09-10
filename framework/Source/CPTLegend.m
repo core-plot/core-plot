@@ -19,6 +19,7 @@
 
 NSString * const CPTLegendNeedsRedrawForPlotNotification = @"CPTLegendNeedsRedrawForPlotNotification";
 NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayoutForPlotNotification";
+NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
 /**	@cond */
 @interface CPTLegend()
@@ -33,6 +34,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot;
 -(void)legendNeedsRedraw:(NSNotification *)notif;
 -(void)legendNeedsLayout:(NSNotification *)notif;
+-(void)legendNeedsReloadEntries:(NSNotification *)notif;
 
 @end
 /**	@endcond */
@@ -668,7 +670,6 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 				CPTLegendEntry *newLegendEntry = [[CPTLegendEntry alloc] init];
 				newLegendEntry.plot = plot;
 				newLegendEntry.index = i;
-				newLegendEntry.title = newTitle;
 				newLegendEntry.textStyle = theTextStyle;
 				[theLegendEntries addObject:newLegendEntry];
 				[newLegendEntry release];
@@ -676,6 +677,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 		}
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsRedraw:) name:CPTLegendNeedsRedrawForPlotNotification object:plot];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsLayout:) name:CPTLegendNeedsLayoutForPlotNotification object:plot];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsReloadEntries:) name:CPTLegendNeedsReloadEntriesForPlotNotification object:plot];
 	}
 }
 
@@ -713,7 +715,6 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 				CPTLegendEntry *newLegendEntry = [[CPTLegendEntry alloc] init];
 				newLegendEntry.plot = plot;
 				newLegendEntry.index = i;
-				newLegendEntry.title = newTitle;
 				newLegendEntry.textStyle = theTextStyle;
 				[theLegendEntries insertObject:newLegendEntry atIndex:legendEntryIndex++];
 				[newLegendEntry release];
@@ -721,6 +722,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 		}
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsRedraw:) name:CPTLegendNeedsRedrawForPlotNotification object:plot];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsLayout:) name:CPTLegendNeedsLayoutForPlotNotification object:plot];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(legendNeedsReloadEntries:) name:CPTLegendNeedsReloadEntriesForPlotNotification object:plot];
 	}
 }
 
@@ -735,6 +737,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 		self.layoutChanged = YES;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsRedrawForPlotNotification object:plot];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsLayoutForPlotNotification object:plot];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsReloadEntriesForPlotNotification object:plot];
     }
     else {
         [NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
@@ -753,6 +756,7 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 		self.layoutChanged = YES;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsRedrawForPlotNotification object:plotToRemove];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsLayoutForPlotNotification object:plotToRemove];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLegendNeedsReloadEntriesForPlotNotification object:plotToRemove];
 	}
 }
 
@@ -774,6 +778,9 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 	[entriesToRemove release];
 }
 
+#pragma mark -
+#pragma mark Notifications
+
 -(void)legendNeedsRedraw:(NSNotification *)notif
 {
 	[self setNeedsDisplay];
@@ -783,6 +790,37 @@ NSString * const CPTLegendNeedsLayoutForPlotNotification = @"CPTLegendNeedsLayou
 {
 	self.layoutChanged = YES;
 	[self setNeedsDisplay];
+}
+
+-(void)legendNeedsReloadEntries:(NSNotification *)notif
+{
+	CPTPlot *thePlot = (CPTPlot *)notif;
+	NSMutableArray *theLegendEntries = self.legendEntries;
+	
+	NSUInteger legendEntryIndex = 0;
+	for ( CPTLegendEntry *legendEntry in theLegendEntries ) {
+		if ( legendEntry.plot == thePlot ) {
+			break;
+		}
+		legendEntryIndex++;
+	}
+	
+	[self removeLegendEntriesForPlot:thePlot];
+
+	CPTTextStyle *theTextStyle = self.textStyle;
+	NSUInteger numberOfLegendEntries = [thePlot numberOfLegendEntries];
+	for ( NSUInteger i = 0; i < numberOfLegendEntries; i++ ) {
+		NSString *newTitle = [thePlot titleForLegendEntryAtIndex:i];
+		if ( newTitle ) {
+			CPTLegendEntry *newLegendEntry = [[CPTLegendEntry alloc] init];
+			newLegendEntry.plot = thePlot;
+			newLegendEntry.index = i;
+			newLegendEntry.textStyle = theTextStyle;
+			[theLegendEntries insertObject:newLegendEntry atIndex:legendEntryIndex++];
+			[newLegendEntry release];
+		}
+	}
+	self.layoutChanged = YES;
 }
 
 #pragma mark -

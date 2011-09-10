@@ -7,7 +7,7 @@
 /**	@cond */
 @interface CPTLegendEntry()
 
-@property (nonatomic, readwrite, assign) CGSize titleSize;
+@property (nonatomic, readonly, retain) NSString *title;
 
 @end
 /**	@endcond */
@@ -41,7 +41,7 @@
 /**	@property title
  *	@brief The legend entry title.
  **/
-@synthesize title;
+@dynamic title;
 
 /**	@property textStyle
  *	@brief The text style used to draw the legend entry title.
@@ -51,7 +51,7 @@
 /**	@property titleSize
  *	@brief The size of the legend entry title when drawn using the textStyle.
  **/
-@synthesize titleSize;
+@dynamic titleSize;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -63,16 +63,13 @@
 		index = 0;
 		row = 0;
 		column = 0;
-		title = nil;
 		textStyle = nil;
-		titleSize = CGSizeZero;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-	[title release];
 	[textStyle release];
 	
 	[super dealloc];
@@ -87,9 +84,7 @@
 	[coder encodeInteger:self.index forKey:@"CPTLegendEntry.index"];
 	[coder encodeInteger:self.row forKey:@"CPTLegendEntry.row"];
 	[coder encodeInteger:self.column forKey:@"CPTLegendEntry.column"];
-	[coder encodeObject:self.title forKey:@"CPTLegendEntry.title"];
 	[coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
-	[coder encodeCPTSize:self.titleSize forKey:@"CPTLegendEntry.titleSize"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -99,9 +94,7 @@
 		index = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
 		row = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
 		column = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
-		title = [[coder decodeObjectForKey:@"CPTLegendEntry.title"] retain];
 		textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
-		titleSize = [coder decodeCPTSizeForKey:@"CPTLegendEntry.titleSize"];
 	}
     return self;
 }
@@ -136,36 +129,31 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setTitle:(NSString *)newTitle
-{
-	if ( newTitle != title ) {
-		[title release];
-		title = [newTitle retain];
-		self.titleSize = CGSizeZero;
-	}
-}
-
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
 	if ( newTextStyle != textStyle ) {
 		[textStyle release];
 		textStyle = [newTextStyle retain];
-		self.titleSize = CGSizeZero;
 	}
+}
+
+-(NSString *)title
+{
+	return [self.plot titleForLegendEntryAtIndex:self.index];
 }
 
 -(CGSize)titleSize
 {
-	if ( CGSizeEqualToSize(titleSize, CGSizeZero) ) {
-		NSString *theTitle = self.title;
-		CPTTextStyle *theTextStyle = self.textStyle;
-		
-		if ( theTitle && theTextStyle ) {
-			titleSize = [theTitle sizeWithTextStyle:theTextStyle];
-		}
+	CGSize theTitleSize = CGSizeZero;
+	
+	NSString *theTitle = self.title;
+	CPTTextStyle *theTextStyle = self.textStyle;
+	
+	if ( theTitle && theTextStyle ) {
+		theTitleSize = [theTitle sizeWithTextStyle:theTextStyle];
 	}
-
-	return titleSize;
+	
+	return theTitleSize;
 }
 
 @end

@@ -19,6 +19,12 @@ extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
  *	@ingroup notification
  **/
 extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
+
+/**	@brief Notification sent by plots to tell the legend it should reload all legend entries.
+ *	@ingroup notification
+ **/
+extern NSString * const CPTLegendNeedsReloadEntriesForPlotNotification;
+
 ///	@}
 
 /**	@brief Axis labeling delegate.

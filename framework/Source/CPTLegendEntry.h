@@ -10,20 +10,13 @@
 	NSUInteger index;
 	NSUInteger row;
 	NSUInteger column;
-	NSString *title;
 	CPTTextStyle *textStyle;
-	CGSize titleSize;
 }
 
 /// @name Plot Info
 /// @{
 @property (nonatomic, readwrite, assign) __weak CPTPlot *plot;
 @property (nonatomic, readwrite, assign) NSUInteger index;
-///	@}
-
-/// @name Text
-@property (nonatomic, readwrite, retain) NSString *title;
-/// @{
 ///	@}
 
 /// @name Formatting
