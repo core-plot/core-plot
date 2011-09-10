@@ -314,6 +314,7 @@
 		NSDecimal endPlotPoint[2];
 		startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
 		endPlotPoint[orthogonalCoordinate] = orthogonalRange.end;
+		CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 		
 		CGContextBeginPath(context);
 		
@@ -321,10 +322,14 @@
 			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = [location decimalValue];
             
 			// Start point
-			CGPoint startViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint] fromLayer:thePlotArea];
+			CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+			startViewPoint.x += originTransformed.x;
+			startViewPoint.y += originTransformed.y;
 			
 			// End point
-			CGPoint endViewPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint] fromLayer:thePlotArea];
+			CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+			endViewPoint.x += originTransformed.x;
+			endViewPoint.y += originTransformed.y;
 			
 			// Align to pixels
 			startViewPoint = CPTAlignPointToUserSpace(context, startViewPoint);

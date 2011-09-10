@@ -273,6 +273,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 	CPTPlotArea *thePlotArea = self.plotArea;
 	CPTPlotSpace *thePlotSpace = self.plotSpace;
 	CPTTradingRangePlotStyle thePlotStyle = self.plotStyle;
+	CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 	
     if ( self.doublePrecisionCache ) {
         const double *locationBytes = (const double *)locations.data.bytes;
@@ -298,7 +299,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				openPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+				openPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			}
 			
 			// high point
@@ -307,7 +308,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				highPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+				highPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			}
 			
 			// low point
@@ -316,7 +317,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				lowPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+				lowPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			}
 			
 			// close point
@@ -325,7 +326,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				closePoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+				closePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 			}
 			
 			CGFloat xCoord = openPoint.x;
@@ -344,20 +345,20 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				switch ( thePlotStyle ) {
 					case CPTTradingRangePlotStyleOHLC:
 						[self drawOHLCInContext:theContext
-											  x:xCoord
-										   open:openPoint.y
-										  close:closePoint.y
-										   high:highPoint.y
-											low:lowPoint.y
+											  x:xCoord + originTransformed.x
+										   open:openPoint.y + originTransformed.y
+										  close:closePoint.y + originTransformed.y
+										   high:highPoint.y + originTransformed.y
+											low:lowPoint.y + originTransformed.y
 									alignPoints:self.alignsPointsToPixels];
 						break;
 					case CPTTradingRangePlotStyleCandleStick:
 						[self drawCandleStickInContext:theContext
-													 x:xCoord
-												  open:openPoint.y
-												 close:closePoint.y
-												  high:highPoint.y
-												   low:lowPoint.y
+													 x:xCoord + originTransformed.x
+												  open:openPoint.y + originTransformed.y
+												 close:closePoint.y + originTransformed.y
+												  high:highPoint.y + originTransformed.y
+												   low:lowPoint.y + originTransformed.y
 										   alignPoints:self.alignsPointsToPixels];
 						break;
 					default:
@@ -391,7 +392,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				openPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				openPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+				openPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			}
 			
 			// high point
@@ -400,7 +401,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				highPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				highPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+				highPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			}
 			
 			// low point
@@ -409,7 +410,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				lowPoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				lowPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+				lowPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			}
 			
 			// close point
@@ -418,7 +419,7 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				closePoint = CGPointMake(NAN, NAN);
 			}
 			else {
-				closePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+				closePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 			}
 			
 			CGFloat xCoord = openPoint.x;
@@ -437,20 +438,20 @@ NSString * const CPTTradingRangePlotBindingCloseValues = @"closeValues";	///< Cl
 				switch ( thePlotStyle ) {
 					case CPTTradingRangePlotStyleOHLC:
 						[self drawOHLCInContext:theContext
-											  x:xCoord
-										   open:openPoint.y
-										  close:closePoint.y
-										   high:highPoint.y
-											low:lowPoint.y
+											  x:xCoord + originTransformed.x
+										   open:openPoint.y + originTransformed.y
+										  close:closePoint.y + originTransformed.y
+										   high:highPoint.y + originTransformed.y
+											low:lowPoint.y + originTransformed.y
 									alignPoints:self.alignsPointsToPixels];
 						break;
 					case CPTTradingRangePlotStyleCandleStick:
 						[self drawCandleStickInContext:theContext
-													 x:xCoord
-												  open:openPoint.y
-												 close:closePoint.y
-												  high:highPoint.y
-												   low:lowPoint.y
+													 x:xCoord + originTransformed.x
+												  open:openPoint.y + originTransformed.y
+												 close:closePoint.y + originTransformed.y
+												  high:highPoint.y + originTransformed.y
+												   low:lowPoint.y + originTransformed.y
 										   alignPoints:self.alignsPointsToPixels];
 						break;
 					default:

@@ -401,6 +401,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	NSUInteger dataCount = self.cachedDataCount;
 	CPTPlotArea *thePlotArea = self.plotArea;
 	CPTPlotSpace *thePlotSpace = self.plotSpace;
+	CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 	
     // Calculate points
     if ( self.doublePrecisionCache ) {
@@ -416,7 +417,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 				double plotPoint[2];
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y;
-				viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+				viewPoints[i] = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].x += originTransformed.x;
+				viewPoints[i].y += originTransformed.y;
 			}
         }
     }
@@ -433,7 +436,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 				NSDecimal plotPoint[2];
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y;
-				viewPoints[i] = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+				viewPoints[i] = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				viewPoints[i].x += originTransformed.x;
+				viewPoints[i].y += originTransformed.y;
 			}
         }
     }	

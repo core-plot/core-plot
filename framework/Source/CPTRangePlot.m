@@ -244,6 +244,7 @@ typedef struct CGPointError CGPointError;
 	NSUInteger dataCount = self.cachedDataCount;
 	CPTPlotArea *thePlotArea = self.plotArea;
 	CPTPlotSpace *thePlotSpace = self.plotSpace;
+	CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 	
     // Calculate points
     if ( self.doublePrecisionCache ) {
@@ -268,25 +269,25 @@ typedef struct CGPointError CGPointError;
 				double plotPoint[2];
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y;
-				CGPoint pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].x = pos.x;
-				viewPoints[i].y = pos.y;
+				CGPoint pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].x = pos.x + originTransformed.x;
+				viewPoints[i].y = pos.y + originTransformed.y;
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y + high;
-				pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].high = pos.y;
+				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].high = pos.y + originTransformed.y;
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y - low;
-				pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].low = pos.y;
+				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].low = pos.y + originTransformed.y;
 				plotPoint[CPTCoordinateX] = x-left;
 				plotPoint[CPTCoordinateY] = y;
-				pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].left = pos.x;
+				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].left = pos.x + originTransformed.x;
 				plotPoint[CPTCoordinateX] = x+right;
 				plotPoint[CPTCoordinateY] = y;
-				pos = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].right = pos.x;
+				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].right = pos.x + originTransformed.x;
 			}
         }
     }
@@ -313,27 +314,28 @@ typedef struct CGPointError CGPointError;
 				NSDecimal plotPoint[2];
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y;
-				CGPoint pos = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-				viewPoints[i].x = pos.x;
-				viewPoints[i].y = pos.y;
+				CGPoint pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				viewPoints[i].x = pos.x + originTransformed.x;
+				viewPoints[i].y = pos.y + originTransformed.y;
 				
 				if (!NSDecimalIsNotANumber(&high)) {
 					plotPoint[CPTCoordinateX] = x;
 					NSDecimal yh;
 					NSDecimalAdd(&yh, &y, &high, NSRoundPlain);
 					plotPoint[CPTCoordinateY] = yh;
-					pos = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-					viewPoints[i].high = pos.y;
+					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].high = pos.y + originTransformed.y;
 				} else {
-					viewPoints[i].high = NAN;				}
+					viewPoints[i].high = NAN;
+				}
 				
 				if (!NSDecimalIsNotANumber(&low)) {
 					plotPoint[CPTCoordinateX] = x;
 					NSDecimal yl;
 					NSDecimalSubtract(&yl, &y, &low, NSRoundPlain);
 					plotPoint[CPTCoordinateY] = yl;
-					pos = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-					viewPoints[i].low = pos.y;
+					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].low = pos.y + originTransformed.y;
 				} else {
 					viewPoints[i].low = NAN;
 				}
@@ -343,8 +345,8 @@ typedef struct CGPointError CGPointError;
 					NSDecimalSubtract(&xl, &x, &left, NSRoundPlain);
 					plotPoint[CPTCoordinateX] = xl;
 					plotPoint[CPTCoordinateY] = y;
-					pos = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-					viewPoints[i].left = pos.x;
+					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].left = pos.x + originTransformed.x;
 				} else {
 					viewPoints[i].left = NAN;
 				}
@@ -353,8 +355,8 @@ typedef struct CGPointError CGPointError;
 					NSDecimalAdd(&xr, &x, &right, NSRoundPlain);
 					plotPoint[CPTCoordinateX] = xr;
 					plotPoint[CPTCoordinateY] = y;
-					pos = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
-					viewPoints[i].right = pos.x; 
+					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].right = pos.x + originTransformed.y; 
 				} else {
 					viewPoints[i].right = NAN; 
 				}
