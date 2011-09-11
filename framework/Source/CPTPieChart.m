@@ -38,7 +38,6 @@ NSString * const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths";		///< P
 
 -(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle;
 -(CPTFill *)sliceFillForIndex:(NSUInteger)index;
--(void)drawSliceInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint radialOffset:(CGFloat)radialOffset startingValue:(CGFloat)startingValue width:(CGFloat)sliceWidth fill:(CPTFill *)sliceFill;
 -(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint;
 
 @end
@@ -368,15 +367,53 @@ static const CGFloat colorLookupTable[10][3] =
 		CGFloat currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
 		
 		if ( !isnan(currentWidth) ) {
-			CPTFill *currentFill = [self sliceFillForIndex:currentIndex];
-            
             CGFloat radialOffset = 0.0;
             if ( dataSourceProvidesRadialOffsets ) {
                 radialOffset = [theDataSource radialOffsetForPieChart:self recordIndex:currentIndex];
             }
 			
-			[self drawSliceInContext:context centerPoint:centerPoint radialOffset:radialOffset startingValue:startingWidth width:currentWidth fill:currentFill];
+			// draw slice
+			CGContextSaveGState(context);
 			
+			CGFloat startingAngle = [self radiansForPieSliceValue:startingWidth];
+			CGFloat finishingAngle = [self radiansForPieSliceValue:startingWidth + currentWidth];
+			
+			CGPoint center = centerPoint;
+			if ( radialOffset != 0.0 ) {
+				CGFloat medianAngle = (CGFloat)0.5 * (startingAngle + finishingAngle);
+				CGFloat xOffset = cos(medianAngle) * radialOffset;
+				CGFloat yOffset = sin(medianAngle) * radialOffset;
+
+				center = CGPointMake(centerPoint.x + xOffset, centerPoint.y + yOffset);
+
+				if ( self.alignsPointsToPixels ) {
+					center = CPTAlignPointToUserSpace(context, center);
+				}
+			}
+			
+			CGMutablePathRef slicePath = CGPathCreateMutable();
+			[self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle];
+			CGPathCloseSubpath(slicePath);
+			
+			CPTFill *currentFill = [self sliceFillForIndex:currentIndex];
+			if ( currentFill ) {
+				CGContextBeginPath(context);
+				CGContextAddPath(context, slicePath);
+				[currentFill fillPathInContext:context]; 
+			}
+			
+			// Draw the border line around the slice
+			CPTLineStyle *borderStyle = self.borderLineStyle;
+			if ( borderStyle ) {
+				CGContextBeginPath(context);
+				CGContextAddPath(context, slicePath);
+				[borderStyle setLineStyleInContext:context];
+				CGContextStrokePath(context);
+			}
+			
+			CGPathRelease(slicePath);
+			CGContextRestoreGState(context);
+
 			startingWidth += currentWidth;
 		}
 		currentIndex++;
@@ -429,58 +466,11 @@ static const CGFloat colorLookupTable[10][3] =
 	return currentFill;
 }
 
--(void)drawSliceInContext:(CGContextRef)context
-			  centerPoint:(CGPoint)centerPoint
-			 radialOffset:(CGFloat)radialOffset
-			startingValue:(CGFloat)startingValue
-					width:(CGFloat)sliceWidth
-					 fill:(CPTFill *)sliceFill;
-{
-    CGContextSaveGState(context);
-	
-    CGFloat startingAngle = [self radiansForPieSliceValue:startingValue];
-    CGFloat finishingAngle = [self radiansForPieSliceValue:startingValue + sliceWidth];
-    
-    CGFloat xOffset = 0.0;
-    CGFloat yOffset = 0.0;
-    if ( radialOffset != 0.0 ) {
-        CGFloat medianAngle = (CGFloat)0.5 * (startingAngle + finishingAngle);
-        xOffset = cos(medianAngle) * radialOffset;
-        yOffset = sin(medianAngle) * radialOffset;
-    }
-    
-    CGPoint center = CGPointMake(centerPoint.x + xOffset, centerPoint.y + yOffset);
-	if ( self.alignsPointsToPixels ) {
-		center = CPTAlignPointToUserSpace(context, center);
-	}
-
-	CGMutablePathRef slicePath = CGPathCreateMutable();
-    [self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle];
-	CGPathCloseSubpath(slicePath);
-	
-	if ( sliceFill ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, slicePath);
-		[sliceFill fillPathInContext:context]; 
-	}
-	
-	// Draw the border line around the slice
-	CPTLineStyle *borderStyle = self.borderLineStyle;
-	if ( borderStyle ) {
-		CGContextBeginPath(context);
-		CGContextAddPath(context, slicePath);
-		[borderStyle setLineStyleInContext:context];
-		CGContextStrokePath(context);
-	}
-	
-	CGPathRelease(slicePath);
-	CGContextRestoreGState(context);
-}
-
 -(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint
 {
-	if ( !overlayFill ) return;
-    
+	CPTFill *overlay = self.overlayFill;
+	if ( !overlay ) return;
+	
     CGContextSaveGState(context);
     
 	CGMutablePathRef fillPath = CGPathCreateMutable();
@@ -497,7 +487,7 @@ static const CGFloat colorLookupTable[10][3] =
     
     CGContextBeginPath(context);
     CGContextAddPath(context, fillPath);
-    [overlayFill fillPathInContext:context]; 
+    [overlay fillPathInContext:context]; 
     
     CGPathRelease(fillPath);
     CGContextRestoreGState(context);
