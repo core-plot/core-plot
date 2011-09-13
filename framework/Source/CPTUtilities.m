@@ -731,7 +731,7 @@ NSString *CPTStringFromPoint(CGPoint p)
 	return [NSString stringWithFormat:@"{%g, %g}", p.x, p.y];
 }
 
-/**	@brief Creates a string representation of the given point.
+/**	@brief Creates a string representation of the given size.
  *	@param s The size.
  *	@return A string with the format <code>{width, height}</code>.
  **/
@@ -740,7 +740,7 @@ NSString *CPTStringFromSize(CGSize s)
 	return [NSString stringWithFormat:@"{%g, %g}", s.width, s.height];
 }
 
-/**	@brief Creates a string representation of the given point.
+/**	@brief Creates a string representation of the given rectangle.
  *	@param r The rectangle.
  *	@return A string with the format <code>{{x, y}, {width, height}}</code>.
  **/
