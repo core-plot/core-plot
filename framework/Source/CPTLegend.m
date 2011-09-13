@@ -367,6 +367,8 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 	
 	[super renderAsVectorInContext:context];
 	
+	if ( self.legendEntries.count == 0 ) return;
+	
 	// calculate column positions
 	NSArray *computedColumnWidths = self.columnWidthsThatFit;
 	NSUInteger columnCount = computedColumnWidths.count;
