@@ -384,63 +384,100 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(CGFloat)lengthInView:(NSDecimal)decimalLength
 {
-    CPTCoordinate coordinate = ( self.barsAreHorizontal ? CPTCoordinateY : CPTCoordinateX );
-    CGFloat length;
-    if ( !self.barWidthsAreInViewCoordinates ) {
-        NSDecimal originPlotPoint[2] = {CPTDecimalFromInteger(0), CPTDecimalFromInteger(0)};
-        NSDecimal displacedPlotPoint[2] = {decimalLength, decimalLength};
-		CPTPlotSpace *thePlotSpace = self.plotSpace;
-        CGPoint originPoint = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
-        CGPoint displacedPoint = [thePlotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
-		length = ( coordinate == CPTCoordinateX ? displacedPoint.x - originPoint.x : displacedPoint.y - originPoint.y );
-    }
-    else {
-        length = CPTDecimalCGFloatValue(decimalLength);
-    }
-    return length;
+	CGFloat length;
+	if ( self.barWidthsAreInViewCoordinates ) {
+		length = CPTDecimalCGFloatValue(decimalLength);
+	}
+	else {
+		CPTCoordinate coordinate = ( self.barsAreHorizontal ? CPTCoordinateY : CPTCoordinateX );
+		CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
+		NSDecimal xLocation = thePlotSpace.xRange.location;
+		NSDecimal yLocation	= thePlotSpace.yRange.location;
+		
+		NSDecimal originPlotPoint[2];
+		NSDecimal displacedPlotPoint[2];
+		
+		switch ( coordinate ) {
+			case CPTCoordinateX:
+				originPlotPoint[CPTCoordinateX] = xLocation;
+				originPlotPoint[CPTCoordinateY] = yLocation;
+				displacedPlotPoint[CPTCoordinateX] = CPTDecimalAdd(xLocation, decimalLength);
+				displacedPlotPoint[CPTCoordinateY] = yLocation;
+				break;
+			case CPTCoordinateY:
+				originPlotPoint[CPTCoordinateX] = xLocation;
+				originPlotPoint[CPTCoordinateY] = yLocation;
+				displacedPlotPoint[CPTCoordinateX] = xLocation;
+				displacedPlotPoint[CPTCoordinateY] = CPTDecimalAdd(yLocation, decimalLength);
+				break;
+			default:
+				break;
+		}
+		
+		CGPoint originPoint = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
+		CGPoint displacedPoint = [thePlotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
+		
+		switch ( coordinate ) {
+			case CPTCoordinateX:
+				length = displacedPoint.x - originPoint.x;
+				break;
+			case CPTCoordinateY:
+				length = displacedPoint.y - originPoint.y;
+				break;
+			default:
+				length = 0.0;
+				break;
+		}
+	}
+	return length;
 }
 
 -(double)doubleLengthInPlotCoordinates:(NSDecimal)decimalLength
 {
-    double length;
-    if ( self.barWidthsAreInViewCoordinates ) {
-    	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
-        CGPoint originViewPoint = CGPointZero;
-        CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
-        double originPlotPoint[2], displacedPlotPoint[2];
+	double length;
+	if ( self.barWidthsAreInViewCoordinates ) {
+		CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
+		CGPoint originViewPoint = CGPointZero;
+		CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
+		double originPlotPoint[2], displacedPlotPoint[2];
 		CPTPlotSpace *thePlotSpace = self.plotSpace;
-        [thePlotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [thePlotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
-		length = ( !self.barsAreHorizontal ? displacedPlotPoint[0] - originPlotPoint[0] : displacedPlotPoint[1] - originPlotPoint[1]);
-    }
-    else {
-        length = CPTDecimalDoubleValue(decimalLength);
-    }
+		[thePlotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+		[thePlotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+		if ( self.barsAreHorizontal ) {
+			length = displacedPlotPoint[CPTCoordinateY] - originPlotPoint[CPTCoordinateY];
+		}
+		else {
+			length = displacedPlotPoint[CPTCoordinateX] - originPlotPoint[CPTCoordinateX];
+		}
+	}
+	else {
+		length = CPTDecimalDoubleValue(decimalLength);
+	}
 	return length;
 }
 
 -(NSDecimal)lengthInPlotCoordinates:(NSDecimal)decimalLength
 {
-    NSDecimal length;
-    if ( self.barWidthsAreInViewCoordinates ) {
-    	CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
-        CGPoint originViewPoint = CGPointZero;
-        CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
-        NSDecimal originPlotPoint[2], displacedPlotPoint[2];
+	NSDecimal length;
+	if ( self.barWidthsAreInViewCoordinates ) {
+		CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
+		CGPoint originViewPoint = CGPointZero;
+		CGPoint displacedViewPoint = CGPointMake(floatLength, floatLength);
+		NSDecimal originPlotPoint[2], displacedPlotPoint[2];
 		CPTPlotSpace *thePlotSpace = self.plotSpace;
-        [thePlotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [thePlotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
-        if ( !self.barsAreHorizontal ) {
-        	length = CPTDecimalSubtract(displacedPlotPoint[0], originPlotPoint[0]);
-        }
-        else {
-            length = CPTDecimalSubtract(displacedPlotPoint[1], originPlotPoint[1]);
-        }
-    }
-    else {
-        length = decimalLength;
-    }
-    return length;
+		[thePlotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
+		[thePlotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+		if ( self.barsAreHorizontal ) {
+			length = CPTDecimalSubtract(displacedPlotPoint[CPTCoordinateY], originPlotPoint[CPTCoordinateY]);
+		}
+		else {
+			length = CPTDecimalSubtract(displacedPlotPoint[CPTCoordinateX], originPlotPoint[CPTCoordinateX]);
+		}
+	}
+	else {
+		length = decimalLength;
+	}
+	return length;
 }
 
 #pragma mark -
@@ -628,7 +665,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     CGFloat upperBound = ( horizontalBars ? CGRectGetMaxY(thePlotArea.bounds) : CGRectGetMaxX(thePlotArea.bounds) );
     CGFloat base = ( horizontalBars ? basePoint.y : basePoint.x );
     
-    return ( base + halfBarWidth > lowerBound ) && ( base - halfBarWidth < upperBound );
+    return ( base + halfBarWidth >= lowerBound ) && ( base - halfBarWidth <= upperBound );
 }
 
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
