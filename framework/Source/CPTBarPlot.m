@@ -35,7 +35,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 @interface CPTBarPlot ()
 
 @property (nonatomic, readwrite, copy) NSArray *barLocations;
-@property (nonatomic, readwrite, copy) NSArray *barLengths;
+@property (nonatomic, readwrite, copy) NSArray *barTips;
 @property (nonatomic, readwrite, copy) NSArray *barBases;
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)recordIndex;
@@ -56,7 +56,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 @implementation CPTBarPlot
 
 @dynamic barLocations;
-@dynamic barLengths;
+@dynamic barTips;
 @dynamic barBases;
 
 /** @property barCornerRadius
@@ -288,7 +288,7 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 		}
 	}
 	else {
-		self.barLengths = nil;
+		self.barTips = nil;
 		self.barBases = nil;
 	}
 
@@ -872,16 +872,18 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 #pragma mark -
 #pragma mark Accessors
 
--(NSArray *)barLengths {
+-(NSArray *)barTips
+{
     return [[self cachedNumbersForField:CPTBarPlotFieldBarTip] sampleArray];
 }
 
--(void)setBarLengths:(NSArray *)newLengths 
+-(void)setBarTips:(NSArray *)newTips 
 {
-    [self cacheNumbers:newLengths forField:CPTBarPlotFieldBarTip];
+    [self cacheNumbers:newTips forField:CPTBarPlotFieldBarTip];
 }
 
--(NSArray *)barBases {
+-(NSArray *)barBases
+{
     return [[self cachedNumbersForField:CPTBarPlotFieldBarBase] sampleArray];
 }
 
@@ -890,7 +892,8 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
     [self cacheNumbers:newBases forField:CPTBarPlotFieldBarBase];
 }
 
--(NSArray *)barLocations {
+-(NSArray *)barLocations
+{
     return [[self cachedNumbersForField:CPTBarPlotFieldBarLocation] sampleArray];
 }
 
