@@ -800,8 +800,8 @@
 			}
 		}
 		else {
-			NSDecimal min = CPTDecimalFromDouble(INFINITY);
-			NSDecimal max = CPTDecimalFromDouble(-INFINITY);
+			NSDecimal min = [[NSDecimalNumber maximumDecimalNumber] decimalValue];
+			NSDecimal max = [[NSDecimalNumber minimumDecimalNumber] decimalValue];
 			
 			const NSDecimal *decimals = (const NSDecimal *)numbers.bytes;
 			const NSDecimal *lastSample = decimals + numberOfSamples;
