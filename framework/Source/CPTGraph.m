@@ -249,6 +249,16 @@ NSString * const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotifica
 }
 
 #pragma mark -
+#pragma mark Drawing
+
+-(void)layoutAndRenderInContext:(CGContextRef)context
+{
+    [self reloadDataIfNeeded];
+    [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
+	[super layoutAndRenderInContext:context];
+}
+
+#pragma mark -
 #pragma mark Animation
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey

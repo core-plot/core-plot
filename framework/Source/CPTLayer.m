@@ -352,17 +352,6 @@
  */
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
-	CPTGraph *theGraph = nil;
-	if ( [self isKindOfClass:[CPTGraph class]] ) {
-		theGraph = (CPTGraph *)self;
-	}
-	else {
-		theGraph = self.graph;
-	}
-	if ( theGraph ) {
-		[theGraph reloadDataIfNeeded];
-		[theGraph.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
-	}
 	[self layoutIfNeeded];
 	[self recursivelyRenderInContext:context];
 }
