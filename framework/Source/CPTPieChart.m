@@ -291,7 +291,7 @@ static const CGFloat colorLookupTable[10][3] =
 			while ( dataBytes < dataEnd ) {
 				NSDecimal currentWidth = *dataBytes++;
 				if ( !NSDecimalIsNotANumber(&currentWidth) ) {
-					valueSum = CPTDecimalAdd(valueSum, *dataBytes++);
+					valueSum = CPTDecimalAdd(valueSum, currentWidth);
 				}
 			}
 			
