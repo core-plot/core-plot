@@ -47,7 +47,7 @@
  *	@param newStyle The text style for the label.
  *  @return The initialized CPTAxisLabel object.
  **/
--(id)initWithText:(NSString *)newText textStyle:(CPTMutableTextStyle *)newStyle
+-(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
 {
 	CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
 	self = [self initWithContentLayer:newLayer];

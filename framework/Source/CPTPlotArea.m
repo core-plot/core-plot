@@ -435,6 +435,11 @@ static const int kCPTNumberOfLayers = 6;	// number of primary layers to arrange
 	}
 }
 
+/**	@brief Computes the sublayer index for the given layer type and axis.
+ *	@param axis The axis of interest.
+ *	@param layerType The layer type being updated.
+ *	@return The sublayer index for the given layer type.
+ **/
 -(unsigned)sublayerIndexForAxis:(CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
 {
 	unsigned index = 0;

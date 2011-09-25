@@ -58,7 +58,7 @@
 #pragma mark -
 #pragma mark Organizing Plots
 
-/**	@brief Add a plot to the default plot space.
+/**	@brief Add a plot to this plot group.
  *	@param plot The plot.
  **/
 -(void)addPlot:(CPTPlot *)plot
@@ -66,6 +66,9 @@
 	[self addSublayer:plot];
 }
 
+/**	@brief Remove a plot from this plot group.
+ *	@param plot The plot to remove.
+ **/
 -(void)removePlot:(CPTPlot *)plot
 {
 	if ( self == [plot superlayer] ) {
