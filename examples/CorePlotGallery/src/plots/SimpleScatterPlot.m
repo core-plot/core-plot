@@ -194,7 +194,8 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSNumber *num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+	NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
+    NSNumber *num = [[plotData objectAtIndex:index] valueForKey:key];
     if (fieldEnum == CPTScatterPlotFieldY) {
         num = [NSNumber numberWithDouble:[num doubleValue]];
     }

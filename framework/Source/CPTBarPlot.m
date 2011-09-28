@@ -792,7 +792,8 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 	
 	BOOL positiveDirection = CPTDecimalGreaterThanOrEqualTo([length decimalValue], theBaseDecimalValue);
 	BOOL horizontalBars = self.barsAreHorizontal;
-	CPTPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:horizontalBars ? CPTCoordinateX : CPTCoordinateY];
+	CPTCoordinate coordinate = ( horizontalBars ? CPTCoordinateX : CPTCoordinateY );
+	CPTPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:coordinate];
 	if ( CPTDecimalLessThan(lengthRange.length, CPTDecimalFromInteger(0)) ) {
 		positiveDirection = !positiveDirection;
 	}
@@ -1008,19 +1009,20 @@ NSString * const CPTBarPlotBindingBarBases = @"barBases";			///< Bar bases.
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord 
 {
-	NSArray *result = nil;
+	CPTBarPlotField fieldIdentifier;
+
 	switch (coord) {
         case CPTCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPTBarPlotFieldBarTip : CPTBarPlotFieldBarLocation)]];
+            fieldIdentifier = (self.barsAreHorizontal ? CPTBarPlotFieldBarTip : CPTBarPlotFieldBarLocation);
             break;
         case CPTCoordinateY:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:(self.barsAreHorizontal ? CPTBarPlotFieldBarLocation : CPTBarPlotFieldBarTip)]];
+            fieldIdentifier = (self.barsAreHorizontal ? CPTBarPlotFieldBarLocation : CPTBarPlotFieldBarTip);
             break;
         default:
         	[NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];
             break;
     }
-    return result;
+    return [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:fieldIdentifier]];
 }
 
 @end

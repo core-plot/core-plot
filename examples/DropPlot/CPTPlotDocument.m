@@ -208,10 +208,11 @@
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+	NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
 #ifdef USE_NSDECIMAL
-    NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+    NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:key];
 #else
-    NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+    NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:key];
 #endif
     return num;
 }

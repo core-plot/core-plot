@@ -65,7 +65,8 @@
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:1];
-    [UIView setAnimationTransition:([mainView superview] ? UIViewAnimationTransitionFlipFromRight : UIViewAnimationTransitionFlipFromLeft) forView:self.view cache:YES];
+	UIViewAnimationTransition transition = ([mainView superview] ? UIViewAnimationTransitionFlipFromRight : UIViewAnimationTransitionFlipFromLeft);
+    [UIView setAnimationTransition:transition forView:self.view cache:YES];
     
     if ([mainView superview] != nil) {
         [flipsideViewController viewWillAppear:YES];

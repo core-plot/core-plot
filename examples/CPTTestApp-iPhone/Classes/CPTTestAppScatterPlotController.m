@@ -161,7 +161,8 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index 
 {
-    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+	NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
+    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:key];
 	// Green plot gets shifted above the blue
 	if ([(NSString *)plot.identifier isEqualToString:@"Green Plot"])
 	{

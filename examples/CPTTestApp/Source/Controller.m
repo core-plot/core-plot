@@ -366,7 +366,8 @@ static NSString * const barPlot2 = @"Bar Plot 2";
             num = [(NSDecimalNumber *)num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
     }
     else {
-        num = [[self.arrangedObjects objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+		NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
+        num = [[self.arrangedObjects objectAtIndex:index] valueForKey:key];
         if ( fieldEnum == CPTScatterPlotFieldY ) {
 			num = [NSNumber numberWithDouble:([num doubleValue] + 1.0)];	
 		}

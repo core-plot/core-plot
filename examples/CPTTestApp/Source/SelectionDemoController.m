@@ -196,7 +196,8 @@ static NSString * const SELECTION_PLOT = @"Selection Plot";
     NSNumber *num = nil;
 	
     if ( [(NSString *)plot.identifier isEqualToString:MAIN_PLOT] ) {
-        num = [[self.dataForPlot objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+		NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
+        num = [[self.dataForPlot objectAtIndex:index] valueForKey:key];
     }
     else if ( [(NSString *)plot.identifier isEqualToString:SELECTION_PLOT] ) {
 		CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
