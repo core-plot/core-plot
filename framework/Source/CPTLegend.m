@@ -253,7 +253,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(id)initWithGraph:(CPTGraph *)graph
 {
 	if ( (self = [self initWithFrame:CGRectZero]) ) {
-		for ( CPTPlot *plot in[graph allPlots] ) {
+		for ( CPTPlot *plot in [graph allPlots] ) {
 			[self addPlot:plot];
 		}
 	}

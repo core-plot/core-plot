@@ -25,11 +25,11 @@
  *	@endif
  **/
 
-NSString *const CPTRangePlotBindingXValues	   = @"xValues";    ///< X values.
-NSString *const CPTRangePlotBindingYValues	   = @"yValues";    ///< Y values.
-NSString *const CPTRangePlotBindingHighValues  = @"highValues"; ///< high values.
-NSString *const CPTRangePlotBindingLowValues   = @"lowValues";  ///< low values.
-NSString *const CPTRangePlotBindingLeftValues  = @"leftValues"; ///< left price values.
+NSString *const CPTRangePlotBindingXValues	   = @"xValues";     ///< X values.
+NSString *const CPTRangePlotBindingYValues	   = @"yValues";     ///< Y values.
+NSString *const CPTRangePlotBindingHighValues  = @"highValues";  ///< high values.
+NSString *const CPTRangePlotBindingLowValues   = @"lowValues";   ///< low values.
+NSString *const CPTRangePlotBindingLeftValues  = @"leftValues";  ///< left price values.
 NSString *const CPTRangePlotBindingRightValues = @"rightValues"; ///< right price values.
 
 /**	@cond */

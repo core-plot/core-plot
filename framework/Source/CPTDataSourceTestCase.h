@@ -4,7 +4,7 @@
 @class CPTPlotRange;
 @class CPTPlot;
 
-@interface CPTDataSourceTestCase : CPTTestCase<CPTPlotDataSource>{
+@interface CPTDataSourceTestCase : CPTTestCase<CPTPlotDataSource> {
 	@private
 	NSArray *xData, *yData;
 	CPTPlotRange *xRange, *yRange;

@@ -39,7 +39,7 @@ CPTGradientType;
 @class CPTColorSpace;
 @class CPTColor;
 
-@interface CPTGradient : NSObject<NSCopying, NSCoding>{
+@interface CPTGradient : NSObject<NSCopying, NSCoding> {
 	@private
 	CPTColorSpace *colorspace;
 	CPTGradientElement *elementList;

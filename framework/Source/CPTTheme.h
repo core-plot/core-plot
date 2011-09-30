@@ -14,7 +14,7 @@ extern NSString *const kCPTStocksTheme;
 @class CPTAxisSet;
 @class CPTMutableTextStyle;
 
-@interface CPTTheme : NSObject<NSCoding>{
+@interface CPTTheme : NSObject<NSCoding> {
 	@private
 	Class graphClass;
 }

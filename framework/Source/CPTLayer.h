@@ -5,7 +5,7 @@
 @class CPTGraph;
 @class CPTShadow;
 
-@interface CPTLayer : CALayer<CPTResponder>{
+@interface CPTLayer : CALayer<CPTResponder> {
 	@private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;

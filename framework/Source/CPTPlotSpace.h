@@ -99,7 +99,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>{
+@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding> {
 	@private
 	__weak CPTGraph *graph;
 	id<NSCopying, NSCoding, NSObject> identifier;

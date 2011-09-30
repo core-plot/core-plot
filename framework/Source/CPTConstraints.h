@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface CPTConstraints : NSObject<NSCoding, NSCopying>{
+@interface CPTConstraints : NSObject<NSCoding, NSCopying> {
 }
 
 /// @name Factory Methods

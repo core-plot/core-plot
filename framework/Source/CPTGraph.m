@@ -764,7 +764,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
-	for ( CPTPlot *plot in[self.plots reverseObjectEnumerator] ) {
+	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
 		if ( [plot pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
 			return YES;
 		}
@@ -795,7 +795,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
-	for ( CPTPlot *plot in[self.plots reverseObjectEnumerator] ) {
+	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
 		if ( [plot pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
 			return YES;
 		}
@@ -826,7 +826,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
-	for ( CPTPlot *plot in[self.plots reverseObjectEnumerator] ) {
+	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
 		if ( [plot pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
 			return YES;
 		}
@@ -857,7 +857,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
 	// Plots
-	for ( CPTPlot *plot in[self.plots reverseObjectEnumerator] ) {
+	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
 		if ( [plot pointingDeviceCancelledEvent:event] ) {
 			return YES;
 		}

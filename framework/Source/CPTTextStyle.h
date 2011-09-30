@@ -15,7 +15,7 @@ typedef enum  _CPTTextAlignment {
 }
 CPTTextAlignment;
 
-@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>{
+@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
 	@protected
 	NSString *fontName;
 	CGFloat fontSize;

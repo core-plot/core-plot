@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPTTestApp_iPhoneAppDelegate : NSObject<UIApplicationDelegate, UITabBarControllerDelegate>{
+@interface CPTTestApp_iPhoneAppDelegate : NSObject<UIApplicationDelegate, UITabBarControllerDelegate> {
 	UIWindow *window;
 	UITabBarController *tabBarController;
 }

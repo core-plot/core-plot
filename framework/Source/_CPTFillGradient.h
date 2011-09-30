@@ -3,7 +3,7 @@
 
 @class CPTGradient;
 
-@interface _CPTFillGradient : CPTFill<NSCopying, NSCoding>{
+@interface _CPTFillGradient : CPTFill<NSCopying, NSCoding> {
 	@private
 	CPTGradient *fillGradient;
 }

@@ -168,7 +168,7 @@
 	double barWidth	 = self.inputBarWidth * unitWidth / count;
 
 	// Configure scatter plots for active plot inputs
-	for ( CPTBarPlot *plot in[graph allPlots] ) {
+	for ( CPTBarPlot *plot in [graph allPlots] ) {
 		int index					   = [[graph allPlots] indexOfObject:plot];
 		CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
 		lineStyle.lineColor	   = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor:index]];

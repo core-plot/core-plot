@@ -26,7 +26,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 	[themePopUpButton addItemWithTitle:kThemeTableViewControllerDefaultTheme];
 	[themePopUpButton addItemWithTitle:kThemeTableViewControllerNoTheme];
 
-	for ( Class c in[CPTTheme themeClasses] ) {
+	for ( Class c in [CPTTheme themeClasses] ) {
 		[themePopUpButton addItemWithTitle:[c name]];
 	}
 
@@ -59,7 +59,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 		NSString *consoleStartup =
 			@"(progn \
            (load \"console\") \
-           (set $console ((NuConsoleWindowController alloc) init)))"                                                       ;
+           (set $console ((NuConsoleWindowController alloc) init)))";
 
 		Class nuClass = NSClassFromString( @"Nu" );
 		id parser	  = [nuClass performSelector:@selector(parser)];

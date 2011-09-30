@@ -5,7 +5,7 @@
 @class CPTImage;
 @class CPTColor;
 
-@interface CPTFill : NSObject<NSCopying, NSCoding>{
+@interface CPTFill : NSObject<NSCopying, NSCoding> {
 }
 
 /// @name Factory Methods

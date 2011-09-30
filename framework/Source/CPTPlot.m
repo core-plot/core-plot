@@ -410,7 +410,7 @@
 {
 	NSParameterAssert( index <= self.cachedDataCount );
 
-	for ( CPTMutableNumericData *numericData in[self.cachedData allValues] ) {
+	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		size_t sampleSize = numericData.sampleBytes;
 		size_t length	  = sampleSize * numberOfRecords;
 
@@ -434,7 +434,7 @@
 {
 	NSParameterAssert( NSMaxRange( indexRange ) <= self.cachedDataCount );
 
-	for ( CPTMutableNumericData *numericData in[self.cachedData allValues] ) {
+	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		size_t sampleSize  = numericData.sampleBytes;
 		void *start		   = [numericData samplePointer:indexRange.location];
 		size_t length	   = sampleSize * indexRange.length;
@@ -771,7 +771,7 @@
 
 -(void)setCachedDataType:(CPTNumericDataType)newDataType
 {
-	for ( CPTMutableNumericData *numericData in[self.cachedData allValues] ) {
+	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		numericData.dataType = newDataType;
 	}
 }

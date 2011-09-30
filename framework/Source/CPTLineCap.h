@@ -24,7 +24,7 @@ typedef enum _CPTLineCapType {
 }
 CPTLineCapType;
 
-@interface CPTLineCap : NSObject<NSCoding, NSCopying>{
+@interface CPTLineCap : NSObject<NSCoding, NSCopying> {
 	@private
 	CGSize size;
 	CPTLineCapType lineCapType;

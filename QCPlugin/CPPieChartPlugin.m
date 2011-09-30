@@ -37,14 +37,17 @@
 {
 	return 1.0;
 }
+
 -(double)inputXMin
 {
 	return -1.0;
 }
+
 -(double)inputYMax
 {
 	return 1.0;
 }
+
 -(double)inputYMin
 {
 	return -1.0;
@@ -186,7 +189,7 @@
 -(BOOL)configurePlots
 {
 	// Configure the pie chart
-	for ( CPTPieChart *pieChart in[graph allPlots] ) {
+	for ( CPTPieChart *pieChart in [graph allPlots] ) {
 		pieChart.plotArea.borderLineStyle = nil;
 
 		pieChart.pieRadius		= self.inputPieRadius * MIN( self.inputPixelsWide, self.inputPixelsHigh ) / 2.0;

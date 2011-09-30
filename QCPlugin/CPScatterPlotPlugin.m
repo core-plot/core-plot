@@ -186,7 +186,7 @@
 {
 	// Adjust the plots configuration using the QC input ports
 
-	for ( CPTScatterPlot *plot in[graph allPlots] ) {
+	for ( CPTScatterPlot *plot in [graph allPlots] ) {
 		int index = [[graph allPlots] indexOfObject:plot];
 
 		CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];

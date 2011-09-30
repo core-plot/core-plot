@@ -1392,7 +1392,7 @@ void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 	resolveHSV( c1, c2 );
 
 	if ( c1[0] < c2[0] ) { //if color1's hue is higher than color2's hue then
-		c1[0] += 360.0; //	we need to move c2 one revolution back on the wheel
+		c1[0] += 360.0;    //	we need to move c2 one revolution back on the wheel
 	}
 	if ( position <= color1->position ) {
 		out[0] = c1[0];

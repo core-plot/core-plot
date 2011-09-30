@@ -6,7 +6,7 @@
 @class APYahooDataPuller;
 @class CPTXYGraph;
 
-@interface MainViewController : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource>{
+@interface MainViewController : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource> {
 	CPTGraphHostingView *graphHost;
 
 	@private
