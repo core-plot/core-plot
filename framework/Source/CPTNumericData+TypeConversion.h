@@ -1,6 +1,6 @@
-#import <Foundation/Foundation.h>
 #import "CPTNumericData.h"
 #import "CPTNumericDataType.h"
+#import <Foundation/Foundation.h>
 
 /**	@category CPTNumericData(TypeConversion)
  *	@brief Type conversion methods for CPTNumericData.
@@ -12,8 +12,8 @@
 -(CPTNumericData *)dataByConvertingToDataType:(CPTNumericDataType)newDataType;
 
 -(CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType
-                             sampleBytes:(size_t)newSampleBytes
-                               byteOrder:(CFByteOrder)newByteOrder;
+							  sampleBytes:(size_t)newSampleBytes
+								byteOrder:(CFByteOrder)newByteOrder;
 ///	@}
 
 /// @name Data Conversion Utilities
@@ -22,7 +22,8 @@
 		  dataType:(CPTNumericDataType *)sourceDataType
 			toData:(NSMutableData *)destData
 		  dataType:(CPTNumericDataType *)destDataType;
--(void)swapByteOrderForData:(NSMutableData *)sourceData sampleSize:(size_t)sampleSize;
+-(void)swapByteOrderForData:(NSMutableData *)sourceData
+				 sampleSize:(size_t)sampleSize;
 ///	@}
 
 @end

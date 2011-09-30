@@ -3,7 +3,7 @@
 @class CPTPlotArea;
 
 @interface CPTGridLineGroup : CPTLayer {
-@private
+	@private
 	__weak CPTPlotArea *plotArea;
 	BOOL major;
 }

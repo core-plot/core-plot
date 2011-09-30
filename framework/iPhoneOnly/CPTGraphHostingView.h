@@ -6,8 +6,8 @@
 	@protected
 	CPTGraph *hostedGraph;
 	BOOL collapsesLayers;
-    BOOL allowPinchScaling;
-    __weak id pinchGestureRecognizer;
+	BOOL allowPinchScaling;
+	__weak id pinchGestureRecognizer;
 }
 
 @property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;

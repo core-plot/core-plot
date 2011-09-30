@@ -1,10 +1,10 @@
-#import <Foundation/Foundation.h>
 #import "CPTLayer.h"
+#import <Foundation/Foundation.h>
 
 @class CPTAxis;
 
 @interface CPTGridLines : CPTLayer {
-@private
+	@private
 	__weak CPTAxis *axis;
 	BOOL major;
 }

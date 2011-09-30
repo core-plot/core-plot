@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "CPTBorderedLayer.h"
+#import <Foundation/Foundation.h>
 
 /// @file
 
@@ -13,23 +13,23 @@
 /**	@brief Notification sent by plots to tell the legend it should redraw itself.
  *	@ingroup notification
  **/
-extern NSString * const CPTLegendNeedsRedrawForPlotNotification;
+extern NSString *const CPTLegendNeedsRedrawForPlotNotification;
 
 /**	@brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
  *	@ingroup notification
  **/
-extern NSString * const CPTLegendNeedsLayoutForPlotNotification;
+extern NSString *const CPTLegendNeedsLayoutForPlotNotification;
 
 /**	@brief Notification sent by plots to tell the legend it should reload all legend entries.
  *	@ingroup notification
  **/
-extern NSString * const CPTLegendNeedsReloadEntriesForPlotNotification;
+extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 ///	@}
 
 /**	@brief Axis labeling delegate.
  **/
-@protocol CPTLegendDelegate <NSObject>
+@protocol CPTLegendDelegate<NSObject>
 
 /// @name Drawing
 /// @{
@@ -54,9 +54,9 @@ extern NSString * const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 #pragma mark -
 
-@interface CPTLegend : CPTBorderedLayer {   
+@interface CPTLegend : CPTBorderedLayer {
 	@private
-    NSMutableArray *plots;
+	NSMutableArray *plots;
 	NSMutableArray *legendEntries;
 	BOOL layoutChanged;
 	CPTTextStyle *textStyle;
@@ -118,12 +118,12 @@ extern NSString * const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @{
 -(NSArray *)allPlots;
 -(CPTPlot *)plotAtIndex:(NSUInteger)index;
--(CPTPlot *)plotWithIdentifier:(id <NSCopying>)identifier;
+-(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier;
 
 -(void)addPlot:(CPTPlot *)plot;
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
 -(void)removePlot:(CPTPlot *)plot;
--(void)removePlotWithIdentifier:(id <NSCopying>)identifier;
+-(void)removePlotWithIdentifier:(id<NSCopying>)identifier;
 ///	@}
 
 /// @name Layout

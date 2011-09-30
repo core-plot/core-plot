@@ -1,7 +1,7 @@
 #import "CPTConstraints.h"
+#import "NSCoderExtensions.h"
 #import "_CPTConstraintsFixed.h"
 #import "_CPTConstraintsRelative.h"
-#import "NSCoderExtensions.h"
 
 /**	@brief Implements a one-dimensional constrained position within a given numeric range.
  *
@@ -53,9 +53,9 @@
 -(id)initWithLowerOffset:(CGFloat)newOffset
 {
 	[self release];
-	
+
 	self = [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithLowerOffset:newOffset];
-	
+
 	return self;
 }
 
@@ -66,9 +66,9 @@
 -(id)initWithUpperOffset:(CGFloat)newOffset
 {
 	[self release];
-	
+
 	self = [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithUpperOffset:newOffset];
-	
+
 	return self;
 }
 
@@ -83,9 +83,9 @@
 -(id)initWithRelativeOffset:(CGFloat)newOffset
 {
 	[self release];
-	
+
 	self = [(_CPTConstraintsRelative *)[_CPTConstraintsRelative alloc] initWithRelativeOffset:newOffset];
-	
+
 	return self;
 }
 
@@ -109,7 +109,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
 	if ( [coder containsValueForKey:@"_CPTConstraintsFixed.offset"] ) {
-		CGFloat offset = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
+		CGFloat offset		= [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
 		BOOL isFixedToLower = [coder decodeBoolForKey:@"_CPTConstraintsFixed.isFixedToLower"];
 		if ( isFixedToLower ) {
 			return [self initWithLowerOffset:offset];
@@ -122,7 +122,7 @@
 		CGFloat offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
 		return [self initWithRelativeOffset:offset];
 	}
-	
+
 	return self;
 }
 

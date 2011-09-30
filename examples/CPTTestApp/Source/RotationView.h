@@ -10,17 +10,17 @@
 
 @interface RotationView : NSView {
 	id<CPTRotationDelegate> rotationDelegate;
-	
+
 	CATransform3D rotationTransform;
-	
+
 	NSPoint previousLocation;
 }
 
-@property(readwrite, nonatomic) CATransform3D rotationTransform;
-@property(readwrite, assign, nonatomic) id<CPTRotationDelegate> rotationDelegate;
+@property (readwrite, nonatomic) CATransform3D rotationTransform;
+@property (readwrite, assign, nonatomic) id<CPTRotationDelegate> rotationDelegate;
 
 @end
 
-@protocol CPTRotationDelegate <NSObject>
-- (void)rotateObjectUsingTransform:(CATransform3D)rotationTransform;
+@protocol CPTRotationDelegate<NSObject>
+-(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform;
 @end

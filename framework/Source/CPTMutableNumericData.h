@@ -1,9 +1,8 @@
-#import <Foundation/Foundation.h>
-#import "CPTNumericDataType.h"
 #import "CPTNumericData.h"
+#import "CPTNumericDataType.h"
+#import <Foundation/Foundation.h>
 
 @interface CPTMutableNumericData : CPTNumericData {
-	
 }
 
 /// @name Data Buffer
@@ -19,19 +18,19 @@
 /// @name Factory Methods
 /// @{
 +(CPTMutableNumericData *)numericDataWithData:(NSData *)newData
-									dataType:(CPTNumericDataType)newDataType
-									   shape:(NSArray *)shapeArray;
+									 dataType:(CPTNumericDataType)newDataType
+										shape:(NSArray *)shapeArray;
 
 +(CPTMutableNumericData *)numericDataWithData:(NSData *)newData
-							  dataTypeString:(NSString *)newDataTypeString
-									   shape:(NSArray *)shapeArray;
+							   dataTypeString:(NSString *)newDataTypeString
+										shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Initialization
 /// @{
 -(id)initWithData:(NSData *)newData
 		 dataType:(CPTNumericDataType)newDataType
-            shape:(NSArray *)shapeArray;
+			shape:(NSArray *)shapeArray;
 ///	@}
 
 @end

@@ -1,9 +1,9 @@
-#import "CPTPlotAreaFrame.h"
 #import "CPTAxisSet.h"
-#import "CPTPlotGroup.h"
 #import "CPTDefinitions.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
+#import "CPTPlotAreaFrame.h"
+#import "CPTPlotGroup.h"
 
 /**	@cond */
 @interface CPTPlotAreaFrame()
@@ -11,6 +11,7 @@
 @property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
 
 @end
+
 /**	@endcond */
 
 #pragma mark -
@@ -41,13 +42,13 @@
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
 		plotArea = nil;
-		
+
 		CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame:newFrame];
 		self.plotArea = newPlotArea;
 		[newPlotArea release];
 
 		self.needsDisplayOnBoundsChange = YES;
-}
+	}
 	return self;
 }
 
@@ -55,7 +56,7 @@
 {
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
-		
+
 		plotArea = [theLayer->plotArea retain];
 	}
 	return self;
@@ -73,16 +74,16 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+	if ( (self = [super initWithCoder:coder]) ) {
 		plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -97,8 +98,8 @@
 		if ( plotArea ) {
 			[self insertSublayer:plotArea atIndex:0];
 		}
-        [self setNeedsLayout];
-	}	
+		[self setNeedsLayout];
+	}
 }
 
 -(CPTAxisSet *)axisSet

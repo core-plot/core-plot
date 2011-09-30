@@ -1,6 +1,6 @@
-#import "_CPTConstraintsRelative.h"
 #import "CPTExceptions.h"
 #import "NSCoderExtensions.h"
+#import "_CPTConstraintsRelative.h"
 #import <tgmath.h>
 
 /**	@cond */
@@ -9,6 +9,7 @@
 @property (nonatomic, readwrite) CGFloat offset;
 
 @end
+
 /**	@endcond */
 
 #pragma mark -
@@ -37,7 +38,7 @@
 	if ( (self = [super init]) ) {
 		offset = newOffset;
 	}
-	
+
 	return self;
 }
 
@@ -49,7 +50,7 @@
 	if ( [self class] != [otherConstraint class] ) {
 		return NO;
 	}
-	return (self.offset == ((_CPTConstraintsRelative *)otherConstraint).offset);
+	return self.offset == ( (_CPTConstraintsRelative *)otherConstraint ).offset;
 }
 
 #pragma mark -
@@ -62,10 +63,10 @@
  **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
 {
-	NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
-	
-	CGFloat position = fma(upperBound - lowerBound, self.offset, lowerBound);
-	
+	NSAssert( lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound" );
+
+	CGFloat position = fma( upperBound - lowerBound, self.offset, lowerBound );
+
 	return position;
 }
 
@@ -75,8 +76,9 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
+
 	copy->offset = self->offset;
-	
+
 	return copy;
 }
 
@@ -95,10 +97,10 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
 	}
-    return self;
+	return self;
 }
 
 @end

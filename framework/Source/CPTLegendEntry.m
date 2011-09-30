@@ -10,6 +10,7 @@
 @property (nonatomic, readonly, retain) NSString *title;
 
 @end
+
 /**	@endcond */
 
 #pragma mark -
@@ -59,10 +60,10 @@
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		plot = nil;
-		index = 0;
-		row = 0;
-		column = 0;
+		plot	  = nil;
+		index	  = 0;
+		row		  = 0;
+		column	  = 0;
 		textStyle = nil;
 	}
 	return self;
@@ -71,7 +72,7 @@
 -(void)dealloc
 {
 	[textStyle release];
-	
+
 	[super dealloc];
 }
 
@@ -89,14 +90,14 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		plot = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
-		index = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
-		row = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
-		column = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
+	if ( (self = [super init]) ) {
+		plot	  = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+		index	  = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+		row		  = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+		column	  = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
 		textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -109,20 +110,20 @@
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context;
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextSaveGState(context);
-	CGContextTranslateCTM(context, 0.0, rect.origin.y);
-	CGContextScaleCTM(context, 1.0, -1.0);
-	CGContextTranslateCTM(context, 0.0, -CGRectGetMaxY(rect));
+	CGContextSaveGState( context );
+	CGContextTranslateCTM( context, 0.0, rect.origin.y );
+	CGContextScaleCTM( context, 1.0, -1.0 );
+	CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY( rect ) );
 #endif
 	// center the title vertically
-	CGRect textRect = rect;
+	CGRect textRect		= rect;
 	CGSize theTitleSize = self.titleSize;
 	if ( theTitleSize.height < textRect.size.height ) {
-		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0);
+		textRect = CGRectInset( textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0 );
 	}
 	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextRestoreGState(context);
+	CGContextRestoreGState( context );
 #endif
 }
 
@@ -145,14 +146,14 @@
 -(CGSize)titleSize
 {
 	CGSize theTitleSize = CGSizeZero;
-	
-	NSString *theTitle = self.title;
+
+	NSString *theTitle		   = self.title;
 	CPTTextStyle *theTextStyle = self.textStyle;
-	
+
 	if ( theTitle && theTextStyle ) {
 		theTitleSize = [theTitle sizeWithTextStyle:theTextStyle];
 	}
-	
+
 	return theTitleSize;
 }
 

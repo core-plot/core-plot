@@ -1,10 +1,7 @@
-
-#import <Foundation/Foundation.h>
 #import "CPTAxisLabel.h"
-
+#import <Foundation/Foundation.h>
 
 @interface CPTAxisTitle : CPTAxisLabel {
-
 }
 
 @end

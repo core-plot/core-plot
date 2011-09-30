@@ -1,8 +1,8 @@
-#import "CPTTextStyle.h"
-#import "CPTTextStylePlatformSpecific.h"
+#import "CPTColor.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
-#import "CPTColor.h"
+#import "CPTTextStyle.h"
+#import "CPTTextStylePlatformSpecific.h"
 
 @implementation NSString(CPTTextStyleExtensions)
 
@@ -14,9 +14,10 @@
  *	@return The size of the text when drawn with the given style.
  **/
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
-{	
+{
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];	
+	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake( 10000.0, 10000.0 )];
+
 	return textSize;
 }
 
@@ -29,25 +30,27 @@
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context
-{	
-	if ( style.color == nil ) return;
-    
-    CGContextSaveGState(context);
+{
+	if ( style.color == nil ) {
+		return;
+	}
+
+	CGContextSaveGState( context );
 	CGColorRef textColor = style.color.cgColor;
-	
-	CGContextSetStrokeColorWithColor(context, textColor);	
-	CGContextSetFillColorWithColor(context, textColor);
-	
-	CPTPushCGContext(context);	
-	
+
+	CGContextSetStrokeColorWithColor( context, textColor );
+	CGContextSetFillColorWithColor( context, textColor );
+
+	CPTPushCGContext( context );
+
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	
+
 	[self drawInRect:rect
 			withFont:theFont
 	   lineBreakMode:UILineBreakModeWordWrap
 		   alignment:(UITextAlignment)style.textAlignment];
-	
-	CGContextRestoreGState(context);
+
+	CGContextRestoreGState( context );
 	CPTPopCGContext();
 }
 

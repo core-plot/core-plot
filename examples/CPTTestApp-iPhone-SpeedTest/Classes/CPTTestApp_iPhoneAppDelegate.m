@@ -6,18 +6,16 @@
 
 #import "CPTTestApp_iPhoneAppDelegate.h"
 
-
 @implementation CPTTestApp_iPhoneAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
 
--(void)applicationDidFinishLaunching:(UIApplication *)application {
-    
-    // Add the tab bar controller's current view as a subview of the window
-    [window addSubview:tabBarController.view];
+-(void)applicationDidFinishLaunching:(UIApplication *)application
+{
+	// Add the tab bar controller's current view as a subview of the window
+	[window addSubview:tabBarController.view];
 }
-
 
 /*
 // Optional UITabBarControllerDelegate method
@@ -31,12 +29,11 @@
 }
 */
 
-
--(void)dealloc {
-    [tabBarController release];
-    [window release];
-    [super dealloc];
+-(void)dealloc
+{
+	[tabBarController release];
+	[window release];
+	[super dealloc];
 }
 
 @end
-

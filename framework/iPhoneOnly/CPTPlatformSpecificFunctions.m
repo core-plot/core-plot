@@ -1,19 +1,18 @@
-
-#import <UIKit/UIKit.h>
-#import "CPTPlatformSpecificFunctions.h"
 #import "CPTExceptions.h"
+#import "CPTPlatformSpecificFunctions.h"
+#import <UIKit/UIKit.h>
 
-void CPTPushCGContext(CGContextRef newContext)
+void CPTPushCGContext( CGContextRef newContext )
 {
-    UIGraphicsPushContext(newContext);
+	UIGraphicsPushContext( newContext );
 }
 
-void CPTPopCGContext(void)
+void CPTPopCGContext( void )
 {
-    UIGraphicsPopContext();
+	UIGraphicsPopContext();
 }
 
-CGContextRef CPTGetCurrentContext(void)
+CGContextRef CPTGetCurrentContext( void )
 {
-    return UIGraphicsGetCurrentContext();
+	return UIGraphicsGetCurrentContext();
 }

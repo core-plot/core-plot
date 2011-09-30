@@ -6,101 +6,100 @@
 //  Copyright 2010 Jeff Buck. All rights reserved.
 //
 
-#import "ThemeTableViewController.h"
 #import "CorePlot-CocoaTouch.h"
+#import "ThemeTableViewController.h"
 
 @implementation ThemeTableViewController
 
 @synthesize themePopoverController;
 @synthesize delegate;
 
-- (void)setupThemes
+-(void)setupThemes
 {
-    themes = [[NSMutableArray alloc] init];
-    [themes addObject:kThemeTableViewControllerDefaultTheme];
-    [themes addObject:kThemeTableViewControllerNoTheme];
+	themes = [[NSMutableArray alloc] init];
+	[themes addObject:kThemeTableViewControllerDefaultTheme];
+	[themes addObject:kThemeTableViewControllerNoTheme];
 
-    for ( Class c in [CPTTheme themeClasses] ) {
-        [themes addObject:[c name]];
-    }
+	for ( Class c in[CPTTheme themeClasses] ) {
+		[themes addObject:[c name]];
+	}
 }
 
-- (void)awakeFromNib
+-(void)awakeFromNib
 {
-    [self setupThemes];
+	[self setupThemes];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
-    {
-        [self setupThemes];
-    }
-    
-    return self;
+	if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
+		[self setupThemes];
+	}
+
+	return self;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+	return YES;
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+	return 1;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [themes count];
+	return [themes count];
 }
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ThemeCell";
+	static NSString *CellIdentifier = @"ThemeCell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    cell.textLabel.text = [themes objectAtIndex:indexPath.row];
+	if ( cell == nil ) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	}
 
-    return cell;
+	cell.textLabel.text = [themes objectAtIndex:indexPath.row];
+
+	return cell;
 }
 
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate themeSelectedAtIndex:[themes objectAtIndex:indexPath.row]];
+	[delegate themeSelectedAtIndex:[themes objectAtIndex:indexPath.row]];
 }
 
 #pragma mark -
 #pragma mark Memory management
 
-- (void)didReceiveMemoryWarning
+-(void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload
+-(void)viewDidUnload
 {
 }
 
-- (void)dealloc
+-(void)dealloc
 {
-    [self.tableView setDataSource:nil];
-    [self.tableView setDelegate:nil];
-    [delegate release];
-    [themes release];
-    [super dealloc];
+	[self.tableView setDataSource:nil];
+	[self.tableView setDelegate:nil];
+	[delegate release];
+	[themes release];
+	[super dealloc];
 }
 
 @end

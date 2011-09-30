@@ -3,7 +3,7 @@
 @class CPTPlotRange;
 
 @interface CPTPlotRangeTests : CPTTestCase {
-    CPTPlotRange *plotRange;
+	CPTPlotRange *plotRange;
 }
 
 @property (retain, readwrite) CPTPlotRange *plotRange;

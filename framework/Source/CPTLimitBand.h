@@ -3,8 +3,8 @@
 @class CPTPlotRange;
 @class CPTFill;
 
-@interface CPTLimitBand : NSObject <NSCoding, NSCopying> {
-@private
+@interface CPTLimitBand : NSObject<NSCoding, NSCopying>{
+	@private
 	CPTPlotRange *range;
 	CPTFill *fill;
 }

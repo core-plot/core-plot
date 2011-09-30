@@ -8,15 +8,13 @@
 
 #import "FlipsideViewController.h"
 
-
 @implementation FlipsideViewController
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];      
+-(void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 }
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -26,16 +24,15 @@
 }
 */
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
+-(void)didReceiveMemoryWarning
+{
+	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+	// Release anything that's not essential, such as cached data
 }
 
-
-- (void)dealloc {
-    [super dealloc];
+-(void)dealloc
+{
+	[super dealloc];
 }
-
 
 @end

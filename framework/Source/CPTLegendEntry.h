@@ -4,7 +4,7 @@
 @class CPTPlot;
 @class CPTTextStyle;
 
-@interface CPTLegendEntry : NSObject <NSCoding> {   
+@interface CPTLegendEntry : NSObject<NSCoding>{
 	@private
 	__weak CPTPlot *plot;
 	NSUInteger index;

@@ -1,16 +1,16 @@
-#import <Foundation/Foundation.h>
 #import "CPTDefinitions.h"
+#import <Foundation/Foundation.h>
 
 @class CPTLayer;
 @class CPTTextStyle;
 
-@interface CPTAxisLabel : NSObject <NSCoding> {
+@interface CPTAxisLabel : NSObject<NSCoding>{
 	@private
-    CPTLayer *contentLayer;
-    CGFloat offset;
-    CGFloat rotation;
+	CPTLayer *contentLayer;
+	CGFloat offset;
+	CGFloat rotation;
 	CPTAlignment alignment;
-    NSDecimal tickLocation;
+	NSDecimal tickLocation;
 }
 
 @property (nonatomic, readwrite, retain) CPTLayer *contentLayer;

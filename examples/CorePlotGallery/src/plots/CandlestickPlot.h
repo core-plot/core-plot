@@ -5,11 +5,11 @@
 
 #import "PlotItem.h"
 
-@interface CandlestickPlot : PlotItem <CPTPlotSpaceDelegate, CPTPlotDataSource>
+@interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate, CPTPlotDataSource>
 {
-@private
-	CPTGraph		*graph;
-    NSArray			*plotData;
+	@private
+	CPTGraph *graph;
+	NSArray *plotData;
 }
 
 @end

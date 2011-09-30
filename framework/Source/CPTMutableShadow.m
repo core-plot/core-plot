@@ -2,7 +2,7 @@
 
 /** @brief Mutable wrapper for various shadow drawing properties.
  *
- *  If you need to customize properties of a shadow, you should use this class rather than the 
+ *  If you need to customize properties of a shadow, you should use this class rather than the
  *  immutable super class.
  *
  **/

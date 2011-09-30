@@ -1,17 +1,18 @@
-#import "CPTTextStyle.h"
-#import "CPTMutableTextStyle.h"
 #import "CPTColor.h"
+#import "CPTMutableTextStyle.h"
+#import "CPTTextStyle.h"
 #import "NSCoderExtensions.h"
 
 /**	@cond */
-@interface CPTTextStyle ()
+@interface CPTTextStyle()
 
-@property(readwrite, copy, nonatomic) NSString *fontName;
-@property(readwrite, assign, nonatomic) CGFloat fontSize; 
-@property(readwrite, copy, nonatomic) CPTColor *color;
-@property(readwrite, assign, nonatomic) CPTTextAlignment textAlignment;
+@property (readwrite, copy, nonatomic) NSString *fontName;
+@property (readwrite, assign, nonatomic) CGFloat fontSize;
+@property (readwrite, copy, nonatomic) CPTColor *color;
+@property (readwrite, assign, nonatomic) CPTTextAlignment textAlignment;
 
 @end
+
 /**	@endcond */
 
 /** @brief Immutable wrapper for various text style properties.
@@ -55,12 +56,12 @@
 #pragma mark -
 #pragma mark Initialization and teardown
 
--(id)init 
+-(id)init
 {
 	if ( (self = [super init]) ) {
-		fontName = @"Helvetica";
-		fontSize = 12.0;
-		color = [[CPTColor blackColor] retain];
+		fontName	  = @"Helvetica";
+		fontSize	  = 12.0;
+		color		  = [[CPTColor blackColor] retain];
 		textAlignment = CPTTextAlignmentLeft;
 	}
 	return self;
@@ -86,24 +87,25 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		self->fontName = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
-		self->fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
-		self->color = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+	if ( (self = [super init]) ) {
+		self->fontName		= [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
+		self->fontSize		= [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+		self->color			= [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
 		self->textAlignment = [coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
 #pragma mark NSCopying
 
--(id)copyWithZone:(NSZone *)zone 
+-(id)copyWithZone:(NSZone *)zone
 {
 	CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
-	newCopy->fontName = [self->fontName copy];
-	newCopy->color = [self->color copy];
-	newCopy->fontSize = self->fontSize;
+
+	newCopy->fontName	   = [self->fontName copy];
+	newCopy->color		   = [self->color copy];
+	newCopy->fontSize	   = self->fontSize;
 	newCopy->textAlignment = self->textAlignment;
 	return newCopy;
 }
@@ -111,12 +113,13 @@
 #pragma mark -
 #pragma mark NSMutableCopying
 
--(id)mutableCopyWithZone:(NSZone *)zone 
+-(id)mutableCopyWithZone:(NSZone *)zone
 {
 	CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
-	newCopy->fontName = [self->fontName copy];
-	newCopy->color = [self->color copy];
-	newCopy->fontSize = self->fontSize;
+
+	newCopy->fontName	   = [self->fontName copy];
+	newCopy->color		   = [self->color copy];
+	newCopy->fontSize	   = self->fontSize;
 	newCopy->textAlignment = self->textAlignment;
 	return newCopy;
 }

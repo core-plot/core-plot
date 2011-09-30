@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface CPTImage : NSObject <NSCoding, NSCopying> {
-    @private
+@interface CPTImage : NSObject<NSCoding, NSCopying>{
+	@private
 	CGImageRef image;
 	CGFloat scale;
 	BOOL tiled;
@@ -11,7 +11,7 @@
 
 @property (nonatomic, readwrite, assign) CGImageRef image;
 @property (nonatomic, readwrite, assign) CGFloat scale;
-@property (nonatomic, readwrite, assign, getter=isTiled) BOOL tiled;
+@property (nonatomic, readwrite, assign, getter = isTiled) BOOL tiled;
 @property (nonatomic, readwrite, assign) BOOL tileAnchoredToContext;
 
 /// @name Factory Methods

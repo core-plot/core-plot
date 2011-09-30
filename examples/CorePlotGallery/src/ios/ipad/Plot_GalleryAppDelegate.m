@@ -8,22 +8,21 @@
 
 #import "Plot_GalleryAppDelegate.h"
 
-#import "RootViewController.h"
 #import "DetailViewController.h"
+#import "RootViewController.h"
 
 #import "PlotGallery.h"
 #import "PlotItem.h"
-
 
 /*
 // Add new PlotItems to this list
 static NSString *plotClasses[] =
 {
-	@"SimpleScatterPlot",
-	@"GradientScatterPlot",
-	@"SimplePieChart",
-	@"VerticalBarChart",
-	@"CompositePlot"
+    @"SimpleScatterPlot",
+    @"GradientScatterPlot",
+    @"SimplePieChart",
+    @"VerticalBarChart",
+    @"CompositePlot"
 };
 */
 
@@ -37,12 +36,12 @@ static NSString *plotClasses[] =
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 /*
     PlotGallery *gallery = [PlotGallery sharedPlotGallery];
     int plotCount = sizeof(plotClasses)/sizeof(NSString *);
-	
+
     for (int i = 0; i < plotCount; i++) {
         Class plotClass = NSClassFromString(plotClasses[i]);
         id plotItem = [[[plotClass alloc] init] autorelease];
@@ -51,30 +50,26 @@ static NSString *plotClasses[] =
         }
     }
 */
-    [[PlotGallery sharedPlotGallery] sortByTitle];
-    [window addSubview:splitViewController.view];
-    [window makeKeyAndVisible];
+	[[PlotGallery sharedPlotGallery] sortByTitle];
+	[window addSubview:splitViewController.view];
+	[window makeKeyAndVisible];
 
-    return YES;
+	return YES;
 }
-
 
 #pragma mark -
 #pragma mark Memory management
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    NSLog(@"AppDelegate:applicationDidReceiveMemoryWarning");
+	NSLog( @"AppDelegate:applicationDidReceiveMemoryWarning" );
 }
 
-
-- (void)dealloc
+-(void)dealloc
 {
-    [splitViewController release];
-    [window release];
-    [super dealloc];
+	[splitViewController release];
+	[window release];
+	[super dealloc];
 }
-
 
 @end
-

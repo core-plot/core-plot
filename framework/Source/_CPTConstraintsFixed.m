@@ -1,6 +1,6 @@
-#import "_CPTConstraintsFixed.h"
 #import "CPTExceptions.h"
 #import "NSCoderExtensions.h"
+#import "_CPTConstraintsFixed.h"
 
 /**	@cond */
 @interface _CPTConstraintsFixed()
@@ -9,6 +9,7 @@
 @property (nonatomic, readwrite) BOOL isFixedToLower;
 
 @end
+
 /**	@endcond */
 
 #pragma mark -
@@ -32,10 +33,10 @@
 -(id)initWithLowerOffset:(CGFloat)newOffset
 {
 	if ( (self = [super init]) ) {
-		offset = newOffset;
+		offset		   = newOffset;
 		isFixedToLower = YES;
 	}
-	
+
 	return self;
 }
 
@@ -46,10 +47,10 @@
 -(id)initWithUpperOffset:(CGFloat)newOffset
 {
 	if ( (self = [super init]) ) {
-		offset = newOffset;
+		offset		   = newOffset;
 		isFixedToLower = NO;
 	}
-	
+
 	return self;
 }
 
@@ -61,8 +62,8 @@
 	if ( [self class] != [otherConstraint class] ) {
 		return NO;
 	}
-	return ((self.offset == ((_CPTConstraintsFixed *)otherConstraint).offset) &&
-			(self.isFixedToLower == ((_CPTConstraintsFixed *)otherConstraint).isFixedToLower));
+	return (self.offset == ( (_CPTConstraintsFixed *)otherConstraint ).offset) &&
+		   (self.isFixedToLower == ( (_CPTConstraintsFixed *)otherConstraint ).isFixedToLower);
 }
 
 #pragma mark -
@@ -75,17 +76,17 @@
  **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
 {
-	NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
-	
+	NSAssert( lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound" );
+
 	CGFloat position;
-	
+
 	if ( self.isFixedToLower ) {
 		position = lowerBound + self.offset;
 	}
 	else {
 		position = upperBound - self.offset;
 	}
-	
+
 	return position;
 }
 
@@ -95,9 +96,10 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTConstraintsFixed *copy = [[[self class] allocWithZone:zone] init];
-	copy->offset = self->offset;
+
+	copy->offset		 = self->offset;
 	copy->isFixedToLower = self->isFixedToLower;
-	
+
 	return copy;
 }
 
@@ -117,11 +119,11 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		offset = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
+	if ( (self = [super init]) ) {
+		offset		   = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
 		isFixedToLower = [coder decodeBoolForKey:@"_CPTConstraintsFixed.isFixedToLower"];
 	}
-    return self;
+	return self;
 }
 
 @end

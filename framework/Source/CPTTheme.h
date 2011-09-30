@@ -2,11 +2,11 @@
 
 ///	@ingroup themeNames
 /// @{
-extern NSString * const kCPTDarkGradientTheme;
-extern NSString * const kCPTPlainBlackTheme;
-extern NSString * const kCPTPlainWhiteTheme;
-extern NSString * const kCPTSlateTheme;
-extern NSString * const kCPTStocksTheme;
+extern NSString *const kCPTDarkGradientTheme;
+extern NSString *const kCPTPlainBlackTheme;
+extern NSString *const kCPTPlainWhiteTheme;
+extern NSString *const kCPTSlateTheme;
+extern NSString *const kCPTStocksTheme;
 /// @}
 
 @class CPTGraph;
@@ -14,7 +14,7 @@ extern NSString * const kCPTStocksTheme;
 @class CPTAxisSet;
 @class CPTMutableTextStyle;
 
-@interface CPTTheme : NSObject <NSCoding> {
+@interface CPTTheme : NSObject<NSCoding>{
 	@private
 	Class graphClass;
 }
@@ -47,7 +47,7 @@ extern NSString * const kCPTStocksTheme;
 
 -(void)applyThemeToBackground:(CPTGraph *)graph;
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame;
--(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet; 
+-(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet;
 /// @}
 
 @end

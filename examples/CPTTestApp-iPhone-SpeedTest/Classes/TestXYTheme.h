@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-
 #import "CorePlot-CocoaTouch.h"
 
-
-@interface TestXYTheme : CPTTheme 
+@interface TestXYTheme : CPTTheme
 {
-
 }
 
 @end

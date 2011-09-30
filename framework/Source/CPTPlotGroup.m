@@ -1,5 +1,5 @@
-#import "CPTPlotGroup.h"
 #import "CPTPlot.h"
+#import "CPTPlotGroup.h"
 
 /**	@brief Defines the coordinate system of a plot.
  **/
@@ -25,7 +25,7 @@
 {
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTPlotGroup *theLayer = (CPTPlotGroup *)layer;
-		
+
 		identifier = [theLayer->identifier retain];
 	}
 	return self;
@@ -43,16 +43,16 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeObject:self.identifier forKey:@"CPTPlotGroup.identifier"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+	if ( (self = [super initWithCoder:coder]) ) {
 		identifier = [[coder decodeObjectForKey:@"CPTPlotGroup.identifier"] copy];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -

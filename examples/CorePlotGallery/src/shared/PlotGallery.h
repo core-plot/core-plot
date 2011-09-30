@@ -10,15 +10,15 @@
 
 @interface PlotGallery : NSObject
 {
-    NSMutableArray *plotItems;
+	NSMutableArray *plotItems;
 }
 
-+ (PlotGallery *)sharedPlotGallery;
++(PlotGallery *)sharedPlotGallery;
 
-- (void)addPlotItem:(PlotItem *)plotItem;
+-(void)addPlotItem:(PlotItem *)plotItem;
 
-- (void)sortByTitle;
-- (NSUInteger)count;
-- (PlotItem *)objectAtIndex:(NSUInteger)index;
+-(void)sortByTitle;
+-(NSUInteger)count;
+-(PlotItem *)objectAtIndex:(NSUInteger)index;
 
 @end

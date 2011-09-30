@@ -5,6 +5,6 @@
  **/
 @interface NSException(CPTExtensions)
 
-+(void)raiseGenericFormat:(NSString*)fmt,...;
++(void)raiseGenericFormat:(NSString *)fmt, ...;
 
 @end

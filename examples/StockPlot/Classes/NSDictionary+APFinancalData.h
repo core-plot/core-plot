@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (APFinancalData)
+@interface NSDictionary(APFinancalData)
 
-+(id)dictionaryWithCSVLine:(NSString*)csvLine;
++(id)dictionaryWithCSVLine:(NSString *)csvLine;
 
 @end

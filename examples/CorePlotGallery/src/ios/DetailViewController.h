@@ -6,26 +6,26 @@
 //  Copyright Jeff Buck 2010. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
-#import "ThemeTableViewController.h"
 #import "PlotItem.h"
+#import "ThemeTableViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, 
-                                                    UISplitViewControllerDelegate,
-                                                    ThemeTableViewControllerDelegate>
+@interface DetailViewController : UIViewController<UIPopoverControllerDelegate,
+												   UISplitViewControllerDelegate,
+												   ThemeTableViewControllerDelegate>
 {
-    UIPopoverController         *popoverController;
-    UIToolbar                   *toolbar;
+	UIPopoverController *popoverController;
+	UIToolbar *toolbar;
 
-    PlotItem                    *detailItem;
+	PlotItem *detailItem;
 
-    UIView                      *hostingView;
-    UIBarButtonItem             *themeBarButton;
-    UIPopoverController         *themePopoverController;
-    ThemeTableViewController    *themeTableViewController;
+	UIView *hostingView;
+	UIBarButtonItem *themeBarButton;
+	UIPopoverController *themePopoverController;
+	ThemeTableViewController *themeTableViewController;
 
-    NSString                    *currentThemeName;
+	NSString *currentThemeName;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
@@ -35,6 +35,6 @@
 @property (nonatomic, retain) IBOutlet ThemeTableViewController *themeTableViewController;
 @property (nonatomic, copy) NSString *currentThemeName;
 
-- (IBAction)showThemes:(id)sender;
+-(IBAction)showThemes:(id)sender;
 
 @end

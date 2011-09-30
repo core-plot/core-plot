@@ -1,11 +1,11 @@
-#import <Foundation/Foundation.h>
 #import "CPTLayer.h"
+#import <Foundation/Foundation.h>
 
 @class CPTLineStyle;
 
 @interface CPTAxisSet : CPTLayer {
 	@private
-    NSArray *axes;
+	NSArray *axes;
 	CPTLineStyle *borderLineStyle;
 }
 

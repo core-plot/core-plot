@@ -1,5 +1,5 @@
-#import "_CPTFillColor.h"
 #import "CPTColor.h"
+#import "_CPTFillColor.h"
 
 /**	@cond */
 @interface _CPTFillColor()
@@ -7,6 +7,7 @@
 @property (nonatomic, readwrite, copy) CPTColor *fillColor;
 
 @end
+
 /**	@endcond */
 
 /** @brief Draws CPTColor area fills.
@@ -28,17 +29,17 @@
  *  @param aColor The color.
  *  @return The initialized _CPTFillColor object.
  **/
--(id)initWithColor:(CPTColor *)aColor 
+-(id)initWithColor:(CPTColor *)aColor
 {
 	if ( (self = [super init]) ) {
-        fillColor = [aColor retain];
+		fillColor = [aColor retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    [fillColor release];
+	[fillColor release];
 	[super dealloc];
 }
 
@@ -51,10 +52,10 @@
  **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	CGContextSaveGState(theContext);
-	CGContextSetFillColorWithColor(theContext, self.fillColor.cgColor);
-	CGContextFillRect(theContext, theRect);
-	CGContextRestoreGState(theContext);
+	CGContextSaveGState( theContext );
+	CGContextSetFillColorWithColor( theContext, self.fillColor.cgColor );
+	CGContextFillRect( theContext, theRect );
+	CGContextRestoreGState( theContext );
 }
 
 /** @brief Draws the color into the given graphics context clipped to the current drawing path.
@@ -62,10 +63,10 @@
  **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	CGContextSaveGState(theContext);
-	CGContextSetFillColorWithColor(theContext, self.fillColor.cgColor);
-	CGContextFillPath(theContext);
-	CGContextRestoreGState(theContext);
+	CGContextSaveGState( theContext );
+	CGContextSetFillColorWithColor( theContext, self.fillColor.cgColor );
+	CGContextFillPath( theContext );
+	CGContextRestoreGState( theContext );
 }
 
 #pragma mark -
@@ -74,8 +75,9 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
+
 	copy->fillColor = [self->fillColor copyWithZone:zone];
-	
+
 	return copy;
 }
 
@@ -94,10 +96,10 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		fillColor = [[coder decodeObjectForKey:@"_CPTFillColor.fillColor"] retain];
 	}
-    return self;
+	return self;
 }
 
 @end

@@ -15,13 +15,13 @@
  *	the plot space coordinate system and drawing coordinates changes.
  *	@ingroup notification
  **/
-extern NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification;
+extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @}
 
 /**	@brief Plot space delegate.
  **/
-@protocol CPTPlotSpaceDelegate <NSObject>
+@protocol CPTPlotSpaceDelegate<NSObject>
 
 @optional
 
@@ -35,7 +35,7 @@ extern NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *  @return YES should be returned if the gesture should be handled by the plot space, and NO to prevent handling.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL)plotSpace:(CPTPlotSpace*)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 
 /**	@brief Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
@@ -99,18 +99,18 @@ extern NSString * const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-@interface CPTPlotSpace : NSObject <CPTResponder, NSCoding> {
+@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>{
 	@private
-    __weak CPTGraph *graph;
-	id <NSCopying, NSCoding, NSObject> identifier;
-    __weak id <CPTPlotSpaceDelegate> delegate;
-    BOOL allowsUserInteraction;
+	__weak CPTGraph *graph;
+	id<NSCopying, NSCoding, NSObject> identifier;
+	__weak id<CPTPlotSpaceDelegate> delegate;
+	BOOL allowsUserInteraction;
 }
 
-@property (nonatomic, readwrite, copy) id <NSCopying, NSCoding, NSObject> identifier;
+@property (nonatomic, readwrite, copy) id<NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite, assign) BOOL allowsUserInteraction;
 @property (nonatomic, readwrite, assign) __weak CPTGraph *graph;
-@property (nonatomic, readwrite, assign) __weak id <CPTPlotSpaceDelegate> delegate;
+@property (nonatomic, readwrite, assign) __weak id<CPTPlotSpaceDelegate> delegate;
 
 @end
 

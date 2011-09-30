@@ -1,9 +1,7 @@
-
 #import <Foundation/Foundation.h>
 
-@interface NSDateFormatter (APExtensions)
+@interface NSDateFormatter(APExtensions)
 
 +(NSDateFormatter *)csvDateFormatter;
 
 @end
-

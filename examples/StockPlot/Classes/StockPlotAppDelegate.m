@@ -6,42 +6,38 @@
 //  Copyright __MyCompanyName__ 2009. All rights reserved.
 //
 
-#import "StockPlotAppDelegate.h"
 #import "RootViewController.h"
-
+#import "StockPlotAppDelegate.h"
 
 @implementation StockPlotAppDelegate
 
 @synthesize window;
 @synthesize navigationController;
 
-
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
-    // Override point for customization after app launch    
-    [[navigationController navigationBar] setTintColor:[UIColor blackColor]];
+-(void)applicationDidFinishLaunching:(UIApplication *)application
+{
+	// Override point for customization after app launch
+	[[navigationController navigationBar] setTintColor:[UIColor blackColor]];
 	[window addSubview:[navigationController view]];
-    [window makeKeyAndVisible];
+	[window makeKeyAndVisible];
 }
 
-
-- (void)applicationWillTerminate:(UIApplication *)application {
+-(void)applicationWillTerminate:(UIApplication *)application
+{
 	// Save data if appropriate
 }
-
 
 #pragma mark -
 #pragma mark Memory management
 
-- (void)dealloc {
+-(void)dealloc
+{
 	[navigationController release];
 	[window release];
 	[super dealloc];
 }
 
-
 @end
-

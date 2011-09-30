@@ -10,23 +10,24 @@
 /**	@brief Plot symbol types.
  **/
 typedef enum _CPTPlotSymbolType {
-    CPTPlotSymbolTypeNone,		///< No symbol.
-    CPTPlotSymbolTypeRectangle,	///< Rectangle symbol.
-    CPTPlotSymbolTypeEllipse,	///< Elliptical symbol.
-    CPTPlotSymbolTypeDiamond,	///< Diamond symbol.
-	CPTPlotSymbolTypeTriangle,	///< Triangle symbol.
-	CPTPlotSymbolTypeStar,		///< 5-point star symbol.
-	CPTPlotSymbolTypePentagon,	///< Pentagon symbol.
-	CPTPlotSymbolTypeHexagon,	///< Hexagon symbol.
-	CPTPlotSymbolTypeCross,		///< X symbol.
-	CPTPlotSymbolTypePlus,		///< Plus symbol.
-	CPTPlotSymbolTypeDash,		///< Dash symbol.
-	CPTPlotSymbolTypeSnow,		///< Snowflake symbol.
-	CPTPlotSymbolTypeCustom		///< Custom symbol.
-} CPTPlotSymbolType;
+	CPTPlotSymbolTypeNone,      ///< No symbol.
+	CPTPlotSymbolTypeRectangle, ///< Rectangle symbol.
+	CPTPlotSymbolTypeEllipse,   ///< Elliptical symbol.
+	CPTPlotSymbolTypeDiamond,   ///< Diamond symbol.
+	CPTPlotSymbolTypeTriangle,  ///< Triangle symbol.
+	CPTPlotSymbolTypeStar,      ///< 5-point star symbol.
+	CPTPlotSymbolTypePentagon,  ///< Pentagon symbol.
+	CPTPlotSymbolTypeHexagon,   ///< Hexagon symbol.
+	CPTPlotSymbolTypeCross,     ///< X symbol.
+	CPTPlotSymbolTypePlus,      ///< Plus symbol.
+	CPTPlotSymbolTypeDash,      ///< Dash symbol.
+	CPTPlotSymbolTypeSnow,      ///< Snowflake symbol.
+	CPTPlotSymbolTypeCustom     ///< Custom symbol.
+}
+CPTPlotSymbolType;
 
-@interface CPTPlotSymbol : NSObject <NSCoding, NSCopying> {
-@private
+@interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>{
+	@private
 	CGSize size;
 	CPTPlotSymbolType symbolType;
 	CPTLineStyle *lineStyle;

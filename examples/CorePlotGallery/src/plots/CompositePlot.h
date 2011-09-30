@@ -8,28 +8,28 @@
 
 #import "PlotItem.h"
 
-@interface CompositePlot : PlotItem <CPTPlotSpaceDelegate,
-									 CPTPlotDataSource,
-									 CPTScatterPlotDelegate,
-									 CPTBarPlotDelegate>
+@interface CompositePlot : PlotItem<CPTPlotSpaceDelegate,
+									CPTPlotDataSource,
+									CPTScatterPlotDelegate,
+									CPTBarPlotDelegate>
 {
-    CPTGraphHostingView  *scatterPlotView;
-    CPTGraphHostingView  *barChartView;
-    CPTGraphHostingView  *pieChartView;
+	CPTGraphHostingView *scatterPlotView;
+	CPTGraphHostingView *barChartView;
+	CPTGraphHostingView *pieChartView;
 
-    CPTXYGraph           *scatterPlot;
-    CPTXYGraph           *barChart;
-    CPTXYGraph           *pieChart;
+	CPTXYGraph *scatterPlot;
+	CPTXYGraph *barChart;
+	CPTXYGraph *pieChart;
 
-    NSMutableArray      *dataForChart;
-    NSMutableArray      *dataForPlot;
+	NSMutableArray *dataForChart;
+	NSMutableArray *dataForPlot;
 }
 
-@property(readwrite, retain, nonatomic) NSMutableArray *dataForChart;
-@property(readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
+@property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;
+@property (readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
 
-- (void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
-- (void)renderBarPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
-- (void)renderPieChartInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
+-(void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
+-(void)renderBarPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
+-(void)renderPieChartInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
 
 @end

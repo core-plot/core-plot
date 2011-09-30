@@ -1,13 +1,11 @@
-
-#import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @class CPTGradient;
 @class CPTImage;
 @class CPTColor;
 
-@interface CPTFill : NSObject <NSCopying, NSCoding> {
-	
+@interface CPTFill : NSObject<NSCopying, NSCoding>{
 }
 
 /// @name Factory Methods

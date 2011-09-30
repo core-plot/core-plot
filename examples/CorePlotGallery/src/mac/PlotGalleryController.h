@@ -7,33 +7,33 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Quartz/Quartz.h>
 #import <CorePlot/CorePlot.h>
+#import <Quartz/Quartz.h>
 
 #import "PlotGallery.h"
 #import "PlotView.h"
 
-@interface PlotGalleryController : NSObject <NSSplitViewDelegate,
-                                             PlotViewDelegate>
+@interface PlotGalleryController : NSObject<NSSplitViewDelegate,
+											PlotViewDelegate>
 {
-    IBOutlet NSSplitView        *splitView;
-    IBOutlet NSScrollView       *scrollView;
-    IBOutlet IKImageBrowserView *imageBrowser;
-    IBOutlet NSPopUpButton      *themePopUpButton;
+	IBOutlet NSSplitView *splitView;
+	IBOutlet NSScrollView *scrollView;
+	IBOutlet IKImageBrowserView *imageBrowser;
+	IBOutlet NSPopUpButton *themePopUpButton;
 
-    IBOutlet PlotView           *hostingView;
-    CPTGraphHostingView         *defaultGraphHostingView;
+	IBOutlet PlotView *hostingView;
+	CPTGraphHostingView *defaultGraphHostingView;
 
-    PlotItem                    *plotItem;
+	PlotItem *plotItem;
 
-    NSString                    *currentThemeName;
+	NSString *currentThemeName;
 
-    void                        *nuHandle;
+	void *nuHandle;
 }
 
 @property (nonatomic, retain) PlotItem *plotItem;
 @property (nonatomic, copy) NSString *currentThemeName;
 
-- (IBAction)themeSelectionDidChange:(id)sender;
+-(IBAction)themeSelectionDidChange:(id)sender;
 
 @end

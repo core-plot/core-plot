@@ -8,13 +8,13 @@
 
 #import "PlotItem.h"
 
-@interface GradientScatterPlot : PlotItem <	CPTPlotSpaceDelegate,
-                                            CPTPlotDataSource,
-                                            CPTScatterPlotDelegate>
+@interface GradientScatterPlot : PlotItem<CPTPlotSpaceDelegate,
+										  CPTPlotDataSource,
+										  CPTScatterPlotDelegate>
 {
-    CPTLayerAnnotation   *symbolTextAnnotation;
+	CPTLayerAnnotation *symbolTextAnnotation;
 
-    NSArray*            plotData;
+	NSArray *plotData;
 }
 
 @end
