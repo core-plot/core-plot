@@ -1,3 +1,5 @@
+#import "CPTXYAxis.h"
+
 #import "CPTAxisLabel.h"
 #import "CPTConstraints.h"
 #import "CPTDefinitions.h"
@@ -10,7 +12,6 @@
 #import "CPTPlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTUtilities.h"
-#import "CPTXYAxis.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 

@@ -1,3 +1,5 @@
+#import "CPTPlot.h"
+
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTGraph.h"
@@ -8,7 +10,6 @@
 #import "CPTNumericData+TypeConversion.h"
 #import "CPTNumericData.h"
 #import "CPTPathExtensions.h"
-#import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotRange.h"

@@ -1,5 +1,6 @@
-#import "CPTFill.h"
 #import "CPTLineCap.h"
+
+#import "CPTFill.h"
 #import "CPTLineStyle.h"
 #import "NSCoderExtensions.h"
 #import <Foundation/Foundation.h>

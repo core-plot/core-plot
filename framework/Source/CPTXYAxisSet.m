@@ -1,8 +1,9 @@
+#import "CPTXYAxisSet.h"
+
 #import "CPTDefinitions.h"
 #import "CPTLineStyle.h"
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
-#import "CPTXYAxisSet.h"
 
 /**	@brief A set of cartesian (X-Y) axes.
  **/

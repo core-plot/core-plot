@@ -1,4 +1,5 @@
 #import "CPTImage.h"
+
 #import "NSCoderExtensions.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

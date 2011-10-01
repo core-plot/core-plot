@@ -1,4 +1,5 @@
 #import "CPTColor.h"
+
 #import "CPTColorSpace.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "NSCoderExtensions.h"

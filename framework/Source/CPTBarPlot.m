@@ -1,4 +1,5 @@
 #import "CPTBarPlot.h"
+
 #import "CPTColor.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"

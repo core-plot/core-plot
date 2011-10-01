@@ -1,7 +1,8 @@
+#import "CPTNumericData.h"
+
 #import "CPTExceptions.h"
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData+TypeConversion.h"
-#import "CPTNumericData.h"
 #import "CPTUtilities.h"
 #import "complex.h"
 

@@ -1,8 +1,9 @@
+#import "CPTGraph.h"
+
 #import "CPTAxis.h"
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
-#import "CPTGraph.h"
 #import "CPTLayerAnnotation.h"
 #import "CPTLegend.h"
 #import "CPTMutableTextStyle.h"

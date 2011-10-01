@@ -1,7 +1,8 @@
+#import "CPTPlotSpaceAnnotation.h"
+
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
-#import "CPTPlotSpaceAnnotation.h"
 
 /**	@brief Positions a content layer relative to some anchor point in a plot space.
  *	@todo More documentation needed.

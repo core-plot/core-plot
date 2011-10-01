@@ -1,5 +1,6 @@
-#import "CPTAnnotation.h"
 #import "CPTAnnotationHostLayer.h"
+
+#import "CPTAnnotation.h"
 #import "CPTExceptions.h"
 
 /**	@cond */

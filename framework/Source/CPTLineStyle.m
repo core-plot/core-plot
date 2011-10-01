@@ -1,5 +1,6 @@
-#import "CPTColor.h"
 #import "CPTLineStyle.h"
+
+#import "CPTColor.h"
 #import "CPTMutableLineStyle.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"

@@ -1,6 +1,7 @@
+#import "CPTTextStyle.h"
+
 #import "CPTColor.h"
 #import "CPTMutableTextStyle.h"
-#import "CPTTextStyle.h"
 #import "NSCoderExtensions.h"
 
 /**	@cond */

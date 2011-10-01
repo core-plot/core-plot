@@ -1,7 +1,8 @@
+#import "CPTXYGraph.h"
+
 #import "CPTExceptions.h"
 #import "CPTXYAxis.h"
 #import "CPTXYAxisSet.h"
-#import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
 /**	@cond */

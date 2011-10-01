@@ -1,4 +1,5 @@
 #import "CPTNumericData+TypeConversion.h"
+
 #import "CPTUtilities.h"
 #import "complex.h"
 

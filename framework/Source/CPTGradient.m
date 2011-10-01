@@ -1,6 +1,7 @@
+#import "CPTGradient.h"
+
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
-#import "CPTGradient.h"
 #import "CPTLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"

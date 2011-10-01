@@ -1,3 +1,5 @@
+#import "CPTPieChart.h"
+
 #import "CPTColor.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -5,7 +7,6 @@
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData.h"
 #import "CPTPathExtensions.h"
-#import "CPTPieChart.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"

@@ -1,3 +1,5 @@
+#import "CPTRangePlot.h"
+
 #import "CPTColor.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
@@ -10,7 +12,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
-#import "CPTRangePlot.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"

@@ -1,8 +1,9 @@
+#import "CPTTextStylePlatformSpecific.h"
+
 #import "CPTColor.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTTextStyle.h"
-#import "CPTTextStylePlatformSpecific.h"
 
 @implementation NSString(CPTTextStyleExtensions)
 

@@ -1,6 +1,6 @@
-#import "CPTExceptions.h"
 #import "CPTMutableNumericData.h"
-#import "CPTNumericData.h"
+
+#import "CPTExceptions.h"
 
 /**	@cond */
 @interface CPTMutableNumericData()

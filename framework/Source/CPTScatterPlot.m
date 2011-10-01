@@ -1,3 +1,5 @@
+#import "CPTScatterPlot.h"
+
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -9,7 +11,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTPlotSymbol.h"
-#import "CPTScatterPlot.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"

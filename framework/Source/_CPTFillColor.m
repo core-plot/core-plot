@@ -1,5 +1,6 @@
-#import "CPTColor.h"
 #import "_CPTFillColor.h"
+
+#import "CPTColor.h"
 
 /**	@cond */
 @interface _CPTFillColor()

@@ -1,4 +1,5 @@
 #import "CPTMutableNumericData+TypeConversion.h"
+
 #import "CPTNumericData+TypeConversion.h"
 
 @implementation CPTMutableNumericData(TypeConversion)

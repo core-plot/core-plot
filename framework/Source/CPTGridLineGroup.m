@@ -1,6 +1,7 @@
+#import "CPTGridLineGroup.h"
+
 #import "CPTAxis.h"
 #import "CPTAxisSet.h"
-#import "CPTGridLineGroup.h"
 #import "CPTGridLines.h"
 #import "CPTPlotArea.h"
 

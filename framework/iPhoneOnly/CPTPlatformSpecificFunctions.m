@@ -1,5 +1,6 @@
-#import "CPTExceptions.h"
 #import "CPTPlatformSpecificFunctions.h"
+
+#import "CPTExceptions.h"
 #import <UIKit/UIKit.h>
 
 void CPTPushCGContext( CGContextRef newContext )

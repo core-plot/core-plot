@@ -1,5 +1,6 @@
-#import "CPTColor.h"
 #import "CPTFill.h"
+
+#import "CPTColor.h"
 #import "CPTImage.h"
 #import "_CPTFillColor.h"
 #import "_CPTFillGradient.h"

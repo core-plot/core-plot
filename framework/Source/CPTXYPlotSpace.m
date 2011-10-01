@@ -1,3 +1,5 @@
+#import "CPTXYPlotSpace.h"
+
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
@@ -8,7 +10,6 @@
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
 #import "CPTXYAxisSet.h"
-#import "CPTXYPlotSpace.h"
 #import "NSNumberExtensions.h"
 
 /**	@cond */

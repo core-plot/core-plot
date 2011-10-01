@@ -1,6 +1,7 @@
+#import "CPTPlotRange.h"
+
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificCategories.h"
-#import "CPTPlotRange.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"

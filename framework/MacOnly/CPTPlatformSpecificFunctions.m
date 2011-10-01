@@ -1,6 +1,7 @@
+#import "CPTPlatformSpecificFunctions.h"
+
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificDefines.h"
-#import "CPTPlatformSpecificFunctions.h"
 
 #pragma mark -
 #pragma mark Graphics Context

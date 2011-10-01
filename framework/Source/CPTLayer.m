@@ -1,7 +1,8 @@
+#import "CPTLayer.h"
+
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
-#import "CPTLayer.h"
 #import "CPTLineStyle.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificDefines.h"

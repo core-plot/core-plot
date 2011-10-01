@@ -1,6 +1,7 @@
+#import "CPTShadow.h"
+
 #import "CPTColor.h"
 #import "CPTMutableShadow.h"
-#import "CPTShadow.h"
 #import "NSCoderExtensions.h"
 
 /**	@cond */

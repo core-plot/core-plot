@@ -1,5 +1,6 @@
-#import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
+
+#import "CPTGraph.h"
 
 /**	@brief A container view for displaying a CPTGraph.
  **/

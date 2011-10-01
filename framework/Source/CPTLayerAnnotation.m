@@ -1,7 +1,8 @@
+#import "CPTLayerAnnotation.h"
+
 #import "CPTAnnotationHostLayer.h"
 #import "CPTConstraints.h"
 #import "CPTLayer.h"
-#import "CPTLayerAnnotation.h"
 
 /**	@cond */
 @interface CPTLayerAnnotation()

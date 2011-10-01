@@ -1,6 +1,7 @@
+#import "CPTPlotSymbol.h"
+
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
-#import "CPTPlotSymbol.h"
 #import "CPTShadow.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>

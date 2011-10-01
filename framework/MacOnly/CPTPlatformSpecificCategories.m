@@ -1,4 +1,5 @@
 #import "CPTPlatformSpecificCategories.h"
+
 #import "CPTUtilities.h"
 #import <AppKit/AppKit.h>
 

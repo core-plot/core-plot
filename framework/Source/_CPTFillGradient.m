@@ -1,5 +1,6 @@
-#import "CPTGradient.h"
 #import "_CPTFillGradient.h"
+
+#import "CPTGradient.h"
 
 /**	@cond */
 @interface _CPTFillGradient()

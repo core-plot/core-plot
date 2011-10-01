@@ -1,6 +1,7 @@
+#import "CPTPlotSpace.h"
+
 #import "CPTAxisSet.h"
 #import "CPTLayer.h"
-#import "CPTPlotSpace.h"
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 

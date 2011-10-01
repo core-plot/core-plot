@@ -1,6 +1,7 @@
+#import "CPTTheme.h"
+
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
-#import "CPTTheme.h"
 
 ///	@defgroup themeNames Theme Names
 

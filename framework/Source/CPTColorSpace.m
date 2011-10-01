@@ -1,4 +1,5 @@
 #import "CPTColorSpace.h"
+
 #import "NSCoderExtensions.h"
 
 /**	@cond */

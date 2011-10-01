@@ -1,6 +1,7 @@
+#import "CPTTextLayer.h"
+
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTShadow.h"
-#import "CPTTextLayer.h"
 #import <tgmath.h>
 
 const CGFloat kCPTTextLayerMarginWidth = 1.0;

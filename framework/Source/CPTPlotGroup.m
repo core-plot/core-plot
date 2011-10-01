@@ -1,5 +1,6 @@
-#import "CPTPlot.h"
 #import "CPTPlotGroup.h"
+
+#import "CPTPlot.h"
 
 /**	@brief Defines the coordinate system of a plot.
  **/

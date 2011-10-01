@@ -1,5 +1,6 @@
-#import "CPTImage.h"
 #import "_CPTFillImage.h"
+
+#import "CPTImage.h"
 
 /**	@cond */
 @interface _CPTFillImage()
