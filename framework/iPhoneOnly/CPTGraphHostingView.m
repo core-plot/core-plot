@@ -283,18 +283,27 @@
 -(void)setFrame:(CGRect)newFrame
 {
     [super setFrame:newFrame];
+	
 	[hostedGraph setNeedsLayout];
-    if ( !collapsesLayers ) 
-    	hostedGraph.frame = self.bounds;
-    else 
+    if ( collapsesLayers ) {
     	[self setNeedsDisplay];
+	}
+    else {
+    	hostedGraph.frame = self.bounds;
+	}
 }
 
 -(void)setBounds:(CGRect)newBounds
 {
     [super setBounds:newBounds];
+	
 	[hostedGraph setNeedsLayout];
-    if ( collapsesLayers ) [self setNeedsDisplay];
+    if ( collapsesLayers ) {
+		[self setNeedsDisplay];
+	}
+	else {
+		hostedGraph.frame = newBounds;
+	}
 }
 
 @end
