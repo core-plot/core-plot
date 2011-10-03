@@ -35,6 +35,7 @@
 		4F8E1C6012907C1800D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */; };
 		4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */; };
 		C354C0D413C7CDA900DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D313C7CDA900DA8822 /* RealTimePlot.m */; };
+		C35597A21437E09300B41DA7 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597A11437E09300B41DA7 /* ControlChart.m */; };
 		C360E1C913B18ABC007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C813B18ABC007994B6 /* OHLCPlot.m */; };
 		C360E1DA13B18B24007994B6 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1D913B18B24007994B6 /* AxisDemo.m */; };
 		C360E1EE13B18CCC007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */; };
@@ -109,6 +110,8 @@
 		8D1107310486CEB800E47090 /* Plot_Gallery-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Plot_Gallery-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C354C0D213C7CDA900DA8822 /* RealTimePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealTimePlot.h; path = src/plots/RealTimePlot.h; sourceTree = "<group>"; };
 		C354C0D313C7CDA900DA8822 /* RealTimePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RealTimePlot.m; path = src/plots/RealTimePlot.m; sourceTree = "<group>"; };
+		C35597A01437E09300B41DA7 /* ControlChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlChart.h; path = src/plots/ControlChart.h; sourceTree = "<group>"; };
+		C35597A11437E09300B41DA7 /* ControlChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlChart.m; path = src/plots/ControlChart.m; sourceTree = "<group>"; };
 		C360E1C713B18ABC007994B6 /* OHLCPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OHLCPlot.h; path = src/plots/OHLCPlot.h; sourceTree = "<group>"; };
 		C360E1C813B18ABC007994B6 /* OHLCPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OHLCPlot.m; path = src/plots/OHLCPlot.m; sourceTree = "<group>"; };
 		C360E1D813B18B24007994B6 /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 				C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */,
 				4F22FE3C123404C2006BF615 /* CompositePlot.h */,
 				4F22FE3D123404C2006BF615 /* CompositePlot.m */,
+				C35597A01437E09300B41DA7 /* ControlChart.h */,
+				C35597A11437E09300B41DA7 /* ControlChart.m */,
 				4F8E1C5E12907C1800D2035F /* DatePlot.h */,
 				4F8E1C5F12907C1800D2035F /* DatePlot.m */,
 				C3F34F2812AB25AE008FBDC3 /* DonutChart.h */,
@@ -387,6 +392,7 @@
 				C39C4E3E13BFE19E00CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C354C0D413C7CDA900DA8822 /* RealTimePlot.m in Sources */,
 				C367249F13E103AC0070F47A /* LineCapDemo.m in Sources */,
+				C35597A21437E09300B41DA7 /* ControlChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
