@@ -6,6 +6,20 @@
 #endif
 
 
+/**	@cond */
+// for MacOS 10.6 SDK compatibility
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1070
+@interface NSScreen(CPTExtensions)
+
+@property (readonly) CGFloat backingScaleFactor;
+
+@end
+#endif
+#endif
+/**	@endcond */
+
 /**	@brief Wrapper around CGImageRef.
  *
  *	A wrapper class around CGImageRef.

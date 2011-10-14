@@ -1,6 +1,20 @@
 #import "CPTGraphHostingView.h"
 #import "CPTGraph.h"
 
+/**	@cond */
+// for MacOS 10.6 SDK compatibility
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 1070
+@interface NSWindow(CPTExtensions)
+
+@property (readonly) CGFloat backingScaleFactor;
+
+@end
+#endif
+#endif
+/**	@endcond */
+
 /**	@brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
