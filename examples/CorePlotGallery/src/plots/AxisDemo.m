@@ -47,7 +47,7 @@
 	graph.plotAreaFrame.paddingTop = 20.0;
 	graph.plotAreaFrame.paddingBottom = 50.0;
 	graph.plotAreaFrame.paddingLeft = 50.0;
-	graph.plotAreaFrame.paddingRight = 20.0;
+	graph.plotAreaFrame.paddingRight = 50.0;
 	graph.plotAreaFrame.cornerRadius = 10.0;
 	
 	graph.plotAreaFrame.axisSet.borderLineStyle = [CPTLineStyle lineStyle];
@@ -83,7 +83,7 @@
     CPTXYAxis *x = axisSet.xAxis;
 	x.separateLayers = NO;
 	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5);
-    x.majorIntervalLength = CPTDecimalFromString(@"0.5");
+    x.majorIntervalLength = CPTDecimalFromDouble(0.5);
     x.minorTicksPerInterval = 4;
 	x.tickDirection = CPTSignNone;
 	x.axisLineStyle = axisLineStyle;
@@ -97,18 +97,19 @@
 	x.titleOffset = 25.0;
 	x.alternatingBandFills = [NSArray arrayWithObjects:[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1], nil];
 	
-	// Label y with an automatic label policy.
+	// Label y with an automatic labeling policy.
 	axisLineStyle.lineColor = [CPTColor greenColor];
 	
     CPTXYAxis *y = axisSet.yAxis;
+	y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 	y.separateLayers = YES;
     y.minorTicksPerInterval = 9;
-	y.tickDirection = CPTSignNone;
+	y.tickDirection = CPTSignNegative;
 	y.axisLineStyle = axisLineStyle;
-	y.majorTickLength = 12.0;
+	y.majorTickLength = 6.0;
 	y.majorTickLineStyle = axisLineStyle;
     y.majorGridLineStyle = majorGridLineStyle;
-	y.minorTickLength = 8.0;
+	y.minorTickLength = 4.0;
     y.minorGridLineStyle = minorGridLineStyle;
 	y.title = @"Y Axis";
 	y.titleTextStyle = axisTitleTextStyle;
@@ -118,6 +119,29 @@
 	CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
 	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
 	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.0)] fill:bandFill]];
+
+	// Label y2 with an equal division labeling policy.
+	axisLineStyle.lineColor = [CPTColor orangeColor];
+	
+    CPTXYAxis *y2 = [[[CPTXYAxis alloc] init] autorelease];
+	y2.coordinate = CPTCoordinateY;
+	y2.plotSpace = plotSpace;
+	y2.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-10.0);
+	y2.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
+	y2.separateLayers = NO;
+	y2.preferredNumberOfMajorTicks = 6;
+    y2.minorTicksPerInterval = 9;
+	y2.tickDirection = CPTSignPositive;
+	y2.axisLineStyle = axisLineStyle;
+	y2.majorTickLength = 6.0;
+	y2.majorTickLineStyle = axisLineStyle;
+	y2.minorTickLength = 4.0;
+	y2.title = @"Y2 Axis";
+	y2.titleTextStyle = axisTitleTextStyle;
+	y2.titleOffset = 30.0;
+	
+	// Add the y2 axis to the axis set
+	graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
 }
 
 @end
