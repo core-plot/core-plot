@@ -79,6 +79,8 @@
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom;
 ///	@}
 
+-(void)logLayers;
+
 @end
 
 /**	@cond */

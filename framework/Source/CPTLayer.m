@@ -32,6 +32,7 @@
 @property (nonatomic, readwrite, assign) BOOL useFastRendering;
 
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
+-(NSString *)subLayersAtIndex:(NSUInteger)index;
 
 @end
 /**	@endcond */
@@ -834,5 +835,29 @@
 {
 	return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPTStringFromRect(self.bounds)];
 };
+
+/**	@brief Logs this layer and all of its sublayers.
+ **/
+-(void)logLayers
+{
+	NSLog(@"Layer tree:\n%@", [self subLayersAtIndex:0]);
+}
+
+-(NSString *)subLayersAtIndex:(NSUInteger)index
+{
+	NSMutableString *result = [NSMutableString string];
+	
+	for ( NSUInteger i = 0; i < index; i++ ) {
+		[result appendString:@"    "];
+	}
+	[result appendString:[self description]];
+	
+	for ( CPTLayer *sublayer in self.sublayers ) {
+		[result appendString:@"\n"];
+		[result appendString:[sublayer subLayersAtIndex:index + 1]];
+	}
+	
+	return result;
+}
 
 @end
