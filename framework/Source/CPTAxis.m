@@ -1963,8 +1963,8 @@ double niceNum(double x, BOOL round)
 			}
 		}
 		else {
-			self.minorGridLines = nil;
-			self.majorGridLines = nil;
+			[self.minorGridLines removeFromSuperlayer];
+			[self.majorGridLines removeFromSuperlayer];
 			for ( CPTAxisLabel *label in self.axisLabels ) {
 				[label.contentLayer removeFromSuperlayer];
 			}
