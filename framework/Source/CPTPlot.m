@@ -795,7 +795,7 @@
 				}
 			}
 			
-			if ( max > min ) {
+			if ( max >= min ) {
 				range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min) length:CPTDecimalFromDouble(max - min)];
 			}
 		}
@@ -818,7 +818,7 @@
 				}
 			}
 			
-			if ( CPTDecimalGreaterThan(max, min) ) {
+			if ( CPTDecimalGreaterThanOrEqualTo(max, min) ) {
 				range = [CPTPlotRange plotRangeWithLocation:min length:CPTDecimalSubtract(max, min)];
 			}
 		}
