@@ -796,7 +796,7 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 
 -(void)legendNeedsReloadEntries:(NSNotification *)notif
 {
-	CPTPlot *thePlot = (CPTPlot *)notif;
+	CPTPlot *thePlot = (CPTPlot *)notif.object;
 	NSMutableArray *theLegendEntries = self.legendEntries;
 	
 	NSUInteger legendEntryIndex = 0;

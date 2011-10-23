@@ -200,6 +200,12 @@ static const CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Data Loading
 
+-(void)reloadData
+{
+	[super reloadData];
+	[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsReloadEntriesForPlotNotification object:self];
+}
+
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
 	[super reloadDataInIndexRange:indexRange];
