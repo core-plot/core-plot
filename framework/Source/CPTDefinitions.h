@@ -2,7 +2,32 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import <Availability.h>
+#import <TargetConditionals.h>
+
 /// @file
+
+/**
+ *	@brief A custom definition for ARC weak references that falls back to unsafe unretained values on older platforms
+ **/
+
+// This is based on Ryan Petrich's ZWRCompatibility: https://github.com/rpetrich/ZWRCompatibility
+
+#if TARGET_OS_IPHONE && defined(__IPHONE_5_0) && (__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0)
+#define CPT_SDK_SUPPORTS_WEAK 1
+#elif TARGET_OS_MAC && defined(__MAC_10_7) && (MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_7)
+#define CPT_SDK_SUPPORTS_WEAK 1
+#else
+#define CPT_SDK_SUPPORTS_WEAK 0
+#endif
+
+#if CPT_SDK_SUPPORTS_WEAK
+#define __cpt_weak __weak
+#define cpt_weak_property weak
+#else
+#define __cpt_weak __unsafe_unretained
+#define cpt_weak_property assign
+#endif
 
 /**
  *	@brief Enumeration of numeric types

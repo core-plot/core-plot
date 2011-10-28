@@ -36,8 +36,8 @@
 @interface CPTAxis ()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, assign) __weak CPTGridLines *minorGridLines;
-@property (nonatomic, readwrite, assign) __weak CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, assign) __cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readwrite, assign) __cpt_weak CPTGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableBackgroundLimitBands;
 

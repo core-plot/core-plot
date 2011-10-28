@@ -6,13 +6,13 @@
 
 @interface CPTLayerAnnotation : CPTAnnotation {
 @private
-	__weak CPTLayer *anchorLayer;
+	__cpt_weak CPTLayer *anchorLayer;
 	CPTConstraints *xConstraints;
     CPTConstraints *yConstraints;
     CPTRectAnchor rectAnchor;
 }
 
-@property (nonatomic, readonly, assign) __weak CPTLayer *anchorLayer;
+@property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTLayer *anchorLayer;
 @property (nonatomic, readwrite, assign) CPTRectAnchor rectAnchor;
 
 -(id)initWithAnchorLayer:(CPTLayer *)anchorLayer;

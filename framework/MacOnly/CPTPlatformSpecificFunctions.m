@@ -3,6 +3,13 @@
 #import "CPTPlatformSpecificDefines.h"
 #import "CPTDefinitions.h"
 
+/**	@brief Node in a linked list of graphics contexts.
+ **/
+typedef struct _CPTContextNode {
+	NSGraphicsContext *context;			///< The graphics context.
+	struct _CPTContextNode *nextNode;	///< Pointer to the next node in the list.
+} CPTContextNode;
+
 #pragma mark -
 #pragma mark Graphics Context
 
