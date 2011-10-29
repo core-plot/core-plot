@@ -96,6 +96,12 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p);
 CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s);
 CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r);
 /// @}
+    
+/// @name Integral Geometry Conversions
+/// @{
+CGPoint CPTPointIntegral(CGPoint p);
+CGSize CPTSizeIntegral(CGSize s);
+/// @}
 
 /// @name String formatting for Core Graphics structs
 /// @{

@@ -720,6 +720,27 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
 }
 
 #pragma mark -
+#pragma mark Integral Geometry Conversions
+
+/**	@brief Converts a point to rounded integral values.
+ *	@param p The point.
+ *	@return Point with values rounded to nearest integral value.
+ **/
+CGPoint CPTPointIntegral(CGPoint p) 
+{
+    return CGPointMake(round(p.x), round(p.y));
+}
+
+/**	@brief Converts a size to rounded integral values.
+ *	@param s The size.
+ *	@return Size with values rounded to nearest integral value.
+ **/
+CGSize CPTSizeIntegral(CGSize s) 
+{
+    return CGSizeMake(round(s.width), round(s.height));
+}
+
+#pragma mark -
 #pragma mark String formatting for Core Graphics structs
 
 /**	@brief Creates a string representation of the given point.

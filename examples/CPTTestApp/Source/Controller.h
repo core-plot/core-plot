@@ -9,7 +9,7 @@
 	IBOutlet NSWindow *selectionDemoWindow;
     CPTXYGraph *graph;
 	RotationView *overlayRotationView;
-    CPTLayerAnnotation *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation *symbolTextAnnotation;
     CGFloat xShift;
     CGFloat yShift;
     CGFloat labelRotation;
