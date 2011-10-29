@@ -33,6 +33,8 @@ typedef enum _CPTAxisLabelingPolicy {
  **/
 @protocol CPTAxisDelegate <NSObject>
 
+@optional
+
 /// @name Labels
 /// @{
 
@@ -47,8 +49,6 @@ typedef enum _CPTAxisLabelingPolicy {
  *	@param axis The axis.
  **/
 -(void)axisDidRelabel:(CPTAxis *)axis;
-
-@optional
 
 /**	@brief This method gives the delegate a chance to create custom labels for each tick.
  *  It can be used with any relabeling policy. Returning NO will cause the axis not

@@ -118,7 +118,6 @@
 		4C97EF13104D819100B554F9 /* CPTMutableNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF11104D819100B554F9 /* CPTMutableNumericData.m */; };
 		4C97EF16104D81D200B554F9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EF14104D81D200B554F9 /* NSExceptionExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4C97EF17104D81D200B554F9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF15104D81D200B554F9 /* NSExceptionExtensions.m */; };
-		4C97EF4D104D843E00B554F9 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4C97EF4C104D843E00B554F9 /* license.txt */; };
 		4CD7E7E70F4B4F8200F9BCBB /* CPTTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7E50F4B4F8200F9BCBB /* CPTTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD7E7E80F4B4F8200F9BCBB /* CPTTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E7E60F4B4F8200F9BCBB /* CPTTextLayer.m */; };
 		4CD7E7EC0F4B4F9600F9BCBB /* CPTLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD7E7EA0F4B4F9600F9BCBB /* CPTLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1259,7 +1258,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
-				4C97EF4D104D843E00B554F9 /* license.txt in Resources */,
 				071F3CB910FBAB5900D0A7B6 /* License.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

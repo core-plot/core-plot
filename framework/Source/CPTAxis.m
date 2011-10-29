@@ -1198,7 +1198,7 @@ double niceNum(double x, BOOL round)
 {
     if ( !self.needsRelabel ) return;
 	if ( !self.plotSpace ) return;
-	if ( self.delegate && ![self.delegate axisShouldRelabel:self] ) {
+	if ( [self.delegate respondsToSelector:@selector(axisShouldRelabel:)] && ![self.delegate axisShouldRelabel:self] ) {
         self.needsRelabel = NO;
         return;
     }
@@ -1263,7 +1263,7 @@ double niceNum(double x, BOOL round)
 		[self.plotArea setNeedsDisplay];
 	}
 	
-	[self.delegate axisDidRelabel:self];
+	if ( [self.delegate respondsToSelector:@selector(axisDidRelabel:)] ) [self.delegate axisDidRelabel:self];
 }
 
 /**	@brief Update the major tick mark labels.
