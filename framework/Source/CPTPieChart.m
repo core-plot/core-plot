@@ -47,7 +47,8 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 
 #pragma mark -
 
-/** @brief A pie chart.
+/**
+ *	@brief A pie chart.
  **/
 @implementation CPTPieChart
 

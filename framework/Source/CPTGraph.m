@@ -285,14 +285,16 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 #pragma mark Retrieving Plots
 
-/**	@brief Makes all plots reload their data.
+/**
+ *	@brief Makes all plots reload their data.
  **/
 -(void)reloadData
 {
 	[self.plots makeObjectsPerformSelector:@selector(reloadData)];
 }
 
-/**	@brief Makes all plots reload their data if their data cache is out of date.
+/**
+ *	@brief Makes all plots reload their data if their data cache is out of date.
  **/
 -(void)reloadDataIfNeeded
 {

@@ -367,14 +367,16 @@
 #pragma mark -
 #pragma mark Data Source
 
-/**	@brief Marks the receiver as needing the data source reloaded before the content is next drawn.
+/**
+ *	@brief Marks the receiver as needing the data source reloaded before the content is next drawn.
  **/
 -(void)setDataNeedsReloading
 {
 	self.dataNeedsReloading = YES;
 }
 
-/**	@brief Reload all plot data from the data source immediately.
+/**
+ *	@brief Reload all plot data from the data source immediately.
  **/
 -(void)reloadData
 {
@@ -383,7 +385,8 @@
 	[self reloadDataInIndexRange:NSMakeRange( 0, [self.dataSource numberOfRecordsForPlot:self] )];
 }
 
-/**	@brief Reload plot data from the data source only if the data cache is out of date.
+/**
+ *	@brief Reload plot data from the data source only if the data cache is out of date.
  **/
 -(void)reloadDataIfNeeded
 {
@@ -881,7 +884,8 @@
 #pragma mark -
 #pragma mark Data Labels
 
-/**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
+/**
+ *	@brief Marks the receiver as needing to update the labels before the content is next drawn.
  **/
 -(void)setNeedsRelabel
 {
@@ -889,7 +893,8 @@
 	self.needsRelabel	 = YES;
 }
 
-/**	@brief Updates the data labels.
+/**
+ *	@brief Updates the data labels.
  **/
 -(void)relabel
 {
@@ -1023,7 +1028,8 @@
 	}
 }
 
-/**	@brief Repositions all existing label annotations.
+/**
+ *	@brief Repositions all existing label annotations.
  **/
 -(void)repositionAllLabelAnnotations
 {

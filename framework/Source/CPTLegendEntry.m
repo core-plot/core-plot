@@ -15,7 +15,8 @@
 
 #pragma mark -
 
-/**	@brief A graph legend entry.
+/**
+ *	@brief A graph legend entry.
  **/
 @implementation CPTLegendEntry
 

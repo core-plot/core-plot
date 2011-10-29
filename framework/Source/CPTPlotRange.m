@@ -6,7 +6,8 @@
 #import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"
 
-/** @brief Defines a range of plot data
+/**
+ *	@brief Defines a range of plot data
  **/
 @implementation CPTPlotRange
 

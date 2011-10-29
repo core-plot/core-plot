@@ -17,7 +17,8 @@
 
 #pragma mark -
 
-/** @brief A layer drawn on top of the graph layer and behind all plot elements.
+/**
+ *	@brief A layer drawn on top of the graph layer and behind all plot elements.
  **/
 @implementation CPTPlotAreaFrame
 

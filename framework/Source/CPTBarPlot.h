@@ -21,7 +21,8 @@ extern NSString *const CPTBarPlotBindingBarTips;
 extern NSString *const CPTBarPlotBindingBarBases;
 ///	@}
 
-/**	@brief Enumeration of bar plot data source field types
+/**
+ *	@brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPTBarPlotField {
 	CPTBarPlotFieldBarLocation = 2, ///< Bar location on independent coordinate axis.
@@ -32,7 +33,8 @@ CPTBarPlotField;
 
 #pragma mark -
 
-/**	@brief A bar plot data source.
+/**
+ *	@brief A bar plot data source.
  **/
 @protocol CPTBarPlotDataSource<CPTPlotDataSource>
 @optional
@@ -57,7 +59,8 @@ CPTBarPlotField;
 
 #pragma mark -
 
-/**	@brief Bar plot delegate.
+/**
+ *	@brief Bar plot delegate.
  **/
 @protocol CPTBarPlotDelegate<NSObject>
 

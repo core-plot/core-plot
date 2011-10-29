@@ -172,9 +172,9 @@
 }
 
 /*-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
-{
-    return nil;
-}*/
+ * {
+ *  return nil;
+ * }*/
 
 #pragma mark -
 #pragma mark Delegate Methods

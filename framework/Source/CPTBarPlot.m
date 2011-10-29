@@ -53,7 +53,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 #pragma mark -
 
-/** @brief A two-dimensional bar plot.
+/**
+ *	@brief A two-dimensional bar plot.
  **/
 @implementation CPTBarPlot
 

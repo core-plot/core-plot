@@ -54,7 +54,8 @@ CGFloat squareOfDistanceBetweenPoints( CGPoint point1, CGPoint point2 );
 
 #pragma mark -
 
-/** @brief A two-dimensional scatter plot.
+/**
+ *	@brief A two-dimensional scatter plot.
  **/
 @implementation CPTScatterPlot
 

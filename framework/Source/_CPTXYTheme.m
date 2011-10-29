@@ -5,7 +5,8 @@
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
-/** @brief Creates a CPTXYGraph instance formatted with padding of 60 on each side and X and Y plot ranges of +/- 1.
+/**
+ *	@brief Creates a CPTXYGraph instance formatted with padding of 60 on each side and X and Y plot ranges of +/- 1.
  **/
 @implementation _CPTXYTheme
 

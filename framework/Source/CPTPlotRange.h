@@ -3,7 +3,8 @@
 
 /// @file
 
-/**	@brief Enumeration of possible results of a plot range comparison.
+/**
+ *	@brief Enumeration of possible results of a plot range comparison.
  **/
 typedef enum _CPTPlotRangeComparisonResult {
 	CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.

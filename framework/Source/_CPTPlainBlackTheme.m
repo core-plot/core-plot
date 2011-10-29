@@ -16,7 +16,8 @@
 
 NSString *const kCPTPlainBlackTheme = @"Plain Black"; ///< Plain black theme.
 
-/** @brief Creates a CPTXYGraph instance formatted with black backgrounds and white lines.
+/**
+ *	@brief Creates a CPTXYGraph instance formatted with black backgrounds and white lines.
  **/
 @implementation _CPTPlainBlackTheme
 

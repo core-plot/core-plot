@@ -426,8 +426,8 @@ NSDecimal CPTDecimalFromString( NSString *stringRepresentation )
 	// the NSScanner-based method: (307000 operations per second vs. 582000 operations per second for NSScanner)
 
 	/*	NSDecimalNumber *newNumber = [[NSDecimalNumber alloc] initWithString:@"1.0" locale:[NSLocale currentLocale]];
-	 newDecimal = [newNumber decimalValue];
-	 [newNumber release];*/
+	 * newDecimal = [newNumber decimalValue];
+	 * [newNumber release];*/
 
 	NSDecimal result;
 	NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
@@ -734,7 +734,7 @@ CGRect CPTAlignRectToUserSpace( CGContextRef context, CGRect r )
 
 /**	@brief Creates a string representation of the given point.
  *	@param p The point.
- *	@return A string with the format <code>{x, y}</code>.
+ *	@return A string with the format <code> {x, y}</code>.
  **/
 NSString *CPTStringFromPoint( CGPoint p )
 {
@@ -743,7 +743,7 @@ NSString *CPTStringFromPoint( CGPoint p )
 
 /**	@brief Creates a string representation of the given size.
  *	@param s The size.
- *	@return A string with the format <code>{width, height}</code>.
+ *	@return A string with the format <code> {width, height}</code>.
  **/
 NSString *CPTStringFromSize( CGSize s )
 {
@@ -752,7 +752,7 @@ NSString *CPTStringFromSize( CGSize s )
 
 /**	@brief Creates a string representation of the given rectangle.
  *	@param r The rectangle.
- *	@return A string with the format <code>{{x, y}, {width, height}}</code>.
+ *	@return A string with the format <code> {{x, y}, {width, height}}</code>.
  **/
 NSString *CPTStringFromRect( CGRect r )
 {

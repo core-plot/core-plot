@@ -6,7 +6,8 @@
 @class CPTLineStyle;
 @class CPTFill;
 
-/**	@brief Line cap types.
+/**
+ *	@brief Line cap types.
  **/
 typedef enum _CPTLineCapType {
 	CPTLineCapTypeNone,       ///< No line cap.

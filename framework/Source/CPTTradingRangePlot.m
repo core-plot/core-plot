@@ -62,7 +62,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 #pragma mark -
 
-/** @brief A trading range financial plot.
+/**
+ *	@brief A trading range financial plot.
  **/
 @implementation CPTTradingRangePlot
 

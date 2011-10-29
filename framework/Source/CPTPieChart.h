@@ -17,7 +17,8 @@
 extern NSString *const CPTPieChartBindingPieSliceWidthValues;
 ///	@}
 
-/**	@brief Enumeration of pie chart data source field types.
+/**
+ *	@brief Enumeration of pie chart data source field types.
  **/
 typedef enum _CPTPieChartField {
 	CPTPieChartFieldSliceWidth,           ///< Pie slice width.
@@ -26,7 +27,8 @@ typedef enum _CPTPieChartField {
 }
 CPTPieChartField;
 
-/**	@brief Enumeration of pie slice drawing directions.
+/**
+ *	@brief Enumeration of pie slice drawing directions.
  **/
 typedef enum _CPTPieDirection {
 	CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
@@ -36,7 +38,8 @@ CPTPieDirection;
 
 #pragma mark -
 
-/**	@brief A pie chart data source.
+/**
+ *	@brief A pie chart data source.
  **/
 @protocol CPTPieChartDataSource<CPTPlotDataSource>
 @optional
@@ -72,7 +75,8 @@ CPTPieDirection;
 
 #pragma mark -
 
-/**	@brief Pie chart delegate.
+/**
+ *	@brief Pie chart delegate.
  **/
 @protocol CPTPieChartDelegate<NSObject>
 

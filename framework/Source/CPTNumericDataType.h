@@ -2,7 +2,8 @@
 
 /// @file
 
-/**	@brief Enumeration of data formats for numeric data.
+/**
+ *	@brief Enumeration of data formats for numeric data.
  **/
 typedef enum _CPTDataTypeFormat {
 	CPTUndefinedDataType = 0,        ///< Undefined
@@ -14,7 +15,8 @@ typedef enum _CPTDataTypeFormat {
 }
 CPTDataTypeFormat;
 
-/**	@brief Struct that describes the encoding of numeric data samples.
+/**
+ *	@brief Struct that describes the encoding of numeric data samples.
  **/
 typedef struct _CPTNumericDataType {
 	CPTDataTypeFormat dataTypeFormat; ///< Data type format

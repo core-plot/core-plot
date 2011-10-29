@@ -27,7 +27,8 @@ NSString *const kCPTSlateTheme = @"Slate"; ///< Slate theme.
 
 #pragma mark -
 
-/** @brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
+/**
+ *	@brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
  **/
 @implementation _CPTSlateTheme
 

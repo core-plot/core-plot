@@ -51,8 +51,8 @@
 -(IBAction)toggleView
 {
 	/*
-	 This method is called when the info or Done button is pressed.
-	 It flips the displayed view from the main view to the flipside view and vice-versa.
+	 * This method is called when the info or Done button is pressed.
+	 * It flips the displayed view from the main view to the flipside view and vice-versa.
 	 */
 	if ( flipsideViewController == nil ) {
 		[self loadFlipsideViewController];
@@ -90,12 +90,12 @@
 }
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ * // Override to allow orientations other than the default portrait orientation.
+ * - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ *  // Return YES for supported orientations
+ *  return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ * }
+ */
 
 -(void)didReceiveMemoryWarning
 {

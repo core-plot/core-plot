@@ -17,7 +17,8 @@
 @class CPTPlotArea;
 @class CPTShadow;
 
-/**	@brief Enumeration of labeling policies
+/**
+ *	@brief Enumeration of labeling policies
  **/
 typedef enum _CPTAxisLabelingPolicy {
 	CPTAxisLabelingPolicyNone,              ///< No labels provided; user sets labels and tick locations.
@@ -30,7 +31,8 @@ CPTAxisLabelingPolicy;
 
 #pragma mark -
 
-/**	@brief Axis labeling delegate.
+/**
+ *	@brief Axis labeling delegate.
  **/
 @protocol CPTAxisDelegate<NSObject>
 

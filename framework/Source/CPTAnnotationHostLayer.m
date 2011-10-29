@@ -82,7 +82,8 @@
 	return [[self.mutableAnnotations copy] autorelease];
 }
 
-/**	@brief Adds an annotation to the receiver.
+/**
+ *	@brief Adds an annotation to the receiver.
  **/
 -(void)addAnnotation:(CPTAnnotation *)annotation
 {
@@ -93,7 +94,8 @@
 	}
 }
 
-/**	@brief Removes an annotation from the receiver.
+/**
+ *	@brief Removes an annotation from the receiver.
  **/
 -(void)removeAnnotation:(CPTAnnotation *)annotation
 {
@@ -106,7 +108,8 @@
 	}
 }
 
-/**	@brief Removes all annotations from the receiver.
+/**
+ *	@brief Removes all annotations from the receiver.
  **/
 -(void)removeAllAnnotations
 {

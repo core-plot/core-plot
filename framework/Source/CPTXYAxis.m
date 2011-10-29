@@ -29,7 +29,8 @@
 
 #pragma mark -
 
-/**	@brief A 2-dimensional cartesian (X-Y) axis class.
+/**
+ *	@brief A 2-dimensional cartesian (X-Y) axis class.
  **/
 @implementation CPTXYAxis
 

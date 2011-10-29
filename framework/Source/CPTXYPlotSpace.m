@@ -28,7 +28,8 @@
 
 #pragma mark -
 
-/** @brief A plot space using a two-dimensional cartesian coordinate system.
+/**
+ *	@brief A plot space using a two-dimensional cartesian coordinate system.
  **/
 @implementation CPTXYPlotSpace
 

@@ -27,7 +27,8 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 ///	@}
 
-/**	@brief Axis labeling delegate.
+/**
+ *	@brief Axis labeling delegate.
  **/
 @protocol CPTLegendDelegate<NSObject>
 

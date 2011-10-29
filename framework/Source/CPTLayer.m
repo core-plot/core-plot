@@ -441,7 +441,8 @@
 #pragma mark -
 #pragma mark Layout
 
-/**	@brief Align the receiver's position with pixel boundaries.
+/**
+ *	@brief Align the receiver's position with pixel boundaries.
  **/
 -(void)pixelAlign
 {

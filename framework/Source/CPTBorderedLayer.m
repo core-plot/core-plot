@@ -4,7 +4,8 @@
 #import "CPTLineStyle.h"
 #import "CPTPathExtensions.h"
 
-/** @brief A layer with rounded corners.
+/**
+ *	@brief A layer with rounded corners.
  **/
 @implementation CPTBorderedLayer
 

@@ -483,7 +483,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark -
 #pragma mark Layout
 
-/**	@brief Marks the receiver as needing to update the layout of its legend entries.
+/**
+ *	@brief Marks the receiver as needing to update the layout of its legend entries.
  **/
 -(void)setLayoutChanged
 {

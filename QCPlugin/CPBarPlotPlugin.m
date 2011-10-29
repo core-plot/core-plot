@@ -3,17 +3,17 @@
 @implementation CPBarPlotPlugIn
 
 /*
- NOTE: It seems that QC plugins don't inherit dynamic input ports which is
- why all of the accessor declarations are duplicated here
+ * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
+ * why all of the accessor declarations are duplicated here
  */
 
 /*
- Accessor for the output image
+ * Accessor for the output image
  */
 @dynamic outputImage;
 
 /*
- Dynamic accessors for the static PlugIn inputs
+ * Dynamic accessors for the static PlugIn inputs
  */
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputPlotAreaColor;
@@ -23,7 +23,7 @@
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
- Bar plot special accessors
+ * Bar plot special accessors
  */
 @dynamic inputBaseValue, inputBarOffset, inputBarWidth, inputHorizontalBars;
 

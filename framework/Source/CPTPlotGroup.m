@@ -2,7 +2,8 @@
 
 #import "CPTPlot.h"
 
-/**	@brief Defines the coordinate system of a plot.
+/**
+ *	@brief Defines the coordinate system of a plot.
  **/
 @implementation CPTPlotGroup
 

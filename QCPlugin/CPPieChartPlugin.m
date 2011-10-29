@@ -3,17 +3,17 @@
 @implementation CPPieChartPlugIn
 
 /*
- NOTE: It seems that QC plugins don't inherit dynamic input ports which is
- why all of the accessor declarations are duplicated here
+ * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
+ * why all of the accessor declarations are duplicated here
  */
 
 /*
- Accessor for the output image
+ * Accessor for the output image
  */
 @dynamic outputImage;
 
 /*
- Dynamic accessors for the static PlugIn inputs
+ * Dynamic accessors for the static PlugIn inputs
  */
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputAxisLineWidth, inputAxisColor;
@@ -21,7 +21,7 @@
 @dynamic inputLabelColor;
 
 /*
- Pie chart special accessors
+ * Pie chart special accessors
  */
 @dynamic inputPieRadius, inputSliceLabelOffset, inputStartAngle, inputSliceDirection;
 

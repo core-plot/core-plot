@@ -15,7 +15,8 @@
 
 ///	@file
 
-/**	@brief Enumeration of cache precisions.
+/**
+ *	@brief Enumeration of cache precisions.
  **/
 typedef enum _CPTPlotCachePrecision {
 	CPTPlotCachePrecisionAuto,   ///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
@@ -26,7 +27,8 @@ CPTPlotCachePrecision;
 
 #pragma mark -
 
-/**	@brief A plot data source.
+/**
+ *	@brief A plot data source.
  **/
 @protocol CPTPlotDataSource<NSObject>
 

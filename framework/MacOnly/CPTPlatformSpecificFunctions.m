@@ -23,7 +23,8 @@ void CPTPushCGContext( CGContextRef newContext )
 	}
 }
 
-/**	@brief Pops the top context off the stack and restores it to the AppKit graphics context.
+/**
+ *	@brief Pops the top context off the stack and restores it to the AppKit graphics context.
  **/
 void CPTPopCGContext( void )
 {
@@ -38,7 +39,8 @@ void CPTPopCGContext( void )
 #pragma mark -
 #pragma mark Context
 
-/** @brief Get the default graphics context
+/**
+ *	@brief Get the default graphics context
  **/
 CGContextRef CPTGetCurrentContext( void )
 {

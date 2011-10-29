@@ -56,7 +56,8 @@ double niceNum( double x, BOOL round );
 
 #pragma mark -
 
-/**	@brief An abstract axis class.
+/**
+ *	@brief An abstract axis class.
  **/
 @implementation CPTAxis
 
@@ -1226,14 +1227,16 @@ double niceNum( double x, BOOL round )
 	self.labelFormatterChanged = NO;
 }
 
-/**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
+/**
+ *	@brief Marks the receiver as needing to update the labels before the content is next drawn.
  **/
 -(void)setNeedsRelabel
 {
 	self.needsRelabel = YES;
 }
 
-/**	@brief Updates the axis labels.
+/**
+ *	@brief Updates the axis labels.
  **/
 -(void)relabel
 {
@@ -1315,7 +1318,8 @@ double niceNum( double x, BOOL round )
 	[self.delegate axisDidRelabel:self];
 }
 
-/**	@brief Update the major tick mark labels.
+/**
+ *	@brief Update the major tick mark labels.
  **/
 -(void)updateMajorTickLabels
 {
@@ -1328,7 +1332,8 @@ double niceNum( double x, BOOL round )
 	}
 }
 
-/**	@brief Update the minor tick mark labels.
+/**
+ *	@brief Update the minor tick mark labels.
  **/
 -(void)updateMinorTickLabels
 {

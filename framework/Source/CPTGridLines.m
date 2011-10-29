@@ -2,7 +2,8 @@
 
 #import "CPTAxis.h"
 
-/**	@brief An abstract class that draws grid lines for an axis.
+/**
+ *	@brief An abstract class that draws grid lines for an axis.
  **/
 @implementation CPTGridLines
 

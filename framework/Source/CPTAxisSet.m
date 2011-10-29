@@ -6,7 +6,8 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 
-/**	@brief A container layer for the set of axes for a graph.
+/**
+ *	@brief A container layer for the set of axes for a graph.
  **/
 @implementation CPTAxisSet
 
@@ -76,7 +77,8 @@
 #pragma mark -
 #pragma mark Labeling
 
-/**	@brief Updates the axis labels for each axis in the axis set.
+/**
+ *	@brief Updates the axis labels for each axis in the axis set.
  **/
 -(void)relabelAxes
 {

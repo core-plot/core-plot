@@ -92,8 +92,8 @@
 }
 
 /*-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
-{
-    return nil;
-}*/
+ * {
+ *  return nil;
+ * }*/
 
 @end

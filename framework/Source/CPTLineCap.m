@@ -19,7 +19,8 @@
 
 #pragma mark -
 
-/**	@brief End cap decorations for lines.
+/**
+ *	@brief End cap decorations for lines.
  */
 @implementation CPTLineCap
 

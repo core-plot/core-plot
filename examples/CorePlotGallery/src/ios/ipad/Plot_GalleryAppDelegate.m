@@ -15,16 +15,16 @@
 #import "PlotItem.h"
 
 /*
-// Add new PlotItems to this list
-static NSString *plotClasses[] =
-{
-    @"SimpleScatterPlot",
-    @"GradientScatterPlot",
-    @"SimplePieChart",
-    @"VerticalBarChart",
-    @"CompositePlot"
-};
-*/
+ * // Add new PlotItems to this list
+ * static NSString *plotClasses[] =
+ * {
+ *  @"SimpleScatterPlot",
+ *  @"GradientScatterPlot",
+ *  @"SimplePieChart",
+ *  @"VerticalBarChart",
+ *  @"CompositePlot"
+ * };
+ */
 
 @implementation Plot_GalleryAppDelegate
 
@@ -39,17 +39,17 @@ static NSString *plotClasses[] =
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 /*
-    PlotGallery *gallery = [PlotGallery sharedPlotGallery];
-    int plotCount = sizeof(plotClasses)/sizeof(NSString *);
-
-    for (int i = 0; i < plotCount; i++) {
-        Class plotClass = NSClassFromString(plotClasses[i]);
-        id plotItem = [[[plotClass alloc] init] autorelease];
-        if (plotItem) {
-            [gallery addPlotItem:plotItem];
-        }
-    }
-*/
+ *  PlotGallery *gallery = [PlotGallery sharedPlotGallery];
+ *  int plotCount = sizeof(plotClasses)/sizeof(NSString *);
+ *
+ *  for (int i = 0; i < plotCount; i++) {
+ *      Class plotClass = NSClassFromString(plotClasses[i]);
+ *      id plotItem = [[[plotClass alloc] init] autorelease];
+ *      if (plotItem) {
+ *          [gallery addPlotItem:plotItem];
+ *      }
+ *  }
+ */
 	[[PlotGallery sharedPlotGallery] sortByTitle];
 	[window addSubview:splitViewController.view];
 	[window makeKeyAndVisible];

@@ -45,13 +45,13 @@ void drawErrorText( CGContextRef context, CGRect rect )
 // TODO: Make the port accessors dynamic, that way certain inputs can be removed based on settings and subclasses won't need the @dynamic declarations
 
 /*
-Accessor for the output image
-*/
+ * Accessor for the output image
+ */
 @dynamic outputImage;
 
 /*
-Dynamic accessors for the static PlugIn inputs
-*/
+ * Dynamic accessors for the static PlugIn inputs
+ */
 @dynamic inputPixelsWide, inputPixelsHigh;
 @dynamic inputPlotAreaColor;
 @dynamic inputAxisColor, inputAxisLineWidth, inputAxisMinorTickWidth, inputAxisMajorTickWidth, inputAxisMajorTickLength, inputAxisMinorTickLength;
@@ -60,15 +60,15 @@ Dynamic accessors for the static PlugIn inputs
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
 /*
-Synthesized accessors for internal PlugIn settings
-*/
+ * Synthesized accessors for internal PlugIn settings
+ */
 @synthesize numberOfPlots;
 
 +(NSDictionary *)attributes
 {
 	/*
-	Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
-	*/
+	 * Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
+	 */
 
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			kQCPlugIn_Name, QCPlugInAttributeNameKey,
@@ -79,8 +79,8 @@ Synthesized accessors for internal PlugIn settings
 +(QCPlugInExecutionMode)executionMode
 {
 	/*
-	Return the execution mode of the plug-in: kQCPlugInExecutionModeProvider, kQCPlugInExecutionModeProcessor, or kQCPlugInExecutionModeConsumer.
-	*/
+	 * Return the execution mode of the plug-in: kQCPlugInExecutionModeProvider, kQCPlugInExecutionModeProcessor, or kQCPlugInExecutionModeConsumer.
+	 */
 
 	return kQCPlugInExecutionModeProcessor;
 }
@@ -88,8 +88,8 @@ Synthesized accessors for internal PlugIn settings
 +(QCPlugInTimeMode)timeMode
 {
 	/*
-	Return the time dependency mode of the plug-in: kQCPlugInTimeModeNone, kQCPlugInTimeModeIdle or kQCPlugInTimeModeTimeBase.
-	*/
+	 * Return the time dependency mode of the plug-in: kQCPlugInTimeModeNone, kQCPlugInTimeModeIdle or kQCPlugInTimeModeTimeBase.
+	 */
 
 	return kQCPlugInTimeModeNone;
 }
@@ -98,8 +98,8 @@ Synthesized accessors for internal PlugIn settings
 {
 	if ( (self = [super init]) ) {
 		/*
-		Allocate any permanent resource required by the plug-in.
-		*/
+		 * Allocate any permanent resource required by the plug-in.
+		 */
 
 		[self createGraph];
 
@@ -117,8 +117,8 @@ Synthesized accessors for internal PlugIn settings
 -(void)finalize
 {
 	/*
-	Release any non garbage collected resources created in -init.
-	*/
+	 * Release any non garbage collected resources created in -init.
+	 */
 
 	[super finalize];
 }
@@ -126,8 +126,8 @@ Synthesized accessors for internal PlugIn settings
 -(void)dealloc
 {
 	/*
-	Release any resources created in -init.
-	*/
+	 * Release any resources created in -init.
+	 */
 
 	[self freeResources];
 
@@ -158,9 +158,9 @@ Synthesized accessors for internal PlugIn settings
 -(QCPlugInViewController *)createViewController
 {
 	/*
-	Return a new QCPlugInViewController to edit the internal settings of this plug-in instance.
-	You can return a subclass of QCPlugInViewController if necessary.
-	*/
+	 * Return a new QCPlugInViewController to edit the internal settings of this plug-in instance.
+	 * You can return a subclass of QCPlugInViewController if necessary.
+	 */
 
 	return [[QCPlugInViewController alloc] initWithPlugIn:self viewNibName:@"Settings"];
 }
@@ -197,7 +197,7 @@ Synthesized accessors for internal PlugIn settings
 +(NSDictionary *)attributesForPropertyPortWithKey:(NSString *)key
 {
 	/*
-	 Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
+	 * Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
 	 */
 
 	if ( [key isEqualToString:@"inputXMin"] ) {
@@ -672,8 +672,8 @@ static void _BufferReleaseCallback( const void *address, void *context )
 -(id)serializedValueForKey:(NSString *)key;
 {
 	/*
-	 Provide custom serialization for the plug-in internal settings that are not values complying to the <NSCoding> protocol.
-	 The return object must be nil or a PList compatible i.e. NSString, NSNumber, NSDate, NSData, NSArray or NSDictionary.
+	 * Provide custom serialization for the plug-in internal settings that are not values complying to the <NSCoding> protocol.
+	 * The return object must be nil or a PList compatible i.e. NSString, NSNumber, NSDate, NSData, NSArray or NSDictionary.
 	 */
 
 	if ( [key isEqualToString:@"numberOfPlots"] ) {
@@ -687,8 +687,8 @@ static void _BufferReleaseCallback( const void *address, void *context )
 -(void)setSerializedValue:(id)serializedValue forKey:(NSString *)key
 {
 	/*
-	 Provide deserialization for the plug-in internal settings that were custom serialized in -serializedValueForKey.
-	 Deserialize the value, then call [self setValue:value forKey:key] to set the corresponding internal setting of the plug-in instance to that deserialized value.
+	 * Provide deserialization for the plug-in internal settings that were custom serialized in -serializedValueForKey.
+	 * Deserialize the value, then call [self setValue:value forKey:key] to set the corresponding internal setting of the plug-in instance to that deserialized value.
 	 */
 
 	if ( [key isEqualToString:@"numberOfPlots"] ) {
@@ -705,21 +705,21 @@ static void _BufferReleaseCallback( const void *address, void *context )
 -(void)addPlotWithIndex:(NSUInteger)index
 {
 	/*
-	 Subclasses should override this method to create their own ports, plots, and add the plots to the graph
+	 * Subclasses should override this method to create their own ports, plots, and add the plots to the graph
 	 */
 }
 
 -(void)removePlots:(NSUInteger)count
 {
 	/*
-	 Subclasses should override this method to remove plots and their ports
+	 * Subclasses should override this method to remove plots and their ports
 	 */
 }
 
 -(BOOL)configurePlots
 {
 	/*
-	 Subclasses sjpi;d override this method to configure the plots (i.e., by using values from the input ports)
+	 * Subclasses sjpi;d override this method to configure the plots (i.e., by using values from the input ports)
 	 */
 
 	return YES;
@@ -728,8 +728,8 @@ static void _BufferReleaseCallback( const void *address, void *context )
 -(BOOL)configureGraph
 {
 	/*
-	 Subclasses can override this method to configure the graph (i.e., by using values from the input ports)
-	*/
+	 * Subclasses can override this method to configure the graph (i.e., by using values from the input ports)
+	 */
 
 	// Configure the graph area
 	CGRect frame = CGRectMake( 0.0, 0.0, MAX( 1, self.inputPixelsWide ), MAX( 1, self.inputPixelsHigh ) );

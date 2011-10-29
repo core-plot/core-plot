@@ -6,7 +6,8 @@
 
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
-/**	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
+/**
+ *	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
  **/
 @implementation CPTTextLayer
 
@@ -120,7 +121,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Layout
 
-/** @brief Determine the minimum size needed to fit the text
+/**
+ *	@brief Determine the minimum size needed to fit the text
  **/
 -(CGSize)sizeThatFits
 {
@@ -146,7 +148,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	return textSize;
 }
 
-/**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+/**
+ *	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
  **/
 -(void)sizeToFit
 {

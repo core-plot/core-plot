@@ -303,11 +303,11 @@
 }
 
 /*
-- (NSString*)imageSubtitle
-{
-    return graph.title;
-}
-*/
+ * - (NSString*)imageSubtitle
+ * {
+ *  return graph.title;
+ * }
+ */
 
 #endif
 

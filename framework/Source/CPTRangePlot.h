@@ -15,7 +15,8 @@ extern NSString *const CPTRangePlotBindingLeftValues;
 extern NSString *const CPTRangePlotBindingRightValues;
 ///	@}
 
-/**	@brief Enumeration of range plot data source field types
+/**
+ *	@brief Enumeration of range plot data source field types
  **/
 typedef enum _CPTRangePlotField {
 	CPTRangePlotFieldX,     ///< X values.

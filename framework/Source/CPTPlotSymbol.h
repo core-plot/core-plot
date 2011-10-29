@@ -7,7 +7,8 @@
 @class CPTFill;
 @class CPTShadow;
 
-/**	@brief Plot symbol types.
+/**
+ *	@brief Plot symbol types.
  **/
 typedef enum _CPTPlotSymbolType {
 	CPTPlotSymbolTypeNone,      ///< No symbol.

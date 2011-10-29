@@ -16,7 +16,8 @@
 
 NSString *const kCPTStocksTheme = @"Stocks"; ///< Stocks theme.
 
-/** @brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.
+/**
+ *	@brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.
  **/
 @implementation _CPTStocksTheme
 

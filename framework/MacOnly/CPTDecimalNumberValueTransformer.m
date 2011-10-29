@@ -1,7 +1,8 @@
 #import "CPTDecimalNumberValueTransformer.h"
 #import "NSNumberExtensions.h"
 
-/**	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
+/**
+ *	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
  **/
 @implementation CPTDecimalNumberValueTransformer
 

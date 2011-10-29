@@ -5,7 +5,8 @@
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
 
-/**	@brief A set of cartesian (X-Y) axes.
+/**
+ *	@brief A set of cartesian (X-Y) axes.
  **/
 @implementation CPTXYAxisSet
 

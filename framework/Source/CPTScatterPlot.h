@@ -18,7 +18,8 @@ extern NSString *const CPTScatterPlotBindingYValues;
 extern NSString *const CPTScatterPlotBindingPlotSymbols;
 ///	@}
 
-/**	@brief Enumeration of scatter plot data source field types
+/**
+ *	@brief Enumeration of scatter plot data source field types
  **/
 typedef enum _CPTScatterPlotField {
 	CPTScatterPlotFieldX, ///< X values.
@@ -26,7 +27,8 @@ typedef enum _CPTScatterPlotField {
 }
 CPTScatterPlotField;
 
-/**	@brief Enumeration of scatter plot interpolation algorithms
+/**
+ *	@brief Enumeration of scatter plot interpolation algorithms
  **/
 typedef enum _CPTScatterPlotInterpolation {
 	CPTScatterPlotInterpolationLinear,   ///< Linear interpolation.
@@ -37,7 +39,8 @@ CPTScatterPlotInterpolation;
 
 #pragma mark -
 
-/**	@brief A scatter plot data source.
+/**
+ *	@brief A scatter plot data source.
  **/
 @protocol CPTScatterPlotDataSource<CPTPlotDataSource>
 
@@ -66,7 +69,8 @@ CPTScatterPlotInterpolation;
 
 #pragma mark -
 
-/**	@brief Scatter plot delegate.
+/**
+ *	@brief Scatter plot delegate.
  **/
 @protocol CPTScatterPlotDelegate<NSObject>
 

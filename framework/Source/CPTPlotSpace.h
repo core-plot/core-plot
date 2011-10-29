@@ -19,7 +19,8 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @}
 
-/**	@brief Plot space delegate.
+/**
+ *	@brief Plot space delegate.
  **/
 @protocol CPTPlotSpaceDelegate<NSObject>
 

@@ -27,7 +27,8 @@ NSString *const kCPTDarkGradientTheme = @"Dark Gradients"; ///< Dark gradient th
 
 #pragma mark -
 
-/** @brief Creates a CPTXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
+/**
+ *	@brief Creates a CPTXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
  **/
 @implementation _CPTDarkGradientTheme
 

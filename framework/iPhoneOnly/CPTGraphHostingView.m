@@ -17,7 +17,8 @@
 
 #pragma mark -
 
-/**	@brief A container view for displaying a CPTGraph.
+/**
+ *	@brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
 

@@ -5,7 +5,8 @@
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
-/**	@brief Defines the coordinate system of a plot.
+/**
+ *	@brief Defines the coordinate system of a plot.
  **/
 @implementation CPTPlotSpace
 

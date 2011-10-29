@@ -5,7 +5,8 @@
 
 typedef NSImage CPTNativeImage; ///< Platform-native image format.
 
-/**	@brief Node in a linked list of graphics contexts.
+/**
+ *	@brief Node in a linked list of graphics contexts.
  **/
 typedef struct _CPTContextNode {
 	NSGraphicsContext *context;       ///< The graphics context.

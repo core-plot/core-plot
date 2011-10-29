@@ -17,7 +17,8 @@
 
 #pragma mark -
 
-/**	@brief A graph using a cartesian (X-Y) plot space.
+/**
+ *	@brief A graph using a cartesian (X-Y) plot space.
  **/
 @implementation CPTXYGraph
 
