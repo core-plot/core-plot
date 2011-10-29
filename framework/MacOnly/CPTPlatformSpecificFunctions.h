@@ -21,7 +21,7 @@ CGContextRef CPTGetCurrentContext(void);
 
 /// @name Color Conversion
 /// @{
-CGColorRef CPTNewCGColorFromNSColor(NSColor *nsColor);
+CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor);
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor);
 ///	@}
 

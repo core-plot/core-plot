@@ -63,7 +63,7 @@ CGContextRef CPTGetCurrentContext(void)
  *	@param nsColor The NSColor.
  *	@return The CGColorRef.
  **/
-CGColorRef CPTNewCGColorFromNSColor(NSColor *nsColor)
+CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor)
 {
 	NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
 	CGFloat r, g, b, a;
