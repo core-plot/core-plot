@@ -285,7 +285,7 @@
     colorComponents[2] = blue;
     colorComponents[3] = alpha;
     CGColorRef color = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, colorComponents);
-    [self initWithCGColor:color];
+    self = [self initWithCGColor:color];
     CGColorRelease(color);
     return self;
 }
