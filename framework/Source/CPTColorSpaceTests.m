@@ -12,13 +12,13 @@
 
 	CPTColorSpace *newColorSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:colorSpace]];
 
-	CFDataRef iccProfile	= CGColorSpaceCopyICCProfile( colorSpace.cgColorSpace );
-	CFDataRef newIccProfile = CGColorSpaceCopyICCProfile( newColorSpace.cgColorSpace );
+	CFDataRef iccProfile	= CGColorSpaceCopyICCProfile(colorSpace.cgColorSpace);
+	CFDataRef newIccProfile = CGColorSpaceCopyICCProfile(newColorSpace.cgColorSpace);
 
-	STAssertTrue( [(NSData *) iccProfile isEqualToData:(NSData *)newIccProfile], @"Color spaces not equal" );
+	STAssertTrue([(NSData *) iccProfile isEqualToData:(NSData *)newIccProfile], @"Color spaces not equal");
 
-	CFRelease( iccProfile );
-	CFRelease( newIccProfile );
+	CFRelease(iccProfile);
+	CFRelease(newIccProfile);
 }
 
 @end

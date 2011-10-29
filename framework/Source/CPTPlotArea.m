@@ -125,7 +125,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 		axisTitleGroup	   = nil;
 		fill			   = nil;
 		topDownLayerOrder  = nil;
-		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof( CPTGraphLayerType ) );
+		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
 		[self updateLayerOrder];
 
 		CPTPlotGroup *newPlotGroup = [(CPTPlotGroup *)[CPTPlotGroup alloc] initWithFrame:newFrame];
@@ -150,8 +150,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 		axisTitleGroup	   = [theLayer->axisTitleGroup retain];
 		fill			   = [theLayer->fill retain];
 		topDownLayerOrder  = [theLayer->topDownLayerOrder retain];
-		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof( CPTGraphLayerType ) );
-		memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof( CPTGraphLayerType ) );
+		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+		memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
 	}
 	return self;
 }
@@ -166,14 +166,14 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 	[axisTitleGroup release];
 	[fill release];
 	[topDownLayerOrder release];
-	free( bottomUpLayerOrder );
+	free(bottomUpLayerOrder);
 
 	[super dealloc];
 }
 
 -(void)finalize
 {
-	free( bottomUpLayerOrder );
+	free(bottomUpLayerOrder);
 	[super finalize];
 }
 
@@ -210,7 +210,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 		fill			   = [[coder decodeObjectForKey:@"CPTPlotArea.fill"] copy];
 		topDownLayerOrder  = [[coder decodeObjectForKey:@"CPTPlotArea.topDownLayerOrder"] retain];
 
-		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof( CPTGraphLayerType ) );
+		bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
 		[self updateLayerOrder];
 	}
 	return self;
@@ -250,21 +250,21 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 	CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
 	sublayerBounds.origin = CGPointZero;
 	CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
-	sublayerPosition = CGPointMake( -sublayerPosition.x, -sublayerPosition.y );
+	sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
 
 	NSSet *excludedLayers = [self sublayersExcludedFromAutomaticLayout];
 	for ( CALayer *subLayer in self.sublayers ) {
 		if ( [excludedLayers containsObject:subLayer] ) {
 			continue;
 		}
-		subLayer.frame = CGRectMake( sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height );
+		subLayer.frame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 	}
 
 	// make the plot group the same size as the plot area to clip the plots
 	CPTPlotGroup *thePlotGroup = self.plotGroup;
 	if ( thePlotGroup ) {
 		CGSize selfBoundsSize = self.bounds.size;
-		thePlotGroup.frame = CGRectMake( 0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height );
+		thePlotGroup.frame = CGRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
 	}
 }
 

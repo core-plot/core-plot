@@ -35,7 +35,7 @@
 	[viewController release];
 
 	// Set up the navigation bar
-	UINavigationBar *aNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake( 0.0, 0.0, 320.0, 44.0 )];
+	UINavigationBar *aNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
 	aNavigationBar.barStyle	   = UIBarStyleBlackOpaque;
 	self.flipsideNavigationBar = aNavigationBar;
 	[aNavigationBar release];

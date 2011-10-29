@@ -42,7 +42,7 @@ static NSMutableSet *themes = nil;
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeObject:[[self class] name] forKey:@"CPTTheme.name"];
-	[coder encodeObject:NSStringFromClass( self.graphClass ) forKey:@"CPTTheme.graphClass"];
+	[coder encodeObject:NSStringFromClass(self.graphClass) forKey:@"CPTTheme.graphClass"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -51,7 +51,7 @@ static NSMutableSet *themes = nil;
 	self = [[CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]] retain];
 
 	if ( self ) {
-		self.graphClass = NSClassFromString( [coder decodeObjectForKey:@"CPTTheme.graphClass"] );
+		self.graphClass = NSClassFromString([coder decodeObjectForKey:@"CPTTheme.graphClass"]);
 	}
 	return self;
 }
@@ -92,7 +92,7 @@ static NSMutableSet *themes = nil;
  **/
 +(void)registerTheme:(Class)themeClass
 {
-	@synchronized( self )
+	@synchronized(self)
 	{
 		if ( !themes ) {
 			themes = [[NSMutableSet alloc] init];
@@ -112,7 +112,7 @@ static NSMutableSet *themes = nil;
  **/
 +(NSString *)name
 {
-	return NSStringFromClass( self );
+	return NSStringFromClass(self);
 }
 
 #pragma mark -

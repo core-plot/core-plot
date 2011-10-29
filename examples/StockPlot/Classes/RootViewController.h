@@ -10,7 +10,7 @@
 #import "APYahooDataPuller.h"
 #import "APYahooDataPullerGraph.h"
 
-NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks );
+NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks);
 
 @interface RootViewController : UITableViewController<APYahooDataPullerDelegate> {
 	@private

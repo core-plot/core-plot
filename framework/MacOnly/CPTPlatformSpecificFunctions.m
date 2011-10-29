@@ -12,10 +12,10 @@ static CPTContextNode *pushedContexts = NULL;
 /**	@brief Pushes the current AppKit graphics context onto a stack and replaces it with the given Core Graphics context.
  *	@param newContext The graphics context.
  **/
-void CPTPushCGContext( CGContextRef newContext )
+void CPTPushCGContext(CGContextRef newContext)
 {
 	if ( newContext ) {
-		CPTContextNode *newNode = malloc( sizeof( CPTContextNode ) );
+		CPTContextNode *newNode = malloc( sizeof(CPTContextNode) );
 		(*newNode).context = [NSGraphicsContext currentContext];
 		[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
 		(*newNode).nextNode = pushedContexts;
@@ -26,12 +26,12 @@ void CPTPushCGContext( CGContextRef newContext )
 /**
  *	@brief Pops the top context off the stack and restores it to the AppKit graphics context.
  **/
-void CPTPopCGContext( void )
+void CPTPopCGContext(void)
 {
 	if ( pushedContexts ) {
 		[NSGraphicsContext setCurrentContext:(*pushedContexts).context];
 		CPTContextNode *next = (*pushedContexts).nextNode;
-		free( pushedContexts );
+		free(pushedContexts);
 		pushedContexts = next;
 	}
 }
@@ -42,7 +42,7 @@ void CPTPopCGContext( void )
 /**
  *	@brief Get the default graphics context
  **/
-CGContextRef CPTGetCurrentContext( void )
+CGContextRef CPTGetCurrentContext(void)
 {
 	return [[NSGraphicsContext currentContext] graphicsPort];
 }
@@ -57,13 +57,13 @@ CGContextRef CPTGetCurrentContext( void )
  *	@param nsColor The NSColor.
  *	@return The CGColorRef.
  **/
-CGColorRef CPTNewCGColorFromNSColor( NSColor *nsColor )
+CGColorRef CPTNewCGColorFromNSColor(NSColor *nsColor)
 {
 	NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
 	CGFloat r, g, b, a;
 
 	[rgbColor getRed:&r green:&g blue:&b alpha:&a];
-	return CGColorCreateGenericRGB( r, g, b, a );
+	return CGColorCreateGenericRGB(r, g, b, a);
 }
 
 /**	@brief Creates a CPTRGBAColor from an NSColor.
@@ -73,7 +73,7 @@ CGColorRef CPTNewCGColorFromNSColor( NSColor *nsColor )
  *	@param nsColor The NSColor.
  *	@return The CPTRGBAColor.
  **/
-CPTRGBAColor CPTRGBAColorFromNSColor( NSColor *nsColor )
+CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor)
 {
 	CGFloat red, green, blue, alpha;
 

@@ -225,7 +225,7 @@
 
 -(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error;
 {
-	NSLog( @"dataPuller:%@ downloadDidFailWithError:%@", dp, error );
+	NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
 	NSUInteger idx		  = [stocks indexOfObject:dp];
 	NSUInteger section	  = 0;
 	NSIndexPath *path	  = [NSIndexPath indexPathForRow:idx inSection:section];
@@ -235,7 +235,7 @@
 
 -(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
 {
-	NSLog( @"dataPullerFinancialDataDidChange:%@", dp );
+	NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
 	NSUInteger idx		  = [stocks indexOfObject:dp];
 	NSUInteger section	  = 0;
 	NSIndexPath *path	  = [NSIndexPath indexPathForRow:idx inSection:section];
@@ -245,7 +245,7 @@
 
 -(void)addSymbol:(NSString *)aSymbol
 {
-	NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks( 14.0f ); //12 weeks ago
+	NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
 	NSDate *start			  = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
 	NSDate *end				  = [NSDate date];
 

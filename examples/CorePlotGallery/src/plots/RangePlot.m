@@ -62,7 +62,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	[graph release];
@@ -87,8 +87,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	CPTLayerAnnotation *instructionsAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:graph.plotAreaFrame.plotArea];
 	instructionsAnnotation.contentLayer		  = textLayer;
 	instructionsAnnotation.rectAnchor		  = CPTRectAnchorBottom;
-	instructionsAnnotation.contentAnchorPoint = CGPointMake( 0.5, 0.0 );
-	instructionsAnnotation.displacement		  = CGPointMake( 0.0, 10.0 );
+	instructionsAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
+	instructionsAnnotation.displacement		  = CGPointMake(0.0, 10.0);
 	[graph.plotAreaFrame.plotArea addAnnotation:instructionsAnnotation];
 	[textLayer release];
 	[instructionsAnnotation release];
@@ -105,14 +105,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	// Setup scatter plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	NSTimeInterval xLow		  = oneDay * 0.5;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( xLow ) length:CPTDecimalFromDouble( oneDay * 5.0 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 1.5 ) length:CPTDecimalFromDouble( 3.5 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(xLow) length:CPTDecimalFromDouble(oneDay * 5.0)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.5)];
 
 	// Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromDouble( oneDay );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromInteger( 2 );
+	x.majorIntervalLength		  = CPTDecimalFromDouble(oneDay);
+	x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(2);
 	x.minorTicksPerInterval		  = 0;
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -121,9 +121,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	x.labelFormatter			= timeFormatter;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromDouble( 0.5 );
+	y.majorIntervalLength		  = CPTDecimalFromDouble(0.5);
 	y.minorTicksPerInterval		  = 5;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble( oneDay );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(oneDay);
 
 	// Create a plot that uses the data source method
 	CPTRangePlot *rangePlot = [[[CPTRangePlot alloc] init] autorelease];
@@ -146,10 +146,10 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	graph.legend.fill				= [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 	graph.legend.borderLineStyle	= x.axisLineStyle;
 	graph.legend.cornerRadius		= 5.0;
-	graph.legend.swatchSize			= CGSizeMake( 25.0, 25.0 );
+	graph.legend.swatchSize			= CGSizeMake(25.0, 25.0);
 	graph.legend.swatchCornerRadius = 3.0;
 	graph.legendAnchor				= CPTRectAnchorBottom;
-	graph.legendDisplacement		= CGPointMake( 0.0, 12.0 );
+	graph.legendDisplacement		= CGPointMake(0.0, 12.0);
 }
 
 -(void)dealloc

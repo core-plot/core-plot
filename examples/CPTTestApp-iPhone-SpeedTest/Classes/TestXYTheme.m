@@ -29,8 +29,8 @@
 		 minorLineStyle:(CPTLineStyle *)minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:(CPTTextStyle *)textStyle
 {
 	axis.labelingPolicy				 = CPTAxisLabelingPolicyFixedInterval;
-	axis.majorIntervalLength		 = CPTDecimalFromDouble( 20.0 );
-	axis.orthogonalCoordinateDecimal = CPTDecimalFromDouble( 0.0 );
+	axis.majorIntervalLength		 = CPTDecimalFromDouble(20.0);
+	axis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 	axis.tickDirection				 = CPTSignNone;
 	axis.minorTicksPerInterval		 = 3;
 	axis.majorTickLineStyle			 = majorLineStyle;

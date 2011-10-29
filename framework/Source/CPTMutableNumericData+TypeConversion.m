@@ -34,7 +34,7 @@
 		 sampleBytes:(size_t)newSampleBytes
 		   byteOrder:(CFByteOrder)newByteOrder
 {
-	self.dataType = CPTDataType( newDataType, newSampleBytes, newByteOrder );
+	self.dataType = CPTDataType(newDataType, newSampleBytes, newByteOrder);
 }
 
 #pragma mark -
@@ -45,7 +45,7 @@
 	CPTNumericDataType myDataType = self.dataType;
 
 	if ( newDataTypeFormat != myDataType.dataTypeFormat ) {
-		self.dataType = CPTDataType( newDataTypeFormat, myDataType.sampleBytes, myDataType.byteOrder );
+		self.dataType = CPTDataType(newDataTypeFormat, myDataType.sampleBytes, myDataType.byteOrder);
 	}
 }
 
@@ -54,7 +54,7 @@
 	CPTNumericDataType myDataType = self.dataType;
 
 	if ( newSampleBytes != myDataType.sampleBytes ) {
-		self.dataType = CPTDataType( myDataType.dataTypeFormat, newSampleBytes, myDataType.byteOrder );
+		self.dataType = CPTDataType(myDataType.dataTypeFormat, newSampleBytes, myDataType.byteOrder);
 	}
 }
 
@@ -63,7 +63,7 @@
 	CPTNumericDataType myDataType = self.dataType;
 
 	if ( newByteOrder != myDataType.byteOrder ) {
-		self.dataType = CPTDataType( myDataType.dataTypeFormat, myDataType.sampleBytes, newByteOrder );
+		self.dataType = CPTDataType(myDataType.dataTypeFormat, myDataType.sampleBytes, newByteOrder);
 	}
 }
 
@@ -77,16 +77,16 @@
 		return;
 	}
 
-	NSParameterAssert( myDataType.dataTypeFormat != CPTUndefinedDataType );
-	NSParameterAssert( myDataType.byteOrder != CFByteOrderUnknown );
+	NSParameterAssert(myDataType.dataTypeFormat != CPTUndefinedDataType);
+	NSParameterAssert(myDataType.byteOrder != CFByteOrderUnknown);
 
-	NSParameterAssert( CPTDataTypeIsSupported( newDataType ) );
-	NSParameterAssert( newDataType.dataTypeFormat != CPTUndefinedDataType );
-	NSParameterAssert( newDataType.byteOrder != CFByteOrderUnknown );
+	NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+	NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
+	NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
 
 	dataType = newDataType;
 
-	if ( ( myDataType.sampleBytes == sizeof( int8_t ) ) && ( newDataType.sampleBytes == sizeof( int8_t ) ) ) {
+	if ( ( myDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
 		return;
 	}
 

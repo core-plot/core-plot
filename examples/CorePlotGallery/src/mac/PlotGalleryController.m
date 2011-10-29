@@ -53,7 +53,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 #ifdef EMBED_NU
 	// Setup a Nu console without the help of the Nu include files or
 	// an explicit link of the Nu framework, which may not be installed
-	nuHandle = dlopen( "/Library/Frameworks/Nu.framework/Nu", RTLD_LAZY );
+	nuHandle = dlopen("/Library/Frameworks/Nu.framework/Nu", RTLD_LAZY);
 
 	if ( nuHandle ) {
 		NSString *consoleStartup =
@@ -61,7 +61,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
            (load \"console\") \
            (set $console ((NuConsoleWindowController alloc) init)))";
 
-		Class nuClass = NSClassFromString( @"Nu" );
+		Class nuClass = NSClassFromString(@"Nu");
 		id parser	  = [nuClass performSelector:@selector(parser)];
 		id code		  = [parser performSelector:@selector(parse:) withObject:consoleStartup];
 		[parser performSelector:@selector(eval:) withObject:code];
@@ -80,7 +80,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 
 #ifdef EMBED_NU
 	if ( nuHandle ) {
-		dlclose( nuHandle );
+		dlclose(nuHandle);
 	}
 #endif
 

@@ -64,9 +64,9 @@
  **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
 {
-	NSAssert( lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound" );
+	NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
 
-	CGFloat position = fma( upperBound - lowerBound, self.offset, lowerBound );
+	CGFloat position = fma(upperBound - lowerBound, self.offset, lowerBound);
 
 	return position;
 }

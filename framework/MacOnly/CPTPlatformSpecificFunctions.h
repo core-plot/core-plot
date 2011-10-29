@@ -10,21 +10,21 @@ extern "C" {
 
 /// @name Graphics Context Save Stack
 /// @{
-void CPTPushCGContext( CGContextRef context );
-void CPTPopCGContext( void );
+void CPTPushCGContext(CGContextRef context);
+void CPTPopCGContext(void);
 
 ///	@}
 
 /// @name Graphics Context
 /// @{
-CGContextRef CPTGetCurrentContext( void );
+CGContextRef CPTGetCurrentContext(void);
 
 /// @}
 
 /// @name Color Conversion
 /// @{
-CGColorRef CPTNewCGColorFromNSColor( NSColor *nsColor );
-CPTRGBAColor CPTRGBAColorFromNSColor( NSColor *nsColor );
+CGColorRef CPTNewCGColorFromNSColor(NSColor *nsColor);
+CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor);
 
 ///	@}
 

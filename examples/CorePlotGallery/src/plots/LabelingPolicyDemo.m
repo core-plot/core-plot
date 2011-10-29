@@ -30,7 +30,7 @@ static const CGFloat titleOffset	 = 25.0;
 #if TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	// Create graph
@@ -51,8 +51,8 @@ static const CGFloat titleOffset	 = 25.0;
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( 0 ) length:CPTDecimalFromUnsignedInteger( 100 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 5.75 ) length:CPTDecimalFromInteger( -5 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(100)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.75) length:CPTDecimalFromInteger(-5)];
 
 	// Line styles
 	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -89,7 +89,7 @@ static const CGFloat titleOffset	 = 25.0;
 	CPTXYAxis *axisNone = [[[CPTXYAxis alloc] init] autorelease];
 	axisNone.plotSpace					 = graph.defaultPlotSpace;
 	axisNone.labelingPolicy				 = CPTAxisLabelingPolicyNone;
-	axisNone.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 1 );
+	axisNone.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(1);
 	axisNone.tickDirection				 = CPTSignNone;
 	axisNone.axisLineStyle				 = axisLineStyle;
 	axisNone.majorTickLength			 = majorTickLength;
@@ -105,7 +105,7 @@ static const CGFloat titleOffset	 = 25.0;
 	for ( NSUInteger i = 0; i <= 5; i++ ) {
 		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"Label %u", i]
 														  textStyle:axisNone.labelTextStyle];
-		newLabel.tickLocation = CPTDecimalFromUnsignedInteger( i * 20 );
+		newLabel.tickLocation = CPTDecimalFromUnsignedInteger(i * 20);
 		newLabel.offset		  = axisNone.labelOffset + axisNone.majorTickLength / 2.0;
 
 		[newAxisLabels addObject:newLabel];
@@ -116,7 +116,7 @@ static const CGFloat titleOffset	 = 25.0;
 	CPTXYAxis *axisLocationsProvided = [[[CPTXYAxis alloc] init] autorelease];
 	axisLocationsProvided.plotSpace					  = graph.defaultPlotSpace;
 	axisLocationsProvided.labelingPolicy			  = CPTAxisLabelingPolicyLocationsProvided;
-	axisLocationsProvided.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 2 );
+	axisLocationsProvided.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(2);
 	axisLocationsProvided.tickDirection				  = CPTSignNone;
 	axisLocationsProvided.axisLineStyle				  = axisLineStyle;
 	axisLocationsProvided.majorTickLength			  = majorTickLength;
@@ -133,8 +133,8 @@ static const CGFloat titleOffset	 = 25.0;
 	CPTXYAxis *axisFixedInterval = [[[CPTXYAxis alloc] init] autorelease];
 	axisFixedInterval.plotSpace					  = graph.defaultPlotSpace;
 	axisFixedInterval.labelingPolicy			  = CPTAxisLabelingPolicyFixedInterval;
-	axisFixedInterval.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 3 );
-	axisFixedInterval.majorIntervalLength		  = CPTDecimalFromDouble( 25.0 );
+	axisFixedInterval.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(3);
+	axisFixedInterval.majorIntervalLength		  = CPTDecimalFromDouble(25.0);
 	axisFixedInterval.minorTicksPerInterval		  = 4;
 	axisFixedInterval.tickDirection				  = CPTSignNone;
 	axisFixedInterval.axisLineStyle				  = axisLineStyle;
@@ -150,7 +150,7 @@ static const CGFloat titleOffset	 = 25.0;
 	CPTXYAxis *axisAutomatic = [[[CPTXYAxis alloc] init] autorelease];
 	axisAutomatic.plotSpace					  = graph.defaultPlotSpace;
 	axisAutomatic.labelingPolicy			  = CPTAxisLabelingPolicyAutomatic;
-	axisAutomatic.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 4 );
+	axisAutomatic.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(4);
 	axisAutomatic.minorTicksPerInterval		  = 9;
 	axisAutomatic.tickDirection				  = CPTSignNone;
 	axisAutomatic.axisLineStyle				  = axisLineStyle;
@@ -166,7 +166,7 @@ static const CGFloat titleOffset	 = 25.0;
 	CPTXYAxis *axisEqualDivisions = [[[CPTXYAxis alloc] init] autorelease];
 	axisEqualDivisions.plotSpace				   = graph.defaultPlotSpace;
 	axisEqualDivisions.labelingPolicy			   = CPTAxisLabelingPolicyEqualDivisions;
-	axisEqualDivisions.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 5 );
+	axisEqualDivisions.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(5);
 	axisEqualDivisions.preferredNumberOfMajorTicks = 7;
 	axisEqualDivisions.minorTicksPerInterval	   = 4;
 	axisEqualDivisions.tickDirection			   = CPTSignNone;

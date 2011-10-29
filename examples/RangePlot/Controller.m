@@ -35,19 +35,19 @@
 	textStyle.fontName		= @"Helvetica";
 	graph.title				= @"Click to Toggle Range Plot Style";
 	graph.titleTextStyle	= textStyle;
-	graph.titleDisplacement = CGPointMake( 0.0f, -20.0f );
+	graph.titleDisplacement = CGPointMake(0.0f, -20.0f);
 
 	// Setup scatter plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	NSTimeInterval xLow		  = oneDay * 0.5f;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( xLow ) length:CPTDecimalFromFloat( oneDay * 5.0f )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 3.0 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(xLow) length:CPTDecimalFromFloat(oneDay * 5.0f)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(3.0)];
 
 	// Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromFloat( oneDay );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString( @"2" );
+	x.majorIntervalLength		  = CPTDecimalFromFloat(oneDay);
+	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
 	x.minorTicksPerInterval		  = 0;
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -56,9 +56,9 @@
 	x.labelFormatter			= timeFormatter;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
+	y.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
 	y.minorTicksPerInterval		  = 5;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromFloat( oneDay );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(oneDay);
 
 	// Create a plot that uses the data source method
 	CPTRangePlot *dataSourceLinePlot = [[[CPTRangePlot alloc] init] autorelease];

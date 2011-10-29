@@ -105,21 +105,21 @@
 				nil];
 	}
 	else if ( [key isEqualToString:@"inputBorderColor"] ) {
-		CGColorRef grayColor = CGColorCreateGenericGray( 0.0, 1.0 );
+		CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
 		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"Border Color", QCPortAttributeNameKey,
 								grayColor, QCPortAttributeDefaultValueKey,
 								nil];
-		CGColorRelease( grayColor );
+		CGColorRelease(grayColor);
 		return result;
 	}
 	else if ( [key isEqualToString:@"inputLabelColor"] ) {
-		CGColorRef grayColor = CGColorCreateGenericGray( 1.0, 1.0 );
+		CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
 		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"Label Color", QCPortAttributeNameKey,
 								grayColor, QCPortAttributeDefaultValueKey,
 								nil];
-		CGColorRelease( grayColor );
+		CGColorRelease(grayColor);
 		return result;
 	}
 	else {
@@ -146,7 +146,7 @@
 
 		// TODO: add support for used defined fill colors.  As of now we use a single color
 		// multiplied against the 'default' pie chart colors
-		CGColorRef grayColor = CGColorCreateGenericGray( 1.0, 1.0 );
+		CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
 		[self addInputPortWithType:QCPortTypeColor
 							forKey:[NSString stringWithFormat:@"plotFillColor%i", index]
 					withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -154,7 +154,7 @@
 						 QCPortTypeColor, QCPortAttributeTypeKey,
 						 grayColor, QCPortAttributeDefaultValueKey,
 						 nil]];
-		CGColorRelease( grayColor );
+		CGColorRelease(grayColor);
 
 		// Add the new plot to the graph
 		CPTPieChart *pieChart = [[[CPTPieChart alloc] init] autorelease];
@@ -192,10 +192,10 @@
 	for ( CPTPieChart *pieChart in [graph allPlots] ) {
 		pieChart.plotArea.borderLineStyle = nil;
 
-		pieChart.pieRadius		= self.inputPieRadius * MIN( self.inputPixelsWide, self.inputPixelsHigh ) / 2.0;
+		pieChart.pieRadius		= self.inputPieRadius * MIN(self.inputPixelsWide, self.inputPixelsHigh) / 2.0;
 		pieChart.labelOffset	= self.inputSliceLabelOffset;
 		pieChart.startAngle		= self.inputStartAngle * M_PI / 180.0; // QC typically works in degrees
-		pieChart.centerAnchor	= CGPointMake( 0.5, 0.5 );
+		pieChart.centerAnchor	= CGPointMake(0.5, 0.5);
 		pieChart.sliceDirection = (self.inputSliceDirection == 0) ? CPTPieDirectionClockwise : CPTPieDirectionCounterClockwise;
 
 		if ( self.inputBorderWidth > 0.0 ) {
@@ -249,17 +249,17 @@
 	CGColorRef plotFillColor  = [[CPTPieChart defaultPieSliceColorForIndex:index] cgColor];
 	CGColorRef inputFillColor = (CGColorRef)[self areaFillColor : 0];
 
-	const CGFloat *plotColorComponents	= CGColorGetComponents( plotFillColor );
-	const CGFloat *inputColorComponents = CGColorGetComponents( inputFillColor );
+	const CGFloat *plotColorComponents	= CGColorGetComponents(plotFillColor);
+	const CGFloat *inputColorComponents = CGColorGetComponents(inputFillColor);
 
-	CGColorRef fillColor = CGColorCreateGenericRGB( plotColorComponents[0] * inputColorComponents[0],
-													plotColorComponents[1] * inputColorComponents[1],
-													plotColorComponents[2] * inputColorComponents[2],
-													plotColorComponents[3] * inputColorComponents[3] );
+	CGColorRef fillColor = CGColorCreateGenericRGB(plotColorComponents[0] * inputColorComponents[0],
+												   plotColorComponents[1] * inputColorComponents[1],
+												   plotColorComponents[2] * inputColorComponents[2],
+												   plotColorComponents[3] * inputColorComponents[3]);
 
 	CPTColor *fillCPColor = [CPTColor colorWithCGColor:fillColor];
 
-	CGColorRelease( fillColor );
+	CGColorRelease(fillColor);
 
 	return [[(CPTFill *)[CPTFill alloc] initWithColor:fillCPColor] autorelease];
 }

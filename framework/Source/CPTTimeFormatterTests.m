@@ -18,8 +18,8 @@
 
 	CPTTimeFormatter *newTimeFormatter = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:timeFormatter]];
 
-	STAssertEqualObjects( timeFormatter.dateFormatter.dateFormat, newTimeFormatter.dateFormatter.dateFormat, @"Date formatter not equal" );
-	STAssertEqualObjects( timeFormatter.referenceDate, newTimeFormatter.referenceDate, @"Reference date not equal" );
+	STAssertEqualObjects(timeFormatter.dateFormatter.dateFormat, newTimeFormatter.dateFormatter.dateFormat, @"Date formatter not equal");
+	STAssertEqualObjects(timeFormatter.referenceDate, newTimeFormatter.referenceDate, @"Reference date not equal");
 }
 
 @end

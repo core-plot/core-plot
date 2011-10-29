@@ -29,7 +29,7 @@
 #if TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	// Create graph
@@ -56,8 +56,8 @@
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 0.0 ) length:CPTDecimalFromDouble( -10.0 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 0.5 ) length:CPTDecimalFromDouble( 10.0 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-10.0)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.5) length:CPTDecimalFromDouble(10.0)];
 
 	// Line styles
 	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -82,8 +82,8 @@
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
 	x.separateLayers			  = NO;
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble( 0.5 );
-	x.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
+	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5);
+	x.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
 	x.minorTicksPerInterval		  = 4;
 	x.tickDirection				  = CPTSignNone;
 	x.axisLineStyle				  = axisLineStyle;
@@ -116,8 +116,8 @@
 	y.alternatingBandFills	= [NSArray arrayWithObjects:[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
 
 	CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
-	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 7.0 ) length:CPTDecimalFromDouble( 1.5 )] fill:bandFill]];
-	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 1.5 ) length:CPTDecimalFromDouble( 3.0 )] fill:bandFill]];
+	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
+	[y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.0)] fill:bandFill]];
 }
 
 @end

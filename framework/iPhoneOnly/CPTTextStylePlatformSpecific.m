@@ -17,7 +17,7 @@
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake( 10000.0, 10000.0 )];
+	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];
 
 	return textSize;
 }
@@ -36,13 +36,13 @@
 		return;
 	}
 
-	CGContextSaveGState( context );
+	CGContextSaveGState(context);
 	CGColorRef textColor = style.color.cgColor;
 
-	CGContextSetStrokeColorWithColor( context, textColor );
-	CGContextSetFillColorWithColor( context, textColor );
+	CGContextSetStrokeColorWithColor(context, textColor);
+	CGContextSetFillColorWithColor(context, textColor);
 
-	CPTPushCGContext( context );
+	CPTPushCGContext(context);
 
 	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
@@ -51,7 +51,7 @@
 	   lineBreakMode:UILineBreakModeWordWrap
 		   alignment:(UITextAlignment)style.textAlignment];
 
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 	CPTPopCGContext();
 }
 

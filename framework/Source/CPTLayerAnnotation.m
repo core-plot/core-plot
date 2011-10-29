@@ -49,7 +49,7 @@
  **/
 -(id)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
 {
-	NSParameterAssert( newAnchorLayer );
+	NSParameterAssert(newAnchorLayer);
 
 	if ( (self = [super init]) ) {
 		anchorLayer	 = newAnchorLayer;
@@ -106,12 +106,12 @@
 			CPTLayer *theAnchorLayer = self.anchorLayer;
 			CGRect anchorLayerBounds = theAnchorLayer.bounds;
 
-			CGFloat xPosition = [self.xConstraints positionForLowerBound:CGRectGetMinX( anchorLayerBounds )
-															  upperBound:CGRectGetMaxX( anchorLayerBounds )];
-			CGFloat yPosition = [self.yConstraints positionForLowerBound:CGRectGetMinY( anchorLayerBounds )
-															  upperBound:CGRectGetMaxY( anchorLayerBounds )];
+			CGFloat xPosition = [self.xConstraints positionForLowerBound:CGRectGetMinX(anchorLayerBounds)
+															  upperBound:CGRectGetMaxX(anchorLayerBounds)];
+			CGFloat yPosition = [self.yConstraints positionForLowerBound:CGRectGetMinY(anchorLayerBounds)
+															  upperBound:CGRectGetMaxY(anchorLayerBounds)];
 
-			CGPoint referencePoint = CGPointMake( xPosition, yPosition );
+			CGPoint referencePoint = CGPointMake(xPosition, yPosition);
 			CGPoint newPosition	   = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
 
 			CGPoint offset = self.displacement;
@@ -120,7 +120,7 @@
 
 			content.anchorPoint = self.contentAnchorPoint;
 			content.position	= newPosition;
-			content.transform	= CATransform3DMakeRotation( self.rotation, 0.0, 0.0, 1.0 );
+			content.transform	= CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
 			[content pixelAlign];
 			[content setNeedsDisplay];
 		}

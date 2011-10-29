@@ -43,8 +43,8 @@
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = NO;
-	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( NUM_POINTS )];
-	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( NUM_POINTS )];
+	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
+	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
 
 	// Create a blue plot area
 	CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -102,8 +102,8 @@
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	float ylen				  = NUM_POINTS * (rand() / (float)RAND_MAX);
 
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( NUM_POINTS )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( ylen )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(ylen)];
 }
 
 #pragma mark -

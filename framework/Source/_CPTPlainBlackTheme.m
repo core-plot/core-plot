@@ -71,8 +71,8 @@ NSString *const kCPTPlainBlackTheme = @"Plain Black"; ///< Plain black theme.
 	minorTickWhiteTextStyle.fontSize = 12.0;
 
 	x.labelingPolicy			  = CPTAxisLabelingPolicyFixedInterval;
-	x.majorIntervalLength		  = CPTDecimalFromDouble( 0.5 );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble( 0.0 );
+	x.majorIntervalLength		  = CPTDecimalFromDouble(0.5);
+	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 	x.tickDirection				  = CPTSignNone;
 	x.minorTicksPerInterval		  = 4;
 	x.majorTickLineStyle		  = majorLineStyle;
@@ -86,9 +86,9 @@ NSString *const kCPTPlainBlackTheme = @"Plain Black"; ///< Plain black theme.
 
 	CPTXYAxis *y = axisSet.yAxis;
 	y.labelingPolicy			  = CPTAxisLabelingPolicyFixedInterval;
-	y.majorIntervalLength		  = CPTDecimalFromDouble( 0.5 );
+	y.majorIntervalLength		  = CPTDecimalFromDouble(0.5);
 	y.minorTicksPerInterval		  = 4;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble( 0.0 );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 	y.tickDirection				  = CPTSignNone;
 	y.majorTickLineStyle		  = majorLineStyle;
 	y.minorTickLineStyle		  = minorLineStyle;

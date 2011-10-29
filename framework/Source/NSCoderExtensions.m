@@ -3,7 +3,7 @@
 #import "CPTUtilities.h"
 #import "NSNumberExtensions.h"
 
-void MyCGPathApplierFunc( void *info, const CGPathElement *element );
+void MyCGPathApplierFunc(void *info, const CGPathElement *element);
 
 @implementation NSCoder(CPTExtensions)
 
@@ -79,17 +79,17 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element );
 -(void)encodeCGColorSpace:(CGColorSpaceRef)colorSpace forKey:(NSString *)key
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	NSLog( @"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space." );
+	NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
 #else
 	if ( colorSpace ) {
-		CFDataRef iccProfile = CGColorSpaceCopyICCProfile( colorSpace );
+		CFDataRef iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
 		[self encodeObject:(NSData *)iccProfile forKey:key];
-		CFRelease( iccProfile );
+		CFRelease(iccProfile);
 	}
 #endif
 }
 
-void MyCGPathApplierFunc( void *info, const CGPathElement *element )
+void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 {
 	NSMutableDictionary *elementData = [[NSMutableDictionary alloc] init];
 
@@ -133,7 +133,7 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 	NSMutableArray *pathData = [[NSMutableArray alloc] init];
 
 	// walk the path and gather data for each element
-	CGPathApply( path, pathData, &MyCGPathApplierFunc );
+	CGPathApply(path, pathData, &MyCGPathApplierFunc);
 
 	// encode data count
 	NSUInteger dataCount = pathData.count;
@@ -192,46 +192,46 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 {
 	NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
 
-	[self encodeInteger:CGImageGetWidth( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetWidth(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.height", key];
-	[self encodeInteger:CGImageGetHeight( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetHeight(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerComponent", key];
-	[self encodeInteger:CGImageGetBitsPerComponent( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetBitsPerComponent(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerPixel", key];
-	[self encodeInteger:CGImageGetBitsPerPixel( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetBitsPerPixel(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.bytesPerRow", key];
-	[self encodeInteger:CGImageGetBytesPerRow( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetBytesPerRow(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.colorSpace", key];
-	CGColorSpaceRef colorSpace = CGImageGetColorSpace( image );
+	CGColorSpaceRef colorSpace = CGImageGetColorSpace(image);
 	[self encodeCGColorSpace:colorSpace forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
-	[self encodeInteger:CGImageGetBitmapInfo( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetBitmapInfo(image) forKey:newKey];
 	[newKey release];
 
-	CGDataProviderRef provider = CGImageGetDataProvider( image );
-	CFDataRef providerData	   = CGDataProviderCopyData( provider );
+	CGDataProviderRef provider = CGImageGetDataProvider(image);
+	CFDataRef providerData	   = CGDataProviderCopyData(provider);
 	newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
 	[self encodeObject:(NSData *)providerData forKey:newKey];
 	if ( providerData ) {
-		CFRelease( providerData );
+		CFRelease(providerData);
 	}
 	[newKey release];
 
-	const CGFloat *decodeArray = CGImageGetDecode( image );
+	const CGFloat *decodeArray = CGImageGetDecode(image);
 	if ( decodeArray ) {
-		size_t numberOfComponents = CGColorSpaceGetNumberOfComponents( colorSpace );
+		size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
 		newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
 		[self encodeInteger:numberOfComponents forKey:newKey];
 		[newKey release];
@@ -248,11 +248,11 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 	}
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.shouldInterpolate", key];
-	[self encodeBool:CGImageGetShouldInterpolate( image ) forKey:newKey];
+	[self encodeBool:CGImageGetShouldInterpolate(image) forKey:newKey];
 	[newKey release];
 
 	newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-	[self encodeInteger:CGImageGetRenderingIntent( image ) forKey:newKey];
+	[self encodeInteger:CGImageGetRenderingIntent(image) forKey:newKey];
 	[newKey release];
 }
 
@@ -351,7 +351,7 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 	CGColorSpaceRef colorSpace = NULL;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	NSLog( @"Color space decoding is not supported on iOS. Using generic RGB color space." );
+	NSLog(@"Color space decoding is not supported on iOS. Using generic RGB color space.");
 	colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
 	NSData *iccProfile = [self decodeObjectForKey:key];
@@ -359,8 +359,8 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 		colorSpace = CGColorSpaceCreateWithICCProfile( (CFDataRef)iccProfile );
 	}
 	else {
-		NSLog( @"Color space not available for key '%@'. Using generic RGB color space.", key );
-		colorSpace = CGColorSpaceCreateWithName( kCGColorSpaceGenericRGB );
+		NSLog(@"Color space not available for key '%@'. Using generic RGB color space.", key);
+		colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 	}
 #endif
 
@@ -417,23 +417,23 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 
 		switch ( type ) {
 			case kCGPathElementMoveToPoint:
-				CGPathMoveToPoint( newPath, NULL, point1.x, point1.y );
+				CGPathMoveToPoint(newPath, NULL, point1.x, point1.y);
 				break;
 
 			case kCGPathElementAddLineToPoint:
-				CGPathAddLineToPoint( newPath, NULL, point1.x, point1.y );
+				CGPathAddLineToPoint(newPath, NULL, point1.x, point1.y);
 				break;
 
 			case kCGPathElementAddQuadCurveToPoint:
-				CGPathAddQuadCurveToPoint( newPath, NULL, point1.x, point1.y, point2.x, point2.y );
+				CGPathAddQuadCurveToPoint(newPath, NULL, point1.x, point1.y, point2.x, point2.y);
 				break;
 
 			case kCGPathElementAddCurveToPoint:
-				CGPathAddCurveToPoint( newPath, NULL, point1.x, point1.y, point2.x, point2.y, point3.x, point3.y );
+				CGPathAddCurveToPoint(newPath, NULL, point1.x, point1.y, point2.x, point2.y, point3.x, point3.y);
 				break;
 
 			case kCGPathElementCloseSubpath:
-				CGPathCloseSubpath( newPath );
+				CGPathCloseSubpath(newPath);
 				break;
 
 			default:
@@ -490,7 +490,7 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 
 	CGFloat *decodeArray = NULL;
 	if ( numberOfComponents ) {
-		decodeArray = malloc( numberOfComponents * 2 * sizeof( CGFloat ) );
+		decodeArray = malloc( numberOfComponents * 2 * sizeof(CGFloat) );
 
 		for ( size_t i = 0; i < numberOfComponents; i++ ) {
 			newKey			   = [[NSString alloc] initWithFormat:@"%@.decode[%u].lower", key, i];
@@ -511,22 +511,22 @@ void MyCGPathApplierFunc( void *info, const CGPathElement *element )
 	CGColorRenderingIntent intent = [self decodeIntegerForKey:newKey];
 	[newKey release];
 
-	CGImageRef newImage = CGImageCreate( width,
-										 height,
-										 bitsPerComponent,
-										 bitsPerPixel,
-										 bytesPerRow,
-										 colorSpace,
-										 bitmapInfo,
-										 provider,
-										 decodeArray,
-										 shouldInterpolate,
-										 intent );
+	CGImageRef newImage = CGImageCreate(width,
+										height,
+										bitsPerComponent,
+										bitsPerPixel,
+										bytesPerRow,
+										colorSpace,
+										bitmapInfo,
+										provider,
+										decodeArray,
+										shouldInterpolate,
+										intent);
 
-	CGColorSpaceRelease( colorSpace );
-	CGDataProviderRelease( provider );
+	CGColorSpaceRelease(colorSpace);
+	CGDataProviderRelease(provider);
 	if ( decodeArray ) {
-		free( decodeArray );
+		free(decodeArray);
 	}
 
 	return newImage;

@@ -42,7 +42,7 @@
 
 	_CPTFillColor *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-	STAssertEqualObjects( fill.fillColor, newFill.fillColor, @"Fill with color not equal" );
+	STAssertEqualObjects(fill.fillColor, newFill.fillColor, @"Fill with color not equal");
 }
 
 -(void)testKeyedArchivingRoundTripGradient
@@ -51,27 +51,27 @@
 
 	_CPTFillGradient *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-	STAssertEqualObjects( fill.fillGradient, newFill.fillGradient, @"Fill with gradient not equal" );
+	STAssertEqualObjects(fill.fillGradient, newFill.fillGradient, @"Fill with gradient not equal");
 }
 
 -(void)testKeyedArchivingRoundTripImage
 {
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	CGImageRef cgImage		   = CGImageCreate( 100, 100, 8, 32, 400, colorSpace, kCGBitmapAlphaInfoMask, NULL, NULL, YES, kCGRenderingIntentDefault );
+	CGImageRef cgImage		   = CGImageCreate(100, 100, 8, 32, 400, colorSpace, kCGBitmapAlphaInfoMask, NULL, NULL, YES, kCGRenderingIntentDefault);
 
 	CPTImage *image = [CPTImage imageWithCGImage:cgImage];
 
 	image.tiled					= YES;
 	image.tileAnchoredToContext = YES;
 
-	CGColorSpaceRelease( colorSpace );
-	CGImageRelease( cgImage );
+	CGColorSpaceRelease(colorSpace);
+	CGImageRelease(cgImage);
 
 	_CPTFillImage *fill = (_CPTFillImage *)[CPTFill fillWithImage:image];
 
 	_CPTFillImage *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-	STAssertEqualObjects( fill.fillImage, newFill.fillImage, @"Fill with image not equal" );
+	STAssertEqualObjects(fill.fillImage, newFill.fillImage, @"Fill with image not equal");
 }
 
 @end

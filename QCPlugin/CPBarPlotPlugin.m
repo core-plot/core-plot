@@ -118,7 +118,7 @@
 					 QCPortTypeColor, QCPortAttributeTypeKey,
 					 lineColor, QCPortAttributeDefaultValueKey,
 					 nil]];
-	CGColorRelease( lineColor );
+	CGColorRelease(lineColor);
 
 	CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
 	[self addInputPortWithType:QCPortTypeColor
@@ -128,7 +128,7 @@
 					 QCPortTypeColor, QCPortAttributeTypeKey,
 					 fillColor, QCPortAttributeDefaultValueKey,
 					 nil]];
-	CGColorRelease( fillColor );
+	CGColorRelease(fillColor);
 
 	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i", index]
@@ -174,9 +174,9 @@
 		lineStyle.lineColor	   = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor:index]];
 		lineStyle.lineWidth	   = [self dataLineWidth:index];
 		plot.lineStyle		   = lineStyle;
-		plot.baseValue		   = CPTDecimalFromDouble( self.inputBaseValue );
-		plot.barWidth		   = CPTDecimalFromDouble( barWidth );
-		plot.barOffset		   = CPTDecimalFromDouble( self.inputBarOffset );
+		plot.baseValue		   = CPTDecimalFromDouble(self.inputBaseValue);
+		plot.barWidth		   = CPTDecimalFromDouble(barWidth);
+		plot.barOffset		   = CPTDecimalFromDouble(self.inputBarOffset);
 		plot.barsAreHorizontal = self.inputHorizontalBars;
 		plot.fill			   = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
 

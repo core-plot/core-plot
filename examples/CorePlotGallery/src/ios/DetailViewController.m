@@ -180,7 +180,7 @@
 		if ( themePopoverController == nil ) {
 			themePopoverController = [[UIPopoverController alloc] initWithContentViewController:themeTableViewController];
 			[themeTableViewController setThemePopoverController:themePopoverController];
-			[themePopoverController setPopoverContentSize:CGSizeMake( 320, 320 )];
+			[themePopoverController setPopoverContentSize:CGSizeMake(320, 320)];
 			[themePopoverController presentPopoverFromBarButtonItem:themeBarButton
 										   permittedArrowDirections:UIPopoverArrowDirectionAny
 														   animated:YES];

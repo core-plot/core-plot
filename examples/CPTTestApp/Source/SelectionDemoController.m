@@ -47,7 +47,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupGraph
 {
 	// Create graph and apply a dark theme
-	graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect( hostView.bounds )];
+	graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
 	[graph applyTheme:theme];
 	hostView.hostedGraph = graph;
@@ -59,7 +59,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 	textStyle.fontName			   = @"Helvetica-Bold";
 	textStyle.fontSize			   = 18.0;
 	graph.titleTextStyle		   = textStyle;
-	graph.titleDisplacement		   = CGPointMake( 0.0, 10.0 );
+	graph.titleDisplacement		   = CGPointMake(0.0, 10.0);
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
 	// Graph padding
@@ -151,15 +151,15 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	[plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
 	CPTPlotRange *xRange = plotSpace.xRange;
-	[xRange expandRangeByFactor:CPTDecimalFromDouble( 0.75 )];
+	[xRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
 	plotSpace.xRange = xRange;
 	CPTPlotRange *yRange = plotSpace.yRange;
-	[yRange expandRangeByFactor:CPTDecimalFromDouble( 0.75 )];
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
 	plotSpace.yRange = yRange;
 
-	CPTPlotRange *globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( -1.0 ) length:CPTDecimalFromDouble( 10.0 )];
+	CPTPlotRange *globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(10.0)];
 	plotSpace.globalXRange = globalXRange;
-	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( -5.0 ) length:CPTDecimalFromDouble( 10.0 )];
+	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-5.0) length:CPTDecimalFromDouble(10.0)];
 	plotSpace.globalYRange = globalYRange;
 }
 
@@ -266,7 +266,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 		if ( !redDot ) {
 			redDot			  = [[CPTPlotSymbol alloc] init];
 			redDot.symbolType = CPTPlotSymbolTypeEllipse;
-			redDot.size		  = CGSizeMake( 10.0, 10.0 );
+			redDot.size		  = CGSizeMake(10.0, 10.0);
 			redDot.fill		  = [CPTFill fillWithColor:[CPTColor redColor]];
 		}
 		symbol = redDot;

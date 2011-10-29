@@ -31,9 +31,9 @@
 	if ( nil == color ) {
 		CGColorRef clear  = NULL;
 		CGFloat values[4] = { 0.0, 0.0, 0.0, 0.0 };
-		clear = CGColorCreate( [CPTColorSpace genericRGBSpace].cgColorSpace, values );
+		clear = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
 		color = [[CPTColor alloc] initWithCGColor:clear];
-		CGColorRelease( clear );
+		CGColorRelease(clear);
 	}
 	return color;
 }
@@ -262,10 +262,10 @@
 +(CPTColor *)colorWithGenericGray:(CGFloat)gray
 {
 	CGFloat values[4]	= { gray, gray, gray, 1.0 };
-	CGColorRef colorRef = CGColorCreate( [CPTColorSpace genericRGBSpace].cgColorSpace, values );
+	CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
 	CPTColor *color		= [[CPTColor alloc] initWithCGColor:colorRef];
 
-	CGColorRelease( colorRef );
+	CGColorRelease(colorRef);
 	return [color autorelease];
 }
 
@@ -280,7 +280,7 @@
 -(id)initWithCGColor:(CGColorRef)newCGColor
 {
 	if ( (self = [super init]) ) {
-		CGColorRetain( newCGColor );
+		CGColorRetain(newCGColor);
 		cgColor = newCGColor;
 	}
 	return self;
@@ -302,21 +302,21 @@
 	colorComponents[1] = green;
 	colorComponents[2] = blue;
 	colorComponents[3] = alpha;
-	CGColorRef color = CGColorCreate( [CPTColorSpace genericRGBSpace].cgColorSpace, colorComponents );
+	CGColorRef color = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, colorComponents);
 	[self initWithCGColor:color];
-	CGColorRelease( color );
+	CGColorRelease(color);
 	return self;
 }
 
 -(void)dealloc
 {
-	CGColorRelease( cgColor );
+	CGColorRelease(cgColor);
 	[super dealloc];
 }
 
 -(void)finalize
 {
-	CGColorRelease( cgColor );
+	CGColorRelease(cgColor);
 	[super finalize];
 }
 
@@ -330,10 +330,10 @@
  **/
 -(CPTColor *)colorWithAlphaComponent:(CGFloat)alpha
 {
-	CGColorRef newCGColor = CGColorCreateCopyWithAlpha( self.cgColor, alpha );
+	CGColorRef newCGColor = CGColorCreateCopyWithAlpha(self.cgColor, alpha);
 	CPTColor *newColor	  = [CPTColor colorWithCGColor:newCGColor];
 
-	CGColorRelease( newCGColor );
+	CGColorRelease(newCGColor);
 	return newColor;
 }
 
@@ -344,12 +344,12 @@
 {
 	CGColorRef theColor = self.cgColor;
 
-	[coder encodeCGColorSpace:CGColorGetColorSpace( theColor ) forKey:@"CPTColor.colorSpace"];
+	[coder encodeCGColorSpace:CGColorGetColorSpace(theColor) forKey:@"CPTColor.colorSpace"];
 
-	size_t numberOfComponents = CGColorGetNumberOfComponents( theColor );
+	size_t numberOfComponents = CGColorGetNumberOfComponents(theColor);
 	[coder encodeInteger:numberOfComponents forKey:@"CPTColor.numberOfComponents"];
 
-	const CGFloat *colorComponents = CGColorGetComponents( theColor );
+	const CGFloat *colorComponents = CGColorGetComponents(theColor);
 
 	for ( size_t i = 0; i < numberOfComponents; i++ ) {
 		NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%u]", i];
@@ -365,7 +365,7 @@
 
 		size_t numberOfComponents = [coder decodeIntegerForKey:@"CPTColor.numberOfComponents"];
 
-		CGFloat *colorComponents = malloc( numberOfComponents * sizeof( CGFloat ) );
+		CGFloat *colorComponents = malloc( numberOfComponents * sizeof(CGFloat) );
 
 		for ( size_t i = 0; i < numberOfComponents; i++ ) {
 			NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%u]", i];
@@ -373,9 +373,9 @@
 			[newKey release];
 		}
 
-		cgColor = CGColorCreate( colorSpace, colorComponents );
-		CGColorSpaceRelease( colorSpace );
-		free( colorComponents );
+		cgColor = CGColorCreate(colorSpace, colorComponents);
+		CGColorSpaceRelease(colorSpace);
+		free(colorComponents);
 	}
 	return self;
 }
@@ -388,10 +388,10 @@
 	CGColorRef cgColorCopy = NULL;
 
 	if ( cgColor ) {
-		cgColorCopy = CGColorCreateCopy( cgColor );
+		cgColorCopy = CGColorCreateCopy(cgColor);
 	}
 	CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithCGColor:cgColorCopy];
-	CGColorRelease( cgColorCopy );
+	CGColorRelease(cgColorCopy);
 	return colorCopy;
 }
 
@@ -404,7 +404,7 @@
 		return YES;
 	}
 	else if ( [object isKindOfClass:[self class]] ) {
-		return CGColorEqualToColor( self.cgColor, ( (CPTColor *)object ).cgColor );
+		return CGColorEqualToColor(self.cgColor, ( (CPTColor *)object ).cgColor);
 	}
 	else {
 		return NO;
@@ -418,8 +418,8 @@
 	CGFloat multiplier = 256.0;
 
 	CGColorRef theColor			   = self.cgColor;
-	size_t numberOfComponents	   = CGColorGetNumberOfComponents( theColor );
-	const CGFloat *colorComponents = CGColorGetComponents( theColor );
+	size_t numberOfComponents	   = CGColorGetNumberOfComponents(theColor);
+	const CGFloat *colorComponents = CGColorGetComponents(theColor);
 
 	for ( NSUInteger i = 0; i < numberOfComponents; i++ ) {
 		theHash	   += multiplier * colorComponents[i];

@@ -71,8 +71,8 @@
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		xRange		  = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger( 0 ) length:CPTDecimalFromInteger( 1 )];
-		yRange		  = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger( 0 ) length:CPTDecimalFromInteger( 1 )];
+		xRange		  = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
+		yRange		  = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
 		globalXRange  = nil;
 		globalYRange  = nil;
 		xScaleType	  = CPTScaleTypeLinear;
@@ -208,7 +208,7 @@
 
 -(void)setXRange:(CPTPlotRange *)range
 {
-	NSParameterAssert( range );
+	NSParameterAssert(range);
 	if ( ![range isEqualToRange:xRange] ) {
 		CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
 		[xRange release];
@@ -225,7 +225,7 @@
 
 -(void)setYRange:(CPTPlotRange *)range
 {
-	NSParameterAssert( range );
+	NSParameterAssert(range);
 	if ( ![range isEqualToRange:yRange] ) {
 		CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
 		[yRange release];
@@ -249,7 +249,7 @@
 		return nil;
 	}
 
-	if ( CPTDecimalGreaterThanOrEqualTo( existingRange.length, globalRange.length ) ) {
+	if ( CPTDecimalGreaterThanOrEqualTo(existingRange.length, globalRange.length) ) {
 		return [[globalRange copy] autorelease];
 	}
 	else {
@@ -301,11 +301,11 @@
 	}
 
 	// Set range
-	NSDecimal zero = CPTDecimalFromInteger( 0 );
-	if ( unionXRange && !CPTDecimalEquals( unionXRange.length, zero ) ) {
+	NSDecimal zero = CPTDecimalFromInteger(0);
+	if ( unionXRange && !CPTDecimalEquals(unionXRange.length, zero) ) {
 		self.xRange = unionXRange;
 	}
-	if ( unionYRange && !CPTDecimalEquals( unionYRange.length, zero ) ) {
+	if ( unionYRange && !CPTDecimalEquals(unionYRange.length, zero) ) {
 		self.yRange = unionYRange;
 	}
 }
@@ -340,9 +340,9 @@
 		return 0.0;
 	}
 
-	NSDecimal factor = CPTDecimalDivide( CPTDecimalSubtract( plotCoord, range.location ), range.length );
-	if ( NSDecimalIsNotANumber( &factor ) ) {
-		factor = CPTDecimalFromInteger( 0 );
+	NSDecimal factor = CPTDecimalDivide(CPTDecimalSubtract(plotCoord, range.location), range.length);
+	if ( NSDecimalIsNotANumber(&factor) ) {
+		factor = CPTDecimalFromInteger(0);
 	}
 
 	CGFloat viewCoordinate = viewLength * [[NSDecimalNumber decimalNumberWithDecimal:factor] cgFloatValue];
@@ -365,9 +365,9 @@
 		return 0.0;
 	}
 
-	double logLoc	= log10( range.locationDouble );
-	double logCoord = log10( plotCoord );
-	double logEnd	= log10( range.endDouble );
+	double logLoc	= log10(range.locationDouble);
+	double logCoord = log10(plotCoord);
+	double logEnd	= log10(range.endDouble);
 
 	return viewLength * (logCoord - logLoc) / (logEnd - logLoc);
 }
@@ -420,7 +420,7 @@
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
 	}
 
-	return CGPointMake( viewX, viewY );
+	return CGPointMake(viewX, viewY);
 }
 
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
@@ -464,7 +464,7 @@
 			[NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
 	}
 
-	return CGPointMake( viewX, viewY );
+	return CGPointMake(viewX, viewY);
 }
 
 // Plot point for view point
@@ -477,34 +477,34 @@
 		boundsSize = plotArea.bounds.size;
 	}
 	else {
-		NSDecimal zero = CPTDecimalFromInteger( 0 );
+		NSDecimal zero = CPTDecimalFromInteger(0);
 		plotPoint[CPTCoordinateX] = zero;
 		plotPoint[CPTCoordinateY] = zero;
 		return;
 	}
 
-	NSDecimal pointx  = CPTDecimalFromDouble( point.x );
-	NSDecimal pointy  = CPTDecimalFromDouble( point.y );
-	NSDecimal boundsw = CPTDecimalFromDouble( boundsSize.width );
-	NSDecimal boundsh = CPTDecimalFromDouble( boundsSize.height );
+	NSDecimal pointx  = CPTDecimalFromDouble(point.x);
+	NSDecimal pointy  = CPTDecimalFromDouble(point.y);
+	NSDecimal boundsw = CPTDecimalFromDouble(boundsSize.width);
+	NSDecimal boundsh = CPTDecimalFromDouble(boundsSize.height);
 
 	// get the xRange's location and length
 	NSDecimal xLocation = xRange.location;
 	NSDecimal xLength	= xRange.length;
 
 	NSDecimal x;
-	NSDecimalDivide( &x, &pointx, &boundsw, NSRoundPlain );
-	NSDecimalMultiply( &x, &x, &(xLength), NSRoundPlain );
-	NSDecimalAdd( &x, &x, &(xLocation), NSRoundPlain );
+	NSDecimalDivide(&x, &pointx, &boundsw, NSRoundPlain);
+	NSDecimalMultiply(&x, &x, &(xLength), NSRoundPlain);
+	NSDecimalAdd(&x, &x, &(xLocation), NSRoundPlain);
 
 	// get the yRange's location and length
 	NSDecimal yLocation = yRange.location;
 	NSDecimal yLength	= yRange.length;
 
 	NSDecimal y;
-	NSDecimalDivide( &y, &pointy, &boundsh, NSRoundPlain );
-	NSDecimalMultiply( &y, &y, &(yLength), NSRoundPlain );
-	NSDecimalAdd( &y, &y, &(yLocation), NSRoundPlain );
+	NSDecimalDivide(&y, &pointy, &boundsh, NSRoundPlain);
+	NSDecimalMultiply(&y, &y, &(yLength), NSRoundPlain);
+	NSDecimalAdd(&y, &y, &(yLocation), NSRoundPlain);
 
 	plotPoint[CPTCoordinateX] = x;
 	plotPoint[CPTCoordinateY] = y;
@@ -558,7 +558,7 @@
 	}
 
 	// Determine point in plot coordinates
-	NSDecimal const decimalScale = CPTDecimalFromCGFloat( interactionScale );
+	NSDecimal const decimalScale = CPTDecimalFromCGFloat(interactionScale);
 	NSDecimal plotInteractionPoint[2];
 	[self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
 
@@ -567,32 +567,32 @@
 	CPTPlotRange *oldRangeY = self.yRange;
 
 	// Lengths are scaled by the pinch gesture inverse proportional
-	NSDecimal newLengthX = CPTDecimalDivide( oldRangeX.length, decimalScale );
-	NSDecimal newLengthY = CPTDecimalDivide( oldRangeY.length, decimalScale );
+	NSDecimal newLengthX = CPTDecimalDivide(oldRangeX.length, decimalScale);
+	NSDecimal newLengthY = CPTDecimalDivide(oldRangeY.length, decimalScale);
 
 	// New locations
 	NSDecimal newLocationX;
-	if ( CPTDecimalGreaterThanOrEqualTo( oldRangeX.length, CPTDecimalFromInteger( 0 ) ) ) {
-		NSDecimal oldFirstLengthX = CPTDecimalSubtract( plotInteractionPoint[CPTCoordinateX], oldRangeX.minLimit ); // x - minX
-		NSDecimal newFirstLengthX = CPTDecimalDivide( oldFirstLengthX, decimalScale );                              // (x - minX) / scale
-		newLocationX = CPTDecimalSubtract( plotInteractionPoint[CPTCoordinateX], newFirstLengthX );
+	if ( CPTDecimalGreaterThanOrEqualTo( oldRangeX.length, CPTDecimalFromInteger(0) ) ) {
+		NSDecimal oldFirstLengthX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], oldRangeX.minLimit); // x - minX
+		NSDecimal newFirstLengthX = CPTDecimalDivide(oldFirstLengthX, decimalScale);                              // (x - minX) / scale
+		newLocationX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], newFirstLengthX);
 	}
 	else {
-		NSDecimal oldSecondLengthX = CPTDecimalSubtract( oldRangeX.maxLimit, plotInteractionPoint[0] ); // maxX - x
-		NSDecimal newSecondLengthX = CPTDecimalDivide( oldSecondLengthX, decimalScale );                // (maxX - x) / scale
-		newLocationX = CPTDecimalAdd( plotInteractionPoint[CPTCoordinateX], newSecondLengthX );
+		NSDecimal oldSecondLengthX = CPTDecimalSubtract(oldRangeX.maxLimit, plotInteractionPoint[0]); // maxX - x
+		NSDecimal newSecondLengthX = CPTDecimalDivide(oldSecondLengthX, decimalScale);                // (maxX - x) / scale
+		newLocationX = CPTDecimalAdd(plotInteractionPoint[CPTCoordinateX], newSecondLengthX);
 	}
 
 	NSDecimal newLocationY;
-	if ( CPTDecimalGreaterThanOrEqualTo( oldRangeY.length, CPTDecimalFromInteger( 0 ) ) ) {
-		NSDecimal oldFirstLengthY = CPTDecimalSubtract( plotInteractionPoint[CPTCoordinateY], oldRangeY.minLimit ); // y - minY
-		NSDecimal newFirstLengthY = CPTDecimalDivide( oldFirstLengthY, decimalScale );                              // (y - minY) / scale
-		newLocationY = CPTDecimalSubtract( plotInteractionPoint[CPTCoordinateY], newFirstLengthY );
+	if ( CPTDecimalGreaterThanOrEqualTo( oldRangeY.length, CPTDecimalFromInteger(0) ) ) {
+		NSDecimal oldFirstLengthY = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], oldRangeY.minLimit); // y - minY
+		NSDecimal newFirstLengthY = CPTDecimalDivide(oldFirstLengthY, decimalScale);                              // (y - minY) / scale
+		newLocationY = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], newFirstLengthY);
 	}
 	else {
-		NSDecimal oldSecondLengthY = CPTDecimalSubtract( oldRangeY.maxLimit, plotInteractionPoint[1] ); // maxY - y
-		NSDecimal newSecondLengthY = CPTDecimalDivide( oldSecondLengthY, decimalScale );                // (maxY - y) / scale
-		newLocationY = CPTDecimalAdd( plotInteractionPoint[CPTCoordinateY], newSecondLengthY );
+		NSDecimal oldSecondLengthY = CPTDecimalSubtract(oldRangeY.maxLimit, plotInteractionPoint[1]); // maxY - y
+		NSDecimal newSecondLengthY = CPTDecimalDivide(oldSecondLengthY, decimalScale);                // (maxY - y) / scale
+		newLocationY = CPTDecimalAdd(plotInteractionPoint[CPTCoordinateY], newSecondLengthY);
 	}
 
 	// New ranges
@@ -669,13 +669,13 @@
 
 	if ( isDragging ) {
 		CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
-		CGPoint displacement	= CGPointMake( pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y );
+		CGPoint displacement	= CGPointMake(pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y);
 		CGPoint pointToUse		= pointInPlotArea;
 
 		// Allow delegate to override
 		if ( [self.delegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
 			displacement = [self.delegate plotSpace:self willDisplaceBy:displacement];
-			pointToUse	 = CGPointMake( lastDragPoint.x + displacement.x, lastDragPoint.y + displacement.y );
+			pointToUse	 = CGPointMake(lastDragPoint.x + displacement.x, lastDragPoint.y + displacement.y);
 		}
 
 		NSDecimal lastPoint[2], newPoint[2];
@@ -685,10 +685,10 @@
 		CPTPlotRange *newRangeX = [[self.xRange copy] autorelease];
 		CPTPlotRange *newRangeY = [[self.yRange copy] autorelease];
 
-		NSDecimal shiftX = CPTDecimalSubtract( lastPoint[0], newPoint[0] );
-		NSDecimal shiftY = CPTDecimalSubtract( lastPoint[1], newPoint[1] );
-		newRangeX.location = CPTDecimalAdd( newRangeX.location, shiftX );
-		newRangeY.location = CPTDecimalAdd( newRangeY.location, shiftY );
+		NSDecimal shiftX = CPTDecimalSubtract(lastPoint[0], newPoint[0]);
+		NSDecimal shiftY = CPTDecimalSubtract(lastPoint[1], newPoint[1]);
+		newRangeX.location = CPTDecimalAdd(newRangeX.location, shiftX);
+		newRangeY.location = CPTDecimalAdd(newRangeY.location, shiftY);
 
 		// Delegate override
 		if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {

@@ -33,8 +33,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 			NSTimeInterval x = oneDay * i;
 			double rOpen	 = 3.0 * rand() / (double)RAND_MAX + 1.0;
 			double rClose	 = (rand() / (double)RAND_MAX - 0.5) * 0.125 + rOpen;
-			double rHigh	 = MAX( rOpen, MAX( rClose, (rand() / (double)RAND_MAX - 0.5) * 0.5 + rOpen ) );
-			double rLow		 = MIN( rOpen, MIN( rClose, (rand() / (double)RAND_MAX - 0.5) * 0.5 + rOpen ) );
+			double rHigh	 = MAX( rOpen, MAX(rClose, (rand() / (double)RAND_MAX - 0.5) * 0.5 + rOpen) );
+			double rLow		 = MIN( rOpen, MIN(rClose, (rand() / (double)RAND_MAX - 0.5) * 0.5 + rOpen) );
 
 			[newData addObject:
 			 [NSDictionary dictionaryWithObjectsAndKeys:
@@ -60,7 +60,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	[graph release];
@@ -83,7 +83,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	// Axes
 	CPTXYAxisSet *xyAxisSet = (id)graph.axisSet;
 	CPTXYAxis *xAxis		= xyAxisSet.xAxis;
-	xAxis.majorIntervalLength	= CPTDecimalFromDouble( oneDay );
+	xAxis.majorIntervalLength	= CPTDecimalFromDouble(oneDay);
 	xAxis.minorTicksPerInterval = 0;
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -94,12 +94,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	CPTLineCap *lineCap = [[CPTLineCap alloc] init];
 	lineCap.lineStyle	 = xAxis.axisLineStyle;
 	lineCap.lineCapType	 = CPTLineCapTypeOpenArrow;
-	lineCap.size		 = CGSizeMake( 12.0, 12.0 );
+	lineCap.size		 = CGSizeMake(12.0, 12.0);
 	xAxis.axisLineCapMax = lineCap;
 	[lineCap release];
 
 	CPTXYAxis *yAxis = xyAxisSet.yAxis;
-	yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble( -0.5 * oneDay );
+	yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
 
 	// Line plot with gradient fill
 	CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
@@ -114,14 +114,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	areaGradient.angle = -90.0f;
 	CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill		 = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble( 0.0 );
+	dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
 
 	areaColor						  = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
 	areaGradient					  = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
 	areaGradient.angle				  = -90.0f;
 	areaGradientFill				  = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill2	  = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble( 5.0 );
+	dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(5.0);
 
 	// OHLC plot
 	CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
@@ -146,15 +146,15 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	graph.legend.fill				= graph.plotAreaFrame.fill;
 	graph.legend.borderLineStyle	= graph.plotAreaFrame.borderLineStyle;
 	graph.legend.cornerRadius		= 5.0;
-	graph.legend.swatchSize			= CGSizeMake( 25.0, 25.0 );
+	graph.legend.swatchSize			= CGSizeMake(25.0, 25.0);
 	graph.legend.swatchCornerRadius = 5.0;
 	graph.legendAnchor				= CPTRectAnchorBottom;
-	graph.legendDisplacement		= CGPointMake( 0.0, 12.0 );
+	graph.legendDisplacement		= CGPointMake(0.0, 12.0);
 
 	// Set plot ranges
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( -0.5 * oneDay ) length:CPTDecimalFromDouble( oneDay * plotData.count )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger( 0 ) length:CPTDecimalFromInteger( 4 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.5 * oneDay) length:CPTDecimalFromDouble(oneDay * plotData.count)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(4)];
 }
 
 -(void)dealloc

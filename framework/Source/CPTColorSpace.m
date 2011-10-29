@@ -44,10 +44,10 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		cgSpace = CGColorSpaceCreateDeviceRGB();
 #else
-		cgSpace = CGColorSpaceCreateWithName( kCGColorSpaceGenericRGB );
+		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 #endif
 		space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
-		CGColorSpaceRelease( cgSpace );
+		CGColorSpaceRelease(cgSpace);
 	}
 	return space;
 }
@@ -64,7 +64,7 @@
 -(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
 {
 	if ( (self = [super init]) ) {
-		CGColorSpaceRetain( colorSpace );
+		CGColorSpaceRetain(colorSpace);
 		cgColorSpace = colorSpace;
 	}
 	return self;
@@ -72,13 +72,13 @@
 
 -(void)dealloc
 {
-	CGColorSpaceRelease( cgColorSpace );
+	CGColorSpaceRelease(cgColorSpace);
 	[super dealloc];
 }
 
 -(void)finalize
 {
-	CGColorSpaceRelease( cgColorSpace );
+	CGColorSpaceRelease(cgColorSpace);
 	[super finalize];
 }
 
@@ -104,8 +104,8 @@
 -(void)setCGColorSpace:(CGColorSpaceRef)newSpace
 {
 	if ( newSpace != cgColorSpace ) {
-		CGColorSpaceRelease( cgColorSpace );
-		CGColorSpaceRetain( newSpace );
+		CGColorSpaceRelease(cgColorSpace);
+		CGColorSpaceRetain(newSpace);
 		cgColorSpace = newSpace;
 	}
 }

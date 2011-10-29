@@ -75,14 +75,14 @@
 	areaGradient.angle = -90.0f;
 	CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill		 = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble( 200.0 );
+	dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(200.0);
 
 	areaColor						  = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
 	areaGradient					  = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
 	areaGradient.angle				  = -90.0f;
 	areaGradientFill				  = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill2	  = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble( 400.0 );
+	dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(400.0);
 
 	// OHLC plot
 	CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
@@ -116,7 +116,7 @@
 	[lineStyle release];
 
 	volumePlot.fill		  = nil;
-	volumePlot.barWidth	  = CPTDecimalFromFloat( 1.0f );
+	volumePlot.barWidth	  = CPTDecimalFromFloat(1.0f);
 	volumePlot.identifier = @"Volume Plot";
 	[graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
 
@@ -159,7 +159,7 @@
 
 			NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
 			num = [fData objectForKey:@"close"];
-			NSAssert( nil != num, @"grrr" );
+			NSAssert(nil != num, @"grrr");
 		}
 	}
 	else if ( [plot.identifier isEqual:@"Volume Plot"] ) {
@@ -171,7 +171,7 @@
 
 			NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
 			num = [fData objectForKey:@"volume"];
-			NSAssert( nil != num, @"grrr" );
+			NSAssert(nil != num, @"grrr");
 		}
 	}
 	else {
@@ -223,7 +223,7 @@
 	NSDecimalNumber *high	= [datapuller overallHigh];
 	NSDecimalNumber *low	= [datapuller overallLow];
 	NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
-	NSLog( @"high = %@, low = %@, length = %@", high, low, length );
+	NSLog(@"high = %@, low = %@, length = %@", high, low, length);
 	NSDecimalNumber *pricePlotSpaceDisplacementPercent = [NSDecimalNumber decimalNumberWithMantissa:33
 																						   exponent:-2
 																						 isNegative:NO];
@@ -232,7 +232,7 @@
 	NSDecimalNumber *lowDisplayLocation		 = [low decimalNumberBySubtracting:lengthDisplacementValue];
 	NSDecimalNumber *lengthDisplayLocation	 = [length decimalNumberByAdding:lengthDisplacementValue];
 
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0f ) length:CPTDecimalFromInteger( [datapuller.financialData count] )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0f) length:CPTDecimalFromInteger([datapuller.financialData count])];
 	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
 	// Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -250,16 +250,16 @@
 	NSDecimalNumber *volumeLowDisplayLocation	   = overallVolumeLow;
 	NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
-	volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromInteger( [datapuller.financialData count] )];
+	volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromInteger([datapuller.financialData count])];
 	volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
 
 	axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
 
-	axisSet.yAxis.majorIntervalLength		  = CPTDecimalFromString( @"50.0" );
+	axisSet.yAxis.majorIntervalLength		  = CPTDecimalFromString(@"50.0");
 	axisSet.yAxis.minorTicksPerInterval		  = 4;
-	axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromString( @"1.0" );
+	axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:[low decimalValue]],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]],
 								nil];
 
 	axisSet.yAxis.labelExclusionRanges = exclusionRanges;

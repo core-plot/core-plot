@@ -1,9 +1,9 @@
 #import "APFinancialData.h"
 #import "APYahooDataPuller.h"
 
-NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
+NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 {
-	NSTimeInterval seconds = fabs( 60.0 * 60.0 * 24.0 * 7.0 * numberOfWeeks );
+	NSTimeInterval seconds = fabs(60.0 * 60.0 * 24.0 * 7.0 * numberOfWeeks);
 
 	return seconds;
 }
@@ -78,7 +78,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 
 -(BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag;
 {
-	NSLog( @"writeToFile:%@", path );
+	NSLog(@"writeToFile:%@", path);
 	BOOL success = [[self plistRep] writeToFile:path atomically:flag];
 	return success;
 }
@@ -105,7 +105,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 
 -(NSString *)pathForSymbol:(NSString *)aSymbol
 {
-	NSArray *paths				 = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES );
+	NSArray *paths				 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *docPath			 = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
 
@@ -152,7 +152,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 
 -(id)init
 {
-	NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks( 14.0f ); //12 weeks ago
+	NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
 	NSDate *start			  = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
 
 	NSDate *end = [NSDate date];
@@ -232,7 +232,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 	if ( [self shouldDownload] ) {
 		self.loadingData = YES;
 		NSString *urlString = [self URL];
-		NSLog( @"URL = %@", urlString );
+		NSLog(@"URL = %@", urlString);
 		NSURL *url				 = [NSURL URLWithString:urlString];
 		NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
 													cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -282,7 +282,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 	self.loadingData  = NO;
 	self.receivedData = nil;
 	self.connection	  = nil;
-	NSLog( @"err = %@", [error localizedDescription] );
+	NSLog(@"err = %@", [error localizedDescription]);
 	//TODO:report err
 }
 
@@ -306,7 +306,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks( float numberOfWeeks )
 		[self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
 	}
 	else {
-		NSLog( @"Not writing to file -- No Need, its data is fresh." );
+		NSLog(@"Not writing to file -- No Need, its data is fresh.");
 	}
 }
 

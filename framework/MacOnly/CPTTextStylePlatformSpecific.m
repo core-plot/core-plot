@@ -24,7 +24,7 @@
 									theFont, NSFontAttributeName,
 									nil];
 
-		textSize = NSSizeToCGSize( [self sizeWithAttributes:attributes] );
+		textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
 
 		[attributes release];
 	}
@@ -51,10 +51,10 @@
 
 	CGColorRef textColor = style.color.cgColor;
 
-	CGContextSetStrokeColorWithColor( context, textColor );
-	CGContextSetFillColorWithColor( context, textColor );
+	CGContextSetStrokeColorWithColor(context, textColor);
+	CGContextSetFillColorWithColor(context, textColor);
 
-	CPTPushCGContext( context );
+	CPTPushCGContext(context);
 	NSFont *theFont = [NSFont fontWithName:style.fontName size:style.fontSize];
 	if ( theFont ) {
 		NSColor *foregroundColor				= style.color.nsColor;
@@ -82,7 +82,7 @@
 									foregroundColor, NSForegroundColorAttributeName,
 									paragraphStyle, NSParagraphStyleAttributeName,
 									nil];
-		[self drawInRect:NSRectFromCGRect( rect ) withAttributes:attributes];
+		[self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
 
 		[paragraphStyle release];
 		[attributes release];

@@ -5,28 +5,28 @@
 #define kQCPlugIn_Description @"CorePlotQCPlugIn base plugin."
 
 // Draws the string "ERROR" in the given context in big red letters
-void drawErrorText( CGContextRef context, CGRect rect )
+void drawErrorText(CGContextRef context, CGRect rect)
 {
 	// :'(
 
-	CGContextSaveGState( context );
+	CGContextSaveGState(context);
 
 	CGFloat w = rect.size.width;
 	CGFloat h = rect.size.height;
 
-	CGContextSelectFont( context, "Verdana", h / 4, kCGEncodingMacRoman );
-	CGContextSetTextDrawingMode( context, kCGTextFillStroke );
+	CGContextSelectFont(context, "Verdana", h / 4, kCGEncodingMacRoman);
+	CGContextSetTextDrawingMode(context, kCGTextFillStroke);
 
-	CGContextSetRGBFillColor( context, 1, 0, 0, 0.5 );
-	CGContextSetRGBStrokeColor( context, 0, 0, 0, 1 );
+	CGContextSetRGBFillColor(context, 1, 0, 0, 0.5);
+	CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
 
-	CGContextSetTextMatrix( context, CGAffineTransformIdentity );
+	CGContextSetTextMatrix(context, CGAffineTransformIdentity);
 
 	// Compute the width of the text
-	CGPoint r0 = CGContextGetTextPosition( context );
-	CGContextSetTextDrawingMode( context, kCGTextInvisible );
-	CGContextShowText( context, "ERROR", 5 ); // 10
-	CGPoint r1 = CGContextGetTextPosition( context );
+	CGPoint r0 = CGContextGetTextPosition(context);
+	CGContextSetTextDrawingMode(context, kCGTextInvisible);
+	CGContextShowText(context, "ERROR", 5); // 10
+	CGPoint r1 = CGContextGetTextPosition(context);
 
 	CGFloat width  = r1.x - r0.x;
 	CGFloat height = h / 3;
@@ -34,10 +34,10 @@ void drawErrorText( CGContextRef context, CGRect rect )
 	CGFloat x = rect.origin.x + w / 2.0 - width / 2.0;
 	CGFloat y = rect.origin.y + h / 2.0 - height / 2.0;
 
-	CGContextSetTextDrawingMode( context, kCGTextFillStroke );
-	CGContextShowTextAtPoint( context, x, y, "ERROR", 5 );
+	CGContextSetTextDrawingMode(context, kCGTextFillStroke);
+	CGContextShowTextAtPoint(context, x, y, "ERROR", 5);
 
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 }
 
 @implementation CorePlotQCPlugIn
@@ -137,11 +137,11 @@ void drawErrorText( CGContextRef context, CGRect rect )
 -(void)freeImageResources
 {
 	if ( bitmapContext ) {
-		CGContextRelease( bitmapContext );
+		CGContextRelease(bitmapContext);
 		bitmapContext = nil;
 	}
 	if ( imageData ) {
-		free( imageData );
+		free(imageData);
 		imageData = nil;
 	}
 }
@@ -261,12 +261,12 @@ void drawErrorText( CGContextRef context, CGRect rect )
 	}
 
 	if ( [key isEqualToString:@"inputAxisColor"] ) {
-		CGColorRef axisColor = CGColorCreateGenericRGB( 1.0, 1.0, 1.0, 1.0 );
+		CGColorRef axisColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
 		NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"Axis Color", QCPortAttributeNameKey,
 								(id)axisColor, QCPortAttributeDefaultValueKey,
 								nil];
-		CGColorRelease( axisColor );
+		CGColorRelease(axisColor);
 		return result;
 	}
 
@@ -327,12 +327,12 @@ void drawErrorText( CGContextRef context, CGRect rect )
 	}
 
 	if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
-		CGColorRef plotAreaColor = CGColorCreateGenericRGB( 0.0, 0.0, 0.0, 0.4 );
+		CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
 		NSDictionary *result	 = [NSDictionary dictionaryWithObjectsAndKeys:
 									@"Plot Area Color", QCPortAttributeNameKey,
 									(id)plotAreaColor, QCPortAttributeDefaultValueKey,
 									nil];
-		CGColorRelease( plotAreaColor );
+		CGColorRelease(plotAreaColor);
 		return result;
 	}
 
@@ -373,18 +373,18 @@ void drawErrorText( CGContextRef context, CGRect rect )
 
 		// Setup scatter plot space
 		CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 1.0 )];
-		plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -1.0 ) length:CPTDecimalFromFloat( 1.0 )];
+		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(1.0)];
+		plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(1.0)];
 
 		// Axes
 		CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 
 		CPTXYAxis *x = axisSet.xAxis;
-		x.majorIntervalLength	= CPTDecimalFromFloat( 0.5 );
+		x.majorIntervalLength	= CPTDecimalFromFloat(0.5);
 		x.minorTicksPerInterval = 2;
 
 		CPTXYAxis *y = axisSet.yAxis;
-		y.majorIntervalLength	= CPTDecimalFromFloat( 0.5 );
+		y.majorIntervalLength	= CPTDecimalFromFloat(0.5);
 		y.minorTicksPerInterval = 5;
 	}
 }
@@ -395,31 +395,31 @@ void drawErrorText( CGContextRef context, CGRect rect )
 
 	switch ( index ) {
 		case 0:
-			color = CGColorCreateGenericRGB( 1.0, 0.0, 0.0, alpha );
+			color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
 			break;
 
 		case 1:
-			color = CGColorCreateGenericRGB( 0.0, 1.0, 0.0, alpha );
+			color = CGColorCreateGenericRGB(0.0, 1.0, 0.0, alpha);
 			break;
 
 		case 2:
-			color = CGColorCreateGenericRGB( 0.0, 0.0, 1.0, alpha );
+			color = CGColorCreateGenericRGB(0.0, 0.0, 1.0, alpha);
 			break;
 
 		case 3:
-			color = CGColorCreateGenericRGB( 1.0, 1.0, 0.0, alpha );
+			color = CGColorCreateGenericRGB(1.0, 1.0, 0.0, alpha);
 			break;
 
 		case 4:
-			color = CGColorCreateGenericRGB( 1.0, 0.0, 1.0, alpha );
+			color = CGColorCreateGenericRGB(1.0, 0.0, 1.0, alpha);
 			break;
 
 		case 5:
-			color = CGColorCreateGenericRGB( 0.0, 1.0, 1.0, alpha );
+			color = CGColorCreateGenericRGB(0.0, 1.0, 1.0, alpha);
 			break;
 
 		default:
-			color = CGColorCreateGenericRGB( 1.0, 0.0, 0.0, alpha );
+			color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
 			break;
 	}
 
@@ -542,7 +542,7 @@ void drawErrorText( CGContextRef context, CGRect rect )
 
 	CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
 	[img lockBufferRepresentationWithPixelFormat:pixelFormat colorSpace:rgbColorSpace forBounds:[img imageBounds]];
-	CGColorSpaceRelease( rgbColorSpace );
+	CGColorSpaceRelease(rgbColorSpace);
 	void *baseAddress			= (void *)[img bufferBaseAddress];
 	NSUInteger pixelsWide		= [img bufferPixelsWide];
 	NSUInteger pixelsHigh		= [img bufferPixelsHigh];
@@ -550,24 +550,24 @@ void drawErrorText( CGContextRef context, CGRect rect )
 	NSUInteger bytesPerRow		= [img bufferBytesPerRow];
 	CGColorSpaceRef colorSpace	= [img bufferColorSpace];
 
-	CGContextRef imgContext = CGBitmapContextCreate( baseAddress,
-													 pixelsWide,
-													 pixelsHigh,
-													 bitsPerComponent,
-													 bytesPerRow,
-													 colorSpace,
-													 kCGImageAlphaNoneSkipLast );
+	CGContextRef imgContext = CGBitmapContextCreate(baseAddress,
+													pixelsWide,
+													pixelsHigh,
+													bitsPerComponent,
+													bytesPerRow,
+													colorSpace,
+													kCGImageAlphaNoneSkipLast);
 
-	CGImageRef imageRef = CGBitmapContextCreateImage( imgContext );
+	CGImageRef imageRef = CGBitmapContextCreateImage(imgContext);
 
 	[img unlockBufferRepresentation];
 
-	CGContextRelease( imgContext );
+	CGContextRelease(imgContext);
 
 	return imageRef;
 }
 
-static void _BufferReleaseCallback( const void *address, void *context )
+static void _BufferReleaseCallback(const void *address, void *context)
 {
 	// Don't do anything.  We release the buffer manually when it's recreated or during dealloc
 }
@@ -584,23 +584,23 @@ static void _BufferReleaseCallback( const void *address, void *context )
 	}
 
 	if ( !imageData ) {
-		imageData	  = valloc( rowBytes * boundsSize.height );
-		bitmapContext = CGBitmapContextCreate( imageData,
-											   boundsSize.width,
-											   boundsSize.height,
-											   bitsPerComponent,
-											   rowBytes,
-											   [context colorSpace],
-											   kCGImageAlphaPremultipliedFirst );
+		imageData	  = valloc(rowBytes * boundsSize.height);
+		bitmapContext = CGBitmapContextCreate(imageData,
+											  boundsSize.width,
+											  boundsSize.height,
+											  bitsPerComponent,
+											  rowBytes,
+											  [context colorSpace],
+											  kCGImageAlphaPremultipliedFirst);
 	}
 	if ( !imageData ) {
-		NSLog( @"Couldn't allocate memory for image data" );
+		NSLog(@"Couldn't allocate memory for image data");
 		return;
 	}
 	if ( !bitmapContext ) {
-		free( imageData );
+		free(imageData);
 		imageData = nil;
-		NSLog( @"Couldn't create bitmap context" );
+		NSLog(@"Couldn't create bitmap context");
 		return;
 	}
 
@@ -650,7 +650,7 @@ static void _BufferReleaseCallback( const void *address, void *context )
 
 -(void)setNumberOfPlots:(NSUInteger)number
 {
-	number = MAX( 1, number );
+	number = MAX(1, number);
 
 	if ( number > numberOfPlots ) {
 		[self addPlots:number - numberOfPlots];
@@ -692,7 +692,7 @@ static void _BufferReleaseCallback( const void *address, void *context )
 	 */
 
 	if ( [key isEqualToString:@"numberOfPlots"] ) {
-		[self setNumberOfPlots:MAX( 1, [serializedValue intValue] )];
+		[self setNumberOfPlots:MAX(1, [serializedValue intValue])];
 	}
 	else {
 		[super setSerializedValue:serializedValue forKey:key];
@@ -732,7 +732,7 @@ static void _BufferReleaseCallback( const void *address, void *context )
 	 */
 
 	// Configure the graph area
-	CGRect frame = CGRectMake( 0.0, 0.0, MAX( 1, self.inputPixelsWide ), MAX( 1, self.inputPixelsHigh ) );
+	CGRect frame = CGRectMake( 0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
 
 	[graph setBounds:frame];
 
@@ -763,8 +763,8 @@ static void _BufferReleaseCallback( const void *address, void *context )
 
 	// Configure the plot space and axis sets
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( self.inputXMin ) length:CPTDecimalFromFloat( self.inputXMax - self.inputXMin )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( self.inputYMin ) length:CPTDecimalFromFloat( self.inputYMax - self.inputYMin )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputXMin) length:CPTDecimalFromFloat(self.inputXMax - self.inputXMin)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputYMin) length:CPTDecimalFromFloat(self.inputYMax - self.inputYMin)];
 
 	[self configureAxis];
 
@@ -793,21 +793,21 @@ static void _BufferReleaseCallback( const void *address, void *context )
 
 	// Draw the plot ...
 	CGSize boundsSize = graph.bounds.size;
-	CGContextClearRect( bitmapContext, CGRectMake( 0.0f, 0.0f, boundsSize.width, boundsSize.height ) );
-	CGContextSetRGBFillColor( bitmapContext, 0.0, 0.0, 0.0, 0.0 );
-	CGContextFillRect( bitmapContext, CGRectMake( 0, 0, boundsSize.width, boundsSize.height ) );
-	CGContextSetAllowsAntialiasing( bitmapContext, true );
+	CGContextClearRect( bitmapContext, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height) );
+	CGContextSetRGBFillColor(bitmapContext, 0.0, 0.0, 0.0, 0.0);
+	CGContextFillRect( bitmapContext, CGRectMake(0, 0, boundsSize.width, boundsSize.height) );
+	CGContextSetAllowsAntialiasing(bitmapContext, true);
 
 	if ( configurationCheck ) {
 		[self configurePlots];
 		[graph recursivelyRenderInContext:bitmapContext];
 	}
 	else {
-		drawErrorText( bitmapContext, CGRectMake( 0, 0, self.inputPixelsWide, self.inputPixelsHigh ) );
+		drawErrorText( bitmapContext, CGRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
 	}
 
 	//CGContextSetAllowsAntialiasing(bitmapContext, false);
-	CGContextFlush( bitmapContext );
+	CGContextFlush(bitmapContext);
 
 	// ... and put it on the output port
 	self.outputImage = imageProvider;

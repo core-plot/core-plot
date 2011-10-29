@@ -62,7 +62,7 @@
 	self.allowPinchScaling = YES;
 
 	// This undoes the normal coordinate space inversion that UIViews apply to their layers
-	self.layer.sublayerTransform = CATransform3DMakeScale( 1.0, -1.0, 1.0 );
+	self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -175,7 +175,7 @@
 		allowPinchScaling = yn;
 		if ( allowPinchScaling ) {
 			// Register for pinches
-			Class pinchClass = NSClassFromString( @"UIPinchGestureRecognizer" );
+			Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
 			if ( pinchClass ) {
 				pinchGestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
 				[self addGestureRecognizer:pinchGestureRecognizer];
@@ -223,8 +223,8 @@
 	}
 
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextTranslateCTM( context, 0, self.bounds.size.height );
-	CGContextScaleCTM( context, 1, -1 );
+	CGContextTranslateCTM(context, 0, self.bounds.size.height);
+	CGContextScaleCTM(context, 1, -1);
 	hostedGraph.frame = self.bounds;
 	[hostedGraph layoutAndRenderInContext:context];
 }

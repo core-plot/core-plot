@@ -129,7 +129,7 @@
 								 shape:(NSArray *)shapeArray
 {
 	return [[[CPTNumericData alloc] initWithData:newData
-										dataType:CPTDataTypeWithDataTypeString( newDataTypeString )
+										dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
 										   shape:shapeArray]
 			autorelease];
 }
@@ -169,7 +169,7 @@
 								  shape:(NSArray *)shapeArray
 {
 	return [[[CPTNumericData alloc] initWithArray:newData
-										 dataType:CPTDataTypeWithDataTypeString( newDataTypeString )
+										 dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
 											shape:shapeArray]
 			autorelease];
 }
@@ -207,7 +207,7 @@
 			shape:(NSArray *)shapeArray
 {
 	return [self initWithData:newData
-					 dataType:CPTDataTypeWithDataTypeString( newDataTypeString )
+					 dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
 						shape:shapeArray];
 }
 
@@ -245,7 +245,7 @@
 			 shape:(NSArray *)shapeArray
 {
 	return [self initWithArray:newData
-					  dataType:CPTDataTypeWithDataTypeString( newDataTypeString )
+					  dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
 						 shape:shapeArray];
 }
 
@@ -253,7 +253,7 @@
 				 dataType:(CPTNumericDataType)newDataType
 					shape:(NSArray *)shapeArray
 {
-	NSParameterAssert( CPTDataTypeIsSupported( newDataType ) );
+	NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 
 	data	 = [newData copy];
 	dataType = newDataType;
@@ -347,19 +347,19 @@
 
 			case CPTIntegerDataType:
 				switch ( self.sampleBytes ) {
-					case sizeof( int8_t ):
+					case sizeof(int8_t):
 						result = [NSNumber numberWithChar:*(int8_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( int16_t ):
+					case sizeof(int16_t):
 						result = [NSNumber numberWithShort:*(int16_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( int32_t ):
+					case sizeof(int32_t):
 						result = [NSNumber numberWithLong:*(int32_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( int64_t ):
+					case sizeof(int64_t):
 						result = [NSNumber numberWithLongLong:*(int64_t *)[self samplePointer:sample]];
 						break;
 				}
@@ -367,19 +367,19 @@
 
 			case CPTUnsignedIntegerDataType:
 				switch ( self.sampleBytes ) {
-					case sizeof( uint8_t ):
+					case sizeof(uint8_t):
 						result = [NSNumber numberWithUnsignedChar:*(uint8_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( uint16_t ):
+					case sizeof(uint16_t):
 						result = [NSNumber numberWithUnsignedShort:*(uint16_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( uint32_t ):
+					case sizeof(uint32_t):
 						result = [NSNumber numberWithUnsignedLong:*(uint32_t *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( uint64_t ):
+					case sizeof(uint64_t):
 						result = [NSNumber numberWithUnsignedLongLong:*(uint64_t *)[self samplePointer:sample]];
 						break;
 				}
@@ -387,11 +387,11 @@
 
 			case CPTFloatingPointDataType:
 				switch ( self.sampleBytes ) {
-					case sizeof( float ):
+					case sizeof(float):
 						result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( double ):
+					case sizeof(double):
 						result = [NSNumber numberWithDouble:*(double *)[self samplePointer:sample]];
 						break;
 				}
@@ -399,11 +399,11 @@
 
 			case CPTComplexFloatingPointDataType:
 				switch ( self.sampleBytes ) {
-					case sizeof( float complex ):
+					case sizeof(float complex):
 						result = [NSNumber numberWithFloat:*(float complex *)[self samplePointer:sample]];
 						break;
 
-					case sizeof( double complex ):
+					case sizeof(double complex):
 						result = [NSNumber numberWithDouble:*(double complex *)[self samplePointer:sample]];
 						break;
 				}
@@ -411,7 +411,7 @@
 
 			case CPTDecimalDataType:
 				switch ( self.sampleBytes ) {
-					case sizeof( NSDecimal ):
+					case sizeof(NSDecimal):
 						result = [NSDecimalNumber decimalNumberWithDecimal:*(NSDecimal *)[self samplePointer:sample]];
 						break;
 				}
@@ -459,9 +459,9 @@
 
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType
 {
-	NSParameterAssert( CPTDataTypeIsSupported( newDataType ) );
-	NSParameterAssert( newDataType.dataTypeFormat != CPTUndefinedDataType );
-	NSParameterAssert( newDataType.dataTypeFormat != CPTComplexFloatingPointDataType );
+	NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+	NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
+	NSParameterAssert(newDataType.dataTypeFormat != CPTComplexFloatingPointDataType);
 
 	NSMutableData *sampleData = [[NSMutableData alloc] initWithLength:newData.count * newDataType.sampleBytes];
 
@@ -475,7 +475,7 @@
 
 		case CPTIntegerDataType:
 			switch ( newDataType.sampleBytes ) {
-				case sizeof( int8_t ):
+				case sizeof(int8_t):
 				{
 					int8_t *toBytes = (int8_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -489,7 +489,7 @@
 				}
 				break;
 
-				case sizeof( int16_t ):
+				case sizeof(int16_t):
 				{
 					int16_t *toBytes = (int16_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -503,7 +503,7 @@
 				}
 				break;
 
-				case sizeof( int32_t ):
+				case sizeof(int32_t):
 				{
 					int32_t *toBytes = (int32_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -517,7 +517,7 @@
 				}
 				break;
 
-				case sizeof( int64_t ):
+				case sizeof(int64_t):
 				{
 					int64_t *toBytes = (int64_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -535,7 +535,7 @@
 
 		case CPTUnsignedIntegerDataType:
 			switch ( newDataType.sampleBytes ) {
-				case sizeof( uint8_t ):
+				case sizeof(uint8_t):
 				{
 					uint8_t *toBytes = (uint8_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -549,7 +549,7 @@
 				}
 				break;
 
-				case sizeof( uint16_t ):
+				case sizeof(uint16_t):
 				{
 					uint16_t *toBytes = (uint16_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -563,7 +563,7 @@
 				}
 				break;
 
-				case sizeof( uint32_t ):
+				case sizeof(uint32_t):
 				{
 					uint32_t *toBytes = (uint32_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -577,7 +577,7 @@
 				}
 				break;
 
-				case sizeof( uint64_t ):
+				case sizeof(uint64_t):
 				{
 					uint64_t *toBytes = (uint64_t *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -595,7 +595,7 @@
 
 		case CPTFloatingPointDataType:
 			switch ( newDataType.sampleBytes ) {
-				case sizeof( float ):
+				case sizeof(float):
 				{
 					float *toBytes = (float *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -609,7 +609,7 @@
 				}
 				break;
 
-				case sizeof( double ):
+				case sizeof(double):
 				{
 					double *toBytes = (double *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -627,7 +627,7 @@
 
 		case CPTComplexFloatingPointDataType:
 			switch ( newDataType.sampleBytes ) {
-				case sizeof( float complex ):
+				case sizeof(float complex):
 				{
 					float complex *toBytes = (float complex *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -641,7 +641,7 @@
 				}
 				break;
 
-				case sizeof( double complex ):
+				case sizeof(double complex):
 				{
 					double complex *toBytes = (double complex *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -659,7 +659,7 @@
 
 		case CPTDecimalDataType:
 			switch ( newDataType.sampleBytes ) {
-				case sizeof( NSDecimal ):
+				case sizeof(NSDecimal):
 				{
 					NSDecimal *toBytes = (NSDecimal *)sampleData.mutableBytes;
 					for ( id sample in newData ) {
@@ -701,7 +701,7 @@
 		}
 		[descriptionString appendFormat:@" %@", [self sampleValue:i]];
 	}
-	[descriptionString appendFormat:@" ] {%@, %@}>", CPTDataTypeStringFromDataType( self.dataType ), self.shape];
+	[descriptionString appendFormat:@" ] {%@, %@}>", CPTDataTypeStringFromDataType(self.dataType), self.shape];
 
 	return descriptionString;
 }
@@ -747,9 +747,9 @@
 		[encoder encodeObject:self.data];
 
 		CPTNumericDataType selfDataType = self.dataType;
-		[encoder encodeValueOfObjCType:@encode( CPTDataTypeFormat ) at:&(selfDataType.dataTypeFormat)];
-		[encoder encodeValueOfObjCType:@encode( NSUInteger ) at:&(selfDataType.sampleBytes)];
-		[encoder encodeValueOfObjCType:@encode( CFByteOrder ) at:&(selfDataType.byteOrder)];
+		[encoder encodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
+		[encoder encodeValueOfObjCType:@encode(NSUInteger) at:&(selfDataType.sampleBytes)];
+		[encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
 
 		[encoder encodeObject:self.shape];
 	}
@@ -765,18 +765,18 @@
 		if ( [decoder allowsKeyedCoding] ) {
 			newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
-			newDataType = CPTDataType( [decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
-									   [decoder decodeIntegerForKey:@"CPTNumericData.dataType.sampleBytes"],
-									   [decoder decodeIntegerForKey:@"CPTNumericData.dataType.byteOrder"] );
+			newDataType = CPTDataType([decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
+									  [decoder decodeIntegerForKey:@"CPTNumericData.dataType.sampleBytes"],
+									  [decoder decodeIntegerForKey:@"CPTNumericData.dataType.byteOrder"]);
 
 			shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
 		}
 		else {
 			newData = [decoder decodeObject];
 
-			[decoder decodeValueOfObjCType:@encode( CPTDataTypeFormat ) at:&(newDataType.dataTypeFormat)];
-			[decoder decodeValueOfObjCType:@encode( NSUInteger ) at:&(newDataType.sampleBytes)];
-			[decoder decodeValueOfObjCType:@encode( CFByteOrder ) at:&(newDataType.byteOrder)];
+			[decoder decodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(newDataType.dataTypeFormat)];
+			[decoder decodeValueOfObjCType:@encode(NSUInteger) at:&(newDataType.sampleBytes)];
+			[decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(newDataType.byteOrder)];
 
 			shapeArray = [decoder decodeObject];
 		}

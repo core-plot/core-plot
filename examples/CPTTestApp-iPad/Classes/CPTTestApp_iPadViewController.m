@@ -54,17 +54,17 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	if ( UIInterfaceOrientationIsLandscape( fromInterfaceOrientation ) ) {
+	if ( UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ) {
 		// Move the plots into place for portrait
-		scatterPlotView.frame = CGRectMake( 20.0f, 55.0f, 728.0f, 556.0f );
-		barChartView.frame	  = CGRectMake( 20.0f, 644.0f, 340.0f, 340.0f );
-		pieChartView.frame	  = CGRectMake( 408.0f, 644.0f, 340.0f, 340.0f );
+		scatterPlotView.frame = CGRectMake(20.0f, 55.0f, 728.0f, 556.0f);
+		barChartView.frame	  = CGRectMake(20.0f, 644.0f, 340.0f, 340.0f);
+		pieChartView.frame	  = CGRectMake(408.0f, 644.0f, 340.0f, 340.0f);
 	}
 	else {
 		// Move the plots into place for landscape
-		scatterPlotView.frame = CGRectMake( 20.0f, 51.0f, 628.0f, 677.0f );
-		barChartView.frame	  = CGRectMake( 684.0f, 51.0f, 320.0f, 320.0f );
-		pieChartView.frame	  = CGRectMake( 684.0f, 408.0f, 320.0f, 320.0f );
+		scatterPlotView.frame = CGRectMake(20.0f, 51.0f, 628.0f, 677.0f);
+		barChartView.frame	  = CGRectMake(684.0f, 51.0f, 320.0f, 320.0f);
+		pieChartView.frame	  = CGRectMake(684.0f, 408.0f, 320.0f, 320.0f);
 	}
 }
 
@@ -109,30 +109,30 @@
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = YES;
-	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 2.0 )];
-	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 3.0 )];
+	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(2.0)];
+	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(3.0)];
 
 	// Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString( @"2" );
+	x.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
+	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
 	x.minorTicksPerInterval		  = 2;
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.99 ) length:CPTDecimalFromFloat( 0.02 )],
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.99 ) length:CPTDecimalFromFloat( 0.02 )],
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 2.99 ) length:CPTDecimalFromFloat( 0.02 )],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(2.99) length:CPTDecimalFromFloat(0.02)],
 								nil];
 	x.labelExclusionRanges = exclusionRanges;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
+	y.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
 	y.minorTicksPerInterval		  = 5;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromString( @"2" );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
 	exclusionRanges				  = [NSArray arrayWithObjects:
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.99 ) length:CPTDecimalFromFloat( 0.02 )],
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.99 ) length:CPTDecimalFromFloat( 0.02 )],
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 3.99 ) length:CPTDecimalFromFloat( 0.02 )],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)],
 									 nil];
 	y.labelExclusionRanges = exclusionRanges;
 
@@ -154,7 +154,7 @@
 	areaGradient.angle = -90.0f;
 	CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill		 = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString( @"1.75" );
+	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 
 	// Animate in the new plot, as an example
 	dataSourceLinePlot.opacity		  = 0.0f;
@@ -196,7 +196,7 @@
 	CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill			 = [CPTFill fillWithColor:[CPTColor blueColor]];
 	plotSymbol.lineStyle	 = symbolLineStyle;
-	plotSymbol.size			 = CGSizeMake( 10.0, 10.0 );
+	plotSymbol.size			 = CGSizeMake(10.0, 10.0);
 	boundLinePlot.plotSymbol = plotSymbol;
 
 	// Add some initial data
@@ -226,18 +226,18 @@
 
 	// Add plot space for horizontal bar charts
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 300.0f )];
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 16.0f )];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
 
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
 	x.axisLineStyle				  = nil;
 	x.majorTickLineStyle		  = nil;
 	x.minorTickLineStyle		  = nil;
-	x.majorIntervalLength		  = CPTDecimalFromString( @"5" );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString( @"0" );
+	x.majorIntervalLength		  = CPTDecimalFromString(@"5");
+	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
 	x.title						  = @"X Axis";
-	x.titleLocation				  = CPTDecimalFromFloat( 7.5f );
+	x.titleLocation				  = CPTDecimalFromFloat(7.5f);
 	x.titleOffset				  = 55.0f;
 
 	// Define some custom labels for the data elements
@@ -262,25 +262,25 @@
 	y.axisLineStyle				  = nil;
 	y.majorTickLineStyle		  = nil;
 	y.minorTickLineStyle		  = nil;
-	y.majorIntervalLength		  = CPTDecimalFromString( @"50" );
-	y.orthogonalCoordinateDecimal = CPTDecimalFromString( @"0" );
+	y.majorIntervalLength		  = CPTDecimalFromString(@"50");
+	y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
 	y.title						  = @"Y Axis";
 	y.titleOffset				  = 45.0f;
-	y.titleLocation				  = CPTDecimalFromFloat( 150.0f );
+	y.titleLocation				  = CPTDecimalFromFloat(150.0f);
 
 	// First bar plot
 	CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
-	barPlot.baseValue  = CPTDecimalFromString( @"0" );
+	barPlot.baseValue  = CPTDecimalFromString(@"0");
 	barPlot.dataSource = self;
-	barPlot.barOffset  = CPTDecimalFromFloat( -0.25f );
+	barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
 	barPlot.identifier = @"Bar Plot 1";
 	[barChart addPlot:barPlot toPlotSpace:plotSpace];
 
 	// Second bar plot
 	barPlot					= [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
 	barPlot.dataSource		= self;
-	barPlot.baseValue		= CPTDecimalFromString( @"0" );
-	barPlot.barOffset		= CPTDecimalFromFloat( 0.25f );
+	barPlot.baseValue		= CPTDecimalFromString(@"0");
+	barPlot.barOffset		= CPTDecimalFromFloat(0.25f);
 	barPlot.barCornerRadius = 2.0f;
 	barPlot.identifier		= @"Bar Plot 2";
 	barPlot.delegate		= self;
@@ -333,7 +333,7 @@
 
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
-	NSLog( @"barWasSelectedAtRecordIndex %d", index );
+	NSLog(@"barWasSelectedAtRecordIndex %d", index);
 }
 
 #pragma mark -

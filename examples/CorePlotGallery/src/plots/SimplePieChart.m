@@ -51,7 +51,7 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
@@ -64,7 +64,7 @@
 	textStyle.fontName			   = @"Helvetica-Bold";
 	textStyle.fontSize			   = bounds.size.height / 20.0f;
 	graph.titleTextStyle		   = textStyle;
-	graph.titleDisplacement		   = CGPointMake( 0.0f, bounds.size.height / 18.0f );
+	graph.titleDisplacement		   = CGPointMake(0.0f, bounds.size.height / 18.0f);
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
 	graph.plotAreaFrame.masksToBorder = NO;
@@ -88,8 +88,8 @@
 	// Add pie chart
 	CPTPieChart *piePlot = [[CPTPieChart alloc] init];
 	piePlot.dataSource = self;
-	piePlot.pieRadius  = MIN( 0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
-							  0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0 );
+	piePlot.pieRadius  = MIN(0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
+							 0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
 	piePlot.identifier	   = title;
 	piePlot.startAngle	   = M_PI_4;
 	piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
@@ -109,7 +109,7 @@
 	graph.legend = theLegend;
 
 	graph.legendAnchor		 = CPTRectAnchorRight;
-	graph.legendDisplacement = CGPointMake( -boundsPadding - 10.0, 0.0 );
+	graph.legendDisplacement = CGPointMake(-boundsPadding - 10.0, 0.0);
 }
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
@@ -128,7 +128,7 @@
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-	NSLog( @"Slice was selected at index %d. Value = %f", (int)index, [[plotData objectAtIndex:index] floatValue] );
+	NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [[plotData objectAtIndex:index] floatValue]);
 }
 
 #pragma mark -

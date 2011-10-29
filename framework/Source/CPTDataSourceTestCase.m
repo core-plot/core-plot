@@ -33,7 +33,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 -(void)setUp
 {
 	//check CPTDataSource conformance
-	STAssertTrue( [self conformsToProtocol:@protocol(CPTPlotDataSource)], @"CPTDataSourceTestCase should conform to <CPTPlotDataSource>" );
+	STAssertTrue([self conformsToProtocol:@protocol(CPTPlotDataSource)], @"CPTDataSourceTestCase should conform to <CPTPlotDataSource>");
 }
 
 -(void)tearDown
@@ -54,7 +54,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
 	arr = [NSMutableArray arrayWithCapacity:self.nRecords];
 	for ( NSUInteger i = 0; i < self.nRecords; i++ ) {
-		[arr insertObject:[NSDecimalNumber numberWithDouble:sin( 2 * M_PI * (double)i / (double)nRecords )] atIndex:i];
+		[arr insertObject:[NSDecimalNumber numberWithDouble:sin(2 * M_PI * (double)i / (double)nRecords)] atIndex:i];
 	}
 	self.yData = arr;
 }
@@ -80,7 +80,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 	CPTPlotRange *range = [self plotRangeForData:self.yData];
 
 	if ( self.plots.count > 1 ) {
-		range.length = CPTDecimalAdd( [range length], CPTDecimalFromDouble( self.plots.count ) );
+		range.length = CPTDecimalAdd( [range length], CPTDecimalFromDouble(self.plots.count) );
 	}
 
 	return range;
@@ -92,8 +92,8 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 	double max	 = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
 	double range = max - min;
 
-	return [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( min - 0.05 * range )
-										length:CPTDecimalFromDouble( range + 0.1 * range )];
+	return [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min - 0.05 * range)
+										length:CPTDecimalFromDouble(range + 0.1 * range)];
 }
 
 #pragma mark -
@@ -118,7 +118,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 		case CPTScatterPlotFieldY:
 			result = [[self yData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
 			if ( self.plots.count > 1 ) {
-				STAssertTrue( [[self plots] containsObject:plot], @"Plot missing" );
+				STAssertTrue([[self plots] containsObject:plot], @"Plot missing");
 				NSMutableArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
 				for ( NSDecimalNumber *d in result ) {
 					[shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble( CPTDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot] + 1) )]]];

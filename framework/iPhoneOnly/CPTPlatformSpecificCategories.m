@@ -23,20 +23,20 @@
  **/
 -(CPTNativeImage *)imageOfLayer
 {
-	UIGraphicsBeginImageContext( self.bounds.size );
+	UIGraphicsBeginImageContext(self.bounds.size);
 
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextSaveGState( context );
-	CGContextSetAllowsAntialiasing( context, true );
+	CGContextSaveGState(context);
+	CGContextSetAllowsAntialiasing(context, true);
 
-	CGContextTranslateCTM( context, 0.0, self.bounds.size.height );
-	CGContextScaleCTM( context, 1.0, -1.0 );
+	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
 
 	[self layoutAndRenderInContext:context];
 	CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
-	CGContextSetAllowsAntialiasing( context, false );
+	CGContextSetAllowsAntialiasing(context, false);
 
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 	UIGraphicsEndImageContext();
 
 	return layerImage;

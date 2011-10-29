@@ -13,29 +13,29 @@
 	[super awakeFromNib];
 
 	// Create graph
-	graph				 = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect( hostView.bounds )];
+	graph				 = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 	hostView.hostedGraph = graph;
 
 	// Remove axes
 	graph.axisSet = nil;
 
 	// Background
-	CGColorRef grayColor = CGColorCreateGenericGray( 0.7, 1.0 );
+	CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
 	graph.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
-	CGColorRelease( grayColor );
+	CGColorRelease(grayColor);
 
 	// Plot area
-	grayColor				 = CGColorCreateGenericGray( 0.2, 0.3 );
+	grayColor				 = CGColorCreateGenericGray(0.2, 0.3);
 	graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
-	CGColorRelease( grayColor );
+	CGColorRelease(grayColor);
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -1.0 ) length:CPTDecimalFromFloat( 11.0 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -1.0 ) length:CPTDecimalFromFloat( 14.0 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(11.0)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(14.0)];
 
 	CPTMutableShadow *lineShadow = [CPTMutableShadow shadow];
-	lineShadow.shadowOffset		= CGSizeMake( 3.0, -3.0 );
+	lineShadow.shadowOffset		= CGSizeMake(3.0, -3.0);
 	lineShadow.shadowBlurRadius = 4.0;
 	lineShadow.shadowColor		= [CPTColor redColor];
 
@@ -90,7 +90,7 @@
 	gradientFill.gradientType = CPTGradientTypeRadial;
 
 	CPTMutableShadow *symbolShadow = [CPTMutableShadow shadow];
-	symbolShadow.shadowOffset	  = CGSizeMake( 3.0, -3.0 );
+	symbolShadow.shadowOffset	  = CGSizeMake(3.0, -3.0);
 	symbolShadow.shadowBlurRadius = 3.0;
 	symbolShadow.shadowColor	  = [CPTColor blackColor];
 
@@ -100,24 +100,24 @@
 	symbol.shadow	  = symbolShadow;
 
 	if ( index > 0 ) {
-		symbol.size = CGSizeMake( index * 4, index * 4 );
+		symbol.size = CGSizeMake(index * 4, index * 4);
 	}
 
 	if ( symbol.symbolType == CPTPlotSymbolTypeCustom ) {
 		// Creating the custom path.
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathMoveToPoint( path, NULL, 0., 0. );
+		CGPathMoveToPoint(path, NULL, 0., 0.);
 
-		CGPathAddEllipseInRect( path, NULL, CGRectMake( 0., 0., 10., 10. ) );
-		CGPathAddEllipseInRect( path, NULL, CGRectMake( 1.5, 4., 3., 3. ) );
-		CGPathAddEllipseInRect( path, NULL, CGRectMake( 5.5, 4., 3., 3. ) );
-		CGPathMoveToPoint( path, NULL, 5., 2. );
-		CGPathAddArc( path, NULL, 5., 3.3, 2.8, 0., pi, TRUE );
-		CGPathCloseSubpath( path );
+		CGPathAddEllipseInRect( path, NULL, CGRectMake(0., 0., 10., 10.) );
+		CGPathAddEllipseInRect( path, NULL, CGRectMake(1.5, 4., 3., 3.) );
+		CGPathAddEllipseInRect( path, NULL, CGRectMake(5.5, 4., 3., 3.) );
+		CGPathMoveToPoint(path, NULL, 5., 2.);
+		CGPathAddArc(path, NULL, 5., 3.3, 2.8, 0., pi, TRUE);
+		CGPathCloseSubpath(path);
 
 		symbol.customSymbolPath	   = path;
 		symbol.usesEvenOddClipRule = YES;
-		CGPathRelease( path );
+		CGPathRelease(path);
 	}
 
 	return symbol;

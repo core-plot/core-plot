@@ -12,7 +12,7 @@
 
 	CPTGradient *newGradient = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:gradient]];
 
-	STAssertEqualObjects( gradient, newGradient, @"Gradients not equal" );
+	STAssertEqualObjects(gradient, newGradient, @"Gradients not equal");
 }
 
 @end

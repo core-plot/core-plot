@@ -71,7 +71,7 @@
 			offset		 = 20.0;
 			rotation	 = 0.0;
 			alignment	 = CPTAlignmentCenter;
-			tickLocation = CPTDecimalFromInteger( 0 );
+			tickLocation = CPTDecimalFromInteger(0);
 		}
 	}
 	else {
@@ -136,7 +136,7 @@
 	CGFloat angle		= 0.0;
 
 	CGFloat myRotation = self.rotation;
-	content.transform = CATransform3DMakeRotation( myRotation, 0.0, 0.0, 1.0 );
+	content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
 	CGRect contentFrame = content.frame;
 
 	// Position the anchor point along the closest edge.
@@ -241,16 +241,16 @@
 
 	angle += M_PI;
 	angle -= myRotation;
-	CGFloat newAnchorX = cos( angle );
-	CGFloat newAnchorY = sin( angle );
+	CGFloat newAnchorX = cos(angle);
+	CGFloat newAnchorY = sin(angle);
 
-	if ( ABS( newAnchorX ) <= ABS( newAnchorY ) ) {
-		newAnchorX /= ABS( newAnchorY );
-		newAnchorY	= signbit( newAnchorY ) ? -1.0 : 1.0;
+	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+		newAnchorX /= ABS(newAnchorY);
+		newAnchorY	= signbit(newAnchorY) ? -1.0 : 1.0;
 	}
 	else {
-		newAnchorY /= ABS( newAnchorX );
-		newAnchorX	= signbit( newAnchorX ) ? -1.0 : 1.0;
+		newAnchorY /= ABS(newAnchorX);
+		newAnchorX	= signbit(newAnchorX) ? -1.0 : 1.0;
 	}
 	CGPoint anchor = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
 
@@ -291,7 +291,7 @@
 		return YES;
 	}
 	else if ( [object isKindOfClass:[self class]] ) {
-		return CPTDecimalEquals( self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation );
+		return CPTDecimalEquals(self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation);
 	}
 	else {
 		return NO;
@@ -303,10 +303,10 @@
 	NSUInteger hashValue = 0;
 
 	// Equal objects must hash the same.
-	double tickLocationAsDouble = CPTDecimalDoubleValue( self.tickLocation );
+	double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
 
-	if ( !isnan( tickLocationAsDouble ) ) {
-		hashValue = (NSUInteger)fmod( ABS( tickLocationAsDouble ), (double)NSUIntegerMax );
+	if ( !isnan(tickLocationAsDouble) ) {
+		hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
 	}
 
 	return hashValue;

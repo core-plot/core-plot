@@ -139,11 +139,11 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 
 	// Add small margin
-	textSize.width += (ABS( shadowOffset.width ) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
-	textSize.width	= ceil( textSize.width );
+	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
+	textSize.width	= ceil(textSize.width);
 
-	textSize.height += (ABS( shadowOffset.height ) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
-	textSize.height	 = ceil( textSize.height );
+	textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
+	textSize.height	 = ceil(textSize.height);
 
 	return textSize;
 }
@@ -176,9 +176,9 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	[super renderAsVectorInContext:context];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextSaveGState( context );
-	CGContextTranslateCTM( context, 0.0, self.bounds.size.height );
-	CGContextScaleCTM( context, 1.0, -1.0 );
+	CGContextSaveGState(context);
+	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
 #endif
 
 	CGSize shadowOffset	 = CGSizeZero;
@@ -189,13 +189,13 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 		shadowRadius = myShadow.shadowBlurRadius;
 	}
 
-	[self.text drawInRect:CGRectInset( self.bounds,
-									   ABS( shadowOffset.width ) + shadowRadius + kCPTTextLayerMarginWidth,
-									   ABS( shadowOffset.height ) + shadowRadius + kCPTTextLayerMarginWidth )
+	[self.text drawInRect:CGRectInset(self.bounds,
+									  ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
+									  ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth)
 			withTextStyle:self.textStyle
 				inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 #endif
 }
 

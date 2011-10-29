@@ -16,7 +16,7 @@
 
 	CPTPieChart *piePlot = (CPTPieChart *)[pieChart plotWithIdentifier:@"Pie Chart 1"];
 	CGRect plotBounds	 = pieChart.plotAreaFrame.bounds;
-	CGFloat newRadius	 = MIN( plotBounds.size.width, plotBounds.size.height ) / 2.0 - margin;
+	CGFloat newRadius	 = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - margin;
 
 	CGFloat y = 0.0;
 
@@ -26,7 +26,7 @@
 	else {
 		y = (newRadius + margin) / plotBounds.size.height;
 	}
-	CGPoint newAnchor = CGPointMake( 0.5, y );
+	CGPoint newAnchor = CGPointMake(0.5, y);
 
 	// Animate the change
 	[CATransaction begin];
@@ -41,7 +41,7 @@
 		[piePlot addAnimation:animation forKey:@"pieRadius"];
 
 		animation		   = [CABasicAnimation animationWithKeyPath:@"centerAnchor"];
-		animation.toValue  = [NSValue valueWithBytes:&newAnchor objCType:@encode( CGPoint )];
+		animation.toValue  = [NSValue valueWithBytes:&newAnchor objCType:@encode(CGPoint)];
 		animation.fillMode = kCAFillModeForwards;
 		animation.delegate = self;
 		[piePlot addAnimation:animation forKey:@"centerAnchor"];
@@ -78,7 +78,7 @@
 #ifdef MEMORY_TEST
 	static NSUInteger counter = 0;
 
-	NSLog( @"\n----------------------------\ntimerFired: %lu", counter++ );
+	NSLog(@"\n----------------------------\ntimerFired: %lu", counter++);
 #endif
 
 	[pieChart release];
@@ -110,7 +110,7 @@
 	piePlot.identifier		= @"Pie Chart 1";
 	piePlot.startAngle		= M_PI_4;
 	piePlot.sliceDirection	= CPTPieDirectionCounterClockwise;
-	piePlot.centerAnchor	= CGPointMake( 0.5, 0.38 );
+	piePlot.centerAnchor	= CGPointMake(0.5, 0.38);
 	piePlot.borderLineStyle = [CPTLineStyle lineStyle];
 	piePlot.delegate		= self;
 	[pieChart addPlot:piePlot];

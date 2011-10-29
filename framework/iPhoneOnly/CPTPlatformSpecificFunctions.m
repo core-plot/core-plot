@@ -3,17 +3,17 @@
 #import "CPTExceptions.h"
 #import <UIKit/UIKit.h>
 
-void CPTPushCGContext( CGContextRef newContext )
+void CPTPushCGContext(CGContextRef newContext)
 {
-	UIGraphicsPushContext( newContext );
+	UIGraphicsPushContext(newContext);
 }
 
-void CPTPopCGContext( void )
+void CPTPopCGContext(void)
 {
 	UIGraphicsPopContext();
 }
 
-CGContextRef CPTGetCurrentContext( void )
+CGContextRef CPTGetCurrentContext(void)
 {
 	return UIGraphicsGetCurrentContext();
 }

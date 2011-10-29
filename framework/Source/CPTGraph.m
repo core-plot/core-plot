@@ -606,7 +606,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)setLegendDisplacement:(CGPoint)newLegendDisplacement
 {
-	if ( !CGPointEqualToPoint( newLegendDisplacement, legendDisplacement ) ) {
+	if ( !CGPointEqualToPoint(newLegendDisplacement, legendDisplacement) ) {
 		legendDisplacement				   = newLegendDisplacement;
 		self.legendAnnotation.displacement = newLegendDisplacement;
 	}
@@ -618,39 +618,39 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 	switch ( self.legendAnchor ) {
 		case CPTRectAnchorBottomLeft:
-			contentAnchor = CGPointMake( 0.0, 0.0 );
+			contentAnchor = CGPointMake(0.0, 0.0);
 			break;
 
 		case CPTRectAnchorBottom:
-			contentAnchor = CGPointMake( 0.5, 0.0 );
+			contentAnchor = CGPointMake(0.5, 0.0);
 			break;
 
 		case CPTRectAnchorBottomRight:
-			contentAnchor = CGPointMake( 1.0, 0.0 );
+			contentAnchor = CGPointMake(1.0, 0.0);
 			break;
 
 		case CPTRectAnchorLeft:
-			contentAnchor = CGPointMake( 0.0, 0.5 );
+			contentAnchor = CGPointMake(0.0, 0.5);
 			break;
 
 		case CPTRectAnchorRight:
-			contentAnchor = CGPointMake( 1.0, 0.5 );
+			contentAnchor = CGPointMake(1.0, 0.5);
 			break;
 
 		case CPTRectAnchorTopLeft:
-			contentAnchor = CGPointMake( 0.0, 1.0 );
+			contentAnchor = CGPointMake(0.0, 1.0);
 			break;
 
 		case CPTRectAnchorTop:
-			contentAnchor = CGPointMake( 0.5, 1.0 );
+			contentAnchor = CGPointMake(0.5, 1.0);
 			break;
 
 		case CPTRectAnchorTopRight:
-			contentAnchor = CGPointMake( 1.0, 1.0 );
+			contentAnchor = CGPointMake(1.0, 1.0);
 			break;
 
 		case CPTRectAnchorCenter:
-			contentAnchor = CGPointMake( 0.5, 0.5 );
+			contentAnchor = CGPointMake(0.5, 0.5);
 			break;
 
 		default:
@@ -747,7 +747,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)setTitleDisplacement:(CGPoint)newDisplace
 {
-	if ( !CGPointEqualToPoint( newDisplace, titleDisplacement ) ) {
+	if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
 		titleDisplacement			 = newDisplace;
 		titleAnnotation.displacement = newDisplace;
 	}

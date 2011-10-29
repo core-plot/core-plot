@@ -16,13 +16,13 @@
 	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 	CGContextRef context			 = (CGContextRef)[bitmapContext graphicsPort];
 
-	CGContextClearRect( context, CGRectMake( 0.0, 0.0, boundsSize.width, boundsSize.height ) );
-	CGContextSetAllowsAntialiasing( context, true );
-	CGContextSetShouldSmoothFonts( context, false );
+	CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+	CGContextSetAllowsAntialiasing(context, true);
+	CGContextSetShouldSmoothFonts(context, false);
 	[self layoutAndRenderInContext:context];
-	CGContextFlush( context );
+	CGContextFlush(context);
 
-	NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize( boundsSize )];
+	NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
 	[image addRepresentation:layerImage];
 	[layerImage release];
 

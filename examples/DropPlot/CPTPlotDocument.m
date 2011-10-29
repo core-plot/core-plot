@@ -48,19 +48,19 @@
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( minimumValueForXAxis ) length:CPTDecimalFromFloat( maximumValueForXAxis - minimumValueForXAxis )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( minimumValueForYAxis ) length:CPTDecimalFromFloat( maximumValueForYAxis - minimumValueForYAxis )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(minimumValueForXAxis) length:CPTDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(minimumValueForYAxis) length:CPTDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
 
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromDouble( majorIntervalLengthForX );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble( minimumValueForYAxis );
+	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
+	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForYAxis);
 	x.minorTicksPerInterval		  = 5;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromDouble( majorIntervalLengthForY );
+	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
 	y.minorTicksPerInterval		  = 5;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble( minimumValueForXAxis );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForXAxis);
 
 	CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
 	borderLineStyle.lineColor = [CPTColor colorWithGenericGray:0.2];
@@ -127,14 +127,14 @@
 		NSRange currentRange;
 
 		// Read headers from the first line of the file
-		[fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange( lineEnd, 0 )];
+		[fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
 //		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
 //		NSArray *columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 //		NSLog([columnHeaders objectAtIndex:0]);
 
 		while ( lineEnd < length ) {
-			[fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange( lineEnd, 0 )];
-			currentRange = NSMakeRange( lineStart, contentsEnd - lineStart );
+			[fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
+			currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
 			NSArray *columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 
 			double xValue = [[columnValues objectAtIndex:0] doubleValue];

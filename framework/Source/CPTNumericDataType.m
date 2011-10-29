@@ -3,9 +3,9 @@
 #import "NSExceptionExtensions.h"
 #import "complex.h"
 
-static CPTDataTypeFormat DataTypeForDataTypeString( NSString *dataTypeString );
-static size_t SampleBytesForDataTypeString( NSString *dataTypeString );
-static CFByteOrder ByteOrderForDataTypeString( NSString *dataTypeString );
+static CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
+static size_t SampleBytesForDataTypeString(NSString *dataTypeString);
+static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
 
 #pragma mark -
 #pragma mark Data type utilities
@@ -16,7 +16,7 @@ static CFByteOrder ByteOrderForDataTypeString( NSString *dataTypeString );
  *	@param byteOrder The byte order used to store the data samples.
  *	@return The initialized CPTNumericDataType struct.
  **/
-CPTNumericDataType CPTDataType( CPTDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder )
+CPTNumericDataType CPTDataType(CPTDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder)
 {
 	CPTNumericDataType result;
 
@@ -31,14 +31,14 @@ CPTNumericDataType CPTDataType( CPTDataTypeFormat format, size_t sampleBytes, CF
  *	@param dataTypeString The data type string.
  *	@return The initialized CPTNumericDataType struct.
  **/
-CPTNumericDataType CPTDataTypeWithDataTypeString( NSString *dataTypeString )
+CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *dataTypeString)
 {
 	CPTNumericDataType type;
 
-	type.dataTypeFormat = DataTypeForDataTypeString( dataTypeString );
+	type.dataTypeFormat = DataTypeForDataTypeString(dataTypeString);
 
-	type.sampleBytes = SampleBytesForDataTypeString( dataTypeString );
-	type.byteOrder	 = ByteOrderForDataTypeString( dataTypeString );
+	type.sampleBytes = SampleBytesForDataTypeString(dataTypeString);
+	type.byteOrder	 = ByteOrderForDataTypeString(dataTypeString);
 
 	return type;
 }
@@ -47,7 +47,7 @@ CPTNumericDataType CPTDataTypeWithDataTypeString( NSString *dataTypeString )
  *	@param dataType The data type.
  *	@return The string representation of the given data type.
  **/
-NSString *CPTDataTypeStringFromDataType( CPTNumericDataType dataType )
+NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType)
 {
 	NSString *byteOrderString = nil;
 	NSString *typeString	  = nil;
@@ -97,7 +97,7 @@ NSString *CPTDataTypeStringFromDataType( CPTNumericDataType dataType )
  *	@param format The data type format.
  *	@return Returns YES if the format is supported by CPTNumericData, NO otherwise.
  **/
-BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
+BOOL CPTDataTypeIsSupported(CPTNumericDataType format)
 {
 	BOOL result = YES;
 
@@ -122,10 +122,10 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
 
 			case CPTIntegerDataType:
 				switch ( format.sampleBytes ) {
-					case sizeof( int8_t ):
-					case sizeof( int16_t ):
-					case sizeof( int32_t ):
-					case sizeof( int64_t ):
+					case sizeof(int8_t):
+					case sizeof(int16_t):
+					case sizeof(int32_t):
+					case sizeof(int64_t):
 						// valid
 						break;
 
@@ -137,10 +137,10 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
 
 			case CPTUnsignedIntegerDataType:
 				switch ( format.sampleBytes ) {
-					case sizeof( uint8_t ):
-					case sizeof( uint16_t ):
-					case sizeof( uint32_t ):
-					case sizeof( uint64_t ):
+					case sizeof(uint8_t):
+					case sizeof(uint16_t):
+					case sizeof(uint32_t):
+					case sizeof(uint64_t):
 						// valid
 						break;
 
@@ -152,8 +152,8 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
 
 			case CPTFloatingPointDataType:
 				switch ( format.sampleBytes ) {
-					case sizeof( float ):
-					case sizeof( double ):
+					case sizeof(float):
+					case sizeof(double):
 						// valid
 						break;
 
@@ -165,8 +165,8 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
 
 			case CPTComplexFloatingPointDataType:
 				switch ( format.sampleBytes ) {
-					case sizeof( float complex ):
-					case sizeof( double complex ):
+					case sizeof(float complex):
+					case sizeof(double complex):
 						// only the native byte order is supported
 						result = ( format.byteOrder == CFByteOrderGetCurrent() );
 						break;
@@ -179,7 +179,7 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
 
 			case CPTDecimalDataType:
 				// only the native byte order is supported
-				result = ( format.sampleBytes == sizeof( NSDecimal ) ) && ( format.byteOrder == CFByteOrderGetCurrent() );
+				result = ( format.sampleBytes == sizeof(NSDecimal) ) && ( format.byteOrder == CFByteOrderGetCurrent() );
 				break;
 
 			default:
@@ -197,7 +197,7 @@ BOOL CPTDataTypeIsSupported( CPTNumericDataType format )
  *	@param dataType2 The second data type format.
  *	@return Returns YES if the two data types have the same format, size, and byte order.
  **/
-BOOL CPTDataTypeEqualToDataType( CPTNumericDataType dataType1, CPTNumericDataType dataType2 )
+BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType dataType2)
 {
 	return (dataType1.dataTypeFormat == dataType2.dataTypeFormat) &&
 		   (dataType1.sampleBytes == dataType2.sampleBytes) &&
@@ -207,11 +207,11 @@ BOOL CPTDataTypeEqualToDataType( CPTNumericDataType dataType1, CPTNumericDataTyp
 #pragma mark -
 #pragma mark Private functions
 
-CPTDataTypeFormat DataTypeForDataTypeString( NSString *dataTypeString )
+CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
 {
 	CPTDataTypeFormat result;
 
-	NSCAssert( [dataTypeString length] >= 3, @"dataTypeString is too short" );
+	NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
 
 	switch ( [[dataTypeString lowercaseString] characterAtIndex:1] ) {
 		case 'f':
@@ -242,18 +242,18 @@ CPTDataTypeFormat DataTypeForDataTypeString( NSString *dataTypeString )
 	return result;
 }
 
-size_t SampleBytesForDataTypeString( NSString *dataTypeString )
+size_t SampleBytesForDataTypeString(NSString *dataTypeString)
 {
-	NSCAssert( [dataTypeString length] >= 3, @"dataTypeString is too short" );
+	NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
 	NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];
-	NSCAssert( result > 0, @"sample bytes is negative." );
+	NSCAssert(result > 0, @"sample bytes is negative.");
 
 	return (size_t)result;
 }
 
-CFByteOrder ByteOrderForDataTypeString( NSString *dataTypeString )
+CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
 {
-	NSCAssert( [dataTypeString length] >= 3, @"dataTypeString is too short" );
+	NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
 	CFByteOrder result;
 
 	switch ( [[dataTypeString lowercaseString] characterAtIndex:0] ) {

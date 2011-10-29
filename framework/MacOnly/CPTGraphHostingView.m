@@ -16,7 +16,7 @@
 {
 	if ( (self = [super initWithFrame:frame]) ) {
 		hostedGraph = nil;
-		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect( frame )];
+		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
 		self.layer = mainLayer;
 		[mainLayer release];
 	}
@@ -43,7 +43,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
 	if ( (self = [super initWithCoder:coder]) ) {
-		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect( self.frame )];
+		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
 		self.layer = mainLayer;
 		[mainLayer release];
 
@@ -83,7 +83,7 @@
 	CPTGraph *theGraph = self.hostedGraph;
 
 	if ( theGraph ) {
-		CGPoint pointOfMouseDown   = NSPointToCGPoint( [self convertPoint:[theEvent locationInWindow] fromView:nil] );
+		CGPoint pointOfMouseDown   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDown toLayer:theGraph];
 		[theGraph pointingDeviceDownEvent:theEvent atPoint:pointInHostedGraph];
 	}
@@ -94,7 +94,7 @@
 	CPTGraph *theGraph = self.hostedGraph;
 
 	if ( theGraph ) {
-		CGPoint pointOfMouseDrag   = NSPointToCGPoint( [self convertPoint:[theEvent locationInWindow] fromView:nil] );
+		CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDrag toLayer:theGraph];
 		[theGraph pointingDeviceDraggedEvent:theEvent atPoint:pointInHostedGraph];
 	}
@@ -105,7 +105,7 @@
 	CPTGraph *theGraph = self.hostedGraph;
 
 	if ( theGraph ) {
-		CGPoint pointOfMouseUp	   = NSPointToCGPoint( [self convertPoint:[theEvent locationInWindow] fromView:nil] );
+		CGPoint pointOfMouseUp	   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseUp toLayer:theGraph];
 		[theGraph pointingDeviceUpEvent:theEvent atPoint:pointInHostedGraph];
 	}

@@ -100,10 +100,10 @@
  **/
 -(void)setShadowInContext:(CGContextRef)theContext
 {
-	CGContextSetShadowWithColor( theContext,
-								 self.shadowOffset,
-								 self.shadowBlurRadius,
-								 self.shadowColor.cgColor );
+	CGContextSetShadowWithColor(theContext,
+								self.shadowOffset,
+								self.shadowBlurRadius,
+								self.shadowColor.cgColor);
 }
 
 #pragma mark -
@@ -139,7 +139,7 @@
 
 -(void)setShadowBlurRadius:(CGFloat)newShadowBlurRadius
 {
-	NSParameterAssert( newShadowBlurRadius >= 0.0 );
+	NSParameterAssert(newShadowBlurRadius >= 0.0);
 
 	if ( newShadowBlurRadius != shadowBlurRadius ) {
 		shadowBlurRadius = newShadowBlurRadius;

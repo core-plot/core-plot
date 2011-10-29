@@ -41,7 +41,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0f;
 	CGFloat displacementInX = kMouseMovementScaleFactorForRotation * (currentLocation.x - previousLocation.x);
 	CGFloat displacementInY = kMouseMovementScaleFactorForRotation * (previousLocation.y - currentLocation.y);
 
-	CGFloat totalRotation = sqrt( displacementInX * displacementInX + displacementInY * displacementInY );
+	CGFloat totalRotation = sqrt(displacementInX * displacementInX + displacementInY * displacementInY);
 
 	rotationTransform = CATransform3DRotate( rotationTransform, totalRotation * M_PI / 180.0,
 											 ( (displacementInX / totalRotation) * rotationTransform.m12 + (displacementInY / totalRotation) * rotationTransform.m11 ),

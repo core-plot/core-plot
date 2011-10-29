@@ -62,7 +62,7 @@
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-	NSLog( @"AppDelegate:applicationDidReceiveMemoryWarning" );
+	NSLog(@"AppDelegate:applicationDidReceiveMemoryWarning");
 }
 
 -(void)dealloc

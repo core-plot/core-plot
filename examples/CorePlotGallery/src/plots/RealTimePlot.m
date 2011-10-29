@@ -55,7 +55,7 @@ NSString *kPlotIdentifier		= @"Data Source Plot";
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
@@ -84,7 +84,7 @@ NSString *kPlotIdentifier		= @"Data Source Plot";
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
 	x.labelingPolicy			  = CPTAxisLabelingPolicyAutomatic;
-	x.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 0 );
+	x.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
 	x.majorGridLineStyle		  = majorGridLineStyle;
 	x.minorGridLineStyle		  = minorGridLineStyle;
 	x.minorTicksPerInterval		  = 9;
@@ -98,7 +98,7 @@ NSString *kPlotIdentifier		= @"Data Source Plot";
 	// Y axis
 	CPTXYAxis *y = axisSet.yAxis;
 	y.labelingPolicy			  = CPTAxisLabelingPolicyAutomatic;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( 0 );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
 	y.majorGridLineStyle		  = majorGridLineStyle;
 	y.minorGridLineStyle		  = minorGridLineStyle;
 	y.minorTicksPerInterval		  = 3;
@@ -125,8 +125,8 @@ NSString *kPlotIdentifier		= @"Data Source Plot";
 
 	// Plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( 0 ) length:CPTDecimalFromUnsignedInteger( kMaxDataPoints - 1 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( 0 ) length:CPTDecimalFromUnsignedInteger( 1 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 1)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
 }
 
 -(void)dealloc
@@ -149,13 +149,13 @@ NSString *kPlotIdentifier		= @"Data Source Plot";
 	if ( thePlot ) {
 		if ( plotData.count >= kMaxDataPoints ) {
 			[plotData removeObjectAtIndex:0];
-			[thePlot deleteDataInIndexRange:NSMakeRange( 0, 1 )];
+			[thePlot deleteDataInIndexRange:NSMakeRange(0, 1)];
 		}
 
 		CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
 		NSUInteger location		  = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 1 : 0);
-		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( location )
-														length:CPTDecimalFromUnsignedInteger( kMaxDataPoints - 1 )];
+		plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(location)
+														length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 1)];
 
 		currentIndex++;
 		[plotData addObject:[NSNumber numberWithDouble:(1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX]];

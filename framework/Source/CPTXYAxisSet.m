@@ -54,11 +54,11 @@
 		[super renderAsVectorInContext:context];
 
 		CALayer *superlayer = self.superlayer;
-		CGRect borderRect	= CPTAlignRectToUserSpace( context, [self convertRect:superlayer.bounds fromLayer:superlayer] );
+		CGRect borderRect	= CPTAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
 
 		[self.borderLineStyle setLineStyleInContext:context];
 
-		CGContextStrokeRect( context, borderRect );
+		CGContextStrokeRect(context, borderRect);
 	}
 }
 

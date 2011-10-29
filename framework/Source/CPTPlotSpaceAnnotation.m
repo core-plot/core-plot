@@ -33,7 +33,7 @@
  **/
 -(id)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
 {
-	NSParameterAssert( newPlotSpace );
+	NSParameterAssert(newPlotSpace);
 
 	if ( (self = [super init]) ) {
 		plotSpace		= [newPlotSpace retain];
@@ -86,13 +86,13 @@
 				NSUInteger anchorCount = plotAnchor.count;
 
 				// Get plot area point
-				NSDecimal *decimalPoint = malloc( sizeof( NSDecimal ) * anchorCount );
+				NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
 				for ( NSUInteger i = 0; i < anchorCount; i++ ) {
 					decimalPoint[i] = [[plotAnchor objectAtIndex:i] decimalValue];
 				}
 				CPTPlotSpace *thePlotSpace		= self.plotSpace;
 				CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
-				free( decimalPoint );
+				free(decimalPoint);
 
 				CGPoint newPosition;
 				CPTPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
@@ -108,7 +108,7 @@
 
 				content.anchorPoint = self.contentAnchorPoint;
 				content.position	= newPosition;
-				content.transform	= CATransform3DMakeRotation( self.rotation, 0.0, 0.0, 1.0 );
+				content.transform	= CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
 				[content pixelAlign];
 				[content setNeedsDisplay];
 			}

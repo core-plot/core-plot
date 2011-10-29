@@ -72,7 +72,7 @@
 										shape:(NSArray *)shapeArray
 {
 	return [[[CPTMutableNumericData alloc] initWithData:newData
-											   dataType:CPTDataTypeWithDataTypeString( newDataTypeString )
+											   dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
 												  shape:shapeArray]
 			autorelease];
 }
@@ -103,7 +103,7 @@
 				 dataType:(CPTNumericDataType)newDataType
 					shape:(NSArray *)shapeArray
 {
-	NSParameterAssert( CPTDataTypeIsSupported( newDataType ) );
+	NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 
 	data	 = [newData mutableCopy];
 	dataType = newDataType;
@@ -190,9 +190,9 @@
 		[encoder encodeObject:self.data];
 
 		CPTNumericDataType selfDataType = self.dataType;
-		[encoder encodeValueOfObjCType:@encode( CPTDataTypeFormat ) at:&(selfDataType.dataTypeFormat)];
-		[encoder encodeValueOfObjCType:@encode( NSUInteger ) at:&(selfDataType.sampleBytes)];
-		[encoder encodeValueOfObjCType:@encode( CFByteOrder ) at:&(selfDataType.byteOrder)];
+		[encoder encodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
+		[encoder encodeValueOfObjCType:@encode(NSUInteger) at:&(selfDataType.sampleBytes)];
+		[encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
 
 		[encoder encodeObject:self.shape];
 	}
@@ -208,18 +208,18 @@
 		if ( [decoder allowsKeyedCoding] ) {
 			newData = [decoder decodeObjectForKey:@"data"];
 
-			newDataType = CPTDataType( [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.dataTypeFormat"],
-									   [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.sampleBytes"],
-									   [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.byteOrder"] );
+			newDataType = CPTDataType([decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.dataTypeFormat"],
+									  [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.sampleBytes"],
+									  [decoder decodeIntegerForKey:@"CPTMutableNumericData.dataType.byteOrder"]);
 
 			shapeArray = [decoder decodeObjectForKey:@"shape"];
 		}
 		else {
 			newData = [decoder decodeObject];
 
-			[decoder decodeValueOfObjCType:@encode( CPTDataTypeFormat ) at:&(newDataType.dataTypeFormat)];
-			[decoder decodeValueOfObjCType:@encode( NSUInteger ) at:&(newDataType.sampleBytes)];
-			[decoder decodeValueOfObjCType:@encode( CFByteOrder ) at:&(newDataType.byteOrder)];
+			[decoder decodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(newDataType.dataTypeFormat)];
+			[decoder decodeValueOfObjCType:@encode(NSUInteger) at:&(newDataType.sampleBytes)];
+			[decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(newDataType.byteOrder)];
 
 			shapeArray = [decoder decodeObject];
 		}

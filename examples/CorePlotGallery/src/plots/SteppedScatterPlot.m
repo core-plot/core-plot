@@ -42,7 +42,7 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
@@ -78,7 +78,7 @@
 	areaGradient.angle = -90.0;
 	CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill		 = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString( @"1.75" );
+	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 
 	// Auto scale the plot space to fit the plot data
 	// Extend the y range by 10% for neatness
@@ -86,11 +86,11 @@
 	[plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
 	CPTPlotRange *xRange = plotSpace.xRange;
 	CPTPlotRange *yRange = plotSpace.yRange;
-	[yRange expandRangeByFactor:CPTDecimalFromDouble( 1.1 )];
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
 	plotSpace.yRange = yRange;
 
 	// Restrict y range to a global range
-	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 6.0f )];
+	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
 	plotSpace.globalYRange = globalYRange;
 
 	// set the x and y shift to match the new ranges

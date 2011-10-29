@@ -48,7 +48,7 @@
 		annotationHostLayer = nil;
 		contentLayer		= nil;
 		displacement		= CGPointZero;
-		contentAnchorPoint	= CGPointMake( 0.5, 0.5 );
+		contentAnchorPoint	= CGPointMake(0.5, 0.5);
 		rotation			= 0.0;
 	}
 	return self;
@@ -120,7 +120,7 @@
 
 -(void)setDisplacement:(CGPoint)newDisplacement
 {
-	if ( !CGPointEqualToPoint( newDisplacement, displacement ) ) {
+	if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
 		displacement = newDisplacement;
 		[self.contentLayer setNeedsLayout];
 	}
@@ -128,7 +128,7 @@
 
 -(void)setContentAnchorPoint:(CGPoint)newAnchorPoint
 {
-	if ( !CGPointEqualToPoint( newAnchorPoint, contentAnchorPoint ) ) {
+	if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
 		contentAnchorPoint = newAnchorPoint;
 		[self.contentLayer setNeedsLayout];
 	}

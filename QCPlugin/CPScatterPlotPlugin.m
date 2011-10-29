@@ -56,7 +56,7 @@
 					 QCPortTypeColor, QCPortAttributeTypeKey,
 					 lineColor, QCPortAttributeDefaultValueKey,
 					 nil]];
-	CGColorRelease( lineColor );
+	CGColorRelease(lineColor);
 
 	CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
 	[self addInputPortWithType:QCPortTypeColor
@@ -66,7 +66,7 @@
 					 QCPortTypeColor, QCPortAttributeTypeKey,
 					 fillColor, QCPortAttributeDefaultValueKey,
 					 nil]];
-	CGColorRelease( fillColor );
+	CGColorRelease(fillColor);
 
 	[self addInputPortWithType:QCPortTypeNumber
 						forKey:[NSString stringWithFormat:@"plotDataLineWidth%i", index]
@@ -96,7 +96,7 @@
 					 QCPortTypeColor, QCPortAttributeTypeKey,
 					 symbolColor, QCPortAttributeDefaultValueKey,
 					 nil]];
-	CGColorRelease( symbolColor );
+	CGColorRelease(symbolColor);
 
 	// Add the new plot to the graph
 	CPTScatterPlot *scatterPlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -113,8 +113,8 @@
 	scatterPlot.dataSource	  = self;
 	[graph addPlot:scatterPlot];
 
-	CGColorRelease( lineColor );
-	CGColorRelease( fillColor );
+	CGColorRelease(lineColor);
+	CGColorRelease(fillColor);
 }
 
 -(void)removePlots:(NSUInteger)count
@@ -198,9 +198,9 @@
 		plot.plotSymbol			  = [self plotSymbol:index];
 		plot.plotSymbol.lineStyle = lineStyle;
 		plot.plotSymbol.fill	  = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self dataSymbolColor:index]]];
-		plot.plotSymbol.size	  = CGSizeMake( 10.0, 10.0 );
+		plot.plotSymbol.size	  = CGSizeMake(10.0, 10.0);
 		plot.areaFill			  = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
-		plot.areaBaseValue		  = CPTDecimalFromFloat( MAX( self.inputYMin, MIN( self.inputYMax, 0.0 ) ) );
+		plot.areaBaseValue		  = CPTDecimalFromFloat( MAX( self.inputYMin, MIN(self.inputYMax, 0.0) ) );
 
 		[plot reloadData];
 	}
@@ -248,8 +248,8 @@
 	NSNumber *number = [dict valueForKey:dictionaryKey];
 
 	if ( number == nil ) {
-		NSLog( @"No value for key: %@", dictionaryKey );
-		NSLog( @"Dict: %@", dict );
+		NSLog(@"No value for key: %@", dictionaryKey);
+		NSLog(@"Dict: %@", dict);
 	}
 
 	return number;

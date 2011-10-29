@@ -200,7 +200,7 @@
 		labelFormatter		  = nil;
 		labelShadow			  = nil;
 		labelFormatterChanged = YES;
-		labelIndexRange		  = NSMakeRange( 0, 0 );
+		labelIndexRange		  = NSMakeRange(0, 0);
 		labelAnnotations	  = nil;
 		alignsPointsToPixels  = YES;
 
@@ -382,7 +382,7 @@
 {
 	[self.cachedData removeAllObjects];
 	self.cachedDataCount = 0;
-	[self reloadDataInIndexRange:NSMakeRange( 0, [self.dataSource numberOfRecordsForPlot:self] )];
+	[self reloadDataInIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
 }
 
 /**
@@ -400,7 +400,7 @@
  **/
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
-	NSParameterAssert( NSMaxRange( indexRange ) <= [self.dataSource numberOfRecordsForPlot:self] );
+	NSParameterAssert(NSMaxRange(indexRange) <= [self.dataSource numberOfRecordsForPlot:self]);
 
 	self.dataNeedsReloading = NO;
 	[self relabelIndexRange:indexRange];
@@ -412,7 +412,7 @@
  **/
 -(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords
 {
-	NSParameterAssert( index <= self.cachedDataCount );
+	NSParameterAssert(index <= self.cachedDataCount);
 
 	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		size_t sampleSize = numericData.sampleBytes;
@@ -423,12 +423,12 @@
 		void *start		   = [numericData samplePointer:index];
 		size_t bytesToMove = numericData.data.length - (index + numberOfRecords) * sampleSize;
 		if ( bytesToMove > 0 ) {
-			memmove( start + length, start, bytesToMove );
+			memmove(start + length, start, bytesToMove);
 		}
 	}
 
 	self.cachedDataCount += numberOfRecords;
-	[self reloadDataInIndexRange:NSMakeRange( index, self.cachedDataCount - index )];
+	[self reloadDataInIndexRange:NSMakeRange(index, self.cachedDataCount - index)];
 }
 
 /**	@brief Delete records in the given index range from the plot data cache.
@@ -436,7 +436,7 @@
  **/
 -(void)deleteDataInIndexRange:(NSRange)indexRange
 {
-	NSParameterAssert( NSMaxRange( indexRange ) <= self.cachedDataCount );
+	NSParameterAssert(NSMaxRange(indexRange) <= self.cachedDataCount);
 
 	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		size_t sampleSize  = numericData.sampleBytes;
@@ -444,7 +444,7 @@
 		size_t length	   = sampleSize * indexRange.length;
 		size_t bytesToMove = numericData.data.length - (indexRange.location + indexRange.length) * sampleSize;
 		if ( bytesToMove > 0 ) {
-			memmove( start, start + length, bytesToMove );
+			memmove(start, start + length, bytesToMove);
 		}
 
 		NSMutableData *dataBuffer = (NSMutableData *)numericData.data;
@@ -452,7 +452,7 @@
 	}
 
 	self.cachedDataCount -= indexRange.length;
-	[self relabelIndexRange:NSMakeRange( indexRange.location, self.cachedDataCount - indexRange.location )];
+	[self relabelIndexRange:NSMakeRange(indexRange.location, self.cachedDataCount - indexRange.location)];
 	[self setNeedsDisplay];
 }
 
@@ -472,17 +472,17 @@
 			numbers = [theDataSource dataForPlot:self field:fieldEnum recordIndexRange:indexRange];
 		}
 		else if ( [theDataSource respondsToSelector:@selector(doublesForPlot:field:recordIndexRange:)] ) {
-			numbers = [NSMutableData dataWithLength:sizeof( double ) * indexRange.length];
+			numbers = [NSMutableData dataWithLength:sizeof(double) * indexRange.length];
 			double *fieldValues	 = [numbers mutableBytes];
 			double *doubleValues = [theDataSource doublesForPlot:self field:fieldEnum recordIndexRange:indexRange];
-			memcpy( fieldValues, doubleValues, sizeof( double ) * indexRange.length );
+			memcpy(fieldValues, doubleValues, sizeof(double) * indexRange.length);
 		}
 		else if ( [theDataSource respondsToSelector:@selector(numbersForPlot:field:recordIndexRange:)] ) {
 			numbers = [NSArray arrayWithArray:[theDataSource numbersForPlot:self field:fieldEnum recordIndexRange:indexRange]];
 		}
 		else if ( [theDataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
 			NSUInteger recordIndex;
-			NSMutableData *fieldData = [NSMutableData dataWithLength:sizeof( double ) * indexRange.length];
+			NSMutableData *fieldData = [NSMutableData dataWithLength:sizeof(double) * indexRange.length];
 			double *fieldValues		 = [fieldData mutableBytes];
 			for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
 				double number = [theDataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
@@ -616,10 +616,10 @@
 
 			NSUInteger startByte = index * cachedNumbers.sampleBytes;
 			void *cachePtr		 = cachedNumbers.mutableBytes + startByte;
-			size_t numberOfBytes = MIN( mutableNumbers.data.length, cachedNumbers.data.length - startByte );
-			memcpy( cachePtr, mutableNumbers.bytes, numberOfBytes );
+			size_t numberOfBytes = MIN(mutableNumbers.data.length, cachedNumbers.data.length - startByte);
+			memcpy(cachePtr, mutableNumbers.bytes, numberOfBytes);
 
-			[self relabelIndexRange:NSMakeRange( index, sampleCount )];
+			[self relabelIndexRange:NSMakeRange(index, sampleCount)];
 		}
 		[self setNeedsDisplay];
 	}
@@ -633,7 +633,7 @@
 	if ( [numbers isKindOfClass:[CPTNumericData class]] ) {
 		mutableNumbers = [numbers mutableCopy];
 		// ensure the numeric data is in a supported format; default to double if not already NSDecimal
-		if ( !CPTDataTypeEqualToDataType( mutableNumbers.dataType, self.decimalDataType ) ) {
+		if ( !CPTDataTypeEqualToDataType(mutableNumbers.dataType, self.decimalDataType) ) {
 			mutableNumbers.dataType = self.doubleDataType;
 		}
 	}
@@ -728,7 +728,7 @@
 			case CPTDecimalDataType:
 			{
 				NSDecimal *decimalNumber = (NSDecimal *)[numbers samplePointer:index];
-				return CPTDecimalDoubleValue( *decimalNumber );
+				return CPTDecimalDoubleValue(*decimalNumber);
 			}
 			break;
 
@@ -754,7 +754,7 @@
 			case CPTFloatingPointDataType:
 			{
 				double *doubleNumber = (double *)[numbers samplePointer:index];
-				return CPTDecimalFromDouble( *doubleNumber );
+				return CPTDecimalFromDouble(*doubleNumber);
 			}
 			break;
 
@@ -782,12 +782,12 @@
 
 -(CPTNumericDataType)doubleDataType
 {
-	return CPTDataType( CPTFloatingPointDataType, sizeof( double ), CFByteOrderGetCurrent() );
+	return CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
 }
 
 -(CPTNumericDataType)decimalDataType
 {
-	return CPTDataType( CPTDecimalDataType, sizeof( NSDecimal ), CFByteOrderGetCurrent() );
+	return CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
 }
 
 #pragma mark -
@@ -818,14 +818,14 @@
 			while ( doubles < lastSample ) {
 				double value = *doubles++;
 
-				if ( !isnan( value ) ) {
-					min = MIN( min, value );
-					max = MAX( max, value );
+				if ( !isnan(value) ) {
+					min = MIN(min, value);
+					max = MAX(max, value);
 				}
 			}
 
 			if ( max > min ) {
-				range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( min ) length:CPTDecimalFromDouble( max - min )];
+				range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min) length:CPTDecimalFromDouble(max - min)];
 			}
 		}
 		else {
@@ -837,18 +837,18 @@
 			while ( decimals < lastSample ) {
 				NSDecimal value = *decimals++;
 
-				if ( !NSDecimalIsNotANumber( &value ) ) {
-					if ( CPTDecimalLessThan( value, min ) ) {
+				if ( !NSDecimalIsNotANumber(&value) ) {
+					if ( CPTDecimalLessThan(value, min) ) {
 						min = value;
 					}
-					if ( CPTDecimalGreaterThan( value, max ) ) {
+					if ( CPTDecimalGreaterThan(value, max) ) {
 						max = value;
 					}
 				}
 			}
 
-			if ( CPTDecimalGreaterThan( max, min ) ) {
-				range = [CPTPlotRange plotRangeWithLocation:min length:CPTDecimalSubtract( max, min )];
+			if ( CPTDecimalGreaterThan(max, min) ) {
+				range = [CPTPlotRange plotRangeWithLocation:min length:CPTDecimalSubtract(max, min)];
 			}
 		}
 	}
@@ -889,7 +889,7 @@
  **/
 -(void)setNeedsRelabel
 {
-	self.labelIndexRange = NSMakeRange( 0, self.cachedDataCount );
+	self.labelIndexRange = NSMakeRange(0, self.cachedDataCount);
 	self.needsRelabel	 = YES;
 }
 
@@ -924,7 +924,7 @@
 
 	NSUInteger sampleCount = self.cachedDataCount;
 	NSRange indexRange	   = self.labelIndexRange;
-	NSUInteger maxIndex	   = NSMaxRange( indexRange );
+	NSUInteger maxIndex	   = NSMaxRange(indexRange);
 
 	if ( !self.labelAnnotations ) {
 		self.labelAnnotations = [NSMutableArray arrayWithCapacity:sampleCount];
@@ -943,7 +943,7 @@
 
 		NSNumber *dataValue = [labelFieldDataCache sampleValue:i];
 
-		if ( isnan( [dataValue doubleValue] ) ) {
+		if ( isnan([dataValue doubleValue]) ) {
 			newLabelLayer = nil;
 		}
 		else {
@@ -1008,20 +1008,20 @@
 {
 	if ( label ) {
 		CGPoint displacement = label.displacement;
-		if ( CGPointEqualToPoint( displacement, CGPointZero ) ) {
+		if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
 			displacement.y = 1.0; // put the label above the data point if zero displacement
 		}
-		CGFloat angle	   = (CGFloat)M_PI + atan2( displacement.y, displacement.x ) - label.rotation;
-		CGFloat newAnchorX = cos( angle );
-		CGFloat newAnchorY = sin( angle );
+		CGFloat angle	   = (CGFloat)M_PI + atan2(displacement.y, displacement.x) - label.rotation;
+		CGFloat newAnchorX = cos(angle);
+		CGFloat newAnchorY = sin(angle);
 
-		if ( ABS( newAnchorX ) <= ABS( newAnchorY ) ) {
-			newAnchorX /= ABS( newAnchorY );
-			newAnchorY	= signbit( newAnchorY ) ? -1.0 : 1.0;
+		if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+			newAnchorX /= ABS(newAnchorY);
+			newAnchorY	= signbit(newAnchorY) ? -1.0 : 1.0;
 		}
 		else {
-			newAnchorY /= ABS( newAnchorX );
-			newAnchorX	= signbit( newAnchorX ) ? -1.0 : 1.0;
+			newAnchorY /= ABS(newAnchorX);
+			newAnchorX	= signbit(newAnchorX) ? -1.0 : 1.0;
 		}
 
 		label.contentAnchorPoint = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
@@ -1085,29 +1085,29 @@
 		CGPathRef swatchPath;
 		CGFloat radius = legend.swatchCornerRadius;
 		if ( radius > 0.0 ) {
-			radius	   = MIN( MIN( radius, rect.size.width / (CGFloat)2.0 ), rect.size.height / (CGFloat)2.0 );
-			swatchPath = CreateRoundedRectPath( rect, radius );
+			radius	   = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
+			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {
 			CGMutablePathRef mutablePath = CGPathCreateMutable();
-			CGPathAddRect( mutablePath, NULL, rect );
+			CGPathAddRect(mutablePath, NULL, rect);
 			swatchPath = mutablePath;
 		}
 
 		if ( theFill ) {
-			CGContextBeginPath( context );
-			CGContextAddPath( context, swatchPath );
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
 			[theFill fillPathInContext:context];
 		}
 
 		if ( theLineStyle ) {
 			[theLineStyle setLineStyleInContext:context];
-			CGContextBeginPath( context );
-			CGContextAddPath( context, swatchPath );
-			CGContextStrokePath( context );
+			CGContextBeginPath(context);
+			CGContextAddPath(context, swatchPath);
+			CGContextStrokePath(context);
 		}
 
-		CGPathRelease( swatchPath );
+		CGPathRelease(swatchPath);
 	}
 }
 

@@ -50,7 +50,7 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	CPTGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:bounds];
@@ -68,11 +68,11 @@
 	// Add plot space for bar charts
 	CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
 #if HORIZONTAL
-	barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10.0f ) length:CPTDecimalFromFloat( 120.0f )];
-	barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -1.0f ) length:CPTDecimalFromFloat( 11.0f )];
+	barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
+	barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(11.0f)];
 #else
-	barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -1.0f ) length:CPTDecimalFromFloat( 11.0f )];
-	barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10.0f ) length:CPTDecimalFromFloat( 120.0f )];
+	barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(11.0f)];
+	barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
 #endif
 	[graph addPlotSpace:barPlotSpace];
 
@@ -90,13 +90,13 @@
 	CPTXYAxis *x		  = axisSet.xAxis;
 	{
 #if HORIZONTAL
-		x.majorIntervalLength		  = CPTDecimalFromInteger( 10 );
+		x.majorIntervalLength		  = CPTDecimalFromInteger(10);
 		x.minorTicksPerInterval		  = 9;
-		x.orthogonalCoordinateDecimal = CPTDecimalFromDouble( -0.5 );
+		x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5);
 #else
-		x.majorIntervalLength		  = CPTDecimalFromInteger( 1 );
+		x.majorIntervalLength		  = CPTDecimalFromInteger(1);
 		x.minorTicksPerInterval		  = 0;
-		x.orthogonalCoordinateDecimal = CPTDecimalFromInteger( 0 );
+		x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
 #endif
 		x.majorGridLineStyle = majorGridLineStyle;
 		x.minorGridLineStyle = minorGridLineStyle;
@@ -105,19 +105,19 @@
 		x.minorTickLineStyle = nil;
 		x.labelOffset		 = 10.0;
 #if HORIZONTAL
-		x.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 100.0f )];
-		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -0.5f ) length:CPTDecimalFromFloat( 10.0f )];
+		x.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
 #else
-		x.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -0.5f ) length:CPTDecimalFromFloat( 10.0f )];
-		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 100.0f )];
+		x.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
+		x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
 #endif
 
 		x.title		  = @"X Axis";
 		x.titleOffset = 30.0f;
 #if HORIZONTAL
-		x.titleLocation = CPTDecimalFromInteger( 55 );
+		x.titleLocation = CPTDecimalFromInteger(55);
 #else
-		x.titleLocation = CPTDecimalFromInteger( 5 );
+		x.titleLocation = CPTDecimalFromInteger(5);
 #endif
 
 		x.plotSpace = barPlotSpace;
@@ -126,13 +126,13 @@
 	CPTXYAxis *y = axisSet.yAxis;
 	{
 #if HORIZONTAL
-		y.majorIntervalLength		  = CPTDecimalFromInteger( 1 );
+		y.majorIntervalLength		  = CPTDecimalFromInteger(1);
 		y.minorTicksPerInterval		  = 0;
-		y.orthogonalCoordinateDecimal = CPTDecimalFromInteger( 0 );
+		y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
 #else
-		y.majorIntervalLength		  = CPTDecimalFromInteger( 10 );
+		y.majorIntervalLength		  = CPTDecimalFromInteger(10);
 		y.minorTicksPerInterval		  = 9;
-		y.orthogonalCoordinateDecimal = CPTDecimalFromDouble( -0.5 );
+		y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5);
 #endif
 		y.preferredNumberOfMajorTicks = 8;
 		y.majorGridLineStyle		  = majorGridLineStyle;
@@ -143,19 +143,19 @@
 		y.labelOffset				  = 10.0;
 		y.labelRotation				  = M_PI / 2;
 #if HORIZONTAL
-		y.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -0.5f ) length:CPTDecimalFromFloat( 10.0f )];
-		y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 100.0f )];
+		y.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
+		y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
 #else
-		y.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 100.0f )];
-		y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -0.5f ) length:CPTDecimalFromFloat( 10.0f )];
+		y.visibleRange	 = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+		y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
 #endif
 
 		y.title		  = @"Y Axis";
 		y.titleOffset = 30.0f;
 #if HORIZONTAL
-		y.titleLocation = CPTDecimalFromInteger( 5 );
+		y.titleLocation = CPTDecimalFromInteger(5);
 #else
-		y.titleLocation = CPTDecimalFromInteger( 55 );
+		y.titleLocation = CPTDecimalFromInteger(55);
 #endif
 
 		y.plotSpace = barPlotSpace;
@@ -174,7 +174,7 @@
 	barPlot.lineStyle		= barLineStyle;
 	barPlot.fill			= [CPTFill fillWithColor:[CPTColor colorWithComponentRed:1.0f green:0.0f blue:0.5f alpha:0.5f]];
 	barPlot.barBasesVary	= YES;
-	barPlot.barWidth		= CPTDecimalFromFloat( 0.5f ); // bar is 50% of the available space
+	barPlot.barWidth		= CPTDecimalFromFloat(0.5f); // bar is 50% of the available space
 	barPlot.barCornerRadius = 10.0f;
 #if HORIZONTAL
 	barPlot.barsAreHorizontal = YES;
@@ -199,7 +199,7 @@
 	barPlot2.fill		  = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:0.0f green:1.0f blue:0.5f alpha:0.5f]];
 	barPlot2.barBasesVary = YES;
 
-	barPlot2.barWidth = CPTDecimalFromFloat( 1.0f ); // bar is full (100%) width
+	barPlot2.barWidth = CPTDecimalFromFloat(1.0f); // bar is full (100%) width
 //	barPlot2.barOffset = -0.125f; // shifted left by 12.5%
 	barPlot2.barCornerRadius = 2.0f;
 #if HORIZONTAL
@@ -219,7 +219,7 @@
 	theLegend.fill			  = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
 	theLegend.borderLineStyle = barLineStyle;
 	theLegend.cornerRadius	  = 10.0;
-	theLegend.swatchSize	  = CGSizeMake( 20.0, 20.0 );
+	theLegend.swatchSize	  = CGSizeMake(20.0, 20.0);
 	whiteTextStyle.fontSize	  = 16.0;
 	theLegend.textStyle		  = whiteTextStyle;
 	theLegend.rowMargin		  = 10.0;
@@ -237,9 +237,9 @@
 	legendAnnotation.contentLayer = theLegend;
 
 #if HORIZONTAL
-	legendAnnotation.contentAnchorPoint = CGPointMake( 1.0, 0.0 );
+	legendAnnotation.contentAnchorPoint = CGPointMake(1.0, 0.0);
 #else
-	legendAnnotation.contentAnchorPoint = CGPointMake( 0.0, 1.0 );
+	legendAnnotation.contentAnchorPoint = CGPointMake(0.0, 1.0);
 #endif
 	[graph.plotAreaFrame.plotArea addAnnotation:legendAnnotation];
 
@@ -269,7 +269,7 @@
 {
 	NSNumber *value = [self numberForPlot:plot field:CPTBarPlotFieldBarTip recordIndex:index];
 
-	NSLog( @"bar was selected at index %d. Value = %f", (int)index, [value floatValue] );
+	NSLog(@"bar was selected at index %d. Value = %f", (int)index, [value floatValue]);
 
 	CPTGraph *graph = [graphs objectAtIndex:0];
 
@@ -303,7 +303,7 @@
 	CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
 	symbolTextAnnotation			  = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
 	symbolTextAnnotation.contentLayer = textLayer;
-	symbolTextAnnotation.displacement = CGPointMake( 0.0f, 0.0f );
+	symbolTextAnnotation.displacement = CGPointMake(0.0f, 0.0f);
 
 	[graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
 }

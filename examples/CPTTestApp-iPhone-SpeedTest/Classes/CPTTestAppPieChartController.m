@@ -14,7 +14,7 @@
 	CPTPlot *piePlot  = [pieChart plotWithIdentifier:@"Pie Chart 1"];
 	CGRect plotBounds = pieChart.plotAreaFrame.bounds;
 
-	( (CPTPieChart *)piePlot ).pieRadius = MIN( plotBounds.size.width, plotBounds.size.height ) / 2.0 - 10.0;
+	( (CPTPieChart *)piePlot ).pieRadius = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - 10.0;
 }
 
 #pragma mark -

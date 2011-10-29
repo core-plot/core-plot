@@ -134,26 +134,26 @@
  **/
 -(void)setLineStyleInContext:(CGContextRef)theContext
 {
-	CGContextSetLineCap( theContext, lineCap );
-	CGContextSetLineJoin( theContext, lineJoin );
-	CGContextSetMiterLimit( theContext, miterLimit );
-	CGContextSetLineWidth( theContext, lineWidth );
+	CGContextSetLineCap(theContext, lineCap);
+	CGContextSetLineJoin(theContext, lineJoin);
+	CGContextSetMiterLimit(theContext, miterLimit);
+	CGContextSetLineWidth(theContext, lineWidth);
 	NSUInteger dashCount = dashPattern.count;
 	if ( dashCount > 0 ) {
-		CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof( CGFloat ) );
+		CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
 
 		NSUInteger dashCounter = 0;
 		for ( NSNumber *currentDashLength in dashPattern ) {
 			dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
 		}
 
-		CGContextSetLineDash( theContext, patternPhase, dashLengths, dashCount );
-		free( dashLengths );
+		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashCount);
+		free(dashLengths);
 	}
 	else {
-		CGContextSetLineDash( theContext, 0.0, NULL, 0 );
+		CGContextSetLineDash(theContext, 0.0, NULL, 0);
 	}
-	CGContextSetStrokeColorWithColor( theContext, lineColor.cgColor );
+	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
 #pragma mark -

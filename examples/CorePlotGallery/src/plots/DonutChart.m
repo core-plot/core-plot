@@ -46,7 +46,7 @@ NSString *const outerChartName = @"Outer";
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
@@ -59,7 +59,7 @@ NSString *const outerChartName = @"Outer";
 	textStyle.fontName			   = @"Helvetica-Bold";
 	textStyle.fontSize			   = bounds.size.height / 20.0f;
 	graph.titleTextStyle		   = textStyle;
-	graph.titleDisplacement		   = CGPointMake( 0.0f, bounds.size.height / 18.0f );
+	graph.titleDisplacement		   = CGPointMake(0.0f, bounds.size.height / 18.0f);
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
 	graph.plotAreaFrame.masksToBorder = NO;
@@ -77,15 +77,15 @@ NSString *const outerChartName = @"Outer";
 	whiteLineStyle.lineColor = [CPTColor whiteColor];
 
 	CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
-	whiteShadow.shadowOffset	 = CGSizeMake( 2.0, -4.0 );
+	whiteShadow.shadowOffset	 = CGSizeMake(2.0, -4.0);
 	whiteShadow.shadowBlurRadius = 4.0;
 	whiteShadow.shadowColor		 = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
 
 	// Add pie chart
 	CPTPieChart *piePlot = [[CPTPieChart alloc] init];
 	piePlot.dataSource = self;
-	piePlot.pieRadius  = MIN( 0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
-							  0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0 );
+	piePlot.pieRadius  = MIN(0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
+							 0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
 	CGFloat innerRadius = piePlot.pieRadius / 2.0;
 	piePlot.pieInnerRadius	= innerRadius + 5.0;
 	piePlot.identifier		= outerChartName;
@@ -113,7 +113,7 @@ NSString *const outerChartName = @"Outer";
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-	NSLog( @"%@ slice was selected at index %lu. Value = %@", plot.identifier, index, [plotData objectAtIndex:index] );
+	NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, index, [plotData objectAtIndex:index]);
 }
 
 #pragma mark -

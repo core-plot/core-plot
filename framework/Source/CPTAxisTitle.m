@@ -36,7 +36,7 @@
 	CGFloat *value		  = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
 	CGFloat titleRotation = self.rotation;
 
-	if ( isnan( titleRotation ) ) {
+	if ( isnan(titleRotation) ) {
 		titleRotation = (coordinate == CPTCoordinateX ? M_PI_2 : 0.0);
 	}
 	CGPoint anchor = CGPointZero;
@@ -46,12 +46,12 @@
 		case CPTSignNone:
 		case CPTSignNegative:
 			*value -= self.offset;
-			anchor	= ( coordinate == CPTCoordinateX ? CGPointMake( 0.5, 0.0 ) : CGPointMake( 0.5, 1.0 ) );
+			anchor	= ( coordinate == CPTCoordinateX ? CGPointMake(0.5, 0.0) : CGPointMake(0.5, 1.0) );
 			break;
 
 		case CPTSignPositive:
 			*value += self.offset;
-			anchor	= ( coordinate == CPTCoordinateX ? CGPointMake( 0.5, 1.0 ) : CGPointMake( 0.5, 0.0 ) );
+			anchor	= ( coordinate == CPTCoordinateX ? CGPointMake(0.5, 1.0) : CGPointMake(0.5, 0.0) );
 			break;
 
 		default:
@@ -64,7 +64,7 @@
 
 	content.anchorPoint = anchor;
 	content.position	= newPosition;
-	content.transform	= CATransform3DMakeRotation( titleRotation, 0.0, 0.0, 1.0 );
+	content.transform	= CATransform3DMakeRotation(titleRotation, 0.0, 0.0, 1.0);
 	[content pixelAlign];
 	[content setNeedsDisplay];
 }

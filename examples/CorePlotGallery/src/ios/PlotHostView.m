@@ -24,7 +24,7 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	NSLog( @"PlotHostView:didRotateFromInterfaceOrientation:" );
+	NSLog(@"PlotHostView:didRotateFromInterfaceOrientation:");
 }
 
 -(void)dealloc

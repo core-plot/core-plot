@@ -34,18 +34,18 @@
 
 	// Add plot space for horizontal bar charts
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 300.0f )];
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0f ) length:CPTDecimalFromFloat( 16.0f )];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
 
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
 	x.axisLineStyle				  = nil;
 	x.majorTickLineStyle		  = nil;
 	x.minorTickLineStyle		  = nil;
-	x.majorIntervalLength		  = CPTDecimalFromString( @"5" );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString( @"0" );
+	x.majorIntervalLength		  = CPTDecimalFromString(@"5");
+	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
 	x.title						  = @"X Axis";
-	x.titleLocation				  = CPTDecimalFromFloat( 7.5f );
+	x.titleLocation				  = CPTDecimalFromFloat(7.5f);
 	x.titleOffset				  = 55.0f;
 
 	// Define some custom labels for the data elements
@@ -70,25 +70,25 @@
 	y.axisLineStyle				  = nil;
 	y.majorTickLineStyle		  = nil;
 	y.minorTickLineStyle		  = nil;
-	y.majorIntervalLength		  = CPTDecimalFromString( @"50" );
-	y.orthogonalCoordinateDecimal = CPTDecimalFromString( @"0" );
+	y.majorIntervalLength		  = CPTDecimalFromString(@"50");
+	y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
 	y.title						  = @"Y Axis";
 	y.titleOffset				  = 45.0f;
-	y.titleLocation				  = CPTDecimalFromFloat( 150.0f );
+	y.titleLocation				  = CPTDecimalFromFloat(150.0f);
 
 	// First bar plot
 	CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
-	barPlot.baseValue  = CPTDecimalFromString( @"0" );
+	barPlot.baseValue  = CPTDecimalFromString(@"0");
 	barPlot.dataSource = self;
-	barPlot.barOffset  = CPTDecimalFromFloat( -0.25f );
+	barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
 	barPlot.identifier = @"Bar Plot 1";
 	[barChart addPlot:barPlot toPlotSpace:plotSpace];
 
 	// Second bar plot
 	barPlot					= [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
 	barPlot.dataSource		= self;
-	barPlot.baseValue		= CPTDecimalFromString( @"0" );
-	barPlot.barOffset		= CPTDecimalFromFloat( 0.25f );
+	barPlot.baseValue		= CPTDecimalFromString(@"0");
+	barPlot.barOffset		= CPTDecimalFromFloat(0.25f);
 	barPlot.barCornerRadius = 2.0f;
 	barPlot.identifier		= @"Bar Plot 2";
 	[barChart addPlot:barPlot toPlotSpace:plotSpace];

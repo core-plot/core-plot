@@ -9,13 +9,13 @@
  {
 	va_list args;
 
-	va_start( args, fmt );
+	va_start(args, fmt);
 
 	[self raise:NSGenericException
 		 format:fmt
 	  arguments:args];
 
-	va_end( args );
+	va_end(args);
 }
 
 @end

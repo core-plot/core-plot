@@ -22,7 +22,7 @@
 
 +(void)registerPlotItem:(id)item
 {
-	NSLog( @"registerPlotItem for class %@", [item class] );
+	NSLog(@"registerPlotItem for class %@", [item class]);
 
 	Class itemClass = [item class];
 
@@ -98,15 +98,15 @@
 	CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
 	textStyle.color				   = [CPTColor grayColor];
 	textStyle.fontName			   = @"Helvetica-Bold";
-	textStyle.fontSize			   = round( bounds.size.height / 20.0f );
+	textStyle.fontSize			   = round(bounds.size.height / 20.0f);
 	graph.titleTextStyle		   = textStyle;
-	graph.titleDisplacement		   = CGPointMake( 0.0f, round( bounds.size.height / 18.0f ) ); // Ensure that title displacement falls on an integral pixel
+	graph.titleDisplacement		   = CGPointMake( 0.0f, round(bounds.size.height / 18.0f) ); // Ensure that title displacement falls on an integral pixel
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 }
 
 -(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-	float boundsPadding = round( bounds.size.width / 20.0f ); // Ensure that padding falls on an integral pixel
+	float boundsPadding = round(bounds.size.width / 20.0f); // Ensure that padding falls on an integral pixel
 
 	graph.paddingLeft = boundsPadding;
 
@@ -130,18 +130,18 @@
 	CGContextRef c = CGBitmapContextCreate( NULL,
 											size.width,
 											size.height,
-											CGImageGetBitsPerComponent( image ),
-											CGImageGetBytesPerRow( image ),
-											CGImageGetColorSpace( image ),
-											CGImageGetAlphaInfo( image ) );
+											CGImageGetBitsPerComponent(image),
+											CGImageGetBytesPerRow(image),
+											CGImageGetColorSpace(image),
+											CGImageGetAlphaInfo(image) );
 
 	if ( c == NULL ) {
 		return NULL;
 	}
 
-	CGContextDrawImage( c, CGRectMake( 0, 0, size.width, size.height ), image );
-	CGImageRef newImage = CGBitmapContextCreateImage( c );
-	CGContextRelease( c );
+	CGContextDrawImage(c, CGRectMake(0, 0, size.width, size.height), image);
+	CGImageRef newImage = CGBitmapContextCreateImage(c);
+	CGContextRelease(c);
 
 	return newImage;
 }
@@ -149,26 +149,26 @@
 -(UIImage *)image
 {
 	if ( cachedImage == nil ) {
-		CGRect imageFrame = CGRectMake( 0, 0, 400, 300 );
+		CGRect imageFrame = CGRectMake(0, 0, 400, 300);
 		UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
 		[imageView setOpaque:YES];
 		[imageView setUserInteractionEnabled:NO];
 
 		[self renderInView:imageView withTheme:nil];
 
-		UIGraphicsBeginImageContext( imageView.bounds.size );
+		UIGraphicsBeginImageContext(imageView.bounds.size);
 		CGContextRef c = UIGraphicsGetCurrentContext();
-		CGContextGetCTM( c );
-		CGContextScaleCTM( c, 1, -1 );
-		CGContextTranslateCTM( c, 0, -imageView.bounds.size.height );
+		CGContextGetCTM(c);
+		CGContextScaleCTM(c, 1, -1);
+		CGContextTranslateCTM(c, 0, -imageView.bounds.size.height);
 		[imageView.layer renderInContext:c];
 		cachedImage = [UIGraphicsGetImageFromCurrentImageContext ()retain];
 
 		// rescale graph
 		UIImage *bigImage	   = UIGraphicsGetImageFromCurrentImageContext();
-		CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake( 100.0f, 75.0f )];
+		CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake(100.0f, 75.0f)];
 		cachedImage = [[UIImage imageWithCGImage:scaledImage] retain];
-		CGImageRelease( scaledImage );
+		CGImageRelease(scaledImage);
 		UIGraphicsEndImageContext();
 
 		[imageView release];
@@ -182,9 +182,9 @@
 -(NSImage *)image
 {
 	if ( cachedImage == nil ) {
-		CGRect imageFrame = CGRectMake( 0, 0, 400, 300 );
+		CGRect imageFrame = CGRectMake(0, 0, 400, 300);
 
-		NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect( imageFrame )];
+		NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
 		[imageView setWantsLayer:YES];
 
 		[self renderInView:imageView withTheme:nil];
@@ -206,13 +206,13 @@
 		NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 		CGContextRef context			 = (CGContextRef)[bitmapContext graphicsPort];
 
-		CGContextClearRect( context, CGRectMake( 0.0, 0.0, boundsSize.width, boundsSize.height ) );
-		CGContextSetAllowsAntialiasing( context, true );
-		CGContextSetShouldSmoothFonts( context, false );
+		CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+		CGContextSetAllowsAntialiasing(context, true);
+		CGContextSetShouldSmoothFonts(context, false);
 		[imageView.layer renderInContext:context];
-		CGContextFlush( context );
+		CGContextFlush(context);
 
-		cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize( boundsSize )];
+		cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
 		[cachedImage addRepresentation:layerImage];
 		[layerImage release];
 
@@ -266,7 +266,7 @@
 
 -(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
-	NSLog( @"PlotItem:renderInLayer: Override me" );
+	NSLog(@"PlotItem:renderInLayer: Override me");
 }
 
 -(void)reloadData

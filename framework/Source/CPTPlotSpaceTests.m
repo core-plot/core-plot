@@ -11,7 +11,7 @@
 
 -(void)setUp
 {
-	self.graph				 = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake( 0.0, 0.0, 100.0, 50.0 )] autorelease];
+	self.graph				 = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)] autorelease];
 	self.graph.paddingLeft	 = 0.0;
 	self.graph.paddingRight	 = 0.0;
 	self.graph.paddingTop	 = 0.0;
@@ -36,8 +36,8 @@
 
 	CPTPlotSpace *newPlotSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:plotSpace]];
 
-	STAssertEqualObjects( plotSpace.identifier, newPlotSpace.identifier, @"identifier not equal" );
-	STAssertEquals( plotSpace.allowsUserInteraction, newPlotSpace.allowsUserInteraction, @"allowsUserInteraction not equal" );
+	STAssertEqualObjects(plotSpace.identifier, newPlotSpace.identifier, @"identifier not equal");
+	STAssertEquals(plotSpace.allowsUserInteraction, newPlotSpace.allowsUserInteraction, @"allowsUserInteraction not equal");
 }
 
 @end

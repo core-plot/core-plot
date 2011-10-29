@@ -31,12 +31,12 @@
 /**	@endcond */
 
 // C Fuctions for color blending
-static void linearEvaluation( void *info, const CGFloat *in, CGFloat *out );
-static void chromaticEvaluation( void *info, const CGFloat *in, CGFloat *out );
-static void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out );
-static void transformRGB_HSV( CGFloat *components );
-static void transformHSV_RGB( CGFloat *components );
-static void resolveHSV( CGFloat *color1, CGFloat *color2 );
+static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void transformRGB_HSV(CGFloat *components);
+static void transformHSV_RGB(CGFloat *components);
+static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 #pragma mark -
 
@@ -94,14 +94,14 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 -(void)dealloc
 {
 	[colorspace release];
-	CGFunctionRelease( gradientFunction );
+	CGFunctionRelease(gradientFunction);
 	[self removeAllElements];
 	[super dealloc];
 }
 
 -(void)finalize
 {
-	CGFunctionRelease( gradientFunction );
+	CGFunctionRelease(gradientFunction);
 	[self removeAllElements];
 	[super finalize];
 }
@@ -136,11 +136,11 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		NSUInteger count				   = 0;
 		CPTGradientElement *currentElement = elementList;
 		while ( currentElement != NULL ) {
-			[coder encodeValueOfObjCType:@encode( CGFloat ) at:&(currentElement->color.red)];
-			[coder encodeValueOfObjCType:@encode( CGFloat ) at:&(currentElement->color.green)];
-			[coder encodeValueOfObjCType:@encode( CGFloat ) at:&(currentElement->color.blue)];
-			[coder encodeValueOfObjCType:@encode( CGFloat ) at:&(currentElement->color.alpha)];
-			[coder encodeValueOfObjCType:@encode( CGFloat ) at:&(currentElement->position)];
+			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
+			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
+			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
+			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
+			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
 
 			count++;
 			currentElement = currentElement->nextElement;
@@ -169,11 +169,11 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		while ( count != 0 ) {
 			CPTGradientElement newElement;
 
-			[coder decodeValueOfObjCType:@encode( CGFloat ) at:&(newElement.color.red)];
-			[coder decodeValueOfObjCType:@encode( CGFloat ) at:&(newElement.color.green)];
-			[coder decodeValueOfObjCType:@encode( CGFloat ) at:&(newElement.color.blue)];
-			[coder decodeValueOfObjCType:@encode( CGFloat ) at:&(newElement.color.alpha)];
-			[coder decodeValueOfObjCType:@encode( CGFloat ) at:&(newElement.position)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.red)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.green)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.blue)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.alpha)];
+			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.position)];
 
 			count--;
 			[self addElement:&newElement];
@@ -209,8 +209,8 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CPTGradientElement color1;
 	CPTGradientElement color2;
 
-	color1.color = CPTRGBAColorFromCGColor( begin.cgColor );
-	color2.color = CPTRGBAColorFromCGColor( end.cgColor );
+	color1.color = CPTRGBAColorFromCGColor(begin.cgColor);
+	color2.color = CPTRGBAColorFromCGColor(end.cgColor);
 
 	color1.position = beginningPosition;
 	color2.position = endingPosition;
@@ -555,7 +555,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		color[1] = 1.0;
 		color[2] = 0.001;
 		color[3] = 1.0;
-		transformHSV_RGB( color );
+		transformHSV_RGB(color);
 
 		CPTGradientElement fadeIn;
 		fadeIn.color.red   = color[0];
@@ -568,7 +568,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		color[1] = 1.0;
 		color[2] = 1.0;
 		color[3] = 1.0;
-		transformHSV_RGB( color );
+		transformHSV_RGB(color);
 
 		CPTGradientElement band;
 		band.color.red	 = color[0];
@@ -581,7 +581,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		color[1] = 1.0;
 		color[2] = 0.001;
 		color[3] = 1.0;
-		transformHSV_RGB( color );
+		transformHSV_RGB(color);
 
 		CPTGradientElement fadeOut;
 		fadeOut.color.red	= color[0];
@@ -656,7 +656,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CPTGradientElement newGradientElement;
 
 	//put the components of color into the newGradientElement - must make sure it is a RGB color (not Gray or CMYK)
-	newGradientElement.color	= CPTRGBAColorFromCGColor( color.cgColor );
+	newGradientElement.color	= CPTRGBAColorFromCGColor(color.cgColor);
 	newGradientElement.position = position;
 
 	//Pass it off to addElement to take care of adding it to the elementList
@@ -674,7 +674,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CPTGradient *newGradient		  = [self copy];
 	CPTGradientElement removedElement = [newGradient removeElementAtPosition:position];
 
-	if ( isnan( removedElement.position ) ) {
+	if ( isnan(removedElement.position) ) {
 		[NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
 	}
 
@@ -690,7 +690,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CPTGradient *newGradient		  = [self copy];
 	CPTGradientElement removedElement = [newGradient removeElementAtIndex:index];
 
-	if ( isnan( removedElement.position ) ) {
+	if ( isnan(removedElement.position) ) {
 		[NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
 	}
 
@@ -711,10 +711,10 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	if ( element != NULL ) {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
-		return CGColorCreate( self.colorspace.cgColorSpace, colorComponents );
+		return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 
 #else
-		return CGColorCreateGenericRGB( element->color.red, element->color.green, element->color.blue, element->color.alpha );
+		return CGColorCreateGenericRGB(element->color.red, element->color.green, element->color.blue, element->color.alpha);
 #endif
 	}
 
@@ -734,15 +734,15 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 
 	switch ( self.blendingMode ) {
 		case CPTLinearBlendingMode:
-			linearEvaluation( &elementList, &position, components );
+			linearEvaluation(&elementList, &position, components);
 			break;
 
 		case CPTChromaticBlendingMode:
-			chromaticEvaluation( &elementList, &position, components );
+			chromaticEvaluation(&elementList, &position, components);
 			break;
 
 		case CPTInverseChromaticBlendingMode:
-			inverseChromaticEvaluation( &elementList, &position, components );
+			inverseChromaticEvaluation(&elementList, &position, components);
 			break;
 	}
 
@@ -750,17 +750,17 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		//undo premultiplication that CG requires
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = { components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3] };
-		gradientColor = CGColorCreate( self.colorspace.cgColorSpace, colorComponents );
+		gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else
-		gradientColor = CGColorCreateGenericRGB( components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3] );
+		gradientColor = CGColorCreateGenericRGB(components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]);
 #endif
 	}
 	else {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 		CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
-		gradientColor = CGColorCreate( self.colorspace.cgColorSpace, colorComponents );
+		gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else
-		gradientColor = CGColorCreateGenericRGB( components[0], components[1], components[2], components[3] );
+		gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
 #endif
 	}
 
@@ -787,9 +787,9 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 {
 	CGShadingRef myCGShading = NULL;
 
-	CGContextSaveGState( context );
+	CGContextSaveGState(context);
 
-	CGContextClipToRect( context, *(CGRect *)&rect );
+	CGContextClipToRect(context, *(CGRect *)&rect);
 
 	switch ( self.gradientType ) {
 		case CPTGradientTypeAxial:
@@ -801,10 +801,10 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 			break;
 	}
 
-	CGContextDrawShading( context, myCGShading );
+	CGContextDrawShading(context, myCGShading);
 
-	CGShadingRelease( myCGShading );
-	CGContextRestoreGState( context );
+	CGShadingRelease(myCGShading);
+	CGContextRestoreGState(context);
 }
 
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
@@ -812,13 +812,13 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
  **/
 -(void)fillPathInContext:(CGContextRef)context
 {
-	if ( !CGContextIsPathEmpty( context ) ) {
+	if ( !CGContextIsPathEmpty(context) ) {
 		CGShadingRef myCGShading = NULL;
 
-		CGContextSaveGState( context );
+		CGContextSaveGState(context);
 
-		CGRect bounds = CGContextGetPathBoundingBox( context );
-		CGContextClip( context );
+		CGRect bounds = CGContextGetPathBoundingBox(context);
+		CGContextClip(context);
 
 		switch ( self.gradientType ) {
 			case CPTGradientTypeAxial:
@@ -830,10 +830,10 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 				break;
 		}
 
-		CGContextDrawShading( context, myCGShading );
+		CGContextDrawShading(context, myCGShading);
 
-		CGShadingRelease( myCGShading );
-		CGContextRestoreGState( context );
+		CGShadingRelease(myCGShading);
+		CGContextRestoreGState(context);
 	}
 }
 
@@ -927,12 +927,12 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CGPoint startPoint, endPoint;
 
 	if ( self.angle == 0.0 ) {
-		startPoint = CGPointMake( CGRectGetMinX( rect ), CGRectGetMinY( rect ) ); // right of rect
-		endPoint   = CGPointMake( CGRectGetMaxX( rect ), CGRectGetMinY( rect ) ); // left  of rect
+		startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
+		endPoint   = CGPointMake( CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
 	}
 	else if ( self.angle == 90.0 ) {
-		startPoint = CGPointMake( CGRectGetMinX( rect ), CGRectGetMinY( rect ) ); // bottom of rect
-		endPoint   = CGPointMake( CGRectGetMinX( rect ), CGRectGetMaxY( rect ) ); // top    of rect
+		startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
+		endPoint   = CGPointMake( CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
 	}
 	else { // ok, we'll do the calculations now
 		CGFloat x, y;
@@ -943,41 +943,41 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 
 		CGFloat rangle = self.angle * (CGFloat)(M_PI / 180.0); //convert the angle to radians
 
-		if ( fabs( tan( rangle ) ) <= 1.0 ) { //for range [-45,45], [135,225]
-			x = CGRectGetWidth( rect );
-			y = CGRectGetHeight( rect );
+		if ( fabs( tan(rangle) ) <= 1.0 ) { //for range [-45,45], [135,225]
+			x = CGRectGetWidth(rect);
+			y = CGRectGetHeight(rect);
 
-			sina = sin( rangle );
-			cosa = cos( rangle );
-			tana = tan( rangle );
+			sina = sin(rangle);
+			cosa = cos(rangle);
+			tana = tan(rangle);
 
-			length = x / fabs( cosa ) + ( y - x * fabs( tana ) ) * fabs( sina );
+			length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
 
 			deltax = length * cosa / (CGFloat)2.0;
 			deltay = length * sina / (CGFloat)2.0;
 		}
 		else { //for range [45,135], [225,315]
-			x = CGRectGetHeight( rect );
-			y = CGRectGetWidth( rect );
+			x = CGRectGetHeight(rect);
+			y = CGRectGetWidth(rect);
 
 			rangle -= M_PI_2;
 
-			sina = sin( rangle );
-			cosa = cos( rangle );
-			tana = tan( rangle );
+			sina = sin(rangle);
+			cosa = cos(rangle);
+			tana = tan(rangle);
 
-			length = x / fabs( cosa ) + ( y - x * fabs( tana ) ) * fabs( sina );
+			length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
 
 			deltax = -length * sina / (CGFloat)2.0;
 			deltay = length * cosa / (CGFloat)2.0;
 		}
 
-		startPoint = CGPointMake( CGRectGetMidX( rect ) - deltax, CGRectGetMidY( rect ) - deltay );
-		endPoint   = CGPointMake( CGRectGetMidX( rect ) + deltax, CGRectGetMidY( rect ) + deltay );
+		startPoint = CGPointMake(CGRectGetMidX(rect) - deltax, CGRectGetMidY(rect) - deltay);
+		endPoint   = CGPointMake(CGRectGetMidX(rect) + deltax, CGRectGetMidY(rect) + deltay);
 	}
 
 	// Calls to CoreGraphics
-	CGShadingRef myCGShading = CGShadingCreateAxial( self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false );
+	CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
 
 	return myCGShading;
 }
@@ -988,27 +988,27 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	CGFloat startRadius, endRadius;
 	CGFloat scalex, scaley;
 
-	startPoint = endPoint = CGPointMake( CGRectGetMidX( rect ), CGRectGetMidY( rect ) );
+	startPoint = endPoint = CGPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) );
 
 	startRadius = -1.0;
-	if ( CGRectGetHeight( rect ) > CGRectGetWidth( rect ) ) {
-		scalex		  = CGRectGetWidth( rect ) / CGRectGetHeight( rect );
+	if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
+		scalex		  = CGRectGetWidth(rect) / CGRectGetHeight(rect);
 		startPoint.x /= scalex;
 		endPoint.x	 /= scalex;
 		scaley		  = 1.0;
-		endRadius	  = CGRectGetHeight( rect ) / (CGFloat)2.0;
+		endRadius	  = CGRectGetHeight(rect) / (CGFloat)2.0;
 	}
 	else {
 		scalex		  = 1.0;
-		scaley		  = CGRectGetHeight( rect ) / CGRectGetWidth( rect );
+		scaley		  = CGRectGetHeight(rect) / CGRectGetWidth(rect);
 		startPoint.y /= scaley;
 		endPoint.y	 /= scaley;
-		endRadius	  = CGRectGetWidth( rect ) / (CGFloat)2.0;
+		endRadius	  = CGRectGetWidth(rect) / (CGFloat)2.0;
 	}
 
-	CGContextScaleCTM( context, scalex, scaley );
+	CGContextScaleCTM(context, scalex, scaley);
 
-	CGShadingRef myCGShading = CGShadingCreateRadial( self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true );
+	CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
 
 	return myCGShading;
 }
@@ -1035,7 +1035,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 
 	// replace the current CoreGraphics Function with new one
 	if ( gradientFunction != NULL ) {
-		CGFunctionRelease( gradientFunction );
+		CGFunctionRelease(gradientFunction);
 	}
 
 	CGFunctionCallbacks evaluationCallbackInfo = { 0, evaluationFunction, NULL }; // Version, evaluator function, cleanup function
@@ -1043,17 +1043,17 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	static const CGFloat input_value_range[2]	= { 0, 1 };                   // range  for the evaluator input
 	static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
 
-	gradientFunction = CGFunctionCreate( &elementList,              //the two transition colors
-										 1, input_value_range,      //number of inputs (just fraction of progression)
-										 4, output_value_ranges,    //number of outputs (4 - RGBa)
-										 &evaluationCallbackInfo ); //info for using the evaluator function
+	gradientFunction = CGFunctionCreate(&elementList,             //the two transition colors
+										1, input_value_range,     //number of inputs (just fraction of progression)
+										4, output_value_ranges,   //number of outputs (4 - RGBa)
+										&evaluationCallbackInfo); //info for using the evaluator function
 }
 
 -(void)addElement:(CPTGradientElement *)newElement
 {
 	if ( (elementList == NULL) || (newElement->position < elementList->position) ) {
 		CPTGradientElement *tmpNext = elementList;
-		elementList = malloc( sizeof( CPTGradientElement ) );
+		elementList = malloc( sizeof(CPTGradientElement) );
 		if ( elementList ) {
 			*elementList			 = *newElement;
 			elementList->nextElement = tmpNext;
@@ -1069,7 +1069,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 		}
 
 		CPTGradientElement *tmpNext = curElement->nextElement;
-		curElement->nextElement				 = malloc( sizeof( CPTGradientElement ) );
+		curElement->nextElement				 = malloc( sizeof(CPTGradientElement) );
 		*(curElement->nextElement)			 = *newElement;
 		curElement->nextElement->nextElement = tmpNext;
 	}
@@ -1085,7 +1085,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 			elementList = elementList->nextElement;
 
 			removedElement = *tmpNext;
-			free( tmpNext );
+			free(tmpNext);
 
 			return removedElement;
 		}
@@ -1098,7 +1098,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 				currentElement->nextElement = currentElement->nextElement->nextElement;
 
 				removedElement = *tmpNext;
-				free( tmpNext );
+				free(tmpNext);
 
 				return removedElement;
 			}
@@ -1129,7 +1129,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 			elementList = elementList->nextElement;
 
 			removedElement = *tmpNext;
-			free( tmpNext );
+			free(tmpNext);
 
 			return removedElement;
 		}
@@ -1141,7 +1141,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 					curElement->nextElement = curElement->nextElement->nextElement;
 
 					removedElement = *tmpNext;
-					free( tmpNext );
+					free(tmpNext);
 
 					return removedElement;
 				}
@@ -1165,7 +1165,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 	while ( elementList != NULL ) {
 		CPTGradientElement *elementToRemove = elementList;
 		elementList = elementList->nextElement;
-		free( elementToRemove );
+		free(elementToRemove);
 	}
 }
 
@@ -1202,7 +1202,7 @@ static void resolveHSV( CGFloat *color1, CGFloat *color2 );
 #pragma mark -
 #pragma mark Core Graphics
 
-void linearEvaluation( void *info, const CGFloat *in, CGFloat *out )
+void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
 	CGFloat position = *in;
 
@@ -1271,7 +1271,7 @@ void linearEvaluation( void *info, const CGFloat *in, CGFloat *out )
 //	this we will add to the hue's angle (if we subtract we'll be doing the inverse
 //	chromatic...scroll down more for that). All we need to do is keep adding to the hue
 //  until we wrap around the colorwheel and get to color2.
-void chromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
+void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
 	CGFloat position = *in;
 
@@ -1308,9 +1308,9 @@ void chromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 	c2[2] = color2->color.blue;
 	c2[3] = color2->color.alpha;
 
-	transformRGB_HSV( c1 );
-	transformRGB_HSV( c2 );
-	resolveHSV( c1, c2 );
+	transformRGB_HSV(c1);
+	transformRGB_HSV(c2);
+	resolveHSV(c1, c2);
 
 	if ( c1[0] > c2[0] ) { // if color1's hue is higher than color2's hue then
 		c2[0] += 360.0;    // we need to move c2 one revolution around the wheel
@@ -1338,7 +1338,7 @@ void chromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 		out[3] = (c2[3] - c1[3]) * position + c1[3];
 	}
 
-	transformHSV_RGB( out );
+	transformHSV_RGB(out);
 
 	//Premultiply the color by the alpha.
 	out[0] *= out[3];
@@ -1351,7 +1351,7 @@ void chromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 //	is strictly decreasing, that is we need to get from color1 to color2 by decreasing
 //	the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
 //	which is equivalent to 180º mod 360º
-void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
+void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
 	CGFloat position = *in;
 
@@ -1388,9 +1388,9 @@ void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 	c2[2] = color2->color.blue;
 	c2[3] = color2->color.alpha;
 
-	transformRGB_HSV( c1 );
-	transformRGB_HSV( c2 );
-	resolveHSV( c1, c2 );
+	transformRGB_HSV(c1);
+	transformRGB_HSV(c2);
+	resolveHSV(c1, c2);
 
 	if ( c1[0] < c2[0] ) { //if color1's hue is higher than color2's hue then
 		c1[0] += 360.0;    //	we need to move c2 one revolution back on the wheel
@@ -1417,7 +1417,7 @@ void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 		out[3] = (c2[3] - c1[3]) * position + c1[3];
 	}
 
-	transformHSV_RGB( out );
+	transformHSV_RGB(out);
 
 	// Premultiply the color by the alpha.
 	out[0] *= out[3];
@@ -1425,7 +1425,7 @@ void inverseChromaticEvaluation( void *info, const CGFloat *in, CGFloat *out )
 	out[2] *= out[3];
 }
 
-void transformRGB_HSV( CGFloat *components ) //H,S,B -> R,G,B
+void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 {
 	CGFloat H = NAN, S, V;
 	CGFloat R = components[0];
@@ -1458,14 +1458,14 @@ void transformRGB_HSV( CGFloat *components ) //H,S,B -> R,G,B
 	components[2] = V;
 }
 
-void transformHSV_RGB( CGFloat *components ) //H,S,B -> R,G,B
+void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
 	CGFloat R = 0.0, G = 0.0, B = 0.0;
-	CGFloat H = fmod( components[0], (CGFloat)360.0 ); //map to [0,360)
+	CGFloat H = fmod(components[0], (CGFloat)360.0); //map to [0,360)
 	CGFloat S = components[1];
 	CGFloat V = components[2];
 
-	int Hi	  = (int)floor( H / (CGFloat)60.0 ) % 6;
+	int Hi	  = (int)floor(H / (CGFloat)60.0) % 6;
 	CGFloat f = H / (CGFloat)60.0 - Hi;
 	CGFloat p = V * ( (CGFloat)1.0 - S );
 	CGFloat q = V * ( (CGFloat)1.0 - f * S );
@@ -1514,15 +1514,15 @@ void transformHSV_RGB( CGFloat *components ) //H,S,B -> R,G,B
 	components[2] = B;
 }
 
-void resolveHSV( CGFloat *color1, CGFloat *color2 ) // H value may be undefined (i.e. graycale color)
+void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. graycale color)
 { //	we want to fill it with a sensible value
-	if ( isnan( color1[0] ) && isnan( color2[0] ) ) {
+	if ( isnan(color1[0]) && isnan(color2[0]) ) {
 		color1[0] = color2[0] = 0;
 	}
-	else if ( isnan( color1[0] ) ) {
+	else if ( isnan(color1[0]) ) {
 		color1[0] = color2[0];
 	}
-	else if ( isnan( color2[0] ) ) {
+	else if ( isnan(color2[0]) ) {
 		color2[0] = color1[0];
 	}
 }

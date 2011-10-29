@@ -45,30 +45,30 @@
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = YES;
-	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 2.0 )];
-	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.0 ) length:CPTDecimalFromFloat( 3.0 )];
+	plotSpace.xRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(2.0)];
+	plotSpace.yRange				= [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(3.0)];
 
 	// Axes
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString( @"2" );
+	x.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
+	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
 	x.minorTicksPerInterval		  = 2;
 	NSArray *exclusionRanges = [NSArray arrayWithObjects:
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.99 ) length:CPTDecimalFromFloat( 0.02 )],
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.99 ) length:CPTDecimalFromFloat( 0.02 )],
-								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 2.99 ) length:CPTDecimalFromFloat( 0.02 )],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+								[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(2.99) length:CPTDecimalFromFloat(0.02)],
 								nil];
 	x.labelExclusionRanges = exclusionRanges;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromString( @"0.5" );
+	y.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
 	y.minorTicksPerInterval		  = 5;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromString( @"2" );
+	y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
 	exclusionRanges				  = [NSArray arrayWithObjects:
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 1.99 ) length:CPTDecimalFromFloat( 0.02 )],
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.99 ) length:CPTDecimalFromFloat( 0.02 )],
-									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 3.99 ) length:CPTDecimalFromFloat( 0.02 )],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)],
 									 nil];
 	y.labelExclusionRanges = exclusionRanges;
 
@@ -97,7 +97,7 @@
 	CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
 	plotSymbol.fill			 = [CPTFill fillWithColor:[CPTColor blueColor]];
 	plotSymbol.lineStyle	 = symbolLineStyle;
-	plotSymbol.size			 = CGSizeMake( 10.0, 10.0 );
+	plotSymbol.size			 = CGSizeMake(10.0, 10.0);
 	boundLinePlot.plotSymbol = plotSymbol;
 
 	// Create a green plot area
@@ -116,7 +116,7 @@
 	areaGradient.angle				 = -90.0f;
 	areaGradientFill				 = [CPTFill fillWithGradient:areaGradient];
 	dataSourceLinePlot.areaFill		 = areaGradientFill;
-	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString( @"1.75" );
+	dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 
 	// Animate in the new plot, as an example
 	dataSourceLinePlot.opacity = 0.0f;
@@ -149,8 +149,8 @@
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( 3.0 + 2.0 * rand() / RAND_MAX )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( 3.0 + 2.0 * rand() / RAND_MAX )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
 }
 
 #pragma mark -

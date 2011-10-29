@@ -28,7 +28,7 @@ static const CGFloat titleOffset = 25.0;
 #if TARGET_OS_IPHONE
 	CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect( layerHostingView.bounds );
+	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
 	// Create graph
@@ -49,8 +49,8 @@ static const CGFloat titleOffset = 25.0;
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( 0 ) length:CPTDecimalFromUnsignedInteger( 100 )];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble( 5.5 ) length:CPTDecimalFromInteger( -6 )];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(100)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.5) length:CPTDecimalFromInteger(-6)];
 
 	// Line styles
 	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -58,7 +58,7 @@ static const CGFloat titleOffset = 25.0;
 
 	// Line cap
 	CPTLineCap *lineCap = [CPTLineCap lineCap];
-	lineCap.size	  = CGSizeMake( 15.0, 15.0 );
+	lineCap.size	  = CGSizeMake(15.0, 15.0);
 	lineCap.lineStyle = axisLineStyle;
 	lineCap.fill	  = [CPTFill fillWithColor:[CPTColor blueColor]];
 
@@ -69,7 +69,7 @@ static const CGFloat titleOffset = 25.0;
 		CPTXYAxis *axis = [[CPTXYAxis alloc] init];
 		axis.plotSpace					 = graph.defaultPlotSpace;
 		axis.labelingPolicy				 = CPTAxisLabelingPolicyNone;
-		axis.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger( lineCapType / 2 );
+		axis.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(lineCapType / 2);
 		axis.axisLineStyle				 = axisLineStyle;
 
 		lineCap.lineCapType = lineCapType++;

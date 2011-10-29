@@ -61,13 +61,13 @@
  **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	CGContextSaveGState( theContext );
+	CGContextSaveGState(theContext);
 
-	CGRect bounds = CGContextGetPathBoundingBox( theContext );
-	CGContextClip( theContext );
+	CGRect bounds = CGContextGetPathBoundingBox(theContext);
+	CGContextClip(theContext);
 	[self.fillImage drawInRect:bounds inContext:theContext];
 
-	CGContextRestoreGState( theContext );
+	CGContextRestoreGState(theContext);
 }
 
 #pragma mark -

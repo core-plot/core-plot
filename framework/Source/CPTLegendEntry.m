@@ -111,20 +111,20 @@
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context;
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextSaveGState( context );
-	CGContextTranslateCTM( context, 0.0, rect.origin.y );
-	CGContextScaleCTM( context, 1.0, -1.0 );
-	CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY( rect ) );
+	CGContextSaveGState(context);
+	CGContextTranslateCTM(context, 0.0, rect.origin.y);
+	CGContextScaleCTM(context, 1.0, -1.0);
+	CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY(rect) );
 #endif
 	// center the title vertically
 	CGRect textRect		= rect;
 	CGSize theTitleSize = self.titleSize;
 	if ( theTitleSize.height < textRect.size.height ) {
-		textRect = CGRectInset( textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0 );
+		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0);
 	}
 	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 #endif
 }
 

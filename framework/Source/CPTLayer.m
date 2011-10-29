@@ -186,8 +186,8 @@
 		shadow				 = [theLayer->shadow retain];
 		renderingRecursively = theLayer->renderingRecursively;
 		graph				 = theLayer->graph;
-		outerBorderPath		 = CGPathRetain( theLayer->outerBorderPath );
-		innerBorderPath		 = CGPathRetain( theLayer->innerBorderPath );
+		outerBorderPath		 = CGPathRetain(theLayer->outerBorderPath);
+		innerBorderPath		 = CGPathRetain(theLayer->innerBorderPath);
 	}
 	return self;
 }
@@ -196,16 +196,16 @@
 {
 	graph = nil;
 	[shadow release];
-	CGPathRelease( outerBorderPath );
-	CGPathRelease( innerBorderPath );
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
 
 	[super dealloc];
 }
 
 -(void)finalize
 {
-	CGPathRelease( outerBorderPath );
-	CGPathRelease( innerBorderPath );
+	CGPathRelease(outerBorderPath);
+	CGPathRelease(innerBorderPath);
 	[super finalize];
 }
 
@@ -287,65 +287,65 @@
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
 	// render self
-	CGContextSaveGState( context );
+	CGContextSaveGState(context);
 
 	[self applyTransform:self.transform toContext:context];
 
 	self.renderingRecursively = YES;
 	if ( !self.masksToBounds ) {
-		CGContextSaveGState( context );
+		CGContextSaveGState(context);
 	}
 	[self renderAsVectorInContext:context];
 	if ( !self.masksToBounds ) {
-		CGContextRestoreGState( context );
+		CGContextRestoreGState(context);
 	}
 	self.renderingRecursively = NO;
 
 	// render sublayers
 	NSArray *sublayersCopy = [self.sublayers copy];
 	for ( CALayer *currentSublayer in sublayersCopy ) {
-		CGContextSaveGState( context );
+		CGContextSaveGState(context);
 
 		// Shift origin of context to match starting coordinate of sublayer
 		CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
 		CGRect currentSublayerBounds	   = currentSublayer.bounds;
-		CGContextTranslateCTM( context,
-							   currentSublayerFrameOrigin.x - currentSublayerBounds.origin.x,
-							   currentSublayerFrameOrigin.y - currentSublayerBounds.origin.y );
+		CGContextTranslateCTM(context,
+							  currentSublayerFrameOrigin.x - currentSublayerBounds.origin.x,
+							  currentSublayerFrameOrigin.y - currentSublayerBounds.origin.y);
 		[self applyTransform:self.sublayerTransform toContext:context];
 		if ( [currentSublayer isKindOfClass:[CPTLayer class]] ) {
 			[(CPTLayer *) currentSublayer recursivelyRenderInContext:context];
 		}
 		else {
 			if ( self.masksToBounds ) {
-				CGContextClipToRect( context, currentSublayer.bounds );
+				CGContextClipToRect(context, currentSublayer.bounds);
 			}
 			[currentSublayer drawInContext:context];
 		}
-		CGContextRestoreGState( context );
+		CGContextRestoreGState(context);
 	}
 	[sublayersCopy release];
 
-	CGContextRestoreGState( context );
+	CGContextRestoreGState(context);
 }
 
 -(void)applyTransform:(CATransform3D)transform3D toContext:(CGContextRef)context
 {
-	if ( !CATransform3DIsIdentity( transform3D ) ) {
-		if ( CATransform3DIsAffine( transform3D ) ) {
+	if ( !CATransform3DIsIdentity(transform3D) ) {
+		if ( CATransform3DIsAffine(transform3D) ) {
 			CGRect selfBounds	 = self.bounds;
 			CGPoint anchorPoint	 = self.anchorPoint;
-			CGPoint anchorOffset = CGPointMake( anchorOffset.x = selfBounds.origin.x + anchorPoint.x * selfBounds.size.width,
-												anchorOffset.y = selfBounds.origin.y + anchorPoint.y * selfBounds.size.height );
+			CGPoint anchorOffset = CGPointMake(anchorOffset.x = selfBounds.origin.x + anchorPoint.x * selfBounds.size.width,
+											   anchorOffset.y = selfBounds.origin.y + anchorPoint.y * selfBounds.size.height);
 
-			CGAffineTransform affineTransform = CGAffineTransformMakeTranslation( -anchorOffset.x, -anchorOffset.y );
-			affineTransform = CGAffineTransformConcat( affineTransform, CATransform3DGetAffineTransform( transform3D ) );
-			affineTransform = CGAffineTransformTranslate( affineTransform, anchorOffset.x, anchorOffset.y );
+			CGAffineTransform affineTransform = CGAffineTransformMakeTranslation(-anchorOffset.x, -anchorOffset.y);
+			affineTransform = CGAffineTransformConcat( affineTransform, CATransform3DGetAffineTransform(transform3D) );
+			affineTransform = CGAffineTransformTranslate(affineTransform, anchorOffset.x, anchorOffset.y);
 
-			CGRect transformedBounds = CGRectApplyAffineTransform( selfBounds, affineTransform );
+			CGRect transformedBounds = CGRectApplyAffineTransform(selfBounds, affineTransform);
 
-			CGContextTranslateCTM( context, -transformedBounds.origin.x, -transformedBounds.origin.y );
-			CGContextConcatCTM( context, affineTransform );
+			CGContextTranslateCTM(context, -transformedBounds.origin.x, -transformedBounds.origin.y);
+			CGContextConcatCTM(context, affineTransform);
 		}
 	}
 }
@@ -367,20 +367,20 @@
 	NSMutableData *pdfData		   = [[NSMutableData alloc] init];
 	CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (CFMutableDataRef)pdfData );
 
-	const CGRect mediaBox	= CGRectMake( 0.0, 0.0, self.bounds.size.width, self.bounds.size.height );
-	CGContextRef pdfContext = CGPDFContextCreate( dataConsumer, &mediaBox, NULL );
+	const CGRect mediaBox	= CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
+	CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 
-	CPTPushCGContext( pdfContext );
+	CPTPushCGContext(pdfContext);
 
-	CGContextBeginPage( pdfContext, &mediaBox );
+	CGContextBeginPage(pdfContext, &mediaBox);
 	[self layoutAndRenderInContext:pdfContext];
-	CGContextEndPage( pdfContext );
-	CGPDFContextClose( pdfContext );
+	CGContextEndPage(pdfContext);
+	CGPDFContextClose(pdfContext);
 
 	CPTPopCGContext();
 
-	CGContextRelease( pdfContext );
-	CGDataConsumerRelease( dataConsumer );
+	CGContextRelease(pdfContext);
+	CGDataConsumerRelease(dataConsumer);
 
 	return [pdfData autorelease];
 }
@@ -452,20 +452,20 @@
 	CGPoint newPosition;
 
 	if ( scale == 1.0 ) {
-		newPosition.x = round( currentPosition.x );
-		newPosition.y = round( currentPosition.y );
+		newPosition.x = round(currentPosition.x);
+		newPosition.y = round(currentPosition.y);
 	}
 	else {
-		newPosition.x = round( currentPosition.x * scale ) / scale;
-		newPosition.y = round( currentPosition.y * scale ) / scale;
+		newPosition.x = round(currentPosition.x * scale) / scale;
+		newPosition.y = round(currentPosition.y * scale) / scale;
 	}
 
-	if ( CATransform3DIsIdentity( self.transform ) ) {
+	if ( CATransform3DIsIdentity(self.transform) ) {
 		CGSize currentSize = self.bounds.size;
 		CGPoint anchor	   = self.anchorPoint;
 
-		newPosition.x += (currentSize.width * anchor.x) - round( currentSize.width * anchor.x );
-		newPosition.y += (currentSize.height * anchor.y) - round( currentSize.height * anchor.y );
+		newPosition.x += (currentSize.width * anchor.x) - round(currentSize.width * anchor.x);
+		newPosition.y += (currentSize.height * anchor.y) - round(currentSize.height * anchor.y);
 	}
 
 	self.position = newPosition;
@@ -515,14 +515,14 @@
 	CGRect selfBounds	= self.bounds;
 	CGSize subLayerSize = selfBounds.size;
 	subLayerSize.width	-= leftPadding + rightPadding;
-	subLayerSize.width	 = MAX( subLayerSize.width, (CGFloat)0.0 );
+	subLayerSize.width	 = MAX(subLayerSize.width, (CGFloat)0.0);
 	subLayerSize.height -= topPadding + bottomPadding;
-	subLayerSize.height	 = MAX( subLayerSize.height, (CGFloat)0.0 );
+	subLayerSize.height	 = MAX(subLayerSize.height, (CGFloat)0.0);
 
 	NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for ( CALayer *subLayer in self.sublayers ) {
 		if ( ![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPTLayer class]] ) {
-			subLayer.frame = CGRectMake( leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height );
+			subLayer.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
 			[subLayer setNeedsLayout];
 			[subLayer setNeedsDisplay];
 		}
@@ -624,16 +624,16 @@
 		CGRect selfBounds = self.bounds;
 
 		if ( self.cornerRadius > 0.0 ) {
-			CGFloat radius = MIN( MIN( self.cornerRadius, selfBounds.size.width / (CGFloat)2.0 ), selfBounds.size.height / (CGFloat)2.0 );
-			path				 = CreateRoundedRectPath( selfBounds, radius );
+			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
+			path				 = CreateRoundedRectPath(selfBounds, radius);
 			self.outerBorderPath = path;
-			CGPathRelease( path );
+			CGPathRelease(path);
 		}
 		else {
 			CGMutablePathRef mutablePath = CGPathCreateMutable();
-			CGPathAddRect( mutablePath, NULL, selfBounds );
+			CGPathAddRect(mutablePath, NULL, selfBounds);
 			self.outerBorderPath = mutablePath;
-			CGPathRelease( mutablePath );
+			CGPathRelease(mutablePath);
 		}
 
 		return self.outerBorderPath;
@@ -668,8 +668,8 @@
 		layerOffset.y += convertedOffset.y;
 	}
 
-	CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform( sublayer.transform );
-	CGContextConcatCTM( context, CGAffineTransformInvert( sublayerTransform ) );
+	CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(sublayer.transform);
+	CGContextConcatCTM( context, CGAffineTransformInvert(sublayerTransform) );
 
 	CALayer *superlayer = self.superlayer;
 	if ( [superlayer isKindOfClass:[CPTLayer class]] ) {
@@ -681,19 +681,19 @@
 		//		CGAffineTransform transform = CATransform3DGetAffineTransform(self.transform);
 		//		CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(self.sublayerTransform);
 
-		CGContextTranslateCTM( context, -layerOffset.x, -layerOffset.y );
+		CGContextTranslateCTM(context, -layerOffset.x, -layerOffset.y);
 		//		CGContextConcatCTM(context, CGAffineTransformInvert(transform));
 		//		CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
 
-		CGContextAddPath( context, maskPath );
-		CGContextClip( context );
+		CGContextAddPath(context, maskPath);
+		CGContextClip(context);
 
 		//		CGContextConcatCTM(context, sublayerTransform);
 		//		CGContextConcatCTM(context, transform);
-		CGContextTranslateCTM( context, layerOffset.x, layerOffset.y );
+		CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
 	}
 
-	CGContextConcatCTM( context, sublayerTransform );
+	CGContextConcatCTM(context, sublayerTransform);
 }
 
 /**	@brief Sets the clipping path of the given graphics context to mask the content.
@@ -711,8 +711,8 @@
 
 	CGPathRef maskPath = self.maskingPath;
 	if ( maskPath ) {
-		CGContextAddPath( context, maskPath );
-		CGContextClip( context );
+		CGContextAddPath(context, maskPath);
+		CGContextClip(context);
 	}
 }
 
@@ -748,12 +748,12 @@
 	[super setPosition:newPosition];
 	if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
 		CGRect currentFrame = self.frame;
-		if ( !CGRectEqualToRect( currentFrame, CGRectIntegral( self.frame ) ) ) {
-			COREPLOT_LAYER_POSITION_CHANGE( (char *)class_getName( [self class] ),
-											(int)ceil( currentFrame.origin.x * 1000.0 ),
-											(int)ceil( currentFrame.origin.y * 1000.0 ),
-											(int)ceil( currentFrame.size.width * 1000.0 ),
-											(int)ceil( currentFrame.size.height * 1000.0 ) );
+		if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
+			COREPLOT_LAYER_POSITION_CHANGE( (char *)class_getName([self class]),
+											(int)ceil(currentFrame.origin.x * 1000.0),
+											(int)ceil(currentFrame.origin.y * 1000.0),
+											(int)ceil(currentFrame.size.width * 1000.0),
+											(int)ceil(currentFrame.size.height * 1000.0) );
 		}
 	}
 }
@@ -770,7 +770,7 @@
 
 -(void)setContentsScale:(CGFloat)newContentsScale
 {
-	NSParameterAssert( newContentsScale > 0.0 );
+	NSParameterAssert(newContentsScale > 0.0);
 
 	if ( self.contentsScale != newContentsScale ) {
 		if ( [CALayer instancesRespondToSelector:@selector(setContentsScale:)] ) {
@@ -810,16 +810,16 @@
 -(void)setOuterBorderPath:(CGPathRef)newPath
 {
 	if ( newPath != outerBorderPath ) {
-		CGPathRelease( outerBorderPath );
-		outerBorderPath = CGPathRetain( newPath );
+		CGPathRelease(outerBorderPath);
+		outerBorderPath = CGPathRetain(newPath);
 	}
 }
 
 -(void)setInnerBorderPath:(CGPathRef)newPath
 {
 	if ( newPath != innerBorderPath ) {
-		CGPathRelease( innerBorderPath );
-		innerBorderPath = CGPathRetain( newPath );
+		CGPathRelease(innerBorderPath);
+		innerBorderPath = CGPathRetain(newPath);
 	}
 }
 
@@ -846,7 +846,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPTStringFromRect( self.bounds )];
+	return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPTStringFromRect(self.bounds)];
 }
 
 @end
