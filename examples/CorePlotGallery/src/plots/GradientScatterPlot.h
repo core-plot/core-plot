@@ -12,7 +12,7 @@
                                             CPTPlotDataSource,
                                             CPTScatterPlotDelegate>
 {
-    CPTLayerAnnotation   *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation   *symbolTextAnnotation;
 
     NSArray*            plotData;
 }

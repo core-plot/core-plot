@@ -12,7 +12,7 @@
                                         CPTPlotDataSource,
                                         CPTBarPlotDelegate>
 {
-    CPTLayerAnnotation   *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation   *symbolTextAnnotation;
 
     CGFloat             xShift;
     CGFloat             yShift;
