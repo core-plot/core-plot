@@ -702,12 +702,16 @@
 		switch ( numbers.dataTypeFormat ) {
 			case CPTFloatingPointDataType: {
 				double *doubleNumber = (double *)[numbers samplePointer:index];
-				return *doubleNumber;
+				if ( doubleNumber ) {
+					return *doubleNumber;
+				}
 			}
 				break;
 			case CPTDecimalDataType: {
 				NSDecimal *decimalNumber = (NSDecimal *)[numbers samplePointer:index];
-				return CPTDecimalDoubleValue(*decimalNumber);
+				if ( decimalNumber ) {
+					return CPTDecimalDoubleValue(*decimalNumber);
+				}
 			}
 				break;
 			default:
@@ -730,12 +734,16 @@
 		switch ( numbers.dataTypeFormat ) {
 			case CPTFloatingPointDataType: {
 				double *doubleNumber = (double *)[numbers samplePointer:index];
-				return CPTDecimalFromDouble(*doubleNumber);
+				if ( doubleNumber ) {
+					return CPTDecimalFromDouble(*doubleNumber);
+				}
 			}
 				break;
 			case CPTDecimalDataType: {
 				NSDecimal *decimalNumber = (NSDecimal *)[numbers samplePointer:index];
-				return *decimalNumber;
+				if ( decimalNumber ) {
+					return *decimalNumber;
+				}
 			}
 				break;
 			default:
