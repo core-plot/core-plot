@@ -592,6 +592,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 					break;
 			}
 			if ( theFill && (!NSDecimalIsNotANumber(&theAreaBaseValue)) ) {	
+				// clear the plot shadow if any--not needed for fills
+				CGContextSaveGState(theContext);
+				CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
+				
 				NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
 				NSDecimal plotPoint[2];
 				plotPoint[CPTCoordinateX] = [xValue decimalValue];
@@ -605,6 +609,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				[theFill fillPathInContext:theContext];
 				
 				CGPathRelease(dataLinePath);
+				
+				CGContextRestoreGState(theContext);
 			}
 		}
 		
