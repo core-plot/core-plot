@@ -149,7 +149,7 @@
 - (void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
 	// Create graph from theme
-    scatterPlot = [[CPTXYGraph alloc] initWithFrame:[scatterPlotView bounds]];
+    scatterPlot = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([scatterPlotView bounds])];
     [self addGraph:scatterPlot toHostingView:layerHostingView];
 
     [self applyTheme:theme toGraph:scatterPlot withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
@@ -269,7 +269,7 @@
         drawAxis = NO;
     }
     
-    barChart = [[CPTXYGraph alloc] initWithFrame:[barChartView bounds]];
+    barChart = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([barChartView bounds])];
     [self addGraph:barChart toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:barChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
     
@@ -359,7 +359,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    pieChart = [[CPTXYGraph alloc] initWithFrame:[pieChartView bounds]];
+    pieChart = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([pieChartView bounds])];
     [self addGraph:pieChart toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:pieChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
     

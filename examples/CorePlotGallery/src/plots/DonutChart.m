@@ -49,7 +49,7 @@ NSString * const outerChartName = @"Outer";
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
     
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:[layerHostingView bounds]] autorelease];
+    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([layerHostingView bounds])] autorelease];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -113,7 +113,7 @@ NSString * const outerChartName = @"Outer";
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, index, [plotData objectAtIndex:index]);
+    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, (unsigned long)index, [plotData objectAtIndex:index]);
 }
 
 #pragma mark -
