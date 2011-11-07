@@ -353,7 +353,6 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "-lgcov";
 				PRODUCT_NAME = CPTTestApp;
 			};
 			name = Debug;
@@ -386,7 +385,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Debug;
@@ -402,7 +401,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Release;

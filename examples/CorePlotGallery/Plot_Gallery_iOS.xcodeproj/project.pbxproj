@@ -416,7 +416,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
 				OTHER_LDFLAGS = (
@@ -436,7 +435,6 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
 				OTHER_LDFLAGS = (
