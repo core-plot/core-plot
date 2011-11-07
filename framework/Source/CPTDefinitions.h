@@ -25,7 +25,11 @@
 #define __cpt_weak __weak
 #define cpt_weak_property weak
 #else
+#if __clang__ && (__clang_major__>=3)
 #define __cpt_weak __unsafe_unretained
+#else
+#define __cpt_weak 
+#endif
 #define cpt_weak_property assign
 #endif
 
