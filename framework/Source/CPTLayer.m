@@ -511,13 +511,19 @@
 	CGSize subLayerSize = selfBounds.size;
 	subLayerSize.width -= leftPadding + rightPadding;
 	subLayerSize.width = MAX(subLayerSize.width, (CGFloat)0.0);
+	subLayerSize.width = round(subLayerSize.width);
 	subLayerSize.height -= topPadding + bottomPadding;
 	subLayerSize.height = MAX(subLayerSize.height, (CGFloat)0.0);
-		
+	subLayerSize.height = round(subLayerSize.height);
+	
+	CGRect subLayerFrame;
+	subLayerFrame.origin = CGPointMake(round(leftPadding), round(bottomPadding));
+	subLayerFrame.size = subLayerSize;
+	
     NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
 	for (CALayer *subLayer in self.sublayers) {
 		if (![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPTLayer class]]) {
-            subLayer.frame = CGRectMake(leftPadding, bottomPadding, subLayerSize.width, subLayerSize.height);
+            subLayer.frame = subLayerFrame;
 			[subLayer setNeedsLayout];
 			[subLayer setNeedsDisplay];
 		}
