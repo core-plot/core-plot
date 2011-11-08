@@ -488,9 +488,8 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 
 -(void)layoutSublayers
 {
-	[super layoutSublayers];
-
 	[self recalculateLayout];
+	[super layoutSublayers];
 }
 
 -(void)recalculateLayout
@@ -615,6 +614,7 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 	[maxColumnWidths release];
 	
 	self.bounds = CGRectMake(0.0, 0.0, legendSize.width, legendSize.height);
+	[self pixelAlign];
 	
 	self.layoutChanged = NO;
 }

@@ -2,6 +2,7 @@
 
 #import "CPTPlot.h"
 #import "CPTTextStyle.h"
+#import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 
 /**	@cond */
@@ -120,6 +121,7 @@
 	if ( theTitleSize.height < textRect.size.height ) {
 		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0);
 	}
+	CPTAlignRectToUserSpace(context, textRect);
 	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextRestoreGState(context);
