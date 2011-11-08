@@ -13,9 +13,9 @@
 
 // This is based on Ryan Petrich's ZWRCompatibility: https://github.com/rpetrich/ZWRCompatibility
 
-#if TARGET_OS_IPHONE && defined(__IPHONE_5_0) && (__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0)
+#if TARGET_OS_IPHONE && defined(__IPHONE_5_0) && (__IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0) && __clang__ && (__clang_major__>=3)
 #define CPT_SDK_SUPPORTS_WEAK 1
-#elif TARGET_OS_MAC && defined(__MAC_10_7) && (MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_7)
+#elif TARGET_OS_MAC && defined(__MAC_10_7) && (MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_7) && __clang__ && (__clang_major__>=3)
 #define CPT_SDK_SUPPORTS_WEAK 1
 #else
 #define CPT_SDK_SUPPORTS_WEAK 0
