@@ -60,7 +60,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
     
-    CPTGraph* graph = [[[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([layerHostingView bounds])] autorelease];
+    CPTGraph* graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
     

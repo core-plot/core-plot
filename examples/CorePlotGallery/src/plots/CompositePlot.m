@@ -6,12 +6,6 @@
 //  Copyright 2010 Jeff Buck. All rights reserved.
 //
 
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-	#import "CorePlot-CocoaTouch.h"
-#else
-	#import <CorePlot/CorePlot.h>
-#endif
-
 #import "CompositePlot.h"
 
 @implementation CompositePlot
@@ -149,7 +143,13 @@
 - (void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
 	// Create graph from theme
-    scatterPlot = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([scatterPlotView bounds])];
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	CGRect bounds = scatterPlotView.bounds;
+#else
+	CGRect bounds = NSRectToCGRect(scatterPlotView.bounds);
+#endif
+	
+    scatterPlot = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:scatterPlot toHostingView:layerHostingView];
 
     [self applyTheme:theme toGraph:scatterPlot withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
@@ -269,7 +269,7 @@
         drawAxis = NO;
     }
     
-    barChart = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([barChartView bounds])];
+    barChart = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:barChart toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:barChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
     
@@ -359,7 +359,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    pieChart = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([pieChartView bounds])];
+    pieChart = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:pieChart toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:pieChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
     

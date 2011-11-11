@@ -32,7 +32,7 @@ static const CGFloat titleOffset = 25.0;
 #endif
     
     // Create graph
-    CPTGraph* graph = [[[CPTXYGraph alloc] initWithFrame:NSRectToCGRect([layerHostingView bounds])] autorelease];
+    CPTGraph* graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
     
