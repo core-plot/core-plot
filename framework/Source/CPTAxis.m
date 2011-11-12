@@ -13,7 +13,7 @@
 #import "CPTLimitBand.h"
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotArea.h"
 #import "CPTTextLayer.h"
@@ -691,7 +691,7 @@ double niceNum(double x, BOOL round);
 	NSDecimal majorInterval = self.majorIntervalLength;
 	
 	if ( CPTDecimalGreaterThan(majorInterval, zero) ) {
-		CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+		CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
 		if ( range ) {
 			CPTPlotRange *theVisibleRange = self.visibleRange;
 			if ( theVisibleRange ) {
@@ -756,7 +756,7 @@ double niceNum(double x, BOOL round);
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations 
 {
 	// Get plot range
-	CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+	CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
     CPTPlotRange *theVisibleRange = self.visibleRange;
     if ( theVisibleRange ) {
         [range intersectionPlotRange:theVisibleRange];
@@ -908,7 +908,7 @@ double niceNum(double x, BOOL round);
 	NSMutableSet *majorLocations = [NSMutableSet set];
 	NSMutableSet *minorLocations = [NSMutableSet set];
 	
-	CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+	CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
 	if ( range ) {
 		CPTPlotRange *theVisibleRange = self.visibleRange;
 		if ( theVisibleRange ) {

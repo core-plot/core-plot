@@ -6,7 +6,7 @@
 #import "CPTAxisSet.h"
 #import "CPTPlot.h"
 #import "CPTPlotAreaFrame.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTPlotArea.h"
 #import "CPTGraph.h"
 #import "NSNumberExtensions.h"
@@ -242,7 +242,7 @@
 		return [[globalRange copy] autorelease];
 	}
 	else {
-		CPTPlotRange *newRange = [[existingRange copy] autorelease];
+		CPTMutablePlotRange *newRange = [[existingRange mutableCopy] autorelease];
 		[newRange shiftEndToFitInRange:globalRange];
 		[newRange shiftLocationToFitInRange:globalRange];
 		return newRange;
@@ -271,13 +271,13 @@
 	if ( plots.count == 0 ) return;
     
 	// Determine union of ranges
-	CPTPlotRange *unionXRange = nil;
-    CPTPlotRange *unionYRange = nil;
+	CPTMutablePlotRange *unionXRange = nil;
+    CPTMutablePlotRange *unionYRange = nil;
     for ( CPTPlot *plot in plots ) {
     	CPTPlotRange *currentXRange = [plot plotRangeForCoordinate:CPTCoordinateX];
         CPTPlotRange *currentYRange = [plot plotRangeForCoordinate:CPTCoordinateY];
-        if ( !unionXRange ) unionXRange = currentXRange;
-        if ( !unionYRange ) unionYRange = currentYRange;
+        if ( !unionXRange ) unionXRange = [currentXRange mutableCopy];
+        if ( !unionYRange ) unionYRange = [currentYRange mutableCopy];
     	[unionXRange unionPlotRange:currentXRange];
         [unionYRange unionPlotRange:currentYRange];
     }
@@ -286,6 +286,9 @@
     NSDecimal zero = CPTDecimalFromInteger(0);
     if ( unionXRange && !CPTDecimalEquals(unionXRange.length, zero) ) self.xRange = unionXRange;
     if ( unionYRange && !CPTDecimalEquals(unionYRange.length, zero) ) self.yRange = unionYRange;
+	
+	[unionXRange release];
+	[unionYRange release];
 }
 
 -(void)setXScaleType:(CPTScaleType)newScaleType
@@ -622,8 +625,8 @@
     	[self plotPoint:lastPoint forPlotAreaViewPoint:lastDragPoint];
         [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
         
-		CPTPlotRange *newRangeX = [[self.xRange copy] autorelease];
-        CPTPlotRange *newRangeY = [[self.yRange copy] autorelease];
+		CPTMutablePlotRange *newRangeX = [[self.xRange mutableCopy] autorelease];
+        CPTMutablePlotRange *newRangeY = [[self.yRange mutableCopy] autorelease];
 
         NSDecimal shiftX = CPTDecimalSubtract(lastPoint[0], newPoint[0]);
         NSDecimal shiftY = CPTDecimalSubtract(lastPoint[1], newPoint[1]);
@@ -632,12 +635,13 @@
 
         // Delegate override
         if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-            newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-            newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
+            self.xRange = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
+            self.yRange = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
         }
-        
-        self.xRange = newRangeX;
-        self.yRange = newRangeY;
+		else {
+			self.xRange = newRangeX;
+			self.yRange = newRangeY;
+		}
         
         lastDragPoint = pointInPlotArea;
         

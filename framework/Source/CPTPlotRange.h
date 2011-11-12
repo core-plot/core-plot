@@ -11,7 +11,7 @@ typedef enum _CPTPlotRangeComparisonResult {
     CPTPlotRangeComparisonResultNumberAboveRange		///< Number is above the range.
 } CPTPlotRangeComparisonResult;
 
-@interface CPTPlotRange : NSObject <NSCoding, NSCopying> {
+@interface CPTPlotRange : NSObject <NSCoding, NSCopying, NSMutableCopying> {
 	@private
 	NSDecimal location;
 	NSDecimal length;
@@ -21,8 +21,8 @@ typedef enum _CPTPlotRangeComparisonResult {
 
 /// @name Range Limits
 /// @{
-@property (nonatomic, readwrite) NSDecimal location;
-@property (nonatomic, readwrite) NSDecimal length;
+@property (nonatomic, readonly) NSDecimal location;
+@property (nonatomic, readonly) NSDecimal length;
 @property (nonatomic, readonly) NSDecimal end;
 @property (nonatomic, readonly) double locationDouble;
 @property (nonatomic, readonly) double lengthDouble;
@@ -38,7 +38,7 @@ typedef enum _CPTPlotRangeComparisonResult {
 
 /// @name Factory Methods
 /// @{
-+(CPTPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
++(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 ///	@}
 
 /// @name Initialization
@@ -51,23 +51,6 @@ typedef enum _CPTPlotRangeComparisonResult {
 -(BOOL)contains:(NSDecimal)number;
 -(BOOL)containsDouble:(double)number;
 -(BOOL)isEqualToRange:(CPTPlotRange *)otherRange;
-///	@}
-
-/// @name Combining Ranges
-/// @{
--(void)unionPlotRange:(CPTPlotRange *)otherRange;
--(void)intersectionPlotRange:(CPTPlotRange *)otherRange;
-///	@}
-
-/// @name Shifting Ranges
-/// @{
--(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange;
--(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange;
-///	@}
-
-/// @name Expanding/Contracting Ranges
-/// @{
--(void)expandRangeByFactor:(NSDecimal)factor;
 ///	@}
 
 /// @name Range Comparison

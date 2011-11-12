@@ -1,13 +1,13 @@
 #import "CPTTestCase.h"
 #import "CPTPlot.h"
 
-@class CPTPlotRange;
+@class CPTMutablePlotRange;
 @class CPTPlot;
 
 @interface CPTDataSourceTestCase : CPTTestCase <CPTPlotDataSource> {
 @private
     NSArray *xData, *yData;
-    CPTPlotRange *xRange, *yRange;
+    CPTMutablePlotRange *xRange, *yRange;
     
     NSMutableArray *plots;
     
@@ -17,8 +17,8 @@
 @property (copy,readwrite) NSArray *xData;
 @property (copy,readwrite) NSArray *yData;
 @property (assign,readwrite) NSUInteger nRecords;
-@property (retain,readonly) CPTPlotRange * xRange;
-@property (retain,readonly) CPTPlotRange * yRange;
+@property (retain,readonly) CPTMutablePlotRange *xRange;
+@property (retain,readonly) CPTMutablePlotRange *yRange;
 @property (retain,readwrite) NSMutableArray *plots;
 
 -(void)buildData;

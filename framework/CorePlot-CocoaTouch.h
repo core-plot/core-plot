@@ -26,6 +26,7 @@
 #import "CPTMutableLineStyle.h"
 #import "CPTMutableNumericData.h"
 #import "CPTMutableNumericData+TypeConversion.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTMutableShadow.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTNumericData.h"

@@ -129,12 +129,13 @@
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"0.0");
 
     // Auto scale the plot space to fit the plot data
-    // Extend the y range by 10% for neatness
+    // Extend the ranges by 30% for neatness
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
-    CPTPlotRange *xRange = plotSpace.xRange;
-    CPTPlotRange *yRange = plotSpace.yRange;
+    CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
+    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
     [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
     [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
+    plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
@@ -189,7 +190,7 @@
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
         CPTPlotRange *maxRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
-        CPTPlotRange *changedRange = [[newRange copy] autorelease];
+        CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];
         newRange = changedRange;

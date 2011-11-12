@@ -1,6 +1,6 @@
 #import "CPTPlotRangeTests.h"
 #import "CPTExceptions.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
 
 @interface CPTPlotRangeTests()
@@ -17,7 +17,7 @@
 
 -(void)setUp 
 {
-    self.plotRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
+    self.plotRange = [CPTMutablePlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
 }
 
 -(void)tearDown

@@ -635,7 +635,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 {
     xShift = newShift;
     CPTXYPlotSpace *space = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    CPTPlotRange *newRange = [[space.xRange copy] autorelease];
+    CPTMutablePlotRange *newRange = [[space.xRange mutableCopy] autorelease];
     newRange.length = CPTDecimalFromDouble(3.0 + newShift);  
 	space.xRange = newRange;
 }
@@ -644,7 +644,7 @@ static NSString * const barPlot2 = @"Bar Plot 2";
 {
  	yShift = newShift;
     CPTXYPlotSpace *space = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    CPTPlotRange *newRange = [[space.yRange copy] autorelease];
+    CPTMutablePlotRange *newRange = [[space.yRange mutableCopy] autorelease];
     newRange.length = CPTDecimalFromDouble(2.0 + newShift);  
     space.yRange = newRange;
 }

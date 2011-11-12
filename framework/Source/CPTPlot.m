@@ -11,7 +11,7 @@
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTTextLayer.h"
@@ -843,13 +843,15 @@
     NSArray *fields = [self fieldIdentifiersForCoordinate:coord];
     if ( fields.count == 0 ) return nil;
     
-    CPTPlotRange *unionRange = nil;
+    CPTMutablePlotRange *unionRange = nil;
     for ( NSNumber *field in fields ) {
     	CPTPlotRange *currentRange = [self plotRangeForField:field.unsignedIntValue];
-    	if ( !unionRange ) 
-        	unionRange = currentRange;
-        else
+    	if ( !unionRange ) {
+        	unionRange = [[currentRange mutableCopy] autorelease];
+		}
+        else {
         	[unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntValue]];
+		}
     }
     
     return unionRange;

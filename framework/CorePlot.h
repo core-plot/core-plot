@@ -26,6 +26,7 @@
 #import <CorePlot/CPTMutableLineStyle.h>
 #import <CorePlot/CPTMutableNumericData.h>
 #import <CorePlot/CPTMutableNumericData+TypeConversion.h>
+#import <CorePlot/CPTMutablePlotRange.h>
 #import <CorePlot/CPTMutableShadow.h>
 #import <CorePlot/CPTMutableTextStyle.h>
 #import <CorePlot/CPTNumericDataType.h>

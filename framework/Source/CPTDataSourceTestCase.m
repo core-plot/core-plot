@@ -1,7 +1,7 @@
 #import "CPTDataSourceTestCase.h"
 #import "CPTExceptions.h"
 #import "CPTScatterPlot.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
 
 const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
@@ -9,7 +9,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 /**	@cond */
 @interface CPTDataSourceTestCase ()
 
--(CPTPlotRange *)plotRangeForData:(NSArray *)dataArray;
+-(CPTMutablePlotRange *)plotRangeForData:(NSArray *)dataArray;
 
 @end
 /**	@endcond */
@@ -76,7 +76,7 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 -(CPTPlotRange *)yRange
 {
     [self buildData];
-    CPTPlotRange *range = [self plotRangeForData:self.yData];
+    CPTMutablePlotRange *range = [self plotRangeForData:self.yData];
     
     if ( self.plots.count > 1 ) {
         range.length = CPTDecimalAdd([range length], CPTDecimalFromDouble(self.plots.count));
@@ -85,14 +85,14 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     return range;
 }
 
--(CPTPlotRange *)plotRangeForData:(NSArray *)dataArray
+-(CPTMutablePlotRange *)plotRangeForData:(NSArray *)dataArray
 {
     double min = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
     double max = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
     double range = max-min;
     
-    return [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min - 0.05*range)
-                                       length:CPTDecimalFromDouble(range + 0.1*range)];
+    return [CPTMutablePlotRange plotRangeWithLocation:CPTDecimalFromDouble(min - 0.05*range)
+											   length:CPTDecimalFromDouble(range + 0.1*range)];
 }
 
 #pragma mark -

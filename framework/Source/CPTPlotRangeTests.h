@@ -1,11 +1,11 @@
 #import "CPTTestCase.h"
 
-@class CPTPlotRange;
+@class CPTMutablePlotRange;
 
 @interface CPTPlotRangeTests : CPTTestCase {
-    CPTPlotRange *plotRange;
+    CPTMutablePlotRange *plotRange;
 }
 
-@property (retain, readwrite) CPTPlotRange *plotRange;
+@property (retain, readwrite) CPTMutablePlotRange *plotRange;
 
 @end

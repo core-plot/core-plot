@@ -155,6 +155,8 @@
 		C3978E1113CE65C600A420D9 /* NSCoderExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */; };
 		C3978E1213CE65EA00A420D9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */; };
 		C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3A695E1146A196100AF5653 /* CPTMutablePlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3A695E2146A196100AF5653 /* CPTMutablePlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */; };
 		C3B623C0107EC9370009EF0B /* CPTBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82DA0FB89E610035D8DA /* CPTBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C1107EC9400009EF0B /* CPTDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A30FB89E610035D8DA /* CPTDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3B623C2107EC9430009EF0B /* CPTExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82A50FB89E610035D8DA /* CPTExceptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -348,6 +350,8 @@
 		C3920ACE1395B7680045F3BB /* CPTLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLegend.m; path = Source/CPTLegend.m; sourceTree = "<group>"; };
 		C3978E0E13CE65C600A420D9 /* NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCoderExtensions.h; path = Source/NSCoderExtensions.h; sourceTree = "<group>"; };
 		C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoderExtensions.m; path = Source/NSCoderExtensions.m; sourceTree = "<group>"; };
+		C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutablePlotRange.h; path = Source/CPTMutablePlotRange.h; sourceTree = "<group>"; };
+		C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutablePlotRange.m; path = Source/CPTMutablePlotRange.m; sourceTree = "<group>"; };
 		C3CADE2F11B1886B00D36017 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = Source/license.txt; sourceTree = "<group>"; };
 		C3CADE3011B188A800D36017 /* CPTNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTNumericData.h; path = Source/CPTNumericData.h; sourceTree = "<group>"; };
 		C3CADE3111B188A800D36017 /* CPTNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTNumericData.m; path = Source/CPTNumericData.m; sourceTree = "<group>"; };
@@ -622,6 +626,8 @@
 				BC9B82A80FB89E610035D8DA /* CPTUtilities.m */,
 				BC9B82AB0FB89E610035D8DA /* CPTPlotRange.h */,
 				BC9B82AC0FB89E610035D8DA /* CPTPlotRange.m */,
+				C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */,
+				C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */,
 			);
 			name = "Types and Functions";
 			sourceTree = SOURCE_ROOT;
@@ -880,6 +886,7 @@
 				C32EE1C813EC4C7200038266 /* CPTMutableShadow.h in Headers */,
 				C3436C5113F4AC6000739AC2 /* _CPTSlateTheme.h in Headers */,
 				C304565313F4AC9A004D04BC /* _CPTDarkGradientTheme.h in Headers */,
+				C3A695E1146A196100AF5653 /* CPTMutablePlotRange.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,6 +1052,7 @@
 				C32EE1BE13EC4AF900038266 /* CPTShadow.m in Sources */,
 				C32EE1C913EC4C7200038266 /* CPTMutableShadow.m in Sources */,
 				C3436C4F13F4AC4400739AC2 /* _CPTDarkGradientTheme.m in Sources */,
+				C3A695E2146A196100AF5653 /* CPTMutablePlotRange.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

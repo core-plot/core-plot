@@ -1,11 +1,22 @@
 #import "CPTPlotRange.h"
+
+#import "CPTMutablePlotRange.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "NSDecimalNumberExtensions.h"
 #import "CPTUtilities.h"
 #import "CPTDefinitions.h"
 #import "NSCoderExtensions.h"
 
-/** @brief Defines a range of plot data
+/**	@cond */
+@interface CPTPlotRange ()
+
+@property (nonatomic, readwrite) NSDecimal location;
+@property (nonatomic, readwrite) NSDecimal length;
+
+@end
+/**	@endcond */
+
+/** @brief Defines an immutable range of plot data.
  **/
 @implementation CPTPlotRange
 
@@ -77,9 +88,9 @@
  *  @param len The length of the range.
  *  @return A new CPTPlotRange instance initialized with the provided location and length.
  **/
-+(CPTPlotRange *)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
++(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
-	return [[[CPTPlotRange alloc] initWithLocation:loc length:len] autorelease];
+	return [[[self alloc] initWithLocation:loc length:len] autorelease];
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
@@ -205,15 +216,30 @@
 }
 
 #pragma mark -
+#pragma mark NSMutableCopying
+
+-(id)mutableCopyWithZone:(NSZone *)zone 
+{
+    CPTPlotRange *newRange = [[CPTMutablePlotRange allocWithZone:zone] init];
+	if ( newRange ) {
+		newRange->location = self->location;
+		newRange->length = self->length;
+		newRange->locationDouble = self->locationDouble;
+		newRange->lengthDouble = self->lengthDouble;
+	}
+    return newRange;
+}
+
+#pragma mark -
 #pragma mark NSCoding
 
-- (void)encodeWithCoder:(NSCoder *)encoder 
+-(void)encodeWithCoder:(NSCoder *)encoder 
 {
     [encoder encodeDecimal:self.location forKey:@"CPTPlotRange.location"];
     [encoder encodeDecimal:self.length forKey:@"CPTPlotRange.length"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder 
+-(id)initWithCoder:(NSCoder *)decoder 
 {
     if ( (self = [super init]) ) {
         self.location = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];
@@ -305,136 +331,6 @@
 		result = CPTPlotRangeComparisonResultNumberInRange;
 	}
     return result;
-}
-
-#pragma mark -
-#pragma mark Combining ranges
-
-/** @brief Extends the range to include another range. The sign of <code>length</code> is unchanged.
- *  @param other The other plot range.
- **/
--(void)unionPlotRange:(CPTPlotRange *)other 
-{
-	if ( !other ) return;
-
-	NSDecimal min1 = self.minLimit;
-	NSDecimal min2 = other.minLimit;
-	NSDecimal minimum = CPTDecimalLessThan(min1, min2) ? min1 : min2;
-	
-	NSDecimal max1 = self.maxLimit;
-	NSDecimal max2 = other.maxLimit;
-	NSDecimal maximum = CPTDecimalGreaterThan(max1, max2) ? max1 : max2;
-	
-	NSDecimal newLocation, newLength;
-	if ( CPTDecimalGreaterThanOrEqualTo(self.length, CPTDecimalFromInteger(0)) ) {
-		newLocation = minimum;
-		newLength = CPTDecimalSubtract(maximum, minimum);
-	}
-	else {
-		newLocation = maximum;
-		newLength = CPTDecimalSubtract(minimum, maximum);
-	}
-
-    self.location = newLocation;
-    self.length = newLength;
-}
-
-/** @brief Sets the messaged object to the intersection with another range. The sign of <code>length</code> is unchanged.
- *  @param other The other plot range.
- **/
--(void)intersectionPlotRange:(CPTPlotRange *)other
-{
-	if ( !other ) return;
-	
-	NSDecimal min1 = self.minLimit;
-	NSDecimal min2 = other.minLimit;
-	NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
-	
-	NSDecimal max1 = self.maxLimit;
-	NSDecimal max2 = other.maxLimit;
-	NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
-	
-	if ( CPTDecimalGreaterThanOrEqualTo(maximum, minimum) ) {
-		NSDecimal newLocation, newLength;
-		if ( CPTDecimalGreaterThanOrEqualTo(self.length, CPTDecimalFromInteger(0)) ) {
-			newLocation = minimum;
-			newLength = CPTDecimalSubtract(maximum, minimum);
-		}
-		else {
-			newLocation = maximum;
-			newLength = CPTDecimalSubtract(minimum, maximum);
-		}
-		
-		self.location = newLocation;
-		self.length = newLength;
-	}
-	else {
-		self.length = CPTDecimalFromInteger(0);
-	}
-
-}
-
-#pragma mark -
-#pragma mark Expanding/Contracting ranges
-
-/** @brief Extends/contracts the range by a factor.
- *  @param factor Factor used. A value of 1.0 gives no change.
- *	Less than 1.0 is a contraction, and greater than 1.0 is expansion.
- **/
--(void)expandRangeByFactor:(NSDecimal)factor 
-{
-	NSDecimal oldLength = self.length;
-	NSDecimal newLength = CPTDecimalMultiply(oldLength, factor);
-	NSDecimal locationOffset = CPTDecimalDivide(CPTDecimalSubtract(oldLength, newLength), CPTDecimalFromInteger(2));
-	NSDecimal newLocation = CPTDecimalAdd(self.location, locationOffset);
-
-    self.location = newLocation;
-    self.length = newLength;
-}
-
-#pragma mark -
-#pragma mark Shifting Range
-
-/** @brief Moves the whole range so that the location fits in other range.
- *  @param otherRange Other range.
- *	The minimum possible shift is made. The range length is unchanged.
- **/
--(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange 
-{
-	NSParameterAssert(otherRange);
-	
-	switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.location]] ) {
-		case CPTPlotRangeComparisonResultNumberBelowRange:
-			self.location = otherRange.minLimit;
-			break;
-		case CPTPlotRangeComparisonResultNumberAboveRange:
-			self.location = otherRange.maxLimit;
-			break;
-		default:
-			// in range--do nothing
-			break;
-	}
-}
-
-/** @brief Moves the whole range so that the end point fits in other range.
- *  @param otherRange Other range.
- *	The minimum possible shift is made. The range length is unchanged.
- **/
--(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange
-{
-	NSParameterAssert(otherRange);
-
-	switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.end]] ) {
-		case CPTPlotRangeComparisonResultNumberBelowRange:
-			self.location = CPTDecimalSubtract(otherRange.minLimit, self.length);
-			break;
-		case CPTPlotRangeComparisonResultNumberAboveRange:
-			self.location = CPTDecimalSubtract(otherRange.maxLimit, self.length);
-			break;
-		default:
-			// in range--do nothing
-			break;
-	}
 }
 
 #pragma mark -

@@ -7,7 +7,7 @@
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
-#import "CPTPlotRange.h"
+#import "CPTMutablePlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
@@ -239,7 +239,7 @@
 	CPTLineCap *maxCap = self.axisLineCapMax;
 	
 	if ( theLineStyle || minCap || maxCap ) {
-		CPTPlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] copy];
+		CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
 		CPTPlotRange *theVisibleRange = self.visibleRange;
         if ( theVisibleRange ) {
             [range intersectionPlotRange:theVisibleRange];
@@ -303,7 +303,7 @@
 		NSSet *locations = (major ? self.majorTickLocations : self.minorTickLocations);
 		CPTCoordinate selfCoordinate = self.coordinate;
 		CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(selfCoordinate);
-		CPTPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
 		CPTPlotRange *theGridLineRange = self.gridLinesRange;
 		if ( theGridLineRange ) {
 			[orthogonalRange intersectionPlotRange:theGridLineRange];
@@ -363,7 +363,7 @@
 			CPTPlotSpace *thePlotSpace = self.plotSpace;
 			
 			CPTCoordinate selfCoordinate = self.coordinate;
-			CPTPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+			CPTMutablePlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] mutableCopy];
 			if ( range ) {
 				CPTPlotRange *theVisibleRange = self.visibleRange;
 				if ( theVisibleRange ) {
@@ -372,7 +372,7 @@
 			}
 			
 			CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(selfCoordinate);
-			CPTPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+			CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
 			CPTPlotRange *theGridLineRange = self.gridLinesRange;
 			if ( theGridLineRange ) {
 				[orthogonalRange intersectionPlotRange:theGridLineRange];
@@ -485,7 +485,7 @@
 		CPTPlotSpace *thePlotSpace = self.plotSpace;
 		
 		CPTCoordinate selfCoordinate = self.coordinate;
-		CPTPlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] copy];
+		CPTMutablePlotRange *range = [[thePlotSpace plotRangeForCoordinate:selfCoordinate] mutableCopy];
 		if ( range ) {
 			CPTPlotRange *theVisibleRange = self.visibleRange;
 			if ( theVisibleRange ) {
@@ -494,7 +494,7 @@
 		}
 		
 		CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(selfCoordinate);
-		CPTPlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] copy];
+		CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
 		CPTPlotRange *theGridLineRange = self.gridLinesRange;
 		if ( theGridLineRange ) {
 			[orthogonalRange intersectionPlotRange:theGridLineRange];
@@ -509,7 +509,7 @@
 			CPTFill *bandFill = band.fill;
 			
 			if ( bandFill ) {
-				CPTPlotRange *bandRange = [band.range copy];
+				CPTMutablePlotRange *bandRange = [band.range mutableCopy];
 				if ( bandRange ) {
 					[bandRange intersectionPlotRange:range];
 					

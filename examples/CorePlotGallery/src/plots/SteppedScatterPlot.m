@@ -86,7 +86,7 @@
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
     CPTPlotRange *xRange = plotSpace.xRange;
-    CPTPlotRange *yRange = plotSpace.yRange;
+    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
     [yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
     
