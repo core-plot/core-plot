@@ -4,6 +4,7 @@
 #import "CPTTextStyle.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
+#import <tgmath.h>
 
 /**	@cond */
 @interface CPTLegendEntry()
@@ -119,7 +120,7 @@
 	CGRect textRect = rect;
 	CGSize theTitleSize = self.titleSize;
 	if ( theTitleSize.height < textRect.size.height ) {
-		textRect = CGRectInset(textRect, 0.0, (textRect.size.height - theTitleSize.height) / (CGFloat)2.0);
+		textRect = CGRectInset(textRect, 0.0, round((textRect.size.height - theTitleSize.height) / (CGFloat)2.0));
 	}
 	CPTAlignRectToUserSpace(context, textRect);
 	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];

@@ -8,6 +8,7 @@
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
+#import <tgmath.h>
 
 /**	@defgroup legendAnimation Legends
  *	@brief Legend properties that can be animated using Core Animation.
@@ -599,7 +600,9 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 			legendSize.width += [width cgFloatValue];
 		}
 	}
-	legendSize.width += ((theSwatchSize.width + self.titleOffset) * columnCount) + (self.columnMargin * (columnCount - 1));
+	if ( columnCount > 0 ) {
+		legendSize.width += ((theSwatchSize.width + self.titleOffset) * columnCount) + (self.columnMargin * (columnCount - 1));
+	}
 
 	NSUInteger rows = row;
 	if ( col ) rows++;
@@ -862,6 +865,7 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 		CGFloat fontSize = theTextStyle.fontSize;
 		if ( fontSize > 0.0 ) {
 			fontSize *= 1.5;
+			fontSize = round(fontSize);
 			theSwatchSize = CGSizeMake(fontSize, fontSize);
 		}
 		else {
