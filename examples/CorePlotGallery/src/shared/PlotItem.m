@@ -8,6 +8,8 @@
 
 #import "PlotGallery.h"
 
+#import <tgmath.h>
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
 // For IKImageBrowser
@@ -98,15 +100,15 @@
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color = [CPTColor grayColor];
     textStyle.fontName = @"Helvetica-Bold";
-    textStyle.fontSize = round(bounds.size.height / 20.0f);
+    textStyle.fontSize = round(bounds.size.height / (CGFloat)20.0);
     graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0f, round(bounds.size.height / 18.0f)); // Ensure that title displacement falls on an integral pixel
+    graph.titleDisplacement = CGPointMake(0.0f, round(bounds.size.height / (CGFloat)18.0)); // Ensure that title displacement falls on an integral pixel
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;    
 }
 
 - (void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-    float boundsPadding = round(bounds.size.width / 20.0f); // Ensure that padding falls on an integral pixel
+    CGFloat boundsPadding = round(bounds.size.width / (CGFloat)20.0); // Ensure that padding falls on an integral pixel
     graph.paddingLeft = boundsPadding;
 
     if (graph.titleDisplacement.y > 0.0) {
@@ -157,9 +159,6 @@
 
         UIGraphicsBeginImageContext(imageView.bounds.size);
             CGContextRef c = UIGraphicsGetCurrentContext();
-            CGContextGetCTM(c);
-            CGContextScaleCTM(c, 1, -1);
-            CGContextTranslateCTM(c, 0, -imageView.bounds.size.height);
             [imageView.layer renderInContext:c];
             cachedImage = [UIGraphicsGetImageFromCurrentImageContext() retain];
         
