@@ -8,7 +8,18 @@
 /// @file
 
 /**
- *	@brief A custom definition for ARC weak references that falls back to unsafe unretained values on older platforms
+ *	@def CPT_SDK_SUPPORTS_WEAK
+ *	@brief Defined as 1 if the compiler and active SDK support weak references, 0 otherwise.
+ **/
+
+/**
+ *	@def __cpt_weak
+ *	@brief A custom definition for ARC weak references that falls back to unsafe unretained values on older platforms.
+ **/
+
+/**
+ *	@def cpt_weak_property
+ *	@brief A custom definition for ARC weak properties that falls back to assign on older platforms.
  **/
 
 // This is based on Ryan Petrich's ZWRCompatibility: https://github.com/rpetrich/ZWRCompatibility
