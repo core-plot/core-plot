@@ -34,7 +34,7 @@
 
 /// @name Drawing
 /// @{
--(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
 ///	@}
 
 @end

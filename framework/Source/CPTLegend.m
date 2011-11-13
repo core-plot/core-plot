@@ -445,7 +445,8 @@ NSString * const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNee
 			left += theSwatchSize.width + theOffset;
 			
 			[legendEntry drawTitleInRect:CPTAlignRectToUserSpace(context, CGRectMake(left, rowPosition, actualColumnWidths[col], actualRowHeights[row]))
-							   inContext:context];
+							   inContext:context
+								   scale:self.contentsScale];
 		}
 	}
 	
