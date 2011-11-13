@@ -1031,7 +1031,6 @@ double niceNum(double x, BOOL round)
 	else {
 		return allLocations;
 	}
-	
 }
 
 /**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
@@ -1114,8 +1113,6 @@ double niceNum(double x, BOOL round)
 	CPTPlotArea *thePlotArea = self.plotArea;
 	
 	BOOL theLabelFormatterChanged = self.labelFormatterChanged;
-	CPTSign theTickDirection = self.tickDirection;
-	CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
 	CPTShadow *theShadow = self.labelShadow;
 	
 	for ( NSDecimalNumber *tickLocation in locations ) {
@@ -1153,8 +1150,6 @@ double niceNum(double x, BOOL round)
 			}
 			
 			[newLabelLayer release];
-			CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:newAxisLabel.tickLocation];
-			[newAxisLabel positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:theTickDirection];
 		}
 
 		lastLayer = newAxisLabel.contentLayer;
@@ -1305,8 +1300,13 @@ double niceNum(double x, BOOL round)
 
 -(void)layoutSublayers
 {
-	[self updateMajorTickLabels];
-	[self updateMinorTickLabels];
+	if ( self.needsRelabel ) {
+		[self relabel];
+	}
+	else {
+		[self updateMajorTickLabels];
+		[self updateMinorTickLabels];
+	}
 	
 	[self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
 								  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)

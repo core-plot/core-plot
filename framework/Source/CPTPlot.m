@@ -44,7 +44,6 @@
 @property (nonatomic, readwrite, retain) NSMutableDictionary *cachedData;
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) NSRange labelIndexRange;
 @property (nonatomic, readwrite, retain) NSMutableArray *labelAnnotations;
 
@@ -165,8 +164,6 @@
  **/
 @synthesize labelShadow;
 
-@synthesize labelFormatterChanged;
-
 @synthesize labelIndexRange;
 
 @synthesize labelAnnotations;
@@ -197,7 +194,6 @@
 		labelTextStyle = nil;
 		labelFormatter = nil;
 		labelShadow = nil;
-		labelFormatterChanged = YES;
 		labelIndexRange = NSMakeRange(0, 0);
 		labelAnnotations = nil;
 		alignsPointsToPixels = YES;
@@ -228,7 +224,6 @@
 		labelTextStyle = [theLayer->labelTextStyle retain];
 		labelFormatter = [theLayer->labelFormatter retain];
 		labelShadow = [theLayer->labelShadow retain];
-		labelFormatterChanged = theLayer->labelFormatterChanged;
 		labelIndexRange = theLayer->labelIndexRange;
 		labelAnnotations = [theLayer->labelAnnotations retain];
 		alignsPointsToPixels = theLayer->alignsPointsToPixels;
@@ -271,7 +266,6 @@
 	[coder encodeObject:self.labelTextStyle forKey:@"CPTPlot.labelTextStyle"];
 	[coder encodeObject:self.labelFormatter forKey:@"CPTPlot.labelFormatter"];
 	[coder encodeObject:self.labelShadow forKey:@"CPTPlot.labelShadow"];
-	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTPlot.labelFormatterChanged"];
 	[coder encodeObject:[NSValue valueWithRange:self.labelIndexRange] forKey:@"CPTPlot.labelIndexRange"];
 	[coder encodeObject:self.labelAnnotations forKey:@"CPTPlot.labelAnnotations"];
 	[coder encodeBool:self.alignsPointsToPixels forKey:@"CPTPlot.alignsPointsToPixels"];
@@ -297,7 +291,6 @@
 		labelTextStyle = [[coder decodeObjectForKey:@"CPTPlot.labelTextStyle"] copy];
 		labelFormatter = [[coder decodeObjectForKey:@"CPTPlot.labelFormatter"] retain];
 		labelShadow = [[coder decodeObjectForKey:@"CPTPlot.labelShadow"] retain];
-		labelFormatterChanged = [coder decodeBoolForKey:@"CPTPlot.labelFormatterChanged"];
 		labelIndexRange = [[coder decodeObjectForKey:@"CPTPlot.labelIndexRange"] rangeValue];
 		labelAnnotations = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
 		alignsPointsToPixels = [coder decodeBoolForKey:@"CPTPlot.alignsPointsToPixels"];
@@ -515,6 +508,12 @@
 
 #pragma mark -
 #pragma mark Data Caching
+
+-(NSUInteger)cachedDataCount
+{
+	[self reloadDataIfNeeded];
+	return cachedDataCount;
+}
 
 /**	@brief Copies an array of numbers to the cache.
  *	@param numbers An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type <code>double</code>).
@@ -1170,7 +1169,6 @@
     if ( newTickLabelFormatter != labelFormatter ) {
         [labelFormatter release];
         labelFormatter = [newTickLabelFormatter retain];
-		self.labelFormatterChanged = YES;
         self.needsRelabel = YES;
     }
 }

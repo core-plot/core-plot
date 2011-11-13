@@ -227,8 +227,6 @@
 	
 	[super renderAsVectorInContext:theContext];
 	
-	[self relabel];
-	
     // Ticks
     [self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
     [self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];

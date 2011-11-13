@@ -115,7 +115,6 @@ typedef enum _CPTPlotCachePrecision {
 	NSUInteger labelField;
 	CPTTextStyle *labelTextStyle;
 	NSNumberFormatter *labelFormatter;
-	BOOL labelFormatterChanged;
 	NSRange labelIndexRange;
 	NSMutableArray *labelAnnotations;
 	CPTShadow *labelShadow;
