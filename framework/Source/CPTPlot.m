@@ -905,6 +905,7 @@
 	CGFloat theRotation = self.labelRotation;
 	NSMutableArray *labelArray = self.labelAnnotations;
 	NSUInteger oldLabelCount = labelArray.count;
+	Class annotationClass = [CPTAnnotation class];
 	Class nullClass = [NSNull class];
 	CPTMutableNumericData *labelFieldDataCache = [self cachedNumbersForField:self.labelField];
 	CPTShadow *theShadow = self.labelShadow;
@@ -937,24 +938,44 @@
 		CPTPlotSpaceAnnotation *labelAnnotation;
 		if ( i < oldLabelCount ) {
 			labelAnnotation = [labelArray objectAtIndex:i];
+			if ( newLabelLayer ) {
+				if ( [labelAnnotation isKindOfClass:nullClass] ) {
+					labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
+					[labelArray replaceObjectAtIndex:i withObject:labelAnnotation];
+					[self addAnnotation:labelAnnotation];
+					[labelAnnotation release];
+				}
+			}
+			else {
+				if ( [labelAnnotation isKindOfClass:annotationClass] ) {
+					[labelArray replaceObjectAtIndex:i withObject:[NSNull null]];
+					[self removeAnnotation:labelAnnotation];
+				}
+			}
 		}
 		else {
-			labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
-			[labelArray addObject:labelAnnotation];
-			[self addAnnotation:labelAnnotation];
-			[labelAnnotation release];
+			if ( newLabelLayer ) {
+				labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
+				[labelArray addObject:labelAnnotation];
+				[self addAnnotation:labelAnnotation];
+				[labelAnnotation release];
+			}
+			else {
+				[labelArray addObject:[NSNull null]];
+			}
 		}
 		
-		labelAnnotation.contentLayer = newLabelLayer;
-		labelAnnotation.rotation = theRotation;
-		[self positionLabelAnnotation:labelAnnotation forIndex:i];
-		[self updateContentAnchorForLabel:labelAnnotation];
-		
-		[newLabelLayer release];
+		if ( newLabelLayer ) {
+			labelAnnotation.contentLayer = newLabelLayer;
+			labelAnnotation.rotation = theRotation;
+			[self positionLabelAnnotation:labelAnnotation forIndex:i];
+			[self updateContentAnchorForLabel:labelAnnotation];
+			
+			[newLabelLayer release];
+		}
 	}
 	
 	// remove labels that are no longer needed
-	Class annotationClass = [CPTAnnotation class];
 	while ( labelArray.count > sampleCount ) {
 		CPTAnnotation *oldAnnotation = [labelArray objectAtIndex:labelArray.count - 1];
 		if ( [oldAnnotation isKindOfClass:annotationClass] ) {
