@@ -453,6 +453,8 @@ typedef struct CGPointError CGPointError;
 		[NSException raise:CPTException format:@"Number of x and y values do not match"];
 	}
 	
+	[super renderAsVectorInContext:theContext];
+	
 	// Calculate view points, and align to user space
 	CGPointError *viewPoints = malloc(dataCount * sizeof(CGPointError));
 	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));
