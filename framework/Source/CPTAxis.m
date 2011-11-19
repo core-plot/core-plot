@@ -39,13 +39,14 @@
 @property (nonatomic, readwrite, assign) __cpt_weak CPTGridLines *minorGridLines;
 @property (nonatomic, readwrite, assign) __cpt_weak CPTGridLines *majorGridLines;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
+@property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableBackgroundLimitBands;
 
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
--(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels labelAlignment:(CPTAlignment)theLabelAlignment labelOffset:(CGFloat)theLabelOffset labelRotation:(CGFloat)theLabelRotation textStyle:(CPTTextStyle *)theLabelTextStyle labelFormatter:(NSNumberFormatter *)theLabelFormatter;
+-(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 
 double niceNum(double x, BOOL round);
 
@@ -236,6 +237,7 @@ double niceNum(double x, BOOL round);
 @synthesize minorTickLabelFormatter;
 
 @synthesize labelFormatterChanged;
+@synthesize minorLabelFormatterChanged;
 
 /**	@property axisLabels
  *	@brief The set of axis labels.
@@ -421,6 +423,7 @@ double niceNum(double x, BOOL round);
 		minorTickLabelTextStyle = [[CPTTextStyle alloc] init];
         minorTickLabelFormatter = nil;
 		labelFormatterChanged = YES;
+		minorLabelFormatterChanged = NO;
 		axisLabels = [[NSSet set] retain];
 		minorTickAxisLabels = [[NSSet set] retain];
         tickDirection = CPTSignNone;
@@ -576,6 +579,7 @@ double niceNum(double x, BOOL round);
 	[coder encodeObject:self.labelFormatter forKey:@"CPTAxis.labelFormatter"];
 	[coder encodeObject:self.minorTickLabelFormatter forKey:@"CPTAxis.minorTickLabelFormatter"];
 	[coder encodeBool:self.labelFormatterChanged forKey:@"CPTAxis.labelFormatterChanged"];
+	[coder encodeBool:self.minorLabelFormatterChanged forKey:@"CPTAxis.minorLabelFormatterChanged"];
 	[coder encodeObject:self.axisLabels forKey:@"CPTAxis.axisLabels"];
 	[coder encodeObject:self.minorTickAxisLabels forKey:@"CPTAxis.minorTickAxisLabels"];
 	[coder encodeObject:self.axisTitle forKey:@"CPTAxis.axisTitle"];
@@ -630,6 +634,7 @@ double niceNum(double x, BOOL round);
 		labelFormatter = [[coder decodeObjectForKey:@"CPTAxis.labelFormatter"] retain];
 		minorTickLabelFormatter = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelFormatter"] retain];
 		labelFormatterChanged = [coder decodeBoolForKey:@"CPTAxis.labelFormatterChanged"];
+		minorLabelFormatterChanged = [coder decodeBoolForKey:@"CPTAxis.minorLabelFormatterChanged"];
 		axisLabels = [[coder decodeObjectForKey:@"CPTAxis.axisLabels"] retain];
 		minorTickAxisLabels = [[coder decodeObjectForKey:@"CPTAxis.minorTickAxisLabels"] retain];
 		axisTitle = [[coder decodeObjectForKey:@"CPTAxis.axisTitle"] retain];
@@ -1058,23 +1063,40 @@ double niceNum(double x, BOOL round)
  *	Existing axis label objects and content layers are reused where possible.
  *	@param locations A set of NSDecimalNumber label locations.
  *	@param useMajorAxisLabels If YES, label the major ticks, otherwise label the minor ticks.
- *	@param theLabelAlignment The alignment of each label.
- *	@param theLabelOffset The label offset.
- *	@param theLabelRotation The rotation angle of each label in radians.
- *	@param theLabelTextStyle The text style used to draw each label.
- *	@param theLabelFormatter The number formatter used to format each label.
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
 				useMajorAxisLabels:(BOOL)useMajorAxisLabels
-					labelAlignment:(CPTAlignment)theLabelAlignment
-					   labelOffset:(CGFloat)theLabelOffset
-					 labelRotation:(CGFloat)theLabelRotation
-						 textStyle:(CPTTextStyle *)theLabelTextStyle
-					labelFormatter:(NSNumberFormatter *)theLabelFormatter
 {
-	if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
-		BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
-		if ( !shouldContinue ) return;
+	CPTAlignment theLabelAlignment;
+	CGFloat theLabelOffset;
+	CGFloat theLabelRotation;
+	CPTTextStyle *theLabelTextStyle;
+	NSNumberFormatter *theLabelFormatter;
+	BOOL theLabelFormatterChanged;
+
+	if ( useMajorAxisLabels ) {
+		if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+			BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+			if ( !shouldContinue ) return;
+		}
+		theLabelAlignment = self.labelAlignment;
+		theLabelOffset = self.labelOffset;
+		theLabelRotation = self.labelRotation;
+		theLabelTextStyle = self.labelTextStyle;
+		theLabelFormatter = self.labelFormatter;
+		theLabelFormatterChanged = self.labelFormatterChanged;
+	}
+	else {
+		if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateMinorAxisLabelsAtLocations:)] ) {
+			BOOL shouldContinue = [self.delegate axis:self shouldUpdateMinorAxisLabelsAtLocations:locations];
+			if ( !shouldContinue ) return;
+		}
+		theLabelAlignment = self.minorTickLabelAlignment;
+		theLabelOffset = self.minorTickLabelOffset;
+		theLabelRotation = self.minorTickLabelRotation;
+		theLabelTextStyle = self.minorTickLabelTextStyle;
+		theLabelFormatter = self.minorTickLabelFormatter;
+		theLabelFormatterChanged = self.minorLabelFormatterChanged;
 	}
 
 	if ( locations.count == 0 || !theLabelTextStyle || !theLabelFormatter ) {
@@ -1100,7 +1122,7 @@ double niceNum(double x, BOOL round)
 	[self.plotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
 	NSMutableSet *oldAxisLabels;
-	if (useMajorAxisLabels) {
+	if ( useMajorAxisLabels ) {
 		oldAxisLabels = [self.axisLabels mutableCopy];
 	} else {
 		oldAxisLabels = [self.minorTickAxisLabels mutableCopy];
@@ -1111,8 +1133,6 @@ double niceNum(double x, BOOL round)
 	CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
 	CPTLayer *lastLayer = nil;
 	CPTPlotArea *thePlotArea = self.plotArea;
-	
-	BOOL theLabelFormatterChanged = self.labelFormatterChanged;
 	CPTShadow *theShadow = self.labelShadow;
 	
 	for ( NSDecimalNumber *tickLocation in locations ) {
@@ -1168,16 +1188,18 @@ double niceNum(double x, BOOL round)
 	[oldAxisLabels release];
 	
 	// do not use accessor because we've already updated the layer hierarchy
-	if (useMajorAxisLabels) {
+	if ( useMajorAxisLabels ) {
 		[axisLabels release];
 		axisLabels = newAxisLabels;
-	} else {
+		self.labelFormatterChanged = NO;
+	}
+	else {
 		[minorTickAxisLabels release];
 		minorTickAxisLabels = newAxisLabels;
+		self.minorLabelFormatterChanged = NO;
 	}
 	
-	[self setNeedsLayout];		
-	self.labelFormatterChanged = NO;
+	[self setNeedsLayout];
 }
 
 /**	@brief Marks the receiver as needing to update the labels before the content is next drawn.
@@ -1230,27 +1252,11 @@ double niceNum(double x, BOOL round)
 	
 	// Label ticks
 	if ( self.labelingPolicy != CPTAxisLabelingPolicyNone ) {
-		NSNumberFormatter *theFormatter = self.labelFormatter;
-		if ( theFormatter ) {
-			[self updateAxisLabelsAtLocations:self.majorTickLocations
-						   useMajorAxisLabels:YES
-							   labelAlignment:self.labelAlignment
-								  labelOffset:self.labelOffset
-								labelRotation:self.labelRotation
-									textStyle:self.labelTextStyle
-							   labelFormatter:theFormatter];
-		}
-
-		theFormatter = self.minorTickLabelFormatter;
-		if ( theFormatter ) {
-			[self updateAxisLabelsAtLocations:self.minorTickLocations
-						   useMajorAxisLabels:NO
-							   labelAlignment:self.minorTickLabelAlignment
-								  labelOffset:self.minorTickLabelOffset
-								labelRotation:self.minorTickLabelRotation
-									textStyle:self.minorTickLabelTextStyle
-							   labelFormatter:theFormatter];
-		}
+		[self updateAxisLabelsAtLocations:self.majorTickLocations
+					   useMajorAxisLabels:YES];
+		
+		[self updateAxisLabelsAtLocations:self.minorTickLocations
+					   useMajorAxisLabels:NO];
 	}
 	
     self.needsRelabel = NO;
@@ -1864,7 +1870,7 @@ double niceNum(double x, BOOL round)
 			[minorTickAxisLabels release];
 			minorTickAxisLabels = [[NSSet set] retain];
 		}
-		self.labelFormatterChanged = YES;
+		self.minorLabelFormatterChanged = YES;
         self.needsRelabel = YES;
     }
 }

@@ -51,13 +51,22 @@ typedef enum _CPTAxisLabelingPolicy {
 -(void)axisDidRelabel:(CPTAxis *)axis;
 
 /**	@brief This method gives the delegate a chance to create custom labels for each tick.
- *  It can be used with any relabeling policy. Returning NO will cause the axis not
+ *  It can be used with any labeling policy. Returning NO will cause the axis not
  *  to update the labels. It is then the delegates responsiblity to do this.
  *	@param axis The axis.
  *  @param locations The locations of the major ticks.
- *  @return YES if the axis class should proceed with automatic relabeling.
+ *  @return YES if the axis class should proceed with automatic labeling.
  **/
 -(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations;
+
+/**	@brief This method gives the delegate a chance to create custom labels for each minor tick.
+ *  It can be used with any labeling policy. Returning NO will cause the axis not
+ *  to update the labels. It is then the delegates responsiblity to do this.
+ *	@param axis The axis.
+ *  @param locations The locations of the minor ticks.
+ *  @return YES if the axis class should proceed with automatic labeling.
+ **/
+-(BOOL)axis:(CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(NSSet *)locations;
 
 ///	@}
 
@@ -97,6 +106,7 @@ typedef enum _CPTAxisLabelingPolicy {
 	NSNumberFormatter *labelFormatter;
 	NSNumberFormatter *minorTickLabelFormatter;
 	BOOL labelFormatterChanged;
+	BOOL minorLabelFormatterChanged;
 	NSSet *axisLabels;
 	NSSet *minorTickAxisLabels;
 	CPTAxisTitle *axisTitle;
