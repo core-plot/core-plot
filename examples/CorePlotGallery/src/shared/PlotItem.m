@@ -158,9 +158,14 @@
         [self renderInView:imageView withTheme:nil];        
 
         UIGraphicsBeginImageContext(imageView.bounds.size);
-            CGContextRef c = UIGraphicsGetCurrentContext();
-            [imageView.layer renderInContext:c];
-            cachedImage = [UIGraphicsGetImageFromCurrentImageContext() retain];
+			CGContextRef c = UIGraphicsGetCurrentContext();
+			CGContextSetAllowsAntialiasing(c, true);
+			
+			CGContextTranslateCTM(c, 0.0, imageView.bounds.size.height);
+			CGContextScaleCTM(c, 1.0, -1.0);
+		
+			[imageView.layer renderInContext:c];
+			CGContextSetAllowsAntialiasing(c, false);
         
             // rescale graph
             UIImage* bigImage = UIGraphicsGetImageFromCurrentImageContext();
