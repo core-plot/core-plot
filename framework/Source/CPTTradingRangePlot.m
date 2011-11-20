@@ -41,20 +41,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *lowValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *closeValues;
 
--(void)drawCandleStickInContext:(CGContextRef)context
-							  x:(CGFloat)x
-						   open:(CGFloat)open
-						  close:(CGFloat)close
-						   high:(CGFloat)high
-							low:(CGFloat)low
-					alignPoints:(BOOL)alignPoints;
--(void)drawOHLCInContext:(CGContextRef)context
-					   x:(CGFloat)x
-					open:(CGFloat)open
-				   close:(CGFloat)close
-					high:(CGFloat)high
-					 low:(CGFloat)low
-			 alignPoints:(BOOL)alignPoints;
+-(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
+-(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
 
 @end
 

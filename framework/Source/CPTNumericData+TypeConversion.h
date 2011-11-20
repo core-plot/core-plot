@@ -11,19 +11,13 @@
 /// @{
 -(CPTNumericData *)dataByConvertingToDataType:(CPTNumericDataType)newDataType;
 
--(CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType
-							  sampleBytes:(size_t)newSampleBytes
-								byteOrder:(CFByteOrder)newByteOrder;
+-(CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType sampleBytes:(size_t)newSampleBytes byteOrder:(CFByteOrder)newByteOrder;
 ///	@}
 
 /// @name Data Conversion Utilities
 /// @{
--(void)convertData:(NSData *)sourceData
-		  dataType:(CPTNumericDataType *)sourceDataType
-			toData:(NSMutableData *)destData
-		  dataType:(CPTNumericDataType *)destDataType;
--(void)swapByteOrderForData:(NSMutableData *)sourceData
-				 sampleSize:(size_t)sampleSize;
+-(void)convertData:(NSData *)sourceData dataType:(CPTNumericDataType *)sourceDataType toData:(NSMutableData *)destData dataType:(CPTNumericDataType *)destDataType;
+-(void)swapByteOrderForData:(NSMutableData *)sourceData sampleSize:(size_t)sampleSize;
 ///	@}
 
 @end

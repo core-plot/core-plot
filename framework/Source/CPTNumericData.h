@@ -32,40 +32,18 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTNumericData *)numericDataWithData:(NSData *)newData
-							  dataType:(CPTNumericDataType)newDataType
-								 shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithData:(NSData *)newData
-						dataTypeString:(NSString *)newDataTypeString
-								 shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithArray:(NSArray *)newData
-							   dataType:(CPTNumericDataType)newDataType
-								  shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithArray:(NSArray *)newData
-						 dataTypeString:(NSString *)newDataTypeString
-								  shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Initialization
 /// @{
--(id)initWithData:(NSData *)newData
-		 dataType:(CPTNumericDataType)newDataType
-			shape:(NSArray *)shapeArray;
-
--(id)initWithData:(NSData *)newData
-   dataTypeString:(NSString *)newDataTypeString
-			shape:(NSArray *)shapeArray;
-
--(id)initWithArray:(NSArray *)newData
-		  dataType:(CPTNumericDataType)newDataType
-			 shape:(NSArray *)shapeArray;
-
--(id)initWithArray:(NSArray *)newData
-	dataTypeString:(NSString *)newDataTypeString
-			 shape:(NSArray *)shapeArray;
+-(id)initWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
+-(id)initWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
+-(id)initWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
+-(id)initWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Samples

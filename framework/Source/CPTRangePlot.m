@@ -53,11 +53,7 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *rightValues;
 
--(void)drawRangeInContext:(CGContextRef)theContext
-				viewPoint:(CGPointError *)viewPoint
-			  halfGapSize:(CGSize)halfGapSize
-			 halfBarWidth:(CGFloat)halfBarWidth
-			  alignPoints:(BOOL)alignPoints;
+-(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 
 @end
 

@@ -5,9 +5,7 @@
 /**	@cond */
 @interface CPTMutableNumericData()
 
--(void)commonInitWithData:(NSData *)newData
-				 dataType:(CPTNumericDataType)newDataType
-					shape:(NSArray *)shapeArray;
+-(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
 
 @end
 

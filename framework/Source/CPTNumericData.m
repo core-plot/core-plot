@@ -9,12 +9,9 @@
 /**	@cond */
 @interface CPTNumericData()
 
--(void)commonInitWithData:(NSData *)newData
-				 dataType:(CPTNumericDataType)newDataType
-					shape:(NSArray *)shapeArray;
+-(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
 
--(NSData *)dataFromArray:(NSArray *)newData
-				dataType:(CPTNumericDataType)newDataType;
+-(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType;
 
 @end
 

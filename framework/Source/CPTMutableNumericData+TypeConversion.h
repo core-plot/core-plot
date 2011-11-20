@@ -17,9 +17,7 @@
 
 /// @name Type Conversion
 /// @{
--(void)convertToType:(CPTDataTypeFormat)newDataType
-		 sampleBytes:(size_t)newSampleBytes
-		   byteOrder:(CFByteOrder)newByteOrder;
+-(void)convertToType:(CPTDataTypeFormat)newDataType sampleBytes:(size_t)newSampleBytes byteOrder:(CFByteOrder)newByteOrder;
 ///	@}
 
 @end
