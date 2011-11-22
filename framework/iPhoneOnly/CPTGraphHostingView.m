@@ -284,13 +284,13 @@
 {
 	if ( yn != collapsesLayers ) {
 		collapsesLayers = yn;
-		if ( !collapsesLayers ) {
+		if ( collapsesLayers ) {
+			[hostedGraph removeFromSuperlayer];
+			[self setNeedsDisplay];
+		}
+		else {
 			if ( hostedGraph ) {
 				[self.layer addSublayer:hostedGraph];
-			}
-			else {
-				[hostedGraph removeFromSuperlayer];
-				[self setNeedsDisplay];
 			}
 		}
 		[self updateNotifications];
