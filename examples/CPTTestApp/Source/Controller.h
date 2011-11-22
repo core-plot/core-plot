@@ -1,18 +1,18 @@
+#import "RotationView.h"
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
-#import "RotationView.h"
 
-@interface Controller : NSArrayController <CPTPlotDataSource, CPTRotationDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
-    IBOutlet CPTGraphHostingView *hostView;
-    IBOutlet NSWindow *plotSymbolWindow;
-    IBOutlet NSWindow *axisDemoWindow;
+@interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
+	IBOutlet CPTGraphHostingView *hostView;
+	IBOutlet NSWindow *plotSymbolWindow;
+	IBOutlet NSWindow *axisDemoWindow;
 	IBOutlet NSWindow *selectionDemoWindow;
-    CPTXYGraph *graph;
+	CPTXYGraph *graph;
 	RotationView *overlayRotationView;
-    CPTPlotSpaceAnnotation *symbolTextAnnotation;
-    CGFloat xShift;
-    CGFloat yShift;
-    CGFloat labelRotation;
+	CPTPlotSpaceAnnotation *symbolTextAnnotation;
+	CGFloat xShift;
+	CGFloat yShift;
+	CGFloat labelRotation;
 }
 
 @property (nonatomic) CGFloat xShift;
@@ -40,4 +40,3 @@
 -(IBAction)selectionDemo:(id)sender;
 
 @end
-

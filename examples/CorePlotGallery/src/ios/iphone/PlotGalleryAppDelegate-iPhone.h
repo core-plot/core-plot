@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface PlotGalleryAppDelegate_iPhone : NSObject <UIApplicationDelegate>
+@interface PlotGalleryAppDelegate_iPhone : NSObject<UIApplicationDelegate>
 {
-    UIWindow *window;
-    UINavigationController *navigationController;
+	UIWindow *window;
+	UINavigationController *navigationController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

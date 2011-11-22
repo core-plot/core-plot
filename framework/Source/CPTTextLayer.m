@@ -1,11 +1,13 @@
 #import "CPTTextLayer.h"
-#import "CPTShadow.h"
+
 #import "CPTPlatformSpecificCategories.h"
+#import "CPTShadow.h"
 #import <tgmath.h>
 
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
-/**	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
+/**
+ *	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
  **/
 @implementation CPTTextLayer
 
@@ -29,14 +31,14 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
  **/
 -(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
 {
-	if ( (self = [super initWithFrame:CGRectZero]) ) {	
+	if ( (self = [super initWithFrame:CGRectZero]) ) {
 		textStyle = [newStyle retain];
-		text = [newText copy];
+		text	  = [newText copy];
 
 		self.needsDisplayOnBoundsChange = NO;
 		[self sizeToFit];
 	}
-	
+
 	return self;
 }
 
@@ -53,14 +55,14 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 {
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTTextLayer *theLayer = (CPTTextLayer *)layer;
-		
+
 		textStyle = [theLayer->textStyle retain];
-		text = [theLayer->text retain];
+		text	  = [theLayer->text retain];
 	}
 	return self;
 }
 
--(void)dealloc 
+-(void)dealloc
 {
 	[textStyle release];
 	[text release];
@@ -73,18 +75,18 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeObject:self.textStyle forKey:@"CPTTextLayer.textStyle"];
 	[coder encodeObject:self.text forKey:@"CPTTextLayer.text"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+	if ( (self = [super initWithCoder:coder]) ) {
 		textStyle = [[coder decodeObjectForKey:@"CPTTextLayer.textStyle"] retain];
-		text = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
+		text	  = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -99,7 +101,7 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 }
 
--(void)setTextStyle:(CPTTextStyle *)newStyle 
+-(void)setTextStyle:(CPTTextStyle *)newStyle
 {
 	if ( textStyle != newStyle ) {
 		[textStyle release];
@@ -119,39 +121,45 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Layout
 
-/** @brief Determine the minimum size needed to fit the text
+/**
+ *	@brief Determine the minimum size needed to fit the text
  **/
 -(CGSize)sizeThatFits
 {
-    if ( self.text == nil ) return CGSizeZero;
-	CGSize textSize = [self.text sizeWithTextStyle:self.textStyle];
-    CGSize shadowOffset = CGSizeZero;
+	if ( self.text == nil ) {
+		return CGSizeZero;
+	}
+	CGSize textSize		 = [self.text sizeWithTextStyle:self.textStyle];
+	CGSize shadowOffset	 = CGSizeZero;
 	CGFloat shadowRadius = 0.0;
-	CPTShadow *myShadow = self.shadow;
+	CPTShadow *myShadow	 = self.shadow;
 	if ( myShadow ) {
 		shadowOffset = myShadow.shadowOffset;
 		shadowRadius = myShadow.shadowBlurRadius;
 	}
-	
+
 	// Add small margin
 	textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
-    textSize.width = ceil(textSize.width);
+	textSize.width	= ceil(textSize.width);
 
 	textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
-    textSize.height = ceil(textSize.height);
-    
-	return textSize;    
+	textSize.height	 = ceil(textSize.height);
+
+	return textSize;
 }
 
-/**	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+/**
+ *	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
  **/
 -(void)sizeToFit
-{	
-	if ( self.text == nil ) return;
+{
+	if ( self.text == nil ) {
+		return;
+	}
 	CGSize sizeThatFits = [self sizeThatFits];
-	CGRect newBounds = self.bounds;
+	CGRect newBounds	= self.bounds;
 	newBounds.size = sizeThatFits;
-	self.bounds = newBounds;
+	self.bounds	   = newBounds;
 	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
@@ -161,25 +169,27 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	if ( self.hidden ) return;
-	
+	if ( self.hidden ) {
+		return;
+	}
+
 	[super renderAsVectorInContext:context];
-	
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
 	CGContextScaleCTM(context, 1.0, -1.0);
 #endif
-	
-    CGSize shadowOffset = CGSizeZero;
+
+	CGSize shadowOffset	 = CGSizeZero;
 	CGFloat shadowRadius = 0.0;
-	CPTShadow *myShadow = self.shadow;
+	CPTShadow *myShadow	 = self.shadow;
 	if ( myShadow ) {
 		shadowOffset = myShadow.shadowOffset;
 		shadowRadius = myShadow.shadowBlurRadius;
 	}
-	
-	[self.text drawInRect:CGRectInset(self.bounds, 
+
+	[self.text drawInRect:CGRectInset(self.bounds,
 									  ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
 									  ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth)
 			withTextStyle:self.textStyle
@@ -203,6 +213,6 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 -(NSString *)description
 {
 	return [NSString stringWithFormat:@"<%@ \"%@\">", [super description], self.text];
-};
+}
 
 @end

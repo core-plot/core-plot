@@ -12,11 +12,13 @@
 @property (nonatomic, readonly, retain) NSString *title;
 
 @end
+
 /**	@endcond */
 
 #pragma mark -
 
-/**	@brief A graph legend entry.
+/**
+ *	@brief A graph legend entry.
  **/
 @implementation CPTLegendEntry
 
@@ -61,10 +63,10 @@
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		plot = nil;
-		index = 0;
-		row = 0;
-		column = 0;
+		plot	  = nil;
+		index	  = 0;
+		row		  = 0;
+		column	  = 0;
 		textStyle = nil;
 	}
 	return self;
@@ -73,7 +75,7 @@
 -(void)dealloc
 {
 	[textStyle release];
-	
+
 	[super dealloc];
 }
 
@@ -91,14 +93,14 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		plot = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
-		index = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
-		row = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
-		column = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
+	if ( (self = [super init]) ) {
+		plot	  = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+		index	  = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+		row		  = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+		column	  = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
 		textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -114,10 +116,10 @@
 	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, 0.0, rect.origin.y);
 	CGContextScaleCTM(context, 1.0, -1.0);
-	CGContextTranslateCTM(context, 0.0, -CGRectGetMaxY(rect));
+	CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY(rect) );
 #endif
 	// center the title vertically
-	CGRect textRect = rect;
+	CGRect textRect		= rect;
 	CGSize theTitleSize = self.titleSize;
 	if ( theTitleSize.height < textRect.size.height ) {
 		CGFloat offset = (textRect.size.height - theTitleSize.height) / (CGFloat)2.0;
@@ -155,14 +157,14 @@
 -(CGSize)titleSize
 {
 	CGSize theTitleSize = CGSizeZero;
-	
-	NSString *theTitle = self.title;
+
+	NSString *theTitle		   = self.title;
 	CPTTextStyle *theTextStyle = self.textStyle;
-	
+
 	if ( theTitle && theTextStyle ) {
 		theTitleSize = [theTitle sizeWithTextStyle:theTextStyle];
 	}
-	
+
 	return theTitleSize;
 }
 

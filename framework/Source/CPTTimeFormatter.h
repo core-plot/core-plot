@@ -5,7 +5,7 @@
 @interface CPTTimeFormatter : NSNumberFormatter {
 	@private
 	NSDateFormatter *dateFormatter;
-    NSDate *referenceDate;
+	NSDate *referenceDate;
 }
 
 @property (nonatomic, readwrite, retain) NSDateFormatter *dateFormatter;

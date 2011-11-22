@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
-#import "CPTLayer.h"
-#import "CPTGraph.h"
 #import "CPTAnnotationHostLayer.h"
+#import "CPTGraph.h"
+#import "CPTLayer.h"
+#import <Foundation/Foundation.h>
 
 @class CPTAxis;
 @class CPTAxisLabelGroup;
@@ -12,7 +12,7 @@
 @class CPTFill;
 
 @interface CPTPlotArea : CPTAnnotationHostLayer {
-@private
+	@private
 	CPTGridLineGroup *minorGridLineGroup;
 	CPTGridLineGroup *majorGridLineGroup;
 	CPTAxisSet *axisSet;

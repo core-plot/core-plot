@@ -1,12 +1,13 @@
 #import "CPTAnnotation.h"
-#import "CPTLayer.h"
+
 #import "CPTAnnotationHostLayer.h"
+#import "CPTLayer.h"
 #import "NSCoderExtensions.h"
 
 /**	@brief An annotation positions a content layer relative to some anchor point.
  *
  *	Annotations can be used to add text or images that are anchored to a feature
- *	of a graph. For example, the graph title is an annotation anchored to the 
+ *	of a graph. For example, the graph title is an annotation anchored to the
  *	plot area frame.
  *
  *	@todo More documentation needed.
@@ -43,20 +44,20 @@
 
 -(id)init
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		annotationHostLayer = nil;
-		contentLayer = nil;
-        displacement = CGPointZero;
-		contentAnchorPoint = CGPointMake(0.5, 0.5);
-		rotation = 0.0;
-    }
-    return self;
+		contentLayer		= nil;
+		displacement		= CGPointZero;
+		contentAnchorPoint	= CGPointMake(0.5, 0.5);
+		rotation			= 0.0;
+	}
+	return self;
 }
 
 -(void)dealloc
 {
 	[contentLayer release];
-    [super dealloc];
+	[super dealloc];
 }
 
 #pragma mark -
@@ -73,14 +74,14 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
-		contentLayer = [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
-		contentAnchorPoint = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
-		displacement = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
-		rotation = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
+		contentLayer		= [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
+		contentAnchorPoint	= [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
+		displacement		= [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
+		rotation			= [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -94,51 +95,51 @@
 #pragma mark -
 #pragma mark Accessors
 
--(void)setContentLayer:(CPTLayer *)newLayer 
+-(void)setContentLayer:(CPTLayer *)newLayer
 {
-    if ( newLayer != contentLayer ) {
-    	[contentLayer removeFromSuperlayer];
-        [contentLayer release];
-        contentLayer = [newLayer retain];
+	if ( newLayer != contentLayer ) {
+		[contentLayer removeFromSuperlayer];
+		[contentLayer release];
+		contentLayer = [newLayer retain];
 		if ( contentLayer ) {
 			[annotationHostLayer addSublayer:contentLayer];
 		}
-    }
+	}
 }
 
--(void)setAnnotationHostLayer:(CPTAnnotationHostLayer *)newLayer 
+-(void)setAnnotationHostLayer:(CPTAnnotationHostLayer *)newLayer
 {
-    if ( newLayer != annotationHostLayer ) {
-    	[contentLayer removeFromSuperlayer];
-        annotationHostLayer = newLayer;
+	if ( newLayer != annotationHostLayer ) {
+		[contentLayer removeFromSuperlayer];
+		annotationHostLayer = newLayer;
 		if ( contentLayer ) {
 			[annotationHostLayer addSublayer:contentLayer];
 		}
-    }
+	}
 }
 
 -(void)setDisplacement:(CGPoint)newDisplacement
 {
-    if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
-        displacement = newDisplacement;
-        [self.contentLayer setNeedsLayout];
-    }
+	if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
+		displacement = newDisplacement;
+		[self.contentLayer setNeedsLayout];
+	}
 }
 
 -(void)setContentAnchorPoint:(CGPoint)newAnchorPoint
 {
-    if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
-        contentAnchorPoint = newAnchorPoint;
-        [self.contentLayer setNeedsLayout];
-    }
+	if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
+		contentAnchorPoint = newAnchorPoint;
+		[self.contentLayer setNeedsLayout];
+	}
 }
 
 -(void)setRotation:(CGFloat)newRotation
 {
-    if ( newRotation != rotation ) {
-        rotation = newRotation;
-        [self.contentLayer setNeedsLayout];
-    }
+	if ( newRotation != rotation ) {
+		rotation = newRotation;
+		[self.contentLayer setNeedsLayout];
+	}
 }
 
 @end

@@ -1,5 +1,5 @@
-#import "CPTLineStyleTests.h"
 #import "CPTLineStyle.h"
+#import "CPTLineStyleTests.h"
 
 @implementation CPTLineStyleTests
 
@@ -8,10 +8,10 @@
 
 -(void)testKeyedArchivingRoundTrip
 {
-	CPTLineStyle *lineStyle= [CPTLineStyle lineStyle];
-	
+	CPTLineStyle *lineStyle = [CPTLineStyle lineStyle];
+
 	CPTLineStyle *newLineStyle = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:lineStyle]];
-	
+
 	STAssertEquals(newLineStyle.lineCap, lineStyle.lineCap, @"Line cap not equal");
 	STAssertEquals(newLineStyle.lineJoin, lineStyle.lineJoin, @"Line join not equal");
 	STAssertEquals(newLineStyle.miterLimit, lineStyle.miterLimit, @"Miter limit not equal");

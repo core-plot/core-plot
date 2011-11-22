@@ -1,4 +1,5 @@
 #import "_CPTFillImage.h"
+
 #import "CPTImage.h"
 
 /**	@cond */
@@ -7,6 +8,7 @@
 @property (nonatomic, readwrite, copy) CPTImage *fillImage;
 
 @end
+
 /**	@endcond */
 
 /** @brief Draws CPTImage area fills.
@@ -28,7 +30,7 @@
  *  @param anImage The image.
  *  @return The initialized _CPTFillImage object.
  **/
--(id)initWithImage:(CPTImage *)anImage 
+-(id)initWithImage:(CPTImage *)anImage
 {
 	if ( (self = [super init]) ) {
 		fillImage = [anImage retain];
@@ -60,11 +62,11 @@
 -(void)fillPathInContext:(CGContextRef)theContext
 {
 	CGContextSaveGState(theContext);
-	
+
 	CGRect bounds = CGContextGetPathBoundingBox(theContext);
 	CGContextClip(theContext);
 	[self.fillImage drawInRect:bounds inContext:theContext];
-	
+
 	CGContextRestoreGState(theContext);
 }
 
@@ -74,8 +76,9 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
+
 	copy->fillImage = [self->fillImage copyWithZone:zone];
-	
+
 	return copy;
 }
 
@@ -94,10 +97,10 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		fillImage = [[coder decodeObjectForKey:@"_CPTFillImage.fillImage"] retain];
 	}
-    return self;
+	return self;
 }
 
 @end

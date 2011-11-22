@@ -1,22 +1,24 @@
 #import "CPTShadow.h"
-#import "CPTMutableShadow.h"
+
 #import "CPTColor.h"
+#import "CPTMutableShadow.h"
 #import "NSCoderExtensions.h"
 
 /**	@cond */
-@interface CPTShadow ()
+@interface CPTShadow()
 
 @property (nonatomic, readwrite, assign) CGSize shadowOffset;
 @property (nonatomic, readwrite, assign) CGFloat shadowBlurRadius;
 @property (nonatomic, readwrite, retain) CPTColor *shadowColor;
 
 @end
+
 /**	@endcond */
 
 /** @brief Immutable wrapper for various shadow drawing properties.
  *
  *	@see See Apple's <a href="http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadows/dq_shadows.html">Quartz 2D</a>
- *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a> 
+ *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a>
  *	documentation for more information about each of these properties.
  *
  *  In general, you will want to create a CPTMutableShadow if you want to customize properties.
@@ -50,22 +52,22 @@
  **/
 +(id)shadow
 {
-    return [[[self alloc] init] autorelease];
+	return [[[self alloc] init] autorelease];
 }
 
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		shadowOffset = CGSizeZero;
+		shadowOffset	 = CGSizeZero;
 		shadowBlurRadius = 0.0;
-		shadowColor = nil;
+		shadowColor		 = nil;
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    [shadowColor release];
+	[shadowColor release];
 
 	[super dealloc];
 }
@@ -82,12 +84,12 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		shadowOffset = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
+	if ( (self = [super init]) ) {
+		shadowOffset	 = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
 		shadowBlurRadius = [coder decodeCGFloatForKey:@"CPTShadow.shadowBlurRadius"];
-		shadowColor = [[coder decodeObjectForKey:@"CPTShadow.shadowColor"] retain];
+		shadowColor		 = [[coder decodeObjectForKey:@"CPTShadow.shadowColor"] retain];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -109,13 +111,13 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-    CPTShadow *shadowCopy = [[CPTShadow allocWithZone:zone] init];
- 	
-	shadowCopy->shadowOffset = self->shadowOffset;
+	CPTShadow *shadowCopy = [[CPTShadow allocWithZone:zone] init];
+
+	shadowCopy->shadowOffset	 = self->shadowOffset;
 	shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor = [self->shadowColor copy];
-    
-    return shadowCopy;
+	shadowCopy->shadowColor		 = [self->shadowColor copy];
+
+	return shadowCopy;
 }
 
 #pragma mark -
@@ -123,13 +125,13 @@
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
-    CPTShadow *shadowCopy = [[CPTMutableShadow allocWithZone:zone] init];
- 	
-	shadowCopy->shadowOffset = self->shadowOffset;
+	CPTShadow *shadowCopy = [[CPTMutableShadow allocWithZone:zone] init];
+
+	shadowCopy->shadowOffset	 = self->shadowOffset;
 	shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor = [self->shadowColor copy];
-    
-    return shadowCopy;
+	shadowCopy->shadowColor		 = [self->shadowColor copy];
+
+	return shadowCopy;
 }
 
 #pragma mark -
@@ -138,7 +140,7 @@
 -(void)setShadowBlurRadius:(CGFloat)newShadowBlurRadius
 {
 	NSParameterAssert(newShadowBlurRadius >= 0.0);
-	
+
 	if ( newShadowBlurRadius != shadowBlurRadius ) {
 		shadowBlurRadius = newShadowBlurRadius;
 	}

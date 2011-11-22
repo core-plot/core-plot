@@ -1,11 +1,11 @@
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 
-@interface CPTPlotDocument : NSDocument <CPTPlotDataSource>
+@interface CPTPlotDocument : NSDocument<CPTPlotDataSource>
 {
 	IBOutlet CPTGraphHostingView *graphView;
-    CPTXYGraph *graph;
-	
+	CPTXYGraph *graph;
+
 	double minimumValueForXAxis, maximumValueForXAxis, minimumValueForYAxis, maximumValueForYAxis;
 	double majorIntervalLengthForX, majorIntervalLengthForY;
 	NSMutableArray *dataPoints;

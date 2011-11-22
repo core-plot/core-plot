@@ -1,18 +1,19 @@
 #import "CPTRangePlot.h"
+
+#import "CPTColor.h"
+#import "CPTExceptions.h"
+#import "CPTFill.h"
 #import "CPTLegend.h"
+#import "CPTLineStyle.h"
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData.h"
-#import "CPTLineStyle.h"
-#import "CPTColor.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
+#import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
-#import "CPTExceptions.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "CPTPlotSpace.h"
-#import "CPTFill.h"
 #import "NSCoderExtensions.h"
 
 /**	@defgroup plotAnimationRangePlot Range Plot
@@ -25,12 +26,12 @@
  *	@endif
  **/
 
-NSString * const CPTRangePlotBindingXValues = @"xValues";		///< X values.
-NSString * const CPTRangePlotBindingYValues = @"yValues";		///< Y values.
-NSString * const CPTRangePlotBindingHighValues = @"highValues";	///< high values.
-NSString * const CPTRangePlotBindingLowValues = @"lowValues";	///< low values.
-NSString * const CPTRangePlotBindingLeftValues = @"leftValues";	///< left price values.
-NSString * const CPTRangePlotBindingRightValues = @"rightValues";///< right price values.
+NSString *const CPTRangePlotBindingXValues	   = @"xValues";     ///< X values.
+NSString *const CPTRangePlotBindingYValues	   = @"yValues";     ///< Y values.
+NSString *const CPTRangePlotBindingHighValues  = @"highValues";  ///< high values.
+NSString *const CPTRangePlotBindingLowValues   = @"lowValues";   ///< low values.
+NSString *const CPTRangePlotBindingLeftValues  = @"leftValues";  ///< left price values.
+NSString *const CPTRangePlotBindingRightValues = @"rightValues"; ///< right price values.
 
 /**	@cond */
 struct CGPointError {
@@ -43,7 +44,7 @@ struct CGPointError {
 };
 typedef struct CGPointError CGPointError;
 
-@interface CPTRangePlot ()
+@interface CPTRangePlot()
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
 @property (nonatomic, readwrite, copy) NSArray *yValues;
@@ -52,13 +53,10 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *rightValues;
 
--(void)drawRangeInContext:(CGContextRef)theContext
-				viewPoint:(CGPointError *)viewPoint
-			  halfGapSize:(CGSize)halfGapSize
-			 halfBarWidth:(CGFloat)halfBarWidth
-			  alignPoints:(BOOL)alignPoints;
+-(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 
 @end
+
 /**	@endcond */
 
 /**	@brief A plot class representing a range of values in one coordinate,
@@ -114,21 +112,22 @@ typedef struct CGPointError CGPointError;
 +(void)initialize
 {
 	if ( self == [CPTRangePlot class] ) {
-		[self exposeBinding:CPTRangePlotBindingXValues];	
-		[self exposeBinding:CPTRangePlotBindingYValues];	
-		[self exposeBinding:CPTRangePlotBindingHighValues];	
-		[self exposeBinding:CPTRangePlotBindingLowValues];	
-		[self exposeBinding:CPTRangePlotBindingLeftValues];	
-		[self exposeBinding:CPTRangePlotBindingRightValues];	
+		[self exposeBinding:CPTRangePlotBindingXValues];
+		[self exposeBinding:CPTRangePlotBindingYValues];
+		[self exposeBinding:CPTRangePlotBindingHighValues];
+		[self exposeBinding:CPTRangePlotBindingLowValues];
+		[self exposeBinding:CPTRangePlotBindingLeftValues];
+		[self exposeBinding:CPTRangePlotBindingRightValues];
 	}
 }
+
 #endif
 
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
 		barLineStyle = [[CPTLineStyle alloc] init];
-		areaFill = nil;
+		areaFill	 = nil;
 	}
 	return self;
 }
@@ -138,11 +137,10 @@ typedef struct CGPointError CGPointError;
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTRangePlot *theLayer = (CPTRangePlot *)layer;
 		barLineStyle = [theLayer->barLineStyle retain];
-		areaFill = nil;
+		areaFill	 = nil;
 	}
 	return self;
 }
-
 
 -(void)dealloc
 {
@@ -154,7 +152,7 @@ typedef struct CGPointError CGPointError;
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeObject:self.barLineStyle forKey:@"CPTRangePlot.barLineStyle"];
 	[coder encodeCGFloat:self.barWidth forKey:@"CPTRangePlot.barWidth"];
 	[coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
@@ -164,104 +162,107 @@ typedef struct CGPointError CGPointError;
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+	if ( (self = [super initWithCoder:coder]) ) {
 		barLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];
-		barWidth = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
-		gapHeight = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
-		gapWidth = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
-		areaFill = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+		barWidth	 = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
+		gapHeight	 = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
+		gapWidth	 = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
+		areaFill	 = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
 #pragma mark Determining Which Points to Draw
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
-{    
-	NSUInteger dataCount = self.cachedDataCount;
-    if ( dataCount == 0 ) return;
-	
-    CPTPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPTPlotRangeComparisonResult));
-    CPTPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPTPlotRangeComparisonResult));
-    BOOL *nanFlags = malloc(dataCount * sizeof(BOOL));
-    
-    CPTPlotRange *xRange = xyPlotSpace.xRange;
-    CPTPlotRange *yRange = xyPlotSpace.yRange;
-    
-    // Determine where each point lies in relation to range
-    if ( self.doublePrecisionCache ) {
-        const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const double x = *xBytes++;
-            const double y = *yBytes++;
-            xRangeFlags[i] = [xRange compareToDouble:x];
-            yRangeFlags[i] = [yRange compareToDouble:y];
-            nanFlags[i] = isnan(x) || isnan(y); 
-        }
-    }
-    else {
-        // Determine where each point lies in relation to range
-        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-        
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const NSDecimal *x = xBytes++;
-            const NSDecimal *y = yBytes++;
-            
-            xRangeFlags[i] = [xRange compareToDecimal:*x];
-            yRangeFlags[i] = [yRange compareToDecimal:*y];
-            nanFlags[i] = NSDecimalIsNotANumber(x);// || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
-        }
-    }
-    
-    // Ensure that whenever the path crosses over a region boundary, both points 
-    // are included. This ensures no lines are left out that shouldn't be.
-    pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange && 
-                         yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange && 
-                         !nanFlags[0]);
-    for ( NSUInteger i = 1; i < dataCount; i++ ) {
-        pointDrawFlags[i] = NO;
-        if ( !visibleOnly && !nanFlags[i-1] && !nanFlags[i] && ((xRangeFlags[i-1] != xRangeFlags[i]) || (xRangeFlags[i-1] != xRangeFlags[i]))) {
-            pointDrawFlags[i-1] = YES;
-            pointDrawFlags[i] = YES;
-        }
-        else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) && 
-                 (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-                 !nanFlags[i]) {
-            pointDrawFlags[i] = YES;
-        }
-    }
-    
-    free(xRangeFlags);
-    free(yRangeFlags);
-    free(nanFlags);
-}
-
--(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags 
 {
 	NSUInteger dataCount = self.cachedDataCount;
-	CPTPlotArea *thePlotArea = self.plotArea;
-	CPTPlotSpace *thePlotSpace = self.plotSpace;
-	CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
-	
-    // Calculate points
-    if ( self.doublePrecisionCache ) {
-        const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-        const double *highBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldHigh].data.bytes;
-        const double *lowBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
-        const double *leftBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
-        const double *rightBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+
+	if ( dataCount == 0 ) {
+		return;
+	}
+
+	CPTPlotRangeComparisonResult *xRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
+	CPTPlotRangeComparisonResult *yRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
+	BOOL *nanFlags							  = malloc( dataCount * sizeof(BOOL) );
+
+	CPTPlotRange *xRange = xyPlotSpace.xRange;
+	CPTPlotRange *yRange = xyPlotSpace.yRange;
+
+	// Determine where each point lies in relation to range
+	if ( self.doublePrecisionCache ) {
+		const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+		const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
 			const double x = *xBytes++;
 			const double y = *yBytes++;
-			const double high = *highBytes++;
-			const double low = *lowBytes++;			
-			const double left = *leftBytes++;
-			const double right = *rightBytes++;			
-			if ( !drawPointFlags[i] || isnan(x) || isnan(y)) {
+			xRangeFlags[i] = [xRange compareToDouble:x];
+			yRangeFlags[i] = [yRange compareToDouble:y];
+			nanFlags[i]	   = isnan(x) || isnan(y);
+		}
+	}
+	else {
+		// Determine where each point lies in relation to range
+		const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+		const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			const NSDecimal *x = xBytes++;
+			const NSDecimal *y = yBytes++;
+
+			xRangeFlags[i] = [xRange compareToDecimal:*x];
+			yRangeFlags[i] = [yRange compareToDecimal:*y];
+			nanFlags[i]	   = NSDecimalIsNotANumber(x); // || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
+		}
+	}
+
+	// Ensure that whenever the path crosses over a region boundary, both points
+	// are included. This ensures no lines are left out that shouldn't be.
+	pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
+						 yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
+						 !nanFlags[0]);
+	for ( NSUInteger i = 1; i < dataCount; i++ ) {
+		pointDrawFlags[i] = NO;
+		if ( !visibleOnly && !nanFlags[i - 1] && !nanFlags[i] && ( (xRangeFlags[i - 1] != xRangeFlags[i]) || (xRangeFlags[i - 1] != xRangeFlags[i]) ) ) {
+			pointDrawFlags[i - 1] = YES;
+			pointDrawFlags[i]	  = YES;
+		}
+		else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+				  (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+				  !nanFlags[i] ) {
+			pointDrawFlags[i] = YES;
+		}
+	}
+
+	free(xRangeFlags);
+	free(yRangeFlags);
+	free(nanFlags);
+}
+
+-(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags
+{
+	NSUInteger dataCount	   = self.cachedDataCount;
+	CPTPlotArea *thePlotArea   = self.plotArea;
+	CPTPlotSpace *thePlotSpace = self.plotSpace;
+	CGPoint originTransformed  = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
+
+	// Calculate points
+	if ( self.doublePrecisionCache ) {
+		const double *xBytes	 = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+		const double *yBytes	 = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+		const double *highBytes	 = (const double *)[self cachedNumbersForField:CPTRangePlotFieldHigh].data.bytes;
+		const double *lowBytes	 = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
+		const double *leftBytes	 = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
+		const double *rightBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			const double x	   = *xBytes++;
+			const double y	   = *yBytes++;
+			const double high  = *highBytes++;
+			const double low   = *lowBytes++;
+			const double left  = *leftBytes++;
+			const double right = *rightBytes++;
+			if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
 				viewPoints[i].x = NAN; // depending coordinates
 				viewPoints[i].y = NAN;
 			}
@@ -270,43 +271,43 @@ typedef struct CGPointError CGPointError;
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y;
 				CGPoint pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-				viewPoints[i].x = pos.x + originTransformed.x;
-				viewPoints[i].y = pos.y + originTransformed.y;
+				viewPoints[i].x			  = pos.x + originTransformed.x;
+				viewPoints[i].y			  = pos.y + originTransformed.y;
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y + high;
-				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-				viewPoints[i].high = pos.y + originTransformed.y;
+				pos						  = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].high		  = pos.y + originTransformed.y;
 				plotPoint[CPTCoordinateX] = x;
 				plotPoint[CPTCoordinateY] = y - low;
-				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-				viewPoints[i].low = pos.y + originTransformed.y;
-				plotPoint[CPTCoordinateX] = x-left;
+				pos						  = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].low		  = pos.y + originTransformed.y;
+				plotPoint[CPTCoordinateX] = x - left;
 				plotPoint[CPTCoordinateY] = y;
-				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-				viewPoints[i].left = pos.x + originTransformed.x;
-				plotPoint[CPTCoordinateX] = x+right;
+				pos						  = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].left		  = pos.x + originTransformed.x;
+				plotPoint[CPTCoordinateX] = x + right;
 				plotPoint[CPTCoordinateY] = y;
-				pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-				viewPoints[i].right = pos.x + originTransformed.x;
+				pos						  = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				viewPoints[i].right		  = pos.x + originTransformed.x;
 			}
-        }
-    }
-    else {
-        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-        const NSDecimal *highBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldHigh].data.bytes;
-        const NSDecimal *lowBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
-        const NSDecimal *leftBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
-        const NSDecimal *rightBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-			const NSDecimal x = *xBytes++;
-			const NSDecimal y = *yBytes++;
-			const NSDecimal high = *highBytes++;
-			const NSDecimal low = *lowBytes++;
-			const NSDecimal left = *leftBytes++;
+		}
+	}
+	else {
+		const NSDecimal *xBytes		= (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+		const NSDecimal *yBytes		= (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+		const NSDecimal *highBytes	= (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldHigh].data.bytes;
+		const NSDecimal *lowBytes	= (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
+		const NSDecimal *leftBytes	= (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
+		const NSDecimal *rightBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			const NSDecimal x	  = *xBytes++;
+			const NSDecimal y	  = *yBytes++;
+			const NSDecimal high  = *highBytes++;
+			const NSDecimal low	  = *lowBytes++;
+			const NSDecimal left  = *leftBytes++;
 			const NSDecimal right = *rightBytes++;
-			
-			if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y)) {
+
+			if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
 				viewPoints[i].x = NAN; // depending coordinates
 				viewPoints[i].y = NAN;
 			}
@@ -317,82 +318,88 @@ typedef struct CGPointError CGPointError;
 				CGPoint pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 				viewPoints[i].x = pos.x + originTransformed.x;
 				viewPoints[i].y = pos.y + originTransformed.y;
-				
-				if (!NSDecimalIsNotANumber(&high)) {
+
+				if ( !NSDecimalIsNotANumber(&high) ) {
 					plotPoint[CPTCoordinateX] = x;
 					NSDecimal yh;
 					NSDecimalAdd(&yh, &y, &high, NSRoundPlain);
 					plotPoint[CPTCoordinateY] = yh;
-					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-					viewPoints[i].high = pos.y + originTransformed.y;
-				} else {
+					pos						  = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].high		  = pos.y + originTransformed.y;
+				}
+				else {
 					viewPoints[i].high = NAN;
 				}
-				
-				if (!NSDecimalIsNotANumber(&low)) {
+
+				if ( !NSDecimalIsNotANumber(&low) ) {
 					plotPoint[CPTCoordinateX] = x;
 					NSDecimal yl;
 					NSDecimalSubtract(&yl, &y, &low, NSRoundPlain);
 					plotPoint[CPTCoordinateY] = yl;
-					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-					viewPoints[i].low = pos.y + originTransformed.y;
-				} else {
+					pos						  = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].low		  = pos.y + originTransformed.y;
+				}
+				else {
 					viewPoints[i].low = NAN;
 				}
-				
-				if (!NSDecimalIsNotANumber(&left)) {
+
+				if ( !NSDecimalIsNotANumber(&left) ) {
 					NSDecimal xl;
 					NSDecimalSubtract(&xl, &x, &left, NSRoundPlain);
 					plotPoint[CPTCoordinateX] = xl;
 					plotPoint[CPTCoordinateY] = y;
-					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-					viewPoints[i].left = pos.x + originTransformed.x;
-				} else {
+					pos						  = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].left		  = pos.x + originTransformed.x;
+				}
+				else {
 					viewPoints[i].left = NAN;
 				}
-				if (!NSDecimalIsNotANumber(&right)) {
+				if ( !NSDecimalIsNotANumber(&right) ) {
 					NSDecimal xr;
 					NSDecimalAdd(&xr, &x, &right, NSRoundPlain);
 					plotPoint[CPTCoordinateX] = xr;
 					plotPoint[CPTCoordinateY] = y;
-					pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-					viewPoints[i].right = pos.x + originTransformed.y; 
-				} else {
-					viewPoints[i].right = NAN; 
+					pos						  = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+					viewPoints[i].right		  = pos.x + originTransformed.y;
+				}
+				else {
+					viewPoints[i].right = NAN;
 				}
 			}
-        }
-    }
+		}
+	}
 }
 
 -(void)alignViewPointsToUserSpace:(CGPointError *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags
 {
 	NSUInteger dataCount = self.cachedDataCount;
+
 	for ( NSUInteger i = 0; i < dataCount; i++ ) {
 		if ( drawPointFlags[i] ) {
-			CGFloat x = viewPoints[i].x;
-			CGFloat y = viewPoints[i].y;
-			CGPoint pos = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].x,viewPoints[i].y));      
+			CGFloat x	= viewPoints[i].x;
+			CGFloat y	= viewPoints[i].y;
+			CGPoint pos = CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
 			viewPoints[i].x = pos.x;
 			viewPoints[i].y = pos.y;
-			
-			pos = CPTAlignPointToUserSpace(theContext, CGPointMake(x,viewPoints[i].high));      
-			viewPoints[i].high = pos.y;
-			pos = CPTAlignPointToUserSpace(theContext, CGPointMake(x,viewPoints[i].low));      
-			viewPoints[i].low = pos.y;
-			pos = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].left,y));      
-			viewPoints[i].left = pos.x;
-			pos = CPTAlignPointToUserSpace(theContext, CGPointMake(viewPoints[i].right,y));      
+
+			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].high) );
+			viewPoints[i].high	= pos.y;
+			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].low) );
+			viewPoints[i].low	= pos.y;
+			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].left, y) );
+			viewPoints[i].left	= pos.x;
+			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].right, y) );
 			viewPoints[i].right = pos.x;
 		}
 	}
 }
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound 
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound
 {
-	NSInteger result = NSNotFound;
-	NSInteger delta = (isLowerBound ? 1 : -1);
+	NSInteger result	 = NSNotFound;
+	NSInteger delta		 = (isLowerBound ? 1 : -1);
 	NSUInteger dataCount = self.cachedDataCount;
+
 	if ( dataCount > 0 ) {
 		NSUInteger initialIndex = (isLowerBound ? 0 : dataCount - 1);
 		for ( NSUInteger i = initialIndex; i < dataCount; i += delta ) {
@@ -400,8 +407,10 @@ typedef struct CGPointError CGPointError;
 				result = i;
 				break;
 			}
-			if ( (delta < 0) && (i == 0) ) break;
-		}	
+			if ( (delta < 0) && (i == 0) ) {
+				break;
+			}
+		}
 	}
 	return result;
 }
@@ -410,9 +419,9 @@ typedef struct CGPointError CGPointError;
 #pragma mark Data Loading
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
-{	 
+{
 	[super reloadDataInIndexRange:indexRange];
-	
+
 	if ( self.dataSource ) {
 		id newXValues = [self numbersFromDataSourceForField:CPTRangePlotFieldX recordIndexRange:indexRange];
 		[self cacheNumbers:newXValues forField:CPTRangePlotFieldX atRecordIndex:indexRange.location];
@@ -428,11 +437,11 @@ typedef struct CGPointError CGPointError;
 		[self cacheNumbers:newRightValues forField:CPTRangePlotFieldRight atRecordIndex:indexRange.location];
 	}
 	else {
-		self.xValues = nil;
-		self.yValues = nil;
-		self.highValues = nil;
-		self.lowValues = nil;
-		self.leftValues = nil;
+		self.xValues	 = nil;
+		self.yValues	 = nil;
+		self.highValues	 = nil;
+		self.lowValues	 = nil;
+		self.leftValues	 = nil;
 		self.rightValues = nil;
 	}
 }
@@ -440,109 +449,116 @@ typedef struct CGPointError CGPointError;
 #pragma mark -
 #pragma mark Drawing
 
--(void)renderAsVectorInContext:(CGContextRef)theContext {
-	if ( self.hidden ) return;
-	
+-(void)renderAsVectorInContext:(CGContextRef)theContext
+{
+	if ( self.hidden ) {
+		return;
+	}
+
 	CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTRangePlotFieldX];
 	CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTRangePlotFieldY];
-	
-	if ( xValueData == nil || yValueData == nil) return;
+
+	if ( (xValueData == nil) || (yValueData == nil) ) {
+		return;
+	}
 	NSUInteger dataCount = self.cachedDataCount;
-	if ( dataCount == 0 ) return;
-	if (xValueData.numberOfSamples != yValueData.numberOfSamples) {
+	if ( dataCount == 0 ) {
+		return;
+	}
+	if ( xValueData.numberOfSamples != yValueData.numberOfSamples ) {
 		[NSException raise:CPTException format:@"Number of x and y values do not match"];
 	}
-	
+
 	[super renderAsVectorInContext:theContext];
-	
+
 	// Calculate view points, and align to user space
-	CGPointError *viewPoints = malloc(dataCount * sizeof(CGPointError));
-	BOOL *drawPointFlags = malloc(dataCount * sizeof(BOOL));
-	
+	CGPointError *viewPoints = malloc( dataCount * sizeof(CGPointError) );
+	BOOL *drawPointFlags	 = malloc( dataCount * sizeof(BOOL) );
+
 	CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
 	[self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO];
 	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
 	if ( self.alignsPointsToPixels ) {
 		[self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags];
 	}
-	
+
 	// Get extreme points
-	NSUInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
+	NSUInteger lastDrawnPointIndex	= [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:NO];
 	NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
-	
+
 	if ( firstDrawnPointIndex != NSNotFound ) {
-        if ( self.areaFill ) {
-            CGMutablePathRef fillPath = CGPathCreateMutable();
-            
-            // First do the top points
-            for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
-                CGFloat x = viewPoints[i].x;
-                CGFloat y = viewPoints[i].high;
-                if ( isnan(y) ) {
-                    y = viewPoints[i].y;
+		if ( self.areaFill ) {
+			CGMutablePathRef fillPath = CGPathCreateMutable();
+
+			// First do the top points
+			for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+				CGFloat x = viewPoints[i].x;
+				CGFloat y = viewPoints[i].high;
+				if ( isnan(y) ) {
+					y = viewPoints[i].y;
 				}
-                
-                if (!isnan(x) && !isnan(y)) {
-                    if (i == firstDrawnPointIndex) {
-                        CGPathMoveToPoint(fillPath, NULL, x, y);
-                    }
+
+				if ( !isnan(x) && !isnan(y) ) {
+					if ( i == firstDrawnPointIndex ) {
+						CGPathMoveToPoint(fillPath, NULL, x, y);
+					}
 					else {
-                        CGPathAddLineToPoint(fillPath, NULL, x, y);
-                    }
-                }
-            }
-            
-            // Then reverse over bottom points
-            for ( NSUInteger j = lastDrawnPointIndex; j >= firstDrawnPointIndex; j-- ) {
-                CGFloat x = viewPoints[j].x;
-                CGFloat y = viewPoints[j].low;
-                if ( isnan(y) ) {
-                    y = viewPoints[j].y;
+						CGPathAddLineToPoint(fillPath, NULL, x, y);
+					}
 				}
-				
-                if (!isnan(x) && !isnan(y)) {
-                    CGPathAddLineToPoint(fillPath, NULL, x, y);
-                }
-                if (j == firstDrawnPointIndex) {
-                    // This could be done a bit more elegant
-                    break;
-                }
-            }
-            
-            CGContextBeginPath(theContext);
-            CGContextAddPath(theContext, fillPath);
-            
-            // Close the path to have a closed loop
-            CGPathCloseSubpath(fillPath);
-            
-            CGContextSaveGState(theContext);
-            
-            // Pick the current linestyle with a low alpha component
-            [self.areaFill fillPathInContext:theContext];
-            
-            CGPathRelease(fillPath);
-        }
-        
+			}
+
+			// Then reverse over bottom points
+			for ( NSUInteger j = lastDrawnPointIndex; j >= firstDrawnPointIndex; j-- ) {
+				CGFloat x = viewPoints[j].x;
+				CGFloat y = viewPoints[j].low;
+				if ( isnan(y) ) {
+					y = viewPoints[j].y;
+				}
+
+				if ( !isnan(x) && !isnan(y) ) {
+					CGPathAddLineToPoint(fillPath, NULL, x, y);
+				}
+				if ( j == firstDrawnPointIndex ) {
+					// This could be done a bit more elegant
+					break;
+				}
+			}
+
+			CGContextBeginPath(theContext);
+			CGContextAddPath(theContext, fillPath);
+
+			// Close the path to have a closed loop
+			CGPathCloseSubpath(fillPath);
+
+			CGContextSaveGState(theContext);
+
+			// Pick the current linestyle with a low alpha component
+			[self.areaFill fillPathInContext:theContext];
+
+			CGPathRelease(fillPath);
+		}
+
 		CPTLineStyle *theBarLineStyle = self.barLineStyle;
-		
-        if ( theBarLineStyle ) {
+
+		if ( theBarLineStyle ) {
 			[theBarLineStyle setLineStyleInContext:theContext];
-			
-			CGSize halfGapSize = CGSizeMake(self.gapWidth * (CGFloat)0.5, self.gapHeight * (CGFloat)0.5);
+
+			CGSize halfGapSize	 = CGSizeMake(self.gapWidth * (CGFloat)0.5, self.gapHeight * (CGFloat)0.5);
 			CGFloat halfBarWidth = self.barWidth * (CGFloat)0.5;
-			BOOL alignPoints = self.alignsPointsToPixels;
-			
-            for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+			BOOL alignPoints	 = self.alignsPointsToPixels;
+
+			for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 				[self drawRangeInContext:theContext
 							   viewPoint:&viewPoints[i]
 							 halfGapSize:halfGapSize
 							halfBarWidth:halfBarWidth
 							 alignPoints:alignPoints];
-            }
-        }
-        
+			}
+		}
+
 		free(viewPoints);
-		free(drawPointFlags);	
+		free(drawPointFlags);
 	}
 }
 
@@ -554,103 +570,103 @@ typedef struct CGPointError CGPointError;
 {
 	if ( !isnan(viewPoint->x) && !isnan(viewPoint->y) ) {
 		CGMutablePathRef path = CGPathCreateMutable();
-		
+
 		// centre-high
 		if ( !isnan(viewPoint->high) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y + halfGapSize.height);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->x, viewPoint->high);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->x, viewPoint->high);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// centre-low
 		if ( !isnan(viewPoint->low) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y - halfGapSize.height);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->x, viewPoint->low);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->x, viewPoint->low);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// top bar
 		if ( !isnan(viewPoint->high) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->high);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// bottom bar
 		if ( !isnan(viewPoint->low) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->low);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// centre-left
 		if ( !isnan(viewPoint->left) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfGapSize.width, viewPoint->y);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->left, viewPoint->y);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->left, viewPoint->y);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// centre-right
 		if ( !isnan(viewPoint->right) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->x + halfGapSize.width, viewPoint->y);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->right, viewPoint->y);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->right, viewPoint->y);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
-		} 
-		
+		}
+
 		// left bar
 		if ( !isnan(viewPoint->left) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->left, viewPoint->y - halfBarWidth);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		// right bar
 		if ( !isnan(viewPoint->right) ) {
 			CGPoint alignedHighPoint = CGPointMake(viewPoint->right, viewPoint->y - halfBarWidth);
-			CGPoint alignedLowPoint = CGPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
+			CGPoint alignedLowPoint	 = CGPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
 			if ( alignPoints ) {
 				alignedHighPoint = CPTAlignPointToUserSpace(theContext, alignedHighPoint);
-				alignedLowPoint = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(theContext, alignedLowPoint);
 			}
 			CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
 			CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
 		}
-		
+
 		CGContextBeginPath(theContext);
 		CGContextAddPath(theContext, path);
 		CGContextStrokePath(theContext);
@@ -661,14 +677,14 @@ typedef struct CGPointError CGPointError;
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
 {
 	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
-	
+
 	CPTFill *theFill = self.areaFill;
-	
+
 	if ( theFill ) {
 		CGPathRef swatchPath;
 		CGFloat radius = legend.swatchCornerRadius;
 		if ( radius > 0.0 ) {
-			radius = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
+			radius	   = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
 			swatchPath = CreateRoundedRectPath(rect, radius);
 		}
 		else {
@@ -676,27 +692,27 @@ typedef struct CGPointError CGPointError;
 			CGPathAddRect(mutablePath, NULL, rect);
 			swatchPath = mutablePath;
 		}
-		
+
 		CGContextBeginPath(context);
 		CGContextAddPath(context, swatchPath);
 		[theFill fillPathInContext:context];
-		
+
 		CGPathRelease(swatchPath);
 	}
-	
+
 	CPTLineStyle *theBarLineStyle = self.barLineStyle;
-	
+
 	if ( theBarLineStyle ) {
 		[theBarLineStyle setLineStyleInContext:context];
-		
+
 		CGPointError viewPoint;
-		viewPoint.x = CGRectGetMidX(rect);
-		viewPoint.y = CGRectGetMidY(rect);
-		viewPoint.high = CGRectGetMaxY(rect);
-		viewPoint.low = CGRectGetMinY(rect);
-		viewPoint.left = CGRectGetMinX(rect);
+		viewPoint.x		= CGRectGetMidX(rect);
+		viewPoint.y		= CGRectGetMidY(rect);
+		viewPoint.high	= CGRectGetMaxY(rect);
+		viewPoint.low	= CGRectGetMinY(rect);
+		viewPoint.left	= CGRectGetMinX(rect);
 		viewPoint.right = CGRectGetMaxX(rect);
-		
+
 		[self drawRangeInContext:context
 					   viewPoint:&viewPoint
 					 halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / (CGFloat)2.0) * (CGFloat)0.5, MIN(self.gapHeight, rect.size.height / (CGFloat)2.0) * (CGFloat)0.5)
@@ -711,15 +727,15 @@ typedef struct CGPointError CGPointError;
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
 	static NSArray *keys = nil;
-	
+
 	if ( !keys ) {
 		keys = [[NSArray alloc] initWithObjects:
 				@"barWidth",
-				@"gapHeight", 
-				@"gapWidth", 
+				@"gapHeight",
+				@"gapWidth",
 				nil];
 	}
-	
+
 	if ( [keys containsObject:aKey] ) {
 		return YES;
 	}
@@ -731,56 +747,59 @@ typedef struct CGPointError CGPointError;
 #pragma mark -
 #pragma mark Fields
 
--(NSUInteger)numberOfFields 
+-(NSUInteger)numberOfFields
 {
-    return 6;
+	return 6;
 }
 
--(NSArray *)fieldIdentifiers 
+-(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObjects:
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldX], 
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldY], 
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldHigh], 
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldLow], 
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldLeft], 
-			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldRight], 
+	return [NSArray arrayWithObjects:
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldX],
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldY],
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldHigh],
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldLow],
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldLeft],
+			[NSNumber numberWithUnsignedInt:CPTRangePlotFieldRight],
 			nil];
 }
 
--(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord 
+-(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
 	NSArray *result = nil;
-	switch (coord) {
-        case CPTCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldX]];
-            break;
-        case CPTCoordinateY:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldY]];			
-            break;
-        default:
-        	[NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];
-            break;
-    }
-    return result;
+
+	switch ( coord ) {
+		case CPTCoordinateX:
+			result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldX]];
+			break;
+
+		case CPTCoordinateY:
+			result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldY]];
+			break;
+
+		default:
+			[NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];
+			break;
+	}
+	return result;
 }
 
 #pragma mark -
 #pragma mark Data Labels
 
-
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
 	NSNumber *xValue = [self cachedNumberForField:CPTRangePlotFieldX recordIndex:index];
-	
+
 	BOOL positiveDirection = YES;
-	CPTPlotRange *yRange = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
-	if ( CPTDecimalLessThan(yRange.length, CPTDecimalFromInteger(0)) ) {
+	CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
+
+	if ( CPTDecimalLessThan( yRange.length, CPTDecimalFromInteger(0) ) ) {
 		positiveDirection = !positiveDirection;
 	}
-	
+
 	NSNumber *yValue;
-	NSArray *yValues = [NSArray arrayWithObject:[self cachedNumberForField:CPTRangePlotFieldY recordIndex:index]];
+	NSArray *yValues	   = [NSArray arrayWithObject:[self cachedNumberForField:CPTRangePlotFieldY recordIndex:index]];
 	NSArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
 	if ( positiveDirection ) {
 		yValue = [yValuesSorted lastObject];
@@ -788,10 +807,10 @@ typedef struct CGPointError CGPointError;
 	else {
 		yValue = [yValuesSorted objectAtIndex:0];
 	}
-	
-	label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+
+	label.anchorPlotPoint	  = [NSArray arrayWithObjects:xValue, yValue, nil];
 	label.contentLayer.hidden = isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
-	
+
 	if ( positiveDirection ) {
 		label.displacement = CGPointMake(0.0, self.labelOffset);
 	}
@@ -815,12 +834,12 @@ typedef struct CGPointError CGPointError;
 
 -(void)setAreaFill:(CPTFill *)newFill
 {
-    if ( newFill != areaFill ) {
-    	[areaFill release];
-        areaFill = [newFill copy];
-        [self setNeedsDisplay];
+	if ( newFill != areaFill ) {
+		[areaFill release];
+		areaFill = [newFill copy];
+		[self setNeedsDisplay];
 		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
-    }
+	}
 }
 
 -(void)setBarWidth:(CGFloat)newBarWidth
@@ -847,64 +866,64 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
--(void)setXValues:(NSArray *)newValues 
+-(void)setXValues:(NSArray *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldX];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldX];
 }
 
--(NSArray *)xValues 
+-(NSArray *)xValues
 {
-    return [[self cachedNumbersForField:CPTRangePlotFieldX] sampleArray];
+	return [[self cachedNumbersForField:CPTRangePlotFieldX] sampleArray];
 }
 
--(void)setYValues:(NSArray *)newValues 
+-(void)setYValues:(NSArray *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldY];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldY];
 }
 
--(NSArray *)yValues 
+-(NSArray *)yValues
 {
-    return [[self cachedNumbersForField:CPTRangePlotFieldY] sampleArray];
+	return [[self cachedNumbersForField:CPTRangePlotFieldY] sampleArray];
 }
 
--(CPTMutableNumericData *)highValues 
+-(CPTMutableNumericData *)highValues
 {
-    return [self cachedNumbersForField:CPTRangePlotFieldHigh];
+	return [self cachedNumbersForField:CPTRangePlotFieldHigh];
 }
 
--(void)setHighValues:(CPTMutableNumericData *)newValues 
+-(void)setHighValues:(CPTMutableNumericData *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldHigh];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldHigh];
 }
 
--(CPTMutableNumericData *)lowValues 
+-(CPTMutableNumericData *)lowValues
 {
-    return [self cachedNumbersForField:CPTRangePlotFieldLow];
+	return [self cachedNumbersForField:CPTRangePlotFieldLow];
 }
 
--(void)setLowValues:(CPTMutableNumericData *)newValues 
+-(void)setLowValues:(CPTMutableNumericData *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldLow];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldLow];
 }
 
--(CPTMutableNumericData *)leftValues 
+-(CPTMutableNumericData *)leftValues
 {
-    return [self cachedNumbersForField:CPTRangePlotFieldLeft];
+	return [self cachedNumbersForField:CPTRangePlotFieldLeft];
 }
 
--(void)setLeftValues:(CPTMutableNumericData *)newValues 
+-(void)setLeftValues:(CPTMutableNumericData *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldLeft];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldLeft];
 }
 
--(CPTMutableNumericData *)rightValues 
+-(CPTMutableNumericData *)rightValues
 {
-    return [self cachedNumbersForField:CPTRangePlotFieldRight];
+	return [self cachedNumbersForField:CPTRangePlotFieldRight];
 }
 
--(void)setRightValues:(CPTMutableNumericData *)newValues 
+-(void)setRightValues:(CPTMutableNumericData *)newValues
 {
-    [self cacheNumbers:newValues forField:CPTRangePlotFieldRight];
+	[self cacheNumbers:newValues forField:CPTRangePlotFieldRight];
 }
 
 @end

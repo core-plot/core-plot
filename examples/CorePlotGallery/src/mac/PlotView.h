@@ -8,16 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol PlotViewDelegate <NSObject>
+@protocol PlotViewDelegate<NSObject>
 
-- (void)setFrameSize:(NSSize)newSize;
+-(void)setFrameSize:(NSSize)newSize;
 
 @end
 
-
 @interface PlotView : NSView
 {
-    id<PlotViewDelegate> delegate;
+	id<PlotViewDelegate> delegate;
 }
 
 @property (nonatomic, retain) id<PlotViewDelegate> delegate;

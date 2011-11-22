@@ -5,11 +5,11 @@
 
 #import "PlotItem.h"
 
-@interface OHLCPlot : PlotItem <CPTPlotDataSource>
+@interface OHLCPlot : PlotItem<CPTPlotDataSource>
 {
-@private
-	CPTGraph		*graph;
-    NSArray			*plotData;
+	@private
+	CPTGraph *graph;
+	NSArray *plotData;
 }
 
 @end

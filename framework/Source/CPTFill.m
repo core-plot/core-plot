@@ -1,10 +1,10 @@
-
 #import "CPTFill.h"
+
+#import "CPTColor.h"
+#import "CPTImage.h"
 #import "_CPTFillColor.h"
 #import "_CPTFillGradient.h"
 #import "_CPTFillImage.h"
-#import "CPTColor.h"
-#import "CPTImage.h"
 
 /** @brief Draws area fills.
  *
@@ -22,7 +22,7 @@
  *  @param aColor The color.
  *  @return A new CPTFill instance initialized with the given color.
  **/
-+(CPTFill *)fillWithColor:(CPTColor *)aColor 
++(CPTFill *)fillWithColor:(CPTColor *)aColor
 {
 	return [[(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor] autorelease];
 }
@@ -31,16 +31,16 @@
  *  @param aGradient The gradient.
  *  @return A new CPTFill instance initialized with the given gradient.
  **/
-+(CPTFill *)fillWithGradient:(CPTGradient *)aGradient 
++(CPTFill *)fillWithGradient:(CPTGradient *)aGradient
 {
-	return [[[_CPTFillGradient alloc] initWithGradient: aGradient] autorelease];
+	return [[[_CPTFillGradient alloc] initWithGradient:aGradient] autorelease];
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given image.
  *  @param anImage The image.
  *  @return A new CPTFill instance initialized with the given image.
  **/
-+(CPTFill *)fillWithImage:(CPTImage *)anImage 
++(CPTFill *)fillWithImage:(CPTImage *)anImage
 {
 	return [[(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage] autorelease];
 }
@@ -49,12 +49,12 @@
  *  @param aColor The color.
  *  @return The initialized CPTFill object.
  **/
--(id)initWithColor:(CPTColor *)aColor 
+-(id)initWithColor:(CPTColor *)aColor
 {
 	[self release];
-	
-	self = [(_CPTFillColor *)[_CPTFillColor alloc] initWithColor: aColor];
-	
+
+	self = [(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor];
+
 	return self;
 }
 
@@ -62,12 +62,12 @@
  *  @param aGradient The gradient.
  *  @return The initialized CPTFill object.
  **/
--(id)initWithGradient:(CPTGradient *)aGradient 
+-(id)initWithGradient:(CPTGradient *)aGradient
 {
 	[self release];
-	
-	self = [[_CPTFillGradient alloc] initWithGradient: aGradient];
-	
+
+	self = [[_CPTFillGradient alloc] initWithGradient:aGradient];
+
 	return self;
 }
 
@@ -75,12 +75,12 @@
  *  @param anImage The image.
  *  @return The initialized CPTFill object.
  **/
--(id)initWithImage:(CPTImage *)anImage 
+-(id)initWithImage:(CPTImage *)anImage
 {
 	[self release];
-	
-	self = [(_CPTFillImage *)[_CPTFillImage alloc] initWithImage: anImage];
-	
+
+	self = [(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage];
+
 	return self;
 }
 
@@ -104,20 +104,21 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
 	id fill = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
+
 	if ( fill ) {
 		return [self initWithColor:fill];
 	}
-	
+
 	fill = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
 	if ( fill ) {
 		return [self initWithGradient:fill];
 	}
-	
+
 	fill = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
 	if ( fill ) {
 		return [self initWithImage:fill];
 	}
-	
+
 	return self;
 }
 

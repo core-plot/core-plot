@@ -1,11 +1,11 @@
-#import <Foundation/Foundation.h>
 #import "CPTNumericDataType.h"
+#import <Foundation/Foundation.h>
 
-@interface CPTNumericData : NSObject <NSCopying, NSMutableCopying, NSCoding> {
-@protected
-    NSData *data;
-    CPTNumericDataType dataType;
-    NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
+@interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding> {
+	@protected
+	NSData *data;
+	CPTNumericDataType dataType;
+	NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
 }
 
 /// @name Data Buffer
@@ -32,40 +32,18 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTNumericData *)numericDataWithData:(NSData *)newData
-							 dataType:(CPTNumericDataType)newDataType
-                                shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithData:(NSData *)newData
-					   dataTypeString:(NSString *)newDataTypeString
-                                shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithArray:(NSArray *)newData
-							  dataType:(CPTNumericDataType)newDataType
-								 shape:(NSArray *)shapeArray;
-
-+(CPTNumericData *)numericDataWithArray:(NSArray *)newData
-						dataTypeString:(NSString *)newDataTypeString
-								 shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
++(CPTNumericData *)numericDataWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Initialization
 /// @{
--(id)initWithData:(NSData *)newData
-		 dataType:(CPTNumericDataType)newDataType
-            shape:(NSArray *)shapeArray;
-
--(id)initWithData:(NSData *)newData
-   dataTypeString:(NSString *)newDataTypeString
-            shape:(NSArray *)shapeArray;
-
--(id)initWithArray:(NSArray *)newData
-		  dataType:(CPTNumericDataType)newDataType
-			 shape:(NSArray *)shapeArray;
-
--(id)initWithArray:(NSArray *)newData
-	dataTypeString:(NSString *)newDataTypeString
-			 shape:(NSArray *)shapeArray;
+-(id)initWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
+-(id)initWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
+-(id)initWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
+-(id)initWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
 ///	@}
 
 /// @name Samples

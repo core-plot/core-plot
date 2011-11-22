@@ -1,11 +1,11 @@
-#import <Foundation/Foundation.h>
-#import "CPTGraph.h"
 #import "CPTDefinitions.h"
+#import "CPTGraph.h"
+#import <Foundation/Foundation.h>
 
 @interface CPTXYGraph : CPTGraph {
-@private
-    CPTScaleType xScaleType;
-    CPTScaleType yScaleType;
+	@private
+	CPTScaleType xScaleType;
+	CPTScaleType yScaleType;
 }
 
 /// @name Initialization

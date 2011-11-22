@@ -5,13 +5,13 @@
 
 #import "PlotItem.h"
 
-@interface RangePlot : PlotItem <CPTPlotSpaceDelegate, CPTPlotDataSource>
+@interface RangePlot : PlotItem<CPTPlotSpaceDelegate, CPTPlotDataSource>
 {
-@private
-	CPTGraph		*graph;
-    NSArray			*plotData;
-    CPTFill			*areaFill;
-    CPTLineStyle	*barLineStyle;
+	@private
+	CPTGraph *graph;
+	NSArray *plotData;
+	CPTFill *areaFill;
+	CPTLineStyle *barLineStyle;
 }
 
 @end

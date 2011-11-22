@@ -1,6 +1,7 @@
+#import "CPTGridLineGroup.h"
+
 #import "CPTAxis.h"
 #import "CPTAxisSet.h"
-#import "CPTGridLineGroup.h"
 #import "CPTGridLines.h"
 #import "CPTPlotArea.h"
 
@@ -29,7 +30,7 @@
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
 		plotArea = nil;
-		major = NO;
+		major	 = NO;
 
 		self.needsDisplayOnBoundsChange = YES;
 	}
@@ -40,9 +41,9 @@
 {
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTGridLineGroup *theLayer = (CPTGridLineGroup *)layer;
-		
+
 		plotArea = theLayer->plotArea;
-		major = theLayer->major;
+		major	 = theLayer->major;
 	}
 	return self;
 }
@@ -53,18 +54,18 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeConditionalObject:self.plotArea forKey:@"CPTGridLineGroup.plotArea"];
 	[coder encodeBool:self.major forKey:@"CPTGridLineGroup.major"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+	if ( (self = [super initWithCoder:coder]) ) {
 		plotArea = [coder decodeObjectForKey:@"CPTGridLineGroup.plotArea"];
-		major = [coder decodeBoolForKey:@"CPTGridLineGroup.major"];
+		major	 = [coder decodeBoolForKey:@"CPTGridLineGroup.major"];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -72,8 +73,10 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	if ( self.hidden ) return;
-	
+	if ( self.hidden ) {
+		return;
+	}
+
 	for ( CPTAxis *axis in self.plotArea.axisSet.axes ) {
 		if ( !axis.separateLayers ) {
 			[axis drawGridLinesInContext:theContext isMajor:self.major];
@@ -88,11 +91,11 @@
 {
 	if ( newPlotArea != plotArea ) {
 		plotArea = newPlotArea;
-		
+
 		if ( plotArea ) {
 			[self setNeedsDisplay];
 		}
-	}	
+	}
 }
 
 @end

@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface PlotHostView : UIView
 {
-
 }
 
 @end

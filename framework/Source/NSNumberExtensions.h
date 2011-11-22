@@ -14,4 +14,3 @@
 -(NSDecimalNumber *)decimalNumber;
 
 @end
-

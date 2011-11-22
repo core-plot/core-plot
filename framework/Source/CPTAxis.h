@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
-#import "CPTLayer.h"
 #import "CPTDefinitions.h"
+#import "CPTLayer.h"
 #import "CPTTextStyle.h"
+#import <Foundation/Foundation.h>
 
 ///	@file
 
@@ -17,21 +17,24 @@
 @class CPTPlotArea;
 @class CPTShadow;
 
-/**	@brief Enumeration of labeling policies
+/**
+ *	@brief Enumeration of labeling policies
  **/
 typedef enum _CPTAxisLabelingPolicy {
-    CPTAxisLabelingPolicyNone,					///< No labels provided; user sets labels and tick locations.
-    CPTAxisLabelingPolicyLocationsProvided,		///< User sets tick locations; axis makes labels.
-    CPTAxisLabelingPolicyFixedInterval,			///< Fixed interval labeling policy.
-	CPTAxisLabelingPolicyAutomatic,				///< Automatic labeling policy.
-	CPTAxisLabelingPolicyEqualDivisions			///< Divide the plot range into equal parts.
-} CPTAxisLabelingPolicy;
+	CPTAxisLabelingPolicyNone,              ///< No labels provided; user sets labels and tick locations.
+	CPTAxisLabelingPolicyLocationsProvided, ///< User sets tick locations; axis makes labels.
+	CPTAxisLabelingPolicyFixedInterval,     ///< Fixed interval labeling policy.
+	CPTAxisLabelingPolicyAutomatic,         ///< Automatic labeling policy.
+	CPTAxisLabelingPolicyEqualDivisions     ///< Divide the plot range into equal parts.
+}
+CPTAxisLabelingPolicy;
 
 #pragma mark -
 
-/**	@brief Axis labeling delegate.
+/**
+ *	@brief Axis labeling delegate.
  **/
-@protocol CPTAxisDelegate <NSObject>
+@protocol CPTAxisDelegate<NSObject>
 
 @optional
 
@@ -74,32 +77,32 @@ typedef enum _CPTAxisLabelingPolicy {
 
 #pragma mark -
 
-@interface CPTAxis : CPTLayer {   
+@interface CPTAxis : CPTLayer {
 	@private
-    CPTCoordinate coordinate;
+	CPTCoordinate coordinate;
 	CPTPlotSpace *plotSpace;
-    NSSet *majorTickLocations;
-    NSSet *minorTickLocations;
-    CGFloat majorTickLength;
-    CGFloat minorTickLength;
+	NSSet *majorTickLocations;
+	NSSet *minorTickLocations;
+	CGFloat majorTickLength;
+	CGFloat minorTickLength;
 	CGFloat labelOffset;
 	CGFloat minorTickLabelOffset;
-    CGFloat labelRotation;
-    CGFloat minorTickLabelRotation;
+	CGFloat labelRotation;
+	CGFloat minorTickLabelRotation;
 	CPTAlignment labelAlignment;
 	CPTAlignment minorTickLabelAlignment;
-    CPTLineStyle *axisLineStyle;
-    CPTLineStyle *majorTickLineStyle;
-    CPTLineStyle *minorTickLineStyle;
-    CPTLineStyle *majorGridLineStyle;
-    CPTLineStyle *minorGridLineStyle;
+	CPTLineStyle *axisLineStyle;
+	CPTLineStyle *majorTickLineStyle;
+	CPTLineStyle *minorTickLineStyle;
+	CPTLineStyle *majorGridLineStyle;
+	CPTLineStyle *minorGridLineStyle;
 	CPTLineCap *axisLineCapMin;
 	CPTLineCap *axisLineCapMax;
-    NSDecimal labelingOrigin;			
-    NSDecimal majorIntervalLength;	
-    NSUInteger minorTicksPerInterval;
-    NSUInteger preferredNumberOfMajorTicks;
-    CPTAxisLabelingPolicy labelingPolicy;
+	NSDecimal labelingOrigin;
+	NSDecimal majorIntervalLength;
+	NSUInteger minorTicksPerInterval;
+	NSUInteger preferredNumberOfMajorTicks;
+	CPTAxisLabelingPolicy labelingPolicy;
 	CPTTextStyle *labelTextStyle;
 	CPTTextStyle *minorTickLabelTextStyle;
 	CPTTextStyle *titleTextStyle;
@@ -113,12 +116,12 @@ typedef enum _CPTAxisLabelingPolicy {
 	NSString *title;
 	CGFloat titleOffset;
 	CGFloat titleRotation;
-	NSDecimal titleLocation;	
-    CPTSign tickDirection;
-    BOOL needsRelabel;
+	NSDecimal titleLocation;
+	CPTSign tickDirection;
+	BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
-    CPTPlotRange *visibleRange;
-    CPTPlotRange *gridLinesRange;
+	CPTPlotRange *visibleRange;
+	CPTPlotRange *gridLinesRange;
 	NSArray *alternatingBandFills;
 	NSMutableArray *mutableBackgroundLimitBands;
 	BOOL separateLayers;
@@ -260,4 +263,3 @@ typedef enum _CPTAxisLabelingPolicy {
 ///	@}
 
 @end
-

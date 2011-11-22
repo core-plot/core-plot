@@ -6,20 +6,18 @@
 //  Copyright 2009 Barry Wark. All rights reserved.
 //
 
-
-#import <Cocoa/Cocoa.h>
 #import "GTMUnitTestingUtilities.h"
+#import <Cocoa/Cocoa.h>
 
 void GTMRestoreColorProfile(void);
 
-
 int main(int argc, char *argv[])
 {
-    //configure environment for standard unit testing
-    [GTMUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
-    
-    return NSApplicationMain(argc,  (const char **) argv);
-    
-    //setUpForUIUnitTestsIfBeingTested modifies the system-wide color profile. Make sure it gets restored.
-    GTMRestoreColorProfile();
+	//configure environment for standard unit testing
+	[GTMUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
+
+	return NSApplicationMain(argc, (const char **)argv);
+
+	//setUpForUIUnitTestsIfBeingTested modifies the system-wide color profile. Make sure it gets restored.
+	GTMRestoreColorProfile();
 }

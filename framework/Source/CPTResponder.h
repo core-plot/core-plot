@@ -1,8 +1,10 @@
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
-/**	@brief The basis of all event processing in Core Plot.
+/**
+ *	@brief The basis of all event processing in Core Plot.
  **/
-@protocol CPTResponder <NSObject>
+@protocol CPTResponder<NSObject>
 
 /// @name User Interaction
 /// @{

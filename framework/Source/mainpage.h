@@ -11,7 +11,7 @@
  * http://code.google.com/p/core-plot/wiki/UsingCorePlotInApplications for information on how to use Core Plot
  * in your own application.
  *
- * @section contribute Contributing to Core Plot 
+ * @section contribute Contributing to Core Plot
  *
  * Core Plot is an open source project. The project home page is http://code.google.com/p/core-plot/ on Google Code.
  * See http://code.google.com/p/core-plot/source/checkout for instructions on how to download the source code.

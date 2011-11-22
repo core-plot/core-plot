@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "CPTDefinitions.h"
+#import <Foundation/Foundation.h>
 
 /// @file
 
@@ -27,7 +27,8 @@ float CPTDecimalFloatValue(NSDecimal decimalNumber);
 double CPTDecimalDoubleValue(NSDecimal decimalNumber);
 CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber);
 
-NSString * CPTDecimalStringValue(NSDecimal decimalNumber);
+NSString *CPTDecimalStringValue(NSDecimal decimalNumber);
+
 /// @}
 
 /// @name Convert primitive types to NSDecimal
@@ -51,6 +52,7 @@ NSDecimal CPTDecimalFromDouble(double d);
 NSDecimal CPTDecimalFromCGFloat(CGFloat f);
 
 NSDecimal CPTDecimalFromString(NSString *stringRepresentation);
+
 /// @}
 
 /// @name NSDecimal arithmetic
@@ -59,6 +61,7 @@ NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator);
+
 /// @}
 
 /// @name NSDecimal comparison
@@ -68,26 +71,31 @@ BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperan
 BOOL CPTDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand);
 BOOL CPTDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand);
 BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand);
+
 /// @}
 
 /// @name NSDecimal utilities
 /// @{
 NSDecimal CPTDecimalNaN(void);
+
 /// @}
 
 /// @name Ranges
 /// @{
 NSRange CPTExpandedRange(NSRange range, NSInteger expandBy);
+
 /// @}
 
 /// @name Coordinates
 /// @{
 CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord);
+
 /// @}
 
 /// @name Gradient colors
 /// @{
 CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color);
+
 /// @}
 
 /// @name Quartz Pixel-Alignment Functions
@@ -95,12 +103,14 @@ CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color);
 CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p);
 CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s);
 CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r);
+
 /// @}
-    
+
 /// @name Integral Geometry Conversions
 /// @{
 CGPoint CPTPointIntegral(CGPoint p);
 CGSize CPTSizeIntegral(CGSize s);
+
 /// @}
 
 /// @name String formatting for Core Graphics structs
@@ -108,6 +118,7 @@ CGSize CPTSizeIntegral(CGSize s);
 NSString *CPTStringFromPoint(CGPoint p);
 NSString *CPTStringFromSize(CGSize s);
 NSString *CPTStringFromRect(CGRect r);
+
 /// @}
 
 #if __cplusplus

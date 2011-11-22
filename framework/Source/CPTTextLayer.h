@@ -3,7 +3,7 @@
 
 ///	@file
 
-extern const CGFloat kCPTTextLayerMarginWidth;	///< Margin width around the text.
+extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text.
 
 @interface CPTTextLayer : CPTLayer {
 	@private
@@ -11,8 +11,8 @@ extern const CGFloat kCPTTextLayerMarginWidth;	///< Margin width around the text
 	CPTTextStyle *textStyle;
 }
 
-@property(readwrite, copy, nonatomic) NSString *text;
-@property(readwrite, retain, nonatomic) CPTTextStyle *textStyle;
+@property (readwrite, copy, nonatomic) NSString *text;
+@property (readwrite, retain, nonatomic) CPTTextStyle *textStyle;
 
 /// @name Initialization
 /// @{

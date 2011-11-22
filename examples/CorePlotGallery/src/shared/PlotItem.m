@@ -22,263 +22,263 @@
 @synthesize graphs;
 @synthesize title;
 
-+ (void)registerPlotItem:(id)item
++(void)registerPlotItem:(id)item
 {
-    NSLog(@"registerPlotItem for class %@", [item class]);
+	NSLog(@"registerPlotItem for class %@", [item class]);
 
-    Class itemClass = [item class];
-	
-    if (itemClass) {
-        // There's no autorelease pool here yet...
-        PlotItem *plotItem = [[itemClass alloc] init];
-        if (plotItem) {
-            [[PlotGallery sharedPlotGallery] addPlotItem:plotItem];
-            [plotItem release];
-        }
-    }
+	Class itemClass = [item class];
+
+	if ( itemClass ) {
+		// There's no autorelease pool here yet...
+		PlotItem *plotItem = [[itemClass alloc] init];
+		if ( plotItem ) {
+			[[PlotGallery sharedPlotGallery] addPlotItem:plotItem];
+			[plotItem release];
+		}
+	}
 }
 
-- (id)init
+-(id)init
 {
-    if ((self = [super init])) {
-        graphs = [[NSMutableArray alloc] init];
-    }
+	if ( (self = [super init]) ) {
+		graphs = [[NSMutableArray alloc] init];
+	}
 
-    return self;
+	return self;
 }
 
-- (void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView
+-(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView
 {
-    [graphs addObject:graph];
+	[graphs addObject:graph];
 
-    if (layerHostingView) {
+	if ( layerHostingView ) {
 		layerHostingView.hostedGraph = graph;
-    }
+	}
 }
 
-- (void)addGraph:(CPTGraph *)graph
+-(void)addGraph:(CPTGraph *)graph
 {
-    [self addGraph:graph toHostingView:nil];
+	[self addGraph:graph toHostingView:nil];
 }
 
-- (void)killGraph
+-(void)killGraph
 {
-    // Remove the CPTLayerHostingView
-    if (defaultLayerHostingView) {
-        [defaultLayerHostingView removeFromSuperview];
-        
-        defaultLayerHostingView.hostedGraph = nil;
-        [defaultLayerHostingView release];
-        defaultLayerHostingView = nil;
-    }
+	// Remove the CPTLayerHostingView
+	if ( defaultLayerHostingView ) {
+		[defaultLayerHostingView removeFromSuperview];
 
-    [cachedImage release];
-    cachedImage = nil;
+		defaultLayerHostingView.hostedGraph = nil;
+		[defaultLayerHostingView release];
+		defaultLayerHostingView = nil;
+	}
 
-    [graphs removeAllObjects];
+	[cachedImage release];
+	cachedImage = nil;
+
+	[graphs removeAllObjects];
 }
 
-- (void)dealloc
+-(void)dealloc
 {
-    [self killGraph];
-    [super dealloc];
+	[self killGraph];
+	[super dealloc];
 }
 
 // override to generate data for the plot if needed
-- (void)generateData
+-(void)generateData
 {
 }
 
-- (NSComparisonResult)titleCompare:(PlotItem *)other
+-(NSComparisonResult)titleCompare:(PlotItem *)other
 {
-    return [title caseInsensitiveCompare:other.title];
+	return [title caseInsensitiveCompare:other.title];
 }
 
-- (void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
+-(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-    graph.title = title;
-    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color = [CPTColor grayColor];
-    textStyle.fontName = @"Helvetica-Bold";
-    textStyle.fontSize = round(bounds.size.height / (CGFloat)20.0);
-    graph.titleTextStyle = textStyle;
-    graph.titleDisplacement = CGPointMake(0.0f, round(bounds.size.height / (CGFloat)18.0)); // Ensure that title displacement falls on an integral pixel
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;    
+	graph.title = title;
+	CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+	textStyle.color				   = [CPTColor grayColor];
+	textStyle.fontName			   = @"Helvetica-Bold";
+	textStyle.fontSize			   = round(bounds.size.height / (CGFloat)20.0);
+	graph.titleTextStyle		   = textStyle;
+	graph.titleDisplacement		   = CGPointMake( 0.0f, round(bounds.size.height / (CGFloat)18.0) ); // Ensure that title displacement falls on an integral pixel
+	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 }
 
-- (void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
+-(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-    CGFloat boundsPadding = round(bounds.size.width / (CGFloat)20.0); // Ensure that padding falls on an integral pixel
-    graph.paddingLeft = boundsPadding;
+	CGFloat boundsPadding = round(bounds.size.width / (CGFloat)20.0); // Ensure that padding falls on an integral pixel
 
-    if (graph.titleDisplacement.y > 0.0) {
-        graph.paddingTop = graph.titleDisplacement.y * 2;
-    }
-    else {
-        graph.paddingTop = boundsPadding;
-    }
+	graph.paddingLeft = boundsPadding;
 
-    graph.paddingRight = boundsPadding;
-    graph.paddingBottom = boundsPadding;    
+	if ( graph.titleDisplacement.y > 0.0 ) {
+		graph.paddingTop = graph.titleDisplacement.y * 2;
+	}
+	else {
+		graph.paddingTop = boundsPadding;
+	}
+
+	graph.paddingRight	= boundsPadding;
+	graph.paddingBottom = boundsPadding;
 }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
 // There's a UIImage function to scale and orient an existing image,
 // but this will also work in pre-4.0 iOS
-- (CGImageRef)newCGImageFromImage:(CGImageRef)image scaledToSize:(CGSize)size
+-(CGImageRef)newCGImageFromImage:(CGImageRef)image scaledToSize:(CGSize)size
 {
-    CGContextRef c = CGBitmapContextCreate(NULL,
-                                           size.width,
-                                           size.height,
-                                           CGImageGetBitsPerComponent(image),
-                                           CGImageGetBytesPerRow(image),
-                                           CGImageGetColorSpace(image),
-                                           CGImageGetAlphaInfo(image));
+	CGContextRef c = CGBitmapContextCreate( NULL,
+											size.width,
+											size.height,
+											CGImageGetBitsPerComponent(image),
+											CGImageGetBytesPerRow(image),
+											CGImageGetColorSpace(image),
+											CGImageGetAlphaInfo(image) );
 
-    if ( c == NULL ) {
-        return NULL;
-    }
+	if ( c == NULL ) {
+		return NULL;
+	}
 
-    CGContextDrawImage(c, CGRectMake(0, 0, size.width, size.height), image);
-    CGImageRef newImage = CGBitmapContextCreateImage(c);
-    CGContextRelease(c);
-	
-    return newImage;
+	CGContextDrawImage(c, CGRectMake(0, 0, size.width, size.height), image);
+	CGImageRef newImage = CGBitmapContextCreateImage(c);
+	CGContextRelease(c);
+
+	return newImage;
 }
 
-- (UIImage *)image
+-(UIImage *)image
 {
-    if (cachedImage == nil) {
-        CGRect imageFrame = CGRectMake(0, 0, 400, 300);
-        UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
-        [imageView setOpaque:YES];
-        [imageView setUserInteractionEnabled:NO];
+	if ( cachedImage == nil ) {
+		CGRect imageFrame = CGRectMake(0, 0, 400, 300);
+		UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
+		[imageView setOpaque:YES];
+		[imageView setUserInteractionEnabled:NO];
 
-        [self renderInView:imageView withTheme:nil];        
+		[self renderInView:imageView withTheme:nil];
 
-        UIGraphicsBeginImageContext(imageView.bounds.size);
-			CGContextRef c = UIGraphicsGetCurrentContext();
-			CGContextSetAllowsAntialiasing(c, true);
-			
-			CGContextTranslateCTM(c, 0.0, imageView.bounds.size.height);
-			CGContextScaleCTM(c, 1.0, -1.0);
-		
-			[imageView.layer renderInContext:c];
-			CGContextSetAllowsAntialiasing(c, false);
-        
-            // rescale graph
-            UIImage* bigImage = UIGraphicsGetImageFromCurrentImageContext();
-			CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake(100.0f, 75.0f)];
-            cachedImage = [[UIImage imageWithCGImage:scaledImage] retain];
-			CGImageRelease(scaledImage);
-        UIGraphicsEndImageContext();
+		UIGraphicsBeginImageContext(imageView.bounds.size);
+		CGContextRef c = UIGraphicsGetCurrentContext();
+		CGContextSetAllowsAntialiasing(c, true);
 
-        [imageView release];
-    }
+		CGContextTranslateCTM(c, 0.0, imageView.bounds.size.height);
+		CGContextScaleCTM(c, 1.0, -1.0);
 
-    return cachedImage;
+		[imageView.layer renderInContext:c];
+		CGContextSetAllowsAntialiasing(c, false);
+
+		// rescale graph
+		UIImage *bigImage	   = UIGraphicsGetImageFromCurrentImageContext();
+		CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake(100.0f, 75.0f)];
+		cachedImage = [[UIImage imageWithCGImage:scaledImage] retain];
+		CGImageRelease(scaledImage);
+		UIGraphicsEndImageContext();
+
+		[imageView release];
+	}
+
+	return cachedImage;
 }
 
-#else  // OSX
+#else // OSX
 
-- (NSImage *)image
+-(NSImage *)image
 {
-    if (cachedImage == nil) {
-        CGRect imageFrame = CGRectMake(0, 0, 400, 300);
+	if ( cachedImage == nil ) {
+		CGRect imageFrame = CGRectMake(0, 0, 400, 300);
 
 		NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
-        [imageView setWantsLayer:YES];
+		[imageView setWantsLayer:YES];
 
-        [self renderInView:imageView withTheme:nil];
+		[self renderInView:imageView withTheme:nil];
 
-        CGSize boundsSize = imageFrame.size;
+		CGSize boundsSize = imageFrame.size;
 
-        NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] 
-                                        initWithBitmapDataPlanes:NULL 
-                                        pixelsWide:boundsSize.width 
-                                        pixelsHigh:boundsSize.height 
-                                        bitsPerSample:8 
-                                        samplesPerPixel:4 
-                                        hasAlpha:YES 
-                                        isPlanar:NO 
-                                        colorSpaceName:NSCalibratedRGBColorSpace 
-                                        bytesPerRow:(NSInteger)boundsSize.width * 4 
-                                        bitsPerPixel:32];
+		NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
+										initWithBitmapDataPlanes:NULL
+													  pixelsWide:boundsSize.width
+													  pixelsHigh:boundsSize.height
+												   bitsPerSample:8
+												 samplesPerPixel:4
+														hasAlpha:YES
+														isPlanar:NO
+												  colorSpaceName:NSCalibratedRGBColorSpace
+													 bytesPerRow:(NSInteger)boundsSize.width * 4
+													bitsPerPixel:32];
 
-        NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-        CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
+		NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+		CGContextRef context			 = (CGContextRef)[bitmapContext graphicsPort];
 
-        CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
-        CGContextSetAllowsAntialiasing(context, true);
-        CGContextSetShouldSmoothFonts(context, false);
-        [imageView.layer renderInContext:context];
-        CGContextFlush(context);
+		CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+		CGContextSetAllowsAntialiasing(context, true);
+		CGContextSetShouldSmoothFonts(context, false);
+		[imageView.layer renderInContext:context];
+		CGContextFlush(context);
 
-        cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
-        [cachedImage addRepresentation:layerImage];
-        [layerImage release];
+		cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
+		[cachedImage addRepresentation:layerImage];
+		[layerImage release];
 
-        [imageView release];
-    }
+		[imageView release];
+	}
 
-    return cachedImage;	
+	return cachedImage;
 }
 
 #endif
 
-- (void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme
+-(void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme
 {
-    if (theme == nil) {
-        [graph applyTheme:defaultTheme];
-    }
-    else if (![theme isKindOfClass:[NSNull class]])	{
-        [graph applyTheme:theme];
-    }
+	if ( theme == nil ) {
+		[graph applyTheme:defaultTheme];
+	}
+	else if ( ![theme isKindOfClass:[NSNull class]] ) {
+		[graph applyTheme:theme];
+	}
 }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
-- (void)setFrameSize:(NSSize)size
+-(void)setFrameSize:(NSSize)size
 {
 }
+
 #endif
 
-
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-- (void)renderInView:(UIView*)hostingView withTheme:(CPTTheme*)theme
+-(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme
 #else
-- (void)renderInView:(NSView*)hostingView withTheme:(CPTTheme*)theme
+-(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme
 #endif
 {
-    [self killGraph];
+	[self killGraph];
 
-    defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
+	defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    defaultLayerHostingView.collapsesLayers = NO;
+	defaultLayerHostingView.collapsesLayers = NO;
 #else
-    [defaultLayerHostingView setAutoresizesSubviews:YES];
-    [defaultLayerHostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+	[defaultLayerHostingView setAutoresizesSubviews:YES];
+	[defaultLayerHostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 #endif
 
-    [hostingView addSubview:defaultLayerHostingView];
+	[hostingView addSubview:defaultLayerHostingView];
 	[self generateData];
-    [self renderInLayer:defaultLayerHostingView withTheme:theme];
+	[self renderInLayer:defaultLayerHostingView withTheme:theme];
 }
 
-- (void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
+-(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
-    NSLog(@"PlotItem:renderInLayer: Override me");
+	NSLog(@"PlotItem:renderInLayer: Override me");
 }
 
-- (void)reloadData
+-(void)reloadData
 {
-    for (CPTGraph *g in graphs) {
-        [g reloadData];
-    }
+	for ( CPTGraph *g in graphs ) {
+		[g reloadData];
+	}
 }
-
 
 #pragma mark -
 #pragma mark IKImageBrowserItem methods
@@ -286,32 +286,32 @@
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
 
-- (NSString *)imageUID
+-(NSString *)imageUID
 {
-    return title;
+	return title;
 }
 
-- (NSString *)imageRepresentationType
+-(NSString *)imageRepresentationType
 {
-    return IKImageBrowserNSImageRepresentationType;
+	return IKImageBrowserNSImageRepresentationType;
 }
 
-- (id)imageRepresentation
+-(id)imageRepresentation
 {
-    return [self image];
+	return [self image];
 }
 
-- (NSString *)imageTitle
+-(NSString *)imageTitle
 {
 	return title;
 }
 
 /*
-- (NSString*)imageSubtitle
-{
-	return graph.title;
-}
-*/
+ * - (NSString*)imageSubtitle
+ * {
+ *  return graph.title;
+ * }
+ */
 
 #endif
 

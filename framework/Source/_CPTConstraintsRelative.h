@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "CPTConstraints.h"
+#import <Foundation/Foundation.h>
 
 @interface _CPTConstraintsRelative : CPTConstraints {
 	@private

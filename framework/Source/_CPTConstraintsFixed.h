@@ -1,8 +1,8 @@
-#import <Foundation/Foundation.h>
 #import "CPTConstraints.h"
+#import <Foundation/Foundation.h>
 
 @interface _CPTConstraintsFixed : CPTConstraints {
-@private
+	@private
 	CGFloat offset;
 	BOOL isFixedToLower;
 }

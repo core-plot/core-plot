@@ -1,4 +1,5 @@
 #import "_CPTFillGradient.h"
+
 #import "CPTGradient.h"
 
 /**	@cond */
@@ -7,6 +8,7 @@
 @property (nonatomic, readwrite, copy) CPTGradient *fillGradient;
 
 @end
+
 /**	@endcond */
 
 /** @brief Draws CPTGradient area fills.
@@ -28,7 +30,7 @@
  *  @param aGradient The gradient.
  *  @return The initialized _CPTFillGradient object.
  **/
--(id)initWithGradient:(CPTGradient *)aGradient 
+-(id)initWithGradient:(CPTGradient *)aGradient
 {
 	if ( (self = [super init]) ) {
 		fillGradient = [aGradient retain];
@@ -39,7 +41,7 @@
 -(void)dealloc
 {
 	[fillGradient release];
-	
+
 	[super dealloc];
 }
 
@@ -69,6 +71,7 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
+
 	copy->fillGradient = [self->fillGradient copyWithZone:zone];
 
 	return copy;

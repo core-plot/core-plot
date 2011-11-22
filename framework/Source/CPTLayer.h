@@ -1,12 +1,12 @@
+#import "CPTDefinitions.h"
+#import "CPTResponder.h"
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CPTResponder.h"
-#import "CPTDefinitions.h"
 
 @class CPTGraph;
 @class CPTShadow;
 
-@interface CPTLayer : CALayer <CPTResponder> {
+@interface CPTLayer : CALayer<CPTResponder> {
 	@private
 	CGFloat paddingLeft;
 	CGFloat paddingTop;
@@ -16,7 +16,7 @@
 	CPTShadow *shadow;
 	BOOL renderingRecursively;
 	BOOL useFastRendering;
-    __cpt_weak CPTGraph *graph;
+	__cpt_weak CPTGraph *graph;
 	CGPathRef outerBorderPath;
 	CGPathRef innerBorderPath;
 }
@@ -96,4 +96,5 @@
 @end
 #endif
 #endif
+
 /**	@endcond */

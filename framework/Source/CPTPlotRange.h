@@ -1,21 +1,23 @@
-#import <Foundation/Foundation.h>
 #import "CPTDefinitions.h"
+#import <Foundation/Foundation.h>
 
 /// @file
 
-/**	@brief Enumeration of possible results of a plot range comparison.
+/**
+ *	@brief Enumeration of possible results of a plot range comparison.
  **/
 typedef enum _CPTPlotRangeComparisonResult {
-    CPTPlotRangeComparisonResultNumberBelowRange,	///< Number is below the range.
-    CPTPlotRangeComparisonResultNumberInRange,		///< Number is in the range.
-    CPTPlotRangeComparisonResultNumberAboveRange		///< Number is above the range.
-} CPTPlotRangeComparisonResult;
+	CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
+	CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
+	CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
+}
+CPTPlotRangeComparisonResult;
 
-@interface CPTPlotRange : NSObject <NSCoding, NSCopying, NSMutableCopying> {
+@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying> {
 	@private
 	NSDecimal location;
 	NSDecimal length;
-    double locationDouble;
+	double locationDouble;
 	double lengthDouble;
 }
 

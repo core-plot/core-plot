@@ -1,4 +1,5 @@
 #import "CPTGraphHostingView.h"
+
 #import "CPTGraph.h"
 
 /**	@cond */
@@ -13,9 +14,11 @@
 @end
 #endif
 #endif
+
 /**	@endcond */
 
-/**	@brief A container view for displaying a CPTGraph.
+/**
+ *	@brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
 
@@ -26,13 +29,13 @@
 
 -(id)initWithFrame:(NSRect)frame
 {
-    if ( (self = [super initWithFrame:frame]) ) {
-        hostedGraph = nil;
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
-        self.layer = mainLayer;
-        [mainLayer release];
-    }
-    return self;
+	if ( (self = [super initWithFrame:frame]) ) {
+		hostedGraph = nil;
+		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
+		self.layer = mainLayer;
+		[mainLayer release];
+	}
+	return self;
 }
 
 -(void)dealloc
@@ -48,21 +51,21 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeObject:self.hostedGraph forKey:@"CPTLayerHostingView.hostedGraph"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
-        self.layer = mainLayer;
-        [mainLayer release];
+	if ( (self = [super initWithCoder:coder]) ) {
+		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
+		self.layer = mainLayer;
+		[mainLayer release];
 
-		hostedGraph = nil;
+		hostedGraph		 = nil;
 		self.hostedGraph = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -93,8 +96,9 @@
 -(void)mouseDown:(NSEvent *)theEvent
 {
 	CPTGraph *theGraph = self.hostedGraph;
+
 	if ( theGraph ) {
-		CGPoint pointOfMouseDown = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+		CGPoint pointOfMouseDown   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDown toLayer:theGraph];
 		[theGraph pointingDeviceDownEvent:theEvent atPoint:pointInHostedGraph];
 	}
@@ -103,8 +107,9 @@
 -(void)mouseDragged:(NSEvent *)theEvent
 {
 	CPTGraph *theGraph = self.hostedGraph;
+
 	if ( theGraph ) {
-		CGPoint pointOfMouseDrag = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+		CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDrag toLayer:theGraph];
 		[theGraph pointingDeviceDraggedEvent:theEvent atPoint:pointInHostedGraph];
 	}
@@ -113,8 +118,9 @@
 -(void)mouseUp:(NSEvent *)theEvent
 {
 	CPTGraph *theGraph = self.hostedGraph;
+
 	if ( theGraph ) {
-		CGPoint pointOfMouseUp = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+		CGPoint pointOfMouseUp	   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
 		CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseUp toLayer:theGraph];
 		[theGraph pointingDeviceUpEvent:theEvent atPoint:pointInHostedGraph];
 	}
@@ -126,13 +132,13 @@
 -(void)setHostedGraph:(CPTGraph *)newGraph
 {
 	if ( newGraph != hostedGraph ) {
-        self.wantsLayer = YES;
+		self.wantsLayer = YES;
 		[hostedGraph removeFromSuperlayer];
 		[hostedGraph release];
 		hostedGraph = [newGraph retain];
 		if ( hostedGraph ) {
 			CPTLayer *myLayer = (CPTLayer *)self.layer;
-			
+
 			NSWindow *myWindow = self.window;
 			// backingScaleFactor property is available in MacOS 10.7 and later
 			if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
@@ -141,10 +147,10 @@
 			else {
 				myLayer.contentsScale = 1.0;
 			}
-			
+
 			[myLayer addSublayer:hostedGraph];
 		}
-    }
+	}
 }
 
 @end

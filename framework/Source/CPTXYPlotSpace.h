@@ -1,5 +1,5 @@
-#import "CPTPlotSpace.h"
 #import "CPTDefinitions.h"
+#import "CPTPlotSpace.h"
 
 @class CPTPlotRange;
 
@@ -7,12 +7,12 @@
 	@private
 	CPTPlotRange *xRange;
 	CPTPlotRange *yRange;
-    CPTPlotRange *globalXRange;
+	CPTPlotRange *globalXRange;
 	CPTPlotRange *globalYRange;
-    CPTScaleType xScaleType;
-    CPTScaleType yScaleType;
-    CGPoint lastDragPoint;
-    BOOL isDragging;
+	CPTScaleType xScaleType;
+	CPTScaleType yScaleType;
+	CGPoint lastDragPoint;
+	BOOL isDragging;
 }
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;

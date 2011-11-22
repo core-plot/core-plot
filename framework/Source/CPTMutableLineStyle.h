@@ -1,11 +1,9 @@
-
-#import <Foundation/Foundation.h>
 #import "CPTLineStyle.h"
+#import <Foundation/Foundation.h>
 
 @class CPTColor;
 
 @interface CPTMutableLineStyle : CPTLineStyle {
-
 }
 
 @property (nonatomic, readwrite, assign) CGLineCap lineCap;

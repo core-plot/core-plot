@@ -1,7 +1,9 @@
-#import "CPTAxis.h"
 #import "CPTGridLines.h"
 
-/**	@brief An abstract class that draws grid lines for an axis.
+#import "CPTAxis.h"
+
+/**
+ *	@brief An abstract class that draws grid lines for an axis.
  **/
 @implementation CPTGridLines
 
@@ -21,9 +23,9 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
-		axis = nil;
+		axis  = nil;
 		major = NO;
-		
+
 		self.needsDisplayOnBoundsChange = YES;
 	}
 	return self;
@@ -33,8 +35,8 @@
 {
 	if ( (self = [super initWithLayer:layer]) ) {
 		CPTGridLines *theLayer = (CPTGridLines *)layer;
-		
-		axis = theLayer->axis;
+
+		axis  = theLayer->axis;
 		major = theLayer->major;
 	}
 	return self;
@@ -46,18 +48,18 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
-	
+
 	[coder encodeConditionalObject:self.axis forKey:@"CPTGridLines.axis"];
 	[coder encodeBool:self.major forKey:@"CPTGridLines.major"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
-		axis = [coder decodeObjectForKey:@"CPTGridLines.axis"];
+	if ( (self = [super initWithCoder:coder]) ) {
+		axis  = [coder decodeObjectForKey:@"CPTGridLines.axis"];
 		major = [coder decodeBoolForKey:@"CPTGridLines.major"];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -65,19 +67,21 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	if ( self.hidden ) return;
-	
+	if ( self.hidden ) {
+		return;
+	}
+
 	[self.axis drawGridLinesInContext:theContext isMajor:self.major];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
--(void)setAxis:(CPTAxis *)newAxis 
+-(void)setAxis:(CPTAxis *)newAxis
 {
-    if ( newAxis != axis ) {
-        axis = newAxis;
-		[self setNeedsDisplay];		
+	if ( newAxis != axis ) {
+		axis = newAxis;
+		[self setNeedsDisplay];
 	}
 }
 

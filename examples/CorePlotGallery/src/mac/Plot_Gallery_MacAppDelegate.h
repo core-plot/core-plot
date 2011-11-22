@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Plot_Gallery_MacAppDelegate : NSObject <NSApplicationDelegate>
+@interface Plot_Gallery_MacAppDelegate : NSObject<NSApplicationDelegate>
 {
-    NSWindow *window;
+	NSWindow *window;
 }
 
 @property (assign) IBOutlet NSWindow *window;

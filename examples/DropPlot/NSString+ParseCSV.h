@@ -1,8 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
+@interface NSString(ParseCSV)
 
-@interface NSString (ParseCSV)
-
-- (NSArray *)arrayByParsingCSVLine; 
+-(NSArray *)arrayByParsingCSVLine;
 
 @end

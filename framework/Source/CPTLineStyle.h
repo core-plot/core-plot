@@ -3,7 +3,7 @@
 
 @class CPTColor;
 
-@interface CPTLineStyle : NSObject <NSCoding, NSCopying, NSMutableCopying> {
+@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
 	@private
 	CGLineCap lineCap;
 //	CGLineDash lineDash; // We should make a struct to keep this information
@@ -13,7 +13,7 @@
 	NSArray *dashPattern;
 	CGFloat patternPhase;
 //	StrokePattern; // We should make a struct to keep this information
-    CPTColor *lineColor;
+	CPTColor *lineColor;
 }
 
 @property (nonatomic, readonly, assign) CGLineCap lineCap;

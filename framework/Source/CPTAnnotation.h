@@ -1,12 +1,12 @@
+#import "CPTDefinitions.h"
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CPTDefinitions.h"
 
 @class CPTAnnotationHostLayer;
 @class CPTLayer;
 
-@interface CPTAnnotation : NSObject <NSCoding> {
-@private
+@interface CPTAnnotation : NSObject<NSCoding> {
+	@private
 	__cpt_weak CPTAnnotationHostLayer *annotationHostLayer;
 	CPTLayer *contentLayer;
 	CGPoint contentAnchorPoint;

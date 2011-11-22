@@ -1,4 +1,5 @@
 #import "_CPTFillColor.h"
+
 #import "CPTColor.h"
 
 /**	@cond */
@@ -7,6 +8,7 @@
 @property (nonatomic, readwrite, copy) CPTColor *fillColor;
 
 @end
+
 /**	@endcond */
 
 /** @brief Draws CPTColor area fills.
@@ -28,17 +30,17 @@
  *  @param aColor The color.
  *  @return The initialized _CPTFillColor object.
  **/
--(id)initWithColor:(CPTColor *)aColor 
+-(id)initWithColor:(CPTColor *)aColor
 {
 	if ( (self = [super init]) ) {
-        fillColor = [aColor retain];
+		fillColor = [aColor retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    [fillColor release];
+	[fillColor release];
 	[super dealloc];
 }
 
@@ -74,8 +76,9 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	_CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
+
 	copy->fillColor = [self->fillColor copyWithZone:zone];
-	
+
 	return copy;
 }
 
@@ -94,10 +97,10 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+	if ( (self = [super init]) ) {
 		fillColor = [[coder decodeObjectForKey:@"_CPTFillColor.fillColor"] retain];
 	}
-    return self;
+	return self;
 }
 
 @end

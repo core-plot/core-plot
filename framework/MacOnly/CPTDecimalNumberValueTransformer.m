@@ -1,28 +1,29 @@
-
-
 #import "CPTDecimalNumberValueTransformer.h"
 #import "NSNumberExtensions.h"
 
-/**	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
+/**
+ *	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
  **/
 @implementation CPTDecimalNumberValueTransformer
 
-+(BOOL)allowsReverseTransformation 
++(BOOL)allowsReverseTransformation
 {
-    return YES;
+	return YES;
 }
 
-+(Class)transformedValueClass 
++(Class)transformedValueClass
 {
-    return [NSNumber class];
+	return [NSNumber class];
 }
 
--(id)transformedValue:(id)value {
-    return [[value copy] autorelease];
+-(id)transformedValue:(id)value
+{
+	return [[value copy] autorelease];
 }
 
--(id)reverseTransformedValue:(id)value {
-    return [value decimalNumber];
+-(id)reverseTransformedValue:(id)value
+{
+	return [value decimalNumber];
 }
 
 @end

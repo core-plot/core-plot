@@ -1,4 +1,5 @@
 #import "CPTMutableNumericData+TypeConversion.h"
+
 #import "CPTNumericData+TypeConversion.h"
 
 @implementation CPTMutableNumericData(TypeConversion)
@@ -31,7 +32,7 @@
  **/
 -(void)convertToType:(CPTDataTypeFormat)newDataType
 		 sampleBytes:(size_t)newSampleBytes
-		   byteOrder:(CFByteOrder)newByteOrder 
+		   byteOrder:(CFByteOrder)newByteOrder
 {
 	self.dataType = CPTDataType(newDataType, newSampleBytes, newByteOrder);
 }
@@ -42,6 +43,7 @@
 -(void)setDataTypeFormat:(CPTDataTypeFormat)newDataTypeFormat
 {
 	CPTNumericDataType myDataType = self.dataType;
+
 	if ( newDataTypeFormat != myDataType.dataTypeFormat ) {
 		self.dataType = CPTDataType(newDataTypeFormat, myDataType.sampleBytes, myDataType.byteOrder);
 	}
@@ -50,6 +52,7 @@
 -(void)setSampleBytes:(size_t)newSampleBytes
 {
 	CPTNumericDataType myDataType = self.dataType;
+
 	if ( newSampleBytes != myDataType.sampleBytes ) {
 		self.dataType = CPTDataType(myDataType.dataTypeFormat, newSampleBytes, myDataType.byteOrder);
 	}
@@ -58,6 +61,7 @@
 -(void)setByteOrder:(CFByteOrder)newByteOrder
 {
 	CPTNumericDataType myDataType = self.dataType;
+
 	if ( newByteOrder != myDataType.byteOrder ) {
 		self.dataType = CPTDataType(myDataType.dataTypeFormat, myDataType.sampleBytes, newByteOrder);
 	}
@@ -66,47 +70,47 @@
 -(void)setDataType:(CPTNumericDataType)newDataType
 {
 	CPTNumericDataType myDataType = self.dataType;
-	if ( (myDataType.dataTypeFormat == newDataType.dataTypeFormat)
-		&& (myDataType.sampleBytes == newDataType.sampleBytes)
-		&& (myDataType.byteOrder == newDataType.byteOrder) ) {
-		
+
+	if ( (myDataType.dataTypeFormat == newDataType.dataTypeFormat) &&
+		 (myDataType.sampleBytes == newDataType.sampleBytes) &&
+		 (myDataType.byteOrder == newDataType.byteOrder) ) {
 		return;
 	}
-	
+
 	NSParameterAssert(myDataType.dataTypeFormat != CPTUndefinedDataType);
 	NSParameterAssert(myDataType.byteOrder != CFByteOrderUnknown);
-	
-	NSParameterAssert(CPTDataTypeIsSupported(newDataType));
+
+	NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 	NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
 	NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
-	
+
 	dataType = newDataType;
-	
-	if ( (myDataType.sampleBytes == sizeof(int8_t)) && (newDataType.sampleBytes == sizeof(int8_t)) ) {
+
+	if ( ( myDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
 		return;
 	}
-	
-	NSMutableData *myData = (NSMutableData *)self.data;
+
+	NSMutableData *myData	  = (NSMutableData *)self.data;
 	CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
-	
+
 	NSUInteger sampleCount = myData.length / myDataType.sampleBytes;
-	
+
 	if ( myDataType.byteOrder != hostByteOrder ) {
 		[self swapByteOrderForData:myData sampleSize:myDataType.sampleBytes];
 	}
-	
+
 	if ( newDataType.sampleBytes > myDataType.sampleBytes ) {
 		NSMutableData *newData = [[NSMutableData alloc] initWithLength:(sampleCount * newDataType.sampleBytes)];
 		[self convertData:myData dataType:&myDataType toData:newData dataType:&newDataType];
 		[data release];
-		data = newData;
+		data   = newData;
 		myData = newData;
 	}
 	else {
 		[self convertData:myData dataType:&myDataType toData:myData dataType:&newDataType];
 		myData.length = sampleCount * newDataType.sampleBytes;
 	}
-	
+
 	if ( newDataType.byteOrder != hostByteOrder ) {
 		[self swapByteOrderForData:myData sampleSize:newDataType.sampleBytes];
 	}

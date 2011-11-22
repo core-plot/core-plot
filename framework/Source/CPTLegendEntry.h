@@ -1,11 +1,11 @@
+#import "CPTDefinitions.h"
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CPTDefinitions.h"
 
 @class CPTPlot;
 @class CPTTextStyle;
 
-@interface CPTLegendEntry : NSObject <NSCoding> {   
+@interface CPTLegendEntry : NSObject<NSCoding> {
 	@private
 	__cpt_weak CPTPlot *plot;
 	NSUInteger index;

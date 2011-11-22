@@ -1,6 +1,6 @@
-#import <Foundation/Foundation.h>
 #import "CPTMutableNumericData.h"
 #import "CPTNumericDataType.h"
+#import <Foundation/Foundation.h>
 
 /**	@category CPTMutableNumericData(TypeConversion)
  *	@brief Type conversion methods for CPTMutableNumericData.
@@ -17,9 +17,7 @@
 
 /// @name Type Conversion
 /// @{
--(void)convertToType:(CPTDataTypeFormat)newDataType
-		 sampleBytes:(size_t)newSampleBytes
-		   byteOrder:(CFByteOrder)newByteOrder;
+-(void)convertToType:(CPTDataTypeFormat)newDataType sampleBytes:(size_t)newSampleBytes byteOrder:(CFByteOrder)newByteOrder;
 ///	@}
 
 @end

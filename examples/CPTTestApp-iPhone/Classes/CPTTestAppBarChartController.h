@@ -3,17 +3,17 @@
 //  CPTTestApp-iPhone
 //
 
-#import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
+#import <UIKit/UIKit.h>
 
-@interface CPTTestAppBarChartController : UIViewController <CPTPlotDataSource>
+@interface CPTTestAppBarChartController : UIViewController<CPTPlotDataSource>
 {
-@private
+	@private
 	CPTXYGraph *barChart;
 	NSTimer *timer;
 }
 
-@property(readwrite, retain, nonatomic) NSTimer *timer;
+@property (readwrite, retain, nonatomic) NSTimer *timer;
 
 -(void)timerFired;
 

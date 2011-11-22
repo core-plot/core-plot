@@ -1,8 +1,10 @@
 #import "CPTLimitBand.h"
+
 #import "CPTFill.h"
 #import "CPTPlotRange.h"
 
-/** @brief Defines a range and fill used to highlight a band of data.
+/**
+ *	@brief Defines a range and fill used to highlight a band of data.
  **/
 @implementation CPTLimitBand
 
@@ -37,10 +39,10 @@
 -(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
 	if ( (self = [super init]) ) {
-    	range = [newRange retain];
-        fill = [newFill retain];
+		range = [newRange retain];
+		fill  = [newFill retain];
 	}
-	return self;	
+	return self;
 }
 
 -(void)dealloc
@@ -53,44 +55,47 @@
 #pragma mark -
 #pragma mark NSCopying
 
--(id)copyWithZone:(NSZone *)zone 
+-(id)copyWithZone:(NSZone *)zone
 {
-    CPTLimitBand *newBand = [[CPTLimitBand allocWithZone:zone] init];
+	CPTLimitBand *newBand = [[CPTLimitBand allocWithZone:zone] init];
+
 	if ( newBand ) {
 		newBand->range = [self->range copyWithZone:zone];
-		newBand->fill = [self->fill copyWithZone:zone];
+		newBand->fill  = [self->fill copyWithZone:zone];
 	}
-    return newBand;
+	return newBand;
 }
 
 #pragma mark -
 #pragma mark NSCoding
 
-- (void)encodeWithCoder:(NSCoder *)encoder 
+-(void)encodeWithCoder:(NSCoder *)encoder
 {
-    if ( [encoder allowsKeyedCoding] ) {
+	if ( [encoder allowsKeyedCoding] ) {
 		[encoder encodeObject:range forKey:@"CPTLimitBand.range"];
 		[encoder encodeObject:fill forKey:@"CPTLimitBand.fill"];
-	} else {
+	}
+	else {
 		[encoder encodeObject:range];
 		[encoder encodeObject:fill];
 	}
 }
 
-- (id)initWithCoder:(NSCoder *)decoder 
+-(id)initWithCoder:(NSCoder *)decoder
 {
 	CPTPlotRange *newRange;
 	CPTFill *newFill;
-	
-    if ( [decoder allowsKeyedCoding] ) {
+
+	if ( [decoder allowsKeyedCoding] ) {
 		newRange = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
-		newFill = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
-	} else {
+		newFill	 = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
+	}
+	else {
 		newRange = [decoder decodeObject];
-		newFill = [decoder decodeObject];
+		newFill	 = [decoder decodeObject];
 	}
 
-    return [self initWithRange:newRange fill:newFill];
+	return [self initWithRange:newRange fill:newFill];
 }
 
 #pragma mark -
@@ -98,7 +103,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ with range: %@ and fill: %@>", [super description], self.range, self.fill]; 
+	return [NSString stringWithFormat:@"<%@ with range: %@ and fill: %@>", [super description], self.range, self.fill];
 }
 
 @end

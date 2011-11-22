@@ -1,8 +1,8 @@
 #import "PlotItem.h"
 
-@interface ControlChart : PlotItem < CPTPlotDataSource >
+@interface ControlChart : PlotItem<CPTPlotDataSource>
 {
-    NSArray* plotData;
+	NSArray *plotData;
 	double meanValue;
 	double standardError;
 }

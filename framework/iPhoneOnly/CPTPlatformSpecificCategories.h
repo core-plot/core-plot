@@ -1,8 +1,7 @@
-
-#import <UIKit/UIKit.h>
 #import "CPTColor.h"
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
+#import <UIKit/UIKit.h>
 
 /**	@category CPTColor(CPTPlatformSpecificColorExtensions)
  *	@brief Platform-specific extensions to CPTColor.

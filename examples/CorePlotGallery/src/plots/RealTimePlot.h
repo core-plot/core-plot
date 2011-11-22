@@ -5,9 +5,9 @@
 
 #import "PlotItem.h"
 
-@interface RealTimePlot : PlotItem < CPTPlotDataSource >
+@interface RealTimePlot : PlotItem<CPTPlotDataSource>
 {
-    NSMutableArray* plotData;
+	NSMutableArray *plotData;
 	NSUInteger currentIndex;
 	NSTimer *dataTimer;
 }

@@ -10,6 +10,7 @@
 {
 #if CGFLOAT_IS_DOUBLE
 	return [NSNumber numberWithDouble:number];
+
 #else
 	return [NSNumber numberWithFloat:number];
 #endif
@@ -18,12 +19,13 @@
 /**	@brief Returns the value of the receiver as a CGFloat.
  *	@return The value of the receiver as a CGFloat.
  **/
--(CGFloat)cgFloatValue 
+-(CGFloat)cgFloatValue
 {
 #if CGFLOAT_IS_DOUBLE
-    return [self doubleValue];
+	return [self doubleValue];
+
 #else
-    return [self floatValue];
+	return [self floatValue];
 #endif
 }
 
@@ -35,6 +37,7 @@
 {
 #if CGFLOAT_IS_DOUBLE
 	return [self initWithDouble:number];
+
 #else
 	return [self initWithFloat:number];
 #endif
@@ -45,10 +48,10 @@
  **/
 -(NSDecimalNumber *)decimalNumber
 {
-    if ([self isMemberOfClass:[NSDecimalNumber class]]) {
-        return (NSDecimalNumber *)self;
-    }
-    return [NSDecimalNumber decimalNumberWithDecimal:[self decimalValue]];
+	if ( [self isMemberOfClass:[NSDecimalNumber class]] ) {
+		return (NSDecimalNumber *)self;
+	}
+	return [NSDecimalNumber decimalNumberWithDecimal:[self decimalValue]];
 }
 
 @end

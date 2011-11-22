@@ -1,11 +1,12 @@
 #import "CPTLineStyle.h"
+
 #import "CPTColor.h"
 #import "CPTMutableLineStyle.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
 /**	@cond */
-@interface CPTLineStyle ()
+@interface CPTLineStyle()
 
 @property (nonatomic, readwrite, assign) CGLineCap lineCap;
 @property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
@@ -16,12 +17,13 @@
 @property (nonatomic, readwrite, retain) CPTColor *lineColor;
 
 @end
+
 /**	@endcond */
 
 /** @brief Immutable wrapper for various line drawing properties.
  *
  *	@see See Apple's <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF105">Quartz 2D</a>
- *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a> 
+ *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a>
  *	documentation for more information about each of these properties.
  *
  *  In general, you will want to create a CPTMutableLineStyle if you want to customize properties.
@@ -72,26 +74,26 @@
  **/
 +(id)lineStyle
 {
-    return [[[self alloc] init] autorelease];
+	return [[[self alloc] init] autorelease];
 }
 
 -(id)init
 {
 	if ( (self = [super init]) ) {
-		lineCap = kCGLineCapButt;
-		lineJoin = kCGLineJoinMiter;
-		miterLimit = 10.0;
-		lineWidth = 1.0;
-		dashPattern = nil;
+		lineCap		 = kCGLineCapButt;
+		lineJoin	 = kCGLineJoinMiter;
+		miterLimit	 = 10.0;
+		lineWidth	 = 1.0;
+		dashPattern	 = nil;
 		patternPhase = 0.0;
-		lineColor = [[CPTColor blackColor] retain];
+		lineColor	 = [[CPTColor blackColor] retain];
 	}
 	return self;
 }
 
 -(void)dealloc
 {
-    [lineColor release];
+	[lineColor release];
 	[dashPattern release];
 	[super dealloc];
 }
@@ -112,16 +114,16 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-		lineCap = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
-		lineJoin = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
-		miterLimit = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
-		lineWidth = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
-		dashPattern = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
+	if ( (self = [super init]) ) {
+		lineCap		 = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
+		lineJoin	 = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
+		miterLimit	 = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
+		lineWidth	 = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
+		dashPattern	 = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
 		patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
-		lineColor = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
+		lineColor	 = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
 	}
-    return self;
+	return self;
 }
 
 #pragma mark -
@@ -138,13 +140,13 @@
 	CGContextSetLineWidth(theContext, lineWidth);
 	NSUInteger dashCount = dashPattern.count;
 	if ( dashCount > 0 ) {
-		CGFloat *dashLengths = (CGFloat *)calloc(dashCount, sizeof(CGFloat));
-		
+		CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
+
 		NSUInteger dashCounter = 0;
 		for ( NSNumber *currentDashLength in dashPattern ) {
 			dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
 		}
-		
+
 		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashCount);
 		free(dashLengths);
 	}
@@ -159,17 +161,17 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-    CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
- 	
-	styleCopy->lineCap = self->lineCap;
-	styleCopy->lineJoin = self->lineJoin;
-	styleCopy->miterLimit = self->miterLimit;
-	styleCopy->lineWidth = self->lineWidth;
-	styleCopy->dashPattern = [self->dashPattern copy];
+	CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
+
+	styleCopy->lineCap		= self->lineCap;
+	styleCopy->lineJoin		= self->lineJoin;
+	styleCopy->miterLimit	= self->miterLimit;
+	styleCopy->lineWidth	= self->lineWidth;
+	styleCopy->dashPattern	= [self->dashPattern copy];
 	styleCopy->patternPhase = self->patternPhase;
-    styleCopy->lineColor = [self->lineColor copy];
-    
-    return styleCopy;
+	styleCopy->lineColor	= [self->lineColor copy];
+
+	return styleCopy;
 }
 
 #pragma mark -
@@ -177,17 +179,17 @@
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
-    CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
- 	
-	styleCopy->lineCap = self->lineCap;
-	styleCopy->lineJoin = self->lineJoin;
-	styleCopy->miterLimit = self->miterLimit;
-	styleCopy->lineWidth = self->lineWidth;
-	styleCopy->dashPattern = [self->dashPattern copy];
+	CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
+
+	styleCopy->lineCap		= self->lineCap;
+	styleCopy->lineJoin		= self->lineJoin;
+	styleCopy->miterLimit	= self->miterLimit;
+	styleCopy->lineWidth	= self->lineWidth;
+	styleCopy->dashPattern	= [self->dashPattern copy];
 	styleCopy->patternPhase = self->patternPhase;
-    styleCopy->lineColor = [self->lineColor copy];
-    
-    return styleCopy;
+	styleCopy->lineColor	= [self->lineColor copy];
+
+	return styleCopy;
 }
 
 @end

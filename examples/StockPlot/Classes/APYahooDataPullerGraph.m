@@ -8,174 +8,185 @@
 
 #import "APYahooDataPullerGraph.h"
 
-
 @implementation APYahooDataPullerGraph
-
 
 -(void)reloadData
 {
-    if(!graph)
-    {
-    	graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-        CPTTheme *theme = [CPTTheme themeNamed:@"Dark Gradients"];
-        [graph applyTheme:theme];
-        graph.paddingTop = 30.0;
-        graph.paddingBottom = 30.0;
-        graph.paddingLeft = 50.0;
-        graph.paddingRight = 50.0;
+	if ( !graph ) {
+		graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+		CPTTheme *theme = [CPTTheme themeNamed:@"Dark Gradients"];
+		[graph applyTheme:theme];
+		graph.paddingTop	= 30.0;
+		graph.paddingBottom = 30.0;
+		graph.paddingLeft	= 50.0;
+		graph.paddingRight	= 50.0;
 
-        CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
-        dataSourceLinePlot.identifier = @"Data Source Plot";
-        
-        CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
-        lineStyle.lineWidth = 1.f;
-        lineStyle.lineColor = [CPTColor redColor];
-        dataSourceLinePlot.dataLineStyle = lineStyle;
-        
-        dataSourceLinePlot.dataSource = self;
-        [graph addPlot:dataSourceLinePlot];
-    }
-    
-    if([[self.graphHost.layer sublayers] indexOfObject:graph] == NSNotFound)
-        [self.graphHost.layer addSublayer:graph];
-    
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    
-    NSDecimalNumber *high = [dataPuller overallHigh];
-    NSDecimalNumber *low = [dataPuller overallLow];
-    NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
-    
-    //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([dataPuller.financialData count])];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
-    // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
-    
-    CPTXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength = CPTDecimalFromDouble(10.0);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-    x.minorTicksPerInterval = 1;
-    
-    CPTXYAxis *y = axisSet.yAxis;
-    NSDecimal six = CPTDecimalFromInteger(6);
-    y.majorIntervalLength = CPTDecimalDivide([length decimalValue], six);
-	y.majorTickLineStyle = nil;
-    y.minorTicksPerInterval = 4;
-	y.minorTickLineStyle = nil;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-	y.alternatingBandFills = [NSArray arrayWithObjects:[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
-	
-    [graph reloadData];
-    
-    [[self navigationItem] setTitle:[dataPuller symbol]];
+		CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+		dataSourceLinePlot.identifier = @"Data Source Plot";
+
+		CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+		lineStyle.lineWidth				 = 1.f;
+		lineStyle.lineColor				 = [CPTColor redColor];
+		dataSourceLinePlot.dataLineStyle = lineStyle;
+
+		dataSourceLinePlot.dataSource = self;
+		[graph addPlot:dataSourceLinePlot];
+	}
+
+	if ( [[self.graphHost.layer sublayers] indexOfObject:graph] == NSNotFound ) {
+		[self.graphHost.layer addSublayer:graph];
+	}
+
+	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+
+	NSDecimalNumber *high	= [dataPuller overallHigh];
+	NSDecimalNumber *low	= [dataPuller overallLow];
+	NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
+
+	//NSLog(@"high = %@, low = %@, length = %@", high, low, length);
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([dataPuller.financialData count])];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
+	// Axes
+	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+
+	CPTXYAxis *x = axisSet.xAxis;
+	x.majorIntervalLength		  = CPTDecimalFromDouble(10.0);
+	x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
+	x.minorTicksPerInterval		  = 1;
+
+	CPTXYAxis *y  = axisSet.yAxis;
+	NSDecimal six = CPTDecimalFromInteger(6);
+	y.majorIntervalLength		  = CPTDecimalDivide([length decimalValue], six);
+	y.majorTickLineStyle		  = nil;
+	y.minorTicksPerInterval		  = 4;
+	y.minorTickLineStyle		  = nil;
+	y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
+	y.alternatingBandFills		  = [NSArray arrayWithObjects:[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+
+	[graph reloadData];
+
+	[[self navigationItem] setTitle:[dataPuller symbol]];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    graph.frame = self.view.bounds;
+-(void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	graph.frame = self.view.bounds;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self reloadData];
+-(void)viewDidLoad
+{
+	[super viewDidLoad];
+	[self reloadData];
 }
-
 
 // Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait || 
-            interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
-            interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	// Return YES for supported orientations
+	return interfaceOrientation == UIInterfaceOrientationPortrait ||
+		   interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+		   interfaceOrientation == UIInterfaceOrientationLandscapeRight;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 {
-    //    NSLog(@"willRotateToInterfaceOrientation");
-    //[graph.axisSet relabelAxes];
+	//    NSLog(@"willRotateToInterfaceOrientation");
+	//[graph.axisSet relabelAxes];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation; 
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
 {
-    //    NSLog(@"didRotateFromInterfaceOrientation");
-    [graph.axisSet relabelAxes];
-}    
+	//    NSLog(@"didRotateFromInterfaceOrientation");
+	[graph.axisSet relabelAxes];
+}
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning
+{
 	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
+	[super didReceiveMemoryWarning];
+
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+-(void)viewDidUnload
+{
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
+
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecords {
-    return self.dataPuller.financialData.count;
+-(NSUInteger)numberOfRecords
+{
+	return self.dataPuller.financialData.count;
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    NSDecimalNumber *num = [NSDecimalNumber zero];
-    if (fieldEnum == CPTScatterPlotFieldX) 
-    {
-        num = (NSDecimalNumber *) [NSDecimalNumber numberWithInt:index + 1];
-    }
-    else if (fieldEnum == CPTScatterPlotFieldY)
-    {
-        NSArray *financialData = self.dataPuller.financialData;
-        
-        NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
-        num = [fData objectForKey:@"close"];
-        NSAssert([num isMemberOfClass:[NSDecimalNumber class]], @"grrr");
-    }
-    return num;
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
+	NSDecimalNumber *num = [NSDecimalNumber zero];
+
+	if ( fieldEnum == CPTScatterPlotFieldX ) {
+		num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:index + 1];
+	}
+	else if ( fieldEnum == CPTScatterPlotFieldY ) {
+		NSArray *financialData = self.dataPuller.financialData;
+
+		NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
+		num = [fData objectForKey:@"close"];
+		NSAssert([num isMemberOfClass:[NSDecimalNumber class]], @"grrr");
+	}
+	return num;
 }
 
 -(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
 {
-    [self reloadData];
+	[self reloadData];
 }
 
 #pragma mark accessors
 
 @synthesize graphHost;
 
-- (APYahooDataPuller *)dataPuller
+-(APYahooDataPuller *)dataPuller
 {
-    //NSLog(@"in -dataPuller, returned dataPuller = %@", dataPuller);
-    
-    return dataPuller; 
-}
-- (void)setDataPuller:(APYahooDataPuller *)aDataPuller
-{
-    //NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
-    
-    if (dataPuller != aDataPuller) {
-        [aDataPuller retain];
-        [dataPuller release];
-        dataPuller = aDataPuller;
-        [dataPuller setDelegate:self];
-        [self reloadData];
-    }
+	//NSLog(@"in -dataPuller, returned dataPuller = %@", dataPuller);
+
+	return dataPuller;
 }
 
-- (void)dealloc {
-    if(dataPuller.delegate == self)
-        [dataPuller setDelegate:nil];
-    [dataPuller release]; dataPuller = nil;
-    [graphHost release]; graphHost = nil;
-    [graph release]; graph = nil;
-    
-    [super dealloc];
+-(void)setDataPuller:(APYahooDataPuller *)aDataPuller
+{
+	//NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
+
+	if ( dataPuller != aDataPuller ) {
+		[aDataPuller retain];
+		[dataPuller release];
+		dataPuller = aDataPuller;
+		[dataPuller setDelegate:self];
+		[self reloadData];
+	}
 }
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
+-(void)dealloc
+{
+	if ( dataPuller.delegate == self ) {
+		[dataPuller setDelegate:nil];
+	}
+	[dataPuller release];
+	dataPuller = nil;
+	[graphHost release];
+	graphHost = nil;
+	[graph release];
+	graph = nil;
+
+	[super dealloc];
+}
+
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+{
 	return [self numberOfRecords];
 }
 
