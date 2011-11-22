@@ -14,11 +14,6 @@
 {
 	CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-	CGFloat xShift;
-	CGFloat yShift;
-
-	CGFloat labelRotation;
-
 	NSArray *plotData;
 }
 

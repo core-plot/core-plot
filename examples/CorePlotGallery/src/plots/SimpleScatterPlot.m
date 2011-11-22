@@ -113,9 +113,6 @@
 	y.titleOffset	= 30.0;
 	y.titleLocation = CPTDecimalFromString(@"1.0");
 
-	// Rotate the labels by 45 degrees, just to show it can be done.
-	labelRotation = M_PI * 0.25;
-
 	// Set axes
 	//graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
 	graph.axisSet.axes = [NSArray arrayWithObjects:x, y, nil];
@@ -146,12 +143,6 @@
 	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
 															  length:CPTDecimalFromFloat(2.0f)];
 	plotSpace.globalYRange = globalYRange;
-
-	// set the x and y shift to match the new ranges
-	CGFloat length = xRange.lengthDouble;
-	xShift = length - 3.0;
-	length = yRange.lengthDouble;
-	yShift = length - 2.0;
 
 	// Add plot symbols
 	CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];

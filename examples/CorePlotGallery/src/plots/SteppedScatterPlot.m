@@ -84,7 +84,6 @@
 	// Extend the y range by 10% for neatness
 	CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
 	[plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
-	CPTPlotRange *xRange		= plotSpace.xRange;
 	CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
 	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
 	plotSpace.yRange = yRange;
@@ -92,12 +91,6 @@
 	// Restrict y range to a global range
 	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
 	plotSpace.globalYRange = globalYRange;
-
-	// set the x and y shift to match the new ranges
-	CGFloat length = xRange.lengthDouble;
-	xShift = length - 3.0;
-	length = yRange.lengthDouble;
-	yShift = length - 2.0;
 }
 
 -(void)dealloc
