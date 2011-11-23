@@ -109,6 +109,7 @@
 /**	@brief Draws the legend title centered vertically in the given rectangle.
  *	@param rect The bounding rectangle where the title should be drawn.
  *	@param context The graphics context to draw into.
+ *  @param scale The drawing scale factor. Must be greater than zero (0).
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
 {
