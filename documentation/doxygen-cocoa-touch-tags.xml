@@ -60,6 +60,22 @@
 		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSDate</name>
+		<filename>http://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDate_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
+		<name>NSDateFormatter</name>
+		<filename>http://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSDecimalNumber</name>
 		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSDecimalNumber_Class/Reference/Reference.html</filename>
 		<base>NSNumber</base>

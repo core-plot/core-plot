@@ -41,19 +41,19 @@ CPTAxisLabelingPolicy;
 /// @name Labels
 /// @{
 
-/**	@brief Determines if the axis should relabel itself now.
+/**	@brief (Optional) Determines if the axis should relabel itself now.
  *	@param axis The axis.
  *	@return YES if the axis should relabel now.
  **/
 -(BOOL)axisShouldRelabel:(CPTAxis *)axis;
 
-/**	@brief The method is called after the axis is relabeled to allow the delegate to perform any
+/**	@brief (Optional) The method is called after the axis is relabeled to allow the delegate to perform any
  *	necessary cleanup or further labeling actions.
  *	@param axis The axis.
  **/
 -(void)axisDidRelabel:(CPTAxis *)axis;
 
-/**	@brief This method gives the delegate a chance to create custom labels for each tick.
+/**	@brief (Optional) This method gives the delegate a chance to create custom labels for each tick.
  *  It can be used with any labeling policy. Returning NO will cause the axis not
  *  to update the labels. It is then the delegates responsiblity to do this.
  *	@param axis The axis.
@@ -62,7 +62,7 @@ CPTAxisLabelingPolicy;
  **/
 -(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations;
 
-/**	@brief This method gives the delegate a chance to create custom labels for each minor tick.
+/**	@brief (Optional) This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning NO will cause the axis not
  *  to update the labels. It is then the delegates responsiblity to do this.
  *	@param axis The axis.

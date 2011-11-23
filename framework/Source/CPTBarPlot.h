@@ -39,7 +39,7 @@ CPTBarPlotField;
 @protocol CPTBarPlotDataSource<CPTPlotDataSource>
 @optional
 
-/**	@brief Gets a bar fill for the given bar plot. This method is optional.
+/**	@brief (Optional) Gets a bar fill for the given bar plot. This method is optional.
  *	@param barPlot The bar plot.
  *	@param index The data index of interest.
  *	@return The bar fill for the bar with the given index. If the data source returns nil, the default fill is used.
@@ -47,7 +47,7 @@ CPTBarPlotField;
  **/
 -(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
 
-/**	@brief Gets a bar line style for the given bar plot. This method is optional.
+/**	@brief (Optional) Gets a bar line style for the given bar plot. This method is optional.
  *	@param barPlot The bar plot.
  *	@param index The data index of interest.
  *	@return The bar line style for the bar with the given index. If the data source returns nil, the default line style is used.
@@ -69,7 +69,7 @@ CPTBarPlotField;
 // @name Point selection
 /// @{
 
-/**	@brief Informs delegate that a point was touched.
+/**	@brief (Optional) Informs delegate that a point was touched.
  *	@param plot The scatter plot.
  *	@param index Index of touched point
  **/

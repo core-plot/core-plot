@@ -49,14 +49,14 @@ CPTScatterPlotInterpolation;
 /// @name Implement one of the following to add plot symbols
 /// @{
 
-/**	@brief Gets a range of plot symbols for the given scatter plot.
+/**	@brief (Optional) Gets a range of plot symbols for the given scatter plot.
  *	@param plot The scatter plot.
  *	@param indexRange The range of the data indexes of interest.
  *	@return An array of plot symbols.
  **/
 -(NSArray *)symbolsForScatterPlot:(CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
 
-/**	@brief Gets a plot symbol for the given scatter plot.
+/**	@brief (Optional) Gets a plot symbol for the given scatter plot.
  *	@param plot The scatter plot.
  *	@param index The data index of interest.
  *	@return The plot symbol to show for the point with the given index.
@@ -79,7 +79,7 @@ CPTScatterPlotInterpolation;
 // @name Point selection
 /// @{
 
-/**	@brief Informs delegate that a point was touched.
+/**	@brief (Optional) Informs delegate that a point was touched.
  *	@param plot The scatter plot.
  *	@param index Index of touched point
  **/

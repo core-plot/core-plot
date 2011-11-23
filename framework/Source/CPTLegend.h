@@ -35,7 +35,7 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @name Drawing
 /// @{
 
-/**	@brief This method gives the delegate a chance to draw custom swatches for each legend entry.
+/**	@brief (Required) This method gives the delegate a chance to draw custom swatches for each legend entry.
  *
  *	The "swatch" is the graphical part of the legend entry, usually accompanied by a text title
  *	that will be drawn by the legend. Returning NO will cause the legend to not draw the default

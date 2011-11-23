@@ -44,14 +44,14 @@ CPTPieDirection;
 @protocol CPTPieChartDataSource<CPTPlotDataSource>
 @optional
 
-/**	@brief Gets a fill for the given pie chart slice. This method is optional.
+/**	@brief (Optional) Gets a fill for the given pie chart slice. This method is optional.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The pie slice fill for the slice with the given index.
  **/
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
 
-/** @brief Offsets the slice radially from the center point. Can be used to "explode" the chart.
+/** @brief (Optional) Offsets the slice radially from the center point. Can be used to "explode" the chart.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The radial offset in view coordinates. Zero is no offset.
@@ -61,7 +61,7 @@ CPTPieDirection;
 /// @name Legends
 /// @{
 
-/** @brief Gets the legend title for the given pie chart slice.
+/** @brief (Optional) Gets the legend title for the given pie chart slice.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The title text for the legend entry for the point with the given index.
@@ -85,7 +85,7 @@ CPTPieDirection;
 // @name Point selection
 /// @{
 
-/**	@brief Informs the delegate that a pie slice was touched or clicked.
+/**	@brief (Optional) Informs the delegate that a pie slice was touched or clicked.
  *	@param plot The pie chart.
  *	@param index The index of the slice that was touched or clicked.
  **/

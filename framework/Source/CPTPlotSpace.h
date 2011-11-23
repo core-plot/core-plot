@@ -29,7 +29,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Scrolling
 /// @{
 
-/** @brief Informs the receiver that it should uniformly scale (e.g., in response to a pinch on iOS)
+/** @brief (Optional) Informs the receiver that it should uniformly scale (e.g., in response to a pinch on iOS)
  *  @param space The plot space.
  *  @param interactionScale The scaling factor.
  *  @param interactionPoint The coordinates of the scaling centroid.
@@ -38,7 +38,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 
-/**	@brief Notifies that plot space intercepted a device down event.
+/**	@brief (Optional) Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
  *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
@@ -47,7 +47,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point;
 
-/**	@brief Notifies that plot space intercepted a device dragged event.
+/**	@brief (Optional) Notifies that plot space intercepted a device dragged event.
  *	@param space The plot space.
  *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
@@ -56,7 +56,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point;
 
-/**	@brief Notifies that plot space intercepted a device cancelled event.
+/**	@brief (Optional) Notifies that plot space intercepted a device cancelled event.
  *	@param space The plot space.
  *  @param event The native event (e.g., UIEvent on iPhone)
  *	@return Whether the plot space should handle the event or not.
@@ -64,7 +64,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event;
 
-/**	@brief Notifies that plot space intercepted a device up event.
+/**	@brief (Optional) Notifies that plot space intercepted a device up event.
  *	@param space The plot space.
  *  @param event The native event (e.g., UIEvent on iPhone)
  *  @param point The point in the host view.
@@ -73,14 +73,14 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point;
 
-/**	@brief Notifies that plot space is going to scroll.
+/**	@brief (Optional) Notifies that plot space is going to scroll.
  *	@param space The plot space.
  *  @param proposedDisplacementVector The proposed amount by which the plot space will shift
  *	@return The displacement actually applied.
  **/
 -(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector;
 
-/**	@brief Notifies that plot space is going to change a plot range.
+/**	@brief (Optional) Notifies that plot space is going to change a plot range.
  *	@param space The plot space.
  *  @param newRange The proposed new plot range.
  *  @param coordinate The coordinate of the range.
@@ -88,7 +88,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  **/
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate;
 
-/**	@brief Notifies that plot space has changed a plot range.
+/**	@brief (Optional) Notifies that plot space has changed a plot range.
  *	@param space The plot space.
  *  @param coordinate The coordinate of the range.
  **/
