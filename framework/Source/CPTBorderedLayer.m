@@ -88,12 +88,16 @@
 
 	[super renderAsVectorInContext:context];
 
-	BOOL useMask = self.masksToBounds;
-	self.masksToBounds = YES;
-	CGContextBeginPath(context);
-	CGContextAddPath(context, self.maskingPath);
-	[self.fill fillPathInContext:context];
-	self.masksToBounds = useMask;
+	CPTFill *theFill = self.fill;
+
+	if ( theFill ) {
+		BOOL useMask = self.masksToBounds;
+		self.masksToBounds = YES;
+		CGContextBeginPath(context);
+		CGContextAddPath(context, self.maskingPath);
+		[theFill fillPathInContext:context];
+		self.masksToBounds = useMask;
+	}
 
 	CPTLineStyle *theLineStyle = self.borderLineStyle;
 	if ( theLineStyle ) {
