@@ -88,7 +88,10 @@
 -(void)addAnnotation:(CPTAnnotation *)annotation
 {
 	if ( annotation ) {
-		[self.mutableAnnotations addObject:annotation];
+		NSMutableArray *annotationArray = self.mutableAnnotations;
+		if ( ![annotationArray containsObject:annotation] ) {
+			[annotationArray addObject:annotation];
+		}
 		annotation.annotationHostLayer = self;
 		[annotation positionContentLayer];
 	}
