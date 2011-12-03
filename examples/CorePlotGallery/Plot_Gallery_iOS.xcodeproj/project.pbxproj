@@ -416,7 +416,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${CONFIGURATION}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -435,7 +435,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${BUILD_STYLE}-${PLATFORM_NAME}/\"/**";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../build/${CONFIGURATION}-${PLATFORM_NAME}/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
