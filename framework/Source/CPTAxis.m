@@ -48,6 +48,7 @@
 -(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels;
+-(void)updateCustomTickLabels;
 
 double niceNum(double x, BOOL round);
 
@@ -1305,7 +1306,10 @@ double niceNum(double x, BOOL round)
 	}
 
 	// Label ticks
-	if ( self.labelingPolicy != CPTAxisLabelingPolicyNone ) {
+	if ( self.labelingPolicy == CPTAxisLabelingPolicyNone ) {
+		[self updateCustomTickLabels];
+	}
+	else {
 		[self updateAxisLabelsAtLocations:self.majorTickLocations
 					   useMajorAxisLabels:YES];
 
@@ -1320,6 +1324,43 @@ double niceNum(double x, BOOL round)
 
 	if ( [self.delegate respondsToSelector:@selector(axisDidRelabel:)] ) {
 		[self.delegate axisDidRelabel:self];
+	}
+}
+
+-(void)updateCustomTickLabels
+{
+	CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
+
+	if ( range ) {
+		CPTPlotRange *theVisibleRange = self.visibleRange;
+		if ( theVisibleRange ) {
+			[range intersectionPlotRange:theVisibleRange];
+		}
+
+		if ( range.lengthDouble != 0.0 ) {
+			CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
+			CPTSign direction				   = self.tickDirection;
+
+			for ( CPTAxisLabel *label in self.axisLabels ) {
+				BOOL visible = [range contains:label.tickLocation];
+				label.contentLayer.hidden = !visible;
+				if ( visible ) {
+					CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
+					[label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
+				}
+			}
+
+			for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+				BOOL visible = [range contains:label.tickLocation];
+				label.contentLayer.hidden = !visible;
+				if ( visible ) {
+					CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
+					[label positionRelativeToViewPoint:tickBasePoint forCoordinate:orthogonalCoordinate inDirection:direction];
+				}
+			}
+		}
+
+		[range release];
 	}
 }
 
