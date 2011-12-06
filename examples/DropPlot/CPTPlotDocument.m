@@ -5,14 +5,6 @@
 
 //#define USE_NSDECIMAL
 
-+(void)initialize
-{
-	CPTDecimalNumberValueTransformer *valueTransformer = [[CPTDecimalNumberValueTransformer alloc] init];
-
-	[NSValueTransformer setValueTransformer:valueTransformer forName:@"CPTDecimalNumberValueTransformer"];
-	[valueTransformer release];
-}
-
 -(id)init
 {
 	self = [super init];
@@ -38,58 +30,58 @@
 {
 	// Create graph from theme
 	graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectZero];
-	CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
+	CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 	[graph applyTheme:theme];
 	graphView.hostedGraph = graph;
 
-	graph.paddingTop	= 40.0;
-	graph.paddingRight	= 40.0;
-	graph.paddingBottom = 40.0;
+	graph.paddingLeft	= 0.0;
+	graph.paddingTop	= 0.0;
+	graph.paddingRight	= 0.0;
+	graph.paddingBottom = 0.0;
+
+	graph.plotAreaFrame.paddingLeft	  = 55.0;
+	graph.plotAreaFrame.paddingTop	  = 40.0;
+	graph.plotAreaFrame.paddingRight  = 40.0;
+	graph.plotAreaFrame.paddingBottom = 35.0;
+
+	graph.plotAreaFrame.plotArea.fill = graph.plotAreaFrame.fill;
+	graph.plotAreaFrame.fill		  = nil;
+
+	graph.plotAreaFrame.borderLineStyle = nil;
+	graph.plotAreaFrame.cornerRadius	= 0.0;
 
 	// Setup plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(minimumValueForXAxis) length:CPTDecimalFromFloat(maximumValueForXAxis - minimumValueForXAxis)];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(minimumValueForYAxis) length:CPTDecimalFromFloat(maximumValueForYAxis - minimumValueForYAxis)];
+	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(minimumValueForXAxis)
+													length:CPTDecimalFromDouble(ceil( (maximumValueForXAxis - minimumValueForXAxis) / majorIntervalLengthForX ) * majorIntervalLengthForX)];
+	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(minimumValueForYAxis)
+													length:CPTDecimalFromDouble(ceil( (maximumValueForYAxis - minimumValueForYAxis) / majorIntervalLengthForY ) * majorIntervalLengthForY)];
 
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
-	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
+
+	CPTXYAxis *x = axisSet.xAxis;
 	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForYAxis);
-	x.minorTicksPerInterval		  = 5;
+	x.minorTicksPerInterval		  = 9;
+	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
+	x.labelOffset				  = 5.0;
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
-	y.minorTicksPerInterval		  = 5;
 	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForXAxis);
-
-	CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
-	borderLineStyle.lineColor = [CPTColor colorWithGenericGray:0.2];
-	borderLineStyle.lineWidth = 0.0f;
-
-//	CPTBorderedLayer *borderedLayer = (CPTBorderedLayer *)axisSet.overlayLayer;
-//	borderedLayer.borderLineStyle = borderLineStyle;
-//	borderedLayer.cornerRadius = 0.0f;
+	y.minorTicksPerInterval		  = 9;
+	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
+	y.labelOffset				  = 5.0;
 
 	// Create the main plot for the delimited data
 	CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
 	dataSourceLinePlot.identifier = @"Data Source Plot";
 
 	CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
-	lineStyle.lineWidth				 = 1.f;
-	lineStyle.lineColor				 = [CPTColor blackColor];
+	lineStyle.lineWidth				 = 1.0;
+	lineStyle.lineColor				 = [CPTColor whiteColor];
 	dataSourceLinePlot.dataLineStyle = lineStyle;
 
 	dataSourceLinePlot.dataSource = self;
 	[graph addPlot:dataSourceLinePlot];
-
-	// Add plot symbols
-//	CPTLineStyle *symbolLineStyle = [CPTLineStyle lineStyle];
-//	symbolLineStyle.lineColor = [CPTColor whiteColor];
-//	CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
-//	plotSymbol.fill = [CPTFill fillWithColor:[CPTColor blueColor]];
-//	plotSymbol.lineStyle = symbolLineStyle;
-//    plotSymbol.size = CGSizeMake(10.0, 10.0);
-//    dataSourceLinePlot.plotSymbol = plotSymbol;
 
 	[graph reloadData];
 }
@@ -162,8 +154,18 @@
 			// Process this
 		}
 
-		majorIntervalLengthForX = (maximumValueForXAxis - minimumValueForXAxis) / 10.0;
+		majorIntervalLengthForX = (maximumValueForXAxis - minimumValueForXAxis) / 5.0;
+		if ( majorIntervalLengthForX > 0.0 ) {
+			majorIntervalLengthForX = pow( 10.0, ceil( log10(majorIntervalLengthForX) ) );
+		}
+
 		majorIntervalLengthForY = (maximumValueForYAxis - minimumValueForYAxis) / 10.0;
+		if ( majorIntervalLengthForY > 0.0 ) {
+			majorIntervalLengthForY = pow( 10.0, ceil( log10(majorIntervalLengthForY) ) );
+		}
+
+		minimumValueForXAxis = floor(minimumValueForXAxis / majorIntervalLengthForX) * majorIntervalLengthForX;
+		minimumValueForYAxis = floor(minimumValueForYAxis / majorIntervalLengthForY) * majorIntervalLengthForY;
 
 		[fileContents release];
 	}
@@ -213,12 +215,8 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
 	NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-
-#ifdef USE_NSDECIMAL
-	NSDecimalNumber *num = [[dataPoints objectAtIndex:index] valueForKey:key];
-#else
 	NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:key];
-#endif
+
 	return num;
 }
 
