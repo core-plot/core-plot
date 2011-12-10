@@ -498,14 +498,21 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 		}
 	}
 	[theBorderLineStyle setLineStyleInContext:context];
+	BOOL alignToUserSpace = (self.lineStyle.lineWidth > 0.0);
 
 	// high - low only
 	if ( !isnan(high) && !isnan(low) && ( isnan(open) || isnan(close) ) ) {
 		CGPoint alignedHighPoint = CGPointMake(x, high);
 		CGPoint alignedLowPoint	 = CGPointMake(x, low);
 		if ( alignPoints ) {
-			alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-			alignedLowPoint	 = CPTAlignPointToUserSpace(context, alignedLowPoint);
+			if ( alignToUserSpace ) {
+				alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
+				alignedLowPoint	 = CPTAlignPointToUserSpace(context, alignedLowPoint);
+			}
+			else {
+				alignedHighPoint = CPTPointIntegral(alignedHighPoint);
+				alignedLowPoint	 = CPTPointIntegral(alignedLowPoint);
+			}
 		}
 
 		CGMutablePathRef path = CGPathCreateMutable();
@@ -531,11 +538,20 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 			CGPoint alignedPoint4 = CGPointMake(x - halfBarWidth, close);
 			CGPoint alignedPoint5 = CGPointMake(x - halfBarWidth, open);
 			if ( alignPoints ) {
-				alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-				alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-				alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-				alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-				alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+				if ( alignToUserSpace ) {
+					alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
+					alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
+					alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
+					alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
+					alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+				}
+				else {
+					alignedPoint1 = CPTPointIntegral(alignedPoint1);
+					alignedPoint2 = CPTPointIntegral(alignedPoint2);
+					alignedPoint3 = CPTPointIntegral(alignedPoint3);
+					alignedPoint4 = CPTPointIntegral(alignedPoint4);
+					alignedPoint5 = CPTPointIntegral(alignedPoint5);
+				}
 			}
 
 			if ( open == close ) {
@@ -568,8 +584,14 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 						CGPoint alignedStartPoint = CGPointMake( x, MIN(open, close) );
 						CGPoint alignedLowPoint	  = CGPointMake(x, low);
 						if ( alignPoints ) {
-							alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-							alignedLowPoint	  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+							if ( alignToUserSpace ) {
+								alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
+								alignedLowPoint	  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+							}
+							else {
+								alignedStartPoint = CPTPointIntegral(alignedStartPoint);
+								alignedLowPoint	  = CPTPointIntegral(alignedLowPoint);
+							}
 						}
 
 						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
@@ -581,8 +603,14 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 						CGPoint alignedStartPoint = CGPointMake( x, MAX(open, close) );
 						CGPoint alignedHighPoint  = CGPointMake(x, high);
 						if ( alignPoints ) {
-							alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-							alignedHighPoint  = CPTAlignPointToUserSpace(context, alignedHighPoint);
+							if ( alignToUserSpace ) {
+								alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
+								alignedHighPoint  = CPTAlignPointToUserSpace(context, alignedHighPoint);
+							}
+							else {
+								alignedStartPoint = CPTPointIntegral(alignedStartPoint);
+								alignedHighPoint  = CPTPointIntegral(alignedHighPoint);
+							}
 						}
 
 						CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);

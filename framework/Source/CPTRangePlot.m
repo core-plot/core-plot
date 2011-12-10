@@ -374,22 +374,46 @@ typedef struct CGPointError CGPointError;
 {
 	NSUInteger dataCount = self.cachedDataCount;
 
-	for ( NSUInteger i = 0; i < dataCount; i++ ) {
-		if ( drawPointFlags[i] ) {
-			CGFloat x	= viewPoints[i].x;
-			CGFloat y	= viewPoints[i].y;
-			CGPoint pos = CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
-			viewPoints[i].x = pos.x;
-			viewPoints[i].y = pos.y;
+	// Align to device pixels if there is a data line.
+	// Otherwise, align to view space, so fills are sharp at edges.
+	if ( self.barLineStyle.lineWidth > 0.0 ) {
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			if ( drawPointFlags[i] ) {
+				CGFloat x	= viewPoints[i].x;
+				CGFloat y	= viewPoints[i].y;
+				CGPoint pos = CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
+				viewPoints[i].x = pos.x;
+				viewPoints[i].y = pos.y;
 
-			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].high) );
-			viewPoints[i].high	= pos.y;
-			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].low) );
-			viewPoints[i].low	= pos.y;
-			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].left, y) );
-			viewPoints[i].left	= pos.x;
-			pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].right, y) );
-			viewPoints[i].right = pos.x;
+				pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].high) );
+				viewPoints[i].high	= pos.y;
+				pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].low) );
+				viewPoints[i].low	= pos.y;
+				pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].left, y) );
+				viewPoints[i].left	= pos.x;
+				pos					= CPTAlignPointToUserSpace( theContext, CGPointMake(viewPoints[i].right, y) );
+				viewPoints[i].right = pos.x;
+			}
+		}
+	}
+	else {
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			if ( drawPointFlags[i] ) {
+				CGFloat x	= viewPoints[i].x;
+				CGFloat y	= viewPoints[i].y;
+				CGPoint pos = CPTPointIntegral( CGPointMake(viewPoints[i].x, viewPoints[i].y) );
+				viewPoints[i].x = pos.x;
+				viewPoints[i].y = pos.y;
+
+				pos					= CPTPointIntegral( CGPointMake(x, viewPoints[i].high) );
+				viewPoints[i].high	= pos.y;
+				pos					= CPTPointIntegral( CGPointMake(x, viewPoints[i].low) );
+				viewPoints[i].low	= pos.y;
+				pos					= CPTPointIntegral( CGPointMake(viewPoints[i].left, y) );
+				viewPoints[i].left	= pos.x;
+				pos					= CPTPointIntegral( CGPointMake(viewPoints[i].right, y) );
+				viewPoints[i].right = pos.x;
+			}
 		}
 	}
 }

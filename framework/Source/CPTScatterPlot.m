@@ -460,9 +460,20 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 {
 	NSUInteger dataCount = self.cachedDataCount;
 
-	for ( NSUInteger i = 0; i < dataCount; i++ ) {
-		if ( drawPointFlags[i] ) {
-			viewPoints[i] = CPTAlignPointToUserSpace(theContext, viewPoints[i]);
+	// Align to device pixels if there is a data line.
+	// Otherwise, align to view space, so fills are sharp at edges.
+	if ( self.dataLineStyle.lineWidth > 0.0 ) {
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			if ( drawPointFlags[i] ) {
+				viewPoints[i] = CPTAlignPointToUserSpace(theContext, viewPoints[i]);
+			}
+		}
+	}
+	else {
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			if ( drawPointFlags[i] ) {
+				viewPoints[i] = CPTPointIntegral(viewPoints[i]);
+			}
 		}
 	}
 }

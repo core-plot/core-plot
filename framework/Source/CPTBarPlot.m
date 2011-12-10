@@ -705,21 +705,23 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	// Align to device pixels if there is a line border.
 	// Otherwise, align to view space, so fills are sharp at edges.
 	// Note: may not have a context if doing hit testing.
-	if ( self.lineStyle.lineWidth > 0.0 ) {
-		if ( self.alignsPointsToPixels && context ) {
-			alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-			alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-			alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-			alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-			alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+	if ( self.alignsPointsToPixels ) {
+		if ( self.lineStyle.lineWidth > 0.0 ) {
+			if ( context ) {
+				alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
+				alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
+				alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
+				alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
+				alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+			}
 		}
-	}
-	else {
-		alignedPoint1 = CPTPointIntegral(alignedPoint1);
-		alignedPoint2 = CPTPointIntegral(alignedPoint2);
-		alignedPoint3 = CPTPointIntegral(alignedPoint3);
-		alignedPoint4 = CPTPointIntegral(alignedPoint4);
-		alignedPoint5 = CPTPointIntegral(alignedPoint5);
+		else {
+			alignedPoint1 = CPTPointIntegral(alignedPoint1);
+			alignedPoint2 = CPTPointIntegral(alignedPoint2);
+			alignedPoint3 = CPTPointIntegral(alignedPoint3);
+			alignedPoint4 = CPTPointIntegral(alignedPoint4);
+			alignedPoint5 = CPTPointIntegral(alignedPoint5);
+		}
 	}
 
 	CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
