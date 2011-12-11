@@ -401,17 +401,17 @@ typedef struct CGPointError CGPointError;
 			if ( drawPointFlags[i] ) {
 				CGFloat x	= viewPoints[i].x;
 				CGFloat y	= viewPoints[i].y;
-				CGPoint pos = CPTPointIntegral( CGPointMake(viewPoints[i].x, viewPoints[i].y) );
+				CGPoint pos = CPTAlignIntegralPointToUserSpace( theContext, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
 				viewPoints[i].x = pos.x;
 				viewPoints[i].y = pos.y;
 
-				pos					= CPTPointIntegral( CGPointMake(x, viewPoints[i].high) );
+				pos					= CPTAlignIntegralPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].high) );
 				viewPoints[i].high	= pos.y;
-				pos					= CPTPointIntegral( CGPointMake(x, viewPoints[i].low) );
+				pos					= CPTAlignIntegralPointToUserSpace( theContext, CGPointMake(x, viewPoints[i].low) );
 				viewPoints[i].low	= pos.y;
-				pos					= CPTPointIntegral( CGPointMake(viewPoints[i].left, y) );
+				pos					= CPTAlignIntegralPointToUserSpace( theContext, CGPointMake(viewPoints[i].left, y) );
 				viewPoints[i].left	= pos.x;
-				pos					= CPTPointIntegral( CGPointMake(viewPoints[i].right, y) );
+				pos					= CPTAlignIntegralPointToUserSpace( theContext, CGPointMake(viewPoints[i].right, y) );
 				viewPoints[i].right = pos.x;
 			}
 		}

@@ -732,22 +732,23 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
 #pragma mark -
 #pragma mark Integral Geometry Conversions
 
-/**	@brief Converts a point to rounded integral values.
- *	@param p The point.
- *	@return Point with values rounded to nearest integral value.
+/**
+ *	@brief Aligns a point in user space between integral coordinates in device space.
+ *
+ *	Ensures that the x and y coordinates are between pixels in device space.
+ *
+ *	@param context The graphics context.
+ *	@param p The point in user space.
+ *	@return The device aligned point in user space.
  **/
-CGPoint CPTPointIntegral(CGPoint p)
+CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p)
 {
-	return CGPointMake( round(p.x), round(p.y) );
-}
+	p = CGContextConvertPointToDeviceSpace(context, p);
 
-/**	@brief Converts a size to rounded integral values.
- *	@param s The size.
- *	@return Size with values rounded to nearest integral value.
- **/
-CGSize CPTSizeIntegral(CGSize s)
-{
-	return CGSizeMake( round(s.width), round(s.height) );
+	p.x = round(p.x);
+	p.y = round(p.y);
+
+	return CGContextConvertPointToUserSpace(context, p);
 }
 
 #pragma mark -

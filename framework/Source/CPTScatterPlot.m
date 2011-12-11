@@ -472,7 +472,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	else {
 		for ( NSUInteger i = 0; i < dataCount; i++ ) {
 			if ( drawPointFlags[i] ) {
-				viewPoints[i] = CPTPointIntegral(viewPoints[i]);
+				viewPoints[i] = CPTAlignIntegralPointToUserSpace(theContext, viewPoints[i]);
 			}
 		}
 	}
@@ -640,6 +640,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				plotPoint[CPTCoordinateX] = [xValue decimalValue];
 				plotPoint[CPTCoordinateY] = theAreaBaseValue;
 				CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
+				if ( self.alignsPointsToPixels ) {
+					baseLinePoint = CPTAlignIntegralPointToUserSpace(theContext, baseLinePoint);
+				}
 
 				CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:baseLinePoint.y];
 

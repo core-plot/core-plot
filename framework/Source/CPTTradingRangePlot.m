@@ -510,8 +510,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 				alignedLowPoint	 = CPTAlignPointToUserSpace(context, alignedLowPoint);
 			}
 			else {
-				alignedHighPoint = CPTPointIntegral(alignedHighPoint);
-				alignedLowPoint	 = CPTPointIntegral(alignedLowPoint);
+				alignedHighPoint = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
+				alignedLowPoint	 = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
 			}
 		}
 
@@ -546,11 +546,11 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 					alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
 				}
 				else {
-					alignedPoint1 = CPTPointIntegral(alignedPoint1);
-					alignedPoint2 = CPTPointIntegral(alignedPoint2);
-					alignedPoint3 = CPTPointIntegral(alignedPoint3);
-					alignedPoint4 = CPTPointIntegral(alignedPoint4);
-					alignedPoint5 = CPTPointIntegral(alignedPoint5);
+					alignedPoint1 = CPTAlignIntegralPointToUserSpace(context, alignedPoint1);
+					alignedPoint2 = CPTAlignIntegralPointToUserSpace(context, alignedPoint2);
+					alignedPoint3 = CPTAlignIntegralPointToUserSpace(context, alignedPoint3);
+					alignedPoint4 = CPTAlignIntegralPointToUserSpace(context, alignedPoint4);
+					alignedPoint5 = CPTAlignIntegralPointToUserSpace(context, alignedPoint5);
 				}
 			}
 
@@ -589,8 +589,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 								alignedLowPoint	  = CPTAlignPointToUserSpace(context, alignedLowPoint);
 							}
 							else {
-								alignedStartPoint = CPTPointIntegral(alignedStartPoint);
-								alignedLowPoint	  = CPTPointIntegral(alignedLowPoint);
+								alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
+								alignedLowPoint	  = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
 							}
 						}
 
@@ -608,8 +608,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 								alignedHighPoint  = CPTAlignPointToUserSpace(context, alignedHighPoint);
 							}
 							else {
-								alignedStartPoint = CPTPointIntegral(alignedStartPoint);
-								alignedHighPoint  = CPTPointIntegral(alignedHighPoint);
+								alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
+								alignedHighPoint  = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
 							}
 						}
 
