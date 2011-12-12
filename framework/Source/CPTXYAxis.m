@@ -18,7 +18,7 @@
 /**	@cond */
 @interface CPTXYAxis()
 
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major;
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 
 -(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper;
 -(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber;
@@ -172,7 +172,7 @@
 #pragma mark -
 #pragma mark Drawing
 
--(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length isMajor:(BOOL)major
+-(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 {
 	CPTLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
 
@@ -184,8 +184,14 @@
 	CGContextBeginPath(theContext);
 
 	for ( NSDecimalNumber *tickLocation in locations ) {
+		NSDecimal locationDecimal = tickLocation.decimalValue;
+
+		if ( labeledRange && ![labeledRange contains:locationDecimal] ) {
+			continue;
+		}
+
 		// Tick end points
-		CGPoint baseViewPoint  = [self viewPointForCoordinateDecimalNumber:[tickLocation decimalValue]];
+		CGPoint baseViewPoint  = [self viewPointForCoordinateDecimalNumber:locationDecimal];
 		CGPoint startViewPoint = baseViewPoint;
 		CGPoint endViewPoint   = baseViewPoint;
 
@@ -243,9 +249,27 @@
 
 	[super renderAsVectorInContext:theContext];
 
+	CPTMutablePlotRange *range	  = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
+	CPTPlotRange *theVisibleRange = self.visibleRange;
+	if ( theVisibleRange ) {
+		[range intersectionPlotRange:theVisibleRange];
+	}
+
+	CPTMutablePlotRange *labeledRange = nil;
+
+	switch ( self.labelingPolicy ) {
+		case CPTAxisLabelingPolicyNone:
+		case CPTAxisLabelingPolicyLocationsProvided:
+			labeledRange = range;
+			break;
+
+		default:
+			break;
+	}
+
 	// Ticks
-	[self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength isMajor:NO];
-	[self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength isMajor:YES];
+	[self drawTicksInContext:theContext atLocations:self.minorTickLocations withLength:self.minorTickLength inRange:labeledRange isMajor:NO];
+	[self drawTicksInContext:theContext atLocations:self.majorTickLocations withLength:self.majorTickLength inRange:labeledRange isMajor:YES];
 
 	// Axis Line
 	CPTLineStyle *theLineStyle = self.axisLineStyle;
@@ -253,12 +277,6 @@
 	CPTLineCap *maxCap		   = self.axisLineCapMax;
 
 	if ( theLineStyle || minCap || maxCap ) {
-		CPTMutablePlotRange *range	  = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
-		CPTPlotRange *theVisibleRange = self.visibleRange;
-		if ( theVisibleRange ) {
-			[range intersectionPlotRange:theVisibleRange];
-		}
-
 		if ( theLineStyle ) {
 			CGPoint startViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 			CGPoint endViewPoint   = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
@@ -296,9 +314,9 @@
 			CGPoint viewPoint  = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:endPoint]);
 			[maxCap renderAsVectorInContext:theContext atPoint:viewPoint inDirection:axisDirection];
 		}
-
-		[range release];
 	}
+
+	[range release];
 }
 
 #pragma mark -
@@ -319,6 +337,23 @@
 		CPTCoordinate orthogonalCoordinate	 = CPTOrthogonalCoordinate(selfCoordinate);
 		CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
 		CPTPlotRange *theGridLineRange		 = self.gridLinesRange;
+		CPTMutablePlotRange *labeledRange	 = nil;
+
+		switch ( self.labelingPolicy ) {
+			case CPTAxisLabelingPolicyNone:
+			case CPTAxisLabelingPolicyLocationsProvided:
+			{
+				labeledRange = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
+				CPTPlotRange *theVisibleRange = self.visibleRange;
+				if ( theVisibleRange ) {
+					[labeledRange intersectionPlotRange:theVisibleRange];
+				}
+			}
+			break;
+
+			default:
+				break;
+		}
 
 		if ( theGridLineRange ) {
 			[orthogonalRange intersectionPlotRange:theGridLineRange];
@@ -334,7 +369,13 @@
 		CGContextBeginPath(context);
 
 		for ( NSDecimalNumber *location in locations ) {
-			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = [location decimalValue];
+			NSDecimal locationDecimal = location.decimalValue;
+
+			if ( labeledRange && ![labeledRange contains:locationDecimal] ) {
+				continue;
+			}
+
+			startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = locationDecimal;
 
 			// Start point
 			CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
@@ -360,6 +401,7 @@
 		CGContextStrokePath(context);
 
 		[orthogonalRange release];
+		[labeledRange release];
 	}
 }
 

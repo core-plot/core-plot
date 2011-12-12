@@ -47,7 +47,7 @@
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
--(void)updateAxisLabelsAtLocations:(NSSet *)locations useMajorAxisLabels:(BOOL)useMajorAxisLabels;
+-(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
 
 double niceNum(double x, BOOL round);
@@ -1100,10 +1100,12 @@ double niceNum(double x, BOOL round)
 /**	@brief Updates the set of axis labels using the given locations.
  *	Existing axis label objects and content layers are reused where possible.
  *	@param locations A set of NSDecimalNumber label locations.
+ *	@param labeledRange A plot range used to filter the generated labels. If nil, no filtering is done.
  *	@param useMajorAxisLabels If YES, label the major ticks, otherwise label the minor ticks.
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
-				useMajorAxisLabels:(BOOL)useMajorAxisLabels
+			  inRange						 :(CPTPlotRange *)labeledRange
+   useMajorAxisLabels			  :(BOOL)useMajorAxisLabels;
 {
 	CPTAlignment theLabelAlignment;
 	CGFloat theLabelOffset;
@@ -1181,11 +1183,17 @@ double niceNum(double x, BOOL round)
 	CPTShadow *theShadow			  = self.labelShadow;
 
 	for ( NSDecimalNumber *tickLocation in locations ) {
+		NSDecimal locationDecimal = tickLocation.decimalValue;
+
+		if ( labeledRange && ![labeledRange contains:locationDecimal] ) {
+			continue;
+		}
+
 		CPTAxisLabel *newAxisLabel;
 		BOOL needsNewContentLayer = NO;
 
 		// reuse axis labels where possible--will prevent flicker when updating layers
-		blankLabel.tickLocation = [tickLocation decimalValue];
+		blankLabel.tickLocation = locationDecimal;
 		CPTAxisLabel *oldAxisLabel = [oldAxisLabels member:blankLabel];
 
 		if ( oldAxisLabel ) {
@@ -1193,7 +1201,7 @@ double niceNum(double x, BOOL round)
 		}
 		else {
 			newAxisLabel			  = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
-			newAxisLabel.tickLocation = [tickLocation decimalValue];
+			newAxisLabel.tickLocation = locationDecimal;
 			needsNewContentLayer	  = YES;
 		}
 
@@ -1306,15 +1314,39 @@ double niceNum(double x, BOOL round)
 	}
 
 	// Label ticks
-	if ( self.labelingPolicy == CPTAxisLabelingPolicyNone ) {
-		[self updateCustomTickLabels];
-	}
-	else {
-		[self updateAxisLabelsAtLocations:self.majorTickLocations
-					   useMajorAxisLabels:YES];
+	switch ( self.labelingPolicy ) {
+		case CPTAxisLabelingPolicyNone:
+			[self updateCustomTickLabels];
+			break;
 
-		[self updateAxisLabelsAtLocations:self.minorTickLocations
-					   useMajorAxisLabels:NO];
+		case CPTAxisLabelingPolicyLocationsProvided:
+		{
+			CPTMutablePlotRange *labeledRange = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
+			CPTPlotRange *theVisibleRange	  = self.visibleRange;
+			if ( theVisibleRange ) {
+				[labeledRange intersectionPlotRange:theVisibleRange];
+			}
+
+			[self updateAxisLabelsAtLocations:self.majorTickLocations
+									  inRange:labeledRange
+						   useMajorAxisLabels:YES];
+
+			[self updateAxisLabelsAtLocations:self.minorTickLocations
+									  inRange:labeledRange
+						   useMajorAxisLabels:NO];
+			[labeledRange release];
+		}
+		break;
+
+		default:
+			[self updateAxisLabelsAtLocations:self.majorTickLocations
+									  inRange:nil
+						   useMajorAxisLabels:YES];
+
+			[self updateAxisLabelsAtLocations:self.minorTickLocations
+									  inRange:nil
+						   useMajorAxisLabels:NO];
+			break;
 	}
 
 	self.needsRelabel = NO;
