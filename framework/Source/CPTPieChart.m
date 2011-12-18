@@ -49,6 +49,10 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 
 /**
  *	@brief A pie chart.
+ *	@see See @ref plotAnimationPieChart "Pie Chart" for a list of animatable properties.
+ *	@if MacOnly
+ *	@see See @ref plotBindingsPieChart "Pie Chart Bindings" for a list of supported binding identifiers.
+ *	@endif
  **/
 @implementation CPTPieChart
 

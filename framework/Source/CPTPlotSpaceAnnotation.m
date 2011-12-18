@@ -5,7 +5,10 @@
 #import "CPTPlotSpace.h"
 
 /**	@brief Positions a content layer relative to some anchor point in a plot space.
- *	@todo More documentation needed.
+ *
+ *	Plot space annotations are positioned relative to a plot space. This allows the
+ *	annotation content layer to move with the plot when the plot space changes.
+ *	This is useful for applications such as labels attached to specific data points on a plot.
  **/
 @implementation CPTPlotSpaceAnnotation
 

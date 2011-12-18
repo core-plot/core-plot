@@ -62,7 +62,16 @@
 
 /**	@brief An abstract plot class.
  *
- *	Each data series on the graph is represented by a plot.
+ *	Each data series on the graph is represented by a plot. Data is provided by
+ *	a datasource that conforms to the CPTPlotDataSource protocol.
+ *	@if MacOnly
+ *	Plots also support data binding on MacOS.
+ *	@endif
+ *
+ *	@see See @ref plotAnimation "Plots" for a list of animatable properties supported by each plot type.
+ *	@if MacOnly
+ *	@see See @ref plotBindings "Plot Bindings" for a list of binding identifiers supported by each plot type.
+ *	@endif
  **/
 @implementation CPTPlot
 
@@ -892,7 +901,8 @@
 #pragma mark Data Labels
 
 /**
- *	@brief Marks the receiver as needing to update the labels before the content is next drawn.
+ *	@brief Marks the receiver as needing to update all data labels before the content is next drawn.
+ *	@see relabelIndexRange()
  **/
 -(void)setNeedsRelabel
 {
@@ -901,7 +911,7 @@
 }
 
 /**
- *	@brief Updates the data labels.
+ *	@brief Updates the data labels in the labelIndexRange.
  **/
 -(void)relabel
 {
@@ -1023,10 +1033,9 @@
 	}
 }
 
-/**	@brief Sets the labelIndexRange and informs the receiver that it needs to relabel.
+/**	@brief Marks the receiver as needing to update a range of data labels before the content is next drawn.
  *	@param indexRange The new indexRange for the labels.
- *
- *	@todo Needs more documentation.
+ *	@see setNeedsRelabel()
  **/
 -(void)relabelIndexRange:(NSRange)indexRange
 {

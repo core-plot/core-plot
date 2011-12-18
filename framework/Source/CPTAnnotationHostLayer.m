@@ -14,11 +14,10 @@
 
 #pragma mark -
 
-/**	@brief An annotation host layer is a container layer for annotations.
+/**	@brief A container layer for annotations.
  *
- *	Annotations can be added to and removed from an annotation layer.
- *
- *	@todo More documentation needed.
+ *	Annotations (CPTAnnotation) can be added to and removed from an annotation layer.
+ *	The host layer automatically handles the annotation layout.
  **/
 @implementation CPTAnnotationHostLayer
 

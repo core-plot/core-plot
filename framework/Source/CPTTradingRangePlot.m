@@ -52,6 +52,10 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 /**
  *	@brief A trading range financial plot.
+ *	@see See @ref plotAnimationTradingRangePlot "Trading Range Plot" for a list of animatable properties.
+ *	@if MacOnly
+ *	@see See @ref plotBindingsTradingRangePlot "Trading Range Plot Bindings" for a list of supported binding identifiers.
+ *	@endif
  **/
 @implementation CPTTradingRangePlot
 

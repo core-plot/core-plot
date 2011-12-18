@@ -21,11 +21,9 @@
 
 /**	@endcond */
 
-/**	@brief Wrapper around CGImageRef.
+/** @brief An immutable image.
  *
- *	A wrapper class around CGImageRef.
- *
- *	@todo More documentation needed
+ *  An immutable object wrapper class around CGImageRef.
  **/
 
 @implementation CPTImage

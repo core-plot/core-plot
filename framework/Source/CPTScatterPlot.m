@@ -56,6 +56,10 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 /**
  *	@brief A two-dimensional scatter plot.
+ *	@see See @ref plotAnimationScatterPlot "Scatter Plot" for a list of animatable properties.
+ *	@if MacOnly
+ *	@see See @ref plotBindingsScatterPlot "Scatter Plot Bindings" for a list of supported binding identifiers.
+ *	@endif
  **/
 @implementation CPTScatterPlot
 

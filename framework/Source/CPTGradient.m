@@ -42,10 +42,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Draws color gradient fills.
  *
- *	Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
- *	CTGradient is in public domain (Thanks Chad Weider!)
+ *	Gradients consist of multiple colors blended smoothly from one to the next at
+ *	specified positions using one of three blending modes. The color positions are
+ *	defined in a range between zero (0) and one (1). Axial gradients are drawn with
+ *	color positions increasing from left to right when the angle property is zero (0).
+ *	Radial gradients are drawn centered in the provided drawing region with position zero (0)
+ *	in the center and one (1) at the outer edge.
  *
- *	@todo More documentation needed
+ *	@note Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
+ *	CTGradient is in the public domain (Thanks Chad Weider!).
  **/
 @implementation CPTGradient
 
@@ -60,7 +65,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 @synthesize blendingMode;
 
 /** @property angle
- *  @brief The axis angle of an axial gradient, expressed in degrees.
+ *  @brief The axis angle of an axial gradient, expressed in degrees and measured counterclockwise from the positive x-axis.
  **/
 @synthesize angle;
 

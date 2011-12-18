@@ -43,10 +43,11 @@
 
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
- *	Default animations for changes in position, bounds, and sublayers are turned off.
- *	The default layer is not opaque and does not mask to bounds.
- *
- *	@todo More documentation needed
+ *	Unless useFastRendering == YES, all drawing is done in a way that preserves the
+ *	drawing vectors. Sublayers are arranged automatically to fill the layer's
+ *	bounds, minus any padding. Default animations for changes in position, bounds,
+ *	and sublayers are turned off. The default layer is not opaque and does not mask
+ *	to bounds.
  **/
 @implementation CPTLayer
 

@@ -13,11 +13,9 @@
 
 #pragma mark -
 
-/** @brief Wrapper around CGColorSpaceRef
+/** @brief An immutable color space.
  *
- *  A wrapper class around CGColorSpaceRef
- *
- * @todo More documentation needed
+ *  An immutable object wrapper class around CGColorSpaceRef.
  **/
 
 @implementation CPTColorSpace

@@ -62,6 +62,10 @@ typedef struct CGPointError CGPointError;
 /**	@brief A plot class representing a range of values in one coordinate,
  *  such as typically used to show errors.
  *  A range plot can show bars (error bars), or an area fill, or both.
+ *	@see See @ref plotAnimationRangePlot "Range Plot" for a list of animatable properties.
+ *	@if MacOnly
+ *	@see See @ref plotBindingsRangePlot "Range Plot Bindings" for a list of supported binding identifiers.
+ *	@endif
  **/
 @implementation CPTRangePlot
 

@@ -60,6 +60,7 @@ double niceNum(double x, BOOL round);
 
 /**
  *	@brief An abstract axis class.
+ *	@see See @ref axisAnimation "Axes" for a list of animatable properties.
  **/
 @implementation CPTAxis
 

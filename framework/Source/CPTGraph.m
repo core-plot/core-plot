@@ -43,7 +43,23 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 
 /**	@brief An abstract graph class.
- *	@todo More documentation needed
+ *
+ *	The graph is the top-level view container for a Core Plot graph. It should be hosted
+ *	inside a CPTGraphHostingView.
+ *
+ *	A graph contains a single plot area frame (CPTPlotAreaFrame), which is the container for all of the
+ *	graph elements. Use the padding properties on the graph to position the plot area frame
+ *	inside the graph. All graph elements, except for titles, legends, and other annotations
+ *	attached directly to the graph itself are clipped to the plot area frame.
+ *
+ *	The plot area (CPTPlotArea) sits inside the plot area frame. Use the padding properties on the plot
+ *	area frame to position the plot area inside the plot area frame.
+ *	All plots are drawn inside this area while axes, titles, and borders may fall outside.
+ *	Use a plot space (CPTPlotSpace) to control the mapping between data values and
+ *	plotting coordinates in the plot area. One plot space is automatically provided with
+ *	a new graph; more may be added as needed.
+ *
+ *	@see See @ref graphAnimation "Graphs" for a list of animatable properties.
  **/
 @implementation CPTGraph
 

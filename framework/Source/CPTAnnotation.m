@@ -7,10 +7,8 @@
 /**	@brief An annotation positions a content layer relative to some anchor point.
  *
  *	Annotations can be used to add text or images that are anchored to a feature
- *	of a graph. For example, the graph title is an annotation anchored to the
- *	plot area frame.
- *
- *	@todo More documentation needed.
+ *	of a graph. For example, the graph title is an annotation anchored to the graph.
+ *	The annotation content layer can be any CPTLayer.
  **/
 @implementation CPTAnnotation
 

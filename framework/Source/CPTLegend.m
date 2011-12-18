@@ -55,6 +55,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *
  *	The plots are not required to belong to the same graph, although that is the usual
  *	case. This allows creation of a master legend that covers multiple graphs.
+ *
+ *	@see See @ref legendAnimation "Legends" for a list of animatable properties.
  **/
 @implementation CPTLegend
 

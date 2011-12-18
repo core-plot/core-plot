@@ -18,8 +18,11 @@
 
 #pragma mark -
 
-/**	@brief Positions a content layer relative to some anchor point in a reference layer.
- *	@todo More documentation needed
+/**	@brief Positions a content layer relative to an anchor point in a reference layer.
+ *
+ *	Layer annotations are positioned relative to a reference layer. This allows the
+ *	annotation content layer to move with changes in the reference layer.
+ *	This is useful for applications such as titles attached to an edge of the reference layer.
  **/
 @implementation CPTLayerAnnotation
 

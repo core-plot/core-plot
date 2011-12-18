@@ -56,6 +56,10 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 /**
  *	@brief A two-dimensional bar plot.
+ *	@see See @ref plotAnimationBarPlot "Bar Plot" for a list of animatable properties.
+ *	@if MacOnly
+ *	@see See @ref plotBindingsBarPlot "Bar Plot Bindings" for a list of supported binding identifiers.
+ *	@endif
  **/
 @implementation CPTBarPlot
 

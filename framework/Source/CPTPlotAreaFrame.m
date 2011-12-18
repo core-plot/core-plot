@@ -19,6 +19,9 @@
 
 /**
  *	@brief A layer drawn on top of the graph layer and behind all plot elements.
+ *
+ *	All graph elements, except for titles, legends, and other annotations
+ *	attached directly to the graph itself are clipped to the plot area frame.
  **/
 @implementation CPTPlotAreaFrame
 

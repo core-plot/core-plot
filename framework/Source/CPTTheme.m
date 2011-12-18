@@ -8,9 +8,13 @@
 // Registered themes
 static NSMutableSet *themes = nil;
 
-/** @brief Creates a CPTGraph instance formatted with predefined themes.
+/** @brief Creates a CPTGraph instance formatted with a predefined style.
  *
- *	@todo More documentation needed
+ *	Themes apply a predefined combination of line styles, text styles, and fills to
+ *	the graph. The styles are applied to the axes, the plot area, and the graph itself.
+ *	Using a theme to format the graph does not prevent any of the style properties
+ *	from being changed later. Therefore, it is possible to apply initial formatting to
+ *	a graph using a theme and then customize the styles to suit the application later.
  **/
 @implementation CPTTheme
 
@@ -71,7 +75,8 @@ static NSMutableSet *themes = nil;
 
 /**	@brief Gets a named theme.
  *	@param themeName The name of the desired theme.
- *	@return A CPTTheme instance with name matching themeName or nil if no themes with a matching name were found.
+ *	@return A CPTTheme instance with name matching @a themeName or nil if no themes with a matching name were found.
+ *	@see See @ref themeNames "Theme Names" for a list of named themes provided by Core Plot.
  **/
 +(CPTTheme *)themeNamed:(NSString *)themeName
 {

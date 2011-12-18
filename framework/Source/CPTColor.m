@@ -4,11 +4,11 @@
 #import "CPTPlatformSpecificFunctions.h"
 #import "NSCoderExtensions.h"
 
-/** @brief Wrapper around CGColorRef
+/** @brief An immutable color.
  *
- *  A wrapper class around CGColorRef
- *
- * @todo More documentation needed.
+ *  An immutable object wrapper class around CGColorRef.
+ *	It provides convenience methods to create the same predefined colors
+ *	defined by NSColor and UIColor.
  **/
 @implementation CPTColor
 
