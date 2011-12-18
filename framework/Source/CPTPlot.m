@@ -1076,7 +1076,9 @@
 	NSUInteger labelCount = annotations.count;
 
 	for ( NSUInteger i = 0; i < labelCount; i++ ) {
-		[self positionLabelAnnotation:[annotations objectAtIndex:i] forIndex:i];
+		CPTPlotSpaceAnnotation *annotation = [annotations objectAtIndex:i];
+		[self positionLabelAnnotation:annotation forIndex:i];
+		[self updateContentAnchorForLabel:annotation];
 	}
 }
 
