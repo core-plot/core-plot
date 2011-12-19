@@ -387,6 +387,8 @@ static const CGFloat colorLookupTable[10][3] =
 
 	[super renderAsVectorInContext:context];
 
+	CGContextBeginTransparencyLayer(context, NULL);
+
 	CGRect plotAreaBounds = thePlotArea.bounds;
 	CGPoint anchor		  = self.centerAnchor;
 	CGPoint centerPoint	  = CGPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
@@ -457,6 +459,8 @@ static const CGFloat colorLookupTable[10][3] =
 		currentIndex++;
 	}
 
+	CGContextEndTransparencyLayer(context);
+
 	[self drawOverlayInContext:context centerPoint:centerPoint];
 }
 
@@ -518,6 +522,9 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 
 	CGContextSaveGState(context);
+
+	// no shadow for the overlay
+	CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
 
 	CGMutablePathRef fillPath = CGPathCreateMutable();
 	CGFloat innerRadius		  = self.pieInnerRadius;
