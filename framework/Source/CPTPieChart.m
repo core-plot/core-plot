@@ -39,7 +39,6 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 
 -(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle;
 -(CPTFill *)sliceFillForIndex:(NSUInteger)index;
--(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint;
 
 @end
 
@@ -398,10 +397,22 @@ static const CGFloat colorLookupTable[10][3] =
 		centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
 	}
 
-	NSUInteger currentIndex					= 0;
-	CGFloat startingWidth					= 0.0;
+	NSUInteger currentIndex = 0;
+	CGFloat startingWidth	= 0.0;
+
 	id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
 	BOOL dataSourceProvidesRadialOffsets	= [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)];
+
+	CPTLineStyle *borderStyle = self.borderLineStyle;
+	CPTFill *overlay		  = self.overlayFill;
+
+	CGRect bounds;
+	if ( overlay && dataSourceProvidesRadialOffsets ) {
+		CGFloat radius = self.pieRadius + borderStyle.lineWidth * (CGFloat)0.5;
+		bounds = CGRectMake(centerPoint.x - radius, centerPoint.y - radius, radius * 2.0, radius * 2.0);
+	}
+
+	[borderStyle setLineStyleInContext:context];
 
 	while ( currentIndex < sampleCount ) {
 		CGFloat currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
@@ -418,11 +429,13 @@ static const CGFloat colorLookupTable[10][3] =
 			CGFloat startingAngle  = [self radiansForPieSliceValue:startingWidth];
 			CGFloat finishingAngle = [self radiansForPieSliceValue:startingWidth + currentWidth];
 
-			CGPoint center = centerPoint;
+			CGFloat xOffset = 0.0;
+			CGFloat yOffset = 0.0;
+			CGPoint center	= centerPoint;
 			if ( radialOffset != 0.0 ) {
 				CGFloat medianAngle = (CGFloat)0.5 * (startingAngle + finishingAngle);
-				CGFloat xOffset		= cos(medianAngle) * radialOffset;
-				CGFloat yOffset		= sin(medianAngle) * radialOffset;
+				xOffset = cos(medianAngle) * radialOffset;
+				yOffset = sin(medianAngle) * radialOffset;
 
 				center = CGPointMake(centerPoint.x + xOffset, centerPoint.y + yOffset);
 
@@ -443,12 +456,21 @@ static const CGFloat colorLookupTable[10][3] =
 			}
 
 			// Draw the border line around the slice
-			CPTLineStyle *borderStyle = self.borderLineStyle;
 			if ( borderStyle ) {
 				CGContextBeginPath(context);
 				CGContextAddPath(context, slicePath);
-				[borderStyle setLineStyleInContext:context];
 				CGContextStrokePath(context);
+			}
+
+			// draw overlay for exploded pie charts
+			if ( overlay && dataSourceProvidesRadialOffsets ) {
+				CGContextSaveGState(context);
+
+				CGContextAddPath(context, slicePath);
+				CGContextClip(context);
+				[overlay fillRect:CGRectOffset(bounds, xOffset, yOffset) inContext:context];
+
+				CGContextRestoreGState(context);
 			}
 
 			CGPathRelease(slicePath);
@@ -461,7 +483,30 @@ static const CGFloat colorLookupTable[10][3] =
 
 	CGContextEndTransparencyLayer(context);
 
-	[self drawOverlayInContext:context centerPoint:centerPoint];
+	// draw overlay all at once if not exploded
+	if ( overlay && !dataSourceProvidesRadialOffsets ) {
+		// no shadow for the overlay
+		CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
+
+		CGMutablePathRef fillPath = CGPathCreateMutable();
+
+		CGFloat innerRadius = self.pieInnerRadius;
+		if ( innerRadius > 0.0 ) {
+			CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0, 2.0 * M_PI, false);
+			CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, innerRadius, 2.0 * M_PI, 0.0, true);
+		}
+		else {
+			CGPathMoveToPoint(fillPath, NULL, centerPoint.x, centerPoint.y);
+			CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0, 2.0 * M_PI, false);
+		}
+		CGPathCloseSubpath(fillPath);
+
+		CGContextBeginPath(context);
+		CGContextAddPath(context, fillPath);
+		[overlay fillPathInContext:context];
+
+		CGPathRelease(fillPath);
+	}
 }
 
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue
@@ -511,39 +556,6 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 
 	return currentFill;
-}
-
--(void)drawOverlayInContext:(CGContextRef)context centerPoint:(CGPoint)centerPoint
-{
-	CPTFill *overlay = self.overlayFill;
-
-	if ( !overlay ) {
-		return;
-	}
-
-	CGContextSaveGState(context);
-
-	// no shadow for the overlay
-	CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
-
-	CGMutablePathRef fillPath = CGPathCreateMutable();
-	CGFloat innerRadius		  = self.pieInnerRadius;
-	if ( innerRadius > 0.0 ) {
-		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0, 2.0 * M_PI, false);
-		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, innerRadius, 2.0 * M_PI, 0.0, true);
-	}
-	else {
-		CGPathMoveToPoint(fillPath, NULL, centerPoint.x, centerPoint.y);
-		CGPathAddArc(fillPath, NULL, centerPoint.x, centerPoint.y, self.pieRadius, 0.0, 2.0 * M_PI, false);
-	}
-	CGPathCloseSubpath(fillPath);
-
-	CGContextBeginPath(context);
-	CGContextAddPath(context, fillPath);
-	[overlay fillPathInContext:context];
-
-	CGPathRelease(fillPath);
-	CGContextRestoreGState(context);
 }
 
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
