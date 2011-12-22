@@ -90,7 +90,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 /** @property topDownLayerOrder
  *	@brief An array of graph layers to be drawn in an order other than the default.
- *	@see CPTPlotArea#topDownLayerOrder
+ *	@see @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink in CPTPlotArea
  **/
 @dynamic topDownLayerOrder;
 

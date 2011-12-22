@@ -45,7 +45,7 @@
 /** @brief Initializes a newly allocated CPTLayerAnnotation object with the provided reference layer.
  *
  *	This is the designated initializer. The initialized layer will be anchored to
- *	CPTRectAnchor#CPTRectAnchorTop by default.
+ *	@link CPTRectAnchor::CPTRectAnchorTop CPTRectAnchorTop @endlink by default.
  *
  *	@param newAnchorLayer The reference layer. Must be non-nil.
  *  @return The initialized CPTLayerAnnotation object.

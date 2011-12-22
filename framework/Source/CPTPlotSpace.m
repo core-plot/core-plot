@@ -7,6 +7,9 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 
 /**
  *	@brief Defines the coordinate system of a plot.
+ *
+ *	A plot space determines the mapping between data coordinates
+ *	and device coordinates in the plot area.
  **/
 @implementation CPTPlotSpace
 
@@ -141,7 +144,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 @implementation CPTPlotSpace(AbstractMethods)
 
 /**	@brief Converts a data point to plot area drawing coordinates.
- *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
+ *	@param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *	@return The drawing coordinates of the data point.
  **/
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
@@ -159,7 +162,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 }
 
 /**	@brief Converts a point given in plot area drawing coordinates to the data coordinate space.
- *	@param plotPoint A c-style array of data point coordinates (as NSDecimals).
+ *	@param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *	@param point The drawing coordinates of the data point.
  **/
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
@@ -216,7 +219,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 }
 
 /**	@brief Zooms the plot space equally in each dimension.
- *	@param interactionScale The scaling factor. One gives no scaling.
+ *	@param interactionScale The scaling factor. One (1) gives no scaling.
  *  @param interactionPoint The plot area view point about which the scaling occurs.
  **/
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint

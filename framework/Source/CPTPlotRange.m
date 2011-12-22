@@ -24,31 +24,35 @@
 
 /** @property location
  *  @brief The starting value of the range.
+ *	@see locationDouble
  **/
 @synthesize location;
 
 /** @property length
  *  @brief The length of the range.
+ *	@see lengthDouble
  **/
 @synthesize length;
 
 /** @property locationDouble
  *  @brief The starting value of the range as a <code>double</code>.
+ *	@see location
  **/
 @synthesize locationDouble;
 
 /** @property lengthDouble
  *  @brief The length of the range as a <code>double</code>.
+ *	@see length
  **/
 @synthesize lengthDouble;
 
 /** @property end
- *  @brief The ending value of the range.
+ *  @brief The ending value of the range, equivalent to @link CPTPlotRange::location location @endlink + @link CPTPlotRange::length length @endlink.
  **/
 @dynamic end;
 
 /** @property endDouble
- *  @brief The ending value of the range as a <code>double</code>.
+ *  @brief The ending value of the range as a <code>double</code>, equivalent to @link CPTPlotRange::locationDouble locationDouble @endlink + @link CPTPlotRange::lengthDouble lengthDouble @endlink.
  **/
 @dynamic endDouble;
 

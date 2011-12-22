@@ -32,38 +32,68 @@
 
 /**
  *	@brief A plot space using a two-dimensional cartesian coordinate system.
+ *
+ *	The @link CPTXYPlotSpace::xRange xRange @endlink and @link CPTXYPlotSpace::yRange
+ *	yRange @endlink determine the mapping between data coordinates
+ *	and the screen coordinates in the plot area. The "end" of a range is
+ *	the location plus its length. Note that the length of a plot range can be negative, so
+ *	the end point can have a lesser value than the starting location.
+ *
+ *	The global ranges constrain the values of the @link CPTXYPlotSpace::xRange
+ *	xRange @endlink and @link CPTXYPlotSpace::yRange yRange @endlink.
+ *	Whenever the global range is set (non-nil), the corresponding plot
+ *	range will be adjusted so that it fits in the global range. When a new
+ *	range is set to the plot range, it will be adjusted as needed to fit
+ *	in the global range. This is useful for constraining scrolling, for
+ *	instance.
  **/
 @implementation CPTXYPlotSpace
 
 /** @property xRange
- *	@brief The range of the x coordinate.
+ *	@brief The range of the x coordinate. Defaults to a range with <code>location</code> zero (0) and a <code>length</code> of one (1).
+ *
+ *	The @link CPTPlotRange::location location @endlink of the <code>xRange</code>
+ *	defines the data coordinate associated with the left edge of the plot area.
+ *	Similarly, the @link CPTPlotRange::end end @endlink of the <code>xRange</code>
+ *	defines the data coordinate associated with the right edge of the plot area.
  **/
 @synthesize xRange;
 
 /** @property yRange
- *	@brief The range of the y coordinate.
+ *	@brief The range of the y coordinate. Defaults to a range with <code>location</code> zero (0) and a <code>length</code> of one (1).
+ *
+ *	The @link CPTPlotRange::location location @endlink of the <code>yRange</code>
+ *	defines the data coordinate associated with the bottom edge of the plot area.
+ *	Similarly, the @link CPTPlotRange::end end @endlink of the <code>yRange</code>
+ *	defines the data coordinate associated with the top edge of the plot area.
  **/
 @synthesize yRange;
 
 /** @property globalXRange
- *	@brief The global range of the x coordinate to which the plot range is constrained.
- *  If nil, there is no constraint on x.
+ *	@brief The global range of the x coordinate to which the @link CPTXYPlotSpace::xRange xRange @endlink is constrained.
+ *
+ *	If non-nil, the @link CPTXYPlotSpace::xRange xRange @endlink and any changes to it will
+ *	be adjusted so that it always fits within the <code>globalXRange</code>.
+ *  If nil (the default), there is no constraint on x.
  **/
 @synthesize globalXRange;
 
 /** @property globalYRange
- *	@brief The global range of the y coordinate to which the plot range is constrained.
- *  If nil, there is no constraint on y.
+ *	@brief The global range of the y coordinate to which the @link CPTXYPlotSpace::yRange yRange @endlink is constrained.
+ *
+ *	If non-nil, the @link CPTXYPlotSpace::yRange yRange @endlink and any changes to it will
+ *	be adjusted so that it always fits within the <code>globalYRange</code>.
+ *  If nil (the default), there is no constraint on y.
  **/
 @synthesize globalYRange;
 
 /** @property xScaleType
- *	@brief The scale type of the x coordinate.
+ *	@brief The scale type of the x coordinate. Defaults to @link CPTScaleType::CPTScaleTypeLinear CPTScaleTypeLinear @endlink.
  **/
 @synthesize xScaleType;
 
 /** @property yScaleType
- *	@brief The scale type of the y coordinate.
+ *	@brief The scale type of the y coordinate. Defaults to @link CPTScaleType::CPTScaleTypeLinear CPTScaleTypeLinear @endlink.
  **/
 @synthesize yScaleType;
 
