@@ -68,6 +68,19 @@
  *	Plots also support data binding on MacOS.
  *	@endif
  *
+ *	A Core Plot plot will request its data from the datasource when it is first displayed.
+ *	You can force it to load new data in several ways:
+ *	- Call @link CPTGraph::reloadData -reloadData @endlink on the graph to reload all plots.
+ *	- Call @link CPTPlot::reloadData -reloadData @endlink on the plot to reload all of the data for only that plot.
+ *	- Call @link CPTPlot::reloadDataInIndexRange: -reloadDataInIndexRange: @endlink on the plot to reload a range
+ *	  of data indices without changing the total number of data points.
+ *	- Call @link CPTPlot::insertDataAtIndex:numberOfRecords: -insertDataAtIndex:numberOfRecords: @endlink
+ *	  to insert new data at the given index. Any data at higher indices will be moved to make room.
+ *	  Only the new data will be requested from the datasource.
+ *
+ *	You can also remove data from the plot without reloading anything by using the
+ *	@link CPTPlot::deleteDataInIndexRange: -deleteDataInIndexRange: @endlink method.
+ *
  *	@see See @ref plotAnimation "Plots" for a list of animatable properties supported by each plot type.
  *	@if MacOnly
  *	@see See @ref plotBindings "Plot Bindings" for a list of binding identifiers supported by each plot type.

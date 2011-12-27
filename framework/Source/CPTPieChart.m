@@ -70,7 +70,7 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 @synthesize pieInnerRadius;
 
 /** @property startAngle
- *	@brief The starting angle for the first slice in radians. Defaults to pi/2.
+ *	@brief The starting angle for the first slice in radians. Defaults to π/2.
  *	@ingroup plotAnimationPieChart
  **/
 @synthesize startAngle;
