@@ -63,7 +63,12 @@ NSString *const kCPTSlateTheme = @"Slate"; ///< Slate theme.
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph
 {
-	// No background fill has been implemented
+	CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:0.43 green:0.51 blue:0.63 alpha:1.0]
+														endingColor:[CPTColor colorWithComponentRed:0.70 green:0.73 blue:0.80 alpha:1.0]];
+
+	gradient.angle = 90.0;
+
+	graph.fill = [CPTFill fillWithGradient:gradient];
 }
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
