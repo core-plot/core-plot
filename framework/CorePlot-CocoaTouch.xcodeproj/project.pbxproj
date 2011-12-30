@@ -153,8 +153,6 @@
 		C3920AD01395B7680045F3BB /* CPTLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = C3920ACE1395B7680045F3BB /* CPTLegend.m */; };
 		C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3978E0E13CE65C600A420D9 /* NSCoderExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3978E1113CE65C600A420D9 /* NSCoderExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */; };
-		C3978E1213CE65EA00A420D9 /* NSExceptionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */; };
-		C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3A695E1146A196100AF5653 /* CPTMutablePlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3A695E2146A196100AF5653 /* CPTMutablePlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */; };
 		C3B623C0107EC9370009EF0B /* CPTBarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82DA0FB89E610035D8DA /* CPTBarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -364,8 +362,6 @@
 		C3CADE3A11B188B600D36017 /* CPTNumericDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTNumericDataType.m; path = Source/CPTNumericDataType.m; sourceTree = "<group>"; };
 		C3CADE3D11B188C500D36017 /* CPTMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutableNumericData.h; path = Source/CPTMutableNumericData.h; sourceTree = "<group>"; };
 		C3CADE3E11B188C500D36017 /* CPTMutableNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutableNumericData.m; path = Source/CPTMutableNumericData.m; sourceTree = "<group>"; };
-		C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSExceptionExtensions.h; path = Source/NSExceptionExtensions.h; sourceTree = "<group>"; };
-		C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSExceptionExtensions.m; path = Source/NSExceptionExtensions.m; sourceTree = "<group>"; };
 		C3CAFB391229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CPTMutableNumericData+TypeConversion.h"; path = "Source/CPTMutableNumericData+TypeConversion.h"; sourceTree = "<group>"; };
 		C3CAFB3A1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPTMutableNumericData+TypeConversion.m"; path = "Source/CPTMutableNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C3CCA04413E8D94800CE6DB1 /* _CPTConstraintsFixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTConstraintsFixed.h; path = Source/_CPTConstraintsFixed.h; sourceTree = "<group>"; };
@@ -644,8 +640,6 @@
 				BC9B82B20FB89E610035D8DA /* NSDecimalNumberExtensions.m */,
 				BC9B82B30FB89E610035D8DA /* NSNumberExtensions.h */,
 				BC9B82B40FB89E610035D8DA /* NSNumberExtensions.m */,
-				C3CADE5711B18B8700D36017 /* NSExceptionExtensions.h */,
-				C3CADE5811B18B8700D36017 /* NSExceptionExtensions.m */,
 			);
 			name = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -886,7 +880,6 @@
 				C3CCA04A13E8D94800CE6DB1 /* _CPTConstraintsRelative.h in Headers */,
 				C30550E91399BE2000E0151F /* CPTLegendEntry.h in Headers */,
 				C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */,
-				C3978E1313CE65ED00A420D9 /* NSExceptionExtensions.h in Headers */,
 				C3D3AD3413DF8E9D0004EA73 /* CPTLineCap.h in Headers */,
 				C32EE1BD13EC4AF900038266 /* CPTShadow.h in Headers */,
 				C32EE1C813EC4C7200038266 /* CPTMutableShadow.h in Headers */,
@@ -1051,7 +1044,6 @@
 				C3920AD01395B7680045F3BB /* CPTLegend.m in Sources */,
 				C30550EA1399BE2000E0151F /* CPTLegendEntry.m in Sources */,
 				C3978E1113CE65C600A420D9 /* NSCoderExtensions.m in Sources */,
-				C3978E1213CE65EA00A420D9 /* NSExceptionExtensions.m in Sources */,
 				C3D3AD3513DF8E9D0004EA73 /* CPTLineCap.m in Sources */,
 				C3CCA04913E8D94800CE6DB1 /* _CPTConstraintsFixed.m in Sources */,
 				C3CCA04B13E8D94800CE6DB1 /* _CPTConstraintsRelative.m in Sources */,

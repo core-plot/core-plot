@@ -1,6 +1,5 @@
 #import "CPTNumericDataType.h"
 
-#import "NSExceptionExtensions.h"
 #import "complex.h"
 
 static CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
