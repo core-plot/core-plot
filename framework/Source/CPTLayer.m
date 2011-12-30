@@ -43,7 +43,8 @@
 
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
- *	Unless useFastRendering == YES, all drawing is done in a way that preserves the
+ *	Unless <code>@link CPTLayer::useFastRendering useFastRendering @endlink == YES</code>,
+ *	all drawing is done in a way that preserves the
  *	drawing vectors. Sublayers are arranged automatically to fill the layer's
  *	bounds, minus any padding. Default animations for changes in position, bounds,
  *	and sublayers are turned off. The default layer is not opaque and does not mask
@@ -389,17 +390,6 @@
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction
-
-/** @brief Informs the receiver that a pinch gesture occurred
- *  @param pinchGestureRecognizer The pinch gesture itself.
- *  @param interactionPoint The coordinates of the gesture's centroid.
- *  @param interactionScale The scale of the pinching gesture.
- *  @return                 YES should be returned if the gesture was handled (exclusively) by the receiver, NO otherwise.
- **/
--(BOOL)recognizer:(id)pinchGestureRecognizer atPoint:(CGPoint)interactionPoint withScale:(CGFloat)interactionScale
-{
-	return NO;
-}
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *  @param event Native event object of device.
