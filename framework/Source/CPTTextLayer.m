@@ -200,14 +200,6 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 }
 
 #pragma mark -
-#pragma mark Text style delegate
-
--(void)textStyleDidChange:(CPTTextStyle *)textStyle
-{
-	[self sizeToFit];
-}
-
-#pragma mark -
 #pragma mark Description
 
 -(NSString *)description

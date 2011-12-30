@@ -731,14 +731,6 @@
 }
 
 #pragma mark -
-#pragma mark Line style delegate
-
--(void)lineStyleDidChange:(CPTLineStyle *)lineStyle
-{
-	[self setNeedsDisplay];
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 -(void)setPosition:(CGPoint)newPosition;
