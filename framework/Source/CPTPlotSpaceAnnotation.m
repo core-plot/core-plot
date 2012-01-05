@@ -13,7 +13,7 @@
 @implementation CPTPlotSpaceAnnotation
 
 /** @property anchorPlotPoint
- *	@brief An array of NSDecimalNumbers giving the anchor plot coordinates.
+ *	@brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
 
@@ -25,13 +25,16 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+///	@name Initialization
+///	@{
+
 /** @brief Initializes a newly allocated CPTPlotSpaceAnnotation object.
  *
  *	This is the designated initializer. The initialized layer will be anchored to
  *	a point in plot coordinates.
  *
  *	@param newPlotSpace The plot space which the anchor is defined in. Must be non-nil.
- *  @param newPlotPoint An array of NSDecimalNumbers giving the anchor plot coordinates.
+ *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
 -(id)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
@@ -45,6 +48,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(void)dealloc
 {
@@ -76,6 +81,8 @@
 
 #pragma mark -
 #pragma mark Layout
+
+///	@cond
 
 -(void)positionContentLayer
 {
@@ -119,8 +126,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
 {
@@ -130,5 +141,7 @@
 		[self positionContentLayer];
 	}
 }
+
+///	@endcond
 
 @end

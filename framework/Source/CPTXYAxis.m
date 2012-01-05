@@ -15,7 +15,7 @@
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTXYAxis()
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
@@ -25,7 +25,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -41,13 +41,16 @@
 
 /**	@property axisConstraints
  *	@brief The constraints used when positioning relative to the plot area.
- *  If nil (the default), the axis is fixed relative to the plot space coordinates, and moves
+ *  If <code>nil</code> (the default), the axis is fixed relative to the plot space coordinates, and moves
  *  whenever the plot space ranges change.
  **/
 @synthesize axisConstraints;
 
 #pragma mark -
 #pragma mark Init/Dealloc
+
+/// @name Initialization
+/// @{
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -58,6 +61,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -98,6 +103,8 @@
 
 #pragma mark -
 #pragma mark Coordinate Transforms
+
+///	@cond
 
 -(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper
 {
@@ -169,8 +176,12 @@
 	return point;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+///	@cond
 
 -(void)drawTicksInContext:(CGContextRef)theContext atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 {
@@ -319,8 +330,12 @@
 	[range release];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Grid Lines
+
+///	@cond
 
 -(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
 {
@@ -405,8 +420,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Background Bands
+
+///	@cond
 
 -(void)drawBackgroundBandsInContext:(CGContextRef)context
 {
@@ -598,6 +617,8 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Description
 
@@ -616,6 +637,8 @@
 
 #pragma mark -
 #pragma mark Titles
+
+///	@cond
 
 // Center title in the plot range by default
 -(NSDecimal)defaultTitleLocation
@@ -659,8 +682,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setAxisConstraints:(CPTConstraints *)newConstraints
 {
@@ -720,5 +747,7 @@
 		}
 	}
 }
+
+///	@endcond
 
 @end

@@ -22,7 +22,7 @@ NSString *const CPTLegendNeedsRedrawForPlotNotification		   = @"CPTLegendNeedsRe
 NSString *const CPTLegendNeedsLayoutForPlotNotification		   = @"CPTLegendNeedsLayoutForPlotNotification";
 NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
-/**	@cond */
+///	@cond
 @interface CPTLegend()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
@@ -39,7 +39,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -67,13 +67,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 /**	@property swatchSize
  *	@brief The size of the graphical swatch.
- *	If swatchSize is CGSizeZero, swatches will be drawn using a square 150% of the text size on a side.
+ *	If swatchSize is <code>CGSizeZero</code>, swatches will be drawn using a square 150% of the text size on a side.
  **/
 @dynamic swatchSize;
 
 /**	@property swatchBorderLineStyle
  *	@brief The line style for the border drawn around each swatch.
- *	If nil (the default), no border is drawn.
+ *	If <code>nil</code> (the default), no border is drawn.
  **/
 @synthesize swatchBorderLineStyle;
 
@@ -85,7 +85,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 /**	@property swatchFill
  *	@brief The background fill drawn behind each swatch.
- *	If nil (the default), no fill is drawn.
+ *	If <code>nil</code> (the default), no fill is drawn.
  **/
 @synthesize swatchFill;
 
@@ -119,9 +119,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /**	@property rowHeights
  *	@brief The desired height of each row of legend entries, including the swatch and title.
  *	Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
- *	Rows are numbered from top to bottom starting from zero (0). If nil, all rows will be sized automatically.
+ *	Rows are numbered from top to bottom starting from zero (0). If <code>nil</code>, all rows will be sized automatically.
  *	If there are more rows in the legend than specified in this array, the remaining rows will be sized automatically.
- *	Default is nil.
+ *	Default is <code>nil</code>.
  **/
 @synthesize rowHeights;
 
@@ -135,9 +135,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /**	@property columnWidths
  *	@brief The desired width of each column of legend entries, including the swatch, title, and title offset.
  *	Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
- *	Columns are numbered from left to right starting from zero (0). If nil, all columns will be sized automatically.
+ *	Columns are numbered from left to right starting from zero (0). If <code>nil</code>, all columns will be sized automatically.
  *	If there are more columns in the legend than specified in this array, the remaining columns will be sized automatically.
- *	Default is nil.
+ *	Default is <code>nil</code>.
  **/
 @synthesize columnWidths;
 
@@ -202,6 +202,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 // Designated initializer
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -234,6 +237,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	}
 	return self;
 }
+
+///	@}
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given array.
  *	@param newPlots An array of plots.
@@ -365,6 +370,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
 	if ( self.hidden ) {
@@ -462,6 +469,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	free(rowPositions);
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -500,6 +509,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	[self recalculateLayout];
 	[super layoutSublayers];
 }
+
+///	@cond
 
 -(void)recalculateLayout
 {
@@ -635,6 +646,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 	self.layoutChanged = NO;
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Plots
@@ -784,7 +797,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	}
 }
 
-/**	@brief Remove all legend entries for the given plot from the legend.
+///	@cond
+
+/**	@internal
+ *	@brief Remove all legend entries for the given plot from the legend.
  *	@param plot The plot.
  **/
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot
@@ -802,8 +818,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	[entriesToRemove release];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Notifications
+
+///	@cond
 
 -(void)legendNeedsRedraw:(NSNotification *)notif
 {
@@ -848,6 +868,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	self.layoutChanged = YES;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Description
 
@@ -858,6 +880,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
@@ -1023,5 +1047,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 	}
 	return columnWidthsThatFit;
 }
+
+///	@endcond
 
 @end

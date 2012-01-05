@@ -4,14 +4,14 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@cond */
+///	@cond
 @interface _CPTConstraintsRelative()
 
 @property (nonatomic, readwrite) CGFloat offset;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 

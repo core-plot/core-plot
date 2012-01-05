@@ -12,8 +12,14 @@
 @property (nonatomic, readwrite, retain) CPTPlotRange *range;
 @property (nonatomic, readwrite, retain) CPTFill *fill;
 
+/// @name Factory Methods
+/// @{
 +(CPTLimitBand *)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
+///	@}
 
+/// @name Initialization
+/// @{
 -(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
+///	@}
 
 @end

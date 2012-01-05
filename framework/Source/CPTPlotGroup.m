@@ -15,6 +15,9 @@
 #pragma mark -
 #pragma mark Initialize/Deallocate
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -22,6 +25,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -81,9 +86,13 @@
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	// nothing to draw
 }
+
+///	@endcond
 
 @end

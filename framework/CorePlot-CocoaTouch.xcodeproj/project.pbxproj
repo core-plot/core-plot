@@ -317,6 +317,7 @@
 		C3088A06149C2F1200EABCE6 /* header.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; name = header.html; path = ../documentation/doxygen/header.html; sourceTree = "<group>"; };
 		C30C85A91047428100181766 /* CPTPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotGroup.h; path = Source/CPTPlotGroup.h; sourceTree = "<group>"; };
 		C30C85AA1047428100181766 /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotGroup.m; path = Source/CPTPlotGroup.m; sourceTree = "<group>"; };
+		C30E97A014B290650012204A /* DoxygenLayout.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = DoxygenLayout.xml; path = ../documentation/doxygen/DoxygenLayout.xml; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLimitBand.h; path = Source/CPTLimitBand.h; sourceTree = "<group>"; };
 		C318F4C011EA18A400595FF9 /* CPTLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLimitBand.m; path = Source/CPTLimitBand.m; sourceTree = "<group>"; };
 		C32EE1BB13EC4AF900038266 /* CPTShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTShadow.h; path = Source/CPTShadow.h; sourceTree = "<group>"; };
@@ -716,6 +717,7 @@
 				C3566B8C10EED17400FB3866 /* doxygen touch.config */,
 				C3566B8E10EED1B000FB3866 /* mainpage.h */,
 				C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */,
+				C30E97A014B290650012204A /* DoxygenLayout.xml */,
 				C3088A06149C2F1200EABCE6 /* header.html */,
 				C3088A04149C2F1200EABCE6 /* footer.html */,
 				C3088A05149C2F1200EABCE6 /* customdoxygen.css */,

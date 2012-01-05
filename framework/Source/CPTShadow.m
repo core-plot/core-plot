@@ -4,7 +4,7 @@
 #import "CPTMutableShadow.h"
 #import "NSCoderExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTShadow()
 
 @property (nonatomic, readwrite, assign) CGSize shadowOffset;
@@ -13,7 +13,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Immutable wrapper for various shadow drawing properties.
  *
@@ -29,7 +29,7 @@
 /** @property shadowOffset
  *  @brief The horizontal and vertical offset values, specified using the width and height fields
  *	of the CGSize data type. The offsets are not affected by custom transformations. Positive values extend
- *	up and to the right. Default is CGSizeZero.
+ *	up and to the right. Default is <code>CGSizeZero</code>.
  **/
 @synthesize shadowOffset;
 
@@ -40,7 +40,7 @@
 @synthesize shadowBlurRadius;
 
 /** @property shadowColor
- *  @brief The shadow color. If nil (the default), the shadow will not be drawn.
+ *  @brief The shadow color. If <code>nil</code> (the default), the shadow will not be drawn.
  **/
 @synthesize shadowColor;
 
@@ -137,6 +137,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setShadowBlurRadius:(CGFloat)newShadowBlurRadius
 {
 	NSParameterAssert(newShadowBlurRadius >= 0.0);
@@ -145,5 +147,7 @@
 		shadowBlurRadius = newShadowBlurRadius;
 	}
 }
+
+///	@endcond
 
 @end

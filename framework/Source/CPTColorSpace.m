@@ -2,14 +2,14 @@
 
 #import "NSCoderExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTColorSpace()
 
 @property (nonatomic, readwrite, assign) CGColorSpaceRef cgColorSpace;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -21,7 +21,7 @@
 @implementation CPTColorSpace
 
 /** @property cgColorSpace.
- *  @brief The CGColorSpace to wrap around
+ *  @brief The CGColorSpaceRef to wrap around
  **/
 @synthesize cgColorSpace;
 
@@ -30,9 +30,10 @@
 
 /** @brief Returns a shared instance of CPTColorSpace initialized with the standard RGB space
  *
- * For the iPhone this is CGColorSpaceCreateDeviceRGB(), for Mac OS X CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB).
+ *	For the iPhone this is <code>CGColorSpaceCreateDeviceRGB()</code>;
+ *	for Mac OS X it is <code>CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)</code>.
  *
- *  @return A shared CPTColorSpace object initialized with the standard RGB colorspace.
+ *	@return A shared CPTColorSpace object initialized with the standard RGB colorspace.
  **/
 +(CPTColorSpace *)genericRGBSpace;
 {
@@ -99,6 +100,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setCGColorSpace:(CGColorSpaceRef)newSpace
 {
 	if ( newSpace != cgColorSpace ) {
@@ -107,5 +110,7 @@
 		cgColorSpace = newSpace;
 	}
 }
+
+///	@endcond
 
 @end

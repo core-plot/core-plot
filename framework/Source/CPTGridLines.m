@@ -20,6 +20,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -30,6 +33,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -65,6 +70,8 @@
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
 	if ( self.hidden ) {
@@ -74,8 +81,12 @@
 	[self.axis drawGridLinesInContext:theContext isMajor:self.major];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setAxis:(CPTAxis *)newAxis
 {
@@ -84,5 +95,7 @@
 		[self setNeedsDisplay];
 	}
 }
+
+///	@endcond
 
 @end

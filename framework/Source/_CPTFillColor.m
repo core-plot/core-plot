@@ -2,14 +2,14 @@
 
 #import "CPTColor.h"
 
-/**	@cond */
+///	@cond
 @interface _CPTFillColor()
 
 @property (nonatomic, readwrite, copy) CPTColor *fillColor;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Draws CPTColor area fills.
  *

@@ -80,11 +80,14 @@
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom;
 ///	@}
 
+/// @name Information
+/// @{
 -(void)logLayers;
+///	@}
 
 @end
 
-/**	@cond */
+///	@cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -97,4 +100,4 @@
 #endif
 #endif
 
-/**	@endcond */
+///	@endcond

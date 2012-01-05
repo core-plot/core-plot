@@ -5,7 +5,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYPlotSpace.h"
 
-/**	@cond */
+///	@cond
 @interface CPTXYGraph()
 
 @property (nonatomic, readwrite, assign) CPTScaleType xScaleType;
@@ -13,7 +13,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -53,10 +53,15 @@
 	return self;
 }
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -92,6 +97,8 @@
 #pragma mark -
 #pragma mark Factory Methods
 
+///	@cond
+
 -(CPTPlotSpace *)newPlotSpace
 {
 	CPTXYPlotSpace *space = [[CPTXYPlotSpace alloc] init];
@@ -109,5 +116,7 @@
 	newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
 	return newAxisSet;
 }
+
+///	@endcond
 
 @end

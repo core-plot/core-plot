@@ -31,7 +31,7 @@ NSString *const CPTScatterPlotBindingXValues	 = @"xValues";     ///< X values.
 NSString *const CPTScatterPlotBindingYValues	 = @"yValues";     ///< Y values.
 NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot symbols.
 
-/**	@cond */
+///	@cond
 @interface CPTScatterPlot()
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
@@ -50,7 +50,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -69,31 +69,31 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 /** @property interpolation
  *	@brief The interpolation algorithm used for lines between data points.
- *	Default is CPTScatterPlotInterpolationLinear
+ *	Default is #CPTScatterPlotInterpolationLinear
  **/
 @synthesize interpolation;
 
 /** @property dataLineStyle
  *	@brief The line style for the data line.
- *	If nil, the line is not drawn.
+ *	If <code>nil</code>, the line is not drawn.
  **/
 @synthesize dataLineStyle;
 
 /** @property plotSymbol
  *	@brief The plot symbol drawn at each point if the data source does not provide symbols.
- *	If nil, no symbol is drawn.
+ *	If <code>nil</code>, no symbol is drawn.
  **/
 @synthesize plotSymbol;
 
 /** @property areaFill
  *	@brief The fill style for the area underneath the data line.
- *	If nil, the area is not filled.
+ *	If <code>nil</code>, the area is not filled.
  **/
 @synthesize areaFill;
 
 /** @property areaFill2
  *	@brief The fill style for the area above the data line.
- *	If nil, the area is not filled.
+ *	If <code>nil</code>, the area is not filled.
  **/
 @synthesize areaFill2;
 
@@ -136,6 +136,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 #endif
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -152,6 +155,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -218,6 +223,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 #pragma mark -
 #pragma mark Data Loading
+
+///	@cond
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
@@ -301,6 +308,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	[symbols removeObjectsInRange:indexRange];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Symbols
 
@@ -323,6 +332,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 #pragma mark -
 #pragma mark Determining Which Points to Draw
+
+///	@cond
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {
@@ -503,8 +514,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 	return result;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark View Points
+
+///	@cond
 
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
@@ -514,6 +529,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
 	return distanceSquared;
 }
+
+///	@endcond
 
 /**	@brief Returns the index of the closest visible point to the point passed in.
  *	@param viewPoint The reference point.
@@ -569,6 +586,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
@@ -841,6 +860,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -863,6 +884,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
 #pragma mark -
 #pragma mark Fields
+
+/// @cond
 
 -(NSUInteger)numberOfFields
 {
@@ -894,8 +917,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	return result;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Labels
+
+/// @cond
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
@@ -920,8 +947,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -957,8 +989,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	return result;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setInterpolation:(CPTScatterPlotInterpolation)newInterpolation
 {
@@ -1056,5 +1092,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		[self setNeedsDisplay];
 	}
 }
+
+///	@endcond
 
 @end

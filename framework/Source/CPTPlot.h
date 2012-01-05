@@ -32,6 +32,9 @@ CPTPlotCachePrecision;
  **/
 @protocol CPTPlotDataSource<NSObject>
 
+/// @name Data Values
+/// @{
+
 /**	@brief (Required) The number of data points for the plot.
  *	@param plot The plot.
  *	@return The number of data points for the plot.
@@ -40,10 +43,8 @@ CPTPlotCachePrecision;
 
 @optional
 
-/// @name Implement one of the following
-/// @{
-
 /**	@brief (Optional) Gets a range of plot data for the given plot and field.
+ *	Implement one and only one of the optional methods in this section.
  *	@param plot The plot.
  *	@param fieldEnum The field index.
  *	@param indexRange The range of the data indexes of interest.
@@ -52,6 +53,7 @@ CPTPlotCachePrecision;
 -(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
 /**	@brief (Optional) Gets a plot data value for the given plot and field.
+ *	Implement one and only one of the optional methods in this section.
  *	@param plot The plot.
  *	@param fieldEnum The field index.
  *	@param index The data index of interest.
@@ -60,6 +62,7 @@ CPTPlotCachePrecision;
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 
 /**	@brief (Optional) Gets a range of plot data for the given plot and field.
+ *	Implement one and only one of the optional methods in this section.
  *	@param plot The plot.
  *	@param fieldEnum The field index.
  *	@param indexRange The range of the data indexes of interest.
@@ -68,6 +71,7 @@ CPTPlotCachePrecision;
 -(double *)doublesForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
 /**	@brief (Optional) Gets a plot data value for the given plot and field.
+ *	Implement one and only one of the optional methods in this section.
  *	@param plot The plot.
  *	@param fieldEnum The field index.
  *	@param index The data index of interest.
@@ -76,6 +80,7 @@ CPTPlotCachePrecision;
 -(double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 
 /**	@brief (Optional) Gets a range of plot data for the given plot and field.
+ *	Implement one and only one of the optional methods in this section.
  *	@param plot The plot.
  *	@param fieldEnum The field index.
  *	@param indexRange The range of the data indexes of interest.
@@ -88,7 +93,7 @@ CPTPlotCachePrecision;
 /// @name Data Labels
 /// @{
 
-/** @brief (Optional) Gets a data label for the given plot. This method is optional.
+/** @brief (Optional) Gets a data label for the given plot.
  *	@param plot The plot.
  *	@param index The data index of interest.
  *	@return The data label for the point with the given index.

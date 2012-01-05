@@ -13,7 +13,7 @@
 @implementation CPTColor
 
 /**	@property cgColor
- *	@brief The CGColor to wrap around.
+ *	@brief The CGColorRef to wrap around.
  **/
 @synthesize cgColor;
 

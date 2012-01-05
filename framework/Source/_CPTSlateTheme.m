@@ -16,14 +16,14 @@
 
 NSString *const kCPTSlateTheme = @"Slate"; ///< Slate theme.
 
-/**	@cond */
+///	@cond
 @interface _CPTSlateTheme()
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 

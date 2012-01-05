@@ -82,7 +82,11 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
+///	@name User Interaction
+///	@{
+
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+ *	@param event The OS event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
@@ -97,6 +101,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+ *	@param event The OS event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
@@ -111,6 +116,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+ *	@param event The OS event.
  *	@param interactionPoint The coordinates of the event in the host view.
  *	@return Whether the plot space handled the event or not.
  **/
@@ -125,6 +131,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 }
 
 /**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+ *	@param event The OS event.
  *	@return Whether the plot space handled the event or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
@@ -136,6 +143,8 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 	}
 	return handledByDelegate;
 }
+
+///	@}
 
 @end
 

@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 #endif
 
-/**	@cond */
+///	@cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -19,7 +19,7 @@
 #endif
 #endif
 
-/**	@endcond */
+///	@endcond
 
 /** @brief An immutable image.
  *
@@ -378,6 +378,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setImage:(CGImageRef)newImage
 {
 	if ( newImage != image ) {
@@ -395,6 +397,8 @@
 		scale = newScale;
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Drawing

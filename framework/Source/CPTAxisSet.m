@@ -18,12 +18,15 @@
 
 /** @property borderLineStyle
  *	@brief The line style for the layer border.
- *	If nil, the border is not drawn.
+ *	If <code>nil</code>, the border is not drawn.
  **/
 @synthesize borderLineStyle;
 
 #pragma mark -
 #pragma mark Init/Dealloc
+
+/// @name Initialization
+/// @{
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -35,6 +38,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -91,6 +96,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setAxes:(NSArray *)newAxes
 {
 	if ( newAxes != axes ) {
@@ -119,5 +126,7 @@
 		[self setNeedsDisplay];
 	}
 }
+
+///	@endcond
 
 @end

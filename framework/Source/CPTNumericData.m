@@ -6,7 +6,7 @@
 #import "CPTUtilities.h"
 #import "complex.h"
 
-/**	@cond */
+///	@cond
 @interface CPTNumericData()
 
 -(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
@@ -15,7 +15,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -246,6 +246,8 @@
 						 shape:shapeArray];
 }
 
+///	@cond
+
 -(void)commonInitWithData:(NSData *)newData
 				 dataType:(CPTNumericDataType)newDataType
 					shape:(NSArray *)shapeArray
@@ -273,6 +275,8 @@
 	}
 }
 
+///	@endcond
+
 -(void)dealloc
 {
 	[data release];
@@ -283,6 +287,8 @@
 
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(NSUInteger)numberOfDimensions
 {
@@ -318,6 +324,8 @@
 {
 	return self.dataType.byteOrder;
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Samples
@@ -453,6 +461,8 @@
 
 	return result;
 }
+
+///	@cond
 
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType
 {
@@ -682,6 +692,8 @@
 
 	return [sampleData autorelease];
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Description

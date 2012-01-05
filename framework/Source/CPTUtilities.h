@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-/// @name Convert NSDecimal to primitive types
+/// @name Convert NSDecimal to Primitive Types
 /// @{
 int8_t CPTDecimalCharValue(NSDecimal decimalNumber);
 int16_t CPTDecimalShortValue(NSDecimal decimalNumber);
@@ -31,7 +31,7 @@ NSString *CPTDecimalStringValue(NSDecimal decimalNumber);
 
 /// @}
 
-/// @name Convert primitive types to NSDecimal
+/// @name Convert Primitive Types to NSDecimal
 /// @{
 NSDecimal CPTDecimalFromChar(int8_t i);
 NSDecimal CPTDecimalFromShort(int16_t i);
@@ -55,7 +55,7 @@ NSDecimal CPTDecimalFromString(NSString *stringRepresentation);
 
 /// @}
 
-/// @name NSDecimal arithmetic
+/// @name NSDecimal Arithmetic
 /// @{
 NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand);
@@ -64,7 +64,7 @@ NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator);
 
 /// @}
 
-/// @name NSDecimal comparison
+/// @name NSDecimal Comparison
 /// @{
 BOOL CPTDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand);
 BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand);
@@ -74,7 +74,7 @@ BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand);
 
 /// @}
 
-/// @name NSDecimal utilities
+/// @name NSDecimal Utilities
 /// @{
 NSDecimal CPTDecimalNaN(void);
 
@@ -92,7 +92,7 @@ CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord);
 
 /// @}
 
-/// @name Gradient colors
+/// @name Gradient Colors
 /// @{
 CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color);
 
@@ -108,7 +108,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p);
 
 /// @}
 
-/// @name String formatting for Core Graphics structs
+/// @name String Formatting for Core Graphics Structs
 /// @{
 NSString *CPTStringFromPoint(CGPoint p);
 NSString *CPTStringFromSize(CGSize s);

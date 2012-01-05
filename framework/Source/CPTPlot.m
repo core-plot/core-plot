@@ -38,7 +38,7 @@
  *	@endif
  **/
 
-/**	@cond */
+///	@cond
 @interface CPTPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
@@ -56,7 +56,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -131,7 +131,7 @@
 @dynamic doublePrecisionCache;
 
 /**	@property cachePrecision
- *	@brief The numeric precision used to cache the plot data and perform all plot calculations. Defaults to CPTPlotCachePrecisionAuto.
+ *	@brief The numeric precision used to cache the plot data and perform all plot calculations. Defaults to #CPTPlotCachePrecisionAuto.
  **/
 @synthesize cachePrecision;
 
@@ -200,6 +200,9 @@
 #pragma mark -
 #pragma mark init/dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -227,6 +230,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -646,6 +651,8 @@
 	}
 }
 
+///	@cond
+
 -(CPTMutableNumericData *)numericDataForNumbers:(id)numbers
 {
 	CPTMutableNumericData *mutableNumbers = nil;
@@ -681,6 +688,8 @@
 
 	return [mutableNumbers autorelease];
 }
+
+///	@endcond
 
 -(BOOL)doublePrecisionCache
 {
@@ -802,12 +811,16 @@
 	return CPTDecimalNaN();
 }
 
+///	@cond
+
 -(void)setCachedDataType:(CPTNumericDataType)newDataType
 {
 	for ( CPTMutableNumericData *numericData in [self.cachedData allValues] ) {
 		numericData.dataType = newDataType;
 	}
 }
+
+///	@endcond
 
 -(CPTNumericDataType)doubleDataType
 {
@@ -1056,6 +1069,8 @@
 	self.needsRelabel	 = YES;
 }
 
+///	@cond
+
 -(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label
 {
 	if ( label ) {
@@ -1079,6 +1094,8 @@
 		label.contentAnchorPoint = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
 	}
 }
+
+///	@endcond
 
 /**
  *	@brief Repositions all existing label annotations.
@@ -1167,6 +1184,8 @@
 
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setTitle:(NSString *)newTitle
 {
@@ -1299,6 +1318,8 @@
 		[self setNeedsDisplay];
 	}
 }
+
+///	@endcond
 
 @end
 

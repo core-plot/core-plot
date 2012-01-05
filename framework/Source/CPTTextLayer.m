@@ -92,6 +92,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setText:(NSString *)newValue
 {
 	if ( text != newValue ) {
@@ -117,6 +119,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 		[self sizeToFit];
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Layout
@@ -167,6 +171,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Drawing of text
 
+///	@cond
+
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
 	if ( self.hidden ) {
@@ -198,6 +204,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	CGContextRestoreGState(context);
 #endif
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Description

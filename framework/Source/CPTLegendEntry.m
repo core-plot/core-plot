@@ -6,14 +6,14 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@cond */
+///	@cond
 @interface CPTLegendEntry()
 
 @property (nonatomic, readonly, retain) NSString *title;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -42,10 +42,14 @@
  **/
 @synthesize column;
 
+///	@cond
+
 /**	@property title
  *	@brief The legend entry title.
  **/
 @dynamic title;
+
+///	@endcond
 
 /**	@property textStyle
  *	@brief The text style used to draw the legend entry title.
@@ -53,7 +57,7 @@
 @synthesize textStyle;
 
 /**	@property titleSize
- *	@brief The size of the legend entry title when drawn using the textStyle.
+ *	@brief The size of the legend entry title when drawn using the @link CPTLegendEntry::textStyle textStyle @endlink.
  **/
 @dynamic titleSize;
 
@@ -142,6 +146,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
 	if ( newTextStyle != textStyle ) {
@@ -168,5 +174,7 @@
 
 	return theTitleSize;
 }
+
+///	@endcond
 
 @end

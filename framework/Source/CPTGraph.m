@@ -25,7 +25,7 @@
 
 NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotification";
 
-/**	@cond */
+///	@cond
 @interface CPTGraph()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
@@ -38,7 +38,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -96,7 +96,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 /**	@property title
  *	@brief The title string.
- *  Default is nil.
+ *  Default is <code>nil</code>.
  **/
 @synthesize title;
 
@@ -144,6 +144,9 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -188,6 +191,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -269,12 +274,16 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
 	[self reloadDataIfNeeded];
 	[self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
 	[super layoutAndRenderInContext:context];
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Animation
@@ -470,6 +479,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 #pragma mark Set Plot Area
 
+///	@cond
+
 -(void)setPlotAreaFrame:(CPTPlotAreaFrame *)newArea
 {
 	if ( plotAreaFrame != newArea ) {
@@ -484,6 +495,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 		}
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Organizing Plot Spaces
@@ -525,6 +538,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark -
 #pragma mark Coordinate Changes in Plot Spaces
 
+///	@cond
+
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif
 {
 	CPTPlotSpace *plotSpace		   = notif.object;
@@ -546,8 +561,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Axis Set
+
+///	@cond
 
 -(CPTAxisSet *)axisSet
 {
@@ -558,6 +577,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 {
 	self.plotAreaFrame.axisSet = newSet;
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Themes
@@ -572,6 +593,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 #pragma mark -
 #pragma mark Legend
+
+///	@cond
 
 -(CPTLegend *)legend
 {
@@ -676,8 +699,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	return contentAnchor;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
@@ -777,8 +804,13 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Event Handling
+
+/// @name User Interaction
+/// @{
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -901,6 +933,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 	return handledEvent;
 }
+
+///	@}
 
 @end
 

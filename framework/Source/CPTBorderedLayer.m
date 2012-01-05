@@ -5,26 +5,31 @@
 #import "CPTPathExtensions.h"
 
 /**
- *	@brief A layer with rounded corners.
+ *	@brief A layer with a border line and background fill.
+ *
+ *	Sublayers will be positioned and masked so that the border line remains visible.
  **/
 @implementation CPTBorderedLayer
 
 /** @property borderLineStyle
  *  @brief The line style for the layer border.
  *
- *	If nil, the border is not drawn.
+ *	If <code>nil</code>, the border is not drawn.
  **/
 @synthesize borderLineStyle;
 
 /** @property fill
  *  @brief The fill for the layer background.
  *
- *	If nil, the layer background is not filled.
+ *	If <code>nil</code>, the layer background is not filled.
  **/
 @synthesize fill;
 
 #pragma mark -
 #pragma mark Init/Dealloc
+
+///	@name Initialization
+///	@{
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -37,6 +42,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -80,6 +87,8 @@
 #pragma mark -
 #pragma mark Drawing
 
+/// @cond
+
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
 	if ( self.hidden ) {
@@ -118,9 +127,20 @@
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Layout
 
+///	@name Layout
+///	@{
+
+/**	@brief Increases the sublayer margin on all four sides by half the width of the border line style.
+ *	@param left The left margin.
+ *	@param top The top margin.
+ *	@param right The right margin.
+ *	@param bottom The bottom margin.
+ **/
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
 {
 	[super sublayerMarginLeft:left top:top right:right bottom:bottom];
@@ -136,8 +156,12 @@
 	}
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Masking
+
+/// @cond
 
 -(CGPathRef)maskingPath
 {
@@ -201,8 +225,12 @@
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
 {
@@ -225,5 +253,7 @@
 		[self setNeedsDisplay];
 	}
 }
+
+///	@endcond
 
 @end

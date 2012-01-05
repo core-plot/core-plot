@@ -16,14 +16,14 @@
 
 NSString *const kCPTDarkGradientTheme = @"Dark Gradients"; ///< Dark gradient theme.
 
-/**	@cond */
+///	@cond
 @interface _CPTDarkGradientTheme()
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 

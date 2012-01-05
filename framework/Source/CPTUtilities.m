@@ -422,7 +422,7 @@ NSDecimal CPTDecimalFromCGFloat(CGFloat f)
  **/
 NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
 {
-	// The following NSDecimalNumber-based creation of NSDecimals from strings is slower than
+	// The following NSDecimalNumber-based creation of NSDecimal structs from strings is slower than
 	// the NSScanner-based method: (307000 operations per second vs. 582000 operations per second for NSScanner)
 
 	/*	NSDecimalNumber *newNumber = [[NSDecimalNumber alloc] initWithString:@"1.0" locale:[NSLocale currentLocale]];
@@ -442,7 +442,7 @@ NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
 #pragma mark NSDecimal arithmetic
 
 /**
- *	@brief Adds two NSDecimals together.
+ *	@brief Adds two NSDecimal structs together.
  *	@param leftOperand The left-hand side of the addition operation.
  *	@param rightOperand The right-hand side of the addition operation.
  *	@return The result of the addition.
@@ -470,7 +470,7 @@ NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
 }
 
 /**
- *	@brief Multiplies two NSDecimals together.
+ *	@brief Multiplies two NSDecimal structs together.
  *	@param leftOperand The left-hand side of the multiplication operation.
  *	@param rightOperand The right-hand side of the multiplication operation.
  *	@return The result of the multiplication.

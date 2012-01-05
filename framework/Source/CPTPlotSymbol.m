@@ -6,7 +6,7 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@cond */
+///	@cond
 @interface CPTPlotSymbol()
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedSymbolPath;
@@ -16,7 +16,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -36,13 +36,13 @@
 
 /** @property lineStyle
  *  @brief The line style for the border of the symbol.
- *	If nil, the border is not drawn.
+ *	If <code>nil</code>, the border is not drawn.
  **/
 @synthesize lineStyle;
 
 /** @property fill
  *  @brief The fill for the interior of the symbol.
- *	If nil, the symbol is not filled.
+ *	If <code>nil</code>, the symbol is not filled.
  **/
 @synthesize fill;
 
@@ -143,6 +143,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setSize:(CGSize)newSize
 {
 	if ( !CGSizeEqualToSize(newSize, size) ) {
@@ -202,11 +204,13 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Class methods
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeNone.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeNone.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
  **/
 +(CPTPlotSymbol *)plotSymbol
 {
@@ -217,8 +221,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeCross.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeCross.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
  **/
 +(CPTPlotSymbol *)crossPlotSymbol
 {
@@ -229,8 +233,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeEllipse.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeEllipse.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
  **/
 +(CPTPlotSymbol *)ellipsePlotSymbol
 {
@@ -241,8 +245,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeRectangle.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeRectangle.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
  **/
 +(CPTPlotSymbol *)rectanglePlotSymbol
 {
@@ -253,8 +257,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypePlus.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypePlus.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
  **/
 +(CPTPlotSymbol *)plusPlotSymbol
 {
@@ -265,8 +269,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeStar.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeStar.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
  **/
 +(CPTPlotSymbol *)starPlotSymbol
 {
@@ -277,8 +281,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeDiamond.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeDiamond.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
  **/
 +(CPTPlotSymbol *)diamondPlotSymbol
 {
@@ -289,8 +293,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeTriangle.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeTriangle.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
  **/
 +(CPTPlotSymbol *)trianglePlotSymbol
 {
@@ -301,8 +305,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypePentagon.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypePentagon.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
  **/
 +(CPTPlotSymbol *)pentagonPlotSymbol
 {
@@ -313,8 +317,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeHexagon.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeHexagon.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
  **/
 +(CPTPlotSymbol *)hexagonPlotSymbol
 {
@@ -325,8 +329,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeDash.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeDash.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
  **/
 +(CPTPlotSymbol *)dashPlotSymbol
 {
@@ -337,8 +341,8 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeSnow.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeSnow.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
  **/
 +(CPTPlotSymbol *)snowPlotSymbol
 {
@@ -349,9 +353,9 @@
 	return [symbol autorelease];
 }
 
-/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeCustom.
+/** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  *	@param aPath The bounding path for the custom symbol.
- *  @return A new CPTPlotSymbol instance initialized with a symbol type of CPTPlotSymbolTypeCustom.
+ *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  **/
 +(CPTPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
 {

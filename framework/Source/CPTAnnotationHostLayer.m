@@ -3,14 +3,14 @@
 #import "CPTAnnotation.h"
 #import "CPTExceptions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTAnnotationHostLayer()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -126,6 +126,8 @@
 #pragma mark -
 #pragma mark Layout
 
+///	@cond
+
 -(NSSet *)sublayersExcludedFromAutomaticLayout
 {
 	NSMutableSet *layers = [NSMutableSet set];
@@ -138,6 +140,8 @@
 	}
 	return layers;
 }
+
+///	@endcond
 
 -(void)layoutSublayers
 {

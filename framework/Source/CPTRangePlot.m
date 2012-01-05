@@ -33,7 +33,7 @@ NSString *const CPTRangePlotBindingLowValues   = @"lowValues";   ///< low values
 NSString *const CPTRangePlotBindingLeftValues  = @"leftValues";  ///< left price values.
 NSString *const CPTRangePlotBindingRightValues = @"rightValues"; ///< right price values.
 
-/**	@cond */
+///	@cond
 struct CGPointError {
 	CGFloat x;
 	CGFloat y;
@@ -53,11 +53,16 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *rightValues;
 
+-(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
+-(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags;
+-(void)alignViewPointsToUserSpace:(CGPointError *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
+-(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound;
+
 -(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /**	@brief A plot class representing a range of values in one coordinate,
  *  such as typically used to show errors.
@@ -78,13 +83,13 @@ typedef struct CGPointError CGPointError;
 
 /** @property areaFill
  *	@brief The fill used to render the area.
- *	Set to nil to have no fill. Default is nil.
+ *	Set to <code>nil</code> to have no fill. Default is <code>nil</code>.
  **/
 @synthesize areaFill;
 
 /** @property barLineStyle
  *	@brief The line style of the range bars.
- *	Set to nil to have no bars. Default is a black line style.
+ *	Set to <code>nil</code> to have no bars. Default is a black line style.
  **/
 @synthesize barLineStyle;
 
@@ -127,6 +132,9 @@ typedef struct CGPointError CGPointError;
 
 #endif
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -135,6 +143,8 @@ typedef struct CGPointError CGPointError;
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -178,6 +188,8 @@ typedef struct CGPointError CGPointError;
 
 #pragma mark -
 #pragma mark Determining Which Points to Draw
+
+///	@cond
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly
 {
@@ -443,8 +455,12 @@ typedef struct CGPointError CGPointError;
 	return result;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Data Loading
+
+/// @cond
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
@@ -474,8 +490,12 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
@@ -749,6 +769,8 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -774,6 +796,8 @@ typedef struct CGPointError CGPointError;
 
 #pragma mark -
 #pragma mark Fields
+
+/// @cond
 
 -(NSUInteger)numberOfFields
 {
@@ -812,8 +836,12 @@ typedef struct CGPointError CGPointError;
 	return result;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Labels
+
+/// @cond
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
@@ -847,8 +875,12 @@ typedef struct CGPointError CGPointError;
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setBarLineStyle:(CPTLineStyle *)newLineStyle
 {
@@ -953,5 +985,7 @@ typedef struct CGPointError CGPointError;
 {
 	[self cacheNumbers:newValues forField:CPTRangePlotFieldRight];
 }
+
+///	@endcond
 
 @end

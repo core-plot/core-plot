@@ -2,14 +2,14 @@
 
 #import "CPTExceptions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTMutableNumericData()
 
 -(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -97,6 +97,8 @@
 	return self;
 }
 
+///	@cond
+
 -(void)commonInitWithData:(NSData *)newData
 				 dataType:(CPTNumericDataType)newDataType
 					shape:(NSArray *)shapeArray
@@ -124,8 +126,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void *)mutableBytes
 {
@@ -146,6 +152,8 @@
 		( (NSMutableData *)data ).length = sampleCount * self.sampleBytes;
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark NSMutableCopying

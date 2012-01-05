@@ -2,14 +2,14 @@
 
 #import "CPTGradient.h"
 
-/**	@cond */
+///	@cond
 @interface _CPTFillGradient()
 
 @property (nonatomic, readwrite, copy) CPTGradient *fillGradient;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Draws CPTGradient area fills.
  *

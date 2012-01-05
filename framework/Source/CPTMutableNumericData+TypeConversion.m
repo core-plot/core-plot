@@ -40,6 +40,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setDataTypeFormat:(CPTDataTypeFormat)newDataTypeFormat
 {
 	CPTNumericDataType myDataType = self.dataType;
@@ -115,5 +117,7 @@
 		[self swapByteOrderForData:myData sampleSize:newDataType.sampleBytes];
 	}
 }
+
+///	@endcond
 
 @end

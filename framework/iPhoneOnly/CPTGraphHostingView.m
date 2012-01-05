@@ -6,14 +6,17 @@
 #import "CPTPlotSpace.h"
 #import "NSNumberExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTGraphHostingView()
 
 @property (nonatomic, readwrite, assign) __weak id pinchGestureRecognizer;
 
+-(void)updateNotifications;
+-(void)graphNeedsRedraw:(NSNotification *)notification;
+
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -39,13 +42,20 @@
  **/
 @synthesize allowPinchScaling;
 
-/**	@property pinchGestureRecognizer
+///	@cond
+
+/**	@internal
+ *	@property pinchGestureRecognizer
  *	@brief The pinch gesture recognizer for this view.
  **/
 @synthesize pinchGestureRecognizer;
 
+///	@endcond
+
 #pragma mark -
 #pragma mark init/dealloc
+
+///	@cond
 
 +(Class)layerClass
 {
@@ -72,6 +82,8 @@
 	}
 	return self;
 }
+
+///	@endcond
 
 // On iOS, the init method is not called when loading from a XIB
 -(void)awakeFromNib
@@ -118,6 +130,8 @@
 
 #pragma mark -
 #pragma mark Touch handling
+
+///	@cond
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -166,8 +180,12 @@
 	[hostedGraph pointingDeviceCancelledEvent:event];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Gestures
+
+///	@cond
 
 -(void)setAllowPinchScaling:(BOOL)yn
 {
@@ -213,8 +231,12 @@
 	[pinchGestureRecognizer setScale:1.0f];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+///	@cond
 
 -(void)drawRect:(CGRect)rect
 {
@@ -234,8 +256,12 @@
 	[self setNeedsDisplay];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)updateNotifications
 {
@@ -324,5 +350,7 @@
 		hostedGraph.frame = newBounds;
 	}
 }
+
+///	@endcond
 
 @end

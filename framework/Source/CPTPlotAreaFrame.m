@@ -6,14 +6,14 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotGroup.h"
 
-/**	@cond */
+///	@cond
 @interface CPTPlotAreaFrame()
 
 @property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -43,6 +43,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -56,6 +59,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -94,6 +99,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setPlotArea:(CPTPlotArea *)newPlotArea
 {
 	if ( newPlotArea != plotArea ) {
@@ -126,5 +133,7 @@
 {
 	self.plotArea.plotGroup = newPlotGroup;
 }
+
+///	@endcond
 
 @end

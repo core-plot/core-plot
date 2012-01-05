@@ -7,7 +7,7 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@cond */
+///	@cond
 @interface CPTGradient()
 
 @property (nonatomic, readwrite, retain) CPTColorSpace *colorspace;
@@ -28,8 +28,6 @@
 
 @end
 
-/**	@endcond */
-
 // C Fuctions for color blending
 static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);
 static void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
@@ -37,6 +35,8 @@ static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *o
 static void transformRGB_HSV(CGFloat *components);
 static void transformHSV_RGB(CGFloat *components);
 static void resolveHSV(CGFloat *color1, CGFloat *color2);
+
+///	@endcond
 
 #pragma mark -
 
@@ -90,11 +90,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	return self;
 }
 
+///	@cond
+
 -(void)commonInit
 {
 	colorspace	= [[CPTColorSpace genericRGBSpace] retain];
 	elementList = NULL;
 }
+
+///	@endcond
 
 -(void)dealloc
 {
@@ -648,7 +652,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Copies the current gradient and adds a color stop.
  *
- *	Adds a color stop with <tt>color</tt> at <tt>position</tt> in elementList.
+ *	Adds a color stop with <code>color</code> at <code>position</code> in the list of color stops.
  *	If two elements are at the same position then it is added immediately after the one that was there already.
  *
  *  @param color The color.
@@ -670,7 +674,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	return [newGradient autorelease];
 }
 
-/** @brief Copies the current gradient and removes the color stop at <tt>position</tt> from elementList.
+/** @brief Copies the current gradient and removes the color stop at <code>position</code> from the list of color stops.
  *  @param position The color stop position (0 ≤ position ≤ 1).
  *	@return A copy of the current gradient with the color stop removed.
  **/
@@ -686,7 +690,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	return [newGradient autorelease];
 }
 
-/** @brief Copies the current gradient and removes the color stop at <tt>index</tt> from elementList.
+/** @brief Copies the current gradient and removes the color stop at <code>index</code> from the list of color stops.
  *  @param index The color stop index.
  *	@return A copy of the current gradient with the color stop removed.
  **/
@@ -705,9 +709,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark -
 #pragma mark Information
 
-/** @brief Gets the color at color stop <tt>index</tt> from elementList.
+/** @brief Gets the color at color stop <code>index</code> from the list of color stops.
  *  @param index The color stop index.
- *  @return The color at color stop <tt>index</tt>.
+ *  @return The color at color stop <code>index</code>.
  **/
 -(CGColorRef)newColorStopAtIndex:(NSUInteger)index
 {
@@ -730,7 +734,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Gets the color at an arbitrary position in the gradient.
  *  @param position The color stop position (0 ≤ position ≤ 1).
- *  @return The  color at <tt>position</tt> in gradient.
+ *  @return The  color at <code>position</code> in gradient.
  **/
 -(CGColorRef)newColorAtPosition:(CGFloat)position
 {
@@ -925,6 +929,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 #pragma mark -
 #pragma mark Private Methods
+
+///	@cond
 
 -(CGShadingRef)newAxialGradientInRect:(CGRect)rect
 {
@@ -1204,8 +1210,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 	return count;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Core Graphics
+
+///	@cond
 
 void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
@@ -1531,5 +1541,7 @@ void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i
 		color2[0] = color1[0];
 	}
 }
+
+///	@endcond
 
 @end

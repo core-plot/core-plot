@@ -5,7 +5,7 @@
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTLineStyle()
 
 @property (nonatomic, readwrite, assign) CGLineCap lineCap;
@@ -18,15 +18,15 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Immutable wrapper for various line drawing properties.
+ *
+ *  Create a CPTMutableLineStyle if you want to customize properties.
  *
  *	@see See Apple's <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF105">Quartz 2D</a>
  *	and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a>
  *	documentation for more information about each of these properties.
- *
- *  In general, you will want to create a CPTMutableLineStyle if you want to customize properties.
  **/
 
 @implementation CPTLineStyle

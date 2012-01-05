@@ -3,7 +3,7 @@
 #import "CPTExceptions.h"
 #import "NSCoderExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface _CPTConstraintsFixed()
 
 @property (nonatomic, readwrite) CGFloat offset;
@@ -11,7 +11,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 

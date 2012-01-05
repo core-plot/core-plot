@@ -32,7 +32,7 @@ NSString *const CPTTradingRangePlotBindingHighValues  = @"highValues";  ///< Hig
 NSString *const CPTTradingRangePlotBindingLowValues	  = @"lowValues";   ///< Low price values.
 NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Close price values.
 
-/**	@cond */
+///	@cond
 @interface CPTTradingRangePlot()
 
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *xValues;
@@ -46,7 +46,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -71,12 +71,14 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 @synthesize lineStyle;
 
 /** @property increaseLineStyle
- *	@brief The line style used to outline candlestick symbols when close >= open. If nil, will use lineStyle instead.
+ *	@brief The line style used to outline candlestick symbols when close >= open.
+ *	If <code>nil</code>, will use @link CPTTradingRangePlot::lineStyle lineStyle @endlink instead.
  **/
 @synthesize increaseLineStyle;
 
 /** @property decreaseLineStyle
- *	@brief The line style used to outline candlestick symbols when close < open. If nil, will use lineStyle instead.
+ *	@brief The line style used to outline candlestick symbols when close < open.
+ *	If <code>nil</code>, will use @link CPTTradingRangePlot::lineStyle lineStyle @endlink instead.
  **/
 @synthesize decreaseLineStyle;
 
@@ -91,7 +93,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 @synthesize decreaseFill;
 
 /** @property plotStyle
- *	@brief The style of trading range plot drawn.
+ *	@brief The style of trading range plot drawn. The default is #CPTTradingRangePlotStyleOHLC.
  **/
 @synthesize plotStyle;
 
@@ -132,6 +134,9 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 #endif
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -149,6 +154,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -213,6 +220,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 #pragma mark -
 #pragma mark Data Loading
 
+///	@cond
+
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
 	[super reloadDataInIndexRange:indexRange];
@@ -238,8 +247,12 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
@@ -715,6 +728,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -740,6 +755,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 #pragma mark -
 #pragma mark Fields
+
+/// @cond
 
 -(NSUInteger)numberOfFields
 {
@@ -782,8 +799,12 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	return result;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Labels
+
+/// @cond
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
@@ -820,8 +841,12 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	label.contentLayer.hidden = isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setPlotStyle:(CPTTradingRangePlotStyle)newPlotStyle
 {
@@ -957,5 +982,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 {
 	[self cacheNumbers:newValues forField:CPTTradingRangePlotFieldClose];
 }
+
+///	@endcond
 
 @end

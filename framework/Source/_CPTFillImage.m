@@ -2,14 +2,14 @@
 
 #import "CPTImage.h"
 
-/**	@cond */
+///	@cond
 @interface _CPTFillImage()
 
 @property (nonatomic, readwrite, copy) CPTImage *fillImage;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Draws CPTImage area fills.
  *

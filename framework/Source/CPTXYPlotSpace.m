@@ -14,7 +14,7 @@
 #import "CPTXYAxisSet.h"
 #import "NSNumberExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTXYPlotSpace()
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
@@ -26,7 +26,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -74,7 +74,7 @@
  *
  *	If non-nil, the @link CPTXYPlotSpace::xRange xRange @endlink and any changes to it will
  *	be adjusted so that it always fits within the <code>globalXRange</code>.
- *  If nil (the default), there is no constraint on x.
+ *  If <code>nil</code> (the default), there is no constraint on x.
  **/
 @synthesize globalXRange;
 
@@ -83,7 +83,7 @@
  *
  *	If non-nil, the @link CPTXYPlotSpace::yRange yRange @endlink and any changes to it will
  *	be adjusted so that it always fits within the <code>globalYRange</code>.
- *  If nil (the default), there is no constraint on y.
+ *  If <code>nil</code> (the default), there is no constraint on y.
  **/
 @synthesize globalYRange;
 
@@ -161,6 +161,8 @@
 
 #pragma mark -
 #pragma mark Ranges
+
+///	@cond
 
 -(void)setPlotRange:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
@@ -365,8 +367,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Point Conversion
+
+///	@cond
 
 // Linear
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord
@@ -571,8 +577,12 @@
 	plotPoint[CPTCoordinateY] = y;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Scaling
+
+///	@cond
 
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
@@ -644,8 +654,13 @@
 	self.yRange = newRangeY;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Interaction
+
+///	@name User Interaction
+///	@{
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -742,5 +757,7 @@
 
 	return NO;
 }
+
+///	@}
 
 @end

@@ -46,7 +46,7 @@ CPTScatterPlotInterpolation;
 
 @optional
 
-/// @name Implement one of the following to add plot symbols
+/// @name Plot Symbols
 /// @{
 
 /**	@brief (Optional) Gets a range of plot symbols for the given scatter plot.
@@ -56,7 +56,10 @@ CPTScatterPlotInterpolation;
  **/
 -(NSArray *)symbolsForScatterPlot:(CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
 
-/**	@brief (Optional) Gets a plot symbol for the given scatter plot.
+/**	@brief (Optional) Gets a single plot symbol for the given scatter plot.
+ *	This method will not be called if
+ *	@link CPTScatterPlotDataSource::symbolsForScatterPlot:recordIndexRange: -symbolsForScatterPlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The scatter plot.
  *	@param index The data index of interest.
  *	@return The plot symbol to show for the point with the given index.
@@ -76,7 +79,7 @@ CPTScatterPlotInterpolation;
 
 @optional
 
-// @name Point selection
+///	@name Point Selection
 /// @{
 
 /**	@brief (Optional) Informs delegate that a point was touched.
@@ -113,9 +116,15 @@ CPTScatterPlotInterpolation;
 @property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
 
+///	@name Visible Points
+///	@{
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index;
+///	@}
 
+///	@name Plot Symbols
+///	@{
 -(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index;
+///	@}
 
 @end

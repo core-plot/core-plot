@@ -26,10 +26,10 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 @optional
 
-/// @name Scrolling
+/// @name Scaling
 /// @{
 
-/** @brief (Optional) Informs the receiver that it should uniformly scale (e.g., in response to a pinch on iOS)
+/** @brief (Optional) Informs the receiver that it should uniformly scale (e.g., in response to a pinch on iOS).
  *  @param space The plot space.
  *  @param interactionScale The scaling factor.
  *  @param interactionPoint The coordinates of the scaling centroid.
@@ -37,6 +37,42 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
+
+/// @}
+
+/// @name Scrolling
+/// @{
+
+/**	@brief (Optional) Notifies that plot space is going to scroll.
+ *	@param space The plot space.
+ *  @param proposedDisplacementVector The proposed amount by which the plot space will shift.
+ *	@return The displacement actually applied.
+ **/
+-(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector;
+
+/// @}
+
+/// @name Plot Range Changes
+/// @{
+
+/**	@brief (Optional) Notifies that plot space is going to change a plot range.
+ *	@param space The plot space.
+ *  @param newRange The proposed new plot range.
+ *  @param coordinate The coordinate of the range.
+ *	@return The new plot range to be used.
+ **/
+-(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate;
+
+/**	@brief (Optional) Notifies that plot space has changed a plot range.
+ *	@param space The plot space.
+ *  @param coordinate The coordinate of the range.
+ **/
+-(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate;
+
+/// @}
+
+/// @name User Interaction
+/// @{
 
 /**	@brief (Optional) Notifies that plot space intercepted a device down event.
  *	@param space The plot space.
@@ -72,27 +108,6 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point;
-
-/**	@brief (Optional) Notifies that plot space is going to scroll.
- *	@param space The plot space.
- *  @param proposedDisplacementVector The proposed amount by which the plot space will shift
- *	@return The displacement actually applied.
- **/
--(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)proposedDisplacementVector;
-
-/**	@brief (Optional) Notifies that plot space is going to change a plot range.
- *	@param space The plot space.
- *  @param newRange The proposed new plot range.
- *  @param coordinate The coordinate of the range.
- *	@return The new plot range to be used.
- **/
--(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate;
-
-/**	@brief (Optional) Notifies that plot space has changed a plot range.
- *	@param space The plot space.
- *  @param coordinate The coordinate of the range.
- **/
--(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate;
 
 /// @}
 

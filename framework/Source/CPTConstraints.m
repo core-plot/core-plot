@@ -150,8 +150,8 @@
 #pragma mark Positioning
 
 /**	@brief Compute the position given a range of values.
- *	@param lowerBound The lower bound; must be less than or equal to the upperBound.
- *	@param upperBound The upper bound; must be greater than or equal to the lowerBound.
+ *	@param lowerBound The lower bound; must be less than or equal to the <code>upperBound</code>.
+ *	@param upperBound The upper bound; must be greater than or equal to the <code>lowerBound</code>.
  *	@return The calculated position.
  **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;

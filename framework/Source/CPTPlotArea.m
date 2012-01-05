@@ -10,7 +10,7 @@
 
 static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
-/**	@cond */
+///	@cond
 @interface CPTPlotArea()
 
 @property (nonatomic, readwrite, assign) CPTGraphLayerType *bottomUpLayerOrder;
@@ -21,7 +21,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -78,7 +78,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
  *	Only the layers drawn out of the default order need be specified; all others will
  *	automatically be placed at the bottom of the view in their default order.
  *
- *	If this property is nil, the layers will be drawn in the default order (bottom to top):
+ *	If this property is <code>nil</code>, the layers will be drawn in the default order (bottom to top):
  *	-# Minor grid lines
  *	-# Major grid lines
  *	-# Axis lines, including the tick marks
@@ -97,13 +97,13 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 /** @property borderLineStyle
  *	@brief The line style for the layer border.
- *	If nil, the border is not drawn.
+ *	If <code>nil</code>, the border is not drawn.
  **/
 @dynamic borderLineStyle;
 
 /** @property fill
  *	@brief The fill for the layer background.
- *	If nil, the layer background is not filled.
+ *	If <code>nil</code>, the layer background is not filled.
  **/
 @synthesize fill;
 
@@ -113,6 +113,9 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 #pragma mark -
 #pragma mark Init/Dealloc
+
+/// @name Initialization
+/// @{
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -136,6 +139,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -219,6 +224,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
 	if ( self.hidden ) {
@@ -238,6 +245,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 		[axis drawBackgroundLimitsInContext:context];
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Layout
@@ -270,6 +279,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 #pragma mark -
 #pragma mark Layer ordering
+
+///	@cond
 
 -(void)updateLayerOrder
 {
@@ -360,6 +371,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 	}
 	return index;
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Axis set layer management
@@ -523,6 +536,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(CPTLineStyle *)borderLineStyle
 {
 	return self.axisSet.borderLineStyle;
@@ -641,5 +656,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 		[self updateLayerOrder];
 	}
 }
+
+///	@endcond
 
 @end

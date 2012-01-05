@@ -33,7 +33,8 @@
  *	@ingroup animation
  **/
 
-/**	@cond */
+///	@cond
+
 @interface CPTAxis()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
@@ -54,7 +55,7 @@ double niceNum(double x, BOOL round);
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -68,7 +69,7 @@ double niceNum(double x, BOOL round);
 
 /**	@property axisLineStyle
  *  @brief The line style for the axis line.
- *	If nil, the line is not drawn.
+ *	If <code>nil</code>, the line is not drawn.
  **/
 @synthesize axisLineStyle;
 
@@ -80,7 +81,7 @@ double niceNum(double x, BOOL round);
 /**	@property labelingOrigin
  *	@brief The origin used for axis labels.
  *  The default value is 0. It is only used when the axis labeling
- *  policy is CPTAxisLabelingPolicyFixedInterval. The origin is
+ *  policy is #CPTAxisLabelingPolicyFixedInterval. The origin is
  *  a reference point used to being labeling. Labels are added
  *	at the origin, as well as at fixed intervals above and below
  *  the origin.
@@ -90,14 +91,14 @@ double niceNum(double x, BOOL round);
 /**	@property tickDirection
  *	@brief The tick direction.
  *  The direction is given as the sign that ticks extend along
- *  the axis (e.g., positive, or negative).
+ *  the axis (e.g., positive or negative).
  **/
 @synthesize tickDirection;
 
 /**	@property visibleRange
  *	@brief The plot range over which the axis and ticks are visible.
  *  Use this to restrict an axis to less than the full plot area width.
- *  Set to nil for no restriction.
+ *  Set to <code>nil</code> for no restriction.
  **/
 @synthesize visibleRange;
 
@@ -105,7 +106,7 @@ double niceNum(double x, BOOL round);
  *	@brief The plot range over which the grid lines are visible.
  *  Note that this range applies to the orthogonal coordinate, not
  *  the axis coordinate itself.
- *  Set to nil for no restriction.
+ *  Set to <code>nil</code> for no restriction.
  **/
 @synthesize gridLinesRange;
 
@@ -130,7 +131,7 @@ double niceNum(double x, BOOL round);
 
 /**	@property axisTitle
  *  @brief The axis title.
- *	If nil, no title is drawn.
+ *	If <code>nil</code>, no title is drawn.
  **/
 @synthesize axisTitle;
 
@@ -147,20 +148,20 @@ double niceNum(double x, BOOL round);
 
 /**	@property titleRotation
  *	@brief The rotation angle of the axis title in radians.
- *  If NaN (the default), the title will be parallel to the axis.
+ *  If <code>NaN</code> (the default), the title will be parallel to the axis.
  *	@ingroup axisAnimation
  **/
 @synthesize titleRotation;
 
 /**	@property titleLocation
  *	@brief The position along the axis where the axis title should be centered.
- *  If NaN, the <code>defaultTitleLocation</code> will be used.
+ *  If <code>NaN</code> (the default), the @link CPTAxis::defaultTitleLocation defaultTitleLocation @endlink will be used.
  **/
 @dynamic titleLocation;
 
 /**	@property defaultTitleLocation
  *	@brief The position along the axis where the axis title should be centered
- *  if <code>titleLocation</code> is NaN.
+ *  if @link CPTAxis::titleLocation titleLocation @endlink is <code>NaN</code>.
  **/
 @dynamic defaultTitleLocation;
 
@@ -192,14 +193,14 @@ double niceNum(double x, BOOL round);
 
 /**	@property labelRotation
  *	@brief The rotation of the axis labels in radians.
- *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
+ *  Set this property to <code>M_PI/2.0</code> to have labels read up the screen, for example.
  *	@ingroup axisAnimation
  **/
 @synthesize labelRotation;
 
 /**	@property minorTickLabelRotation
  *	@brief The rotation of the axis minor tick labels in radians.
- *  Set this property to M_PI/2.0 to have labels read up the screen, for example.
+ *  Set this property to <code>M_PI/2.0</code> to have labels read up the screen, for example.
  *	@ingroup axisAnimation
  **/
 @synthesize minorTickLabelRotation;
@@ -277,7 +278,7 @@ double niceNum(double x, BOOL round);
 
 /**	@property majorTickLineStyle
  *  @brief The line style for the major tick marks.
- *	If nil, the major ticks are not drawn.
+ *	If <code>nil</code>, the major ticks are not drawn.
  **/
 @synthesize majorTickLineStyle;
 
@@ -293,8 +294,8 @@ double niceNum(double x, BOOL round);
 
 /**	@property preferredNumberOfMajorTicks
  *	@brief The number of ticks that should be targeted when autogenerating positions.
- *  This property only applies when the CPTAxisLabelingPolicyAutomatic or
- *	CPTAxisLabelingEqualDivisions policies are in use.
+ *  This property only applies when the #CPTAxisLabelingPolicyAutomatic or
+ *	#CPTAxisLabelingPolicyEqualDivisions policies are in use.
  *	If zero (0) (the default), Core Plot will choose a reasonable number of ticks.
  **/
 @synthesize preferredNumberOfMajorTicks;
@@ -308,7 +309,7 @@ double niceNum(double x, BOOL round);
 
 /**	@property minorTickLineStyle
  *  @brief The line style for the minor tick marks.
- *	If nil, the minor ticks are not drawn.
+ *	If <code>nil</code>, the minor ticks are not drawn.
  **/
 @synthesize minorTickLineStyle;
 
@@ -326,13 +327,13 @@ double niceNum(double x, BOOL round);
 
 /**	@property majorGridLineStyle
  *  @brief The line style for the major grid lines.
- *	If nil, the major grid lines are not drawn.
+ *	If <code>nil</code>, the major grid lines are not drawn.
  **/
 @synthesize majorGridLineStyle;
 
 /**	@property minorGridLineStyle
  *  @brief The line style for the minor grid lines.
- *	If nil, the minor grid lines are not drawn.
+ *	If <code>nil</code>, the minor grid lines are not drawn.
  **/
 @synthesize minorGridLineStyle;
 
@@ -343,7 +344,7 @@ double niceNum(double x, BOOL round);
  *
  *	When initializing the fills, provide an NSArray containing any combinination of CPTFill,
  *	CPTColor, CPTGradient, and/or CPTImage objects. Blank (transparent) bands can be created
- *	by using [NSNull null] in place of some of the CPTFill objects.
+ *	by using <code>[NSNull null]</code> in place of some of the CPTFill objects.
  **/
 @synthesize alternatingBandFills;
 
@@ -388,6 +389,9 @@ double niceNum(double x, BOOL round);
 
 #pragma mark -
 #pragma mark Init/Dealloc
+
+/// @name Initialization
+/// @{
 
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -449,6 +453,8 @@ double niceNum(double x, BOOL round);
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -691,6 +697,14 @@ double niceNum(double x, BOOL round);
 #pragma mark -
 #pragma mark Ticks
 
+///	@cond
+
+/**
+ *	@internal
+ *	@brief Generate major and minor tick locations using the fixed interval labeling policy.
+ *	@param newMajorLocations A new NSSet containing the major tick locations.
+ *	@param newMinorLocations A new NSSet containing the minor tick locations.
+ */
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	NSMutableSet *majorLocations = [NSMutableSet set];
@@ -766,6 +780,12 @@ double niceNum(double x, BOOL round);
 	*newMinorLocations = minorLocations;
 }
 
+/**
+ *	@internal
+ *	@brief Generate major and minor tick locations using the automatic labeling policy.
+ *	@param newMajorLocations A new NSSet containing the major tick locations.
+ *	@param newMinorLocations A new NSSet containing the minor tick locations.
+ */
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	// Get plot range
@@ -937,6 +957,12 @@ double niceNum(double x, BOOL round);
 	*newMinorLocations = minorLocations;
 }
 
+/**
+ *	@internal
+ *	@brief Generate major and minor tick locations using the equal divisions labeling policy.
+ *	@param newMajorLocations A new NSSet containing the major tick locations.
+ *	@param newMinorLocations A new NSSet containing the minor tick locations.
+ */
 -(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
 {
 	NSMutableSet *majorLocations = [NSMutableSet set];
@@ -1005,6 +1031,12 @@ double niceNum(double x, BOOL round);
 	*newMinorLocations = minorLocations;
 }
 
+/**
+ *	@internal
+ *	@brief Determines a "nice" number (a multiple of 2, 5, or 10) near the given number.
+ *	@param x The number to round.
+ *	@param round If YES, the result is rounded to nearest nice number, otherwise the result is the smallest nice number greater than or equal to the given number.
+ */
 double niceNum(double x, BOOL round)
 {
 	if ( x == 0.0 ) {
@@ -1057,6 +1089,12 @@ double niceNum(double x, BOOL round)
 	return roundedFraction * pow(10.0, exponent);
 }
 
+/**
+ *	@internal
+ *	@brief Removes any tick locations falling inside the label exclusion ranges from a set of tick locations.
+ *	@param allLocations A set of tick locations.
+ *	@return The filtered set of tick locations.
+ */
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations
 {
 	NSArray *exclusionRanges = self.labelExclusionRanges;
@@ -1076,6 +1114,8 @@ double niceNum(double x, BOOL round)
 		return allLocations;
 	}
 }
+
+///	@endcond
 
 /**	@brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
  *	@param allLocations A set of major tick locations.
@@ -1098,10 +1138,14 @@ double niceNum(double x, BOOL round)
 #pragma mark -
 #pragma mark Labels
 
-/**	@brief Updates the set of axis labels using the given locations.
+///	@cond
+
+/**
+ *	@internal
+ *	@brief Updates the set of axis labels using the given locations.
  *	Existing axis label objects and content layers are reused where possible.
  *	@param locations A set of NSDecimalNumber label locations.
- *	@param labeledRange A plot range used to filter the generated labels. If nil, no filtering is done.
+ *	@param labeledRange A plot range used to filter the generated labels. If <code>nil</code>, no filtering is done.
  *	@param useMajorAxisLabels If YES, label the major ticks, otherwise label the minor ticks.
  **/
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations
@@ -1256,6 +1300,8 @@ double niceNum(double x, BOOL round)
 	[self setNeedsLayout];
 }
 
+///	@endcond
+
 /**
  *	@brief Marks the receiver as needing to update the labels before the content is next drawn.
  **/
@@ -1360,6 +1406,12 @@ double niceNum(double x, BOOL round)
 	}
 }
 
+///	@cond
+
+/**
+ *	@internal
+ *	@brief Updates the position of all custom labels, hiding the ones that are outside the visible range.
+ */
 -(void)updateCustomTickLabels
 {
 	CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
@@ -1396,6 +1448,8 @@ double niceNum(double x, BOOL round)
 		[range release];
 	}
 }
+
+///	@endcond
 
 /**
  *	@brief Update the major tick mark labels.
@@ -1482,6 +1536,8 @@ double niceNum(double x, BOOL round)
 
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setAxisLabels:(NSSet *)newLabels
 {
@@ -2246,6 +2302,8 @@ double niceNum(double x, BOOL round)
 {
 	return self.plotArea.axisSet;
 }
+
+///	@endcond
 
 @end
 

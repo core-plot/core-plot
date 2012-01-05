@@ -4,7 +4,7 @@
 #import "CPTMutableTextStyle.h"
 #import "NSCoderExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTTextStyle()
 
 @property (readwrite, copy, nonatomic) NSString *fontName;
@@ -14,7 +14,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /** @brief Immutable wrapper for various text style properties.
  *

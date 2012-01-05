@@ -123,6 +123,8 @@ static NSMutableSet *themes = nil;
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setGraphClass:(Class)newGraphClass
 {
 	if ( graphClass != newGraphClass ) {
@@ -138,6 +140,8 @@ static NSMutableSet *themes = nil;
 		}
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Apply the theme

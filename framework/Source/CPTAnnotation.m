@@ -93,6 +93,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setContentLayer:(CPTLayer *)newLayer
 {
 	if ( newLayer != contentLayer ) {
@@ -139,6 +141,8 @@
 		[self.contentLayer setNeedsLayout];
 	}
 }
+
+///	@endcond
 
 @end
 

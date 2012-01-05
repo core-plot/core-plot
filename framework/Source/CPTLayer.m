@@ -26,7 +26,7 @@
  *	@brief Notifications used by Core Plot.
  **/
 
-/**	@cond */
+///	@cond
 @interface CPTLayer()
 
 @property (nonatomic, readwrite, getter = isRenderingRecursively) BOOL renderingRecursively;
@@ -37,7 +37,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -88,7 +88,7 @@
 @dynamic contentsScale;
 
 /** @property shadow
- *  @brief The shadow drawn under the layer content. If nil (the default), no shadow is drawn.
+ *  @brief The shadow drawn under the layer content. If <code>nil</code> (the default), no shadow is drawn.
  **/
 @synthesize shadow;
 
@@ -271,7 +271,8 @@
 
 /**	@brief Draws layer content into the provided graphics context.
  *
- *	This method replaces the drawInContext: method to ensure that layer content is always drawn as vectors
+ *	This method replaces the <code>-[CALayer drawInContext:]</code> method
+ *	to ensure that layer content is always drawn as vectors
  *	and objects rather than as a cached bitmapped image representation.
  *	Subclasses should do all drawing here and must call super to set up the clipping path.
  *
@@ -332,6 +333,8 @@
 	CGContextRestoreGState(context);
 }
 
+///	@cond
+
 -(void)applyTransform:(CATransform3D)transform3D toContext:(CGContextRef)context
 {
 	if ( !CATransform3DIsIdentity(transform3D) ) {
@@ -352,6 +355,8 @@
 		}
 	}
 }
+
+///	@endcond
 
 /**	@brief Updates the layer layout if needed and then draws layer content and the content of all sublayers into the provided graphics context.
  *	@param context The graphics context to draw into.
@@ -390,6 +395,9 @@
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
 
 /**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
  *  @param event Native event object of device.
@@ -430,6 +438,8 @@
 	return NO;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Layout
 
@@ -463,6 +473,8 @@
 	self.position = newPosition;
 }
 
+///	@cond
+
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
 	if ( newPadding != paddingLeft ) {
@@ -494,6 +506,8 @@
 		[self setNeedsLayout];
 	}
 }
+
+///	@endcond
 
 -(void)layoutSublayers
 {
@@ -548,6 +562,8 @@
 
 #pragma mark -
 #pragma mark Sublayers
+
+///	@cond
 
 -(void)setSublayers:(NSArray *)sublayers
 {
@@ -606,6 +622,8 @@
 		( (CPTLayer *)layer2 ).contentsScale = self.contentsScale;
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Masking
@@ -733,6 +751,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setPosition:(CGPoint)newPosition;
 {
 	[super setPosition:newPosition];
@@ -831,6 +851,8 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Description
 
@@ -846,6 +868,8 @@
 {
 	NSLog(@"Layer tree:\n%@", [self subLayersAtIndex:0]);
 }
+
+///	@cond
 
 -(NSString *)subLayersAtIndex:(NSUInteger)index
 {
@@ -863,5 +887,7 @@
 
 	return result;
 }
+
+///	@endcond
 
 @end

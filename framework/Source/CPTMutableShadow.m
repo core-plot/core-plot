@@ -11,7 +11,7 @@
 /** @property shadowOffset
  *  @brief The horizontal and vertical offset values, specified using the width and height fields
  *	of the CGSize data type. The offsets are not affected by custom transformations. Positive values extend
- *	up and to the right. Default is CGSizeZero.
+ *	up and to the right. Default is <code>CGSizeZero</code>.
  **/
 @dynamic shadowOffset;
 
@@ -22,7 +22,7 @@
 @dynamic shadowBlurRadius;
 
 /** @property shadowColor
- *  @brief The shadow color. If nil (the default), the shadow will not be drawn.
+ *  @brief The shadow color. If <code>nil</code> (the default), the shadow will not be drawn.
  **/
 @dynamic shadowColor;
 

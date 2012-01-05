@@ -33,24 +33,26 @@ NSString *const CPTBarPlotBindingBarLocations = @"barLocations"; ///< Bar locati
 NSString *const CPTBarPlotBindingBarTips	  = @"barTips";      ///< Bar tips.
 NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
-/**	@cond */
+///	@cond
 @interface CPTBarPlot()
 
 @property (nonatomic, readwrite, copy) NSArray *barLocations;
 @property (nonatomic, readwrite, copy) NSArray *barTips;
 @property (nonatomic, readwrite, copy) NSArray *barBases;
 
+-(BOOL)barAtRecordIndex:(NSUInteger)index basePoint:(CGPoint *)basePoint tipPoint:(CGPoint *)tipPoint;
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)recordIndex;
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 -(CGFloat)lengthInView:(NSDecimal)plotLength;
+-(double)doubleLengthInPlotCoordinates:(NSDecimal)decimalLength;
 
 -(BOOL)barIsVisibleWithBasePoint:(CGPoint)basePoint;
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -109,13 +111,13 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 /** @property lineStyle
  *	@brief The line style for the bar outline.
- *	If nil, the outline is not drawn.
+ *	If <code>nil</code>, the outline is not drawn.
  **/
 @synthesize lineStyle;
 
 /** @property fill
  *	@brief The fill style for the bars.
- *	If nil, the bars are not filled.
+ *	If <code>nil</code>, the bars are not filled.
  **/
 @synthesize fill;
 
@@ -126,21 +128,22 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 /** @property baseValue
  *	@brief The coordinate value of the fixed end of the bars.
- *  This is only used if barsHaveVariableBases is NO. Otherwise, the data source
- *  will be queried for an appropriate value of CPTBarPlotFieldBarBase.
+ *  This is only used if @link CPTBarPlot::barBasesVary barBasesVary @endlink is NO. Otherwise, the data source
+ *  will be queried for an appropriate value of #CPTBarPlotFieldBarBase.
  **/
 @synthesize baseValue;
 
 /** @property barBasesVary
- *  @brief If YES, a constant base value is used for all bars (baseValue).
- *  If NO, the data source is queried to supply a base value for each bar.
+ *  @brief If NO, a constant base value is used for all bars.
+ *  If YES, the data source is queried to supply a base value for each bar.
+ *	@see baseValue
  **/
 @synthesize barBasesVary;
 
 /** @property plotRange
  *	@brief Sets the plot range for the independent axis.
  *
- *	If a plot range is provided, the bars are spaced evenly throughout the plot range. If plotRange is nil,
+ *	If a plot range is provided, the bars are spaced evenly throughout the plot range. If @link CPTBarPlot::plotRange plotRange @endlink is <code>nil</code>,
  *	bar locations are provided by Cocoa bindings or the bar plot datasource. If locations are not provided by
  *	either bindings or the datasource, the first bar will be placed at zero (0) and subsequent bars will be at
  *	successive positive integer coordinates.
@@ -190,6 +193,9 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 #endif
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -211,6 +217,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -280,6 +288,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 #pragma mark -
 #pragma mark Data Loading
+
+/// @cond
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
@@ -389,8 +399,12 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Length Conversions for Independent Coordinate (e.g., widths, offsets)
+
+///	@cond
 
 -(CGFloat)lengthInView:(NSDecimal)decimalLength
 {
@@ -497,8 +511,12 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	return length;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Data Ranges
+
+/// @cond
 
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord
 {
@@ -535,8 +553,12 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	return range;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
@@ -853,6 +875,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -878,6 +902,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 
 #pragma mark -
 #pragma mark Data Labels
+
+/// @cond
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
@@ -936,8 +962,13 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	label.contentLayer.hidden = isnan([location doubleValue]) || isnan([length doubleValue]);
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -975,8 +1006,12 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	return result;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(NSArray *)barTips
 {
@@ -1099,8 +1134,12 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Fields
+
+/// @cond
 
 -(NSUInteger)numberOfFields
 {
@@ -1155,5 +1194,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	}
 	return result;
 }
+
+/// @endcond
 
 @end

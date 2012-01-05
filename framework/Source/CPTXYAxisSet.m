@@ -23,6 +23,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -41,8 +44,12 @@
 	return self;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Drawing
+
+///	@cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -62,8 +69,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(CPTXYAxis *)xAxis
 {
@@ -74,5 +85,7 @@
 {
 	return [self.axes objectAtIndex:CPTCoordinateY];
 }
+
+///	@endcond
 
 @end

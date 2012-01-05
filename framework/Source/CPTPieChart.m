@@ -27,7 +27,7 @@
 
 NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie slice widths.
 
-/**	@cond */
+///	@cond
 @interface CPTPieChart()
 
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
@@ -42,7 +42,7 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -89,13 +89,13 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
 @synthesize centerAnchor;
 
 /** @property borderLineStyle
- *	@brief The line style used to outline the pie slices.  If nil, no border is drawn.  Defaults to nil.
+ *	@brief The line style used to outline the pie slices.  If <code>nil</code>, no border is drawn.  Defaults to <code>nil</code>.
  **/
 @synthesize borderLineStyle;
 
 /** @property overlayFill
  *	@brief A fill drawn on top of the pie chart.
- *  Can be used to add shading/gloss effects. Defaults to nil.
+ *  Can be used to add shading and/or gloss effects. Defaults to <code>nil</code>.
  **/
 @synthesize overlayFill;
 
@@ -154,6 +154,9 @@ static const CGFloat colorLookupTable[10][3] =
 
 #endif
 
+/// @name Initialization
+/// @{
+
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -170,6 +173,8 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {
@@ -224,6 +229,8 @@ static const CGFloat colorLookupTable[10][3] =
 
 #pragma mark -
 #pragma mark Data Loading
+
+///	@cond
 
 -(void)reloadData
 {
@@ -365,8 +372,12 @@ static const CGFloat colorLookupTable[10][3] =
 	[self relabelIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -595,6 +606,8 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Animation
 
@@ -622,6 +635,8 @@ static const CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Fields
 
+/// @cond
+
 -(NSUInteger)numberOfFields
 {
 	return 1;
@@ -637,8 +652,12 @@ static const CGFloat colorLookupTable[10][3] =
 	return nil;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Labels
+
+/// @cond
 
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
 {
@@ -689,10 +708,15 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Legends
 
-/**	@brief The number of legend entries provided by this plot.
+///	@cond
+
+/**	@internal
+ *	@brief The number of legend entries provided by this plot.
  *	@return The number of legend entries.
  **/
 -(NSUInteger)numberOfLegendEntries
@@ -701,7 +725,8 @@ static const CGFloat colorLookupTable[10][3] =
 	return self.cachedDataCount;
 }
 
-/**	@brief The title text of a legend entry.
+/**	@internal
+ *	@brief The title text of a legend entry.
  *	@param index The index of the desired title.
  *	@return The title of the legend entry at the requested index.
  **/
@@ -721,8 +746,12 @@ static const CGFloat colorLookupTable[10][3] =
 	return legendTitle;
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Responder Chain and User interaction
+
+///	@cond
 
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition
 {
@@ -760,6 +789,11 @@ static const CGFloat colorLookupTable[10][3] =
 	}
 	return NO;
 }
+
+///	@endcond
+
+/// @name User Interaction
+/// @{
 
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -917,8 +951,12 @@ static const CGFloat colorLookupTable[10][3] =
 	return result;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(NSArray *)sliceWidths
 {
@@ -984,5 +1022,7 @@ static const CGFloat colorLookupTable[10][3] =
 		[self repositionAllLabelAnnotations];
 	}
 }
+
+///	@endcond
 
 @end

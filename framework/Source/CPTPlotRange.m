@@ -7,7 +7,7 @@
 #import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"
 
-/**	@cond */
+///	@cond
 @interface CPTPlotRange()
 
 @property (nonatomic, readwrite) NSDecimal location;
@@ -15,7 +15,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 /**
  *	@brief Defines an immutable range of plot data.
@@ -123,6 +123,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setLocation:(NSDecimal)newLocation
 {
 	if ( !CPTDecimalEquals(location, newLocation) ) {
@@ -210,6 +212,8 @@
 		return doubleLoc;
 	}
 }
+
+///	@endcond
 
 #pragma mark -
 #pragma mark NSCopying

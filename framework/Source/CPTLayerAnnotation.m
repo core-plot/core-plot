@@ -4,7 +4,7 @@
 #import "CPTConstraints.h"
 #import "CPTLayer.h"
 
-/**	@cond */
+///	@cond
 @interface CPTLayerAnnotation()
 
 @property (nonatomic, readwrite, retain) CPTConstraints *xConstraints;
@@ -14,7 +14,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -42,6 +42,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+///	@name Initialization
+///	@{
+
 /** @brief Initializes a newly allocated CPTLayerAnnotation object with the provided reference layer.
  *
  *	This is the designated initializer. The initialized layer will be anchored to
@@ -63,6 +66,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(void)dealloc
 {
@@ -99,6 +104,8 @@
 #pragma mark -
 #pragma mark Layout
 
+///	@cond
+
 -(void)positionContentLayer
 {
 	CPTLayer *content = self.contentLayer;
@@ -130,8 +137,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Constraints
+
+///	@cond
 
 -(void)setConstraints
 {
@@ -192,8 +203,12 @@
 	[yConstraint release];
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setRectAnchor:(CPTRectAnchor)newAnchor
 {
@@ -203,5 +218,7 @@
 		[self positionContentLayer];
 	}
 }
+
+///	@endcond
 
 @end

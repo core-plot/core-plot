@@ -2,7 +2,7 @@
 
 #import "CPTGraph.h"
 
-/**	@cond */
+///	@cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -15,7 +15,7 @@
 #endif
 #endif
 
-/**	@endcond */
+///	@endcond
 
 /**
  *	@brief A container view for displaying a CPTGraph.
@@ -27,6 +27,8 @@
  **/
 @synthesize hostedGraph;
 
+///	@cond
+
 -(id)initWithFrame:(NSRect)frame
 {
 	if ( (self = [super initWithFrame:frame]) ) {
@@ -37,6 +39,8 @@
 	}
 	return self;
 }
+
+///	@endcond
 
 -(void)dealloc
 {
@@ -71,6 +75,8 @@
 #pragma mark -
 #pragma mark Drawing
 
+///	@cond
+
 -(void)drawRect:(NSRect)dirtyRect
 {
 	if ( self.hostedGraph ) {
@@ -85,8 +91,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Mouse handling
+
+///	@cond
 
 -(BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
@@ -126,8 +136,12 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Accessors
+
+///	@cond
 
 -(void)setHostedGraph:(CPTGraph *)newGraph
 {
@@ -152,5 +166,7 @@
 		}
 	}
 }
+
+///	@endcond
 
 @end

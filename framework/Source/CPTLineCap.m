@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import <tgmath.h>
 
-/**	@cond */
+///	@cond
 @interface CPTLineCap()
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedLineCapPath;
@@ -15,7 +15,7 @@
 
 @end
 
-/**	@endcond */
+///	@endcond
 
 #pragma mark -
 
@@ -36,13 +36,13 @@
 
 /** @property lineStyle
  *  @brief The line style for the border of the line cap.
- *	If nil, the border is not drawn.
+ *	If <code>nil</code>, the border is not drawn.
  **/
 @synthesize lineStyle;
 
 /** @property fill
  *  @brief The fill for the interior of the line cap.
- *	If nil, the symbol is not filled.
+ *	If <code>nil</code>, the symbol is not filled.
  **/
 @synthesize fill;
 
@@ -127,6 +127,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+///	@cond
+
 -(void)setSize:(CGSize)newSize
 {
 	if ( !CGSizeEqualToSize(newSize, size) ) {
@@ -168,11 +170,13 @@
 	}
 }
 
+///	@endcond
+
 #pragma mark -
 #pragma mark Factory methods
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeNone.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeNone.
  **/
 +(CPTLineCap *)lineCap
 {
@@ -183,8 +187,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeOpenArrow.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeOpenArrow.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeOpenArrow.
  **/
 +(CPTLineCap *)openArrowPlotLineCap
 {
@@ -195,8 +199,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeSolidArrow.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSolidArrow.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSolidArrow.
  **/
 +(CPTLineCap *)solidArrowPlotLineCap
 {
@@ -207,8 +211,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeSweptArrow.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSweptArrow.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSweptArrow.
  **/
 +(CPTLineCap *)sweptArrowPlotLineCap
 {
@@ -219,8 +223,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeRectangle.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeRectangle.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeRectangle.
  **/
 +(CPTLineCap *)rectanglePlotLineCap
 {
@@ -231,8 +235,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeEllipse.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeEllipse.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeEllipse.
  **/
 +(CPTLineCap *)ellipsePlotLineCap
 {
@@ -243,8 +247,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeDiamond.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeDiamond.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeDiamond.
  **/
 +(CPTLineCap *)diamondPlotLineCap
 {
@@ -255,8 +259,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypePentagon.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypePentagon.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypePentagon.
  **/
 +(CPTLineCap *)pentagonPlotLineCap
 {
@@ -267,8 +271,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeHexagon.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeHexagon.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeHexagon.
  **/
 +(CPTLineCap *)hexagonPlotLineCap
 {
@@ -279,8 +283,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeBar.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeBar.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeBar.
  **/
 +(CPTLineCap *)barPlotLineCap
 {
@@ -291,8 +295,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeCross.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCross.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCross.
  **/
 +(CPTLineCap *)crossPlotLineCap
 {
@@ -303,8 +307,8 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeSnow.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeNone.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSnow.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSnow.
  **/
 +(CPTLineCap *)snowPlotLineCap
 {
@@ -315,9 +319,9 @@
 	return [lineCap autorelease];
 }
 
-/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeCustom.
+/** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
  *	@param aPath The bounding path for the custom line cap.
- *  @return A new CPTLineCap instance initialized with a line cap type of CPTLineCapTypeCustom.
+ *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
  **/
 +(CPTLineCap *)customLineCapWithPath:(CGPathRef)aPath
 {
@@ -431,6 +435,8 @@
 
 #pragma mark -
 #pragma mark Private methods
+
+///	@cond
 
 /**	@internal
  *	@brief Creates and returns a drawing path for the current line cap type.
@@ -553,5 +559,7 @@
 	}
 	return lineCapPath;
 }
+
+///	@endcond
 
 @end
