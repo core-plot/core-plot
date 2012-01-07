@@ -52,6 +52,15 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTXYAxis object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTXYAxis::orthogonalCoordinateDecimal orthogonalCoordinateDecimal @endlink = 0
+ *	- @link CPTXYAxis::axisConstraints axisConstraints @endlink = <code>nil</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTXYAxis object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

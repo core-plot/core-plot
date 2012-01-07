@@ -7,12 +7,13 @@
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 /**
- *	@brief A Core Animation layer that displays a single line of text drawn in a uniform style.
+ *	@brief A Core Animation layer that displays text drawn in a uniform style.
  **/
 @implementation CPTTextLayer
 
 /**	@property text
  *	@brief The text to display.
+ *	Inset newline characters (<code>'\\n'</code>) at the line breaks to display multi-line text.
  **/
 @synthesize text;
 
@@ -61,6 +62,25 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 	return self;
 }
+
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTTextLayer object with the provided frame rectangle.
+ *
+ *	The initialized layer will have the following properties:
+ *	- @link CPTTextLayer::text text @endlink = <code>nil</code>
+ *	- @link CPTTextLayer::textStyle textStyle @endlink = <code>nil</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTTextLayer object.
+ **/
+-(id)initWithFrame:(CGRect)newFrame
+{
+	return [self initWithText:nil style:nil];
+}
+
+///	@}
 
 -(void)dealloc
 {

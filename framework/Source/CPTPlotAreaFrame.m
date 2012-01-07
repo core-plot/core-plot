@@ -46,6 +46,15 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTPlotAreaFrame object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTPlotAreaFrame::plotArea plotArea @endlink = a new CPTPlotArea with the same frame rectangle
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTPlotAreaFrame object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

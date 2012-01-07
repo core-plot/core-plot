@@ -137,13 +137,20 @@
 
 /** @brief Initializes a newly allocated CPTLayer object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties that
- *	are different than a CALayer:
- *	- needsDisplayOnBoundsChange = NO
- *	- opaque = NO
- *	- masksToBounds = NO
- *	- padding = 0 on all four sides
- *	- Default animations for changes in position, bounds, and sublayers are turned off.
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTLayer::paddingLeft paddingLeft @endlink = 0.0
+ *	- @link CPTLayer::paddingTop paddingTop @endlink = 0.0
+ *	- @link CPTLayer::paddingRight paddingRight @endlink = 0.0
+ *	- @link CPTLayer::paddingBottom paddingBottom @endlink = 0.0
+ *	- @link CPTLayer::masksToBorder masksToBorder @endlink = <code>NO</code>
+ *	- @link CPTLayer::shadow shadow @endlink = <code>nil</code>
+ *	- @link CPTLayer::useFastRendering useFastRendering @endlink = <code>NO</code>
+ *	- @link CPTLayer::graph graph @endlink = <code>nil</code>
+ *	- @link CPTLayer::outerBorderPath outerBorderPath @endlink = <code>NULL</code>
+ *	- @link CPTLayer::innerBorderPath innerBorderPath @endlink = <code>NULL</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>NO</code>
+ *	- <code>opaque</code> = <code>NO</code>
+ *	- <code>masksToBounds</code> = <code>NO</code>
  *
  *	@param newFrame The frame rectangle.
  *  @return The initialized CPTLayer object.

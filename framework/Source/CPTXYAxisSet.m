@@ -26,6 +26,20 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTXYAxisSet object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The @link CPTAxisSet::axes axes @endlink array
+ *	will contain two new axes with the following properties:
+ *
+ *	<table>
+ *	<tr><td>Axis</td><td>@link CPTAxis::coordinate coordinate @endlink</td><td>@link CPTAxis::tickDirection tickDirection @endlink</td></tr>
+ *	<tr><td>@link CPTXYAxisSet::xAxis xAxis @endlink</td><td>#CPTCoordinateX</td><td>#CPTSignNegative</td></tr>
+ *	<tr><td>@link CPTXYAxisSet::yAxis yAxis @endlink</td><td>#CPTCoordinateY</td><td>#CPTSignNegative</td></tr>
+ *	</table>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTXYAxisSet object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

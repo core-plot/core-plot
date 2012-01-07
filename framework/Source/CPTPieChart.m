@@ -157,6 +157,22 @@ static const CGFloat colorLookupTable[10][3] =
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTPieChart object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTPieChart::pieRadius pieRadius @endlink = 40% of the minimum of the width and height of the frame rectangle
+ *	- @link CPTPieChart::pieInnerRadius pieInnerRadius @endlink = 0.0
+ *	- @link CPTPieChart::startAngle startAngle @endlink = π/2
+ *	- @link CPTPieChart::sliceDirection sliceDirection @endlink = #CPTPieDirectionClockwise
+ *	- @link CPTPieChart::centerAnchor centerAnchor @endlink = (0.5, 0.5)
+ *	- @link CPTPieChart::borderLineStyle borderLineStyle @endlink = <code>nil</code>
+ *	- @link CPTPieChart::overlayFill overlayFill @endlink = <code>nil</code>
+ *	- @link CPTPlot::labelOffset labelOffset @endlink = 10.0
+ *	- @link CPTPlot::labelField labelField @endlink = #CPTPieChartFieldSliceWidth
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTPieChart object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

@@ -147,6 +147,14 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTPlotGroup object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTPlotGroup::identifier identifier @endlink = <code>nil</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTPlotGroup object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

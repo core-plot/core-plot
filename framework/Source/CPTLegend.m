@@ -205,7 +205,35 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /// @name Initialization
 /// @{
 
-// Designated initializer
+/** @brief Initializes a newly allocated CPTLegend object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTLegend::layoutChanged layoutChanged @endlink = <code>YES</code>
+ *	- @link CPTLegend::textStyle textStyle @endlink = default text style
+ *	- @link CPTLegend::swatchSize swatchSize @endlink = <code>CGSizeZero</code>
+ *	- @link CPTLegend::swatchBorderLineStyle swatchBorderLineStyle @endlink = <code>nil</code>
+ *	- @link CPTLegend::swatchCornerRadius swatchCornerRadius @endlink = 0
+ *	- @link CPTLegend::swatchFill swatchFill @endlink = <code>nil</code>
+ *	- @link CPTLegend::numberOfRows numberOfRows @endlink = 0
+ *	- @link CPTLegend::numberOfColumns numberOfColumns @endlink = 0
+ *	- @link CPTLegend::equalRows equalRows @endlink = <code>YES</code>
+ *	- @link CPTLegend::equalColumns equalColumns @endlink = <code>NO</code>
+ *	- @link CPTLegend::rowHeights rowHeights @endlink = <code>nil</code>
+ *	- @link CPTLegend::rowHeightsThatFit rowHeightsThatFit @endlink = <code>nil</code>
+ *	- @link CPTLegend::columnWidths columnWidths @endlink = <code>nil</code>
+ *	- @link CPTLegend::columnWidthsThatFit columnWidthsThatFit @endlink = <code>nil</code>
+ *	- @link CPTLegend::columnMargin columnMargin @endlink = 10.0
+ *	- @link CPTLegend::rowMargin rowMargin @endlink = 5.0
+ *	- @link CPTLegend::titleOffset titleOffset @endlink = 5.0
+ *	- @link CPTLayer::paddingLeft paddingLeft @endlink = 5.0
+ *	- @link CPTLayer::paddingTop paddingTop @endlink = 5.0
+ *	- @link CPTLayer::paddingRight paddingRight @endlink = 5.0
+ *	- @link CPTLayer::paddingBottom paddingBottom @endlink = 5.0
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTLegend object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

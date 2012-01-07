@@ -29,6 +29,16 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTGridLineGroup object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTGridLineGroup::plotArea plotArea @endlink = <code>nil</code>
+ *	- @link CPTGridLineGroup::major major @endlink = <code>NO</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTGridLineGroup object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

@@ -139,6 +139,22 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTScatterPlot object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTScatterPlot::dataLineStyle dataLineStyle @endlink = default line style
+ *	- @link CPTScatterPlot::plotSymbol plotSymbol @endlink = <code>nil</code>
+ *	- @link CPTScatterPlot::areaFill areaFill @endlink = <code>nil</code>
+ *	- @link CPTScatterPlot::areaFill2 areaFill2 @endlink = <code>nil</code>
+ *	- @link CPTScatterPlot::areaBaseValue areaBaseValue @endlink = NAN
+ *	- @link CPTScatterPlot::areaBaseValue2 areaBaseValue2 @endlink = NAN
+ *	- @link CPTScatterPlot::plotSymbolMarginForHitDetection plotSymbolMarginForHitDetection @endlink = 0.0
+ *	- @link CPTScatterPlot::interpolation interpolation @endlink = #CPTScatterPlotInterpolationLinear
+ *	- @link CPTPlot::labelField labelField @endlink = #CPTScatterPlotFieldY
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTScatterPlot object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -147,7 +163,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 		areaFill						= nil;
 		areaFill2						= nil;
 		areaBaseValue					= [[NSDecimalNumber notANumber] decimalValue];
-		areaBaseValue					= [[NSDecimalNumber notANumber] decimalValue];
+		areaBaseValue2					= [[NSDecimalNumber notANumber] decimalValue];
 		plotSymbols						= nil;
 		plotSymbolMarginForHitDetection = 0.0;
 		interpolation					= CPTScatterPlotInterpolationLinear;

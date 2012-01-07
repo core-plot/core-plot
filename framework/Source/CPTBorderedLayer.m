@@ -31,6 +31,17 @@
 ///	@name Initialization
 ///	@{
 
+/** @brief Initializes a newly allocated CPTBorderedLayer object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTBorderedLayer::borderLineStyle borderLineStyle @endlink = <code>nil</code>
+ *	- @link CPTBorderedLayer::fill fill @endlink = <code>nil</code>
+ *	- @link CPTLayer::masksToBorder masksToBorder @endlink = <code>YES</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTBorderedLayer object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

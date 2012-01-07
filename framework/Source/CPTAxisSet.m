@@ -28,6 +28,16 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTAxisSet object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTAxisSet::axes axes @endlink = empty array
+ *	- @link CPTAxisSet::borderLineStyle borderLineStyle @endlink = <code>nil</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTAxisSet object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

@@ -9,8 +9,11 @@
 
 @property (nonatomic, readonly, retain) NSArray *annotations;
 
+///	@name Annotations
+///	@{
 -(void)addAnnotation:(CPTAnnotation *)annotation;
 -(void)removeAnnotation:(CPTAnnotation *)annotation;
 -(void)removeAllAnnotations;
+///	@}
 
 @end

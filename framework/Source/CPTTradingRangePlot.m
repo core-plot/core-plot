@@ -137,6 +137,23 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTTradingRangePlot object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTTradingRangePlot::plotStyle plotStyle @endlink = #CPTTradingRangePlotStyleOHLC
+ *	- @link CPTTradingRangePlot::lineStyle lineStyle @endlink = default line style
+ *	- @link CPTTradingRangePlot::increaseLineStyle increaseLineStyle @endlink = <code>nil</code>
+ *	- @link CPTTradingRangePlot::decreaseLineStyle decreaseLineStyle @endlink = <code>nil</code>
+ *	- @link CPTTradingRangePlot::increaseFill increaseFill @endlink = solid white fill
+ *	- @link CPTTradingRangePlot::decreaseFill decreaseFill @endlink = solid black fill
+ *	- @link CPTTradingRangePlot::barWidth barWidth @endlink = 5.0
+ *	- @link CPTTradingRangePlot::stickLength stickLength @endlink = 3.0
+ *	- @link CPTTradingRangePlot::barCornerRadius barCornerRadius @endlink = 0.0
+ *	- @link CPTPlot::labelField labelField @endlink = #CPTTradingRangePlotFieldClose
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTTradingRangePlot object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

@@ -393,6 +393,59 @@ double niceNum(double x, BOOL round);
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTAxis object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTAxis::plotSpace plotSpace @endlink = <code>nil</code>
+ *	- @link CPTAxis::majorTickLocations majorTickLocations @endlink = empty set
+ *	- @link CPTAxis::minorTickLocations minorTickLocations @endlink = empty set
+ *	- @link CPTAxis::preferredNumberOfMajorTicks preferredNumberOfMajorTicks @endlink = 0
+ *	- @link CPTAxis::minorTickLength minorTickLength @endlink = 3.0
+ *	- @link CPTAxis::majorTickLength majorTickLength @endlink = 5.0
+ *	- @link CPTAxis::labelOffset labelOffset @endlink = 2.0
+ *	- @link CPTAxis::minorTickLabelOffset minorTickLabelOffset @endlink = 2.0
+ *	- @link CPTAxis::labelRotation labelRotation @endlink= 0.0
+ *	- @link CPTAxis::minorTickLabelRotation minorTickLabelRotation @endlink= 0.0
+ *	- @link CPTAxis::labelAlignment labelAlignment @endlink = #CPTAlignmentCenter
+ *	- @link CPTAxis::minorTickLabelAlignment minorTickLabelAlignment @endlink = #CPTAlignmentCenter
+ *	- @link CPTAxis::title title @endlink = <code>nil</code>
+ *	- @link CPTAxis::titleOffset titleOffset @endlink = 30.0
+ *	- @link CPTAxis::axisLineStyle axisLineStyle @endlink = default line style
+ *	- @link CPTAxis::majorTickLineStyle majorTickLineStyle @endlink = default line style
+ *	- @link CPTAxis::minorTickLineStyle minorTickLineStyle @endlink = default line style
+ *	- @link CPTAxis::majorGridLineStyle majorGridLineStyle @endlink = <code>nil</code>
+ *	- @link CPTAxis::minorGridLineStyle minorGridLineStyle @endlink= <code>nil</code>
+ *	- @link CPTAxis::axisLineCapMin axisLineCapMin @endlink = <code>nil</code>
+ *	- @link CPTAxis::axisLineCapMax axisLineCapMax @endlink = <code>nil</code>
+ *	- @link CPTAxis::labelingOrigin labelingOrigin @endlink = 0
+ *	- @link CPTAxis::majorIntervalLength majorIntervalLength @endlink = 1
+ *	- @link CPTAxis::minorTicksPerInterval minorTicksPerInterval @endlink = 1
+ *	- @link CPTAxis::coordinate coordinate @endlink = #CPTCoordinateX
+ *	- @link CPTAxis::labelingPolicy labelingPolicy @endlink = #CPTAxisLabelingPolicyFixedInterval
+ *	- @link CPTAxis::labelTextStyle labelTextStyle @endlink = default text style
+ *	- @link CPTAxis::labelFormatter labelFormatter @endlink = number formatter that displays one fraction digit and at least one integer digit
+ *	- @link CPTAxis::minorTickLabelTextStyle minorTickLabelTextStyle @endlink = default text style
+ *	- @link CPTAxis::minorTickLabelFormatter minorTickLabelFormatter @endlink = <code>nil</code>
+ *	- @link CPTAxis::axisLabels axisLabels @endlink = empty set
+ *	- @link CPTAxis::minorTickAxisLabels minorTickAxisLabels @endlink = empty set
+ *	- @link CPTAxis::tickDirection tickDirection @endlink = #CPTSignNone
+ *	- @link CPTAxis::axisTitle axisTitle @endlink = <code>nil</code>
+ *	- @link CPTAxis::titleTextStyle titleTextStyle @endlink = default text style
+ *	- @link CPTAxis::titleRotation titleRotation @endlink = <code>NAN</code>
+ *	- @link CPTAxis::titleLocation titleLocation @endlink = <code>NAN</code>
+ *	- @link CPTAxis::needsRelabel needsRelabel @endlink = <code>YES</code>
+ *	- @link CPTAxis::labelExclusionRanges labelExclusionRanges @endlink = <code>nil</code>
+ *	- @link CPTAxis::plotArea plotArea @endlink = <code>nil</code>
+ *	- @link CPTAxis::separateLayers separateLayers @endlink = <code>NO</code>
+ *	- @link CPTAxis::labelShadow labelShadow @endlink = <code>nil</code>
+ *	- @link CPTAxis::alternatingBandFills alternatingBandFills @endlink = <code>nil</code>
+ *	- @link CPTAxis::minorGridLines minorGridLines @endlink = <code>nil</code>
+ *	- @link CPTAxis::majorGridLines majorGridLines @endlink = <code>nil</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTAxis object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

@@ -135,11 +135,23 @@ typedef struct CGPointError CGPointError;
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTRangePlot object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTRangePlot::barLineStyle barLineStyle @endlink = default line style
+ *	- @link CPTRangePlot::areaFill areaFill @endlink = <code>nil</code>
+ *	- @link CPTPlot::labelField labelField @endlink = #CPTRangePlotFieldX
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTRangePlot object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
 		barLineStyle = [[CPTLineStyle alloc] init];
 		areaFill	 = nil;
+
+		self.labelField = CPTRangePlotFieldX;
 	}
 	return self;
 }

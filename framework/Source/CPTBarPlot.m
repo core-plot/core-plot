@@ -196,6 +196,27 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTBarPlot object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTBarPlot::lineStyle lineStyle @endlink = default line style
+ *	- @link CPTBarPlot::fill fill @endlink = solid black fill
+ *	- @link CPTBarPlot::barWidth barWidth @endlink = 0.5
+ *	- @link CPTBarPlot::barWidthScale barWidthScale @endlink = 1.0
+ *	- @link CPTBarPlot::barWidthsAreInViewCoordinates barWidthsAreInViewCoordinates @endlink = <code>NO</code>
+ *	- @link CPTBarPlot::barOffset barOffset @endlink = 0.0
+ *	- @link CPTBarPlot::barOffsetScale barOffsetScale @endlink = 1.0
+ *	- @link CPTBarPlot::barCornerRadius barCornerRadius @endlink = 0.0
+ *	- @link CPTBarPlot::baseValue baseValue @endlink = 0
+ *	- @link CPTBarPlot::barsAreHorizontal barsAreHorizontal @endlink = <code>NO</code>
+ *	- @link CPTBarPlot::barBasesVary barBasesVary @endlink = <code>NO</code>
+ *	- @link CPTBarPlot::plotRange plotRange @endlink = <code>nil</code>
+ *	- @link CPTPlot::labelOffset labelOffset @endlink = 10.0
+ *	- @link CPTPlot::labelField labelField @endlink = #CPTBarPlotFieldBarTip
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTBarPlot object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

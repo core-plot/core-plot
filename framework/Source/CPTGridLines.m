@@ -23,6 +23,16 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTGridLines object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTGridLines::axis axis @endlink = <code>nil</code>
+ *	- @link CPTGridLines::major major @endlink = <code>NO</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTGridLines object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {

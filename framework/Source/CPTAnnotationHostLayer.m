@@ -31,6 +31,17 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+///	@name Initialization
+///	@{
+
+/** @brief Initializes a newly allocated CPTAnnotationHostLayer object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have an empty
+ *	@link CPTAnnotationHostLayer::annotations annotations @endlink array.
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTAnnotationHostLayer object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -38,6 +49,8 @@
 	}
 	return self;
 }
+
+///	@}
 
 -(id)initWithLayer:(id)layer
 {

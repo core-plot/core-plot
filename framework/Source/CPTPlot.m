@@ -203,6 +203,30 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTPlot object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTPlot::cachedDataCount cachedDataCount @endlink = 0
+ *	- @link CPTPlot::cachePrecision cachePrecision @endlink = #CPTPlotCachePrecisionAuto
+ *	- @link CPTPlot::dataSource dataSource @endlink = <code>nil</code>
+ *	- @link CPTPlot::identifier identifier @endlink = <code>nil</code>
+ *	- @link CPTPlot::title title @endlink = <code>nil</code>
+ *	- @link CPTPlot::plotSpace plotSpace @endlink = <code>nil</code>
+ *	- @link CPTPlot::dataNeedsReloading dataNeedsReloading @endlink = <code>NO</code>
+ *	- @link CPTPlot::needsRelabel needsRelabel @endlink = <code>YES</code>
+ *	- @link CPTPlot::labelOffset labelOffset @endlink = 0.0
+ *	- @link CPTPlot::labelRotation labelRotation @endlink = 0.0
+ *	- @link CPTPlot::labelField labelField @endlink = 0
+ *	- @link CPTPlot::labelTextStyle labelTextStyle @endlink = <code>nil</code>
+ *	- @link CPTPlot::labelFormatter labelFormatter @endlink = <code>nil</code>
+ *	- @link CPTPlot::labelShadow labelShadow @endlink = <code>nil</code>
+ *	- @link CPTPlot::alignsPointsToPixels alignsPointsToPixels @endlink = <code>YES</code>
+ *	- <code>masksToBounds</code> = <code>YES</code>
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTPlot object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
@@ -1339,7 +1363,7 @@
 }
 
 /**	@brief Identifiers (enum values) identifying the fields.
- *	@return Array of NSNumbers for the various field identifiers.
+ *	@return Array of NSNumber objects for the various field identifiers.
  **/
 -(NSArray *)fieldIdentifiers
 {
@@ -1348,7 +1372,7 @@
 
 /**	@brief The field identifiers that correspond to a particular coordinate.
  *  @param coord The coordinate for which the corresponding field identifiers are desired.
- *	@return Array of NSNumbers for the field identifiers.
+ *	@return Array of NSNumber objects for the field identifiers.
  **/
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {

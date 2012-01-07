@@ -56,6 +56,16 @@
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTXYGraph object with the provided frame rectangle.
+ *
+ *	The initialized layer will have the following properties:
+ *	- xScaleType = #CPTScaleTypeLinear
+ *	- yScaleType = #CPTScaleTypeLinear
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTXYGraph object.
+ *	@see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];

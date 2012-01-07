@@ -117,6 +117,23 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 /// @name Initialization
 /// @{
 
+/** @brief Initializes a newly allocated CPTPlotArea object with the provided frame rectangle.
+ *
+ *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTPlotArea::minorGridLineGroup minorGridLineGroup @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::majorGridLineGroup majorGridLineGroup @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::axisSet axisSet @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::plotGroup plotGroup @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::axisLabelGroup axisLabelGroup @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::axisTitleGroup axisTitleGroup @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::fill fill @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink = <code>nil</code>
+ *	- @link CPTPlotArea::plotGroup plotGroup @endlink = a new CPTPlotGroup with the same frame rectangle
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	@param newFrame The frame rectangle.
+ *  @return The initialized CPTPlotArea object.
+ **/
 -(id)initWithFrame:(CGRect)newFrame
 {
 	if ( (self = [super initWithFrame:newFrame]) ) {
