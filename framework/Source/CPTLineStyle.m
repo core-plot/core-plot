@@ -32,37 +32,37 @@
 @implementation CPTLineStyle
 
 /** @property lineCap
- *  @brief The style for the endpoints of lines drawn in a graphics context.
+ *  @brief The style for the endpoints of lines drawn in a graphics context. Default is <code>kCGLineCapButt</code>.
  **/
 @synthesize lineCap;
 
 /** @property lineJoin
- *  @brief The style for the joins of connected lines in a graphics context.
+ *  @brief The style for the joins of connected lines in a graphics context. Default is <code>kCGLineJoinMiter</code>.
  **/
 @synthesize lineJoin;
 
 /** @property miterLimit
- *  @brief The miter limit for the joins of connected lines in a graphics context.
+ *  @brief The miter limit for the joins of connected lines in a graphics context. Default is 10.0.
  **/
 @synthesize miterLimit;
 
 /** @property lineWidth
- *  @brief The line width for a graphics context.
+ *  @brief The line width for a graphics context. Default is 1.0.
  **/
 @synthesize lineWidth;
 
 /** @property dashPattern
- *  @brief The dash-and-space pattern for the line.
+ *  @brief The dash-and-space pattern for the line. Default is <code>nil</code>.
  **/
 @synthesize dashPattern;
 
 /** @property patternPhase
- *  @brief The starting phase of the line dash pattern.
+ *  @brief The starting phase of the line dash pattern. Default is 0.0.
  **/
 @synthesize patternPhase;
 
 /** @property lineColor
- *  @brief The current stroke color in a context.
+ *  @brief The current stroke color in a context. Default is solid black.
  **/
 @synthesize lineColor;
 

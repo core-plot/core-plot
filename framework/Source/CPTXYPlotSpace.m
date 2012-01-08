@@ -662,6 +662,25 @@
 ///	@name User Interaction
 ///	@{
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
+ *	this method always returns <code>YES</code>.
+ *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
+ *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *	this method always returns <code>NO</code>.
+ *	Otherwise, if the <code>interactionPoint</code> is within the bounds of the
+ *	@link CPTGraph::plotAreaFrame plotAreaFrame @endlink, a drag operation starts and
+ *	this method returns <code>YES</code>.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
@@ -685,6 +704,24 @@
 	return NO;
 }
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly released the mouse button. @endif
+ *	@if iOSOnly lifted their finger off the screen. @endif
+ *
+ *
+ *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
+ *	this method always returns <code>YES</code>.
+ *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
+ *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *	this method always returns <code>NO</code>.
+ *	Otherwise, if a drag operation is in progress, it ends and
+ *	this method returns <code>YES</code>.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL handledByDelegate = [super pointingDeviceUpEvent:event atPoint:interactionPoint];
@@ -705,6 +742,25 @@
 	return NO;
 }
 
+/**
+ *	@brief Informs the receiver that the user has moved
+ *	@if MacOnly the mouse with the button pressed. @endif
+ *	@if iOSOnly their finger while touching the screen. @endif
+ *
+ *
+ *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
+ *	this method always returns <code>YES</code>.
+ *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
+ *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *	this method always returns <code>NO</code>.
+ *	Otherwise, if a drag operation is in progress, the @link CPTXYPlotSpace::xRange xRange @endlink
+ *	and @link CPTXYPlotSpace::yRange yRange @endlink are shifted to follow the drag and
+ *	this method returns <code>YES</code>.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL handledByDelegate = [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];

@@ -811,6 +811,23 @@ static const CGFloat colorLookupTable[10][3] =
 /// @name User Interaction
 /// @{
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If this plot has a delegate that responds to the
+ *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink
+ *	method, the <code>interactionPoint</code> is compared with each slice in index order.
+ *	The delegate method will be called and this method returns <code>YES</code> for the first
+ *	index where the <code>interactionPoint</code> is inside a pie slice.
+ *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the slices.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL result				 = NO;

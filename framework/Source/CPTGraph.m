@@ -147,13 +147,28 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 /// @name Initialization
 /// @{
 
-/** @brief Initializes a newly allocated CPTPlotGroup object with the provided frame rectangle.
+/** @brief Initializes a newly allocated CPTGraph object with the provided frame rectangle.
  *
  *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTPlotGroup::identifier identifier @endlink = <code>nil</code>
+ *	- @link CPTGraph::title title @endlink = <code>nil</code>
+ *	- @link CPTGraph::titlePlotAreaFrameAnchor titlePlotAreaFrameAnchor @endlink = #CPTRectAnchorTop
+ *	- @link CPTGraph::titleTextStyle titleTextStyle @endlink = default text style
+ *	- @link CPTGraph::titleDisplacement titleDisplacement @endlink = <code>CGPointZero</code>
+ *	- @link CPTGraph::legend legend @endlink = <code>nil</code>
+ *	- @link CPTGraph::legendAnchor legendAnchor @endlink = #CPTRectAnchorBottom
+ *	- @link CPTGraph::legendDisplacement legendDisplacement @endlink = <code>CGPointZero</code>
+ *	- @link CPTLayer::paddingLeft paddingLeft @endlink = 20.0
+ *	- @link CPTLayer::paddingTop paddingTop @endlink = 20.0
+ *	- @link CPTLayer::paddingRight paddingRight @endlink = 20.0
+ *	- @link CPTLayer::paddingBottom paddingBottom @endlink = 20.0
+ *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *
+ *	The new graph will have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink with a frame equal to the graph's bounds,
+ *	a @link CPTGraph::defaultPlotSpace defaultPlotSpace @endlink created with the @link CPTGraph::newPlotSpace -newPlotSpace @endlink method,
+ *	and an @link CPTGraph::axisSet axisSet @endlink created with the @link CPTGraph::newAxisSet -newAxisSet @endlink method.
  *
  *	@param newFrame The frame rectangle.
- *  @return The initialized CPTPlotGroup object.
+ *  @return The initialized CPTGraph object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -820,6 +835,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 /// @name User Interaction
 /// @{
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	The event is passed in turn to the following layers:
+ *	-# All plots in reverse order (i.e., from front to back in the layer order)
+ *	-# The axis set
+ *	-# The plot area
+ *
+ *	If any layer handles the event, subsequent layers are not notified and
+ *	this method immediately returns <code>YES</code>. If none of the layers
+ *	handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
@@ -851,6 +885,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	return handledEvent;
 }
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly released the mouse button. @endif
+ *	@if iOSOnly lifted their finger off the screen. @endif
+ *
+ *
+ *	The event is passed in turn to the following layers:
+ *	-# All plots in reverse order (i.e., from front to back in the layer order)
+ *	-# The axis set
+ *	-# The plot area
+ *
+ *	If any layer handles the event, subsequent layers are not notified and
+ *	this method immediately returns <code>YES</code>. If none of the layers
+ *	handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
@@ -882,6 +935,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	return handledEvent;
 }
 
+/**
+ *	@brief Informs the receiver that the user has moved
+ *	@if MacOnly the mouse with the button pressed. @endif
+ *	@if iOSOnly their finger while touching the screen. @endif
+ *
+ *
+ *	The event is passed in turn to the following layers:
+ *	-# All plots in reverse order (i.e., from front to back in the layer order)
+ *	-# The axis set
+ *	-# The plot area
+ *
+ *	If any layer handles the event, subsequent layers are not notified and
+ *	this method immediately returns <code>YES</code>. If none of the layers
+ *	handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	// Plots
@@ -913,6 +985,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 	return handledEvent;
 }
 
+/**
+ *	@brief Informs the receiver that tracking of
+ *	@if MacOnly mouse moves @endif
+ *	@if iOSOnly touches @endif
+ *	has been cancelled for any reason.
+ *
+ *
+ *	The event is passed in turn to the following layers:
+ *	-# All plots in reverse order (i.e., from front to back in the layer order)
+ *	-# The axis set
+ *	-# The plot area
+ *
+ *	If any layer handles the event, subsequent layers are not notified and
+ *	this method immediately returns <code>YES</code>. If none of the layers
+ *	handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *
+ *	@param event The OS event.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
 	// Plots

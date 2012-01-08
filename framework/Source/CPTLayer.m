@@ -406,40 +406,21 @@
 /// @name User Interaction
 /// @{
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
- *  @param event Native event object of device.
- *	@param interactionPoint The coordinates of the event in the host view.
- *  @return Whether the event was handled or not.
- **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
- *  @param event Native event object of device.
- *	@param interactionPoint The coordinates of the event in the host view.
- *  @return Whether the event was handled or not.
- **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
- *  @param event Native event object of device.
- *	@param interactionPoint The coordinates of the event in the host view.
- *  @return Whether the event was handled or not.
- **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	return NO;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
- *  @param event Native event object of device.
- *  @return Whether the event was handled or not.
- **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
 	return NO;

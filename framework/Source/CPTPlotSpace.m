@@ -85,10 +85,21 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 ///	@name User Interaction
 ///	@{
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger down event.
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If the receiver does not have a @link CPTPlotSpace::delegate delegate @endlink,
+ *	this method always returns <code>NO</code>. Otherwise, the
+ *	@link CPTPlotSpaceDelegate::plotSpace:shouldHandlePointingDeviceDownEvent:atPoint: -plotSpace:shouldHandlePointingDeviceDownEvent:atPoint: @endlink
+ *	delegate method is called. If it returns <code>NO</code>, this method returns <code>YES</code>
+ *	to indicate that the event has been handled and no further processing should occur.
+ *
  *	@param event The OS event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -100,10 +111,21 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 	return handledByDelegate;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger up event.
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly released the mouse button. @endif
+ *	@if iOSOnly lifted their finger off the screen. @endif
+ *
+ *
+ *	If the receiver does not have a @link CPTPlotSpace::delegate delegate @endlink,
+ *	this method always returns <code>NO</code>. Otherwise, the
+ *	@link CPTPlotSpaceDelegate::plotSpace:shouldHandlePointingDeviceUpEvent:atPoint: -plotSpace:shouldHandlePointingDeviceUpEvent:atPoint: @endlink
+ *	delegate method is called. If it returns <code>NO</code>, this method returns <code>YES</code>
+ *	to indicate that the event has been handled and no further processing should occur.
+ *
  *	@param event The OS event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -115,10 +137,21 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 	return handledByDelegate;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Handles mouse or finger dragged event.
+/**
+ *	@brief Informs the receiver that the user has moved
+ *	@if MacOnly the mouse with the button pressed. @endif
+ *	@if iOSOnly their finger while touching the screen. @endif
+ *
+ *
+ *	If the receiver does not have a @link CPTPlotSpace::delegate delegate @endlink,
+ *	this method always returns <code>NO</code>. Otherwise, the
+ *	@link CPTPlotSpaceDelegate::plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint: -plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint: @endlink
+ *	delegate method is called. If it returns <code>NO</code>, this method returns <code>YES</code>
+ *	to indicate that the event has been handled and no further processing should occur.
+ *
  *	@param event The OS event.
- *	@param interactionPoint The coordinates of the event in the host view.
- *	@return Whether the plot space handled the event or not.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
@@ -130,9 +163,21 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 	return handledByDelegate;
 }
 
-/**	@brief Abstraction of Mac and iPhone event handling. Mouse or finger event cancelled.
+/**
+ *	@brief Informs the receiver that tracking of
+ *	@if MacOnly mouse moves @endif
+ *	@if iOSOnly touches @endif
+ *	has been cancelled for any reason.
+ *
+ *
+ *	If the receiver does not have a @link CPTPlotSpace::delegate delegate @endlink,
+ *	this method always returns <code>NO</code>. Otherwise, the
+ *	@link CPTPlotSpaceDelegate::plotSpace:shouldHandlePointingDeviceCancelledEvent: -plotSpace:shouldHandlePointingDeviceCancelledEvent: @endlink
+ *	delegate method is called. If it returns <code>NO</code>, this method returns <code>YES</code>
+ *	to indicate that the event has been handled and no further processing should occur.
+ *
  *	@param event The OS event.
- *	@return Whether the plot space handled the event or not.
+ *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {

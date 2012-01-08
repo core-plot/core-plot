@@ -13,6 +13,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
 -(id)initWithContentLayer:(CPTLayer *)layer
 {
 	if ( layer ) {
@@ -27,8 +30,13 @@
 	return self;
 }
 
+///	@}
+
 #pragma mark -
 #pragma mark Layout
+
+/// @name Layout
+/// @{
 
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
@@ -68,5 +76,7 @@
 	[content pixelAlign];
 	[content setNeedsDisplay];
 }
+
+///	@}
 
 @end

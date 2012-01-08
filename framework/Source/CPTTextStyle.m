@@ -24,22 +24,22 @@
 @implementation CPTTextStyle
 
 /** @property fontSize
- *  @brief The font size.
+ *  @brief The font size. Default is 12.0.
  **/
 @synthesize fontSize;
 
 /** @property fontName
- *  @brief The font name.
+ *  @brief The font name. Default is "Helvetica".
  **/
 @synthesize fontName;
 
 /** @property color
- *  @brief The current text color.
+ *  @brief The current text color. Default is solid black.
  **/
 @synthesize color;
 
 /** @property textAlignment
- *  @brief The paragraph alignment for multi-line text.
+ *  @brief The paragraph alignment for multi-line text. Default is #CPTTextAlignmentLeft.
  **/
 @synthesize textAlignment;
 

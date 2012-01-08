@@ -971,6 +971,24 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 /// @name User Interaction
 /// @{
 
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If this plot has a delegate that responds to the
+ *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink
+ *	method, the data points are searched to find the index of the one closest to the <code>interactionPoint</code>.
+ *	The delegate method will be called and this method returns <code>YES</code> if the <code>interactionPoint</code> is within the
+ *	@link CPTScatterPlot::plotSymbolMarginForHitDetection plotSymbolMarginForHitDetection @endlink
+ *	of the closest data point.
+ *	This method returns <code>NO</code> if the <code>interactionPoint</code> is too far away from all of the data points.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
 	BOOL result = NO;

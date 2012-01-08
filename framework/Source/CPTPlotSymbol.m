@@ -539,6 +539,8 @@
 #pragma mark -
 #pragma mark Private methods
 
+///	@cond
+
 /**	@internal
  *	@brief Creates and returns a drawing path for the current symbol type.
  *	@return A path describing the outline of the current symbol type.
@@ -670,5 +672,7 @@
 
 	return symbolPath;
 }
+
+///	@endcond
 
 @end
