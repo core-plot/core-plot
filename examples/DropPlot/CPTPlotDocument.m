@@ -64,16 +64,16 @@
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 
 	CPTXYAxis *x = axisSet.xAxis;
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForYAxis);
-	x.minorTicksPerInterval		  = 9;
-	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
-	x.labelOffset				  = 5.0;
+	x.minorTicksPerInterval = 9;
+	x.majorIntervalLength	= CPTDecimalFromDouble(majorIntervalLengthForX);
+	x.labelOffset			= 5.0;
+	x.axisConstraints		= [CPTConstraints constraintWithLowerOffset:0.0];
 
 	CPTXYAxis *y = axisSet.yAxis;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForXAxis);
-	y.minorTicksPerInterval		  = 9;
-	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
-	y.labelOffset				  = 5.0;
+	y.minorTicksPerInterval = 9;
+	y.majorIntervalLength	= CPTDecimalFromDouble(majorIntervalLengthForY);
+	y.labelOffset			= 5.0;
+	y.axisConstraints		= [CPTConstraints constraintWithLowerOffset:0.0];
 
 	// Create the main plot for the delimited data
 	CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
@@ -215,106 +215,26 @@
 	[plotSpace doublePrecisionPlotPoint:start forPlotAreaViewPoint:dragStartInPlotArea];
 	[plotSpace doublePrecisionPlotPoint:end forPlotAreaViewPoint:dragEndInPlotArea];
 
-	// recalculate the min and max values based on the drag direction
-	if ( start[1] > end[1] ) {     // top -> bottom
-		if ( end[0] > start[0] ) { // left -> right
-			if ( start[0] > minimumValueForXAxis ) {
-				minimumValueForXAxis = start[0];
-			}
-
-			if ( start[1] < maximumValueForYAxis ) {
-				maximumValueForYAxis = start[1];
-			}
-
-			if ( end[0] < maximumValueForXAxis ) {
-				maximumValueForXAxis = end[0];
-			}
-
-			if ( end[1] > minimumValueForYAxis ) {
-				minimumValueForYAxis = end[1];
-			}
-		}
-		else { // right -> left
-			if ( end[0] > minimumValueForXAxis ) {
-				minimumValueForXAxis = end[0];
-			}
-
-			if ( end[1] > minimumValueForYAxis ) {
-				minimumValueForYAxis = end[1];
-			}
-
-			if ( start[0] < maximumValueForXAxis ) {
-				maximumValueForXAxis = start[0];
-			}
-
-			if ( start[1] < maximumValueForYAxis ) {
-				maximumValueForYAxis = start[1];
-			}
-		}
-	}
-	else {                         // bottom -> top
-		if ( end[0] > start[0] ) { // left -> right
-			if ( start[0] > minimumValueForXAxis ) {
-				minimumValueForXAxis = start[0];
-			}
-
-			if ( start[1] > minimumValueForYAxis ) {
-				minimumValueForYAxis = start[1];
-			}
-
-			if ( end[0] < maximumValueForXAxis ) {
-				maximumValueForXAxis = end[0];
-			}
-
-			if ( end[1] < maximumValueForYAxis ) {
-				maximumValueForYAxis = end[1];
-			}
-		}
-		else { // right -> left
-			if ( end[0] > minimumValueForXAxis ) {
-				minimumValueForXAxis = end[0];
-			}
-
-			if ( end[1] < maximumValueForYAxis ) {
-				maximumValueForYAxis = end[1];
-			}
-
-			if ( start[0] < maximumValueForXAxis ) {
-				maximumValueForXAxis = start[0];
-			}
-
-			if ( start[1] > minimumValueForYAxis ) {
-				minimumValueForYAxis = start[1];
-			}
-		}
-	}
+	// recalculate the min and max values
+	minimumValueForXAxis = MIN(start[CPTCoordinateX], end[CPTCoordinateX]);
+	maximumValueForXAxis = MAX(start[CPTCoordinateX], end[CPTCoordinateX]);
+	minimumValueForYAxis = MIN(start[CPTCoordinateY], end[CPTCoordinateY]);
+	maximumValueForYAxis = MAX(start[CPTCoordinateY], end[CPTCoordinateY]);
 
 	// now adjust the plot range and axes
 	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(minimumValueForXAxis)
-													length:CPTDecimalFromDouble(ceil( (maximumValueForXAxis - minimumValueForXAxis) / majorIntervalLengthForX ) * majorIntervalLengthForX)];
+													length:CPTDecimalFromDouble(maximumValueForXAxis - minimumValueForXAxis)];
 	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(minimumValueForYAxis)
-													length:CPTDecimalFromDouble(ceil( (maximumValueForYAxis - minimumValueForYAxis) / majorIntervalLengthForY ) * majorIntervalLengthForY)];
+													length:CPTDecimalFromDouble(maximumValueForYAxis - minimumValueForYAxis)];
 
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
-
-	CPTXYAxis *x = axisSet.xAxis;
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForYAxis);
-	x.minorTicksPerInterval		  = 9;
-	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
-	x.labelOffset				  = 5.0;
-
-	CPTXYAxis *y = axisSet.yAxis;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForXAxis);
-	y.minorTicksPerInterval		  = 9;
-	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
-	y.labelOffset				  = 5.0;
-
-	[graph reloadData];
+	axisSet.xAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+	axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 }
 
 -(IBAction)zoomOut
 {
-	float xval, yval;
+	double xval, yval;
 
 	minimumValueForXAxis = MAXFLOAT;
 	maximumValueForXAxis = -MAXFLOAT;
@@ -324,16 +244,19 @@
 
 	// get the ful range min and max values
 	for ( NSDictionary *xyValues in dataPoints ) {
-		xval = [[xyValues valueForKey:@"x"] floatValue];
+		xval = [[xyValues valueForKey:@"x"] doubleValue];
 
 		minimumValueForXAxis = fmin(xval, minimumValueForXAxis);
 		maximumValueForXAxis = fmax(xval, maximumValueForXAxis);
 
-		yval = [[xyValues valueForKey:@"y"] floatValue];
+		yval = [[xyValues valueForKey:@"y"] doubleValue];
 
 		minimumValueForYAxis = fmin(yval, minimumValueForYAxis);
 		maximumValueForYAxis = fmax(yval, maximumValueForYAxis);
 	}
+
+	minimumValueForXAxis = floor(minimumValueForXAxis / majorIntervalLengthForX) * majorIntervalLengthForX;
+	minimumValueForYAxis = floor(minimumValueForYAxis / majorIntervalLengthForY) * majorIntervalLengthForY;
 
 	// now adjust the plot range and axes
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -342,22 +265,9 @@
 													length:CPTDecimalFromDouble(ceil( (maximumValueForXAxis - minimumValueForXAxis) / majorIntervalLengthForX ) * majorIntervalLengthForX)];
 	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(minimumValueForYAxis)
 													length:CPTDecimalFromDouble(ceil( (maximumValueForYAxis - minimumValueForYAxis) / majorIntervalLengthForY ) * majorIntervalLengthForY)];
-
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
-
-	CPTXYAxis *x = axisSet.xAxis;
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForYAxis);
-	x.minorTicksPerInterval		  = 9;
-	x.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForX);
-	x.labelOffset				  = 5.0;
-
-	CPTXYAxis *y = axisSet.yAxis;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(minimumValueForXAxis);
-	y.minorTicksPerInterval		  = 9;
-	y.majorIntervalLength		  = CPTDecimalFromDouble(majorIntervalLengthForY);
-	y.labelOffset				  = 5.0;
-
-	[graph reloadData];
+	axisSet.xAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
+	axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
 }
 
 #pragma mark -
