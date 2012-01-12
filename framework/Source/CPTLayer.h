@@ -19,6 +19,7 @@
 	__cpt_weak CPTGraph *graph;
 	CGPathRef outerBorderPath;
 	CGPathRef innerBorderPath;
+	id<NSCopying, NSCoding, NSObject> identifier;
 }
 
 /// @name Graph
@@ -48,6 +49,11 @@
 @property (nonatomic, readwrite, assign) CGPathRef innerBorderPath;
 @property (nonatomic, readonly, assign) CGPathRef maskingPath;
 @property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
+///	@}
+
+/// @name Identification
+/// @{
+@property (nonatomic, readwrite, copy) id<NSCopying, NSCoding, NSObject> identifier;
 ///	@}
 
 /// @name Layout

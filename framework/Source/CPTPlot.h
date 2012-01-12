@@ -111,7 +111,6 @@ CPTPlotCachePrecision;
 @interface CPTPlot : CPTAnnotationHostLayer {
 	@private
 	__cpt_weak id<CPTPlotDataSource> dataSource;
-	id<NSCopying, NSCoding, NSObject> identifier;
 	NSString *title;
 	CPTPlotSpace *plotSpace;
 	BOOL dataNeedsReloading;
@@ -137,7 +136,6 @@ CPTPlotCachePrecision;
 
 /// @name Identification
 /// @{
-@property (nonatomic, readwrite, copy) id<NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite, copy) NSString *title;
 ///	@}
 

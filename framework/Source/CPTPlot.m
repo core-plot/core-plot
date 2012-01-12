@@ -93,11 +93,6 @@
  **/
 @synthesize dataSource;
 
-/**	@property identifier
- *	@brief An object used to identify the plot in collections.
- **/
-@synthesize identifier;
-
 /**	@property title
  *	@brief The title of the plot displayed in the legend.
  **/
@@ -209,7 +204,6 @@
  *	- @link CPTPlot::cachedDataCount cachedDataCount @endlink = 0
  *	- @link CPTPlot::cachePrecision cachePrecision @endlink = #CPTPlotCachePrecisionAuto
  *	- @link CPTPlot::dataSource dataSource @endlink = <code>nil</code>
- *	- @link CPTPlot::identifier identifier @endlink = <code>nil</code>
  *	- @link CPTPlot::title title @endlink = <code>nil</code>
  *	- @link CPTPlot::plotSpace plotSpace @endlink = <code>nil</code>
  *	- @link CPTPlot::dataNeedsReloading dataNeedsReloading @endlink = <code>NO</code>
@@ -234,7 +228,6 @@
 		cachedDataCount		 = 0;
 		cachePrecision		 = CPTPlotCachePrecisionAuto;
 		dataSource			 = nil;
-		identifier			 = nil;
 		title				 = nil;
 		plotSpace			 = nil;
 		dataNeedsReloading	 = NO;
@@ -266,7 +259,6 @@
 		cachedDataCount		 = theLayer->cachedDataCount;
 		cachePrecision		 = theLayer->cachePrecision;
 		dataSource			 = theLayer->dataSource;
-		identifier			 = [theLayer->identifier retain];
 		title				 = [theLayer->title retain];
 		plotSpace			 = [theLayer->plotSpace retain];
 		dataNeedsReloading	 = theLayer->dataNeedsReloading;
@@ -287,7 +279,6 @@
 -(void)dealloc
 {
 	[cachedData release];
-	[identifier release];
 	[title release];
 	[plotSpace release];
 	[labelTextStyle release];
@@ -308,7 +299,6 @@
 	if ( [self.dataSource conformsToProtocol:@protocol(NSCoding)] ) {
 		[coder encodeConditionalObject:self.dataSource forKey:@"CPTPlot.dataSource"];
 	}
-	[coder encodeObject:self.identifier forKey:@"CPTPlot.identifier"];
 	[coder encodeObject:self.title forKey:@"CPTPlot.title"];
 	[coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
 	[coder encodeInteger:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
@@ -333,7 +323,6 @@
 {
 	if ( (self = [super initWithCoder:coder]) ) {
 		dataSource			 = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
-		identifier			 = [[coder decodeObjectForKey:@"CPTPlot.identifier"] copy];
 		title				 = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
 		plotSpace			 = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
 		cachePrecision		 = [coder decodeIntegerForKey:@"CPTPlot.cachePrecision"];
@@ -348,6 +337,12 @@
 		labelAnnotations	 = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
 		alignsPointsToPixels = [coder decodeBoolForKey:@"CPTPlot.alignsPointsToPixels"];
 
+		// support old archives
+		if ( [coder containsValueForKey:@"CPTPlot.identifier"] ) {
+			self.identifier = [coder decodeObjectForKey:@"CPTPlot.identifier"];
+		}
+
+		// init other properties
 		cachedData		   = [[NSMutableDictionary alloc] initWithCapacity:5];
 		cachedDataCount	   = 0;
 		dataNeedsReloading = YES;

@@ -774,7 +774,7 @@ static const CGFloat colorLookupTable[10][3] =
 	CGFloat result = rawPosition;
 
 	result /= 2.0 * M_PI;
-	result = fmod(result, 1.0);
+	result	= fmod(result, 1.0);
 	if ( result < 0.0 ) {
 		result += 1.0;
 	}

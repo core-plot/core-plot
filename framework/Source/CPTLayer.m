@@ -129,6 +129,11 @@
  **/
 @synthesize useFastRendering;
 
+/**	@property identifier
+ *	@brief An object used to identify the layer in collections.
+ **/
+@synthesize identifier;
+
 // Private properties
 @synthesize renderingRecursively;
 
@@ -148,6 +153,7 @@
  *	- @link CPTLayer::graph graph @endlink = <code>nil</code>
  *	- @link CPTLayer::outerBorderPath outerBorderPath @endlink = <code>NULL</code>
  *	- @link CPTLayer::innerBorderPath innerBorderPath @endlink = <code>NULL</code>
+ *	- @link CPTLayer::identifier identifier @endlink = <code>nil</code>
  *	- <code>needsDisplayOnBoundsChange</code> = <code>NO</code>
  *	- <code>opaque</code> = <code>NO</code>
  *	- <code>masksToBounds</code> = <code>NO</code>
@@ -169,6 +175,7 @@
 		graph				 = nil;
 		outerBorderPath		 = NULL;
 		innerBorderPath		 = NULL;
+		identifier			 = nil;
 
 		self.frame						= newFrame;
 		self.needsDisplayOnBoundsChange = NO;
@@ -198,6 +205,7 @@
 		graph				 = theLayer->graph;
 		outerBorderPath		 = CGPathRetain(theLayer->outerBorderPath);
 		innerBorderPath		 = CGPathRetain(theLayer->innerBorderPath);
+		identifier			 = [theLayer->identifier retain];
 	}
 	return self;
 }
@@ -206,6 +214,7 @@
 {
 	graph = nil;
 	[shadow release];
+	[identifier release];
 	CGPathRelease(outerBorderPath);
 	CGPathRelease(innerBorderPath);
 
@@ -233,6 +242,7 @@
 	[coder encodeBool:self.masksToBorder forKey:@"CPTLayer.masksToBorder"];
 	[coder encodeObject:self.shadow forKey:@"CPTLayer.shadow"];
 	[coder encodeConditionalObject:self.graph forKey:@"CPTLayer.graph"];
+	[coder encodeObject:self.identifier forKey:@"CPTLayer.identifier"];
 
 	// No need to archive these properties:
 	// renderingRecursively
@@ -250,6 +260,7 @@
 		masksToBorder = [coder decodeBoolForKey:@"CPTLayer.masksToBorder"];
 		shadow		  = [[coder decodeObjectForKey:@"CPTLayer.shadow"] copy];
 		graph		  = [coder decodeObjectForKey:@"CPTLayer.graph"];
+		identifier	  = [[coder decodeObjectForKey:@"CPTLayer.identifier"] copy];
 
 		renderingRecursively = NO;
 		outerBorderPath		 = NULL;

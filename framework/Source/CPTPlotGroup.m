@@ -7,65 +7,16 @@
  **/
 @implementation CPTPlotGroup
 
-/**	@property identifier
- *	@brief An object used to identify the plot group in collections.
- **/
-@synthesize identifier;
-
-#pragma mark -
-#pragma mark Initialize/Deallocate
-
-/// @name Initialization
-/// @{
-
-/** @brief Initializes a newly allocated CPTPlotGroup object with the provided frame rectangle.
- *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTPlotGroup::identifier identifier @endlink = <code>nil</code>
- *
- *	@param newFrame The frame rectangle.
- *  @return The initialized CPTPlotGroup object.
- **/
--(id)initWithFrame:(CGRect)newFrame
-{
-	if ( (self = [super initWithFrame:newFrame]) ) {
-		identifier = nil;
-	}
-	return self;
-}
-
-///	@}
-
--(id)initWithLayer:(id)layer
-{
-	if ( (self = [super initWithLayer:layer]) ) {
-		CPTPlotGroup *theLayer = (CPTPlotGroup *)layer;
-
-		identifier = [theLayer->identifier retain];
-	}
-	return self;
-}
-
--(void)dealloc
-{
-	[identifier release];
-	[super dealloc];
-}
-
 #pragma mark -
 #pragma mark NSCoding methods
-
--(void)encodeWithCoder:(NSCoder *)coder
-{
-	[super encodeWithCoder:coder];
-
-	[coder encodeObject:self.identifier forKey:@"CPTPlotGroup.identifier"];
-}
 
 -(id)initWithCoder:(NSCoder *)coder
 {
 	if ( (self = [super initWithCoder:coder]) ) {
-		identifier = [[coder decodeObjectForKey:@"CPTPlotGroup.identifier"] copy];
+		// support old archives
+		if ( [coder containsValueForKey:@"CPTPlotGroup.identifier"] ) {
+			self.identifier = [coder decodeObjectForKey:@"CPTPlotGroup.identifier"];
+		}
 	}
 	return self;
 }
