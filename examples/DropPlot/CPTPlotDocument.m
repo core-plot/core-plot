@@ -11,6 +11,8 @@
 	if ( self ) {
 		dataPoints	   = [[NSMutableArray alloc] init];
 		zoomAnnotation = nil;
+		dragStart	   = CGPointZero;
+		dragEnd		   = CGPointZero;
 	}
 	return self;
 }
@@ -387,6 +389,23 @@
 		[graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
 		[zoomAnnotation release];
 		zoomAnnotation = nil;
+
+		dragStart = CGPointZero;
+		dragEnd	  = CGPointZero;
+	}
+
+	return NO;
+}
+
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	if ( zoomAnnotation ) {
+		[graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
+		[zoomAnnotation release];
+		zoomAnnotation = nil;
+
+		dragStart = CGPointZero;
+		dragEnd	  = CGPointZero;
 	}
 
 	return NO;
