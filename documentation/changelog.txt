@@ -5,7 +5,7 @@
 
 ## Release Notes
 
-This release contains changes that will break apps built against earlier Core Plot versions. `CPTPlotRange` has been split into mutable and immutable variants similar to `CPTLineStyle` and `CPTTextStyle`. This change will break existing code that changes plot ranges; that code should be updated to use the mutable versions. The `CPTNewCGColorFromNSColor()` function was renamed to `CPTCreateCGColorFromNSColor()` to conform to Apple's memory management naming conventions.
+This release contains changes that will break apps built against earlier Core Plot versions. `CPTPlotRange` has been split into mutable and immutable variants similar to `CPTLineStyle` and `CPTTextStyle`. This change will break existing code that changes plot ranges; that code should be updated to use the mutable versions. The `CPTBarPlotField` enum was changed so that the field values start at zero like all other plots. This will affect any existing code that used hard-coded values for the fields instead of the enum field names (`CPTBarPlotFieldBarLocation`, etc.). The `CPTNewCGColorFromNSColor()` function was renamed to `CPTCreateCGColorFromNSColor()` to conform to Apple's memory management naming conventions.
 
 Core Plot now supports projects that use automatic reference counting (ARC). For compatibility with older systems, Core Plot itself does not use ARC but its header files and binaries can be used in applications that do.
 
@@ -17,6 +17,7 @@ Core Plot now supports projects that use automatic reference counting (ARC). For
 - **New**: Added a control chart example to the Plot Gallery app.
 - **New**: Added a mouse zoom user interface to the DropPlot app.
 - **Changed**: Split `CPTPlotRange` into mutable and immutable variants.
+- **Changed**: Changed the `CPTBarPlotField` enum values.
 - **Changed**: Renamed the `CPTNewCGColorFromNSColor()` function to `CPTCreateCGColorFromNSColor()`.
 - **Changed**: Updated all projects to support Xcode 4.2.
 - **Changed**: Made all `CPTAxis` delegate methods optional.
