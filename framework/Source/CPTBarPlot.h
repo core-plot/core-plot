@@ -27,7 +27,7 @@ extern NSString *const CPTBarPlotBindingBarBases;
 typedef enum _CPTBarPlotField {
 	CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
 	CPTBarPlotFieldBarTip,      ///< Bar tip value.
-	CPTBarPlotFieldBarBase      ///< Bar base (used only if barBasesVary is YES).
+	CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
 }
 CPTBarPlotField;
 
