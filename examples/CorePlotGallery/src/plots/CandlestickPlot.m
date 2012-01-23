@@ -144,7 +144,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	ohlcPlot.barCornerRadius = 3.0;
 	ohlcPlot.barWidth		 = 15.0;
 	ohlcPlot.increaseFill	 = [CPTFill fillWithColor:[CPTColor greenColor]];
-	ohlcPlot.decreaseFill	 = nil;
+	ohlcPlot.decreaseFill	 = [CPTFill fillWithColor:[CPTColor redColor]];
 	ohlcPlot.dataSource		 = self;
 	ohlcPlot.plotStyle		 = CPTTradingRangePlotStyleCandleStick;
 	ohlcPlot.shadow			 = whiteShadow;
@@ -160,7 +160,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	graph.legend.swatchSize			= CGSizeMake(25.0, 25.0);
 	graph.legend.swatchCornerRadius = 5.0;
 	graph.legendAnchor				= CPTRectAnchorBottom;
-	graph.legendDisplacement		= CGPointMake(0.0, 12.0);
+	graph.legendDisplacement		= CGPointMake(0.0, 90.0);
 
 	// Set plot ranges
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
