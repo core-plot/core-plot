@@ -125,29 +125,6 @@
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
-// There's a UIImage function to scale and orient an existing image,
-// but this will also work in pre-4.0 iOS
--(CGImageRef)newCGImageFromImage:(CGImageRef)image scaledToSize:(CGSize)size
-{
-	CGContextRef c = CGBitmapContextCreate( NULL,
-											size.width,
-											size.height,
-											CGImageGetBitsPerComponent(image),
-											CGImageGetBytesPerRow(image),
-											CGImageGetColorSpace(image),
-											CGImageGetAlphaInfo(image) );
-
-	if ( c == NULL ) {
-		return NULL;
-	}
-
-	CGContextDrawImage(c, CGRectMake(0, 0, size.width, size.height), image);
-	CGImageRef newImage = CGBitmapContextCreateImage(c);
-	CGContextRelease(c);
-
-	return newImage;
-}
-
 -(UIImage *)image
 {
 	if ( cachedImage == nil ) {
@@ -159,20 +136,29 @@
 		[self renderInView:imageView withTheme:nil];
 
 		UIGraphicsBeginImageContext(imageView.bounds.size);
-		CGContextRef c = UIGraphicsGetCurrentContext();
-		CGContextSetAllowsAntialiasing(c, true);
+		CGContextRef context = UIGraphicsGetCurrentContext();
 
-		CGContextTranslateCTM(c, 0.0, imageView.bounds.size.height);
-		CGContextScaleCTM(c, 1.0, -1.0);
+		CGContextSetAllowsAntialiasing(context, true);
 
-		[imageView.layer renderInContext:c];
-		CGContextSetAllowsAntialiasing(c, false);
+		for ( UIView *subView in imageView.subviews ) {
+			if ( [subView isKindOfClass:[CPTGraphHostingView class]] ) {
+				CPTGraphHostingView *hostingView = (CPTGraphHostingView *)subView;
+				CGRect frame					 = hostingView.frame;
 
-		// rescale graph
-		UIImage *bigImage	   = UIGraphicsGetImageFromCurrentImageContext();
-		CGImageRef scaledImage = [self newCGImageFromImage:[bigImage CGImage] scaledToSize:CGSizeMake(100.0f, 75.0f)];
-		cachedImage = [[UIImage imageWithCGImage:scaledImage] retain];
-		CGImageRelease(scaledImage);
+				CGContextSaveGState(context);
+
+				CGContextTranslateCTM(context, frame.origin.x, frame.origin.y + frame.size.height);
+				CGContextScaleCTM(context, 1.0, -1.0);
+				[hostingView.hostedGraph layoutAndRenderInContext:context];
+
+				CGContextRestoreGState(context);
+			}
+		}
+
+		CGContextSetAllowsAntialiasing(context, false);
+
+		cachedImage = UIGraphicsGetImageFromCurrentImageContext();
+		[cachedImage retain];
 		UIGraphicsEndImageContext();
 
 		[imageView release];
