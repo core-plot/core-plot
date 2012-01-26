@@ -531,8 +531,9 @@
 	subLayerFrame.size	 = subLayerSize;
 
 	NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+	Class layerClass		 = [CPTLayer class];
 	for ( CALayer *subLayer in self.sublayers ) {
-		if ( ![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:[CPTLayer class]] ) {
+		if ( ![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:layerClass] ) {
 			subLayer.frame = subLayerFrame;
 			[subLayer setNeedsLayout];
 			[subLayer setNeedsDisplay];
