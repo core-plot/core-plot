@@ -1201,9 +1201,7 @@ double niceNum(double x, BOOL round)
  *	@param labeledRange A plot range used to filter the generated labels. If <code>nil</code>, no filtering is done.
  *	@param useMajorAxisLabels If YES, label the major ticks, otherwise label the minor ticks.
  **/
--(void)updateAxisLabelsAtLocations:(NSSet *)locations
-			  inRange						 :(CPTPlotRange *)labeledRange
-   useMajorAxisLabels			  :(BOOL)useMajorAxisLabels;
+-(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 {
 	CPTAlignment theLabelAlignment;
 	CGFloat theLabelOffset;
@@ -1889,6 +1887,9 @@ double niceNum(double x, BOOL round)
 {
 	if ( newRotation != labelRotation ) {
 		labelRotation = newRotation;
+		for ( CPTAxisLabel *label in self.axisLabels ) {
+			label.rotation = labelRotation;
+		}
 		[self updateMajorTickLabels];
 	}
 }
@@ -1897,6 +1898,9 @@ double niceNum(double x, BOOL round)
 {
 	if ( newRotation != minorTickLabelRotation ) {
 		minorTickLabelRotation = newRotation;
+		for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+			label.rotation = labelRotation;
+		}
 		[self updateMinorTickLabels];
 	}
 }

@@ -1123,11 +1123,14 @@
 {
 	NSArray *annotations  = self.labelAnnotations;
 	NSUInteger labelCount = annotations.count;
+	Class annotationClass = [CPTAnnotation class];
 
 	for ( NSUInteger i = 0; i < labelCount; i++ ) {
 		CPTPlotSpaceAnnotation *annotation = [annotations objectAtIndex:i];
-		[self positionLabelAnnotation:annotation forIndex:i];
-		[self updateContentAnchorForLabel:annotation];
+		if ( [annotation isKindOfClass:annotationClass] ) {
+			[self positionLabelAnnotation:annotation forIndex:i];
+			[self updateContentAnchorForLabel:annotation];
+		}
 	}
 }
 
@@ -1279,9 +1282,13 @@
 {
 	if ( newRotation != labelRotation ) {
 		labelRotation = newRotation;
+
+		Class annotationClass = [CPTAnnotation class];
 		for ( CPTPlotSpaceAnnotation *label in self.labelAnnotations ) {
-			label.rotation = labelRotation;
-			[self updateContentAnchorForLabel:label];
+			if ( [label isKindOfClass:annotationClass] ) {
+				label.rotation = labelRotation;
+				[self updateContentAnchorForLabel:label];
+			}
 		}
 	}
 }
@@ -1300,8 +1307,12 @@
 	if ( newLabelShadow != labelShadow ) {
 		[labelShadow release];
 		labelShadow = [newLabelShadow retain];
+
+		Class annotationClass = [CPTAnnotation class];
 		for ( CPTAnnotation *label in self.labelAnnotations ) {
-			label.contentLayer.shadow = labelShadow;
+			if ( [label isKindOfClass:annotationClass] ) {
+				label.contentLayer.shadow = labelShadow;
+			}
 		}
 	}
 }

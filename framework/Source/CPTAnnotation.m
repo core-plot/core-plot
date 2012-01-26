@@ -122,7 +122,7 @@
 {
 	if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
 		displacement = newDisplacement;
-		[self.contentLayer setNeedsLayout];
+		[[self.contentLayer superlayer] setNeedsLayout];
 	}
 }
 
@@ -130,7 +130,7 @@
 {
 	if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
 		contentAnchorPoint = newAnchorPoint;
-		[self.contentLayer setNeedsLayout];
+		[[self.contentLayer superlayer] setNeedsLayout];
 	}
 }
 
@@ -138,7 +138,7 @@
 {
 	if ( newRotation != rotation ) {
 		rotation = newRotation;
-		[self.contentLayer setNeedsLayout];
+		[[self.contentLayer superlayer] setNeedsLayout];
 	}
 }
 
