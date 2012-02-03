@@ -922,7 +922,7 @@ double niceNum(double x, BOOL round);
 				// Iterate through the indexes with visible ticks and build the locations sets
 				for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
 					double pointLocation = i * interval;
-					for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+					for ( NSUInteger j = 1; j < minorTicks; j++ ) {
 						double minorPointLocation = pointLocation + minorInterval * j;
 						if ( minorPointLocation < minLimit ) {
 							continue;
@@ -975,7 +975,7 @@ double niceNum(double x, BOOL round);
 				// Iterate through the indexes with visible ticks and build the locations sets
 				for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
 					double pointLocation = pow(10.0, i * interval);
-					for ( NSUInteger j = 0; j < minorTicks; j++ ) {
+					for ( NSUInteger j = 1; j < minorTicks; j++ ) {
 						double minorPointLocation = pointLocation + minorInterval * j;
 						if ( minorPointLocation < minLimit ) {
 							continue;
