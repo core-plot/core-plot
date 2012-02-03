@@ -307,6 +307,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	CPTTradingRangePlotStyle thePlotStyle = self.plotStyle;
 	CGPoint originTransformed			  = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 
+	CGContextBeginTransparencyLayer(theContext, NULL);
+
 	if ( self.doublePrecisionCache ) {
 		const double *locationBytes = (const double *)locations.data.bytes;
 		const double *openBytes		= (const double *)opens.data.bytes;
@@ -497,6 +499,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 			}
 		}
 	}
+
+	CGContextEndTransparencyLayer(theContext);
 }
 
 -(void)drawCandleStickInContext:(CGContextRef)context
