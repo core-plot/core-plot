@@ -71,6 +71,7 @@
 									 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)],
 									 nil];
 	y.labelExclusionRanges = exclusionRanges;
+	y.delegate			   = self;
 
 	// Create a blue plot area
 	CPTScatterPlot *boundLinePlot  = [[[CPTScatterPlot alloc] init] autorelease];
@@ -173,6 +174,58 @@
 		}
 	}
 	return num;
+}
+
+#pragma mark -
+#pragma mark Axis Delegate Methods
+
+-(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations
+{
+	static CPTTextStyle *positiveStyle = nil;
+	static CPTTextStyle *negativeStyle = nil;
+
+	NSNumberFormatter *formatter = axis.labelFormatter;
+	CGFloat labelOffset			 = axis.labelOffset;
+	NSDecimalNumber *zero		 = [NSDecimalNumber zero];
+
+	NSMutableSet *newLabels = [NSMutableSet set];
+
+	for ( NSDecimalNumber *tickLocation in locations ) {
+		CPTTextStyle *theLabelTextStyle;
+
+		if ( [tickLocation isGreaterThanOrEqualTo:zero] ) {
+			if ( !positiveStyle ) {
+				CPTMutableTextStyle *newStyle = [axis.labelTextStyle mutableCopy];
+				newStyle.color = [CPTColor greenColor];
+				positiveStyle  = newStyle;
+			}
+			theLabelTextStyle = positiveStyle;
+		}
+		else {
+			if ( !negativeStyle ) {
+				CPTMutableTextStyle *newStyle = [axis.labelTextStyle mutableCopy];
+				newStyle.color = [CPTColor redColor];
+				negativeStyle  = newStyle;
+			}
+			theLabelTextStyle = negativeStyle;
+		}
+
+		NSString *labelString		= [formatter stringForObjectValue:tickLocation];
+		CPTTextLayer *newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
+
+		CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithContentLayer:newLabelLayer];
+		newLabel.tickLocation = tickLocation.decimalValue;
+		newLabel.offset		  = labelOffset;
+
+		[newLabels addObject:newLabel];
+
+		[newLabel release];
+		[newLabelLayer release];
+	}
+
+	axis.axisLabels = newLabels;
+
+	return NO;
 }
 
 @end

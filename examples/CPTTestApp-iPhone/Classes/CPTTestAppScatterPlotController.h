@@ -8,7 +8,7 @@
 #import "CorePlot-CocoaTouch.h"
 #import <UIKit/UIKit.h>
 
-@interface CPTTestAppScatterPlotController : UIViewController<CPTPlotDataSource>
+@interface CPTTestAppScatterPlotController : UIViewController<CPTPlotDataSource, CPTAxisDelegate>
 {
 	CPTXYGraph *graph;
 
