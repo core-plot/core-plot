@@ -36,6 +36,7 @@
 		C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; };
 		C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; };
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
+		C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,8 @@
 		C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotSpaceDemo.m; path = src/plots/PlotSpaceDemo.m; sourceTree = "<group>"; };
 		C3A14BEA13AEB7E700D103EA /* RangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RangePlot.h; path = src/plots/RangePlot.h; sourceTree = "<group>"; };
 		C3A14BEB13AEB7E700D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
+		C3A31A5414DF782A00734AB7 /* ColoredBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColoredBarChart.h; path = src/plots/ColoredBarChart.h; sourceTree = "<group>"; };
+		C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; };
 		C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -253,6 +256,8 @@
 				4F8E1CC112908B0000D2035F /* AxisDemo.m */,
 				C360E1DE13B18CAE007994B6 /* CandlestickPlot.h */,
 				C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */,
+				C3A31A5414DF782A00734AB7 /* ColoredBarChart.h */,
+				C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */,
 				4F22FF9A12342D7C006BF615 /* CompositePlot.h */,
 				4F22FF9B12342D7C006BF615 /* CompositePlot.m */,
 				C35597941437E07800B41DA7 /* ControlChart.h */,
@@ -410,6 +415,7 @@
 				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
 				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
 				C35597961437E07800B41DA7 /* ControlChart.m in Sources */,
+				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

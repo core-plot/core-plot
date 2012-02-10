@@ -460,11 +460,6 @@
 	return num;
 }
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSNumber *)index;
-{
-	return nil;
-}
-
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
 	static CPTMutableTextStyle *whiteText = nil;

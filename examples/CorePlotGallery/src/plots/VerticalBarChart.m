@@ -252,16 +252,6 @@
 	[super dealloc];
 }
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-{
-	return nil;
-}
-
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
-{
-	return nil;
-}
-
 #pragma mark -
 #pragma mark CPTBarPlot delegate method
 

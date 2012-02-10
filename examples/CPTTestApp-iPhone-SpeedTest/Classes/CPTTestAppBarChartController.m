@@ -134,9 +134,4 @@
 	return num;
 }
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSNumber *)index;
-{
-	return nil;
-}
-
 @end

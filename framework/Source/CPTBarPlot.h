@@ -60,6 +60,17 @@ CPTBarPlotField;
 
 ///	@}
 
+/// @name Legends
+/// @{
+
+/** @brief (Optional) Gets the legend title for the given bar plot bar.
+ *	@param barPlot The bar plot.
+ *	@param index The data index of interest.
+ *	@return The title text for the legend entry for the point with the given index.
+ **/
+-(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
+
+///	@}
 @end
 
 #pragma mark -

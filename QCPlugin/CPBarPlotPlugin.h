@@ -9,6 +9,4 @@
 @property (assign) double inputBarOffset;
 @property (assign) BOOL inputHorizontalBars;
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSNumber *)index;
-
 @end

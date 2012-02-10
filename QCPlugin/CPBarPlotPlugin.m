@@ -189,11 +189,6 @@
 #pragma mark -
 #pragma markData source methods
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSNumber *)index
-{
-	return nil;
-}
-
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
 	NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];

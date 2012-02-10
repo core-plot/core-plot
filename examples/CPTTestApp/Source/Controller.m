@@ -385,11 +385,6 @@ static NSString *const barPlot2		  = @"Bar Plot 2";
 	return num;
 }
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
-{
-	return nil;
-}
-
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
 	if ( [(NSString *)plot.identifier isEqualToString:barPlot2] ) {

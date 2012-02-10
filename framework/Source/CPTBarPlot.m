@@ -43,6 +43,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 -(BOOL)barAtRecordIndex:(NSUInteger)index basePoint:(CGPoint *)basePoint tipPoint:(CGPoint *)tipPoint;
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context recordIndex:(NSUInteger)recordIndex;
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint;
+-(CPTFill *)barFillForIndex:(NSUInteger)index;
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index;
 
 -(CGFloat)lengthInView:(NSDecimal)plotLength;
@@ -417,6 +418,14 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 		}
 		[self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
 		[locationData release];
+	}
+
+	// Legend
+	id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForBarPlot:recordIndex:)] ||
+		 [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
 	}
 }
 
@@ -804,6 +813,28 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	return (base + halfBarWidth >= lowerBound) && (base - halfBarWidth <= upperBound);
 }
 
+-(CPTFill *)barFillForIndex:(NSUInteger)index
+{
+	id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+	CPTFill *theBarFill;
+
+	if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+		CPTFill *dataSourceFill = [theDataSource barFillForBarPlot:self recordIndex:index];
+		if ( dataSourceFill ) {
+			theBarFill = dataSourceFill;
+		}
+		else {
+			theBarFill = self.fill;
+		}
+	}
+	else {
+		theBarFill = self.fill;
+	}
+
+	return theBarFill;
+}
+
 -(void)drawBarInContext:(CGContextRef)context recordIndex:(NSUInteger)index
 {
 	// Get base and tip points
@@ -824,20 +855,14 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	if ( path ) {
 		CGContextSaveGState(context);
 
-		id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
-
-		CPTFill *theBarFill = self.fill;
-		if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
-			CPTFill *dataSourceFill = [theDataSource barFillForBarPlot:self recordIndex:index];
-			if ( dataSourceFill ) {
-				theBarFill = dataSourceFill;
-			}
-		}
+		CPTFill *theBarFill = [self barFillForIndex:index];
 		if ( [theBarFill isKindOfClass:[CPTFill class]] ) {
 			CGContextBeginPath(context);
 			CGContextAddPath(context, path);
 			[theBarFill fillPathInContext:context];
 		}
+
+		id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
 
 		CPTLineStyle *theLineStyle = self.lineStyle;
 		if ( [theDataSource respondsToSelector:@selector(barLineStyleForBarPlot:recordIndex:)] ) {
@@ -863,7 +888,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 {
 	[super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
 
-	CPTFill *theFill		   = self.fill;
+	CPTFill *theFill		   = [self barFillForIndex:index];
 	CPTLineStyle *theLineStyle = self.lineStyle;
 
 	if ( theFill || theLineStyle ) {
@@ -879,7 +904,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 			swatchPath = mutablePath;
 		}
 
-		if ( theFill ) {
+		if ( [theFill isKindOfClass:[CPTFill class]] ) {
 			CGContextBeginPath(context);
 			CGContextAddPath(context, swatchPath);
 			[theFill fillPathInContext:context];
@@ -984,6 +1009,53 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Legends
+
+///	@cond
+
+/**	@internal
+ *	@brief The number of legend entries provided by this plot.
+ *	@return The number of legend entries.
+ **/
+-(NSUInteger)numberOfLegendEntries
+{
+	NSUInteger entryCount = 1;
+
+	id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForBarPlot:recordIndex:)] ||
+		 [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+		[self reloadDataIfNeeded];
+		entryCount = self.cachedDataCount;
+	}
+
+	return entryCount;
+}
+
+/**	@internal
+ *	@brief The title text of a legend entry.
+ *	@param index The index of the desired title.
+ *	@return The title of the legend entry at the requested index.
+ **/
+-(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index
+{
+	NSString *legendTitle = nil;
+
+	id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+	if ( [theDataSource respondsToSelector:@selector(legendTitleForBarPlot:recordIndex:)] ) {
+		legendTitle = [theDataSource legendTitleForBarPlot:self recordIndex:index];
+	}
+	else {
+		legendTitle = [super titleForLegendEntryAtIndex:index];
+	}
+
+	return legendTitle;
+}
+
+///	@endcond
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction

@@ -75,8 +75,6 @@ CPTPieDirection;
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The title text for the legend entry for the point with the given index.
- *  If this method is not implemented or returns nil, the legend will get
- *	the title from the corresponding data label if it is a CPTTextLayer.
  **/
 -(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
 

@@ -14,7 +14,7 @@ Core Plot now supports projects that use automatic reference counting (ARC). For
 - **New**: Added support for automatic reference counting (ARC).
 - **New**: Added the HTML docs built with Doxygen to the source code repository so that they can be viewed online with a web browser.
 - **New**: Added an `identifier` property to `CPTLayer`, replacing the one from `CPTPlot` and `CPTPlotGroup`.
-- **New**: Added a control chart example to the Plot Gallery app.
+- **New**: Added control chart and multi-colored bar plot examples to the Plot Gallery app.
 - **New**: Added a mouse zoom user interface to the DropPlot app.
 - **Changed**: Split `CPTPlotRange` into mutable and immutable variants.
 - **Changed**: Changed the `CPTBarPlotField` enum values.
