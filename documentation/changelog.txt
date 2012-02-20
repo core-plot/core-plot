@@ -1,7 +1,7 @@
 *For best results, view this document using a Markdown reader.*
 
 
-# Release 1.0 (Not yet released)
+# Release 1.0 (February 20, 2012)
 
 ## Release Notes
 
