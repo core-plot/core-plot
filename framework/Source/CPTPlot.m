@@ -121,7 +121,7 @@
 @synthesize cachedDataCount;
 
 /**	@property doublePrecisionCache
- *	@brief If YES, the cache holds data of type 'double', otherwise it holds NSNumber.
+ *	@brief If YES, the cache holds data of type 'double', otherwise it holds NSDecimal.
  **/
 @dynamic doublePrecisionCache;
 
