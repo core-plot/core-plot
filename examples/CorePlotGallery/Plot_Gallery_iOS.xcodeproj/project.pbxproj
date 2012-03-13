@@ -44,6 +44,7 @@
 		C39C4E3E13BFE19E00CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E3D13BFE19E00CD9194 /* LabelingPolicyDemo.m */; };
 		C3A14C1513AEE7CC00D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14C1413AEE7CC00D103EA /* RangePlot.m */; };
 		C3A31A5914DF783500734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5814DF783500734AB7 /* ColoredBarChart.m */; };
+		C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* Plot_Gallery_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plot_Gallery_Prefix.pch; sourceTree = "<group>"; };
+		4CBCB98814753D6F000C8951 /* CurvedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedScatterPlot.h; path = src/plots/CurvedScatterPlot.h; sourceTree = "<group>"; };
+		4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; };
 		4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		4F22FE3612340464006BF615 /* PlotGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotGallery.h; path = src/shared/PlotGallery.h; sourceTree = "<group>"; };
 		4F22FE3712340464006BF615 /* PlotGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotGallery.m; path = src/shared/PlotGallery.m; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				4F22FE3D123404C2006BF615 /* CompositePlot.m */,
 				C35597A01437E09300B41DA7 /* ControlChart.h */,
 				C35597A11437E09300B41DA7 /* ControlChart.m */,
+				4CBCB98814753D6F000C8951 /* CurvedScatterPlot.h */,
+				4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */,
 				4F8E1C5E12907C1800D2035F /* DatePlot.h */,
 				4F8E1C5F12907C1800D2035F /* DatePlot.m */,
 				C3F34F2812AB25AE008FBDC3 /* DonutChart.h */,
@@ -399,6 +404,7 @@
 				C367249F13E103AC0070F47A /* LineCapDemo.m in Sources */,
 				C35597A21437E09300B41DA7 /* ControlChart.m in Sources */,
 				C3A31A5914DF783500734AB7 /* ColoredBarChart.m in Sources */,
+				C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

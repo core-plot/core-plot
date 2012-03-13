@@ -742,6 +742,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	CGFloat firstXValue							 = 0.0;
 	CGFloat lastXValue							 = 0.0;
 	NSUInteger lastDrawnPointIndex				 = NSMaxRange(indexRange);
+	CGPoint lastControlPoint;
 
 	for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
 		CGPoint viewPoint = viewPoints[i];
@@ -761,6 +762,8 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 				CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
 				lastPointSkipped = NO;
 				firstXValue		 = viewPoint.x;
+				// Control point used for bezier curves - reset after skipped points
+				lastControlPoint = viewPoint;
 			}
 			else {
 				switch ( theInterpolation ) {
@@ -779,6 +782,57 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i - 1].y);
 						CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
 						CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+					}
+					break;
+
+					case CPTScatterPlotInterpolationCurved:
+					{
+						// draw cubic bezier curves from viewpoint to viewpoint with control points based on tangents at viewpoints
+						CGPoint cp1, cp2;
+
+						cp1 = lastControlPoint;
+						// for first and last viewpoint after/before skipped viewpoints just let the control point
+						// be at the viewpoint itself - first viewpoint is handled automatically by skipping logic
+						if ( (i == lastDrawnPointIndex) || isnan(viewPoints[i + 1].x) || isnan(viewPoints[i + 1].y) ) {
+							cp2				 = viewPoint;
+							lastControlPoint = cp2;
+						}
+						else {
+							// Estimate the tangent of viewpoint[i] to be the line between two points,
+							//    partway to viewpoint[i-1] and partway to viewpoint[i+1]
+							// Project the resulting tangent line back to the viewpoint
+							// Use the endpoints of the tangent as control points in a bezier curve from viewpoint to viewpoint
+							CGFloat c  = (CGFloat)0.2; // tangent lenght must be in interval [0;1]
+							CGPoint t1 = CGPointMake( viewPoint.x - ( (viewPoint.x - viewPoints[i - 1].x) * c ),
+													  viewPoint.y - ( (viewPoint.y - viewPoints[i - 1].y) * c ) );
+							CGPoint t2 = CGPointMake( viewPoint.x + ( (viewPoints[i + 1].x - viewPoint.x) * c ),
+													  viewPoint.y + ( (viewPoints[i + 1].y - viewPoint.y) * c ) );
+
+							// vector from viewpoint to tangent center
+							CGPoint center = CGPointMake( t1.x + ( (t2.x - t1.x) / (CGFloat)2.0 ), t1.y + ( (t2.y - t1.y) / (CGFloat)2.0 ) );
+							CGPoint v	   = CGPointMake(center.x - viewPoint.x, center.y - viewPoint.y);
+
+							// project the tangent to the viewpoint
+							t1.x = t1.x - v.x;
+							t1.y = t1.y - v.y;
+							t2.x = t2.x - v.x;
+							t2.y = t2.y - v.y;
+
+							//            // DEBUG draw the tangent line
+							//              CGPoint currentPoint = CGPathGetCurrentPoint(dataLinePath);
+							//              CGPathMoveToPoint(dataLinePath, NULL, t1.x, t1.y);
+							//              CGPathAddLineToPoint(dataLinePath, NULL, t2.x, t2.y);
+							//              CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
+							//            // DEBUG draw the vector to tangent center
+							//              currentPoint = CGPathGetCurrentPoint(dataLinePath);
+							//              CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+							//              CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x+v.x, viewPoint.y+v.y);
+							//              CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
+							cp2				 = t1;
+							lastControlPoint = t2;
+						}
+
+						CGPathAddCurveToPoint(dataLinePath, NULL, cp1.x, cp1.y, cp2.x, cp2.y, viewPoint.x, viewPoint.y);
 					}
 					break;
 

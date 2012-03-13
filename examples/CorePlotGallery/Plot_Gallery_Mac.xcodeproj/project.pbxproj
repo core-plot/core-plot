@@ -37,6 +37,7 @@
 		C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; };
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
 		C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
+		C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +139,8 @@
 		C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; };
 		C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
+		C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedScatterPlot.h; path = src/plots/CurvedScatterPlot.h; sourceTree = "<group>"; };
+		C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +265,8 @@
 				4F22FF9B12342D7C006BF615 /* CompositePlot.m */,
 				C35597941437E07800B41DA7 /* ControlChart.h */,
 				C35597951437E07800B41DA7 /* ControlChart.m */,
+				C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */,
+				C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */,
 				4F8E1C12129077C200D2035F /* DatePlot.h */,
 				4F8E1C13129077C200D2035F /* DatePlot.m */,
 				C3F34F1312AB2598008FBDC3 /* DonutChart.h */,
@@ -416,6 +421,7 @@
 				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
 				C35597961437E07800B41DA7 /* ControlChart.m in Sources */,
 				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
+				C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
