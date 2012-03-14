@@ -1,5 +1,14 @@
 *For best results, view this document using a Markdown reader.*
 
+# Next Release
+
+## Release Notes
+
+## Details
+- **New**: Added Bezier curve interpolation option to `CPTScatterPlot`.
+- **New**: Added printing support to the OS X hosting view.
+
+
 
 # Release 1.0 (February 20, 2012)
 

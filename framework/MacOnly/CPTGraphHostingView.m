@@ -27,12 +27,18 @@
  **/
 @synthesize hostedGraph;
 
+/**	@property printRect
+ *	@brief The bounding rectangle used when printing this view.
+ **/
+@synthesize printRect;
+
 ///	@cond
 
 -(id)initWithFrame:(NSRect)frame
 {
 	if ( (self = [super initWithFrame:frame]) ) {
 		hostedGraph = nil;
+		printRect	= NSZeroRect;
 		CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
 		self.layer = mainLayer;
 		[mainLayer release];
@@ -57,6 +63,7 @@
 	[super encodeWithCoder:coder];
 
 	[coder encodeObject:self.hostedGraph forKey:@"CPTLayerHostingView.hostedGraph"];
+	[coder encodeRect:self.printRect forKey:@"CPTLayerHostingView.printRect"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -68,6 +75,7 @@
 
 		hostedGraph		 = nil;
 		self.hostedGraph = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
+		self.printRect	 = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
 	}
 	return self;
 }
@@ -88,7 +96,51 @@
 		else {
 			self.layer.contentsScale = 1.0;
 		}
+
+		if ( ![NSGraphicsContext currentContextDrawingToScreen] ) {
+			NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
+
+			[graphicsContext saveGraphicsState];
+
+			NSRect destinationRect = self.printRect;
+			NSRect sourceRect	   = self.frame;
+
+			// scale the view isotropically so that it fits on the printed page
+			CGFloat widthScale	= (sourceRect.size.width != 0.0) ? destinationRect.size.width / sourceRect.size.width : 1.0;
+			CGFloat heightScale = (sourceRect.size.height != 0.0) ? destinationRect.size.height / sourceRect.size.height : 1.0;
+			CGFloat scale		= MIN(widthScale, heightScale);
+
+			// position the view so that its centered on the printed page
+			CGPoint offset = destinationRect.origin;
+			offset.x += ( ( destinationRect.size.width - (sourceRect.size.width * scale) ) / 2.0 );
+			offset.y += ( ( destinationRect.size.height - (sourceRect.size.height * scale) ) / 2.0 );
+
+			NSAffineTransform *transform = [NSAffineTransform transform];
+			[transform translateXBy:offset.x yBy:offset.y];
+			[transform scaleBy:scale];
+			[transform concat];
+
+			// render CPTLayers recursively into the graphics context used for printing
+			// (thanks to Brad for the tip: http://stackoverflow.com/a/2791305/132867 )
+			CGContextRef context = [graphicsContext graphicsPort];
+			[self.hostedGraph recursivelyRenderInContext:context];
+
+			[graphicsContext restoreGraphicsState];
+		}
 	}
+}
+
+-(BOOL)knowsPageRange:(NSRangePointer)rangePointer
+{
+	rangePointer->location = 1;
+	rangePointer->length   = 1;
+
+	return YES;
+}
+
+-(NSRect)rectForPage:(NSInteger)pageNumber
+{
+	return self.printRect;
 }
 
 ///	@endcond

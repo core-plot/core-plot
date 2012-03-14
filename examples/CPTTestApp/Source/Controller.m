@@ -530,6 +530,32 @@ static NSString *const barPlot2		  = @"Bar Plot 2";
 }
 
 #pragma mark -
+#pragma mark Printing
+
+-(IBAction)printDocument:(id)sender
+{
+	NSPrintInfo *printInfo = [NSPrintInfo sharedPrintInfo];
+
+	NSRect printRect = NSZeroRect;
+
+	printRect.size.width  = (printInfo.paperSize.width - printInfo.leftMargin - printInfo.rightMargin) * printInfo.scalingFactor;
+	printRect.size.height = (printInfo.paperSize.height - printInfo.topMargin - printInfo.bottomMargin) * printInfo.scalingFactor;
+
+	hostView.printRect = printRect;
+
+	NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:hostView printInfo:printInfo];
+	[printOperation runOperationModalForWindow:hostView.window
+									  delegate:self
+								didRunSelector:@selector(printOperationDidRun:success:contextInfo:)
+								   contextInfo:NULL];
+}
+
+-(void)printOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)contextInfo
+{
+	// print delegate
+}
+
+#pragma mark -
 #pragma mark Layer exploding for illustration
 
 -(IBAction)explodeLayers:(id)sender

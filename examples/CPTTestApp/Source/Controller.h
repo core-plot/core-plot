@@ -28,6 +28,10 @@
 -(IBAction)exportToPDF:(id)sender;
 -(IBAction)exportToPNG:(id)sender;
 
+// Printing
+-(IBAction)printDocument:(id)sender;
+-(void)printOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)contextInfo;
+
 // Layer exploding for illustration
 -(IBAction)explodeLayers:(id)sender;
 +(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(NSUInteger)depthLevel;
