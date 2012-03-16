@@ -135,7 +135,15 @@
 
 		[self renderInView:imageView withTheme:nil];
 
-		UIGraphicsBeginImageContext(imageView.bounds.size);
+		CGSize boundsSize = imageView.bounds.size;
+
+		if ( UIGraphicsBeginImageContextWithOptions ) {
+			UIGraphicsBeginImageContextWithOptions(boundsSize, YES, 0.0);
+		}
+		else {
+			UIGraphicsBeginImageContext(boundsSize);
+		}
+
 		CGContextRef context = UIGraphicsGetCurrentContext();
 
 		CGContextSetAllowsAntialiasing(context, true);
