@@ -159,6 +159,8 @@
 		C34260250FAE096D00072842 /* _CPTFillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C342601D0FAE096C00072842 /* _CPTFillImage.m */; };
 		C34260260FAE096D00072842 /* _CPTFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601E0FAE096C00072842 /* _CPTFillGradient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C34260270FAE096D00072842 /* CPTFill.h in Headers */ = {isa = PBXBuildFile; fileRef = C342601F0FAE096C00072842 /* CPTFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C349DCB4151AAFBF00BFD6A7 /* CPTCalendarFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = C349DCB2151AAFBF00BFD6A7 /* CPTCalendarFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C349DCB5151AAFBF00BFD6A7 /* CPTCalendarFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C349DCB3151AAFBF00BFD6A7 /* CPTCalendarFormatter.m */; };
 		C34AFE5311021C100041675A /* CPTGridLines.m in Sources */ = {isa = PBXBuildFile; fileRef = C32B391710AA4C78000470D4 /* CPTGridLines.m */; };
 		C34AFE5511021C470041675A /* CPTPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C34BF5BB10A67633007F0894 /* CPTPlotArea.m */; };
 		C34AFE6B11021D010041675A /* CPTPlotSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = C34AFE6911021D010041675A /* CPTPlotSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -393,6 +395,8 @@
 		C342601D0FAE096C00072842 /* _CPTFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTFillImage.m; sourceTree = "<group>"; };
 		C342601E0FAE096C00072842 /* _CPTFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTFillGradient.h; sourceTree = "<group>"; };
 		C342601F0FAE096C00072842 /* CPTFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTFill.h; sourceTree = "<group>"; };
+		C349DCB2151AAFBF00BFD6A7 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTCalendarFormatter.h; sourceTree = "<group>"; };
+		C349DCB3151AAFBF00BFD6A7 /* CPTCalendarFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTCalendarFormatter.m; sourceTree = "<group>"; };
 		C34AFE6911021D010041675A /* CPTPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotSymbol.h; sourceTree = "<group>"; };
 		C34AFE6A11021D010041675A /* CPTPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotSymbol.m; sourceTree = "<group>"; };
 		C34BF5BA10A67633007F0894 /* CPTPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotArea.h; sourceTree = "<group>"; };
@@ -613,6 +617,8 @@
 		07A2E6F9102DF46500809BC5 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
+				C349DCB2151AAFBF00BFD6A7 /* CPTCalendarFormatter.h */,
+				C349DCB3151AAFBF00BFD6A7 /* CPTCalendarFormatter.m */,
 				07A2E6FA102DF47900809BC5 /* CPTTimeFormatter.h */,
 				07A2E6FB102DF47900809BC5 /* CPTTimeFormatter.m */,
 				C3D979A513D2159400145DFF /* Tests */,
@@ -1165,6 +1171,7 @@
 				C32EE1B613EC4AA800038266 /* CPTShadow.h in Headers */,
 				C32EE1C113EC4BE700038266 /* CPTMutableShadow.h in Headers */,
 				C3A695E5146A19BC00AF5653 /* CPTMutablePlotRange.h in Headers */,
+				C349DCB4151AAFBF00BFD6A7 /* CPTCalendarFormatter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1403,6 +1410,7 @@
 				C32EE1B713EC4AA800038266 /* CPTShadow.m in Sources */,
 				C32EE1C213EC4BE700038266 /* CPTMutableShadow.m in Sources */,
 				C3A695E6146A19BC00AF5653 /* CPTMutablePlotRange.m in Sources */,
+				C349DCB5151AAFBF00BFD6A7 /* CPTCalendarFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

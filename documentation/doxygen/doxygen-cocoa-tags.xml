@@ -20,6 +20,14 @@
 		<base>NSMutableCopying-p</base>
 	</compound>
 	<compound kind="class" objc="yes">
+		<name>NSCalendar</name>
+		<filename>https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</filename>
+		<base>NSObject</base>
+		<base>NSCoding-p</base>
+		<base>NSCopying-p</base>
+		<base>NSObject-p</base>
+	</compound>
+	<compound kind="class" objc="yes">
 		<name>NSCoder</name>
 		<filename>http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
 		<base>NSObject</base>
@@ -383,6 +391,10 @@
 	<compound kind="struct">
 		<name>id</name>
 		<filename>http://developer.apple.com/mac/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
+	</compound>
+	<compound kind="struct">
+		<name>NSCalendarUnit</name>
+		<filename>https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html#//apple_ref/doc/uid/TP40001451-SW2</filename>
 	</compound>
 	<compound kind="struct">
 		<name>NSDecimal</name>

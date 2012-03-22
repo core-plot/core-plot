@@ -6,6 +6,7 @@
 #import "CPTAxisTitle.h"
 #import "CPTBarPlot.h"
 #import "CPTBorderedLayer.h"
+#import "CPTCalendarFormatter.h"
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
 #import "CPTConstraints.h"

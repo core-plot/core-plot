@@ -131,6 +131,8 @@
 		C3392A361225F63B008DA6BD /* CPTNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3392A351225F63B008DA6BD /* CPTNumericData+TypeConversion.m */; };
 		C3436C4F13F4AC4400739AC2 /* _CPTDarkGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3436C4E13F4AC4400739AC2 /* _CPTDarkGradientTheme.m */; };
 		C3436C5113F4AC6000739AC2 /* _CPTSlateTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3436C5013F4AC6000739AC2 /* _CPTSlateTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C349DCB0151AAFAB00BFD6A7 /* CPTCalendarFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = C349DCAE151AAFAB00BFD6A7 /* CPTCalendarFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C349DCB1151AAFAB00BFD6A7 /* CPTCalendarFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C349DCAF151AAFAB00BFD6A7 /* CPTCalendarFormatter.m */; };
 		C35A65A511025EDF00FE24BB /* CPTPlotArea.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65A311025EDF00FE24BB /* CPTPlotArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35A65A611025EDF00FE24BB /* CPTPlotArea.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A65A411025EDF00FE24BB /* CPTPlotArea.m */; };
 		C35A65B311025F8A00FE24BB /* CPTGridLines.h in Headers */ = {isa = PBXBuildFile; fileRef = C35A65B111025F8A00FE24BB /* CPTGridLines.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -327,6 +329,8 @@
 		C3392A351225F63B008DA6BD /* CPTNumericData+TypeConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CPTNumericData+TypeConversion.m"; path = "Source/CPTNumericData+TypeConversion.m"; sourceTree = "<group>"; };
 		C3436C4E13F4AC4400739AC2 /* _CPTDarkGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTDarkGradientTheme.m; path = Source/_CPTDarkGradientTheme.m; sourceTree = "<group>"; };
 		C3436C5013F4AC6000739AC2 /* _CPTSlateTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTSlateTheme.h; path = Source/_CPTSlateTheme.h; sourceTree = "<group>"; };
+		C349DCAE151AAFAB00BFD6A7 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTCalendarFormatter.h; path = Source/CPTCalendarFormatter.h; sourceTree = "<group>"; };
+		C349DCAF151AAFAB00BFD6A7 /* CPTCalendarFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTCalendarFormatter.m; path = Source/CPTCalendarFormatter.m; sourceTree = "<group>"; };
 		C3566B8C10EED17400FB3866 /* doxygen touch.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = SOURCE_ROOT; };
 		C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = SOURCE_ROOT; };
 		C3566B8E10EED1B000FB3866 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
@@ -518,6 +522,8 @@
 		07A2E717102DF9A500809BC5 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
+				C349DCAE151AAFAB00BFD6A7 /* CPTCalendarFormatter.h */,
+				C349DCAF151AAFAB00BFD6A7 /* CPTCalendarFormatter.m */,
 				07A2E71C102DFAD300809BC5 /* CPTTimeFormatter.h */,
 				07A2E71D102DFAD300809BC5 /* CPTTimeFormatter.m */,
 			);
@@ -888,6 +894,7 @@
 				C3436C5113F4AC6000739AC2 /* _CPTSlateTheme.h in Headers */,
 				C304565313F4AC9A004D04BC /* _CPTDarkGradientTheme.h in Headers */,
 				C3A695E1146A196100AF5653 /* CPTMutablePlotRange.h in Headers */,
+				C349DCB0151AAFAB00BFD6A7 /* CPTCalendarFormatter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,6 +1060,7 @@
 				C32EE1C913EC4C7200038266 /* CPTMutableShadow.m in Sources */,
 				C3436C4F13F4AC4400739AC2 /* _CPTDarkGradientTheme.m in Sources */,
 				C3A695E2146A196100AF5653 /* CPTMutablePlotRange.m in Sources */,
+				C349DCB1151AAFAB00BFD6A7 /* CPTCalendarFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
