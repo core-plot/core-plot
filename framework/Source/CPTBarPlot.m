@@ -1082,7 +1082,6 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL result				 = NO;
 	CPTGraph *theGraph		 = self.graph;
 	CPTPlotArea *thePlotArea = self.plotArea;
 
@@ -1109,11 +1108,8 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 			CGPathRelease(path);
 		}
 	}
-	else {
-		result = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
-	}
 
-	return result;
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
 ///	@}

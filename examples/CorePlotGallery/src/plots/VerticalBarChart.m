@@ -253,13 +253,18 @@
 }
 
 #pragma mark -
-#pragma mark CPTBarPlot delegate method
+#pragma mark CPTBarPlot delegate methods
+
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"Data label for '%@' was selected at index %d.", plot.identifier, (int)index);
+}
 
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
 	NSNumber *value = [self numberForPlot:plot field:CPTBarPlotFieldBarTip recordIndex:index];
 
-	NSLog(@"bar was selected at index %d. Value = %f", (int)index, [value floatValue]);
+	NSLog(@"Bar for '%@' was selected at index %d. Value = %f", plot.identifier, (int)index, [value floatValue]);
 
 	CPTGraph *graph = [graphs objectAtIndex:0];
 

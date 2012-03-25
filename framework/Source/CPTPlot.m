@@ -1205,6 +1205,64 @@
 }
 
 #pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
+
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If this plot has a delegate that responds to the
+ *	@link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex: -plot:dataLabelWasSelectedAtRecordIndex: @endlink
+ *	method, the data labels are searched to find the index of the one containing the <code>interactionPoint</code>.
+ *	The delegate method will be called and this method returns <code>YES</code> if the <code>interactionPoint</code> is within a label.
+ *	This method returns <code>NO</code> if the <code>interactionPoint</code> is too far away from all of the data labels.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	CPTGraph *theGraph = self.graph;
+
+	if ( !theGraph ) {
+		return NO;
+	}
+
+	id<CPTPlotDelegate> theDelegate = self.delegate;
+	if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ) {
+		// Inform delegate if a label was hit
+		NSMutableArray *labelArray = self.labelAnnotations;
+		NSUInteger labelCount	   = labelArray.count;
+		Class annotationClass	   = [CPTAnnotation class];
+
+		for ( NSUInteger index = 0; index < labelCount; index++ ) {
+			CPTPlotSpaceAnnotation *annotation = [labelArray objectAtIndex:index];
+			if ( [annotation isKindOfClass:annotationClass] ) {
+				CPTLayer *labelLayer = annotation.contentLayer;
+				if ( labelLayer ) {
+					CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
+
+					if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {
+						[theDelegate plot:self dataLabelWasSelectedAtRecordIndex:index];
+						return YES;
+					}
+				}
+			}
+		}
+	}
+
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+///	@}
+
+#pragma mark -
 #pragma mark Accessors
 
 ///	@cond

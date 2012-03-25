@@ -830,7 +830,6 @@ static const CGFloat colorLookupTable[10][3] =
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL result				 = NO;
 	CPTGraph *theGraph		 = self.graph;
 	CPTPlotArea *thePlotArea = self.plotArea;
 
@@ -977,11 +976,8 @@ static const CGFloat colorLookupTable[10][3] =
 				break;
 		}
 	}
-	else {
-		result = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
-	}
 
-	return result;
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
 ///	@}

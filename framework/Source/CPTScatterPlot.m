@@ -1045,16 +1045,17 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL result = NO;
+	CPTGraph *theGraph		 = self.graph;
+	CPTPlotArea *thePlotArea = self.plotArea;
 
-	if ( !self.graph || !self.plotArea ) {
+	if ( !theGraph || !thePlotArea ) {
 		return NO;
 	}
 
 	id<CPTScatterPlotDelegate> theDelegate = self.delegate;
 	if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
 		// Inform delegate if a point was hit
-		CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
+		CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 		NSUInteger index	  = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
 		CGPoint center		  = [self plotAreaPointOfVisiblePointAtIndex:index];
 		CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
@@ -1067,14 +1068,11 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
 		if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
 			[theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
-			result = YES;
+			return YES;
 		}
 	}
-	else {
-		result = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
-	}
 
-	return result;
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
 ///	@}

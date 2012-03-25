@@ -108,6 +108,32 @@ CPTPlotCachePrecision;
 
 #pragma mark -
 
+/**
+ *	@brief Plot delegate.
+ **/
+@protocol CPTPlotDelegate<NSObject>
+
+@optional
+
+///	@name Point Selection
+/// @{
+
+/**	@brief (Optional) Informs the delegate that a data label was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The plot.
+ *	@param index The index of the
+ *	@if MacOnly clicked data label. @endif
+ *	@if iOSOnly touched data label. @endif
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
+
+#pragma mark -
+
 @interface CPTPlot : CPTAnnotationHostLayer {
 	@private
 	__cpt_weak id<CPTPlotDataSource> dataSource;

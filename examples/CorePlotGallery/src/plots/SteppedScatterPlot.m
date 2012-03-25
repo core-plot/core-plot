@@ -61,12 +61,14 @@
 	dataSourceLinePlot.dataLineStyle = lineStyle;
 
 	dataSourceLinePlot.dataSource = self;
+	dataSourceLinePlot.delegate	  = self;
 
 	CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
 	whiteTextStyle.color			  = [CPTColor whiteColor];
 	dataSourceLinePlot.labelTextStyle = whiteTextStyle;
 	dataSourceLinePlot.labelOffset	  = 5.0;
 	dataSourceLinePlot.labelRotation  = M_PI_4;
+	dataSourceLinePlot.identifier	  = @"Stepped Plot";
 	[graph addPlot:dataSourceLinePlot];
 
 	// Make the data source line use stepped interpolation
@@ -97,6 +99,14 @@
 {
 	[plotData release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark CPTScatterPlotDelegate Methods
+
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"Data label for '%@' was selected at index %d.", plot.identifier, (int)index);
 }
 
 #pragma mark -

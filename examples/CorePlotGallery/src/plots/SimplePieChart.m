@@ -126,6 +126,14 @@
 	return newLayer;
 }
 
+#pragma mark -
+#pragma mark CPTPieChartDelegate Methods
+
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"Data label for '%@' was selected at index %d.", plot.identifier, (int)index);
+}
+
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
 	NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [[plotData objectAtIndex:index] floatValue]);

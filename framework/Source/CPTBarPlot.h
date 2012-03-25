@@ -78,16 +78,20 @@ CPTBarPlotField;
 /**
  *	@brief Bar plot delegate.
  **/
-@protocol CPTBarPlotDelegate<NSObject>
+@protocol CPTBarPlotDelegate<CPTPlotDelegate>
 
 @optional
 
 ///	@name Point Selection
 /// @{
 
-/**	@brief (Optional) Informs delegate that a point was touched.
- *	@param plot The scatter plot.
- *	@param index Index of touched point
+/**	@brief (Optional) Informs the delegate that a bar was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The bar plot.
+ *	@param index The index of the
+ *	@if MacOnly clicked bar. @endif
+ *	@if iOSOnly touched bar. @endif
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index;
 
