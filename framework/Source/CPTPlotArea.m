@@ -512,7 +512,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 {
 	unsigned index = 0;
 
-	for ( CPTAxis *currentAxis in self.graph.axisSet.axes ) {
+	for ( CPTAxis *currentAxis in self.axisSet.axes ) {
 		if ( currentAxis == axis ) {
 			break;
 		}
