@@ -1197,7 +1197,7 @@
 			[theLineStyle setLineStyleInContext:context];
 			CGContextBeginPath(context);
 			CGContextAddPath(context, swatchPath);
-			CGContextStrokePath(context);
+			[theLineStyle strokePathInContext:context];
 		}
 
 		CGPathRelease(swatchPath);

@@ -8,6 +8,7 @@
 - **New**: Added Bezier curve interpolation option to `CPTScatterPlot`.
 - **New**: Added printing support to the OS X hosting view.
 - **New**: Added a plot data label selection delegate method.
+- **New**: Added a line fill property to `CPTLineStyle`.
 
 
 

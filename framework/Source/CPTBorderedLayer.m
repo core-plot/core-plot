@@ -130,10 +130,10 @@
 			CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
 			CGContextBeginPath(context);
 			AddRoundedRectPath(context, selfBounds, radius);
-			CGContextStrokePath(context);
+			[theLineStyle strokePathInContext:context];
 		}
 		else {
-			CGContextStrokeRect(context, selfBounds);
+			[theLineStyle strokeRect:selfBounds inContext:context];
 		}
 	}
 }

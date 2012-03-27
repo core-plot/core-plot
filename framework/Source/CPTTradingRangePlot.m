@@ -42,7 +42,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *closeValues;
 
 -(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
--(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
+-(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints lineStyle:(CPTLineStyle *)theLineStyle;
 
 @end
 
@@ -296,7 +296,9 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	}
 
 	[super renderAsVectorInContext:theContext];
-	[self.lineStyle setLineStyleInContext:theContext];
+
+	CPTLineStyle *theLineStyle = self.lineStyle;
+	[theLineStyle setLineStyleInContext:theContext];
 
 	CGPoint openPoint, highPoint, lowPoint, closePoint;
 	const CPTCoordinate independentCoord = CPTCoordinateX;
@@ -306,6 +308,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	CPTPlotSpace *thePlotSpace			  = self.plotSpace;
 	CPTTradingRangePlotStyle thePlotStyle = self.plotStyle;
 	CGPoint originTransformed			  = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
+	BOOL alignPoints					  = self.alignsPointsToPixels;
 
 	CGContextBeginTransparencyLayer(theContext, NULL);
 
@@ -384,7 +387,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 										  close:closePoint.y + originTransformed.y
 										   high:highPoint.y + originTransformed.y
 											low:lowPoint.y + originTransformed.y
-									alignPoints:self.alignsPointsToPixels];
+									alignPoints:alignPoints
+									  lineStyle:theLineStyle];
 						break;
 
 					case CPTTradingRangePlotStyleCandleStick:
@@ -394,7 +398,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 												 close:closePoint.y + originTransformed.y
 												  high:highPoint.y + originTransformed.y
 												   low:lowPoint.y + originTransformed.y
-										   alignPoints:self.alignsPointsToPixels];
+										   alignPoints:alignPoints];
 						break;
 
 					default:
@@ -479,7 +483,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 										  close:closePoint.y + originTransformed.y
 										   high:highPoint.y + originTransformed.y
 											low:lowPoint.y + originTransformed.y
-									alignPoints:self.alignsPointsToPixels];
+									alignPoints:alignPoints
+									  lineStyle:theLineStyle];
 						break;
 
 					case CPTTradingRangePlotStyleCandleStick:
@@ -489,7 +494,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 												 close:closePoint.y + originTransformed.y
 												  high:highPoint.y + originTransformed.y
 												   low:lowPoint.y + originTransformed.y
-										   alignPoints:self.alignsPointsToPixels];
+										   alignPoints:alignPoints];
 						break;
 
 					default:
@@ -559,7 +564,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 		CGContextBeginPath(context);
 		CGContextAddPath(context, path);
-		CGContextStrokePath(context);
+		[theBorderLineStyle strokePathInContext:context];
 
 		CGPathRelease(path);
 	}
@@ -657,7 +662,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 				}
 				CGContextBeginPath(context);
 				CGContextAddPath(context, path);
-				CGContextStrokePath(context);
+				[theBorderLineStyle strokePathInContext:context];
 			}
 
 			CGPathRelease(path);
@@ -672,6 +677,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 					high:(CGFloat)high
 					 low:(CGFloat)low
 			 alignPoints:(BOOL)alignPoints
+			   lineStyle:(CPTLineStyle *)theLineStyle
 {
 	CGFloat theStickLength = self.stickLength;
 	CGMutablePathRef path  = CGPathCreateMutable();
@@ -714,7 +720,7 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 
 	CGContextBeginPath(context);
 	CGContextAddPath(context, path);
-	CGContextStrokePath(context);
+	[theLineStyle strokePathInContext:context];
 	CGPathRelease(path);
 }
 
@@ -731,7 +737,8 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 							  close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
 							   high:CGRectGetMaxY(rect)
 								low:CGRectGetMinY(rect)
-						alignPoints:YES];
+						alignPoints:YES
+						  lineStyle:self.lineStyle];
 			break;
 
 		case CPTTradingRangePlotStyleCandleStick:

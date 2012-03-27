@@ -44,4 +44,12 @@
  **/
 @dynamic lineColor;
 
+/** @property lineFill
+ *  @brief The current line fill. Default is <code>nil</code>.
+ *
+ *	If <code>nil</code>, the line is drawn using the
+ *	@link CPTMutableLineStyle::lineColor lineColor @endlink .
+ **/
+@dynamic lineFill;
+
 @end

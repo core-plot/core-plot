@@ -71,15 +71,15 @@
 		return;
 	}
 
-	if ( self.borderLineStyle ) {
+	CPTLineStyle *theLineStyle = self.borderLineStyle;
+	if ( theLineStyle ) {
 		[super renderAsVectorInContext:context];
 
 		CALayer *superlayer = self.superlayer;
 		CGRect borderRect	= CPTAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
 
-		[self.borderLineStyle setLineStyleInContext:context];
-
-		CGContextStrokeRect(context, borderRect);
+		[theLineStyle setLineStyleInContext:context];
+		[theLineStyle strokeRect:borderRect inContext:context];
 	}
 }
 

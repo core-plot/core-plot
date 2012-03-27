@@ -528,7 +528,7 @@
 				[theLineStyle setLineStyleInContext:theContext];
 				CGContextBeginPath(theContext);
 				CGContextAddPath(theContext, theSymbolPath);
-				CGContextStrokePath(theContext);
+				[theLineStyle strokePathInContext:theContext];
 			}
 
 			CGContextRestoreGState(theContext);

@@ -1,6 +1,7 @@
 #import "CPTLineStyle.h"
 
 #import "CPTColor.h"
+#import "CPTFill.h"
 #import "CPTMutableLineStyle.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
@@ -15,6 +16,7 @@
 @property (nonatomic, readwrite, retain) NSArray *dashPattern;
 @property (nonatomic, readwrite, assign) CGFloat patternPhase;
 @property (nonatomic, readwrite, retain) CPTColor *lineColor;
+@property (nonatomic, readwrite, retain) CPTFill *lineFill;
 
 @end
 
@@ -66,6 +68,14 @@
  **/
 @synthesize lineColor;
 
+/** @property lineFill
+ *  @brief The current line fill. Default is <code>nil</code>.
+ *
+ *	If <code>nil</code>, the line is drawn using the
+ *	@link CPTLineStyle::lineColor lineColor @endlink .
+ **/
+@synthesize lineFill;
+
 #pragma mark -
 #pragma mark init/dealloc
 
@@ -87,6 +97,7 @@
 		dashPattern	 = nil;
 		patternPhase = 0.0;
 		lineColor	 = [[CPTColor blackColor] retain];
+		lineFill	 = nil;
 	}
 	return self;
 }
@@ -94,6 +105,7 @@
 -(void)dealloc
 {
 	[lineColor release];
+	[lineFill release];
 	[dashPattern release];
 	[super dealloc];
 }
@@ -110,6 +122,7 @@
 	[coder encodeObject:self.dashPattern forKey:@"CPTLineStyle.dashPattern"];
 	[coder encodeCGFloat:self.patternPhase forKey:@"CPTLineStyle.patternPhase"];
 	[coder encodeObject:self.lineColor forKey:@"CPTLineStyle.lineColor"];
+	[coder encodeObject:self.lineFill forKey:@"CPTLineStyle.lineFill"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -122,6 +135,7 @@
 		dashPattern	 = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
 		patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
 		lineColor	 = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
+		lineFill	 = [[coder decodeObjectForKey:@"CPTLineStyle.lineFill"] retain];
 	}
 	return self;
 }
@@ -156,6 +170,45 @@
 	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
+/** @brief Stroke the current path in the given graphics context.
+ *	Call @link CPTLineStyle::setLineStyleInContext: -setLineStyleInContext: @endlink first to set up the drawing properties.
+ *
+ *  @param theContext The graphics context.
+ **/
+-(void)strokePathInContext:(CGContextRef)theContext
+{
+	CPTFill *theFill = self.lineFill;
+
+	if ( theFill ) {
+		CGContextReplacePathWithStrokedPath(theContext);
+		[theFill fillPathInContext:theContext];
+	}
+	else {
+		CGContextStrokePath(theContext);
+	}
+}
+
+/** @brief Stroke a rectangular path in the given graphics context.
+ *	Call @link CPTLineStyle::setLineStyleInContext: -setLineStyleInContext: @endlink first to set up the drawing properties.
+ *
+ *  @param rect The rectangle to draw.
+ *  @param theContext The graphics context.
+ **/
+-(void)strokeRect:(CGRect)rect inContext:(CGContextRef)theContext
+{
+	CPTFill *theFill = self.lineFill;
+
+	if ( theFill ) {
+		CGContextBeginPath(theContext);
+		CGContextAddRect(theContext, rect);
+		CGContextReplacePathWithStrokedPath(theContext);
+		[theFill fillPathInContext:theContext];
+	}
+	else {
+		CGContextStrokeRect(theContext, rect);
+	}
+}
+
 #pragma mark -
 #pragma mark NSCopying methods
 
@@ -170,6 +223,7 @@
 	styleCopy->dashPattern	= [self->dashPattern copy];
 	styleCopy->patternPhase = self->patternPhase;
 	styleCopy->lineColor	= [self->lineColor copy];
+	styleCopy->lineFill		= [self->lineFill copy];
 
 	return styleCopy;
 }
@@ -188,6 +242,7 @@
 	styleCopy->dashPattern	= [self->dashPattern copy];
 	styleCopy->patternPhase = self->patternPhase;
 	styleCopy->lineColor	= [self->lineColor copy];
+	styleCopy->lineFill		= [self->lineFill copy];
 
 	return styleCopy;
 }

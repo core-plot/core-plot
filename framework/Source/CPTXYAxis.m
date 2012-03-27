@@ -258,7 +258,7 @@
 		CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
 	}
 	// Stroke tick line
-	CGContextStrokePath(theContext);
+	[lineStyle strokePathInContext:theContext];
 }
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
@@ -304,7 +304,7 @@
 			CGContextBeginPath(theContext);
 			CGContextMoveToPoint(theContext, startViewPoint.x, startViewPoint.y);
 			CGContextAddLineToPoint(theContext, endViewPoint.x, endViewPoint.y);
-			CGContextStrokePath(theContext);
+			[theLineStyle strokePathInContext:theContext];
 		}
 
 		CGPoint axisDirection = CGPointZero;
@@ -422,7 +422,7 @@
 
 		// Stroke grid lines
 		[lineStyle setLineStyleInContext:context];
-		CGContextStrokePath(context);
+		[lineStyle strokePathInContext:context];
 
 		[orthogonalRange release];
 		[labeledRange release];

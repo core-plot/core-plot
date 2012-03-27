@@ -696,12 +696,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		}
 
 		// Draw line
-		if ( self.dataLineStyle ) {
+		CPTLineStyle *theLineStyle = self.dataLineStyle;
+		if ( theLineStyle ) {
 			CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
 			CGContextBeginPath(theContext);
 			CGContextAddPath(theContext, dataLinePath);
-			[self.dataLineStyle setLineStyleInContext:theContext];
-			CGContextStrokePath(theContext);
+			[theLineStyle setLineStyleInContext:theContext];
+			[theLineStyle strokePathInContext:theContext];
 			CGPathRelease(dataLinePath);
 		}
 
@@ -868,7 +869,7 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 		CGContextMoveToPoint(context, alignedStartPoint.x, alignedStartPoint.y);
 		CGContextAddLineToPoint(context, alignedEndPoint.x, alignedEndPoint.y);
 
-		CGContextStrokePath(context);
+		[theLineStyle strokePathInContext:context];
 	}
 
 	CPTPlotSymbol *thePlotSymbol = self.plotSymbol;

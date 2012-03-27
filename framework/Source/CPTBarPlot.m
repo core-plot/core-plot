@@ -875,7 +875,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 			CGContextBeginPath(context);
 			CGContextAddPath(context, path);
 			[theLineStyle setLineStyleInContext:context];
-			CGContextStrokePath(context);
+			[theLineStyle strokePathInContext:context];
 		}
 
 		CGContextRestoreGState(context);
@@ -914,7 +914,7 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 			[theLineStyle setLineStyleInContext:context];
 			CGContextBeginPath(context);
 			CGContextAddPath(context, swatchPath);
-			CGContextStrokePath(context);
+			[theLineStyle strokePathInContext:context];
 		}
 
 		CGPathRelease(swatchPath);

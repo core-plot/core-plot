@@ -486,7 +486,7 @@ static const CGFloat colorLookupTable[10][3] =
 			if ( borderStyle ) {
 				CGContextBeginPath(context);
 				CGContextAddPath(context, slicePath);
-				CGContextStrokePath(context);
+				[borderStyle strokePathInContext:context];
 			}
 
 			// draw overlay for exploded pie charts
@@ -615,7 +615,7 @@ static const CGFloat colorLookupTable[10][3] =
 			[theLineStyle setLineStyleInContext:context];
 			CGContextBeginPath(context);
 			CGContextAddPath(context, swatchPath);
-			CGContextStrokePath(context);
+			[theLineStyle strokePathInContext:context];
 		}
 
 		CGPathRelease(swatchPath);

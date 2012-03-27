@@ -58,7 +58,7 @@ typedef struct CGPointError CGPointError;
 -(void)alignViewPointsToUserSpace:(CGPointError *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags;
 -(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags extremeNumIsLowerBound:(BOOL)isLowerBound;
 
--(void)drawRangeInContext:(CGContextRef)theContext viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
+-(void)drawRangeInContext:(CGContextRef)theContext lineStyle:(CPTLineStyle *)lineStyle viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 
 @end
 
@@ -610,6 +610,7 @@ typedef struct CGPointError CGPointError;
 
 			for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
 				[self drawRangeInContext:theContext
+							   lineStyle:theBarLineStyle
 							   viewPoint:&viewPoints[i]
 							 halfGapSize:halfGapSize
 							halfBarWidth:halfBarWidth
@@ -623,6 +624,7 @@ typedef struct CGPointError CGPointError;
 }
 
 -(void)drawRangeInContext:(CGContextRef)theContext
+				lineStyle:(CPTLineStyle *)lineStyle
 				viewPoint:(CGPointError *)viewPoint
 			  halfGapSize:(CGSize)halfGapSize
 			 halfBarWidth:(CGFloat)halfBarWidth
@@ -729,7 +731,7 @@ typedef struct CGPointError CGPointError;
 
 		CGContextBeginPath(theContext);
 		CGContextAddPath(theContext, path);
-		CGContextStrokePath(theContext);
+		[lineStyle strokePathInContext:theContext];
 		CGPathRelease(path);
 	}
 }
@@ -774,6 +776,7 @@ typedef struct CGPointError CGPointError;
 		viewPoint.right = CGRectGetMaxX(rect);
 
 		[self drawRangeInContext:context
+					   lineStyle:theBarLineStyle
 					   viewPoint:&viewPoint
 					 halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / (CGFloat)2.0) * (CGFloat)0.5, MIN(self.gapHeight, rect.size.height / (CGFloat)2.0) * (CGFloat)0.5)
 					halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * (CGFloat)0.5

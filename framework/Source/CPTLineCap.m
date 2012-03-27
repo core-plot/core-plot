@@ -425,7 +425,7 @@
 				[theLineStyle setLineStyleInContext:theContext];
 				CGContextBeginPath(theContext);
 				CGContextAddPath(theContext, theLineCapPath);
-				CGContextStrokePath(theContext);
+				[theLineStyle strokePathInContext:theContext];
 			}
 
 			CGContextRestoreGState(theContext);
