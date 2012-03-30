@@ -10,6 +10,7 @@
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
+#import "CPTPlotGroup.h"
 #import "CPTPlotSpace.h"
 #import "CPTTextLayer.h"
 #import "CPTTheme.h"
@@ -441,7 +442,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 		[self.plots insertObject:plot atIndex:index];
 		plot.plotSpace = space;
 		plot.graph	   = self;
-		[self.plotAreaFrame.plotGroup addPlot:plot];
+		[self.plotAreaFrame.plotGroup insertPlot:plot atIndex:index];
 	}
 }
 

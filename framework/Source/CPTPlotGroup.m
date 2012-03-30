@@ -29,7 +29,21 @@
  **/
 -(void)addPlot:(CPTPlot *)plot
 {
+	NSParameterAssert(plot);
+
 	[self addSublayer:plot];
+}
+
+/**	@brief Add a plot to this plot group at the given index.
+ *	@param plot The plot.
+ *	@param index The index at which to insert the plot. This value must not be greater than the count of elements in the sublayer array.
+ **/
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index
+{
+	NSParameterAssert(plot);
+	NSParameterAssert(index <= [[self sublayers] count]);
+
+	[self insertSublayer:plot atIndex:index];
 }
 
 /**	@brief Remove a plot from this plot group.
