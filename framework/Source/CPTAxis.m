@@ -61,6 +61,10 @@ double niceNum(double x, BOOL round);
 
 /**
  *	@brief An abstract axis class.
+ *
+ *	The figure below illustrates the relationship between the three plot range properties. If all are
+ *	<code>nil</code>, the axis and grid lines will extend the full width of the plot area.
+ *	@image html "axis ranges.png" "Axis Ranges"
  *	@see See @ref axisAnimation "Axes" for a list of animatable properties.
  **/
 @implementation CPTAxis
