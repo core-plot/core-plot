@@ -121,6 +121,7 @@ CPTAxisLabelingPolicy;
 	BOOL needsRelabel;
 	NSArray *labelExclusionRanges;
 	CPTPlotRange *visibleRange;
+	CPTPlotRange *visibleAxisRange;
 	CPTPlotRange *gridLinesRange;
 	NSArray *alternatingBandFills;
 	NSMutableArray *mutableBackgroundLimitBands;
@@ -138,6 +139,7 @@ CPTAxisLabelingPolicy;
 @property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
 @property (nonatomic, readwrite, assign) CPTSign tickDirection;
 @property (nonatomic, readwrite, copy) CPTPlotRange *visibleRange;
+@property (nonatomic, readwrite, copy) CPTPlotRange *visibleAxisRange;
 @property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMin;
 @property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMax;
 ///	@}

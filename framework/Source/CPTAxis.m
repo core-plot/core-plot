@@ -97,10 +97,19 @@ double niceNum(double x, BOOL round);
 
 /**	@property visibleRange
  *	@brief The plot range over which the axis and ticks are visible.
- *  Use this to restrict an axis to less than the full plot area width.
+ *  Use this to restrict an axis and its grid lines to less than the full plot area width.
+ *  Use the @link CPTAxis::visibleAxisRange visibleAxisRange @endlink to specify a separate range for the axis line, if needed.
  *  Set to <code>nil</code> for no restriction.
  **/
 @synthesize visibleRange;
+
+/**	@property visibleAxisRange
+ *	@brief The plot range over which the axis itself is visible.
+ *	Use this to restrict an axis line to less than the full plot area width. This range is independent
+ *	of the @link CPTAxis::visibleRange visibleRange @endlink and overrides it for the axis line and line cap.
+ *	Set to <code>nil</code> to use the @link CPTAxis::visibleRange visibleRange @endlink instead.
+ **/
+@synthesize visibleAxisRange;
 
 /**	@property gridLinesRange
  *	@brief The plot range over which the grid lines are visible.
@@ -497,6 +506,9 @@ double niceNum(double x, BOOL round);
 		plotArea						   = nil;
 		separateLayers					   = NO;
 		labelShadow						   = nil;
+		visibleRange					   = nil;
+		visibleAxisRange				   = nil;
+		gridLinesRange					   = nil;
 		alternatingBandFills			   = nil;
 		mutableBackgroundLimitBands		   = nil;
 		minorGridLines					   = nil;
@@ -557,6 +569,7 @@ double niceNum(double x, BOOL round);
 		separateLayers				= theLayer->separateLayers;
 		labelShadow					= [theLayer->labelShadow retain];
 		visibleRange				= [theLayer->visibleRange retain];
+		visibleAxisRange			= [theLayer->visibleAxisRange retain];
 		gridLinesRange				= [theLayer->gridLinesRange retain];
 		alternatingBandFills		= [theLayer->alternatingBandFills retain];
 		mutableBackgroundLimitBands = [theLayer->mutableBackgroundLimitBands retain];
@@ -597,6 +610,7 @@ double niceNum(double x, BOOL round);
 	[titleTextStyle release];
 	[labelExclusionRanges release];
 	[visibleRange release];
+	[visibleAxisRange release];
 	[gridLinesRange release];
 	[alternatingBandFills release];
 	[mutableBackgroundLimitBands release];
@@ -654,6 +668,7 @@ double niceNum(double x, BOOL round);
 	[coder encodeBool:self.needsRelabel forKey:@"CPTAxis.needsRelabel"];
 	[coder encodeObject:self.labelExclusionRanges forKey:@"CPTAxis.labelExclusionRanges"];
 	[coder encodeObject:self.visibleRange forKey:@"CPTAxis.visibleRange"];
+	[coder encodeObject:self.visibleAxisRange forKey:@"CPTAxis.visibleAxisRange"];
 	[coder encodeObject:self.gridLinesRange forKey:@"CPTAxis.gridLinesRange"];
 	[coder encodeObject:self.alternatingBandFills forKey:@"CPTAxis.alternatingBandFills"];
 	[coder encodeObject:self.mutableBackgroundLimitBands forKey:@"CPTAxis.mutableBackgroundLimitBands"];
@@ -709,6 +724,7 @@ double niceNum(double x, BOOL round);
 		needsRelabel				= [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
 		labelExclusionRanges		= [[coder decodeObjectForKey:@"CPTAxis.labelExclusionRanges"] retain];
 		visibleRange				= [[coder decodeObjectForKey:@"CPTAxis.visibleRange"] copy];
+		visibleAxisRange			= [[coder decodeObjectForKey:@"CPTAxis.visibleAxisRange"] copy];
 		gridLinesRange				= [[coder decodeObjectForKey:@"CPTAxis.gridLinesRange"] copy];
 		alternatingBandFills		= [[coder decodeObjectForKey:@"CPTAxis.alternatingBandFills"] copy];
 		mutableBackgroundLimitBands = [[coder decodeObjectForKey:@"CPTAxis.mutableBackgroundLimitBands"] mutableCopy];
@@ -2233,6 +2249,15 @@ double niceNum(double x, BOOL round)
 	if ( newRange != visibleRange ) {
 		[visibleRange release];
 		visibleRange	  = [newRange copy];
+		self.needsRelabel = YES;
+	}
+}
+
+-(void)setVisibleAxisRange:(CPTPlotRange *)newRange
+{
+	if ( newRange != visibleAxisRange ) {
+		[visibleAxisRange release];
+		visibleAxisRange  = [newRange copy];
 		self.needsRelabel = YES;
 	}
 }

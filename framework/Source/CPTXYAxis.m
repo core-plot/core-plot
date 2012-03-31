@@ -269,7 +269,8 @@
 
 	[super renderAsVectorInContext:theContext];
 
-	CPTMutablePlotRange *range	  = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
+	CPTPlotRange *thePlotRange	  = [self.plotSpace plotRangeForCoordinate:self.coordinate];
+	CPTMutablePlotRange *range	  = [thePlotRange mutableCopy];
 	CPTPlotRange *theVisibleRange = self.visibleRange;
 	if ( theVisibleRange ) {
 		[range intersectionPlotRange:theVisibleRange];
@@ -297,6 +298,14 @@
 	CPTLineCap *maxCap		   = self.axisLineCapMax;
 
 	if ( theLineStyle || minCap || maxCap ) {
+		// If there is a separate axis range given then restrict the axis to that range, overriding the visible range
+		// given for grid lines and ticks.
+		CPTPlotRange *theVisibleAxisRange = self.visibleAxisRange;
+		if ( theVisibleAxisRange ) {
+			[range release];
+			range = [thePlotRange mutableCopy];
+			[range intersectionPlotRange:theVisibleAxisRange];
+		}
 		if ( theLineStyle ) {
 			CGPoint startViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
 			CGPoint endViewPoint   = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.end]);
