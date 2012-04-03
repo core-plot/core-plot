@@ -69,6 +69,25 @@
 	STAssertFalse([self.plotRange containsDouble:1.001], @"Test contains:1.001");
 }
 
+-(void)testContainsRange
+{
+	CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+
+	STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
+	STAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(1.0)];
+	STAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(4.0)];
+	STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(2.0)];
+	STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+}
+
 #pragma mark -
 #pragma mark Union
 
@@ -121,25 +140,39 @@
 
 -(void)testIntersectRange
 {
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+	CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:2.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(1.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(1.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
+	STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:0.0];
 }
 
 -(void)testIntersectRange2
 {
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(4.0) length:CPTDecimalFromDouble(-4.0)]];
+	CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(4.0) length:CPTDecimalFromDouble(-4.0)];
+
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:2.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-1.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-1.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
+	STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:0.0];
 }
 
@@ -147,13 +180,19 @@
 {
 	self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+	CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:-1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(1.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(1.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:-1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)];
+	STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:1.0 length:0.0];
 }
 
@@ -161,13 +200,19 @@
 {
 	self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+	CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:0.0 length:-1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-4.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-4.0)];
+	STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:0.0 length:-1.0];
 
-	[self.plotRange intersectionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+	otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)];
+	STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+	[self.plotRange intersectionPlotRange:otherRange];
 	[self checkRangeWithLocation:0.0 length:0.0];
 }
 

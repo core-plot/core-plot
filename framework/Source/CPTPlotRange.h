@@ -53,6 +53,8 @@ CPTPlotRangeComparisonResult;
 -(BOOL)contains:(NSDecimal)number;
 -(BOOL)containsDouble:(double)number;
 -(BOOL)isEqualToRange:(CPTPlotRange *)otherRange;
+-(BOOL)containsRange:(CPTPlotRange *)otherRange;
+-(BOOL)intersectsRange:(CPTPlotRange *)otherRange;
 ///	@}
 
 /// @name Range Comparison

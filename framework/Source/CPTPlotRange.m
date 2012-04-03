@@ -296,6 +296,36 @@
 	return CPTDecimalEquals(self.location, otherRange.location) && CPTDecimalEquals(self.length, otherRange.length);
 }
 
+/** @brief Determines whether the receiver entirely contains another range.
+ *  @param otherRange The range to check.
+ *  @return True if the other range fits entirely within the range of the receiver.
+ **/
+-(BOOL)containsRange:(CPTPlotRange *)otherRange
+{
+	return CPTDecimalGreaterThanOrEqualTo(otherRange.minLimit, self.minLimit) && CPTDecimalLessThanOrEqualTo(otherRange.maxLimit, self.maxLimit);
+}
+
+/** @brief Determines whether a given range intersects the receiver.
+ *  @param otherRange The range to check.
+ *  @return True if the ranges intersect.
+ **/
+-(BOOL)intersectsRange:(CPTPlotRange *)otherRange
+{
+	if ( !otherRange ) {
+		return NO;
+	}
+
+	NSDecimal min1	  = self.minLimit;
+	NSDecimal min2	  = otherRange.minLimit;
+	NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
+
+	NSDecimal max1	  = self.maxLimit;
+	NSDecimal max2	  = otherRange.maxLimit;
+	NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
+
+	return CPTDecimalGreaterThanOrEqualTo(maximum, minimum);
+}
+
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
  *  @param number The number to check.
  *  @return The comparison result.
