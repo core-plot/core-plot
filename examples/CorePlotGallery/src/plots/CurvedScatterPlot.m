@@ -41,7 +41,7 @@
 {
 	if ( plotData == nil ) {
 		NSMutableArray *contentArray = [NSMutableArray array];
-		for ( NSUInteger i = 0; i < 10; i++ ) {
+		for ( NSUInteger i = 0; i < 11; i++ ) {
 			id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
 			id y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 0.5];
 			[contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
@@ -65,6 +65,11 @@
 	[self setTitleDefaultsForGraph:graph withBounds:bounds];
 	[self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
+	graph.plotAreaFrame.paddingLeft	  += 55.0;
+	graph.plotAreaFrame.paddingTop	  += 40.0;
+	graph.plotAreaFrame.paddingRight  += 55.0;
+	graph.plotAreaFrame.paddingBottom += 40.0;
+
 	// Setup scatter plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = YES;
@@ -83,39 +88,45 @@
 	redLineStyle.lineWidth = 10.0;
 	redLineStyle.lineColor = [[CPTColor redColor] colorWithAlphaComponent:0.5];
 
+	CPTLineCap *lineCap = [CPTLineCap sweptArrowPlotLineCap];
+	lineCap.size = CGSizeMake(15.0, 15.0);
+
 	// Axes
 	// Label x axis with a fixed interval policy
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 	CPTXYAxis *x		  = axisSet.xAxis;
-	x.majorIntervalLength		  = CPTDecimalFromString(@"0.5");
-	x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
-	x.minorTicksPerInterval		  = 2;
-	x.majorGridLineStyle		  = majorGridLineStyle;
-	x.minorGridLineStyle		  = minorGridLineStyle;
+	x.majorIntervalLength	= CPTDecimalFromDouble(0.1);
+	x.minorTicksPerInterval = 2;
+	x.majorGridLineStyle	= majorGridLineStyle;
+	x.minorGridLineStyle	= minorGridLineStyle;
+	x.axisConstraints		= [CPTConstraints constraintWithRelativeOffset:0.5];
 
-	x.title			= @"X Axis";
-	x.titleOffset	= 30.0;
-	x.titleLocation = CPTDecimalFromString(@"1.25");
+	lineCap.lineStyle = x.axisLineStyle;
+	lineCap.fill	  = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
+	x.axisLineCapMax  = lineCap;
+
+	x.title		  = @"X Axis";
+	x.titleOffset = 30.0;
 
 	// Label y with an automatic label policy.
 	CPTXYAxis *y = axisSet.yAxis;
 	y.labelingPolicy			  = CPTAxisLabelingPolicyAutomatic;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
 	y.minorTicksPerInterval		  = 2;
 	y.preferredNumberOfMajorTicks = 8;
 	y.majorGridLineStyle		  = majorGridLineStyle;
 	y.minorGridLineStyle		  = minorGridLineStyle;
+	y.axisConstraints			  = [CPTConstraints constraintWithLowerOffset:0.0];
 	y.labelOffset				  = 10.0;
 
-	y.title			= @"Y Axis";
-	y.titleOffset	= 30.0;
-	y.titleLocation = CPTDecimalFromString(@"1.0");
+	lineCap.lineStyle = y.axisLineStyle;
+	lineCap.fill	  = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
+	y.axisLineCapMax  = lineCap;
+	y.axisLineCapMin  = lineCap;
 
-	// Rotate the labels by 45 degrees, just to show it can be done.
-	labelRotation = M_PI * 0.25;
+	y.title		  = @"Y Axis";
+	y.titleOffset = 32.0;
 
 	// Set axes
-	//graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
 	graph.axisSet.axes = [NSArray arrayWithObjects:x, y, nil];
 
 	// Create a plot that uses the data source method
@@ -134,25 +145,26 @@
 	[graph addPlot:dataSourceLinePlot];
 
 	// Auto scale the plot space to fit the plot data
-	// Extend the ranges by 30% for neatness
 	[plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
 	CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
 	CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
-	[xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
-	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
+
+	// Expand the ranges to put some space around the plot
+	[xRange expandRangeByFactor:CPTDecimalFromDouble(1.2)];
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.2)];
 	plotSpace.xRange = xRange;
 	plotSpace.yRange = yRange;
 
-	// Restrict y range to a global range
-	CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
-															  length:CPTDecimalFromFloat(2.0f)];
-	plotSpace.globalYRange = globalYRange;
+	[xRange expandRangeByFactor:CPTDecimalFromDouble(1.025)];
+	xRange.location = plotSpace.xRange.location;
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+	x.visibleAxisRange = xRange;
+	y.visibleAxisRange = yRange;
 
-	// set the x and y shift to match the new ranges
-	CGFloat length = xRange.lengthDouble;
-	xShift = length - 3.0;
-	length = yRange.lengthDouble;
-	yShift = length - 2.0;
+	[xRange expandRangeByFactor:CPTDecimalFromDouble(3.0)];
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(3.0)];
+	plotSpace.globalXRange = xRange;
+	plotSpace.globalYRange = yRange;
 
 	// Add plot symbols
 	CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
@@ -209,13 +221,24 @@
 
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
-	// Impose a limit on how far user can scroll in x
-	if ( coordinate == CPTCoordinateX ) {
-		CPTPlotRange *maxRange			  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
-		CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
-		[changedRange shiftEndToFitInRange:maxRange];
-		[changedRange shiftLocationToFitInRange:maxRange];
-		newRange = changedRange;
+	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)space.graph.axisSet;
+
+	CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
+
+	switch ( coordinate ) {
+		case CPTCoordinateX :
+			[changedRange expandRangeByFactor:CPTDecimalFromDouble(1.025)];
+			changedRange.location		   = newRange.location;
+			axisSet.xAxis.visibleAxisRange = changedRange;
+			break;
+
+		case CPTCoordinateY:
+			[changedRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+			axisSet.yAxis.visibleAxisRange = changedRange;
+			break;
+
+		default:
+			break;
 	}
 
 	return newRange;
