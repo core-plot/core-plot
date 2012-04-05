@@ -150,7 +150,14 @@ NSString *const outerChartName = @"Outer";
 			whiteText.color = [CPTColor whiteColor];
 		}
 
-		newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [[plotData objectAtIndex:index] floatValue]] style:whiteText] autorelease];
+		newLayer				 = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [[plotData objectAtIndex:index] floatValue]] style:whiteText] autorelease];
+		newLayer.fill			 = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
+		newLayer.cornerRadius	 = 5.0;
+		newLayer.paddingLeft	 = 3.0;
+		newLayer.paddingTop		 = 3.0;
+		newLayer.paddingRight	 = 3.0;
+		newLayer.paddingBottom	 = 3.0;
+		newLayer.borderLineStyle = [CPTLineStyle lineStyle];
 	}
 
 	return newLayer;

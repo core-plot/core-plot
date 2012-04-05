@@ -13,7 +13,7 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 /**	@property text
  *	@brief The text to display.
- *	Inset newline characters (<code>'\\n'</code>) at the line breaks to display multi-line text.
+ *	Insert newline characters (<code>'\\n'</code>) at the line breaks to display multi-line text.
  **/
 @synthesize text;
 
@@ -140,6 +140,38 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 }
 
+-(void)setPaddingLeft:(CGFloat)newPadding
+{
+	if ( newPadding != self.paddingLeft ) {
+		[super setPaddingLeft:newPadding];
+		[self sizeToFit];
+	}
+}
+
+-(void)setPaddingRight:(CGFloat)newPadding
+{
+	if ( newPadding != self.paddingRight ) {
+		[super setPaddingRight:newPadding];
+		[self sizeToFit];
+	}
+}
+
+-(void)setPaddingTop:(CGFloat)newPadding
+{
+	if ( newPadding != self.paddingTop ) {
+		[super setPaddingTop:newPadding];
+		[self sizeToFit];
+	}
+}
+
+-(void)setPaddingBottom:(CGFloat)newPadding
+{
+	if ( newPadding != self.paddingBottom ) {
+		[super setPaddingBottom:newPadding];
+		[self sizeToFit];
+	}
+}
+
 ///	@endcond
 
 #pragma mark -
@@ -182,8 +214,11 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 	}
 	CGSize sizeThatFits = [self sizeThatFits];
 	CGRect newBounds	= self.bounds;
-	newBounds.size = sizeThatFits;
-	self.bounds	   = newBounds;
+	newBounds.size		   = sizeThatFits;
+	newBounds.size.width  += self.paddingLeft + self.paddingRight;
+	newBounds.size.height += self.paddingTop + self.paddingBottom;
+
+	self.bounds = newBounds;
 	[self setNeedsLayout];
 	[self setNeedsDisplay];
 }
@@ -215,9 +250,15 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 		shadowRadius = myShadow.shadowBlurRadius;
 	}
 
-	[self.text drawInRect:CGRectInset(self.bounds,
-									  ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
-									  ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth)
+	CGRect newBounds = CGRectInset(self.bounds,
+								   ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
+								   ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth);
+	newBounds.origin.x	  += self.paddingLeft;
+	newBounds.origin.y	  += self.paddingBottom;
+	newBounds.size.width  -= self.paddingLeft + self.paddingRight;
+	newBounds.size.height -= self.paddingTop + self.paddingBottom;
+
+	[self.text drawInRect:newBounds
 			withTextStyle:self.textStyle
 				inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
