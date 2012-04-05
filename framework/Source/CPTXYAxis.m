@@ -303,8 +303,7 @@
 		CPTPlotRange *theVisibleAxisRange = self.visibleAxisRange;
 		if ( theVisibleAxisRange ) {
 			[range release];
-			range = [thePlotRange mutableCopy];
-			[range intersectionPlotRange:theVisibleAxisRange];
+			range = [theVisibleAxisRange mutableCopy];
 		}
 		if ( theLineStyle ) {
 			CGPoint startViewPoint = CPTAlignPointToUserSpace(theContext, [self viewPointForCoordinateDecimalNumber:range.location]);
