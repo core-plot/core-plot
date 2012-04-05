@@ -796,6 +796,15 @@
 		newRangeX.location = CPTDecimalAdd(newRangeX.location, shiftX);
 		newRangeY.location = CPTDecimalAdd(newRangeY.location, shiftY);
 
+		CPTPlotRange *globalX = self.globalXRange;
+		if ( globalX ) {
+			newRangeX = (CPTMutablePlotRange *)[self constrainRange:newRangeX toGlobalRange:globalX];
+		}
+		CPTPlotRange *globalY = self.globalYRange;
+		if ( globalY ) {
+			newRangeY = (CPTMutablePlotRange *)[self constrainRange:newRangeY toGlobalRange:globalY];
+		}
+
 		// Delegate override
 		if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
 			self.xRange = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
