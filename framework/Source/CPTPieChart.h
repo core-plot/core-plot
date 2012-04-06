@@ -133,4 +133,9 @@ CPTPieDirection;
 +(CPTColor *)defaultPieSliceColorForIndex:(NSUInteger)pieSliceIndex;
 ///	@}
 
+/// @name User Interaction
+/// @{
+-(NSInteger)indexFromPoint:(CGPoint)point;
+///	@}
+
 @end
