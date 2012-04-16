@@ -780,3 +780,20 @@ NSString *CPTStringFromRect(CGRect r)
 {
 	return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }
+
+#pragma mark -
+#pragma mark CGPoint utilities
+
+/**	@brief Computes the square of the distance between two points.
+ *	@param point1 The first point.
+ *	@param point2 The second point.
+ *	@return The square of the distance between the two points.
+ **/
+CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
+{
+	CGFloat deltaX			= point1.x - point2.x;
+	CGFloat deltaY			= point1.y - point2.y;
+	CGFloat distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+	return distanceSquared;
+}

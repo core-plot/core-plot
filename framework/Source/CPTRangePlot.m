@@ -893,6 +893,107 @@ typedef struct CGPointError CGPointError;
 /// @endcond
 
 #pragma mark -
+#pragma mark Responder Chain and User Interaction
+
+///	@cond
+
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
+{
+	NSUInteger dataCount	 = self.cachedDataCount;
+	CGPointError *viewPoints = malloc( dataCount * sizeof(CGPointError) );
+	BOOL *drawPointFlags	 = malloc( dataCount * sizeof(BOOL) );
+
+	[self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
+	[self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags];
+
+	NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags extremeNumIsLowerBound:YES];
+	if ( result != NSNotFound ) {
+		CGPointError lastViewPoint	   = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		CGFloat minimumDistanceSquared = NAN;
+		for ( NSUInteger i = result; i < dataCount; ++i ) {
+			if ( drawPointFlags[i] ) {
+				lastViewPoint = viewPoints[i];
+				CGPoint lastPoint		= CGPointMake(lastViewPoint.x, lastViewPoint.y);
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lastPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+		}
+		if ( result != NSNotFound ) {
+			lastViewPoint = viewPoints[result];
+
+			if ( !isnan(lastViewPoint.left) && (point.x < lastViewPoint.left) ) {
+				result = NSNotFound;
+			}
+			if ( !isnan(lastViewPoint.right) && (point.x > lastViewPoint.right) ) {
+				result = NSNotFound;
+			}
+			if ( !isnan(lastViewPoint.high) && (point.y > lastViewPoint.high) ) {
+				result = NSNotFound;
+			}
+			if ( !isnan(lastViewPoint.low) && (point.y < lastViewPoint.low) ) {
+				result = NSNotFound;
+			}
+		}
+	}
+
+	free(viewPoints);
+	free(drawPointFlags);
+
+	return result;
+}
+
+///	@endcond
+
+/// @name User Interaction
+/// @{
+
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If this plot has a delegate that responds to the
+ *	@link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink
+ *	method, the <code>interactionPoint</code> is compared with each bar in index order.
+ *	The delegate method will be called and this method returns <code>YES</code> for the first
+ *	index where the <code>interactionPoint</code> is inside a bar.
+ *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	CPTGraph *theGraph		 = self.graph;
+	CPTPlotArea *thePlotArea = self.plotArea;
+
+	if ( !theGraph || !thePlotArea ) {
+		return NO;
+	}
+
+	id<CPTRangePlotDelegate> theDelegate = self.delegate;
+	if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
+		// Inform delegate if a point was hit
+		CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+		NSUInteger index	  = [self dataIndexFromInteractionPoint:plotAreaPoint];
+
+		if ( index != NSNotFound ) {
+			[theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index];
+			return YES;
+		}
+	}
+
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+///	@}
+
+#pragma mark -
 #pragma mark Accessors
 
 ///	@cond

@@ -834,7 +834,7 @@ static const CGFloat colorLookupTable[10][3] =
 		 [self.delegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
 		CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
 
-		NSInteger index = [self indexFromPoint:plotAreaPoint];
+		NSUInteger index = [self dataIndexFromInteractionPoint:plotAreaPoint];
 		if ( index != NSNotFound ) {
 			[self.delegate pieChart:self sliceWasSelectedAtRecordIndex:index];
 			return YES;
@@ -847,12 +847,11 @@ static const CGFloat colorLookupTable[10][3] =
 	return NO;
 }
 
-/**
- *	@brief Determines the index of the pie slice that's currently under the given point.
- *	@param point The coordinates of the interaction.
- *  @return The index of the slice that's currently under the given point or NSNotFound if none was found.
- */
--(NSInteger)indexFromPoint:(CGPoint)point
+///	@}
+
+///	@cond
+
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
 	CPTGraph *theGraph		 = self.graph;
 	CPTPlotArea *thePlotArea = self.plotArea;
@@ -997,7 +996,7 @@ static const CGFloat colorLookupTable[10][3] =
 	return NSNotFound;
 }
 
-///	@}
+///	@endcond
 
 #pragma mark -
 #pragma mark Accessors

@@ -130,6 +130,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	rangePlot.identifier   = @"Range Plot";
 	rangePlot.barLineStyle = barLineStyle;
 	rangePlot.dataSource   = self;
+	rangePlot.delegate	   = self;
 
 	// Bar properties
 	rangePlot.barWidth	= 10.0;
@@ -187,6 +188,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	//    rangePlot.barLineStyle = ( rangePlot.barLineStyle ? nil : barLineStyle );
 
 	return NO;
+}
+
+#pragma mark -
+#pragma mark Plot Delegate Methods
+
+-(void)rangePlot:(CPTRangePlot *)plot rangeWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"Range for '%@' was selected at index %d.", plot.identifier, (int)index);
 }
 
 @end

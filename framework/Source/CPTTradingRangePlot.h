@@ -42,6 +42,32 @@ CPTTradingRangePlotField;
 
 #pragma mark -
 
+/**
+ *	@brief Trading range plot delegate.
+ **/
+@protocol CPTTradingRangePlotDelegate<CPTPlotDelegate>
+
+@optional
+
+///	@name Point Selection
+/// @{
+
+/**	@brief (Optional) Informs the delegate that a bar was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The trading range plot.
+ *	@param index The index of the
+ *	@if MacOnly clicked bar. @endif
+ *	@if iOSOnly touched bar. @endif
+ **/
+-(void)tradingRangePlot:(CPTTradingRangePlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
+
+#pragma mark -
+
 @interface CPTTradingRangePlot : CPTPlot {
 	@private
 	CPTLineStyle *lineStyle;

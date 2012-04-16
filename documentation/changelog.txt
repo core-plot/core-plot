@@ -9,6 +9,7 @@
 - **New**: Added printing support to the OS X hosting view.
 - **New**: Added a plot data label selection delegate method.
 - **New**: Added a line fill property to `CPTLineStyle`.
+- **New**: Added point selection delegate methods to `CPTRangePlot` and `CPTTradingRangePlot`.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 
 

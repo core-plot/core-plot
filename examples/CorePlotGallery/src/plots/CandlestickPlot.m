@@ -146,6 +146,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 	ohlcPlot.increaseFill	 = [CPTFill fillWithColor:[CPTColor greenColor]];
 	ohlcPlot.decreaseFill	 = [CPTFill fillWithColor:[CPTColor redColor]];
 	ohlcPlot.dataSource		 = self;
+	ohlcPlot.delegate		 = self;
 	ohlcPlot.plotStyle		 = CPTTradingRangePlotStyleCandleStick;
 	ohlcPlot.shadow			 = whiteShadow;
 	ohlcPlot.labelShadow	 = whiteShadow;
@@ -205,6 +206,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 		num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
 	}
 	return num;
+}
+
+#pragma mark -
+#pragma mark Plot Delegate Methods
+
+-(void)tradingRangePlot:(CPTTradingRangePlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+{
+	NSLog(@"Bar for '%@' was selected at index %d.", plot.identifier, (int)index);
 }
 
 @end

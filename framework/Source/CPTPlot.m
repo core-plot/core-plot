@@ -1455,4 +1455,17 @@
 	// do nothing--implementation provided by subclasses
 }
 
+#pragma mark -
+#pragma mark User Interaction
+
+/**
+ *	@brief Determines the index of the data element that's under the given point.
+ *	@param point The coordinates of the interaction.
+ *  @return The index of the data point that's under the given point or NSNotFound if none was found.
+ */
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
+{
+	return NSNotFound;
+}
+
 @end

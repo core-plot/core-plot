@@ -46,8 +46,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
 
-CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
-
 @end
 
 ///	@endcond
@@ -537,13 +535,9 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 ///	@cond
 
-CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
-	CGFloat deltaX			= point1.x - point2.x;
-	CGFloat deltaY			= point1.y - point2.y;
-	CGFloat distanceSquared = deltaX * deltaX + deltaY * deltaY;
-
-	return distanceSquared;
+	return [self indexOfVisiblePointClosestToPlotAreaPoint:point];
 }
 
 ///	@endcond
@@ -565,10 +559,12 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 	if ( result != NSNotFound ) {
 		CGFloat minimumDistanceSquared = NAN;
 		for ( NSUInteger i = result; i < dataCount; ++i ) {
-			CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
-			if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
-				minimumDistanceSquared = distanceSquared;
-				result				   = i;
+			if ( drawPointFlags[i] ) {
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
 			}
 		}
 	}

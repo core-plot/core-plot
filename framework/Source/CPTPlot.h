@@ -272,4 +272,9 @@ CPTPlotCachePrecision;
 -(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index;
 ///	@}
 
+/// @name User Interaction
+/// @{
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point;
+///	@}
+
 @end

@@ -5,7 +5,7 @@
 
 #import "PlotItem.h"
 
-@interface RangePlot : PlotItem<CPTPlotSpaceDelegate, CPTPlotDataSource>
+@interface RangePlot : PlotItem<CPTPlotSpaceDelegate, CPTRangePlotDelegate, CPTPlotDataSource>
 {
 	@private
 	CPTGraph *graph;

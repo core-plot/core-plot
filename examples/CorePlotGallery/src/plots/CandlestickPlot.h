@@ -5,7 +5,7 @@
 
 #import "PlotItem.h"
 
-@interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate, CPTPlotDataSource>
+@interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate, CPTTradingRangePlotDelegate, CPTPlotDataSource>
 {
 	@private
 	CPTGraph *graph;

@@ -32,6 +32,9 @@ NSString *const CPTTradingRangePlotBindingHighValues  = @"highValues";  ///< Hig
 NSString *const CPTTradingRangePlotBindingLowValues	  = @"lowValues";   ///< Low price values.
 NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Close price values.
 
+const CPTCoordinate independentCoord = CPTCoordinateX;
+const CPTCoordinate dependentCoord	 = CPTCoordinateY;
+
 ///	@cond
 @interface CPTTradingRangePlot()
 
@@ -301,8 +304,6 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 	[theLineStyle setLineStyleInContext:theContext];
 
 	CGPoint openPoint, highPoint, lowPoint, closePoint;
-	const CPTCoordinate independentCoord = CPTCoordinateX;
-	const CPTCoordinate dependentCoord	 = CPTCoordinateY;
 
 	CPTPlotArea *thePlotArea			  = self.plotArea;
 	CPTPlotSpace *thePlotSpace			  = self.plotSpace;
@@ -870,6 +871,293 @@ NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Clo
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Responder Chain and User Interaction
+
+///	@cond
+
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
+{
+	NSUInteger dataCount = self.cachedDataCount;
+
+	CPTMutableNumericData *locations = [self cachedNumbersForField:CPTTradingRangePlotFieldX];
+	CPTMutableNumericData *opens	 = [self cachedNumbersForField:CPTTradingRangePlotFieldOpen];
+	CPTMutableNumericData *highs	 = [self cachedNumbersForField:CPTTradingRangePlotFieldHigh];
+	CPTMutableNumericData *lows		 = [self cachedNumbersForField:CPTTradingRangePlotFieldLow];
+	CPTMutableNumericData *closes	 = [self cachedNumbersForField:CPTTradingRangePlotFieldClose];
+
+	CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
+	CPTPlotRange *xRange		 = thePlotSpace.xRange;
+	CPTPlotRange *yRange		 = thePlotSpace.yRange;
+
+	CGPoint openPoint, highPoint, lowPoint, closePoint;
+	CGFloat lastViewX, lastViewMin, lastViewMax;
+
+	NSUInteger result			   = NSNotFound;
+	CGFloat minimumDistanceSquared = NAN;
+
+	if ( self.doublePrecisionCache ) {
+		const double *locationBytes = (const double *)locations.data.bytes;
+		const double *openBytes		= (const double *)opens.data.bytes;
+		const double *highBytes		= (const double *)highs.data.bytes;
+		const double *lowBytes		= (const double *)lows.data.bytes;
+		const double *closeBytes	= (const double *)closes.data.bytes;
+
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			double plotPoint[2];
+
+			plotPoint[independentCoord] = *locationBytes++;
+			if ( isnan(plotPoint[independentCoord]) || ![xRange containsDouble:plotPoint[independentCoord]] ) {
+				openBytes++;
+				highBytes++;
+				lowBytes++;
+				closeBytes++;
+				continue;
+			}
+
+			// open point
+			plotPoint[dependentCoord] = *openBytes++;
+			if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
+				openPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, openPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				openPoint = CGPointMake(NAN, NAN);
+			}
+
+			// high point
+			plotPoint[dependentCoord] = *highBytes++;
+			if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
+				highPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, highPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				highPoint = CGPointMake(NAN, NAN);
+			}
+
+			// low point
+			plotPoint[dependentCoord] = *lowBytes++;
+			if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
+				lowPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lowPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				lowPoint = CGPointMake(NAN, NAN);
+			}
+
+			// close point
+			plotPoint[dependentCoord] = *closeBytes++;
+			if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
+				closePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, closePoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				closePoint = CGPointMake(NAN, NAN);
+			}
+
+			if ( result == i ) {
+				lastViewX = openPoint.x;
+				if ( isnan(lastViewX) ) {
+					lastViewX = highPoint.x;
+				}
+				else if ( isnan(lastViewX) ) {
+					lastViewX = lowPoint.x;
+				}
+				else if ( isnan(lastViewX) ) {
+					lastViewX = closePoint.x;
+				}
+
+				lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
+				lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+			}
+		}
+	}
+	else {
+		const NSDecimal *locationBytes = (const NSDecimal *)locations.data.bytes;
+		const NSDecimal *openBytes	   = (const NSDecimal *)opens.data.bytes;
+		const NSDecimal *highBytes	   = (const NSDecimal *)highs.data.bytes;
+		const NSDecimal *lowBytes	   = (const NSDecimal *)lows.data.bytes;
+		const NSDecimal *closeBytes	   = (const NSDecimal *)closes.data.bytes;
+
+		for ( NSUInteger i = 0; i < dataCount; i++ ) {
+			NSDecimal plotPoint[2];
+			plotPoint[dependentCoord] = CPTDecimalNaN();
+
+			plotPoint[independentCoord] = *locationBytes++;
+			if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) || ![xRange contains:plotPoint[independentCoord]] ) {
+				openBytes++;
+				highBytes++;
+				lowBytes++;
+				closeBytes++;
+				continue;
+			}
+
+			// open point
+			plotPoint[dependentCoord] = *openBytes++;
+			if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
+				openPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, openPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				openPoint = CGPointMake(NAN, NAN);
+			}
+
+			// high point
+			plotPoint[dependentCoord] = *highBytes++;
+			if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
+				highPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, highPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				highPoint = CGPointMake(NAN, NAN);
+			}
+
+			// low point
+			plotPoint[dependentCoord] = *lowBytes++;
+			if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
+				lowPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lowPoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				lowPoint = CGPointMake(NAN, NAN);
+			}
+
+			// close point
+			plotPoint[dependentCoord] = *closeBytes++;
+			if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
+				closePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+				CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, closePoint);
+				if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+					minimumDistanceSquared = distanceSquared;
+					result				   = i;
+				}
+			}
+			else {
+				closePoint = CGPointMake(NAN, NAN);
+			}
+
+			if ( result == i ) {
+				lastViewX = openPoint.x;
+				if ( isnan(lastViewX) ) {
+					lastViewX = highPoint.x;
+				}
+				else if ( isnan(lastViewX) ) {
+					lastViewX = lowPoint.x;
+				}
+				else if ( isnan(lastViewX) ) {
+					lastViewX = closePoint.x;
+				}
+
+				lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
+				lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+			}
+		}
+	}
+
+	if ( result != NSNotFound ) {
+		CGFloat offset = 0.0;
+
+		switch ( self.plotStyle ) {
+			case CPTTradingRangePlotStyleOHLC:
+				offset = self.stickLength;
+				break;
+
+			case CPTTradingRangePlotStyleCandleStick:
+				offset = self.barWidth * (CGFloat)0.5;
+				break;
+
+			default:
+				[NSException raise:CPTException format:@"Invalid plot style in -dataIndexFromInteractionPoint:"];
+				break;
+		}
+
+		if ( ( point.x < (lastViewX - offset) ) || ( point.x > (lastViewX + offset) ) ) {
+			result = NSNotFound;
+		}
+		if ( (point.y < lastViewMin) || (point.y > lastViewMax) ) {
+			result = NSNotFound;
+		}
+	}
+
+	return result;
+}
+
+///	@endcond
+
+/// @name User Interaction
+/// @{
+
+/**
+ *	@brief Informs the receiver that the user has
+ *	@if MacOnly pressed the mouse button. @endif
+ *	@if iOSOnly touched the screen. @endif
+ *
+ *
+ *	If this plot has a delegate that responds to the
+ *	@link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink
+ *	method, the <code>interactionPoint</code> is compared with each bar in index order.
+ *	The delegate method will be called and this method returns <code>YES</code> for the first
+ *	index where the <code>interactionPoint</code> is inside a bar.
+ *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
+ *
+ *	@param event The OS event.
+ *	@param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+	CPTGraph *theGraph		 = self.graph;
+	CPTPlotArea *thePlotArea = self.plotArea;
+
+	if ( !theGraph || !thePlotArea ) {
+		return NO;
+	}
+
+	id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+	if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ) {
+		// Inform delegate if a point was hit
+		CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+		NSUInteger index	  = [self dataIndexFromInteractionPoint:plotAreaPoint];
+
+		if ( index != NSNotFound ) {
+			[theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:index];
+			return YES;
+		}
+	}
+
+	return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+///	@}
 
 #pragma mark -
 #pragma mark Accessors

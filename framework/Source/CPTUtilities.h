@@ -116,6 +116,12 @@ NSString *CPTStringFromRect(CGRect r);
 
 /// @}
 
+/// @name CGPoint Utilities
+/// @{
+CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
+
+/// @}
+
 #if __cplusplus
 }
 #endif

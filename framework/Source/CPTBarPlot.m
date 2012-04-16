@@ -1060,6 +1060,31 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
+///	@cond
+
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
+{
+	NSUInteger index	= NSNotFound;
+	NSUInteger barCount = self.cachedDataCount;
+	NSUInteger ii		= 0;
+
+	while ( (ii < barCount) && (index == NSNotFound) ) {
+		CGMutablePathRef path = [self newBarPathWithContext:NULL recordIndex:ii];
+
+		if ( CGPathContainsPoint(path, nil, point, false) ) {
+			index = ii;
+		}
+
+		CGPathRelease(path);
+
+		ii++;
+	}
+
+	return index;
+}
+
+///	@endcond
+
 /// @name User Interaction
 /// @{
 
@@ -1093,19 +1118,11 @@ NSString *const CPTBarPlotBindingBarBases	  = @"barBases";     ///< Bar bases.
 	if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
 		// Inform delegate if a point was hit
 		CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+		NSUInteger index	  = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
-		NSUInteger barCount = self.cachedDataCount;
-
-		for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
-			CGMutablePathRef path = [self newBarPathWithContext:NULL recordIndex:ii];
-
-			if ( CGPathContainsPoint(path, nil, plotAreaPoint, false) ) {
-				[theDelegate barPlot:self barWasSelectedAtRecordIndex:ii];
-				CGPathRelease(path);
-				return YES;
-			}
-
-			CGPathRelease(path);
+		if ( index != NSNotFound ) {
+			[theDelegate barPlot:self barWasSelectedAtRecordIndex:index];
+			return YES;
 		}
 	}
 
