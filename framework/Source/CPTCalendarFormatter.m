@@ -1,5 +1,7 @@
 #import "CPTCalendarFormatter.h"
 
+#import "CPTExceptions.h"
+
 /**	@brief A number formatter that converts calendar intervals to dates.
  *  Useful for formatting labels on an axis. The numerical
  *  scale of the plot space will be used to increment the specified calendar unit.
@@ -174,22 +176,42 @@
 			dateComponents.weekdayOrdinal = componentIncrement;
 			break;
 
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
+#if MAC_OS_X_VERSION_10_5 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_3_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
 		case NSQuarterCalendarUnit:
-			dateComponents.quarter = componentIncrement;
+			if ( [dateComponents respondsToSelector:@selector(setQuarter)] ) {
+				dateComponents.quarter = componentIncrement;
+			}
+			else {
+				[NSException raise:CPTException format:@"Unsupported calendar unit: NSQuarterCalendarUnit"];
+			}
 			break;
 #endif
-#if MAC_OS_X_VERSION_10_7 <= MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_5_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
+#if MAC_OS_X_VERSION_10_6 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
 		case NSWeekOfMonthCalendarUnit:
-			dateComponents.weekOfMonth = componentIncrement;
+			if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth)] ) {
+				dateComponents.weekOfMonth = componentIncrement;
+			}
+			else {
+				[NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfMonthCalendarUnit"];
+			}
 			break;
 
 		case NSWeekOfYearCalendarUnit:
-			dateComponents.weekOfYear = componentIncrement;
+			if ( [dateComponents respondsToSelector:@selector(setWeekOfYear)] ) {
+				dateComponents.weekOfYear = componentIncrement;
+			}
+			else {
+				[NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfYearCalendarUnit"];
+			}
 			break;
 
 		case NSYearForWeekOfYearCalendarUnit:
-			dateComponents.yearForWeekOfYear = componentIncrement;
+			if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear)] ) {
+				dateComponents.yearForWeekOfYear = componentIncrement;
+			}
+			else {
+				[NSException raise:CPTException format:@"Unsupported calendar unit: NSYearForWeekOfYearCalendarUnit"];
+			}
 			break;
 #endif
 		default:
