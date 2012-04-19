@@ -1153,6 +1153,7 @@
 				);
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = debugging;
 				SYMROOT = "$(PROJECT_DIR)/../build";
@@ -1191,6 +1192,7 @@
 				);
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = debugging;
 				SYMROOT = "$(PROJECT_DIR)/../build";
