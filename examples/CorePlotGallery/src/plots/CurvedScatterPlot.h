@@ -7,12 +7,12 @@
 #import "PlotItem.h"
 
 @interface CurvedScatterPlot : PlotItem<CPTPlotSpaceDelegate,
-										CPTPlotDataSource,
-										CPTScatterPlotDelegate>
+                                        CPTPlotDataSource,
+                                        CPTScatterPlotDelegate>
 {
-	CPTPlotSpaceAnnotation *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

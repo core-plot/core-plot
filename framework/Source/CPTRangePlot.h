@@ -20,12 +20,12 @@ extern NSString *const CPTRangePlotBindingRightValues;
  *	@brief Enumeration of range plot data source field types
  **/
 typedef enum _CPTRangePlotField {
-	CPTRangePlotFieldX,     ///< X values.
-	CPTRangePlotFieldY,     ///< Y values.
-	CPTRangePlotFieldHigh,  ///< relative High values.
-	CPTRangePlotFieldLow,   ///< relative Low values.
-	CPTRangePlotFieldLeft,  ///< relative Left values.
-	CPTRangePlotFieldRight, ///< relative Right values.
+    CPTRangePlotFieldX,     ///< X values.
+    CPTRangePlotFieldY,     ///< Y values.
+    CPTRangePlotFieldHigh,  ///< relative High values.
+    CPTRangePlotFieldLow,   ///< relative Low values.
+    CPTRangePlotFieldLeft,  ///< relative Left values.
+    CPTRangePlotFieldRight, ///< relative Right values.
 }
 CPTRangePlotField;
 
@@ -58,11 +58,11 @@ CPTRangePlotField;
 #pragma mark -
 
 @interface CPTRangePlot : CPTPlot {
-	CPTLineStyle *barLineStyle;
-	CGFloat barWidth;
-	CGFloat gapHeight;
-	CGFloat gapWidth;
-	CPTFill *areaFill;
+    CPTLineStyle *barLineStyle;
+    CGFloat barWidth;
+    CGFloat gapHeight;
+    CGFloat gapWidth;
+    CPTFill *areaFill;
 }
 
 /// @name Bar Appearance

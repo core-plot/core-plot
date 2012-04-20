@@ -71,16 +71,16 @@
  **/
 -(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
-	NSParameterAssert(newScale > 0.0);
+    NSParameterAssert(newScale > 0.0);
 
-	if ( (self = [super init]) ) {
-		CGImageRetain(anImage);
-		image				  = anImage;
-		scale				  = newScale;
-		tiled				  = NO;
-		tileAnchoredToContext = YES;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        CGImageRetain(anImage);
+        image                 = anImage;
+        scale                 = newScale;
+        tiled                 = NO;
+        tileAnchoredToContext = YES;
+    }
+    return self;
 }
 
 /** @brief Initializes a CPTImage instance with the provided CGImageRef and scale 1.0.
@@ -89,12 +89,12 @@
  **/
 -(id)initWithCGImage:(CGImageRef)anImage
 {
-	return [self initWithCGImage:anImage scale:1.0];
+    return [self initWithCGImage:anImage scale:1.0];
 }
 
 -(id)init
 {
-	return [self initWithCGImage:NULL];
+    return [self initWithCGImage:NULL];
 }
 
 /** @brief Initializes a CPTImage instance with the contents of a PNG file.
@@ -108,70 +108,70 @@
  **/
 -(id)initForPNGFile:(NSString *)path
 {
-	CGDataProviderRef dataProvider = NULL;
-	CGImageRef cgImage			   = NULL;
-	CGFloat imageScale			   = 1.0;
+    CGDataProviderRef dataProvider = NULL;
+    CGImageRef cgImage             = NULL;
+    CGFloat imageScale             = 1.0;
 
-	// Try to load @2x file if the system supports hi-dpi display
+    // Try to load @2x file if the system supports hi-dpi display
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	UIScreen *screen = [UIScreen mainScreen];
-	// scale property is available in iOS 4.0 and later
-	if ( [screen respondsToSelector:@selector(scale)] ) {
-		imageScale = screen.scale;
-	}
+    UIScreen *screen = [UIScreen mainScreen];
+    // scale property is available in iOS 4.0 and later
+    if ( [screen respondsToSelector:@selector(scale)] ) {
+        imageScale = screen.scale;
+    }
 #else
-	NSScreen *screen = [NSScreen mainScreen];
-	// backingScaleFactor property is available in MacOS 10.7 and later
-	if ( [screen respondsToSelector:@selector(backingScaleFactor)] ) {
-		imageScale = screen.backingScaleFactor;
-	}
+    NSScreen *screen = [NSScreen mainScreen];
+    // backingScaleFactor property is available in MacOS 10.7 and later
+    if ( [screen respondsToSelector:@selector(backingScaleFactor)] ) {
+        imageScale = screen.backingScaleFactor;
+    }
 #endif
 
-	if ( imageScale > 1.0 ) {
-		NSMutableString *hiDpiPath = [path mutableCopy];
-		NSUInteger replaceCount	   = [hiDpiPath replaceOccurrencesOfString:@".png"
-																withString:@"@2x.png"
-																   options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
-																	 range:NSMakeRange(hiDpiPath.length - 4, 4)];
-		if ( replaceCount == 1 ) {
-			dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
-		}
-		[hiDpiPath release];
-		if ( !dataProvider ) {
-			imageScale = 1.0;
-		}
-	}
+    if ( imageScale > 1.0 ) {
+        NSMutableString *hiDpiPath = [path mutableCopy];
+        NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
+                                                                withString:@"@2x.png"
+                                                                   options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
+                                                                     range:NSMakeRange(hiDpiPath.length - 4, 4)];
+        if ( replaceCount == 1 ) {
+            dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+        [hiDpiPath release];
+        if ( !dataProvider ) {
+            imageScale = 1.0;
+        }
+    }
 
-	// if hi-dpi display or @2x image not available, load the 1x image at the original path
-	if ( !dataProvider ) {
-		dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
-	}
-	if ( dataProvider ) {
-		cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
-	}
+    // if hi-dpi display or @2x image not available, load the 1x image at the original path
+    if ( !dataProvider ) {
+        dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    if ( dataProvider ) {
+        cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+    }
 
-	if ( cgImage ) {
-		self = [self initWithCGImage:cgImage scale:imageScale];
-	}
-	else {
-		[self release];
-		self = nil;
-	}
-	CGImageRelease(cgImage);
-	CGDataProviderRelease(dataProvider);
-	return self;
+    if ( cgImage ) {
+        self = [self initWithCGImage:cgImage scale:imageScale];
+    }
+    else {
+        [self release];
+        self = nil;
+    }
+    CGImageRelease(cgImage);
+    CGDataProviderRelease(dataProvider);
+    return self;
 }
 
 -(void)dealloc
 {
-	CGImageRelease(image);
-	[super dealloc];
+    CGImageRelease(image);
+    [super dealloc];
 }
 
 -(void)finalize
 {
-	CGImageRelease(image);
-	[super finalize];
+    CGImageRelease(image);
+    [super finalize];
 }
 
 #pragma mark -
@@ -179,21 +179,21 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeCGImage:self.image forKey:@"CPTImage.image"];
-	[coder encodeCGFloat:self.scale forKey:@"CPTImage.scale"];
-	[coder encodeBool:self.tiled forKey:@"CPTImage.tiled"];
-	[coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
+    [coder encodeCGImage:self.image forKey:@"CPTImage.image"];
+    [coder encodeCGFloat:self.scale forKey:@"CPTImage.scale"];
+    [coder encodeBool:self.tiled forKey:@"CPTImage.tiled"];
+    [coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		image				  = [coder newCGImageDecodeForKey:@"CPTImage.image"];
-		scale				  = [coder decodeCGFloatForKey:@"CPTImage.scale"];
-		tiled				  = [coder decodeBoolForKey:@"CPTImage.tiled"];
-		tileAnchoredToContext = [coder decodeBoolForKey:@"CPTImage.tileAnchoredToContext"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        image                 = [coder newCGImageDecodeForKey:@"CPTImage.image"];
+        scale                 = [coder decodeCGFloatForKey:@"CPTImage.scale"];
+        tiled                 = [coder decodeBoolForKey:@"CPTImage.tiled"];
+        tileAnchoredToContext = [coder decodeBoolForKey:@"CPTImage.tileAnchoredToContext"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -201,14 +201,14 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTImage *copy = [[[self class] allocWithZone:zone] init];
+    CPTImage *copy = [[[self class] allocWithZone:zone] init];
 
-	copy->image					= CGImageCreateCopy(self.image);
-	copy->scale					= self->scale;
-	copy->tiled					= self->tiled;
-	copy->tileAnchoredToContext = self->tileAnchoredToContext;
+    copy->image                 = CGImageCreateCopy(self.image);
+    copy->scale                 = self->scale;
+    copy->tiled                 = self->tiled;
+    copy->tileAnchoredToContext = self->tileAnchoredToContext;
 
-	return copy;
+    return copy;
 }
 
 #pragma mark -
@@ -221,7 +221,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
-	return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
+    return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided CGImageRef and scale 1.0.
@@ -230,7 +230,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage
 {
-	return [[[self alloc] initWithCGImage:anImage] autorelease];
+    return [[[self alloc] initWithCGImage:anImage] autorelease];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the contents of a PNG file.
@@ -244,7 +244,7 @@
  **/
 +(CPTImage *)imageForPNGFile:(NSString *)path
 {
-	return [[[self alloc] initForPNGFile:path] autorelease];
+    return [[[self alloc] initForPNGFile:path] autorelease];
 }
 
 #pragma mark -
@@ -252,127 +252,127 @@
 
 -(BOOL)isEqual:(id)object
 {
-	if ( self == object ) {
-		return YES;
-	}
-	else if ( [object isKindOfClass:[self class]] ) {
-		CPTImage *otherImage = (CPTImage *)object;
+    if ( self == object ) {
+        return YES;
+    }
+    else if ( [object isKindOfClass:[self class]] ) {
+        CPTImage *otherImage = (CPTImage *)object;
 
-		BOOL equalImages = (self.scale == otherImage.scale) &&
-						   (self.tiled == otherImage.tiled) &&
-						   (self.tileAnchoredToContext == otherImage.tileAnchoredToContext);
+        BOOL equalImages = (self.scale == otherImage.scale) &&
+                           (self.tiled == otherImage.tiled) &&
+                           (self.tileAnchoredToContext == otherImage.tileAnchoredToContext);
 
-		CGImageRef selfCGImage	= self.image;
-		CGImageRef otherCGImage = otherImage.image;
+        CGImageRef selfCGImage  = self.image;
+        CGImageRef otherCGImage = otherImage.image;
 
-		CGColorSpaceRef selfColorSpace	= CGImageGetColorSpace(selfCGImage);
-		CGColorSpaceRef otherColorSpace = CGImageGetColorSpace(otherCGImage);
+        CGColorSpaceRef selfColorSpace  = CGImageGetColorSpace(selfCGImage);
+        CGColorSpaceRef otherColorSpace = CGImageGetColorSpace(otherCGImage);
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetWidth(selfCGImage) == CGImageGetWidth(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetWidth(selfCGImage) == CGImageGetWidth(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetHeight(selfCGImage) == CGImageGetHeight(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetHeight(selfCGImage) == CGImageGetHeight(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetBitsPerComponent(selfCGImage) == CGImageGetBitsPerComponent(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetBitsPerComponent(selfCGImage) == CGImageGetBitsPerComponent(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetBitsPerPixel(selfCGImage) == CGImageGetBitsPerPixel(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetBitsPerPixel(selfCGImage) == CGImageGetBitsPerPixel(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetBytesPerRow(selfCGImage) == CGImageGetBytesPerRow(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetBytesPerRow(selfCGImage) == CGImageGetBytesPerRow(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetBitmapInfo(selfCGImage) == CGImageGetBitmapInfo(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetBitmapInfo(selfCGImage) == CGImageGetBitmapInfo(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetShouldInterpolate(selfCGImage) == CGImageGetShouldInterpolate(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetShouldInterpolate(selfCGImage) == CGImageGetShouldInterpolate(otherCGImage) );
+        }
 
-		if ( equalImages ) {
-			equalImages = ( CGImageGetRenderingIntent(selfCGImage) == CGImageGetRenderingIntent(otherCGImage) );
-		}
+        if ( equalImages ) {
+            equalImages = ( CGImageGetRenderingIntent(selfCGImage) == CGImageGetRenderingIntent(otherCGImage) );
+        }
 
-		// decode array
-		if ( equalImages ) {
-			const CGFloat *selfDecodeArray	= CGImageGetDecode(selfCGImage);
-			const CGFloat *otherDecodeArray = CGImageGetDecode(otherCGImage);
+        // decode array
+        if ( equalImages ) {
+            const CGFloat *selfDecodeArray  = CGImageGetDecode(selfCGImage);
+            const CGFloat *otherDecodeArray = CGImageGetDecode(otherCGImage);
 
-			if ( selfDecodeArray && otherDecodeArray ) {
-				size_t numberOfComponentsSelf  = CGColorSpaceGetNumberOfComponents(selfColorSpace) * 2;
-				size_t numberOfComponentsOther = CGColorSpaceGetNumberOfComponents(otherColorSpace) * 2;
+            if ( selfDecodeArray && otherDecodeArray ) {
+                size_t numberOfComponentsSelf  = CGColorSpaceGetNumberOfComponents(selfColorSpace) * 2;
+                size_t numberOfComponentsOther = CGColorSpaceGetNumberOfComponents(otherColorSpace) * 2;
 
-				if ( numberOfComponentsSelf == numberOfComponentsOther ) {
-					for ( size_t i = 0; i < numberOfComponentsSelf; i++ ) {
-						if ( selfDecodeArray[i] != otherDecodeArray[i] ) {
-							equalImages = NO;
-							break;
-						}
-					}
-				}
-				else {
-					equalImages = NO;
-				}
-			}
-			else if ( (selfDecodeArray && !otherDecodeArray) || (!selfDecodeArray && otherDecodeArray) ) {
-				equalImages = NO;
-			}
-		}
+                if ( numberOfComponentsSelf == numberOfComponentsOther ) {
+                    for ( size_t i = 0; i < numberOfComponentsSelf; i++ ) {
+                        if ( selfDecodeArray[i] != otherDecodeArray[i] ) {
+                            equalImages = NO;
+                            break;
+                        }
+                    }
+                }
+                else {
+                    equalImages = NO;
+                }
+            }
+            else if ( (selfDecodeArray && !otherDecodeArray) || (!selfDecodeArray && otherDecodeArray) ) {
+                equalImages = NO;
+            }
+        }
 
-		// color space
-		if ( equalImages ) {
-			equalImages = ( CGColorSpaceGetModel(selfColorSpace) == CGColorSpaceGetModel(otherColorSpace) ) &&
-						  ( CGColorSpaceGetNumberOfComponents(selfColorSpace) == CGColorSpaceGetNumberOfComponents(otherColorSpace) );
-		}
+        // color space
+        if ( equalImages ) {
+            equalImages = ( CGColorSpaceGetModel(selfColorSpace) == CGColorSpaceGetModel(otherColorSpace) ) &&
+                          ( CGColorSpaceGetNumberOfComponents(selfColorSpace) == CGColorSpaceGetNumberOfComponents(otherColorSpace) );
+        }
 
-		// data provider
-		if ( equalImages ) {
-			CGDataProviderRef selfProvider	= CGImageGetDataProvider(selfCGImage);
-			CFDataRef selfProviderData		= CGDataProviderCopyData(selfProvider);
-			CGDataProviderRef otherProvider = CGImageGetDataProvider(otherCGImage);
-			CFDataRef otherProviderData		= CGDataProviderCopyData(otherProvider);
+        // data provider
+        if ( equalImages ) {
+            CGDataProviderRef selfProvider  = CGImageGetDataProvider(selfCGImage);
+            CFDataRef selfProviderData      = CGDataProviderCopyData(selfProvider);
+            CGDataProviderRef otherProvider = CGImageGetDataProvider(otherCGImage);
+            CFDataRef otherProviderData     = CGDataProviderCopyData(otherProvider);
 
-			if ( selfProviderData && otherProviderData ) {
-				equalImages = [(NSData *) selfProviderData isEqualToData:(NSData *)otherProviderData];
-			}
-			else {
-				equalImages = (selfProviderData == otherProviderData);
-			}
+            if ( selfProviderData && otherProviderData ) {
+                equalImages = [(NSData *) selfProviderData isEqualToData:(NSData *)otherProviderData];
+            }
+            else {
+                equalImages = (selfProviderData == otherProviderData);
+            }
 
-			if ( selfProviderData ) {
-				CFRelease(selfProviderData);
-			}
-			if ( otherProviderData ) {
-				CFRelease(otherProviderData);
-			}
-		}
+            if ( selfProviderData ) {
+                CFRelease(selfProviderData);
+            }
+            if ( otherProviderData ) {
+                CFRelease(otherProviderData);
+            }
+        }
 
-		return equalImages;
-	}
-	else {
-		return NO;
-	}
+        return equalImages;
+    }
+    else {
+        return NO;
+    }
 }
 
 -(NSUInteger)hash
 {
-	// Equal objects must hash the same.
-	CGImageRef selfCGImage = self.image;
+    // Equal objects must hash the same.
+    CGImageRef selfCGImage = self.image;
 
-	return ( CGImageGetWidth(selfCGImage) * CGImageGetHeight(selfCGImage) ) +
-		   CGImageGetBitsPerComponent(selfCGImage) +
-		   CGImageGetBitsPerPixel(selfCGImage) +
-		   CGImageGetBytesPerRow(selfCGImage) +
-		   CGImageGetBitmapInfo(selfCGImage) +
-		   CGImageGetShouldInterpolate(selfCGImage) +
-		   CGImageGetRenderingIntent(selfCGImage) * self.scale;
+    return ( CGImageGetWidth(selfCGImage) * CGImageGetHeight(selfCGImage) ) +
+           CGImageGetBitsPerComponent(selfCGImage) +
+           CGImageGetBitsPerPixel(selfCGImage) +
+           CGImageGetBytesPerRow(selfCGImage) +
+           CGImageGetBitmapInfo(selfCGImage) +
+           CGImageGetShouldInterpolate(selfCGImage) +
+           CGImageGetRenderingIntent(selfCGImage) * self.scale;
 }
 
 #pragma mark -
@@ -382,20 +382,20 @@
 
 -(void)setImage:(CGImageRef)newImage
 {
-	if ( newImage != image ) {
-		CGImageRetain(newImage);
-		CGImageRelease(image);
-		image = newImage;
-	}
+    if ( newImage != image ) {
+        CGImageRetain(newImage);
+        CGImageRelease(image);
+        image = newImage;
+    }
 }
 
 -(void)setScale:(CGFloat)newScale
 {
-	NSParameterAssert(newScale > 0.0);
+    NSParameterAssert(newScale > 0.0);
 
-	if ( newScale != scale ) {
-		scale = newScale;
-	}
+    if ( newScale != scale ) {
+        scale = newScale;
+    }
 }
 
 ///	@endcond
@@ -413,38 +413,38 @@
  **/
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context
 {
-	CGImageRef theImage = self.image;
+    CGImageRef theImage = self.image;
 
-	if ( theImage ) {
-		CGFloat imageScale	 = self.scale;
-		CGFloat contextScale = 1.0;
+    if ( theImage ) {
+        CGFloat imageScale   = self.scale;
+        CGFloat contextScale = 1.0;
 
-		if ( rect.size.height != 0.0 ) {
-			CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
-			contextScale = deviceRect.size.height / rect.size.height;
-		}
+        if ( rect.size.height != 0.0 ) {
+            CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
+            contextScale = deviceRect.size.height / rect.size.height;
+        }
 
-		CGFloat scaleRatio = contextScale / imageScale;
+        CGFloat scaleRatio = contextScale / imageScale;
 
-		CGContextSaveGState(context);
+        CGContextSaveGState(context);
 
-		if ( self.isTiled ) {
-			CGContextClipToRect(context, *(CGRect *)&rect);
-			if ( !self.tileAnchoredToContext ) {
-				CGContextTranslateCTM(context, rect.origin.x, rect.origin.y);
-			}
-			CGContextScaleCTM(context, scaleRatio, scaleRatio);
+        if ( self.isTiled ) {
+            CGContextClipToRect(context, *(CGRect *)&rect);
+            if ( !self.tileAnchoredToContext ) {
+                CGContextTranslateCTM(context, rect.origin.x, rect.origin.y);
+            }
+            CGContextScaleCTM(context, scaleRatio, scaleRatio);
 
-			CGRect imageBounds = CGRectMake( 0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage) );
-			CGContextDrawTiledImage(context, imageBounds, theImage);
-		}
-		else {
-			CGContextScaleCTM(context, scaleRatio, scaleRatio);
-			CGContextDrawImage(context, rect, theImage);
-		}
+            CGRect imageBounds = CGRectMake( 0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage) );
+            CGContextDrawTiledImage(context, imageBounds, theImage);
+        }
+        else {
+            CGContextScaleCTM(context, scaleRatio, scaleRatio);
+            CGContextDrawImage(context, rect, theImage);
+        }
 
-		CGContextRestoreGState(context);
-	}
+        CGContextRestoreGState(context);
+    }
 }
 
 @end

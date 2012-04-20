@@ -36,11 +36,11 @@
  **/
 -(id)initWithRelativeOffset:(CGFloat)newOffset
 {
-	if ( (self = [super init]) ) {
-		offset = newOffset;
-	}
+    if ( (self = [super init]) ) {
+        offset = newOffset;
+    }
 
-	return self;
+    return self;
 }
 
 #pragma mark -
@@ -48,10 +48,10 @@
 
 -(BOOL)isEqualToConstraint:(CPTConstraints *)otherConstraint
 {
-	if ( [self class] != [otherConstraint class] ) {
-		return NO;
-	}
-	return self.offset == ( (_CPTConstraintsRelative *)otherConstraint ).offset;
+    if ( [self class] != [otherConstraint class] ) {
+        return NO;
+    }
+    return self.offset == ( (_CPTConstraintsRelative *)otherConstraint ).offset;
 }
 
 #pragma mark -
@@ -64,11 +64,11 @@
  **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
 {
-	NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
+    NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
 
-	CGFloat position = fma(upperBound - lowerBound, self.offset, lowerBound);
+    CGFloat position = fma(upperBound - lowerBound, self.offset, lowerBound);
 
-	return position;
+    return position;
 }
 
 #pragma mark -
@@ -76,11 +76,11 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
+    _CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
 
-	copy->offset = self->offset;
+    copy->offset = self->offset;
 
-	return copy;
+    return copy;
 }
 
 #pragma mark -
@@ -88,20 +88,20 @@
 
 -(Class)classForCoder
 {
-	return [CPTConstraints class];
+    return [CPTConstraints class];
 }
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsRelative.offset"];
+    [coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsRelative.offset"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
+    }
+    return self;
 }
 
 @end

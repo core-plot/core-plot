@@ -2,7 +2,7 @@
 
 @interface DonutChart : PlotItem<CPTPlotSpaceDelegate, CPTPlotDataSource>
 {
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

@@ -14,10 +14,10 @@
 
 -(id)initWithFrame:(NSRect)frame
 {
-	if ( (self = [super initWithFrame:frame]) ) {
-	}
+    if ( (self = [super initWithFrame:frame]) ) {
+    }
 
-	return self;
+    return self;
 }
 
 -(void)drawRect:(NSRect)dirtyRect
@@ -26,11 +26,11 @@
 
 -(void)setFrameSize:(NSSize)newSize
 {
-	[super setFrameSize:newSize];
+    [super setFrameSize:newSize];
 
-	if ( delegate && [delegate respondsToSelector:@selector(setFrameSize:)] ) {
-		[delegate setFrameSize:newSize];
-	}
+    if ( delegate && [delegate respondsToSelector:@selector(setFrameSize:)] ) {
+        [delegate setFrameSize:newSize];
+    }
 }
 
 @end

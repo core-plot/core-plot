@@ -4,8 +4,8 @@
 @class CPTImage;
 
 @interface _CPTFillImage : CPTFill<NSCopying, NSCoding> {
-	@private
-	CPTImage *fillImage;
+    @private
+    CPTImage *fillImage;
 }
 
 /// @name Initialization

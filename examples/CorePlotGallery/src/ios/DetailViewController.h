@@ -12,20 +12,20 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailViewController : UIViewController<UIPopoverControllerDelegate,
-												   UISplitViewControllerDelegate,
-												   ThemeTableViewControllerDelegate>
+                                                   UISplitViewControllerDelegate,
+                                                   ThemeTableViewControllerDelegate>
 {
-	UIPopoverController *popoverController;
-	UIToolbar *toolbar;
+    UIPopoverController *popoverController;
+    UIToolbar *toolbar;
 
-	PlotItem *detailItem;
+    PlotItem *detailItem;
 
-	UIView *hostingView;
-	UIBarButtonItem *themeBarButton;
-	UIPopoverController *themePopoverController;
-	ThemeTableViewController *themeTableViewController;
+    UIView *hostingView;
+    UIBarButtonItem *themeBarButton;
+    UIPopoverController *themePopoverController;
+    ThemeTableViewController *themeTableViewController;
 
-	NSString *currentThemeName;
+    NSString *currentThemeName;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;

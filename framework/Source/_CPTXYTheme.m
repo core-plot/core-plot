@@ -12,34 +12,34 @@
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		self.graphClass = [CPTXYGraph class];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        self.graphClass = [CPTXYGraph class];
+    }
+    return self;
 }
 
 -(id)newGraph
 {
-	CPTXYGraph *graph;
+    CPTXYGraph *graph;
 
-	if ( self.graphClass ) {
-		graph = [(CPTXYGraph *)[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	else {
-		graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
-	}
-	graph.paddingLeft	= 60.0;
-	graph.paddingTop	= 60.0;
-	graph.paddingRight	= 60.0;
-	graph.paddingBottom = 60.0;
+    if ( self.graphClass ) {
+        graph = [(CPTXYGraph *)[self.graphClass alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+    }
+    else {
+        graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 200.0)];
+    }
+    graph.paddingLeft   = 60.0;
+    graph.paddingTop    = 60.0;
+    graph.paddingRight  = 60.0;
+    graph.paddingBottom = 60.0;
 
-	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
 
-	[self applyThemeToGraph:graph];
+    [self applyThemeToGraph:graph];
 
-	return graph;
+    return graph;
 }
 
 #pragma mark -
@@ -47,7 +47,7 @@
 
 -(Class)classForCoder
 {
-	return [CPTTheme class];
+    return [CPTTheme class];
 }
 
 @end

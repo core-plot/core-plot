@@ -23,81 +23,81 @@ NSString *const kCPTPlainBlackTheme = @"Plain Black"; ///< Plain black theme.
 
 +(void)load
 {
-	[self registerTheme:self];
+    [self registerTheme:self];
 }
 
 +(NSString *)name
 {
-	return kCPTPlainBlackTheme;
+    return kCPTPlainBlackTheme;
 }
 
 #pragma mark -
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph
 {
-	graph.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
+    graph.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
 }
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
 {
-	plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
+    plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
 
-	CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
-	borderLineStyle.lineColor = [CPTColor whiteColor];
-	borderLineStyle.lineWidth = 1.0;
+    CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
+    borderLineStyle.lineColor = [CPTColor whiteColor];
+    borderLineStyle.lineWidth = 1.0;
 
-	plotAreaFrame.borderLineStyle = borderLineStyle;
-	plotAreaFrame.cornerRadius	  = 0.0;
+    plotAreaFrame.borderLineStyle = borderLineStyle;
+    plotAreaFrame.cornerRadius    = 0.0;
 }
 
 -(void)applyThemeToAxisSet:(CPTXYAxisSet *)axisSet
 {
-	CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
+    CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 
-	majorLineStyle.lineCap	 = kCGLineCapRound;
-	majorLineStyle.lineColor = [CPTColor whiteColor];
-	majorLineStyle.lineWidth = 3.0;
+    majorLineStyle.lineCap   = kCGLineCapRound;
+    majorLineStyle.lineColor = [CPTColor whiteColor];
+    majorLineStyle.lineWidth = 3.0;
 
-	CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
-	minorLineStyle.lineColor = [CPTColor whiteColor];
-	minorLineStyle.lineWidth = 3.0;
+    CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
+    minorLineStyle.lineColor = [CPTColor whiteColor];
+    minorLineStyle.lineWidth = 3.0;
 
-	CPTXYAxis *x						= axisSet.xAxis;
-	CPTMutableTextStyle *whiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
-	whiteTextStyle.color	= [CPTColor whiteColor];
-	whiteTextStyle.fontSize = 14.0;
-	CPTMutableTextStyle *minorTickWhiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
-	minorTickWhiteTextStyle.color	 = [CPTColor whiteColor];
-	minorTickWhiteTextStyle.fontSize = 12.0;
+    CPTXYAxis *x                        = axisSet.xAxis;
+    CPTMutableTextStyle *whiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
+    whiteTextStyle.color    = [CPTColor whiteColor];
+    whiteTextStyle.fontSize = 14.0;
+    CPTMutableTextStyle *minorTickWhiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
+    minorTickWhiteTextStyle.color    = [CPTColor whiteColor];
+    minorTickWhiteTextStyle.fontSize = 12.0;
 
-	x.labelingPolicy			  = CPTAxisLabelingPolicyFixedInterval;
-	x.majorIntervalLength		  = CPTDecimalFromDouble(0.5);
-	x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-	x.tickDirection				  = CPTSignNone;
-	x.minorTicksPerInterval		  = 4;
-	x.majorTickLineStyle		  = majorLineStyle;
-	x.minorTickLineStyle		  = minorLineStyle;
-	x.axisLineStyle				  = majorLineStyle;
-	x.majorTickLength			  = 7.0;
-	x.minorTickLength			  = 5.0;
-	x.labelTextStyle			  = whiteTextStyle;
-	x.minorTickLabelTextStyle	  = whiteTextStyle;
-	x.titleTextStyle			  = whiteTextStyle;
+    x.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
+    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
+    x.tickDirection               = CPTSignNone;
+    x.minorTicksPerInterval       = 4;
+    x.majorTickLineStyle          = majorLineStyle;
+    x.minorTickLineStyle          = minorLineStyle;
+    x.axisLineStyle               = majorLineStyle;
+    x.majorTickLength             = 7.0;
+    x.minorTickLength             = 5.0;
+    x.labelTextStyle              = whiteTextStyle;
+    x.minorTickLabelTextStyle     = whiteTextStyle;
+    x.titleTextStyle              = whiteTextStyle;
 
-	CPTXYAxis *y = axisSet.yAxis;
-	y.labelingPolicy			  = CPTAxisLabelingPolicyFixedInterval;
-	y.majorIntervalLength		  = CPTDecimalFromDouble(0.5);
-	y.minorTicksPerInterval		  = 4;
-	y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-	y.tickDirection				  = CPTSignNone;
-	y.majorTickLineStyle		  = majorLineStyle;
-	y.minorTickLineStyle		  = minorLineStyle;
-	y.axisLineStyle				  = majorLineStyle;
-	y.majorTickLength			  = 7.0;
-	y.minorTickLength			  = 5.0;
-	y.labelTextStyle			  = whiteTextStyle;
-	y.minorTickLabelTextStyle	  = minorTickWhiteTextStyle;
-	y.titleTextStyle			  = whiteTextStyle;
+    CPTXYAxis *y = axisSet.yAxis;
+    y.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
+    y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
+    y.minorTicksPerInterval       = 4;
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
+    y.tickDirection               = CPTSignNone;
+    y.majorTickLineStyle          = majorLineStyle;
+    y.minorTickLineStyle          = minorLineStyle;
+    y.axisLineStyle               = majorLineStyle;
+    y.majorTickLength             = 7.0;
+    y.minorTickLength             = 5.0;
+    y.labelTextStyle              = whiteTextStyle;
+    y.minorTickLabelTextStyle     = minorTickWhiteTextStyle;
+    y.titleTextStyle              = whiteTextStyle;
 }
 
 #pragma mark -
@@ -105,7 +105,7 @@ NSString *const kCPTPlainBlackTheme = @"Plain Black"; ///< Plain black theme.
 
 -(Class)classForCoder
 {
-	return [CPTTheme class];
+    return [CPTTheme class];
 }
 
 @end

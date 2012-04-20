@@ -119,8 +119,11 @@
 				089C1671FE841209C02AAC07 /* Frameworks */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 			);
+			indentWidth = 4;
 			name = "Quartz Composer Plug In";
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		089C1671FE841209C02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;

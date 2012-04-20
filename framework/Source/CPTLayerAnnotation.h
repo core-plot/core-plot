@@ -5,11 +5,11 @@
 @class CPTConstraints;
 
 @interface CPTLayerAnnotation : CPTAnnotation {
-	@private
-	__cpt_weak CPTLayer *anchorLayer;
-	CPTConstraints *xConstraints;
-	CPTConstraints *yConstraints;
-	CPTRectAnchor rectAnchor;
+    @private
+    __cpt_weak CPTLayer *anchorLayer;
+    CPTConstraints *xConstraints;
+    CPTConstraints *yConstraints;
+    CPTRectAnchor rectAnchor;
 }
 
 @property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTLayer *anchorLayer;

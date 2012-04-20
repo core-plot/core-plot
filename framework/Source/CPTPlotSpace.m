@@ -38,21 +38,21 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		identifier			  = nil;
-		allowsUserInteraction = NO;
-		graph				  = nil;
-		delegate			  = nil;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        identifier            = nil;
+        allowsUserInteraction = NO;
+        graph                 = nil;
+        delegate              = nil;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	delegate = nil;
-	graph	 = nil;
-	[identifier release];
-	[super dealloc];
+    delegate = nil;
+    graph    = nil;
+    [identifier release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -60,23 +60,23 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeConditionalObject:self.graph forKey:@"CPTPlotSpace.graph"];
-	[coder encodeObject:self.identifier forKey:@"CPTPlotSpace.identifier"];
-	if ( [self.delegate conformsToProtocol:@protocol(NSCoding)] ) {
-		[coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
-	}
-	[coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
+    [coder encodeConditionalObject:self.graph forKey:@"CPTPlotSpace.graph"];
+    [coder encodeObject:self.identifier forKey:@"CPTPlotSpace.identifier"];
+    if ( [self.delegate conformsToProtocol:@protocol(NSCoding)] ) {
+        [coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
+    }
+    [coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		graph				  = [coder decodeObjectForKey:@"CPTPlotSpace.graph"];
-		identifier			  = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
-		delegate			  = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
-		allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        graph                 = [coder decodeObjectForKey:@"CPTPlotSpace.graph"];
+        identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
+        delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
+        allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -103,12 +103,12 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL handledByDelegate = NO;
+    BOOL handledByDelegate = NO;
 
-	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
-		handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
-	}
-	return handledByDelegate;
+    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+    return handledByDelegate;
 }
 
 /**
@@ -129,12 +129,12 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL handledByDelegate = NO;
+    BOOL handledByDelegate = NO;
 
-	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
-		handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
-	}
-	return handledByDelegate;
+    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
+    return handledByDelegate;
 }
 
 /**
@@ -155,12 +155,12 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	BOOL handledByDelegate = NO;
+    BOOL handledByDelegate = NO;
 
-	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
-		handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
-	}
-	return handledByDelegate;
+    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
+    return handledByDelegate;
 }
 
 /**
@@ -181,12 +181,12 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
-	BOOL handledByDelegate = NO;
+    BOOL handledByDelegate = NO;
 
-	if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
-		handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
-	}
-	return handledByDelegate;
+    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    }
+    return handledByDelegate;
 }
 
 ///	@}
@@ -203,7 +203,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-	return CGPointZero;
+    return CGPointZero;
 }
 
 /**	@brief Converts a data point to plot area drawing coordinates.
@@ -212,7 +212,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 {
-	return CGPointZero;
+    return CGPointZero;
 }
 
 /**	@brief Converts a point given in plot area drawing coordinates to the data coordinate space.
@@ -245,7 +245,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coordinate
 {
-	return nil;
+    return nil;
 }
 
 /**	@brief Sets the scale type for a given coordinate.
@@ -262,7 +262,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 -(CPTScaleType)scaleTypeForCoordinate:(CPTCoordinate)coordinate
 {
-	return CPTScaleTypeLinear;
+    return CPTScaleTypeLinear;
 }
 
 /**	@brief Scales the plot ranges so that the plots just fit in the visible space.

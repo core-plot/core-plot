@@ -23,8 +23,8 @@ extern NSString *const CPTTradingRangePlotBindingCloseValues;
  *	@brief Enumeration of Quote plot render style types.
  **/
 typedef enum _CPTTradingRangePlotStyle {
-	CPTTradingRangePlotStyleOHLC,       ///< Open-High-Low-Close (OHLC) plot.
-	CPTTradingRangePlotStyleCandleStick ///< Candlestick plot.
+    CPTTradingRangePlotStyleOHLC,       ///< Open-High-Low-Close (OHLC) plot.
+    CPTTradingRangePlotStyleCandleStick ///< Candlestick plot.
 }
 CPTTradingRangePlotStyle;
 
@@ -32,11 +32,11 @@ CPTTradingRangePlotStyle;
  *	@brief Enumeration of Quote plot data source field types.
  **/
 typedef enum _CPTTradingRangePlotField {
-	CPTTradingRangePlotFieldX,    ///< X values.
-	CPTTradingRangePlotFieldOpen, ///< Open values.
-	CPTTradingRangePlotFieldHigh, ///< High values.
-	CPTTradingRangePlotFieldLow,  ///< Low values.
-	CPTTradingRangePlotFieldClose ///< Close values.
+    CPTTradingRangePlotFieldX,    ///< X values.
+    CPTTradingRangePlotFieldOpen, ///< Open values.
+    CPTTradingRangePlotFieldHigh, ///< High values.
+    CPTTradingRangePlotFieldLow,  ///< Low values.
+    CPTTradingRangePlotFieldClose ///< Close values.
 }
 CPTTradingRangePlotField;
 
@@ -69,18 +69,18 @@ CPTTradingRangePlotField;
 #pragma mark -
 
 @interface CPTTradingRangePlot : CPTPlot {
-	@private
-	CPTLineStyle *lineStyle;
-	CPTLineStyle *increaseLineStyle;
-	CPTLineStyle *decreaseLineStyle;
-	CPTFill *increaseFill;
-	CPTFill *decreaseFill;
+    @private
+    CPTLineStyle *lineStyle;
+    CPTLineStyle *increaseLineStyle;
+    CPTLineStyle *decreaseLineStyle;
+    CPTFill *increaseFill;
+    CPTFill *decreaseFill;
 
-	CPTTradingRangePlotStyle plotStyle;
+    CPTTradingRangePlotStyle plotStyle;
 
-	CGFloat barWidth;
-	CGFloat stickLength;
-	CGFloat barCornerRadius;
+    CGFloat barWidth;
+    CGFloat stickLength;
+    CGFloat barCornerRadius;
 }
 
 @property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;

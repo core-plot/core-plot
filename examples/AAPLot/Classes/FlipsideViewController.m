@@ -12,8 +12,8 @@
 
 -(void)viewDidLoad
 {
-	[super viewDidLoad];
-	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 }
 
 /*
@@ -26,13 +26,13 @@
 
 -(void)didReceiveMemoryWarning
 {
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-	// Release anything that's not essential, such as cached data
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
 }
 
 -(void)dealloc
 {
-	[super dealloc];
+    [super dealloc];
 }
 
 @end

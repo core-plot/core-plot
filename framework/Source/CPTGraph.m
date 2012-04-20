@@ -173,86 +173,86 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( (self = [super initWithFrame:newFrame]) ) {
-		plots = [[NSMutableArray alloc] init];
+    if ( (self = [super initWithFrame:newFrame]) ) {
+        plots = [[NSMutableArray alloc] init];
 
-		// Margins
-		self.paddingLeft   = 20.0;
-		self.paddingTop	   = 20.0;
-		self.paddingRight  = 20.0;
-		self.paddingBottom = 20.0;
+        // Margins
+        self.paddingLeft   = 20.0;
+        self.paddingTop    = 20.0;
+        self.paddingRight  = 20.0;
+        self.paddingBottom = 20.0;
 
-		// Plot area
-		CPTPlotAreaFrame *newArea = [(CPTPlotAreaFrame *)[CPTPlotAreaFrame alloc] initWithFrame:self.bounds];
-		self.plotAreaFrame = newArea;
-		[newArea release];
+        // Plot area
+        CPTPlotAreaFrame *newArea = [(CPTPlotAreaFrame *)[CPTPlotAreaFrame alloc] initWithFrame:self.bounds];
+        self.plotAreaFrame = newArea;
+        [newArea release];
 
-		// Plot spaces
-		plotSpaces = [[NSMutableArray alloc] init];
-		CPTPlotSpace *newPlotSpace = [self newPlotSpace];
-		[self addPlotSpace:newPlotSpace];
-		[newPlotSpace release];
+        // Plot spaces
+        plotSpaces = [[NSMutableArray alloc] init];
+        CPTPlotSpace *newPlotSpace = [self newPlotSpace];
+        [self addPlotSpace:newPlotSpace];
+        [newPlotSpace release];
 
-		// Axis set
-		CPTAxisSet *newAxisSet = [self newAxisSet];
-		self.axisSet = newAxisSet;
-		[newAxisSet release];
+        // Axis set
+        CPTAxisSet *newAxisSet = [self newAxisSet];
+        self.axisSet = newAxisSet;
+        [newAxisSet release];
 
-		// Title
-		title					 = nil;
-		titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-		titleTextStyle			 = [[CPTTextStyle textStyle] retain];
-		titleDisplacement		 = CGPointZero;
-		titleAnnotation			 = nil;
+        // Title
+        title                    = nil;
+        titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+        titleTextStyle           = [[CPTTextStyle textStyle] retain];
+        titleDisplacement        = CGPointZero;
+        titleAnnotation          = nil;
 
-		// Legend
-		legend			   = nil;
-		legendAnnotation   = nil;
-		legendAnchor	   = CPTRectAnchorBottom;
-		legendDisplacement = CGPointZero;
+        // Legend
+        legend             = nil;
+        legendAnnotation   = nil;
+        legendAnchor       = CPTRectAnchorBottom;
+        legendDisplacement = CGPointZero;
 
-		self.needsDisplayOnBoundsChange = YES;
-	}
-	return self;
+        self.needsDisplayOnBoundsChange = YES;
+    }
+    return self;
 }
 
 ///	@}
 
 -(id)initWithLayer:(id)layer
 {
-	if ( (self = [super initWithLayer:layer]) ) {
-		CPTGraph *theLayer = (CPTGraph *)layer;
+    if ( (self = [super initWithLayer:layer]) ) {
+        CPTGraph *theLayer = (CPTGraph *)layer;
 
-		plotAreaFrame			 = [theLayer->plotAreaFrame retain];
-		plots					 = [theLayer->plots retain];
-		plotSpaces				 = [theLayer->plotSpaces retain];
-		title					 = [theLayer->title retain];
-		titlePlotAreaFrameAnchor = theLayer->titlePlotAreaFrameAnchor;
-		titleTextStyle			 = [theLayer->titleTextStyle retain];
-		titleDisplacement		 = theLayer->titleDisplacement;
-		titleAnnotation			 = [theLayer->titleAnnotation retain];
-		legend					 = [theLayer->legend retain];
-		legendAnnotation		 = [theLayer->legendAnnotation retain];
-		legendAnchor			 = theLayer->legendAnchor;
-		legendDisplacement		 = theLayer->legendDisplacement;
-	}
-	return self;
+        plotAreaFrame            = [theLayer->plotAreaFrame retain];
+        plots                    = [theLayer->plots retain];
+        plotSpaces               = [theLayer->plotSpaces retain];
+        title                    = [theLayer->title retain];
+        titlePlotAreaFrameAnchor = theLayer->titlePlotAreaFrameAnchor;
+        titleTextStyle           = [theLayer->titleTextStyle retain];
+        titleDisplacement        = theLayer->titleDisplacement;
+        titleAnnotation          = [theLayer->titleAnnotation retain];
+        legend                   = [theLayer->legend retain];
+        legendAnnotation         = [theLayer->legendAnnotation retain];
+        legendAnchor             = theLayer->legendAnchor;
+        legendDisplacement       = theLayer->legendDisplacement;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[plotAreaFrame release];
-	[plots release];
-	[plotSpaces release];
-	[title release];
-	[titleTextStyle release];
-	[titleAnnotation release];
-	[legend release];
-	[legendAnnotation release];
+    [plotAreaFrame release];
+    [plots release];
+    [plotSpaces release];
+    [title release];
+    [titleTextStyle release];
+    [titleAnnotation release];
+    [legend release];
+    [legendAnnotation release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -260,39 +260,39 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeObject:self.plotAreaFrame forKey:@"CPTGraph.plotAreaFrame"];
-	[coder encodeObject:self.plots forKey:@"CPTGraph.plots"];
-	[coder encodeObject:self.plotSpaces forKey:@"CPTGraph.plotSpaces"];
-	[coder encodeObject:self.title forKey:@"CPTGraph.title"];
-	[coder encodeObject:self.titleTextStyle forKey:@"CPTGraph.titleTextStyle"];
-	[coder encodeInteger:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
-	[coder encodeCPTPoint:self.titleDisplacement forKey:@"CPTGraph.titleDisplacement"];
-	[coder encodeObject:self.titleAnnotation forKey:@"CPTGraph.titleAnnotation"];
-	[coder encodeObject:self.legend forKey:@"CPTGraph.legend"];
-	[coder encodeObject:self.legendAnnotation forKey:@"CPTGraph.legendAnnotation"];
-	[coder encodeInteger:self.legendAnchor forKey:@"CPTGraph.legendAnchor"];
-	[coder encodeCPTPoint:self.legendDisplacement forKey:@"CPTGraph.legendDisplacement"];
+    [coder encodeObject:self.plotAreaFrame forKey:@"CPTGraph.plotAreaFrame"];
+    [coder encodeObject:self.plots forKey:@"CPTGraph.plots"];
+    [coder encodeObject:self.plotSpaces forKey:@"CPTGraph.plotSpaces"];
+    [coder encodeObject:self.title forKey:@"CPTGraph.title"];
+    [coder encodeObject:self.titleTextStyle forKey:@"CPTGraph.titleTextStyle"];
+    [coder encodeInteger:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
+    [coder encodeCPTPoint:self.titleDisplacement forKey:@"CPTGraph.titleDisplacement"];
+    [coder encodeObject:self.titleAnnotation forKey:@"CPTGraph.titleAnnotation"];
+    [coder encodeObject:self.legend forKey:@"CPTGraph.legend"];
+    [coder encodeObject:self.legendAnnotation forKey:@"CPTGraph.legendAnnotation"];
+    [coder encodeInteger:self.legendAnchor forKey:@"CPTGraph.legendAnchor"];
+    [coder encodeCPTPoint:self.legendDisplacement forKey:@"CPTGraph.legendDisplacement"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		plotAreaFrame			 = [[coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"] retain];
-		plots					 = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
-		plotSpaces				 = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
-		title					 = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
-		titleTextStyle			 = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
-		titlePlotAreaFrameAnchor = [coder decodeIntegerForKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
-		titleDisplacement		 = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
-		titleAnnotation			 = [[coder decodeObjectForKey:@"CPTGraph.titleAnnotation"] retain];
-		legend					 = [[coder decodeObjectForKey:@"CPTGraph.legend"] retain];
-		legendAnnotation		 = [[coder decodeObjectForKey:@"CPTGraph.legendAnnotation"] retain];
-		legendAnchor			 = [coder decodeIntegerForKey:@"CPTGraph.legendAnchor"];
-		legendDisplacement		 = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        plotAreaFrame            = [[coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"] retain];
+        plots                    = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
+        plotSpaces               = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
+        title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
+        titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
+        titlePlotAreaFrameAnchor = [coder decodeIntegerForKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
+        titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
+        titleAnnotation          = [[coder decodeObjectForKey:@"CPTGraph.titleAnnotation"] retain];
+        legend                   = [[coder decodeObjectForKey:@"CPTGraph.legend"] retain];
+        legendAnnotation         = [[coder decodeObjectForKey:@"CPTGraph.legendAnnotation"] retain];
+        legendAnchor             = [coder decodeIntegerForKey:@"CPTGraph.legendAnchor"];
+        legendDisplacement       = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -302,9 +302,9 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
-	[self reloadDataIfNeeded];
-	[self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
-	[super layoutAndRenderInContext:context];
+    [self reloadDataIfNeeded];
+    [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
+    [super layoutAndRenderInContext:context];
 }
 
 ///	@endcond
@@ -314,21 +314,21 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-	static NSArray *keys = nil;
+    static NSArray *keys = nil;
 
-	if ( !keys ) {
-		keys = [[NSArray alloc] initWithObjects:
-				@"titleDisplacement",
-				@"legendDisplacement",
-				nil];
-	}
+    if ( !keys ) {
+        keys = [[NSArray alloc] initWithObjects:
+                @"titleDisplacement",
+                @"legendDisplacement",
+                nil];
+    }
 
-	if ( [keys containsObject:aKey] ) {
-		return YES;
-	}
-	else {
-		return [super needsDisplayForKey:aKey];
-	}
+    if ( [keys containsObject:aKey] ) {
+        return YES;
+    }
+    else {
+        return [super needsDisplayForKey:aKey];
+    }
 }
 
 #pragma mark -
@@ -339,7 +339,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)reloadData
 {
-	[self.plots makeObjectsPerformSelector:@selector(reloadData)];
+    [self.plots makeObjectsPerformSelector:@selector(reloadData)];
 }
 
 /**
@@ -347,7 +347,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)reloadDataIfNeeded
 {
-	[self.plots makeObjectsPerformSelector:@selector(reloadDataIfNeeded)];
+    [self.plots makeObjectsPerformSelector:@selector(reloadDataIfNeeded)];
 }
 
 /**	@brief All plots associated with the graph.
@@ -355,7 +355,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(NSArray *)allPlots
 {
-	return [NSArray arrayWithArray:self.plots];
+    return [NSArray arrayWithArray:self.plots];
 }
 
 /**	@brief Gets the plot at the given index in the plot array.
@@ -364,7 +364,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)index
 {
-	return [self.plots objectAtIndex:index];
+    return [self.plots objectAtIndex:index];
 }
 
 /**	@brief Gets the plot with the given identifier from the plot array.
@@ -373,12 +373,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier
 {
-	for ( CPTPlot *plot in self.plots ) {
-		if ( [[plot identifier] isEqual:identifier] ) {
-			return plot;
-		}
-	}
-	return nil;
+    for ( CPTPlot *plot in self.plots ) {
+        if ( [[plot identifier] isEqual:identifier] ) {
+            return plot;
+        }
+    }
+    return nil;
 }
 
 #pragma mark -
@@ -389,7 +389,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)addPlot:(CPTPlot *)plot
 {
-	[self addPlot:plot toPlotSpace:self.defaultPlotSpace];
+    [self addPlot:plot toPlotSpace:self.defaultPlotSpace];
 }
 
 /**	@brief Add a plot to the given plot space.
@@ -398,12 +398,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPTPlotSpace *)space
 {
-	if ( plot ) {
-		[self.plots addObject:plot];
-		plot.plotSpace = space;
-		plot.graph	   = self;
-		[self.plotAreaFrame.plotGroup addPlot:plot];
-	}
+    if ( plot ) {
+        [self.plots addObject:plot];
+        plot.plotSpace = space;
+        plot.graph     = self;
+        [self.plotAreaFrame.plotGroup addPlot:plot];
+    }
 }
 
 /**	@brief Remove a plot from the graph.
@@ -411,15 +411,15 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)removePlot:(CPTPlot *)plot
 {
-	if ( [self.plots containsObject:plot] ) {
-		plot.plotSpace = nil;
-		plot.graph	   = nil;
-		[self.plotAreaFrame.plotGroup removePlot:plot];
-		[self.plots removeObject:plot];
-	}
-	else {
-		[NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
-	}
+    if ( [self.plots containsObject:plot] ) {
+        plot.plotSpace = nil;
+        plot.graph     = nil;
+        [self.plotAreaFrame.plotGroup removePlot:plot];
+        [self.plots removeObject:plot];
+    }
+    else {
+        [NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
+    }
 }
 
 /**	@brief Add a plot to the default plot space at the given index in the plot array.
@@ -428,7 +428,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index
 {
-	[self insertPlot:plot atIndex:index intoPlotSpace:self.defaultPlotSpace];
+    [self insertPlot:plot atIndex:index intoPlotSpace:self.defaultPlotSpace];
 }
 
 /**	@brief Add a plot to the given plot space at the given index in the plot array.
@@ -438,12 +438,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space
 {
-	if ( plot ) {
-		[self.plots insertObject:plot atIndex:index];
-		plot.plotSpace = space;
-		plot.graph	   = self;
-		[self.plotAreaFrame.plotGroup insertPlot:plot atIndex:index];
-	}
+    if ( plot ) {
+        [self.plots insertObject:plot atIndex:index];
+        plot.plotSpace = space;
+        plot.graph     = self;
+        [self.plotAreaFrame.plotGroup insertPlot:plot atIndex:index];
+    }
 }
 
 /**	@brief Remove a plot from the graph.
@@ -451,14 +451,14 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)removePlotWithIdentifier:(id<NSCopying>)identifier
 {
-	CPTPlot *plotToRemove = [self plotWithIdentifier:identifier];
+    CPTPlot *plotToRemove = [self plotWithIdentifier:identifier];
 
-	if ( plotToRemove ) {
-		plotToRemove.plotSpace = nil;
-		plotToRemove.graph	   = nil;
-		[self.plotAreaFrame.plotGroup removePlot:plotToRemove];
-		[self.plots removeObjectIdenticalTo:plotToRemove];
-	}
+    if ( plotToRemove ) {
+        plotToRemove.plotSpace = nil;
+        plotToRemove.graph     = nil;
+        [self.plotAreaFrame.plotGroup removePlot:plotToRemove];
+        [self.plots removeObjectIdenticalTo:plotToRemove];
+    }
 }
 
 #pragma mark -
@@ -466,7 +466,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(CPTPlotSpace *)defaultPlotSpace
 {
-	return self.plotSpaces.count > 0 ? [self.plotSpaces objectAtIndex:0] : nil;
+    return self.plotSpaces.count > 0 ? [self.plotSpaces objectAtIndex:0] : nil;
 }
 
 /**	@brief All plot spaces associated with the graph.
@@ -474,7 +474,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(NSArray *)allPlotSpaces
 {
-	return [NSArray arrayWithArray:self.plotSpaces];
+    return [NSArray arrayWithArray:self.plotSpaces];
 }
 
 /**	@brief Gets the plot space at the given index in the plot space array.
@@ -483,7 +483,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)index
 {
-	return self.plotSpaces.count > index ? [self.plotSpaces objectAtIndex:index] : nil;
+    return self.plotSpaces.count > index ? [self.plotSpaces objectAtIndex:index] : nil;
 }
 
 /**	@brief Gets the plot space with the given identifier from the plot space array.
@@ -492,12 +492,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlotSpace *)plotSpaceWithIdentifier:(id<NSCopying>)identifier
 {
-	for ( CPTPlotSpace *plotSpace in self.plotSpaces ) {
-		if ( [[plotSpace identifier] isEqual:identifier] ) {
-			return plotSpace;
-		}
-	}
-	return nil;
+    for ( CPTPlotSpace *plotSpace in self.plotSpaces ) {
+        if ( [[plotSpace identifier] isEqual:identifier] ) {
+            return plotSpace;
+        }
+    }
+    return nil;
 }
 
 #pragma mark -
@@ -507,17 +507,17 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)setPlotAreaFrame:(CPTPlotAreaFrame *)newArea
 {
-	if ( plotAreaFrame != newArea ) {
-		plotAreaFrame.graph = nil;
-		[plotAreaFrame removeFromSuperlayer];
-		[plotAreaFrame release];
-		plotAreaFrame = [newArea retain];
-		[self addSublayer:newArea];
-		plotAreaFrame.graph = self;
-		for ( CPTPlotSpace *space in self.plotSpaces ) {
-			space.graph = self;
-		}
-	}
+    if ( plotAreaFrame != newArea ) {
+        plotAreaFrame.graph = nil;
+        [plotAreaFrame removeFromSuperlayer];
+        [plotAreaFrame release];
+        plotAreaFrame = [newArea retain];
+        [self addSublayer:newArea];
+        plotAreaFrame.graph = self;
+        for ( CPTPlotSpace *space in self.plotSpaces ) {
+            space.graph = self;
+        }
+    }
 }
 
 ///	@endcond
@@ -530,9 +530,9 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)addPlotSpace:(CPTPlotSpace *)space
 {
-	[self.plotSpaces addObject:space];
-	space.graph = self;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:space];
+    [self.plotSpaces addObject:space];
+    space.graph = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:space];
 }
 
 /**	@brief Remove a plot space from the graph.
@@ -540,23 +540,23 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)removePlotSpace:(CPTPlotSpace *)plotSpace
 {
-	if ( [self.plotSpaces containsObject:plotSpace] ) {
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
+    if ( [self.plotSpaces containsObject:plotSpace] ) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
 
-		// Remove space
-		plotSpace.graph = nil;
-		[self.plotSpaces removeObject:plotSpace];
+        // Remove space
+        plotSpace.graph = nil;
+        [self.plotSpaces removeObject:plotSpace];
 
-		// Update axes that referenced space
-		for ( CPTAxis *axis in self.axisSet.axes ) {
-			if ( axis.plotSpace == plotSpace ) {
-				axis.plotSpace = nil;
-			}
-		}
-	}
-	else {
-		[NSException raise:CPTException format:@"Tried to remove CPTPlotSpace which did not exist."];
-	}
+        // Update axes that referenced space
+        for ( CPTAxis *axis in self.axisSet.axes ) {
+            if ( axis.plotSpace == plotSpace ) {
+                axis.plotSpace = nil;
+            }
+        }
+    }
+    else {
+        [NSException raise:CPTException format:@"Tried to remove CPTPlotSpace which did not exist."];
+    }
 }
 
 #pragma mark -
@@ -566,23 +566,23 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)plotSpaceMappingDidChange:(NSNotification *)notif
 {
-	CPTPlotSpace *plotSpace		   = notif.object;
-	BOOL backgroundBandsNeedRedraw = NO;
+    CPTPlotSpace *plotSpace        = notif.object;
+    BOOL backgroundBandsNeedRedraw = NO;
 
-	for ( CPTAxis *axis in self.axisSet.axes ) {
-		if ( axis.plotSpace == plotSpace ) {
-			[axis setNeedsRelabel];
-			backgroundBandsNeedRedraw |= (axis.backgroundLimitBands.count > 0);
-		}
-	}
-	for ( CPTPlot *plot in self.plots ) {
-		if ( plot.plotSpace == plotSpace ) {
-			[plot setNeedsDisplay];
-		}
-	}
-	if ( backgroundBandsNeedRedraw ) {
-		[self.plotAreaFrame.plotArea setNeedsDisplay];
-	}
+    for ( CPTAxis *axis in self.axisSet.axes ) {
+        if ( axis.plotSpace == plotSpace ) {
+            [axis setNeedsRelabel];
+            backgroundBandsNeedRedraw |= (axis.backgroundLimitBands.count > 0);
+        }
+    }
+    for ( CPTPlot *plot in self.plots ) {
+        if ( plot.plotSpace == plotSpace ) {
+            [plot setNeedsDisplay];
+        }
+    }
+    if ( backgroundBandsNeedRedraw ) {
+        [self.plotAreaFrame.plotArea setNeedsDisplay];
+    }
 }
 
 ///	@endcond
@@ -594,12 +594,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(CPTAxisSet *)axisSet
 {
-	return self.plotAreaFrame.axisSet;
+    return self.plotAreaFrame.axisSet;
 }
 
 -(void)setAxisSet:(CPTAxisSet *)newSet
 {
-	self.plotAreaFrame.axisSet = newSet;
+    self.plotAreaFrame.axisSet = newSet;
 }
 
 ///	@endcond
@@ -612,7 +612,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(void)applyTheme:(CPTTheme *)theme
 {
-	[theme applyThemeToGraph:self];
+    [theme applyThemeToGraph:self];
 }
 
 #pragma mark -
@@ -622,105 +622,105 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(CPTLegend *)legend
 {
-	return (CPTLegend *)self.legendAnnotation.contentLayer;
+    return (CPTLegend *)self.legendAnnotation.contentLayer;
 }
 
 -(void)setLegend:(CPTLegend *)newLegend
 {
-	if ( newLegend != legend ) {
-		[legend release];
-		legend = [newLegend retain];
-		CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
-		if ( legend ) {
-			if ( theLegendAnnotation ) {
-				theLegendAnnotation.contentLayer = legend;
-			}
-			else {
-				CPTLayerAnnotation *newLegendAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self];
-				newLegendAnnotation.contentLayer	   = legend;
-				newLegendAnnotation.displacement	   = self.legendDisplacement;
-				newLegendAnnotation.rectAnchor		   = self.legendAnchor;
-				newLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
-				[self addAnnotation:newLegendAnnotation];
-				self.legendAnnotation = newLegendAnnotation;
-				[newLegendAnnotation release];
-			}
-		}
-		else {
-			if ( theLegendAnnotation ) {
-				[self removeAnnotation:theLegendAnnotation];
-				self.legendAnnotation = nil;
-			}
-		}
-	}
+    if ( newLegend != legend ) {
+        [legend release];
+        legend = [newLegend retain];
+        CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
+        if ( legend ) {
+            if ( theLegendAnnotation ) {
+                theLegendAnnotation.contentLayer = legend;
+            }
+            else {
+                CPTLayerAnnotation *newLegendAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self];
+                newLegendAnnotation.contentLayer       = legend;
+                newLegendAnnotation.displacement       = self.legendDisplacement;
+                newLegendAnnotation.rectAnchor         = self.legendAnchor;
+                newLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
+                [self addAnnotation:newLegendAnnotation];
+                self.legendAnnotation = newLegendAnnotation;
+                [newLegendAnnotation release];
+            }
+        }
+        else {
+            if ( theLegendAnnotation ) {
+                [self removeAnnotation:theLegendAnnotation];
+                self.legendAnnotation = nil;
+            }
+        }
+    }
 }
 
 -(void)setLegendAnchor:(CPTRectAnchor)newLegendAnchor
 {
-	if ( newLegendAnchor != legendAnchor ) {
-		legendAnchor = newLegendAnchor;
-		CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
-		if ( theLegendAnnotation ) {
-			theLegendAnnotation.rectAnchor		   = newLegendAnchor;
-			theLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
-		}
-	}
+    if ( newLegendAnchor != legendAnchor ) {
+        legendAnchor = newLegendAnchor;
+        CPTLayerAnnotation *theLegendAnnotation = self.legendAnnotation;
+        if ( theLegendAnnotation ) {
+            theLegendAnnotation.rectAnchor         = newLegendAnchor;
+            theLegendAnnotation.contentAnchorPoint = [self contentAnchorForLegend];
+        }
+    }
 }
 
 -(void)setLegendDisplacement:(CGPoint)newLegendDisplacement
 {
-	if ( !CGPointEqualToPoint(newLegendDisplacement, legendDisplacement) ) {
-		legendDisplacement				   = newLegendDisplacement;
-		self.legendAnnotation.displacement = newLegendDisplacement;
-	}
+    if ( !CGPointEqualToPoint(newLegendDisplacement, legendDisplacement) ) {
+        legendDisplacement                 = newLegendDisplacement;
+        self.legendAnnotation.displacement = newLegendDisplacement;
+    }
 }
 
 -(CGPoint)contentAnchorForLegend
 {
-	CGPoint contentAnchor = CGPointZero;
+    CGPoint contentAnchor = CGPointZero;
 
-	switch ( self.legendAnchor ) {
-		case CPTRectAnchorBottomLeft:
-			contentAnchor = CGPointMake(0.0, 0.0);
-			break;
+    switch ( self.legendAnchor ) {
+        case CPTRectAnchorBottomLeft:
+            contentAnchor = CGPointMake(0.0, 0.0);
+            break;
 
-		case CPTRectAnchorBottom:
-			contentAnchor = CGPointMake(0.5, 0.0);
-			break;
+        case CPTRectAnchorBottom:
+            contentAnchor = CGPointMake(0.5, 0.0);
+            break;
 
-		case CPTRectAnchorBottomRight:
-			contentAnchor = CGPointMake(1.0, 0.0);
-			break;
+        case CPTRectAnchorBottomRight:
+            contentAnchor = CGPointMake(1.0, 0.0);
+            break;
 
-		case CPTRectAnchorLeft:
-			contentAnchor = CGPointMake(0.0, 0.5);
-			break;
+        case CPTRectAnchorLeft:
+            contentAnchor = CGPointMake(0.0, 0.5);
+            break;
 
-		case CPTRectAnchorRight:
-			contentAnchor = CGPointMake(1.0, 0.5);
-			break;
+        case CPTRectAnchorRight:
+            contentAnchor = CGPointMake(1.0, 0.5);
+            break;
 
-		case CPTRectAnchorTopLeft:
-			contentAnchor = CGPointMake(0.0, 1.0);
-			break;
+        case CPTRectAnchorTopLeft:
+            contentAnchor = CGPointMake(0.0, 1.0);
+            break;
 
-		case CPTRectAnchorTop:
-			contentAnchor = CGPointMake(0.5, 1.0);
-			break;
+        case CPTRectAnchorTop:
+            contentAnchor = CGPointMake(0.5, 1.0);
+            break;
 
-		case CPTRectAnchorTopRight:
-			contentAnchor = CGPointMake(1.0, 1.0);
-			break;
+        case CPTRectAnchorTopRight:
+            contentAnchor = CGPointMake(1.0, 1.0);
+            break;
 
-		case CPTRectAnchorCenter:
-			contentAnchor = CGPointMake(0.5, 0.5);
-			break;
+        case CPTRectAnchorCenter:
+            contentAnchor = CGPointMake(0.5, 0.5);
+            break;
 
-		default:
-			break;
-	}
+        default:
+            break;
+    }
 
-	return contentAnchor;
+    return contentAnchor;
 }
 
 ///	@endcond
@@ -732,100 +732,100 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
-	if ( newPadding != self.paddingLeft ) {
-		[super setPaddingLeft:newPadding];
-		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-	}
+    if ( newPadding != self.paddingLeft ) {
+        [super setPaddingLeft:newPadding];
+        [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
 
 -(void)setPaddingRight:(CGFloat)newPadding
 {
-	if ( newPadding != self.paddingRight ) {
-		[super setPaddingRight:newPadding];
-		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-	}
+    if ( newPadding != self.paddingRight ) {
+        [super setPaddingRight:newPadding];
+        [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
 
 -(void)setPaddingTop:(CGFloat)newPadding
 {
-	if ( newPadding != self.paddingTop ) {
-		[super setPaddingTop:newPadding];
-		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-	}
+    if ( newPadding != self.paddingTop ) {
+        [super setPaddingTop:newPadding];
+        [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
 
 -(void)setPaddingBottom:(CGFloat)newPadding
 {
-	if ( newPadding != self.paddingBottom ) {
-		[super setPaddingBottom:newPadding];
-		[self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-	}
+    if ( newPadding != self.paddingBottom ) {
+        [super setPaddingBottom:newPadding];
+        [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+    }
 }
 
 -(NSArray *)topDownLayerOrder
 {
-	return self.plotAreaFrame.plotArea.topDownLayerOrder;
+    return self.plotAreaFrame.plotArea.topDownLayerOrder;
 }
 
 -(void)setTopDownLayerOrder:(NSArray *)newArray
 {
-	self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
+    self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
 }
 
 -(void)setTitle:(NSString *)newTitle
 {
-	if ( newTitle != title ) {
-		[title release];
-		title = [newTitle copy];
-		CPTLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
-		if ( title ) {
-			if ( theTitleAnnotation ) {
-				( (CPTTextLayer *)theTitleAnnotation.contentLayer ).text = title;
-			}
-			else {
-				CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
-				CPTTextLayer *newTextLayer			   = [[CPTTextLayer alloc] initWithText:title style:self.titleTextStyle];
-				newTitleAnnotation.contentLayer = newTextLayer;
-				newTitleAnnotation.displacement = self.titleDisplacement;
-				newTitleAnnotation.rectAnchor	= self.titlePlotAreaFrameAnchor;
-				[self addAnnotation:newTitleAnnotation];
-				self.titleAnnotation = newTitleAnnotation;
-				[newTextLayer release];
-				[newTitleAnnotation release];
-			}
-		}
-		else {
-			if ( theTitleAnnotation ) {
-				[self removeAnnotation:theTitleAnnotation];
-				self.titleAnnotation = nil;
-			}
-		}
-	}
+    if ( newTitle != title ) {
+        [title release];
+        title = [newTitle copy];
+        CPTLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
+        if ( title ) {
+            if ( theTitleAnnotation ) {
+                ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).text = title;
+            }
+            else {
+                CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
+                CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithText:title style:self.titleTextStyle];
+                newTitleAnnotation.contentLayer = newTextLayer;
+                newTitleAnnotation.displacement = self.titleDisplacement;
+                newTitleAnnotation.rectAnchor   = self.titlePlotAreaFrameAnchor;
+                [self addAnnotation:newTitleAnnotation];
+                self.titleAnnotation = newTitleAnnotation;
+                [newTextLayer release];
+                [newTitleAnnotation release];
+            }
+        }
+        else {
+            if ( theTitleAnnotation ) {
+                [self removeAnnotation:theTitleAnnotation];
+                self.titleAnnotation = nil;
+            }
+        }
+    }
 }
 
 -(void)setTitleTextStyle:(CPTMutableTextStyle *)newStyle
 {
-	if ( newStyle != titleTextStyle ) {
-		[titleTextStyle release];
-		titleTextStyle													= [newStyle copy];
-		( (CPTTextLayer *)self.titleAnnotation.contentLayer ).textStyle = titleTextStyle;
-	}
+    if ( newStyle != titleTextStyle ) {
+        [titleTextStyle release];
+        titleTextStyle                                                  = [newStyle copy];
+        ( (CPTTextLayer *)self.titleAnnotation.contentLayer ).textStyle = titleTextStyle;
+    }
 }
 
 -(void)setTitleDisplacement:(CGPoint)newDisplace
 {
-	if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
-		titleDisplacement			 = newDisplace;
-		titleAnnotation.displacement = newDisplace;
-	}
+    if ( !CGPointEqualToPoint(newDisplace, titleDisplacement) ) {
+        titleDisplacement            = newDisplace;
+        titleAnnotation.displacement = newDisplace;
+    }
 }
 
 -(void)setTitlePlotAreaFrameAnchor:(CPTRectAnchor)newAnchor
 {
-	if ( newAnchor != titlePlotAreaFrameAnchor ) {
-		titlePlotAreaFrameAnchor   = newAnchor;
-		titleAnnotation.rectAnchor = titlePlotAreaFrameAnchor;
-	}
+    if ( newAnchor != titlePlotAreaFrameAnchor ) {
+        titlePlotAreaFrameAnchor   = newAnchor;
+        titleAnnotation.rectAnchor = titlePlotAreaFrameAnchor;
+    }
 }
 
 ///	@endcond
@@ -857,33 +857,33 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	// Plots
-	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
-		if ( [plot pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
-			return YES;
-		}
-	}
+    // Plots
+    for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
+        if ( [plot pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+            return YES;
+        }
+    }
 
-	// Axes Set
-	if ( [self.axisSet pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Axes Set
+    if ( [self.axisSet pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot area
-	if ( [self.plotAreaFrame pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Plot area
+    if ( [self.plotAreaFrame pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot spaces
-	// Plot spaces do not block events, because several spaces may need to receive
-	// the same event sequence (e.g., dragging coordinate translation)
-	BOOL handledEvent = NO;
-	for ( CPTPlotSpace *space in self.plotSpaces ) {
-		BOOL handled = [space pointingDeviceDownEvent:event atPoint:interactionPoint];
-		handledEvent |= handled;
-	}
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (e.g., dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPTPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space pointingDeviceDownEvent:event atPoint:interactionPoint];
+        handledEvent |= handled;
+    }
 
-	return handledEvent;
+    return handledEvent;
 }
 
 /**
@@ -907,33 +907,33 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	// Plots
-	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
-		if ( [plot pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-			return YES;
-		}
-	}
+    // Plots
+    for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
+        if ( [plot pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+            return YES;
+        }
+    }
 
-	// Axes Set
-	if ( [self.axisSet pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Axes Set
+    if ( [self.axisSet pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot area
-	if ( [self.plotAreaFrame pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Plot area
+    if ( [self.plotAreaFrame pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot spaces
-	// Plot spaces do not block events, because several spaces may need to receive
-	// the same event sequence (e.g., dragging coordinate translation)
-	BOOL handledEvent = NO;
-	for ( CPTPlotSpace *space in self.plotSpaces ) {
-		BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
-		handledEvent |= handled;
-	}
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (e.g., dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPTPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
+        handledEvent |= handled;
+    }
 
-	return handledEvent;
+    return handledEvent;
 }
 
 /**
@@ -957,33 +957,33 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
 {
-	// Plots
-	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
-		if ( [plot pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
-			return YES;
-		}
-	}
+    // Plots
+    for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
+        if ( [plot pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
+            return YES;
+        }
+    }
 
-	// Axes Set
-	if ( [self.axisSet pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Axes Set
+    if ( [self.axisSet pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot area
-	if ( [self.plotAreaFrame pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
-		return YES;
-	}
+    // Plot area
+    if ( [self.plotAreaFrame pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
 
-	// Plot spaces
-	// Plot spaces do not block events, because several spaces may need to receive
-	// the same event sequence (e.g., dragging coordinate translation)
-	BOOL handledEvent = NO;
-	for ( CPTPlotSpace *space in self.plotSpaces ) {
-		BOOL handled = [space pointingDeviceDraggedEvent:event atPoint:interactionPoint];
-		handledEvent |= handled;
-	}
+    // Plot spaces
+    // Plot spaces do not block events, because several spaces may need to receive
+    // the same event sequence (e.g., dragging coordinate translation)
+    BOOL handledEvent = NO;
+    for ( CPTPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+        handledEvent |= handled;
+    }
 
-	return handledEvent;
+    return handledEvent;
 }
 
 /**
@@ -1007,31 +1007,31 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(BOOL)pointingDeviceCancelledEvent:(id)event
 {
-	// Plots
-	for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
-		if ( [plot pointingDeviceCancelledEvent:event] ) {
-			return YES;
-		}
-	}
+    // Plots
+    for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
+        if ( [plot pointingDeviceCancelledEvent:event] ) {
+            return YES;
+        }
+    }
 
-	// Axes Set
-	if ( [self.axisSet pointingDeviceCancelledEvent:event] ) {
-		return YES;
-	}
+    // Axes Set
+    if ( [self.axisSet pointingDeviceCancelledEvent:event] ) {
+        return YES;
+    }
 
-	// Plot area
-	if ( [self.plotAreaFrame pointingDeviceCancelledEvent:event] ) {
-		return YES;
-	}
+    // Plot area
+    if ( [self.plotAreaFrame pointingDeviceCancelledEvent:event] ) {
+        return YES;
+    }
 
-	// Plot spaces
-	BOOL handledEvent = NO;
-	for ( CPTPlotSpace *space in self.plotSpaces ) {
-		BOOL handled = [space pointingDeviceCancelledEvent:event];
-		handledEvent |= handled;
-	}
+    // Plot spaces
+    BOOL handledEvent = NO;
+    for ( CPTPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space pointingDeviceCancelledEvent:event];
+        handledEvent |= handled;
+    }
 
-	return handledEvent;
+    return handledEvent;
 }
 
 ///	@}
@@ -1047,7 +1047,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlotSpace *)newPlotSpace
 {
-	return nil;
+    return nil;
 }
 
 /**	@brief Creates a new axis set for the graph.
@@ -1055,7 +1055,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTAxisSet *)newAxisSet
 {
-	return nil;
+    return nil;
 }
 
 @end

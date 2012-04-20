@@ -9,11 +9,11 @@
 #import "PlotItem.h"
 
 @interface DatePlot : PlotItem<CPTPlotSpaceDelegate,
-							   CPTPlotDataSource,
-							   CPTScatterPlotDelegate>
+                               CPTPlotDataSource,
+                               CPTScatterPlotDelegate>
 {
-	CGFloat labelRotation;
-	NSArray *plotData;
+    CGFloat labelRotation;
+    NSArray *plotData;
 }
 
 @end

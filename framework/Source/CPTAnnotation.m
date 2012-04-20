@@ -42,20 +42,20 @@
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		annotationHostLayer = nil;
-		contentLayer		= nil;
-		displacement		= CGPointZero;
-		contentAnchorPoint	= CGPointMake(0.5, 0.5);
-		rotation			= 0.0;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        annotationHostLayer = nil;
+        contentLayer        = nil;
+        displacement        = CGPointZero;
+        contentAnchorPoint  = CGPointMake(0.5, 0.5);
+        rotation            = 0.0;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[contentLayer release];
-	[super dealloc];
+    [contentLayer release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -63,23 +63,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeConditionalObject:self.annotationHostLayer forKey:@"CPTAnnotation.annotationHostLayer"];
-	[coder encodeObject:self.contentLayer forKey:@"CPTAnnotation.contentLayer"];
-	[coder encodeCPTPoint:self.contentAnchorPoint forKey:@"CPTAnnotation.contentAnchorPoint"];
-	[coder encodeCPTPoint:self.displacement forKey:@"CPTAnnotation.displacement"];
-	[coder encodeCGFloat:self.rotation forKey:@"CPTAnnotation.rotation"];
+    [coder encodeConditionalObject:self.annotationHostLayer forKey:@"CPTAnnotation.annotationHostLayer"];
+    [coder encodeObject:self.contentLayer forKey:@"CPTAnnotation.contentLayer"];
+    [coder encodeCPTPoint:self.contentAnchorPoint forKey:@"CPTAnnotation.contentAnchorPoint"];
+    [coder encodeCPTPoint:self.displacement forKey:@"CPTAnnotation.displacement"];
+    [coder encodeCGFloat:self.rotation forKey:@"CPTAnnotation.rotation"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
-		contentLayer		= [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
-		contentAnchorPoint	= [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
-		displacement		= [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
-		rotation			= [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
+        contentLayer        = [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
+        contentAnchorPoint  = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
+        displacement        = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
+        rotation            = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -87,7 +87,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
+    return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 }
 
 #pragma mark -
@@ -97,49 +97,49 @@
 
 -(void)setContentLayer:(CPTLayer *)newLayer
 {
-	if ( newLayer != contentLayer ) {
-		[contentLayer removeFromSuperlayer];
-		[contentLayer release];
-		contentLayer = [newLayer retain];
-		if ( contentLayer ) {
-			[annotationHostLayer addSublayer:contentLayer];
-		}
-	}
+    if ( newLayer != contentLayer ) {
+        [contentLayer removeFromSuperlayer];
+        [contentLayer release];
+        contentLayer = [newLayer retain];
+        if ( contentLayer ) {
+            [annotationHostLayer addSublayer:contentLayer];
+        }
+    }
 }
 
 -(void)setAnnotationHostLayer:(CPTAnnotationHostLayer *)newLayer
 {
-	if ( newLayer != annotationHostLayer ) {
-		[contentLayer removeFromSuperlayer];
-		annotationHostLayer = newLayer;
-		if ( contentLayer ) {
-			[annotationHostLayer addSublayer:contentLayer];
-		}
-	}
+    if ( newLayer != annotationHostLayer ) {
+        [contentLayer removeFromSuperlayer];
+        annotationHostLayer = newLayer;
+        if ( contentLayer ) {
+            [annotationHostLayer addSublayer:contentLayer];
+        }
+    }
 }
 
 -(void)setDisplacement:(CGPoint)newDisplacement
 {
-	if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
-		displacement = newDisplacement;
-		[[self.contentLayer superlayer] setNeedsLayout];
-	}
+    if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
+        displacement = newDisplacement;
+        [[self.contentLayer superlayer] setNeedsLayout];
+    }
 }
 
 -(void)setContentAnchorPoint:(CGPoint)newAnchorPoint
 {
-	if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
-		contentAnchorPoint = newAnchorPoint;
-		[[self.contentLayer superlayer] setNeedsLayout];
-	}
+    if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
+        contentAnchorPoint = newAnchorPoint;
+        [[self.contentLayer superlayer] setNeedsLayout];
+    }
 }
 
 -(void)setRotation:(CGFloat)newRotation
 {
-	if ( newRotation != rotation ) {
-		rotation = newRotation;
-		[[self.contentLayer superlayer] setNeedsLayout];
-	}
+    if ( newRotation != rotation ) {
+        rotation = newRotation;
+        [[self.contentLayer superlayer] setNeedsLayout];
+    }
 }
 
 ///	@endcond
@@ -158,7 +158,7 @@
  **/
 -(void)positionContentLayer
 {
-	// Do nothing--implementation provided by subclasses
+    // Do nothing--implementation provided by subclasses
 }
 
 @end

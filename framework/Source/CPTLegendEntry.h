@@ -6,12 +6,12 @@
 @class CPTTextStyle;
 
 @interface CPTLegendEntry : NSObject<NSCoding> {
-	@private
-	__cpt_weak CPTPlot *plot;
-	NSUInteger index;
-	NSUInteger row;
-	NSUInteger column;
-	CPTTextStyle *textStyle;
+    @private
+    __cpt_weak CPTPlot *plot;
+    NSUInteger index;
+    NSUInteger row;
+    NSUInteger column;
+    CPTTextStyle *textStyle;
 }
 
 /// @name Plot Info

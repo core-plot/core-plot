@@ -4,8 +4,8 @@
 @class CPTPlotSpace;
 
 @interface CPTPlotSpaceAnnotation : CPTAnnotation {
-	NSArray *anchorPlotPoint;
-	CPTPlotSpace *plotSpace;
+    NSArray *anchorPlotPoint;
+    CPTPlotSpace *plotSpace;
 }
 
 @property (nonatomic, readwrite, copy) NSArray *anchorPlotPoint;

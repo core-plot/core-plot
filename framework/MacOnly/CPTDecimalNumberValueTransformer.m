@@ -12,7 +12,7 @@
  **/
 +(BOOL)allowsReverseTransformation
 {
-	return YES;
+    return YES;
 }
 
 /**
@@ -21,19 +21,19 @@
  **/
 +(Class)transformedValueClass
 {
-	return [NSNumber class];
+    return [NSNumber class];
 }
 
 ///	@cond
 
 -(id)transformedValue:(id)value
 {
-	return [[value copy] autorelease];
+    return [[value copy] autorelease];
 }
 
 -(id)reverseTransformedValue:(id)value
 {
-	return [value decimalNumber];
+    return [value decimalNumber];
 }
 
 ///	@endcond

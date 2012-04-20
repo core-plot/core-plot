@@ -4,13 +4,13 @@
 
 +(NSDateFormatter *)csvDateFormatter
 {
-	static NSDateFormatter *df = nil;
+    static NSDateFormatter *df = nil;
 
-	if ( !df ) {
-		df = [[NSDateFormatter alloc] init];
-		[df setDateFormat:@"yyyy-MM-dd"];
-	}
-	return df;
+    if ( !df ) {
+        df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd"];
+    }
+    return df;
 }
 
 @end

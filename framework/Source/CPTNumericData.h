@@ -2,10 +2,10 @@
 #import <Foundation/Foundation.h>
 
 @interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding> {
-	@protected
-	NSData *data;
-	CPTNumericDataType dataType;
-	NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
+    @protected
+    NSData *data;
+    CPTNumericDataType dataType;
+    NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
 }
 
 /// @name Data Buffer

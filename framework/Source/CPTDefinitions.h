@@ -32,7 +32,7 @@
 #endif
 
 #if CPT_SDK_SUPPORTS_WEAK
-#define __cpt_weak		  __weak
+#define __cpt_weak        __weak
 #define cpt_weak_property weak
 #else
 #if __clang__ && (__clang_major__ >= 3)
@@ -47,9 +47,9 @@
  *	@brief Enumeration of numeric types
  **/
 typedef enum  _CPTNumericType {
-	CPTNumericTypeInteger, ///< Integer
-	CPTNumericTypeFloat,   ///< Float
-	CPTNumericTypeDouble   ///< Double
+    CPTNumericTypeInteger, ///< Integer
+    CPTNumericTypeFloat,   ///< Float
+    CPTNumericTypeDouble   ///< Double
 }
 CPTNumericType;
 
@@ -57,9 +57,9 @@ CPTNumericType;
  *	@brief Enumeration of error bar types
  **/
 typedef enum _CPTErrorBarType {
-	CPTErrorBarTypeCustom,        ///< Custom error bars
-	CPTErrorBarTypeConstantRatio, ///< Constant ratio error bars
-	CPTErrorBarTypeConstantValue  ///< Constant value error bars
+    CPTErrorBarTypeCustom,        ///< Custom error bars
+    CPTErrorBarTypeConstantRatio, ///< Constant ratio error bars
+    CPTErrorBarTypeConstantValue  ///< Constant value error bars
 }
 CPTErrorBarType;
 
@@ -67,11 +67,11 @@ CPTErrorBarType;
  *	@brief Enumeration of axis scale types
  **/
 typedef enum _CPTScaleType {
-	CPTScaleTypeLinear,   ///< Linear axis scale
-	CPTScaleTypeLog,      ///< Logarithmic axis scale
-	CPTScaleTypeAngular,  ///< Angular axis scale (not implemented)
-	CPTScaleTypeDateTime, ///< Date/time axis scale (not implemented)
-	CPTScaleTypeCategory  ///< Category axis scale (not implemented)
+    CPTScaleTypeLinear,   ///< Linear axis scale
+    CPTScaleTypeLog,      ///< Logarithmic axis scale
+    CPTScaleTypeAngular,  ///< Angular axis scale (not implemented)
+    CPTScaleTypeDateTime, ///< Date/time axis scale (not implemented)
+    CPTScaleTypeCategory  ///< Category axis scale (not implemented)
 }
 CPTScaleType;
 
@@ -79,9 +79,9 @@ CPTScaleType;
  *	@brief Enumeration of axis coordinates
  **/
 typedef enum _CPTCoordinate {
-	CPTCoordinateX = 0, ///< X axis
-	CPTCoordinateY = 1, ///< Y axis
-	CPTCoordinateZ = 2  ///< Z axis
+    CPTCoordinateX = 0, ///< X axis
+    CPTCoordinateY = 1, ///< Y axis
+    CPTCoordinateZ = 2  ///< Z axis
 }
 CPTCoordinate;
 
@@ -89,10 +89,10 @@ CPTCoordinate;
  *	@brief RGBA color for gradients
  **/
 typedef struct _CPTRGBAColor {
-	CGFloat red;   ///< The red component (0 ≤ red ≤ 1).
-	CGFloat green; ///< The green component (0 ≤ green ≤ 1).
-	CGFloat blue;  ///< The blue component (0 ≤ blue ≤ 1).
-	CGFloat alpha; ///< The alpha component (0 ≤ alpha ≤ 1).
+    CGFloat red;   ///< The red component (0 ≤ red ≤ 1).
+    CGFloat green; ///< The green component (0 ≤ green ≤ 1).
+    CGFloat blue;  ///< The blue component (0 ≤ blue ≤ 1).
+    CGFloat alpha; ///< The alpha component (0 ≤ alpha ≤ 1).
 }
 CPTRGBAColor;
 
@@ -100,9 +100,9 @@ CPTRGBAColor;
  *	@brief Enumeration of label positioning offset directions
  **/
 typedef enum _CPTSign {
-	CPTSignNone		= 0,  ///< No offset
-	CPTSignPositive = +1, ///< Positive offset
-	CPTSignNegative = -1  ///< Negative offset
+    CPTSignNone     = 0,  ///< No offset
+    CPTSignPositive = +1, ///< Positive offset
+    CPTSignNegative = -1  ///< Negative offset
 }
 CPTSign;
 
@@ -110,15 +110,15 @@ CPTSign;
  *	@brief Locations around the edge of a rectangle.
  **/
 typedef enum _CPTRectAnchor {
-	CPTRectAnchorBottomLeft,  ///< The bottom left corner
-	CPTRectAnchorBottom,      ///< The bottom center
-	CPTRectAnchorBottomRight, ///< The bottom right corner
-	CPTRectAnchorLeft,        ///< The left middle
-	CPTRectAnchorRight,       ///< The right middle
-	CPTRectAnchorTopLeft,     ///< The top left corner
-	CPTRectAnchorTop,         ///< The top center
-	CPTRectAnchorTopRight,    ///< The top right
-	CPTRectAnchorCenter       ///< The center of the rect
+    CPTRectAnchorBottomLeft,  ///< The bottom left corner
+    CPTRectAnchorBottom,      ///< The bottom center
+    CPTRectAnchorBottomRight, ///< The bottom right corner
+    CPTRectAnchorLeft,        ///< The left middle
+    CPTRectAnchorRight,       ///< The right middle
+    CPTRectAnchorTopLeft,     ///< The top left corner
+    CPTRectAnchorTop,         ///< The top center
+    CPTRectAnchorTopRight,    ///< The top right
+    CPTRectAnchorCenter       ///< The center of the rect
 }
 CPTRectAnchor;
 
@@ -126,11 +126,11 @@ CPTRectAnchor;
  *	@brief Label and constraint alignment constants.
  **/
 typedef enum _CPTAlignment {
-	CPTAlignmentLeft,   ///< Align horizontally to the left side.
-	CPTAlignmentCenter, ///< Align horizontally to the center.
-	CPTAlignmentRight,  ///< Align horizontally to the right side.
-	CPTAlignmentTop,    ///< Align vertically to the top.
-	CPTAlignmentMiddle, ///< Align vertically to the middle.
-	CPTAlignmentBottom  ///< Align vertically to the bottom.
+    CPTAlignmentLeft,   ///< Align horizontally to the left side.
+    CPTAlignmentCenter, ///< Align horizontally to the center.
+    CPTAlignmentRight,  ///< Align horizontally to the right side.
+    CPTAlignmentTop,    ///< Align vertically to the top.
+    CPTAlignmentMiddle, ///< Align vertically to the middle.
+    CPTAlignmentBottom  ///< Align vertically to the bottom.
 }
 CPTAlignment;

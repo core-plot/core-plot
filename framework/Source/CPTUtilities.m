@@ -15,7 +15,7 @@ static BOOL cacheValueInitialized[kCacheSize] = { NO, NO, NO };
  **/
 int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
 {
-	return (int8_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] charValue];
+    return (int8_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] charValue];
 }
 
 /**
@@ -25,7 +25,7 @@ int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
  **/
 int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
 {
-	return (int16_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] shortValue];
+    return (int16_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] shortValue];
 }
 
 /**
@@ -35,7 +35,7 @@ int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
  **/
 int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 {
-	return (int32_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] longValue];
+    return (int32_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] longValue];
 }
 
 /**
@@ -45,7 +45,7 @@ int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
  **/
 int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 {
-	return (int64_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] longLongValue];
+    return (int64_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] longLongValue];
 }
 
 /**
@@ -55,7 +55,7 @@ int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
  **/
 int CPTDecimalIntValue(NSDecimal decimalNumber)
 {
-	return (int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue];
+    return (int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue];
 }
 
 /**
@@ -65,7 +65,7 @@ int CPTDecimalIntValue(NSDecimal decimalNumber)
  **/
 NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 {
-	return (NSInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] integerValue];
+    return (NSInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] integerValue];
 }
 
 /**
@@ -75,7 +75,7 @@ NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
  **/
 uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
 {
-	return (uint8_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedCharValue];
+    return (uint8_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedCharValue];
 }
 
 /**
@@ -85,7 +85,7 @@ uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
  **/
 uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
 {
-	return (uint16_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedShortValue];
+    return (uint16_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedShortValue];
 }
 
 /**
@@ -95,7 +95,7 @@ uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
  **/
 uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 {
-	return (uint32_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedLongValue];
+    return (uint32_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedLongValue];
 }
 
 /**
@@ -105,7 +105,7 @@ uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
  **/
 uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 {
-	return (uint64_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedLongLongValue];
+    return (uint64_t)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedLongLongValue];
 }
 
 /**
@@ -115,7 +115,7 @@ uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
  **/
 unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
 {
-	return (unsigned int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntValue];
+    return (unsigned int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntValue];
 }
 
 /**
@@ -125,7 +125,7 @@ unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
  **/
 NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 {
-	return (NSUInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntegerValue];
+    return (NSUInteger)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntegerValue];
 }
 
 /**
@@ -135,7 +135,7 @@ NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
  **/
 float CPTDecimalFloatValue(NSDecimal decimalNumber)
 {
-	return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
+    return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
 }
 
 /**
@@ -145,7 +145,7 @@ float CPTDecimalFloatValue(NSDecimal decimalNumber)
  **/
 double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 {
-	return (double)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
+    return (double)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
 }
 
 /**
@@ -156,10 +156,10 @@ double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
 {
 #if CGFLOAT_IS_DOUBLE
-	return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
+    return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
 
 #else
-	return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
+    return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
 #endif
 }
 
@@ -170,7 +170,7 @@ CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
  **/
 NSString *CPTDecimalStringValue(NSDecimal decimalNumber)
 {
-	return (NSString *)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] stringValue];
+    return (NSString *)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] stringValue];
 }
 
 #pragma mark -
@@ -183,14 +183,14 @@ NSString *CPTDecimalStringValue(NSDecimal decimalNumber)
  **/
 NSDecimal CPTDecimalFromChar(int8_t i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithChar:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithChar:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithChar:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithChar:i] decimalValue];
 }
 
 /**
@@ -200,14 +200,14 @@ NSDecimal CPTDecimalFromChar(int8_t i)
  **/
 NSDecimal CPTDecimalFromShort(int16_t i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithShort:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithShort:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithShort:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithShort:i] decimalValue];
 }
 
 /**
@@ -217,14 +217,14 @@ NSDecimal CPTDecimalFromShort(int16_t i)
  **/
 NSDecimal CPTDecimalFromLong(int32_t i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithLong:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithLong:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithLong:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithLong:i] decimalValue];
 }
 
 /**
@@ -234,14 +234,14 @@ NSDecimal CPTDecimalFromLong(int32_t i)
  **/
 NSDecimal CPTDecimalFromLongLong(int64_t i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithLongLong:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithLongLong:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithLongLong:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithLongLong:i] decimalValue];
 }
 
 /**
@@ -251,14 +251,14 @@ NSDecimal CPTDecimalFromLongLong(int64_t i)
  **/
 NSDecimal CPTDecimalFromInt(int i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithInt:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithInt:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithInt:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithInt:i] decimalValue];
 }
 
 /**
@@ -268,14 +268,14 @@ NSDecimal CPTDecimalFromInt(int i)
  **/
 NSDecimal CPTDecimalFromInteger(NSInteger i)
 {
-	if ( (i >= 0) && (i < kCacheSize) ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithInteger:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithInteger:i] decimalValue];
+    if ( (i >= 0) && (i < kCacheSize) ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithInteger:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithInteger:i] decimalValue];
 }
 
 /**
@@ -285,14 +285,14 @@ NSDecimal CPTDecimalFromInteger(NSInteger i)
  **/
 NSDecimal CPTDecimalFromUnsignedChar(uint8_t i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedChar:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedChar:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedChar:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedChar:i] decimalValue];
 }
 
 /**
@@ -302,14 +302,14 @@ NSDecimal CPTDecimalFromUnsignedChar(uint8_t i)
  **/
 NSDecimal CPTDecimalFromUnsignedShort(uint16_t i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedShort:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedShort:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedShort:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedShort:i] decimalValue];
 }
 
 /**
@@ -319,14 +319,14 @@ NSDecimal CPTDecimalFromUnsignedShort(uint16_t i)
  **/
 NSDecimal CPTDecimalFromUnsignedLong(uint32_t i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedLong:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedLong:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedLong:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedLong:i] decimalValue];
 }
 
 /**
@@ -336,14 +336,14 @@ NSDecimal CPTDecimalFromUnsignedLong(uint32_t i)
  **/
 NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedLongLong:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedLongLong:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedLongLong:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedLongLong:i] decimalValue];
 }
 
 /**
@@ -353,14 +353,14 @@ NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t i)
  **/
 NSDecimal CPTDecimalFromUnsignedInt(unsigned int i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedInt:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedInt:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedInt:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedInt:i] decimalValue];
 }
 
 /**
@@ -370,14 +370,14 @@ NSDecimal CPTDecimalFromUnsignedInt(unsigned int i)
  **/
 NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger i)
 {
-	if ( i < kCacheSize ) {
-		if ( !cacheValueInitialized[i] ) {
-			cache[i]				 = [[NSNumber numberWithUnsignedInteger:i] decimalValue];
-			cacheValueInitialized[i] = YES;
-		}
-		return cache[i];
-	}
-	return [[NSNumber numberWithUnsignedInteger:i] decimalValue];
+    if ( i < kCacheSize ) {
+        if ( !cacheValueInitialized[i] ) {
+            cache[i]                 = [[NSNumber numberWithUnsignedInteger:i] decimalValue];
+            cacheValueInitialized[i] = YES;
+        }
+        return cache[i];
+    }
+    return [[NSNumber numberWithUnsignedInteger:i] decimalValue];
 }
 
 /**
@@ -387,7 +387,7 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger i)
  **/
 NSDecimal CPTDecimalFromFloat(float f)
 {
-	return [[NSNumber numberWithFloat:f] decimalValue];
+    return [[NSNumber numberWithFloat:f] decimalValue];
 }
 
 /**
@@ -397,7 +397,7 @@ NSDecimal CPTDecimalFromFloat(float f)
  **/
 NSDecimal CPTDecimalFromDouble(double d)
 {
-	return [[NSNumber numberWithDouble:d] decimalValue];
+    return [[NSNumber numberWithDouble:d] decimalValue];
 }
 
 /**
@@ -408,10 +408,10 @@ NSDecimal CPTDecimalFromDouble(double d)
 NSDecimal CPTDecimalFromCGFloat(CGFloat f)
 {
 #if CGFLOAT_IS_DOUBLE
-	return [[NSNumber numberWithDouble:f] decimalValue];
+    return [[NSNumber numberWithDouble:f] decimalValue];
 
 #else
-	return [[NSNumber numberWithFloat:f] decimalValue];
+    return [[NSNumber numberWithFloat:f] decimalValue];
 #endif
 }
 
@@ -422,20 +422,20 @@ NSDecimal CPTDecimalFromCGFloat(CGFloat f)
  **/
 NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
 {
-	// The following NSDecimalNumber-based creation of NSDecimal structs from strings is slower than
-	// the NSScanner-based method: (307000 operations per second vs. 582000 operations per second for NSScanner)
+    // The following NSDecimalNumber-based creation of NSDecimal structs from strings is slower than
+    // the NSScanner-based method: (307000 operations per second vs. 582000 operations per second for NSScanner)
 
-	/*	NSDecimalNumber *newNumber = [[NSDecimalNumber alloc] initWithString:@"1.0" locale:[NSLocale currentLocale]];
-	 * newDecimal = [newNumber decimalValue];
-	 * [newNumber release];*/
+    /*	NSDecimalNumber *newNumber = [[NSDecimalNumber alloc] initWithString:@"1.0" locale:[NSLocale currentLocale]];
+     * newDecimal = [newNumber decimalValue];
+     * [newNumber release];*/
 
-	NSDecimal result;
-	NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
+    NSDecimal result;
+    NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
 
-	[theScanner scanDecimal:&result];
-	[theScanner release];
+    [theScanner scanDecimal:&result];
+    [theScanner release];
 
-	return result;
+    return result;
 }
 
 #pragma mark -
@@ -449,10 +449,10 @@ NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
  **/
 NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	NSDecimal result;
+    NSDecimal result;
 
-	NSDecimalAdd(&result, &leftOperand, &rightOperand, NSRoundBankers);
-	return result;
+    NSDecimalAdd(&result, &leftOperand, &rightOperand, NSRoundBankers);
+    return result;
 }
 
 /**
@@ -463,10 +463,10 @@ NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	NSDecimal result;
+    NSDecimal result;
 
-	NSDecimalSubtract(&result, &leftOperand, &rightOperand, NSRoundBankers);
-	return result;
+    NSDecimalSubtract(&result, &leftOperand, &rightOperand, NSRoundBankers);
+    return result;
 }
 
 /**
@@ -477,10 +477,10 @@ NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	NSDecimal result;
+    NSDecimal result;
 
-	NSDecimalMultiply(&result, &leftOperand, &rightOperand, NSRoundBankers);
-	return result;
+    NSDecimalMultiply(&result, &leftOperand, &rightOperand, NSRoundBankers);
+    return result;
 }
 
 /**
@@ -491,10 +491,10 @@ NSDecimal CPTDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator)
 {
-	NSDecimal result;
+    NSDecimal result;
 
-	NSDecimalDivide(&result, &numerator, &denominator, NSRoundBankers);
-	return result;
+    NSDecimalDivide(&result, &numerator, &denominator, NSRoundBankers);
+    return result;
 }
 
 #pragma mark -
@@ -508,7 +508,7 @@ NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator)
  **/
 BOOL CPTDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending;
+    return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending;
 }
 
 /**
@@ -519,7 +519,7 @@ BOOL CPTDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	return NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedAscending;
+    return NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedAscending;
 }
 
 /**
@@ -530,7 +530,7 @@ BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperan
  **/
 BOOL CPTDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending;
+    return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending;
 }
 
 /**
@@ -541,7 +541,7 @@ BOOL CPTDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 BOOL CPTDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	return NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedDescending;
+    return NSDecimalCompare(&leftOperand, &rightOperand) != NSOrderedDescending;
 }
 
 /**
@@ -552,7 +552,7 @@ BOOL CPTDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-	return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedSame;
+    return NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedSame;
 }
 
 #pragma mark -
@@ -567,12 +567,12 @@ BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalNaN(void)
 {
-	NSDecimal decimalNaN = [[NSDecimalNumber zero] decimalValue];
+    NSDecimal decimalNaN = [[NSDecimalNumber zero] decimalValue];
 
-	decimalNaN._length	   = 0;
-	decimalNaN._isNegative = YES;
+    decimalNaN._length     = 0;
+    decimalNaN._isNegative = YES;
 
-	return decimalNaN;
+    return decimalNaN;
 }
 
 #pragma mark -
@@ -589,11 +589,11 @@ NSDecimal CPTDecimalNaN(void)
  **/
 NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
 {
-	NSInteger loc			 = MAX(0, (int)range.location - expandBy);
-	NSInteger lowerExpansion = range.location - loc;
-	NSInteger length		 = range.length + lowerExpansion + expandBy;
+    NSInteger loc            = MAX(0, (int)range.location - expandBy);
+    NSInteger lowerExpansion = range.location - loc;
+    NSInteger length         = range.length + lowerExpansion + expandBy;
 
-	return NSMakeRange(loc, length);
+    return NSMakeRange(loc, length);
 }
 
 #pragma mark -
@@ -609,27 +609,27 @@ NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
  **/
 CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color)
 {
-	CPTRGBAColor rgbColor;
+    CPTRGBAColor rgbColor;
 
-	size_t numComponents = CGColorGetNumberOfComponents(color);
+    size_t numComponents = CGColorGetNumberOfComponents(color);
 
-	if ( numComponents == 2 ) {
-		const CGFloat *components = CGColorGetComponents(color);
-		CGFloat all				  = components[0];
-		rgbColor.red   = all;
-		rgbColor.green = all;
-		rgbColor.blue  = all;
-		rgbColor.alpha = components[1];
-	}
-	else {
-		const CGFloat *components = CGColorGetComponents(color);
-		rgbColor.red   = components[0];
-		rgbColor.green = components[1];
-		rgbColor.blue  = components[2];
-		rgbColor.alpha = components[3];
-	}
+    if ( numComponents == 2 ) {
+        const CGFloat *components = CGColorGetComponents(color);
+        CGFloat all               = components[0];
+        rgbColor.red   = all;
+        rgbColor.green = all;
+        rgbColor.blue  = all;
+        rgbColor.alpha = components[1];
+    }
+    else {
+        const CGFloat *components = CGColorGetComponents(color);
+        rgbColor.red   = components[0];
+        rgbColor.green = components[1];
+        rgbColor.blue  = components[2];
+        rgbColor.alpha = components[3];
+    }
 
-	return rgbColor;
+    return rgbColor;
 }
 
 #pragma mark -
@@ -645,7 +645,7 @@ CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color)
  **/
 CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord)
 {
-	return coord == CPTCoordinateX ? CPTCoordinateY : CPTCoordinateX;
+    return coord == CPTCoordinateX ? CPTCoordinateY : CPTCoordinateX;
 }
 
 #pragma mark -
@@ -663,16 +663,16 @@ CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord)
  **/
 CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p)
 {
-	// Compute the coordinates of the point in device space.
-	p = CGContextConvertPointToDeviceSpace(context, p);
+    // Compute the coordinates of the point in device space.
+    p = CGContextConvertPointToDeviceSpace(context, p);
 
-	// Ensure that coordinates are at exactly the corner
-	// of a device pixel.
-	p.x = round(p.x) + (CGFloat)0.5;
-	p.y = round(p.y) + (CGFloat)0.5;
+    // Ensure that coordinates are at exactly the corner
+    // of a device pixel.
+    p.x = round(p.x) + (CGFloat)0.5;
+    p.y = round(p.y) + (CGFloat)0.5;
 
-	// Convert the device aligned coordinate back to user space.
-	return CGContextConvertPointToUserSpace(context, p);
+    // Convert the device aligned coordinate back to user space.
+    return CGContextConvertPointToUserSpace(context, p);
 }
 
 /**
@@ -687,15 +687,15 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p)
  **/
 CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s)
 {
-	// Compute the size in device space.
-	s = CGContextConvertSizeToDeviceSpace(context, s);
+    // Compute the size in device space.
+    s = CGContextConvertSizeToDeviceSpace(context, s);
 
-	// Ensure that size is an integer multiple of device pixels.
-	s.width	 = round(s.width);
-	s.height = round(s.height);
+    // Ensure that size is an integer multiple of device pixels.
+    s.width  = round(s.width);
+    s.height = round(s.height);
 
-	// Convert back to user space.
-	return CGContextConvertSizeToUserSpace(context, s);
+    // Convert back to user space.
+    return CGContextConvertSizeToUserSpace(context, s);
 }
 
 /**
@@ -713,20 +713,20 @@ CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s)
  **/
 CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
 {
-	// Compute the coordinates of the rectangle in device space.
-	r = CGContextConvertRectToDeviceSpace(context, r);
+    // Compute the coordinates of the rectangle in device space.
+    r = CGContextConvertRectToDeviceSpace(context, r);
 
-	// Ensure that the x and y coordinates are at a pixel corner.
-	r.origin.x = round(r.origin.x) + (CGFloat)0.5;
-	r.origin.y = round(r.origin.y) + (CGFloat)0.5;
+    // Ensure that the x and y coordinates are at a pixel corner.
+    r.origin.x = round(r.origin.x) + (CGFloat)0.5;
+    r.origin.y = round(r.origin.y) + (CGFloat)0.5;
 
-	// Ensure that the width and height are an integer number of
-	// device pixels.
-	r.size.width  = round(r.size.width);
-	r.size.height = round(r.size.height);
+    // Ensure that the width and height are an integer number of
+    // device pixels.
+    r.size.width  = round(r.size.width);
+    r.size.height = round(r.size.height);
 
-	// Convert back to user space.
-	return CGContextConvertRectToUserSpace(context, r);
+    // Convert back to user space.
+    return CGContextConvertRectToUserSpace(context, r);
 }
 
 #pragma mark -
@@ -743,12 +743,12 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
  **/
 CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p)
 {
-	p = CGContextConvertPointToDeviceSpace(context, p);
+    p = CGContextConvertPointToDeviceSpace(context, p);
 
-	p.x = round(p.x);
-	p.y = round(p.y);
+    p.x = round(p.x);
+    p.y = round(p.y);
 
-	return CGContextConvertPointToUserSpace(context, p);
+    return CGContextConvertPointToUserSpace(context, p);
 }
 
 #pragma mark -
@@ -760,7 +760,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p)
  **/
 NSString *CPTStringFromPoint(CGPoint p)
 {
-	return [NSString stringWithFormat:@"{%g, %g}", p.x, p.y];
+    return [NSString stringWithFormat:@"{%g, %g}", p.x, p.y];
 }
 
 /**	@brief Creates a string representation of the given size.
@@ -769,7 +769,7 @@ NSString *CPTStringFromPoint(CGPoint p)
  **/
 NSString *CPTStringFromSize(CGSize s)
 {
-	return [NSString stringWithFormat:@"{%g, %g}", s.width, s.height];
+    return [NSString stringWithFormat:@"{%g, %g}", s.width, s.height];
 }
 
 /**	@brief Creates a string representation of the given rectangle.
@@ -778,7 +778,7 @@ NSString *CPTStringFromSize(CGSize s)
  **/
 NSString *CPTStringFromRect(CGRect r)
 {
-	return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
+    return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", r.origin.x, r.origin.y, r.size.width, r.size.height];
 }
 
 #pragma mark -
@@ -791,9 +791,9 @@ NSString *CPTStringFromRect(CGRect r)
  **/
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
-	CGFloat deltaX			= point1.x - point2.x;
-	CGFloat deltaY			= point1.y - point2.y;
-	CGFloat distanceSquared = deltaX * deltaX + deltaY * deltaY;
+    CGFloat deltaX          = point1.x - point2.x;
+    CGFloat deltaY          = point1.y - point2.y;
+    CGFloat distanceSquared = deltaX * deltaX + deltaY * deltaY;
 
-	return distanceSquared;
+    return distanceSquared;
 }

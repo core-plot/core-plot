@@ -3,9 +3,9 @@
 
 @interface CPTTestAppPieChartController : UIViewController<CPTPieChartDataSource>
 {
-	@private
-	CPTXYGraph *pieChart;
-	NSMutableArray *dataForChart;
+    @private
+    CPTXYGraph *pieChart;
+    NSMutableArray *dataForChart;
 }
 
 @property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;

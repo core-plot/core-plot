@@ -33,39 +33,39 @@
 
 -(void)setupView
 {
-	NSString *themeString = [NSString stringWithFormat:@"Theme: %@", kThemeTableViewControllerDefaultTheme];
+    NSString *themeString = [NSString stringWithFormat:@"Theme: %@", kThemeTableViewControllerDefaultTheme];
 
-	if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) {
-		themeBarButton = [[UIBarButtonItem alloc] initWithTitle:themeString style:UIBarButtonItemStylePlain target:self action:@selector(showThemes:)];
-		[[self navigationItem] setRightBarButtonItem:themeBarButton];
-	}
+    if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) {
+        themeBarButton = [[UIBarButtonItem alloc] initWithTitle:themeString style:UIBarButtonItemStylePlain target:self action:@selector(showThemes:)];
+        [[self navigationItem] setRightBarButtonItem:themeBarButton];
+    }
 
-	self.currentThemeName = [NSString stringWithFormat:@"Theme: %@", kThemeTableViewControllerDefaultTheme];
+    self.currentThemeName = [NSString stringWithFormat:@"Theme: %@", kThemeTableViewControllerDefaultTheme];
 }
 
 -(void)awakeFromNib
 {
-	[self setupView];
+    [self setupView];
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
-		[self setupView];
-	}
+    if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
+        [self setupView];
+    }
 
-	return self;
+    return self;
 }
 
 -(void)dealloc
 {
-	[popoverController release];
-	[toolbar release];
-	[detailItem release];
-	[hostingView release];
-	[themeBarButton release];
+    [popoverController release];
+    [toolbar release];
+    [detailItem release];
+    [hostingView release];
+    [themeBarButton release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -73,50 +73,50 @@
 
 -(PlotItem *)detailItem
 {
-	return detailItem;
+    return detailItem;
 }
 
 -(void)setDetailItem:(id)newDetailItem
 {
-	if ( detailItem != newDetailItem ) {
-		[detailItem killGraph];
-		[detailItem release];
+    if ( detailItem != newDetailItem ) {
+        [detailItem killGraph];
+        [detailItem release];
 
-		detailItem = [newDetailItem retain];
-		[detailItem renderInView:hostingView withTheme:[self currentTheme]];
-	}
+        detailItem = [newDetailItem retain];
+        [detailItem renderInView:hostingView withTheme:[self currentTheme]];
+    }
 
-	if ( popoverController != nil ) {
-		[popoverController dismissPopoverAnimated:YES];
-	}
+    if ( popoverController != nil ) {
+        [popoverController dismissPopoverAnimated:YES];
+    }
 }
 
 #pragma mark -
 #pragma mark Split view support
 
 -(void)splitViewController:(UISplitViewController *)svc
-	willHideViewController:(UIViewController *)aViewController
-		 withBarButtonItem:(UIBarButtonItem *)barButtonItem
-	  forPopoverController:(UIPopoverController *)pc
+    willHideViewController:(UIViewController *)aViewController
+         withBarButtonItem:(UIBarButtonItem *)barButtonItem
+      forPopoverController:(UIPopoverController *)pc
 {
-	barButtonItem.title = @"Plot Gallery";
-	NSMutableArray *items = [[toolbar items] mutableCopy];
-	[items insertObject:barButtonItem atIndex:0];
-	[toolbar setItems:items animated:YES];
-	[items release];
-	self.popoverController = pc;
+    barButtonItem.title = @"Plot Gallery";
+    NSMutableArray *items = [[toolbar items] mutableCopy];
+    [items insertObject:barButtonItem atIndex:0];
+    [toolbar setItems:items animated:YES];
+    [items release];
+    self.popoverController = pc;
 }
 
--(void)	 splitViewController:(UISplitViewController *)svc
-	  willShowViewController:(UIViewController *)aViewController
+-(void)  splitViewController:(UISplitViewController *)svc
+      willShowViewController:(UIViewController *)aViewController
    invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-	NSMutableArray *items = [[toolbar items] mutableCopy];
+    NSMutableArray *items = [[toolbar items] mutableCopy];
 
-	[items removeObjectAtIndex:0];
-	[toolbar setItems:items animated:YES];
-	[items release];
-	self.popoverController = nil;
+    [items removeObjectAtIndex:0];
+    [toolbar setItems:items animated:YES];
+    [items release];
+    self.popoverController = nil;
 }
 
 #pragma mark -
@@ -124,12 +124,12 @@
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return YES;
+    return YES;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	[detailItem renderInView:hostingView withTheme:[self currentTheme]];
+    [detailItem renderInView:hostingView withTheme:[self currentTheme]];
 }
 
 #pragma mark -
@@ -137,13 +137,13 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-	themeBarButton.title = currentThemeName;
+    themeBarButton.title = currentThemeName;
 }
 
 -(void)viewDidUnload
 {
-	self.popoverController = nil;
-	self.themeBarButton	   = nil;
+    self.popoverController = nil;
+    self.themeBarButton    = nil;
 }
 
 #pragma mark -
@@ -151,67 +151,67 @@
 
 -(CPTTheme *)currentTheme
 {
-	CPTTheme *theme;
+    CPTTheme *theme;
 
-	if ( currentThemeName == kThemeTableViewControllerNoTheme ) {
-		theme = (id)[NSNull null];
-	}
-	else if ( currentThemeName == kThemeTableViewControllerDefaultTheme ) {
-		theme = nil;
-	}
-	else {
-		theme = [CPTTheme themeNamed:currentThemeName];
-	}
+    if ( currentThemeName == kThemeTableViewControllerNoTheme ) {
+        theme = (id)[NSNull null];
+    }
+    else if ( currentThemeName == kThemeTableViewControllerDefaultTheme ) {
+        theme = nil;
+    }
+    else {
+        theme = [CPTTheme themeNamed:currentThemeName];
+    }
 
-	return theme;
+    return theme;
 }
 
 -(void)closeThemePopover
 {
-	// Cancel the popover
-	[themePopoverController dismissPopoverAnimated:YES];
-	[themePopoverController release];
-	themePopoverController = nil;
+    // Cancel the popover
+    [themePopoverController dismissPopoverAnimated:YES];
+    [themePopoverController release];
+    themePopoverController = nil;
 }
 
 -(IBAction)showThemes:(id)sender
 {
-	if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-		if ( themePopoverController == nil ) {
-			themePopoverController = [[UIPopoverController alloc] initWithContentViewController:themeTableViewController];
-			[themeTableViewController setThemePopoverController:themePopoverController];
-			[themePopoverController setPopoverContentSize:CGSizeMake(320, 320)];
-			[themePopoverController presentPopoverFromBarButtonItem:themeBarButton
-										   permittedArrowDirections:UIPopoverArrowDirectionAny
-														   animated:YES];
-		}
-		else {
-			[self closeThemePopover];
-		}
-	}
-	else {
-		themeTableViewController = [[ThemeTableViewController alloc] initWithNibName:@"ThemeTableViewController" bundle:nil];
-		[self.navigationController pushViewController:themeTableViewController animated:YES];
-		themeTableViewController.delegate = self;
-	}
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        if ( themePopoverController == nil ) {
+            themePopoverController = [[UIPopoverController alloc] initWithContentViewController:themeTableViewController];
+            [themeTableViewController setThemePopoverController:themePopoverController];
+            [themePopoverController setPopoverContentSize:CGSizeMake(320, 320)];
+            [themePopoverController presentPopoverFromBarButtonItem:themeBarButton
+                                           permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                           animated:YES];
+        }
+        else {
+            [self closeThemePopover];
+        }
+    }
+    else {
+        themeTableViewController = [[ThemeTableViewController alloc] initWithNibName:@"ThemeTableViewController" bundle:nil];
+        [self.navigationController pushViewController:themeTableViewController animated:YES];
+        themeTableViewController.delegate = self;
+    }
 }
 
 -(void)themeSelectedAtIndex:(NSString *)themeName
 {
-	themeBarButton.title  = [NSString stringWithFormat:@"Theme: %@", themeName];
-	self.currentThemeName = themeName;
+    themeBarButton.title  = [NSString stringWithFormat:@"Theme: %@", themeName];
+    self.currentThemeName = themeName;
 
-	if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-		[self closeThemePopover];
-	}
-	else {
-		[self.navigationController popViewControllerAnimated:YES];
-		themeTableViewController.delegate = nil;
-		[themeTableViewController release];
-		themeTableViewController = nil;
-	}
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        [self closeThemePopover];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+        themeTableViewController.delegate = nil;
+        [themeTableViewController release];
+        themeTableViewController = nil;
+    }
 
-	[detailItem renderInView:hostingView withTheme:[self currentTheme]];
+    [detailItem renderInView:hostingView withTheme:[self currentTheme]];
 }
 
 @end

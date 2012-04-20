@@ -6,8 +6,8 @@
 /**	@brief Node in a linked list of graphics contexts.
 **/
 typedef struct _CPTContextNode {
-	NSGraphicsContext *context;       ///< The graphics context.
-	struct _CPTContextNode *nextNode; ///< Pointer to the next node in the list.
+    NSGraphicsContext *context;       ///< The graphics context.
+    struct _CPTContextNode *nextNode; ///< Pointer to the next node in the list.
 }
 CPTContextNode;
 
@@ -22,13 +22,13 @@ static CPTContextNode *pushedContexts = NULL;
  **/
 void CPTPushCGContext(CGContextRef newContext)
 {
-	if ( newContext ) {
-		CPTContextNode *newNode = malloc( sizeof(CPTContextNode) );
-		(*newNode).context = [NSGraphicsContext currentContext];
-		[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
-		(*newNode).nextNode = pushedContexts;
-		pushedContexts		= newNode;
-	}
+    if ( newContext ) {
+        CPTContextNode *newNode = malloc( sizeof(CPTContextNode) );
+        (*newNode).context = [NSGraphicsContext currentContext];
+        [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
+        (*newNode).nextNode = pushedContexts;
+        pushedContexts      = newNode;
+    }
 }
 
 /**
@@ -36,12 +36,12 @@ void CPTPushCGContext(CGContextRef newContext)
  **/
 void CPTPopCGContext(void)
 {
-	if ( pushedContexts ) {
-		[NSGraphicsContext setCurrentContext:(*pushedContexts).context];
-		CPTContextNode *next = (*pushedContexts).nextNode;
-		free(pushedContexts);
-		pushedContexts = next;
-	}
+    if ( pushedContexts ) {
+        [NSGraphicsContext setCurrentContext:(*pushedContexts).context];
+        CPTContextNode *next = (*pushedContexts).nextNode;
+        free(pushedContexts);
+        pushedContexts = next;
+    }
 }
 
 #pragma mark -
@@ -52,7 +52,7 @@ void CPTPopCGContext(void)
  **/
 CGContextRef CPTGetCurrentContext(void)
 {
-	return [[NSGraphicsContext currentContext] graphicsPort];
+    return [[NSGraphicsContext currentContext] graphicsPort];
 }
 
 #pragma mark -
@@ -67,11 +67,11 @@ CGContextRef CPTGetCurrentContext(void)
  **/
 CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor)
 {
-	NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
-	CGFloat r, g, b, a;
+    NSColor *rgbColor = [nsColor colorUsingColorSpace:[NSColorSpace genericRGBColorSpace]];
+    CGFloat r, g, b, a;
 
-	[rgbColor getRed:&r green:&g blue:&b alpha:&a];
-	return CGColorCreateGenericRGB(r, g, b, a);
+    [rgbColor getRed:&r green:&g blue:&b alpha:&a];
+    return CGColorCreateGenericRGB(r, g, b, a);
 }
 
 /**	@brief Creates a CPTRGBAColor from an NSColor.
@@ -83,15 +83,15 @@ CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor)
  **/
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor)
 {
-	CGFloat red, green, blue, alpha;
+    CGFloat red, green, blue, alpha;
 
-	[[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&red green:&green blue:&blue alpha:&alpha];
+    [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&red green:&green blue:&blue alpha:&alpha];
 
-	CPTRGBAColor rgbColor;
-	rgbColor.red   = red;
-	rgbColor.green = green;
-	rgbColor.blue  = blue;
-	rgbColor.alpha = alpha;
+    CPTRGBAColor rgbColor;
+    rgbColor.red   = red;
+    rgbColor.green = green;
+    rgbColor.blue  = blue;
+    rgbColor.alpha = alpha;
 
-	return rgbColor;
+    return rgbColor;
 }

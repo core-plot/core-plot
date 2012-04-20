@@ -51,7 +51,7 @@
  **/
 +(id)textStyle
 {
-	return [[[self alloc] init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 
 #pragma mark -
@@ -59,20 +59,20 @@
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		fontName	  = @"Helvetica";
-		fontSize	  = 12.0;
-		color		  = [[CPTColor blackColor] retain];
-		textAlignment = CPTTextAlignmentLeft;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        fontName      = @"Helvetica";
+        fontSize      = 12.0;
+        color         = [[CPTColor blackColor] retain];
+        textAlignment = CPTTextAlignmentLeft;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[fontName release];
-	[color release];
-	[super dealloc];
+    [fontName release];
+    [color release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -80,21 +80,21 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
-	[coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
-	[coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
-	[coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
+    [coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
+    [coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
+    [coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
+    [coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		self->fontName		= [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
-		self->fontSize		= [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
-		self->color			= [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
-		self->textAlignment = [coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        self->fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
+        self->fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+        self->color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+        self->textAlignment = [coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -102,13 +102,13 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
+    CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
 
-	newCopy->fontName	   = [self->fontName copy];
-	newCopy->color		   = [self->color copy];
-	newCopy->fontSize	   = self->fontSize;
-	newCopy->textAlignment = self->textAlignment;
-	return newCopy;
+    newCopy->fontName      = [self->fontName copy];
+    newCopy->color         = [self->color copy];
+    newCopy->fontSize      = self->fontSize;
+    newCopy->textAlignment = self->textAlignment;
+    return newCopy;
 }
 
 #pragma mark -
@@ -116,13 +116,13 @@
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
-	CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
+    CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
 
-	newCopy->fontName	   = [self->fontName copy];
-	newCopy->color		   = [self->color copy];
-	newCopy->fontSize	   = self->fontSize;
-	newCopy->textAlignment = self->textAlignment;
-	return newCopy;
+    newCopy->fontName      = [self->fontName copy];
+    newCopy->color         = [self->color copy];
+    newCopy->fontSize      = self->fontSize;
+    newCopy->textAlignment = self->textAlignment;
+    return newCopy;
 }
 
 @end

@@ -11,27 +11,27 @@
 @end
 
 @interface APYahooDataPuller : NSObject {
-	NSString *symbol;
-	NSDate *startDate;
-	NSDate *endDate;
+    NSString *symbol;
+    NSDate *startDate;
+    NSDate *endDate;
 
-	NSDate *targetStartDate;
-	NSDate *targetEndDate;
-	NSString *targetSymbol;
+    NSDate *targetStartDate;
+    NSDate *targetEndDate;
+    NSString *targetSymbol;
 
-	id delegate;
-	NSDecimalNumber *overallHigh;
-	NSDecimalNumber *overallLow;
-	NSDecimalNumber *overallVolumeHigh;
-	NSDecimalNumber *overallVolumeLow;
+    id delegate;
+    NSDecimalNumber *overallHigh;
+    NSDecimalNumber *overallLow;
+    NSDecimalNumber *overallVolumeHigh;
+    NSDecimalNumber *overallVolumeLow;
 
-	@private
-	NSString *csvString;
-	NSArray *financialData; // consists of dictionaries
+    @private
+    NSString *csvString;
+    NSArray *financialData; // consists of dictionaries
 
-	BOOL loadingData;
-	NSMutableData *receivedData;
-	NSURLConnection *connection;
+    BOOL loadingData;
+    NSMutableData *receivedData;
+    NSURLConnection *connection;
 }
 
 @property (nonatomic, assign) id delegate;

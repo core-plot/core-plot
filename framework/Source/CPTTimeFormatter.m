@@ -28,15 +28,15 @@
  **/
 -(id)init
 {
-	NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
 
-	newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
-	newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
+    newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
 
-	self = [self initWithDateFormatter:newDateFormatter];
-	[newDateFormatter release];
+    self = [self initWithDateFormatter:newDateFormatter];
+    [newDateFormatter release];
 
-	return self;
+    return self;
 }
 
 /**	@brief Initializes new instance with the date formatter passed.
@@ -45,18 +45,18 @@
  **/
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
-	if ( (self = [super init]) ) {
-		dateFormatter = [aDateFormatter retain];
-		referenceDate = nil;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        dateFormatter = [aDateFormatter retain];
+        referenceDate = nil;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[referenceDate release];
-	[dateFormatter release];
-	[super dealloc];
+    [referenceDate release];
+    [dateFormatter release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -64,19 +64,19 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeObject:self.dateFormatter forKey:@"CPTTimeFormatter.dateFormatter"];
-	[coder encodeObject:self.referenceDate forKey:@"CPTTimeFormatter.referenceDate"];
+    [coder encodeObject:self.dateFormatter forKey:@"CPTTimeFormatter.dateFormatter"];
+    [coder encodeObject:self.referenceDate forKey:@"CPTTimeFormatter.referenceDate"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		dateFormatter = [[coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"] retain];
-		referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        dateFormatter = [[coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"] retain];
+        referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -84,13 +84,13 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTTimeFormatter *newFormatter = [[CPTTimeFormatter allocWithZone:zone] init];
+    CPTTimeFormatter *newFormatter = [[CPTTimeFormatter allocWithZone:zone] init];
 
-	if ( newFormatter ) {
-		newFormatter->dateFormatter = [self->dateFormatter copyWithZone:zone];
-		newFormatter->referenceDate = [self->referenceDate copyWithZone:zone];
-	}
-	return newFormatter;
+    if ( newFormatter ) {
+        newFormatter->dateFormatter = [self->dateFormatter copyWithZone:zone];
+        newFormatter->referenceDate = [self->referenceDate copyWithZone:zone];
+    }
+    return newFormatter;
 }
 
 #pragma mark -
@@ -109,17 +109,17 @@
  **/
 -(NSString *)stringForObjectValue:(NSDecimalNumber *)coordinateValue
 {
-	NSDate *date;
+    NSDate *date;
 
-	if ( self.referenceDate ) {
-		date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
-	}
-	else {
-		date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
-	}
-	NSString *string = [self.dateFormatter stringFromDate:date];
-	[date release];
-	return string;
+    if ( self.referenceDate ) {
+        date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
+    }
+    else {
+        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
+    }
+    NSString *string = [self.dateFormatter stringFromDate:date];
+    [date release];
+    return string;
 }
 
 ///	@}

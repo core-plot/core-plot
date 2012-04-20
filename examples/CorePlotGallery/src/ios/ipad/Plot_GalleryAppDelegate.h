@@ -13,12 +13,12 @@
 
 @interface Plot_GalleryAppDelegate : NSObject<UIApplicationDelegate>
 {
-	UIWindow *window;
+    UIWindow *window;
 
-	UISplitViewController *splitViewController;
+    UISplitViewController *splitViewController;
 
-	RootViewController *rootViewController;
-	DetailViewController *detailViewController;
+    RootViewController *rootViewController;
+    DetailViewController *detailViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

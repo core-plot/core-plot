@@ -2,8 +2,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CPTColor : NSObject<NSCopying, NSCoding> {
-	@private
-	CGColorRef cgColor;
+    @private
+    CGColorRef cgColor;
 }
 
 @property (nonatomic, readonly, assign) CGColorRef cgColor;

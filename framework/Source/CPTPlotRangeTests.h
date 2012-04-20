@@ -3,7 +3,7 @@
 @class CPTMutablePlotRange;
 
 @interface CPTPlotRangeTests : CPTTestCase {
-	CPTMutablePlotRange *plotRange;
+    CPTMutablePlotRange *plotRange;
 }
 
 @property (retain, readwrite) CPTMutablePlotRange *plotRange;

@@ -7,9 +7,9 @@
 
 @interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate, CPTTradingRangePlotDelegate, CPTPlotDataSource>
 {
-	@private
-	CPTGraph *graph;
-	NSArray *plotData;
+    @private
+    CPTGraph *graph;
+    NSArray *plotData;
 }
 
 @end

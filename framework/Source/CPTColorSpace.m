@@ -37,18 +37,18 @@
  **/
 +(CPTColorSpace *)genericRGBSpace;
 {
-	static CPTColorSpace *space = nil;
-	if ( nil == space ) {
-		CGColorSpaceRef cgSpace = NULL;
+    static CPTColorSpace *space = nil;
+    if ( nil == space ) {
+        CGColorSpaceRef cgSpace = NULL;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-		cgSpace = CGColorSpaceCreateDeviceRGB();
+        cgSpace = CGColorSpaceCreateDeviceRGB();
 #else
-		cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+        cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 #endif
-		space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
-		CGColorSpaceRelease(cgSpace);
-	}
-	return space;
+        space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
+        CGColorSpaceRelease(cgSpace);
+    }
+    return space;
 }
 
 #pragma mark -
@@ -62,23 +62,23 @@
  **/
 -(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
 {
-	if ( (self = [super init]) ) {
-		CGColorSpaceRetain(colorSpace);
-		cgColorSpace = colorSpace;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        CGColorSpaceRetain(colorSpace);
+        cgColorSpace = colorSpace;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	CGColorSpaceRelease(cgColorSpace);
-	[super dealloc];
+    CGColorSpaceRelease(cgColorSpace);
+    [super dealloc];
 }
 
 -(void)finalize
 {
-	CGColorSpaceRelease(cgColorSpace);
-	[super finalize];
+    CGColorSpaceRelease(cgColorSpace);
+    [super finalize];
 }
 
 #pragma mark -
@@ -86,15 +86,15 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
+    [coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -104,11 +104,11 @@
 
 -(void)setCGColorSpace:(CGColorSpaceRef)newSpace
 {
-	if ( newSpace != cgColorSpace ) {
-		CGColorSpaceRelease(cgColorSpace);
-		CGColorSpaceRetain(newSpace);
-		cgColorSpace = newSpace;
-	}
+    if ( newSpace != cgColorSpace ) {
+        CGColorSpaceRelease(cgColorSpace);
+        CGColorSpaceRetain(newSpace);
+        cgColorSpace = newSpace;
+    }
 }
 
 ///	@endcond

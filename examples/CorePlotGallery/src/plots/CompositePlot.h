@@ -9,20 +9,20 @@
 #import "PlotItem.h"
 
 @interface CompositePlot : PlotItem<CPTPlotSpaceDelegate,
-									CPTPlotDataSource,
-									CPTScatterPlotDelegate,
-									CPTBarPlotDelegate>
+                                    CPTPlotDataSource,
+                                    CPTScatterPlotDelegate,
+                                    CPTBarPlotDelegate>
 {
-	CPTGraphHostingView *scatterPlotView;
-	CPTGraphHostingView *barChartView;
-	CPTGraphHostingView *pieChartView;
+    CPTGraphHostingView *scatterPlotView;
+    CPTGraphHostingView *barChartView;
+    CPTGraphHostingView *pieChartView;
 
-	CPTXYGraph *scatterPlot;
-	CPTXYGraph *barChart;
-	CPTXYGraph *pieChart;
+    CPTXYGraph *scatterPlot;
+    CPTXYGraph *barChart;
+    CPTXYGraph *pieChart;
 
-	NSMutableArray *dataForChart;
-	NSMutableArray *dataForPlot;
+    NSMutableArray *dataForChart;
+    NSMutableArray *dataForPlot;
 }
 
 @property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;

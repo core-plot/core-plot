@@ -11,80 +11,80 @@ static const CGFloat titleOffset = 25.0;
 
 +(void)load
 {
-	[super registerPlotItem:self];
+    [super registerPlotItem:self];
 }
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		title = @"Line Caps";
-	}
+    if ( (self = [super init]) ) {
+        title = @"Line Caps";
+    }
 
-	return self;
+    return self;
 }
 
 -(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_OS_IPHONE
-	CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = layerHostingView.bounds;
 #else
-	CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-	// Create graph
-	CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
-	[self addGraph:graph toHostingView:layerHostingView];
-	[self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
+    // Create graph
+    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    [self addGraph:graph toHostingView:layerHostingView];
+    [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
-	[self setTitleDefaultsForGraph:graph withBounds:bounds];
-	[self setPaddingDefaultsForGraph:graph withBounds:bounds];
+    [self setTitleDefaultsForGraph:graph withBounds:bounds];
+    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
-	graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
+    graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 
-	// Plot area
-	graph.plotAreaFrame.paddingTop	  = 25.0;
-	graph.plotAreaFrame.paddingBottom = 25.0;
-	graph.plotAreaFrame.paddingLeft	  = 25.0;
-	graph.plotAreaFrame.paddingRight  = 25.0;
+    // Plot area
+    graph.plotAreaFrame.paddingTop    = 25.0;
+    graph.plotAreaFrame.paddingBottom = 25.0;
+    graph.plotAreaFrame.paddingLeft   = 25.0;
+    graph.plotAreaFrame.paddingRight  = 25.0;
 
-	// Setup plot space
-	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-	plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(100)];
-	plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.5) length:CPTDecimalFromInteger(-6)];
+    // Setup plot space
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(100)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.5) length:CPTDecimalFromInteger(-6)];
 
-	// Line styles
-	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
-	axisLineStyle.lineWidth = 3.0;
+    // Line styles
+    CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
+    axisLineStyle.lineWidth = 3.0;
 
-	// Line cap
-	CPTLineCap *lineCap = [CPTLineCap lineCap];
-	lineCap.size	  = CGSizeMake(15.0, 15.0);
-	lineCap.lineStyle = axisLineStyle;
-	lineCap.fill	  = [CPTFill fillWithColor:[CPTColor blueColor]];
+    // Line cap
+    CPTLineCap *lineCap = [CPTLineCap lineCap];
+    lineCap.size      = CGSizeMake(15.0, 15.0);
+    lineCap.lineStyle = axisLineStyle;
+    lineCap.fill      = [CPTFill fillWithColor:[CPTColor blueColor]];
 
-	// Axes
-	NSMutableArray *axes = [[NSMutableArray alloc] init];
+    // Axes
+    NSMutableArray *axes = [[NSMutableArray alloc] init];
 
-	for ( CPTLineCapType lineCapType = CPTLineCapTypeNone; lineCapType < CPTLineCapTypeCustom; ) {
-		CPTXYAxis *axis = [[CPTXYAxis alloc] init];
-		axis.plotSpace					 = graph.defaultPlotSpace;
-		axis.labelingPolicy				 = CPTAxisLabelingPolicyNone;
-		axis.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(lineCapType / 2);
-		axis.axisLineStyle				 = axisLineStyle;
+    for ( CPTLineCapType lineCapType = CPTLineCapTypeNone; lineCapType < CPTLineCapTypeCustom; ) {
+        CPTXYAxis *axis = [[CPTXYAxis alloc] init];
+        axis.plotSpace                   = graph.defaultPlotSpace;
+        axis.labelingPolicy              = CPTAxisLabelingPolicyNone;
+        axis.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(lineCapType / 2);
+        axis.axisLineStyle               = axisLineStyle;
 
-		lineCap.lineCapType = lineCapType++;
-		axis.axisLineCapMin = lineCap;
+        lineCap.lineCapType = lineCapType++;
+        axis.axisLineCapMin = lineCap;
 
-		lineCap.lineCapType = lineCapType++;
-		axis.axisLineCapMax = lineCap;
+        lineCap.lineCapType = lineCapType++;
+        axis.axisLineCapMax = lineCap;
 
-		[axes addObject:axis];
-		[axis release];
-	}
+        [axes addObject:axis];
+        [axis release];
+    }
 
-	// Add axes to the graph
-	graph.axisSet.axes = axes;
-	[axes release];
+    // Add axes to the graph
+    graph.axisSet.axes = axes;
+    [axes release];
 }
 
 @end

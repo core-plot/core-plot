@@ -5,13 +5,13 @@
 @class CPTMutablePlotRange;
 
 @interface CPTDataSourceTestCase : CPTTestCase<CPTPlotDataSource> {
-	@private
-	NSArray *xData, *yData;
-	CPTMutablePlotRange *xRange, *yRange;
+    @private
+    NSArray *xData, *yData;
+    CPTMutablePlotRange *xRange, *yRange;
 
-	NSMutableArray *plots;
+    NSMutableArray *plots;
 
-	NSUInteger nRecords;
+    NSUInteger nRecords;
 }
 
 @property (copy, readwrite) NSArray *xData;

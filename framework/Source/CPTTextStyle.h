@@ -9,18 +9,18 @@
  *	@brief Enumeration of paragraph alignments.
  **/
 typedef enum  _CPTTextAlignment {
-	CPTTextAlignmentLeft,   ///< Left alignment
-	CPTTextAlignmentCenter, ///< Center alignment
-	CPTTextAlignmentRight   ///< Right alignment
+    CPTTextAlignmentLeft,   ///< Left alignment
+    CPTTextAlignmentCenter, ///< Center alignment
+    CPTTextAlignmentRight   ///< Right alignment
 }
 CPTTextAlignment;
 
 @interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-	@protected
-	NSString *fontName;
-	CGFloat fontSize;
-	CPTColor *color;
-	CPTTextAlignment textAlignment;
+    @protected
+    NSString *fontName;
+    CGFloat fontSize;
+    CPTColor *color;
+    CPTTextAlignment textAlignment;
 }
 
 @property (readonly, copy, nonatomic) NSString *fontName;

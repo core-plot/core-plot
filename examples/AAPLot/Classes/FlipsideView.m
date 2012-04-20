@@ -12,20 +12,20 @@
 
 -(id)initWithFrame:(CGRect)frame
 {
-	if ( self = [super initWithFrame:frame] ) {
-		// Initialization code
-	}
-	return self;
+    if ( self = [super initWithFrame:frame] ) {
+        // Initialization code
+    }
+    return self;
 }
 
 -(void)drawRect:(CGRect)rect
 {
-	// Drawing code
+    // Drawing code
 }
 
 -(void)dealloc
 {
-	[super dealloc];
+    [super dealloc];
 }
 
 @end

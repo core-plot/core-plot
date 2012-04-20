@@ -8,30 +8,30 @@
 
 -(void)testNewThemeShouldBeCPTXYGraph
 {
-	// Arrange
-	_CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
+    // Arrange
+    _CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
 
-	// Act
-	CPTGraph *graph = [theme newGraph];
+    // Act
+    CPTGraph *graph = [theme newGraph];
 
-	// Assert
-	STAssertEquals([graph class], [CPTXYGraph class], @"graph should be of type CPTXYGraph");
-	[theme release];
+    // Assert
+    STAssertEquals([graph class], [CPTXYGraph class], @"graph should be of type CPTXYGraph");
+    [theme release];
 }
 
 -(void)testNewThemeSetGraphClassReturnedClassShouldBeOfCorrectType
 {
-	// Arrange
-	_CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
+    // Arrange
+    _CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
 
-	[theme setGraphClass:[CPTDerivedXYGraph class]];
+    [theme setGraphClass:[CPTDerivedXYGraph class]];
 
-	// Act
-	CPTGraph *graph = [theme newGraph];
+    // Act
+    CPTGraph *graph = [theme newGraph];
 
-	// Assert
-	STAssertEquals([graph class], [CPTDerivedXYGraph class], @"graph should be of type CPTDerivedXYGraph");
-	[theme release];
+    // Assert
+    STAssertEquals([graph class], [CPTDerivedXYGraph class], @"graph should be of type CPTDerivedXYGraph");
+    [theme release];
 }
 
 @end

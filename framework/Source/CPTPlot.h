@@ -19,9 +19,9 @@
  *	@brief Enumeration of cache precisions.
  **/
 typedef enum _CPTPlotCachePrecision {
-	CPTPlotCachePrecisionAuto,   ///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
-	CPTPlotCachePrecisionDouble, ///< All cached data will be converted to double precision.
-	CPTPlotCachePrecisionDecimal ///< All cached data will be converted to NSDecimal.
+    CPTPlotCachePrecisionAuto,   ///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
+    CPTPlotCachePrecisionDouble, ///< All cached data will be converted to double precision.
+    CPTPlotCachePrecisionDecimal ///< All cached data will be converted to NSDecimal.
 }
 CPTPlotCachePrecision;
 
@@ -135,24 +135,24 @@ CPTPlotCachePrecision;
 #pragma mark -
 
 @interface CPTPlot : CPTAnnotationHostLayer {
-	@private
-	__cpt_weak id<CPTPlotDataSource> dataSource;
-	NSString *title;
-	CPTPlotSpace *plotSpace;
-	BOOL dataNeedsReloading;
-	NSMutableDictionary *cachedData;
-	NSUInteger cachedDataCount;
-	CPTPlotCachePrecision cachePrecision;
-	BOOL needsRelabel;
-	CGFloat labelOffset;
-	CGFloat labelRotation;
-	NSUInteger labelField;
-	CPTTextStyle *labelTextStyle;
-	NSNumberFormatter *labelFormatter;
-	NSRange labelIndexRange;
-	NSMutableArray *labelAnnotations;
-	CPTShadow *labelShadow;
-	BOOL alignsPointsToPixels;
+    @private
+    __cpt_weak id<CPTPlotDataSource> dataSource;
+    NSString *title;
+    CPTPlotSpace *plotSpace;
+    BOOL dataNeedsReloading;
+    NSMutableDictionary *cachedData;
+    NSUInteger cachedDataCount;
+    CPTPlotCachePrecision cachePrecision;
+    BOOL needsRelabel;
+    CGFloat labelOffset;
+    CGFloat labelRotation;
+    NSUInteger labelField;
+    CPTTextStyle *labelTextStyle;
+    NSNumberFormatter *labelFormatter;
+    NSRange labelIndexRange;
+    NSMutableArray *labelAnnotations;
+    CPTShadow *labelShadow;
+    BOOL alignsPointsToPixels;
 }
 
 /// @name Data Source

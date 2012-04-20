@@ -3,9 +3,9 @@
 #import <Foundation/Foundation.h>
 
 @interface CPTXYGraph : CPTGraph {
-	@private
-	CPTScaleType xScaleType;
-	CPTScaleType yScaleType;
+    @private
+    CPTScaleType xScaleType;
+    CPTScaleType yScaleType;
 }
 
 /// @name Initialization

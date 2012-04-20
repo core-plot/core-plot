@@ -2,8 +2,8 @@
 #import <CorePlot/CorePlot.h>
 
 @interface CPTPlotSymbolTestController : NSObject<CPTScatterPlotDataSource> {
-	IBOutlet CPTGraphHostingView *hostView;
-	CPTXYGraph *graph;
+    IBOutlet CPTGraphHostingView *hostView;
+    CPTXYGraph *graph;
 }
 
 @end

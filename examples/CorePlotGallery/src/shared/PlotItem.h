@@ -26,11 +26,11 @@ typedef NSRect CGNSRect;
 
 @interface PlotItem : NSObject
 {
-	CPTGraphHostingView *defaultLayerHostingView;
+    CPTGraphHostingView *defaultLayerHostingView;
 
-	NSMutableArray *graphs;
-	NSString *title;
-	CPTNativeImage *cachedImage;
+    NSMutableArray *graphs;
+    NSString *title;
+    CPTNativeImage *cachedImage;
 }
 
 @property (nonatomic, retain) CPTGraphHostingView *defaultLayerHostingView;

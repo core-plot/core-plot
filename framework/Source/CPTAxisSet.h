@@ -4,9 +4,9 @@
 @class CPTLineStyle;
 
 @interface CPTAxisSet : CPTLayer {
-	@private
-	NSArray *axes;
-	CPTLineStyle *borderLineStyle;
+    @private
+    NSArray *axes;
+    CPTLineStyle *borderLineStyle;
 }
 
 @property (nonatomic, readwrite, retain) NSArray *axes;

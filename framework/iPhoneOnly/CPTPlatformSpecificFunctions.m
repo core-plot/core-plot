@@ -5,15 +5,15 @@
 
 void CPTPushCGContext(CGContextRef newContext)
 {
-	UIGraphicsPushContext(newContext);
+    UIGraphicsPushContext(newContext);
 }
 
 void CPTPopCGContext(void)
 {
-	UIGraphicsPopContext();
+    UIGraphicsPopContext();
 }
 
 CGContextRef CPTGetCurrentContext(void)
 {
-	return UIGraphicsGetCurrentContext();
+    return UIGraphicsGetCurrentContext();
 }

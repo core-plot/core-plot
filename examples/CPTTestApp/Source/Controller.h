@@ -3,16 +3,16 @@
 #import <CorePlot/CorePlot.h>
 
 @interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
-	IBOutlet CPTGraphHostingView *hostView;
-	IBOutlet NSWindow *plotSymbolWindow;
-	IBOutlet NSWindow *axisDemoWindow;
-	IBOutlet NSWindow *selectionDemoWindow;
-	CPTXYGraph *graph;
-	RotationView *overlayRotationView;
-	CPTPlotSpaceAnnotation *symbolTextAnnotation;
-	CGFloat xShift;
-	CGFloat yShift;
-	CGFloat labelRotation;
+    IBOutlet CPTGraphHostingView *hostView;
+    IBOutlet NSWindow *plotSymbolWindow;
+    IBOutlet NSWindow *axisDemoWindow;
+    IBOutlet NSWindow *selectionDemoWindow;
+    CPTXYGraph *graph;
+    RotationView *overlayRotationView;
+    CPTPlotSpaceAnnotation *symbolTextAnnotation;
+    CGFloat xShift;
+    CGFloat yShift;
+    CGFloat labelRotation;
 }
 
 @property (nonatomic) CGFloat xShift;

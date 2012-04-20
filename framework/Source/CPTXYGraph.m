@@ -46,11 +46,11 @@
  **/
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType;
 {
-	if ( (self = [super initWithFrame:newFrame]) ) {
-		xScaleType = newXScaleType;
-		yScaleType = newYScaleType;
-	}
-	return self;
+    if ( (self = [super initWithFrame:newFrame]) ) {
+        xScaleType = newXScaleType;
+        yScaleType = newYScaleType;
+    }
+    return self;
 }
 
 /// @name Initialization
@@ -68,20 +68,20 @@
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
-	return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
+    return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
 }
 
 ///	@}
 
 -(id)initWithLayer:(id)layer
 {
-	if ( (self = [super initWithLayer:layer]) ) {
-		CPTXYGraph *theLayer = (CPTXYGraph *)layer;
+    if ( (self = [super initWithLayer:layer]) ) {
+        CPTXYGraph *theLayer = (CPTXYGraph *)layer;
 
-		xScaleType = theLayer->xScaleType;
-		yScaleType = theLayer->yScaleType;
-	}
-	return self;
+        xScaleType = theLayer->xScaleType;
+        yScaleType = theLayer->yScaleType;
+    }
+    return self;
 }
 
 #pragma mark -
@@ -89,19 +89,19 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
-	[coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
+    [coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
+    [coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		xScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
-		yScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.yScaleType"];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        xScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
+        yScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.yScaleType"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -111,20 +111,20 @@
 
 -(CPTPlotSpace *)newPlotSpace
 {
-	CPTXYPlotSpace *space = [[CPTXYPlotSpace alloc] init];
+    CPTXYPlotSpace *space = [[CPTXYPlotSpace alloc] init];
 
-	space.xScaleType = self.xScaleType;
-	space.yScaleType = self.yScaleType;
-	return space;
+    space.xScaleType = self.xScaleType;
+    space.yScaleType = self.yScaleType;
+    return space;
 }
 
 -(CPTAxisSet *)newAxisSet
 {
-	CPTXYAxisSet *newAxisSet = [(CPTXYAxisSet *)[CPTXYAxisSet alloc] initWithFrame:self.bounds];
+    CPTXYAxisSet *newAxisSet = [(CPTXYAxisSet *)[CPTXYAxisSet alloc] initWithFrame:self.bounds];
 
-	newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
-	newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
-	return newAxisSet;
+    newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
+    newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;
+    return newAxisSet;
 }
 
 ///	@endcond

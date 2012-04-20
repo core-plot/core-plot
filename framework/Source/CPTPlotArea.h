@@ -12,17 +12,17 @@
 @class CPTFill;
 
 @interface CPTPlotArea : CPTAnnotationHostLayer {
-	@private
-	CPTGridLineGroup *minorGridLineGroup;
-	CPTGridLineGroup *majorGridLineGroup;
-	CPTAxisSet *axisSet;
-	CPTPlotGroup *plotGroup;
-	CPTAxisLabelGroup *axisLabelGroup;
-	CPTAxisLabelGroup *axisTitleGroup;
-	CPTFill *fill;
-	NSArray *topDownLayerOrder;
-	CPTGraphLayerType *bottomUpLayerOrder;
-	BOOL updatingLayers;
+    @private
+    CPTGridLineGroup *minorGridLineGroup;
+    CPTGridLineGroup *majorGridLineGroup;
+    CPTAxisSet *axisSet;
+    CPTPlotGroup *plotGroup;
+    CPTAxisLabelGroup *axisLabelGroup;
+    CPTAxisLabelGroup *axisTitleGroup;
+    CPTFill *fill;
+    NSArray *topDownLayerOrder;
+    CPTGraphLayerType *bottomUpLayerOrder;
+    BOOL updatingLayers;
 }
 
 /// @name Layers

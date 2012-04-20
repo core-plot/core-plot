@@ -24,7 +24,7 @@
  **/
 +(CPTFill *)fillWithColor:(CPTColor *)aColor
 {
-	return [[(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor] autorelease];
+    return [[(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor] autorelease];
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given gradient.
@@ -33,7 +33,7 @@
  **/
 +(CPTFill *)fillWithGradient:(CPTGradient *)aGradient
 {
-	return [[[_CPTFillGradient alloc] initWithGradient:aGradient] autorelease];
+    return [[[_CPTFillGradient alloc] initWithGradient:aGradient] autorelease];
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given image.
@@ -42,7 +42,7 @@
  **/
 +(CPTFill *)fillWithImage:(CPTImage *)anImage
 {
-	return [[(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage] autorelease];
+    return [[(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage] autorelease];
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided color.
@@ -51,11 +51,11 @@
  **/
 -(id)initWithColor:(CPTColor *)aColor
 {
-	[self release];
+    [self release];
 
-	self = [(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor];
+    self = [(_CPTFillColor *)[_CPTFillColor alloc] initWithColor:aColor];
 
-	return self;
+    return self;
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided gradient.
@@ -64,11 +64,11 @@
  **/
 -(id)initWithGradient:(CPTGradient *)aGradient
 {
-	[self release];
+    [self release];
 
-	self = [[_CPTFillGradient alloc] initWithGradient:aGradient];
+    self = [[_CPTFillGradient alloc] initWithGradient:aGradient];
 
-	return self;
+    return self;
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided image.
@@ -77,11 +77,11 @@
  **/
 -(id)initWithImage:(CPTImage *)anImage
 {
-	[self release];
+    [self release];
 
-	self = [(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage];
+    self = [(_CPTFillImage *)[_CPTFillImage alloc] initWithImage:anImage];
 
-	return self;
+    return self;
 }
 
 #pragma mark -
@@ -89,8 +89,8 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	// do nothing--implemented in subclasses
-	return nil;
+    // do nothing--implemented in subclasses
+    return nil;
 }
 
 #pragma mark -
@@ -98,28 +98,28 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	// do nothing--implemented in subclasses
+    // do nothing--implemented in subclasses
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	id fill = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
+    id fill = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
 
-	if ( fill ) {
-		return [self initWithColor:fill];
-	}
+    if ( fill ) {
+        return [self initWithColor:fill];
+    }
 
-	fill = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
-	if ( fill ) {
-		return [self initWithGradient:fill];
-	}
+    fill = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+    if ( fill ) {
+        return [self initWithGradient:fill];
+    }
 
-	fill = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
-	if ( fill ) {
-		return [self initWithImage:fill];
-	}
+    fill = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
+    if ( fill ) {
+        return [self initWithImage:fill];
+    }
 
-	return self;
+    return self;
 }
 
 @end
@@ -137,7 +137,7 @@
  **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	// do nothing--subclasses override to do drawing here
+    // do nothing--subclasses override to do drawing here
 }
 
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
@@ -145,7 +145,7 @@
  **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	// do nothing--subclasses override to do drawing here
+    // do nothing--subclasses override to do drawing here
 }
 
 @end

@@ -2,7 +2,7 @@
 #import <CorePlot/CorePlot.h>
 
 @interface AxisDemoController : NSObject {
-	IBOutlet CPTGraphHostingView *hostView;
+    IBOutlet CPTGraphHostingView *hostView;
 }
 
 @end

@@ -1,11 +1,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CPTCalendarFormatter : NSNumberFormatter {
-	@private
-	NSDateFormatter *dateFormatter;
-	NSDate *referenceDate;
-	NSCalendar *referenceCalendar;
-	NSCalendarUnit referenceCalendarUnit;
+    @private
+    NSDateFormatter *dateFormatter;
+    NSDate *referenceDate;
+    NSCalendar *referenceCalendar;
+    NSCalendarUnit referenceCalendarUnit;
 }
 
 @property (nonatomic, readwrite, retain) NSDateFormatter *dateFormatter;

@@ -12,13 +12,13 @@
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		// support old archives
-		if ( [coder containsValueForKey:@"CPTPlotGroup.identifier"] ) {
-			self.identifier = [coder decodeObjectForKey:@"CPTPlotGroup.identifier"];
-		}
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        // support old archives
+        if ( [coder containsValueForKey:@"CPTPlotGroup.identifier"] ) {
+            self.identifier = [coder decodeObjectForKey:@"CPTPlotGroup.identifier"];
+        }
+    }
+    return self;
 }
 
 #pragma mark -
@@ -29,9 +29,9 @@
  **/
 -(void)addPlot:(CPTPlot *)plot
 {
-	NSParameterAssert(plot);
+    NSParameterAssert(plot);
 
-	[self addSublayer:plot];
+    [self addSublayer:plot];
 }
 
 /**	@brief Add a plot to this plot group at the given index.
@@ -40,10 +40,10 @@
  **/
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index
 {
-	NSParameterAssert(plot);
-	NSParameterAssert(index <= [[self sublayers] count]);
+    NSParameterAssert(plot);
+    NSParameterAssert(index <= [[self sublayers] count]);
 
-	[self insertSublayer:plot atIndex:index];
+    [self insertSublayer:plot atIndex:index];
 }
 
 /**	@brief Remove a plot from this plot group.
@@ -51,9 +51,9 @@
  **/
 -(void)removePlot:(CPTPlot *)plot
 {
-	if ( self == [plot superlayer] ) {
-		[plot removeFromSuperlayer];
-	}
+    if ( self == [plot superlayer] ) {
+        [plot removeFromSuperlayer];
+    }
 }
 
 #pragma mark -
@@ -63,7 +63,7 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)theContext
 {
-	// nothing to draw
+    // nothing to draw
 }
 
 ///	@endcond

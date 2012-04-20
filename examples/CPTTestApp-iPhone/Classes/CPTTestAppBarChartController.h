@@ -8,9 +8,9 @@
 
 @interface CPTTestAppBarChartController : UIViewController<CPTPlotDataSource>
 {
-	@private
-	CPTXYGraph *barChart;
-	NSTimer *timer;
+    @private
+    CPTXYGraph *barChart;
+    NSTimer *timer;
 }
 
 @property (readwrite, retain, nonatomic) NSTimer *timer;

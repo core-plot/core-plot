@@ -4,9 +4,9 @@
 @class CPTFill;
 
 @interface CPTLimitBand : NSObject<NSCoding, NSCopying> {
-	@private
-	CPTPlotRange *range;
-	CPTFill *fill;
+    @private
+    CPTPlotRange *range;
+    CPTFill *fill;
 }
 
 @property (nonatomic, readwrite, retain) CPTPlotRange *range;

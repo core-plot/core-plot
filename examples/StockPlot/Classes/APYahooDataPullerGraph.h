@@ -11,11 +11,11 @@
 #import <UIKit/UIKit.h>
 
 @interface APYahooDataPullerGraph : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource> {
-	CPTGraphHostingView *graphHost;
-	APYahooDataPuller *dataPuller;
+    CPTGraphHostingView *graphHost;
+    APYahooDataPuller *dataPuller;
 
-	@private
-	CPTXYGraph *graph;
+    @private
+    CPTXYGraph *graph;
 }
 
 @property (nonatomic, retain) IBOutlet CPTGraphHostingView *graphHost;

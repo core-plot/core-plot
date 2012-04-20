@@ -9,10 +9,10 @@
 #import "PlotItem.h"
 
 @interface SteppedScatterPlot : PlotItem<CPTPlotSpaceDelegate,
-										 CPTPlotDataSource,
-										 CPTScatterPlotDelegate>
+                                         CPTPlotDataSource,
+                                         CPTScatterPlotDelegate>
 {
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

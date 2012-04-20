@@ -45,15 +45,15 @@
  **/
 -(id)init
 {
-	NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
 
-	newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
-	newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
+    newDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
 
-	self = [self initWithDateFormatter:newDateFormatter];
-	[newDateFormatter release];
+    self = [self initWithDateFormatter:newDateFormatter];
+    [newDateFormatter release];
 
-	return self;
+    return self;
 }
 
 /**	@brief Initializes new instance with the date formatter passed.
@@ -62,21 +62,21 @@
  **/
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
-	if ( (self = [super init]) ) {
-		dateFormatter		  = [aDateFormatter retain];
-		referenceDate		  = nil;
-		referenceCalendar	  = nil;
-		referenceCalendarUnit = 0;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        dateFormatter         = [aDateFormatter retain];
+        referenceDate         = nil;
+        referenceCalendar     = nil;
+        referenceCalendarUnit = 0;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[referenceCalendar release];
-	[referenceDate release];
-	[dateFormatter release];
-	[super dealloc];
+    [referenceCalendar release];
+    [referenceDate release];
+    [dateFormatter release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -84,23 +84,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeObject:self.dateFormatter forKey:@"CPTCalendarFormatter.dateFormatter"];
-	[coder encodeObject:self.referenceDate forKey:@"CPTCalendarFormatter.referenceDate"];
-	[coder encodeObject:self.referenceCalendar forKey:@"CPTCalendarFormatter.referenceCalendar"];
-	[coder encodeInteger:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+    [coder encodeObject:self.dateFormatter forKey:@"CPTCalendarFormatter.dateFormatter"];
+    [coder encodeObject:self.referenceDate forKey:@"CPTCalendarFormatter.referenceDate"];
+    [coder encodeObject:self.referenceCalendar forKey:@"CPTCalendarFormatter.referenceCalendar"];
+    [coder encodeInteger:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		dateFormatter		  = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
-		referenceDate		  = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
-		referenceCalendar	  = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
-		referenceCalendarUnit = [coder decodeIntegerForKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        dateFormatter         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
+        referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
+        referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
+        referenceCalendarUnit = [coder decodeIntegerForKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -108,15 +108,15 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTCalendarFormatter *newFormatter = [[CPTCalendarFormatter allocWithZone:zone] init];
+    CPTCalendarFormatter *newFormatter = [[CPTCalendarFormatter allocWithZone:zone] init];
 
-	if ( newFormatter ) {
-		newFormatter->dateFormatter			= [self->dateFormatter copyWithZone:zone];
-		newFormatter->referenceDate			= [self->referenceDate copyWithZone:zone];
-		newFormatter->referenceCalendar		= [self->referenceCalendar copyWithZone:zone];
-		newFormatter->referenceCalendarUnit = self->referenceCalendarUnit;
-	}
-	return newFormatter;
+    if ( newFormatter ) {
+        newFormatter->dateFormatter         = [self->dateFormatter copyWithZone:zone];
+        newFormatter->referenceDate         = [self->referenceDate copyWithZone:zone];
+        newFormatter->referenceCalendar     = [self->referenceCalendar copyWithZone:zone];
+        newFormatter->referenceCalendarUnit = self->referenceCalendarUnit;
+    }
+    return newFormatter;
 }
 
 #pragma mark -
@@ -135,103 +135,103 @@
  **/
 -(NSString *)stringForObjectValue:(NSDecimalNumber *)coordinateValue
 {
-	NSInteger componentIncrement = [coordinateValue integerValue];
+    NSInteger componentIncrement = [coordinateValue integerValue];
 
-	NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
 
-	switch ( self.referenceCalendarUnit ) {
-		case NSEraCalendarUnit:
-			dateComponents.era = componentIncrement;
-			break;
+    switch ( self.referenceCalendarUnit ) {
+        case NSEraCalendarUnit:
+            dateComponents.era = componentIncrement;
+            break;
 
-		case NSYearCalendarUnit:
-			dateComponents.year = componentIncrement;
-			break;
+        case NSYearCalendarUnit:
+            dateComponents.year = componentIncrement;
+            break;
 
-		case NSMonthCalendarUnit:
-			dateComponents.month = componentIncrement;
-			break;
+        case NSMonthCalendarUnit:
+            dateComponents.month = componentIncrement;
+            break;
 
-		case NSDayCalendarUnit:
-			dateComponents.day = componentIncrement;
-			break;
+        case NSDayCalendarUnit:
+            dateComponents.day = componentIncrement;
+            break;
 
-		case NSHourCalendarUnit:
-			dateComponents.hour = componentIncrement;
-			break;
+        case NSHourCalendarUnit:
+            dateComponents.hour = componentIncrement;
+            break;
 
-		case NSMinuteCalendarUnit:
-			dateComponents.minute = componentIncrement;
-			break;
+        case NSMinuteCalendarUnit:
+            dateComponents.minute = componentIncrement;
+            break;
 
-		case NSSecondCalendarUnit:
-			dateComponents.second = componentIncrement;
-			break;
+        case NSSecondCalendarUnit:
+            dateComponents.second = componentIncrement;
+            break;
 
-		case NSWeekdayCalendarUnit:
-			dateComponents.weekday = componentIncrement;
-			break;
+        case NSWeekdayCalendarUnit:
+            dateComponents.weekday = componentIncrement;
+            break;
 
-		case NSWeekdayOrdinalCalendarUnit:
-			dateComponents.weekdayOrdinal = componentIncrement;
-			break;
+        case NSWeekdayOrdinalCalendarUnit:
+            dateComponents.weekdayOrdinal = componentIncrement;
+            break;
 
 #if MAC_OS_X_VERSION_10_5 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_3_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
-		case NSQuarterCalendarUnit:
-			if ( [dateComponents respondsToSelector:@selector(setQuarter)] ) {
-				dateComponents.quarter = componentIncrement;
-			}
-			else {
-				[NSException raise:CPTException format:@"Unsupported calendar unit: NSQuarterCalendarUnit"];
-			}
-			break;
+        case NSQuarterCalendarUnit:
+            if ( [dateComponents respondsToSelector:@selector(setQuarter)] ) {
+                dateComponents.quarter = componentIncrement;
+            }
+            else {
+                [NSException raise:CPTException format:@"Unsupported calendar unit: NSQuarterCalendarUnit"];
+            }
+            break;
 #endif
 #if MAC_OS_X_VERSION_10_6 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
-		case NSWeekOfMonthCalendarUnit:
-			if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth)] ) {
-				dateComponents.weekOfMonth = componentIncrement;
-			}
-			else {
-				[NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfMonthCalendarUnit"];
-			}
-			break;
+        case NSWeekOfMonthCalendarUnit:
+            if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth)] ) {
+                dateComponents.weekOfMonth = componentIncrement;
+            }
+            else {
+                [NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfMonthCalendarUnit"];
+            }
+            break;
 
-		case NSWeekOfYearCalendarUnit:
-			if ( [dateComponents respondsToSelector:@selector(setWeekOfYear)] ) {
-				dateComponents.weekOfYear = componentIncrement;
-			}
-			else {
-				[NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfYearCalendarUnit"];
-			}
-			break;
+        case NSWeekOfYearCalendarUnit:
+            if ( [dateComponents respondsToSelector:@selector(setWeekOfYear)] ) {
+                dateComponents.weekOfYear = componentIncrement;
+            }
+            else {
+                [NSException raise:CPTException format:@"Unsupported calendar unit: NSWeekOfYearCalendarUnit"];
+            }
+            break;
 
-		case NSYearForWeekOfYearCalendarUnit:
-			if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear)] ) {
-				dateComponents.yearForWeekOfYear = componentIncrement;
-			}
-			else {
-				[NSException raise:CPTException format:@"Unsupported calendar unit: NSYearForWeekOfYearCalendarUnit"];
-			}
-			break;
+        case NSYearForWeekOfYearCalendarUnit:
+            if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear)] ) {
+                dateComponents.yearForWeekOfYear = componentIncrement;
+            }
+            else {
+                [NSException raise:CPTException format:@"Unsupported calendar unit: NSYearForWeekOfYearCalendarUnit"];
+            }
+            break;
 #endif
-		default:
-			break;
-	}
+        default:
+            break;
+    }
 
-	NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
-	if ( self.referenceDate ) {
-		startDate = self.referenceDate;
-	}
+    NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
+    if ( self.referenceDate ) {
+        startDate = self.referenceDate;
+    }
 
-	NSCalendar *calendar = [NSCalendar currentCalendar];
-	if ( self.referenceCalendar ) {
-		calendar = self.referenceCalendar;
-	}
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    if ( self.referenceCalendar ) {
+        calendar = self.referenceCalendar;
+    }
 
-	NSDate *computedDate = [calendar dateByAddingComponents:dateComponents toDate:startDate options:0];
+    NSDate *computedDate = [calendar dateByAddingComponents:dateComponents toDate:startDate options:0];
 
-	NSString *string = [self.dateFormatter stringFromDate:computedDate];
-	return string;
+    NSString *string = [self.dateFormatter stringFromDate:computedDate];
+    return string;
 }
 
 ///	@}

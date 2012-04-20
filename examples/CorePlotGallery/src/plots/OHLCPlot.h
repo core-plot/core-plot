@@ -7,9 +7,9 @@
 
 @interface OHLCPlot : PlotItem<CPTPlotDataSource, CPTTradingRangePlotDelegate>
 {
-	@private
-	CPTGraph *graph;
-	NSArray *plotData;
+    @private
+    CPTGraph *graph;
+    NSArray *plotData;
 }
 
 @end

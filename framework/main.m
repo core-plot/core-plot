@@ -13,11 +13,11 @@ void GTMRestoreColorProfile(void);
 
 int main(int argc, char *argv[])
 {
-	//configure environment for standard unit testing
-	[GTMUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
+    //configure environment for standard unit testing
+    [GTMUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
 
-	return NSApplicationMain(argc, (const char **)argv);
+    return NSApplicationMain(argc, (const char **)argv);
 
-	//setUpForUIUnitTestsIfBeingTested modifies the system-wide color profile. Make sure it gets restored.
-	GTMRestoreColorProfile();
+    //setUpForUIUnitTestsIfBeingTested modifies the system-wide color profile. Make sure it gets restored.
+    GTMRestoreColorProfile();
 }

@@ -2,11 +2,11 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface CPTImage : NSObject<NSCoding, NSCopying> {
-	@private
-	CGImageRef image;
-	CGFloat scale;
-	BOOL tiled;
-	BOOL tileAnchoredToContext;
+    @private
+    CGImageRef image;
+    CGFloat scale;
+    BOOL tiled;
+    BOOL tileAnchoredToContext;
 }
 
 @property (nonatomic, readwrite, assign) CGImageRef image;

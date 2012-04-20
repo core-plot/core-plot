@@ -4,9 +4,9 @@
 @class CPTConstraints;
 
 @interface CPTXYAxis : CPTAxis {
-	@private
-	NSDecimal orthogonalCoordinateDecimal;
-	CPTConstraints *axisConstraints;
+    @private
+    NSDecimal orthogonalCoordinateDecimal;
+    CPTConstraints *axisConstraints;
 }
 
 /// @name Positioning

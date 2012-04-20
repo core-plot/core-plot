@@ -42,20 +42,20 @@
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( (self = [super initWithFrame:newFrame]) ) {
-		CPTXYAxis *xAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:newFrame];
-		xAxis.coordinate	= CPTCoordinateX;
-		xAxis.tickDirection = CPTSignNegative;
+    if ( (self = [super initWithFrame:newFrame]) ) {
+        CPTXYAxis *xAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:newFrame];
+        xAxis.coordinate    = CPTCoordinateX;
+        xAxis.tickDirection = CPTSignNegative;
 
-		CPTXYAxis *yAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:newFrame];
-		yAxis.coordinate	= CPTCoordinateY;
-		yAxis.tickDirection = CPTSignNegative;
+        CPTXYAxis *yAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:newFrame];
+        yAxis.coordinate    = CPTCoordinateY;
+        yAxis.tickDirection = CPTSignNegative;
 
-		self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
-		[xAxis release];
-		[yAxis release];
-	}
-	return self;
+        self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
+        [xAxis release];
+        [yAxis release];
+    }
+    return self;
 }
 
 ///	@}
@@ -67,20 +67,20 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
-	if ( self.hidden ) {
-		return;
-	}
+    if ( self.hidden ) {
+        return;
+    }
 
-	CPTLineStyle *theLineStyle = self.borderLineStyle;
-	if ( theLineStyle ) {
-		[super renderAsVectorInContext:context];
+    CPTLineStyle *theLineStyle = self.borderLineStyle;
+    if ( theLineStyle ) {
+        [super renderAsVectorInContext:context];
 
-		CALayer *superlayer = self.superlayer;
-		CGRect borderRect	= CPTAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
+        CALayer *superlayer = self.superlayer;
+        CGRect borderRect   = CPTAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
 
-		[theLineStyle setLineStyleInContext:context];
-		[theLineStyle strokeRect:borderRect inContext:context];
-	}
+        [theLineStyle setLineStyleInContext:context];
+        [theLineStyle strokeRect:borderRect inContext:context];
+    }
 }
 
 ///	@endcond
@@ -92,12 +92,12 @@
 
 -(CPTXYAxis *)xAxis
 {
-	return [self.axes objectAtIndex:CPTCoordinateX];
+    return [self.axes objectAtIndex:CPTCoordinateX];
 }
 
 -(CPTXYAxis *)yAxis
 {
-	return [self.axes objectAtIndex:CPTCoordinateY];
+    return [self.axes objectAtIndex:CPTCoordinateY];
 }
 
 ///	@endcond

@@ -10,7 +10,7 @@
 
 @interface PlotGallery : NSObject
 {
-	NSMutableArray *plotItems;
+    NSMutableArray *plotItems;
 }
 
 +(PlotGallery *)sharedPlotGallery;

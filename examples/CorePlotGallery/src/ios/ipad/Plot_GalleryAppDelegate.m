@@ -50,11 +50,11 @@
  *      }
  *  }
  */
-	[[PlotGallery sharedPlotGallery] sortByTitle];
-	[window addSubview:splitViewController.view];
-	[window makeKeyAndVisible];
+    [[PlotGallery sharedPlotGallery] sortByTitle];
+    [window addSubview:splitViewController.view];
+    [window makeKeyAndVisible];
 
-	return YES;
+    return YES;
 }
 
 #pragma mark -
@@ -62,14 +62,14 @@
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-	NSLog(@"AppDelegate:applicationDidReceiveMemoryWarning");
+    NSLog(@"AppDelegate:applicationDidReceiveMemoryWarning");
 }
 
 -(void)dealloc
 {
-	[splitViewController release];
-	[window release];
-	[super dealloc];
+    [splitViewController release];
+    [window release];
+    [super dealloc];
 }
 
 @end

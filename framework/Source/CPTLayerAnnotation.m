@@ -55,26 +55,26 @@
  **/
 -(id)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
 {
-	NSParameterAssert(newAnchorLayer);
+    NSParameterAssert(newAnchorLayer);
 
-	if ( (self = [super init]) ) {
-		anchorLayer	 = newAnchorLayer;
-		rectAnchor	 = CPTRectAnchorTop;
-		xConstraints = nil;
-		yConstraints = nil;
-		[self setConstraints];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        anchorLayer  = newAnchorLayer;
+        rectAnchor   = CPTRectAnchorTop;
+        xConstraints = nil;
+        yConstraints = nil;
+        [self setConstraints];
+    }
+    return self;
 }
 
 ///	@}
 
 -(void)dealloc
 {
-	anchorLayer = nil;
-	[xConstraints release];
-	[yConstraints release];
-	[super dealloc];
+    anchorLayer = nil;
+    [xConstraints release];
+    [yConstraints release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -82,23 +82,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeConditionalObject:self.anchorLayer forKey:@"CPTLayerAnnotation.anchorLayer"];
-	[coder encodeObject:self.xConstraints forKey:@"CPTLayerAnnotation.xConstraints"];
-	[coder encodeObject:self.yConstraints forKey:@"CPTLayerAnnotation.yConstraints"];
-	[coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
+    [coder encodeConditionalObject:self.anchorLayer forKey:@"CPTLayerAnnotation.anchorLayer"];
+    [coder encodeObject:self.xConstraints forKey:@"CPTLayerAnnotation.xConstraints"];
+    [coder encodeObject:self.yConstraints forKey:@"CPTLayerAnnotation.yConstraints"];
+    [coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		anchorLayer	 = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
-		xConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"] retain];
-		yConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"] retain];
-		rectAnchor	 = [coder decodeIntegerForKey:@"CPTLayerAnnotation.rectAnchor"];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        anchorLayer  = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
+        xConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"] retain];
+        yConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"] retain];
+        rectAnchor   = [coder decodeIntegerForKey:@"CPTLayerAnnotation.rectAnchor"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -108,33 +108,33 @@
 
 -(void)positionContentLayer
 {
-	CPTLayer *content = self.contentLayer;
+    CPTLayer *content = self.contentLayer;
 
-	if ( content ) {
-		CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
-		if ( hostLayer ) {
-			CPTLayer *theAnchorLayer = self.anchorLayer;
-			CGRect anchorLayerBounds = theAnchorLayer.bounds;
+    if ( content ) {
+        CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
+        if ( hostLayer ) {
+            CPTLayer *theAnchorLayer = self.anchorLayer;
+            CGRect anchorLayerBounds = theAnchorLayer.bounds;
 
-			CGFloat xPosition = [self.xConstraints positionForLowerBound:CGRectGetMinX(anchorLayerBounds)
-															  upperBound:CGRectGetMaxX(anchorLayerBounds)];
-			CGFloat yPosition = [self.yConstraints positionForLowerBound:CGRectGetMinY(anchorLayerBounds)
-															  upperBound:CGRectGetMaxY(anchorLayerBounds)];
+            CGFloat xPosition = [self.xConstraints positionForLowerBound:CGRectGetMinX(anchorLayerBounds)
+                                                              upperBound:CGRectGetMaxX(anchorLayerBounds)];
+            CGFloat yPosition = [self.yConstraints positionForLowerBound:CGRectGetMinY(anchorLayerBounds)
+                                                              upperBound:CGRectGetMaxY(anchorLayerBounds)];
 
-			CGPoint referencePoint = CGPointMake(xPosition, yPosition);
-			CGPoint newPosition	   = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
+            CGPoint referencePoint = CGPointMake(xPosition, yPosition);
+            CGPoint newPosition    = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
 
-			CGPoint offset = self.displacement;
-			newPosition.x += offset.x;
-			newPosition.y += offset.y;
+            CGPoint offset = self.displacement;
+            newPosition.x += offset.x;
+            newPosition.y += offset.y;
 
-			content.anchorPoint = self.contentAnchorPoint;
-			content.position	= newPosition;
-			content.transform	= CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
-			[content pixelAlign];
-			[content setNeedsDisplay];
-		}
-	}
+            content.anchorPoint = self.contentAnchorPoint;
+            content.position    = newPosition;
+            content.transform   = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
+            [content pixelAlign];
+            [content setNeedsDisplay];
+        }
+    }
 }
 
 ///	@endcond
@@ -146,61 +146,61 @@
 
 -(void)setConstraints
 {
-	CPTConstraints *xConstraint = nil;
-	CPTConstraints *yConstraint = nil;
+    CPTConstraints *xConstraint = nil;
+    CPTConstraints *yConstraint = nil;
 
-	switch ( self.rectAnchor ) {
-		case CPTRectAnchorRight:
-			xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			break;
+    switch ( self.rectAnchor ) {
+        case CPTRectAnchorRight:
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            break;
 
-		case CPTRectAnchorTopRight:
-			xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			break;
+        case CPTRectAnchorTopRight:
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            break;
 
-		case CPTRectAnchorTop:
-			xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			break;
+        case CPTRectAnchorTop:
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            break;
 
-		case CPTRectAnchorTopLeft:
-			xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			break;
+        case CPTRectAnchorTopLeft:
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            break;
 
-		case CPTRectAnchorLeft:
-			xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			break;
+        case CPTRectAnchorLeft:
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            break;
 
-		case CPTRectAnchorBottomLeft:
-			xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			break;
+        case CPTRectAnchorBottomLeft:
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            break;
 
-		case CPTRectAnchorBottom:
-			xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			break;
+        case CPTRectAnchorBottom:
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            break;
 
-		case CPTRectAnchorBottomRight:
-			xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-			yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-			break;
+        case CPTRectAnchorBottomRight:
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            break;
 
-		case CPTRectAnchorCenter:
-			xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-			break;
-	}
+        case CPTRectAnchorCenter:
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            break;
+    }
 
-	self.xConstraints = xConstraint;
-	[xConstraint release];
+    self.xConstraints = xConstraint;
+    [xConstraint release];
 
-	self.yConstraints = yConstraint;
-	[yConstraint release];
+    self.yConstraints = yConstraint;
+    [yConstraint release];
 }
 
 ///	@endcond
@@ -212,11 +212,11 @@
 
 -(void)setRectAnchor:(CPTRectAnchor)newAnchor
 {
-	if ( newAnchor != rectAnchor ) {
-		rectAnchor = newAnchor;
-		[self setConstraints];
-		[self positionContentLayer];
-	}
+    if ( newAnchor != rectAnchor ) {
+        rectAnchor = newAnchor;
+        [self setConstraints];
+        [self positionContentLayer];
+    }
 }
 
 ///	@endcond

@@ -9,12 +9,12 @@
 #import "PlotItem.h"
 
 @interface VerticalBarChart : PlotItem<CPTPlotSpaceDelegate,
-									   CPTPlotDataSource,
-									   CPTBarPlotDelegate>
+                                       CPTPlotDataSource,
+                                       CPTBarPlotDelegate>
 {
-	CPTPlotSpaceAnnotation *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

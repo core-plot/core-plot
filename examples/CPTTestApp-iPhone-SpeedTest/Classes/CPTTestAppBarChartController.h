@@ -8,7 +8,7 @@
 
 @interface CPTTestAppBarChartController : UIViewController<CPTPlotDataSource>
 {
-	CPTXYGraph *barChart;
+    CPTXYGraph *barChart;
 }
 
 @end

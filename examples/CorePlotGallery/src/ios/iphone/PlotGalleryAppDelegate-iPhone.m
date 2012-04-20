@@ -16,10 +16,10 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[PlotGallery sharedPlotGallery] sortByTitle];
-	[window addSubview:[navigationController view]];
-	[window makeKeyAndVisible];
-	return YES;
+    [[PlotGallery sharedPlotGallery] sortByTitle];
+    [window addSubview:[navigationController view]];
+    [window makeKeyAndVisible];
+    return YES;
 }
 
 -(void)applicationWillTerminate:(UIApplication *)application
@@ -28,9 +28,9 @@
 
 -(void)dealloc
 {
-	[navigationController release];
-	[window release];
-	[super dealloc];
+    [navigationController release];
+    [window release];
+    [super dealloc];
 }
 
 @end

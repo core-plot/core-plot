@@ -3,9 +3,9 @@
 ///	@file
 
 @interface CPTTimeFormatter : NSNumberFormatter {
-	@private
-	NSDateFormatter *dateFormatter;
-	NSDate *referenceDate;
+    @private
+    NSDateFormatter *dateFormatter;
+    NSDate *referenceDate;
 }
 
 @property (nonatomic, readwrite, retain) NSDateFormatter *dateFormatter;

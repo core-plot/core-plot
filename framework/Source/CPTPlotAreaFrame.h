@@ -5,8 +5,8 @@
 @class CPTPlotArea;
 
 @interface CPTPlotAreaFrame : CPTBorderedLayer {
-	@private
-	CPTPlotArea *plotArea;
+    @private
+    CPTPlotArea *plotArea;
 }
 
 @property (nonatomic, readonly, retain) CPTPlotArea *plotArea;

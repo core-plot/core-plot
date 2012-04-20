@@ -9,10 +9,10 @@
 +(NSNumber *)numberWithCGFloat:(CGFloat)number
 {
 #if CGFLOAT_IS_DOUBLE
-	return [NSNumber numberWithDouble:number];
+    return [NSNumber numberWithDouble:number];
 
 #else
-	return [NSNumber numberWithFloat:number];
+    return [NSNumber numberWithFloat:number];
 #endif
 }
 
@@ -22,10 +22,10 @@
 -(CGFloat)cgFloatValue
 {
 #if CGFLOAT_IS_DOUBLE
-	return [self doubleValue];
+    return [self doubleValue];
 
 #else
-	return [self floatValue];
+    return [self floatValue];
 #endif
 }
 
@@ -36,10 +36,10 @@
 -(id)initWithCGFloat:(CGFloat)number
 {
 #if CGFLOAT_IS_DOUBLE
-	return [self initWithDouble:number];
+    return [self initWithDouble:number];
 
 #else
-	return [self initWithFloat:number];
+    return [self initWithFloat:number];
 #endif
 }
 
@@ -48,10 +48,10 @@
  **/
 -(NSDecimalNumber *)decimalNumber
 {
-	if ( [self isMemberOfClass:[NSDecimalNumber class]] ) {
-		return (NSDecimalNumber *)self;
-	}
-	return [NSDecimalNumber decimalNumberWithDecimal:[self decimalValue]];
+    if ( [self isMemberOfClass:[NSDecimalNumber class]] ) {
+        return (NSDecimalNumber *)self;
+    }
+    return [NSDecimalNumber decimalNumberWithDecimal:[self decimalValue]];
 }
 
 @end

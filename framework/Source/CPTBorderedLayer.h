@@ -5,9 +5,9 @@
 @class CPTFill;
 
 @interface CPTBorderedLayer : CPTAnnotationHostLayer {
-	@private
-	CPTLineStyle *borderLineStyle;
-	CPTFill *fill;
+    @private
+    CPTLineStyle *borderLineStyle;
+    CPTFill *fill;
 }
 
 @property (nonatomic, readwrite, copy) CPTLineStyle *borderLineStyle;

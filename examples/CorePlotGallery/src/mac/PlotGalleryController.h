@@ -14,21 +14,21 @@
 #import "PlotView.h"
 
 @interface PlotGalleryController : NSObject<NSSplitViewDelegate,
-											PlotViewDelegate>
+                                            PlotViewDelegate>
 {
-	IBOutlet NSSplitView *splitView;
-	IBOutlet NSScrollView *scrollView;
-	IBOutlet IKImageBrowserView *imageBrowser;
-	IBOutlet NSPopUpButton *themePopUpButton;
+    IBOutlet NSSplitView *splitView;
+    IBOutlet NSScrollView *scrollView;
+    IBOutlet IKImageBrowserView *imageBrowser;
+    IBOutlet NSPopUpButton *themePopUpButton;
 
-	IBOutlet PlotView *hostingView;
-	CPTGraphHostingView *defaultGraphHostingView;
+    IBOutlet PlotView *hostingView;
+    CPTGraphHostingView *defaultGraphHostingView;
 
-	PlotItem *plotItem;
+    PlotItem *plotItem;
 
-	NSString *currentThemeName;
+    NSString *currentThemeName;
 
-	void *nuHandle;
+    void *nuHandle;
 }
 
 @property (nonatomic, retain) PlotItem *plotItem;

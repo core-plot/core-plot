@@ -50,12 +50,12 @@
  **/
 -(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
 {
-	CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
+    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
 
-	self = [self initWithContentLayer:newLayer];
-	[newLayer release];
+    self = [self initWithContentLayer:newLayer];
+    [newLayer release];
 
-	return self;
+    return self;
 }
 
 /** @brief Initializes a newly allocated CPTAxisLabel object with the provided layer. This is the designated initializer.
@@ -65,26 +65,26 @@
  **/
 -(id)initWithContentLayer:(CPTLayer *)layer
 {
-	if ( layer ) {
-		if ( (self = [super init]) ) {
-			contentLayer = [layer retain];
-			offset		 = 20.0;
-			rotation	 = 0.0;
-			alignment	 = CPTAlignmentCenter;
-			tickLocation = CPTDecimalFromInteger(0);
-		}
-	}
-	else {
-		[self release];
-		self = nil;
-	}
-	return self;
+    if ( layer ) {
+        if ( (self = [super init]) ) {
+            contentLayer = [layer retain];
+            offset       = 20.0;
+            rotation     = 0.0;
+            alignment    = CPTAlignmentCenter;
+            tickLocation = CPTDecimalFromInteger(0);
+        }
+    }
+    else {
+        [self release];
+        self = nil;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[contentLayer release];
-	[super dealloc];
+    [contentLayer release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -92,23 +92,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
-	[coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
-	[coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
-	[coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
-	[coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
+    [coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
+    [coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
+    [coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
+    [coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
+    [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		contentLayer = [[coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"] retain];
-		offset		 = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
-		rotation	 = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-		alignment	 = [coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
-		tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        contentLayer = [[coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"] retain];
+        offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
+        rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
+        alignment    = [coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
+        tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -125,139 +125,139 @@
  **/
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-	CPTLayer *content = self.contentLayer;
+    CPTLayer *content = self.contentLayer;
 
-	if ( !content ) {
-		return;
-	}
+    if ( !content ) {
+        return;
+    }
 
-	CGPoint newPosition = point;
-	CGFloat *value		= ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
-	CGFloat angle		= 0.0;
+    CGPoint newPosition = point;
+    CGFloat *value      = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
+    CGFloat angle       = 0.0;
 
-	CGFloat myRotation = self.rotation;
-	content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
-	CGRect contentFrame = content.frame;
+    CGFloat myRotation = self.rotation;
+    content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+    CGRect contentFrame = content.frame;
 
-	// Position the anchor point along the closest edge.
-	switch ( direction ) {
-		case CPTSignNone:
-		case CPTSignNegative:
-			*value -= self.offset;
+    // Position the anchor point along the closest edge.
+    switch ( direction ) {
+        case CPTSignNone:
+        case CPTSignNegative:
+            *value -= self.offset;
 
-			switch ( coordinate ) {
-				case CPTCoordinateX:
-					angle = M_PI;
+            switch ( coordinate ) {
+                case CPTCoordinateX:
+                    angle = M_PI;
 
-					switch ( self.alignment ) {
-						case CPTAlignmentBottom:
-							newPosition.y += contentFrame.size.height / (CGFloat)2.0;
-							break;
+                    switch ( self.alignment ) {
+                        case CPTAlignmentBottom:
+                            newPosition.y += contentFrame.size.height / (CGFloat)2.0;
+                            break;
 
-						case CPTAlignmentTop:
-							newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
-							break;
+                        case CPTAlignmentTop:
+                            newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
+                            break;
 
-						default: // middle
-							     // no adjustment
-							break;
-					}
-					break;
+                        default: // middle
+                                 // no adjustment
+                            break;
+                    }
+                    break;
 
-				case CPTCoordinateY:
-					angle = -M_PI_2;
+                case CPTCoordinateY:
+                    angle = -M_PI_2;
 
-					switch ( self.alignment ) {
-						case CPTAlignmentLeft:
-							newPosition.x += contentFrame.size.width / (CGFloat)2.0;
-							break;
+                    switch ( self.alignment ) {
+                        case CPTAlignmentLeft:
+                            newPosition.x += contentFrame.size.width / (CGFloat)2.0;
+                            break;
 
-						case CPTAlignmentRight:
-							newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
-							break;
+                        case CPTAlignmentRight:
+                            newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
+                            break;
 
-						default: // center
-							     // no adjustment
-							break;
-					}
-					break;
+                        default: // center
+                                 // no adjustment
+                            break;
+                    }
+                    break;
 
-				default:
-					[NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
-					break;
-			}
-			break;
+                default:
+                    [NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
+                    break;
+            }
+            break;
 
-		case CPTSignPositive:
-			*value += self.offset;
+        case CPTSignPositive:
+            *value += self.offset;
 
-			switch ( coordinate ) {
-				case CPTCoordinateX:
-					// angle = 0.0;
+            switch ( coordinate ) {
+                case CPTCoordinateX:
+                    // angle = 0.0;
 
-					switch ( self.alignment ) {
-						case CPTAlignmentBottom:
-							newPosition.y += contentFrame.size.height / (CGFloat)2.0;
-							break;
+                    switch ( self.alignment ) {
+                        case CPTAlignmentBottom:
+                            newPosition.y += contentFrame.size.height / (CGFloat)2.0;
+                            break;
 
-						case CPTAlignmentTop:
-							newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
-							break;
+                        case CPTAlignmentTop:
+                            newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
+                            break;
 
-						default: // middle
-							     // no adjustment
-							break;
-					}
-					break;
+                        default: // middle
+                                 // no adjustment
+                            break;
+                    }
+                    break;
 
-				case CPTCoordinateY:
-					angle = M_PI_2;
+                case CPTCoordinateY:
+                    angle = M_PI_2;
 
-					switch ( self.alignment ) {
-						case CPTAlignmentLeft:
-							newPosition.x += contentFrame.size.width / (CGFloat)2.0;
-							break;
+                    switch ( self.alignment ) {
+                        case CPTAlignmentLeft:
+                            newPosition.x += contentFrame.size.width / (CGFloat)2.0;
+                            break;
 
-						case CPTAlignmentRight:
-							newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
-							break;
+                        case CPTAlignmentRight:
+                            newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
+                            break;
 
-						default: // center
-							     // no adjustment
-							break;
-					}
-					break;
+                        default: // center
+                                 // no adjustment
+                            break;
+                    }
+                    break;
 
-				default:
-					[NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
-					break;
-			}
-			break;
+                default:
+                    [NSException raise:NSInvalidArgumentException format:@"Invalid coordinate in positionRelativeToViewPoint:forCoordinate:inDirection:"];
+                    break;
+            }
+            break;
 
-		default:
-			[NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
-			break;
-	}
+        default:
+            [NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
+            break;
+    }
 
-	angle += M_PI;
-	angle -= myRotation;
-	CGFloat newAnchorX = cos(angle);
-	CGFloat newAnchorY = sin(angle);
+    angle += M_PI;
+    angle -= myRotation;
+    CGFloat newAnchorX = cos(angle);
+    CGFloat newAnchorY = sin(angle);
 
-	if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
-		newAnchorX /= ABS(newAnchorY);
-		newAnchorY	= signbit(newAnchorY) ? -1.0 : 1.0;
-	}
-	else {
-		newAnchorY /= ABS(newAnchorX);
-		newAnchorX	= signbit(newAnchorX) ? -1.0 : 1.0;
-	}
-	CGPoint anchor = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
+    if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+        newAnchorX /= ABS(newAnchorY);
+        newAnchorY  = signbit(newAnchorY) ? -1.0 : 1.0;
+    }
+    else {
+        newAnchorY /= ABS(newAnchorX);
+        newAnchorX  = signbit(newAnchorX) ? -1.0 : 1.0;
+    }
+    CGPoint anchor = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
 
-	content.anchorPoint = anchor;
-	content.position	= newPosition;
-	[content pixelAlign];
-	[content setNeedsDisplay];
+    content.anchorPoint = anchor;
+    content.position    = newPosition;
+    [content pixelAlign];
+    [content setNeedsDisplay];
 }
 
 /**	@brief Positions the axis label between two given points.
@@ -268,9 +268,9 @@
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-	[self positionRelativeToViewPoint:CGPointMake( (firstPoint.x + secondPoint.x) / (CGFloat)2.0, (firstPoint.y + secondPoint.y) / (CGFloat)2.0 )
-						forCoordinate:coordinate
-						  inDirection:direction];
+    [self positionRelativeToViewPoint:CGPointMake( (firstPoint.x + secondPoint.x) / (CGFloat)2.0, (firstPoint.y + secondPoint.y) / (CGFloat)2.0 )
+                        forCoordinate:coordinate
+                          inDirection:direction];
 }
 
 #pragma mark -
@@ -278,7 +278,7 @@
 
 -(NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
+    return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 }
 
 #pragma mark -
@@ -287,29 +287,29 @@
 // Axis labels are equal if they have the same location
 -(BOOL)isEqual:(id)object
 {
-	if ( self == object ) {
-		return YES;
-	}
-	else if ( [object isKindOfClass:[self class]] ) {
-		return CPTDecimalEquals(self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation);
-	}
-	else {
-		return NO;
-	}
+    if ( self == object ) {
+        return YES;
+    }
+    else if ( [object isKindOfClass:[self class]] ) {
+        return CPTDecimalEquals(self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation);
+    }
+    else {
+        return NO;
+    }
 }
 
 -(NSUInteger)hash
 {
-	NSUInteger hashValue = 0;
+    NSUInteger hashValue = 0;
 
-	// Equal objects must hash the same.
-	double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
+    // Equal objects must hash the same.
+    double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
 
-	if ( !isnan(tickLocationAsDouble) ) {
-		hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
-	}
+    if ( !isnan(tickLocationAsDouble) ) {
+        hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
+    }
 
-	return hashValue;
+    return hashValue;
 }
 
 @end

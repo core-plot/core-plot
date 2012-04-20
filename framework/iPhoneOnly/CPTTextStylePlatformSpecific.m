@@ -16,10 +16,10 @@
  **/
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {
-	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-	CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];
+    UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+    CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];
 
-	return textSize;
+    return textSize;
 }
 
 #pragma mark -
@@ -32,27 +32,27 @@
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context
 {
-	if ( style.color == nil ) {
-		return;
-	}
+    if ( style.color == nil ) {
+        return;
+    }
 
-	CGContextSaveGState(context);
-	CGColorRef textColor = style.color.cgColor;
+    CGContextSaveGState(context);
+    CGColorRef textColor = style.color.cgColor;
 
-	CGContextSetStrokeColorWithColor(context, textColor);
-	CGContextSetFillColorWithColor(context, textColor);
+    CGContextSetStrokeColorWithColor(context, textColor);
+    CGContextSetFillColorWithColor(context, textColor);
 
-	CPTPushCGContext(context);
+    CPTPushCGContext(context);
 
-	UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+    UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
-	[self drawInRect:rect
-			withFont:theFont
-	   lineBreakMode:UILineBreakModeWordWrap
-		   alignment:(UITextAlignment)style.textAlignment];
+    [self drawInRect:rect
+            withFont:theFont
+       lineBreakMode:UILineBreakModeWordWrap
+           alignment:(UITextAlignment)style.textAlignment];
 
-	CGContextRestoreGState(context);
-	CPTPopCGContext();
+    CGContextRestoreGState(context);
+    CPTPopCGContext();
 }
 
 @end

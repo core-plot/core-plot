@@ -19,15 +19,15 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-	// Override point for customization after app launch
-	[[navigationController navigationBar] setTintColor:[UIColor blackColor]];
-	[window addSubview:[navigationController view]];
-	[window makeKeyAndVisible];
+    // Override point for customization after app launch
+    [[navigationController navigationBar] setTintColor:[UIColor blackColor]];
+    [window addSubview:[navigationController view]];
+    [window makeKeyAndVisible];
 }
 
 -(void)applicationWillTerminate:(UIApplication *)application
 {
-	// Save data if appropriate
+    // Save data if appropriate
 }
 
 #pragma mark -
@@ -35,9 +35,9 @@
 
 -(void)dealloc
 {
-	[navigationController release];
-	[window release];
-	[super dealloc];
+    [navigationController release];
+    [window release];
+    [super dealloc];
 }
 
 @end

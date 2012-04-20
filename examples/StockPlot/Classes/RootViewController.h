@@ -13,9 +13,9 @@
 NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks);
 
 @interface RootViewController : UITableViewController<APYahooDataPullerDelegate> {
-	@private
-	NSMutableArray *stocks;
-	APYahooDataPullerGraph *graph;
+    @private
+    NSMutableArray *stocks;
+    APYahooDataPullerGraph *graph;
 }
 
 @property (nonatomic, readonly) NSArray *symbols;

@@ -10,7 +10,7 @@
 
 @interface Plot_Gallery_MacAppDelegate : NSObject<NSApplicationDelegate>
 {
-	NSWindow *window;
+    NSWindow *window;
 }
 
 @property (assign) IBOutlet NSWindow *window;

@@ -22,8 +22,8 @@ extern NSString *const CPTScatterPlotBindingPlotSymbols;
  *	@brief Enumeration of scatter plot data source field types
  **/
 typedef enum _CPTScatterPlotField {
-	CPTScatterPlotFieldX, ///< X values.
-	CPTScatterPlotFieldY  ///< Y values.
+    CPTScatterPlotFieldX, ///< X values.
+    CPTScatterPlotFieldY  ///< Y values.
 }
 CPTScatterPlotField;
 
@@ -31,10 +31,10 @@ CPTScatterPlotField;
  *	@brief Enumeration of scatter plot interpolation algorithms
  **/
 typedef enum _CPTScatterPlotInterpolation {
-	CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
-	CPTScatterPlotInterpolationStepped,   ///< Steps beginnning at data point.
-	CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
-	CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
+    CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
+    CPTScatterPlotInterpolationStepped,   ///< Steps beginnning at data point.
+    CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
+    CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
 }
 CPTScatterPlotInterpolation;
 
@@ -100,16 +100,16 @@ CPTScatterPlotInterpolation;
 #pragma mark -
 
 @interface CPTScatterPlot : CPTPlot {
-	@private
-	CPTScatterPlotInterpolation interpolation;
-	CPTLineStyle *dataLineStyle;
-	CPTPlotSymbol *plotSymbol;
-	CPTFill *areaFill;
-	CPTFill *areaFill2;
-	NSDecimal areaBaseValue;
-	NSDecimal areaBaseValue2;
-	CGFloat plotSymbolMarginForHitDetection;
-	NSArray *plotSymbols;
+    @private
+    CPTScatterPlotInterpolation interpolation;
+    CPTLineStyle *dataLineStyle;
+    CPTPlotSymbol *plotSymbol;
+    CPTFill *areaFill;
+    CPTFill *areaFill2;
+    NSDecimal areaBaseValue;
+    NSDecimal areaBaseValue2;
+    CGFloat plotSymbolMarginForHitDetection;
+    NSArray *plotSymbols;
 }
 
 @property (nonatomic, readwrite, copy) CPTLineStyle *dataLineStyle;

@@ -9,11 +9,11 @@
 @protocol CPTRotationDelegate;
 
 @interface RotationView : NSView {
-	id<CPTRotationDelegate> rotationDelegate;
+    id<CPTRotationDelegate> rotationDelegate;
 
-	CATransform3D rotationTransform;
+    CATransform3D rotationTransform;
 
-	NSPoint previousLocation;
+    NSPoint previousLocation;
 }
 
 @property (readwrite, nonatomic) CATransform3D rotationTransform;

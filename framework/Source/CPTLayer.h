@@ -7,19 +7,19 @@
 @class CPTShadow;
 
 @interface CPTLayer : CALayer<CPTResponder> {
-	@private
-	CGFloat paddingLeft;
-	CGFloat paddingTop;
-	CGFloat paddingRight;
-	CGFloat paddingBottom;
-	BOOL masksToBorder;
-	CPTShadow *shadow;
-	BOOL renderingRecursively;
-	BOOL useFastRendering;
-	__cpt_weak CPTGraph *graph;
-	CGPathRef outerBorderPath;
-	CGPathRef innerBorderPath;
-	id<NSCopying, NSCoding, NSObject> identifier;
+    @private
+    CGFloat paddingLeft;
+    CGFloat paddingTop;
+    CGFloat paddingRight;
+    CGFloat paddingBottom;
+    BOOL masksToBorder;
+    CPTShadow *shadow;
+    BOOL renderingRecursively;
+    BOOL useFastRendering;
+    __cpt_weak CPTGraph *graph;
+    CGPathRef outerBorderPath;
+    CGPathRef innerBorderPath;
+    id<NSCopying, NSCoding, NSObject> identifier;
 }
 
 /// @name Graph

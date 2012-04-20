@@ -19,185 +19,185 @@
 
 -(void)viewDidLoad
 {
-	[super viewDidLoad];
-	stocks = [[NSMutableArray alloc] initWithCapacity:4];
-	[self addSymbol:@"AAPL"];
-	[self addSymbol:@"GOOG"];
-	[self addSymbol:@"YHOO"];
-	[self addSymbol:@"MSFT"];
-	[self addSymbol:@"^DJI"];
+    [super viewDidLoad];
+    stocks = [[NSMutableArray alloc] initWithCapacity:4];
+    [self addSymbol:@"AAPL"];
+    [self addSymbol:@"GOOG"];
+    [self addSymbol:@"YHOO"];
+    [self addSymbol:@"MSFT"];
+    [self addSymbol:@"^DJI"];
 
-	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-	// self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void)didReceiveMemoryWarning
 {
-	// Releases the view if it doesn't have a superview.
-	[super didReceiveMemoryWarning];
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
 
-	// Release any cached data, images, etc that aren't in use.
+    // Release any cached data, images, etc that aren't in use.
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
-	[[self navigationItem] setTitle:@"Stocks"];
-	//the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
-	for ( APYahooDataPuller *dp in stocks ) {
-		[dp setDelegate:self];
-	}
+    [super viewWillAppear:animated];
+    [[self navigationItem] setTitle:@"Stocks"];
+    //the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
+    for ( APYahooDataPuller *dp in stocks ) {
+        [dp setDelegate:self];
+    }
 }
 
 -(void)viewDidUnload
 {
-	// Release anything that can be recreated in viewDidLoad or on demand.
-	// e.g. self.myOutlet = nil;
-	[stocks release];
-	stocks = nil;
-	[graph release];
-	graph = nil;
+    // Release anything that can be recreated in viewDidLoad or on demand.
+    // e.g. self.myOutlet = nil;
+    [stocks release];
+    stocks = nil;
+    [graph release];
+    graph = nil;
 }
 
 #pragma mark Table view methods
 
 -(void)inspectStock:(APYahooDataPuller *)aStock
 {
-	NSDecimalNumber *high = [aStock overallHigh];
-	NSDecimalNumber *low  = [aStock overallLow];
+    NSDecimalNumber *high = [aStock overallHigh];
+    NSDecimalNumber *low  = [aStock overallLow];
 
-	if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || ([[aStock financialData] count] <= 0) ) {
-		NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
-		UIAlertView *av	  = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-		[av show];
-		[av release];
-	}
-	else {
-		if ( nil == graph ) {
-			APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
-			self.graph = aGraph;
-			[aGraph release];
-		}
+    if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || ([[aStock financialData] count] <= 0) ) {
+        NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
+        UIAlertView *av   = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [av show];
+        [av release];
+    }
+    else {
+        if ( nil == graph ) {
+            APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
+            self.graph = aGraph;
+            [aGraph release];
+        }
 
-		[self.graph setDataPuller:aStock];
-		[self.navigationController pushViewController:self.graph animated:YES];
-	}
+        [self.graph setDataPuller:aStock];
+        [self.navigationController pushViewController:self.graph animated:YES];
+    }
 }
 
 // Override to support row selection in the table view.
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	APYahooDataPuller *dp = [stocks objectAtIndex:indexPath.row];
+    APYahooDataPuller *dp = [stocks objectAtIndex:indexPath.row];
 
-	[self inspectStock:dp];
-	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self inspectStock:dp];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 1;
+    return 1;
 }
 
 // Customize the number of rows in the table view.
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [stocks count];
+    return [stocks count];
 }
 
 -(void)setupCell:(UITableViewCell *)cell forStockAtIndex:(NSUInteger)row
 {
-	APYahooDataPuller *dp = [stocks objectAtIndex:row];
+    APYahooDataPuller *dp = [stocks objectAtIndex:row];
 
-	[[cell textLabel] setText:[dp symbol]];
+    [[cell textLabel] setText:[dp symbol]];
 
-	NSDateFormatter *df = [[NSDateFormatter alloc] init];
-	[df setDateStyle:NSDateFormatterShortStyle];
-	NSString *startString = @"(NA)";
-	if ( [dp startDate] ) {
-		startString = [df stringFromDate:[dp startDate]];
-	}
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateStyle:NSDateFormatterShortStyle];
+    NSString *startString = @"(NA)";
+    if ( [dp startDate] ) {
+        startString = [df stringFromDate:[dp startDate]];
+    }
 
-	NSString *endString = @"(NA)";
-	if ( [dp endDate] ) {
-		endString = [df stringFromDate:[dp endDate]];
-	}
-	[df release];
+    NSString *endString = @"(NA)";
+    if ( [dp endDate] ) {
+        endString = [df stringFromDate:[dp endDate]];
+    }
+    [df release];
 
-	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-	[nf setRoundingMode:NSNumberFormatterRoundHalfUp];
-	[nf setDecimalSeparator:@"."];
-	[nf setGroupingSeparator:@","];
-	[nf setPositiveFormat:@"\u00A4###,##0.00"];
-	[nf setNegativeFormat:@"(\u00A4###,##0.00)"];
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
+    [nf setDecimalSeparator:@"."];
+    [nf setGroupingSeparator:@","];
+    [nf setPositiveFormat:@"\u00A4###,##0.00"];
+    [nf setNegativeFormat:@"(\u00A4###,##0.00)"];
 
-	NSString *overallLow = @"(NA)";
-	if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallLow]] ) {
-		overallLow = [nf stringFromNumber:[dp overallLow]];
-	}
-	NSString *overallHigh = @"(NA)";
-	if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]] ) {
-		overallHigh = [nf stringFromNumber:[dp overallHigh]];
-	}
+    NSString *overallLow = @"(NA)";
+    if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallLow]] ) {
+        overallLow = [nf stringFromNumber:[dp overallLow]];
+    }
+    NSString *overallHigh = @"(NA)";
+    if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]] ) {
+        overallHigh = [nf stringFromNumber:[dp overallHigh]];
+    }
 
-	[nf release];
+    [nf release];
 
-	[[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
+    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
 
-	UIView *accessory = [cell accessoryView];
-	if ( [dp loadingData] ) {
-		if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
-			accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-			[(UIActivityIndicatorView *) accessory setHidesWhenStopped:NO];
-			[cell setAccessoryView:accessory];
-			[accessory release];
-		}
-		[(UIActivityIndicatorView *) accessory startAnimating];
-	}
-	else {
-		if ( [accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
-			[(UIActivityIndicatorView *) accessory stopAnimating];
-		}
-		if ( [dp staleData] ) {
-			if ( ![accessory isMemberOfClass:[UIImageView class]] ) {
-				UIImage *caution = [UIImage imageNamed:@"caution.png"];
-				accessory = [[UIImageView alloc] initWithImage:caution];
-				[cell setAccessoryView:accessory];
+    UIView *accessory = [cell accessoryView];
+    if ( [dp loadingData] ) {
+        if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
+            accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [(UIActivityIndicatorView *) accessory setHidesWhenStopped:NO];
+            [cell setAccessoryView:accessory];
+            [accessory release];
+        }
+        [(UIActivityIndicatorView *) accessory startAnimating];
+    }
+    else {
+        if ( [accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
+            [(UIActivityIndicatorView *) accessory stopAnimating];
+        }
+        if ( [dp staleData] ) {
+            if ( ![accessory isMemberOfClass:[UIImageView class]] ) {
+                UIImage *caution = [UIImage imageNamed:@"caution.png"];
+                accessory = [[UIImageView alloc] initWithImage:caution];
+                [cell setAccessoryView:accessory];
 //                CGRect frame = accessory.frame;
 //#pragma unused (frame)
-				[accessory release];
-			}
-		}
-		else {
-			[cell setAccessoryView:nil];
-		}
-	}
+                [accessory release];
+            }
+        }
+        else {
+            [cell setAccessoryView:nil];
+        }
+    }
 }
 
 // Customize the appearance of table view cells.
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	static NSString *CellIdentifier = @"UITableViewCellStyleSubtitle";
+    static NSString *CellIdentifier = @"UITableViewCellStyleSubtitle";
 
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-	if ( cell == nil ) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-	}
+    if ( cell == nil ) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
 
-	NSUInteger row = indexPath.row;
+    NSUInteger row = indexPath.row;
 
-	[self setupCell:cell forStockAtIndex:row];
+    [self setupCell:cell forStockAtIndex:row];
 
-	return cell;
+    return cell;
 }
 
 // Override to allow orientations other than the default portrait orientation.
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	// Return YES for supported orientations
-	return interfaceOrientation == UIInterfaceOrientationPortrait ||
-		   interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-		   interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+    // Return YES for supported orientations
+    return interfaceOrientation == UIInterfaceOrientationPortrait ||
+           interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+           interfaceOrientation == UIInterfaceOrientationLandscapeRight;
 }
 
 #pragma mark -
@@ -207,68 +207,68 @@
 
 -(NSMutableArray *)stocks
 {
-	//NSLog(@"in -symbols, returned symbols = %@", symbols);
+    //NSLog(@"in -symbols, returned symbols = %@", symbols);
 
-	return stocks;
+    return stocks;
 }
 
 -(NSArray *)symbols
 {
-	//NSLog(@"in -symbols, returned symbols = %@", symbols);
-	NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:[stocks count]];
+    //NSLog(@"in -symbols, returned symbols = %@", symbols);
+    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:[stocks count]];
 
-	for ( APYahooDataPuller *dp in stocks ) {
-		[symbols addObject:[dp symbol]];
-	}
-	return [NSArray arrayWithArray:symbols];
+    for ( APYahooDataPuller *dp in stocks ) {
+        [symbols addObject:[dp symbol]];
+    }
+    return [NSArray arrayWithArray:symbols];
 }
 
 -(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error;
 {
-	NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
-	NSUInteger idx		  = [stocks indexOfObject:dp];
-	NSUInteger section	  = 0;
-	NSIndexPath *path	  = [NSIndexPath indexPathForRow:idx inSection:section];
-	UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-	[self setupCell:cell forStockAtIndex:idx];
+    NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
+    NSUInteger idx        = [stocks indexOfObject:dp];
+    NSUInteger section    = 0;
+    NSIndexPath *path     = [NSIndexPath indexPathForRow:idx inSection:section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    [self setupCell:cell forStockAtIndex:idx];
 }
 
 -(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
 {
-	NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
-	NSUInteger idx		  = [stocks indexOfObject:dp];
-	NSUInteger section	  = 0;
-	NSIndexPath *path	  = [NSIndexPath indexPathForRow:idx inSection:section];
-	UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-	[self setupCell:cell forStockAtIndex:idx];
+    NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
+    NSUInteger idx        = [stocks indexOfObject:dp];
+    NSUInteger section    = 0;
+    NSIndexPath *path     = [NSIndexPath indexPathForRow:idx inSection:section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    [self setupCell:cell forStockAtIndex:idx];
 }
 
 -(void)addSymbol:(NSString *)aSymbol
 {
-	NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
-	NSDate *start			  = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
-	NSDate *end				  = [NSDate date];
+    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
+    NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
+    NSDate *end               = [NSDate date];
 
-	APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:aSymbol targetStartDate:start targetEndDate:end];
+    APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:aSymbol targetStartDate:start targetEndDate:end];
 
-	[[self stocks] addObject:dp];
-	[dp fetchIfNeeded];
-	[dp setDelegate:self];
-	[dp release];
-	[[self tableView] reloadData]; //TODO: should reload whole thing
+    [[self stocks] addObject:dp];
+    [dp fetchIfNeeded];
+    [dp setDelegate:self];
+    [dp release];
+    [[self tableView] reloadData]; //TODO: should reload whole thing
 }
 
 -(void)dealloc
 {
-	for ( APYahooDataPuller *dp in stocks ) {
-		if ( dp.delegate == self ) {
-			dp.delegate = nil;
-		}
-	}
-	[stocks release];
-	stocks = nil;
+    for ( APYahooDataPuller *dp in stocks ) {
+        if ( dp.delegate == self ) {
+            dp.delegate = nil;
+        }
+    }
+    [stocks release];
+    stocks = nil;
 
-	[super dealloc];
+    [super dealloc];
 }
 
 /*

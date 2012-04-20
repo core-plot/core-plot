@@ -27,31 +27,31 @@ extern NSString *const CPTGraphNeedsRedrawNotification;
  *	@brief Enumeration of graph layers.
  **/
 typedef enum _CPTGraphLayerType {
-	CPTGraphLayerTypeMinorGridLines, ///< Minor grid lines.
-	CPTGraphLayerTypeMajorGridLines, ///< Major grid lines.
-	CPTGraphLayerTypeAxisLines,      ///< Axis lines.
-	CPTGraphLayerTypePlots,          ///< Plots.
-	CPTGraphLayerTypeAxisLabels,     ///< Axis labels.
-	CPTGraphLayerTypeAxisTitles      ///< Axis titles.
+    CPTGraphLayerTypeMinorGridLines, ///< Minor grid lines.
+    CPTGraphLayerTypeMajorGridLines, ///< Major grid lines.
+    CPTGraphLayerTypeAxisLines,      ///< Axis lines.
+    CPTGraphLayerTypePlots,          ///< Plots.
+    CPTGraphLayerTypeAxisLabels,     ///< Axis labels.
+    CPTGraphLayerTypeAxisTitles      ///< Axis titles.
 }
 CPTGraphLayerType;
 
 #pragma mark -
 
 @interface CPTGraph : CPTBorderedLayer {
-	@private
-	CPTPlotAreaFrame *plotAreaFrame;
-	NSMutableArray *plots;
-	NSMutableArray *plotSpaces;
-	NSString *title;
-	CPTTextStyle *titleTextStyle;
-	CPTRectAnchor titlePlotAreaFrameAnchor;
-	CGPoint titleDisplacement;
-	CPTLayerAnnotation *titleAnnotation;
-	CPTLegend *legend;
-	CPTLayerAnnotation *legendAnnotation;
-	CPTRectAnchor legendAnchor;
-	CGPoint legendDisplacement;
+    @private
+    CPTPlotAreaFrame *plotAreaFrame;
+    NSMutableArray *plots;
+    NSMutableArray *plotSpaces;
+    NSString *title;
+    CPTTextStyle *titleTextStyle;
+    CPTRectAnchor titlePlotAreaFrameAnchor;
+    CGPoint titleDisplacement;
+    CPTLayerAnnotation *titleAnnotation;
+    CPTLegend *legend;
+    CPTLayerAnnotation *legendAnnotation;
+    CPTRectAnchor legendAnchor;
+    CGPoint legendDisplacement;
 }
 
 /// @name Title

@@ -7,18 +7,18 @@
  *	@brief Enumeration of possible results of a plot range comparison.
  **/
 typedef enum _CPTPlotRangeComparisonResult {
-	CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
-	CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
-	CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
+    CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
+    CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
+    CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
 }
 CPTPlotRangeComparisonResult;
 
 @interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-	@private
-	NSDecimal location;
-	NSDecimal length;
-	double locationDouble;
-	double lengthDouble;
+    @private
+    NSDecimal location;
+    NSDecimal length;
+    double locationDouble;
+    double lengthDouble;
 }
 
 /// @name Range Limits

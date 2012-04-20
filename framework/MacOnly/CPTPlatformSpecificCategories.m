@@ -10,23 +10,23 @@
  **/
 -(CPTNativeImage *)imageOfLayer
 {
-	CGSize boundsSize = self.bounds.size;
+    CGSize boundsSize = self.bounds.size;
 
-	NSBitmapImageRep *layerImage	 = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:boundsSize.width pixelsHigh:boundsSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(NSInteger)boundsSize.width * 4 bitsPerPixel:32];
-	NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-	CGContextRef context			 = (CGContextRef)[bitmapContext graphicsPort];
+    NSBitmapImageRep *layerImage     = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:boundsSize.width pixelsHigh:boundsSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:(NSInteger)boundsSize.width * 4 bitsPerPixel:32];
+    NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+    CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
 
-	CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
-	CGContextSetAllowsAntialiasing(context, true);
-	CGContextSetShouldSmoothFonts(context, false);
-	[self layoutAndRenderInContext:context];
-	CGContextFlush(context);
+    CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+    CGContextSetAllowsAntialiasing(context, true);
+    CGContextSetShouldSmoothFonts(context, false);
+    [self layoutAndRenderInContext:context];
+    CGContextFlush(context);
 
-	NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
-	[image addRepresentation:layerImage];
-	[layerImage release];
+    NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
+    [image addRepresentation:layerImage];
+    [layerImage release];
 
-	return [image autorelease];
+    return [image autorelease];
 }
 
 @end
@@ -42,7 +42,7 @@
 
 -(NSColor *)nsColor
 {
-	return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
+    return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
 
 @end

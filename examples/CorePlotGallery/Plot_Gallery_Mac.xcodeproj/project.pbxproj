@@ -210,8 +210,11 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				4F22FFE7123431D2006BF615 /* Quartz.framework */,
 			);
+			indentWidth = 4;
 			name = "Plot Gallery-Mac";
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;

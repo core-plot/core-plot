@@ -57,34 +57,34 @@
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
-	if ( (self = [super initWithFrame:newFrame]) ) {
-		plotArea = nil;
+    if ( (self = [super initWithFrame:newFrame]) ) {
+        plotArea = nil;
 
-		CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame:newFrame];
-		self.plotArea = newPlotArea;
-		[newPlotArea release];
+        CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame:newFrame];
+        self.plotArea = newPlotArea;
+        [newPlotArea release];
 
-		self.needsDisplayOnBoundsChange = YES;
-	}
-	return self;
+        self.needsDisplayOnBoundsChange = YES;
+    }
+    return self;
 }
 
 ///	@}
 
 -(id)initWithLayer:(id)layer
 {
-	if ( (self = [super initWithLayer:layer]) ) {
-		CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
+    if ( (self = [super initWithLayer:layer]) ) {
+        CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
 
-		plotArea = [theLayer->plotArea retain];
-	}
-	return self;
+        plotArea = [theLayer->plotArea retain];
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[plotArea release];
-	[super dealloc];
+    [plotArea release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -92,17 +92,17 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[super encodeWithCoder:coder];
+    [super encodeWithCoder:coder];
 
-	[coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
+    [coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super initWithCoder:coder]) ) {
-		plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
-	}
-	return self;
+    if ( (self = [super initWithCoder:coder]) ) {
+        plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -112,35 +112,35 @@
 
 -(void)setPlotArea:(CPTPlotArea *)newPlotArea
 {
-	if ( newPlotArea != plotArea ) {
-		[plotArea removeFromSuperlayer];
-		[plotArea release];
-		plotArea = [newPlotArea retain];
-		if ( plotArea ) {
-			[self insertSublayer:plotArea atIndex:0];
-		}
-		[self setNeedsLayout];
-	}
+    if ( newPlotArea != plotArea ) {
+        [plotArea removeFromSuperlayer];
+        [plotArea release];
+        plotArea = [newPlotArea retain];
+        if ( plotArea ) {
+            [self insertSublayer:plotArea atIndex:0];
+        }
+        [self setNeedsLayout];
+    }
 }
 
 -(CPTAxisSet *)axisSet
 {
-	return self.plotArea.axisSet;
+    return self.plotArea.axisSet;
 }
 
 -(void)setAxisSet:(CPTAxisSet *)newAxisSet
 {
-	self.plotArea.axisSet = newAxisSet;
+    self.plotArea.axisSet = newAxisSet;
 }
 
 -(CPTPlotGroup *)plotGroup
 {
-	return self.plotArea.plotGroup;
+    return self.plotArea.plotGroup;
 }
 
 -(void)setPlotGroup:(CPTPlotGroup *)newPlotGroup
 {
-	self.plotArea.plotGroup = newPlotGroup;
+    self.plotArea.plotGroup = newPlotGroup;
 }
 
 ///	@endcond

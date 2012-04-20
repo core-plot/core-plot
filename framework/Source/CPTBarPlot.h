@@ -25,9 +25,9 @@ extern NSString *const CPTBarPlotBindingBarBases;
  *	@brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPTBarPlotField {
-	CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
-	CPTBarPlotFieldBarTip,      ///< Bar tip value.
-	CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
+    CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
+    CPTBarPlotFieldBarTip,      ///< Bar tip value.
+    CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
 }
 CPTBarPlotField;
 
@@ -102,19 +102,19 @@ CPTBarPlotField;
 #pragma mark -
 
 @interface CPTBarPlot : CPTPlot {
-	@private
-	CPTLineStyle *lineStyle;
-	CPTFill *fill;
-	NSDecimal barWidth;
-	CGFloat barWidthScale;
-	NSDecimal barOffset;
-	CGFloat barOffsetScale;
-	CGFloat barCornerRadius;
-	NSDecimal baseValue;
-	BOOL barsAreHorizontal;
-	BOOL barBasesVary;
-	BOOL barWidthsAreInViewCoordinates;
-	CPTPlotRange *plotRange;
+    @private
+    CPTLineStyle *lineStyle;
+    CPTFill *fill;
+    NSDecimal barWidth;
+    CGFloat barWidthScale;
+    NSDecimal barOffset;
+    CGFloat barOffsetScale;
+    CGFloat barCornerRadius;
+    NSDecimal baseValue;
+    BOOL barsAreHorizontal;
+    BOOL barBasesVary;
+    BOOL barWidthsAreInViewCoordinates;
+    CPTPlotRange *plotRange;
 }
 
 @property (nonatomic, readwrite, assign) BOOL barWidthsAreInViewCoordinates;

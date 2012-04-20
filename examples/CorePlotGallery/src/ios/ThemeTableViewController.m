@@ -16,32 +16,32 @@
 
 -(void)setupThemes
 {
-	themes = [[NSMutableArray alloc] init];
-	[themes addObject:kThemeTableViewControllerDefaultTheme];
-	[themes addObject:kThemeTableViewControllerNoTheme];
+    themes = [[NSMutableArray alloc] init];
+    [themes addObject:kThemeTableViewControllerDefaultTheme];
+    [themes addObject:kThemeTableViewControllerNoTheme];
 
-	for ( Class c in [CPTTheme themeClasses] ) {
-		[themes addObject:[c name]];
-	}
+    for ( Class c in [CPTTheme themeClasses] ) {
+        [themes addObject:[c name]];
+    }
 }
 
 -(void)awakeFromNib
 {
-	[self setupThemes];
+    [self setupThemes];
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
-		[self setupThemes];
-	}
+    if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
+        [self setupThemes];
+    }
 
-	return self;
+    return self;
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return YES;
+    return YES;
 }
 
 #pragma mark -
@@ -49,28 +49,28 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 1;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [themes count];
+    return [themes count];
 }
 
 // Customize the appearance of table view cells.
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	static NSString *CellIdentifier = @"ThemeCell";
+    static NSString *CellIdentifier = @"ThemeCell";
 
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-	if ( cell == nil ) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-	}
+    if ( cell == nil ) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
 
-	cell.textLabel.text = [themes objectAtIndex:indexPath.row];
+    cell.textLabel.text = [themes objectAtIndex:indexPath.row];
 
-	return cell;
+    return cell;
 }
 
 #pragma mark -
@@ -78,7 +78,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[delegate themeSelectedAtIndex:[themes objectAtIndex:indexPath.row]];
+    [delegate themeSelectedAtIndex:[themes objectAtIndex:indexPath.row]];
 }
 
 #pragma mark -
@@ -86,7 +86,7 @@
 
 -(void)didReceiveMemoryWarning
 {
-	[super didReceiveMemoryWarning];
+    [super didReceiveMemoryWarning];
 }
 
 -(void)viewDidUnload
@@ -95,11 +95,11 @@
 
 -(void)dealloc
 {
-	[self.tableView setDataSource:nil];
-	[self.tableView setDelegate:nil];
-	[delegate release];
-	[themes release];
-	[super dealloc];
+    [self.tableView setDataSource:nil];
+    [self.tableView setDelegate:nil];
+    [delegate release];
+    [themes release];
+    [super dealloc];
 }
 
 @end

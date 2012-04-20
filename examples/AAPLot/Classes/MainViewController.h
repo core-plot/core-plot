@@ -7,11 +7,11 @@
 @class CPTXYGraph;
 
 @interface MainViewController : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource> {
-	CPTGraphHostingView *graphHost;
+    CPTGraphHostingView *graphHost;
 
-	@private
-	APYahooDataPuller *datapuller;
-	CPTXYGraph *graph;
+    @private
+    APYahooDataPuller *datapuller;
+    CPTXYGraph *graph;
 }
 
 @property (nonatomic, retain) IBOutlet CPTGraphHostingView *graphHost;

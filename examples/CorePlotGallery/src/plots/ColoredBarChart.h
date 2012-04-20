@@ -1,10 +1,10 @@
 #import "PlotItem.h"
 
 @interface ColoredBarChart : PlotItem<CPTPlotSpaceDelegate,
-									  CPTPlotDataSource,
-									  CPTBarPlotDelegate>
+                                      CPTPlotDataSource,
+                                      CPTBarPlotDelegate>
 {
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

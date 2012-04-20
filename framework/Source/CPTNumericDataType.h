@@ -6,12 +6,12 @@
  *	@brief Enumeration of data formats for numeric data.
  **/
 typedef enum _CPTDataTypeFormat {
-	CPTUndefinedDataType = 0,        ///< Undefined
-	CPTIntegerDataType,              ///< Integer
-	CPTUnsignedIntegerDataType,      ///< Unsigned integer
-	CPTFloatingPointDataType,        ///< Floating point
-	CPTComplexFloatingPointDataType, ///< Complex floating point
-	CPTDecimalDataType               ///< NSDecimal
+    CPTUndefinedDataType = 0,        ///< Undefined
+    CPTIntegerDataType,              ///< Integer
+    CPTUnsignedIntegerDataType,      ///< Unsigned integer
+    CPTFloatingPointDataType,        ///< Floating point
+    CPTComplexFloatingPointDataType, ///< Complex floating point
+    CPTDecimalDataType               ///< NSDecimal
 }
 CPTDataTypeFormat;
 
@@ -19,9 +19,9 @@ CPTDataTypeFormat;
  *	@brief Struct that describes the encoding of numeric data samples.
  **/
 typedef struct _CPTNumericDataType {
-	CPTDataTypeFormat dataTypeFormat; ///< Data type format
-	size_t sampleBytes;               ///< Number of bytes in each sample
-	CFByteOrder byteOrder;            ///< Byte order
+    CPTDataTypeFormat dataTypeFormat; ///< Data type format
+    size_t sampleBytes;               ///< Number of bytes in each sample
+    CFByteOrder byteOrder;            ///< Byte order
 }
 CPTNumericDataType;
 

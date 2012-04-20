@@ -66,21 +66,21 @@
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		plot	  = nil;
-		index	  = 0;
-		row		  = 0;
-		column	  = 0;
-		textStyle = nil;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        plot      = nil;
+        index     = 0;
+        row       = 0;
+        column    = 0;
+        textStyle = nil;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[textStyle release];
+    [textStyle release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -88,23 +88,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeConditionalObject:self.plot forKey:@"CPTLegendEntry.plot"];
-	[coder encodeInteger:self.index forKey:@"CPTLegendEntry.index"];
-	[coder encodeInteger:self.row forKey:@"CPTLegendEntry.row"];
-	[coder encodeInteger:self.column forKey:@"CPTLegendEntry.column"];
-	[coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
+    [coder encodeConditionalObject:self.plot forKey:@"CPTLegendEntry.plot"];
+    [coder encodeInteger:self.index forKey:@"CPTLegendEntry.index"];
+    [coder encodeInteger:self.row forKey:@"CPTLegendEntry.row"];
+    [coder encodeInteger:self.column forKey:@"CPTLegendEntry.column"];
+    [coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		plot	  = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
-		index	  = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
-		row		  = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
-		column	  = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
-		textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+        index     = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+        row       = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+        column    = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
+        textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -118,28 +118,28 @@
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextSaveGState(context);
-	CGContextTranslateCTM(context, 0.0, rect.origin.y);
-	CGContextScaleCTM(context, 1.0, -1.0);
-	CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY(rect) );
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 0.0, rect.origin.y);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextTranslateCTM( context, 0.0, -CGRectGetMaxY(rect) );
 #endif
-	// center the title vertically
-	CGRect textRect		= rect;
-	CGSize theTitleSize = self.titleSize;
-	if ( theTitleSize.height < textRect.size.height ) {
-		CGFloat offset = (textRect.size.height - theTitleSize.height) / (CGFloat)2.0;
-		if ( scale == 1.0 ) {
-			offset = round(offset);
-		}
-		else {
-			offset = round(offset * scale) / scale;
-		}
-		textRect = CGRectInset(textRect, 0.0, offset);
-	}
-	CPTAlignRectToUserSpace(context, textRect);
-	[self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
+    // center the title vertically
+    CGRect textRect     = rect;
+    CGSize theTitleSize = self.titleSize;
+    if ( theTitleSize.height < textRect.size.height ) {
+        CGFloat offset = (textRect.size.height - theTitleSize.height) / (CGFloat)2.0;
+        if ( scale == 1.0 ) {
+            offset = round(offset);
+        }
+        else {
+            offset = round(offset * scale) / scale;
+        }
+        textRect = CGRectInset(textRect, 0.0, offset);
+    }
+    CPTAlignRectToUserSpace(context, textRect);
+    [self.title drawInRect:textRect withTextStyle:self.textStyle inContext:context];
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-	CGContextRestoreGState(context);
+    CGContextRestoreGState(context);
 #endif
 }
 
@@ -150,29 +150,29 @@
 
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
-	if ( newTextStyle != textStyle ) {
-		[textStyle release];
-		textStyle = [newTextStyle retain];
-	}
+    if ( newTextStyle != textStyle ) {
+        [textStyle release];
+        textStyle = [newTextStyle retain];
+    }
 }
 
 -(NSString *)title
 {
-	return [self.plot titleForLegendEntryAtIndex:self.index];
+    return [self.plot titleForLegendEntryAtIndex:self.index];
 }
 
 -(CGSize)titleSize
 {
-	CGSize theTitleSize = CGSizeZero;
+    CGSize theTitleSize = CGSizeZero;
 
-	NSString *theTitle		   = self.title;
-	CPTTextStyle *theTextStyle = self.textStyle;
+    NSString *theTitle         = self.title;
+    CPTTextStyle *theTextStyle = self.textStyle;
 
-	if ( theTitle && theTextStyle ) {
-		theTitleSize = [theTitle sizeWithTextStyle:theTextStyle];
-	}
+    if ( theTitle && theTextStyle ) {
+        theTitleSize = [theTitle sizeWithTextStyle:theTextStyle];
+    }
 
-	return theTitleSize;
+    return theTitleSize;
 }
 
 ///	@endcond

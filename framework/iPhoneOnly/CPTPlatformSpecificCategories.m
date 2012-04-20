@@ -9,7 +9,7 @@
 
 -(UIColor *)uiColor
 {
-	return [UIColor colorWithCGColor:self.cgColor];
+    return [UIColor colorWithCGColor:self.cgColor];
 }
 
 @end
@@ -23,30 +23,30 @@
  **/
 -(CPTNativeImage *)imageOfLayer
 {
-	CGSize boundsSize = self.bounds.size;
+    CGSize boundsSize = self.bounds.size;
 
-	if ( UIGraphicsBeginImageContextWithOptions ) {
-		UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, 0.0);
-	}
-	else {
-		UIGraphicsBeginImageContext(boundsSize);
-	}
+    if ( UIGraphicsBeginImageContextWithOptions ) {
+        UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, 0.0);
+    }
+    else {
+        UIGraphicsBeginImageContext(boundsSize);
+    }
 
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextSaveGState(context);
-	CGContextSetAllowsAntialiasing(context, true);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    CGContextSetAllowsAntialiasing(context, true);
 
-	CGContextTranslateCTM(context, 0.0, boundsSize.height);
-	CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextTranslateCTM(context, 0.0, boundsSize.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
 
-	[self layoutAndRenderInContext:context];
-	CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
-	CGContextSetAllowsAntialiasing(context, false);
+    [self layoutAndRenderInContext:context];
+    CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();
+    CGContextSetAllowsAntialiasing(context, false);
 
-	CGContextRestoreGState(context);
-	UIGraphicsEndImageContext();
+    CGContextRestoreGState(context);
+    UIGraphicsEndImageContext();
 
-	return layerImage;
+    return layerImage;
 }
 
 @end
@@ -61,7 +61,7 @@
  **/
 -(BOOL)isLessThan:(NSNumber *)other
 {
-	return [self compare:other] == NSOrderedAscending;
+    return [self compare:other] == NSOrderedAscending;
 }
 
 /**	@brief Returns a Boolean value that indicates whether the receiver is less than or equal to another given number.
@@ -70,7 +70,7 @@
  **/
 -(BOOL)isLessThanOrEqualTo:(NSNumber *)other
 {
-	return [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedAscending;
+    return [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedAscending;
 }
 
 /**	@brief Returns a Boolean value that indicates whether the receiver is greater than another given number.
@@ -79,7 +79,7 @@
  **/
 -(BOOL)isGreaterThan:(NSNumber *)other
 {
-	return [self compare:other] == NSOrderedDescending;
+    return [self compare:other] == NSOrderedDescending;
 }
 
 /**	@brief Returns a Boolean value that indicates whether the receiver is greater than or equal to another given number.
@@ -88,7 +88,7 @@
  **/
 -(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other
 {
-	return [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedDescending;
+    return [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedDescending;
 }
 
 @end

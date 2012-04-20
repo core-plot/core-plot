@@ -16,7 +16,7 @@
 
 @interface PlotView : NSView
 {
-	id<PlotViewDelegate> delegate;
+    id<PlotViewDelegate> delegate;
 }
 
 @property (nonatomic, retain) id<PlotViewDelegate> delegate;

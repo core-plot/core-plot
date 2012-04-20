@@ -3,13 +3,13 @@
 
 @interface CorePlotQCPlugIn : QCPlugIn<CPTPlotDataSource>
 {
-	NSUInteger numberOfPlots;
-	BOOL configurationCheck;
+    NSUInteger numberOfPlots;
+    BOOL configurationCheck;
 
-	void *imageData;
-	CGContextRef bitmapContext;
-	id<QCPlugInOutputImageProvider> imageProvider;
-	CPTGraph *graph;
+    void *imageData;
+    CGContextRef bitmapContext;
+    id<QCPlugInOutputImageProvider> imageProvider;
+    CPTGraph *graph;
 }
 
 /*

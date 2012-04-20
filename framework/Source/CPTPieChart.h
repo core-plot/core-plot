@@ -21,9 +21,9 @@ extern NSString *const CPTPieChartBindingPieSliceWidthValues;
  *	@brief Enumeration of pie chart data source field types.
  **/
 typedef enum _CPTPieChartField {
-	CPTPieChartFieldSliceWidth,           ///< Pie slice width.
-	CPTPieChartFieldSliceWidthNormalized, ///< Pie slice width normalized [0, 1].
-	CPTPieChartFieldSliceWidthSum         ///< Cumulative sum of pie slice widths.
+    CPTPieChartFieldSliceWidth,           ///< Pie slice width.
+    CPTPieChartFieldSliceWidthNormalized, ///< Pie slice width normalized [0, 1].
+    CPTPieChartFieldSliceWidthSum         ///< Cumulative sum of pie slice widths.
 }
 CPTPieChartField;
 
@@ -31,8 +31,8 @@ CPTPieChartField;
  *	@brief Enumeration of pie slice drawing directions.
  **/
 typedef enum _CPTPieDirection {
-	CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
-	CPTPieDirectionCounterClockwise ///< Pie slices are drawn in a counter-clockwise direction.
+    CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
+    CPTPieDirectionCounterClockwise ///< Pie slices are drawn in a counter-clockwise direction.
 }
 CPTPieDirection;
 
@@ -110,14 +110,14 @@ CPTPieDirection;
 #pragma mark -
 
 @interface CPTPieChart : CPTPlot {
-	@private
-	CGFloat pieRadius;
-	CGFloat pieInnerRadius;
-	CGFloat startAngle;
-	CPTPieDirection sliceDirection;
-	CGPoint centerAnchor;
-	CPTLineStyle *borderLineStyle;
-	CPTFill *overlayFill;
+    @private
+    CGFloat pieRadius;
+    CGFloat pieInnerRadius;
+    CGFloat startAngle;
+    CPTPieDirection sliceDirection;
+    CGPoint centerAnchor;
+    CPTLineStyle *borderLineStyle;
+    CPTFill *overlayFill;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;

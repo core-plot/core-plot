@@ -32,16 +32,16 @@
  **/
 -(id)initWithImage:(CPTImage *)anImage
 {
-	if ( (self = [super init]) ) {
-		fillImage = [anImage retain];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        fillImage = [anImage retain];
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[fillImage release];
-	[super dealloc];
+    [fillImage release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -53,7 +53,7 @@
  **/
 -(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
 {
-	[self.fillImage drawInRect:theRect inContext:theContext];
+    [self.fillImage drawInRect:theRect inContext:theContext];
 }
 
 /** @brief Draws the image into the given graphics context clipped to the current drawing path.
@@ -61,13 +61,13 @@
  **/
 -(void)fillPathInContext:(CGContextRef)theContext
 {
-	CGContextSaveGState(theContext);
+    CGContextSaveGState(theContext);
 
-	CGRect bounds = CGContextGetPathBoundingBox(theContext);
-	CGContextClip(theContext);
-	[self.fillImage drawInRect:bounds inContext:theContext];
+    CGRect bounds = CGContextGetPathBoundingBox(theContext);
+    CGContextClip(theContext);
+    [self.fillImage drawInRect:bounds inContext:theContext];
 
-	CGContextRestoreGState(theContext);
+    CGContextRestoreGState(theContext);
 }
 
 #pragma mark -
@@ -75,11 +75,11 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	_CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
+    _CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
 
-	copy->fillImage = [self->fillImage copyWithZone:zone];
+    copy->fillImage = [self->fillImage copyWithZone:zone];
 
-	return copy;
+    return copy;
 }
 
 #pragma mark -
@@ -87,20 +87,20 @@
 
 -(Class)classForCoder
 {
-	return [CPTFill class];
+    return [CPTFill class];
 }
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:self.fillImage forKey:@"_CPTFillImage.fillImage"];
+    [coder encodeObject:self.fillImage forKey:@"_CPTFillImage.fillImage"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		fillImage = [[coder decodeObjectForKey:@"_CPTFillImage.fillImage"] retain];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        fillImage = [[coder decodeObjectForKey:@"_CPTFillImage.fillImage"] retain];
+    }
+    return self;
 }
 
 @end

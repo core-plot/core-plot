@@ -84,30 +84,30 @@
  **/
 +(id)lineStyle
 {
-	return [[[self alloc] init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		lineCap		 = kCGLineCapButt;
-		lineJoin	 = kCGLineJoinMiter;
-		miterLimit	 = 10.0;
-		lineWidth	 = 1.0;
-		dashPattern	 = nil;
-		patternPhase = 0.0;
-		lineColor	 = [[CPTColor blackColor] retain];
-		lineFill	 = nil;
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        lineCap      = kCGLineCapButt;
+        lineJoin     = kCGLineJoinMiter;
+        miterLimit   = 10.0;
+        lineWidth    = 1.0;
+        dashPattern  = nil;
+        patternPhase = 0.0;
+        lineColor    = [[CPTColor blackColor] retain];
+        lineFill     = nil;
+    }
+    return self;
 }
 
 -(void)dealloc
 {
-	[lineColor release];
-	[lineFill release];
-	[dashPattern release];
-	[super dealloc];
+    [lineColor release];
+    [lineFill release];
+    [dashPattern release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -115,29 +115,29 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeInteger:self.lineCap forKey:@"CPTLineStyle.lineCap"];
-	[coder encodeInteger:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
-	[coder encodeCGFloat:self.miterLimit forKey:@"CPTLineStyle.miterLimit"];
-	[coder encodeCGFloat:self.lineWidth forKey:@"CPTLineStyle.lineWidth"];
-	[coder encodeObject:self.dashPattern forKey:@"CPTLineStyle.dashPattern"];
-	[coder encodeCGFloat:self.patternPhase forKey:@"CPTLineStyle.patternPhase"];
-	[coder encodeObject:self.lineColor forKey:@"CPTLineStyle.lineColor"];
-	[coder encodeObject:self.lineFill forKey:@"CPTLineStyle.lineFill"];
+    [coder encodeInteger:self.lineCap forKey:@"CPTLineStyle.lineCap"];
+    [coder encodeInteger:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
+    [coder encodeCGFloat:self.miterLimit forKey:@"CPTLineStyle.miterLimit"];
+    [coder encodeCGFloat:self.lineWidth forKey:@"CPTLineStyle.lineWidth"];
+    [coder encodeObject:self.dashPattern forKey:@"CPTLineStyle.dashPattern"];
+    [coder encodeCGFloat:self.patternPhase forKey:@"CPTLineStyle.patternPhase"];
+    [coder encodeObject:self.lineColor forKey:@"CPTLineStyle.lineColor"];
+    [coder encodeObject:self.lineFill forKey:@"CPTLineStyle.lineFill"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		lineCap		 = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
-		lineJoin	 = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
-		miterLimit	 = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
-		lineWidth	 = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
-		dashPattern	 = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
-		patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
-		lineColor	 = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
-		lineFill	 = [[coder decodeObjectForKey:@"CPTLineStyle.lineFill"] retain];
-	}
-	return self;
+    if ( (self = [super init]) ) {
+        lineCap      = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
+        lineJoin     = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
+        miterLimit   = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
+        lineWidth    = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
+        dashPattern  = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
+        patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
+        lineColor    = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
+        lineFill     = [[coder decodeObjectForKey:@"CPTLineStyle.lineFill"] retain];
+    }
+    return self;
 }
 
 #pragma mark -
@@ -148,26 +148,26 @@
  **/
 -(void)setLineStyleInContext:(CGContextRef)theContext
 {
-	CGContextSetLineCap(theContext, lineCap);
-	CGContextSetLineJoin(theContext, lineJoin);
-	CGContextSetMiterLimit(theContext, miterLimit);
-	CGContextSetLineWidth(theContext, lineWidth);
-	NSUInteger dashCount = dashPattern.count;
-	if ( dashCount > 0 ) {
-		CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
+    CGContextSetLineCap(theContext, lineCap);
+    CGContextSetLineJoin(theContext, lineJoin);
+    CGContextSetMiterLimit(theContext, miterLimit);
+    CGContextSetLineWidth(theContext, lineWidth);
+    NSUInteger dashCount = dashPattern.count;
+    if ( dashCount > 0 ) {
+        CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
 
-		NSUInteger dashCounter = 0;
-		for ( NSNumber *currentDashLength in dashPattern ) {
-			dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
-		}
+        NSUInteger dashCounter = 0;
+        for ( NSNumber *currentDashLength in dashPattern ) {
+            dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
+        }
 
-		CGContextSetLineDash(theContext, patternPhase, dashLengths, dashCount);
-		free(dashLengths);
-	}
-	else {
-		CGContextSetLineDash(theContext, 0.0, NULL, 0);
-	}
-	CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
+        CGContextSetLineDash(theContext, patternPhase, dashLengths, dashCount);
+        free(dashLengths);
+    }
+    else {
+        CGContextSetLineDash(theContext, 0.0, NULL, 0);
+    }
+    CGContextSetStrokeColorWithColor(theContext, lineColor.cgColor);
 }
 
 /** @brief Stroke the current path in the given graphics context.
@@ -177,15 +177,15 @@
  **/
 -(void)strokePathInContext:(CGContextRef)theContext
 {
-	CPTFill *theFill = self.lineFill;
+    CPTFill *theFill = self.lineFill;
 
-	if ( theFill ) {
-		CGContextReplacePathWithStrokedPath(theContext);
-		[theFill fillPathInContext:theContext];
-	}
-	else {
-		CGContextStrokePath(theContext);
-	}
+    if ( theFill ) {
+        CGContextReplacePathWithStrokedPath(theContext);
+        [theFill fillPathInContext:theContext];
+    }
+    else {
+        CGContextStrokePath(theContext);
+    }
 }
 
 /** @brief Stroke a rectangular path in the given graphics context.
@@ -196,17 +196,17 @@
  **/
 -(void)strokeRect:(CGRect)rect inContext:(CGContextRef)theContext
 {
-	CPTFill *theFill = self.lineFill;
+    CPTFill *theFill = self.lineFill;
 
-	if ( theFill ) {
-		CGContextBeginPath(theContext);
-		CGContextAddRect(theContext, rect);
-		CGContextReplacePathWithStrokedPath(theContext);
-		[theFill fillPathInContext:theContext];
-	}
-	else {
-		CGContextStrokeRect(theContext, rect);
-	}
+    if ( theFill ) {
+        CGContextBeginPath(theContext);
+        CGContextAddRect(theContext, rect);
+        CGContextReplacePathWithStrokedPath(theContext);
+        [theFill fillPathInContext:theContext];
+    }
+    else {
+        CGContextStrokeRect(theContext, rect);
+    }
 }
 
 #pragma mark -
@@ -214,18 +214,18 @@
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
+    CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
 
-	styleCopy->lineCap		= self->lineCap;
-	styleCopy->lineJoin		= self->lineJoin;
-	styleCopy->miterLimit	= self->miterLimit;
-	styleCopy->lineWidth	= self->lineWidth;
-	styleCopy->dashPattern	= [self->dashPattern copy];
-	styleCopy->patternPhase = self->patternPhase;
-	styleCopy->lineColor	= [self->lineColor copy];
-	styleCopy->lineFill		= [self->lineFill copy];
+    styleCopy->lineCap      = self->lineCap;
+    styleCopy->lineJoin     = self->lineJoin;
+    styleCopy->miterLimit   = self->miterLimit;
+    styleCopy->lineWidth    = self->lineWidth;
+    styleCopy->dashPattern  = [self->dashPattern copy];
+    styleCopy->patternPhase = self->patternPhase;
+    styleCopy->lineColor    = [self->lineColor copy];
+    styleCopy->lineFill     = [self->lineFill copy];
 
-	return styleCopy;
+    return styleCopy;
 }
 
 #pragma mark -
@@ -233,18 +233,18 @@
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
-	CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
+    CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
 
-	styleCopy->lineCap		= self->lineCap;
-	styleCopy->lineJoin		= self->lineJoin;
-	styleCopy->miterLimit	= self->miterLimit;
-	styleCopy->lineWidth	= self->lineWidth;
-	styleCopy->dashPattern	= [self->dashPattern copy];
-	styleCopy->patternPhase = self->patternPhase;
-	styleCopy->lineColor	= [self->lineColor copy];
-	styleCopy->lineFill		= [self->lineFill copy];
+    styleCopy->lineCap      = self->lineCap;
+    styleCopy->lineJoin     = self->lineJoin;
+    styleCopy->miterLimit   = self->miterLimit;
+    styleCopy->lineWidth    = self->lineWidth;
+    styleCopy->dashPattern  = [self->dashPattern copy];
+    styleCopy->patternPhase = self->patternPhase;
+    styleCopy->lineColor    = [self->lineColor copy];
+    styleCopy->lineFill     = [self->lineFill copy];
 
-	return styleCopy;
+    return styleCopy;
 }
 
 @end

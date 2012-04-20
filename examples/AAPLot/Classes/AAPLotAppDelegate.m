@@ -16,15 +16,15 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-	[window addSubview:[rootViewController view]];
-	[window makeKeyAndVisible];
+    [window addSubview:[rootViewController view]];
+    [window makeKeyAndVisible];
 }
 
 -(void)dealloc
 {
-	[rootViewController release];
-	[window release];
-	[super dealloc];
+    [rootViewController release];
+    [window release];
+    [super dealloc];
 }
 
 @end

@@ -9,10 +9,10 @@
 #import "PlotItem.h"
 
 @interface SimplePieChart : PlotItem<CPTPlotSpaceDelegate,
-									 CPTPieChartDelegate,
-									 CPTPlotDataSource>
+                                     CPTPieChartDelegate,
+                                     CPTPlotDataSource>
 {
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end

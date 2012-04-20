@@ -79,40 +79,40 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(id)init
 {
-	if ( (self = [super init]) ) {
-		[self commonInit];
+    if ( (self = [super init]) ) {
+        [self commonInit];
 
-		self.blendingMode = CPTLinearBlendingMode;
+        self.blendingMode = CPTLinearBlendingMode;
 
-		angle		 = 0.0;
-		gradientType = CPTGradientTypeAxial;
-	}
-	return self;
+        angle        = 0.0;
+        gradientType = CPTGradientTypeAxial;
+    }
+    return self;
 }
 
 ///	@cond
 
 -(void)commonInit
 {
-	colorspace	= [[CPTColorSpace genericRGBSpace] retain];
-	elementList = NULL;
+    colorspace  = [[CPTColorSpace genericRGBSpace] retain];
+    elementList = NULL;
 }
 
 ///	@endcond
 
 -(void)dealloc
 {
-	[colorspace release];
-	CGFunctionRelease(gradientFunction);
-	[self removeAllElements];
-	[super dealloc];
+    [colorspace release];
+    CGFunctionRelease(gradientFunction);
+    [self removeAllElements];
+    [super dealloc];
 }
 
 -(void)finalize
 {
-	CGFunctionRelease(gradientFunction);
-	[self removeAllElements];
-	[super finalize];
+    CGFunctionRelease(gradientFunction);
+    [self removeAllElements];
+    [super finalize];
 }
 
 #pragma mark -
@@ -120,20 +120,20 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(id)copyWithZone:(NSZone *)zone
 {
-	CPTGradient *copy = [[[self class] allocWithZone:zone] init];
+    CPTGradient *copy = [[[self class] allocWithZone:zone] init];
 
-	CPTGradientElement *currentElement = elementList;
+    CPTGradientElement *currentElement = elementList;
 
-	while ( currentElement != NULL ) {
-		[copy addElement:currentElement];
-		currentElement = currentElement->nextElement;
-	}
+    while ( currentElement != NULL ) {
+        [copy addElement:currentElement];
+        currentElement = currentElement->nextElement;
+    }
 
-	copy.blendingMode  = self.blendingMode;
-	copy->angle		   = self->angle;
-	copy->gradientType = self->gradientType;
+    copy.blendingMode  = self.blendingMode;
+    copy->angle        = self->angle;
+    copy->gradientType = self->gradientType;
 
-	return copy;
+    return copy;
 }
 
 #pragma mark -
@@ -141,54 +141,54 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	if ( [coder allowsKeyedCoding] ) {
-		NSUInteger count				   = 0;
-		CPTGradientElement *currentElement = elementList;
-		while ( currentElement != NULL ) {
-			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
-			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
-			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
-			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
-			[coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
+    if ( [coder allowsKeyedCoding] ) {
+        NSUInteger count                   = 0;
+        CPTGradientElement *currentElement = elementList;
+        while ( currentElement != NULL ) {
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
+            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
 
-			count++;
-			currentElement = currentElement->nextElement;
-		}
-		[coder encodeInteger:count forKey:@"CPTGradient.elementCount"];
-		[coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
-		[coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
-		[coder encodeInt:gradientType forKey:@"CPTGradient.type"];
-	}
-	else {
-		[NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
-	}
+            count++;
+            currentElement = currentElement->nextElement;
+        }
+        [coder encodeInteger:count forKey:@"CPTGradient.elementCount"];
+        [coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
+        [coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
+        [coder encodeInt:gradientType forKey:@"CPTGradient.type"];
+    }
+    else {
+        [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
+    }
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-	if ( (self = [super init]) ) {
-		[self commonInit];
+    if ( (self = [super init]) ) {
+        [self commonInit];
 
-		gradientType	  = [coder decodeIntForKey:@"CPTGradient.type"];
-		angle			  = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
-		self.blendingMode = [coder decodeIntForKey:@"CPTGradient.blendingMode"];
+        gradientType      = [coder decodeIntForKey:@"CPTGradient.type"];
+        angle             = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
+        self.blendingMode = [coder decodeIntForKey:@"CPTGradient.blendingMode"];
 
-		NSUInteger count = [coder decodeIntegerForKey:@"CPTGradient.elementCount"];
+        NSUInteger count = [coder decodeIntegerForKey:@"CPTGradient.elementCount"];
 
-		while ( count != 0 ) {
-			CPTGradientElement newElement;
+        while ( count != 0 ) {
+            CPTGradientElement newElement;
 
-			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.red)];
-			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.green)];
-			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.blue)];
-			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.alpha)];
-			[coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.position)];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.red)];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.green)];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.blue)];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.alpha)];
+            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.position)];
 
-			count--;
-			[self addElement:&newElement];
-		}
-	}
-	return self;
+            count--;
+            [self addElement:&newElement];
+        }
+    }
+    return self;
 }
 
 #pragma mark -
@@ -201,7 +201,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end
 {
-	return [self gradientWithBeginningColor:begin endingColor:end beginningPosition:0.0 endingPosition:1.0];
+    return [self gradientWithBeginningColor:begin endingColor:end beginningPosition:0.0 endingPosition:1.0];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with an axial linear gradient between two given colors, at two given normalized positions.
@@ -213,21 +213,21 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
-	CPTGradientElement color2;
+    CPTGradientElement color1;
+    CPTGradientElement color2;
 
-	color1.color = CPTRGBAColorFromCGColor(begin.cgColor);
-	color2.color = CPTRGBAColorFromCGColor(end.cgColor);
+    color1.color = CPTRGBAColorFromCGColor(begin.cgColor);
+    color2.color = CPTRGBAColorFromCGColor(end.cgColor);
 
-	color1.position = beginningPosition;
-	color2.position = endingPosition;
+    color1.position = beginningPosition;
+    color2.position = endingPosition;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua selected gradient.
@@ -235,43 +235,43 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)aquaSelectedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = 0.58;
-	color1.color.green = 0.86;
-	color1.color.blue  = 0.98;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = 0.58;
+    color1.color.green = 0.86;
+    color1.color.blue  = 0.98;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = 0.42;
-	color2.color.green = 0.68;
-	color2.color.blue  = 0.90;
-	color2.color.alpha = 1.00;
-	color2.position	   = 0.5;
+    CPTGradientElement color2;
+    color2.color.red   = 0.42;
+    color2.color.green = 0.68;
+    color2.color.blue  = 0.90;
+    color2.color.alpha = 1.00;
+    color2.position    = 0.5;
 
-	CPTGradientElement color3;
-	color3.color.red   = 0.64;
-	color3.color.green = 0.80;
-	color3.color.blue  = 0.94;
-	color3.color.alpha = 1.00;
-	color3.position	   = 0.5;
+    CPTGradientElement color3;
+    color3.color.red   = 0.64;
+    color3.color.green = 0.80;
+    color3.color.blue  = 0.94;
+    color3.color.alpha = 1.00;
+    color3.position    = 0.5;
 
-	CPTGradientElement color4;
-	color4.color.red   = 0.56;
-	color4.color.green = 0.70;
-	color4.color.blue  = 0.90;
-	color4.color.alpha = 1.00;
-	color4.position	   = 1.0;
+    CPTGradientElement color4;
+    color4.color.red   = 0.56;
+    color4.color.green = 0.70;
+    color4.color.blue  = 0.90;
+    color4.color.alpha = 1.00;
+    color4.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
-	[newInstance addElement:&color3];
-	[newInstance addElement:&color4];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
+    [newInstance addElement:&color3];
+    [newInstance addElement:&color4];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua normal gradient.
@@ -279,35 +279,35 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)aquaNormalGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.95;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.95;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.83;
-	color2.color.alpha = 1.00;
-	color2.position	   = 0.5;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.83;
+    color2.color.alpha = 1.00;
+    color2.position    = 0.5;
 
-	CPTGradientElement color3;
-	color3.color.red   = color3.color.green = color3.color.blue = 0.95;
-	color3.color.alpha = 1.00;
-	color3.position	   = 0.5;
+    CPTGradientElement color3;
+    color3.color.red   = color3.color.green = color3.color.blue = 0.95;
+    color3.color.alpha = 1.00;
+    color3.position    = 0.5;
 
-	CPTGradientElement color4;
-	color4.color.red   = color4.color.green = color4.color.blue = 0.92;
-	color4.color.alpha = 1.00;
-	color4.position	   = 1.0;
+    CPTGradientElement color4;
+    color4.color.red   = color4.color.green = color4.color.blue = 0.92;
+    color4.color.alpha = 1.00;
+    color4.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
-	[newInstance addElement:&color3];
-	[newInstance addElement:&color4];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
+    [newInstance addElement:&color3];
+    [newInstance addElement:&color4];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua pressed gradient.
@@ -315,35 +315,35 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)aquaPressedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.80;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.80;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.64;
-	color2.color.alpha = 1.00;
-	color2.position	   = 0.5;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.64;
+    color2.color.alpha = 1.00;
+    color2.position    = 0.5;
 
-	CPTGradientElement color3;
-	color3.color.red   = color3.color.green = color3.color.blue = 0.80;
-	color3.color.alpha = 1.00;
-	color3.position	   = 0.5;
+    CPTGradientElement color3;
+    color3.color.red   = color3.color.green = color3.color.blue = 0.80;
+    color3.color.alpha = 1.00;
+    color3.position    = 0.5;
 
-	CPTGradientElement color4;
-	color4.color.red   = color4.color.green = color4.color.blue = 0.77;
-	color4.color.alpha = 1.00;
-	color4.position	   = 1.0;
+    CPTGradientElement color4;
+    color4.color.red   = color4.color.green = color4.color.blue = 0.77;
+    color4.color.alpha = 1.00;
+    color4.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
-	[newInstance addElement:&color3];
-	[newInstance addElement:&color4];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
+    [newInstance addElement:&color3];
+    [newInstance addElement:&color4];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified selected gradient.
@@ -351,23 +351,23 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)unifiedSelectedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.85;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.85;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.95;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.95;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified normal gradient.
@@ -375,23 +375,23 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)unifiedNormalGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.75;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.75;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.90;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.90;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified pressed gradient.
@@ -399,23 +399,23 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)unifiedPressedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.60;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.60;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.75;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.75;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified dark gradient.
@@ -423,23 +423,23 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)unifiedDarkGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = color1.color.green = color1.color.blue = 0.68;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = 0.68;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = color2.color.green = color2.color.blue = 0.83;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = color2.color.green = color2.color.blue = 0.83;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list selected gradient.
@@ -447,27 +447,27 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)sourceListSelectedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = 0.06;
-	color1.color.green = 0.37;
-	color1.color.blue  = 0.85;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = 0.06;
+    color1.color.green = 0.37;
+    color1.color.blue  = 0.85;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = 0.30;
-	color2.color.green = 0.60;
-	color2.color.blue  = 0.92;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = 0.30;
+    color2.color.green = 0.60;
+    color2.color.blue  = 0.92;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list unselected gradient.
@@ -475,27 +475,27 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)sourceListUnselectedGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = 0.43;
-	color1.color.green = 0.43;
-	color1.color.blue  = 0.43;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = 0.43;
+    color1.color.green = 0.43;
+    color1.color.blue  = 0.43;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = 0.60;
-	color2.color.green = 0.60;
-	color2.color.blue  = 0.60;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = 0.60;
+    color2.color.green = 0.60;
+    color2.color.blue  = 0.60;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with a rainbow gradient.
@@ -503,29 +503,29 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)rainbowGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	CPTGradientElement color1;
+    CPTGradientElement color1;
 
-	color1.color.red   = 1.00;
-	color1.color.green = 0.00;
-	color1.color.blue  = 0.00;
-	color1.color.alpha = 1.00;
-	color1.position	   = 0.0;
+    color1.color.red   = 1.00;
+    color1.color.green = 0.00;
+    color1.color.blue  = 0.00;
+    color1.color.alpha = 1.00;
+    color1.position    = 0.0;
 
-	CPTGradientElement color2;
-	color2.color.red   = 0.54;
-	color2.color.green = 0.00;
-	color2.color.blue  = 1.00;
-	color2.color.alpha = 1.00;
-	color2.position	   = 1.0;
+    CPTGradientElement color2;
+    color2.color.red   = 0.54;
+    color2.color.green = 0.00;
+    color2.color.blue  = 1.00;
+    color2.color.alpha = 1.00;
+    color2.position    = 1.0;
 
-	[newInstance addElement:&color1];
-	[newInstance addElement:&color2];
+    [newInstance addElement:&color1];
+    [newInstance addElement:&color2];
 
-	newInstance.blendingMode = CPTChromaticBlendingMode;
+    newInstance.blendingMode = CPTChromaticBlendingMode;
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with a hydrogen spectrum gradient.
@@ -533,80 +533,80 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 +(CPTGradient *)hydrogenSpectrumGradient
 {
-	CPTGradient *newInstance = [[self alloc] init];
+    CPTGradient *newInstance = [[self alloc] init];
 
-	struct {
-		CGFloat hue;
-		CGFloat position;
-		CGFloat width;
-	}
-	colorBands[4];
+    struct {
+        CGFloat hue;
+        CGFloat position;
+        CGFloat width;
+    }
+    colorBands[4];
 
-	colorBands[0].hue	   = 22;
-	colorBands[0].position = 0.145;
-	colorBands[0].width	   = 0.01;
+    colorBands[0].hue      = 22;
+    colorBands[0].position = 0.145;
+    colorBands[0].width    = 0.01;
 
-	colorBands[1].hue	   = 200;
-	colorBands[1].position = 0.71;
-	colorBands[1].width	   = 0.008;
+    colorBands[1].hue      = 200;
+    colorBands[1].position = 0.71;
+    colorBands[1].width    = 0.008;
 
-	colorBands[2].hue	   = 253;
-	colorBands[2].position = 0.885;
-	colorBands[2].width	   = 0.005;
+    colorBands[2].hue      = 253;
+    colorBands[2].position = 0.885;
+    colorBands[2].width    = 0.005;
 
-	colorBands[3].hue	   = 275;
-	colorBands[3].position = 0.965;
-	colorBands[3].width	   = 0.003;
+    colorBands[3].hue      = 275;
+    colorBands[3].position = 0.965;
+    colorBands[3].width    = 0.003;
 
-	for ( NSUInteger i = 0; i < 4; i++ ) {
-		CGFloat color[4];
-		color[0] = colorBands[i].hue - (CGFloat)180.0 * colorBands[i].width;
-		color[1] = 1.0;
-		color[2] = 0.001;
-		color[3] = 1.0;
-		transformHSV_RGB(color);
+    for ( NSUInteger i = 0; i < 4; i++ ) {
+        CGFloat color[4];
+        color[0] = colorBands[i].hue - (CGFloat)180.0 * colorBands[i].width;
+        color[1] = 1.0;
+        color[2] = 0.001;
+        color[3] = 1.0;
+        transformHSV_RGB(color);
 
-		CPTGradientElement fadeIn;
-		fadeIn.color.red   = color[0];
-		fadeIn.color.green = color[1];
-		fadeIn.color.blue  = color[2];
-		fadeIn.color.alpha = color[3];
-		fadeIn.position	   = colorBands[i].position - colorBands[i].width;
+        CPTGradientElement fadeIn;
+        fadeIn.color.red   = color[0];
+        fadeIn.color.green = color[1];
+        fadeIn.color.blue  = color[2];
+        fadeIn.color.alpha = color[3];
+        fadeIn.position    = colorBands[i].position - colorBands[i].width;
 
-		color[0] = colorBands[i].hue;
-		color[1] = 1.0;
-		color[2] = 1.0;
-		color[3] = 1.0;
-		transformHSV_RGB(color);
+        color[0] = colorBands[i].hue;
+        color[1] = 1.0;
+        color[2] = 1.0;
+        color[3] = 1.0;
+        transformHSV_RGB(color);
 
-		CPTGradientElement band;
-		band.color.red	 = color[0];
-		band.color.green = color[1];
-		band.color.blue	 = color[2];
-		band.color.alpha = color[3];
-		band.position	 = colorBands[i].position;
+        CPTGradientElement band;
+        band.color.red   = color[0];
+        band.color.green = color[1];
+        band.color.blue  = color[2];
+        band.color.alpha = color[3];
+        band.position    = colorBands[i].position;
 
-		color[0] = colorBands[i].hue + (CGFloat)180.0 * colorBands[i].width;
-		color[1] = 1.0;
-		color[2] = 0.001;
-		color[3] = 1.0;
-		transformHSV_RGB(color);
+        color[0] = colorBands[i].hue + (CGFloat)180.0 * colorBands[i].width;
+        color[1] = 1.0;
+        color[2] = 0.001;
+        color[3] = 1.0;
+        transformHSV_RGB(color);
 
-		CPTGradientElement fadeOut;
-		fadeOut.color.red	= color[0];
-		fadeOut.color.green = color[1];
-		fadeOut.color.blue	= color[2];
-		fadeOut.color.alpha = color[3];
-		fadeOut.position	= colorBands[i].position + colorBands[i].width;
+        CPTGradientElement fadeOut;
+        fadeOut.color.red   = color[0];
+        fadeOut.color.green = color[1];
+        fadeOut.color.blue  = color[2];
+        fadeOut.color.alpha = color[3];
+        fadeOut.position    = colorBands[i].position + colorBands[i].width;
 
-		[newInstance addElement:&fadeIn];
-		[newInstance addElement:&band];
-		[newInstance addElement:&fadeOut];
-	}
+        [newInstance addElement:&fadeIn];
+        [newInstance addElement:&band];
+        [newInstance addElement:&fadeOut];
+    }
 
-	newInstance.blendingMode = CPTChromaticBlendingMode;
+    newInstance.blendingMode = CPTChromaticBlendingMode;
 
-	return [newInstance autorelease];
+    return [newInstance autorelease];
 }
 
 #pragma mark -
@@ -618,24 +618,24 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CPTGradient *)gradientWithAlphaComponent:(CGFloat)alpha
 {
-	CPTGradient *newGradient = [[[self class] alloc] init];
+    CPTGradient *newGradient = [[[self class] alloc] init];
 
-	CPTGradientElement *curElement = elementList;
-	CPTGradientElement tempElement;
+    CPTGradientElement *curElement = elementList;
+    CPTGradientElement tempElement;
 
-	while ( curElement != NULL ) {
-		tempElement				= *curElement;
-		tempElement.color.alpha = alpha;
-		[newGradient addElement:&tempElement];
+    while ( curElement != NULL ) {
+        tempElement             = *curElement;
+        tempElement.color.alpha = alpha;
+        [newGradient addElement:&tempElement];
 
-		curElement = curElement->nextElement;
-	}
+        curElement = curElement->nextElement;
+    }
 
-	newGradient.blendingMode = self.blendingMode;
-	newGradient.angle		 = self.angle;
-	newGradient.gradientType = self.gradientType;
+    newGradient.blendingMode = self.blendingMode;
+    newGradient.angle        = self.angle;
+    newGradient.gradientType = self.gradientType;
 
-	return [newGradient autorelease];
+    return [newGradient autorelease];
 }
 
 /** @brief Copies the current gradient and sets a new blending mode.
@@ -644,10 +644,10 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CPTGradient *)gradientWithBlendingMode:(CPTGradientBlendingMode)mode
 {
-	CPTGradient *newGradient = [self copy];
+    CPTGradient *newGradient = [self copy];
 
-	newGradient.blendingMode = mode;
-	return [newGradient autorelease];
+    newGradient.blendingMode = mode;
+    return [newGradient autorelease];
 }
 
 /** @brief Copies the current gradient and adds a color stop.
@@ -661,17 +661,17 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position
 {
-	CPTGradient *newGradient = [self copy];
-	CPTGradientElement newGradientElement;
+    CPTGradient *newGradient = [self copy];
+    CPTGradientElement newGradientElement;
 
-	//put the components of color into the newGradientElement - must make sure it is a RGB color (not Gray or CMYK)
-	newGradientElement.color	= CPTRGBAColorFromCGColor(color.cgColor);
-	newGradientElement.position = position;
+    //put the components of color into the newGradientElement - must make sure it is a RGB color (not Gray or CMYK)
+    newGradientElement.color    = CPTRGBAColorFromCGColor(color.cgColor);
+    newGradientElement.position = position;
 
-	//Pass it off to addElement to take care of adding it to the elementList
-	[newGradient addElement:&newGradientElement];
+    //Pass it off to addElement to take care of adding it to the elementList
+    [newGradient addElement:&newGradientElement];
 
-	return [newGradient autorelease];
+    return [newGradient autorelease];
 }
 
 /** @brief Copies the current gradient and removes the color stop at <code>position</code> from the list of color stops.
@@ -680,14 +680,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CPTGradient *)removeColorStopAtPosition:(CGFloat)position
 {
-	CPTGradient *newGradient		  = [self copy];
-	CPTGradientElement removedElement = [newGradient removeElementAtPosition:position];
+    CPTGradient *newGradient          = [self copy];
+    CPTGradientElement removedElement = [newGradient removeElementAtPosition:position];
 
-	if ( isnan(removedElement.position) ) {
-		[NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
-	}
+    if ( isnan(removedElement.position) ) {
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
+    }
 
-	return [newGradient autorelease];
+    return [newGradient autorelease];
 }
 
 /** @brief Copies the current gradient and removes the color stop at <code>index</code> from the list of color stops.
@@ -696,14 +696,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CPTGradient *)removeColorStopAtIndex:(NSUInteger)index
 {
-	CPTGradient *newGradient		  = [self copy];
-	CPTGradientElement removedElement = [newGradient removeElementAtIndex:index];
+    CPTGradient *newGradient          = [self copy];
+    CPTGradientElement removedElement = [newGradient removeElementAtIndex:index];
 
-	if ( isnan(removedElement.position) ) {
-		[NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
-	}
+    if ( isnan(removedElement.position) ) {
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
+    }
 
-	return [newGradient autorelease];
+    return [newGradient autorelease];
 }
 
 #pragma mark -
@@ -715,21 +715,21 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CGColorRef)newColorStopAtIndex:(NSUInteger)index
 {
-	CPTGradientElement *element = [self elementAtIndex:index];
+    CPTGradientElement *element = [self elementAtIndex:index];
 
-	if ( element != NULL ) {
+    if ( element != NULL ) {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-		CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
-		return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
+        CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
+        return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 
 #else
-		return CGColorCreateGenericRGB(element->color.red, element->color.green, element->color.blue, element->color.alpha);
+        return CGColorCreateGenericRGB(element->color.red, element->color.green, element->color.blue, element->color.alpha);
 #endif
-	}
+    }
 
-	[NSException raise:NSRangeException format:@"-[%@ colorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
+    [NSException raise:NSRangeException format:@"-[%@ colorStopAtIndex:]: index (%i) beyond bounds", [self class], index];
 
-	return NULL;
+    return NULL;
 }
 
 /** @brief Gets the color at an arbitrary position in the gradient.
@@ -738,42 +738,42 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(CGColorRef)newColorAtPosition:(CGFloat)position
 {
-	CGFloat components[4] = { 0.0, 0.0, 0.0, 0.0 };
-	CGColorRef gradientColor;
+    CGFloat components[4] = { 0.0, 0.0, 0.0, 0.0 };
+    CGColorRef gradientColor;
 
-	switch ( self.blendingMode ) {
-		case CPTLinearBlendingMode:
-			linearEvaluation(&elementList, &position, components);
-			break;
+    switch ( self.blendingMode ) {
+        case CPTLinearBlendingMode:
+            linearEvaluation(&elementList, &position, components);
+            break;
 
-		case CPTChromaticBlendingMode:
-			chromaticEvaluation(&elementList, &position, components);
-			break;
+        case CPTChromaticBlendingMode:
+            chromaticEvaluation(&elementList, &position, components);
+            break;
 
-		case CPTInverseChromaticBlendingMode:
-			inverseChromaticEvaluation(&elementList, &position, components);
-			break;
-	}
+        case CPTInverseChromaticBlendingMode:
+            inverseChromaticEvaluation(&elementList, &position, components);
+            break;
+    }
 
-	if ( 0.0 != components[3] ) {
-		//undo premultiplication that CG requires
+    if ( 0.0 != components[3] ) {
+        //undo premultiplication that CG requires
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-		CGFloat colorComponents[4] = { components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3] };
-		gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
+        CGFloat colorComponents[4] = { components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3] };
+        gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else
-		gradientColor = CGColorCreateGenericRGB(components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]);
+        gradientColor = CGColorCreateGenericRGB(components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]);
 #endif
-	}
-	else {
+    }
+    else {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-		CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
-		gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
+        CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
+        gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else
-		gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
+        gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
 #endif
-	}
+    }
 
-	return gradientColor;
+    return gradientColor;
 }
 
 #pragma mark -
@@ -785,7 +785,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context
 {
-	[self fillRect:rect inContext:context];
+    [self fillRect:rect inContext:context];
 }
 
 /** @brief Draws the gradient into the given graphics context inside the provided rectangle.
@@ -794,26 +794,26 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
 {
-	CGShadingRef myCGShading = NULL;
+    CGShadingRef myCGShading = NULL;
 
-	CGContextSaveGState(context);
+    CGContextSaveGState(context);
 
-	CGContextClipToRect(context, *(CGRect *)&rect);
+    CGContextClipToRect(context, *(CGRect *)&rect);
 
-	switch ( self.gradientType ) {
-		case CPTGradientTypeAxial:
-			myCGShading = [self newAxialGradientInRect:rect];
-			break;
+    switch ( self.gradientType ) {
+        case CPTGradientTypeAxial:
+            myCGShading = [self newAxialGradientInRect:rect];
+            break;
 
-		case CPTGradientTypeRadial:
-			myCGShading = [self newRadialGradientInRect:rect context:context];
-			break;
-	}
+        case CPTGradientTypeRadial:
+            myCGShading = [self newRadialGradientInRect:rect context:context];
+            break;
+    }
 
-	CGContextDrawShading(context, myCGShading);
+    CGContextDrawShading(context, myCGShading);
 
-	CGShadingRelease(myCGShading);
-	CGContextRestoreGState(context);
+    CGShadingRelease(myCGShading);
+    CGContextRestoreGState(context);
 }
 
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
@@ -821,29 +821,29 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 -(void)fillPathInContext:(CGContextRef)context
 {
-	if ( !CGContextIsPathEmpty(context) ) {
-		CGShadingRef myCGShading = NULL;
+    if ( !CGContextIsPathEmpty(context) ) {
+        CGShadingRef myCGShading = NULL;
 
-		CGContextSaveGState(context);
+        CGContextSaveGState(context);
 
-		CGRect bounds = CGContextGetPathBoundingBox(context);
-		CGContextClip(context);
+        CGRect bounds = CGContextGetPathBoundingBox(context);
+        CGContextClip(context);
 
-		switch ( self.gradientType ) {
-			case CPTGradientTypeAxial:
-				myCGShading = [self newAxialGradientInRect:bounds];
-				break;
+        switch ( self.gradientType ) {
+            case CPTGradientTypeAxial:
+                myCGShading = [self newAxialGradientInRect:bounds];
+                break;
 
-			case CPTGradientTypeRadial:
-				myCGShading = [self newRadialGradientInRect:bounds context:context];
-				break;
-		}
+            case CPTGradientTypeRadial:
+                myCGShading = [self newRadialGradientInRect:bounds context:context];
+                break;
+        }
 
-		CGContextDrawShading(context, myCGShading);
+        CGContextDrawShading(context, myCGShading);
 
-		CGShadingRelease(myCGShading);
-		CGContextRestoreGState(context);
-	}
+        CGShadingRelease(myCGShading);
+        CGContextRestoreGState(context);
+    }
 }
 
 #pragma mark -
@@ -851,80 +851,80 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(BOOL)isEqual:(id)object
 {
-	if ( self == object ) {
-		return YES;
-	}
-	else if ( [object isKindOfClass:[self class]] ) {
-		CPTGradient *otherGradient = (CPTGradient *)object;
+    if ( self == object ) {
+        return YES;
+    }
+    else if ( [object isKindOfClass:[self class]] ) {
+        CPTGradient *otherGradient = (CPTGradient *)object;
 
-		BOOL equalGradients = (self.blendingMode == otherGradient.blendingMode) &&
-							  (self.angle == otherGradient.angle) &&
-							  (self.gradientType == otherGradient.gradientType);
+        BOOL equalGradients = (self.blendingMode == otherGradient.blendingMode) &&
+                              (self.angle == otherGradient.angle) &&
+                              (self.gradientType == otherGradient.gradientType);
 
-		if ( equalGradients ) {
-			equalGradients = ([self elementCount] == [otherGradient elementCount]);
-		}
+        if ( equalGradients ) {
+            equalGradients = ([self elementCount] == [otherGradient elementCount]);
+        }
 
-		if ( equalGradients ) {
-			CPTGradientElement *selfCurrentElement	= self->elementList;
-			CPTGradientElement *otherCurrentElement = otherGradient->elementList;
+        if ( equalGradients ) {
+            CPTGradientElement *selfCurrentElement  = self->elementList;
+            CPTGradientElement *otherCurrentElement = otherGradient->elementList;
 
-			while ( selfCurrentElement && otherCurrentElement ) {
-				if ( selfCurrentElement->color.red != otherCurrentElement->color.red ) {
-					equalGradients = NO;
-					break;
-				}
-				if ( selfCurrentElement->color.green != otherCurrentElement->color.green ) {
-					equalGradients = NO;
-					break;
-				}
-				if ( selfCurrentElement->color.blue != otherCurrentElement->color.blue ) {
-					equalGradients = NO;
-					break;
-				}
-				if ( selfCurrentElement->color.alpha != otherCurrentElement->color.alpha ) {
-					equalGradients = NO;
-					break;
-				}
-				if ( selfCurrentElement->position != otherCurrentElement->position ) {
-					equalGradients = NO;
-					break;
-				}
+            while ( selfCurrentElement && otherCurrentElement ) {
+                if ( selfCurrentElement->color.red != otherCurrentElement->color.red ) {
+                    equalGradients = NO;
+                    break;
+                }
+                if ( selfCurrentElement->color.green != otherCurrentElement->color.green ) {
+                    equalGradients = NO;
+                    break;
+                }
+                if ( selfCurrentElement->color.blue != otherCurrentElement->color.blue ) {
+                    equalGradients = NO;
+                    break;
+                }
+                if ( selfCurrentElement->color.alpha != otherCurrentElement->color.alpha ) {
+                    equalGradients = NO;
+                    break;
+                }
+                if ( selfCurrentElement->position != otherCurrentElement->position ) {
+                    equalGradients = NO;
+                    break;
+                }
 
-				selfCurrentElement	= selfCurrentElement->nextElement;
-				otherCurrentElement = otherCurrentElement->nextElement;
-			}
-		}
+                selfCurrentElement  = selfCurrentElement->nextElement;
+                otherCurrentElement = otherCurrentElement->nextElement;
+            }
+        }
 
-		return equalGradients;
-	}
-	else {
-		return NO;
-	}
+        return equalGradients;
+    }
+    else {
+        return NO;
+    }
 }
 
 -(NSUInteger)hash
 {
-	// Equal objects must hash the same.
-	CGFloat theHash	   = 0.0;
-	CGFloat multiplier = 256.0;
+    // Equal objects must hash the same.
+    CGFloat theHash    = 0.0;
+    CGFloat multiplier = 256.0;
 
-	if ( elementList ) {
-		CPTRGBAColor color = elementList->color;
+    if ( elementList ) {
+        CPTRGBAColor color = elementList->color;
 
-		theHash	   += multiplier * color.red;
-		multiplier *= 256.0;
-		theHash	   += multiplier * color.green;
-		multiplier *= 256.0;
-		theHash	   += multiplier * color.blue;
-		multiplier *= 256.0;
-		theHash	   += multiplier * color.alpha;
+        theHash    += multiplier * color.red;
+        multiplier *= 256.0;
+        theHash    += multiplier * color.green;
+        multiplier *= 256.0;
+        theHash    += multiplier * color.blue;
+        multiplier *= 256.0;
+        theHash    += multiplier * color.alpha;
 
-		return (NSUInteger)theHash;
-	}
-	else {
-		return self.blendingMode + self.gradientType;
-	}
+        return (NSUInteger)theHash;
+    }
+    else {
+        return self.blendingMode + self.gradientType;
+    }
 }
 
 #pragma mark -
@@ -934,280 +934,280 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(CGShadingRef)newAxialGradientInRect:(CGRect)rect
 {
-	// First Calculate where the beginning and ending points should be
-	CGPoint startPoint, endPoint;
+    // First Calculate where the beginning and ending points should be
+    CGPoint startPoint, endPoint;
 
-	if ( self.angle == 0.0 ) {
-		startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
-		endPoint   = CGPointMake( CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
-	}
-	else if ( self.angle == 90.0 ) {
-		startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
-		endPoint   = CGPointMake( CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
-	}
-	else { // ok, we'll do the calculations now
-		CGFloat x, y;
-		CGFloat sina, cosa, tana;
+    if ( self.angle == 0.0 ) {
+        startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
+        endPoint   = CGPointMake( CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
+    }
+    else if ( self.angle == 90.0 ) {
+        startPoint = CGPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
+        endPoint   = CGPointMake( CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
+    }
+    else { // ok, we'll do the calculations now
+        CGFloat x, y;
+        CGFloat sina, cosa, tana;
 
-		CGFloat length;
-		CGFloat deltax, deltay;
+        CGFloat length;
+        CGFloat deltax, deltay;
 
-		CGFloat rangle = self.angle * (CGFloat)(M_PI / 180.0); //convert the angle to radians
+        CGFloat rangle = self.angle * (CGFloat)(M_PI / 180.0); //convert the angle to radians
 
-		if ( fabs( tan(rangle) ) <= 1.0 ) { //for range [-45,45], [135,225]
-			x = CGRectGetWidth(rect);
-			y = CGRectGetHeight(rect);
+        if ( fabs( tan(rangle) ) <= 1.0 ) { //for range [-45,45], [135,225]
+            x = CGRectGetWidth(rect);
+            y = CGRectGetHeight(rect);
 
-			sina = sin(rangle);
-			cosa = cos(rangle);
-			tana = tan(rangle);
+            sina = sin(rangle);
+            cosa = cos(rangle);
+            tana = tan(rangle);
 
-			length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
+            length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
 
-			deltax = length * cosa / (CGFloat)2.0;
-			deltay = length * sina / (CGFloat)2.0;
-		}
-		else { //for range [45,135], [225,315]
-			x = CGRectGetHeight(rect);
-			y = CGRectGetWidth(rect);
+            deltax = length * cosa / (CGFloat)2.0;
+            deltay = length * sina / (CGFloat)2.0;
+        }
+        else { //for range [45,135], [225,315]
+            x = CGRectGetHeight(rect);
+            y = CGRectGetWidth(rect);
 
-			rangle -= M_PI_2;
+            rangle -= M_PI_2;
 
-			sina = sin(rangle);
-			cosa = cos(rangle);
-			tana = tan(rangle);
+            sina = sin(rangle);
+            cosa = cos(rangle);
+            tana = tan(rangle);
 
-			length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
+            length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
 
-			deltax = -length * sina / (CGFloat)2.0;
-			deltay = length * cosa / (CGFloat)2.0;
-		}
+            deltax = -length * sina / (CGFloat)2.0;
+            deltay = length * cosa / (CGFloat)2.0;
+        }
 
-		startPoint = CGPointMake(CGRectGetMidX(rect) - deltax, CGRectGetMidY(rect) - deltay);
-		endPoint   = CGPointMake(CGRectGetMidX(rect) + deltax, CGRectGetMidY(rect) + deltay);
-	}
+        startPoint = CGPointMake(CGRectGetMidX(rect) - deltax, CGRectGetMidY(rect) - deltay);
+        endPoint   = CGPointMake(CGRectGetMidX(rect) + deltax, CGRectGetMidY(rect) + deltay);
+    }
 
-	// Calls to CoreGraphics
-	CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
+    // Calls to CoreGraphics
+    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
 
-	return myCGShading;
+    return myCGShading;
 }
 
 -(CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(CGContextRef)context
 {
-	CGPoint startPoint, endPoint;
-	CGFloat startRadius, endRadius;
-	CGFloat scalex, scaley;
+    CGPoint startPoint, endPoint;
+    CGFloat startRadius, endRadius;
+    CGFloat scalex, scaley;
 
-	startPoint = endPoint = CGPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) );
+    startPoint = endPoint = CGPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) );
 
-	startRadius = -1.0;
-	if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
-		scalex		  = CGRectGetWidth(rect) / CGRectGetHeight(rect);
-		startPoint.x /= scalex;
-		endPoint.x	 /= scalex;
-		scaley		  = 1.0;
-		endRadius	  = CGRectGetHeight(rect) / (CGFloat)2.0;
-	}
-	else {
-		scalex		  = 1.0;
-		scaley		  = CGRectGetHeight(rect) / CGRectGetWidth(rect);
-		startPoint.y /= scaley;
-		endPoint.y	 /= scaley;
-		endRadius	  = CGRectGetWidth(rect) / (CGFloat)2.0;
-	}
+    startRadius = -1.0;
+    if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
+        scalex        = CGRectGetWidth(rect) / CGRectGetHeight(rect);
+        startPoint.x /= scalex;
+        endPoint.x   /= scalex;
+        scaley        = 1.0;
+        endRadius     = CGRectGetHeight(rect) / (CGFloat)2.0;
+    }
+    else {
+        scalex        = 1.0;
+        scaley        = CGRectGetHeight(rect) / CGRectGetWidth(rect);
+        startPoint.y /= scaley;
+        endPoint.y   /= scaley;
+        endRadius     = CGRectGetWidth(rect) / (CGFloat)2.0;
+    }
 
-	CGContextScaleCTM(context, scalex, scaley);
+    CGContextScaleCTM(context, scalex, scaley);
 
-	CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
+    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
 
-	return myCGShading;
+    return myCGShading;
 }
 
 -(void)setBlendingMode:(CPTGradientBlendingMode)mode;
 {
-	blendingMode = mode;
+    blendingMode = mode;
 
-	// Choose what blending function to use
-	void *evaluationFunction = NULL;
-	switch ( blendingMode ) {
-		case CPTLinearBlendingMode:
-			evaluationFunction = &linearEvaluation;
-			break;
+    // Choose what blending function to use
+    void *evaluationFunction = NULL;
+    switch ( blendingMode ) {
+        case CPTLinearBlendingMode:
+            evaluationFunction = &linearEvaluation;
+            break;
 
-		case CPTChromaticBlendingMode:
-			evaluationFunction = &chromaticEvaluation;
-			break;
+        case CPTChromaticBlendingMode:
+            evaluationFunction = &chromaticEvaluation;
+            break;
 
-		case CPTInverseChromaticBlendingMode:
-			evaluationFunction = &inverseChromaticEvaluation;
-			break;
-	}
+        case CPTInverseChromaticBlendingMode:
+            evaluationFunction = &inverseChromaticEvaluation;
+            break;
+    }
 
-	// replace the current CoreGraphics Function with new one
-	if ( gradientFunction != NULL ) {
-		CGFunctionRelease(gradientFunction);
-	}
+    // replace the current CoreGraphics Function with new one
+    if ( gradientFunction != NULL ) {
+        CGFunctionRelease(gradientFunction);
+    }
 
-	CGFunctionCallbacks evaluationCallbackInfo = { 0, evaluationFunction, NULL }; // Version, evaluator function, cleanup function
+    CGFunctionCallbacks evaluationCallbackInfo = { 0, evaluationFunction, NULL }; // Version, evaluator function, cleanup function
 
-	static const CGFloat input_value_range[2]	= { 0, 1 };                   // range  for the evaluator input
-	static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
+    static const CGFloat input_value_range[2]   = { 0, 1 };                   // range  for the evaluator input
+    static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
 
-	gradientFunction = CGFunctionCreate(&elementList,             //the two transition colors
-										1, input_value_range,     //number of inputs (just fraction of progression)
-										4, output_value_ranges,   //number of outputs (4 - RGBa)
-										&evaluationCallbackInfo); //info for using the evaluator function
+    gradientFunction = CGFunctionCreate(&elementList,             //the two transition colors
+                                        1, input_value_range,     //number of inputs (just fraction of progression)
+                                        4, output_value_ranges,   //number of outputs (4 - RGBa)
+                                        &evaluationCallbackInfo); //info for using the evaluator function
 }
 
 -(void)addElement:(CPTGradientElement *)newElement
 {
-	if ( (elementList == NULL) || (newElement->position < elementList->position) ) {
-		CPTGradientElement *tmpNext = elementList;
-		elementList = malloc( sizeof(CPTGradientElement) );
-		if ( elementList ) {
-			*elementList			 = *newElement;
-			elementList->nextElement = tmpNext;
-		}
-	}
-	else {
-		CPTGradientElement *curElement = elementList;
+    if ( (elementList == NULL) || (newElement->position < elementList->position) ) {
+        CPTGradientElement *tmpNext = elementList;
+        elementList = malloc( sizeof(CPTGradientElement) );
+        if ( elementList ) {
+            *elementList             = *newElement;
+            elementList->nextElement = tmpNext;
+        }
+    }
+    else {
+        CPTGradientElement *curElement = elementList;
 
-		while ( curElement->nextElement != NULL &&
-				!( (curElement->position <= newElement->position) &&
-				   (newElement->position < curElement->nextElement->position) ) ) {
-			curElement = curElement->nextElement;
-		}
+        while ( curElement->nextElement != NULL &&
+                !( (curElement->position <= newElement->position) &&
+                   (newElement->position < curElement->nextElement->position) ) ) {
+            curElement = curElement->nextElement;
+        }
 
-		CPTGradientElement *tmpNext = curElement->nextElement;
-		curElement->nextElement				 = malloc( sizeof(CPTGradientElement) );
-		*(curElement->nextElement)			 = *newElement;
-		curElement->nextElement->nextElement = tmpNext;
-	}
+        CPTGradientElement *tmpNext = curElement->nextElement;
+        curElement->nextElement              = malloc( sizeof(CPTGradientElement) );
+        *(curElement->nextElement)           = *newElement;
+        curElement->nextElement->nextElement = tmpNext;
+    }
 }
 
 -(CPTGradientElement)removeElementAtIndex:(NSUInteger)index
 {
-	CPTGradientElement removedElement;
+    CPTGradientElement removedElement;
 
-	if ( elementList != NULL ) {
-		if ( index == 0 ) {
-			CPTGradientElement *tmpNext = elementList;
-			elementList = elementList->nextElement;
+    if ( elementList != NULL ) {
+        if ( index == 0 ) {
+            CPTGradientElement *tmpNext = elementList;
+            elementList = elementList->nextElement;
 
-			removedElement = *tmpNext;
-			free(tmpNext);
+            removedElement = *tmpNext;
+            free(tmpNext);
 
-			return removedElement;
-		}
+            return removedElement;
+        }
 
-		NSUInteger count				   = 1; //we want to start one ahead
-		CPTGradientElement *currentElement = elementList;
-		while ( currentElement->nextElement != NULL ) {
-			if ( count == index ) {
-				CPTGradientElement *tmpNext = currentElement->nextElement;
-				currentElement->nextElement = currentElement->nextElement->nextElement;
+        NSUInteger count                   = 1; //we want to start one ahead
+        CPTGradientElement *currentElement = elementList;
+        while ( currentElement->nextElement != NULL ) {
+            if ( count == index ) {
+                CPTGradientElement *tmpNext = currentElement->nextElement;
+                currentElement->nextElement = currentElement->nextElement->nextElement;
 
-				removedElement = *tmpNext;
-				free(tmpNext);
+                removedElement = *tmpNext;
+                free(tmpNext);
 
-				return removedElement;
-			}
+                return removedElement;
+            }
 
-			count++;
-			currentElement = currentElement->nextElement;
-		}
-	}
+            count++;
+            currentElement = currentElement->nextElement;
+        }
+    }
 
-	// element is not found, return empty element
-	removedElement.color.red   = 0.0;
-	removedElement.color.green = 0.0;
-	removedElement.color.blue  = 0.0;
-	removedElement.color.alpha = 0.0;
-	removedElement.position	   = NAN;
-	removedElement.nextElement = NULL;
+    // element is not found, return empty element
+    removedElement.color.red   = 0.0;
+    removedElement.color.green = 0.0;
+    removedElement.color.blue  = 0.0;
+    removedElement.color.alpha = 0.0;
+    removedElement.position    = NAN;
+    removedElement.nextElement = NULL;
 
-	return removedElement;
+    return removedElement;
 }
 
 -(CPTGradientElement)removeElementAtPosition:(CGFloat)position
 {
-	CPTGradientElement removedElement;
+    CPTGradientElement removedElement;
 
-	if ( elementList != NULL ) {
-		if ( elementList->position == position ) {
-			CPTGradientElement *tmpNext = elementList;
-			elementList = elementList->nextElement;
+    if ( elementList != NULL ) {
+        if ( elementList->position == position ) {
+            CPTGradientElement *tmpNext = elementList;
+            elementList = elementList->nextElement;
 
-			removedElement = *tmpNext;
-			free(tmpNext);
+            removedElement = *tmpNext;
+            free(tmpNext);
 
-			return removedElement;
-		}
-		else {
-			CPTGradientElement *curElement = elementList;
-			while ( curElement->nextElement != NULL ) {
-				if ( curElement->nextElement->position == position ) {
-					CPTGradientElement *tmpNext = curElement->nextElement;
-					curElement->nextElement = curElement->nextElement->nextElement;
+            return removedElement;
+        }
+        else {
+            CPTGradientElement *curElement = elementList;
+            while ( curElement->nextElement != NULL ) {
+                if ( curElement->nextElement->position == position ) {
+                    CPTGradientElement *tmpNext = curElement->nextElement;
+                    curElement->nextElement = curElement->nextElement->nextElement;
 
-					removedElement = *tmpNext;
-					free(tmpNext);
+                    removedElement = *tmpNext;
+                    free(tmpNext);
 
-					return removedElement;
-				}
-			}
-		}
-	}
+                    return removedElement;
+                }
+            }
+        }
+    }
 
-	// element is not found, return empty element
-	removedElement.color.red   = 0.0;
-	removedElement.color.green = 0.0;
-	removedElement.color.blue  = 0.0;
-	removedElement.color.alpha = 0.0;
-	removedElement.position	   = NAN;
-	removedElement.nextElement = NULL;
+    // element is not found, return empty element
+    removedElement.color.red   = 0.0;
+    removedElement.color.green = 0.0;
+    removedElement.color.blue  = 0.0;
+    removedElement.color.alpha = 0.0;
+    removedElement.position    = NAN;
+    removedElement.nextElement = NULL;
 
-	return removedElement;
+    return removedElement;
 }
 
 -(void)removeAllElements
 {
-	while ( elementList != NULL ) {
-		CPTGradientElement *elementToRemove = elementList;
-		elementList = elementList->nextElement;
-		free(elementToRemove);
-	}
+    while ( elementList != NULL ) {
+        CPTGradientElement *elementToRemove = elementList;
+        elementList = elementList->nextElement;
+        free(elementToRemove);
+    }
 }
 
 -(CPTGradientElement *)elementAtIndex:(NSUInteger)index
 {
-	NSUInteger count				   = 0;
-	CPTGradientElement *currentElement = elementList;
+    NSUInteger count                   = 0;
+    CPTGradientElement *currentElement = elementList;
 
-	while ( currentElement != NULL ) {
-		if ( count == index ) {
-			return currentElement;
-		}
+    while ( currentElement != NULL ) {
+        if ( count == index ) {
+            return currentElement;
+        }
 
-		count++;
-		currentElement = currentElement->nextElement;
-	}
+        count++;
+        currentElement = currentElement->nextElement;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 -(NSUInteger)elementCount
 {
-	NSUInteger count				   = 0;
-	CPTGradientElement *currentElement = elementList;
+    NSUInteger count                   = 0;
+    CPTGradientElement *currentElement = elementList;
 
-	while ( currentElement ) {
-		count++;
-		currentElement = currentElement->nextElement;
-	}
+    while ( currentElement ) {
+        count++;
+        currentElement = currentElement->nextElement;
+    }
 
-	return count;
+    return count;
 }
 
 ///	@endcond
@@ -1219,62 +1219,62 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
-	CGFloat position = *in;
+    CGFloat position = *in;
 
-	if ( *(CPTGradientElement **)info == NULL ) {
-		out[0] = out[1] = out[2] = out[3] = 1.0;
-		return;
-	}
+    if ( *(CPTGradientElement **)info == NULL ) {
+        out[0] = out[1] = out[2] = out[3] = 1.0;
+        return;
+    }
 
-	//This grabs the first two colors in the sequence
-	CPTGradientElement *color1 = *(CPTGradientElement **)info;
-	CPTGradientElement *color2 = color1->nextElement;
+    //This grabs the first two colors in the sequence
+    CPTGradientElement *color1 = *(CPTGradientElement **)info;
+    CPTGradientElement *color2 = color1->nextElement;
 
-	//make sure first color and second color are on other sides of position
-	while ( color2 != NULL && color2->position < position ) {
-		color1 = color2;
-		color2 = color1->nextElement;
-	}
-	//if we don't have another color then make next color the same color
-	if ( color2 == NULL ) {
-		color2 = color1;
-	}
+    //make sure first color and second color are on other sides of position
+    while ( color2 != NULL && color2->position < position ) {
+        color1 = color2;
+        color2 = color1->nextElement;
+    }
+    //if we don't have another color then make next color the same color
+    if ( color2 == NULL ) {
+        color2 = color1;
+    }
 
-	//----------FailSafe settings----------
-	//color1->red   = 1; color2->red   = 0;
-	//color1->green = 1; color2->green = 0;
-	//color1->blue  = 1; color2->blue  = 0;
-	//color1->alpha = 1; color2->alpha = 1;
-	//color1->position = 0.5;
-	//color2->position = 0.5;
-	//-------------------------------------
+    //----------FailSafe settings----------
+    //color1->red   = 1; color2->red   = 0;
+    //color1->green = 1; color2->green = 0;
+    //color1->blue  = 1; color2->blue  = 0;
+    //color1->alpha = 1; color2->alpha = 1;
+    //color1->position = 0.5;
+    //color2->position = 0.5;
+    //-------------------------------------
 
-	if ( position <= color1->position ) {
-		out[0] = color1->color.red;
-		out[1] = color1->color.green;
-		out[2] = color1->color.blue;
-		out[3] = color1->color.alpha;
-	}
-	else if ( position >= color2->position ) {
-		out[0] = color2->color.red;
-		out[1] = color2->color.green;
-		out[2] = color2->color.blue;
-		out[3] = color2->color.alpha;
-	}
-	else {
-		//adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
-		position = (position - color1->position) / (color2->position - color1->position);
+    if ( position <= color1->position ) {
+        out[0] = color1->color.red;
+        out[1] = color1->color.green;
+        out[2] = color1->color.blue;
+        out[3] = color1->color.alpha;
+    }
+    else if ( position >= color2->position ) {
+        out[0] = color2->color.red;
+        out[1] = color2->color.green;
+        out[2] = color2->color.blue;
+        out[3] = color2->color.alpha;
+    }
+    else {
+        //adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
+        position = (position - color1->position) / (color2->position - color1->position);
 
-		out[0] = (color2->color.red - color1->color.red) * position + color1->color.red;
-		out[1] = (color2->color.green - color1->color.green) * position + color1->color.green;
-		out[2] = (color2->color.blue - color1->color.blue) * position + color1->color.blue;
-		out[3] = (color2->color.alpha - color1->color.alpha) * position + color1->color.alpha;
-	}
+        out[0] = (color2->color.red - color1->color.red) * position + color1->color.red;
+        out[1] = (color2->color.green - color1->color.green) * position + color1->color.green;
+        out[2] = (color2->color.blue - color1->color.blue) * position + color1->color.blue;
+        out[3] = (color2->color.alpha - color1->color.alpha) * position + color1->color.alpha;
+    }
 
-	//Premultiply the color by the alpha.
-	out[0] *= out[3];
-	out[1] *= out[3];
-	out[2] *= out[3];
+    //Premultiply the color by the alpha.
+    out[0] *= out[3];
+    out[1] *= out[3];
+    out[2] *= out[3];
 }
 
 //Chromatic Evaluation -
@@ -1288,77 +1288,77 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 //  until we wrap around the colorwheel and get to color2.
 void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
-	CGFloat position = *in;
+    CGFloat position = *in;
 
-	if ( *(CPTGradientElement **)info == NULL ) {
-		out[0] = out[1] = out[2] = out[3] = 1.0;
-		return;
-	}
+    if ( *(CPTGradientElement **)info == NULL ) {
+        out[0] = out[1] = out[2] = out[3] = 1.0;
+        return;
+    }
 
-	// This grabs the first two colors in the sequence
-	CPTGradientElement *color1 = *(CPTGradientElement **)info;
-	CPTGradientElement *color2 = color1->nextElement;
+    // This grabs the first two colors in the sequence
+    CPTGradientElement *color1 = *(CPTGradientElement **)info;
+    CPTGradientElement *color2 = color1->nextElement;
 
-	CGFloat c1[4];
-	CGFloat c2[4];
+    CGFloat c1[4];
+    CGFloat c2[4];
 
-	// make sure first color and second color are on other sides of position
-	while ( color2 != NULL && color2->position < position ) {
-		color1 = color2;
-		color2 = color1->nextElement;
-	}
+    // make sure first color and second color are on other sides of position
+    while ( color2 != NULL && color2->position < position ) {
+        color1 = color2;
+        color2 = color1->nextElement;
+    }
 
-	// if we don't have another color then make next color the same color
-	if ( color2 == NULL ) {
-		color2 = color1;
-	}
+    // if we don't have another color then make next color the same color
+    if ( color2 == NULL ) {
+        color2 = color1;
+    }
 
-	c1[0] = color1->color.red;
-	c1[1] = color1->color.green;
-	c1[2] = color1->color.blue;
-	c1[3] = color1->color.alpha;
+    c1[0] = color1->color.red;
+    c1[1] = color1->color.green;
+    c1[2] = color1->color.blue;
+    c1[3] = color1->color.alpha;
 
-	c2[0] = color2->color.red;
-	c2[1] = color2->color.green;
-	c2[2] = color2->color.blue;
-	c2[3] = color2->color.alpha;
+    c2[0] = color2->color.red;
+    c2[1] = color2->color.green;
+    c2[2] = color2->color.blue;
+    c2[3] = color2->color.alpha;
 
-	transformRGB_HSV(c1);
-	transformRGB_HSV(c2);
-	resolveHSV(c1, c2);
+    transformRGB_HSV(c1);
+    transformRGB_HSV(c2);
+    resolveHSV(c1, c2);
 
-	if ( c1[0] > c2[0] ) { // if color1's hue is higher than color2's hue then
-		c2[0] += 360.0;    // we need to move c2 one revolution around the wheel
-	}
+    if ( c1[0] > c2[0] ) { // if color1's hue is higher than color2's hue then
+        c2[0] += 360.0;    // we need to move c2 one revolution around the wheel
+    }
 
-	if ( position <= color1->position ) {
-		out[0] = c1[0];
-		out[1] = c1[1];
-		out[2] = c1[2];
-		out[3] = c1[3];
-	}
-	else if ( position >= color2->position ) {
-		out[0] = c2[0];
-		out[1] = c2[1];
-		out[2] = c2[2];
-		out[3] = c2[3];
-	}
-	else {
-		//adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
-		position = (position - color1->position) / (color2->position - color1->position);
+    if ( position <= color1->position ) {
+        out[0] = c1[0];
+        out[1] = c1[1];
+        out[2] = c1[2];
+        out[3] = c1[3];
+    }
+    else if ( position >= color2->position ) {
+        out[0] = c2[0];
+        out[1] = c2[1];
+        out[2] = c2[2];
+        out[3] = c2[3];
+    }
+    else {
+        //adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
+        position = (position - color1->position) / (color2->position - color1->position);
 
-		out[0] = (c2[0] - c1[0]) * position + c1[0];
-		out[1] = (c2[1] - c1[1]) * position + c1[1];
-		out[2] = (c2[2] - c1[2]) * position + c1[2];
-		out[3] = (c2[3] - c1[3]) * position + c1[3];
-	}
+        out[0] = (c2[0] - c1[0]) * position + c1[0];
+        out[1] = (c2[1] - c1[1]) * position + c1[1];
+        out[2] = (c2[2] - c1[2]) * position + c1[2];
+        out[3] = (c2[3] - c1[3]) * position + c1[3];
+    }
 
-	transformHSV_RGB(out);
+    transformHSV_RGB(out);
 
-	//Premultiply the color by the alpha.
-	out[0] *= out[3];
-	out[1] *= out[3];
-	out[2] *= out[3];
+    //Premultiply the color by the alpha.
+    out[0] *= out[3];
+    out[1] *= out[3];
+    out[2] *= out[3];
 }
 
 // Inverse Chromatic Evaluation -
@@ -1368,178 +1368,178 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 //	which is equivalent to 180º mod 360º
 void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
-	CGFloat position = *in;
+    CGFloat position = *in;
 
-	if ( *(CPTGradientElement **)info == NULL ) {
-		out[0] = out[1] = out[2] = out[3] = 1;
-		return;
-	}
+    if ( *(CPTGradientElement **)info == NULL ) {
+        out[0] = out[1] = out[2] = out[3] = 1;
+        return;
+    }
 
-	// This grabs the first two colors in the sequence
-	CPTGradientElement *color1 = *(CPTGradientElement **)info;
-	CPTGradientElement *color2 = color1->nextElement;
+    // This grabs the first two colors in the sequence
+    CPTGradientElement *color1 = *(CPTGradientElement **)info;
+    CPTGradientElement *color2 = color1->nextElement;
 
-	CGFloat c1[4];
-	CGFloat c2[4];
+    CGFloat c1[4];
+    CGFloat c2[4];
 
-	//make sure first color and second color are on other sides of position
-	while ( color2 != NULL && color2->position < position ) {
-		color1 = color2;
-		color2 = color1->nextElement;
-	}
+    //make sure first color and second color are on other sides of position
+    while ( color2 != NULL && color2->position < position ) {
+        color1 = color2;
+        color2 = color1->nextElement;
+    }
 
-	// if we don't have another color then make next color the same color
-	if ( color2 == NULL ) {
-		color2 = color1;
-	}
+    // if we don't have another color then make next color the same color
+    if ( color2 == NULL ) {
+        color2 = color1;
+    }
 
-	c1[0] = color1->color.red;
-	c1[1] = color1->color.green;
-	c1[2] = color1->color.blue;
-	c1[3] = color1->color.alpha;
+    c1[0] = color1->color.red;
+    c1[1] = color1->color.green;
+    c1[2] = color1->color.blue;
+    c1[3] = color1->color.alpha;
 
-	c2[0] = color2->color.red;
-	c2[1] = color2->color.green;
-	c2[2] = color2->color.blue;
-	c2[3] = color2->color.alpha;
+    c2[0] = color2->color.red;
+    c2[1] = color2->color.green;
+    c2[2] = color2->color.blue;
+    c2[3] = color2->color.alpha;
 
-	transformRGB_HSV(c1);
-	transformRGB_HSV(c2);
-	resolveHSV(c1, c2);
+    transformRGB_HSV(c1);
+    transformRGB_HSV(c2);
+    resolveHSV(c1, c2);
 
-	if ( c1[0] < c2[0] ) { //if color1's hue is higher than color2's hue then
-		c1[0] += 360.0;    //	we need to move c2 one revolution back on the wheel
-	}
-	if ( position <= color1->position ) {
-		out[0] = c1[0];
-		out[1] = c1[1];
-		out[2] = c1[2];
-		out[3] = c1[3];
-	}
-	else if ( position >= color2->position ) {
-		out[0] = c2[0];
-		out[1] = c2[1];
-		out[2] = c2[2];
-		out[3] = c2[3];
-	}
-	else {
-		//adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
-		position = (position - color1->position) / (color2->position - color1->position);
+    if ( c1[0] < c2[0] ) { //if color1's hue is higher than color2's hue then
+        c1[0] += 360.0;    //	we need to move c2 one revolution back on the wheel
+    }
+    if ( position <= color1->position ) {
+        out[0] = c1[0];
+        out[1] = c1[1];
+        out[2] = c1[2];
+        out[3] = c1[3];
+    }
+    else if ( position >= color2->position ) {
+        out[0] = c2[0];
+        out[1] = c2[1];
+        out[2] = c2[2];
+        out[3] = c2[3];
+    }
+    else {
+        //adjust position so that it goes from 0 to 1 in the range from color 1 & 2's position
+        position = (position - color1->position) / (color2->position - color1->position);
 
-		out[0] = (c2[0] - c1[0]) * position + c1[0];
-		out[1] = (c2[1] - c1[1]) * position + c1[1];
-		out[2] = (c2[2] - c1[2]) * position + c1[2];
-		out[3] = (c2[3] - c1[3]) * position + c1[3];
-	}
+        out[0] = (c2[0] - c1[0]) * position + c1[0];
+        out[1] = (c2[1] - c1[1]) * position + c1[1];
+        out[2] = (c2[2] - c1[2]) * position + c1[2];
+        out[3] = (c2[3] - c1[3]) * position + c1[3];
+    }
 
-	transformHSV_RGB(out);
+    transformHSV_RGB(out);
 
-	// Premultiply the color by the alpha.
-	out[0] *= out[3];
-	out[1] *= out[3];
-	out[2] *= out[3];
+    // Premultiply the color by the alpha.
+    out[0] *= out[3];
+    out[1] *= out[3];
+    out[2] *= out[3];
 }
 
 void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 {
-	CGFloat H = NAN, S, V;
-	CGFloat R = components[0];
-	CGFloat G = components[1];
-	CGFloat B = components[2];
+    CGFloat H = NAN, S, V;
+    CGFloat R = components[0];
+    CGFloat G = components[1];
+    CGFloat B = components[2];
 
-	CGFloat MAX = R > G ? (R > B ? R : B) : (G > B ? G : B);
-	CGFloat MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
+    CGFloat MAX = R > G ? (R > B ? R : B) : (G > B ? G : B);
+    CGFloat MIN = R < G ? (R < B ? R : B) : (G < B ? G : B);
 
-	if ( MAX == R ) {
-		if ( G >= B ) {
-			H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)0.0;
-		}
-		else {
-			H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)360.0;
-		}
-	}
-	else if ( MAX == G ) {
-		H = (CGFloat)60.0 * (B - R) / (MAX - MIN) + (CGFloat)120.0;
-	}
-	else if ( MAX == B ) {
-		H = (CGFloat)60.0 * (R - G) / (MAX - MIN) + (CGFloat)240.0;
-	}
+    if ( MAX == R ) {
+        if ( G >= B ) {
+            H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)0.0;
+        }
+        else {
+            H = (CGFloat)60.0 * (G - B) / (MAX - MIN) + (CGFloat)360.0;
+        }
+    }
+    else if ( MAX == G ) {
+        H = (CGFloat)60.0 * (B - R) / (MAX - MIN) + (CGFloat)120.0;
+    }
+    else if ( MAX == B ) {
+        H = (CGFloat)60.0 * (R - G) / (MAX - MIN) + (CGFloat)240.0;
+    }
 
-	S = MAX == 0 ? 0 : 1 - MIN / MAX;
-	V = MAX;
+    S = MAX == 0 ? 0 : 1 - MIN / MAX;
+    V = MAX;
 
-	components[0] = H;
-	components[1] = S;
-	components[2] = V;
+    components[0] = H;
+    components[1] = S;
+    components[2] = V;
 }
 
 void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
-	CGFloat R = 0.0, G = 0.0, B = 0.0;
-	CGFloat H = fmod(components[0], (CGFloat)360.0); //map to [0,360)
-	CGFloat S = components[1];
-	CGFloat V = components[2];
+    CGFloat R = 0.0, G = 0.0, B = 0.0;
+    CGFloat H = fmod(components[0], (CGFloat)360.0); //map to [0,360)
+    CGFloat S = components[1];
+    CGFloat V = components[2];
 
-	int Hi	  = (int)floor(H / (CGFloat)60.0) % 6;
-	CGFloat f = H / (CGFloat)60.0 - Hi;
-	CGFloat p = V * ( (CGFloat)1.0 - S );
-	CGFloat q = V * ( (CGFloat)1.0 - f * S );
-	CGFloat t = V * ( (CGFloat)1.0 - ( (CGFloat)1.0 - f ) * S );
+    int Hi    = (int)floor(H / (CGFloat)60.0) % 6;
+    CGFloat f = H / (CGFloat)60.0 - Hi;
+    CGFloat p = V * ( (CGFloat)1.0 - S );
+    CGFloat q = V * ( (CGFloat)1.0 - f * S );
+    CGFloat t = V * ( (CGFloat)1.0 - ( (CGFloat)1.0 - f ) * S );
 
-	switch ( Hi ) {
-		case 0:
-			R = V;
-			G = t;
-			B = p;
-			break;
+    switch ( Hi ) {
+        case 0:
+            R = V;
+            G = t;
+            B = p;
+            break;
 
-		case 1:
-			R = q;
-			G = V;
-			B = p;
-			break;
+        case 1:
+            R = q;
+            G = V;
+            B = p;
+            break;
 
-		case 2:
-			R = p;
-			G = V;
-			B = t;
-			break;
+        case 2:
+            R = p;
+            G = V;
+            B = t;
+            break;
 
-		case 3:
-			R = p;
-			G = q;
-			B = V;
-			break;
+        case 3:
+            R = p;
+            G = q;
+            B = V;
+            break;
 
-		case 4:
-			R = t;
-			G = p;
-			B = V;
-			break;
+        case 4:
+            R = t;
+            G = p;
+            B = V;
+            break;
 
-		case 5:
-			R = V;
-			G = p;
-			B = q;
-			break;
-	}
+        case 5:
+            R = V;
+            G = p;
+            B = q;
+            break;
+    }
 
-	components[0] = R;
-	components[1] = G;
-	components[2] = B;
+    components[0] = R;
+    components[1] = G;
+    components[2] = B;
 }
 
 void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. graycale color)
 { //	we want to fill it with a sensible value
-	if ( isnan(color1[0]) && isnan(color2[0]) ) {
-		color1[0] = color2[0] = 0;
-	}
-	else if ( isnan(color1[0]) ) {
-		color1[0] = color2[0];
-	}
-	else if ( isnan(color2[0]) ) {
-		color2[0] = color1[0];
-	}
+    if ( isnan(color1[0]) && isnan(color2[0]) ) {
+        color1[0] = color2[0] = 0;
+    }
+    else if ( isnan(color1[0]) ) {
+        color1[0] = color2[0];
+    }
+    else if ( isnan(color2[0]) ) {
+        color2[0] = color1[0];
+    }
 }
 
 ///	@endcond

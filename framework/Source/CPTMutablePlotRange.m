@@ -28,30 +28,30 @@
  **/
 -(void)unionPlotRange:(CPTPlotRange *)other
 {
-	if ( !other ) {
-		return;
-	}
+    if ( !other ) {
+        return;
+    }
 
-	NSDecimal min1	  = self.minLimit;
-	NSDecimal min2	  = other.minLimit;
-	NSDecimal minimum = CPTDecimalLessThan(min1, min2) ? min1 : min2;
+    NSDecimal min1    = self.minLimit;
+    NSDecimal min2    = other.minLimit;
+    NSDecimal minimum = CPTDecimalLessThan(min1, min2) ? min1 : min2;
 
-	NSDecimal max1	  = self.maxLimit;
-	NSDecimal max2	  = other.maxLimit;
-	NSDecimal maximum = CPTDecimalGreaterThan(max1, max2) ? max1 : max2;
+    NSDecimal max1    = self.maxLimit;
+    NSDecimal max2    = other.maxLimit;
+    NSDecimal maximum = CPTDecimalGreaterThan(max1, max2) ? max1 : max2;
 
-	NSDecimal newLocation, newLength;
-	if ( CPTDecimalGreaterThanOrEqualTo( self.length, CPTDecimalFromInteger(0) ) ) {
-		newLocation = minimum;
-		newLength	= CPTDecimalSubtract(maximum, minimum);
-	}
-	else {
-		newLocation = maximum;
-		newLength	= CPTDecimalSubtract(minimum, maximum);
-	}
+    NSDecimal newLocation, newLength;
+    if ( CPTDecimalGreaterThanOrEqualTo( self.length, CPTDecimalFromInteger(0) ) ) {
+        newLocation = minimum;
+        newLength   = CPTDecimalSubtract(maximum, minimum);
+    }
+    else {
+        newLocation = maximum;
+        newLength   = CPTDecimalSubtract(minimum, maximum);
+    }
 
-	self.location = newLocation;
-	self.length	  = newLength;
+    self.location = newLocation;
+    self.length   = newLength;
 }
 
 /** @brief Sets the messaged object to the intersection with another range. The sign of <code>length</code> is unchanged.
@@ -59,35 +59,35 @@
  **/
 -(void)intersectionPlotRange:(CPTPlotRange *)other
 {
-	if ( !other ) {
-		return;
-	}
+    if ( !other ) {
+        return;
+    }
 
-	NSDecimal min1	  = self.minLimit;
-	NSDecimal min2	  = other.minLimit;
-	NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
+    NSDecimal min1    = self.minLimit;
+    NSDecimal min2    = other.minLimit;
+    NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
 
-	NSDecimal max1	  = self.maxLimit;
-	NSDecimal max2	  = other.maxLimit;
-	NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
+    NSDecimal max1    = self.maxLimit;
+    NSDecimal max2    = other.maxLimit;
+    NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
 
-	if ( CPTDecimalGreaterThanOrEqualTo(maximum, minimum) ) {
-		NSDecimal newLocation, newLength;
-		if ( CPTDecimalGreaterThanOrEqualTo( self.length, CPTDecimalFromInteger(0) ) ) {
-			newLocation = minimum;
-			newLength	= CPTDecimalSubtract(maximum, minimum);
-		}
-		else {
-			newLocation = maximum;
-			newLength	= CPTDecimalSubtract(minimum, maximum);
-		}
+    if ( CPTDecimalGreaterThanOrEqualTo(maximum, minimum) ) {
+        NSDecimal newLocation, newLength;
+        if ( CPTDecimalGreaterThanOrEqualTo( self.length, CPTDecimalFromInteger(0) ) ) {
+            newLocation = minimum;
+            newLength   = CPTDecimalSubtract(maximum, minimum);
+        }
+        else {
+            newLocation = maximum;
+            newLength   = CPTDecimalSubtract(minimum, maximum);
+        }
 
-		self.location = newLocation;
-		self.length	  = newLength;
-	}
-	else {
-		self.length = CPTDecimalFromInteger(0);
-	}
+        self.location = newLocation;
+        self.length   = newLength;
+    }
+    else {
+        self.length = CPTDecimalFromInteger(0);
+    }
 }
 
 #pragma mark -
@@ -99,13 +99,13 @@
  **/
 -(void)expandRangeByFactor:(NSDecimal)factor
 {
-	NSDecimal oldLength		 = self.length;
-	NSDecimal newLength		 = CPTDecimalMultiply(oldLength, factor);
-	NSDecimal locationOffset = CPTDecimalDivide( CPTDecimalSubtract(oldLength, newLength), CPTDecimalFromInteger(2) );
-	NSDecimal newLocation	 = CPTDecimalAdd(self.location, locationOffset);
+    NSDecimal oldLength      = self.length;
+    NSDecimal newLength      = CPTDecimalMultiply(oldLength, factor);
+    NSDecimal locationOffset = CPTDecimalDivide( CPTDecimalSubtract(oldLength, newLength), CPTDecimalFromInteger(2) );
+    NSDecimal newLocation    = CPTDecimalAdd(self.location, locationOffset);
 
-	self.location = newLocation;
-	self.length	  = newLength;
+    self.location = newLocation;
+    self.length   = newLength;
 }
 
 #pragma mark -
@@ -117,21 +117,21 @@
  **/
 -(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange
 {
-	NSParameterAssert(otherRange);
+    NSParameterAssert(otherRange);
 
-	switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.location]] ) {
-		case CPTPlotRangeComparisonResultNumberBelowRange:
-			self.location = otherRange.minLimit;
-			break;
+    switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.location]] ) {
+        case CPTPlotRangeComparisonResultNumberBelowRange:
+            self.location = otherRange.minLimit;
+            break;
 
-		case CPTPlotRangeComparisonResultNumberAboveRange:
-			self.location = otherRange.maxLimit;
-			break;
+        case CPTPlotRangeComparisonResultNumberAboveRange:
+            self.location = otherRange.maxLimit;
+            break;
 
-		default:
-			// in range--do nothing
-			break;
-	}
+        default:
+            // in range--do nothing
+            break;
+    }
 }
 
 /** @brief Moves the whole range so that the end point fits in other range.
@@ -140,21 +140,21 @@
  **/
 -(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange
 {
-	NSParameterAssert(otherRange);
+    NSParameterAssert(otherRange);
 
-	switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.end]] ) {
-		case CPTPlotRangeComparisonResultNumberBelowRange:
-			self.location = CPTDecimalSubtract(otherRange.minLimit, self.length);
-			break;
+    switch ( [otherRange compareToNumber:[NSDecimalNumber decimalNumberWithDecimal:self.end]] ) {
+        case CPTPlotRangeComparisonResultNumberBelowRange:
+            self.location = CPTDecimalSubtract(otherRange.minLimit, self.length);
+            break;
 
-		case CPTPlotRangeComparisonResultNumberAboveRange:
-			self.location = CPTDecimalSubtract(otherRange.maxLimit, self.length);
-			break;
+        case CPTPlotRangeComparisonResultNumberAboveRange:
+            self.location = CPTDecimalSubtract(otherRange.maxLimit, self.length);
+            break;
 
-		default:
-			// in range--do nothing
-			break;
-	}
+        default:
+            // in range--do nothing
+            break;
+    }
 }
 
 @end

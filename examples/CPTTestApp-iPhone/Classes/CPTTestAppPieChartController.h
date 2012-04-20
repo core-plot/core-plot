@@ -3,10 +3,10 @@
 
 @interface CPTTestAppPieChartController : UIViewController<CPTPieChartDataSource, CPTPieChartDelegate>
 {
-	@private
-	CPTXYGraph *pieChart;
-	NSMutableArray *dataForChart;
-	NSTimer *timer;
+    @private
+    CPTXYGraph *pieChart;
+    NSMutableArray *dataForChart;
+    NSTimer *timer;
 }
 
 @property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;

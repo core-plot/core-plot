@@ -4,8 +4,8 @@
 @class CPTGradient;
 
 @interface _CPTFillGradient : CPTFill<NSCopying, NSCoding> {
-	@private
-	CPTGradient *fillGradient;
+    @private
+    CPTGradient *fillGradient;
 }
 
 /// @name Initialization

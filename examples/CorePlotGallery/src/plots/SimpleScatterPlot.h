@@ -9,12 +9,12 @@
 #import "PlotItem.h"
 
 @interface SimpleScatterPlot : PlotItem<CPTPlotSpaceDelegate,
-										CPTPlotDataSource,
-										CPTScatterPlotDelegate>
+                                        CPTPlotDataSource,
+                                        CPTScatterPlotDelegate>
 {
-	CPTPlotSpaceAnnotation *symbolTextAnnotation;
+    CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-	NSArray *plotData;
+    NSArray *plotData;
 }
 
 @end
