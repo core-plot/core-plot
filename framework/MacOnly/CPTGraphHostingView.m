@@ -102,8 +102,8 @@
 
             [graphicsContext saveGraphicsState];
 
-            NSRect destinationRect = self.printRect;
-            NSRect sourceRect      = self.frame;
+            CGRect destinationRect = NSRectToCGRect(self.printRect);
+            CGRect sourceRect      = NSRectToCGRect(self.frame);
 
             // scale the view isotropically so that it fits on the printed page
             CGFloat widthScale  = (sourceRect.size.width != 0.0) ? destinationRect.size.width / sourceRect.size.width : 1.0;
