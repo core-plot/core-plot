@@ -75,6 +75,13 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
  **/
 @synthesize startAngle;
 
+/** @property endAngle
+ *	@brief The ending angle for the last slice in radians. If <code>NAN</code>, the ending angle
+ *  is the same as the start angle, i.e., the pie slices fill the whole circle. Defaults to <code>NAN</code>.
+ *	@ingroup plotAnimationPieChart
+ **/
+@synthesize endAngle;
+
 /** @property sliceDirection
  *	@brief Determines whether the pie slices are drawn in a clockwise or counter-clockwise
  *	direction from the starting point. Defaults to clockwise.
@@ -163,6 +170,7 @@ static const CGFloat colorLookupTable[10][3] =
  *	- @link CPTPieChart::pieRadius pieRadius @endlink = 40% of the minimum of the width and height of the frame rectangle
  *	- @link CPTPieChart::pieInnerRadius pieInnerRadius @endlink = 0.0
  *	- @link CPTPieChart::startAngle startAngle @endlink = π/2
+ *	- @link CPTPieChart::endAngle endAngle @endlink = <code>NAN</code>
  *	- @link CPTPieChart::sliceDirection sliceDirection @endlink = #CPTPieDirectionClockwise
  *	- @link CPTPieChart::centerAnchor centerAnchor @endlink = (0.5, 0.5)
  *	- @link CPTPieChart::borderLineStyle borderLineStyle @endlink = <code>nil</code>
@@ -179,6 +187,7 @@ static const CGFloat colorLookupTable[10][3] =
         pieRadius       = (CGFloat)0.8 * (MIN(newFrame.size.width, newFrame.size.height) / (CGFloat)2.0);
         pieInnerRadius  = 0.0;
         startAngle      = M_PI_2; // pi/2
+        endAngle        = NAN;
         sliceDirection  = CPTPieDirectionClockwise;
         centerAnchor    = CGPointMake(0.5, 0.5);
         borderLineStyle = nil;
@@ -200,6 +209,7 @@ static const CGFloat colorLookupTable[10][3] =
         pieRadius       = theLayer->pieRadius;
         pieInnerRadius  = theLayer->pieInnerRadius;
         startAngle      = theLayer->startAngle;
+        endAngle        = theLayer->endAngle;
         sliceDirection  = theLayer->sliceDirection;
         centerAnchor    = theLayer->centerAnchor;
         borderLineStyle = [theLayer->borderLineStyle retain];
@@ -223,6 +233,7 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeCGFloat:self.pieRadius forKey:@"CPTPieChart.pieRadius"];
     [coder encodeCGFloat:self.pieInnerRadius forKey:@"CPTPieChart.pieInnerRadius"];
     [coder encodeCGFloat:self.startAngle forKey:@"CPTPieChart.startAngle"];
+    [coder encodeCGFloat:self.endAngle forKey:@"CPTPieChart.endAngle"];
     [coder encodeInteger:self.sliceDirection forKey:@"CPTPieChart.sliceDirection"];
     [coder encodeCPTPoint:self.centerAnchor forKey:@"CPTPieChart.centerAnchor"];
     [coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
@@ -235,6 +246,7 @@ static const CGFloat colorLookupTable[10][3] =
         pieRadius       = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
         pieInnerRadius  = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
         startAngle      = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
+        endAngle        = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
         sliceDirection  = [coder decodeIntegerForKey:@"CPTPieChart.sliceDirection"];
         centerAnchor    = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
         borderLineStyle = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
@@ -538,15 +550,19 @@ static const CGFloat colorLookupTable[10][3] =
 
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue
 {
-    CGFloat angle = self.startAngle;
+    CGFloat angle       = self.startAngle;
+    CGFloat endingAngle = self.endAngle;
+    CGFloat pieRange;
 
     switch ( self.sliceDirection ) {
         case CPTPieDirectionClockwise:
-            angle -= pieSliceValue * (CGFloat)(M_PI * 2.0);
+            pieRange = isnan(endingAngle) ? 2.0 * M_PI : 2.0 * M_PI - ABS(endingAngle - angle);
+            angle   -= pieSliceValue * pieRange;
             break;
 
         case CPTPieDirectionCounterClockwise:
-            angle += pieSliceValue * (CGFloat)(M_PI * 2.0);
+            pieRange = isnan(endingAngle) ? 2.0 * M_PI : ABS(endingAngle - angle);
+            angle   += pieSliceValue * pieRange;
             break;
     }
     return angle;
@@ -636,6 +652,7 @@ static const CGFloat colorLookupTable[10][3] =
                 @"pieRadius",
                 @"pieInnerRadius",
                 @"startAngle",
+                @"endAngle",
                 @"centerAnchor",
                 nil];
     }
@@ -883,17 +900,31 @@ static const CGFloat colorLookupTable[10][3] =
     CGFloat dy                      = point.y - centerPoint.y;
     CGFloat distanceSquared         = dx * dx + dy * dy;
 
+    CGFloat theStartAngle = self.startAngle;
+    CGFloat theEndAngle   = self.endAngle;
+    CGFloat widthFactor;
+
     CGFloat touchedAngle  = [self normalizedPosition:atan2(dy, dx)];
-    CGFloat startingAngle = [self normalizedPosition:self.startAngle];
+    CGFloat startingAngle = [self normalizedPosition:theStartAngle];
 
     switch ( self.sliceDirection ) {
         case CPTPieDirectionClockwise:
+            if ( isnan(theEndAngle) || ( 2.0 * M_PI == ABS(theEndAngle - theStartAngle) ) ) {
+                widthFactor = 1.0;
+            }
+            else {
+                widthFactor = 2.0 * M_PI / ( 2.0 * M_PI - ABS(theEndAngle - theStartAngle) );
+            }
+
             for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
                 // calculate angles for this slice
                 CGFloat width = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
                 if ( isnan(width) ) {
                     continue;
                 }
+
+                width /= widthFactor;
+
                 CGFloat endingAngle = startingAngle - width;
 
                 // offset the center point of the slice if needed
@@ -939,12 +970,21 @@ static const CGFloat colorLookupTable[10][3] =
             break;
 
         case CPTPieDirectionCounterClockwise:
+            if ( isnan(theEndAngle) || (theStartAngle == theEndAngle) ) {
+                widthFactor = 1.0;
+            }
+            else {
+                widthFactor = 2.0 * M_PI / ABS(theEndAngle - theStartAngle);
+            }
+
             for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
                 // calculate angles for this slice
                 CGFloat width = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex];
                 if ( isnan(width) ) {
                     continue;
                 }
+                width /= widthFactor;
+
                 CGFloat endingAngle = startingAngle + width;
 
                 // offset the center point of the slice if needed
@@ -1035,6 +1075,15 @@ static const CGFloat colorLookupTable[10][3] =
 {
     if ( newAngle != startAngle ) {
         startAngle = newAngle;
+        [self setNeedsDisplay];
+        [self repositionAllLabelAnnotations];
+    }
+}
+
+-(void)setEndAngle:(CGFloat)newAngle
+{
+    if ( newAngle != endAngle ) {
+        endAngle = newAngle;
         [self setNeedsDisplay];
         [self repositionAllLabelAnnotations];
     }
