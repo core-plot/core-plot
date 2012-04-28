@@ -370,6 +370,11 @@
 {
     [self reloadDataIfNeeded];
     [super drawInContext:theContext];
+
+    id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(didFinishDrawing:)] ) {
+        [theDelegate didFinishDrawing:self];
+    }
 }
 
 #pragma mark -

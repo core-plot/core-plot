@@ -128,6 +128,12 @@ CPTPlotCachePrecision;
  **/
 -(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index;
 
+/**
+ *  @brief Informs the delegate that plot drawing is finished.
+ *	@param plot The plot.
+ **/
+-(void)didFinishDrawing:(CPTPlot *)plot;
+
 ///	@}
 
 @end
