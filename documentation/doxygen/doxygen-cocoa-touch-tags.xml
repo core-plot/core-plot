@@ -99,6 +99,11 @@
 		<base>NSFastEnumeration-p</base>
 		<base>NSMutableCopying-p</base>
 	</compound>
+	<compound kind="class" objc="yes">
+		<name>UIEvent</name>
+		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIEvent_Class/Reference/Reference.html</filename>
+		<base>NSObject</base>
+	</compound>
 	<compound kind="protocol" objc="yes">
 		<name>NSFastEnumeration-p</name>
 		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/NSFastEnumeration_protocol/Reference/NSFastEnumeration.html</filename>

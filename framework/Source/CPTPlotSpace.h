@@ -81,7 +81,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
 
 /**	@brief (Optional) Notifies that plot space intercepted a device dragged event.
  *	@param space The plot space.
@@ -90,7 +90,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)point;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
 
 /**	@brief (Optional) Notifies that plot space intercepted a device cancelled event.
  *	@param space The plot space.
@@ -98,7 +98,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(CPTNativeEvent *)event;
 
 /**	@brief (Optional) Notifies that plot space intercepted a device up event.
  *	@param space The plot space.
@@ -107,7 +107,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
  *	@return Whether the plot space should handle the event or not.
  *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
  **/
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
 
 /// @}
 

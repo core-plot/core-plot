@@ -681,7 +681,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 
@@ -722,7 +722,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 
@@ -761,7 +761,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];
 

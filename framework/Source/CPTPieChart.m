@@ -845,7 +845,7 @@ static const CGFloat colorLookupTable[10][3] =
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     if ( self.graph && self.plotArea &&
          [self.delegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {

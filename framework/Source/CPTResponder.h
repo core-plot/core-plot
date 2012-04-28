@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "CPTPlatformSpecificDefines.h"
+
 /**
  *	@brief The basis of all event processing in Core Plot.
  **/
@@ -17,7 +19,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *	@brief (Required) Informs the receiver that the user has
@@ -27,7 +29,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *	@brief (Required) Informs the receiver that the user has moved
@@ -37,7 +39,7 @@
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *	@brief (Required) Informs the receiver that tracking of
@@ -47,7 +49,7 @@
  *	@param event The OS event.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceCancelledEvent:(id)event;
+-(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event;
 ///	@}
 
 @end

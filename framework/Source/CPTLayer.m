@@ -417,22 +417,22 @@
 /// @name User Interaction
 /// @{
 
--(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     return NO;
 }
 
--(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     return NO;
 }
 
--(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     return NO;
 }
 
--(BOOL)pointingDeviceCancelledEvent:(id)event
+-(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event
 {
     return NO;
 }

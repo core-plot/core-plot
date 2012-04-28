@@ -101,7 +101,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = NO;
 
@@ -127,7 +127,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = NO;
 
@@ -153,7 +153,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *	@param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledByDelegate = NO;
 
@@ -179,7 +179,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *	@param event The OS event.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceCancelledEvent:(id)event
+-(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event
 {
     BOOL handledByDelegate = NO;
 
