@@ -143,6 +143,10 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
+
+-(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event;
+-(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event;
 ///	@}
 
 /// @name Coordinate Range

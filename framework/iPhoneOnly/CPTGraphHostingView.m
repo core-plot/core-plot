@@ -275,11 +275,14 @@
 
 -(void)setHostedGraph:(CPTGraph *)newLayer
 {
+    NSParameterAssert( (newLayer == nil) || [newLayer isKindOfClass:[CPTGraph class]] );
+
     if ( newLayer == hostedGraph ) {
         return;
     }
 
     [hostedGraph removeFromSuperlayer];
+    hostedGraph.hostingView = nil;
     [hostedGraph release];
     hostedGraph = [newLayer retain];
 
@@ -292,6 +295,7 @@
     else {
         hostedGraph.contentsScale = 1.0;
     }
+    hostedGraph.hostingView = self;
 
     if ( !collapsesLayers ) {
         if ( hostedGraph ) {

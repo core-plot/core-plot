@@ -5,6 +5,7 @@
 /// @file
 
 @class CPTAxisSet;
+@class CPTGraphHostingView;
 @class CPTLegend;
 @class CPTPlot;
 @class CPTPlotAreaFrame;
@@ -40,6 +41,7 @@ CPTGraphLayerType;
 
 @interface CPTGraph : CPTBorderedLayer {
     @private
+    __cpt_weak CPTGraphHostingView *hostingView;
     CPTPlotAreaFrame *plotAreaFrame;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
@@ -53,6 +55,11 @@ CPTGraphLayerType;
     CPTRectAnchor legendAnchor;
     CGPoint legendDisplacement;
 }
+
+/// @name Hosting View
+/// @{
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraphHostingView *hostingView;
+///	@}
 
 /// @name Title
 /// @{

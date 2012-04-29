@@ -231,6 +231,31 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
 }
 
+/**	@brief Converts the interaction point of an OS event to plot area drawing coordinates.
+ *	@param event The event.
+ *	@return The drawing coordinates of the point.
+ **/
+-(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event
+{
+    return CGPointZero;
+}
+
+/**	@brief Converts the interaction point of an OS event to the data coordinate space.
+ *	@param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
+ *	@param event The event.
+ **/
+-(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event
+{
+}
+
+/**	@brief Converts the interaction point of an OS event to the data coordinate space.
+ *	@param plotPoint A c-style array of data point coordinates (as doubles).
+ *	@param event The event.
+ **/
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event
+{
+}
+
 /**	@brief Sets the range of values for a given coordinate.
  *  @param newRange The new plot range.
  *	@param coordinate The axis coordinate.

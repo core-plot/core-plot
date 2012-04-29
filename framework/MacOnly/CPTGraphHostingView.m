@@ -17,6 +17,8 @@
 
 ///	@endcond
 
+#pragma mark -
+
 /**
  *	@brief A container view for displaying a CPTGraph.
  **/
@@ -197,12 +199,16 @@
 
 -(void)setHostedGraph:(CPTGraph *)newGraph
 {
+    NSParameterAssert( (newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]] );
+
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;
         [hostedGraph removeFromSuperlayer];
+        hostedGraph.hostingView = nil;
         [hostedGraph release];
         hostedGraph = [newGraph retain];
         if ( hostedGraph ) {
+            hostedGraph.hostingView = self;
             CPTLayer *myLayer = (CPTLayer *)self.layer;
 
             NSWindow *myWindow = self.window;

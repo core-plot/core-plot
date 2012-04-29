@@ -3,7 +3,7 @@
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
-#import "CPTGraph.h"
+#import "CPTGraphHostingView.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
@@ -575,6 +575,45 @@
 
     plotPoint[CPTCoordinateX] = x;
     plotPoint[CPTCoordinateY] = y;
+}
+
+// Plot area view point for event
+-(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event
+{
+    CGPoint plotAreaViewPoint = CGPointZero;
+
+    CPTGraph *theGraph                  = self.graph;
+    CPTGraphHostingView *theHostingView = theGraph.hostingView;
+    CPTPlotArea *thePlotArea            = theGraph.plotAreaFrame.plotArea;
+
+    if ( theHostingView && thePlotArea ) {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        CGPoint interactionPoint = [[[event touchesForView:theHostingView] anyObject] locationInView:theHostingView];
+        if ( theHostingView.collapsesLayers ) {
+            plotAreaViewPoint.x = interactionPoint.x;
+            plotAreaViewPoint.y = theHostingView.frame.size.height - interactionPoint.y;
+        }
+        else {
+            plotAreaViewPoint = [theHostingView.layer convertPoint:interactionPoint toLayer:thePlotArea];
+        }
+#else
+        CGPoint interactionPoint = NSPointToCGPoint([theHostingView convertPoint:[event locationInWindow] fromView:nil]);
+        plotAreaViewPoint = [theHostingView.layer convertPoint:interactionPoint toLayer:thePlotArea];
+#endif
+    }
+
+    return plotAreaViewPoint;
+}
+
+// Plot point for event
+-(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event
+{
+    [self plotPoint:plotPoint forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
+}
+
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event
+{
+    [self doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
 
 ///	@endcond

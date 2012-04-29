@@ -4,6 +4,7 @@
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
+#import "CPTGraphHostingView.h"
 #import "CPTLayerAnnotation.h"
 #import "CPTLegend.h"
 #import "CPTMutableTextStyle.h"
@@ -63,6 +64,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *	@see See @ref graphAnimation "Graphs" for a list of animatable properties.
  **/
 @implementation CPTGraph
+
+/**	@property hostingView
+ *	@brief The hosting view that contains the graph.
+ **/
+@synthesize hostingView;
 
 /**	@property axisSet
  *	@brief The axis set.
@@ -151,6 +157,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 /** @brief Initializes a newly allocated CPTGraph object with the provided frame rectangle.
  *
  *	This is the designated initializer. The initialized layer will have the following properties:
+ *	- @link CPTGraph::hostingView hostingView @endlink = <code>nil</code>
  *	- @link CPTGraph::title title @endlink = <code>nil</code>
  *	- @link CPTGraph::titlePlotAreaFrameAnchor titlePlotAreaFrameAnchor @endlink = #CPTRectAnchorTop
  *	- @link CPTGraph::titleTextStyle titleTextStyle @endlink = default text style
@@ -174,7 +181,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(id)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        plots = [[NSMutableArray alloc] init];
+        hostingView = nil;
+        plots       = [[NSMutableArray alloc] init];
 
         // Margins
         self.paddingLeft   = 20.0;
@@ -223,6 +231,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     if ( (self = [super initWithLayer:layer]) ) {
         CPTGraph *theLayer = (CPTGraph *)layer;
 
+        hostingView              = theLayer->hostingView;
         plotAreaFrame            = [theLayer->plotAreaFrame retain];
         plots                    = [theLayer->plots retain];
         plotSpaces               = [theLayer->plotSpaces retain];
@@ -262,6 +271,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 {
     [super encodeWithCoder:coder];
 
+    [coder encodeConditionalObject:self.hostingView forKey:@"CPTGraph.hostingView"];
     [coder encodeObject:self.plotAreaFrame forKey:@"CPTGraph.plotAreaFrame"];
     [coder encodeObject:self.plots forKey:@"CPTGraph.plots"];
     [coder encodeObject:self.plotSpaces forKey:@"CPTGraph.plotSpaces"];
@@ -279,6 +289,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
+        hostingView              = [[coder decodeObjectForKey:@"CPTGraph.hostingView"] retain];
         plotAreaFrame            = [[coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"] retain];
         plots                    = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
         plotSpaces               = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
