@@ -103,6 +103,17 @@ CPTPieDirection;
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index;
 
+/**	@brief (Optional) Informs the delegate that a pie slice was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The pie chart.
+ *	@param index The index of the
+ *	@if MacOnly clicked pie slice. @endif
+ *	@if iOSOnly touched pie slice. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+
 ///	@}
 
 @end

@@ -1095,8 +1095,9 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
  *
  *
  *	If this plot has a delegate that responds to the
- *	@link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex: -barPlot:barWasSelectedAtRecordIndex: @endlink
- *	method, the <code>interactionPoint</code> is compared with each bar in index order.
+ *	@link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex: -barPlot:barWasSelectedAtRecordIndex: @endlink and/or
+ *	@link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex:withEvent: -barPlot:barWasSelectedAtRecordIndex:withEvent: @endlink
+ *	methods, the <code>interactionPoint</code> is compared with each bar in index order.
  *	The delegate method will be called and this method returns <code>YES</code> for the first
  *	index where the <code>interactionPoint</code> is inside a bar.
  *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
@@ -1115,13 +1116,19 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
     }
 
     id<CPTBarPlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
+    if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger index      = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( index != NSNotFound ) {
-            [theDelegate barPlot:self barWasSelectedAtRecordIndex:index];
+            if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
+                [theDelegate barPlot:self barWasSelectedAtRecordIndex:index];
+            }
+            if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
+                [theDelegate barPlot:self barWasSelectedAtRecordIndex:index withEvent:event];
+            }
             return YES;
         }
     }

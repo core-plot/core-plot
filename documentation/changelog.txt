@@ -12,6 +12,7 @@
 - **New**: Added point selection delegate methods to `CPTRangePlot` and `CPTTradingRangePlot`.
 - **New**: Added an end angle property to `CPTPieChart`.
 - **New**: Added the `-didFinishDrawing:` delegate method to `CPTPlot`.
+- **New**: Added selection delegate methods that include the event that triggered the selection to all plots.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 - **Changed**: Changed all iOS header files to "Project" visibility to prevent problems with archiving an app that uses the Core Plot static library.
 

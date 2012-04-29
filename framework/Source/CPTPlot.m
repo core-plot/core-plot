@@ -1222,8 +1222,9 @@
  *
  *
  *	If this plot has a delegate that responds to the
- *	@link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex: -plot:dataLabelWasSelectedAtRecordIndex: @endlink
- *	method, the data labels are searched to find the index of the one containing the <code>interactionPoint</code>.
+ *	@link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex: -plot:dataLabelWasSelectedAtRecordIndex: @endlink and/or
+ *	@link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex:withEvent: -plot:dataLabelWasSelectedAtRecordIndex:withEvent: @endlink
+ *	methods, the data labels are searched to find the index of the one containing the <code>interactionPoint</code>.
  *	The delegate method will be called and this method returns <code>YES</code> if the <code>interactionPoint</code> is within a label.
  *	This method returns <code>NO</code> if the <code>interactionPoint</code> is too far away from all of the data labels.
  *
@@ -1240,7 +1241,8 @@
     }
 
     id<CPTPlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ) {
+    if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a label was hit
         NSMutableArray *labelArray = self.labelAnnotations;
         NSUInteger labelCount      = labelArray.count;
@@ -1254,7 +1256,12 @@
                     CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
 
                     if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {
-                        [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:index];
+                        if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ) {
+                            [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:index];
+                        }
+                        if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
+                            [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:index withEvent:event];
+                        }
                         return YES;
                     }
                 }

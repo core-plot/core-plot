@@ -1029,8 +1029,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *
  *
  *	If this plot has a delegate that responds to the
- *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink
- *	method, the data points are searched to find the index of the one closest to the <code>interactionPoint</code>.
+ *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink and/or
+ *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
+ *	methods, the data points are searched to find the index of the one closest to the <code>interactionPoint</code>.
  *	The delegate method will be called and this method returns <code>YES</code> if the <code>interactionPoint</code> is within the
  *	@link CPTScatterPlot::plotSymbolMarginForHitDetection plotSymbolMarginForHitDetection @endlink
  *	of the closest data point.
@@ -1050,7 +1051,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 
     id<CPTScatterPlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+    if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger index      = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
@@ -1064,7 +1066,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         symbolRect.origin       = CGPointMake( center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect) );
 
         if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
-            [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+                [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+            }
+            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
+                [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index withEvent:event];
+            }
             return YES;
         }
     }

@@ -835,8 +835,9 @@ static const CGFloat colorLookupTable[10][3] =
  *
  *
  *	If this plot has a delegate that responds to the
- *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink
- *	method, the <code>interactionPoint</code> is compared with each slice in index order.
+ *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
+ *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
+ *	methods, the <code>interactionPoint</code> is compared with each slice in index order.
  *	The delegate method will be called and this method returns <code>YES</code> for the first
  *	index where the <code>interactionPoint</code> is inside a pie slice.
  *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the slices.
@@ -847,13 +848,20 @@ static const CGFloat colorLookupTable[10][3] =
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
+    id<CPTPieChartDelegate> theDelegate = self.delegate;
     if ( self.graph && self.plotArea &&
-         [self.delegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
+         ([theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
+          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)]) ) {
         CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
 
         NSUInteger index = [self dataIndexFromInteractionPoint:plotAreaPoint];
         if ( index != NSNotFound ) {
-            [self.delegate pieChart:self sliceWasSelectedAtRecordIndex:index];
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
+                [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:index];
+            }
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
+                [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:index withEvent:event];
+            }
             return YES;
         }
     }

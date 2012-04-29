@@ -93,6 +93,17 @@ CPTScatterPlotInterpolation;
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index;
 
+/**	@brief (Optional) Informs the delegate that a data point was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The scatter plot.
+ *	@param index The index of the
+ *	@if MacOnly clicked data point. @endif
+ *	@if iOSOnly touched data point. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+
 ///	@}
 
 @end

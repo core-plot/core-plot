@@ -957,8 +957,9 @@ typedef struct CGPointError CGPointError;
  *
  *
  *	If this plot has a delegate that responds to the
- *	@link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink
- *	method, the <code>interactionPoint</code> is compared with each bar in index order.
+ *	@link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink and/or
+ *	@link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex:withEvent: -rangePlot:rangeWasSelectedAtRecordIndex:withEvent: @endlink
+ *	methods, the <code>interactionPoint</code> is compared with each bar in index order.
  *	The delegate method will be called and this method returns <code>YES</code> for the first
  *	index where the <code>interactionPoint</code> is inside a bar.
  *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
@@ -977,13 +978,19 @@ typedef struct CGPointError CGPointError;
     }
 
     id<CPTRangePlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
+    if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger index      = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( index != NSNotFound ) {
-            [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index];
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
+                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index];
+            }
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
+                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index withEvent:event];
+            }
             return YES;
         }
     }

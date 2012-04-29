@@ -128,6 +128,22 @@ CPTPlotCachePrecision;
  **/
 -(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index;
 
+/**	@brief (Optional) Informs the delegate that a data label was
+ *	@if MacOnly clicked. @endif
+ *	@if iOSOnly touched. @endif
+ *	@param plot The plot.
+ *	@param index The index of the
+ *	@if MacOnly clicked data label. @endif
+ *	@if iOSOnly touched data label. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+
+///	@}
+
+///	@name Drawing
+/// @{
+
 /**
  *  @brief Informs the delegate that plot drawing is finished.
  *	@param plot The plot.
