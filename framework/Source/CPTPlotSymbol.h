@@ -29,6 +29,7 @@ CPTPlotSymbolType;
 
 @interface CPTPlotSymbol : NSObject<NSCoding, NSCopying> {
     @private
+    CGPoint anchorPoint;
     CGSize size;
     CPTPlotSymbolType symbolType;
     CPTLineStyle *lineStyle;
@@ -40,6 +41,7 @@ CPTPlotSymbolType;
     CPTShadow *shadow;
 }
 
+@property (nonatomic, readwrite, assign) CGPoint anchorPoint;
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTPlotSymbolType symbolType;
 @property (nonatomic, readwrite, retain) CPTLineStyle *lineStyle;

@@ -14,6 +14,7 @@
 - **New**: Added the `-didFinishDrawing:` delegate method to `CPTPlot`.
 - **New**: Added selection delegate methods that include the event that triggered the selection to all plots.
 - **New**: Added plot space convenience methods that convert global interaction coordinates obtained from an OS event to plot area drawing coordinates.
+- **New**: Added the plot symbol anchor point.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 - **Changed**: Changed all iOS header files to "Project" visibility to prevent problems with archiving an app that uses the Core Plot static library.
 

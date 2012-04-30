@@ -24,6 +24,11 @@
  */
 @implementation CPTPlotSymbol
 
+/**	@property anchorPoint
+ *	@brief The anchor point for the plot symbol. Defaults to (0.5, 0.5) which centers the symbol on the plot point.
+ **/
+@synthesize anchorPoint;
+
 /**	@property size
  *  @brief The symbol size.
  **/
@@ -72,6 +77,7 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
+        anchorPoint         = CGPointMake(0.5, 0.5);
         size                = CGSizeMake(5.0, 5.0);
         symbolType          = CPTPlotSymbolTypeNone;
         lineStyle           = [[CPTLineStyle alloc] init];
@@ -110,6 +116,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
+    [coder encodeCPTPoint:self.anchorPoint forKey:@"CPTPlotSymbol.anchorPoint"];
     [coder encodeCPTSize:self.size forKey:@"CPTPlotSymbol.size"];
     [coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
     [coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
@@ -126,6 +133,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
+        anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
         size                = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
         symbolType          = [coder decodeIntegerForKey:@"CPTPlotSymbol.symbolType"];
         lineStyle           = [[coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"] retain];
@@ -402,6 +410,8 @@
 {
     const CGFloat symbolMargin = 2.0;
 
+    CGPoint symbolAnchor = self.anchorPoint;
+    CGSize symbolSize    = self.size;
     CGSize shadowOffset  = CGSizeZero;
     CGFloat shadowRadius = 0.0;
     CPTShadow *myShadow  = self.shadow;
@@ -414,25 +424,27 @@
     CGLayerRef theCachedLayer = self.cachedLayer;
 
     if ( !theCachedLayer ) {
-        CGSize symbolSize = self.size;
+        CGSize layerSize  = symbolSize;
         CGFloat lineWidth = self.lineStyle.lineWidth;
 
-        symbolSize.width += (ABS(shadowOffset.width) + shadowRadius) * (CGFloat)2.0 + lineWidth;
-        symbolSize.width *= scale;
-        symbolSize.width += symbolMargin;
+        layerSize.width += (ABS(shadowOffset.width) + shadowRadius) * (CGFloat)2.0 + lineWidth;
+        layerSize.width *= scale;
+        layerSize.width += symbolMargin;
 
-        symbolSize.height += (ABS(shadowOffset.height) + shadowRadius) * (CGFloat)2.0 + lineWidth;
-        symbolSize.height *= scale;
-        symbolSize.height += symbolMargin;
+        layerSize.height += (ABS(shadowOffset.height) + shadowRadius) * (CGFloat)2.0 + lineWidth;
+        layerSize.height *= scale;
+        layerSize.height += symbolMargin;
 
-        theCachedLayer = CGLayerCreateWithContext(theContext, symbolSize, NULL);
+        self.anchorPoint = CGPointMake(0.5, 0.5);
+        theCachedLayer   = CGLayerCreateWithContext(theContext, layerSize, NULL);
 
         [self renderAsVectorInContext:CGLayerGetContext(theCachedLayer)
-                              atPoint:CGPointMake(symbolSize.width / (CGFloat)2.0, symbolSize.height / (CGFloat)2.0)
+                              atPoint:CGPointMake(layerSize.width * (CGFloat)0.5, layerSize.height * (CGFloat)0.5)
                                 scale:scale];
 
         self.cachedLayer = theCachedLayer;
         CGLayerRelease(theCachedLayer);
+        self.anchorPoint = symbolAnchor;
     }
 
     if ( theCachedLayer ) {
@@ -442,8 +454,8 @@
             layerSize.height /= scale;
         }
 
-        CGPoint origin = CGPointMake(center.x - layerSize.width / (CGFloat)2.0,
-                                     center.y - layerSize.height / (CGFloat)2.0);
+        CGPoint origin = CGPointMake( center.x - layerSize.width * (CGFloat)0.5 - symbolSize.width * (symbolAnchor.x - (CGFloat)0.5),
+                                      center.y - layerSize.height * (CGFloat)0.5 - symbolSize.height * (symbolAnchor.y - (CGFloat)0.5) );
 
         if ( alignToPixels ) {
             if ( scale == 1.0 ) {
@@ -498,16 +510,18 @@
         }
 
         if ( theLineStyle || theFill ) {
+            CGPoint symbolAnchor = self.anchorPoint;
+            CGSize symbolSize    = self.size;
+
             CGContextSaveGState(theContext);
-            CGContextTranslateCTM(theContext, center.x, center.y);
+            CGContextTranslateCTM(theContext, center.x + (symbolAnchor.x - 0.5) * symbolSize.width, center.y + (symbolAnchor.y - 0.5) * symbolSize.height);
             CGContextScaleCTM(theContext, scale, scale);
             [self.shadow setShadowInContext:theContext];
 
             if ( theFill ) {
                 // use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
-                CGSize symbolSize = self.size;
-                CGSize halfSize   = CGSizeMake(symbolSize.width / (CGFloat)2.0, symbolSize.height / (CGFloat)2.0);
-                CGRect bounds     = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
+                CGSize halfSize = CGSizeMake(symbolSize.width * (CGFloat)0.5, symbolSize.height * (CGFloat)0.5);
+                CGRect bounds   = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 
                 CGContextSaveGState(theContext);
                 if ( !CGPathIsEmpty(theSymbolPath) ) {
@@ -549,7 +563,7 @@
 {
     CGFloat dx, dy;
     CGSize symbolSize = self.size;
-    CGSize halfSize   = CGSizeMake(symbolSize.width / (CGFloat)2.0, symbolSize.height / (CGFloat)2.0);
+    CGSize halfSize   = CGSizeMake(symbolSize.width * (CGFloat)0.5, symbolSize.height * (CGFloat)0.5);
 
     CGMutablePathRef symbolPath = CGPathCreateMutable();
 
