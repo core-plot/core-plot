@@ -19,7 +19,8 @@
 
 -(void)setUp
 {
-    self.graph               = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)] autorelease];
+    self.graph = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)] autorelease];
+
     self.graph.paddingLeft   = 0.0;
     self.graph.paddingRight  = 0.0;
     self.graph.paddingTop    = 0.0;
@@ -33,9 +34,15 @@
     self.graph = nil;
 }
 
--(void)testViewPointForPlotPoint
+#pragma mark -
+#pragma mark View point for plot point (linear)
+
+-(void)testViewPointForPlotPointLinear
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(10.0)];
@@ -62,9 +69,114 @@
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
 }
 
--(void)testPlotPointForViewPoint
+-(void)testViewPointForDoublePrecisionPlotPointLinear
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                    length:CPTDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                    length:CPTDecimalFromDouble(10.0)];
+
+    double plotPoint[2];
+    plotPoint[CPTCoordinateX] = 5.0;
+    plotPoint[CPTCoordinateY] = 5.0;
+
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                    length:CPTDecimalFromDouble(10.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
+                                                    length:CPTDecimalFromDouble(5.0)];
+
+    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
+}
+
+#pragma mark -
+#pragma mark View point for plot point (log)
+
+-(void)testViewPointForPlotPointLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+
+    NSDecimal plotPoint[2];
+    plotPoint[CPTCoordinateX] = CPTDecimalFromDouble( sqrt(10.0) );
+    plotPoint[CPTCoordinateY] = CPTDecimalFromDouble( sqrt(10.0) );
+
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(10.0)
+                                                    length:CPTDecimalFromDouble(90.0)];
+
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat) - 25.0, (CGFloat)0.01, @"");
+}
+
+-(void)testViewPointForDoublePrecisionPlotPointLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+
+    double plotPoint[2];
+    plotPoint[CPTCoordinateX] = sqrt(10.0);
+    plotPoint[CPTCoordinateY] = sqrt(10.0);
+
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(10.0)
+                                                    length:CPTDecimalFromDouble(90.0)];
+
+    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+
+    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat) - 25.0, (CGFloat)0.01, @"");
+}
+
+#pragma mark -
+#pragma mark Plot point for view point (linear)
+
+-(void)testPlotPointForViewPointLinear
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(10.0)];
@@ -83,9 +195,12 @@
     STAssertTrue(CPTDecimalEquals( plotPoint[CPTCoordinateY], CPTDecimalFromDouble(5.0) ), errMessage);
 }
 
--(void)testDoublePrecisionPlotPointForViewPoint
+-(void)testDoublePrecisionPlotPointForViewPointLinear
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(10.0)];
@@ -103,6 +218,60 @@
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %g", plotPoint[CPTCoordinateY]];
     STAssertEquals(plotPoint[CPTCoordinateY], 5.0, errMessage);
 }
+
+#pragma mark -
+#pragma mark Plot point for view point (log)
+
+-(void)testPlotPointForViewPointLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+
+    NSDecimal plotPoint[2];
+    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    NSString *errMessage;
+
+    [plotSpace plotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", NSDecimalString(&plotPoint[CPTCoordinateX], nil)];
+    STAssertTrue(CPTDecimalEquals( plotPoint[CPTCoordinateX], CPTDecimalFromDouble( sqrt(10.0) ) ), errMessage);
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %@", NSDecimalString(&plotPoint[CPTCoordinateY], nil)];
+    STAssertTrue(CPTDecimalEquals( plotPoint[CPTCoordinateY], CPTDecimalFromDouble( sqrt(10.0) ) ), errMessage);
+}
+
+-(void)testDoublePrecisionPlotPointForViewPointLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
+                                                    length:CPTDecimalFromDouble(9.0)];
+
+    double plotPoint[2];
+    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    NSString *errMessage;
+
+    [plotSpace doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %g", plotPoint[CPTCoordinateX]];
+    STAssertEquals(plotPoint[CPTCoordinateX], sqrt(10.0), errMessage);
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %g", plotPoint[CPTCoordinateY]];
+    STAssertEquals(plotPoint[CPTCoordinateY], sqrt(10.0), errMessage);
+}
+
+#pragma mark -
+#pragma mark Constrain ranges
 
 -(void)testConstrainNilRanges
 {
@@ -177,6 +346,9 @@
 
     STAssertTrue([constrainedRange isEqualToRange:expectedRange], errMessage);
 }
+
+#pragma mark -
+#pragma mark Scaling
 
 -(void)testScaleByAboutPoint1
 {
