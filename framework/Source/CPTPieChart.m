@@ -106,6 +106,12 @@ NSString *const CPTPieChartBindingPieSliceWidthValues = @"sliceWidths"; ///< Pie
  **/
 @synthesize overlayFill;
 
+/** @property labelRotationRelativeToRadius
+ *	@brief If <code>NO</code>, the default, the data labels are rotated relative to the default coordinate system (the positive x-axis is zero rotation).
+ *  If <code>YES</code>, the labels are rotated relative to the radius of the pie chart (zero rotation is parallel to the radius).
+ **/
+@synthesize labelRotationRelativeToRadius;
+
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
@@ -175,6 +181,7 @@ static const CGFloat colorLookupTable[10][3] =
  *	- @link CPTPieChart::centerAnchor centerAnchor @endlink = (0.5, 0.5)
  *	- @link CPTPieChart::borderLineStyle borderLineStyle @endlink = <code>nil</code>
  *	- @link CPTPieChart::overlayFill overlayFill @endlink = <code>nil</code>
+ *	- @link CPTPieChart::labelRotationRelativeToRadius labelRotationRelativeToRadius @endlink = <code>NO</code>
  *	- @link CPTPlot::labelOffset labelOffset @endlink = 10.0
  *	- @link CPTPlot::labelField labelField @endlink = #CPTPieChartFieldSliceWidth
  *
@@ -184,14 +191,15 @@ static const CGFloat colorLookupTable[10][3] =
 -(id)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        pieRadius       = (CGFloat)0.8 * (MIN(newFrame.size.width, newFrame.size.height) / (CGFloat)2.0);
-        pieInnerRadius  = 0.0;
-        startAngle      = M_PI_2; // pi/2
-        endAngle        = NAN;
-        sliceDirection  = CPTPieDirectionClockwise;
-        centerAnchor    = CGPointMake(0.5, 0.5);
-        borderLineStyle = nil;
-        overlayFill     = nil;
+        pieRadius                     = (CGFloat)0.8 * (MIN(newFrame.size.width, newFrame.size.height) / (CGFloat)2.0);
+        pieInnerRadius                = 0.0;
+        startAngle                    = M_PI_2; // pi/2
+        endAngle                      = NAN;
+        sliceDirection                = CPTPieDirectionClockwise;
+        centerAnchor                  = CGPointMake(0.5, 0.5);
+        borderLineStyle               = nil;
+        overlayFill                   = nil;
+        labelRotationRelativeToRadius = NO;
 
         self.labelOffset = 10.0;
         self.labelField  = CPTPieChartFieldSliceWidth;
@@ -206,14 +214,15 @@ static const CGFloat colorLookupTable[10][3] =
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPieChart *theLayer = (CPTPieChart *)layer;
 
-        pieRadius       = theLayer->pieRadius;
-        pieInnerRadius  = theLayer->pieInnerRadius;
-        startAngle      = theLayer->startAngle;
-        endAngle        = theLayer->endAngle;
-        sliceDirection  = theLayer->sliceDirection;
-        centerAnchor    = theLayer->centerAnchor;
-        borderLineStyle = [theLayer->borderLineStyle retain];
-        overlayFill     = [theLayer->overlayFill retain];
+        pieRadius                     = theLayer->pieRadius;
+        pieInnerRadius                = theLayer->pieInnerRadius;
+        startAngle                    = theLayer->startAngle;
+        endAngle                      = theLayer->endAngle;
+        sliceDirection                = theLayer->sliceDirection;
+        centerAnchor                  = theLayer->centerAnchor;
+        borderLineStyle               = [theLayer->borderLineStyle retain];
+        overlayFill                   = [theLayer->overlayFill retain];
+        labelRotationRelativeToRadius = theLayer->labelRotationRelativeToRadius;
     }
     return self;
 }
@@ -238,19 +247,21 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeCPTPoint:self.centerAnchor forKey:@"CPTPieChart.centerAnchor"];
     [coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
     [coder encodeObject:self.overlayFill forKey:@"CPTPieChart.overlayFill"];
+    [coder encodeBool:self.labelRotationRelativeToRadius forKey:@"CPTPieChart.labelRotationRelativeToRadius"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        pieRadius       = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
-        pieInnerRadius  = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
-        startAngle      = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
-        endAngle        = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
-        sliceDirection  = [coder decodeIntegerForKey:@"CPTPieChart.sliceDirection"];
-        centerAnchor    = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
-        borderLineStyle = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
-        overlayFill     = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
+        pieRadius                     = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
+        pieInnerRadius                = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
+        startAngle                    = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
+        endAngle                      = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
+        sliceDirection                = [coder decodeIntegerForKey:@"CPTPieChart.sliceDirection"];
+        centerAnchor                  = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
+        borderLineStyle               = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
+        overlayFill                   = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
+        labelRotationRelativeToRadius = [coder decodeBoolForKey:@"CPTPieChart.labelRotationRelativeToRadius"];
     }
     return self;
 }
@@ -731,7 +742,12 @@ static const CGFloat colorLookupTable[10][3] =
             }
             CGFloat labelAngle = [self radiansForPieSliceValue:startingWidth + currentWidth / (CGFloat)2.0];
 
-            label.displacement  = CGPointMake( labelRadius * cos(labelAngle), labelRadius * sin(labelAngle) );
+            label.displacement = CGPointMake( labelRadius * cos(labelAngle), labelRadius * sin(labelAngle) );
+
+            if ( self.labelRotationRelativeToRadius ) {
+                label.rotation = self.labelRotation + labelAngle;
+            }
+
             contentLayer.hidden = NO;
         }
     }
@@ -1122,6 +1138,24 @@ static const CGFloat colorLookupTable[10][3] =
         centerAnchor = newCenterAnchor;
         [self setNeedsDisplay];
         [self repositionAllLabelAnnotations];
+    }
+}
+
+-(void)setLabelRotationRelativeToRadius:(BOOL)newLabelRotationRelativeToRadius
+{
+    if ( labelRotationRelativeToRadius != newLabelRotationRelativeToRadius ) {
+        labelRotationRelativeToRadius = newLabelRotationRelativeToRadius;
+        [self repositionAllLabelAnnotations];
+    }
+}
+
+-(void)setLabelRotation:(CGFloat)newRotation
+{
+    if ( newRotation != self.labelRotation ) {
+        [super setLabelRotation:newRotation];
+        if ( self.labelRotationRelativeToRadius ) {
+            [self repositionAllLabelAnnotations];
+        }
     }
 }
 

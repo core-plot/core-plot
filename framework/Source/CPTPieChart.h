@@ -130,6 +130,7 @@ CPTPieDirection;
     CGPoint centerAnchor;
     CPTLineStyle *borderLineStyle;
     CPTFill *overlayFill;
+    BOOL labelRotationRelativeToRadius;
 }
 
 @property (nonatomic, readwrite) CGFloat pieRadius;
@@ -140,6 +141,7 @@ CPTPieDirection;
 @property (nonatomic, readwrite) CGPoint centerAnchor;
 @property (nonatomic, readwrite, copy) CPTLineStyle *borderLineStyle;
 @property (nonatomic, readwrite, copy) CPTFill *overlayFill;
+@property (nonatomic, readwrite, assign) BOOL labelRotationRelativeToRadius;
 
 /// @name Factory Methods
 /// @{

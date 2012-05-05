@@ -10,7 +10,7 @@
 - **New**: Added a plot data label selection delegate method.
 - **New**: Added a line fill property to `CPTLineStyle`.
 - **New**: Added point selection delegate methods to `CPTRangePlot` and `CPTTradingRangePlot`.
-- **New**: Added an end angle property to `CPTPieChart`.
+- **New**: Added an end angle property and the ability to rotate data labels relative to the pie radius to `CPTPieChart`.
 - **New**: Added the `-didFinishDrawing:` delegate method to `CPTPlot`.
 - **New**: Added selection delegate methods that include the event that triggered the selection to all plots.
 - **New**: Added plot space convenience methods that convert global interaction coordinates obtained from an OS event to plot area drawing coordinates.

@@ -95,6 +95,10 @@
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
     piePlot.overlayFill    = [CPTFill fillWithGradient:overlayGradient];
 
+    piePlot.labelRotationRelativeToRadius = YES;
+    piePlot.labelRotation                 = -M_PI_2;
+    piePlot.labelOffset                   = -50.0;
+
     piePlot.delegate = self;
     [graph addPlot:piePlot];
     [piePlot release];
