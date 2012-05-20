@@ -71,10 +71,16 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
 @dynamic barBases;
 
 /** @property barCornerRadius
- *	@brief The corner radius for the end of the bars.
+ *	@brief The corner radius for the end of the bars. Default is 0.0 for square corners.
  *	@ingroup plotAnimationBarPlot
  **/
 @synthesize barCornerRadius;
+
+/** @property barBaseCornerRadius
+ *	@brief The corner radius for the end of the bars drawn at the base value. Default is 0.0 for square corners.
+ *	@ingroup plotAnimationBarPlot
+ **/
+@synthesize barBaseCornerRadius;
 
 /** @property barOffset
  *	@brief The starting offset of the first bar in location data units.
@@ -208,6 +214,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
  *	- @link CPTBarPlot::barOffset barOffset @endlink = 0.0
  *	- @link CPTBarPlot::barOffsetScale barOffsetScale @endlink = 1.0
  *	- @link CPTBarPlot::barCornerRadius barCornerRadius @endlink = 0.0
+ *	- @link CPTBarPlot::barBaseCornerRadius barBaseCornerRadius @endlink = 0.0
  *	- @link CPTBarPlot::baseValue baseValue @endlink = 0
  *	- @link CPTBarPlot::barsAreHorizontal barsAreHorizontal @endlink = <code>NO</code>
  *	- @link CPTBarPlot::barBasesVary barBasesVary @endlink = <code>NO</code>
@@ -229,6 +236,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
         barOffset                     = CPTDecimalFromDouble(0.0);
         barOffsetScale                = 1.0;
         barCornerRadius               = 0.0;
+        barBaseCornerRadius           = 0.0;
         baseValue                     = CPTDecimalFromInteger(0);
         barsAreHorizontal             = NO;
         barBasesVary                  = NO;
@@ -255,6 +263,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
         barOffset                     = theLayer->barOffset;
         barOffsetScale                = theLayer->barOffsetScale;
         barCornerRadius               = theLayer->barCornerRadius;
+        barBaseCornerRadius           = theLayer->barBaseCornerRadius;
         baseValue                     = theLayer->baseValue;
         barBasesVary                  = theLayer->barBasesVary;
         barsAreHorizontal             = theLayer->barsAreHorizontal;
@@ -282,6 +291,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
     [coder encodeDecimal:self.barOffset forKey:@"CPTBarPlot.barOffset"];
     [coder encodeCGFloat:self.barOffsetScale forKey:@"CPTBarPlot.barOffsetScale"];
     [coder encodeCGFloat:self.barCornerRadius forKey:@"CPTBarPlot.barCornerRadius"];
+    [coder encodeCGFloat:self.barBaseCornerRadius forKey:@"CPTBarPlot.barBaseCornerRadius"];
     [coder encodeDecimal:self.baseValue forKey:@"CPTBarPlot.baseValue"];
     [coder encodeBool:self.barsAreHorizontal forKey:@"CPTBarPlot.barsAreHorizontal"];
     [coder encodeBool:self.barBasesVary forKey:@"CPTBarPlot.barBasesVary"];
@@ -299,6 +309,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
         barOffset                     = [coder decodeDecimalForKey:@"CPTBarPlot.barOffset"];
         barOffsetScale                = [coder decodeCGFloatForKey:@"CPTBarPlot.barOffsetScale"];
         barCornerRadius               = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
+        barBaseCornerRadius           = [coder decodeCGFloatForKey:@"CPTBarPlot.barBaseCornerRadius"];
         baseValue                     = [coder decodeDecimalForKey:@"CPTBarPlot.baseValue"];
         barsAreHorizontal             = [coder decodeBoolForKey:@"CPTBarPlot.barsAreHorizontal"];
         barBasesVary                  = [coder decodeBoolForKey:@"CPTBarPlot.barBasesVary"];
@@ -724,39 +735,24 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
 
 -(CGMutablePathRef)newBarPathWithContext:(CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint
 {
-    BOOL horizontalBars = self.barsAreHorizontal;
-
     // This function is used to create a path which is used for both
     // drawing a bar and for doing hit-testing on a click/touch event
-    CPTCoordinate widthCoordinate = (horizontalBars ? CPTCoordinateY : CPTCoordinateX);
-    CGFloat barWidthLength        = [self lengthInView:self.barWidth] * self.barWidthScale;
-    CGFloat halfBarWidth          = (CGFloat)0.5 * barWidthLength;
+    BOOL horizontalBars = self.barsAreHorizontal;
 
-    CGFloat point[2];
+    CGFloat barWidthLength = [self lengthInView:self.barWidth] * self.barWidthScale;
+    CGFloat halfBarWidth   = (CGFloat)0.5 * barWidthLength;
 
-    point[CPTCoordinateX]   = basePoint.x;
-    point[CPTCoordinateY]   = basePoint.y;
-    point[widthCoordinate] += halfBarWidth;
-    CGPoint alignedPoint1 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
+    CGRect barRect;
 
-    point[CPTCoordinateX]   = tipPoint.x;
-    point[CPTCoordinateY]   = tipPoint.y;
-    point[widthCoordinate] += halfBarWidth;
-    CGPoint alignedPoint2 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
+    if ( horizontalBars ) {
+        barRect = CGRectMake(basePoint.x, basePoint.y - halfBarWidth, tipPoint.x - basePoint.x, barWidthLength);
+    }
+    else {
+        barRect = CGRectMake(basePoint.x - halfBarWidth, basePoint.y, barWidthLength, tipPoint.y - basePoint.y);
+    }
 
-    point[CPTCoordinateX] = tipPoint.x;
-    point[CPTCoordinateY] = tipPoint.y;
-    CGPoint alignedPoint3 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-
-    point[CPTCoordinateX]   = tipPoint.x;
-    point[CPTCoordinateY]   = tipPoint.y;
-    point[widthCoordinate] -= halfBarWidth;
-    CGPoint alignedPoint4 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
-
-    point[CPTCoordinateX]   = basePoint.x;
-    point[CPTCoordinateY]   = basePoint.y;
-    point[widthCoordinate] -= halfBarWidth;
-    CGPoint alignedPoint5 = CGPointMake(point[CPTCoordinateX], point[CPTCoordinateY]);
+    int widthNegative  = signbit(barRect.size.width);
+    int heightNegative = signbit(barRect.size.height);
 
     // Align to device pixels if there is a line border.
     // Otherwise, align to view space, so fills are sharp at edges.
@@ -764,36 +760,90 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
     if ( self.alignsPointsToPixels ) {
         if ( self.lineStyle.lineWidth > 0.0 ) {
             if ( context ) {
-                alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-                alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-                alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-                alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-                alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+                barRect = CPTAlignRectToUserSpace(context, barRect);
             }
         }
         else {
-            alignedPoint1 = CPTAlignIntegralPointToUserSpace(context, alignedPoint1);
-            alignedPoint2 = CPTAlignIntegralPointToUserSpace(context, alignedPoint2);
-            alignedPoint3 = CPTAlignIntegralPointToUserSpace(context, alignedPoint3);
-            alignedPoint4 = CPTAlignIntegralPointToUserSpace(context, alignedPoint4);
-            alignedPoint5 = CPTAlignIntegralPointToUserSpace(context, alignedPoint5);
+            barRect = CPTAlignIntegralRectToUserSpace(context, barRect);
         }
     }
 
-    CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
-    if ( horizontalBars ) {
-        radius = MIN( radius, ABS(tipPoint.x - basePoint.x) );
+    CGFloat radius     = MIN(MIN(self.barCornerRadius, barRect.size.width * (CGFloat)0.5), barRect.size.height * (CGFloat)0.5);
+    CGFloat baseRadius = MIN(MIN(self.barBaseCornerRadius, barRect.size.width * (CGFloat)0.5), barRect.size.height * (CGFloat)0.5);
+
+    if ( widthNegative && (barRect.size.width > 0.0) ) {
+        barRect.origin.x  += barRect.size.width;
+        barRect.size.width = -barRect.size.width;
     }
-    else {
-        radius = MIN( radius, ABS(tipPoint.y - basePoint.y) );
+    if ( heightNegative && (barRect.size.height > 0.0) ) {
+        barRect.origin.y   += barRect.size.height;
+        barRect.size.height = -barRect.size.height;
     }
 
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
-    CGPathAddArcToPoint(path, NULL, alignedPoint2.x, alignedPoint2.y, alignedPoint3.x, alignedPoint3.y, radius);
-    CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, radius);
-    CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
-    CGPathCloseSubpath(path);
+    if ( radius == 0.0 ) {
+        if ( baseRadius == 0.0 ) {
+            // square corners
+            CGPathAddRect(path, NULL, barRect);
+        }
+        else {
+            CGFloat tipX = barRect.origin.x + barRect.size.width;
+            CGFloat tipY = barRect.origin.y + barRect.size.height;
+
+            // rounded at base end only
+            if ( horizontalBars ) {
+                CGPathMoveToPoint(path, NULL, tipX, tipY);
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, barRect.origin.x, CGRectGetMidY(barRect), baseRadius);
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, barRect.origin.y, tipX, barRect.origin.y, baseRadius);
+                CGPathAddLineToPoint(path, NULL, tipX, barRect.origin.y);
+            }
+            else {
+                CGPathMoveToPoint(path, NULL, barRect.origin.x, tipY);
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, barRect.origin.y, CGRectGetMidX(barRect), barRect.origin.y, baseRadius);
+                CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, tipX, tipY, baseRadius);
+                CGPathAddLineToPoint(path, NULL, tipX, tipY);
+            }
+            CGPathCloseSubpath(path);
+        }
+    }
+    else {
+        CGFloat tipX = barRect.origin.x + barRect.size.width;
+        CGFloat tipY = barRect.origin.y + barRect.size.height;
+
+        if ( baseRadius == 0.0 ) {
+            // rounded at tip end only
+            CGPathMoveToPoint(path, NULL, barRect.origin.x, barRect.origin.y);
+            if ( horizontalBars ) {
+                CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, tipX, CGRectGetMidY(barRect), radius);
+                CGPathAddArcToPoint(path, NULL, tipX, tipY, barRect.origin.x, tipY, radius);
+                CGPathAddLineToPoint(path, NULL, barRect.origin.x, tipY);
+            }
+            else {
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, CGRectGetMidX(barRect), tipY, radius);
+                CGPathAddArcToPoint(path, NULL, tipX, tipY, tipX, barRect.origin.y, radius);
+                CGPathAddLineToPoint(path, NULL, tipX, barRect.origin.y);
+            }
+            CGPathCloseSubpath(path);
+        }
+        else {
+            // rounded at both ends
+            if ( horizontalBars ) {
+                CGPathMoveToPoint( path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, CGRectGetMidX(barRect), tipY, baseRadius);
+                CGPathAddArcToPoint(path, NULL, tipX, tipY, tipX, CGRectGetMidY(barRect), radius);
+                CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, CGRectGetMidX(barRect), barRect.origin.y, radius);
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, barRect.origin.y, barRect.origin.x, CGRectGetMidY(barRect), baseRadius);
+            }
+            else {
+                CGPathMoveToPoint( path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, CGRectGetMidX(barRect), tipY, radius);
+                CGPathAddArcToPoint(path, NULL, tipX, tipY, tipX, CGRectGetMidY(barRect), radius);
+                CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, CGRectGetMidX(barRect), barRect.origin.y, baseRadius);
+                CGPathAddArcToPoint(path, NULL, barRect.origin.x, barRect.origin.y, barRect.origin.x, CGRectGetMidY(barRect), baseRadius);
+            }
+            CGPathCloseSubpath(path);
+        }
+    }
 
     return path;
 }
@@ -893,7 +943,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
 
     if ( theFill || theLineStyle ) {
         CGPathRef swatchPath;
-        CGFloat radius = self.barCornerRadius;
+        CGFloat radius = MAX(self.barCornerRadius, self.barBaseCornerRadius);
         if ( radius > 0.0 ) {
             radius     = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
             swatchPath = CreateRoundedRectPath(rect, radius);
@@ -933,6 +983,7 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
     if ( !keys ) {
         keys = [[NSArray alloc] initWithObjects:
                 @"barCornerRadius",
+                @"barBaseCornerRadius",
                 @"barOffsetScale",
                 @"barWidthScale",
                 nil];
@@ -1231,6 +1282,15 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
 {
     if ( barCornerRadius != newCornerRadius ) {
         barCornerRadius = ABS(newCornerRadius);
+        [self setNeedsDisplay];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+}
+
+-(void)setBarBaseCornerRadius:(CGFloat)newCornerRadius
+{
+    if ( barBaseCornerRadius != newCornerRadius ) {
+        barBaseCornerRadius = ABS(newCornerRadius);
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
