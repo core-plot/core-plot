@@ -668,8 +668,12 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p)
 
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
-    p.x = round(p.x) + (CGFloat)0.5;
-    p.y = round(p.y) + (CGFloat)0.5;
+    p.x = round(p.x - (CGFloat)0.5) + (CGFloat)0.5;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    p.y = round(p.y - (CGFloat)0.5) + (CGFloat)0.5;
+#else
+    p.y = -floor(-p.y) - (CGFloat)0.5;
+#endif
 
     // Convert the device aligned coordinate back to user space.
     return CGContextConvertPointToUserSpace(context, p);
@@ -705,27 +709,29 @@ CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s)
  *	and the width and height are an integer number of device pixels.
  *	Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
  *
- *	@note This function produces a width and height
- *	that is less than or equal to the original width.
  *	@param context The graphics context.
  *	@param r The rectangle in user space.
  *	@return The device aligned rectangle in user space.
  **/
 CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
 {
-    // Compute the coordinates of the rectangle in device space.
     r = CGContextConvertRectToDeviceSpace(context, r);
 
-    // Ensure that the x and y coordinates are at a pixel corner.
-    r.origin.x = round(r.origin.x) + (CGFloat)0.5;
-    r.origin.y = round(r.origin.y) + (CGFloat)0.5;
+    CGPoint oldOrigin = r.origin;
 
-    // Ensure that the width and height are an integer number of
-    // device pixels.
-    r.size.width  = round(r.size.width);
-    r.size.height = round(r.size.height);
+    r.origin.x   = round(r.origin.x - (CGFloat)0.5);
+    r.size.width = round(oldOrigin.x + r.size.width - (CGFloat)0.5) - r.origin.x;
+    r.origin.x  += 0.5;
 
-    // Convert back to user space.
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    r.origin.y    = round(r.origin.y - (CGFloat)0.5);
+    r.size.height = round(oldOrigin.y + r.size.height - (CGFloat)0.5) - r.origin.y;
+    r.origin.y   += 0.5;
+#else
+    r.origin.y    = -floor( -CGRectGetMaxY(r) ) - (CGFloat)0.5;
+    r.size.height = -round(r.size.height);
+#endif
+
     return CGContextConvertRectToUserSpace(context, r);
 }
 
@@ -746,9 +752,43 @@ CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p)
     p = CGContextConvertPointToDeviceSpace(context, p);
 
     p.x = round(p.x);
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     p.y = round(p.y);
+#else
+    p.y = -floor(-p.y + (CGFloat)0.5);
+#endif
 
     return CGContextConvertPointToUserSpace(context, p);
+}
+
+/**
+ *	@brief Aligns a rectangle in user space between integral coordinates in device space.
+ *
+ *	Ensures that the x and y coordinates are between pixels in device space
+ *	and the width and height are an integer number of device pixels.
+ *
+ *	@param context The graphics context.
+ *	@param r The rectangle in user space.
+ *	@return The device aligned rectangle in user space.
+ **/
+CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect r)
+{
+    r = CGContextConvertRectToDeviceSpace(context, r);
+
+    CGPoint oldOrigin = r.origin;
+
+    r.origin.x   = round(r.origin.x);
+    r.size.width = round(oldOrigin.x + r.size.width) - r.origin.x;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    r.origin.y    = round(r.origin.y);
+    r.size.height = round(oldOrigin.y + r.size.height) - r.origin.y;
+#else
+    r.origin.y    = -floor(-CGRectGetMaxY(r) + (CGFloat)0.5);
+    r.size.height = round(oldOrigin.y - r.origin.y);
+#endif
+
+    return CGContextConvertRectToUserSpace(context, r);
 }
 
 #pragma mark -

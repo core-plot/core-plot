@@ -5,6 +5,39 @@
 
 @implementation CPTUtilitiesTests
 
+@synthesize context;
+
+#pragma mark -
+#pragma mark Setup
+
+-(void)setUp
+{
+    const size_t width            = 50;
+    const size_t height           = 50;
+    const size_t bitsPerComponent = 8;
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+
+    context = CGBitmapContextCreate(NULL,
+                                    width,
+                                    height,
+                                    bitsPerComponent,
+                                    width * bitsPerComponent * 4,
+                                    colorSpace,
+                                    kCGImageAlphaNoneSkipLast);
+
+    CGColorSpaceRelease(colorSpace);
+}
+
+-(void)tearDown
+{
+    CGContextRelease(context);
+    context = NULL;
+}
+
+#pragma mark -
+#pragma mark Decimal conversions
+
 -(void)testCPTDecimalIntegerValue
 {
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
@@ -47,6 +80,45 @@
     STAssertEqualsWithAccuracy([[NSDecimalNumber numberWithFloat:f] floatValue], [[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromFloat(f)] floatValue], 1.0e-7, @"float to NSDecimal conversion failed");
     STAssertEqualObjects([NSDecimalNumber numberWithDouble:d], [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble(d)], @"double to NSDecimal conversion failed.");
 }
+
+-(void)testConvertNegativeOne
+{
+    NSDecimal zero = [[NSDecimalNumber zero] decimalValue];
+    NSDecimal one  = [[NSDecimalNumber one] decimalValue];
+    NSDecimal negativeOne;
+
+    NSDecimalSubtract(&negativeOne, &zero, &one, NSRoundPlain);
+    NSDecimal testValue;
+    NSString *errMessage;
+
+    // signed conversions
+    testValue  = CPTDecimalFromChar(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+
+    testValue  = CPTDecimalFromShort(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+
+    testValue  = CPTDecimalFromLong(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+
+    testValue  = CPTDecimalFromLongLong(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+
+    testValue  = CPTDecimalFromInt(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+
+    testValue  = CPTDecimalFromInteger(-1);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+}
+
+#pragma mark -
+#pragma mark Cached values
 
 -(void)testCachedZero
 {
@@ -162,40 +234,233 @@
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 }
 
--(void)testConvertNegativeOne
+#pragma mark -
+#pragma mark Pixel alignment
+
+-(void)testCPTAlignPointToUserSpace
 {
-    NSDecimal zero = [[NSDecimalNumber zero] decimalValue];
-    NSDecimal one  = [[NSDecimalNumber one] decimalValue];
-    NSDecimal negativeOne;
+    CGPoint point, alignedPoint;
 
-    NSDecimalSubtract(&negativeOne, &zero, &one, NSRoundPlain);
-    NSDecimal testValue;
-    NSString *errMessage;
+    point        = CGPointMake(10.49999, 10.49999);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)10.5, @"round x (10.49999, 10.49999)");
+    STAssertEquals(alignedPoint.y, (CGFloat)10.5, @"round y (10.49999, 10.49999)");
 
-    // signed conversions
-    testValue  = CPTDecimalFromChar(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+    point        = CGPointMake(10.5, 10.5);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)10.5, @"round x (10.5, 10.5)");
+    STAssertEquals(alignedPoint.y, (CGFloat)10.5, @"round y (10.5, 10.5)");
 
-    testValue  = CPTDecimalFromShort(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+    point        = CGPointMake(10.50001, 10.50001);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)10.5, @"round x (10.50001, 10.50001)");
+    STAssertEquals(alignedPoint.y, (CGFloat)10.5, @"round y (10.50001, 10.50001)");
 
-    testValue  = CPTDecimalFromLong(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+    point        = CGPointMake(10.99999, 10.99999);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)10.5, @"round x (10.99999, 10.99999)");
+    STAssertEquals(alignedPoint.y, (CGFloat)10.5, @"round y (10.99999, 10.99999)");
 
-    testValue  = CPTDecimalFromLongLong(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+    point        = CGPointMake(11.0, 11.0);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.5, @"round x (11.0, 11.0)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.5, @"round y (11.0, 11.0)");
 
-    testValue  = CPTDecimalFromInt(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+    point        = CGPointMake(11.00001, 11.00001);
+    alignedPoint = CPTAlignPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.5, @"round x (11.00001, 11.00001)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.5, @"round y (11.00001, 11.00001)");
+}
 
-    testValue  = CPTDecimalFromInteger(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
-    STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
+-(void)testCPTAlignSizeToUserSpace
+{
+    CGSize size, alignedSize;
+
+    size        = CGSizeMake(10.49999, 10.49999);
+    alignedSize = CPTAlignSizeToUserSpace(self.context, size);
+    STAssertEquals(alignedSize.width, (CGFloat)10.0, @"round width (10.49999, 10.49999)");
+    STAssertEquals(alignedSize.height, (CGFloat)10.0, @"round height (10.49999, 10.49999)");
+
+    size        = CGSizeMake(10.5, 10.5);
+    alignedSize = CPTAlignSizeToUserSpace(self.context, size);
+    STAssertEquals(alignedSize.width, (CGFloat)11.0, @"round width (10.5, 10.5)");
+    STAssertEquals(alignedSize.height, (CGFloat)11.0, @"round height (10.5, 10.5)");
+
+    size        = CGSizeMake(10.50001, 10.50001);
+    alignedSize = CPTAlignSizeToUserSpace(self.context, size);
+    STAssertEquals(alignedSize.width, (CGFloat)11.0, @"round width (10.50001, 10.50001)");
+    STAssertEquals(alignedSize.height, (CGFloat)11.0, @"round height (10.50001, 10.50001)");
+}
+
+-(void)testCPTAlignRectToUserSpace
+{
+    CGRect rect, alignedRect;
+
+    rect        = CGRectMake(10.49999, 10.49999, 10.49999, 10.49999);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.49999, 10.49999, 10.49999, 10.49999)");
+
+    rect        = CGRectMake(10.5, 10.5, 10.5, 10.5);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)11.0, @"round width (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)11.0, @"round height (10.5, 10.5, 10.5, 10.5)");
+
+    rect        = CGRectMake(10.50001, 10.50001, 10.50001, 10.50001);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)11.0, @"round width (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)11.0, @"round height (10.50001, 10.50001, 10.50001, 10.50001)");
+
+    rect        = CGRectMake(10.49999, 10.49999, 10.0, 10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.49999, 10.49999, 10.0, 10.0)");
+
+    rect        = CGRectMake(10.5, 10.5, 10.0, 10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.5, 10.5, 10.0, 10.0)");
+
+    rect        = CGRectMake(10.50001, 10.50001, 10.0, 10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.50001, 10.50001, 10.0, 10.0)");
+
+    rect        = CGRectMake(20.49999, 20.49999, -10.0, -10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.49999, 20.49999, -10.0, -10.0)");
+
+    rect        = CGRectMake(20.5, 20.5, -10.0, -10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.5, 20.5, -10.0, -10.0)");
+
+    rect        = CGRectMake(20.50001, 20.50001, -10.0, -10.0);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.50001, 20.50001, -10.0, -10.0)");
+}
+
+-(void)testCPTAlignIntegralPointToUserSpace
+{
+    CGPoint point, alignedPoint;
+
+    point        = CGPointMake(10.49999, 10.49999);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)10.0, @"round x (10.49999, 10.49999)");
+    STAssertEquals(alignedPoint.y, (CGFloat)10.0, @"round y (10.49999, 10.49999)");
+
+    point        = CGPointMake(10.5, 10.5);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.0, @"round x (10.5, 10.5)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.0, @"round y (10.5, 10.5)");
+
+    point        = CGPointMake(10.50001, 10.50001);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.0, @"round x (10.50001, 10.50001)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.0, @"round y (10.50001, 10.50001)");
+
+    point        = CGPointMake(10.99999, 10.99999);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.0, @"round x (10.99999, 10.99999)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.0, @"round y (10.99999, 10.99999)");
+
+    point        = CGPointMake(11.0, 11.0);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.0, @"round x (11.0, 11.0)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.0, @"round y (11.0, 11.0)");
+
+    point        = CGPointMake(11.00001, 11.00001);
+    alignedPoint = CPTAlignIntegralPointToUserSpace(self.context, point);
+    STAssertEquals(alignedPoint.x, (CGFloat)11.0, @"round x (11.00001, 11.00001)");
+    STAssertEquals(alignedPoint.y, (CGFloat)11.0, @"round y (11.00001, 11.00001)");
+}
+
+-(void)testCPTAlignIntegralRectToUserSpace
+{
+    CGRect rect, alignedRect;
+
+    rect        = CGRectMake(10.49999, 10.49999, 10.49999, 10.49999);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.0, @"round x (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.0, @"round y (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)11.0, @"round width (10.49999, 10.49999, 10.49999, 10.49999)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)11.0, @"round height (10.49999, 10.49999, 10.49999, 10.49999)");
+
+    rect        = CGRectMake(10.5, 10.5, 10.5, 10.5);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.5, 10.5, 10.5, 10.5)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.5, 10.5, 10.5, 10.5)");
+
+    rect        = CGRectMake(10.50001, 10.50001, 10.50001, 10.50001);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.50001, 10.50001, 10.50001, 10.50001)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.50001, 10.50001, 10.50001, 10.50001)");
+
+    rect        = CGRectMake(10.49999, 10.49999, 10.0, 10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.0, @"round x (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.0, @"round y (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.49999, 10.49999, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.49999, 10.49999, 10.0, 10.0)");
+
+    rect        = CGRectMake(10.5, 10.5, 10.0, 10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.5, 10.5, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.5, 10.5, 10.0, 10.0)");
+
+    rect        = CGRectMake(10.50001, 10.50001, 10.0, 10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.50001, 10.50001, 10.0, 10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.50001, 10.50001, 10.0, 10.0)");
+
+    rect        = CGRectMake(20.49999, 20.49999, -10.0, -10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.0, @"round x (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.0, @"round y (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.49999, 20.49999, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.49999, 20.49999, -10.0, -10.0)");
+
+    rect        = CGRectMake(20.5, 20.5, -10.0, -10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.5, 20.5, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.5, 20.5, -10.0, -10.0)");
+
+    rect        = CGRectMake(20.50001, 20.50001, -10.0, -10.0);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (20.50001, 20.50001, -10.0, -10.0)");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (20.50001, 20.50001, -10.0, -10.0)");
 }
 
 @end

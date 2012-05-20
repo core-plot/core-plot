@@ -105,6 +105,7 @@ CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s);
 CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r);
 
 CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p);
+CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect r);
 
 /// @}
 
