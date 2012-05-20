@@ -338,6 +338,20 @@
     STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.50001, 10.50001, 10.0, 10.0)");
     STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.50001, 10.50001, 10.0, 10.0)");
 
+    rect        = CGRectMake(10.772727, 10.772727, 10.363636, 10.363636);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.width, (CGFloat)11.0, @"round width (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.height, (CGFloat)11.0, @"round height (10.772727, 10.772727, 10.363636, 10.363636);");
+
+    rect        = CGRectMake(10.136363, 10.136363, 10.363636, 10.363636);
+    alignedRect = CPTAlignRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.5, @"round y (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.136363, 10.136363, 10.363636, 10.363636);");
+
     rect        = CGRectMake(20.49999, 20.49999, -10.0, -10.0);
     alignedRect = CPTAlignRectToUserSpace(self.context, rect);
     STAssertEquals(alignedRect.origin.x, (CGFloat)10.5, @"round x (20.49999, 20.49999, -10.0, -10.0)");
@@ -440,6 +454,20 @@
     STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.50001, 10.50001, 10.0, 10.0)");
     STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.50001, 10.50001, 10.0, 10.0)");
     STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.50001, 10.50001, 10.0, 10.0)");
+
+    rect        = CGRectMake(10.772727, 10.772727, 10.363636, 10.363636);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)11.0, @"round x (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)11.0, @"round y (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.772727, 10.772727, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.772727, 10.772727, 10.363636, 10.363636);");
+
+    rect        = CGRectMake(10.136363, 10.136363, 10.363636, 10.363636);
+    alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
+    STAssertEquals(alignedRect.origin.x, (CGFloat)10.0, @"round x (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.origin.y, (CGFloat)10.0, @"round y (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.136363, 10.136363, 10.363636, 10.363636);");
+    STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.136363, 10.136363, 10.363636, 10.363636);");
 
     rect        = CGRectMake(20.49999, 20.49999, -10.0, -10.0);
     alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);

@@ -729,7 +729,7 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r)
     r.origin.y   += 0.5;
 #else
     r.origin.y    = -floor( -CGRectGetMaxY(r) ) - (CGFloat)0.5;
-    r.size.height = -round(r.size.height);
+    r.size.height = round(oldOrigin.y - r.origin.y);
 #endif
 
     return CGContextConvertRectToUserSpace(context, r);

@@ -18,6 +18,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import <tgmath.h>
 
 /**	@defgroup plotAnimationBarPlot Bar Plot
  *	@ingroup plotAnimation
@@ -757,11 +758,17 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
     // Align to device pixels if there is a line border.
     // Otherwise, align to view space, so fills are sharp at edges.
     // Note: may not have a context if doing hit testing.
-    if ( self.alignsPointsToPixels ) {
+    if ( self.alignsPointsToPixels && context ) {
+        // Round bar dimensions so adjacent bars always align to the right pixel position
+        const CGFloat roundingPrecision = 1.0e6;
+
+        barRect.origin.x    = round(barRect.origin.x * roundingPrecision) / roundingPrecision;
+        barRect.origin.y    = round(barRect.origin.y * roundingPrecision) / roundingPrecision;
+        barRect.size.width  = round(barRect.size.width * roundingPrecision) / roundingPrecision;
+        barRect.size.height = round(barRect.size.height * roundingPrecision) / roundingPrecision;
+
         if ( self.lineStyle.lineWidth > 0.0 ) {
-            if ( context ) {
-                barRect = CPTAlignRectToUserSpace(context, barRect);
-            }
+            barRect = CPTAlignRectToUserSpace(context, barRect);
         }
         else {
             barRect = CPTAlignIntegralRectToUserSpace(context, barRect);
