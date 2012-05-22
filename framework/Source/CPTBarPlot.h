@@ -148,4 +148,9 @@ CPTBarPlotField;
 +(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
 ///	@}
 
+/// @name Data Ranges
+/// @{
+-(CPTPlotRange *)plotRangeEnclosingBars;
+///	@}
+
 @end

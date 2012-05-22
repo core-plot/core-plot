@@ -46,12 +46,6 @@
     graph.plotAreaFrame.paddingRight  += 20.0;
     graph.plotAreaFrame.paddingBottom += 20.0;
 
-    // Add plot space for bar charts
-    CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(8.0f)];
-    barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
-    [graph addPlotSpace:barPlotSpace];
-
     // Create grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 1.0;
@@ -80,7 +74,7 @@
     {
         y.majorIntervalLength         = CPTDecimalFromInteger(10);
         y.minorTicksPerInterval       = 9;
-        y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5);
+        y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
         y.preferredNumberOfMajorTicks = 8;
         y.majorGridLineStyle          = majorGridLineStyle;
         y.minorGridLineStyle          = minorGridLineStyle;
@@ -110,6 +104,14 @@
     barPlot.identifier        = @"Bar Plot 1";
 
     [graph addPlot:barPlot];
+
+    // Plot space
+    CPTMutablePlotRange *barRange = [[[barPlot plotRangeEnclosingBars] mutableCopy] autorelease];
+    [barRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+
+    CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    barPlotSpace.xRange = barRange;
+    barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
 
     // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];

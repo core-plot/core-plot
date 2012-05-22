@@ -597,6 +597,47 @@ NSString *const CPTBarPlotBindingBarBases     = @"barBases";     ///< Bar bases.
 
 /// @endcond
 
+/** @brief Computes a plot range that completely encloses all of the bars.
+ *
+ *  For a horizontal bar plot, this range starts at the left edge of the first bar and continues to the right edge
+ *  of the last bar. Similarly, this range starts at the bottom edge of the first bar and continues to the top edge
+ *  of the last bar for vertical bar plots. The length will have the same sign as the corresponding plot range from the plot space.
+ *
+ *  @return A plot range that completely encloses all of the bars.
+ **/
+-(CPTPlotRange *)plotRangeEnclosingBars
+{
+    BOOL horizontalBars = self.barsAreHorizontal;
+    CPTMutablePlotRange *range;
+
+    if ( horizontalBars ) {
+        range = [[self plotRangeForCoordinate:CPTCoordinateY] mutableCopy];
+    }
+    else {
+        range = [[self plotRangeForCoordinate:CPTCoordinateX] mutableCopy];
+    }
+
+    NSDecimal barOffsetLength = [self lengthInPlotCoordinates:self.barOffset];
+    NSDecimal barWidthLength  = [self lengthInPlotCoordinates:self.barWidth];
+    NSDecimal halfBarWidth    = CPTDecimalDivide( barWidthLength, CPTDecimalFromInteger(2) );
+
+    NSDecimal rangeLocation = range.location;
+    NSDecimal rangeLength   = range.length;
+
+    if ( CPTDecimalGreaterThanOrEqualTo( rangeLength, CPTDecimalFromInteger(0) ) ) {
+        rangeLocation  = CPTDecimalSubtract(rangeLocation, halfBarWidth);
+        range.location = CPTDecimalAdd(rangeLocation, barOffsetLength);
+        range.length   = CPTDecimalAdd(rangeLength, barWidthLength);
+    }
+    else {
+        rangeLocation  = CPTDecimalAdd(rangeLocation, halfBarWidth);
+        range.location = CPTDecimalSubtract(rangeLocation, barOffsetLength);
+        range.length   = CPTDecimalSubtract(rangeLength, barWidthLength);
+    }
+
+    return [range autorelease];
+}
+
 #pragma mark -
 #pragma mark Drawing
 
