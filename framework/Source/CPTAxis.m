@@ -1835,6 +1835,15 @@ double niceNum(double x, BOOL round)
         if ( needsRelabel ) {
             [self setNeedsLayout];
             [self setNeedsDisplay];
+            if ( self.separateLayers ) {
+                [self.majorGridLines setNeedsDisplay];
+                [self.minorGridLines setNeedsDisplay];
+            }
+            else {
+                CPTPlotArea *thePlotArea = self.plotArea;
+                [thePlotArea.majorGridLineGroup setNeedsDisplay];
+                [thePlotArea.minorGridLineGroup setNeedsDisplay];
+            }
         }
     }
 }
