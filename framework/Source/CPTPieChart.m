@@ -16,11 +16,13 @@
 #import <tgmath.h>
 
 /**	@defgroup plotAnimationPieChart Pie Chart
+ *	@brief Pie chart properties that can be animated using Core Animation.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindingsPieChart Pie Chart Bindings
+ *	@brief Binding identifiers for pie charts.
  *	@ingroup plotBindings
  *	@endif
  **/

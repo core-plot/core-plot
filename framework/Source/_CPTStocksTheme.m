@@ -14,7 +14,7 @@
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
-NSString *const kCPTStocksTheme = @"Stocks"; ///< Stocks theme.
+NSString *const kCPTStocksTheme = @"Stocks";
 
 /**
  *	@brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.

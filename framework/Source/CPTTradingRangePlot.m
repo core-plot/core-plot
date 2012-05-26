@@ -17,11 +17,13 @@
 #import <stdlib.h>
 
 /**	@defgroup plotAnimationTradingRangePlot Trading Range Plot
+ *	@brief Trading range plot properties that can be animated using Core Animation.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
+ *	@brief Binding identifiers for trading range plots.
  *	@ingroup plotBindings
  *	@endif
  **/

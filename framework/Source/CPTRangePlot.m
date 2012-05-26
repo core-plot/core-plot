@@ -17,11 +17,13 @@
 #import "NSCoderExtensions.h"
 
 /**	@defgroup plotAnimationRangePlot Range Plot
+ *	@brief Range plot properties that can be animated using Core Animation.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindingsRangePlot Range Plot Bindings
+ *	@brief Binding identifiers for range plots.
  *	@ingroup plotBindings
  *	@endif
  **/

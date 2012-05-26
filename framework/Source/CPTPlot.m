@@ -30,11 +30,13 @@
  **/
 
 /**	@defgroup plotAnimationAllPlots All Plots
+ *	@brief Plot properties that can be animated using Core Animation for all plot types.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindings Plot Binding Identifiers
+ *	@brief Binding identifiers for plots.
  *	@endif
  **/
 

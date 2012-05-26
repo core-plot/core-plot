@@ -13,7 +13,7 @@
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
-NSString *const kCPTPlainWhiteTheme = @"Plain White"; ///< Plain white theme.
+NSString *const kCPTPlainWhiteTheme = @"Plain White";
 
 /**
  *	@brief Creates a CPTXYGraph instance formatted with white backgrounds and black lines.

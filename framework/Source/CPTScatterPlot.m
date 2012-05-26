@@ -18,11 +18,13 @@
 #import <stdlib.h>
 
 /**	@defgroup plotAnimationScatterPlot Scatter Plot
+ *	@brief Scatter plot properties that can be animated using Core Animation.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindingsScatterPlot Scatter Plot Bindings
+ *	@brief Binding identifiers for scatter plots.
  *	@ingroup plotBindings
  *	@endif
  **/

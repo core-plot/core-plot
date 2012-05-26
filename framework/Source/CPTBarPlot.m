@@ -21,11 +21,13 @@
 #import <tgmath.h>
 
 /**	@defgroup plotAnimationBarPlot Bar Plot
+ *	@brief Bar plot properties that can be animated using Core Animation.
  *	@ingroup plotAnimation
  **/
 
 /**	@if MacOnly
  *	@defgroup plotBindingsBarPlot Bar Plot Bindings
+ *	@brief Binding identifiers for bar plots.
  *	@ingroup plotBindings
  *	@endif
  **/

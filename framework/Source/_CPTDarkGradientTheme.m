@@ -14,7 +14,7 @@
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
-NSString *const kCPTDarkGradientTheme = @"Dark Gradients"; ///< Dark gradient theme.
+NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
 
 ///	@cond
 @interface _CPTDarkGradientTheme()

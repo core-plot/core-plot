@@ -14,7 +14,7 @@
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
 
-NSString *const kCPTSlateTheme = @"Slate"; ///< Slate theme.
+NSString *const kCPTSlateTheme = @"Slate";
 
 ///	@cond
 @interface _CPTSlateTheme()

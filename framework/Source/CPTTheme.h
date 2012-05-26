@@ -2,11 +2,11 @@
 
 ///	@ingroup themeNames
 /// @{
-extern NSString *const kCPTDarkGradientTheme;
-extern NSString *const kCPTPlainBlackTheme;
-extern NSString *const kCPTPlainWhiteTheme;
-extern NSString *const kCPTSlateTheme;
-extern NSString *const kCPTStocksTheme;
+extern NSString *const kCPTDarkGradientTheme; ///< A graph theme with dark gray gradient backgrounds and light gray lines.
+extern NSString *const kCPTPlainBlackTheme;   ///< A graph theme with black backgrounds and white lines.
+extern NSString *const kCPTPlainWhiteTheme;   ///< A graph theme with white backgrounds and black lines.
+extern NSString *const kCPTSlateTheme;        ///< A graph theme with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
+extern NSString *const kCPTStocksTheme;       ///< A graph theme with a gradient background and white lines.
 /// @}
 
 @class CPTGraph;
