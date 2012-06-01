@@ -8,8 +8,13 @@
 
 -(void)testKeyedArchivingRoundTrip
 {
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGImageRef cgImage         = CGImageCreate(100, 100, 8, 32, 400, colorSpace, kCGBitmapAlphaInfoMask, NULL, NULL, YES, kCGRenderingIntentDefault);
+    const size_t width  = 100;
+    const size_t height = 100;
+
+    size_t bytesPerRow         = (4 * width + 15) & ~15;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+    CGContextRef context       = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaNoneSkipLast);
+    CGImageRef cgImage         = CGBitmapContextCreateImage(context);
 
     CPTImage *image = [CPTImage imageWithCGImage:cgImage];
 
