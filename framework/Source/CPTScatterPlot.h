@@ -120,7 +120,6 @@ CPTScatterPlotInterpolation;
     NSDecimal areaBaseValue;
     NSDecimal areaBaseValue2;
     CGFloat plotSymbolMarginForHitDetection;
-    NSArray *plotSymbols;
 }
 
 @property (nonatomic, readwrite, copy) CPTLineStyle *dataLineStyle;

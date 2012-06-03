@@ -65,7 +65,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 @dynamic xValues;
 @dynamic yValues;
-@synthesize plotSymbols;
+@dynamic plotSymbols;
 
 /** @property interpolation
  *	@brief The interpolation algorithm used for lines between data points.
@@ -164,7 +164,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaFill2                       = nil;
         areaBaseValue                   = [[NSDecimalNumber notANumber] decimalValue];
         areaBaseValue2                  = [[NSDecimalNumber notANumber] decimalValue];
-        plotSymbols                     = nil;
         plotSymbolMarginForHitDetection = 0.0;
         interpolation                   = CPTScatterPlotInterpolationLinear;
         self.labelField                 = CPTScatterPlotFieldY;
@@ -185,7 +184,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaFill2                       = [theLayer->areaFill2 retain];
         areaBaseValue                   = theLayer->areaBaseValue;
         areaBaseValue2                  = theLayer->areaBaseValue2;
-        plotSymbols                     = [theLayer->plotSymbols retain];
         plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
         interpolation                   = theLayer->interpolation;
     }
@@ -198,7 +196,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [plotSymbol release];
     [areaFill release];
     [areaFill2 release];
-    [plotSymbols release];
 
     [super dealloc];
 }
@@ -215,9 +212,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [coder encodeDecimal:self.areaBaseValue forKey:@"CPTScatterPlot.areaBaseValue"];
     [coder encodeDecimal:self.areaBaseValue2 forKey:@"CPTScatterPlot.areaBaseValue2"];
     [coder encodeCGFloat:self.plotSymbolMarginForHitDetection forKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
-
-    // No need to archive these properties:
-    // plotSymbols
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -231,8 +225,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaBaseValue                   = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue"];
         areaBaseValue2                  = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue2"];
         plotSymbolMarginForHitDetection = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
-
-        plotSymbols = nil;
     }
     return self;
 }
@@ -246,82 +238,37 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     [super reloadDataInIndexRange:indexRange];
 
-    if ( self.dataSource ) {
-        id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
+    id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
 
+    if ( theDataSource ) {
         id newXValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldX recordIndexRange:indexRange];
         [self cacheNumbers:newXValues forField:CPTScatterPlotFieldX atRecordIndex:indexRange.location];
         id newYValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldY recordIndexRange:indexRange];
         [self cacheNumbers:newYValues forField:CPTScatterPlotFieldY atRecordIndex:indexRange.location];
 
-        BOOL datasourceProvidesSymbolArray = [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)];
-        BOOL datasourceProvidesSymbols     = [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)];
+        // Update plot symbols
+        if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange] forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
 
-        if ( datasourceProvidesSymbolArray || datasourceProvidesSymbols ) {
-            // Ensure the plot symbol array exists and is the right size
-            NSMutableArray *symbols    = (NSMutableArray *)self.plotSymbols;
-            NSUInteger numberOfRecords = [theDataSource numberOfRecordsForPlot:self];
-            if ( !symbols ) {
-                self.plotSymbols = [NSMutableArray array];
-                symbols          = (NSMutableArray *)self.plotSymbols;
-            }
-            NSNull *nullObject = [NSNull null];
-            NSUInteger i       = symbols.count;
-            while ( i < numberOfRecords ) {
-                [symbols addObject:nullObject];
-                i++;
-            }
-
-            // Update plot symbols
-            if ( datasourceProvidesSymbolArray ) {
-                [symbols replaceObjectsInRange:indexRange withObjectsFromArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange]];
-            }
-            else if ( datasourceProvidesSymbols ) {
-                NSUInteger indexRangeEnd = indexRange.location + indexRange.length;
-                for ( NSUInteger recordIndex = indexRange.location; recordIndex < indexRangeEnd; recordIndex++ ) {
-                    CPTPlotSymbol *theSymbol = [theDataSource symbolForScatterPlot:self recordIndex:recordIndex];
-                    if ( theSymbol ) {
-                        [symbols replaceObjectAtIndex:recordIndex withObject:theSymbol];
-                    }
-                    else {
-                        [symbols replaceObjectAtIndex:recordIndex withObject:nullObject];
-                    }
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:index];
+                if ( symbol ) {
+                    [array addObject:symbol];
+                }
+                else {
+                    [array addObject:nilObject];
                 }
             }
-        }
-        else {
-            self.plotSymbols = nil;
-        }
-    }
-    else {
-        self.xValues     = nil;
-        self.yValues     = nil;
-        self.plotSymbols = nil;
-    }
-}
 
--(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords
-{
-    NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
-
-    if ( index < symbols.count ) {
-        NSNull *nullObject = [NSNull null];
-
-        NSUInteger endIndex = index + numberOfRecords;
-        for ( NSUInteger i = index; i < endIndex; i++ ) {
-            [symbols insertObject:nullObject atIndex:i];
+            [self cacheArray:array forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+            [array release];
         }
     }
-
-    [super insertDataAtIndex:index numberOfRecords:numberOfRecords];
-}
-
--(void)deleteDataInIndexRange:(NSRange)indexRange
-{
-    [super deleteDataInIndexRange:indexRange];
-
-    NSMutableArray *symbols = (NSMutableArray *)self.plotSymbols;
-    [symbols removeObjectsInRange:indexRange];
 }
 
 ///	@endcond
@@ -335,14 +282,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 -(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index
 {
-    CPTPlotSymbol *symbol = self.plotSymbol;
+    CPTPlotSymbol *symbol = [self cachedValueForKey:CPTScatterPlotBindingPlotSymbols recordIndex:index];
 
-    if ( index < self.plotSymbols.count ) {
-        symbol = [self.plotSymbols objectAtIndex:index];
+    if ( (symbol == nil) || (symbol == [CPTPlot nilData]) ) {
+        symbol = self.plotSymbol;
     }
-    if ( ![symbol isKindOfClass:[CPTPlotSymbol class]] ) {
-        symbol = nil; // Account for NSNull values
-    }
+
     return symbol;
 }
 
@@ -1175,11 +1120,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)setPlotSymbols:(NSArray *)newSymbols
 {
-    if ( newSymbols != plotSymbols ) {
-        [plotSymbols release];
-        plotSymbols = [newSymbols mutableCopy];
-        [self setNeedsDisplay];
-    }
+    [self cacheArray:newSymbols forKey:CPTScatterPlotBindingPlotSymbols];
+    [self setNeedsDisplay];
+}
+
+-(NSArray *)plotSymbols
+{
+    return [self cachedArrayForKey:CPTScatterPlotBindingPlotSymbols];
 }
 
 ///	@endcond
