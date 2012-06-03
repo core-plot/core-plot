@@ -28,11 +28,16 @@
  *	@endif
  **/
 
-NSString *const CPTTradingRangePlotBindingXValues     = @"xValues";     ///< X values.
-NSString *const CPTTradingRangePlotBindingOpenValues  = @"openValues";  ///< Open price values.
-NSString *const CPTTradingRangePlotBindingHighValues  = @"highValues";  ///< High price values.
-NSString *const CPTTradingRangePlotBindingLowValues   = @"lowValues";   ///< Low price values.
-NSString *const CPTTradingRangePlotBindingCloseValues = @"closeValues"; ///< Close price values.
+NSString *const CPTTradingRangePlotBindingXValues            = @"xValues";            ///< X values.
+NSString *const CPTTradingRangePlotBindingOpenValues         = @"openValues";         ///< Open price values.
+NSString *const CPTTradingRangePlotBindingHighValues         = @"highValues";         ///< High price values.
+NSString *const CPTTradingRangePlotBindingLowValues          = @"lowValues";          ///< Low price values.
+NSString *const CPTTradingRangePlotBindingCloseValues        = @"closeValues";        ///< Close price values.
+NSString *const CPTTradingRangePlotBindingIncreaseFills      = @"increaseFills";      ///< Fills used with a candlestick plot when close >= open.
+NSString *const CPTTradingRangePlotBindingDecreaseFills      = @"decreaseFills";      ///< Fills used with a candlestick plot when close < open.
+NSString *const CPTTradingRangePlotBindingLineStyles         = @"lineStyles";         ///< Line styles used to draw candlestick or OHLC symbols.
+NSString *const CPTTradingRangePlotBindingIncreaseLineStyles = @"increaseLineStyles"; ///< Line styles used to outline candlestick symbols when close >= open.
+NSString *const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineStyles"; ///< Line styles used to outline candlestick symbols when close < open.
 
 const CPTCoordinate independentCoord = CPTCoordinateX;
 const CPTCoordinate dependentCoord   = CPTCoordinateY;
@@ -45,9 +50,21 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *highValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *lowValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *closeValues;
+@property (nonatomic, readwrite, copy) NSArray *increaseFills;
+@property (nonatomic, readwrite, copy) NSArray *decreaseFills;
+@property (nonatomic, readwrite, copy) NSArray *lineStyles;
+@property (nonatomic, readwrite, copy) NSArray *increaseLineStyles;
+@property (nonatomic, readwrite, copy) NSArray *decreaseLineStyles;
 
--(void)drawCandleStickInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
--(void)drawOHLCInContext:(CGContextRef)context x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints lineStyle:(CPTLineStyle *)theLineStyle;
+-(void)drawCandleStickInContext:(CGContextRef)context atIndex:(NSUInteger)index x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
+-(void)drawOHLCInContext:(CGContextRef)context atIndex:(NSUInteger)index x:(CGFloat)x open:(CGFloat)open close:(CGFloat)close high:(CGFloat)high low:(CGFloat)low alignPoints:(BOOL)alignPoints;
+
+-(CPTFill *)increaseFillForIndex:(NSUInteger)index;
+-(CPTFill *)decreaseFillForIndex:(NSUInteger)index;
+
+-(CPTLineStyle *)lineStyleForIndex:(NSUInteger)index;
+-(CPTLineStyle *)increaseLineStyleForIndex:(NSUInteger)index;
+-(CPTLineStyle *)decreaseLineStyleForIndex:(NSUInteger)index;
 
 @end
 
@@ -69,6 +86,11 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @dynamic highValues;
 @dynamic lowValues;
 @dynamic closeValues;
+@dynamic increaseFills;
+@dynamic decreaseFills;
+@dynamic lineStyles;
+@dynamic increaseLineStyles;
+@dynamic decreaseLineStyles;
 
 /** @property lineStyle
  *	@brief The line style used to draw candlestick or OHLC symbols.
@@ -134,6 +156,11 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self exposeBinding:CPTTradingRangePlotBindingHighValues];
         [self exposeBinding:CPTTradingRangePlotBindingLowValues];
         [self exposeBinding:CPTTradingRangePlotBindingCloseValues];
+        [self exposeBinding:CPTTradingRangePlotBindingIncreaseFills];
+        [self exposeBinding:CPTTradingRangePlotBindingDecreaseFills];
+        [self exposeBinding:CPTTradingRangePlotBindingLineStyles];
+        [self exposeBinding:CPTTradingRangePlotBindingIncreaseLineStyles];
+        [self exposeBinding:CPTTradingRangePlotBindingDecreaseLineStyles];
     }
 }
 
@@ -248,7 +275,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     [super reloadDataInIndexRange:indexRange];
 
-    if ( self.dataSource ) {
+    id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+
+    if ( theDataSource ) {
         id newXValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldX recordIndexRange:indexRange];
         [self cacheNumbers:newXValues forField:CPTTradingRangePlotFieldX atRecordIndex:indexRange.location];
         id newOpenValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldOpen recordIndexRange:indexRange];
@@ -259,6 +288,103 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheNumbers:newLowValues forField:CPTTradingRangePlotFieldLow atRecordIndex:indexRange.location];
         id newCloseValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldClose recordIndexRange:indexRange];
         [self cacheNumbers:newCloseValues forField:CPTTradingRangePlotFieldClose atRecordIndex:indexRange.location];
+
+        // Fills
+        if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTFill *dataSourceFill = [theDataSource increaseFillForTradingRangePlot:self recordIndex:index];
+                if ( dataSourceFill ) {
+                    [array addObject:dataSourceFill];
+                }
+                else {
+                    [array addObject:nilObject];
+                }
+            }
+
+            [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+            [array release];
+        }
+
+        if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTFill *dataSourceFill = [theDataSource decreaseFillForTradingRangePlot:self recordIndex:index];
+                if ( dataSourceFill ) {
+                    [array addObject:dataSourceFill];
+                }
+                else {
+                    [array addObject:nilObject];
+                }
+            }
+
+            [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
+            [array release];
+        }
+
+        // Line styles
+        if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTLineStyle *dataSourceLineStyle = [theDataSource lineStyleForTradingRangePlot:self recordIndex:index];
+                if ( dataSourceLineStyle ) {
+                    [array addObject:dataSourceLineStyle];
+                }
+                else {
+                    [array addObject:nilObject];
+                }
+            }
+
+            [self cacheArray:array forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
+            [array release];
+        }
+
+        if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTLineStyle *dataSourceLineStyle = [theDataSource increaseLineStyleForTradingRangePlot:self recordIndex:index];
+                if ( dataSourceLineStyle ) {
+                    [array addObject:dataSourceLineStyle];
+                }
+                else {
+                    [array addObject:nilObject];
+                }
+            }
+
+            [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
+            [array release];
+        }
+
+        if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+            id nilObject          = [CPTPlot nilData];
+            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+            NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                CPTLineStyle *dataSourceLineStyle = [theDataSource decreaseLineStyleForTradingRangePlot:self recordIndex:index];
+                if ( dataSourceLineStyle ) {
+                    [array addObject:dataSourceLineStyle];
+                }
+                else {
+                    [array addObject:nilObject];
+                }
+            }
+
+            [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
+            [array release];
+        }
     }
     else {
         self.xValues     = nil;
@@ -301,9 +427,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     [super renderAsVectorInContext:theContext];
-
-    CPTLineStyle *theLineStyle = self.lineStyle;
-    [theLineStyle setLineStyleInContext:theContext];
 
     CGPoint openPoint, highPoint, lowPoint, closePoint;
 
@@ -385,17 +508,18 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
                         [self drawOHLCInContext:theContext
+                                        atIndex:i
                                               x:xCoord + originTransformed.x
                                            open:openPoint.y + originTransformed.y
                                           close:closePoint.y + originTransformed.y
                                            high:highPoint.y + originTransformed.y
                                             low:lowPoint.y + originTransformed.y
-                                    alignPoints:alignPoints
-                                      lineStyle:theLineStyle];
+                                    alignPoints:alignPoints];
                         break;
 
                     case CPTTradingRangePlotStyleCandleStick:
                         [self drawCandleStickInContext:theContext
+                                               atIndex:i
                                                      x:xCoord + originTransformed.x
                                                   open:openPoint.y + originTransformed.y
                                                  close:closePoint.y + originTransformed.y
@@ -481,17 +605,18 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
                         [self drawOHLCInContext:theContext
+                                        atIndex:i
                                               x:xCoord + originTransformed.x
                                            open:openPoint.y + originTransformed.y
                                           close:closePoint.y + originTransformed.y
                                            high:highPoint.y + originTransformed.y
                                             low:lowPoint.y + originTransformed.y
-                                    alignPoints:alignPoints
-                                      lineStyle:theLineStyle];
+                                    alignPoints:alignPoints];
                         break;
 
                     case CPTTradingRangePlotStyleCandleStick:
                         [self drawCandleStickInContext:theContext
+                                               atIndex:i
                                                      x:xCoord + originTransformed.x
                                                   open:openPoint.y + originTransformed.y
                                                  close:closePoint.y + originTransformed.y
@@ -512,6 +637,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 }
 
 -(void)drawCandleStickInContext:(CGContextRef)context
+                        atIndex:(NSUInteger)index
                               x:(CGFloat)x
                            open:(CGFloat)open
                           close:(CGFloat)close
@@ -525,29 +651,28 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     if ( !isnan(open) && !isnan(close) ) {
         if ( open < close ) {
-            theBorderLineStyle = self.increaseLineStyle;
-            if ( !theBorderLineStyle ) {
-                theBorderLineStyle = self.lineStyle;
-            }
-            currentBarFill = self.increaseFill;
+            theBorderLineStyle = [self increaseLineStyleForIndex:index];
+            currentBarFill     = [self increaseFillForIndex:index];
         }
         else if ( open > close ) {
-            theBorderLineStyle = self.decreaseLineStyle;
-            if ( !theBorderLineStyle ) {
-                theBorderLineStyle = self.lineStyle;
-            }
-            currentBarFill = self.decreaseFill;
+            theBorderLineStyle = [self decreaseLineStyleForIndex:index];
+            currentBarFill     = [self decreaseFillForIndex:index];
         }
         else {
-            theBorderLineStyle = self.lineStyle;
+            theBorderLineStyle = [self lineStyleForIndex:index];
             currentBarFill     = [CPTFill fillWithColor:theBorderLineStyle.lineColor];
         }
     }
-    [theBorderLineStyle setLineStyleInContext:context];
-    BOOL alignToUserSpace = (self.lineStyle.lineWidth > 0.0);
+
+    BOOL hasLineStyle = [theBorderLineStyle isKindOfClass:[CPTLineStyle class]];
+    if ( hasLineStyle ) {
+        [theBorderLineStyle setLineStyleInContext:context];
+    }
+
+    BOOL alignToUserSpace = (theBorderLineStyle.lineWidth > 0.0);
 
     // high - low only
-    if ( !isnan(high) && !isnan(low) && ( isnan(open) || isnan(close) ) ) {
+    if ( hasLineStyle && !isnan(high) && !isnan(low) && ( isnan(open) || isnan(close) ) ) {
         CGPoint alignedHighPoint = CGPointMake(x, high);
         CGPoint alignedLowPoint  = CGPointMake(x, low);
         if ( alignPoints ) {
@@ -574,7 +699,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     // open-close
     if ( !isnan(open) && !isnan(close) ) {
-        if ( currentBarFill || theBorderLineStyle ) {
+        if ( currentBarFill || hasLineStyle ) {
             CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
             radius = MIN( radius, ABS(close - open) );
 
@@ -618,13 +743,13 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
             CGPathCloseSubpath(path);
 
-            if ( currentBarFill ) {
+            if ( [currentBarFill isKindOfClass:[CPTFill class]] ) {
                 CGContextBeginPath(context);
                 CGContextAddPath(context, path);
                 [currentBarFill fillPathInContext:context];
             }
 
-            if ( theBorderLineStyle ) {
+            if ( hasLineStyle ) {
                 if ( !isnan(low) ) {
                     if ( low < MIN(open, close) ) {
                         CGPoint alignedStartPoint = CGPointMake( x, MIN(open, close) );
@@ -674,57 +799,62 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 }
 
 -(void)drawOHLCInContext:(CGContextRef)context
+                 atIndex:(NSUInteger)index
                        x:(CGFloat)x
                     open:(CGFloat)open
                    close:(CGFloat)close
                     high:(CGFloat)high
                      low:(CGFloat)low
              alignPoints:(BOOL)alignPoints
-               lineStyle:(CPTLineStyle *)theLineStyle
 {
-    CGFloat theStickLength = self.stickLength;
-    CGMutablePathRef path  = CGPathCreateMutable();
+    CPTLineStyle *theLineStyle = [self lineStyleForIndex:index];
 
-    // high-low
-    if ( !isnan(high) && !isnan(low) ) {
-        CGPoint alignedHighPoint = CGPointMake(x, high);
-        CGPoint alignedLowPoint  = CGPointMake(x, low);
-        if ( alignPoints ) {
-            alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-            alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+    if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
+        CGFloat theStickLength = self.stickLength;
+        CGMutablePathRef path  = CGPathCreateMutable();
+
+        // high-low
+        if ( !isnan(high) && !isnan(low) ) {
+            CGPoint alignedHighPoint = CGPointMake(x, high);
+            CGPoint alignedLowPoint  = CGPointMake(x, low);
+            if ( alignPoints ) {
+                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
+                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+            }
+            CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
+            CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
         }
-        CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
-        CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
-    }
 
-    // open
-    if ( !isnan(open) ) {
-        CGPoint alignedOpenStartPoint = CGPointMake(x, open);
-        CGPoint alignedOpenEndPoint   = CGPointMake(x - theStickLength, open); // left side
-        if ( alignPoints ) {
-            alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
-            alignedOpenEndPoint   = CPTAlignPointToUserSpace(context, alignedOpenEndPoint);
+        // open
+        if ( !isnan(open) ) {
+            CGPoint alignedOpenStartPoint = CGPointMake(x, open);
+            CGPoint alignedOpenEndPoint   = CGPointMake(x - theStickLength, open); // left side
+            if ( alignPoints ) {
+                alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
+                alignedOpenEndPoint   = CPTAlignPointToUserSpace(context, alignedOpenEndPoint);
+            }
+            CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
+            CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
         }
-        CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
-        CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
-    }
 
-    // close
-    if ( !isnan(close) ) {
-        CGPoint alignedCloseStartPoint = CGPointMake(x, close);
-        CGPoint alignedCloseEndPoint   = CGPointMake(x + theStickLength, close); // right side
-        if ( alignPoints ) {
-            alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
-            alignedCloseEndPoint   = CPTAlignPointToUserSpace(context, alignedCloseEndPoint);
+        // close
+        if ( !isnan(close) ) {
+            CGPoint alignedCloseStartPoint = CGPointMake(x, close);
+            CGPoint alignedCloseEndPoint   = CGPointMake(x + theStickLength, close); // right side
+            if ( alignPoints ) {
+                alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
+                alignedCloseEndPoint   = CPTAlignPointToUserSpace(context, alignedCloseEndPoint);
+            }
+            CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
+            CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
         }
-        CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
-        CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
-    }
 
-    CGContextBeginPath(context);
-    CGContextAddPath(context, path);
-    [theLineStyle strokePathInContext:context];
-    CGPathRelease(path);
+        CGContextBeginPath(context);
+        CGContextAddPath(context, path);
+        [theLineStyle setLineStyleInContext:context];
+        [theLineStyle strokePathInContext:context];
+        CGPathRelease(path);
+    }
 }
 
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
@@ -735,17 +865,18 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     switch ( self.plotStyle ) {
         case CPTTradingRangePlotStyleOHLC:
             [self drawOHLCInContext:context
+                            atIndex:index
                                   x:CGRectGetMidX(rect)
                                open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
                               close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
                                high:CGRectGetMaxY(rect)
                                 low:CGRectGetMinY(rect)
-                        alignPoints:YES
-                          lineStyle:self.lineStyle];
+                        alignPoints:YES];
             break;
 
         case CPTTradingRangePlotStyleCandleStick:
             [self drawCandleStickInContext:context
+                                   atIndex:index
                                          x:CGRectGetMidX(rect)
                                       open:CGRectGetMinY(rect) + rect.size.height / (CGFloat)3.0
                                      close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
@@ -757,6 +888,69 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         default:
             break;
     }
+}
+
+-(CPTFill *)increaseFillForIndex:(NSUInteger)index
+{
+    CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseFills recordIndex:index];
+
+    if ( (theFill == nil) || (theFill == [CPTPlot nilData]) ) {
+        theFill = self.increaseFill;
+    }
+
+    return theFill;
+}
+
+-(CPTFill *)decreaseFillForIndex:(NSUInteger)index
+{
+    CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseFills recordIndex:index];
+
+    if ( (theFill == nil) || (theFill == [CPTPlot nilData]) ) {
+        theFill = self.decreaseFill;
+    }
+
+    return theFill;
+}
+
+-(CPTLineStyle *)lineStyleForIndex:(NSUInteger)index
+{
+    CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingLineStyles recordIndex:index];
+
+    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+        theLineStyle = self.lineStyle;
+    }
+
+    return theLineStyle;
+}
+
+-(CPTLineStyle *)increaseLineStyleForIndex:(NSUInteger)index
+{
+    CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseLineStyles recordIndex:index];
+
+    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+        theLineStyle = self.increaseLineStyle;
+    }
+
+    if ( theLineStyle == nil ) {
+        theLineStyle = [self lineStyleForIndex:index];
+    }
+
+    return theLineStyle;
+}
+
+-(CPTLineStyle *)decreaseLineStyleForIndex:(NSUInteger)index
+{
+    CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseLineStyles recordIndex:index];
+
+    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+        theLineStyle = self.decreaseLineStyle;
+    }
+
+    if ( theLineStyle == nil ) {
+        theLineStyle = [self lineStyleForIndex:index];
+    }
+
+    return theLineStyle;
 }
 
 ///	@endcond
@@ -1306,6 +1500,61 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setCloseValues:(CPTMutableNumericData *)newValues
 {
     [self cacheNumbers:newValues forField:CPTTradingRangePlotFieldClose];
+}
+
+-(NSArray *)increaseFills
+{
+    return [self cachedArrayForKey:CPTTradingRangePlotBindingIncreaseFills];
+}
+
+-(void)setIncreaseFills:(NSArray *)newFills
+{
+    [self cacheArray:newFills forKey:CPTTradingRangePlotBindingIncreaseFills];
+    [self setNeedsDisplay];
+}
+
+-(NSArray *)decreaseFills
+{
+    return [self cachedArrayForKey:CPTTradingRangePlotBindingDecreaseFills];
+}
+
+-(void)setDecreaseFills:(NSArray *)newFills
+{
+    [self cacheArray:newFills forKey:CPTTradingRangePlotBindingDecreaseFills];
+    [self setNeedsDisplay];
+}
+
+-(NSArray *)lineStyles
+{
+    return [self cachedArrayForKey:CPTTradingRangePlotBindingLineStyles];
+}
+
+-(void)setLineStyles:(NSArray *)newLineStyles
+{
+    [self cacheArray:newLineStyles forKey:CPTTradingRangePlotBindingLineStyles];
+    [self setNeedsDisplay];
+}
+
+-(NSArray *)increaseLineStyles
+{
+    return [self cachedArrayForKey:CPTTradingRangePlotBindingIncreaseLineStyles];
+}
+
+-(void)setIncreaseLineStyles:(NSArray *)newLineStyles
+{
+    [self cacheArray:newLineStyles forKey:CPTTradingRangePlotBindingIncreaseLineStyles];
+    [self setNeedsDisplay];
+}
+
+-(NSArray *)decreaseLineStyles
+{
+    return [self cachedArrayForKey:CPTTradingRangePlotBindingDecreaseLineStyles];
+}
+
+-(void)setDecreaseLineStyles:(NSArray *)newLineStyles
+{
+    [self cacheArray:newLineStyles forKey:CPTTradingRangePlotBindingDecreaseLineStyles];
+    [self setNeedsDisplay];
 }
 
 ///	@endcond

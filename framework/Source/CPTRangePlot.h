@@ -14,6 +14,7 @@ extern NSString *const CPTRangePlotBindingHighValues;
 extern NSString *const CPTRangePlotBindingLowValues;
 extern NSString *const CPTRangePlotBindingLeftValues;
 extern NSString *const CPTRangePlotBindingRightValues;
+extern NSString *const CPTRangePlotBindingBarLineStyles;
 ///	@}
 
 /**
@@ -28,6 +29,29 @@ typedef enum _CPTRangePlotField {
     CPTRangePlotFieldRight, ///< relative Right values.
 }
 CPTRangePlotField;
+
+#pragma mark -
+
+/**
+ *	@brief A range plot data source.
+ **/
+@protocol CPTRangePlotDataSource<CPTPlotDataSource>
+@optional
+
+///	@name Bar Style
+/// @{
+
+/**	@brief (Optional) Gets a bar line style for the given range plot.
+ *	@param plot The range plot.
+ *	@param index The data index of interest.
+ *	@return The bar line style for the bar with the given index. If the data source returns <code>nil</code>, the default line style is used.
+ *	If the data source returns an NSNull object, no line is drawn.
+ **/
+-(CPTLineStyle *)barLineStyleForRangePlot:(CPTRangePlot *)plot recordIndex:(NSUInteger)index;
+
+///	@}
+
+@end
 
 #pragma mark -
 
