@@ -290,7 +290,10 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheNumbers:newCloseValues forField:CPTTradingRangePlotFieldClose atRecordIndex:indexRange.location];
 
         // Fills
-        if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(increaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -309,7 +312,10 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
             [array release];
         }
 
-        if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -329,7 +335,10 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         // Line styles
-        if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(lineStylesForTradingRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -348,7 +357,10 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
             [array release];
         }
 
-        if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -367,7 +379,10 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
             [array release];
         }
 
-        if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);

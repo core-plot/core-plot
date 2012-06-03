@@ -498,7 +498,10 @@ typedef struct CGPointError CGPointError;
         [self cacheNumbers:newRightValues forField:CPTRangePlotFieldRight atRecordIndex:indexRange.location];
 
         // Bar line styles
-        if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
+        if ( [theDataSource respondsToSelector:@selector(barLineStylesForRangePlot:recordIndexRange:)] ) {
+            [self cacheArray:[theDataSource barLineStylesForRangePlot:self recordIndexRange:indexRange] forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
+        }
+        else if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
             id nilObject          = [CPTPlot nilData];
             NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
             NSUInteger maxIndex   = NSMaxRange(indexRange);

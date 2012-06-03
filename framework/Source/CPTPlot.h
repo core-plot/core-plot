@@ -98,11 +98,21 @@ CPTPlotCachePrecision;
 /// @name Data Labels
 /// @{
 
+/** @brief (Optional) Gets a range of data labels for the given plot.
+ *	@param plot The plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of data labels.
+ **/
+-(NSArray *)dataLabelsForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
+
 /** @brief (Optional) Gets a data label for the given plot.
+ *	This method will not be called if
+ *	@link CPTPlotDataSource::dataLabelsForPlot:recordIndexRange: -dataLabelsForPlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The plot.
  *	@param index The data index of interest.
  *	@return The data label for the point with the given index.
- *  If you return nil, the default data label will be used. If you return an instance of NSNull,
+ *  If you return <code>nil</code>, the default data label will be used. If you return an instance of NSNull,
  *  no label will be shown for the index in question.
  **/
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index;

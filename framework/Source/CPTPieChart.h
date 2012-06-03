@@ -49,7 +49,17 @@ CPTPieDirection;
 ///	@name Slice Style
 ///	@{
 
+/**	@brief (Optional) Gets a range of slice fills for the given pie chart.
+ *	@param pieChart The pie chart.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return The pie slice fill for the slice with the given index.
+ **/
+-(NSArray *)sliceFillsForPieChart:(CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
+
 /**	@brief (Optional) Gets a fill for the given pie chart slice.
+ *	This method will not be called if
+ *	@link CPTPieChartDataSource::sliceFillsForPieChart:recordIndexRange: -sliceFillsForPieChart:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The pie slice fill for the slice with the given index.
@@ -61,7 +71,17 @@ CPTPieDirection;
 ///	@name Slice Layout
 ///	@{
 
+/**	@brief (Optional) Gets a range of slice offsets for the given pie chart.
+ *	@param pieChart The pie chart.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of radial offsets.
+ **/
+-(NSArray *)radialOffsetsForPieChart:(CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
+
 /** @brief (Optional) Offsets the slice radially from the center point. Can be used to "explode" the chart.
+ *	This method will not be called if
+ *	@link CPTPieChartDataSource::radialOffsetsForPieChart:recordIndexRange: -radialOffsetsForPieChart:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param pieChart The pie chart.
  *	@param index The data index of interest.
  *	@return The radial offset in view coordinates. Zero is no offset.

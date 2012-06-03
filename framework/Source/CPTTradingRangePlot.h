@@ -56,7 +56,17 @@ CPTTradingRangePlotField;
 ///	@name Bar Fills
 /// @{
 
-/**	@brief (Optional) Gets the fill used with a candlestick plot when close >= open for the given trading range plot.
+/**	@brief (Optional) Gets a range of fills used with a candlestick plot when close >= open for the given plot.
+ *	@param plot The trading range plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of fills.
+ **/
+-(NSArray *)increaseFillsForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+
+/**	@brief (Optional) Gets the fill used with a candlestick plot when close >= open for the given plot.
+ *	This method will not be called if
+ *	@link CPTTradingRangePlotDataSource::increaseFillsForTradingRangePlot:recordIndexRange: -increaseFillsForTradingRangePlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The trading range plot.
  *	@param index The data index of interest.
  *	@return The bar fill for the bar with the given index. If the data source returns <code>nil</code>, the default increase fill is used.
@@ -64,7 +74,17 @@ CPTTradingRangePlotField;
  **/
 -(CPTFill *)increaseFillForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndex:(NSUInteger)index;
 
-/**	@brief (Optional) Gets the fill used with a candlestick plot when close < open for the given trading range plot.
+/**	@brief (Optional) Gets a range of fills used with a candlestick plot when close < open for the given plot.
+ *	@param plot The trading range plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@param indexRange The range of the data indexes of interest.
+ **/
+-(NSArray *)decreaseFillsForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+
+/**	@brief (Optional) Gets the fill used with a candlestick plot when close < open for the given plot.
+ *	This method will not be called if
+ *	@link CPTTradingRangePlotDataSource::decreaseFillsForTradingRangePlot:recordIndexRange: -decreaseFillsForTradingRangePlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The trading range plot.
  *	@param index The data index of interest.
  *	@return The bar fill for the bar with the given index. If the data source returns <code>nil</code>, the default decrease fill is used.
@@ -77,7 +97,17 @@ CPTTradingRangePlotField;
 ///	@name Bar Line Styles
 /// @{
 
+/**	@brief (Optional) Gets a range of line styles used to draw candlestick or OHLC symbols for the given trading range plot.
+ *	@param plot The trading range plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of line styles.
+ **/
+-(NSArray *)lineStylesForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+
 /**	@brief (Optional) Gets the line style used to draw candlestick or OHLC symbols for the given trading range plot.
+ *	This method will not be called if
+ *	@link CPTTradingRangePlotDataSource::lineStylesForTradingRangePlot:recordIndexRange: -lineStylesForTradingRangePlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The trading range plot.
  *	@param index The data index of interest.
  *	@return The line style for the symbol with the given index. If the data source returns <code>nil</code>, the default line style is used.
@@ -85,7 +115,17 @@ CPTTradingRangePlotField;
  **/
 -(CPTLineStyle *)lineStyleForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndex:(NSUInteger)index;
 
+/**	@brief (Optional) Gets a range of line styles used to outline candlestick symbols when close >= open for the given trading range plot.
+ *	@param plot The trading range plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of line styles.
+ **/
+-(NSArray *)increaseLineStylesForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+
 /**	@brief (Optional) Gets the line style used to outline candlestick symbols when close >= open for the given trading range plot.
+ *	This method will not be called if
+ *	@link CPTTradingRangePlotDataSource::increaseLineStylesForTradingRangePlot:recordIndexRange: -increaseLineStylesForTradingRangePlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The trading range plot.
  *	@param index The data index of interest.
  *	@return The line line style for the symbol with the given index. If the data source returns <code>nil</code>, the default increase line style is used.
@@ -93,7 +133,17 @@ CPTTradingRangePlotField;
  **/
 -(CPTLineStyle *)increaseLineStyleForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndex:(NSUInteger)index;
 
+/**	@brief (Optional) Gets a range of line styles used to outline candlestick symbols when close < open for the given trading range plot.
+ *	@param plot The trading range plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return An array of line styles.
+ **/
+-(NSArray *)decreaseLineStylesForTradingRangePlot:(CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+
 /**	@brief (Optional) Gets the line style used to outline candlestick symbols when close < open for the given trading range plot.
+ *	This method will not be called if
+ *	@link CPTTradingRangePlotDataSource::decreaseLineStylesForTradingRangePlot:recordIndexRange: -decreaseLineStylesForTradingRangePlot:recordIndexRange: @endlink
+ *	is also implemented in the datasource.
  *	@param plot The trading range plot.
  *	@param index The data index of interest.
  *	@return The line line style for the symbol with the given index. If the data source returns <code>nil</code>, the default decrease line style is used.

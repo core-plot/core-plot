@@ -446,7 +446,10 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
 
     // Bar fills
-    if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+    if ( [theDataSource respondsToSelector:@selector(barFillsForBarPlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource barFillsForBarPlot:self recordIndexRange:indexRange] forKey:CPTBarPlotBindingBarFills atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -466,7 +469,10 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
 
     // Bar line styles
-    if ( [theDataSource respondsToSelector:@selector(barLineStyleForBarPlot:recordIndex:)] ) {
+    if ( [theDataSource respondsToSelector:@selector(barLineStylesForBarPlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource barLineStylesForBarPlot:self recordIndexRange:indexRange] forKey:CPTBarPlotBindingBarLineStyles atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(barLineStyleForBarPlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);

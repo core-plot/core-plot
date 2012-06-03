@@ -476,7 +476,10 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     self.dataNeedsReloading = NO;
 
     // Data labels
-    if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
+    if ( [theDataSource respondsToSelector:@selector(dataLabelsForPlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange] forKey:CPTPlotBindingDataLabels atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -558,7 +561,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             dataBuffer.length -= length;
         }
         else {
-            [(NSMutableArray *)data removeObjectsInRange:indexRange];
+            [(NSMutableArray *) data removeObjectsInRange:indexRange];
         }
     }
 
