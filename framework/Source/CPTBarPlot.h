@@ -19,6 +19,8 @@
 extern NSString *const CPTBarPlotBindingBarLocations;
 extern NSString *const CPTBarPlotBindingBarTips;
 extern NSString *const CPTBarPlotBindingBarBases;
+extern NSString *const CPTBarPlotBindingBarFills;
+extern NSString *const CPTBarPlotBindingBarLineStyles;
 ///	@}
 
 /**

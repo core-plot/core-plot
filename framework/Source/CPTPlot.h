@@ -4,6 +4,8 @@
 #import "CPTNumericDataType.h"
 #import "CPTPlotRange.h"
 
+///	@file
+
 @class CPTLegend;
 @class CPTMutableNumericData;
 @class CPTNumericData;
@@ -13,7 +15,10 @@
 @class CPTPlotSpaceAnnotation;
 @class CPTPlotRange;
 
-///	@file
+///	@ingroup plotBindingsAllPlots
+/// @{
+extern NSString *const CPTPlotBindingDataLabels;
+///	@}
 
 /**
  *	@brief Enumeration of cache precisions.
@@ -247,6 +252,7 @@ CPTPlotCachePrecision;
 
 /// @name Plot Data
 /// @{
++(id)nilData;
 -(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 ///	@}
 
@@ -256,8 +262,13 @@ CPTPlotCachePrecision;
 -(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 -(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(NSArray *)cachedArrayForKey:(NSString *)key;
+-(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)index;
+
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)index;
+-(void)cacheArray:(NSArray *)array forKey:(NSString *)key;
+-(void)cacheArray:(NSArray *)array forKey:(NSString *)key atRecordIndex:(NSUInteger)index;
 ///	@}
 
 /// @name Plot Data Ranges

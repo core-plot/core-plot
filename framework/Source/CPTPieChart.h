@@ -15,6 +15,8 @@
 ///	@ingroup plotBindingsPieChart
 /// @{
 extern NSString *const CPTPieChartBindingPieSliceWidthValues;
+extern NSString *const CPTPieChartBindingPieSliceFills;
+extern NSString *const CPTPieChartBindingPieSliceRadialOffsets;
 ///	@}
 
 /**

@@ -17,6 +17,7 @@
 - **New**: Added the plot symbol anchor point.
 - **New**: Added a corner radius property to `CPTBarPlot` that applies to the base value end of the bars.
 - **New**: Added a method to `CPTBarPlot` that computes a plot range that encloses all of the bars, including the bar width and bar offset.
+- **New**: Added bindings for plot data labels, bar plot fills and borders, and pie chart fills and radial offsets.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 - **Changed**: Changed all iOS header files to "Project" visibility to prevent problems with archiving an app that uses the Core Plot static library.
 
