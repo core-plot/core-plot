@@ -648,6 +648,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         // Draw plot symbols
         if ( self.plotSymbol || self.plotSymbols.count ) {
+            Class symbolClass = [CPTPlotSymbol class];
+
             // clear the plot shadow if any--symbols draw their own shadows
             CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
 
@@ -656,7 +658,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-                        [currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];
+                        if ( [currentSymbol isKindOfClass:symbolClass] ) {
+                            [currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];
+                        }
                     }
                 }
             }
@@ -664,7 +668,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
-                        [currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];
+                        if ( [currentSymbol isKindOfClass:symbolClass] ) {
+                            [currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];
+                        }
                     }
                 }
             }
@@ -1004,7 +1010,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
 
         CGRect symbolRect = CGRectZero;
-        symbolRect.size         = symbol.size;
+        if ( [symbol isKindOfClass:[CPTPlotSymbol class]] ) {
+            symbolRect.size = symbol.size;
+        }
+        else {
+            symbolRect.size = CGSizeZero;
+        }
         symbolRect.size.width  += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
         symbolRect.size.height += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
         symbolRect.origin       = CGPointMake( center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect) );
