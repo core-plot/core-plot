@@ -352,7 +352,7 @@
     const CGFloat *colorComponents = CGColorGetComponents(theColor);
 
     for ( size_t i = 0; i < numberOfComponents; i++ ) {
-        NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%u]", i];
+        NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
         [coder encodeCGFloat:colorComponents[i] forKey:newKey];
         [newKey release];
     }
@@ -368,7 +368,7 @@
         CGFloat *colorComponents = malloc( numberOfComponents * sizeof(CGFloat) );
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
-            NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%u]", i];
+            NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
             colorComponents[i] = [coder decodeCGFloatForKey:newKey];
             [newKey release];
         }

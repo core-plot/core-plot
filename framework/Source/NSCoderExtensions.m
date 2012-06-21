@@ -146,7 +146,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
         NSDictionary *elementData = [pathData objectAtIndex:i];
 
         CGPathElementType type = [[elementData objectForKey:@"type"] intValue];
-        newKey = [[NSString alloc] initWithFormat:@"%@[%u].type", key, i];
+        newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, i];
         [self encodeInteger:type forKey:newKey];
         [newKey release];
 
@@ -156,14 +156,14 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
             case kCGPathElementAddCurveToPoint: // 3 points
                 point.x = [[elementData objectForKey:@"point3.x"] cgFloatValue];
                 point.y = [[elementData objectForKey:@"point3.y"] cgFloatValue];
-                newKey  = [[NSString alloc] initWithFormat:@"%@[%u].point3", key, i];
+                newKey  = [[NSString alloc] initWithFormat:@"%@[%lu].point3", key, (unsigned long)i];
                 [self encodeCPTPoint:point forKey:newKey];
                 [newKey release];
 
             case kCGPathElementAddQuadCurveToPoint: // 2 points
                 point.x = [[elementData objectForKey:@"point2.x"] cgFloatValue];
                 point.y = [[elementData objectForKey:@"point2.y"] cgFloatValue];
-                newKey  = [[NSString alloc] initWithFormat:@"%@[%u].point2", key, i];
+                newKey  = [[NSString alloc] initWithFormat:@"%@[%lu].point2", key, (unsigned long)i];
                 [self encodeCPTPoint:point forKey:newKey];
                 [newKey release];
 
@@ -171,7 +171,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
             case kCGPathElementAddLineToPoint: // 1 point
                 point.x = [[elementData objectForKey:@"point1.x"] cgFloatValue];
                 point.y = [[elementData objectForKey:@"point1.y"] cgFloatValue];
-                newKey  = [[NSString alloc] initWithFormat:@"%@[%u].point1", key, i];
+                newKey  = [[NSString alloc] initWithFormat:@"%@[%lu].point1", key, (unsigned long)i];
                 [self encodeCPTPoint:point forKey:newKey];
                 [newKey release];
                 break;
@@ -237,11 +237,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
         [newKey release];
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
-            newKey = [[NSString alloc] initWithFormat:@"%@.decode[%u].lower", key, i];
+            newKey = [[NSString alloc] initWithFormat:@"%@.decode[%u].lower", key, (unsigned)i];
             [self encodeCGFloat:decodeArray[i * 2] forKey:newKey];
             [newKey release];
 
-            newKey = [[NSString alloc] initWithFormat:@"%@.decode[%u].upper", key, i];
+            newKey = [[NSString alloc] initWithFormat:@"%@.decode[%u].upper", key, (unsigned)i];
             [self encodeCGFloat:decodeArray[i * 2 + 1] forKey:newKey];
             [newKey release];
         }
@@ -383,7 +383,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
     // decode elements
     for ( NSUInteger i = 0; i < count; i++ ) {
-        newKey = [[NSString alloc] initWithFormat:@"%@[%u].type", key, i];
+        newKey = [[NSString alloc] initWithFormat:@"%@[%u].type", key, (unsigned)i];
         CGPathElementType type = [self decodeIntegerForKey:newKey];
         [newKey release];
 
@@ -391,18 +391,18 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
         switch ( type ) {
             case kCGPathElementAddCurveToPoint: // 3 points
-                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point3", key, i];
+                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point3", key, (unsigned)i];
                 point3 = [self decodeCPTPointForKey:newKey];
                 [newKey release];
 
             case kCGPathElementAddQuadCurveToPoint: // 2 points
-                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point2", key, i];
+                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point2", key, (unsigned)i];
                 point2 = [self decodeCPTPointForKey:newKey];
                 [newKey release];
 
             case kCGPathElementMoveToPoint:    // 1 point
             case kCGPathElementAddLineToPoint: // 1 point
-                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point1", key, i];
+                newKey = [[NSString alloc] initWithFormat:@"%@[%u].point1", key, (unsigned)i];
                 point1 = [self decodeCPTPointForKey:newKey];
                 [newKey release];
                 break;
@@ -493,11 +493,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
         decodeArray = malloc( numberOfComponents * 2 * sizeof(CGFloat) );
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
-            newKey             = [[NSString alloc] initWithFormat:@"%@.decode[%u].lower", key, i];
+            newKey             = [[NSString alloc] initWithFormat:@"%@.decode[%u].lower", key, (unsigned)i];
             decodeArray[i * 2] = [self decodeCGFloatForKey:newKey];
             [newKey release];
 
-            newKey                 = [[NSString alloc] initWithFormat:@"%@.decode[%u].upper", key, i];
+            newKey                 = [[NSString alloc] initWithFormat:@"%@.decode[%u].upper", key, (unsigned)i];
             decodeArray[i * 2 + 1] = [self decodeCGFloatForKey:newKey];
             [newKey release];
         }
