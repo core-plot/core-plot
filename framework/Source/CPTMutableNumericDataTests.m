@@ -1,7 +1,8 @@
+#import "CPTMutableNumericDataTests.h"
+
 #import "CPTExceptions.h"
 #import "CPTMutableNumericData+TypeConversion.h"
 #import "CPTMutableNumericData.h"
-#import "CPTMutableNumericDataTests.h"
 #import "CPTNumericData+TypeConversion.h"
 
 @implementation CPTMutableNumericDataTests

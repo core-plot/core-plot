@@ -16,6 +16,16 @@ typedef enum _CPTDataTypeFormat {
 CPTDataTypeFormat;
 
 /**
+ *	@brief Enumeration of memory arrangements for multi-dimensional data arrays.
+ *  @see See <a href="http://en.wikipedia.org/wiki/Row-major_order">Wikipedia</a> for more information.
+ **/
+typedef enum _CPTDataOrder {
+    CPTDataOrderRowsFirst,   ///< Numeric data is arranged in row-major order.
+    CPTDataOrderColumnsFirst ///< Numeric data is arranged in column-major order.
+}
+CPTDataOrder;
+
+/**
  *	@brief Struct that describes the encoding of numeric data samples.
  **/
 typedef struct _CPTNumericDataType {

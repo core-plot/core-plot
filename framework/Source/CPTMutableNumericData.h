@@ -15,15 +15,4 @@
 @property (copy, readwrite) NSArray *shape;
 ///	@}
 
-/// @name Factory Methods
-/// @{
-+(CPTMutableNumericData *)numericDataWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
-+(CPTMutableNumericData *)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
-///	@}
-
-/// @name Initialization
-/// @{
--(id)initWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
-///	@}
-
 @end

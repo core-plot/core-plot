@@ -1,6 +1,7 @@
+#import "CPTMutableNumericDataTypeConversionTests.h"
+
 #import "CPTMutableNumericData+TypeConversion.h"
 #import "CPTMutableNumericData.h"
-#import "CPTMutableNumericDataTypeConversionTests.h"
 #import "CPTUtilities.h"
 
 static const NSUInteger numberOfSamples = 5;

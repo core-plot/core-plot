@@ -1,7 +1,8 @@
+#import "CPTNumericDataTests.h"
+
 #import "CPTExceptions.h"
 #import "CPTNumericData+TypeConversion.h"
 #import "CPTNumericData.h"
-#import "CPTNumericDataTests.h"
 
 @implementation CPTNumericDataTests
 
@@ -284,6 +285,60 @@
     STAssertEqualsWithAccuracy([[fd sampleValue:1] doubleValue], sin(1), 0.01, @"sample value");
 
     [fd release];
+}
+
+-(void)testSampleIndexRowsFirstOrder
+{
+    const NSUInteger rows = 3;
+    const NSUInteger cols = 4;
+
+    NSMutableData *data = [NSMutableData dataWithLength:rows * cols * sizeof(NSUInteger)];
+    NSUInteger *samples = (NSUInteger *)[data mutableBytes];
+
+    for ( NSUInteger i = 0; i < rows * cols; i++ ) {
+        samples[i] = i;
+    }
+
+    CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
+                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(NSUInteger), NSHostByteOrder() )
+                                                        shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:rows], [NSNumber numberWithUnsignedInteger:cols], nil]
+                                                    dataOrder:CPTDataOrderRowsFirst];
+
+    STAssertEquals( ([fd sampleIndex:rows, 0]), (NSUInteger)NSNotFound, @"row index out of range" );
+    STAssertEquals( ([fd sampleIndex:0, cols]), (NSUInteger)NSNotFound, @"column index out of range" );
+
+    for ( NSUInteger i = 0; i < rows; i++ ) {
+        for ( NSUInteger j = 0; j < cols; j++ ) {
+            STAssertEquals( ([fd sampleIndex:i, j]), i * cols + j, @"(%lu, %lu)", (unsigned long)i, (unsigned long)j );
+        }
+    }
+}
+
+-(void)testSampleIndexColumnsFirstOrder
+{
+    const NSUInteger rows = 3;
+    const NSUInteger cols = 4;
+
+    NSMutableData *data = [NSMutableData dataWithLength:rows * cols * sizeof(NSUInteger)];
+    NSUInteger *samples = (NSUInteger *)[data mutableBytes];
+
+    for ( NSUInteger i = 0; i < rows * cols; i++ ) {
+        samples[i] = i;
+    }
+
+    CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
+                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(NSUInteger), NSHostByteOrder() )
+                                                        shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:rows], [NSNumber numberWithUnsignedInteger:cols], nil]
+                                                    dataOrder:CPTDataOrderColumnsFirst];
+
+    STAssertEquals( ([fd sampleIndex:rows, 0]), (NSUInteger)NSNotFound, @"row index out of range" );
+    STAssertEquals( ([fd sampleIndex:0, cols]), (NSUInteger)NSNotFound, @"column index out of range" );
+
+    for ( NSUInteger i = 0; i < rows; i++ ) {
+        for ( NSUInteger j = 0; j < cols; j++ ) {
+            STAssertEquals( ([fd sampleIndex:i, j]), i + j * rows, @"(%lu, %lu)", (unsigned long)i, (unsigned long)j );
+        }
+    }
 }
 
 @end

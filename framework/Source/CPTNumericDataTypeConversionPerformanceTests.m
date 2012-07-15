@@ -1,6 +1,7 @@
+#import "CPTNumericDataTypeConversionPerformanceTests.h"
+
 #import "CPTNumericData+TypeConversion.h"
 #import "CPTNumericData.h"
-#import "CPTNumericDataTypeConversionPerformanceTests.h"
 #import <mach/mach_time.h>
 
 static const size_t numberOfSamples  = 10000000;

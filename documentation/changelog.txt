@@ -20,6 +20,7 @@
 - **New**: Added bindings for plot data labels, bar plot fills and borders, and pie chart fills and radial offsets.
 - **New**: Added bindings and data source methods for all line styles and fills in range and trading range plots.
 - **New**: Added additional data source methods to all plots so each data source item can be supplied one at a time or in an array.
+- **New**: Added multi-dimensional data array support to `CPTNumericData`.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 - **Changed**: Changed all iOS header files to "Project" visibility to prevent problems with archiving an app that uses the Core Plot static library.
 
