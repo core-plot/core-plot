@@ -146,7 +146,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
         NSDictionary *elementData = [pathData objectAtIndex:i];
 
         CGPathElementType type = [[elementData objectForKey:@"type"] intValue];
-        newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, i];
+        newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
         [self encodeInteger:type forKey:newKey];
         [newKey release];
 
