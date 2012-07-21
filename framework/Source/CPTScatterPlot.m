@@ -1006,28 +1006,31 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger index      = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
-        CGPoint center        = [self plotAreaPointOfVisiblePointAtIndex:index];
-        CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
 
-        CGRect symbolRect = CGRectZero;
-        if ( [symbol isKindOfClass:[CPTPlotSymbol class]] ) {
-            symbolRect.size = symbol.size;
-        }
-        else {
-            symbolRect.size = CGSizeZero;
-        }
-        symbolRect.size.width  += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
-        symbolRect.size.height += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
-        symbolRect.origin       = CGPointMake( center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect) );
+        if ( index != NSNotFound ) {
+            CGPoint center        = [self plotAreaPointOfVisiblePointAtIndex:index];
+            CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
 
-        if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
-            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
-                [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+            CGRect symbolRect = CGRectZero;
+            if ( [symbol isKindOfClass:[CPTPlotSymbol class]] ) {
+                symbolRect.size = symbol.size;
             }
-            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
-                [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index withEvent:event];
+            else {
+                symbolRect.size = CGSizeZero;
             }
-            return YES;
+            symbolRect.size.width  += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
+            symbolRect.size.height += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
+            symbolRect.origin       = CGPointMake( center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect) );
+
+            if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
+                if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+                }
+                if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
+                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index withEvent:event];
+                }
+                return YES;
+            }
         }
     }
 
