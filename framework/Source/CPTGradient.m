@@ -700,7 +700,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradientElement removedElement = [newGradient removeElementAtIndex:index];
 
     if ( isnan(removedElement.position) ) {
-        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%li) beyond bounds", [self class], (long)index];
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%lu) beyond bounds", [self class], (unsigned long)index];
     }
 
     return [newGradient autorelease];
@@ -727,7 +727,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #endif
     }
 
-    [NSException raise:NSRangeException format:@"-[%@ colorStopAtIndex:]: index (%li) beyond bounds", [self class], (long)index];
+    [NSException raise:NSRangeException format:@"-[%@ colorStopAtIndex:]: index (%lu) beyond bounds", [self class], (unsigned long)index];
 
     return NULL;
 }

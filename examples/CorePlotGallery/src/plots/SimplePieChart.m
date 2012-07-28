@@ -179,7 +179,7 @@
 
 -(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-    return [NSString stringWithFormat:@"Pie Slice %u", index];
+    return [NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index];
 }
 
 @end

@@ -151,7 +151,7 @@
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    CPTTextLayer *label            = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]];
+    CPTTextLayer *label            = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
     CPTMutableTextStyle *textStyle = [label.textStyle mutableCopy];
 
     textStyle.color = [CPTColor lightGrayColor];
@@ -181,7 +181,7 @@
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", index];
+    pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", (unsigned long)index];
 }
 
 -(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag

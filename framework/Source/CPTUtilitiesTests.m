@@ -462,7 +462,7 @@
     STAssertEquals(alignedRect.size.width, (CGFloat)10.0, @"round width (10.772727, 10.772727, 10.363636, 10.363636);");
     STAssertEquals(alignedRect.size.height, (CGFloat)10.0, @"round height (10.772727, 10.772727, 10.363636, 10.363636);");
 
-    rect        = CGRectMake(10.136363, 10.136363, 10.363636, 10.363636);
+    rect        = CGRectMake(10.13636, 10.13636, 10.36363, 10.36363);
     alignedRect = CPTAlignIntegralRectToUserSpace(self.context, rect);
     STAssertEquals(alignedRect.origin.x, (CGFloat)10.0, @"round x (10.136363, 10.136363, 10.363636, 10.363636);");
     STAssertEquals(alignedRect.origin.y, (CGFloat)10.0, @"round y (10.136363, 10.136363, 10.363636, 10.363636);");

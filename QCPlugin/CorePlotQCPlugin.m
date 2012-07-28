@@ -506,28 +506,28 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
 -(id)dataLineColor:(NSUInteger)index
 {
-    NSString *key = [NSString stringWithFormat:@"plotDataLineColor%i", index];
+    NSString *key = [NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index];
 
     return [self valueForInputKey:key];
 }
 
 -(CGFloat)dataLineWidth:(NSUInteger)index
 {
-    NSString *key = [NSString stringWithFormat:@"plotDataLineWidth%i", index];
+    NSString *key = [NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)index];
 
     return [[self valueForInputKey:key] floatValue];
 }
 
 -(id)areaFillColor:(NSUInteger)index
 {
-    NSString *key = [NSString stringWithFormat:@"plotFillColor%i", index];
+    NSString *key = [NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index];
 
     return [self valueForInputKey:key];
 }
 
 -(CGImageRef)newAreaFillImage:(NSUInteger)index
 {
-    NSString *key = [NSString stringWithFormat:@"plotFillImage%i", index];
+    NSString *key = [NSString stringWithFormat:@"plotFillImage%lu", (unsigned long)index];
 
     id<QCPlugInInputImageSource> img = [self valueForInputKey:key];
     if ( !img ) {

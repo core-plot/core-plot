@@ -424,9 +424,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 NSDecimal plotPoint[2];
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
-                viewPoints[i]             = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-                viewPoints[i].x          += originTransformed.x;
-                viewPoints[i].y          += originTransformed.y;
+
+                CGPoint plotAreaViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+                viewPoints[i]    = plotAreaViewPoint;
+                viewPoints[i].x += originTransformed.x;
+                viewPoints[i].y += originTransformed.y;
             }
         }
     }

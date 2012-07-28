@@ -940,7 +940,7 @@ typedef struct CGPointError CGPointError;
 
     NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
     if ( result != NSNotFound ) {
-        CGPointError lastViewPoint     = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+        CGPointError lastViewPoint;
         CGFloat minimumDistanceSquared = NAN;
         for ( NSUInteger i = result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {

@@ -70,7 +70,7 @@
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%ud", index]];
+            num = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lud", (unsigned long)index]];
             break;
 
         case CPTScatterPlotFieldY:

@@ -103,7 +103,7 @@ static const CGFloat titleOffset     = 25.0;
     axisNone.minorTickLocations          = minorTickLocations;
     NSMutableSet *newAxisLabels = [NSMutableSet set];
     for ( NSUInteger i = 0; i <= 5; i++ ) {
-        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"Label %u", i]
+        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"Label %lu", (unsigned long)i]
                                                           textStyle:axisNone.labelTextStyle];
         newLabel.tickLocation = CPTDecimalFromUnsignedInteger(i * 20);
         newLabel.offset       = axisNone.labelOffset + axisNone.majorTickLength / 2.0;

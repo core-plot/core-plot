@@ -736,9 +736,9 @@
     NSUInteger newIndex = 0;
 
     if ( numDims > 1 ) {
-        NSUInteger *dims        = malloc( numDims * sizeof(NSUInteger) );
-        NSUInteger *dimProducts = malloc( numDims * sizeof(NSUInteger) );
-        NSUInteger *indices     = malloc( numDims * sizeof(NSUInteger) );
+        NSUInteger *dims        = calloc( numDims, sizeof(NSUInteger) );
+        NSUInteger *dimProducts = calloc( numDims, sizeof(NSUInteger) );
+        NSUInteger *indices     = calloc( numDims, sizeof(NSUInteger) );
         NSUInteger idx          = 0;
 
         indices[0] = index;
@@ -749,6 +749,9 @@
             dims[idx] = [dim unsignedIntegerValue];
 
             if ( indices[idx] >= dims[idx] ) {
+                free(dims);
+                free(dimProducts);
+                free(indices);
                 return NSNotFound;
             }
 

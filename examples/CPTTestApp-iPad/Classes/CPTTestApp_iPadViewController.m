@@ -433,12 +433,12 @@
                 break;
 
             default:
-                newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+                newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText] autorelease];
                 break;
         }
     }
     else if ( [plot isKindOfClass:[CPTScatterPlot class]] ) {
-        newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index] style:whiteText] autorelease];
+        newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText] autorelease];
     }
 
     return newLayer;

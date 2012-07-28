@@ -477,12 +477,12 @@
             break;
 
         case 1:
-            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]
+            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
                                                      style:[CPTTextStyle textStyle]] autorelease];
             break;
 
         default:
-            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", index]
+            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
                                                      style:whiteText] autorelease];
             break;
     }
