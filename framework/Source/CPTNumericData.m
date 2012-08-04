@@ -693,7 +693,7 @@
         newIndex = index;
     }
 
-    return [self samplePointerAtIndex:newIndex];
+    return [self samplePointer:newIndex];
 }
 
 /**	@brief Gets an array data samples from the receiver.
