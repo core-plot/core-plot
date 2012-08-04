@@ -342,107 +342,109 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
     id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
 
-    // Bar lengths
-    if ( theDataSource ) {
-        id newBarLengths = [self numbersFromDataSourceForField:CPTBarPlotFieldBarTip recordIndexRange:indexRange];
-        [self cacheNumbers:newBarLengths forField:CPTBarPlotFieldBarTip atRecordIndex:indexRange.location];
-        if ( self.barBasesVary ) {
-            id newBarBases = [self numbersFromDataSourceForField:CPTBarPlotFieldBarBase recordIndexRange:indexRange];
-            [self cacheNumbers:newBarBases forField:CPTBarPlotFieldBarBase atRecordIndex:indexRange.location];
+    if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        // Bar lengths
+        if ( theDataSource ) {
+            id newBarLengths = [self numbersFromDataSourceForField:CPTBarPlotFieldBarTip recordIndexRange:indexRange];
+            [self cacheNumbers:newBarLengths forField:CPTBarPlotFieldBarTip atRecordIndex:indexRange.location];
+            if ( self.barBasesVary ) {
+                id newBarBases = [self numbersFromDataSourceForField:CPTBarPlotFieldBarBase recordIndexRange:indexRange];
+                [self cacheNumbers:newBarBases forField:CPTBarPlotFieldBarBase atRecordIndex:indexRange.location];
+            }
+            else {
+                self.barBases = nil;
+            }
         }
         else {
+            self.barTips  = nil;
             self.barBases = nil;
         }
-    }
-    else {
-        self.barTips  = nil;
-        self.barBases = nil;
-    }
 
-    // Locations of bars
-    if ( self.plotRange ) {
-        // Spread bars evenly over the plot range
-        CPTMutableNumericData *locationData = nil;
-        if ( self.doublePrecisionCache ) {
-            locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                              dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
-                                                                 shape:nil];
-            locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+        // Locations of bars
+        if ( self.plotRange ) {
+            // Spread bars evenly over the plot range
+            CPTMutableNumericData *locationData = nil;
+            if ( self.doublePrecisionCache ) {
+                locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
+                                                                  dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                     shape:nil];
+                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 
-            double doublePrecisionDelta = 1.0;
-            if ( indexRange.length > 1 ) {
-                doublePrecisionDelta = self.plotRange.lengthDouble / (double)(indexRange.length - 1);
+                double doublePrecisionDelta = 1.0;
+                if ( indexRange.length > 1 ) {
+                    doublePrecisionDelta = self.plotRange.lengthDouble / (double)(indexRange.length - 1);
+                }
+
+                double locationDouble = self.plotRange.locationDouble;
+                double *dataBytes     = (double *)locationData.mutableBytes;
+                double *dataEnd       = dataBytes + indexRange.length;
+                while ( dataBytes < dataEnd ) {
+                    *dataBytes++    = locationDouble;
+                    locationDouble += doublePrecisionDelta;
+                }
             }
+            else {
+                locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
+                                                                  dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
+                                                                     shape:nil];
+                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 
-            double locationDouble = self.plotRange.locationDouble;
-            double *dataBytes     = (double *)locationData.mutableBytes;
-            double *dataEnd       = dataBytes + indexRange.length;
-            while ( dataBytes < dataEnd ) {
-                *dataBytes++    = locationDouble;
-                locationDouble += doublePrecisionDelta;
+                NSDecimal delta = CPTDecimalFromInteger(1);
+                if ( indexRange.length > 1 ) {
+                    delta = CPTDecimalDivide( self.plotRange.length, CPTDecimalFromUnsignedInteger(indexRange.length - 1) );
+                }
+
+                NSDecimal locationDecimal = self.plotRange.location;
+                NSDecimal *dataBytes      = (NSDecimal *)locationData.mutableBytes;
+                NSDecimal *dataEnd        = dataBytes + indexRange.length;
+                while ( dataBytes < dataEnd ) {
+                    *dataBytes++    = locationDecimal;
+                    locationDecimal = CPTDecimalAdd(locationDecimal, delta);
+                }
             }
+            [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
+            [locationData release];
+        }
+        else if ( theDataSource ) {
+            // Get locations from the datasource
+            id newBarLocations = [self numbersFromDataSourceForField:CPTBarPlotFieldBarLocation recordIndexRange:indexRange];
+            [self cacheNumbers:newBarLocations forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
         }
         else {
-            locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                              dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
-                                                                 shape:nil];
-            locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+            // Make evenly spaced locations starting at zero
+            CPTMutableNumericData *locationData = nil;
+            if ( self.doublePrecisionCache ) {
+                locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
+                                                                  dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                     shape:nil];
+                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 
-            NSDecimal delta = CPTDecimalFromInteger(1);
-            if ( indexRange.length > 1 ) {
-                delta = CPTDecimalDivide( self.plotRange.length, CPTDecimalFromUnsignedInteger(indexRange.length - 1) );
+                double locationDouble = 0.0;
+                double *dataBytes     = (double *)locationData.mutableBytes;
+                double *dataEnd       = dataBytes + indexRange.length;
+                while ( dataBytes < dataEnd ) {
+                    *dataBytes++    = locationDouble;
+                    locationDouble += 1.0;
+                }
             }
+            else {
+                locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
+                                                                  dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
+                                                                     shape:nil];
+                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
 
-            NSDecimal locationDecimal = self.plotRange.location;
-            NSDecimal *dataBytes      = (NSDecimal *)locationData.mutableBytes;
-            NSDecimal *dataEnd        = dataBytes + indexRange.length;
-            while ( dataBytes < dataEnd ) {
-                *dataBytes++    = locationDecimal;
-                locationDecimal = CPTDecimalAdd(locationDecimal, delta);
+                NSDecimal locationDecimal = CPTDecimalFromInteger(0);
+                NSDecimal *dataBytes      = (NSDecimal *)locationData.mutableBytes;
+                NSDecimal *dataEnd        = dataBytes + indexRange.length;
+                NSDecimal one             = CPTDecimalFromInteger(1);
+                while ( dataBytes < dataEnd ) {
+                    *dataBytes++    = locationDecimal;
+                    locationDecimal = CPTDecimalAdd(locationDecimal, one);
+                }
             }
+            [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
+            [locationData release];
         }
-        [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
-        [locationData release];
-    }
-    else if ( theDataSource ) {
-        // Get locations from the datasource
-        id newBarLocations = [self numbersFromDataSourceForField:CPTBarPlotFieldBarLocation recordIndexRange:indexRange];
-        [self cacheNumbers:newBarLocations forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
-    }
-    else {
-        // Make evenly spaced locations starting at zero
-        CPTMutableNumericData *locationData = nil;
-        if ( self.doublePrecisionCache ) {
-            locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                              dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
-                                                                 shape:nil];
-            locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
-
-            double locationDouble = 0.0;
-            double *dataBytes     = (double *)locationData.mutableBytes;
-            double *dataEnd       = dataBytes + indexRange.length;
-            while ( dataBytes < dataEnd ) {
-                *dataBytes++    = locationDouble;
-                locationDouble += 1.0;
-            }
-        }
-        else {
-            locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                              dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
-                                                                 shape:nil];
-            locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
-
-            NSDecimal locationDecimal = CPTDecimalFromInteger(0);
-            NSDecimal *dataBytes      = (NSDecimal *)locationData.mutableBytes;
-            NSDecimal *dataEnd        = dataBytes + indexRange.length;
-            NSDecimal one             = CPTDecimalFromInteger(1);
-            while ( dataBytes < dataEnd ) {
-                *dataBytes++    = locationDecimal;
-                locationDecimal = CPTDecimalAdd(locationDecimal, one);
-            }
-        }
-        [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
-        [locationData release];
     }
 
     // Bar fills
@@ -1460,7 +1462,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return [NSArray arrayWithObjects:
             [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarLocation],
             [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip],
-            [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarLocation],
+            [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarBase],
             nil];
 }
 

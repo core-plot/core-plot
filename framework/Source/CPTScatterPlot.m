@@ -240,34 +240,36 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
 
-    if ( theDataSource ) {
-        id newXValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldX recordIndexRange:indexRange];
-        [self cacheNumbers:newXValues forField:CPTScatterPlotFieldX atRecordIndex:indexRange.location];
-        id newYValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldY recordIndexRange:indexRange];
-        [self cacheNumbers:newYValues forField:CPTScatterPlotFieldY atRecordIndex:indexRange.location];
-
-        // Update plot symbols
-        if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange] forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+    if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        if ( theDataSource ) {
+            id newXValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldX recordIndexRange:indexRange];
+            [self cacheNumbers:newXValues forField:CPTScatterPlotFieldX atRecordIndex:indexRange.location];
+            id newYValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldY recordIndexRange:indexRange];
+            [self cacheNumbers:newYValues forField:CPTScatterPlotFieldY atRecordIndex:indexRange.location];
         }
-        else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
+    }
 
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:index];
-                if ( symbol ) {
-                    [array addObject:symbol];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
+    // Update plot symbols
+    if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange] forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:index];
+            if ( symbol ) {
+                [array addObject:symbol];
             }
-
-            [self cacheArray:array forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
-            [array release];
+            else {
+                [array addObject:nilObject];
+            }
         }
+
+        [self cacheArray:array forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+        [array release];
     }
 }
 

@@ -93,6 +93,22 @@ CPTPlotCachePrecision;
  **/
 -(CPTNumericData *)dataForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
+/**	@brief (Optional) Gets a range of plot data for all fields of the given plot simultaneously.
+ *	Implement one and only one of the optional methods in this section.
+ *
+ *  The data returned from this method should be a two-dimensional array. It can be arranged
+ *  in row- or column-major order although column-major will load faster, especially for large arrays.
+ *  The array should have the same number of rows as the length of <code>indexRange</code>.
+ *  The number of columns should be equal to the number of plot fields required by the plot.
+ *  The column index (zero-based) corresponds with the field index.
+ *  The data type will be converted to match the @link CPTPlot::cachePrecision cachePrecision @endlink if needed.
+ *
+ *	@param plot The plot.
+ *	@param indexRange The range of the data indexes of interest.
+ *	@return A two-dimensional array of data points.
+ **/
+-(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
+
 ///	@}
 
 /// @name Data Labels
@@ -264,6 +280,7 @@ CPTPlotCachePrecision;
 /// @{
 +(id)nilData;
 -(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(BOOL)loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:(NSRange)indexRange;
 ///	@}
 
 /// @name Data Cache

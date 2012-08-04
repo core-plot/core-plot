@@ -277,136 +277,138 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
 
-    if ( theDataSource ) {
-        id newXValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldX recordIndexRange:indexRange];
-        [self cacheNumbers:newXValues forField:CPTTradingRangePlotFieldX atRecordIndex:indexRange.location];
-        id newOpenValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldOpen recordIndexRange:indexRange];
-        [self cacheNumbers:newOpenValues forField:CPTTradingRangePlotFieldOpen atRecordIndex:indexRange.location];
-        id newHighValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldHigh recordIndexRange:indexRange];
-        [self cacheNumbers:newHighValues forField:CPTTradingRangePlotFieldHigh atRecordIndex:indexRange.location];
-        id newLowValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldLow recordIndexRange:indexRange];
-        [self cacheNumbers:newLowValues forField:CPTTradingRangePlotFieldLow atRecordIndex:indexRange.location];
-        id newCloseValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldClose recordIndexRange:indexRange];
-        [self cacheNumbers:newCloseValues forField:CPTTradingRangePlotFieldClose atRecordIndex:indexRange.location];
-
-        // Fills
-        if ( [theDataSource respondsToSelector:@selector(increaseFillsForTradingRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+    if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        if ( theDataSource ) {
+            id newXValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldX recordIndexRange:indexRange];
+            [self cacheNumbers:newXValues forField:CPTTradingRangePlotFieldX atRecordIndex:indexRange.location];
+            id newOpenValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldOpen recordIndexRange:indexRange];
+            [self cacheNumbers:newOpenValues forField:CPTTradingRangePlotFieldOpen atRecordIndex:indexRange.location];
+            id newHighValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldHigh recordIndexRange:indexRange];
+            [self cacheNumbers:newHighValues forField:CPTTradingRangePlotFieldHigh atRecordIndex:indexRange.location];
+            id newLowValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldLow recordIndexRange:indexRange];
+            [self cacheNumbers:newLowValues forField:CPTTradingRangePlotFieldLow atRecordIndex:indexRange.location];
+            id newCloseValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldClose recordIndexRange:indexRange];
+            [self cacheNumbers:newCloseValues forField:CPTTradingRangePlotFieldClose atRecordIndex:indexRange.location];
         }
-        else if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTFill *dataSourceFill = [theDataSource increaseFillForTradingRangePlot:self recordIndex:index];
-                if ( dataSourceFill ) {
-                    [array addObject:dataSourceFill];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
-            }
-
-            [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
-            [array release];
-        }
-
-        if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
-        }
-        else if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTFill *dataSourceFill = [theDataSource decreaseFillForTradingRangePlot:self recordIndex:index];
-                if ( dataSourceFill ) {
-                    [array addObject:dataSourceFill];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
-            }
-
-            [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
-            [array release];
-        }
-
-        // Line styles
-        if ( [theDataSource respondsToSelector:@selector(lineStylesForTradingRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
-        }
-        else if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTLineStyle *dataSourceLineStyle = [theDataSource lineStyleForTradingRangePlot:self recordIndex:index];
-                if ( dataSourceLineStyle ) {
-                    [array addObject:dataSourceLineStyle];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
-            }
-
-            [self cacheArray:array forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
-            [array release];
-        }
-
-        if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
-        }
-        else if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTLineStyle *dataSourceLineStyle = [theDataSource increaseLineStyleForTradingRangePlot:self recordIndex:index];
-                if ( dataSourceLineStyle ) {
-                    [array addObject:dataSourceLineStyle];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
-            }
-
-            [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
-            [array release];
-        }
-
-        if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
-        }
-        else if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTLineStyle *dataSourceLineStyle = [theDataSource decreaseLineStyleForTradingRangePlot:self recordIndex:index];
-                if ( dataSourceLineStyle ) {
-                    [array addObject:dataSourceLineStyle];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
-            }
-
-            [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
-            [array release];
+        else {
+            self.xValues     = nil;
+            self.openValues  = nil;
+            self.highValues  = nil;
+            self.lowValues   = nil;
+            self.closeValues = nil;
         }
     }
-    else {
-        self.xValues     = nil;
-        self.openValues  = nil;
-        self.highValues  = nil;
-        self.lowValues   = nil;
-        self.closeValues = nil;
+
+    // Fills
+    if ( [theDataSource respondsToSelector:@selector(increaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTFill *dataSourceFill = [theDataSource increaseFillForTradingRangePlot:self recordIndex:index];
+            if ( dataSourceFill ) {
+                [array addObject:dataSourceFill];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+        [array release];
+    }
+
+    if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTFill *dataSourceFill = [theDataSource decreaseFillForTradingRangePlot:self recordIndex:index];
+            if ( dataSourceFill ) {
+                [array addObject:dataSourceFill];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
+        [array release];
+    }
+
+    // Line styles
+    if ( [theDataSource respondsToSelector:@selector(lineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTLineStyle *dataSourceLineStyle = [theDataSource lineStyleForTradingRangePlot:self recordIndex:index];
+            if ( dataSourceLineStyle ) {
+                [array addObject:dataSourceLineStyle];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
+        [array release];
+    }
+
+    if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTLineStyle *dataSourceLineStyle = [theDataSource increaseLineStyleForTradingRangePlot:self recordIndex:index];
+            if ( dataSourceLineStyle ) {
+                [array addObject:dataSourceLineStyle];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
+        [array release];
+    }
+
+    if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+            CPTLineStyle *dataSourceLineStyle = [theDataSource decreaseLineStyleForTradingRangePlot:self recordIndex:index];
+            if ( dataSourceLineStyle ) {
+                [array addObject:dataSourceLineStyle];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
+        [array release];
     }
 }
 

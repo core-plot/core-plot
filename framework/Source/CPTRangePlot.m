@@ -481,52 +481,54 @@ typedef struct CGPointError CGPointError;
 {
     [super reloadDataInIndexRange:indexRange];
 
-    id<CPTRangePlotDataSource> theDataSource = (id<CPTRangePlotDataSource>)self.dataSource;
+    if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        id<CPTRangePlotDataSource> theDataSource = (id<CPTRangePlotDataSource>)self.dataSource;
 
-    if ( theDataSource ) {
-        id newXValues = [self numbersFromDataSourceForField:CPTRangePlotFieldX recordIndexRange:indexRange];
-        [self cacheNumbers:newXValues forField:CPTRangePlotFieldX atRecordIndex:indexRange.location];
-        id newYValues = [self numbersFromDataSourceForField:CPTRangePlotFieldY recordIndexRange:indexRange];
-        [self cacheNumbers:newYValues forField:CPTRangePlotFieldY atRecordIndex:indexRange.location];
-        id newHighValues = [self numbersFromDataSourceForField:CPTRangePlotFieldHigh recordIndexRange:indexRange];
-        [self cacheNumbers:newHighValues forField:CPTRangePlotFieldHigh atRecordIndex:indexRange.location];
-        id newLowValues = [self numbersFromDataSourceForField:CPTRangePlotFieldLow recordIndexRange:indexRange];
-        [self cacheNumbers:newLowValues forField:CPTRangePlotFieldLow atRecordIndex:indexRange.location];
-        id newLeftValues = [self numbersFromDataSourceForField:CPTRangePlotFieldLeft recordIndexRange:indexRange];
-        [self cacheNumbers:newLeftValues forField:CPTRangePlotFieldLeft atRecordIndex:indexRange.location];
-        id newRightValues = [self numbersFromDataSourceForField:CPTRangePlotFieldRight recordIndexRange:indexRange];
-        [self cacheNumbers:newRightValues forField:CPTRangePlotFieldRight atRecordIndex:indexRange.location];
+        if ( theDataSource ) {
+            id newXValues = [self numbersFromDataSourceForField:CPTRangePlotFieldX recordIndexRange:indexRange];
+            [self cacheNumbers:newXValues forField:CPTRangePlotFieldX atRecordIndex:indexRange.location];
+            id newYValues = [self numbersFromDataSourceForField:CPTRangePlotFieldY recordIndexRange:indexRange];
+            [self cacheNumbers:newYValues forField:CPTRangePlotFieldY atRecordIndex:indexRange.location];
+            id newHighValues = [self numbersFromDataSourceForField:CPTRangePlotFieldHigh recordIndexRange:indexRange];
+            [self cacheNumbers:newHighValues forField:CPTRangePlotFieldHigh atRecordIndex:indexRange.location];
+            id newLowValues = [self numbersFromDataSourceForField:CPTRangePlotFieldLow recordIndexRange:indexRange];
+            [self cacheNumbers:newLowValues forField:CPTRangePlotFieldLow atRecordIndex:indexRange.location];
+            id newLeftValues = [self numbersFromDataSourceForField:CPTRangePlotFieldLeft recordIndexRange:indexRange];
+            [self cacheNumbers:newLeftValues forField:CPTRangePlotFieldLeft atRecordIndex:indexRange.location];
+            id newRightValues = [self numbersFromDataSourceForField:CPTRangePlotFieldRight recordIndexRange:indexRange];
+            [self cacheNumbers:newRightValues forField:CPTRangePlotFieldRight atRecordIndex:indexRange.location];
 
-        // Bar line styles
-        if ( [theDataSource respondsToSelector:@selector(barLineStylesForRangePlot:recordIndexRange:)] ) {
-            [self cacheArray:[theDataSource barLineStylesForRangePlot:self recordIndexRange:indexRange] forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-        }
-        else if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
-            id nilObject          = [CPTPlot nilData];
-            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-            NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-            for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:index];
-                if ( dataSourceLineStyle ) {
-                    [array addObject:dataSourceLineStyle];
-                }
-                else {
-                    [array addObject:nilObject];
-                }
+            // Bar line styles
+            if ( [theDataSource respondsToSelector:@selector(barLineStylesForRangePlot:recordIndexRange:)] ) {
+                [self cacheArray:[theDataSource barLineStylesForRangePlot:self recordIndexRange:indexRange] forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
             }
+            else if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
+                id nilObject          = [CPTPlot nilData];
+                NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+                NSUInteger maxIndex   = NSMaxRange(indexRange);
 
-            [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-            [array release];
+                for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
+                    CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:index];
+                    if ( dataSourceLineStyle ) {
+                        [array addObject:dataSourceLineStyle];
+                    }
+                    else {
+                        [array addObject:nilObject];
+                    }
+                }
+
+                [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
+                [array release];
+            }
         }
-    }
-    else {
-        self.xValues     = nil;
-        self.yValues     = nil;
-        self.highValues  = nil;
-        self.lowValues   = nil;
-        self.leftValues  = nil;
-        self.rightValues = nil;
+        else {
+            self.xValues     = nil;
+            self.yValues     = nil;
+            self.highValues  = nil;
+            self.lowValues   = nil;
+            self.leftValues  = nil;
+            self.rightValues = nil;
+        }
     }
 }
 

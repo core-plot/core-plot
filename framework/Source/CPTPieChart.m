@@ -294,14 +294,16 @@ static const CGFloat colorLookupTable[10][3] =
 
     id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
 
-    // Pie slice widths
-    if ( theDataSource ) {
-        // Grab all values from the data source
-        id rawSliceValues = [self numbersFromDataSourceForField:CPTPieChartFieldSliceWidth recordIndexRange:indexRange];
-        [self cacheNumbers:rawSliceValues forField:CPTPieChartFieldSliceWidth atRecordIndex:indexRange.location];
-    }
-    else {
-        [self cacheNumbers:nil forField:CPTPieChartFieldSliceWidth];
+    if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        // Pie slice widths
+        if ( theDataSource ) {
+            // Grab all values from the data source
+            id rawSliceValues = [self numbersFromDataSourceForField:CPTPieChartFieldSliceWidth recordIndexRange:indexRange];
+            [self cacheNumbers:rawSliceValues forField:CPTPieChartFieldSliceWidth atRecordIndex:indexRange.location];
+        }
+        else {
+            [self cacheNumbers:nil forField:CPTPieChartFieldSliceWidth];
+        }
     }
 
     [self updateNormalizedData];
