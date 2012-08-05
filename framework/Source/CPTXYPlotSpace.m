@@ -799,6 +799,7 @@
     BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 
     if ( handledByDelegate ) {
+        isDragging = NO;
         return YES;
     }
 
