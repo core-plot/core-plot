@@ -55,12 +55,12 @@
         case CPTSignNone:
         case CPTSignNegative:
             *value -= self.offset;
-            anchor  = ( coordinate == CPTCoordinateX ? CGPointMake(0.5, 0.0) : CGPointMake(0.5, 1.0) );
+            anchor  = ( coordinate == CPTCoordinateX ? CGPointMake(0.0, 0.5) : CGPointMake(0.5, 1.0) );
             break;
 
         case CPTSignPositive:
             *value += self.offset;
-            anchor  = ( coordinate == CPTCoordinateX ? CGPointMake(0.5, 1.0) : CGPointMake(0.5, 0.0) );
+            anchor  = ( coordinate == CPTCoordinateX ? CGPointMake(1.0, 0.5) : CGPointMake(0.5, 0.0) );
             break;
 
         default:
