@@ -135,8 +135,11 @@
     CGFloat *value      = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
     CGFloat angle       = 0.0;
 
-    CGFloat myRotation = self.rotation;
-    content.transform = CATransform3DMakeRotation(myRotation, 0.0, 0.0, 1.0);
+    CGFloat labelRotation = self.rotation;
+    if ( isnan(labelRotation) ) {
+        labelRotation = (coordinate == CPTCoordinateX ? M_PI_2 : 0.0);
+    }
+    content.transform = CATransform3DMakeRotation(labelRotation, 0.0, 0.0, 1.0);
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
@@ -240,7 +243,7 @@
     }
 
     angle += M_PI;
-    angle -= myRotation;
+    angle -= labelRotation;
     CGFloat newAnchorX = cos(angle);
     CGFloat newAnchorY = sin(angle);
 
