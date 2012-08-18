@@ -314,9 +314,6 @@
 		C304565213F4AC9A004D04BC /* _CPTDarkGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTDarkGradientTheme.h; path = Source/_CPTDarkGradientTheme.h; sourceTree = "<group>"; };
 		C30550E71399BE2000E0151F /* CPTLegendEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLegendEntry.h; path = Source/CPTLegendEntry.h; sourceTree = "<group>"; };
 		C30550E81399BE2000E0151F /* CPTLegendEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLegendEntry.m; path = Source/CPTLegendEntry.m; sourceTree = "<group>"; };
-		C3088A04149C2F1200EABCE6 /* footer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; name = footer.html; path = ../documentation/doxygen/footer.html; sourceTree = "<group>"; };
-		C3088A05149C2F1200EABCE6 /* customdoxygen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = customdoxygen.css; path = ../documentation/doxygen/customdoxygen.css; sourceTree = "<group>"; };
-		C3088A06149C2F1200EABCE6 /* header.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; name = header.html; path = ../documentation/doxygen/header.html; sourceTree = "<group>"; };
 		C30C85A91047428100181766 /* CPTPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotGroup.h; path = Source/CPTPlotGroup.h; sourceTree = "<group>"; };
 		C30C85AA1047428100181766 /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotGroup.m; path = Source/CPTPlotGroup.m; sourceTree = "<group>"; };
 		C30E97A014B290650012204A /* DoxygenLayout.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = DoxygenLayout.xml; path = ../documentation/doxygen/DoxygenLayout.xml; sourceTree = "<group>"; };
@@ -727,9 +724,6 @@
 				C3566B8E10EED1B000FB3866 /* mainpage.h */,
 				C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */,
 				C30E97A014B290650012204A /* DoxygenLayout.xml */,
-				C3088A06149C2F1200EABCE6 /* header.html */,
-				C3088A04149C2F1200EABCE6 /* footer.html */,
-				C3088A05149C2F1200EABCE6 /* customdoxygen.css */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
