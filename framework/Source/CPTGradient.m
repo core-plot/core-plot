@@ -54,10 +54,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 @implementation CPTGradient
 
+///	@cond
+
 /** @property colorspace
  *  @brief The colorspace for the gradient colors.
  **/
 @synthesize colorspace;
+
+///	@endcond
 
 /** @property blendingMode
  *  @brief The color blending mode used to create the gradient.
