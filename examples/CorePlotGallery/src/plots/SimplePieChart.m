@@ -125,7 +125,7 @@
         whiteText.color = [CPTColor whiteColor];
     }
 
-    CPTTextLayer *newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%3.0f", [[plotData objectAtIndex:index] floatValue]]
+    CPTTextLayer *newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [[plotData objectAtIndex:index] floatValue]]
                                                            style:whiteText] autorelease];
     return newLayer;
 }
