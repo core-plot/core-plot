@@ -523,6 +523,7 @@
 					"-all_load",
 				);
 				SDKROOT = macosx;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Debug;
 		};
@@ -538,6 +539,7 @@
 					"-all_load",
 				);
 				SDKROOT = macosx;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
 			};
 			name = Release;
 		};
