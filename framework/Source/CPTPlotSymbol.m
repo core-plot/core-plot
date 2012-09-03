@@ -6,7 +6,7 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-///	@cond
+/// @cond
 @interface CPTPlotSymbol()
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedSymbolPath;
@@ -16,54 +16,54 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
-/**	@brief Plot symbols for CPTScatterPlot.
+/** @brief Plot symbols for CPTScatterPlot.
  */
 @implementation CPTPlotSymbol
 
-/**	@property anchorPoint
- *	@brief The anchor point for the plot symbol. Defaults to (0.5, 0.5) which centers the symbol on the plot point.
+/** @property CGPoint anchorPoint
+ *  @brief The anchor point for the plot symbol. Defaults to (@num{0.5}, @num{0.5}) which centers the symbol on the plot point.
  **/
 @synthesize anchorPoint;
 
-/**	@property size
+/** @property CGSize size
  *  @brief The symbol size.
  **/
 @synthesize size;
 
-/** @property symbolType
+/** @property CPTPlotSymbolType symbolType
  *  @brief The symbol type.
  **/
 @synthesize symbolType;
 
-/** @property lineStyle
+/** @property CPTLineStyle *lineStyle
  *  @brief The line style for the border of the symbol.
- *	If <code>nil</code>, the border is not drawn.
+ *  If @nil, the border is not drawn.
  **/
 @synthesize lineStyle;
 
-/** @property fill
+/** @property CPTFill *fill
  *  @brief The fill for the interior of the symbol.
- *	If <code>nil</code>, the symbol is not filled.
+ *  If @nil, the symbol is not filled.
  **/
 @synthesize fill;
 
-/**	@property shadow
- *	@brief The shadow applied to each plot symbol.
+/** @property CPTShadow *shadow
+ *  @brief The shadow applied to each plot symbol.
  **/
 @synthesize shadow;
 
-/** @property customSymbolPath
- *  @brief The drawing path for a custom plot symbol. It will be scaled to size before being drawn.
+/** @property CGPathRef customSymbolPath
+ *  @brief The drawing path for a custom plot symbol. It will be scaled to @ref size before being drawn.
  **/
 @synthesize customSymbolPath;
 
-/** @property usesEvenOddClipRule
- *  @brief If YES, the even-odd rule is used to draw the symbol, otherwise the nonzero winding number rule is used.
- *	@see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
+/** @property BOOL usesEvenOddClipRule
+ *  @brief If @YES, the even-odd rule is used to draw the symbol, otherwise the non-zero winding number rule is used.
+ *  @see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
  **/
 @synthesize usesEvenOddClipRule;
 
@@ -72,8 +72,25 @@
 @synthesize cachedLayer;
 
 #pragma mark -
-#pragma mark Init/dealloc
+#pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTPlotSymbol object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref anchorPoint = (@num{0.5}, @num{0.5})
+ *  - @ref size = (@num{5.0}, @num{5.0})
+ *  - @ref symbolType = #CPTPlotSymbolTypeNone
+ *  - @ref lineStyle = a new default line style
+ *  - @ref fill = @nil
+ *  - @ref shadow = @nil
+ *  - @ref customSymbolPath = @NULL
+ *  - @ref usesEvenOddClipRule = @NO
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -90,6 +107,10 @@
     }
     return self;
 }
+
+/// @}
+
+/// @cond
 
 -(void)dealloc
 {
@@ -111,8 +132,12 @@
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -148,10 +173,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setSize:(CGSize)newSize
 {
@@ -212,7 +239,7 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Class methods
@@ -362,7 +389,7 @@
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
- *	@param aPath The bounding path for the custom symbol.
+ *  @param aPath The bounding path for the custom symbol.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  **/
 +(CPTPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
@@ -376,7 +403,9 @@
 }
 
 #pragma mark -
-#pragma mark NSCopying methods
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -397,16 +426,18 @@
     return copy;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
 /** @brief Draws the plot symbol into the given graphics context centered at the provided point using the cached symbol image.
- *  @param theContext The graphics context to draw into.
+ *  @param context The graphics context to draw into.
  *  @param center The center point of the symbol.
- *  @param scale The drawing scale factor. Must be greater than zero (0).
- *	@param alignToPixels If YES, the symbol position is aligned with device pixels to reduce anti-aliasing artifacts.
+ *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
+ *  @param alignToPixels If @YES, the symbol position is aligned with device pixels to reduce anti-aliasing artifacts.
  **/
--(void)renderInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels
+-(void)renderInContext:(CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels
 {
     const CGFloat symbolMargin = 2.0;
 
@@ -436,7 +467,7 @@
         layerSize.height += symbolMargin;
 
         self.anchorPoint = CGPointMake(0.5, 0.5);
-        theCachedLayer   = CGLayerCreateWithContext(theContext, layerSize, NULL);
+        theCachedLayer   = CGLayerCreateWithContext(context, layerSize, NULL);
 
         [self renderAsVectorInContext:CGLayerGetContext(theCachedLayer)
                               atPoint:CGPointMake(layerSize.width * (CGFloat)0.5, layerSize.height * (CGFloat)0.5)
@@ -468,16 +499,16 @@
             }
         }
 
-        CGContextDrawLayerInRect(theContext, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
+        CGContextDrawLayerInRect(context, CGRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
     }
 }
 
 /** @brief Draws the plot symbol into the given graphics context centered at the provided point.
- *  @param theContext The graphics context to draw into.
+ *  @param context The graphics context to draw into.
  *  @param center The center point of the symbol.
- *  @param scale The drawing scale factor. Must be greater than zero (0).
+ *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
  **/
--(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center scale:(CGFloat)scale
+-(void)renderAsVectorInContext:(CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale
 {
     CGPathRef theSymbolPath = self.cachedSymbolPath;
 
@@ -513,39 +544,39 @@
             CGPoint symbolAnchor = self.anchorPoint;
             CGSize symbolSize    = self.size;
 
-            CGContextSaveGState(theContext);
-            CGContextTranslateCTM(theContext, center.x + (symbolAnchor.x - 0.5) * symbolSize.width, center.y + (symbolAnchor.y - 0.5) * symbolSize.height);
-            CGContextScaleCTM(theContext, scale, scale);
-            [self.shadow setShadowInContext:theContext];
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, center.x + (symbolAnchor.x - 0.5) * symbolSize.width, center.y + (symbolAnchor.y - 0.5) * symbolSize.height);
+            CGContextScaleCTM(context, scale, scale);
+            [self.shadow setShadowInContext:context];
 
             if ( theFill ) {
                 // use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
                 CGSize halfSize = CGSizeMake(symbolSize.width * (CGFloat)0.5, symbolSize.height * (CGFloat)0.5);
                 CGRect bounds   = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 
-                CGContextSaveGState(theContext);
+                CGContextSaveGState(context);
                 if ( !CGPathIsEmpty(theSymbolPath) ) {
-                    CGContextBeginPath(theContext);
-                    CGContextAddPath(theContext, theSymbolPath);
+                    CGContextBeginPath(context);
+                    CGContextAddPath(context, theSymbolPath);
                     if ( self.usesEvenOddClipRule ) {
-                        CGContextEOClip(theContext);
+                        CGContextEOClip(context);
                     }
                     else {
-                        CGContextClip(theContext);
+                        CGContextClip(context);
                     }
                 }
-                [theFill fillRect:bounds inContext:theContext];
-                CGContextRestoreGState(theContext);
+                [theFill fillRect:bounds inContext:context];
+                CGContextRestoreGState(context);
             }
 
             if ( theLineStyle ) {
-                [theLineStyle setLineStyleInContext:theContext];
-                CGContextBeginPath(theContext);
-                CGContextAddPath(theContext, theSymbolPath);
-                [theLineStyle strokePathInContext:theContext];
+                [theLineStyle setLineStyleInContext:context];
+                CGContextBeginPath(context);
+                CGContextAddPath(context, theSymbolPath);
+                [theLineStyle strokePathInContext:context];
             }
 
-            CGContextRestoreGState(theContext);
+            CGContextRestoreGState(context);
         }
     }
 }
@@ -553,11 +584,11 @@
 #pragma mark -
 #pragma mark Private methods
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@brief Creates and returns a drawing path for the current symbol type.
- *	@return A path describing the outline of the current symbol type.
+/** @internal
+ *  @brief Creates and returns a drawing path for the current symbol type.
+ *  @return A path describing the outline of the current symbol type.
  **/
 -(CGPathRef)newSymbolPath
 {
@@ -687,6 +718,6 @@
     return symbolPath;
 }
 
-///	@endcond
+/// @endcond
 
 @end

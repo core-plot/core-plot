@@ -3,26 +3,26 @@
 #import "CPTAnnotation.h"
 #import "CPTExceptions.h"
 
-///	@cond
+/// @cond
 @interface CPTAnnotationHostLayer()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
-/**	@brief A container layer for annotations.
+/** @brief A container layer for annotations.
  *
- *	Annotations (CPTAnnotation) can be added to and removed from an annotation layer.
- *	The host layer automatically handles the annotation layout.
+ *  Annotations (CPTAnnotation) can be added to and removed from an annotation layer.
+ *  The host layer automatically handles the annotation layout.
  **/
 @implementation CPTAnnotationHostLayer
 
-/**	@property annotations
- *	@brief An array of annotations attached to this layer.
+/** @property NSArray *annotations
+ *  @brief An array of annotations attached to this layer.
  **/
 @dynamic annotations;
 
@@ -31,15 +31,15 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-///	@name Initialization
-///	@{
+/// @name Initialization
+/// @{
 
 /** @brief Initializes a newly allocated CPTAnnotationHostLayer object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have an empty
- *	@link CPTAnnotationHostLayer::annotations annotations @endlink array.
+ *  This is the designated initializer. The initialized layer will have an empty
+ *  @ref annotations array.
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTAnnotationHostLayer object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -50,7 +50,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -68,8 +70,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -86,6 +92,8 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Annotations
 
@@ -95,7 +103,7 @@
 }
 
 /**
- *	@brief Adds an annotation to the receiver.
+ *  @brief Adds an annotation to the receiver.
  **/
 -(void)addAnnotation:(CPTAnnotation *)annotation
 {
@@ -110,7 +118,7 @@
 }
 
 /**
- *	@brief Removes an annotation from the receiver.
+ *  @brief Removes an annotation from the receiver.
  **/
 -(void)removeAnnotation:(CPTAnnotation *)annotation
 {
@@ -124,7 +132,7 @@
 }
 
 /**
- *	@brief Removes all annotations from the receiver.
+ *  @brief Removes all annotations from the receiver.
  **/
 -(void)removeAllAnnotations
 {
@@ -139,7 +147,7 @@
 #pragma mark -
 #pragma mark Layout
 
-///	@cond
+/// @cond
 
 -(NSSet *)sublayersExcludedFromAutomaticLayout
 {
@@ -154,12 +162,12 @@
     return layers;
 }
 
-///	@endcond
-
 -(void)layoutSublayers
 {
     [super layoutSublayers];
     [self.mutableAnnotations makeObjectsPerformSelector:@selector(positionContentLayer)];
 }
+
+/// @endcond
 
 @end

@@ -5,7 +5,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYPlotSpace.h"
 
-///	@cond
+/// @cond
 @interface CPTXYGraph()
 
 @property (nonatomic, readwrite, assign) CPTScaleType xScaleType;
@@ -13,22 +13,22 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A graph using a cartesian (X-Y) plot space.
+ *  @brief A graph using a cartesian (X-Y) plot space.
  **/
 @implementation CPTXYGraph
 
-/**	@property xScaleType
- *	@brief The scale type for the x-axis.
+/** @property CPTScaleType xScaleType
+ *  @brief The scale type for the x-axis.
  **/
 @synthesize xScaleType;
 
-/**	@property yScaleType
- *	@brief The scale type for the y-axis.
+/** @property CPTScaleType yScaleType
+ *  @brief The scale type for the y-axis.
  **/
 @synthesize yScaleType;
 
@@ -37,11 +37,11 @@
 
 /** @brief Initializes a newly allocated CPTXYGraph object with the provided frame rectangle and scale types.
  *
- *	This is the designated initializer.
+ *  This is the designated initializer.
  *
- *	@param newFrame The frame rectangle.
- *	@param newXScaleType The scale type for the x-axis.
- *	@param newYScaleType The scale type for the y-axis.
+ *  @param newFrame The frame rectangle.
+ *  @param newXScaleType The scale type for the x-axis.
+ *  @param newYScaleType The scale type for the y-axis.
  *  @return The initialized CPTXYGraph object.
  **/
 -(id)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType;
@@ -58,20 +58,22 @@
 
 /** @brief Initializes a newly allocated CPTXYGraph object with the provided frame rectangle.
  *
- *	The initialized layer will have the following properties:
- *	- xScaleType = #CPTScaleTypeLinear
- *	- yScaleType = #CPTScaleTypeLinear
+ *  The initialized layer will have the following properties:
+ *  - @link CPTXYPlotSpace::xScaleType xScaleType @endlink = #CPTScaleTypeLinear
+ *  - @link CPTXYPlotSpace::yScaleType yScaleType @endlink = #CPTScaleTypeLinear
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTXYGraph object.
- *	@see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
+ *  @see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
     return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -84,8 +86,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -104,10 +110,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Factory Methods
 
-///	@cond
+/// @cond
 
 -(CPTPlotSpace *)newPlotSpace
 {
@@ -127,6 +135,6 @@
     return newAxisSet;
 }
 
-///	@endcond
+/// @endcond
 
 @end

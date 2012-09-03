@@ -7,7 +7,7 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-///	@cond
+/// @cond
 @interface CPTGradient()
 
 @property (nonatomic, readwrite, retain) CPTColorSpace *colorspace;
@@ -36,51 +36,63 @@ static void transformRGB_HSV(CGFloat *components);
 static void transformHSV_RGB(CGFloat *components);
 static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /** @brief Draws color gradient fills.
  *
- *	Gradients consist of multiple colors blended smoothly from one to the next at
- *	specified positions using one of three blending modes. The color positions are
- *	defined in a range between zero (0) and one (1). Axial gradients are drawn with
- *	color positions increasing from left to right when the angle property is zero (0).
- *	Radial gradients are drawn centered in the provided drawing region with position zero (0)
- *	in the center and one (1) at the outer edge.
+ *  Gradients consist of multiple colors blended smoothly from one to the next at
+ *  specified positions using one of three blending modes. The color positions are
+ *  defined in a range between zero (@num{0}) and one (@num{1}). Axial gradients are drawn with
+ *  color positions increasing from left to right when the angle property is zero (@num{0}).
+ *  Radial gradients are drawn centered in the provided drawing region with position zero (@num{0})
+ *  in the center and one (@num{1}) at the outer edge.
  *
- *	@note Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
- *	CTGradient is in the public domain (Thanks Chad Weider!).
+ *  @note Based on @par{CTGradient} (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
+ *  @par{CTGradient} is in the public domain (Thanks Chad Weider!).
  **/
 @implementation CPTGradient
 
-///	@cond
+/// @cond
 
-/** @property colorspace
+/** @property CPTColorSpace *colorspace;
  *  @brief The colorspace for the gradient colors.
  **/
 @synthesize colorspace;
 
-///	@endcond
+/// @endcond
 
-/** @property blendingMode
+/** @property CPTGradientBlendingMode blendingMode
  *  @brief The color blending mode used to create the gradient.
  **/
 @synthesize blendingMode;
 
-/** @property angle
+/** @property CGFloat angle
  *  @brief The axis angle of an axial gradient, expressed in degrees and measured counterclockwise from the positive x-axis.
  **/
 @synthesize angle;
 
-/** @property gradientType
+/** @property CPTGradientType gradientType
  *  @brief The gradient type.
  **/
 @synthesize gradientType;
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTGradient object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref blendingMode = #CPTLinearBlendingMode
+ *  - @ref angle = @num{0.0}
+ *  - @ref gradientType = #CPTGradientTypeAxial
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -94,15 +106,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return self;
 }
 
-///	@cond
+/// @}
+
+/// @cond
 
 -(void)commonInit
 {
     colorspace  = [[CPTColorSpace genericRGBSpace] retain];
     elementList = NULL;
 }
-
-///	@endcond
 
 -(void)dealloc
 {
@@ -119,8 +131,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCopying
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -140,8 +156,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return copy;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -195,6 +215,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Factory Methods
 
@@ -211,8 +233,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with an axial linear gradient between two given colors, at two given normalized positions.
  *  @param begin The beginning color.
  *  @param end The ending color.
- *  @param beginningPosition The beginning position (0 ≤ beginningPosition ≤ 1).
- *  @param endingPosition The ending position (0 ≤ endingPosition ≤ 1).
+ *  @param beginningPosition The beginning position (@num{0} ≤ @par{beginningPosition} ≤ @num{1}).
+ *  @param endingPosition The ending position (@num{0} ≤ @par{endingPosition} ≤ @num{1}).
  *  @return A new CPTGradient instance initialized with an axial linear gradient between the two given colors, at two given normalized positions.
  **/
 +(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
@@ -617,8 +639,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark Modification
 
 /** @brief Copies the current gradient and sets a new alpha value.
- *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
- *	@return A copy of the current gradient with the new alpha value.
+ *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
+ *  @return A copy of the current gradient with the new alpha value.
  **/
 -(CPTGradient *)gradientWithAlphaComponent:(CGFloat)alpha
 {
@@ -644,7 +666,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Copies the current gradient and sets a new blending mode.
  *  @param mode The blending mode.
- *	@return A copy of the current gradient with the new blending mode.
+ *  @return A copy of the current gradient with the new blending mode.
  **/
 -(CPTGradient *)gradientWithBlendingMode:(CPTGradientBlendingMode)mode
 {
@@ -656,12 +678,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /** @brief Copies the current gradient and adds a color stop.
  *
- *	Adds a color stop with <code>color</code> at <code>position</code> in the list of color stops.
- *	If two elements are at the same position then it is added immediately after the one that was there already.
+ *  Adds a color stop with @par{color} at @par{position} in the list of color stops.
+ *  If two elements are at the same position then it is added immediately after the one that was there already.
  *
  *  @param color The color.
- *  @param position The color stop position (0 ≤ position ≤ 1).
- *	@return A copy of the current gradient with the new color stop.
+ *  @param position The color stop position (@num{0} ≤ @par{position} ≤ @num{1}).
+ *  @return A copy of the current gradient with the new color stop.
  **/
 -(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position
 {
@@ -678,9 +700,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return [newGradient autorelease];
 }
 
-/** @brief Copies the current gradient and removes the color stop at <code>position</code> from the list of color stops.
- *  @param position The color stop position (0 ≤ position ≤ 1).
- *	@return A copy of the current gradient with the color stop removed.
+/** @brief Copies the current gradient and removes the color stop at @par{position} from the list of color stops.
+ *  @param position The color stop position (@num{0} ≤ @par{position} ≤ @num{1}).
+ *  @return A copy of the current gradient with the color stop removed.
  **/
 -(CPTGradient *)removeColorStopAtPosition:(CGFloat)position
 {
@@ -694,9 +716,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return [newGradient autorelease];
 }
 
-/** @brief Copies the current gradient and removes the color stop at <code>index</code> from the list of color stops.
+/** @brief Copies the current gradient and removes the color stop at @par{index} from the list of color stops.
  *  @param index The color stop index.
- *	@return A copy of the current gradient with the color stop removed.
+ *  @return A copy of the current gradient with the color stop removed.
  **/
 -(CPTGradient *)removeColorStopAtIndex:(NSUInteger)index
 {
@@ -713,9 +735,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark -
 #pragma mark Information
 
-/** @brief Gets the color at color stop <code>index</code> from the list of color stops.
+/** @brief Gets the color at color stop @par{index} from the list of color stops.
  *  @param index The color stop index.
- *  @return The color at color stop <code>index</code>.
+ *  @return The color at color stop @par{index}.
  **/
 -(CGColorRef)newColorStopAtIndex:(NSUInteger)index
 {
@@ -737,8 +759,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 }
 
 /** @brief Gets the color at an arbitrary position in the gradient.
- *  @param position The color stop position (0 ≤ position ≤ 1).
- *  @return The  color at <code>position</code> in gradient.
+ *  @param position The color stop position (@num{0} ≤ @par{position} ≤ @num{1}).
+ *  @return The  color at @par{position} in gradient.
  **/
 -(CGColorRef)newColorAtPosition:(CGFloat)position
 {
@@ -853,6 +875,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark -
 #pragma mark Gradient comparison
 
+/// @name Comparison
+/// @{
+
+/** @brief Returns a boolean value that indicates whether the received is equal to the given object.
+ *  Gradients are equal if they have the same @ref blendingMode, @ref angle, @ref gradientType, and gradient colors at the same positions.
+ *  @param object The object to be compared with the receiver.
+ *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ **/
 -(BOOL)isEqual:(id)object
 {
     if ( self == object ) {
@@ -907,6 +937,10 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
 }
 
+/// @}
+
+/// @cond
+
 -(NSUInteger)hash
 {
     // Equal objects must hash the same.
@@ -931,10 +965,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Private Methods
 
-///	@cond
+/// @cond
 
 -(CGShadingRef)newAxialGradientInRect:(CGRect)rect
 {
@@ -1214,12 +1250,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return count;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Core Graphics
 
-///	@cond
+/// @cond
 
 void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
@@ -1282,13 +1318,13 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 }
 
 //Chromatic Evaluation -
-//	This blends colors by their Hue, Saturation, and Value(Brightness) right now I just
-//	transform the RGB values stored in the CPTGradientElements to HSB, in the future I may
-//	streamline it to avoid transforming in and out of HSB colorspace *for later*
+//    This blends colors by their Hue, Saturation, and Value(Brightness) right now I just
+//    transform the RGB values stored in the CPTGradientElements to HSB, in the future I may
+//    streamline it to avoid transforming in and out of HSB colorspace *for later*
 //
-//	For the chromatic blend we shift the hue of color1 to meet the hue of color2. To do
-//	this we will add to the hue's angle (if we subtract we'll be doing the inverse
-//	chromatic...scroll down more for that). All we need to do is keep adding to the hue
+//    For the chromatic blend we shift the hue of color1 to meet the hue of color2. To do
+//    this we will add to the hue's angle (if we subtract we'll be doing the inverse
+//    chromatic...scroll down more for that). All we need to do is keep adding to the hue
 //  until we wrap around the colorwheel and get to color2.
 void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
@@ -1366,10 +1402,10 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 }
 
 // Inverse Chromatic Evaluation -
-//	Inverse Chromatic is about the same story as Chromatic Blend, but here the Hue
-//	is strictly decreasing, that is we need to get from color1 to color2 by decreasing
-//	the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
-//	which is equivalent to 180º mod 360º
+//    Inverse Chromatic is about the same story as Chromatic Blend, but here the Hue
+//    is strictly decreasing, that is we need to get from color1 to color2 by decreasing
+//    the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
+//    which is equivalent to 180º mod 360º
 void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
     CGFloat position = *in;
@@ -1412,7 +1448,7 @@ void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     resolveHSV(c1, c2);
 
     if ( c1[0] < c2[0] ) { //if color1's hue is higher than color2's hue then
-        c1[0] += 360.0;    //	we need to move c2 one revolution back on the wheel
+        c1[0] += 360.0;    //    we need to move c2 one revolution back on the wheel
     }
     if ( position <= color1->position ) {
         out[0] = c1[0];
@@ -1534,7 +1570,7 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 }
 
 void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. graycale color)
-{ //	we want to fill it with a sensible value
+{ //    we want to fill it with a sensible value
     if ( isnan(color1[0]) && isnan(color2[0]) ) {
         color1[0] = color2[0] = 0;
     }
@@ -1546,6 +1582,6 @@ void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

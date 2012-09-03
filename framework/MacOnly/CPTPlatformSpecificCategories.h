@@ -4,20 +4,20 @@
 #import <AppKit/AppKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-/**	@category CPTLayer(CPTPlatformSpecificLayerExtensions)
- *	@brief Platform-specific extensions to CPTLayer.
+/** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
+ *  @brief Platform-specific extensions to CPTLayer.
  **/
 @interface CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /// @name Images
 /// @{
 -(CPTNativeImage *)imageOfLayer;
-///	@}
+/// @}
 
 @end
 
-/**	@category CPTColor(CPTPlatformSpecificColorExtensions)
- *	@brief Platform-specific extensions to CPTColor.
+/** @category CPTColor(CPTPlatformSpecificColorExtensions)
+ *  @brief Platform-specific extensions to CPTColor.
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 

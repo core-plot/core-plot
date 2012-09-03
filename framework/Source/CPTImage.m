@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 #endif
 
-///	@cond
+/// @cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -19,55 +19,55 @@
 #endif
 #endif
 
-///	@endcond
+/// @endcond
 
 /** @brief An immutable image.
  *
- *  An immutable object wrapper class around CGImageRef.
+ *  An immutable object wrapper class around @ref CGImageRef.
  **/
 
 @implementation CPTImage
 
-/**	@property image
- *	@brief The CGImageRef to wrap around.
+/** @property CGImageRef image
+ *  @brief The @ref CGImageRef to wrap around.
  **/
 @synthesize image;
 
-/**	@property scale
- *	@brief The image scale. Must be greater than zero.
+/** @property CGFloat scale
+ *  @brief The image scale. Must be greater than zero.
  **/
 @synthesize scale;
 
-/**	@property tiled
- *	@brief Draw as a tiled image?
+/** @property BOOL tiled
+ *  @brief Draw as a tiled image?
  *
- *	If YES, the image is drawn repeatedly to fill the current clip region.
- *	Otherwise, the image is drawn one time only in the provided rectangle.
- *	The default value is NO.
+ *  If @YES, the image is drawn repeatedly to fill the current clip region.
+ *  Otherwise, the image is drawn one time only in the provided rectangle.
+ *  The default value is @NO.
  **/
 @synthesize tiled;
 
-/**	@property tileAnchoredToContext
- *	@brief Anchor the tiled image to the context origin?
+/** @property BOOL tileAnchoredToContext
+ *  @brief Anchor the tiled image to the context origin?
  *
- *	If YES, the origin of the tiled image is anchored to the origin of the drawing context.
- *	If NO, the origin of the tiled image is set to the orgin of rectangle passed to
- *	<code>drawInRect:inContext:</code>.
- *	The default value is YES.
- *	If <code>tiled</code> is NO, this property has no effect.
+ *  If @YES, the origin of the tiled image is anchored to the origin of the drawing context.
+ *  If @NO, the origin of the tiled image is set to the orgin of rectangle passed to
+ *  @link CPTImage::drawInRect:inContext: -drawInRect:inContext: @endlink.
+ *  The default value is @YES.
+ *  If @ref tiled is @NO, this property has no effect.
  **/
 @synthesize tileAnchoredToContext;
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Init/Dealloc
 
-/** @brief Initializes a CPTImage instance with the provided CGImageRef.
+/** @brief Initializes a CPTImage instance with the provided @ref CGImageRef.
  *
- *	This is the designated initializer.
+ *  This is the designated initializer.
  *
  *  @param anImage The image to wrap.
- *	@param newScale The image scale. Must be greater than zero.
- *  @return A CPTImage instance initialized with the provided CGImageRef.
+ *  @param newScale The image scale. Must be greater than zero.
+ *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 -(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
@@ -83,25 +83,33 @@
     return self;
 }
 
-/** @brief Initializes a CPTImage instance with the provided CGImageRef and scale 1.0.
+/** @brief Initializes a CPTImage instance with the provided @ref CGImageRef and scale @num{1.0}.
  *  @param anImage The image to wrap.
- *  @return A CPTImage instance initialized with the provided CGImageRef.
+ *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 -(id)initWithCGImage:(CGImageRef)anImage
 {
     return [self initWithCGImage:anImage scale:1.0];
 }
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTImage object with a @NULL image.
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     return [self initWithCGImage:NULL];
 }
 
+/// @}
+
 /** @brief Initializes a CPTImage instance with the contents of a PNG file.
  *
- *	On systems that support hi-dpi or "Retina" displays, this method will look for a
- *	double-resolution image with the given name followed by "@2x". If the "@2x" image
- *	is not available, the named image file will be loaded.
+ *  On systems that support hi-dpi or @quote{Retina} displays, this method will look for a
+ *  double-resolution image with the given name followed by @quote{@2x}. If the @quote{@2x} image
+ *  is not available, the named image file will be loaded.
  *
  *  @param path The file system path of the file.
  *  @return A CPTImage instance initialized with the contents of the PNG file.
@@ -162,6 +170,8 @@
     return self;
 }
 
+/// @cond
+
 -(void)dealloc
 {
     CGImageRelease(image);
@@ -174,8 +184,12 @@
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -196,8 +210,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCopying
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -211,22 +229,24 @@
     return copy;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Factory Methods
 
-/** @brief Creates and returns a new CPTImage instance initialized with the provided CGImageRef.
+/** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef.
  *  @param anImage The image to wrap.
- *	@param newScale The image scale.
- *  @return A new CPTImage instance initialized with the provided CGImageRef.
+ *  @param newScale The image scale.
+ *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
     return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
 }
 
-/** @brief Creates and returns a new CPTImage instance initialized with the provided CGImageRef and scale 1.0.
+/** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef and scale @num{1.0}.
  *  @param anImage The image to wrap.
- *  @return A new CPTImage instance initialized with the provided CGImageRef.
+ *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage
 {
@@ -235,9 +255,9 @@
 
 /** @brief Creates and returns a new CPTImage instance initialized with the contents of a PNG file.
  *
- *	On systems that support hi-dpi or "Retina" displays, this method will look for a
- *	double-resolution image with the given name followed by "@2x". If the "@2x" image
- *	is not available, the named image file will be loaded.
+ *  On systems that support hi-dpi or @quote{Retina} displays, this method will look for a
+ *  double-resolution image with the given name followed by @quote{@2x}. If the @quote{@2x} image
+ *  is not available, the named image file will be loaded.
  *
  *  @param path The file system path of the file.
  *  @return A new CPTImage instance initialized with the contents of the PNG file.
@@ -250,6 +270,14 @@
 #pragma mark -
 #pragma mark Image comparison
 
+/// @name Comparison
+/// @{
+
+/** @brief Returns a boolean value that indicates whether the received is equal to the given object.
+ *  Images are equal if they have the same @ref scale, @ref tiled, @ref tileAnchoredToContext, image size, color space, bit depth, and image data.
+ *  @param object The object to be compared with the receiver.
+ *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ **/
 -(BOOL)isEqual:(id)object
 {
     if ( self == object ) {
@@ -361,6 +389,10 @@
     }
 }
 
+/// @}
+
+/// @cond
+
 -(NSUInteger)hash
 {
     // Equal objects must hash the same.
@@ -375,10 +407,12 @@
            CGImageGetRenderingIntent(selfCGImage) * self.scale;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setImage:(CGImageRef)newImage
 {
@@ -398,15 +432,15 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
 
 /** @brief Draws the image into the given graphics context.
  *
- *  If the tiled property is TRUE, the image is repeatedly drawn to fill the clipping region, otherwise the image is
- *  scaled to fit in rect.
+ *  If the tiled property is @YES, the image is repeatedly drawn to fill the clipping region, otherwise the image is
+ *  scaled to fit in @par{rect}.
  *
  *  @param rect The rectangle to draw into.
  *  @param context The graphics context to draw into.

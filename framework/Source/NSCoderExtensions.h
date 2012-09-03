@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-/**	@category NSCoder(CPTExtensions)
- *	@brief Core Plot extensions to NSCoder.
+/** @category NSCoder(CPTExtensions)
+ *  @brief Core Plot extensions to NSCoder.
  **/
 @interface NSCoder(CPTExtensions)
 
@@ -18,7 +18,7 @@
 -(void)encodeCGImage:(CGImageRef)image forKey:(NSString *)key;
 
 -(void)encodeDecimal:(NSDecimal)number forKey:(NSString *)key;
-///	@}
+/// @}
 
 /// @name Decoding Data
 /// @{
@@ -32,6 +32,6 @@
 -(CGImageRef)newCGImageDecodeForKey:(NSString *)key;
 
 -(NSDecimal)decodeDecimalForKey:(NSString *)key;
-///	@}
+/// @}
 
 @end

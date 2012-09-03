@@ -7,18 +7,23 @@
 /// @file
 
 /**
- *	@def CPT_SDK_SUPPORTS_WEAK
- *	@brief Defined as 1 if the compiler and active SDK support weak references, 0 otherwise.
+ *  @def CPT_SDK_SUPPORTS_WEAK
+ *  @hideinitializer
+ *  @brief Defined as @num{1} if the compiler and active SDK support weak references, @num{0} otherwise.
  **/
 
 /**
- *	@def __cpt_weak
- *	@brief A custom definition for ARC weak references that falls back to unsafe unretained values on older platforms.
+ *  @def __cpt_weak
+ *  @hideinitializer
+ *  @brief A custom definition for automatic reference counting (ARC) weak references that falls back to
+ *  <code>__unsafe_unretained</code> values on older platforms.
  **/
 
 /**
- *	@def cpt_weak_property
- *	@brief A custom definition for ARC weak properties that falls back to assign on older platforms.
+ *  @def cpt_weak_property
+ *  @hideinitializer
+ *  @brief A custom definition for automatic reference counting (ARC) weak properties that falls back to
+ *  <code>assign</code> on older platforms.
  **/
 
 // This is based on Ryan Petrich's ZWRCompatibility: https://github.com/rpetrich/ZWRCompatibility
@@ -44,7 +49,7 @@
 #endif
 
 /**
- *	@brief Enumeration of numeric types
+ *  @brief Enumeration of numeric types
  **/
 typedef enum  _CPTNumericType {
     CPTNumericTypeInteger, ///< Integer
@@ -54,7 +59,7 @@ typedef enum  _CPTNumericType {
 CPTNumericType;
 
 /**
- *	@brief Enumeration of error bar types
+ *  @brief Enumeration of error bar types
  **/
 typedef enum _CPTErrorBarType {
     CPTErrorBarTypeCustom,        ///< Custom error bars
@@ -64,7 +69,7 @@ typedef enum _CPTErrorBarType {
 CPTErrorBarType;
 
 /**
- *	@brief Enumeration of axis scale types
+ *  @brief Enumeration of axis scale types
  **/
 typedef enum _CPTScaleType {
     CPTScaleTypeLinear,   ///< Linear axis scale
@@ -76,7 +81,7 @@ typedef enum _CPTScaleType {
 CPTScaleType;
 
 /**
- *	@brief Enumeration of axis coordinates
+ *  @brief Enumeration of axis coordinates
  **/
 typedef enum _CPTCoordinate {
     CPTCoordinateX = 0, ///< X axis
@@ -86,18 +91,18 @@ typedef enum _CPTCoordinate {
 CPTCoordinate;
 
 /**
- *	@brief RGBA color for gradients
+ *  @brief RGBA color for gradients
  **/
 typedef struct _CPTRGBAColor {
-    CGFloat red;   ///< The red component (0 ≤ red ≤ 1).
-    CGFloat green; ///< The green component (0 ≤ green ≤ 1).
-    CGFloat blue;  ///< The blue component (0 ≤ blue ≤ 1).
-    CGFloat alpha; ///< The alpha component (0 ≤ alpha ≤ 1).
+    CGFloat red;   ///< The red component (0 ≤ @par{red} ≤ 1).
+    CGFloat green; ///< The green component (0 ≤ @par{green} ≤ 1).
+    CGFloat blue;  ///< The blue component (0 ≤ @par{blue} ≤ 1).
+    CGFloat alpha; ///< The alpha component (0 ≤ @par{alpha} ≤ 1).
 }
 CPTRGBAColor;
 
 /**
- *	@brief Enumeration of label positioning offset directions
+ *  @brief Enumeration of label positioning offset directions
  **/
 typedef enum _CPTSign {
     CPTSignNone     = 0,  ///< No offset
@@ -107,7 +112,7 @@ typedef enum _CPTSign {
 CPTSign;
 
 /**
- *	@brief Locations around the edge of a rectangle.
+ *  @brief Locations around the edge of a rectangle.
  **/
 typedef enum _CPTRectAnchor {
     CPTRectAnchorBottomLeft,  ///< The bottom left corner
@@ -123,7 +128,7 @@ typedef enum _CPTRectAnchor {
 CPTRectAnchor;
 
 /**
- *	@brief Label and constraint alignment constants.
+ *  @brief Label and constraint alignment constants.
  **/
 typedef enum _CPTAlignment {
     CPTAlignmentLeft,   ///< Align horizontally to the left side.

@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import <tgmath.h>
 
-///	@cond
+/// @cond
 @interface CPTLineCap()
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedLineCapPath;
@@ -15,53 +15,68 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief End cap decorations for lines.
+ *  @brief End cap decorations for lines.
  */
 @implementation CPTLineCap
 
-/**	@property size
+/** @property CGSize size;
  *  @brief The symbol size when the line is drawn in a vertical direction.
  **/
 @synthesize size;
 
-/** @property lineCapType
+/** @property CPTLineCapType lineCapType
  *  @brief The line cap type.
  **/
 @synthesize lineCapType;
 
-/** @property lineStyle
+/** @property CPTLineStyle *lineStyle
  *  @brief The line style for the border of the line cap.
- *	If <code>nil</code>, the border is not drawn.
+ *  If @nil, the border is not drawn.
  **/
 @synthesize lineStyle;
 
-/** @property fill
+/** @property CPTFill *fill
  *  @brief The fill for the interior of the line cap.
- *	If <code>nil</code>, the symbol is not filled.
+ *  If @nil, the symbol is not filled.
  **/
 @synthesize fill;
 
-/** @property customLineCapPath
+/** @property CGPathRef customLineCapPath
  *  @brief The drawing path for a custom line cap. It will be scaled to size before being drawn.
  **/
 @synthesize customLineCapPath;
 
-/** @property usesEvenOddClipRule
- *  @brief If YES, the even-odd rule is used to draw the line cap, otherwise the nonzero winding number rule is used.
- *	@see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
+/** @property BOOL usesEvenOddClipRule
+ *  @brief If @YES, the even-odd rule is used to draw the line cap, otherwise the non-zero winding number rule is used.
+ *  @see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
  **/
 @synthesize usesEvenOddClipRule;
 
 @dynamic cachedLineCapPath;
 
 #pragma mark -
-#pragma mark Init/dealloc
+#pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTLineCap object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref size = (@num{5.0}, @num{5.0})
+ *  - @ref lineCapType = #CPTLineCapTypeNone
+ *  - @ref lineStyle = a new default line style
+ *  - @ref fill = @nil
+ *  - @ref customLineCapPath = @NULL
+ *  - @ref usesEvenOddClipRule = @NO
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -75,6 +90,10 @@
     }
     return self;
 }
+
+/// @}
+
+/// @cond
 
 -(void)dealloc
 {
@@ -93,8 +112,12 @@
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -124,10 +147,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setSize:(CGSize)newSize
 {
@@ -170,7 +195,7 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Factory methods
@@ -320,7 +345,7 @@
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
- *	@param aPath The bounding path for the custom line cap.
+ *  @param aPath The bounding path for the custom line cap.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
  **/
 +(CPTLineCap *)customLineCapWithPath:(CGPathRef)aPath
@@ -334,7 +359,9 @@
 }
 
 #pragma mark -
-#pragma mark NSCopying methods
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -355,15 +382,17 @@
     return copy;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
 /** @brief Draws the line cap into the given graphics context centered at the provided point.
- *  @param theContext The graphics context to draw into.
+ *  @param context The graphics context to draw into.
  *  @param center The center point of the line cap.
  *  @param direction The direction the line is pointing.
  **/
--(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center inDirection:(CGPoint)direction
+-(void)renderAsVectorInContext:(CGContextRef)context atPoint:(CGPoint)center inDirection:(CGPoint)direction
 {
     CGPathRef theLineCapPath = self.cachedLineCapPath;
 
@@ -396,9 +425,9 @@
         }
 
         if ( theLineStyle || theFill ) {
-            CGContextSaveGState(theContext);
-            CGContextTranslateCTM(theContext, center.x, center.y);
-            CGContextRotateCTM(theContext, atan2(direction.y, direction.x) - (CGFloat)M_PI_2); // standard symbol points up
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, center.x, center.y);
+            CGContextRotateCTM(context, atan2(direction.y, direction.x) - (CGFloat)M_PI_2); // standard symbol points up
 
             if ( theFill ) {
                 // use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
@@ -406,29 +435,29 @@
                 CGSize halfSize   = CGSizeMake(symbolSize.width / (CGFloat)2.0, symbolSize.height / (CGFloat)2.0);
                 CGRect bounds     = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
 
-                CGContextSaveGState(theContext);
+                CGContextSaveGState(context);
                 if ( !CGPathIsEmpty(theLineCapPath) ) {
-                    CGContextBeginPath(theContext);
-                    CGContextAddPath(theContext, theLineCapPath);
+                    CGContextBeginPath(context);
+                    CGContextAddPath(context, theLineCapPath);
                     if ( self.usesEvenOddClipRule ) {
-                        CGContextEOClip(theContext);
+                        CGContextEOClip(context);
                     }
                     else {
-                        CGContextClip(theContext);
+                        CGContextClip(context);
                     }
                 }
-                [theFill fillRect:bounds inContext:theContext];
-                CGContextRestoreGState(theContext);
+                [theFill fillRect:bounds inContext:context];
+                CGContextRestoreGState(context);
             }
 
             if ( theLineStyle ) {
-                [theLineStyle setLineStyleInContext:theContext];
-                CGContextBeginPath(theContext);
-                CGContextAddPath(theContext, theLineCapPath);
-                [theLineStyle strokePathInContext:theContext];
+                [theLineStyle setLineStyleInContext:context];
+                CGContextBeginPath(context);
+                CGContextAddPath(context, theLineCapPath);
+                [theLineStyle strokePathInContext:context];
             }
 
-            CGContextRestoreGState(theContext);
+            CGContextRestoreGState(context);
         }
     }
 }
@@ -436,12 +465,12 @@
 #pragma mark -
 #pragma mark Private methods
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@brief Creates and returns a drawing path for the current line cap type.
- *	The path is standardized for a line direction of "up".
- *	@return A path describing the outline of the current line cap type.
+/** @internal
+ *  @brief Creates and returns a drawing path for the current line cap type.
+ *  The path is standardized for a line direction of @quote{up}.
+ *  @return A path describing the outline of the current line cap type.
  **/
 -(CGPathRef)newLineCapPath
 {
@@ -560,6 +589,6 @@
     return lineCapPath;
 }
 
-///	@endcond
+/// @endcond
 
 @end

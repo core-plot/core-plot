@@ -13,26 +13,26 @@
 +(CPTFill *)fillWithColor:(CPTColor *)aColor;
 +(CPTFill *)fillWithGradient:(CPTGradient *)aGradient;
 +(CPTFill *)fillWithImage:(CPTImage *)anImage;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
 -(id)initWithColor:(CPTColor *)aColor;
 -(id)initWithGradient:(CPTGradient *)aGradient;
 -(id)initWithImage:(CPTImage *)anImage;
-///	@}
+/// @}
 
 @end
 
-/**	@category CPTFill(AbstractMethods)
- *	@brief CPTFill abstract methods—must be overridden by subclasses
+/** @category CPTFill(AbstractMethods)
+ *  @brief CPTFill abstract methods—must be overridden by subclasses
  **/
 @interface CPTFill(AbstractMethods)
 
 /// @name Drawing
 /// @{
--(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
--(void)fillPathInContext:(CGContextRef)theContext;
-///	@}
+-(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)fillPathInContext:(CGContextRef)context;
+/// @}
 
 @end

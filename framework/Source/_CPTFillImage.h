@@ -11,12 +11,12 @@
 /// @name Initialization
 /// @{
 -(id)initWithImage:(CPTImage *)anImage;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
--(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext;
--(void)fillPathInContext:(CGContextRef)theContext;
-///	@}
+-(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)fillPathInContext:(CGContextRef)context;
+/// @}
 
 @end

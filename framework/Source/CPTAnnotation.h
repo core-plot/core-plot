@@ -24,11 +24,14 @@
 
 #pragma mark -
 
-/**	@category CPTAnnotation(AbstractMethods)
- *	@brief CPTAnnotation abstract methods—must be overridden by subclasses.
+/** @category CPTAnnotation(AbstractMethods)
+ *  @brief CPTAnnotation abstract methods—must be overridden by subclasses.
  **/
 @interface CPTAnnotation(AbstractMethods)
 
+/// @name Layout
+/// @{
 -(void)positionContentLayer;
+/// @}
 
 @end

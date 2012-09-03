@@ -4,7 +4,7 @@
 @implementation CPTTimeFormatterTests
 
 #pragma mark -
-#pragma mark NSCoding
+#pragma mark NSCoding Methods
 
 -(void)testKeyedArchivingRoundTrip
 {

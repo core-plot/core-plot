@@ -15,18 +15,18 @@
 #import <objc/runtime.h>
 #import <tgmath.h>
 
-/**	@defgroup animation Animatable Properties
- *	@brief Custom layer properties that can be animated using Core Animation.
- *	@if MacOnly
- *	@since Custom layer property animation is supported on MacOS 10.6 and later.
- *	@endif
+/** @defgroup animation Animatable Properties
+ *  @brief Custom layer properties that can be animated using Core Animation.
+ *  @if MacOnly
+ *  @since Custom layer property animation is supported on MacOS 10.6 and later.
+ *  @endif
  **/
 
-/**	@defgroup notification Notifications
- *	@brief Notifications used by Core Plot.
+/** @defgroup notification Notifications
+ *  @brief Notifications used by Core Plot.
  **/
 
-///	@cond
+/// @cond
 @interface CPTLayer()
 
 @property (nonatomic, readwrite, getter = isRenderingRecursively) BOOL renderingRecursively;
@@ -37,100 +37,100 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /** @brief Base class for all Core Animation layers in Core Plot.
  *
- *	Unless <code>@link CPTLayer::useFastRendering useFastRendering @endlink == YES</code>,
- *	all drawing is done in a way that preserves the
- *	drawing vectors. Sublayers are arranged automatically to fill the layer's
- *	bounds, minus any padding. Default animations for changes in position, bounds,
- *	and sublayers are turned off. The default layer is not opaque and does not mask
- *	to bounds.
+ *  Unless @ref useFastRendering is @YES,
+ *  all drawing is done in a way that preserves the
+ *  drawing vectors. Sublayers are arranged automatically to fill the layer&rsquo;s
+ *  bounds, minus any padding. Default animations for changes in position, bounds,
+ *  and sublayers are turned off. The default layer is not opaque and does not mask
+ *  to bounds.
  **/
 @implementation CPTLayer
 
-/**	@property graph
- *	@brief The graph for the layer.
+/** @property __cpt_weak CPTGraph *graph
+ *  @brief The graph for the layer.
  **/
 @synthesize graph;
 
-/** @property paddingLeft
+/** @property CGFloat paddingLeft
  *  @brief Amount to inset the left side of each sublayer.
  **/
 @synthesize paddingLeft;
 
-/** @property paddingTop
+/** @property CGFloat paddingTop
  *  @brief Amount to inset the top of each sublayer.
  **/
 @synthesize paddingTop;
 
-/** @property paddingRight
+/** @property CGFloat paddingRight
  *  @brief Amount to inset the right side of each sublayer.
  **/
 @synthesize paddingRight;
 
-/** @property paddingBottom
+/** @property CGFloat paddingBottom
  *  @brief Amount to inset the bottom of each sublayer.
  **/
 @synthesize paddingBottom;
 
-/** @property masksToBorder
- *  @brief If YES, a sublayer mask is applied to clip sublayer content to the inside of the border.
+/** @property BOOL masksToBorder
+ *  @brief If @YES, a sublayer mask is applied to clip sublayer content to the inside of the border.
  **/
 @synthesize masksToBorder;
 
-/** @property contentsScale
+/** @property CGFloat contentsScale
  *  @brief The scale factor applied to the layer.
  **/
 @dynamic contentsScale;
 
-/** @property shadow
- *  @brief The shadow drawn under the layer content. If <code>nil</code> (the default), no shadow is drawn.
+/** @property CPTShadow *shadow
+ *  @brief The shadow drawn under the layer content. If @nil (the default), no shadow is drawn.
  **/
 @synthesize shadow;
 
-/** @property outerBorderPath
+/** @property CGPathRef outerBorderPath
  *  @brief A drawing path that encompasses the outer boundary of the layer border.
  **/
 @synthesize outerBorderPath;
 
-/** @property innerBorderPath
+/** @property CGPathRef innerBorderPath
  *  @brief A drawing path that encompasses the inner boundary of the layer border.
  **/
 @synthesize innerBorderPath;
 
-/** @property maskingPath
- *  @brief A drawing path that encompasses the layer content including any borders. Set to NULL when no masking is desired.
+/** @property CGPathRef maskingPath
+ *  @brief A drawing path that encompasses the layer content including any borders. Set to @NULL when no masking is desired.
  *
- *	This path defines the outline of the layer and is used to mask all drawing. Set to NULL when no masking is desired.
- *	The caller must NOT release the path returned by this property.
+ *  This path defines the outline of the layer and is used to mask all drawing. Set to @NULL when no masking is desired.
+ *  The caller must @emph{not} release the path returned by this property.
  **/
 @dynamic maskingPath;
 
-/** @property sublayerMaskingPath
- *  @brief A drawing path that encompasses the layer content excluding any borders. Set to NULL when no masking is desired.
+/** @property CGPathRef sublayerMaskingPath
+ *  @brief A drawing path that encompasses the layer content excluding any borders. Set to @NULL when no masking is desired.
  *
- *	This path defines the outline of the part of the layer where sublayers should draw and is used to mask all sublayer drawing.
- *	Set to NULL when no masking is desired.
- *	The caller must NOT release the path returned by this property.
+ *  This path defines the outline of the part of the layer where sublayers should draw and is used to mask all sublayer drawing.
+ *  Set to @NULL when no masking is desired.
+ *  The caller must @emph{not} release the path returned by this property.
  **/
 @dynamic sublayerMaskingPath;
 
-/** @property sublayersExcludedFromAutomaticLayout
+/** @property NSSet *sublayersExcludedFromAutomaticLayout
  *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
  **/
 @dynamic sublayersExcludedFromAutomaticLayout;
 
-/** @property useFastRendering
- *  @brief If YES, subclasses should optimize their drawing for speed over precision.
+/** @property BOOL useFastRendering
+ *  @brief If @YES, subclasses should optimize their drawing for speed over precision.
  **/
 @synthesize useFastRendering;
 
-/**	@property identifier
- *	@brief An object used to identify the layer in collections.
+/** @property id<NSCopying, NSCoding, NSObject> identifier
+ *  @brief An object used to identify the layer in collections.
  **/
 @synthesize identifier;
 
@@ -142,24 +142,24 @@
 
 /** @brief Initializes a newly allocated CPTLayer object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTLayer::paddingLeft paddingLeft @endlink = 0.0
- *	- @link CPTLayer::paddingTop paddingTop @endlink = 0.0
- *	- @link CPTLayer::paddingRight paddingRight @endlink = 0.0
- *	- @link CPTLayer::paddingBottom paddingBottom @endlink = 0.0
- *	- @link CPTLayer::masksToBorder masksToBorder @endlink = <code>NO</code>
- *	- @link CPTLayer::shadow shadow @endlink = <code>nil</code>
- *	- @link CPTLayer::useFastRendering useFastRendering @endlink = <code>NO</code>
- *	- @link CPTLayer::graph graph @endlink = <code>nil</code>
- *	- @link CPTLayer::outerBorderPath outerBorderPath @endlink = <code>NULL</code>
- *	- @link CPTLayer::innerBorderPath innerBorderPath @endlink = <code>NULL</code>
- *	- @link CPTLayer::identifier identifier @endlink = <code>nil</code>
- *	- <code>needsDisplayOnBoundsChange</code> = <code>NO</code>
- *	- <code>opaque</code> = <code>NO</code>
- *	- <code>masksToBounds</code> = <code>NO</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref paddingLeft = @num{0.0}
+ *  - @ref paddingTop = @num{0.0}
+ *  - @ref paddingRight = @num{0.0}
+ *  - @ref paddingBottom = @num{0.0}
+ *  - @ref masksToBorder = @NO
+ *  - @ref shadow = @nil
+ *  - @ref useFastRendering = @NO
+ *  - @ref graph = @nil
+ *  - @ref outerBorderPath = @NULL
+ *  - @ref innerBorderPath = @NULL
+ *  - @ref identifier = @nil
+ *  - @ref needsDisplayOnBoundsChange = @NO
+ *  - @ref opaque = @NO
+ *  - @ref masksToBounds = @NO
  *
- *	@param newFrame The frame rectangle.
- *  @return The initialized CPTLayer object.
+ *  @param newFrame The frame rectangle.
+ *  @return The initialized object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
 {
@@ -185,10 +185,20 @@
     return self;
 }
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTLayer object with an empty frame rectangle.
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     return [self initWithFrame:CGRectZero];
 }
+
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -228,8 +238,12 @@
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -269,16 +283,24 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Animation
+
+/// @cond
 
 -(id<CAAction>)actionForKey:(NSString *)aKey
 {
     return nil;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
+
+/// @cond
 
 -(void)drawInContext:(CGContextRef)context
 {
@@ -287,14 +309,16 @@
     self.useFastRendering = NO;
 }
 
-/**	@brief Draws layer content into the provided graphics context.
+/// @endcond
+
+/** @brief Draws layer content into the provided graphics context.
  *
- *	This method replaces the <code>-[CALayer drawInContext:]</code> method
- *	to ensure that layer content is always drawn as vectors
- *	and objects rather than as a cached bitmapped image representation.
- *	Subclasses should do all drawing here and must call super to set up the clipping path.
+ *  This method replaces the CALayer @link CALayer::drawInContext: -drawInContext: @endlink method
+ *  to ensure that layer content is always drawn as vectors
+ *  and objects rather than as a cached bitmapped image representation.
+ *  Subclasses should do all drawing here and must call @super to set up the clipping path.
  *
- *	@param context The graphics context to draw into.
+ *  @param context The graphics context to draw into.
  **/
 -(void)renderAsVectorInContext:(CGContextRef)context;
 {
@@ -303,8 +327,8 @@
     [self.shadow setShadowInContext:context];
 }
 
-/**	@brief Draws layer content and the content of all sublayers into the provided graphics context.
- *	@param context The graphics context to draw into.
+/** @brief Draws layer content and the content of all sublayers into the provided graphics context.
+ *  @param context The graphics context to draw into.
  **/
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
@@ -351,7 +375,7 @@
     CGContextRestoreGState(context);
 }
 
-///	@cond
+/// @cond
 
 -(void)applyTransform:(CATransform3D)transform3D toContext:(CGContextRef)context
 {
@@ -374,10 +398,10 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
-/**	@brief Updates the layer layout if needed and then draws layer content and the content of all sublayers into the provided graphics context.
- *	@param context The graphics context to draw into.
+/** @brief Updates the layer layout if needed and then draws layer content and the content of all sublayers into the provided graphics context.
+ *  @param context The graphics context to draw into.
  */
 -(void)layoutAndRenderInContext:(CGContextRef)context
 {
@@ -385,8 +409,8 @@
     [self recursivelyRenderInContext:context];
 }
 
-/**	@brief Draws layer content and the content of all sublayers into a PDF document.
- *	@return PDF representation of the layer content.
+/** @brief Draws layer content and the content of all sublayers into a PDF document.
+ *  @return PDF representation of the layer content.
  **/
 -(NSData *)dataForPDFRepresentationOfLayer
 {
@@ -437,13 +461,13 @@
     return NO;
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Layout
 
 /**
- *	@brief Align the receiver's position with pixel boundaries.
+ *  @brief Align the receiver&rsquo;s position with pixel boundaries.
  **/
 -(void)pixelAlign
 {
@@ -472,7 +496,7 @@
     self.position = newPosition;
 }
 
-///	@cond
+/// @cond
 
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
@@ -506,13 +530,19 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
+/// @name Layout
+/// @{
+
+/**
+ *  @brief Updates the layout of all sublayers. Sublayers fill the super layer&rsquo;s bounds minus any padding.
+ *
+ *  This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask.
+ *  Subclasses should override this method to provide a different layout of their own sublayers.
+ **/
 -(void)layoutSublayers
 {
-    // This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask
-    // Subclasses should override to lay out their own sublayers
-    // Sublayers fill the super layer's bounds minus any padding by default
     CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
 
     [self sublayerMarginLeft:&leftPadding top:&topPadding right:&rightPadding bottom:&bottomPadding];
@@ -541,16 +571,18 @@
     }
 }
 
+/// @}
+
 -(NSSet *)sublayersExcludedFromAutomaticLayout
 {
     return [NSSet set];
 }
 
-/**	@brief Returns the margins that should be left between the bounds of the receiver and all sublayers.
- *	@param left The left margin.
- *	@param top The top margin.
- *	@param right The right margin.
- *	@param bottom The bottom margin.
+/** @brief Returns the margins that should be left between the bounds of the receiver and all sublayers.
+ *  @param left The left margin.
+ *  @param top The top margin.
+ *  @param right The right margin.
+ *  @param bottom The bottom margin.
  **/
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
 {
@@ -563,7 +595,7 @@
 #pragma mark -
 #pragma mark Sublayers
 
-///	@cond
+/// @cond
 
 -(void)setSublayers:(NSArray *)sublayers
 {
@@ -623,7 +655,7 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Masking
@@ -664,14 +696,14 @@
     return self.innerBorderPath;
 }
 
-/**	@brief Recursively sets the clipping path of the given graphics context to the sublayer masking paths of its superlayers.
+/** @brief Recursively sets the clipping path of the given graphics context to the sublayer masking paths of its superlayers.
  *
- *	The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
- *	each super layer. The tree traversal stops when a layer is encountered that is not a CPTLayer.
+ *  The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
+ *  each super layer. The tree traversal stops when a layer is encountered that is not a CPTLayer.
  *
- *	@param context The graphics context to clip.
- *	@param sublayer The sublayer that called this method.
- *	@param offset The cumulative position offset between the receiver and the first layer in the recursive calling chain.
+ *  @param context The graphics context to clip.
+ *  @param sublayer The sublayer that called this method.
+ *  @param offset The cumulative position offset between the receiver and the first layer in the recursive calling chain.
  **/
 -(void)applySublayerMaskToContext:(CGContextRef)context forSublayer:(CPTLayer *)sublayer withOffset:(CGPoint)offset
 {
@@ -694,30 +726,30 @@
 
     CGPathRef maskPath = self.sublayerMaskingPath;
     if ( maskPath ) {
-        //		CGAffineTransform transform = CATransform3DGetAffineTransform(self.transform);
-        //		CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(self.sublayerTransform);
+        //        CGAffineTransform transform = CATransform3DGetAffineTransform(self.transform);
+        //        CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(self.sublayerTransform);
 
         CGContextTranslateCTM(context, -layerOffset.x, -layerOffset.y);
-        //		CGContextConcatCTM(context, CGAffineTransformInvert(transform));
-        //		CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
+        //        CGContextConcatCTM(context, CGAffineTransformInvert(transform));
+        //        CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
 
         CGContextAddPath(context, maskPath);
         CGContextClip(context);
 
-        //		CGContextConcatCTM(context, sublayerTransform);
-        //		CGContextConcatCTM(context, transform);
+        //        CGContextConcatCTM(context, sublayerTransform);
+        //        CGContextConcatCTM(context, transform);
         CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
     }
 
     CGContextConcatCTM(context, sublayerTransform);
 }
 
-/**	@brief Sets the clipping path of the given graphics context to mask the content.
+/** @brief Sets the clipping path of the given graphics context to mask the content.
  *
- *	The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
- *	each super layer. The tree traversal stops when a layer is encountered that is not a CPTLayer.
+ *  The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
+ *  each super layer. The tree traversal stops when a layer is encountered that is not a CPTLayer.
  *
- *	@param context The graphics context to clip.
+ *  @param context The graphics context to clip.
  **/
 -(void)applyMaskToContext:(CGContextRef)context
 {
@@ -731,6 +763,8 @@
         CGContextClip(context);
     }
 }
+
+/// @cond
 
 -(void)setNeedsLayout
 {
@@ -748,10 +782,12 @@
     }
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setPosition:(CGPoint)newPosition;
 {
@@ -851,25 +887,29 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Description
+
+/// @cond
 
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPTStringFromRect(self.bounds)];
 }
 
+/// @endcond
+
 /**
- *	@brief Logs this layer and all of its sublayers.
+ *  @brief Logs this layer and all of its sublayers.
  **/
 -(void)logLayers
 {
     NSLog(@"Layer tree:\n%@", [self subLayersAtIndex:0]);
 }
 
-///	@cond
+/// @cond
 
 -(NSString *)subLayersAtIndex:(NSUInteger)index
 {
@@ -888,6 +928,6 @@
     return result;
 }
 
-///	@endcond
+/// @endcond
 
 @end

@@ -4,7 +4,7 @@
 #import "CPTConstraints.h"
 #import "CPTLayer.h"
 
-///	@cond
+/// @cond
 @interface CPTLayerAnnotation()
 
 @property (nonatomic, readwrite, retain) CPTConstraints *xConstraints;
@@ -14,25 +14,25 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
-/**	@brief Positions a content layer relative to an anchor point in a reference layer.
+/** @brief Positions a content layer relative to an anchor point in a reference layer.
  *
- *	Layer annotations are positioned relative to a reference layer. This allows the
- *	annotation content layer to move with changes in the reference layer.
- *	This is useful for applications such as titles attached to an edge of the reference layer.
+ *  Layer annotations are positioned relative to a reference layer. This allows the
+ *  annotation content layer to move with changes in the reference layer.
+ *  This is useful for applications such as titles attached to an edge of the reference layer.
  **/
 @implementation CPTLayerAnnotation
 
-/**	@property anchorLayer
- *	@brief The reference layer.
+/** @property __cpt_weak CPTLayer *anchorLayer
+ *  @brief The reference layer.
  **/
 @synthesize anchorLayer;
 
-/**	@property rectAnchor
- *	@brief The anchor position for the annotation.
+/** @property CPTRectAnchor rectAnchor
+ *  @brief The anchor position for the annotation.
  **/
 @synthesize rectAnchor;
 
@@ -42,15 +42,15 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-///	@name Initialization
-///	@{
+/// @name Initialization
+/// @{
 
 /** @brief Initializes a newly allocated CPTLayerAnnotation object with the provided reference layer.
  *
- *	This is the designated initializer. The initialized layer will be anchored to
- *	@link CPTRectAnchor::CPTRectAnchorTop CPTRectAnchorTop @endlink by default.
+ *  This is the designated initializer. The initialized layer will be anchored to
+ *  #CPTRectAnchorTop by default.
  *
- *	@param newAnchorLayer The reference layer. Must be non-nil.
+ *  @param newAnchorLayer The reference layer. Must be non-@nil.
  *  @return The initialized CPTLayerAnnotation object.
  **/
 -(id)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
@@ -67,7 +67,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(void)dealloc
 {
@@ -77,8 +79,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -101,10 +107,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Layout
 
-///	@cond
+/// @cond
 
 -(void)positionContentLayer
 {
@@ -137,12 +145,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Constraints
 
-///	@cond
+/// @cond
 
 -(void)setConstraints
 {
@@ -203,12 +211,12 @@
     [yConstraint release];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setRectAnchor:(CPTRectAnchor)newAnchor
 {
@@ -219,6 +227,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

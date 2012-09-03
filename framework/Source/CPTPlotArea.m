@@ -10,7 +10,7 @@
 
 static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
-///	@cond
+/// @cond
 @interface CPTPlotArea()
 
 @property (nonatomic, readwrite, assign) CPTGraphLayerType *bottomUpLayerOrder;
@@ -21,89 +21,91 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /** @brief A layer representing the actual plotting area of a graph.
  *
- *	All plots are drawn inside this area while axes, titles, and borders may fall outside.
- *	The layers are arranged so that the graph elements are drawn in the following order:
- *	-# Background fill
- *	-# Minor grid lines
- *	-# Major grid lines
- *	-# Background border
- *	-# Axis lines with major and minor tick marks
- *	-# Plots
- *	-# Axis labels
- *	-# Axis titles
+ *  All plots are drawn inside this area while axes, titles, and borders may fall outside.
+ *  The layers are arranged so that the graph elements are drawn in the following order:
+ *  -# Background fill
+ *  -# Minor grid lines
+ *  -# Major grid lines
+ *  -# Background border
+ *  -# Axis lines with major and minor tick marks
+ *  -# Plots
+ *  -# Axis labels
+ *  -# Axis titles
  **/
 @implementation CPTPlotArea
 
-/** @property minorGridLineGroup
- *	@brief The parent layer for all minor grid lines.
+/** @property CPTGridLineGroup *minorGridLineGroup
+ *  @brief The parent layer for all minor grid lines.
  **/
 @synthesize minorGridLineGroup;
 
-/** @property majorGridLineGroup
- *	@brief The parent layer for all major grid lines.
+/** @property CPTGridLineGroup *majorGridLineGroup
+ *  @brief The parent layer for all major grid lines.
  **/
 @synthesize majorGridLineGroup;
 
-/** @property axisSet
- *	@brief The axis set.
+/** @property CPTAxisSet *axisSet
+ *  @brief The axis set.
  **/
 @synthesize axisSet;
 
-/** @property plotGroup
- *	@brief The plot group.
+/** @property CPTPlotGroup *plotGroup
+ *  @brief The plot group.
  **/
 @synthesize plotGroup;
 
-/** @property axisLabelGroup
- *	@brief The parent layer for all axis labels.
+/** @property CPTAxisLabelGroup *axisLabelGroup
+ *  @brief The parent layer for all axis labels.
  **/
 @synthesize axisLabelGroup;
 
-/** @property axisTitleGroup
- *	@brief The parent layer for all axis titles.
+/** @property CPTAxisLabelGroup *axisTitleGroup
+ *  @brief The parent layer for all axis titles.
  **/
 @synthesize axisTitleGroup;
 
-/** @property topDownLayerOrder
- *	@brief An array of graph layers to be drawn in an order other than the default.
+/** @property NSArray *topDownLayerOrder
+ *  @brief An array of graph layers to be drawn in an order other than the default.
  *
- *	The array should reference the layers using the constants defined in #CPTGraphLayerType.
- *	Layers should be specified in order starting from the top layer.
- *	Only the layers drawn out of the default order need be specified; all others will
- *	automatically be placed at the bottom of the view in their default order.
+ *  The array should reference the layers using the constants defined in #CPTGraphLayerType.
+ *  Layers should be specified in order starting from the top layer.
+ *  Only the layers drawn out of the default order need be specified; all others will
+ *  automatically be placed at the bottom of the view in their default order.
  *
- *	If this property is <code>nil</code>, the layers will be drawn in the default order (bottom to top):
- *	-# Minor grid lines
- *	-# Major grid lines
- *	-# Axis lines, including the tick marks
- *	-# Plots
- *	-# Axis labels
- *	-# Axis titles
+ *  If this property is @nil, the layers will be drawn in the default order (bottom to top):
+ *  -# Minor grid lines
+ *  -# Major grid lines
+ *  -# Axis lines, including the tick marks
+ *  -# Plots
+ *  -# Axis labels
+ *  -# Axis titles
  *
- *	Example usage:
- *	<code>[graph setTopDownLayerOrder:[NSArray arrayWithObjects:
- *	[NSNumber numberWithInt:CPTGraphLayerTypePlots],
- *	[NSNumber numberWithInt:CPTGraphLayerTypeAxisLabels],
- *	[NSNumber numberWithInt:CPTGraphLayerTypeMajorGridLines],
- *	..., nil]];</code>
+ *  Example usage:
+ *  @code
+ *  [graph setTopDownLayerOrder:[NSArray arrayWithObjects:
+ *      [NSNumber numberWithInt:CPTGraphLayerTypePlots],
+ *      [NSNumber numberWithInt:CPTGraphLayerTypeAxisLabels],
+ *      [NSNumber numberWithInt:CPTGraphLayerTypeMajorGridLines],
+ *      ..., nil]];
+ *  @endcode
  **/
 @synthesize topDownLayerOrder;
 
-/** @property borderLineStyle
- *	@brief The line style for the layer border.
- *	If <code>nil</code>, the border is not drawn.
+/** @property CPTLineStyle *borderLineStyle
+ *  @brief The line style for the layer border.
+ *  If @nil, the border is not drawn.
  **/
 @dynamic borderLineStyle;
 
-/** @property fill
- *	@brief The fill for the layer background.
- *	If <code>nil</code>, the layer background is not filled.
+/** @property CPTFill *fill
+ *  @brief The fill for the layer background.
+ *  If @nil, the layer background is not filled.
  **/
 @synthesize fill;
 
@@ -119,19 +121,19 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 /** @brief Initializes a newly allocated CPTPlotArea object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTPlotArea::minorGridLineGroup minorGridLineGroup @endlink = <code>nil</code>
- *	- @link CPTPlotArea::majorGridLineGroup majorGridLineGroup @endlink = <code>nil</code>
- *	- @link CPTPlotArea::axisSet axisSet @endlink = <code>nil</code>
- *	- @link CPTPlotArea::plotGroup plotGroup @endlink = <code>nil</code>
- *	- @link CPTPlotArea::axisLabelGroup axisLabelGroup @endlink = <code>nil</code>
- *	- @link CPTPlotArea::axisTitleGroup axisTitleGroup @endlink = <code>nil</code>
- *	- @link CPTPlotArea::fill fill @endlink = <code>nil</code>
- *	- @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink = <code>nil</code>
- *	- @link CPTPlotArea::plotGroup plotGroup @endlink = a new CPTPlotGroup with the same frame rectangle
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref minorGridLineGroup = @nil
+ *  - @ref majorGridLineGroup = @nil
+ *  - @ref axisSet = @nil
+ *  - @ref plotGroup = @nil
+ *  - @ref axisLabelGroup = @nil
+ *  - @ref axisTitleGroup = @nil
+ *  - @ref fill = @nil
+ *  - @ref topDownLayerOrder = @nil
+ *  - @ref plotGroup = a new CPTPlotGroup with the same frame rectangle
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotArea object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -157,7 +159,9 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -199,8 +203,12 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -238,10 +246,12 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -263,11 +273,21 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Layout
 
+/// @name Layout
+/// @{
+
+/**
+ *  @brief Updates the layout of all sublayers. Sublayers fill the super layer&rsquo;s bounds
+ *  except for the @ref plotGroup, which will fill the receiver&rsquo;s bounds.
+ *
+ *  This is where we do our custom replacement for the Mac-only layout manager and autoresizing mask.
+ *  Subclasses should override this method to provide a different layout of their own sublayers.
+ **/
 -(void)layoutSublayers
 {
     [super layoutSublayers];
@@ -294,10 +314,12 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     }
 }
 
+/// @}
+
 #pragma mark -
 #pragma mark Layer ordering
 
-///	@cond
+/// @cond
 
 -(void)updateLayerOrder
 {
@@ -389,13 +411,13 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     return index;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Axis set layer management
 
-/**	@brief Checks for the presence of the specified layer group and adds or removes it as needed.
- *	@param layerType The layer type being updated.
+/** @brief Checks for the presence of the specified layer group and adds or removes it as needed.
+ *  @param layerType The layer type being updated.
  **/
 -(void)updateAxisSetLayersForType:(CPTGraphLayerType)layerType
 {
@@ -460,8 +482,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     }
 }
 
-/**	@brief Ensures that a group layer is set for the given layer type.
- *	@param layerType The layer type being updated.
+/** @brief Ensures that a group layer is set for the given layer type.
+ *  @param layerType The layer type being updated.
  **/
 -(void)setAxisSetLayersForType:(CPTGraphLayerType)layerType
 {
@@ -503,10 +525,10 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     }
 }
 
-/**	@brief Computes the sublayer index for the given layer type and axis.
- *	@param axis The axis of interest.
- *	@param layerType The layer type being updated.
- *	@return The sublayer index for the given layer type.
+/** @brief Computes the sublayer index for the given layer type and axis.
+ *  @param axis The axis of interest.
+ *  @param layerType The layer type being updated.
+ *  @return The sublayer index for the given layer type.
  **/
 -(unsigned)sublayerIndexForAxis:(CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
 {
@@ -553,7 +575,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(CPTLineStyle *)borderLineStyle
 {
@@ -674,6 +696,6 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

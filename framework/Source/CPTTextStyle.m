@@ -4,7 +4,7 @@
 #import "CPTMutableTextStyle.h"
 #import "NSCoderExtensions.h"
 
-///	@cond
+/// @cond
 @interface CPTTextStyle()
 
 @property (readwrite, copy, nonatomic) NSString *fontName;
@@ -14,7 +14,7 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 /** @brief Immutable wrapper for various text style properties.
  *
@@ -23,22 +23,22 @@
 
 @implementation CPTTextStyle
 
-/** @property fontSize
- *  @brief The font size. Default is 12.0.
+/** @property CGFloat fontSize
+ *  @brief The font size. Default is @num{12.0}.
  **/
 @synthesize fontSize;
 
-/** @property fontName
- *  @brief The font name. Default is "Helvetica".
+/** @property NSString *fontName
+ *  @brief The font name. Default is Helvetica.
  **/
 @synthesize fontName;
 
-/** @property color
+/** @property CPTColor *color
  *  @brief The current text color. Default is solid black.
  **/
 @synthesize color;
 
-/** @property textAlignment
+/** @property CPTTextAlignment textAlignment
  *  @brief The paragraph alignment for multi-line text. Default is #CPTTextAlignmentLeft.
  **/
 @synthesize textAlignment;
@@ -55,8 +55,21 @@
 }
 
 #pragma mark -
-#pragma mark Initialization and teardown
+#pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTAnnotation object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref fontName = Helvetica
+ *  - @ref fontSize = @num{12.0}
+ *  - @ref color = opaque black
+ *  - @ref textAlignment = #CPTTextAlignmentLeft
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -68,6 +81,10 @@
     return self;
 }
 
+/// @}
+
+/// @cond
+
 -(void)dealloc
 {
     [fontName release];
@@ -75,8 +92,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -97,8 +118,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCopying
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -111,8 +136,12 @@
     return newCopy;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSMutableCopying
+#pragma mark NSMutableCopying Methods
+
+/// @cond
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
@@ -124,5 +153,7 @@
     newCopy->textAlignment = self->textAlignment;
     return newCopy;
 }
+
+/// @endcond
 
 @end

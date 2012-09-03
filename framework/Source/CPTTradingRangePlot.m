@@ -16,16 +16,16 @@
 #import "NSCoderExtensions.h"
 #import <stdlib.h>
 
-/**	@defgroup plotAnimationTradingRangePlot Trading Range Plot
- *	@brief Trading range plot properties that can be animated using Core Animation.
- *	@ingroup plotAnimation
+/** @defgroup plotAnimationTradingRangePlot Trading Range Plot
+ *  @brief Trading range plot properties that can be animated using Core Animation.
+ *  @ingroup plotAnimation
  **/
 
-/**	@if MacOnly
- *	@defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
- *	@brief Binding identifiers for trading range plots.
- *	@ingroup plotBindings
- *	@endif
+/** @if MacOnly
+ *  @defgroup plotBindingsTradingRangePlot Trading Range Plot Bindings
+ *  @brief Binding identifiers for trading range plots.
+ *  @ingroup plotBindings
+ *  @endif
  **/
 
 NSString *const CPTTradingRangePlotBindingXValues            = @"xValues";            ///< X values.
@@ -42,7 +42,7 @@ NSString *const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineSty
 const CPTCoordinate independentCoord = CPTCoordinateX;
 const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
-///	@cond
+/// @cond
 @interface CPTTradingRangePlot()
 
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *xValues;
@@ -68,16 +68,16 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A trading range financial plot.
- *	@see See @ref plotAnimationTradingRangePlot "Trading Range Plot" for a list of animatable properties.
- *	@if MacOnly
- *	@see See @ref plotBindingsTradingRangePlot "Trading Range Plot Bindings" for a list of supported binding identifiers.
- *	@endif
+ *  @brief A trading range financial plot.
+ *  @see See @ref plotAnimationTradingRangePlot "Trading Range Plot" for a list of animatable properties.
+ *  @if MacOnly
+ *  @see See @ref plotBindingsTradingRangePlot "Trading Range Plot Bindings" for a list of supported binding identifiers.
+ *  @endif
  **/
 @implementation CPTTradingRangePlot
 
@@ -92,59 +92,61 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @dynamic increaseLineStyles;
 @dynamic decreaseLineStyles;
 
-/** @property lineStyle
- *	@brief The line style used to draw candlestick or OHLC symbols.
+/** @property CPTLineStyle *lineStyle
+ *  @brief The line style used to draw candlestick or OHLC symbols.
  **/
 @synthesize lineStyle;
 
-/** @property increaseLineStyle
- *	@brief The line style used to outline candlestick symbols when close >= open.
- *	If <code>nil</code>, will use @link CPTTradingRangePlot::lineStyle lineStyle @endlink instead.
+/** @property CPTLineStyle *increaseLineStyle
+ *  @brief The line style used to outline candlestick symbols when close >= open.
+ *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize increaseLineStyle;
 
-/** @property decreaseLineStyle
- *	@brief The line style used to outline candlestick symbols when close < open.
- *	If <code>nil</code>, will use @link CPTTradingRangePlot::lineStyle lineStyle @endlink instead.
+/** @property CPTLineStyle *decreaseLineStyle
+ *  @brief The line style used to outline candlestick symbols when close < open.
+ *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize decreaseLineStyle;
 
-/** @property increaseFill
- *	@brief The fill used with a candlestick plot when close >= open.
+/** @property CPTFill *increaseFill
+ *  @brief The fill used with a candlestick plot when close >= open.
  **/
 @synthesize increaseFill;
 
-/** @property decreaseFill
- *	@brief The fill used with a candlestick plot when close < open.
+/** @property CPTFill *decreaseFill
+ *  @brief The fill used with a candlestick plot when close < open.
  **/
 @synthesize decreaseFill;
 
-/** @property plotStyle
- *	@brief The style of trading range plot drawn. The default is #CPTTradingRangePlotStyleOHLC.
+/** @property CPTTradingRangePlotStyle plotStyle
+ *  @brief The style of trading range plot drawn. The default is #CPTTradingRangePlotStyleOHLC.
  **/
 @synthesize plotStyle;
 
-/** @property barWidth
- *	@brief The width of bars in candlestick plots (view coordinates).
- *	@ingroup plotAnimationTradingRangePlot
+/** @property CGFloat barWidth
+ *  @brief The width of bars in candlestick plots (view coordinates).
+ *  @ingroup plotAnimationTradingRangePlot
  **/
 @synthesize barWidth;
 
-/** @property stickLength
- *	@brief The length of close and open sticks on OHLC plots (view coordinates).
- *	@ingroup plotAnimationTradingRangePlot
+/** @property CGFloat stickLength
+ *  @brief The length of close and open sticks on OHLC plots (view coordinates).
+ *  @ingroup plotAnimationTradingRangePlot
  **/
 @synthesize stickLength;
 
-/** @property barCornerRadius
- *	@brief The corner radius used for candlestick plots.
- *  Defaults to 0.0.
- *	@ingroup plotAnimationTradingRangePlot
+/** @property CGFloat barCornerRadius
+ *  @brief The corner radius used for candlestick plots.
+ *  Defaults to @num{0.0}.
+ *  @ingroup plotAnimationTradingRangePlot
  **/
 @synthesize barCornerRadius;
 
 #pragma mark -
-#pragma mark init/dealloc
+#pragma mark Init/Dealloc
+
+/// @cond
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -166,24 +168,26 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 #endif
 
+/// @endcond
+
 /// @name Initialization
 /// @{
 
 /** @brief Initializes a newly allocated CPTTradingRangePlot object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTTradingRangePlot::plotStyle plotStyle @endlink = #CPTTradingRangePlotStyleOHLC
- *	- @link CPTTradingRangePlot::lineStyle lineStyle @endlink = default line style
- *	- @link CPTTradingRangePlot::increaseLineStyle increaseLineStyle @endlink = <code>nil</code>
- *	- @link CPTTradingRangePlot::decreaseLineStyle decreaseLineStyle @endlink = <code>nil</code>
- *	- @link CPTTradingRangePlot::increaseFill increaseFill @endlink = solid white fill
- *	- @link CPTTradingRangePlot::decreaseFill decreaseFill @endlink = solid black fill
- *	- @link CPTTradingRangePlot::barWidth barWidth @endlink = 5.0
- *	- @link CPTTradingRangePlot::stickLength stickLength @endlink = 3.0
- *	- @link CPTTradingRangePlot::barCornerRadius barCornerRadius @endlink = 0.0
- *	- @link CPTPlot::labelField labelField @endlink = #CPTTradingRangePlotFieldClose
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref plotStyle = #CPTTradingRangePlotStyleOHLC
+ *  - @ref lineStyle = default line style
+ *  - @ref increaseLineStyle = @nil
+ *  - @ref decreaseLineStyle = @nil
+ *  - @ref increaseFill = solid white fill
+ *  - @ref decreaseFill = solid black fill
+ *  - @ref barWidth = @num{5.0}
+ *  - @ref stickLength = @num{3.0}
+ *  - @ref barCornerRadius = @num{0.0}
+ *  - @ref labelField = #CPTTradingRangePlotFieldClose
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTTradingRangePlot object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -204,7 +208,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -234,6 +240,13 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     [super dealloc];
 }
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -266,10 +279,12 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Loading
 
-///	@cond
+/// @cond
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
@@ -412,14 +427,14 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -443,7 +458,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [NSException raise:CPTException format:@"Mismatching number of data values in trading range plot"];
     }
 
-    [super renderAsVectorInContext:theContext];
+    [super renderAsVectorInContext:context];
 
     CGPoint openPoint, highPoint, lowPoint, closePoint;
 
@@ -453,7 +468,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CGPoint originTransformed             = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
     BOOL alignPoints                      = self.alignsPointsToPixels;
 
-    CGContextBeginTransparencyLayer(theContext, NULL);
+    CGContextBeginTransparencyLayer(context, NULL);
 
     if ( self.doublePrecisionCache ) {
         const double *locationBytes = (const double *)locations.data.bytes;
@@ -524,7 +539,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 // Draw
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
-                        [self drawOHLCInContext:theContext
+                        [self drawOHLCInContext:context
                                         atIndex:i
                                               x:xCoord + originTransformed.x
                                            open:openPoint.y + originTransformed.y
@@ -535,7 +550,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                         break;
 
                     case CPTTradingRangePlotStyleCandleStick:
-                        [self drawCandleStickInContext:theContext
+                        [self drawCandleStickInContext:context
                                                atIndex:i
                                                      x:xCoord + originTransformed.x
                                                   open:openPoint.y + originTransformed.y
@@ -621,7 +636,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 // Draw
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
-                        [self drawOHLCInContext:theContext
+                        [self drawOHLCInContext:context
                                         atIndex:i
                                               x:xCoord + originTransformed.x
                                            open:openPoint.y + originTransformed.y
@@ -632,7 +647,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                         break;
 
                     case CPTTradingRangePlotStyleCandleStick:
-                        [self drawCandleStickInContext:theContext
+                        [self drawCandleStickInContext:context
                                                atIndex:i
                                                      x:xCoord + originTransformed.x
                                                   open:openPoint.y + originTransformed.y
@@ -650,7 +665,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
     }
 
-    CGContextEndTransparencyLayer(theContext);
+    CGContextEndTransparencyLayer(context);
 }
 
 -(void)drawCandleStickInContext:(CGContextRef)context
@@ -970,10 +985,12 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return theLineStyle;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Animation
+
+/// @cond
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
@@ -994,6 +1011,8 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         return [super needsDisplayForKey:aKey];
     }
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Fields
@@ -1088,7 +1107,7 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 #pragma mark -
 #pragma mark Responder Chain and User Interaction
 
-///	@cond
+/// @cond
 
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
@@ -1324,27 +1343,27 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return result;
 }
 
-///	@endcond
+/// @endcond
 
 /// @name User Interaction
 /// @{
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly pressed the mouse button. @endif
- *	@if iOSOnly touched the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
  *
  *
- *	If this plot has a delegate that responds to the
- *	@link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink and/or
- *	@link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
- *	methods, the <code>interactionPoint</code> is compared with each bar in index order.
- *	The delegate method will be called and this method returns <code>YES</code> for the first
- *	index where the <code>interactionPoint</code> is inside a bar.
- *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
+ *  If this plot has a delegate that responds to the
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each bar in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a bar.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -1377,12 +1396,12 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setPlotStyle:(CPTTradingRangePlotStyle)newPlotStyle
 {
@@ -1574,6 +1593,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [self setNeedsDisplay];
 }
 
-///	@endcond
+/// @endcond
 
 @end

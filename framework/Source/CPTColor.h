@@ -29,7 +29,7 @@
 +(CPTColor *)colorWithCGColor:(CGColorRef)newCGColor;
 +(CPTColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 +(CPTColor *)colorWithGenericGray:(CGFloat)gray;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
@@ -37,6 +37,6 @@
 -(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 
 -(CPTColor *)colorWithAlphaComponent:(CGFloat)alpha;
-///	@}
+/// @}
 
 @end

@@ -20,16 +20,16 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@defgroup plotAnimationBarPlot Bar Plot
- *	@brief Bar plot properties that can be animated using Core Animation.
- *	@ingroup plotAnimation
+/** @defgroup plotAnimationBarPlot Bar Plot
+ *  @brief Bar plot properties that can be animated using Core Animation.
+ *  @ingroup plotAnimation
  **/
 
-/**	@if MacOnly
- *	@defgroup plotBindingsBarPlot Bar Plot Bindings
- *	@brief Binding identifiers for bar plots.
- *	@ingroup plotBindings
- *	@endif
+/** @if MacOnly
+ *  @defgroup plotBindingsBarPlot Bar Plot Bindings
+ *  @brief Binding identifiers for bar plots.
+ *  @ingroup plotBindings
+ *  @endif
  **/
 
 NSString *const CPTBarPlotBindingBarLocations  = @"barLocations";  ///< Bar locations.
@@ -38,7 +38,7 @@ NSString *const CPTBarPlotBindingBarBases      = @"barBases";      ///< Bar base
 NSString *const CPTBarPlotBindingBarFills      = @"barFills";      ///< Bar fills.
 NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
 
-///	@cond
+/// @cond
 @interface CPTBarPlot()
 
 @property (nonatomic, readwrite, copy) NSArray *barLocations;
@@ -61,16 +61,16 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A two-dimensional bar plot.
- *	@see See @ref plotAnimationBarPlot "Bar Plot" for a list of animatable properties.
- *	@if MacOnly
- *	@see See @ref plotBindingsBarPlot "Bar Plot Bindings" for a list of supported binding identifiers.
- *	@endif
+ *  @brief A two-dimensional bar plot.
+ *  @see See @ref plotAnimationBarPlot "Bar Plot" for a list of animatable properties.
+ *  @if MacOnly
+ *  @see See @ref plotBindingsBarPlot "Bar Plot Bindings" for a list of supported binding identifiers.
+ *  @endif
  **/
 @implementation CPTBarPlot
 
@@ -80,90 +80,90 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 @dynamic barFills;
 @dynamic barLineStyles;
 
-/** @property barCornerRadius
- *	@brief The corner radius for the end of the bars. Default is 0.0 for square corners.
- *	@ingroup plotAnimationBarPlot
+/** @property CGFloat barCornerRadius
+ *  @brief The corner radius for the end of the bars. Default is @num{0.0} for square corners.
+ *  @ingroup plotAnimationBarPlot
  **/
 @synthesize barCornerRadius;
 
-/** @property barBaseCornerRadius
- *	@brief The corner radius for the end of the bars drawn at the base value. Default is 0.0 for square corners.
- *	@ingroup plotAnimationBarPlot
+/** @property CGFloat barBaseCornerRadius
+ *  @brief The corner radius for the end of the bars drawn at the base value. Default is @num{0.0} for square corners.
+ *  @ingroup plotAnimationBarPlot
  **/
 @synthesize barBaseCornerRadius;
 
-/** @property barOffset
- *	@brief The starting offset of the first bar in location data units.
+/** @property NSDecimal barOffset
+ *  @brief The starting offset of the first bar in location data units.
  **/
 @synthesize barOffset;
 
-/** @property barOffsetScale
- *	@brief An animatable scaling factor for the bar offset. Default is 1.0.
- *	@ingroup plotAnimationBarPlot
+/** @property CGFloat barOffsetScale
+ *  @brief An animatable scaling factor for the bar offset. Default is @num{1.0}.
+ *  @ingroup plotAnimationBarPlot
  **/
 @synthesize barOffsetScale;
 
-/** @property barWidthsAreInViewCoordinates
+/** @property BOOL barWidthsAreInViewCoordinates
  *  @brief Whether the bar width and bar offset is in view coordinates, or in plot coordinates.
- *  Default is NO, meaning plot coordinates are used.
+ *  Default is @NO, meaning plot coordinates are used.
  **/
 @synthesize barWidthsAreInViewCoordinates;
 
-/** @property barWidth
- *	@brief The width of each bar. Either view or plot coordinates can be used.
+/** @property NSDecimal barWidth
+ *  @brief The width of each bar. Either view or plot coordinates can be used.
  *
- *	With plot coordinates, the bar locations are one data unit apart (e.g., 1, 2, 3, etc.),
- *  a value of 1.0 will result in bars that touch each other; a value of 0.5 will result in bars that are as wide
+ *  With plot coordinates, the bar locations are one data unit apart (e.g., 1, 2, 3, etc.),
+ *  a value of @num{1.0} will result in bars that touch each other; a value of @num{0.5} will result in bars that are as wide
  *  as the gap between them.
  *
- *	@see barWidthsAreInViewCoordinates
+ *  @see barWidthsAreInViewCoordinates
  **/
 @synthesize barWidth;
 
-/** @property barWidthScale
- *	@brief An animatable scaling factor for the bar width. Default is 1.0.
- *	@ingroup plotAnimationBarPlot
+/** @property CGFloat barWidthScale
+ *  @brief An animatable scaling factor for the bar width. Default is @num{1.0}.
+ *  @ingroup plotAnimationBarPlot
  **/
 @synthesize barWidthScale;
 
-/** @property lineStyle
- *	@brief The line style for the bar outline.
- *	If <code>nil</code>, the outline is not drawn.
+/** @property CPTLineStyle *lineStyle
+ *  @brief The line style for the bar outline.
+ *  If @nil, the outline is not drawn.
  **/
 @synthesize lineStyle;
 
-/** @property fill
- *	@brief The fill style for the bars.
- *	If <code>nil</code>, the bars are not filled.
+/** @property CPTFill *fill
+ *  @brief The fill style for the bars.
+ *  If @nil, the bars are not filled.
  **/
 @synthesize fill;
 
-/** @property barsAreHorizontal
- *	@brief If YES, the bars will have a horizontal orientation, otherwise they will be vertical.
+/** @property BOOL barsAreHorizontal
+ *  @brief If @YES, the bars will have a horizontal orientation, otherwise they will be vertical.
  **/
 @synthesize barsAreHorizontal;
 
-/** @property baseValue
- *	@brief The coordinate value of the fixed end of the bars.
- *  This is only used if @link CPTBarPlot::barBasesVary barBasesVary @endlink is NO. Otherwise, the data source
+/** @property NSDecimal baseValue
+ *  @brief The coordinate value of the fixed end of the bars.
+ *  This is only used if @ref barBasesVary is @NO. Otherwise, the data source
  *  will be queried for an appropriate value of #CPTBarPlotFieldBarBase.
  **/
 @synthesize baseValue;
 
-/** @property barBasesVary
- *  @brief If NO, a constant base value is used for all bars.
- *  If YES, the data source is queried to supply a base value for each bar.
- *	@see baseValue
+/** @property BOOL barBasesVary
+ *  @brief If @NO, a constant base value is used for all bars.
+ *  If @YES, the data source is queried to supply a base value for each bar.
+ *  @see baseValue
  **/
 @synthesize barBasesVary;
 
-/** @property plotRange
- *	@brief Sets the plot range for the independent axis.
+/** @property CPTPlotRange *plotRange
+ *  @brief Sets the plot range for the independent axis.
  *
- *	If a plot range is provided, the bars are spaced evenly throughout the plot range. If @link CPTBarPlot::plotRange plotRange @endlink is <code>nil</code>,
- *	bar locations are provided by Cocoa bindings or the bar plot datasource. If locations are not provided by
- *	either bindings or the datasource, the first bar will be placed at zero (0) and subsequent bars will be at
- *	successive positive integer coordinates.
+ *  If a plot range is provided, the bars are spaced evenly throughout the plot range. If @ref plotRange is @nil,
+ *  bar locations are provided by Cocoa bindings or the bar plot datasource. If locations are not provided by
+ *  either bindings or the datasource, the first bar will be placed at zero (@num{0}) and subsequent bars will be at
+ *  successive positive integer coordinates.
  **/
 @synthesize plotRange;
 
@@ -171,9 +171,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 #pragma mark Convenience Factory Methods
 
 /** @brief Creates and returns a new CPTBarPlot instance initialized with a bar fill consisting of a linear gradient between black and the given color.
- *	@param color The beginning color.
- *	@param horizontal If YES, the bars will have a horizontal orientation, otherwise they will be vertical.
- *	@return A new CPTBarPlot instance initialized with a linear gradient bar fill.
+ *  @param color The beginning color.
+ *  @param horizontal If @YES, the bars will have a horizontal orientation, otherwise they will be vertical.
+ *  @return A new CPTBarPlot instance initialized with a linear gradient bar fill.
  **/
 +(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal
 {
@@ -195,7 +195,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 }
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Init/Dealloc
+
+/// @cond
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -212,29 +214,31 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 #endif
 
+/// @endcond
+
 /// @name Initialization
 /// @{
 
 /** @brief Initializes a newly allocated CPTBarPlot object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTBarPlot::lineStyle lineStyle @endlink = default line style
- *	- @link CPTBarPlot::fill fill @endlink = solid black fill
- *	- @link CPTBarPlot::barWidth barWidth @endlink = 0.5
- *	- @link CPTBarPlot::barWidthScale barWidthScale @endlink = 1.0
- *	- @link CPTBarPlot::barWidthsAreInViewCoordinates barWidthsAreInViewCoordinates @endlink = <code>NO</code>
- *	- @link CPTBarPlot::barOffset barOffset @endlink = 0.0
- *	- @link CPTBarPlot::barOffsetScale barOffsetScale @endlink = 1.0
- *	- @link CPTBarPlot::barCornerRadius barCornerRadius @endlink = 0.0
- *	- @link CPTBarPlot::barBaseCornerRadius barBaseCornerRadius @endlink = 0.0
- *	- @link CPTBarPlot::baseValue baseValue @endlink = 0
- *	- @link CPTBarPlot::barsAreHorizontal barsAreHorizontal @endlink = <code>NO</code>
- *	- @link CPTBarPlot::barBasesVary barBasesVary @endlink = <code>NO</code>
- *	- @link CPTBarPlot::plotRange plotRange @endlink = <code>nil</code>
- *	- @link CPTPlot::labelOffset labelOffset @endlink = 10.0
- *	- @link CPTPlot::labelField labelField @endlink = #CPTBarPlotFieldBarTip
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref lineStyle = default line style
+ *  - @ref fill = solid black fill
+ *  - @ref barWidth = @num{0.5}
+ *  - @ref barWidthScale = @num{1.0}
+ *  - @ref barWidthsAreInViewCoordinates = @NO
+ *  - @ref barOffset = @num{0.0}
+ *  - @ref barOffsetScale = @num{1.0}
+ *  - @ref barCornerRadius = @num{0.0}
+ *  - @ref barBaseCornerRadius = @num{0.0}
+ *  - @ref baseValue = @num{0}
+ *  - @ref barsAreHorizontal = @NO
+ *  - @ref barBasesVary = @NO
+ *  - @ref plotRange = @nil
+ *  - @ref labelOffset = @num{10.0}
+ *  - @ref labelField = #CPTBarPlotFieldBarTip
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBarPlot object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -260,7 +264,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -291,6 +297,13 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     [plotRange release];
     [super dealloc];
 }
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -330,6 +343,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
     return self;
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Data Loading
@@ -505,7 +520,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 #pragma mark -
 #pragma mark Length Conversions for Independent Coordinate (e.g., widths, offsets)
 
-///	@cond
+/// @cond
 
 -(CGFloat)lengthInView:(NSDecimal)decimalLength
 {
@@ -612,7 +627,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return length;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Data Ranges
@@ -702,7 +717,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -733,11 +748,11 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         [NSException raise:CPTException format:@"Number of bar lengths and bases do not match"];
     }
 
-    [super renderAsVectorInContext:theContext];
+    [super renderAsVectorInContext:context];
 
     for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
         // Draw
-        [self drawBarInContext:theContext recordIndex:ii];
+        [self drawBarInContext:context recordIndex:ii];
     }
 }
 
@@ -1070,10 +1085,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Animation
+
+/// @cond
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
@@ -1095,6 +1112,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         return [super needsDisplayForKey:aKey];
     }
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Data Labels
@@ -1163,11 +1182,11 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 #pragma mark -
 #pragma mark Legends
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@brief The number of legend entries provided by this plot.
- *	@return The number of legend entries.
+/** @internal
+ *  @brief The number of legend entries provided by this plot.
+ *  @return The number of legend entries.
  **/
 -(NSUInteger)numberOfLegendEntries
 {
@@ -1184,10 +1203,10 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return entryCount;
 }
 
-/**	@internal
- *	@brief The title text of a legend entry.
- *	@param index The index of the desired title.
- *	@return The title of the legend entry at the requested index.
+/** @internal
+ *  @brief The title text of a legend entry.
+ *  @param index The index of the desired title.
+ *  @return The title of the legend entry at the requested index.
  **/
 -(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index
 {
@@ -1205,12 +1224,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return legendTitle;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
-///	@cond
+/// @cond
 
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
@@ -1233,27 +1252,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return index;
 }
 
-///	@endcond
+/// @endcond
 
 /// @name User Interaction
 /// @{
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly pressed the mouse button. @endif
- *	@if iOSOnly touched the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
  *
  *
- *	If this plot has a delegate that responds to the
- *	@link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex: -barPlot:barWasSelectedAtRecordIndex: @endlink and/or
- *	@link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex:withEvent: -barPlot:barWasSelectedAtRecordIndex:withEvent: @endlink
- *	methods, the <code>interactionPoint</code> is compared with each bar in index order.
- *	The delegate method will be called and this method returns <code>YES</code> for the first
- *	index where the <code>interactionPoint</code> is inside a bar.
- *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the bars.
+ *  If this plot has a delegate that responds to the
+ *  @link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex: -barPlot:barWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex:withEvent: -barPlot:barWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each bar in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a bar.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -1286,12 +1305,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(NSArray *)barTips
 {
@@ -1445,7 +1464,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Fields

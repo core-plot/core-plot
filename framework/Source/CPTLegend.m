@@ -10,19 +10,19 @@
 #import "NSNumberExtensions.h"
 #import <tgmath.h>
 
-/**	@defgroup legendAnimation Legends
- *	@brief Legend properties that can be animated using Core Animation.
- *	@if MacOnly
- *	@since Custom layer property animation is supported on MacOS 10.6 and later.
- *	@endif
- *	@ingroup animation
+/** @defgroup legendAnimation Legends
+ *  @brief Legend properties that can be animated using Core Animation.
+ *  @if MacOnly
+ *  @since Custom layer property animation is supported on MacOS 10.6 and later.
+ *  @endif
+ *  @ingroup animation
  **/
 
 NSString *const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
 NSString *const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
 NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
-///	@cond
+/// @cond
 @interface CPTLegend()
 
 @property (nonatomic, readwrite, retain) NSMutableArray *plots;
@@ -39,142 +39,142 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
-/**	@brief A graph legend.
+/** @brief A graph legend.
  *
- *	The legend consists of one or more legend entries associated with plots. Each legend
- *	entry is made up of a graphical "swatch" that corresponds with the plot and a text
- *	title or label to identify the data series to the viewer. The swatches provide a visual
- *	connection to the plot. For instance, a swatch for a scatter plot might include a line
- *	segment drawn in the line style of the plot along with a plot symbol while a swatch for
- *	a pie chart might only show a rectangle or other shape filled with the background fill
- *	of the corresponding pie slice.
+ *  The legend consists of one or more legend entries associated with plots. Each legend
+ *  entry is made up of a graphical @quote{swatch} that corresponds with the plot and a text
+ *  title or label to identify the data series to the viewer. The swatches provide a visual
+ *  connection to the plot. For instance, a swatch for a scatter plot might include a line
+ *  segment drawn in the line style of the plot along with a plot symbol while a swatch for
+ *  a pie chart might only show a rectangle or other shape filled with the background fill
+ *  of the corresponding pie slice.
  *
- *	The plots are not required to belong to the same graph, although that is the usual
- *	case. This allows creation of a master legend that covers multiple graphs.
+ *  The plots are not required to belong to the same graph, although that is the usual
+ *  case. This allows creation of a master legend that covers multiple graphs.
  *
- *	@see See @ref legendAnimation "Legends" for a list of animatable properties.
+ *  @see See @ref legendAnimation "Legends" for a list of animatable properties.
  **/
 @implementation CPTLegend
 
-/**	@property textStyle
- *	@brief The text style used to draw all legend entry titles.
+/** @property CPTTextStyle *textStyle
+ *  @brief The text style used to draw all legend entry titles.
  **/
 @synthesize textStyle;
 
-/**	@property swatchSize
- *	@brief The size of the graphical swatch.
- *	If swatchSize is <code>CGSizeZero</code>, swatches will be drawn using a square 150% of the text size on a side.
+/** @property CGSize swatchSize
+ *  @brief The size of the graphical swatch.
+ *  If swatchSize is (@num{0.0}, @num{0.0}), swatches will be drawn using a square @num{150%} of the text size on a side.
  **/
 @dynamic swatchSize;
 
-/**	@property swatchBorderLineStyle
- *	@brief The line style for the border drawn around each swatch.
- *	If <code>nil</code> (the default), no border is drawn.
+/** @property CPTLineStyle *swatchBorderLineStyle
+ *  @brief The line style for the border drawn around each swatch.
+ *  If @nil (the default), no border is drawn.
  **/
 @synthesize swatchBorderLineStyle;
 
-/**	@property swatchCornerRadius
- *	@brief The corner radius for each swatch. Default is 0.0.
- *	@ingroup legendAnimation
+/** @property CGFloat swatchCornerRadius
+ *  @brief The corner radius for each swatch. Default is @num{0.0}.
+ *  @ingroup legendAnimation
  **/
 @synthesize swatchCornerRadius;
 
-/**	@property swatchFill
- *	@brief The background fill drawn behind each swatch.
- *	If <code>nil</code> (the default), no fill is drawn.
+/** @property CPTFill *swatchFill
+ *  @brief The background fill drawn behind each swatch.
+ *  If @nil (the default), no fill is drawn.
  **/
 @synthesize swatchFill;
 
-/**	@property numberOfRows
- *	@brief The desired number of rows of legend entries.
- *	If zero (0) (the default), the number of rows will be automatically determined.
- *	If both numberOfRows and numberOfColumns are greater than zero but their product is less than
- *	the total number of legend entries, some entries will not be shown.
+/** @property NSUInteger numberOfRows
+ *  @brief The desired number of rows of legend entries.
+ *  If zero (@num{0}) (the default), the number of rows will be automatically determined.
+ *  If both @ref numberOfRows and @ref numberOfColumns are greater than zero but their product is less than
+ *  the total number of legend entries, some entries will not be shown.
  **/
 @synthesize numberOfRows;
 
-/**	@property numberOfColumns
- *	@brief The desired number of columns of legend entries.
- *	If zero (0) (the default), the number of columns will be automatically determined.
- *	If both numberOfRows and numberOfColumns are greater than zero but their product is less than
- *	the total number of legend entries, some entries will not be shown.
+/** @property NSUInteger numberOfColumns
+ *  @brief The desired number of columns of legend entries.
+ *  If zero (@num{0}) (the default), the number of columns will be automatically determined.
+ *  If both @ref numberOfRows and @ref numberOfColumns are greater than zero but their product is less than
+ *  the total number of legend entries, some entries will not be shown.
  **/
 @synthesize numberOfColumns;
 
-/**	@property equalRows
- *	@brief If YES (the default) each row of legend entries will have the same height, otherwise rows will be sized to best fit the entries.
+/** @property BOOL equalRows
+ *  @brief If @YES (the default) each row of legend entries will have the same height, otherwise rows will be sized to best fit the entries.
  **/
 @synthesize equalRows;
 
-/**	@property equalColumns
- *	@brief If YES each column of legend entries will have the same width, otherwise columns will be sized to best fit the entries.
- *	Default is NO, meaning columns will be sized for the best fit.
+/** @property BOOL equalColumns
+ *  @brief If @YES each column of legend entries will have the same width, otherwise columns will be sized to best fit the entries.
+ *  Default is @NO, meaning columns will be sized for the best fit.
  **/
 @synthesize equalColumns;
 
-/**	@property rowHeights
- *	@brief The desired height of each row of legend entries, including the swatch and title.
- *	Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
- *	Rows are numbered from top to bottom starting from zero (0). If <code>nil</code>, all rows will be sized automatically.
- *	If there are more rows in the legend than specified in this array, the remaining rows will be sized automatically.
- *	Default is <code>nil</code>.
+/** @property NSArray *rowHeights
+ *  @brief The desired height of each row of legend entries, including the swatch and title.
+ *  Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
+ *  Rows are numbered from top to bottom starting from zero (@num{0}). If @nil, all rows will be sized automatically.
+ *  If there are more rows in the legend than specified in this array, the remaining rows will be sized automatically.
+ *  Default is @nil.
  **/
 @synthesize rowHeights;
 
-/**	@property rowHeightsThatFit
- *	@brief The computed best-fit height of each row of legend entries, including the swatch and title.
- *	Each element in this array is an NSNumber representing the height of the corresponding row in device units.
- *	Rows are numbered from top to bottom starting from zero (0).
+/** @property NSArray *rowHeightsThatFit
+ *  @brief The computed best-fit height of each row of legend entries, including the swatch and title.
+ *  Each element in this array is an NSNumber representing the height of the corresponding row in device units.
+ *  Rows are numbered from top to bottom starting from zero (@num{0}).
  **/
 @synthesize rowHeightsThatFit;
 
-/**	@property columnWidths
- *	@brief The desired width of each column of legend entries, including the swatch, title, and title offset.
- *	Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
- *	Columns are numbered from left to right starting from zero (0). If <code>nil</code>, all columns will be sized automatically.
- *	If there are more columns in the legend than specified in this array, the remaining columns will be sized automatically.
- *	Default is <code>nil</code>.
+/** @property NSArray *columnWidths
+ *  @brief The desired width of each column of legend entries, including the swatch, title, and title offset.
+ *  Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
+ *  Columns are numbered from left to right starting from zero (@num{0}). If @nil, all columns will be sized automatically.
+ *  If there are more columns in the legend than specified in this array, the remaining columns will be sized automatically.
+ *  Default is @nil.
  **/
 @synthesize columnWidths;
 
-/**	@property columnWidthsThatFit
- *	@brief The computed best-fit width of each column of legend entries, including the swatch, title, and title offset.
- *	Each element in this array is an NSNumber representing the width of the corresponding column in device units.
- *	Columns are numbered from left to right starting from zero (0).
+/** @property NSArray *columnWidthsThatFit
+ *  @brief The computed best-fit width of each column of legend entries, including the swatch, title, and title offset.
+ *  Each element in this array is an NSNumber representing the width of the corresponding column in device units.
+ *  Columns are numbered from left to right starting from zero (@num{0}).
  **/
 @synthesize columnWidthsThatFit;
 
-/**	@property columnMargin
- *	@brief The margin between columns, specified in device units. Default is 10.0.
+/** @property CGFloat columnMargin
+ *  @brief The margin between columns, specified in device units. Default is @num{10.0}.
  **/
 @synthesize columnMargin;
 
-/**	@property rowMargin
- *	@brief The margin between rows, specified in device units. Default is 5.0.
+/** @property CGFloat rowMargin
+ *  @brief The margin between rows, specified in device units. Default is @num{5.0}.
  **/
 @synthesize rowMargin;
 
-/**	@property titleOffset
- *	@brief The distance between each swatch and its title, specified in device units. Default is 5.0.
+/** @property CGFloat titleOffset
+ *  @brief The distance between each swatch and its title, specified in device units. Default is @num{5.0}.
  **/
 @synthesize titleOffset;
 
-/**	@property plots
- *	@brief An array of all plots associated with the legend.
+/** @property NSMutableArray *plots
+ *  @brief An array of all plots associated with the legend.
  **/
 @synthesize plots;
 
-/**	@property legendEntries
- *	@brief An array of all legend entries.
+/** @property NSMutableArray *legendEntries
+ *  @brief An array of all legend entries.
  **/
 @synthesize legendEntries;
 
-/**	@property layoutChanged
- *	@brief If YES, the legend layout needs to recalculated.
+/** @property  BOOL layoutChanged
+ *  @brief If @YES, the legend layout needs to recalculated.
  **/
 @synthesize layoutChanged;
 
@@ -182,7 +182,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark Factory Methods
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given array.
- *	@param newPlots An array of plots.
+ *  @param newPlots An array of plots.
  *  @return A new CPTLegend instance.
  **/
 +(id)legendWithPlots:(NSArray *)newPlots
@@ -191,7 +191,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 }
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given graph.
- *	@param graph The graph.
+ *  @param graph The graph.
  *  @return A new CPTLegend instance.
  **/
 +(id)legendWithGraph:(CPTGraph *)graph
@@ -207,31 +207,31 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 /** @brief Initializes a newly allocated CPTLegend object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTLegend::layoutChanged layoutChanged @endlink = <code>YES</code>
- *	- @link CPTLegend::textStyle textStyle @endlink = default text style
- *	- @link CPTLegend::swatchSize swatchSize @endlink = <code>CGSizeZero</code>
- *	- @link CPTLegend::swatchBorderLineStyle swatchBorderLineStyle @endlink = <code>nil</code>
- *	- @link CPTLegend::swatchCornerRadius swatchCornerRadius @endlink = 0
- *	- @link CPTLegend::swatchFill swatchFill @endlink = <code>nil</code>
- *	- @link CPTLegend::numberOfRows numberOfRows @endlink = 0
- *	- @link CPTLegend::numberOfColumns numberOfColumns @endlink = 0
- *	- @link CPTLegend::equalRows equalRows @endlink = <code>YES</code>
- *	- @link CPTLegend::equalColumns equalColumns @endlink = <code>NO</code>
- *	- @link CPTLegend::rowHeights rowHeights @endlink = <code>nil</code>
- *	- @link CPTLegend::rowHeightsThatFit rowHeightsThatFit @endlink = <code>nil</code>
- *	- @link CPTLegend::columnWidths columnWidths @endlink = <code>nil</code>
- *	- @link CPTLegend::columnWidthsThatFit columnWidthsThatFit @endlink = <code>nil</code>
- *	- @link CPTLegend::columnMargin columnMargin @endlink = 10.0
- *	- @link CPTLegend::rowMargin rowMargin @endlink = 5.0
- *	- @link CPTLegend::titleOffset titleOffset @endlink = 5.0
- *	- @link CPTLayer::paddingLeft paddingLeft @endlink = 5.0
- *	- @link CPTLayer::paddingTop paddingTop @endlink = 5.0
- *	- @link CPTLayer::paddingRight paddingRight @endlink = 5.0
- *	- @link CPTLayer::paddingBottom paddingBottom @endlink = 5.0
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref layoutChanged = @YES
+ *  - @ref textStyle = default text style
+ *  - @ref swatchSize = (@num{0.0}, @num{0.0})
+ *  - @ref swatchBorderLineStyle = @nil
+ *  - @ref swatchCornerRadius = @num{0}
+ *  - @ref swatchFill = @nil
+ *  - @ref numberOfRows = @num{0}
+ *  - @ref numberOfColumns = @num{0}
+ *  - @ref equalRows = @YES
+ *  - @ref equalColumns = @NO
+ *  - @ref rowHeights = @nil
+ *  - @ref rowHeightsThatFit = @nil
+ *  - @ref columnWidths = @nil
+ *  - @ref columnWidthsThatFit = @nil
+ *  - @ref columnMargin = @num{10.0}
+ *  - @ref rowMargin = @num{5.0}
+ *  - @ref titleOffset = @num{5.0}
+ *  - @ref paddingLeft = @num{5.0}
+ *  - @ref paddingTop = @num{5.0}
+ *  - @ref paddingRight = @num{5.0}
+ *  - @ref paddingBottom = @num{5.0}
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTLegend object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -266,10 +266,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     return self;
 }
 
-///	@}
+/// @}
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given array.
- *	@param newPlots An array of plots.
+ *  @param newPlots An array of plots.
  *  @return The initialized CPTLegend object.
  **/
 -(id)initWithPlots:(NSArray *)newPlots
@@ -283,7 +283,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 }
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given graph.
- *	@param graph A graph.
+ *  @param graph A graph.
  *  @return The initialized CPTLegend object.
  **/
 -(id)initWithGraph:(CPTGraph *)graph
@@ -295,6 +295,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
     return self;
 }
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -341,8 +343,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -395,10 +401,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -497,10 +505,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     free(rowPositions);
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Animation
+
+/// @cond
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
@@ -521,24 +531,26 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Layout
 
 /**
- *	@brief Marks the receiver as needing to update the layout of its legend entries.
+ *  @brief Marks the receiver as needing to update the layout of its legend entries.
  **/
 -(void)setLayoutChanged
 {
     self.layoutChanged = YES;
 }
 
+/// @cond
+
 -(void)layoutSublayers
 {
     [self recalculateLayout];
     [super layoutSublayers];
 }
-
-///	@cond
 
 -(void)recalculateLayout
 {
@@ -675,31 +687,31 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     self.layoutChanged = NO;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Plots
 
-/**	@brief All plots associated with the legend.
- *	@return An array of all plots associated with the legend.
+/** @brief All plots associated with the legend.
+ *  @return An array of all plots associated with the legend.
  **/
 -(NSArray *)allPlots
 {
     return [NSArray arrayWithArray:self.plots];
 }
 
-/**	@brief Gets the plot at the given index in the plot array.
- *	@param index An index within the bounds of the plot array.
- *	@return The plot at the given index.
+/** @brief Gets the plot at the given index in the plot array.
+ *  @param index An index within the bounds of the plot array.
+ *  @return The plot at the given index.
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)index
 {
     return [self.plots objectAtIndex:index];
 }
 
-/**	@brief Gets the plot with the given identifier from the plot array.
- *	@param identifier A plot identifier.
- *	@return The plot with the given identifier or nil if it was not found.
+/** @brief Gets the plot with the given identifier from the plot array.
+ *  @param identifier A plot identifier.
+ *  @return The plot with the given identifier or nil if it was not found.
  **/
 -(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier
 {
@@ -714,8 +726,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark -
 #pragma mark Organizing Plots
 
-/**	@brief Add a plot to the legend.
- *	@param plot The plot.
+/** @brief Add a plot to the legend.
+ *  @param plot The plot.
  **/
 -(void)addPlot:(CPTPlot *)plot
 {
@@ -743,9 +755,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
-/**	@brief Add a plot to the legend at the given index in the plot array.
- *	@param plot The plot.
- *	@param index An index within the bounds of the plot array.
+/** @brief Add a plot to the legend at the given index in the plot array.
+ *  @param plot The plot.
+ *  @param index An index within the bounds of the plot array.
  **/
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index
 {
@@ -790,8 +802,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
-/**	@brief Remove a plot from the legend.
- *	@param plot The plot to remove.
+/** @brief Remove a plot from the legend.
+ *  @param plot The plot to remove.
  **/
 -(void)removePlot:(CPTPlot *)plot
 {
@@ -808,8 +820,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
-/**	@brief Remove a plot from the legend.
- *	@param identifier The identifier of the plot to remove.
+/** @brief Remove a plot from the legend.
+ *  @param identifier The identifier of the plot to remove.
  **/
 -(void)removePlotWithIdentifier:(id<NSCopying>)identifier
 {
@@ -825,11 +837,11 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@brief Remove all legend entries for the given plot from the legend.
- *	@param plot The plot.
+/** @internal
+ *  @brief Remove all legend entries for the given plot from the legend.
+ *  @param plot The plot.
  **/
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot
 {
@@ -846,12 +858,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [entriesToRemove release];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Notifications
 
-///	@cond
+/// @cond
 
 -(void)legendNeedsRedraw:(NSNotification *)notif
 {
@@ -896,20 +908,24 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     self.layoutChanged = YES;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Description
+
+/// @cond
 
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ for plots %@>", [super description], self.plots];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
@@ -1076,6 +1092,6 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     return columnWidthsThatFit;
 }
 
-///	@endcond
+/// @endcond
 
 @end

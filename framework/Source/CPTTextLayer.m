@@ -7,23 +7,23 @@
 const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 /**
- *	@brief A Core Animation layer that displays text drawn in a uniform style.
+ *  @brief A Core Animation layer that displays text drawn in a uniform style.
  **/
 @implementation CPTTextLayer
 
-/**	@property text
- *	@brief The text to display.
- *	Insert newline characters (<code>'\\n'</code>) at the line breaks to display multi-line text.
+/** @property NSString *text
+ *  @brief The text to display.
+ *  Insert newline characters (<code>'\\n'</code>) at the line breaks to display multi-line text.
  **/
 @synthesize text;
 
-/**	@property textStyle
- *	@brief The text style used to draw the text.
+/** @property CPTTextStyle *textStyle
+ *  @brief The text style used to draw the text.
  **/
 @synthesize textStyle;
 
 #pragma mark -
-#pragma mark Initialization and teardown
+#pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated CPTTextLayer object with the provided text and style. This is the designated initializer.
  *  @param newText The text to display.
@@ -52,6 +52,8 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     return [self initWithText:newText style:[CPTTextStyle textStyle]];
 }
 
+/// @cond
+
 -(id)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
@@ -63,16 +65,18 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     return self;
 }
 
+/// @endcond
+
 /// @name Initialization
 /// @{
 
 /** @brief Initializes a newly allocated CPTTextLayer object with the provided frame rectangle.
  *
- *	The initialized layer will have the following properties:
- *	- @link CPTTextLayer::text text @endlink = <code>nil</code>
- *	- @link CPTTextLayer::textStyle textStyle @endlink = <code>nil</code>
+ *  The initialized layer will have the following properties:
+ *  - @ref text = @nil
+ *  - @ref textStyle = @nil
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTTextLayer object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -80,7 +84,9 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     return [self initWithText:nil style:nil];
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(void)dealloc
 {
@@ -89,8 +95,12 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -109,10 +119,12 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setText:(NSString *)newValue
 {
@@ -172,13 +184,13 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Layout
 
 /**
- *	@brief Determine the minimum size needed to fit the text
+ *  @brief Determine the minimum size needed to fit the text
  **/
 -(CGSize)sizeThatFits
 {
@@ -205,7 +217,7 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 }
 
 /**
- *	@brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
+ *  @brief Resizes the layer to fit its contents leaving a narrow margin on all four sides.
  **/
 -(void)sizeToFit
 {
@@ -226,7 +238,7 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #pragma mark -
 #pragma mark Drawing of text
 
-///	@cond
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -266,14 +278,18 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 #endif
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Description
+
+/// @cond
 
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ \"%@\">", [super description], self.text];
 }
+
+/// @endcond
 
 @end

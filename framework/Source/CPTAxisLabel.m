@@ -8,34 +8,34 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-/**	@brief An axis label.
+/** @brief An axis label.
  *
- *	The label can be text-based or can be the content of any CPTLayer provided by the user.
+ *  The label can be text-based or can be the content of any CPTLayer provided by the user.
  **/
 @implementation CPTAxisLabel
 
-/**	@property contentLayer
- *	@brief The label content.
+/** @property CPTLayer *contentLayer
+ *  @brief The label content.
  **/
 @synthesize contentLayer;
 
-/**	@property offset
- *	@brief The offset distance between the axis and label.
+/** @property CGFloat offset
+ *  @brief The offset distance between the axis and label.
  **/
 @synthesize offset;
 
-/**	@property rotation
- *	@brief The rotation of the label in radians.
+/** @property CGFloat rotation
+ *  @brief The rotation of the label in radians.
  **/
 @synthesize rotation;
 
-/**	@property alignment
- *	@brief The alignment of the axis label with respect to the tick mark.
+/** @property CPTAlignment alignment;
+ *  @brief The alignment of the axis label with respect to the tick mark.
  **/
 @synthesize alignment;
 
-/**	@property tickLocation
- *	@brief The data coordinate of the ticklocation.
+/** @property NSDecimal tickLocation
+ *  @brief The data coordinate of the tick location.
  **/
 @synthesize tickLocation;
 
@@ -44,8 +44,8 @@
 
 /** @brief Initializes a newly allocated text-based CPTAxisLabel object with the provided text and style.
  *
- *	@param newText The label text.
- *	@param newStyle The text style for the label.
+ *  @param newText The label text.
+ *  @param newStyle The text style for the label.
  *  @return The initialized CPTAxisLabel object.
  **/
 -(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
@@ -60,7 +60,7 @@
 
 /** @brief Initializes a newly allocated CPTAxisLabel object with the provided layer. This is the designated initializer.
  *
- *	@param layer The label content.
+ *  @param layer The label content.
  *  @return The initialized CPTAxisLabel object.
  **/
 -(id)initWithContentLayer:(CPTLayer *)layer
@@ -81,14 +81,20 @@
     return self;
 }
 
+/// @cond
+
 -(void)dealloc
 {
     [contentLayer release];
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -111,17 +117,19 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Layout
 
-/**	@brief Positions the axis label relative to the given point.
+/** @brief Positions the axis label relative to the given point.
  *  The algorithm for positioning is different when the rotation property is non-zero.
  *  When zero, the anchor point is positioned along the closest side of the label.
  *  When non-zero, the anchor point is left at the center. This has consequences for
  *  the value taken by the offset.
- *	@param point The view point.
- *	@param coordinate The coordinate in which the label is being position. Orthogonal to the axis coordinate.
- *	@param direction The offset direction.
+ *  @param point The view point.
+ *  @param coordinate The coordinate in which the label is being position. Orthogonal to the axis coordinate.
+ *  @param direction The offset direction.
  **/
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
@@ -263,11 +271,11 @@
     [content setNeedsDisplay];
 }
 
-/**	@brief Positions the axis label between two given points.
- *	@param firstPoint The first view point.
- *	@param secondPoint The second view point.
- *	@param coordinate The axis coordinate.
- *	@param direction The offset direction.
+/** @brief Positions the axis label between two given points.
+ *  @param firstPoint The first view point.
+ *  @param secondPoint The second view point.
+ *  @param coordinate The axis coordinate.
+ *  @param direction The offset direction.
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
@@ -279,15 +287,26 @@
 #pragma mark -
 #pragma mark Description
 
+/// @cond
+
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Label comparison
 
-// Axis labels are equal if they have the same location
+/// @name Comparison
+/// @{
+
+/** @brief Returns a boolean value that indicates whether the received is equal to the given object.
+ *  Axis labels are equal if they have the same @ref tickLocation.
+ *  @param object The object to be compared with the receiver.
+ *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ **/
 -(BOOL)isEqual:(id)object
 {
     if ( self == object ) {
@@ -300,6 +319,10 @@
         return NO;
     }
 }
+
+/// @}
+
+/// @cond
 
 -(NSUInteger)hash
 {
@@ -314,5 +337,7 @@
 
     return hashValue;
 }
+
+/// @endcond
 
 @end

@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-///	@file
+/// @file
 
 #if __cplusplus
 extern "C" {
@@ -13,7 +13,7 @@ extern "C" {
 void CPTPushCGContext(CGContextRef context);
 void CPTPopCGContext(void);
 
-///	@}
+/// @}
 
 /// @name Graphics Context
 /// @{
@@ -26,7 +26,7 @@ CGContextRef CPTGetCurrentContext(void);
 CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor);
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor);
 
-///	@}
+/// @}
 
 #if __cplusplus
 }

@@ -7,18 +7,18 @@
 #import <Foundation/Foundation.h>
 
 /**
- *	@brief A structure representing one node in a linked list of RGBA colors.
+ *  @brief A structure representing one node in a linked list of RGBA colors.
  **/
 typedef struct _CPTGradientElement {
     CPTRGBAColor color; ///< Color
-    CGFloat position;   ///< Gradient position (0 ≤ position ≤ 1)
+    CGFloat position;   ///< Gradient position (0 ≤ @par{position} ≤ 1)
 
-    struct _CPTGradientElement *nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == NULL)
+    struct _CPTGradientElement *nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == @NULL)
 }
 CPTGradientElement;
 
 /**
- *	@brief Enumeration of blending modes
+ *  @brief Enumeration of blending modes
  **/
 typedef enum _CPTBlendingMode {
     CPTLinearBlendingMode,          ///< Linear blending mode
@@ -28,7 +28,7 @@ typedef enum _CPTBlendingMode {
 CPTGradientBlendingMode;
 
 /**
- *	@brief Enumeration of gradient types
+ *  @brief Enumeration of gradient types
  **/
 typedef enum _CPTGradientType {
     CPTGradientTypeAxial, ///< Axial gradient
@@ -72,7 +72,7 @@ CPTGradientType;
 
 +(CPTGradient *)rainbowGradient;
 +(CPTGradient *)hydrogenSpectrumGradient;
-///	@}
+/// @}
 
 /// @name Modification
 /// @{
@@ -82,19 +82,19 @@ CPTGradientType;
 -(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position; // positions given relative to [0,1]
 -(CPTGradient *)removeColorStopAtIndex:(NSUInteger)index;
 -(CPTGradient *)removeColorStopAtPosition:(CGFloat)position;
-///	@}
+/// @}
 
 /// @name Information
 /// @{
 -(CGColorRef)newColorStopAtIndex:(NSUInteger)index;
 -(CGColorRef)newColorAtPosition:(CGFloat)position;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
 -(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context;
 -(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
 -(void)fillPathInContext:(CGContextRef)context;
-///	@}
+/// @}
 
 @end

@@ -6,64 +6,78 @@
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
-///	@cond
+/// @cond
 @interface CPTLegendEntry()
 
 @property (nonatomic, readonly, retain) NSString *title;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A graph legend entry.
+ *  @brief A graph legend entry.
  **/
 @implementation CPTLegendEntry
 
-/**	@property plot
- *	@brief The plot associated with this legend entry.
+/** @property __cpt_weak CPTPlot *plot
+ *  @brief The plot associated with this legend entry.
  **/
 @synthesize plot;
 
-/**	@property index
- *	@brief index The zero-based index of the legend entry for the given plot.
+/** @property NSUInteger index
+ *  @brief The zero-based index of the legend entry for the given plot.
  **/
 @synthesize index;
 
-/**	@property row
- *	@brief The row number where this entry appears in the legend (first row is 0).
+/** @property NSUInteger row
+ *  @brief The row number where this entry appears in the legend (first row is @num{0}).
  **/
 @synthesize row;
 
-/**	@property column
- *	@brief The column number where this entry appears in the legend (first column is 0).
+/** @property NSUInteger column
+ *  @brief The column number where this entry appears in the legend (first column is @num{0}).
  **/
 @synthesize column;
 
-///	@cond
+/// @cond
 
-/**	@property title
- *	@brief The legend entry title.
+/** @property NSString *title
+ *  @brief The legend entry title.
  **/
 @dynamic title;
 
-///	@endcond
+/// @endcond
 
-/**	@property textStyle
- *	@brief The text style used to draw the legend entry title.
+/** @property CPTTextStyle *textStyle
+ *  @brief The text style used to draw the legend entry title.
  **/
 @synthesize textStyle;
 
-/**	@property titleSize
- *	@brief The size of the legend entry title when drawn using the @link CPTLegendEntry::textStyle textStyle @endlink.
+/** @property CGSize titleSize
+ *  @brief The size of the legend entry title when drawn using the @ref textStyle.
  **/
 @dynamic titleSize;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTLegendEntry object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref plot = @nil
+ *  - @ref index = @num{0}
+ *  - @ref row = @num{0}
+ *  - @ref column = @num{0}
+ *  - @ref textStyle = @nil
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -76,6 +90,10 @@
     return self;
 }
 
+/// @}
+
+/// @cond
+
 -(void)dealloc
 {
     [textStyle release];
@@ -83,8 +101,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -107,13 +129,15 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-/**	@brief Draws the legend title centered vertically in the given rectangle.
- *	@param rect The bounding rectangle where the title should be drawn.
- *	@param context The graphics context to draw into.
- *  @param scale The drawing scale factor. Must be greater than zero (0).
+/** @brief Draws the legend title centered vertically in the given rectangle.
+ *  @param rect The bounding rectangle where the title should be drawn.
+ *  @param context The graphics context to draw into.
+ *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
 {
@@ -146,7 +170,7 @@
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setTextStyle:(CPTTextStyle *)newTextStyle
 {
@@ -175,6 +199,6 @@
     return theTitleSize;
 }
 
-///	@endcond
+/// @endcond
 
 @end

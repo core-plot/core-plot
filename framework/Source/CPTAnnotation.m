@@ -4,42 +4,56 @@
 #import "CPTLayer.h"
 #import "NSCoderExtensions.h"
 
-/**	@brief An annotation positions a content layer relative to some anchor point.
+/** @brief An annotation positions a content layer relative to some anchor point.
  *
- *	Annotations can be used to add text or images that are anchored to a feature
- *	of a graph. For example, the graph title is an annotation anchored to the graph.
- *	The annotation content layer can be any CPTLayer.
+ *  Annotations can be used to add text or images that are anchored to a feature
+ *  of a graph. For example, the graph title is an annotation anchored to the graph.
+ *  The annotation content layer can be any CPTLayer.
  **/
 @implementation CPTAnnotation
 
-/**	@property contentLayer
- *	@brief The annotation content.
+/** @property CPTLayer *contentLayer
+ *  @brief The annotation content.
  **/
 @synthesize contentLayer;
 
-/**	@property annotationHostLayer
- *	@brief The host layer for the annotation content.
+/** @property __cpt_weak CPTAnnotationHostLayer *annotationHostLayer
+ *  @brief The host layer for the annotation content.
  **/
 @synthesize annotationHostLayer;
 
-/**	@property displacement
- *	@brief The displacement from the layer anchor point.
+/** @property CGPoint displacement
+ *  @brief The displacement from the layer anchor point.
  **/
 @synthesize displacement;
 
-/**	@property contentAnchorPoint
- *	@brief The anchor point for the content layer.
+/** @property CGPoint contentAnchorPoint
+ *  @brief The anchor point for the content layer.
  **/
 @synthesize contentAnchorPoint;
 
-/**	@property rotation
- *	@brief The rotation of the label in radians.
+/** @property CGFloat rotation
+ *  @brief The rotation of the label in radians.
  **/
 @synthesize rotation;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTAnnotation object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref annotationHostLayer = @nil
+ *  - @ref contentLayer = @nil
+ *  - @ref displacement = (@num{0.0}, @num{0.0})
+ *  - @ref contentAnchorPoint = (@num{0.5}, @num{0.5})
+ *  - @ref rotation = @num{0.0}
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -52,14 +66,22 @@
     return self;
 }
 
+/// @}
+
+/// @cond
+
 -(void)dealloc
 {
     [contentLayer release];
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -82,18 +104,24 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Description
+
+/// @cond
 
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setContentLayer:(CPTLayer *)newLayer
 {
@@ -142,7 +170,7 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end
 
@@ -151,10 +179,10 @@
 
 @implementation CPTAnnotation(AbstractMethods)
 
-/**	@brief Positions the content layer relative to its reference anchor.
+/** @brief Positions the content layer relative to its reference anchor.
  *
- *	This method must be overridden by subclasses. The default implementation
- *	does nothing.
+ *  This method must be overridden by subclasses. The default implementation
+ *  does nothing.
  **/
 -(void)positionContentLayer
 {

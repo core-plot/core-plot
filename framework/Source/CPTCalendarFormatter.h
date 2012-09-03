@@ -13,9 +13,9 @@
 @property (nonatomic, readwrite, copy) NSCalendar *referenceCalendar;
 @property (nonatomic, readwrite, assign) NSCalendarUnit referenceCalendarUnit;
 
-///	@name Initialization
-///	@{
+/// @name Initialization
+/// @{
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter;
-///	@}
+/// @}
 
 @end

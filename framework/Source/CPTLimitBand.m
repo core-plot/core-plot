@@ -4,16 +4,16 @@
 #import "CPTPlotRange.h"
 
 /**
- *	@brief Defines a range and fill used to highlight a band of data.
+ *  @brief Defines a range and fill used to highlight a band of data.
  **/
 @implementation CPTLimitBand
 
-/** @property range
+/** @property CPTPlotRange *range
  *  @brief The data range for the band.
  **/
 @synthesize range;
 
-/** @property fill
+/** @property CPTFill *fill
  *  @brief The fill used to draw the band.
  **/
 @synthesize fill;
@@ -45,6 +45,8 @@
     return self;
 }
 
+/// @cond
+
 -(void)dealloc
 {
     [range release];
@@ -52,8 +54,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCopying
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -66,8 +72,12 @@
     return newBand;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
@@ -98,12 +108,18 @@
     return [self initWithRange:newRange fill:newFill];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Description
+
+/// @cond
 
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ with range: %@ and fill: %@>", [super description], self.range, self.fill];
 }
+
+/// @endcond
 
 @end

@@ -2,7 +2,7 @@
 #import "CPTPlot.h"
 #import <Foundation/Foundation.h>
 
-///	@file
+/// @file
 
 @class CPTLineStyle;
 @class CPTMutableNumericData;
@@ -14,17 +14,17 @@
 @class CPTTextLayer;
 @class CPTTextStyle;
 
-///	@ingroup plotBindingsBarPlot
+/// @ingroup plotBindingsBarPlot
 /// @{
 extern NSString *const CPTBarPlotBindingBarLocations;
 extern NSString *const CPTBarPlotBindingBarTips;
 extern NSString *const CPTBarPlotBindingBarBases;
 extern NSString *const CPTBarPlotBindingBarFills;
 extern NSString *const CPTBarPlotBindingBarLineStyles;
-///	@}
+/// @}
 
 /**
- *	@brief Enumeration of bar plot data source field types
+ *  @brief Enumeration of bar plot data source field types
  **/
 typedef enum _CPTBarPlotField {
     CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
@@ -36,99 +36,99 @@ CPTBarPlotField;
 #pragma mark -
 
 /**
- *	@brief A bar plot data source.
+ *  @brief A bar plot data source.
  **/
 @protocol CPTBarPlotDataSource<CPTPlotDataSource>
 @optional
 
-///	@name Bar Style
+/// @name Bar Style
 /// @{
 
-/**	@brief (Optional) Gets an array of bar fills for the given bar plot.
- *	@param barPlot The bar plot.
- *	@param indexRange The range of the data indexes of interest.
- *	@return An array of bar fills.
+/** @brief @optional Gets an array of bar fills for the given bar plot.
+ *  @param barPlot The bar plot.
+ *  @param indexRange The range of the data indexes of interest.
+ *  @return An array of bar fills.
  **/
 -(NSArray *)barFillsForBarPlot:(CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
-/**	@brief (Optional) Gets a bar fill for the given bar plot.
- *	This method will not be called if
- *	@link CPTBarPlotDataSource::barFillsForBarPlot:recordIndexRange: -barFillsForBarPlot:recordIndexRange: @endlink
- *	is also implemented in the datasource.
- *	@param barPlot The bar plot.
- *	@param index The data index of interest.
- *	@return The bar fill for the bar with the given index. If the data source returns <code>nil</code>, the default fill is used.
- *	If the data source returns an NSNull object, no fill is drawn.
+/** @brief @optional Gets a bar fill for the given bar plot.
+ *  This method will not be called if
+ *  @link CPTBarPlotDataSource::barFillsForBarPlot:recordIndexRange: -barFillsForBarPlot:recordIndexRange: @endlink
+ *  is also implemented in the datasource.
+ *  @param barPlot The bar plot.
+ *  @param index The data index of interest.
+ *  @return The bar fill for the bar with the given index. If the data source returns @nil, the default fill is used.
+ *  If the data source returns an NSNull object, no fill is drawn.
  **/
 -(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
 
-/**	@brief (Optional) Gets an array of bar line styles for the given bar plot.
- *	@param barPlot The bar plot.
- *	@param indexRange The range of the data indexes of interest.
- *	@return An array of line styles.
+/** @brief @optional Gets an array of bar line styles for the given bar plot.
+ *  @param barPlot The bar plot.
+ *  @param indexRange The range of the data indexes of interest.
+ *  @return An array of line styles.
  **/
 -(NSArray *)barLineStylesForBarPlot:(CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
-/**	@brief (Optional) Gets a bar line style for the given bar plot.
- *	This method will not be called if
- *	@link CPTBarPlotDataSource::barLineStylesForBarPlot:recordIndexRange: -barLineStylesForBarPlot:recordIndexRange: @endlink
- *	is also implemented in the datasource.
- *	@param barPlot The bar plot.
- *	@param index The data index of interest.
- *	@return The bar line style for the bar with the given index. If the data source returns <code>nil</code>, the default line style is used.
- *	If the data source returns an NSNull object, no line is drawn.
+/** @brief @optional Gets a bar line style for the given bar plot.
+ *  This method will not be called if
+ *  @link CPTBarPlotDataSource::barLineStylesForBarPlot:recordIndexRange: -barLineStylesForBarPlot:recordIndexRange: @endlink
+ *  is also implemented in the datasource.
+ *  @param barPlot The bar plot.
+ *  @param index The data index of interest.
+ *  @return The bar line style for the bar with the given index. If the data source returns @nil, the default line style is used.
+ *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
 
-///	@}
+/// @}
 
 /// @name Legends
 /// @{
 
-/** @brief (Optional) Gets the legend title for the given bar plot bar.
- *	@param barPlot The bar plot.
- *	@param index The data index of interest.
- *	@return The title text for the legend entry for the point with the given index.
+/** @brief @optional Gets the legend title for the given bar plot bar.
+ *  @param barPlot The bar plot.
+ *  @param index The data index of interest.
+ *  @return The title text for the legend entry for the point with the given index.
  **/
 -(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
 
-///	@}
+/// @}
 @end
 
 #pragma mark -
 
 /**
- *	@brief Bar plot delegate.
+ *  @brief Bar plot delegate.
  **/
 @protocol CPTBarPlotDelegate<CPTPlotDelegate>
 
 @optional
 
-///	@name Point Selection
+/// @name Point Selection
 /// @{
 
-/**	@brief (Optional) Informs the delegate that a bar was
- *	@if MacOnly clicked. @endif
- *	@if iOSOnly touched. @endif
- *	@param plot The bar plot.
- *	@param index The index of the
- *	@if MacOnly clicked bar. @endif
- *	@if iOSOnly touched bar. @endif
+/** @brief @optional Informs the delegate that a bar was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param plot The bar plot.
+ *  @param index The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index;
 
-/**	@brief (Optional) Informs the delegate that a bar was
- *	@if MacOnly clicked. @endif
- *	@if iOSOnly touched. @endif
- *	@param plot The bar plot.
- *	@param index The index of the
- *	@if MacOnly clicked bar. @endif
- *	@if iOSOnly touched bar. @endif
+/** @brief @optional Informs the delegate that a bar was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param plot The bar plot.
+ *  @param index The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
 
-///	@}
+/// @}
 
 @end
 
@@ -168,11 +168,11 @@ CPTBarPlotField;
 /// @name Factory Methods
 /// @{
 +(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
-///	@}
+/// @}
 
 /// @name Data Ranges
 /// @{
 -(CPTPlotRange *)plotRangeEnclosingBars;
-///	@}
+/// @}
 
 @end

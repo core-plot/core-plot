@@ -6,37 +6,37 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotGroup.h"
 
-///	@cond
+/// @cond
 @interface CPTPlotAreaFrame()
 
 @property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A layer drawn on top of the graph layer and behind all plot elements.
+ *  @brief A layer drawn on top of the graph layer and behind all plot elements.
  *
- *	All graph elements, except for titles, legends, and other annotations
- *	attached directly to the graph itself are clipped to the plot area frame.
+ *  All graph elements, except for titles, legends, and other annotations
+ *  attached directly to the graph itself are clipped to the plot area frame.
  **/
 @implementation CPTPlotAreaFrame
 
-/** @property plotArea
- *	@brief The plot area.
+/** @property CPTPlotArea *plotArea
+ *  @brief The plot area.
  **/
 @synthesize plotArea;
 
-/** @property axisSet
- *	@brief The axis set.
+/** @property CPTAxisSet *axisSet
+ *  @brief The axis set.
  **/
 @dynamic axisSet;
 
-/** @property plotGroup
- *	@brief The plot group.
+/** @property CPTPlotGroup *plotGroup
+ *  @brief The plot group.
  **/
 @dynamic plotGroup;
 
@@ -48,11 +48,11 @@
 
 /** @brief Initializes a newly allocated CPTPlotAreaFrame object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTPlotAreaFrame::plotArea plotArea @endlink = a new CPTPlotArea with the same frame rectangle
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref plotArea = a new CPTPlotArea with the same frame rectangle
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotAreaFrame object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -69,7 +69,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -87,8 +89,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -105,10 +111,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setPlotArea:(CPTPlotArea *)newPlotArea
 {
@@ -143,6 +151,6 @@
     self.plotArea.plotGroup = newPlotGroup;
 }
 
-///	@endcond
+/// @endcond
 
 @end

@@ -19,18 +19,18 @@
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage;
 +(CPTImage *)imageForPNGFile:(NSString *)path;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
 -(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
 -(id)initWithCGImage:(CGImageRef)anImage;
 -(id)initForPNGFile:(NSString *)path;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
-///	@}
+/// @}
 
 @end

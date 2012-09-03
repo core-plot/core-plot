@@ -1,7 +1,7 @@
 #import "CPTBorderedLayer.h"
 #import "CPTTextStyle.h"
 
-///	@file
+/// @file
 
 extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text.
 
@@ -18,12 +18,12 @@ extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text
 /// @{
 -(id)initWithText:(NSString *)newText;
 -(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle;
-///	@}
+/// @}
 
 /// @name Layout
 /// @{
 -(CGSize)sizeThatFits;
 -(void)sizeToFit;
-///	@}
+/// @}
 
 @end

@@ -3,7 +3,7 @@
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificDefines.h"
 
-/**	@brief Node in a linked list of graphics contexts.
+/** @brief Node in a linked list of graphics contexts.
 **/
 typedef struct _CPTContextNode {
     NSGraphicsContext *context;       ///< The graphics context.
@@ -17,8 +17,8 @@ CPTContextNode;
 // linked list to store saved contexts
 static CPTContextNode *pushedContexts = NULL;
 
-/**	@brief Pushes the current AppKit graphics context onto a stack and replaces it with the given Core Graphics context.
- *	@param newContext The graphics context.
+/** @brief Pushes the current AppKit graphics context onto a stack and replaces it with the given Core Graphics context.
+ *  @param newContext The graphics context.
  **/
 void CPTPushCGContext(CGContextRef newContext)
 {
@@ -32,7 +32,7 @@ void CPTPushCGContext(CGContextRef newContext)
 }
 
 /**
- *	@brief Pops the top context off the stack and restores it to the AppKit graphics context.
+ *  @brief Pops the top context off the stack and restores it to the AppKit graphics context.
  **/
 void CPTPopCGContext(void)
 {
@@ -48,7 +48,7 @@ void CPTPopCGContext(void)
 #pragma mark Context
 
 /**
- *	@brief Get the default graphics context
+ *  @brief Get the default graphics context
  **/
 CGContextRef CPTGetCurrentContext(void)
 {
@@ -58,12 +58,12 @@ CGContextRef CPTGetCurrentContext(void)
 #pragma mark -
 #pragma mark Colors
 
-/**	@brief Creates a CGColorRef from an NSColor.
+/** @brief Creates a @ref CGColorRef from an NSColor.
  *
- *	The caller must release the returned CGColorRef. Pattern colors are not supported.
+ *  The caller must release the returned @ref CGColorRef. Pattern colors are not supported.
  *
- *	@param nsColor The NSColor.
- *	@return The CGColorRef.
+ *  @param nsColor The NSColor.
+ *  @return The @ref CGColorRef.
  **/
 CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor)
 {
@@ -74,12 +74,12 @@ CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor)
     return CGColorCreateGenericRGB(r, g, b, a);
 }
 
-/**	@brief Creates a CPTRGBAColor from an NSColor.
+/** @brief Creates a CPTRGBAColor from an NSColor.
  *
- *	Pattern colors are not supported.
+ *  Pattern colors are not supported.
  *
- *	@param nsColor The NSColor.
- *	@return The CPTRGBAColor.
+ *  @param nsColor The NSColor.
+ *  @return The CPTRGBAColor.
  **/
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor)
 {

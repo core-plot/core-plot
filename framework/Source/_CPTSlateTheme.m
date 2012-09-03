@@ -16,19 +16,19 @@
 
 NSString *const kCPTSlateTheme = @"Slate";
 
-///	@cond
+/// @cond
 @interface _CPTSlateTheme()
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
+ *  @brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
  **/
 @implementation _CPTSlateTheme
 
@@ -114,7 +114,7 @@ NSString *const kCPTSlateTheme = @"Slate";
 }
 
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
 
 -(Class)classForCoder
 {

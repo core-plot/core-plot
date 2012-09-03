@@ -2,18 +2,18 @@
 
 #import "CPTGradient.h"
 
-///	@cond
+/// @cond
 @interface _CPTFillGradient()
 
 @property (nonatomic, readwrite, copy) CPTGradient *fillGradient;
 
 @end
 
-///	@endcond
+/// @endcond
 
 /** @brief Draws CPTGradient area fills.
  *
- *	Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
+ *  Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
  **/
 
 @implementation _CPTFillGradient
@@ -24,7 +24,7 @@
 @synthesize fillGradient;
 
 #pragma mark -
-#pragma mark init/dealloc
+#pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated _CPTFillGradient object with the provided gradient.
  *  @param aGradient The gradient.
@@ -38,6 +38,8 @@
     return self;
 }
 
+/// @cond
+
 -(void)dealloc
 {
     [fillGradient release];
@@ -45,28 +47,32 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
 /** @brief Draws the gradient into the given graphics context inside the provided rectangle.
- *  @param theRect The rectangle to draw into.
- *  @param theContext The graphics context to draw into.
+ *  @param rect The rectangle to draw into.
+ *  @param context The graphics context to draw into.
  **/
--(void)fillRect:(CGRect)theRect inContext:(CGContextRef)theContext
+-(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    [self.fillGradient fillRect:theRect inContext:theContext];
+    [self.fillGradient fillRect:rect inContext:context];
 }
 
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
- *  @param theContext The graphics context to draw into.
+ *  @param context The graphics context to draw into.
  **/
--(void)fillPathInContext:(CGContextRef)theContext
+-(void)fillPathInContext:(CGContextRef)context
 {
-    [self.fillGradient fillPathInContext:theContext];
+    [self.fillGradient fillPathInContext:context];
 }
 
 #pragma mark -
-#pragma mark NSCopying methods
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -77,8 +83,12 @@
     return copy;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(Class)classForCoder
 {
@@ -97,5 +107,7 @@
     }
     return self;
 }
+
+/// @endcond
 
 @end

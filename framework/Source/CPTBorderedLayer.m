@@ -5,41 +5,41 @@
 #import "CPTPathExtensions.h"
 
 /**
- *	@brief A layer with a border line and background fill.
+ *  @brief A layer with a border line and background fill.
  *
- *	Sublayers will be positioned and masked so that the border line remains visible.
+ *  Sublayers will be positioned and masked so that the border line remains visible.
  **/
 @implementation CPTBorderedLayer
 
-/** @property borderLineStyle
+/** @property CPTLineStyle *borderLineStyle
  *  @brief The line style for the layer border.
  *
- *	If <code>nil</code>, the border is not drawn.
+ *  If @nil, the border is not drawn.
  **/
 @synthesize borderLineStyle;
 
-/** @property fill
+/** @property CPTFill *fill
  *  @brief The fill for the layer background.
  *
- *	If <code>nil</code>, the layer background is not filled.
+ *  If @nil, the layer background is not filled.
  **/
 @synthesize fill;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
-///	@name Initialization
-///	@{
+/// @name Initialization
+/// @{
 
 /** @brief Initializes a newly allocated CPTBorderedLayer object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTBorderedLayer::borderLineStyle borderLineStyle @endlink = <code>nil</code>
- *	- @link CPTBorderedLayer::fill fill @endlink = <code>nil</code>
- *	- @link CPTLayer::masksToBorder masksToBorder @endlink = <code>YES</code>
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref borderLineStyle = @nil
+ *  - @ref fill = @nil
+ *  - @ref masksToBorder = @YES
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBorderedLayer object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -54,7 +54,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -75,8 +77,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -94,6 +100,8 @@
     }
     return self;
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -143,14 +151,14 @@
 #pragma mark -
 #pragma mark Layout
 
-///	@name Layout
-///	@{
+/// @name Layout
+/// @{
 
-/**	@brief Increases the sublayer margin on all four sides by half the width of the border line style.
- *	@param left The left margin.
- *	@param top The top margin.
- *	@param right The right margin.
- *	@param bottom The bottom margin.
+/** @brief Increases the sublayer margin on all four sides by half the width of the border line style.
+ *  @param left The left margin.
+ *  @param top The top margin.
+ *  @param right The right margin.
+ *  @param bottom The bottom margin.
  **/
 -(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
 {
@@ -167,7 +175,7 @@
     }
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Masking
@@ -241,7 +249,7 @@
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
 {
@@ -265,6 +273,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

@@ -2,13 +2,13 @@
 #import "NSNumberExtensions.h"
 
 /**
- *	@brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
+ *  @brief A Cocoa Bindings value transformer for NSDecimalNumber objects.
  **/
 @implementation CPTDecimalNumberValueTransformer
 
 /**
- *	@brief Indicates that the receiver can reverse a transformation.
- *	@return YES, the transformation is reversible.
+ *  @brief Indicates that the receiver can reverse a transformation.
+ *  @return @YES, the transformation is reversible.
  **/
 +(BOOL)allowsReverseTransformation
 {
@@ -16,15 +16,15 @@
 }
 
 /**
- *	@brief The class of the value returned for a forward transformation.
- *	@return Transformed values will be instances of NSNumber.
+ *  @brief The class of the value returned for a forward transformation.
+ *  @return Transformed values will be instances of NSNumber.
  **/
 +(Class)transformedValueClass
 {
     return [NSNumber class];
 }
 
-///	@cond
+/// @cond
 
 -(id)transformedValue:(id)value
 {
@@ -36,6 +36,6 @@
     return [value decimalNumber];
 }
 
-///	@endcond
+/// @endcond
 
 @end

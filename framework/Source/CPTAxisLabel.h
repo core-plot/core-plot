@@ -23,12 +23,12 @@
 /// @{
 -(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)style;
 -(id)initWithContentLayer:(CPTLayer *)layer;
-///	@}
+/// @}
 
 /// @name Layout
 /// @{
 -(void)positionRelativeToViewPoint:(CGPoint)point forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction;
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction;
-///	@}
+/// @}
 
 @end

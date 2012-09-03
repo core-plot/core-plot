@@ -7,13 +7,13 @@
 @interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
     @private
     CGLineCap lineCap;
-//	CGLineDash lineDash; // We should make a struct to keep this information
+//    CGLineDash lineDash; // We should make a struct to keep this information
     CGLineJoin lineJoin;
     CGFloat miterLimit;
     CGFloat lineWidth;
     NSArray *dashPattern;
     CGFloat patternPhase;
-//	StrokePattern; // We should make a struct to keep this information
+//    StrokePattern; // We should make a struct to keep this information
     CPTColor *lineColor;
     CPTFill *lineFill;
 }
@@ -30,13 +30,13 @@
 /// @name Factory Methods
 /// @{
 +(id)lineStyle;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
--(void)setLineStyleInContext:(CGContextRef)theContext;
--(void)strokePathInContext:(CGContextRef)theContext;
--(void)strokeRect:(CGRect)rect inContext:(CGContextRef)theContext;
-///	@}
+-(void)setLineStyleInContext:(CGContextRef)context;
+-(void)strokePathInContext:(CGContextRef)context;
+-(void)strokeRect:(CGRect)rect inContext:(CGContextRef)context;
+/// @}
 
 @end

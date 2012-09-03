@@ -5,14 +5,16 @@
 
 void MyCGPathApplierFunc(void *info, const CGPathElement *element);
 
+#pragma mark -
+
 @implementation NSCoder(CPTExtensions)
 
 #pragma mark -
 #pragma mark Encoding
 
-/**	@brief Encodes a CGFloat and associates it with the string key.
- *	@param number The number to encode.
- *	@param key The key to associate with the number.
+/** @brief Encodes a @ref CGFloat and associates it with the string @par{key}.
+ *  @param number The number to encode.
+ *  @param key The key to associate with the number.
  **/
 -(void)encodeCGFloat:(CGFloat)number forKey:(NSString *)key
 {
@@ -23,9 +25,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
 #endif
 }
 
-/**	@brief Encodes a point and associates it with the string key.
- *	@param point The point to encode.
- *	@param key The key to associate with the point.
+/** @brief Encodes a @ref CGPoint and associates it with the string @par{key}.
+ *  @param point The point to encode.
+ *  @param key The key to associate with the point.
  **/
 -(void)encodeCPTPoint:(CGPoint)point forKey:(NSString *)key
 {
@@ -39,9 +41,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
     [newKey release];
 }
 
-/**	@brief Encodes a size and associates it with the string key.
- *	@param size The size to encode.
- *	@param key The key to associate with the number.
+/** @brief Encodes a @ref CGSize and associates it with the string @par{key}.
+ *  @param size The size to encode.
+ *  @param key The key to associate with the size.
  **/
 -(void)encodeCPTSize:(CGSize)size forKey:(NSString *)key
 {
@@ -55,9 +57,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
     [newKey release];
 }
 
-/**	@brief Encodes a rectangle and associates it with the string key.
- *	@param rect The rectangle to encode.
- *	@param key The key to associate with the rectangle.
+/** @brief Encodes a @ref CGRect and associates it with the string @par{key}.
+ *  @param rect The rectangle to encode.
+ *  @param key The key to associate with the rectangle.
  **/
 -(void)encodeCPTRect:(CGRect)rect forKey:(NSString *)key
 {
@@ -71,10 +73,10 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
     [newKey release];
 }
 
-/**	@brief Encodes a color space and associates it with the string key.
- *	@param colorSpace The CGColorSpaceRef to encode.
- *	@param key The key to associate with the color space.
- *	@note The current implementation only works with named color spaces.
+/** @brief Encodes a color space and associates it with the string @par{key}.
+ *  @param colorSpace The @ref CGColorSpaceRef to encode.
+ *  @param key The key to associate with the color space.
+ *  @note The current implementation only works with named color spaces.
  **/
 -(void)encodeCGColorSpace:(CGColorSpaceRef)colorSpace forKey:(NSString *)key
 {
@@ -88,6 +90,8 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
     }
 #endif
 }
+
+/// @cond
 
 void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 {
@@ -124,9 +128,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [elementData release];
 }
 
-/**	@brief Encodes a path and associates it with the string key.
- *	@param path The CGPathRef to encode.
- *	@param key The key to associate with the path.
+/// @endcond
+
+/** @brief Encodes a path and associates it with the string @par{key}.
+ *  @param path The @ref CGPathRef to encode.
+ *  @param key The key to associate with the path.
  **/
 -(void)encodeCGPath:(CGPathRef)path forKey:(NSString *)key
 {
@@ -184,9 +190,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [pathData release];
 }
 
-/**	@brief Encodes an image and associates it with the string key.
- *	@param image The CGImageRef to encode.
- *	@param key The key to associate with the image.
+/** @brief Encodes an image and associates it with the string @par{key}.
+ *  @param image The @ref CGImageRef to encode.
+ *  @param key The key to associate with the image.
  **/
 -(void)encodeCGImage:(CGImageRef)image forKey:(NSString *)key
 {
@@ -256,9 +262,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 }
 
-/**	@brief Encodes an NSDecimal and associates it with the string key.
- *	@param number The number to encode.
- *	@param key The key to associate with the number.
+/** @brief Encodes an @ref NSDecimal and associates it with the string @par{key}.
+ *  @param number The number to encode.
+ *  @param key The key to associate with the number.
  **/
 -(void)encodeDecimal:(NSDecimal)number forKey:(NSString *)key
 {
@@ -268,9 +274,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 #pragma mark -
 #pragma mark Decoding
 
-/**	@brief Decodes and returns a number that was previously encoded with encodeCGFloat:forKey: and associated with the string key.
- *	@param key The key associated with the number.
- *	@return The number as a CGFloat.
+/** @brief Decodes and returns a number that was previously encoded with
+ *  @link NSCoder::encodeCGFloat:forKey: -encodeCGFloat:forKey: @endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the number.
+ *  @return The number as a @ref CGFloat.
  **/
 -(CGFloat)decodeCGFloatForKey:(NSString *)key
 {
@@ -282,9 +290,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 #endif
 }
 
-/**	@brief Decodes and returns a point that was previously encoded with encodeCPTPoint:forKey: and associated with the string key.
- *	@param key The key associated with the point.
- *	@return The point.
+/** @brief Decodes and returns a point that was previously encoded with
+ *  @link NSCoder::encodeCPTPoint:forKey: -encodeCPTPoint:forKey: @endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the point.
+ *  @return The point.
  **/
 -(CGPoint)decodeCPTPointForKey:(NSString *)key
 {
@@ -302,9 +312,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return point;
 }
 
-/**	@brief Decodes and returns a size that was previously encoded with encodeCPTSize:forKey: and associated with the string key.
- *	@param key The key associated with the size.
- *	@return The size.
+/** @brief Decodes and returns a size that was previously encoded with
+ *  @link NSCoder::encodeCPTSize:forKey: -encodeCPTSize:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the size.
+ *  @return The size.
  **/
 -(CGSize)decodeCPTSizeForKey:(NSString *)key
 {
@@ -322,9 +334,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return size;
 }
 
-/**	@brief Decodes and returns a rectangle that was previously encoded with encodeCPTRect:forKey: and associated with the string key.
- *	@param key The key associated with the rectangle.
- *	@return The rectangle.
+/** @brief Decodes and returns a rectangle that was previously encoded with
+ *  @link NSCoder::encodeCPTRect:forKey: -encodeCPTRect:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the rectangle.
+ *  @return The rectangle.
  **/
 -(CGRect)decodeCPTRectForKey:(NSString *)key;
 {
@@ -341,10 +355,12 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return rect;
 }
 
-/**	@brief Decodes and returns an new color space object that was previously encoded with encodeCGColorSpace:forKey: and associated with the string key.
- *	@param key The key associated with the color space.
- *	@return The new path.
- *	@note The current implementation only works with named color spaces.
+/** @brief Decodes and returns an new color space object that was previously encoded with
+ *  @link NSCoder::encodeCGColorSpace:forKey: -encodeCGColorSpace:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the color space.
+ *  @return The new path.
+ *  @note The current implementation only works with named color spaces.
  **/
 -(CGColorSpaceRef)newCGColorSpaceDecodeForKey:(NSString *)key
 {
@@ -367,9 +383,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return colorSpace;
 }
 
-/**	@brief Decodes and returns an new path object that was previously encoded with encodeCGPath:forKey: and associated with the string key.
- *	@param key The key associated with the path.
- *	@return The new path.
+/** @brief Decodes and returns a new path object that was previously encoded with
+ *  @link NSCoder::encodeCGPath:forKey: -encodeCGPath:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the path.
+ *  @return The new path.
  **/
 -(CGPathRef)newCGPathDecodeForKey:(NSString *)key
 {
@@ -445,9 +463,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return newPath;
 }
 
-/**	@brief Decodes and returns an new image object that was previously encoded with encodeCGImage:forKey: and associated with the string key.
- *	@param key The key associated with the image.
- *	@return The new image.
+/** @brief Decodes and returns a new image object that was previously encoded with
+ *  @link NSCoder::encodeCGImage:forKey: -encodeCGImage:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the image.
+ *  @return The new image.
  **/
 -(CGImageRef)newCGImageDecodeForKey:(NSString *)key
 {
@@ -532,9 +552,11 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     return newImage;
 }
 
-/**	@brief Decodes and returns a decimal number that was previously encoded with encodeDecimal:forKey: and associated with the string key.
- *	@param key The key associated with the number.
- *	@return The number as an NSDecimal.
+/** @brief Decodes and returns a decimal number that was previously encoded with
+ *  @link NSCoder::encodeDecimal:forKey: -encodeDecimal:forKey:@endlink
+ *  and associated with the string @par{key}.
+ *  @param key The key associated with the number.
+ *  @return The number as an @ref NSDecimal.
  **/
 -(NSDecimal)decodeDecimalForKey:(NSString *)key;
 {

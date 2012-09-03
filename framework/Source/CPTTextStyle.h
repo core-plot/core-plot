@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-///	@file
+/// @file
 
 @class CPTColor;
 
 /**
- *	@brief Enumeration of paragraph alignments.
+ *  @brief Enumeration of paragraph alignments.
  **/
 typedef enum  _CPTTextAlignment {
     CPTTextAlignmentLeft,   ///< Left alignment
@@ -31,23 +31,23 @@ CPTTextAlignment;
 /// @name Factory Methods
 /// @{
 +(id)textStyle;
-///	@}
+/// @}
 
 @end
 
-/**	@category NSString(CPTTextStyleExtensions)
- *	@brief NSString extensions for drawing styled text.
+/** @category NSString(CPTTextStyleExtensions)
+ *  @brief NSString extensions for drawing styled text.
  **/
 @interface NSString(CPTTextStyleExtensions)
 
 /// @name Measurement
 /// @{
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
 -(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context;
-///	@}
+/// @}
 
 @end

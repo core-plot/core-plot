@@ -17,23 +17,23 @@
 #import "NSNumberExtensions.h"
 #import <stdlib.h>
 
-/**	@defgroup plotAnimationScatterPlot Scatter Plot
- *	@brief Scatter plot properties that can be animated using Core Animation.
- *	@ingroup plotAnimation
+/** @defgroup plotAnimationScatterPlot Scatter Plot
+ *  @brief Scatter plot properties that can be animated using Core Animation.
+ *  @ingroup plotAnimation
  **/
 
-/**	@if MacOnly
- *	@defgroup plotBindingsScatterPlot Scatter Plot Bindings
- *	@brief Binding identifiers for scatter plots.
- *	@ingroup plotBindings
- *	@endif
+/** @if MacOnly
+ *  @defgroup plotBindingsScatterPlot Scatter Plot Bindings
+ *  @brief Binding identifiers for scatter plots.
+ *  @ingroup plotBindings
+ *  @endif
  **/
 
 NSString *const CPTScatterPlotBindingXValues     = @"xValues";     ///< X values.
 NSString *const CPTScatterPlotBindingYValues     = @"yValues";     ///< Y values.
 NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot symbols.
 
-///	@cond
+/// @cond
 @interface CPTScatterPlot()
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
@@ -42,7 +42,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
--(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
+-(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
 
 -(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
@@ -50,16 +50,16 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A two-dimensional scatter plot.
- *	@see See @ref plotAnimationScatterPlot "Scatter Plot" for a list of animatable properties.
- *	@if MacOnly
- *	@see See @ref plotBindingsScatterPlot "Scatter Plot Bindings" for a list of supported binding identifiers.
- *	@endif
+ *  @brief A two-dimensional scatter plot.
+ *  @see See @ref plotAnimationScatterPlot "Scatter Plot" for a list of animatable properties.
+ *  @if MacOnly
+ *  @see See @ref plotBindingsScatterPlot "Scatter Plot Bindings" for a list of supported binding identifiers.
+ *  @endif
  **/
 @implementation CPTScatterPlot
 
@@ -67,61 +67,63 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 @dynamic yValues;
 @dynamic plotSymbols;
 
-/** @property interpolation
- *	@brief The interpolation algorithm used for lines between data points.
- *	Default is #CPTScatterPlotInterpolationLinear
+/** @property CPTScatterPlotInterpolation interpolation
+ *  @brief The interpolation algorithm used for lines between data points.
+ *  Default is #CPTScatterPlotInterpolationLinear
  **/
 @synthesize interpolation;
 
-/** @property dataLineStyle
- *	@brief The line style for the data line.
- *	If <code>nil</code>, the line is not drawn.
+/** @property CPTLineStyle *dataLineStyle
+ *  @brief The line style for the data line.
+ *  If @nil, the line is not drawn.
  **/
 @synthesize dataLineStyle;
 
-/** @property plotSymbol
- *	@brief The plot symbol drawn at each point if the data source does not provide symbols.
- *	If <code>nil</code>, no symbol is drawn.
+/** @property CPTPlotSymbol *plotSymbol
+ *  @brief The plot symbol drawn at each point if the data source does not provide symbols.
+ *  If @nil, no symbol is drawn.
  **/
 @synthesize plotSymbol;
 
-/** @property areaFill
- *	@brief The fill style for the area underneath the data line.
- *	If <code>nil</code>, the area is not filled.
+/** @property CPTFill *areaFill
+ *  @brief The fill style for the area underneath the data line.
+ *  If @nil, the area is not filled.
  **/
 @synthesize areaFill;
 
-/** @property areaFill2
- *	@brief The fill style for the area above the data line.
- *	If <code>nil</code>, the area is not filled.
+/** @property CPTFill *areaFill2
+ *  @brief The fill style for the area above the data line.
+ *  If @nil, the area is not filled.
  **/
 @synthesize areaFill2;
 
-/** @property areaBaseValue
- *	@brief The Y coordinate of the straight boundary of the area fill.
- *	If not a number, the area is not filled.
+/** @property NSDecimal areaBaseValue
+ *  @brief The Y coordinate of the straight boundary of the area fill.
+ *  If not a number, the area is not filled.
  *
- *	Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
+ *  Typically set to the minimum value of the Y range, but it can be any value that gives the desired appearance.
  **/
 @synthesize areaBaseValue;
 
-/** @property areaBaseValue2
- *	@brief The Y coordinate of the straight boundary of the secondary area fill.
- *	If not a number, the area is not filled.
+/** @property NSDecimal areaBaseValue2
+ *  @brief The Y coordinate of the straight boundary of the secondary area fill.
+ *  If not a number, the area is not filled.
  *
- *	Typically set to the maximum value of the Y range, but it can be any value that gives the desired appearance.
+ *  Typically set to the maximum value of the Y range, but it can be any value that gives the desired appearance.
  **/
 @synthesize areaBaseValue2;
 
-/** @property plotSymbolMarginForHitDetection
- *	@brief A margin added to each side of a symbol when determining whether it has been hit.
+/** @property CGFloat plotSymbolMarginForHitDetection
+ *  @brief A margin added to each side of a symbol when determining whether it has been hit.
  *
- *	Default is zero. The margin is set in plot area view coordinates.
+ *  Default is zero. The margin is set in plot area view coordinates.
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
 #pragma mark -
-#pragma mark init/dealloc
+#pragma mark Init/Dealloc
+
+/// @cond
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -136,23 +138,25 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 #endif
 
+/// @endcond
+
 /// @name Initialization
 /// @{
 
 /** @brief Initializes a newly allocated CPTScatterPlot object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTScatterPlot::dataLineStyle dataLineStyle @endlink = default line style
- *	- @link CPTScatterPlot::plotSymbol plotSymbol @endlink = <code>nil</code>
- *	- @link CPTScatterPlot::areaFill areaFill @endlink = <code>nil</code>
- *	- @link CPTScatterPlot::areaFill2 areaFill2 @endlink = <code>nil</code>
- *	- @link CPTScatterPlot::areaBaseValue areaBaseValue @endlink = NAN
- *	- @link CPTScatterPlot::areaBaseValue2 areaBaseValue2 @endlink = NAN
- *	- @link CPTScatterPlot::plotSymbolMarginForHitDetection plotSymbolMarginForHitDetection @endlink = 0.0
- *	- @link CPTScatterPlot::interpolation interpolation @endlink = #CPTScatterPlotInterpolationLinear
- *	- @link CPTPlot::labelField labelField @endlink = #CPTScatterPlotFieldY
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref dataLineStyle = default line style
+ *  - @ref plotSymbol = @nil
+ *  - @ref areaFill = @nil
+ *  - @ref areaFill2 = @nil
+ *  - @ref areaBaseValue = @NAN
+ *  - @ref areaBaseValue2 = @NAN
+ *  - @ref plotSymbolMarginForHitDetection = @num{0.0}
+ *  - @ref interpolation = #CPTScatterPlotInterpolationLinear
+ *  - @ref labelField = #CPTScatterPlotFieldY
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTScatterPlot object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -171,7 +175,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -199,6 +205,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     [super dealloc];
 }
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -229,10 +242,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Loading
 
-///	@cond
+/// @cond
 
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
@@ -273,14 +288,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Symbols
 
-/**	@brief Returns the plot symbol to use for a given index.
- *	@param index The index of the record.
- *	@return The plot symbol to use, or nil if no plot symbol should be drawn.
+/** @brief Returns the plot symbol to use for a given index.
+ *  @param index The index of the record.
+ *  @return The plot symbol to use, or @nil if no plot symbol should be drawn.
  **/
 -(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index
 {
@@ -296,7 +311,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 #pragma mark -
 #pragma mark Determining Which Points to Draw
 
-///	@cond
+/// @cond
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount
 {
@@ -436,21 +451,21 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)theContext drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
+-(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
 {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
     if ( self.dataLineStyle.lineWidth > 0.0 ) {
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             if ( drawPointFlags[i] ) {
-                viewPoints[i] = CPTAlignPointToUserSpace(theContext, viewPoints[i]);
+                viewPoints[i] = CPTAlignPointToUserSpace(context, viewPoints[i]);
             }
         }
     }
     else {
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             if ( drawPointFlags[i] ) {
-                viewPoints[i] = CPTAlignIntegralPointToUserSpace(theContext, viewPoints[i]);
+                viewPoints[i] = CPTAlignIntegralPointToUserSpace(context, viewPoints[i]);
             }
         }
     }
@@ -476,23 +491,23 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return result;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark View Points
 
-///	@cond
+/// @cond
 
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
     return [self indexOfVisiblePointClosestToPlotAreaPoint:point];
 }
 
-///	@endcond
+/// @endcond
 
-/**	@brief Returns the index of the closest visible point to the point passed in.
- *	@param viewPoint The reference point.
- *	@return The index of the closest point, or NSNotFound if there is no visible point.
+/** @brief Returns the index of the closest visible point to the point passed in.
+ *  @param viewPoint The reference point.
+ *  @return The index of the closest point, or @ref NSNotFound if there is no visible point.
  **/
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint
 {
@@ -523,9 +538,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return result;
 }
 
-/**	@brief Returns the plot area view point of a visible point.
- *	@param index The index of the point.
- *	@return The view point of the visible point at the index passed.
+/** @brief Returns the plot area view point of a visible point.
+ *  @param index The index of the point.
+ *  @return The view point of the visible point at the index passed.
  **/
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index
 {
@@ -549,7 +564,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -572,7 +587,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         [NSException raise:CPTException format:@"Number of x and y values do not match"];
     }
 
-    [super renderAsVectorInContext:theContext];
+    [super renderAsVectorInContext:context];
 
     // Calculate view points, and align to user space
     CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
@@ -584,7 +599,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     BOOL pixelAlign = self.alignsPointsToPixels;
     if ( pixelAlign ) {
-        [self alignViewPointsToUserSpace:viewPoints withContent:theContext drawPointFlags:drawPointFlags numberOfPoints:dataCount];
+        [self alignViewPointsToUserSpace:viewPoints withContent:context drawPointFlags:drawPointFlags numberOfPoints:dataCount];
     }
 
     // Get extreme points
@@ -615,8 +630,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             }
             if ( theFill && ( !NSDecimalIsNotANumber(&theAreaBaseValue) ) ) {
                 // clear the plot shadow if any--not needed for fills
-                CGContextSaveGState(theContext);
-                CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
+                CGContextSaveGState(context);
+                CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
 
                 NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
                 NSDecimal plotPoint[2];
@@ -624,18 +639,18 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 plotPoint[CPTCoordinateY] = theAreaBaseValue;
                 CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:self.plotArea];
                 if ( self.alignsPointsToPixels ) {
-                    baseLinePoint = CPTAlignIntegralPointToUserSpace(theContext, baseLinePoint);
+                    baseLinePoint = CPTAlignIntegralPointToUserSpace(context, baseLinePoint);
                 }
 
                 CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:baseLinePoint.y];
 
-                CGContextBeginPath(theContext);
-                CGContextAddPath(theContext, dataLinePath);
-                [theFill fillPathInContext:theContext];
+                CGContextBeginPath(context);
+                CGContextAddPath(context, dataLinePath);
+                [theFill fillPathInContext:context];
 
                 CGPathRelease(dataLinePath);
 
-                CGContextRestoreGState(theContext);
+                CGContextRestoreGState(context);
             }
         }
 
@@ -643,10 +658,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         CPTLineStyle *theLineStyle = self.dataLineStyle;
         if ( theLineStyle ) {
             CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
-            CGContextBeginPath(theContext);
-            CGContextAddPath(theContext, dataLinePath);
-            [theLineStyle setLineStyleInContext:theContext];
-            [theLineStyle strokePathInContext:theContext];
+            CGContextBeginPath(context);
+            CGContextAddPath(context, dataLinePath);
+            [theLineStyle setLineStyleInContext:context];
+            [theLineStyle strokePathInContext:context];
             CGPathRelease(dataLinePath);
         }
 
@@ -655,7 +670,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             Class symbolClass = [CPTPlotSymbol class];
 
             // clear the plot shadow if any--symbols draw their own shadows
-            CGContextSetShadowWithColor(theContext, CGSizeZero, 0.0, NULL);
+            CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
 
             if ( self.useFastRendering ) {
                 CGFloat scale = self.contentsScale;
@@ -663,7 +678,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {
-                            [currentSymbol renderInContext:theContext atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];
+                            [currentSymbol renderInContext:context atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];
                         }
                     }
                 }
@@ -673,7 +688,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {
-                            [currentSymbol renderAsVectorInContext:theContext atPoint:viewPoints[i] scale:1.0];
+                            [currentSymbol renderAsVectorInContext:context atPoint:viewPoints[i] scale:1.0];
                         }
                     }
                 }
@@ -886,6 +901,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 #pragma mark -
 #pragma mark Animation
 
+/// @cond
+
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSArray *keys = nil;
@@ -902,6 +919,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         return [super needsDisplayForKey:aKey];
     }
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Fields
@@ -977,22 +996,22 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @{
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly pressed the mouse button. @endif
- *	@if iOSOnly touched the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
  *
  *
- *	If this plot has a delegate that responds to the
- *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink and/or
- *	@link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
- *	methods, the data points are searched to find the index of the one closest to the <code>interactionPoint</code>.
- *	The delegate method will be called and this method returns <code>YES</code> if the <code>interactionPoint</code> is within the
- *	@link CPTScatterPlot::plotSymbolMarginForHitDetection plotSymbolMarginForHitDetection @endlink
- *	of the closest data point.
- *	This method returns <code>NO</code> if the <code>interactionPoint</code> is too far away from all of the data points.
+ *  If this plot has a delegate that responds to the
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, the data points are searched to find the index of the one closest to the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
+ *  @ref plotSymbolMarginForHitDetection
+ *  of the closest data point.
+ *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data points.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -1041,12 +1060,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setInterpolation:(CPTScatterPlotInterpolation)newInterpolation
 {
@@ -1147,6 +1166,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return [self cachedArrayForKey:CPTScatterPlotBindingPlotSymbols];
 }
 
-///	@endcond
+/// @endcond
 
 @end

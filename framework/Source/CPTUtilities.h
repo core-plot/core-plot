@@ -33,10 +33,10 @@ NSString *CPTDecimalStringValue(NSDecimal decimalNumber);
 
 /// @name Convert Primitive Types to NSDecimal
 /// @{
-NSDecimal CPTDecimalFromChar(int8_t i);
-NSDecimal CPTDecimalFromShort(int16_t i);
-NSDecimal CPTDecimalFromLong(int32_t i);
-NSDecimal CPTDecimalFromLongLong(int64_t i);
+NSDecimal CPTDecimalFromChar(int8_t anInt);
+NSDecimal CPTDecimalFromShort(int16_t anInt);
+NSDecimal CPTDecimalFromLong(int32_t anInt);
+NSDecimal CPTDecimalFromLongLong(int64_t anInt);
 NSDecimal CPTDecimalFromInt(int i);
 NSDecimal CPTDecimalFromInteger(NSInteger i);
 
@@ -47,9 +47,9 @@ NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t i);
 NSDecimal CPTDecimalFromUnsignedInt(unsigned int i);
 NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger i);
 
-NSDecimal CPTDecimalFromFloat(float f);
-NSDecimal CPTDecimalFromDouble(double d);
-NSDecimal CPTDecimalFromCGFloat(CGFloat f);
+NSDecimal CPTDecimalFromFloat(float aFloat);
+NSDecimal CPTDecimalFromDouble(double aDouble);
+NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat);
 
 NSDecimal CPTDecimalFromString(NSString *stringRepresentation);
 
@@ -100,20 +100,20 @@ CPTRGBAColor CPTRGBAColorFromCGColor(CGColorRef color);
 
 /// @name Quartz Pixel-Alignment Functions
 /// @{
-CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint p);
-CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize s);
-CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect r);
+CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint point);
+CGSize CPTAlignSizeToUserSpace(CGContextRef context, CGSize size);
+CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect rect);
 
-CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint p);
-CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect r);
+CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint point);
+CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect rect);
 
 /// @}
 
 /// @name String Formatting for Core Graphics Structs
 /// @{
-NSString *CPTStringFromPoint(CGPoint p);
-NSString *CPTStringFromSize(CGSize s);
-NSString *CPTStringFromRect(CGRect r);
+NSString *CPTStringFromPoint(CGPoint point);
+NSString *CPTStringFromSize(CGSize size);
+NSString *CPTStringFromRect(CGRect rect);
 
 /// @}
 

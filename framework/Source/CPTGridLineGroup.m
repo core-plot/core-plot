@@ -5,21 +5,21 @@
 #import "CPTGridLines.h"
 #import "CPTPlotArea.h"
 
-/**	@brief A group of grid line layers.
+/** @brief A group of grid line layers.
  *
- *	When using separate axis layers, this layer serves as the common superlayer for the grid line layers.
- *	Otherwise, this layer handles the drawing for the grid lines. It supports mixing the two modes;
- *	some axes can use separate grid line layers while others are handled by the grid line group.
+ *  When using separate axis layers, this layer serves as the common superlayer for the grid line layers.
+ *  Otherwise, this layer handles the drawing for the grid lines. It supports mixing the two modes;
+ *  some axes can use separate grid line layers while others are handled by the grid line group.
  **/
 @implementation CPTGridLineGroup
 
-/**	@property plotArea
+/** @property __cpt_weak CPTPlotArea *plotArea
  *  @brief The plot area that this grid line group belongs to.
  **/
 @synthesize plotArea;
 
-/**	@property major
- *	@brief If YES, draw the major grid lines, else draw the minor grid lines.
+/** @property BOOL major
+ *  @brief If @YES, draw the major grid lines, else draw the minor grid lines.
  **/
 @synthesize major;
 
@@ -31,12 +31,12 @@
 
 /** @brief Initializes a newly allocated CPTGridLineGroup object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTGridLineGroup::plotArea plotArea @endlink = <code>nil</code>
- *	- @link CPTGridLineGroup::major major @endlink = <code>NO</code>
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref plotArea = @nil
+ *  - @ref major = @NO
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGridLineGroup object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -50,7 +50,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -63,8 +65,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -83,12 +89,14 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -96,17 +104,17 @@
 
     for ( CPTAxis *axis in self.plotArea.axisSet.axes ) {
         if ( !axis.separateLayers ) {
-            [axis drawGridLinesInContext:theContext isMajor:self.major];
+            [axis drawGridLinesInContext:context isMajor:self.major];
         }
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setPlotArea:(CPTPlotArea *)newPlotArea
 {
@@ -119,6 +127,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

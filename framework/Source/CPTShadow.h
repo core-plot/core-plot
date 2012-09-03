@@ -17,11 +17,11 @@
 /// @name Factory Methods
 /// @{
 +(id)shadow;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
--(void)setShadowInContext:(CGContextRef)theContext;
-///	@}
+-(void)setShadowInContext:(CGContextRef)context;
+/// @}
 
 @end

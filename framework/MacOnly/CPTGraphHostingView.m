@@ -2,7 +2,7 @@
 
 #import "CPTGraph.h"
 
-///	@cond
+/// @cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -15,26 +15,26 @@
 #endif
 #endif
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A container view for displaying a CPTGraph.
+ *  @brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
 
-/**	@property hostedGraph
- *	@brief The CPTGraph hosted inside this view.
+/** @property CPTGraph *hostedGraph
+ *  @brief The CPTGraph hosted inside this view.
  **/
 @synthesize hostedGraph;
 
-/**	@property printRect
- *	@brief The bounding rectangle used when printing this view.
+/** @property NSRect printRect
+ *  @brief The bounding rectangle used when printing this view.
  **/
 @synthesize printRect;
 
-///	@cond
+/// @cond
 
 -(id)initWithFrame:(NSRect)frame
 {
@@ -48,8 +48,6 @@
     return self;
 }
 
-///	@endcond
-
 -(void)dealloc
 {
     [hostedGraph removeFromSuperlayer];
@@ -57,8 +55,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -82,10 +84,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
 -(void)drawRect:(NSRect)dirtyRect
 {
@@ -145,12 +149,12 @@
     return self.printRect;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Mouse handling
 
-///	@cond
+/// @cond
 
 -(BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
@@ -190,12 +194,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setHostedGraph:(CPTGraph *)newGraph
 {
@@ -225,6 +229,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

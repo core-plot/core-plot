@@ -4,36 +4,36 @@
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
 
-/**	@brief Positions a content layer relative to some anchor point in a plot space.
+/** @brief Positions a content layer relative to some anchor point in a plot space.
  *
- *	Plot space annotations are positioned relative to a plot space. This allows the
- *	annotation content layer to move with the plot when the plot space changes.
- *	This is useful for applications such as labels attached to specific data points on a plot.
+ *  Plot space annotations are positioned relative to a plot space. This allows the
+ *  annotation content layer to move with the plot when the plot space changes.
+ *  This is useful for applications such as labels attached to specific data points on a plot.
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property anchorPlotPoint
- *	@brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
+/** @property NSArray *anchorPlotPoint
+ *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
 
-/** @property plotSpace
- *	@brief The plot space which the anchor is defined in.
+/** @property CPTPlotSpace *plotSpace
+ *  @brief The plot space which the anchor is defined in.
  **/
 @synthesize plotSpace;
 
 #pragma mark -
 #pragma mark Init/Dealloc
 
-///	@name Initialization
-///	@{
+/// @name Initialization
+/// @{
 
 /** @brief Initializes a newly allocated CPTPlotSpaceAnnotation object.
  *
- *	This is the designated initializer. The initialized layer will be anchored to
- *	a point in plot coordinates.
+ *  This is the designated initializer. The initialized layer will be anchored to
+ *  a point in plot coordinates.
  *
- *	@param newPlotSpace The plot space which the anchor is defined in. Must be non-nil.
+ *  @param newPlotSpace The plot space which the anchor is defined in. Must be non-@nil.
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
@@ -49,7 +49,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(void)dealloc
 {
@@ -59,8 +61,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -79,10 +85,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Layout
 
-///	@cond
+/// @cond
 
 -(void)positionContentLayer
 {
@@ -126,12 +134,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
 {
@@ -142,6 +150,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

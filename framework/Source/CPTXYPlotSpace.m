@@ -14,7 +14,7 @@
 #import "CPTXYAxisSet.h"
 #import "NSNumberExtensions.h"
 
-///	@cond
+/// @cond
 @interface CPTXYPlotSpace()
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
@@ -31,80 +31,95 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A plot space using a two-dimensional cartesian coordinate system.
+ *  @brief A plot space using a two-dimensional cartesian coordinate system.
  *
- *	The @link CPTXYPlotSpace::xRange xRange @endlink and @link CPTXYPlotSpace::yRange
- *	yRange @endlink determine the mapping between data coordinates
- *	and the screen coordinates in the plot area. The "end" of a range is
- *	the location plus its length. Note that the length of a plot range can be negative, so
- *	the end point can have a lesser value than the starting location.
+ *  The @ref xRange and @ref yRange determine the mapping between data coordinates
+ *  and the screen coordinates in the plot area. The @quote{end} of a range is
+ *  the location plus its length. Note that the length of a plot range can be negative, so
+ *  the end point can have a lesser value than the starting location.
  *
- *	The global ranges constrain the values of the @link CPTXYPlotSpace::xRange
- *	xRange @endlink and @link CPTXYPlotSpace::yRange yRange @endlink.
- *	Whenever the global range is set (non-nil), the corresponding plot
- *	range will be adjusted so that it fits in the global range. When a new
- *	range is set to the plot range, it will be adjusted as needed to fit
- *	in the global range. This is useful for constraining scrolling, for
- *	instance.
+ *  The global ranges constrain the values of the @ref xRange and @ref yRange.
+ *  Whenever the global range is set (non-@nil), the corresponding plot
+ *  range will be adjusted so that it fits in the global range. When a new
+ *  range is set to the plot range, it will be adjusted as needed to fit
+ *  in the global range. This is useful for constraining scrolling, for
+ *  instance.
  **/
 @implementation CPTXYPlotSpace
 
-/** @property xRange
- *	@brief The range of the x coordinate. Defaults to a range with <code>location</code> zero (0) and a <code>length</code> of one (1).
+/** @property CPTPlotRange *xRange
+ *  @brief The range of the x coordinate. Defaults to a range with @link CPTPlotRange::location location @endlink zero (@num{0})
+ *  and a @link CPTPlotRange::length length @endlink of one (@num{1}).
  *
- *	The @link CPTPlotRange::location location @endlink of the <code>xRange</code>
- *	defines the data coordinate associated with the left edge of the plot area.
- *	Similarly, the @link CPTPlotRange::end end @endlink of the <code>xRange</code>
- *	defines the data coordinate associated with the right edge of the plot area.
+ *  The @link CPTPlotRange::location location @endlink of the @ref xRange
+ *  defines the data coordinate associated with the left edge of the plot area.
+ *  Similarly, the @link CPTPlotRange::end end @endlink of the @ref xRange
+ *  defines the data coordinate associated with the right edge of the plot area.
  **/
 @synthesize xRange;
 
-/** @property yRange
- *	@brief The range of the y coordinate. Defaults to a range with <code>location</code> zero (0) and a <code>length</code> of one (1).
+/** @property CPTPlotRange *yRange
+ *  @brief The range of the y coordinate. Defaults to a range with @link CPTPlotRange::location location @endlink zero (@num{0})
+ *  and a @link CPTPlotRange::length length @endlink of one (@num{1}).
  *
- *	The @link CPTPlotRange::location location @endlink of the <code>yRange</code>
- *	defines the data coordinate associated with the bottom edge of the plot area.
- *	Similarly, the @link CPTPlotRange::end end @endlink of the <code>yRange</code>
- *	defines the data coordinate associated with the top edge of the plot area.
+ *  The @link CPTPlotRange::location location @endlink of the @ref yRange
+ *  defines the data coordinate associated with the bottom edge of the plot area.
+ *  Similarly, the @link CPTPlotRange::end end @endlink of the @ref yRange
+ *  defines the data coordinate associated with the top edge of the plot area.
  **/
 @synthesize yRange;
 
-/** @property globalXRange
- *	@brief The global range of the x coordinate to which the @link CPTXYPlotSpace::xRange xRange @endlink is constrained.
+/** @property CPTPlotRange *globalXRange
+ *  @brief The global range of the x coordinate to which the @ref xRange is constrained.
  *
- *	If non-nil, the @link CPTXYPlotSpace::xRange xRange @endlink and any changes to it will
- *	be adjusted so that it always fits within the <code>globalXRange</code>.
- *  If <code>nil</code> (the default), there is no constraint on x.
+ *  If non-@nil, the @ref xRange and any changes to it will
+ *  be adjusted so that it always fits within the @ref globalXRange.
+ *  If @nil (the default), there is no constraint on x.
  **/
 @synthesize globalXRange;
 
-/** @property globalYRange
- *	@brief The global range of the y coordinate to which the @link CPTXYPlotSpace::yRange yRange @endlink is constrained.
+/** @property CPTPlotRange *globalYRange
+ *  @brief The global range of the y coordinate to which the @ref yRange is constrained.
  *
- *	If non-nil, the @link CPTXYPlotSpace::yRange yRange @endlink and any changes to it will
- *	be adjusted so that it always fits within the <code>globalYRange</code>.
- *  If <code>nil</code> (the default), there is no constraint on y.
+ *  If non-@nil, the @ref yRange and any changes to it will
+ *  be adjusted so that it always fits within the @ref globalYRange.
+ *  If @nil (the default), there is no constraint on y.
  **/
 @synthesize globalYRange;
 
-/** @property xScaleType
- *	@brief The scale type of the x coordinate. Defaults to @link CPTScaleType::CPTScaleTypeLinear CPTScaleTypeLinear @endlink.
+/** @property CPTScaleType xScaleType
+ *  @brief The scale type of the x coordinate. Defaults to #CPTScaleTypeLinear.
  **/
 @synthesize xScaleType;
 
-/** @property yScaleType
- *	@brief The scale type of the y coordinate. Defaults to @link CPTScaleType::CPTScaleTypeLinear CPTScaleTypeLinear @endlink.
+/** @property CPTScaleType yScaleType
+ *  @brief The scale type of the y coordinate. Defaults to #CPTScaleTypeLinear.
  **/
 @synthesize yScaleType;
 
 #pragma mark -
-#pragma mark Initialize/Deallocate
+#pragma mark Init/Dealloc
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTAnnotation object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref xRange = [@num{0}, @num{1}]
+ *  - @ref yRange = [@num{0}, @num{1}]
+ *  - @ref globalXRange = @nil
+ *  - @ref globalYRange = @nil
+ *  - @ref xScaleType = #CPTScaleTypeLinear
+ *  - @ref yScaleType = #CPTScaleTypeLinear
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     if ( (self = [super init]) ) {
@@ -120,6 +135,10 @@
     return self;
 }
 
+/// @}
+
+/// @cond
+
 -(void)dealloc
 {
     [xRange release];
@@ -129,8 +148,12 @@
     [super dealloc];
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -164,10 +187,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Ranges
 
-///	@cond
+/// @cond
 
 -(void)setPlotRange:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
@@ -372,12 +397,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Point Conversion (private utilities)
 
-///	@cond
+/// @cond
 
 // Linear
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord
@@ -465,12 +490,12 @@
     return pow(10.0, coordinate);
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Point Conversion
 
-///	@cond
+/// @cond
 
 // Plot area view point for plot point
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
@@ -690,12 +715,12 @@
     [self doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Scaling
 
-///	@cond
+/// @cond
 
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
@@ -767,31 +792,31 @@
     self.yRange = newRangeY;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Interaction
 
-///	@name User Interaction
-///	@{
+/// @name User Interaction
+/// @{
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly pressed the mouse button. @endif
- *	@if iOSOnly touched the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
  *
  *
- *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
- *	this method always returns <code>YES</code>.
- *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
- *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
- *	this method always returns <code>NO</code>.
- *	Otherwise, if the <code>interactionPoint</code> is within the bounds of the
- *	@link CPTGraph::plotAreaFrame plotAreaFrame @endlink, a drag operation starts and
- *	this method returns <code>YES</code>.
+ *  If the receiver has a @ref delegate and the delegate handles the event,
+ *  this method always returns @YES.
+ *  If @ref allowsUserInteraction is @NO
+ *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  this method always returns @NO.
+ *  Otherwise, if the @par{interactionPoint} is within the bounds of the
+ *  @link CPTGraph::plotAreaFrame plotAreaFrame @endlink, a drag operation starts and
+ *  this method returns @YES.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -819,21 +844,21 @@
 }
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly released the mouse button. @endif
- *	@if iOSOnly lifted their finger off the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly lifted their finger off the screen. @endif
  *
  *
- *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
- *	this method always returns <code>YES</code>.
- *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
- *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
- *	this method always returns <code>NO</code>.
- *	Otherwise, if a drag operation is in progress, it ends and
- *	this method returns <code>YES</code>.
+ *  If the receiver has a @ref delegate and the delegate handles the event,
+ *  this method always returns @YES.
+ *  If @ref allowsUserInteraction is @NO
+ *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  this method always returns @NO.
+ *  Otherwise, if a drag operation is in progress, it ends and
+ *  this method returns @YES.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -857,22 +882,22 @@
 }
 
 /**
- *	@brief Informs the receiver that the user has moved
- *	@if MacOnly the mouse with the button pressed. @endif
- *	@if iOSOnly their finger while touching the screen. @endif
+ *  @brief Informs the receiver that the user has moved
+ *  @if MacOnly the mouse with the button pressed. @endif
+ *  @if iOSOnly their finger while touching the screen. @endif
  *
  *
- *	If the receiver has a @link CPTPlotSpace::delegate delegate @endlink and the delegate handles the event,
- *	this method always returns <code>YES</code>.
- *	If @link CPTPlotSpace::allowsUserInteraction allowsUserInteraction @endlink is <code>NO</code>
- *	or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
- *	this method always returns <code>NO</code>.
- *	Otherwise, if a drag operation is in progress, the @link CPTXYPlotSpace::xRange xRange @endlink
- *	and @link CPTXYPlotSpace::yRange yRange @endlink are shifted to follow the drag and
- *	this method returns <code>YES</code>.
+ *  If the receiver has a @ref delegate and the delegate handles the event,
+ *  this method always returns @YES.
+ *  If @ref allowsUserInteraction is @NO
+ *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  this method always returns @NO.
+ *  Otherwise, if a drag operation is in progress, the @ref xRange
+ *  and @ref yRange are shifted to follow the drag and
+ *  this method returns @YES.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -937,6 +962,6 @@
     return NO;
 }
 
-///	@}
+/// @}
 
 @end

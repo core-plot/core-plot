@@ -7,7 +7,7 @@
 #import "NSCoderExtensions.h"
 #import "NSDecimalNumberExtensions.h"
 
-///	@cond
+/// @cond
 @interface CPTPlotRange()
 
 @property (nonatomic, readwrite) NSDecimal location;
@@ -15,74 +15,74 @@
 
 @end
 
-///	@endcond
+/// @endcond
 
 /**
- *	@brief Defines an immutable range of plot data.
+ *  @brief Defines an immutable range of plot data.
  **/
 @implementation CPTPlotRange
 
-/** @property location
+/** @property NSDecimal location
  *  @brief The starting value of the range.
- *	@see locationDouble
+ *  @see locationDouble
  **/
 @synthesize location;
 
-/** @property length
+/** @property NSDecimal length
  *  @brief The length of the range.
- *	@see lengthDouble
+ *  @see lengthDouble
  **/
 @synthesize length;
 
-/** @property locationDouble
- *  @brief The starting value of the range as a <code>double</code>.
- *	@see location
- **/
-@synthesize locationDouble;
-
-/** @property lengthDouble
- *  @brief The length of the range as a <code>double</code>.
- *	@see length
- **/
-@synthesize lengthDouble;
-
-/** @property end
- *  @brief The ending value of the range, equivalent to @link CPTPlotRange::location location @endlink + @link CPTPlotRange::length length @endlink.
+/** @property NSDecimal end;
+ *  @brief The ending value of the range, equivalent to @ref location + @ref length.
  **/
 @dynamic end;
 
-/** @property endDouble
- *  @brief The ending value of the range as a <code>double</code>, equivalent to @link CPTPlotRange::locationDouble locationDouble @endlink + @link CPTPlotRange::lengthDouble lengthDouble @endlink.
+/** @property double locationDouble
+ *  @brief The starting value of the range as a @double.
+ *  @see location
+ **/
+@synthesize locationDouble;
+
+/** @property double lengthDouble
+ *  @brief The length of the range as a @double.
+ *  @see length
+ **/
+@synthesize lengthDouble;
+
+/** @property double endDouble
+ *  @brief The ending value of the range as a @double, equivalent to @ref locationDouble + @ref lengthDouble.
  **/
 @dynamic endDouble;
 
-/** @property minLimit
+/** @property NSDecimal minLimit
  *  @brief The minimum extreme value of the range.
  **/
 @dynamic minLimit;
 
-/** @property minLimitDouble
- *  @brief The minimum extreme value of the range as a <code>double</code>.
+/** @property double minLimitDouble
+ *  @brief The minimum extreme value of the range as a @double.
  **/
 @dynamic minLimitDouble;
 
-/** @property midPoint
+/** @property NSDecimal midPoint
  *  @brief The middle value of the range.
  **/
 @dynamic midPoint;
 
-/** @property midPointDouble
- *  @brief The middle value of the range as a <code>double</code>.
+/** @property double midPointDouble
+ *  @brief The middle value of the range as a @double.
  **/
 @dynamic midPointDouble;
 
-/** @property maxLimit
+/** @property NSDecimal maxLimit
  *  @brief The maximum extreme value of the range.
  **/
 @dynamic maxLimit;
 
-/** @property maxLimitDouble
- *  @brief The maximum extreme value of the range as a <code>double</code>.
+/** @property double maxLimitDouble
+ *  @brief The maximum extreme value of the range as a @double.
  **/
 @dynamic maxLimitDouble;
 
@@ -113,6 +113,17 @@
     return self;
 }
 
+/// @name Initialization
+/// @{
+
+/** @brief Initializes a newly allocated CPTPlotRange object.
+ *
+ *  The initialized object will have the following properties:
+ *  - @ref location = @num{0.0}
+ *  - @ref length = @num{0.0}
+ *
+ *  @return The initialized object.
+ **/
 -(id)init
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
@@ -120,10 +131,12 @@
     return [self initWithLocation:zero length:zero];
 }
 
+/// @}
+
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setLocation:(NSDecimal)newLocation
 {
@@ -213,10 +226,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
-#pragma mark NSCopying
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -231,8 +246,12 @@
     return newRange;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSMutableCopying
+#pragma mark NSMutableCopying Methods
+
+/// @cond
 
 -(id)mutableCopyWithZone:(NSZone *)zone
 {
@@ -247,8 +266,12 @@
     return newRange;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
@@ -266,12 +289,14 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Checking Containership
 
 /** @brief Determines whether a given number is inside the range.
  *  @param number The number to check.
- *  @return True if <code>location</code> ≤ <code>number</code> ≤ <code>end</code>.
+ *  @return @YES if @ref location ≤ @par{number} ≤ @ref end.
  **/
 -(BOOL)contains:(NSDecimal)number
 {
@@ -280,7 +305,7 @@
 
 /** @brief Determines whether a given number is inside the range.
  *  @param number The number to check.
- *  @return True if <code>location</code> ≤ <code>number</code> ≤ <code>end</code>.
+ *  @return @YES if @ref locationDouble ≤ @par{number} ≤ @ref endDouble.
  **/
 -(BOOL)containsDouble:(double)number
 {
@@ -289,7 +314,7 @@
 
 /** @brief Determines whether a given range is equal to the range of the receiver.
  *  @param otherRange The range to check.
- *  @return True if the ranges both have the same location and length.
+ *  @return @YES if the ranges both have the same location and length.
  **/
 -(BOOL)isEqualToRange:(CPTPlotRange *)otherRange
 {
@@ -298,7 +323,7 @@
 
 /** @brief Determines whether the receiver entirely contains another range.
  *  @param otherRange The range to check.
- *  @return True if the other range fits entirely within the range of the receiver.
+ *  @return @YES if the other range fits entirely within the range of the receiver.
  **/
 -(BOOL)containsRange:(CPTPlotRange *)otherRange
 {
@@ -307,7 +332,7 @@
 
 /** @brief Determines whether a given range intersects the receiver.
  *  @param otherRange The range to check.
- *  @return True if the ranges intersect.
+ *  @return @YES if the ranges intersect.
  **/
 -(BOOL)intersectsRange:(CPTPlotRange *)otherRange
 {
@@ -386,6 +411,8 @@
 #pragma mark -
 #pragma mark Description
 
+/// @cond
+
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
@@ -393,5 +420,7 @@
             NSDecimalString(&location, [NSLocale currentLocale]),
             NSDecimalString(&length, [NSLocale currentLocale])];
 }
+
+/// @endcond
 
 @end

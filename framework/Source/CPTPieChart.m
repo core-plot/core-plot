@@ -16,23 +16,23 @@
 #import "NSNumberExtensions.h"
 #import <tgmath.h>
 
-/**	@defgroup plotAnimationPieChart Pie Chart
- *	@brief Pie chart properties that can be animated using Core Animation.
- *	@ingroup plotAnimation
+/** @defgroup plotAnimationPieChart Pie Chart
+ *  @brief Pie chart properties that can be animated using Core Animation.
+ *  @ingroup plotAnimation
  **/
 
-/**	@if MacOnly
- *	@defgroup plotBindingsPieChart Pie Chart Bindings
- *	@brief Binding identifiers for pie charts.
- *	@ingroup plotBindings
- *	@endif
+/** @if MacOnly
+ *  @defgroup plotBindingsPieChart Pie Chart Bindings
+ *  @brief Binding identifiers for pie charts.
+ *  @ingroup plotBindings
+ *  @endif
  **/
 
 NSString *const CPTPieChartBindingPieSliceWidthValues   = @"sliceWidths";        ///< Pie slice widths.
 NSString *const CPTPieChartBindingPieSliceFills         = @"sliceFills";         ///< Pie slice interior fills.
 NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets"; ///< Pie slice radial offsets.
 
-///	@cond
+/// @cond
 @interface CPTPieChart()
 
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
@@ -49,16 +49,16 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A pie chart.
- *	@see See @ref plotAnimationPieChart "Pie Chart" for a list of animatable properties.
- *	@if MacOnly
- *	@see See @ref plotBindingsPieChart "Pie Chart Bindings" for a list of supported binding identifiers.
- *	@endif
+ *  @brief A pie chart.
+ *  @see See @ref plotAnimationPieChart "Pie Chart" for a list of animatable properties.
+ *  @if MacOnly
+ *  @see See @ref plotBindingsPieChart "Pie Chart Bindings" for a list of supported binding identifiers.
+ *  @endif
  **/
 @implementation CPTPieChart
 
@@ -66,58 +66,58 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
 @dynamic sliceFills;
 @dynamic sliceRadialOffsets;
 
-/** @property pieRadius
- *	@brief The radius of the overall pie chart. Defaults to 80% of the initial frame size.
- *	@ingroup plotAnimationPieChart
+/** @property CGFloat pieRadius
+ *  @brief The radius of the overall pie chart. Defaults to @num{80%} of the initial frame size.
+ *  @ingroup plotAnimationPieChart
  **/
 @synthesize pieRadius;
 
-/** @property pieInnerRadius
- *	@brief The inner radius of the pie chart, used to create a "donut hole". Defaults to 0.
- *	@ingroup plotAnimationPieChart
+/** @property CGFloat pieInnerRadius
+ *  @brief The inner radius of the pie chart, used to create a @quote{donut hole}. Defaults to 0.
+ *  @ingroup plotAnimationPieChart
  **/
 @synthesize pieInnerRadius;
 
-/** @property startAngle
- *	@brief The starting angle for the first slice in radians. Defaults to π/2.
- *	@ingroup plotAnimationPieChart
+/** @property CGFloat startAngle
+ *  @brief The starting angle for the first slice in radians. Defaults to @num{π/2}.
+ *  @ingroup plotAnimationPieChart
  **/
 @synthesize startAngle;
 
-/** @property endAngle
- *	@brief The ending angle for the last slice in radians. If <code>NAN</code>, the ending angle
- *  is the same as the start angle, i.e., the pie slices fill the whole circle. Defaults to <code>NAN</code>.
- *	@ingroup plotAnimationPieChart
+/** @property CGFloat endAngle
+ *  @brief The ending angle for the last slice in radians. If @NAN, the ending angle
+ *  is the same as the start angle, i.e., the pie slices fill the whole circle. Defaults to @NAN.
+ *  @ingroup plotAnimationPieChart
  **/
 @synthesize endAngle;
 
-/** @property sliceDirection
- *	@brief Determines whether the pie slices are drawn in a clockwise or counter-clockwise
- *	direction from the starting point. Defaults to clockwise.
+/** @property CPTPieDirection sliceDirection
+ *  @brief Determines whether the pie slices are drawn in a clockwise or counter-clockwise
+ *  direction from the starting point. Defaults to clockwise.
  **/
 @synthesize sliceDirection;
 
-/** @property centerAnchor
- *	@brief The position of the center of the pie chart with the x and y coordinates
- *	given as a fraction of the width and height, respectively. Defaults to (0.5, 0.5).
- *	@ingroup plotAnimationPieChart
+/** @property CGPoint centerAnchor
+ *  @brief The position of the center of the pie chart with the x and y coordinates
+ *  given as a fraction of the width and height, respectively. Defaults to (@num{0.5}, @num{0.5}).
+ *  @ingroup plotAnimationPieChart
  **/
 @synthesize centerAnchor;
 
-/** @property borderLineStyle
- *	@brief The line style used to outline the pie slices.  If <code>nil</code>, no border is drawn.  Defaults to <code>nil</code>.
+/** @property CPTLineStyle *borderLineStyle
+ *  @brief The line style used to outline the pie slices.  If @nil, no border is drawn.  Defaults to @nil.
  **/
 @synthesize borderLineStyle;
 
-/** @property overlayFill
- *	@brief A fill drawn on top of the pie chart.
- *  Can be used to add shading and/or gloss effects. Defaults to <code>nil</code>.
+/** @property CPTFill *overlayFill
+ *  @brief A fill drawn on top of the pie chart.
+ *  Can be used to add shading and/or gloss effects. Defaults to @nil.
  **/
 @synthesize overlayFill;
 
-/** @property labelRotationRelativeToRadius
- *	@brief If <code>NO</code>, the default, the data labels are rotated relative to the default coordinate system (the positive x-axis is zero rotation).
- *  If <code>YES</code>, the labels are rotated relative to the radius of the pie chart (zero rotation is parallel to the radius).
+/** @property BOOL labelRotationRelativeToRadius
+ *  @brief If @NO, the default, the data labels are rotated relative to the default coordinate system (the positive x-axis is zero rotation).
+ *  If @YES, the labels are rotated relative to the radius of the pie chart (zero rotation is parallel to the radius).
  **/
 @synthesize labelRotationRelativeToRadius;
 
@@ -150,8 +150,8 @@ static const CGFloat colorLookupTable[10][3] =
 };
 
 /** @brief Creates and returns a CPTColor that acts as the default color for that pie chart index.
- *	@param pieSliceIndex The pie slice index to return a color for.
- *	@return A new CPTColor instance corresponding to the default value for this pie slice index.
+ *  @param pieSliceIndex The pie slice index to return a color for.
+ *  @return A new CPTColor instance corresponding to the default value for this pie slice index.
  **/
 
 +(CPTColor *)defaultPieSliceColorForIndex:(NSUInteger)pieSliceIndex;
@@ -163,7 +163,9 @@ static const CGFloat colorLookupTable[10][3] =
 }
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Init/Dealloc
+
+/// @cond
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -178,25 +180,27 @@ static const CGFloat colorLookupTable[10][3] =
 
 #endif
 
+/// @endcond
+
 /// @name Initialization
 /// @{
 
 /** @brief Initializes a newly allocated CPTPieChart object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTPieChart::pieRadius pieRadius @endlink = 40% of the minimum of the width and height of the frame rectangle
- *	- @link CPTPieChart::pieInnerRadius pieInnerRadius @endlink = 0.0
- *	- @link CPTPieChart::startAngle startAngle @endlink = π/2
- *	- @link CPTPieChart::endAngle endAngle @endlink = <code>NAN</code>
- *	- @link CPTPieChart::sliceDirection sliceDirection @endlink = #CPTPieDirectionClockwise
- *	- @link CPTPieChart::centerAnchor centerAnchor @endlink = (0.5, 0.5)
- *	- @link CPTPieChart::borderLineStyle borderLineStyle @endlink = <code>nil</code>
- *	- @link CPTPieChart::overlayFill overlayFill @endlink = <code>nil</code>
- *	- @link CPTPieChart::labelRotationRelativeToRadius labelRotationRelativeToRadius @endlink = <code>NO</code>
- *	- @link CPTPlot::labelOffset labelOffset @endlink = 10.0
- *	- @link CPTPlot::labelField labelField @endlink = #CPTPieChartFieldSliceWidth
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref pieRadius = @num{40%} of the minimum of the width and height of the frame rectangle
+ *  - @ref pieInnerRadius = @num{0.0}
+ *  - @ref startAngle = @num{π/2}
+ *  - @ref endAngle = @NAN
+ *  - @ref sliceDirection = #CPTPieDirectionClockwise
+ *  - @ref centerAnchor = (@num{0.5}, @num{0.5})
+ *  - @ref borderLineStyle = @nil
+ *  - @ref overlayFill = @nil
+ *  - @ref labelRotationRelativeToRadius = @NO
+ *  - @ref labelOffset = @num{10.0}
+ *  - @ref labelField = #CPTPieChartFieldSliceWidth
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPieChart object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -218,7 +222,9 @@ static const CGFloat colorLookupTable[10][3] =
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -245,6 +251,13 @@ static const CGFloat colorLookupTable[10][3] =
 
     [super dealloc];
 }
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -277,10 +290,12 @@ static const CGFloat colorLookupTable[10][3] =
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Data Loading
 
-///	@cond
+/// @cond
 
 -(void)reloadData
 {
@@ -465,7 +480,7 @@ static const CGFloat colorLookupTable[10][3] =
     [self relabelIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -704,6 +719,8 @@ static const CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Animation
 
+/// @cond
+
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSArray *keys = nil;
@@ -725,6 +742,8 @@ static const CGFloat colorLookupTable[10][3] =
         return [super needsDisplayForKey:aKey];
     }
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Fields
@@ -806,11 +825,11 @@ static const CGFloat colorLookupTable[10][3] =
 #pragma mark -
 #pragma mark Legends
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@brief The number of legend entries provided by this plot.
- *	@return The number of legend entries.
+/** @internal
+ *  @brief The number of legend entries provided by this plot.
+ *  @return The number of legend entries.
  **/
 -(NSUInteger)numberOfLegendEntries
 {
@@ -818,10 +837,10 @@ static const CGFloat colorLookupTable[10][3] =
     return self.cachedDataCount;
 }
 
-/**	@internal
- *	@brief The title text of a legend entry.
- *	@param index The index of the desired title.
- *	@return The title of the legend entry at the requested index.
+/** @internal
+ *  @brief The title text of a legend entry.
+ *  @param index The index of the desired title.
+ *  @return The title of the legend entry at the requested index.
  **/
 -(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index
 {
@@ -839,12 +858,12 @@ static const CGFloat colorLookupTable[10][3] =
     return legendTitle;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
-///	@cond
+/// @cond
 
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition
 {
@@ -883,27 +902,27 @@ static const CGFloat colorLookupTable[10][3] =
     return NO;
 }
 
-///	@endcond
+/// @endcond
 
 /// @name User Interaction
 /// @{
 
 /**
- *	@brief Informs the receiver that the user has
- *	@if MacOnly pressed the mouse button. @endif
- *	@if iOSOnly touched the screen. @endif
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
  *
  *
- *	If this plot has a delegate that responds to the
- *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
- *	@link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
- *	methods, the <code>interactionPoint</code> is compared with each slice in index order.
- *	The delegate method will be called and this method returns <code>YES</code> for the first
- *	index where the <code>interactionPoint</code> is inside a pie slice.
- *	This method returns <code>NO</code> if the <code>interactionPoint</code> is outside all of the slices.
+ *  If this plot has a delegate that responds to the
+ *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each slice in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a pie slice.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the slices.
  *
- *	@param event The OS event.
- *	@param interactionPoint The coordinates of the interaction.
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
@@ -932,9 +951,9 @@ static const CGFloat colorLookupTable[10][3] =
     return NO;
 }
 
-///	@}
+/// @}
 
-///	@cond
+/// @cond
 
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
@@ -1093,12 +1112,12 @@ static const CGFloat colorLookupTable[10][3] =
     return NSNotFound;
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(NSArray *)sliceWidths
 {
@@ -1215,6 +1234,6 @@ static const CGFloat colorLookupTable[10][3] =
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

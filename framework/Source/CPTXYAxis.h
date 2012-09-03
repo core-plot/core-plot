@@ -13,6 +13,6 @@
 /// @{
 @property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
 @property (nonatomic, readwrite, retain) CPTConstraints *axisConstraints;
-///	@}
+/// @}
 
 @end

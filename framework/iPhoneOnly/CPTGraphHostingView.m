@@ -6,56 +6,56 @@
 #import "CPTPlotSpace.h"
 #import "NSNumberExtensions.h"
 
-///	@cond
+/// @cond
 @interface CPTGraphHostingView()
 
-@property (nonatomic, readwrite, assign) __weak id pinchGestureRecognizer;
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak id pinchGestureRecognizer;
 
 -(void)updateNotifications;
 -(void)graphNeedsRedraw:(NSNotification *)notification;
 
 @end
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 
 /**
- *	@brief A container view for displaying a CPTGraph.
+ *  @brief A container view for displaying a CPTGraph.
  **/
 @implementation CPTGraphHostingView
 
-/**	@property hostedGraph
- *	@brief The CPTLayer hosted inside this view.
+/** @property CPTGraph *hostedGraph
+ *  @brief The CPTLayer hosted inside this view.
  **/
 @synthesize hostedGraph;
 
-/**	@property collapsesLayers
- *	@brief Whether view draws all graph layers into a single layer.
+/** @property BOOL collapsesLayers
+ *  @brief Whether view draws all graph layers into a single layer.
  *  Collapsing layers may improve performance in some cases.
  **/
 @synthesize collapsesLayers;
 
-/**	@property allowPinchScaling
- *	@brief Whether a pinch will trigger plot space scaling.
- *  Default is YES. This causes gesture recognizers to be added to identify pinches.
+/** @property BOOL allowPinchScaling
+ *  @brief Whether a pinch will trigger plot space scaling.
+ *  Default is @YES. This causes gesture recognizers to be added to identify pinches.
  **/
 @synthesize allowPinchScaling;
 
-///	@cond
+/// @cond
 
-/**	@internal
- *	@property pinchGestureRecognizer
- *	@brief The pinch gesture recognizer for this view.
+/** @internal
+ *  @property __cpt_weak id pinchGestureRecognizer
+ *  @brief The pinch gesture recognizer for this view.
  **/
 @synthesize pinchGestureRecognizer;
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark init/dealloc
 
-///	@cond
+/// @cond
 
 +(Class)layerClass
 {
@@ -83,7 +83,7 @@
     return self;
 }
 
-///	@endcond
+/// @endcond
 
 // On iOS, the init method is not called when loading from a XIB
 -(void)awakeFromNib
@@ -91,12 +91,16 @@
     [self commonInit];
 }
 
+/// @cond
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [hostedGraph release];
     [super dealloc];
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding methods
@@ -131,7 +135,7 @@
 #pragma mark -
 #pragma mark Touch handling
 
-///	@cond
+/// @cond
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -180,12 +184,12 @@
     [hostedGraph pointingDeviceCancelledEvent:event];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Gestures
 
-///	@cond
+/// @cond
 
 -(void)setAllowPinchScaling:(BOOL)yn
 {
@@ -231,12 +235,12 @@
     [pinchGestureRecognizer setScale:1.0f];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
 -(void)drawRect:(CGRect)rect
 {
@@ -256,12 +260,12 @@
     [self setNeedsDisplay];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)updateNotifications
 {
@@ -355,6 +359,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

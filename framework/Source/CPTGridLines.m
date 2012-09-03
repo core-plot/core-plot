@@ -3,17 +3,17 @@
 #import "CPTAxis.h"
 
 /**
- *	@brief An abstract class that draws grid lines for an axis.
+ *  @brief An abstract class that draws grid lines for an axis.
  **/
 @implementation CPTGridLines
 
-/**	@property axis
- *	@brief The axis.
+/** @property __cpt_weak CPTAxis *axis
+ *  @brief The axis.
  **/
 @synthesize axis;
 
-/**	@property major
- *	@brief If YES, draw the major grid lines, else draw the minor grid lines.
+/** @property BOOL major
+ *  @brief If @YES, draw the major grid lines, else draw the minor grid lines.
  **/
 @synthesize major;
 
@@ -25,12 +25,12 @@
 
 /** @brief Initializes a newly allocated CPTGridLines object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @link CPTGridLines::axis axis @endlink = <code>nil</code>
- *	- @link CPTGridLines::major major @endlink = <code>NO</code>
- *	- <code>needsDisplayOnBoundsChange</code> = <code>YES</code>
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref axis = @nil
+ *  - @ref major = @NO
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGridLines object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -44,7 +44,9 @@
     return self;
 }
 
-///	@}
+/// @}
+
+/// @cond
 
 -(id)initWithLayer:(id)layer
 {
@@ -57,8 +59,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -77,26 +83,28 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)theContext
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     if ( self.hidden ) {
         return;
     }
 
-    [self.axis drawGridLinesInContext:theContext isMajor:self.major];
+    [self.axis drawGridLinesInContext:context isMajor:self.major];
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setAxis:(CPTAxis *)newAxis
 {
@@ -106,6 +114,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

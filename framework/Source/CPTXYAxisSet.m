@@ -6,17 +6,17 @@
 #import "CPTXYAxis.h"
 
 /**
- *	@brief A set of cartesian (X-Y) axes.
+ *  @brief A set of cartesian (X-Y) axes.
  **/
 @implementation CPTXYAxisSet
 
-/**	@property xAxis
- *	@brief The x-axis.
+/** @property CPTXYAxis *xAxis
+ *  @brief The x-axis.
  **/
 @dynamic xAxis;
 
-/**	@property yAxis
- *	@brief The y-axis.
+/** @property CPTXYAxis *yAxis
+ *  @brief The y-axis.
  **/
 @dynamic yAxis;
 
@@ -28,16 +28,16 @@
 
 /** @brief Initializes a newly allocated CPTXYAxisSet object with the provided frame rectangle.
  *
- *	This is the designated initializer. The @link CPTAxisSet::axes axes @endlink array
- *	will contain two new axes with the following properties:
+ *  This is the designated initializer. The @ref axes array
+ *  will contain two new axes with the following properties:
  *
- *	<table>
- *	<tr><td>Axis</td><td>@link CPTAxis::coordinate coordinate @endlink</td><td>@link CPTAxis::tickDirection tickDirection @endlink</td></tr>
- *	<tr><td>@link CPTXYAxisSet::xAxis xAxis @endlink</td><td>#CPTCoordinateX</td><td>#CPTSignNegative</td></tr>
- *	<tr><td>@link CPTXYAxisSet::yAxis yAxis @endlink</td><td>#CPTCoordinateY</td><td>#CPTSignNegative</td></tr>
- *	</table>
+ *  <table>
+ *  <tr><td>@bold{Axis}</td><td>@link CPTAxis::coordinate coordinate @endlink</td><td>@link CPTAxis::tickDirection tickDirection @endlink</td></tr>
+ *  <tr><td>@ref xAxis</td><td>#CPTCoordinateX</td><td>#CPTSignNegative</td></tr>
+ *  <tr><td>@ref yAxis</td><td>#CPTCoordinateY</td><td>#CPTSignNegative</td></tr>
+ *  </table>
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTXYAxisSet object.
  **/
 -(id)initWithFrame:(CGRect)newFrame
@@ -58,12 +58,12 @@
     return self;
 }
 
-///	@}
+/// @}
 
 #pragma mark -
 #pragma mark Drawing
 
-///	@cond
+/// @cond
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
@@ -83,12 +83,12 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(CPTXYAxis *)xAxis
 {
@@ -100,6 +100,6 @@
     return [self.axes objectAtIndex:CPTCoordinateY];
 }
 
-///	@endcond
+/// @endcond
 
 @end

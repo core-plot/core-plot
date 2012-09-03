@@ -14,7 +14,7 @@
 @property (copy, readonly) NSData *data;
 @property (readonly) const void *bytes;
 @property (readonly) NSUInteger length;
-///	@}
+/// @}
 
 /// @name Data Format
 /// @{
@@ -22,7 +22,7 @@
 @property (readonly) CPTDataTypeFormat dataTypeFormat;
 @property (readonly) size_t sampleBytes;
 @property (readonly) CFByteOrder byteOrder;
-///	@}
+/// @}
 
 /// @name Dimensions
 /// @{
@@ -30,7 +30,7 @@
 @property (readonly) NSUInteger numberOfDimensions;
 @property (readonly) NSUInteger numberOfSamples;
 @property (readonly) CPTDataOrder dataOrder;
-///	@}
+/// @}
 
 /// @name Factory Methods
 /// @{
@@ -43,7 +43,7 @@
 +(id)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 +(id)numericDataWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 +(id)numericDataWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
@@ -56,7 +56,7 @@
 -(id)initWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(id)initWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(id)initWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-///	@}
+/// @}
 
 /// @name Samples
 /// @{
@@ -66,6 +66,6 @@
 -(NSNumber *)sampleValue:(NSUInteger)sample;
 -(NSNumber *)sampleValueAtIndex:(NSUInteger)index, ...;
 -(NSArray *)sampleArray;
-///	@}
+/// @}
 
 @end

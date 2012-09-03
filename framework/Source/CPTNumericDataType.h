@@ -3,7 +3,7 @@
 /// @file
 
 /**
- *	@brief Enumeration of data formats for numeric data.
+ *  @brief Enumeration of data formats for numeric data.
  **/
 typedef enum _CPTDataTypeFormat {
     CPTUndefinedDataType = 0,        ///< Undefined
@@ -16,7 +16,7 @@ typedef enum _CPTDataTypeFormat {
 CPTDataTypeFormat;
 
 /**
- *	@brief Enumeration of memory arrangements for multi-dimensional data arrays.
+ *  @brief Enumeration of memory arrangements for multi-dimensional data arrays.
  *  @see See <a href="http://en.wikipedia.org/wiki/Row-major_order">Wikipedia</a> for more information.
  **/
 typedef enum _CPTDataOrder {
@@ -26,7 +26,7 @@ typedef enum _CPTDataOrder {
 CPTDataOrder;
 
 /**
- *	@brief Struct that describes the encoding of numeric data samples.
+ *  @brief Struct that describes the encoding of numeric data samples.
  **/
 typedef struct _CPTNumericDataType {
     CPTDataTypeFormat dataTypeFormat; ///< Data type format
@@ -47,7 +47,7 @@ NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType);
 BOOL CPTDataTypeIsSupported(CPTNumericDataType format);
 BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType dataType2);
 
-///	@}
+/// @}
 
 #if __cplusplus
 }

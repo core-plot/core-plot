@@ -4,23 +4,23 @@
 
 @implementation CPTMutableNumericData(TypeConversion)
 
-/** @property dataType
- *	@brief The type of data stored in the data buffer.
+/** @property CPTNumericDataType dataType
+ *  @brief The type of data stored in the data buffer.
  **/
 @dynamic dataType;
 
-/** @property dataTypeFormat
- *	@brief The format of the data stored in the data buffer.
+/** @property CPTDataTypeFormat dataTypeFormat
+ *  @brief The format of the data stored in the data buffer.
  **/
 @dynamic dataTypeFormat;
 
-/** @property sampleBytes
- *	@brief The number of bytes in a single sample of data.
+/** @property size_t sampleBytes
+ *  @brief The number of bytes in a single sample of data.
  **/
 @dynamic sampleBytes;
 
-/** @property byteOrder
- *	@brief The byte order used to store each sample in the data buffer.
+/** @property CFByteOrder byteOrder
+ *  @brief The byte order used to store each sample in the data buffer.
  **/
 @dynamic byteOrder;
 
@@ -28,7 +28,7 @@
  *  @param newDataType The new data type format.
  *  @param newSampleBytes The number of bytes used to store each sample.
  *  @param newByteOrder The new byte order.
- *	@return A copy of the current numeric data converted to the new data type.
+ *  @return A copy of the current numeric data converted to the new data type.
  **/
 -(void)convertToType:(CPTDataTypeFormat)newDataType
          sampleBytes:(size_t)newSampleBytes
@@ -40,7 +40,7 @@
 #pragma mark -
 #pragma mark Accessors
 
-///	@cond
+/// @cond
 
 -(void)setDataTypeFormat:(CPTDataTypeFormat)newDataTypeFormat
 {
@@ -118,6 +118,6 @@
     }
 }
 
-///	@endcond
+/// @endcond
 
 @end

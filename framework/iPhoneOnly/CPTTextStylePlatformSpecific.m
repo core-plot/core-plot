@@ -10,9 +10,9 @@
 #pragma mark -
 #pragma mark Layout
 
-/**	@brief Determines the size of text drawn with the given style.
- *	@param style The text style.
- *	@return The size of the text when drawn with the given style.
+/** @brief Determines the size of text drawn with the given style.
+ *  @param style The text style.
+ *  @return The size of the text when drawn with the given style.
  **/
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {
@@ -27,7 +27,7 @@
 
 /** @brief Draws the text into the given graphics context using the given style.
  *  @param rect The bounding rectangle in which to draw the text.
- *	@param style The text style.
+ *  @param style The text style.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(CPTTextStyle *)style inContext:(CGContextRef)context

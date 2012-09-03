@@ -9,46 +9,46 @@
 
 @implementation CPTMutableLineStyle
 
-/** @property lineCap
- *  @brief The style for the endpoints of lines drawn in a graphics context. Default is <code>kCGLineCapButt</code>.
+/** @property CGLineCap lineCap
+ *  @brief The style for the endpoints of lines drawn in a graphics context. Default is @ref kCGLineCapButt.
  **/
 @dynamic lineCap;
 
-/** @property lineJoin
- *  @brief The style for the joins of connected lines in a graphics context. Default is <code>kCGLineJoinMiter</code>.
+/** @property CGLineJoin lineJoin
+ *  @brief The style for the joins of connected lines in a graphics context. Default is @ref kCGLineJoinMiter.
  **/
 @dynamic lineJoin;
 
-/** @property miterLimit
- *  @brief The miter limit for the joins of connected lines in a graphics context. Default is 10.0.
+/** @property CGFloat miterLimit
+ *  @brief The miter limit for the joins of connected lines in a graphics context. Default is @num{10.0}.
  **/
 @dynamic miterLimit;
 
-/** @property lineWidth
- *  @brief The line width for a graphics context. Default is 1.0.
+/** @property CGFloat lineWidth
+ *  @brief The line width for a graphics context. Default is @num{1.0}.
  **/
 @dynamic lineWidth;
 
-/** @property dashPattern
- *  @brief The dash-and-space pattern for the line. Default is <code>nil</code>.
+/** @property NSArray *dashPattern
+ *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @dynamic dashPattern;
 
-/** @property patternPhase
- *  @brief The starting phase of the line dash pattern. Default is 0.0.
+/** @property CGFloat patternPhase
+ *  @brief The starting phase of the line dash pattern. Default is @num{0.0}.
  **/
 @dynamic patternPhase;
 
-/** @property lineColor
+/** @property CPTColor *lineColor
  *  @brief The current stroke color in a context. Default is solid black.
  **/
 @dynamic lineColor;
 
-/** @property lineFill
- *  @brief The current line fill. Default is <code>nil</code>.
+/** @property CPTFill *lineFill;
+ *  @brief The current line fill. Default is @nil.
  *
- *	If <code>nil</code>, the line is drawn using the
- *	@link CPTMutableLineStyle::lineColor lineColor @endlink .
+ *  If @nil, the line is drawn using the
+ *  @ref lineColor.
  **/
 @dynamic lineFill;
 

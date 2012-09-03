@@ -10,46 +10,46 @@
 /// @name Legend
 /// @{
 
-/**	@brief Notification sent by plots to tell the legend it should redraw itself.
- *	@ingroup notification
+/** @brief Notification sent by plots to tell the legend it should redraw itself.
+ *  @ingroup notification
  **/
 extern NSString *const CPTLegendNeedsRedrawForPlotNotification;
 
-/**	@brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
- *	@ingroup notification
+/** @brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
+ *  @ingroup notification
  **/
 extern NSString *const CPTLegendNeedsLayoutForPlotNotification;
 
-/**	@brief Notification sent by plots to tell the legend it should reload all legend entries.
- *	@ingroup notification
+/** @brief Notification sent by plots to tell the legend it should reload all legend entries.
+ *  @ingroup notification
  **/
 extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
-///	@}
+/// @}
 
 /**
- *	@brief Axis labeling delegate.
+ *  @brief Axis labeling delegate.
  **/
 @protocol CPTLegendDelegate<NSObject>
 
 /// @name Drawing
 /// @{
 
-/**	@brief (Required) This method gives the delegate a chance to draw custom swatches for each legend entry.
+/** @brief @required This method gives the delegate a chance to draw custom swatches for each legend entry.
  *
- *	The "swatch" is the graphical part of the legend entry, usually accompanied by a text title
- *	that will be drawn by the legend. Returning NO will cause the legend to not draw the default
- *	legend graphics. It is then the delegate's responsiblity to do this.
- *	@param legend The legend.
- *	@param index The zero-based index of the legend entry for the given plot.
- *	@param plot The plot.
- *	@param rect The bounding rectangle to use when drawing the swatch.
- *	@param context The graphics context to draw into.
- *	@return YES if the legend should draw the default swatch or NO if the delegate handled the drawing.
+ *  The "swatch" is the graphical part of the legend entry, usually accompanied by a text title
+ *  that will be drawn by the legend. Returning @NO will cause the legend to not draw the default
+ *  legend graphics. It is then the delegate&rsquo;s responsiblity to do this.
+ *  @param legend The legend.
+ *  @param index The zero-based index of the legend entry for the given plot.
+ *  @param plot The plot.
+ *  @param rect The bounding rectangle to use when drawing the swatch.
+ *  @param context The graphics context to draw into.
+ *  @return @YES if the legend should draw the default swatch or @NO if the delegate handled the drawing.
  **/
 -(BOOL)legend:(CPTLegend *)legend shouldDrawSwatchAtIndex:(NSUInteger)index forPlot:(CPTPlot *)plot inRect:(CGRect)rect inContext:(CGContextRef)context;
 
-///	@}
+/// @}
 
 @end
 
@@ -85,7 +85,7 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, copy) CPTLineStyle *swatchBorderLineStyle;
 @property (nonatomic, readwrite, assign) CGFloat swatchCornerRadius;
 @property (nonatomic, readwrite, copy) CPTFill *swatchFill;
-///	@}
+/// @}
 
 /// @name Layout
 /// @{
@@ -101,19 +101,19 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
-///	@}
+/// @}
 
 /// @name Factory Methods
 /// @{
 +(id)legendWithPlots:(NSArray *)newPlots;
 +(id)legendWithGraph:(CPTGraph *)graph;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
 -(id)initWithPlots:(NSArray *)newPlots;
 -(id)initWithGraph:(CPTGraph *)graph;
-///	@}
+/// @}
 
 /// @name Plots
 /// @{
@@ -125,11 +125,11 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
 -(void)removePlot:(CPTPlot *)plot;
 -(void)removePlotWithIdentifier:(id<NSCopying>)identifier;
-///	@}
+/// @}
 
 /// @name Layout
 /// @{
 -(void)setLayoutChanged;
-///	@}
+/// @}
 
 @end

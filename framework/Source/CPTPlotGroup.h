@@ -10,6 +10,6 @@
 -(void)addPlot:(CPTPlot *)plot;
 -(void)removePlot:(CPTPlot *)plot;
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
-///	@}
+/// @}
 
 @end

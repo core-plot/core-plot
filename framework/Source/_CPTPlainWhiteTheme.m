@@ -16,7 +16,7 @@
 NSString *const kCPTPlainWhiteTheme = @"Plain White";
 
 /**
- *	@brief Creates a CPTXYGraph instance formatted with white backgrounds and black lines.
+ *  @brief Creates a CPTXYGraph instance formatted with white backgrounds and black lines.
  **/
 @implementation _CPTPlainWhiteTheme
 
@@ -100,7 +100,7 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
 }
 
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
 
 -(Class)classForCoder
 {

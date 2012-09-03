@@ -7,7 +7,7 @@
 @class CPTFill;
 
 /**
- *	@brief Line cap types.
+ *  @brief Line cap types.
  **/
 typedef enum _CPTLineCapType {
     CPTLineCapTypeNone,       ///< No line cap.
@@ -59,11 +59,11 @@ CPTLineCapType;
 +(CPTLineCap *)crossPlotLineCap;
 +(CPTLineCap *)snowPlotLineCap;
 +(CPTLineCap *)customLineCapWithPath:(CGPathRef)aPath;
-///	@}
+/// @}
 
 /// @name Drawing
 /// @{
--(void)renderAsVectorInContext:(CGContextRef)theContext atPoint:(CGPoint)center inDirection:(CGPoint)direction;
-///	@}
+-(void)renderAsVectorInContext:(CGContextRef)context atPoint:(CGPoint)center inDirection:(CGPoint)direction;
+/// @}
 
 @end

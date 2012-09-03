@@ -15,11 +15,11 @@
 /// @name Factory Methods
 /// @{
 +(CPTLimitBand *)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
-///	@}
+/// @}
 
 /// @name Initialization
 /// @{
 -(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
-///	@}
+/// @}
 
 @end

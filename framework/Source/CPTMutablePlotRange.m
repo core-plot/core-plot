@@ -23,7 +23,7 @@
 #pragma mark -
 #pragma mark Combining ranges
 
-/** @brief Extends the range to include another range. The sign of <code>length</code> is unchanged.
+/** @brief Extends the range to include another range. The sign of @ref length is unchanged.
  *  @param other The other plot range.
  **/
 -(void)unionPlotRange:(CPTPlotRange *)other
@@ -54,7 +54,7 @@
     self.length   = newLength;
 }
 
-/** @brief Sets the messaged object to the intersection with another range. The sign of <code>length</code> is unchanged.
+/** @brief Sets the messaged object to the intersection with another range. The sign of @ref length is unchanged.
  *  @param other The other plot range.
  **/
 -(void)intersectionPlotRange:(CPTPlotRange *)other
@@ -93,9 +93,9 @@
 #pragma mark -
 #pragma mark Expanding/Contracting ranges
 
-/** @brief Extends/contracts the range by a factor.
- *  @param factor Factor used. A value of 1.0 gives no change.
- *	Less than 1.0 is a contraction, and greater than 1.0 is expansion.
+/** @brief Extends/contracts the range by a given factor.
+ *  @param factor Factor used. A value of @num{1.0} gives no change.
+ *  Less than @num{1.0} is a contraction, and greater than @num{1.0} is expansion.
  **/
 -(void)expandRangeByFactor:(NSDecimal)factor
 {
@@ -111,9 +111,9 @@
 #pragma mark -
 #pragma mark Shifting Range
 
-/** @brief Moves the whole range so that the location fits in other range.
+/** @brief Moves the whole range so that the @ref location fits in other range.
  *  @param otherRange Other range.
- *	The minimum possible shift is made. The range length is unchanged.
+ *  The minimum possible shift is made. The range @ref length is unchanged.
  **/
 -(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange
 {
@@ -134,9 +134,9 @@
     }
 }
 
-/** @brief Moves the whole range so that the end point fits in other range.
+/** @brief Moves the whole range so that the @ref end point fits in other range.
  *  @param otherRange Other range.
- *	The minimum possible shift is made. The range length is unchanged.
+ *  The minimum possible shift is made. The range @ref length is unchanged.
  **/
 -(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange
 {

@@ -5,8 +5,8 @@
 
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
-/**	@brief Gets an image of the layer contents.
- *	@return A native image representation of the layer content.
+/** @brief Gets an image of the layer contents.
+ *  @return A native image representation of the layer content.
  **/
 -(CPTNativeImage *)imageOfLayer
 {
@@ -35,8 +35,8 @@
 
 @implementation CPTColor(CPTPlatformSpecificColorExtensions)
 
-/**	@property nsColor
- *	@brief Gets the color value as an NSColor.
+/** @property nsColor
+ *  @brief Gets the color value as an NSColor.
  **/
 @dynamic nsColor;
 

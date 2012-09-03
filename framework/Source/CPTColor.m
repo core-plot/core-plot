@@ -6,14 +6,15 @@
 
 /** @brief An immutable color.
  *
- *  An immutable object wrapper class around CGColorRef.
- *	It provides convenience methods to create the same predefined colors
- *	defined by NSColor and UIColor.
+ *  An immutable object wrapper class around @ref CGColorRef.
+ *  It provides convenience methods to create the same predefined colors defined by
+ *  @if MacOnly NSColor. @endif
+ *  @if iOSOnly UIColor. @endif
  **/
 @implementation CPTColor
 
-/**	@property cgColor
- *	@brief The CGColorRef to wrap around.
+/** @property CGColorRef cgColor
+ *  @brief The @ref CGColorRef to wrap around.
  **/
 @synthesize cgColor;
 
@@ -52,9 +53,9 @@
     return color;
 }
 
-/** @brief Returns a shared instance of CPTColor initialized with a fully opaque 2/3 gray color.
+/** @brief Returns a shared instance of CPTColor initialized with a fully opaque 67% gray color.
  *
- *  @return A shared CPTColor object initialized with a fully opaque 2/3 gray color.
+ *  @return A shared CPTColor object initialized with a fully opaque 67% gray color.
  **/
 +(CPTColor *)lightGrayColor
 {
@@ -80,9 +81,9 @@
     return color;
 }
 
-/** @brief Returns a shared instance of CPTColor initialized with a fully opaque 1/3 gray color.
+/** @brief Returns a shared instance of CPTColor initialized with a fully opaque 33% gray color.
  *
- *  @return A shared CPTColor object initialized with a fully opaque 1/3 gray color.
+ *  @return A shared CPTColor object initialized with a fully opaque 33% gray color.
  **/
 +(CPTColor *)darkGrayColor
 {
@@ -234,9 +235,9 @@
     return color;
 }
 
-/** @brief Creates and returns a new CPTColor instance initialized with the provided CGColorRef.
+/** @brief Creates and returns a new CPTColor instance initialized with the provided @ref CGColorRef.
  *  @param newCGColor The color to wrap.
- *  @return A new CPTColor instance initialized with the provided CGColorRef.
+ *  @return A new CPTColor instance initialized with the provided @ref CGColorRef.
  **/
 +(CPTColor *)colorWithCGColor:(CGColorRef)newCGColor
 {
@@ -244,10 +245,10 @@
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided RGBA color components.
- *  @param red The red component (0 ≤ red ≤ 1).
- *  @param green The green component (0 ≤ green ≤ 1).
- *  @param blue The blue component (0 ≤ blue ≤ 1).
- *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  @param red The red component (@num{0} ≤ @par{red} ≤ @num{1}).
+ *  @param green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
+ *  @param blue The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
+ *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
  *  @return A new CPTColor instance initialized with the provided RGBA color components.
  **/
 +(CPTColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
@@ -256,7 +257,7 @@
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided gray level.
- *  @param gray The gray level (0 ≤ gray ≤ 1).
+ *  @param gray The gray level (@num{0} ≤ @par{gray} ≤ @num{1}).
  *  @return A new CPTColor instance initialized with the provided gray level.
  **/
 +(CPTColor *)colorWithGenericGray:(CGFloat)gray
@@ -270,11 +271,11 @@
 }
 
 #pragma mark -
-#pragma mark Initialize/Deallocate
+#pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated CPTColor object with the provided CGColorRef.
+/** @brief Initializes a newly allocated CPTColor object with the provided @ref CGColorRef.
  *
- *	@param newCGColor The color to wrap.
+ *  @param newCGColor The color to wrap.
  *  @return The initialized CPTColor object.
  **/
 -(id)initWithCGColor:(CGColorRef)newCGColor
@@ -288,10 +289,10 @@
 
 /** @brief Initializes a newly allocated CPTColor object with the provided RGBA color components.
  *
- *  @param red The red component (0 ≤ red ≤ 1).
- *  @param green The green component (0 ≤ green ≤ 1).
- *  @param blue The blue component (0 ≤ blue ≤ 1).
- *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  @param red The red component (@num{0} ≤ @par{red} ≤ @num{1}).
+ *  @param green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
+ *  @param blue The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
+ *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
  *  @return The initialized CPTColor object.
  **/
 -(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
@@ -308,6 +309,8 @@
     return self;
 }
 
+/// @cond
+
 -(void)dealloc
 {
     CGColorRelease(cgColor);
@@ -320,12 +323,14 @@
     [super finalize];
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Creating colors from other colors
 
 /** @brief Creates and returns a new CPTColor instance having color components identical to the current object
- *	but having the provided alpha component.
- *  @param alpha The alpha component (0 ≤ alpha ≤ 1).
+ *  but having the provided alpha component.
+ *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
  *  @return A new CPTColor instance having the provided alpha component.
  **/
 -(CPTColor *)colorWithAlphaComponent:(CGFloat)alpha
@@ -338,7 +343,9 @@
 }
 
 #pragma mark -
-#pragma mark NSCoding methods
+#pragma mark NSCoding Methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -380,8 +387,12 @@
     return self;
 }
 
+/// @endcond
+
 #pragma mark -
-#pragma mark NSCopying methods
+#pragma mark NSCopying Methods
+
+/// @cond
 
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -395,9 +406,19 @@
     return colorCopy;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Color comparison
 
+/// @name Comparison
+/// @{
+
+/** @brief Returns a boolean value that indicates whether the received is equal to the given object.
+ *  Colors are equal if they have equal @ref cgColor properties.
+ *  @param object The object to be compared with the receiver.
+ *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ **/
 -(BOOL)isEqual:(id)object
 {
     if ( self == object ) {
@@ -410,6 +431,10 @@
         return NO;
     }
 }
+
+/// @}
+
+/// @cond
 
 -(NSUInteger)hash
 {
@@ -428,5 +453,7 @@
 
     return (NSUInteger)theHash;
 }
+
+/// @endcond
 
 @end

@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-/**	@category NSNumber(CPTExtensions)
- *	@brief Core Plot extensions to NSNumber.
+/** @category NSNumber(CPTExtensions)
+ *  @brief Core Plot extensions to NSNumber.
  **/
 @interface NSNumber(CPTExtensions)
 
