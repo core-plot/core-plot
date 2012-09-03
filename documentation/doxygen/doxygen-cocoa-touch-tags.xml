@@ -1,378 +1,813 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <tagfile>
-	<!-- Foundation classes & protocols -->
-	<compound kind="class" objc="yes">
-		<name>NSArray</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/NSArray.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSFastEnumeration-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSMutableArray</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSMutableArray_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSFastEnumeration-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSCalendar</name>
-		<filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSObject-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSCoder</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
-		<base>NSObject</base>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>NSCoding-p</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html</filename>
-		<member kind="function">
-			<name>initWithCoder:</name>
-			<anchor>//apple_ref/occ/intfm/NSCoding/initWithCoder:</anchor>
-		</member>
-		<member kind="function">
-			<name>encodeWithCoder:</name>
-			<anchor>//apple_ref/occ/intfm/NSCoding/encodeWithCoder:</anchor>
-		</member>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>UIColor</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIColor_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSObject-p</base>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>NSCopying-p</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html</filename>
-		<member kind="function">
-			<name>copyWithZone:</name>
-			<anchor>//apple_ref/occ/intfm/NSCopying/copyWithZone:</anchor>
-		</member>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSData</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSDate</name>
-		<filename>http://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDate_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSObject-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSDateFormatter</name>
-		<filename>http://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSObject-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSDecimalNumber</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSDecimalNumber_Class/Reference/Reference.html</filename>
-		<base>NSNumber</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSDictionary</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSFastEnumeration-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>UIEvent</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIEvent_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>NSFastEnumeration-p</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/NSFastEnumeration_protocol/Reference/NSFastEnumeration.html</filename>
-		<member kind="function">
-			<name>countByEnumeratingWithState:objects:count:</name>
-			<anchor>//apple_ref/occ/intfm/NSFastEnumeration/countByEnumeratingWithState:objects:count:</anchor>
-		</member>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>UIImage</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIImage_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>NSMutableCopying-p</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html</filename>
-		<member kind="function">
-			<name>mutableCopyWithZone:</name>
-			<anchor>//apple_ref/occ/intfm/NSMutableCopying/mutableCopyWithZone:</anchor>
-		</member>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSMutableData</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSMutableData_Class/index.html</filename>
-		<base>NSData</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSNull</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSNull_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSNumber</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSNumber_Class/Reference/Reference.html</filename>
-		<base>NSValue</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSNumberFormatter</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSNumberFormatter_Class/Reference/Reference.html#//apple_ref/occ/cl/NSNumberFormatter</filename>
-		<base>NSFormatter</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSFormatter</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSFormatter_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSObject</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html</filename>
-		<base>NSObject-p</base>
-		<base>NSKeyValueBindingCreation-p</base>
-		<member kind="function">
-			<name>init</name>
-			<anchor>//apple_ref/occ/instm/NSObject/init</anchor>
-		</member>
-		<member kind="function">
-			<name>dealloc</name>
-			<anchor>//apple_ref/occ/instm/NSObject/dealloc</anchor>
-		</member>
-		<member kind="function">
-			<name>copy</name>
-			<anchor>//apple_ref/occ/instm/NSObject/copy</anchor>
-		</member>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>NSObject-p</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html</filename>
-		<member kind="function">
-			<name>description</name>
-			<anchor>//apple_ref/occ/intfm/NSObject/description</anchor>
-		</member>
-		<member kind="function">
-			<name>hash</name>
-			<anchor>//apple_ref/occ/intfm/NSObject/hash</anchor>
-		</member>
-		<member kind="function">
-			<name>isEqual:</name>
-			<anchor>//apple_ref/occ/intfm/NSObject/isEqual:</anchor>
-		</member>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSSet</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSFastEnumeration-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>UIResponder</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/UIKit/Reference/UIResponder_Class/Reference/Reference.html#//apple_ref/occ/cl/UIResponder</filename>
-		<base>NSObject</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSString</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-		<base>NSMutableCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSValue</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-		<base>NSCoding-p</base>
-		<base>NSCopying-p</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>NSValueTransformer</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Classes/NSValueTransformer_Class/Reference/Reference.html</filename>
-		<base>NSObject</base>
-	</compound>
-	<compound kind="class" objc="yes">
-		<name>UIView</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/UIKit/Reference/UIView_Class/UIView/UIView.html</filename>
-		<base>UIResponder</base>
-	</compound>
+    <!-- Foundation classes & protocols -->
+    <compound kind="class" objc="yes">
+        <name>NSArray</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/NSArray.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableArray</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableArray_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSCalendar</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSObject-p</base>
+    </compound>
+    <compound kind="file">
+        <name>NSCalendar Class Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</filename>
+        <member kind="enumeration">
+            <name>NSCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSEraCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSEraCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSYearCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSMonthCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSMonthCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDayCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDayCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSHourCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSHourCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSMinuteCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSMinuteCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSSecondCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSSecondCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSWeekCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekdayCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSWeekdayCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekdayOrdinalCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSWeekdayOrdinalCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSQuarterCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSQuarterCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekOfMonthCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSWeekOfMonthCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekOfYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSWeekOfYearCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSYearForWeekOfYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSYearForWeekOfYearCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSCalendarCalendarUnit</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSTimeZoneCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSTimeZoneCalendarUnit</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSCoder</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCoder_Class/Reference/NSCoder.html</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSCoding</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>initWithCoder:</name>
+            <anchor>//apple_ref/occ/intfm/NSCoding/initWithCoder:</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>encodeWithCoder:</name>
+            <anchor>//apple_ref/occ/intfm/NSCoding/encodeWithCoder:</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>UIColor</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIColor_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSObject-p</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSCopying</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>copyWithZone:</name>
+            <anchor>//apple_ref/occ/intfm/NSCopying/copyWithZone:</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSData</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDate</name>
+        <filename>https://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDate_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSObject-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDateFormatter</name>
+        <filename>https://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSObject-p</base>
+    </compound>
+    <compound kind="file">
+        <name>NSDateFormatter Class Reference</name>
+        <filename>https://developer.apple.com/library/iOS/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</filename>
+        <member kind="enumeration">
+            <name>NSDateFormatterStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSDateFormatterStyle</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterNoStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDateFormatterNoStyle</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterShortStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDateFormatterShortStyle</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterMediumStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDateFormatterMediumStyle</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterLongStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDateFormatterLongStyle</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterFullStyle</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDateFormatter_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSDateFormatterFullStyle</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDecimalNumber</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDecimalNumber_Class/Reference/Reference.html</filename>
+        <base>NSNumber</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDictionary</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSDictionary_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>UIEvent</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIEvent_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSFastEnumeration</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/NSFastEnumeration_protocol/Reference/NSFastEnumeration.html</filename>
+        <member kind="function">
+            <type>NSUInteger</type>
+            <name>countByEnumeratingWithState:objects:count:</name>
+            <anchor>//apple_ref/occ/intfm/NSFastEnumeration/countByEnumeratingWithState:objects:count:</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>UIImage</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIImage_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSMutableCopying</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>mutableCopyWithZone:</name>
+            <anchor>//apple_ref/occ/intfm/NSMutableCopying/mutableCopyWithZone:</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableData</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableData_Class/index.html</filename>
+        <base>NSData</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNull</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSNull_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <member kind="function" static="yes">
+            <type>NSNull *</type>
+            <name>null</name>
+            <anchor>//apple_ref/occ/clm/NSNull/null</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNumber</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSNumber_Class/Reference/Reference.html</filename>
+        <base>NSValue</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNumberFormatter</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSNumberFormatter_Class/Reference/Reference.html#//apple_ref/occ/cl/NSNumberFormatter</filename>
+        <base>NSFormatter</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSFormatter</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSFormatter_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSObject</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html</filename>
+        <base>NSObject-p</base>
+        <base>NSKeyValueBindingCreation-p</base>
+        <member kind="function" static="yes">
+            <type>id</type>
+            <name>alloc</name>
+            <anchor>//apple_ref/occ/clm/NSObject/alloc</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>Class</type>
+            <name>class</name>
+            <anchor>//apple_ref/occ/clm/NSObject/class</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>initialize</name>
+            <anchor>//apple_ref/occ/clm/NSObject/initialize</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>load</name>
+            <anchor>//apple_ref/occ/clm/NSObject/load</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>id</type>
+            <name>new</name>
+            <anchor>//apple_ref/occ/clm/NSObject/new</anchor>
+        </member>
+        <member kind="function">
+            <type>Class</type>
+            <name>classForCoder</name>
+            <anchor>//apple_ref/occ/instm/NSObject/classForCoder</anchor>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>copy</name>
+            <anchor>//apple_ref/occ/instm/NSObject/copy</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>dealloc</name>
+            <anchor>//apple_ref/occ/instm/NSObject/dealloc</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>finalize</name>
+            <anchor>//apple_ref/occ/instm/NSObject/finalize</anchor>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>init</name>
+            <anchor>//apple_ref/occ/instm/NSObject/init</anchor>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>mutableCopy</name>
+            <anchor>//apple_ref/occ/instm/NSObject/mutableCopy</anchor>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSObject</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html</filename>
+        <member kind="function">
+            <type>NSString *</type>
+            <name>description</name>
+            <anchor>//apple_ref/occ/intfm/NSObject/description</anchor>
+        </member>
+        <member kind="function">
+            <type>NSUInteger</type>
+            <name>hash</name>
+            <anchor>//apple_ref/occ/intfm/NSObject/hash</anchor>
+        </member>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>isEqual:</name>
+            <anchor>//apple_ref/occ/intfm/NSObject/isEqual:</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSSet</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>UIResponder</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIResponder_Class/Reference/Reference.html#//apple_ref/occ/cl/UIResponder</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSString</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSValue</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSValueTransformer</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSValueTransformer_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>UIView</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIView_Class/UIView/UIView.html</filename>
+        <base>UIResponder</base>
+    </compound>
 
-	<!-- Core Graphics -->
-	<compound kind="struct">
-		<name>CGColorRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGColor/Reference/reference.html#//apple_ref/doc/c_ref/CGColorRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGColorSpaceRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGColorSpace/Reference/reference.html#//apple_ref/doc/c_ref/CGColorSpaceRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGContextRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html#//apple_ref/doc/c_ref/CGContextRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGFunctionRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGFunction/Reference/reference.html#//apple_ref/doc/c_ref/CGFunctionRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGImageRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGImage/Reference/reference.html#//apple_ref/doc/c_ref/CGImageRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGPathRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html#//apple_ref/doc/c_ref/CGPathRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGPoint</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGPoint</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGRect</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGRect</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGShadingRef</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CGShading/Reference/reference.html#//apple_ref/doc/c_ref/CGShadingRef</filename>
-	</compound>
-	<compound kind="struct">
-		<name>CGSize</name>
-		<filename>http://developer.apple.com/iPhone/library/documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html#//apple_ref/doc/c_ref/CGSize</filename>
-	</compound>
+    <!-- Core Graphics -->
+    <compound kind="file">
+        <name>CGColor Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGColor/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGColorRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGColor/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGColorRef</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGColorSpace Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGColorSpace/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGColorSpaceRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGColorSpace/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGColorSpaceRef</anchor>
+        </member>
+        <member kind="function">
+            <type>CGColorSpaceRef</type>
+            <name>CGColorSpaceCreateDeviceRGB</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGColorSpace/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/CGColorSpaceCreateDeviceRGB</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGContext Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGContextRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGContextRef</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGFunction Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGFunction/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGFunctionRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGFunction/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGFunctionRef</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGGeometry Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGFloat</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGFloat</anchor>
+        </member>
+        <member kind="typedef">
+            <name>CGPoint</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGPoint</anchor>
+        </member>
+        <member kind="typedef">
+            <name>CGRect</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGRect</anchor>
+        </member>
+        <member kind="typedef">
+            <name>CGSize</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGSize</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGImage Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGImage/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGImageRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGImage/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGImageRef</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGPath Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGPathRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGPathRef</anchor>
+        </member>
+        <member kind="typedef">
+            <name>CGLineCap</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGLineCap</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapButt</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineCapButt</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapRound</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineCapRound</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapSquare</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineCapSquare</anchor>
+        </member>
+        <member kind="typedef">
+            <name>CGLineJoin</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGLineJoin</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinMiter</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineJoinMiter</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinRound</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineJoinRound</anchor>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinBevel</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGPath/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/kCGLineJoinBevel</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGShading Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGShading/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CGShadingRef</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGShading/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGShadingRef</anchor>
+        </member>
+    </compound>
 
-	<!-- Core Animation -->
-	<compound kind="class" objc="yes">
-		<name>CALayer</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html</filename>
-		<base>NSObject</base>
-		<base>CAMediaTiming-p</base>
-		<member kind="function">
-			<name>containsPoint:</name>
-			<anchor>//apple_ref/occ/instm/CALayer/containsPoint:</anchor>
-		</member>
-		<member kind="function">
-			<name>drawInContext:</name>
-			<anchor>//apple_ref/occ/instm/CALayer/drawInContext:</anchor>
-		</member>
-		<member kind="function">
-			<name>layoutSublayers</name>
-			<anchor>//apple_ref/occ/instm/CALayer/layoutSublayers</anchor>
-		</member>
-	</compound>
-	<compound kind="protocol" objc="yes">
-		<name>CAMediaTiming-p</name>
-		<filename>http://www.devworld.apple.com/iphone/library/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/Introduction/Introduction.html</filename>
-		<member kind="property">
-			<name>autoreverses</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/autoreverses</anchor>
-		</member>
-		<member kind="property">
-			<name>beginTime</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/beginTime</anchor>
-		</member>
-		<member kind="property">
-			<name>duration</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/duration</anchor>
-		</member>
-		<member kind="property">
-			<name>fillMode</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/fillMode</anchor>
-		</member>
-		<member kind="property">
-			<name>repeatCount</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatCount</anchor>
-		</member>
-		<member kind="property">
-			<name>repeatDuration</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatDuration</anchor>
-		</member>
-		<member kind="property">
-			<name>speed</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/speed</anchor>
-		</member>
-		<member kind="property">
-			<name>timeOffset</name>
-			<anchor>//apple_ref/occ/intfp/CAMediaTiming/timeOffset</anchor>
-		</member>
-	</compound>
+    <!-- Core Animation -->
+    <compound kind="class" objc="yes">
+        <name>CALayer</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html</filename>
+        <base>NSObject</base>
+        <base>CAMediaTiming-p</base>
+        <member kind="property">
+            <type>CGPoint</type>
+            <name>anchorPoint</name>
+            <anchor>//apple_ref/occ/instp/CALayer/anchorPoint</anchor>
+        </member>
+        <member kind="property">
+            <type>CGRect</type>
+            <name>bounds</name>
+            <anchor>//apple_ref/occ/instp/CALayer/bounds</anchor>
+        </member>
+        <member kind="property">
+            <type>CGFloat</type>
+            <name>contentsScale</name>
+            <anchor>//apple_ref/occ/instp/CALayer/contentsScale</anchor>
+        </member>
+        <member kind="property">
+            <type>CGFloat</type>
+            <name>cornerRadius</name>
+            <anchor>//apple_ref/occ/instp/CALayer/cornerRadius</anchor>
+        </member>
+        <member kind="property">
+            <type>id</type>
+            <name>delegate</name>
+            <anchor>//apple_ref/occ/instp/CALayer/delegate</anchor>
+        </member>
+        <member kind="property">
+            <type>CGRect</type>
+            <name>frame</name>
+            <anchor>//apple_ref/occ/instp/CALayer/frame</anchor>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>masksToBounds</name>
+            <anchor>//apple_ref/occ/instp/CALayer/masksToBounds</anchor>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>needsDisplayOnBoundsChange</name>
+            <anchor>//apple_ref/occ/instp/CALayer/needsDisplayOnBoundsChange</anchor>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>opacity</name>
+            <anchor>//apple_ref/occ/instp/CALayer/opacity</anchor>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>opaque</name>
+            <anchor>//apple_ref/occ/instp/CALayer/opaque</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>id</type>
+            <name>layer</name>
+            <anchor>//apple_ref/occ/clm/CALayer/layer</anchor>
+        </member>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>containsPoint:</name>
+            <anchor>//apple_ref/occ/instm/CALayer/containsPoint:</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>drawInContext:</name>
+            <anchor>//apple_ref/occ/instm/CALayer/drawInContext:</anchor>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>init</name>
+            <anchor>//apple_ref/occ/instm/CALayer/init</anchor>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>initWithLayer</name>
+            <anchor>//apple_ref/occ/instm/CALayer/initWithLayer</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>layoutSublayers</name>
+            <anchor>//apple_ref/occ/instm/CALayer/layoutSublayers</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsDisplay</name>
+            <anchor>//apple_ref/occ/instm/CALayer/setNeedsDisplay</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsDisplayInRect:</name>
+            <anchor>//apple_ref/occ/instm/CALayer/setNeedsDisplayInRect:</anchor>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsLayout</name>
+            <anchor>//apple_ref/occ/instm/CALayer/setNeedsLayout</anchor>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>CAMediaTiming</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/Introduction/Introduction.html</filename>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>autoreverses</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/autoreverses</anchor>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>beginTime</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/beginTime</anchor>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>duration</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/duration</anchor>
+        </member>
+        <member kind="property">
+            <type>NSString *</type>
+            <name>fillMode</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/fillMode</anchor>
+        </member>
+        <member kind="property">
+            <type>float</type>
+            <name>repeatCount</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatCount</anchor>
+        </member>
+        <member kind="property">
+            <type>id</type>
+            <name>repeatDuration</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/repeatDuration</anchor>
+        </member>
+        <member kind="property">
+            <type>float</type>
+            <name>speed</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/speed</anchor>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>timeOffset</name>
+            <anchor>//apple_ref/occ/intfp/CAMediaTiming/timeOffset</anchor>
+        </member>
+    </compound>
 
-	<!-- Core Foundation -->
-	<compound kind="struct">
-		<name>CFByteOrder</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</filename>
-	</compound>
+    <!-- Core Foundation -->
+    <compound kind="struct">
+        <name>CFByteOrder</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</filename>
+    </compound>
 
-	<!-- Objective-C/Foundation Data Types -->
-	<compound kind="struct">
-		<name>BOOL</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>id</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSCalendarUnit</name>
-		<filename>https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html#//apple_ref/doc/uid/TP40001451-SW2</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSDecimal</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSRange</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSInteger</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSUInteger</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSRange</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
-	<compound kind="struct">
-		<name>NSZone</name>
-		<filename>http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
-	</compound>
+    <!-- Core Foundation -->
+    <compound kind="file">
+        <name>Byte-Order Utilties Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CFByteOrder</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/corefoundation/Reference/CFByteOrderUtils/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/CFByteOrder</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>Time Utilities Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/CoreFoundation/Reference/CFTimeUtils/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>CFTimeInterval</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/CoreFoundation/Reference/CFTimeUtils/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/CFTimeInterval</anchor>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>Foundation Functions Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html</filename>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>NSDecimalIsNotANumber</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/NSDecimalIsNotANumber</anchor>
+        </member>
+    </compound>
 
+    <!-- Objective-C/Foundation Data Types -->
+    <compound kind="file">
+        <name>Obective-C Runtime Utlities Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>BOOL</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/BOOL</anchor>
+        </member>
+        <member kind="typedef">
+            <name>Class</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/Class</anchor>
+        </member>
+        <member kind="typedef">
+            <name>id</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/id</anchor>
+        </member>
+        <member kind="define">
+            <name>YES</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/YES</anchor>
+        </member>
+        <member kind="define">
+            <name>NO</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NO</anchor>
+        </member>
+        <member kind="define">
+            <name>nil</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/nil</anchor>
+        </member>
+        <member kind="define">
+            <name>Nil</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/Nil</anchor>
+        </member>
+    </compound>
+
+    <compound kind="file">
+        <name>Foundation Constants Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html</filename>
+        <member kind="define">
+            <name>NSNotFound</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSNotFound</anchor>
+        </member>
+    </compound>
+
+    <compound kind="file">
+        <name>Foundation Data Types</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</filename>
+        <member kind="typedef">
+            <name>NSDecimal</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSDecimal</anchor>
+        </member>
+        <member kind="typedef">
+            <name>NSRange</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSRange</anchor>
+        </member>
+        <member kind="typedef">
+            <name>NSInteger</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSInteger</anchor>
+        </member>
+        <member kind="typedef">
+            <name>NSUInteger</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSUInteger</anchor>
+        </member>
+        <member kind="typedef">
+            <name>NSZone</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSZone</anchor>
+        </member>
+    </compound>
 </tagfile>
