@@ -24,6 +24,7 @@
 - **New**: Added a new plot datasource method that returns a multi-dimensional `CPTNumericData` containing data for all plot fields.
 - **Changed**: Changed the superclass of `CPTTextLayer` from `CPTLayer` to `CPTBorderedLayer`.
 - **Changed**: Changed all iOS header files to "Project" visibility to prevent problems with archiving an app that uses the Core Plot static library.
+- **Changed**: Significant updates to the API documentation for organization and clarity.
 
 
 
