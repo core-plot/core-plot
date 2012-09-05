@@ -928,7 +928,7 @@ static const CGFloat colorLookupTable[10][3] =
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     id<CPTPieChartDelegate> theDelegate = self.delegate;
-    if ( self.graph && self.plotArea &&
+    if ( self.graph && self.plotArea && !self.hidden &&
          ([theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
           [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)]) ) {
         CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];

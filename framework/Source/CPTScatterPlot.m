@@ -1019,7 +1019,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    if ( !theGraph || !thePlotArea ) {
+    if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
 

@@ -1586,7 +1586,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     CPTGraph *theGraph = self.graph;
 
-    if ( !theGraph ) {
+    if ( !theGraph || self.hidden ) {
         return NO;
     }
 
@@ -1602,7 +1602,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             CPTPlotSpaceAnnotation *annotation = [labelArray objectAtIndex:index];
             if ( [annotation isKindOfClass:annotationClass] ) {
                 CPTLayer *labelLayer = annotation.contentLayer;
-                if ( labelLayer ) {
+                if ( labelLayer && !labelLayer.hidden ) {
                     CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
 
                     if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {

@@ -1026,7 +1026,7 @@ typedef struct CGPointError CGPointError;
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    if ( !theGraph || !thePlotArea ) {
+    if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
 

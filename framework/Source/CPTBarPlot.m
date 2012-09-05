@@ -1280,7 +1280,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    if ( !theGraph || !thePlotArea ) {
+    if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
 
