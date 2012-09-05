@@ -933,7 +933,7 @@ typedef struct CGPointError CGPointError;
     }
 
     label.anchorPlotPoint     = [NSArray arrayWithObjects:xValue, yValue, nil];
-    label.contentLayer.hidden = isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
+    label.contentLayer.hidden = self.hidden || isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 
     if ( positiveDirection ) {
         label.displacement = CGPointMake(0.0, self.labelOffset);

@@ -2421,6 +2421,14 @@ double niceNum(double x, BOOL round)
     return self.plotArea.axisSet;
 }
 
+-(void)setHidden:(BOOL)newHidden
+{
+    if ( newHidden != self.hidden ) {
+        [super setHidden:newHidden];
+        [self setNeedsRelabel];
+    }
+}
+
 /// @endcond
 
 @end

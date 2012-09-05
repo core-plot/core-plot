@@ -1174,7 +1174,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         }
     }
 
-    label.contentLayer.hidden = isnan([location doubleValue]) || isnan([length doubleValue]);
+    label.contentLayer.hidden = self.hidden || isnan([location doubleValue]) || isnan([length doubleValue]);
 }
 
 /// @endcond

@@ -1780,6 +1780,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
+-(void)setHidden:(BOOL)newHidden
+{
+    if ( newHidden != self.hidden ) {
+        [super setHidden:newHidden];
+        [self setNeedsRelabel];
+    }
+}
+
 /// @endcond
 
 @end

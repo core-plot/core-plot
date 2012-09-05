@@ -792,7 +792,7 @@ static const CGFloat colorLookupTable[10][3] =
         [yValue release];
 
         double currentWidth = [self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:index];
-        if ( isnan(currentWidth) ) {
+        if ( self.hidden || isnan(currentWidth) ) {
             contentLayer.hidden = YES;
         }
         else {
