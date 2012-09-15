@@ -587,6 +587,15 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     self.axisSet.borderLineStyle = newLineStyle;
 }
 
+-(void)setFill:(CPTFill *)newFill
+{
+    if ( newFill != fill ) {
+        [fill release];
+        fill = [newFill copy];
+        [self setNeedsDisplay];
+    }
+}
+
 -(void)setMinorGridLineGroup:(CPTGridLineGroup *)newGridLines
 {
     if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
