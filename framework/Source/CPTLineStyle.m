@@ -140,8 +140,8 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeInteger:self.lineCap forKey:@"CPTLineStyle.lineCap"];
-    [coder encodeInteger:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
+    [coder encodeInt:self.lineCap forKey:@"CPTLineStyle.lineCap"];
+    [coder encodeInt:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
     [coder encodeCGFloat:self.miterLimit forKey:@"CPTLineStyle.miterLimit"];
     [coder encodeCGFloat:self.lineWidth forKey:@"CPTLineStyle.lineWidth"];
     [coder encodeObject:self.dashPattern forKey:@"CPTLineStyle.dashPattern"];
@@ -153,8 +153,8 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        lineCap      = [coder decodeIntegerForKey:@"CPTLineStyle.lineCap"];
-        lineJoin     = [coder decodeIntegerForKey:@"CPTLineStyle.lineJoin"];
+        lineCap      = (CGLineCap)[coder decodeIntForKey : @"CPTLineStyle.lineCap"];
+        lineJoin     = (CGLineJoin)[coder decodeIntForKey : @"CPTLineStyle.lineJoin"];
         miterLimit   = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
         lineWidth    = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
         dashPattern  = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];

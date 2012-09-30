@@ -606,11 +606,11 @@
             case CPTComplexFloatingPointDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(float complex):
-                        result = [NSNumber numberWithFloat:*(float complex *)[self samplePointer:sample]];
+                        result = [NSNumber numberWithFloat:crealf(*(float complex *)[self samplePointer:sample])];
                         break;
 
                     case sizeof(double complex):
-                        result = [NSNumber numberWithDouble:*(double complex *)[self samplePointer:sample]];
+                        result = [NSNumber numberWithDouble:creal(*(double complex *)[self samplePointer:sample])];
                         break;
                 }
                 break;
@@ -1101,19 +1101,19 @@
         [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
         CPTNumericDataType selfDataType = self.dataType;
-        [encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
-        [encoder encodeInteger:selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
-        [encoder encodeInteger:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
+        [encoder encodeInt:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
+        [encoder encodeInt64:(int64_t)selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
+        [encoder encodeInt64:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
 
         [encoder encodeObject:self.shape forKey:@"CPTNumericData.shape"];
-        [encoder encodeInteger:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
+        [encoder encodeInt:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
     }
     else {
         [encoder encodeObject:self.data];
 
         CPTNumericDataType selfDataType = self.dataType;
         [encoder encodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
-        [encoder encodeValueOfObjCType:@encode(NSUInteger) at:&(selfDataType.sampleBytes)];
+        [encoder encodeValueOfObjCType:@encode(size_t) at:&(selfDataType.sampleBytes)];
         [encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
 
         [encoder encodeObject:self.shape];
@@ -1134,12 +1134,12 @@
         if ( [decoder allowsKeyedCoding] ) {
             newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
-            newDataType = CPTDataType([decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
-                                      [decoder decodeIntegerForKey:@"CPTNumericData.dataType.sampleBytes"],
-                                      [decoder decodeIntegerForKey:@"CPTNumericData.dataType.byteOrder"]);
+            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntForKey : @"CPTNumericData.dataType.dataTypeFormat"],
+                                       (size_t)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.sampleBytes"],
+                                       (CFByteOrder)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.byteOrder"] );
 
             shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
-            order      = [decoder decodeIntegerForKey:@"CPTNumericData.dataOrder"];
+            order      = (CPTDataOrder)[decoder decodeIntForKey : @"CPTNumericData.dataOrder"];
         }
         else {
             newData = [decoder decodeObject];

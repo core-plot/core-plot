@@ -200,7 +200,7 @@
 
 /// @cond
 
--(void)drawTicksInContext:(CGContextRef)context atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
+-(void)drawTicksInContext:(CGContextRef)context atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major
 {
     CPTLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
 

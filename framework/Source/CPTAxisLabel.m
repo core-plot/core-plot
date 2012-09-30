@@ -101,7 +101,7 @@
     [coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
     [coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
     [coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
-    [coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
+    [coder encodeInt:self.alignment forKey:@"CPTAxisLabel.alignment"];
     [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
@@ -111,7 +111,7 @@
         contentLayer = [[coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"] retain];
         offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
         rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-        alignment    = [coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
+        alignment    = (CPTAlignment)[coder decodeIntForKey : @"CPTAxisLabel.alignment"];
         tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
     }
     return self;
@@ -145,7 +145,7 @@
 
     CGFloat labelRotation = self.rotation;
     if ( isnan(labelRotation) ) {
-        labelRotation = (coordinate == CPTCoordinateX ? M_PI_2 : 0.0);
+        labelRotation = (coordinate == CPTCoordinateX ? (CGFloat)M_PI_2 : 0.0);
     }
     content.transform = CATransform3DMakeRotation(labelRotation, 0.0, 0.0, 1.0);
     CGRect contentFrame = content.frame;
@@ -158,7 +158,7 @@
 
             switch ( coordinate ) {
                 case CPTCoordinateX:
-                    angle = M_PI;
+                    angle = (CGFloat)M_PI;
 
                     switch ( self.alignment ) {
                         case CPTAlignmentBottom:
@@ -176,7 +176,7 @@
                     break;
 
                 case CPTCoordinateY:
-                    angle = -M_PI_2;
+                    angle = -(CGFloat)M_PI_2;
 
                     switch ( self.alignment ) {
                         case CPTAlignmentLeft:
@@ -222,7 +222,7 @@
                     break;
 
                 case CPTCoordinateY:
-                    angle = M_PI_2;
+                    angle = (CGFloat)M_PI_2;
 
                     switch ( self.alignment ) {
                         case CPTAlignmentLeft:

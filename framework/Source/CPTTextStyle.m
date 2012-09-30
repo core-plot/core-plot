@@ -104,7 +104,7 @@
     [coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
     [coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
     [coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
-    [coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
+    [coder encodeInt:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -113,7 +113,7 @@
         self->fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
         self->fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
         self->color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
-        self->textAlignment = [coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
+        self->textAlignment = (CPTTextAlignment)[coder decodeIntForKey : @"CPTTextStyle.textAlignment"];
     }
     return self;
 }

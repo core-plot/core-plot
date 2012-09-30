@@ -162,7 +162,7 @@
  *  @param upperBound The upper bound; must be greater than or equal to the @par{lowerBound}.
  *  @return The calculated position.
  **/
--(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
+-(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound
 {
     // subclasses override to do position calculation here
     return NAN;

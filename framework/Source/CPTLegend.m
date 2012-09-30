@@ -362,8 +362,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [coder encodeObject:self.swatchBorderLineStyle forKey:@"CPTLegend.swatchBorderLineStyle"];
     [coder encodeCGFloat:self.swatchCornerRadius forKey:@"CPTLegend.swatchCornerRadius"];
     [coder encodeObject:self.swatchFill forKey:@"CPTLegend.swatchFill"];
-    [coder encodeInteger:self.numberOfRows forKey:@"CPTLegend.numberOfRows"];
-    [coder encodeInteger:self.numberOfColumns forKey:@"CPTLegend.numberOfColumns"];
+    [coder encodeInteger:(NSInteger)self.numberOfRows forKey:@"CPTLegend.numberOfRows"];
+    [coder encodeInteger:(NSInteger)self.numberOfColumns forKey:@"CPTLegend.numberOfColumns"];
     [coder encodeBool:self.equalRows forKey:@"CPTLegend.equalRows"];
     [coder encodeBool:self.equalColumns forKey:@"CPTLegend.equalColumns"];
     [coder encodeObject:self.rowHeights forKey:@"CPTLegend.rowHeights"];
@@ -386,8 +386,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         swatchBorderLineStyle = [[coder decodeObjectForKey:@"CPTLegend.swatchBorderLineStyle"] copy];
         swatchCornerRadius    = [coder decodeCGFloatForKey:@"CPTLegend.swatchCornerRadius"];
         swatchFill            = [[coder decodeObjectForKey:@"CPTLegend.swatchFill"] copy];
-        numberOfRows          = [coder decodeIntegerForKey:@"CPTLegend.numberOfRows"];
-        numberOfColumns       = [coder decodeIntegerForKey:@"CPTLegend.numberOfColumns"];
+        numberOfRows          = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfRows"];
+        numberOfColumns       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfColumns"];
         equalRows             = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
         equalColumns          = [coder decodeBoolForKey:@"CPTLegend.equalColumns"];
         rowHeights            = [[coder decodeObjectForKey:@"CPTLegend.rowHeights"] copy];

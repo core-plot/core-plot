@@ -636,7 +636,7 @@ double niceNum(double x, BOOL round);
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInteger:self.coordinate forKey:@"CPTAxis.coordinate"];
+    [coder encodeInt:self.coordinate forKey:@"CPTAxis.coordinate"];
     [coder encodeObject:self.plotSpace forKey:@"CPTAxis.plotSpace"];
     [coder encodeObject:self.majorTickLocations forKey:@"CPTAxis.majorTickLocations"];
     [coder encodeObject:self.minorTickLocations forKey:@"CPTAxis.minorTickLocations"];
@@ -646,8 +646,8 @@ double niceNum(double x, BOOL round);
     [coder encodeCGFloat:self.minorTickLabelOffset forKey:@"CPTAxis.minorTickLabelOffset"];
     [coder encodeCGFloat:self.labelRotation forKey:@"CPTAxis.labelRotation"];
     [coder encodeCGFloat:self.minorTickLabelRotation forKey:@"CPTAxis.minorTickLabelRotation"];
-    [coder encodeInteger:self.labelAlignment forKey:@"CPTAxis.labelAlignment"];
-    [coder encodeInteger:self.minorTickLabelAlignment forKey:@"CPTAxis.minorTickLabelAlignment"];
+    [coder encodeInt:self.labelAlignment forKey:@"CPTAxis.labelAlignment"];
+    [coder encodeInt:self.minorTickLabelAlignment forKey:@"CPTAxis.minorTickLabelAlignment"];
     [coder encodeObject:self.axisLineStyle forKey:@"CPTAxis.axisLineStyle"];
     [coder encodeObject:self.majorTickLineStyle forKey:@"CPTAxis.majorTickLineStyle"];
     [coder encodeObject:self.minorTickLineStyle forKey:@"CPTAxis.minorTickLineStyle"];
@@ -657,9 +657,9 @@ double niceNum(double x, BOOL round);
     [coder encodeObject:self.axisLineCapMax forKey:@"CPTAxis.axisLineCapMax"];
     [coder encodeDecimal:self.labelingOrigin forKey:@"CPTAxis.labelingOrigin"];
     [coder encodeDecimal:self.majorIntervalLength forKey:@"CPTAxis.majorIntervalLength"];
-    [coder encodeInteger:self.minorTicksPerInterval forKey:@"CPTAxis.minorTicksPerInterval"];
-    [coder encodeInteger:self.preferredNumberOfMajorTicks forKey:@"CPTAxis.preferredNumberOfMajorTicks"];
-    [coder encodeInteger:self.labelingPolicy forKey:@"CPTAxis.labelingPolicy"];
+    [coder encodeInteger:(NSInteger)self.minorTicksPerInterval forKey:@"CPTAxis.minorTicksPerInterval"];
+    [coder encodeInteger:(NSInteger)self.preferredNumberOfMajorTicks forKey:@"CPTAxis.preferredNumberOfMajorTicks"];
+    [coder encodeInt:self.labelingPolicy forKey:@"CPTAxis.labelingPolicy"];
     [coder encodeObject:self.labelTextStyle forKey:@"CPTAxis.labelTextStyle"];
     [coder encodeObject:self.minorTickLabelTextStyle forKey:@"CPTAxis.minorTickLabelTextStyle"];
     [coder encodeObject:self.titleTextStyle forKey:@"CPTAxis.titleTextStyle"];
@@ -674,7 +674,7 @@ double niceNum(double x, BOOL round);
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTAxis.titleOffset"];
     [coder encodeCGFloat:self.titleRotation forKey:@"CPTAxis.titleRotation"];
     [coder encodeDecimal:self.titleLocation forKey:@"CPTAxis.titleLocation"];
-    [coder encodeInteger:self.tickDirection forKey:@"CPTAxis.tickDirection"];
+    [coder encodeInt:self.tickDirection forKey:@"CPTAxis.tickDirection"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTAxis.needsRelabel"];
     [coder encodeObject:self.labelExclusionRanges forKey:@"CPTAxis.labelExclusionRanges"];
     [coder encodeObject:self.visibleRange forKey:@"CPTAxis.visibleRange"];
@@ -692,7 +692,7 @@ double niceNum(double x, BOOL round);
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        coordinate                  = [coder decodeIntegerForKey:@"CPTAxis.coordinate"];
+        coordinate                  = (CPTCoordinate)[coder decodeIntForKey : @"CPTAxis.coordinate"];
         plotSpace                   = [[coder decodeObjectForKey:@"CPTAxis.plotSpace"] retain];
         majorTickLocations          = [[coder decodeObjectForKey:@"CPTAxis.majorTickLocations"] retain];
         minorTickLocations          = [[coder decodeObjectForKey:@"CPTAxis.minorTickLocations"] retain];
@@ -702,8 +702,8 @@ double niceNum(double x, BOOL round);
         minorTickLabelOffset        = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelOffset"];
         labelRotation               = [coder decodeCGFloatForKey:@"CPTAxis.labelRotation"];
         minorTickLabelRotation      = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelRotation"];
-        labelAlignment              = [coder decodeIntegerForKey:@"CPTAxis.labelAlignment"];
-        minorTickLabelAlignment     = [coder decodeIntegerForKey:@"CPTAxis.minorTickLabelAlignment"];
+        labelAlignment              = (CPTAlignment)[coder decodeIntForKey : @"CPTAxis.labelAlignment"];
+        minorTickLabelAlignment     = (CPTAlignment)[coder decodeIntForKey : @"CPTAxis.minorTickLabelAlignment"];
         axisLineStyle               = [[coder decodeObjectForKey:@"CPTAxis.axisLineStyle"] copy];
         majorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.majorTickLineStyle"] copy];
         minorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.minorTickLineStyle"] copy];
@@ -713,9 +713,9 @@ double niceNum(double x, BOOL round);
         axisLineCapMax              = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMax"] copy];
         labelingOrigin              = [coder decodeDecimalForKey:@"CPTAxis.labelingOrigin"];
         majorIntervalLength         = [coder decodeDecimalForKey:@"CPTAxis.majorIntervalLength"];
-        minorTicksPerInterval       = [coder decodeIntegerForKey:@"CPTAxis.minorTicksPerInterval"];
-        preferredNumberOfMajorTicks = [coder decodeIntegerForKey:@"CPTAxis.preferredNumberOfMajorTicks"];
-        labelingPolicy              = [coder decodeIntegerForKey:@"CPTAxis.labelingPolicy"];
+        minorTicksPerInterval       = (NSUInteger)[coder decodeIntegerForKey : @"CPTAxis.minorTicksPerInterval"];
+        preferredNumberOfMajorTicks = (NSUInteger)[coder decodeIntegerForKey : @"CPTAxis.preferredNumberOfMajorTicks"];
+        labelingPolicy              = (CPTAxisLabelingPolicy)[coder decodeIntForKey : @"CPTAxis.labelingPolicy"];
         labelTextStyle              = [[coder decodeObjectForKey:@"CPTAxis.labelTextStyle"] copy];
         minorTickLabelTextStyle     = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelTextStyle"] copy];
         titleTextStyle              = [[coder decodeObjectForKey:@"CPTAxis.titleTextStyle"] copy];
@@ -730,7 +730,7 @@ double niceNum(double x, BOOL round);
         titleOffset                 = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
         titleRotation               = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
         titleLocation               = [coder decodeDecimalForKey:@"CPTAxis.titleLocation"];
-        tickDirection               = [coder decodeIntegerForKey:@"CPTAxis.tickDirection"];
+        tickDirection               = (CPTSign)[coder decodeIntForKey : @"CPTAxis.tickDirection"];
         needsRelabel                = [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
         labelExclusionRanges        = [[coder decodeObjectForKey:@"CPTAxis.labelExclusionRanges"] retain];
         visibleRange                = [[coder decodeObjectForKey:@"CPTAxis.visibleRange"] copy];
@@ -948,8 +948,8 @@ double niceNum(double x, BOOL round);
                 double maxLimit = range.maxLimitDouble;
 
                 // Determine the initial and final major indexes for the actual visible range
-                NSInteger initialIndex = floor(minLimit / interval); // can be negative
-                NSInteger finalIndex   = ceil(maxLimit / interval);  // can be negative
+                NSInteger initialIndex = (NSInteger)floor(minLimit / interval); // can be negative
+                NSInteger finalIndex   = (NSInteger)ceil(maxLimit / interval);  // can be negative
 
                 // Iterate through the indexes with visible ticks and build the locations sets
                 for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
@@ -1001,8 +1001,8 @@ double niceNum(double x, BOOL round);
                 double minorInterval = intervalStep * pow( 10.0, floor( log10(minLimit) ) ) / minorTicks;
 
                 // Determine the initial and final major indexes for the actual visible range
-                NSInteger initialIndex = floor( log10( minLimit / fabs(interval) ) ); // can be negative
-                NSInteger finalIndex   = ceil( log10( maxLimit / fabs(interval) ) );  // can be negative
+                NSInteger initialIndex = (NSInteger)floor( log10( minLimit / fabs(interval) ) ); // can be negative
+                NSInteger finalIndex   = (NSInteger)ceil( log10( maxLimit / fabs(interval) ) );  // can be negative
 
                 // Iterate through the indexes with visible ticks and build the locations sets
                 for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
@@ -1233,7 +1233,7 @@ double niceNum(double x, BOOL round)
  *  @param labeledRange A plot range used to filter the generated labels. If @nil, no filtering is done.
  *  @param useMajorAxisLabels If @YES, label the major ticks, otherwise label the minor ticks.
  **/
--(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
+-(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels
 {
     CPTAlignment theLabelAlignment;
     CGFloat theLabelOffset;
@@ -2358,12 +2358,12 @@ double niceNum(double x, BOOL round)
     if ( newFills != alternatingBandFills ) {
         [alternatingBandFills release];
 
+        Class nullClass = [NSNull class];
+        Class fillClass = [CPTFill class];
+
         BOOL convertFills = NO;
         for ( id obj in newFills ) {
-            if ( obj == [NSNull null] ) {
-                continue;
-            }
-            else if ( [obj isKindOfClass:[CPTFill class]] ) {
+            if ( [obj isKindOfClass:nullClass] || [obj isKindOfClass:fillClass] ) {
                 continue;
             }
             else {
@@ -2373,25 +2373,26 @@ double niceNum(double x, BOOL round)
         }
 
         if ( convertFills ) {
+            Class colorClass    = [CPTColor class];
+            Class gradientClass = [CPTGradient class];
+            Class imageClass    = [CPTImage class];
+
             NSMutableArray *fillArray = [newFills mutableCopy];
-            NSInteger i               = -1;
+            NSUInteger i              = 0;
             CPTFill *newFill          = nil;
 
             for ( id obj in newFills ) {
-                i++;
-                if ( obj == [NSNull null] ) {
+                if ( [obj isKindOfClass:nullClass] || [obj isKindOfClass:fillClass] ) {
+                    i++;
                     continue;
                 }
-                else if ( [obj isKindOfClass:[CPTFill class]] ) {
-                    continue;
-                }
-                else if ( [obj isKindOfClass:[CPTColor class]] ) {
+                else if ( [obj isKindOfClass:colorClass] ) {
                     newFill = [[CPTFill alloc] initWithColor:obj];
                 }
-                else if ( [obj isKindOfClass:[CPTGradient class]] ) {
+                else if ( [obj isKindOfClass:gradientClass] ) {
                     newFill = [[CPTFill alloc] initWithGradient:obj];
                 }
-                else if ( [obj isKindOfClass:[CPTImage class]] ) {
+                else if ( [obj isKindOfClass:imageClass] ) {
                     newFill = [[CPTFill alloc] initWithImage:obj];
                 }
                 else {
@@ -2400,6 +2401,8 @@ double niceNum(double x, BOOL round)
 
                 [fillArray replaceObjectAtIndex:i withObject:newFill];
                 [newFill release];
+
+                i++;
             }
 
             alternatingBandFills = fillArray;

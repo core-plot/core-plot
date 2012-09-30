@@ -163,8 +163,8 @@
     [coder encodeObject:self.yRange forKey:@"CPTXYPlotSpace.yRange"];
     [coder encodeObject:self.globalXRange forKey:@"CPTXYPlotSpace.globalXRange"];
     [coder encodeObject:self.globalYRange forKey:@"CPTXYPlotSpace.globalYRange"];
-    [coder encodeInteger:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
-    [coder encodeInteger:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
+    [coder encodeInt:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
+    [coder encodeInt:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
 
     // No need to archive these properties:
     // lastDragPoint
@@ -178,8 +178,8 @@
         yRange       = [[coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"] copy];
         globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
         globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
-        xScaleType   = [coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
-        yScaleType   = [coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
+        xScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.xScaleType"];
+        yScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.yScaleType"];
 
         lastDragPoint = CGPointZero;
         isDragging    = NO;
@@ -421,12 +421,12 @@
     return viewCoordinate;
 }
 
--(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
     if ( !range || (range.lengthDouble == 0.0) ) {
         return 0.0;
     }
-    return viewLength * ( (plotCoord - range.locationDouble) / range.lengthDouble );
+    return viewLength * (CGFloat)( (plotCoord - range.locationDouble) / range.lengthDouble );
 }
 
 -(NSDecimal)plotCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength
@@ -463,7 +463,7 @@
 }
 
 // Log (only one version since there are no trancendental functions for NSDecimal)
--(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
     if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) || (plotCoord <= 0.0) ) {
         return 0.0;
@@ -473,7 +473,7 @@
     double logCoord = log10(plotCoord);
     double logEnd   = log10(range.endDouble);
 
-    return viewLength * (logCoord - logLoc) / (logEnd - logLoc);
+    return viewLength * (CGFloat)( (logCoord - logLoc) / (logEnd - logLoc) );
 }
 
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength

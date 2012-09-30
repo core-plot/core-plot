@@ -13,8 +13,8 @@
     CGSize boundsSize = self.bounds.size;
 
     NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                           pixelsWide:boundsSize.width
-                                                                           pixelsHigh:boundsSize.height
+                                                                           pixelsWide:(NSInteger)boundsSize.width
+                                                                           pixelsHigh:(NSInteger)boundsSize.height
                                                                         bitsPerSample:8
                                                                       samplesPerPixel:4
                                                                              hasAlpha:YES

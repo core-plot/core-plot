@@ -233,7 +233,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *  @param plotPoint A c-style array of data point coordinates (as @double values).
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
     return CGPointZero;
 }

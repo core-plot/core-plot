@@ -1919,7 +1919,7 @@
                                     const float complex *lastSample = fromBytes + sampleCount;
                                     NSDecimal *toBytes              = (NSDecimal *)destData.mutableBytes;
                                     while ( fromBytes < lastSample ) {
-                                        *toBytes++ = CPTDecimalFromFloat(*fromBytes++);
+                                        *toBytes++ = CPTDecimalFromFloat( crealf(*fromBytes++) );
                                     }
                                 }
                                 break;
@@ -2084,7 +2084,7 @@
                                     const double complex *lastSample = fromBytes + sampleCount;
                                     NSDecimal *toBytes               = (NSDecimal *)destData.mutableBytes;
                                     while ( fromBytes < lastSample ) {
-                                        *toBytes++ = CPTDecimalFromDouble(*fromBytes++);
+                                        *toBytes++ = CPTDecimalFromDouble( creal(*fromBytes++) );
                                     }
                                 }
                                 break;

@@ -75,7 +75,7 @@
  *  @param upperBound The upper bound; must be greater than or equal to the lowerBound.
  *  @return The calculated position.
  **/
--(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
+-(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound
 {
     NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");
 

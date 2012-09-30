@@ -178,7 +178,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             count++;
             currentElement = currentElement->nextElement;
         }
-        [coder encodeInteger:count forKey:@"CPTGradient.elementCount"];
+        [coder encodeInteger:(NSInteger) count forKey:@"CPTGradient.elementCount"];
         [coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
         [coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
         [coder encodeInt:gradientType forKey:@"CPTGradient.type"];
@@ -193,11 +193,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     if ( (self = [super init]) ) {
         [self commonInit];
 
-        gradientType      = [coder decodeIntForKey:@"CPTGradient.type"];
+        gradientType      = (CPTGradientType)[coder decodeIntForKey : @"CPTGradient.type"];
         angle             = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
         self.blendingMode = [coder decodeIntForKey:@"CPTGradient.blendingMode"];
 
-        NSUInteger count = [coder decodeIntegerForKey:@"CPTGradient.elementCount"];
+        NSUInteger count = (NSUInteger)[coder decodeIntegerForKey : @"CPTGradient.elementCount"];
 
         while ( count != 0 ) {
             CPTGradientElement newElement;
@@ -265,32 +265,32 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = 0.58;
-    color1.color.green = 0.86;
-    color1.color.blue  = 0.98;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = (CGFloat)0.58;
+    color1.color.green = (CGFloat)0.86;
+    color1.color.blue  = (CGFloat)0.98;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = 0.42;
-    color2.color.green = 0.68;
-    color2.color.blue  = 0.90;
-    color2.color.alpha = 1.00;
-    color2.position    = 0.5;
+    color2.color.red   = (CGFloat)0.42;
+    color2.color.green = (CGFloat)0.68;
+    color2.color.blue  = (CGFloat)0.90;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)0.5;
 
     CPTGradientElement color3;
-    color3.color.red   = 0.64;
-    color3.color.green = 0.80;
-    color3.color.blue  = 0.94;
-    color3.color.alpha = 1.00;
-    color3.position    = 0.5;
+    color3.color.red   = (CGFloat)0.64;
+    color3.color.green = (CGFloat)0.80;
+    color3.color.blue  = (CGFloat)0.94;
+    color3.color.alpha = (CGFloat)1.00;
+    color3.position    = (CGFloat)0.5;
 
     CPTGradientElement color4;
-    color4.color.red   = 0.56;
-    color4.color.green = 0.70;
-    color4.color.blue  = 0.90;
-    color4.color.alpha = 1.00;
-    color4.position    = 1.0;
+    color4.color.red   = (CGFloat)0.56;
+    color4.color.green = (CGFloat)0.70;
+    color4.color.blue  = (CGFloat)0.90;
+    color4.color.alpha = (CGFloat)1.00;
+    color4.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -309,24 +309,24 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.95;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.95;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.83;
-    color2.color.alpha = 1.00;
-    color2.position    = 0.5;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.83;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)0.5;
 
     CPTGradientElement color3;
-    color3.color.red   = color3.color.green = color3.color.blue = 0.95;
-    color3.color.alpha = 1.00;
-    color3.position    = 0.5;
+    color3.color.red   = color3.color.green = color3.color.blue = (CGFloat)0.95;
+    color3.color.alpha = (CGFloat)1.00;
+    color3.position    = (CGFloat)0.5;
 
     CPTGradientElement color4;
-    color4.color.red   = color4.color.green = color4.color.blue = 0.92;
-    color4.color.alpha = 1.00;
-    color4.position    = 1.0;
+    color4.color.red   = color4.color.green = color4.color.blue = (CGFloat)0.92;
+    color4.color.alpha = (CGFloat)1.00;
+    color4.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -345,24 +345,24 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.80;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.80;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.64;
-    color2.color.alpha = 1.00;
-    color2.position    = 0.5;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.64;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)0.5;
 
     CPTGradientElement color3;
-    color3.color.red   = color3.color.green = color3.color.blue = 0.80;
-    color3.color.alpha = 1.00;
-    color3.position    = 0.5;
+    color3.color.red   = color3.color.green = color3.color.blue = (CGFloat)0.80;
+    color3.color.alpha = (CGFloat)1.00;
+    color3.position    = (CGFloat)0.5;
 
     CPTGradientElement color4;
-    color4.color.red   = color4.color.green = color4.color.blue = 0.77;
-    color4.color.alpha = 1.00;
-    color4.position    = 1.0;
+    color4.color.red   = color4.color.green = color4.color.blue = (CGFloat)0.77;
+    color4.color.alpha = (CGFloat)1.00;
+    color4.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -381,14 +381,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.85;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.85;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.95;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.95;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -405,14 +405,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.75;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.75;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.90;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.90;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -429,14 +429,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.60;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.60;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.75;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.75;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -453,14 +453,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = color1.color.green = color1.color.blue = 0.68;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = color1.color.green = color1.color.blue = (CGFloat)0.68;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = color2.color.green = color2.color.blue = 0.83;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = color2.color.green = color2.color.blue = (CGFloat)0.83;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -477,18 +477,18 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = 0.06;
-    color1.color.green = 0.37;
-    color1.color.blue  = 0.85;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = (CGFloat)0.06;
+    color1.color.green = (CGFloat)0.37;
+    color1.color.blue  = (CGFloat)0.85;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = 0.30;
-    color2.color.green = 0.60;
-    color2.color.blue  = 0.92;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = (CGFloat)0.30;
+    color2.color.green = (CGFloat)0.60;
+    color2.color.blue  = (CGFloat)0.92;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -505,18 +505,18 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = 0.43;
-    color1.color.green = 0.43;
-    color1.color.blue  = 0.43;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = (CGFloat)0.43;
+    color1.color.green = (CGFloat)0.43;
+    color1.color.blue  = (CGFloat)0.43;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = 0.60;
-    color2.color.green = 0.60;
-    color2.color.blue  = 0.60;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = (CGFloat)0.60;
+    color2.color.green = (CGFloat)0.60;
+    color2.color.blue  = (CGFloat)0.60;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -533,18 +533,18 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CPTGradientElement color1;
 
-    color1.color.red   = 1.00;
-    color1.color.green = 0.00;
-    color1.color.blue  = 0.00;
-    color1.color.alpha = 1.00;
-    color1.position    = 0.0;
+    color1.color.red   = (CGFloat)1.00;
+    color1.color.green = (CGFloat)0.00;
+    color1.color.blue  = (CGFloat)0.00;
+    color1.color.alpha = (CGFloat)1.00;
+    color1.position    = (CGFloat)0.0;
 
     CPTGradientElement color2;
-    color2.color.red   = 0.54;
-    color2.color.green = 0.00;
-    color2.color.blue  = 1.00;
-    color2.color.alpha = 1.00;
-    color2.position    = 1.0;
+    color2.color.red   = (CGFloat)0.54;
+    color2.color.green = (CGFloat)0.00;
+    color2.color.blue  = (CGFloat)1.00;
+    color2.color.alpha = (CGFloat)1.00;
+    color2.position    = (CGFloat)1.0;
 
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
@@ -568,28 +568,28 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
     colorBands[4];
 
-    colorBands[0].hue      = 22;
-    colorBands[0].position = 0.145;
-    colorBands[0].width    = 0.01;
+    colorBands[0].hue      = (CGFloat)22;
+    colorBands[0].position = (CGFloat)0.145;
+    colorBands[0].width    = (CGFloat)0.01;
 
-    colorBands[1].hue      = 200;
-    colorBands[1].position = 0.71;
-    colorBands[1].width    = 0.008;
+    colorBands[1].hue      = (CGFloat)200;
+    colorBands[1].position = (CGFloat)0.71;
+    colorBands[1].width    = (CGFloat)0.008;
 
-    colorBands[2].hue      = 253;
-    colorBands[2].position = 0.885;
-    colorBands[2].width    = 0.005;
+    colorBands[2].hue      = (CGFloat)253;
+    colorBands[2].position = (CGFloat)0.885;
+    colorBands[2].width    = (CGFloat)0.005;
 
-    colorBands[3].hue      = 275;
-    colorBands[3].position = 0.965;
-    colorBands[3].width    = 0.003;
+    colorBands[3].hue      = (CGFloat)275;
+    colorBands[3].position = (CGFloat)0.965;
+    colorBands[3].width    = (CGFloat)0.003;
 
     for ( NSUInteger i = 0; i < 4; i++ ) {
         CGFloat color[4];
         color[0] = colorBands[i].hue - (CGFloat)180.0 * colorBands[i].width;
-        color[1] = 1.0;
-        color[2] = 0.001;
-        color[3] = 1.0;
+        color[1] = (CGFloat)1.0;
+        color[2] = (CGFloat)0.001;
+        color[3] = (CGFloat)1.0;
         transformHSV_RGB(color);
 
         CPTGradientElement fadeIn;
@@ -600,9 +600,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         fadeIn.position    = colorBands[i].position - colorBands[i].width;
 
         color[0] = colorBands[i].hue;
-        color[1] = 1.0;
-        color[2] = 1.0;
-        color[3] = 1.0;
+        color[1] = (CGFloat)1.0;
+        color[2] = (CGFloat)1.0;
+        color[3] = (CGFloat)1.0;
         transformHSV_RGB(color);
 
         CPTGradientElement band;
@@ -613,9 +613,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         band.position    = colorBands[i].position;
 
         color[0] = colorBands[i].hue + (CGFloat)180.0 * colorBands[i].width;
-        color[1] = 1.0;
-        color[2] = 0.001;
-        color[3] = 1.0;
+        color[1] = (CGFloat)1.0;
+        color[2] = (CGFloat)0.001;
+        color[3] = (CGFloat)1.0;
         transformHSV_RGB(color);
 
         CPTGradientElement fadeOut;
@@ -1064,7 +1064,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     return myCGShading;
 }
 
--(void)setBlendingMode:(CPTGradientBlendingMode)mode;
+-(void)setBlendingMode:(CPTGradientBlendingMode)mode
 {
     blendingMode = mode;
 

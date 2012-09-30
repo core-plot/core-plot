@@ -63,19 +63,19 @@ NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph
 {
-    CPTColor *endColor         = [CPTColor colorWithGenericGray:0.1];
+    CPTColor *endColor         = [CPTColor colorWithGenericGray:(CGFloat)0.1];
     CPTGradient *graphGradient = [CPTGradient gradientWithBeginningColor:endColor endingColor:endColor];
 
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.3];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.3] atPosition:0.5];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.6];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:(CGFloat)0.2] atPosition:(CGFloat)0.3];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:(CGFloat)0.3] atPosition:(CGFloat)0.5];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:(CGFloat)0.2] atPosition:(CGFloat)0.6];
     graphGradient.angle = 90.0;
     graph.fill          = [CPTFill fillWithGradient:graphGradient];
 }
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
 {
-    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:0.1] endingColor:[CPTColor colorWithGenericGray:0.3]];
+    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:(CGFloat)0.1] endingColor:[CPTColor colorWithGenericGray:(CGFloat)0.3]];
 
     gradient.angle     = 90.0;
     plotAreaFrame.fill = [CPTFill fillWithGradient:gradient];

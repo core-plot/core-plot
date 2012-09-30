@@ -44,7 +44,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
 -(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
+-(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 -(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
 
@@ -217,7 +217,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
+    [coder encodeInt:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
     [coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
@@ -230,7 +230,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation                   = [coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
+        interpolation                   = (CPTScatterPlotInterpolation)[coder decodeIntForKey : @"CPTScatterPlot.interpolation"];
         dataLineStyle                   = [[coder decodeObjectForKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol                      = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill                        = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];
@@ -471,14 +471,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
+-(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
 {
     NSInteger result = NSNotFound;
     NSInteger delta  = (isLowerBound ? 1 : -1);
 
     if ( dataCount > 0 ) {
         NSUInteger initialIndex = (isLowerBound ? 0 : dataCount - 1);
-        for ( NSUInteger i = initialIndex; i < dataCount; i += delta ) {
+        for ( NSInteger i = (NSInteger)initialIndex; i < (NSInteger)dataCount; i += delta ) {
             if ( pointDrawFlags[i] ) {
                 result = i;
                 break;
@@ -518,15 +518,15 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
 
-    NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
+    NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
     if ( result != NSNotFound ) {
         CGFloat minimumDistanceSquared = NAN;
-        for ( NSUInteger i = result; i < dataCount; ++i ) {
+        for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
                 if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
                     minimumDistanceSquared = distanceSquared;
-                    result                 = i;
+                    result                 = (NSInteger)i;
                 }
             }
         }
@@ -535,7 +535,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     free(viewPoints);
     free(drawPointFlags);
 
-    return result;
+    return (NSUInteger)result;
 }
 
 /** @brief Returns the plot area view point of a visible point.
@@ -603,11 +603,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 
     // Get extreme points
-    NSUInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
-    NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
+    NSInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
+    NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
 
     if ( firstDrawnPointIndex != NSNotFound ) {
-        NSRange viewIndexRange = NSMakeRange(firstDrawnPointIndex, lastDrawnPointIndex - firstDrawnPointIndex);
+        NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex) );
 
         // Draw fills
         NSDecimal theAreaBaseValue;
@@ -633,7 +633,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 CGContextSaveGState(context);
                 CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
 
-                NSNumber *xValue = [xValueData sampleValue:firstDrawnPointIndex];
+                NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
                 NSDecimal plotPoint[2];
                 plotPoint[CPTCoordinateX] = [xValue decimalValue];
                 plotPoint[CPTCoordinateY] = theAreaBaseValue;
@@ -674,7 +674,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( self.useFastRendering ) {
                 CGFloat scale = self.contentsScale;
-                for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+                for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {
@@ -684,7 +684,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 }
             }
             else {
-                for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+                for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {

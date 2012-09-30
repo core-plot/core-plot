@@ -122,7 +122,7 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeCPTSize:self.size forKey:@"CPTLineCap.size"];
-    [coder encodeInteger:self.lineCapType forKey:@"CPTLineCap.lineCapType"];
+    [coder encodeInt:self.lineCapType forKey:@"CPTLineCap.lineCapType"];
     [coder encodeObject:self.lineStyle forKey:@"CPTLineCap.lineStyle"];
     [coder encodeObject:self.fill forKey:@"CPTLineCap.fill"];
     [coder encodeCGPath:self.customLineCapPath forKey:@"CPTLineCap.customLineCapPath"];
@@ -136,7 +136,7 @@
 {
     if ( (self = [super init]) ) {
         size                = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
-        lineCapType         = [coder decodeIntegerForKey:@"CPTLineCap.lineCapType"];
+        lineCapType         = (CPTLineCapType)[coder decodeIntForKey : @"CPTLineCap.lineCapType"];
         lineStyle           = [[coder decodeObjectForKey:@"CPTLineCap.lineStyle"] retain];
         fill                = [[coder decodeObjectForKey:@"CPTLineCap.fill"] retain];
         customLineCapPath   = [coder newCGPathDecodeForKey:@"CPTLineCap.customLineCapPath"];

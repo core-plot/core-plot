@@ -154,7 +154,7 @@
     [hostedGraph pointingDeviceDownEvent:event atPoint:pointOfTouch];
 }
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
     if ( !collapsesLayers ) {

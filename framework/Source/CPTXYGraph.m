@@ -44,7 +44,7 @@
  *  @param newYScaleType The scale type for the y-axis.
  *  @return The initialized CPTXYGraph object.
  **/
--(id)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType;
+-(id)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         xScaleType = newXScaleType;
@@ -97,15 +97,15 @@
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
-    [coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
+    [coder encodeInt:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
+    [coder encodeInt:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        xScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
-        yScaleType = [coder decodeIntegerForKey:@"CPTXYGraph.yScaleType"];
+        xScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.yScaleType"];
     }
     return self;
 }

@@ -93,7 +93,7 @@
     [coder encodeConditionalObject:self.anchorLayer forKey:@"CPTLayerAnnotation.anchorLayer"];
     [coder encodeObject:self.xConstraints forKey:@"CPTLayerAnnotation.xConstraints"];
     [coder encodeObject:self.yConstraints forKey:@"CPTLayerAnnotation.yConstraints"];
-    [coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
+    [coder encodeInt:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -102,7 +102,7 @@
         anchorLayer  = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
         xConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"] retain];
         yConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"] retain];
-        rectAnchor   = [coder decodeIntegerForKey:@"CPTLayerAnnotation.rectAnchor"];
+        rectAnchor   = (CPTRectAnchor)[coder decodeIntForKey : @"CPTLayerAnnotation.rectAnchor"];
     }
     return self;
 }

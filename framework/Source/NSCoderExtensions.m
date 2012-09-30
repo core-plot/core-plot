@@ -144,16 +144,16 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     // encode data count
     NSUInteger dataCount = pathData.count;
     NSString *newKey     = [[NSString alloc] initWithFormat:@"%@.count", key];
-    [self encodeInteger:dataCount forKey:newKey];
+    [self encodeInteger:(NSInteger) dataCount forKey:newKey];
     [newKey release];
 
     // encode data elements
     for ( NSUInteger i = 0; i < dataCount; i++ ) {
         NSDictionary *elementData = [pathData objectAtIndex:i];
 
-        CGPathElementType type = [[elementData objectForKey:@"type"] intValue];
+        CGPathElementType type = (CGPathElementType)[[elementData objectForKey:@"type"] intValue];
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
-        [self encodeInteger:type forKey:newKey];
+        [self encodeInt:type forKey:newKey];
         [newKey release];
 
         CGPoint point;
@@ -198,23 +198,23 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
 
-    [self encodeInteger:CGImageGetWidth(image) forKey:newKey];
+    [self encodeInt64:(int64_t)CGImageGetWidth(image) forKey:newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.height", key];
-    [self encodeInteger:CGImageGetHeight(image) forKey:newKey];
+    [self encodeInt64:(int64_t)CGImageGetHeight(image) forKey:newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerComponent", key];
-    [self encodeInteger:CGImageGetBitsPerComponent(image) forKey:newKey];
+    [self encodeInt64:(int64_t)CGImageGetBitsPerComponent(image) forKey:newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerPixel", key];
-    [self encodeInteger:CGImageGetBitsPerPixel(image) forKey:newKey];
+    [self encodeInt64:(int64_t)CGImageGetBitsPerPixel(image) forKey:newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bytesPerRow", key];
-    [self encodeInteger:CGImageGetBytesPerRow(image) forKey:newKey];
+    [self encodeInt64:(int64_t)CGImageGetBytesPerRow(image) forKey:newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.colorSpace", key];
@@ -223,7 +223,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
-    [self encodeInteger:CGImageGetBitmapInfo(image) forKey:newKey];
+    [self encodeInt32:(int32_t)CGImageGetBitmapInfo(image) forKey:newKey];
     [newKey release];
 
     CGDataProviderRef provider = CGImageGetDataProvider(image);
@@ -239,7 +239,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     if ( decodeArray ) {
         size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
         newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
-        [self encodeInteger:numberOfComponents forKey:newKey];
+        [self encodeInt64:(int64_t) numberOfComponents forKey:newKey];
         [newKey release];
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
@@ -258,7 +258,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-    [self encodeInteger:CGImageGetRenderingIntent(image) forKey:newKey];
+    [self encodeInt:CGImageGetRenderingIntent(image) forKey:newKey];
     [newKey release];
 }
 
@@ -340,11 +340,12 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the rectangle.
  *  @return The rectangle.
  **/
--(CGRect)decodeCPTRectForKey:(NSString *)key;
+-(CGRect)decodeCPTRectForKey:(NSString *)key
 {
     CGRect rect;
 
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.origin", key];
+
     rect.origin = [self decodeCPTPointForKey:newKey];
     [newKey release];
 
@@ -395,14 +396,14 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
     // decode count
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.count", key];
-    NSUInteger count = [self decodeIntegerForKey:newKey];
+    NSUInteger count = (NSUInteger)[self decodeIntegerForKey : newKey];
 
     [newKey release];
 
     // decode elements
     for ( NSUInteger i = 0; i < count; i++ ) {
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
-        CGPathElementType type = [self decodeIntegerForKey:newKey];
+        CGPathElementType type = (CGPathElementType)[self decodeIntForKey : newKey];
         [newKey release];
 
         CGPoint point1, point2, point3;
@@ -472,24 +473,24 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 -(CGImageRef)newCGImageDecodeForKey:(NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
-    size_t width     = [self decodeIntegerForKey:newKey];
+    size_t width     = (size_t)[self decodeInt64ForKey : newKey];
 
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.height", key];
-    size_t height = [self decodeIntegerForKey:newKey];
+    size_t height = (size_t)[self decodeInt64ForKey : newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerComponent", key];
-    size_t bitsPerComponent = [self decodeIntegerForKey:newKey];
+    size_t bitsPerComponent = (size_t)[self decodeInt64ForKey : newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerPixel", key];
-    size_t bitsPerPixel = [self decodeIntegerForKey:newKey];
+    size_t bitsPerPixel = (size_t)[self decodeInt64ForKey : newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bytesPerRow", key];
-    size_t bytesPerRow = [self decodeIntegerForKey:newKey];
+    size_t bytesPerRow = (size_t)[self decodeInt64ForKey : newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.colorSpace", key];
@@ -497,7 +498,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
-    CGBitmapInfo bitmapInfo = [self decodeIntegerForKey:newKey];
+    CGBitmapInfo bitmapInfo = (CGBitmapInfo)[self decodeInt32ForKey : newKey];
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
@@ -505,7 +506,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
-    size_t numberOfComponents = [self decodeIntegerForKey:newKey];
+    size_t numberOfComponents = (size_t)[self decodeInt64ForKey : newKey];
     [newKey release];
 
     CGFloat *decodeArray = NULL;
@@ -528,7 +529,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [newKey release];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-    CGColorRenderingIntent intent = [self decodeIntegerForKey:newKey];
+    CGColorRenderingIntent intent = (CGColorRenderingIntent)[self decodeIntForKey : newKey];
     [newKey release];
 
     CGImageRef newImage = CGImageCreate(width,
@@ -558,11 +559,12 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the number.
  *  @return The number as an @ref NSDecimal.
  **/
--(NSDecimal)decodeDecimalForKey:(NSString *)key;
+-(NSDecimal)decodeDecimalForKey:(NSString *)key
 {
     NSDecimal result;
 
     NSNumber *number = [self decodeObjectForKey:key];
+
     if ( [number respondsToSelector:@selector(decimalValue)] ) {
         result = [number decimalValue];
     }

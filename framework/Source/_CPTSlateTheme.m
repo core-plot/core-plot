@@ -63,8 +63,8 @@ NSString *const kCPTSlateTheme = @"Slate";
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph
 {
-    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:0.43 green:0.51 blue:0.63 alpha:1.0]
-                                                        endingColor:[CPTColor colorWithComponentRed:0.70 green:0.73 blue:0.80 alpha:1.0]];
+    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:(CGFloat)0.43 green:(CGFloat)0.51 blue:(CGFloat)0.63 alpha:(CGFloat)1.0]
+                                                        endingColor:[CPTColor colorWithComponentRed:(CGFloat)0.70 green:(CGFloat)0.73 blue:(CGFloat)0.80 alpha:(CGFloat)1.0]];
 
     gradient.angle = 90.0;
 
@@ -73,8 +73,8 @@ NSString *const kCPTSlateTheme = @"Slate";
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
 {
-    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:0.43 green:0.51 blue:0.63 alpha:1.0]
-                                                        endingColor:[CPTColor colorWithComponentRed:0.70 green:0.73 blue:0.80 alpha:1.0]];
+    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:(CGFloat)0.43 green:(CGFloat)0.51 blue:(CGFloat)0.63 alpha:(CGFloat)1.0]
+                                                        endingColor:[CPTColor colorWithComponentRed:(CGFloat)0.70 green:(CGFloat)0.73 blue:(CGFloat)0.80 alpha:(CGFloat)1.0]];
 
     gradient.angle     = 90.0;
     plotAreaFrame.fill = [CPTFill fillWithGradient:gradient];

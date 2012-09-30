@@ -320,7 +320,7 @@
  *
  *  @param context The graphics context to draw into.
  **/
--(void)renderAsVectorInContext:(CGContextRef)context;
+-(void)renderAsVectorInContext:(CGContextRef)context
 {
     // This is where subclasses do their drawing
     [self applyMaskToContext:context];
@@ -789,7 +789,7 @@
 
 /// @cond
 
--(void)setPosition:(CGPoint)newPosition;
+-(void)setPosition:(CGPoint)newPosition
 {
     [super setPosition:newPosition];
     if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {

@@ -42,10 +42,15 @@ NSString *const kCPTStocksTheme = @"Stocks";
 {
     CPTGradient *stocksBackgroundGradient = [[[CPTGradient alloc] init] autorelease];
 
-    stocksBackgroundGradient       = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:0.21569 green:0.28627 blue:0.44706 alpha:1.0] atPosition:0.0];
-    stocksBackgroundGradient       = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:0.09412 green:0.17255 blue:0.36078 alpha:1.0] atPosition:0.5];
-    stocksBackgroundGradient       = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:0.05882 green:0.13333 blue:0.33333 alpha:1.0] atPosition:0.5];
-    stocksBackgroundGradient       = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:0.05882 green:0.13333 blue:0.33333 alpha:1.0] atPosition:1.0];
+    stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:(CGFloat)0.21569 green:(CGFloat)0.28627 blue:(CGFloat)0.44706 alpha:(CGFloat)1.0]
+                                                           atPosition:0.0];
+    stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:(CGFloat)0.09412 green:(CGFloat)0.17255 blue:(CGFloat)0.36078 alpha:(CGFloat)1.0]
+                                                           atPosition:0.5];
+    stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:(CGFloat)0.05882 green:(CGFloat)0.13333 blue:(CGFloat)0.33333 alpha:(CGFloat)1.0]
+                                                           atPosition:0.5];
+    stocksBackgroundGradient = [stocksBackgroundGradient addColorStop:[CPTColor colorWithComponentRed:(CGFloat)0.05882 green:(CGFloat)0.13333 blue:(CGFloat)0.33333 alpha:(CGFloat)1.0]
+                                                           atPosition:1.0];
+
     stocksBackgroundGradient.angle = 270.0;
     plotAreaFrame.fill             = [CPTFill fillWithGradient:stocksBackgroundGradient];
 

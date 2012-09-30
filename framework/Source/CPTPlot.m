@@ -336,11 +336,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
     [coder encodeObject:self.title forKey:@"CPTPlot.title"];
     [coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
-    [coder encodeInteger:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
+    [coder encodeInt:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
     [coder encodeCGFloat:self.labelOffset forKey:@"CPTPlot.labelOffset"];
     [coder encodeCGFloat:self.labelRotation forKey:@"CPTPlot.labelRotation"];
-    [coder encodeInteger:self.labelField forKey:@"CPTPlot.labelField"];
+    [coder encodeInteger:(NSInteger)self.labelField forKey:@"CPTPlot.labelField"];
     [coder encodeObject:self.labelTextStyle forKey:@"CPTPlot.labelTextStyle"];
     [coder encodeObject:self.labelFormatter forKey:@"CPTPlot.labelFormatter"];
     [coder encodeObject:self.labelShadow forKey:@"CPTPlot.labelShadow"];
@@ -360,11 +360,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         dataSource           = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
         title                = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
         plotSpace            = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
-        cachePrecision       = [coder decodeIntegerForKey:@"CPTPlot.cachePrecision"];
+        cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
         labelOffset          = [coder decodeCGFloatForKey:@"CPTPlot.labelOffset"];
         labelRotation        = [coder decodeCGFloatForKey:@"CPTPlot.labelRotation"];
-        labelField           = [coder decodeIntegerForKey:@"CPTPlot.labelField"];
+        labelField           = (NSUInteger)[coder decodeIntegerForKey : @"CPTPlot.labelField"];
         labelTextStyle       = [[coder decodeObjectForKey:@"CPTPlot.labelTextStyle"] copy];
         labelFormatter       = [[coder decodeObjectForKey:@"CPTPlot.labelFormatter"] retain];
         labelShadow          = [[coder decodeObjectForKey:@"CPTPlot.labelShadow"] retain];
@@ -1334,7 +1334,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 
     if ( !hasCachedLabels && !plotProvidesLabels ) {
-        Class annotationClass = [CPTAnnotation class];
         for ( CPTAnnotation *annotation in self.labelAnnotations ) {
             if ( [annotation isKindOfClass:annotationClass] ) {
                 [self removeAnnotation:annotation];

@@ -60,7 +60,7 @@ typedef struct CGPointError CGPointError;
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
 -(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
 -(void)alignViewPointsToUserSpace:(CGPointError *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlag numberOfPoints:(NSUInteger)dataCounts;
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
+-(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 -(void)drawRangeInContext:(CGContextRef)context lineStyle:(CPTLineStyle *)lineStyle viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 -(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)index;
@@ -465,14 +465,14 @@ typedef struct CGPointError CGPointError;
     }
 }
 
--(NSUInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
+-(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
 {
     NSInteger result = NSNotFound;
     NSInteger delta  = (isLowerBound ? 1 : -1);
 
     if ( dataCount > 0 ) {
         NSUInteger initialIndex = (isLowerBound ? 0 : dataCount - 1);
-        for ( NSUInteger i = initialIndex; i < dataCount; i += delta ) {
+        for ( NSInteger i = (NSInteger)initialIndex; i < (NSInteger)dataCount; i += delta ) {
             if ( pointDrawFlags[i] ) {
                 result = i;
                 break;
@@ -588,15 +588,15 @@ typedef struct CGPointError CGPointError;
     }
 
     // Get extreme points
-    NSUInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
-    NSUInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
+    NSInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
+    NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
 
     if ( firstDrawnPointIndex != NSNotFound ) {
         if ( self.areaFill ) {
             CGMutablePathRef fillPath = CGPathCreateMutable();
 
             // First do the top points
-            for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+            for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
                 CGFloat x = viewPoints[i].x;
                 CGFloat y = viewPoints[i].high;
                 if ( isnan(y) ) {
@@ -604,7 +604,7 @@ typedef struct CGPointError CGPointError;
                 }
 
                 if ( !isnan(x) && !isnan(y) ) {
-                    if ( i == firstDrawnPointIndex ) {
+                    if ( i == (NSUInteger)firstDrawnPointIndex ) {
                         CGPathMoveToPoint(fillPath, NULL, x, y);
                     }
                     else {
@@ -614,7 +614,7 @@ typedef struct CGPointError CGPointError;
             }
 
             // Then reverse over bottom points
-            for ( NSUInteger j = lastDrawnPointIndex; j >= firstDrawnPointIndex; j-- ) {
+            for ( NSUInteger j = (NSUInteger)lastDrawnPointIndex; j >= (NSUInteger)firstDrawnPointIndex; j-- ) {
                 CGFloat x = viewPoints[j].x;
                 CGFloat y = viewPoints[j].low;
                 if ( isnan(y) ) {
@@ -624,7 +624,7 @@ typedef struct CGPointError CGPointError;
                 if ( !isnan(x) && !isnan(y) ) {
                     CGPathAddLineToPoint(fillPath, NULL, x, y);
                 }
-                if ( j == firstDrawnPointIndex ) {
+                if ( j == (NSUInteger)firstDrawnPointIndex ) {
                     // This could be done a bit more elegant
                     break;
                 }
@@ -648,7 +648,7 @@ typedef struct CGPointError CGPointError;
         CGFloat halfBarWidth = self.barWidth * (CGFloat)0.5;
         BOOL alignPoints     = self.alignsPointsToPixels;
 
-        for ( NSUInteger i = firstDrawnPointIndex; i <= lastDrawnPointIndex; i++ ) {
+        for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
             [self drawRangeInContext:context
                            lineStyle:[self barLineStyleForIndex:i]
                            viewPoint:&viewPoints[i]
@@ -959,18 +959,18 @@ typedef struct CGPointError CGPointError;
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
 
-    NSUInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
+    NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
     if ( result != NSNotFound ) {
         CGPointError lastViewPoint;
         CGFloat minimumDistanceSquared = NAN;
-        for ( NSUInteger i = result; i < dataCount; ++i ) {
+        for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
                 lastViewPoint = viewPoints[i];
                 CGPoint lastPoint       = CGPointMake(lastViewPoint.x, lastViewPoint.y);
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lastPoint);
                 if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
                     minimumDistanceSquared = distanceSquared;
-                    result                 = i;
+                    result                 = (NSInteger)i;
                 }
             }
         }
@@ -995,7 +995,7 @@ typedef struct CGPointError CGPointError;
     free(viewPoints);
     free(drawPointFlags);
 
-    return result;
+    return (NSUInteger)result;
 }
 
 /// @endcond

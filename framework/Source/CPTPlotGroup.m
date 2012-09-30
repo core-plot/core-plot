@@ -47,7 +47,7 @@
     NSParameterAssert(plot);
     NSParameterAssert(index <= [[self sublayers] count]);
 
-    [self insertSublayer:plot atIndex:index];
+    [self insertSublayer:plot atIndex:(unsigned)index];
 }
 
 /** @brief Remove a plot from this plot group.

@@ -36,9 +36,10 @@
  *
  *  @return A shared CPTColorSpace object initialized with the standard RGB colorspace.
  **/
-+(CPTColorSpace *)genericRGBSpace;
++(CPTColorSpace *)genericRGBSpace
 {
     static CPTColorSpace *space = nil;
+
     if ( nil == space ) {
         CGColorSpaceRef cgSpace = NULL;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

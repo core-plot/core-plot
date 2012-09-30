@@ -111,9 +111,9 @@
 -(void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeConditionalObject:self.plot forKey:@"CPTLegendEntry.plot"];
-    [coder encodeInteger:self.index forKey:@"CPTLegendEntry.index"];
-    [coder encodeInteger:self.row forKey:@"CPTLegendEntry.row"];
-    [coder encodeInteger:self.column forKey:@"CPTLegendEntry.column"];
+    [coder encodeInteger:(NSInteger)self.index forKey:@"CPTLegendEntry.index"];
+    [coder encodeInteger:(NSInteger)self.row forKey:@"CPTLegendEntry.row"];
+    [coder encodeInteger:(NSInteger)self.column forKey:@"CPTLegendEntry.column"];
     [coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
 }
 
@@ -121,9 +121,9 @@
 {
     if ( (self = [super init]) ) {
         plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
-        index     = [coder decodeIntegerForKey:@"CPTLegendEntry.index"];
-        row       = [coder decodeIntegerForKey:@"CPTLegendEntry.row"];
-        column    = [coder decodeIntegerForKey:@"CPTLegendEntry.column"];
+        index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
+        row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
+        column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
         textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
     }
     return self;
@@ -139,7 +139,7 @@
  *  @param context The graphics context to draw into.
  *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
  **/
--(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
+-(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);

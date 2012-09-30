@@ -62,7 +62,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:2.0 / 3.0] retain];
+        color = [[self colorWithGenericGray:(CGFloat)(2.0 / 3.0)] retain];
     }
     return color;
 }
@@ -90,7 +90,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:1.0 / 3.0] retain];
+        color = [[self colorWithGenericGray:(CGFloat)(1.0 / 3.0)] retain];
     }
     return color;
 }
@@ -230,7 +230,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:0.6 green:0.4 blue:0.2 alpha:1.0];
+        color = [[CPTColor alloc] initWithComponentRed:(CGFloat)0.6 green:(CGFloat)0.4 blue:(CGFloat)0.2 alpha:(CGFloat)1.0];
     }
     return color;
 }
@@ -354,7 +354,7 @@
     [coder encodeCGColorSpace:CGColorGetColorSpace(theColor) forKey:@"CPTColor.colorSpace"];
 
     size_t numberOfComponents = CGColorGetNumberOfComponents(theColor);
-    [coder encodeInteger:numberOfComponents forKey:@"CPTColor.numberOfComponents"];
+    [coder encodeInt64:(int64_t) numberOfComponents forKey:@"CPTColor.numberOfComponents"];
 
     const CGFloat *colorComponents = CGColorGetComponents(theColor);
 
@@ -370,7 +370,7 @@
     if ( (self = [super init]) ) {
         CGColorSpaceRef colorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColor.colorSpace"];
 
-        size_t numberOfComponents = [coder decodeIntegerForKey:@"CPTColor.numberOfComponents"];
+        size_t numberOfComponents = (size_t)[coder decodeInt64ForKey : @"CPTColor.numberOfComponents"];
 
         CGFloat *colorComponents = malloc( numberOfComponents * sizeof(CGFloat) );
 

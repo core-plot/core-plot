@@ -587,9 +587,9 @@ NSDecimal CPTDecimalNaN(void)
  **/
 NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
 {
-    NSInteger loc            = MAX(0, (int)range.location - expandBy);
-    NSInteger lowerExpansion = range.location - loc;
-    NSInteger length         = range.length + lowerExpansion + expandBy;
+    NSUInteger loc            = MAX(0, (NSInteger)range.location - expandBy);
+    NSUInteger lowerExpansion = range.location - loc;
+    NSUInteger length         = (NSUInteger)( (NSInteger)(range.length + lowerExpansion) + expandBy );
 
     return NSMakeRange(loc, length);
 }

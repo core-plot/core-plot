@@ -101,7 +101,7 @@
     [coder encodeObject:self.dateFormatter forKey:@"CPTCalendarFormatter.dateFormatter"];
     [coder encodeObject:self.referenceDate forKey:@"CPTCalendarFormatter.referenceDate"];
     [coder encodeObject:self.referenceCalendar forKey:@"CPTCalendarFormatter.referenceCalendar"];
-    [coder encodeInteger:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+    [coder encodeInt:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -110,7 +110,7 @@
         dateFormatter         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
         referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
         referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
-        referenceCalendarUnit = [coder decodeIntegerForKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+        referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
     }
     return self;
 }
@@ -196,7 +196,7 @@
 
 #if MAC_OS_X_VERSION_10_5 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_3_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
         case NSQuarterCalendarUnit:
-            if ( [dateComponents respondsToSelector:@selector(setQuarter)] ) {
+            if ( [dateComponents respondsToSelector:@selector(setQuarter:)] ) {
                 dateComponents.quarter = componentIncrement;
             }
             else {
@@ -206,7 +206,7 @@
 #endif
 #if MAC_OS_X_VERSION_10_6 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
         case NSWeekOfMonthCalendarUnit:
-            if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth)] ) {
+            if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth:)] ) {
                 dateComponents.weekOfMonth = componentIncrement;
             }
             else {
@@ -215,7 +215,7 @@
             break;
 
         case NSWeekOfYearCalendarUnit:
-            if ( [dateComponents respondsToSelector:@selector(setWeekOfYear)] ) {
+            if ( [dateComponents respondsToSelector:@selector(setWeekOfYear:)] ) {
                 dateComponents.weekOfYear = componentIncrement;
             }
             else {
@@ -224,7 +224,7 @@
             break;
 
         case NSYearForWeekOfYearCalendarUnit:
-            if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear)] ) {
+            if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear:)] ) {
                 dateComponents.yearForWeekOfYear = componentIncrement;
             }
             else {

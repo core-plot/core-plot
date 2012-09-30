@@ -404,7 +404,7 @@
            CGImageGetBytesPerRow(selfCGImage) +
            CGImageGetBitmapInfo(selfCGImage) +
            CGImageGetShouldInterpolate(selfCGImage) +
-           CGImageGetRenderingIntent(selfCGImage) * self.scale;
+           CGImageGetRenderingIntent(selfCGImage) * (NSUInteger)self.scale;
 }
 
 /// @endcond

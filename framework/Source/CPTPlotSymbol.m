@@ -143,7 +143,7 @@
 {
     [coder encodeCPTPoint:self.anchorPoint forKey:@"CPTPlotSymbol.anchorPoint"];
     [coder encodeCPTSize:self.size forKey:@"CPTPlotSymbol.size"];
-    [coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
+    [coder encodeInt:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
     [coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
     [coder encodeObject:self.fill forKey:@"CPTPlotSymbol.fill"];
     [coder encodeObject:self.shadow forKey:@"CPTPlotSymbol.shadow"];
@@ -160,7 +160,7 @@
     if ( (self = [super init]) ) {
         anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
         size                = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
-        symbolType          = [coder decodeIntegerForKey:@"CPTPlotSymbol.symbolType"];
+        symbolType          = (CPTPlotSymbolType)[coder decodeIntForKey : @"CPTPlotSymbol.symbolType"];
         lineStyle           = [[coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"] retain];
         fill                = [[coder decodeObjectForKey:@"CPTPlotSymbol.fill"] retain];
         shadow              = [[coder decodeObjectForKey:@"CPTPlotSymbol.shadow"] copy];
@@ -545,7 +545,7 @@
             CGSize symbolSize    = self.size;
 
             CGContextSaveGState(context);
-            CGContextTranslateCTM(context, center.x + (symbolAnchor.x - 0.5) * symbolSize.width, center.y + (symbolAnchor.y - 0.5) * symbolSize.height);
+            CGContextTranslateCTM(context, center.x + (symbolAnchor.x - (CGFloat)0.5) * symbolSize.width, center.y + (symbolAnchor.y - (CGFloat)0.5) * symbolSize.height);
             CGContextScaleCTM(context, scale, scale);
             [self.shadow setShadowInContext:context];
 
@@ -672,8 +672,8 @@
             break;
 
         case CPTPlotSymbolTypeHexagon:
-            dx = halfSize.width * 0.86602540378; // sqrt(3.0) / 2.0;
-            dy = halfSize.height / 2.0;
+            dx = halfSize.width * (CGFloat)0.86602540378; // sqrt(3.0) / 2.0;
+            dy = halfSize.height / (CGFloat)2.0;
 
             CGPathMoveToPoint(symbolPath, NULL, 0.0, halfSize.height);
             CGPathAddLineToPoint(symbolPath, NULL, dx, dy);

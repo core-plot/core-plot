@@ -325,7 +325,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 {
     CPTGraphLayerType *buLayerOrder = self.bottomUpLayerOrder;
 
-    for ( int i = 0; i < kCPTNumberOfLayers; i++ ) {
+    for ( CPTGraphLayerType i = 0; i < kCPTNumberOfLayers; i++ ) {
         *(buLayerOrder++) = i;
     }
 
@@ -334,7 +334,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
         buLayerOrder = self.bottomUpLayerOrder;
 
         for ( NSUInteger layerIndex = 0; layerIndex < [tdLayerOrder count]; layerIndex++ ) {
-            CPTGraphLayerType layerType = [[tdLayerOrder objectAtIndex:layerIndex] intValue];
+            CPTGraphLayerType layerType = (CPTGraphLayerType)[[tdLayerOrder objectAtIndex:layerIndex] intValue];
             NSUInteger i                = kCPTNumberOfLayers - layerIndex - 1;
             while ( buLayerOrder[i] != layerType ) {
                 if ( i == 0 ) {
