@@ -36,13 +36,17 @@
 
 /** @property NSDecimal orthogonalCoordinateDecimal
  *  @brief The data coordinate value where the axis crosses the orthogonal axis.
+ *  If the @ref axisConstraints is non-nil, the constraints take priority and this property is ignored.
+ *  @see @ref axisConstraints
  **/
 @synthesize orthogonalCoordinateDecimal;
 
 /** @property CPTConstraints *axisConstraints
  *  @brief The constraints used when positioning relative to the plot area.
- *  If @nil (the default), the axis is fixed relative to the plot space coordinates, and moves
+ *  If @nil (the default), the axis is fixed relative to the plot space coordinates, 
+ *  crossing the orthogonal axis at @ref orthogonalCoordinateDecimal and moves only
  *  whenever the plot space ranges change.
+ *  @see @ref orthogonalCoordinateDecimal
  **/
 @synthesize axisConstraints;
 
