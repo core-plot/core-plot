@@ -101,7 +101,7 @@
     [coder encodeObject:self.dateFormatter forKey:@"CPTCalendarFormatter.dateFormatter"];
     [coder encodeObject:self.referenceDate forKey:@"CPTCalendarFormatter.referenceDate"];
     [coder encodeObject:self.referenceCalendar forKey:@"CPTCalendarFormatter.referenceCalendar"];
-    [coder encodeInt:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+    [coder encodeInteger:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -110,7 +110,7 @@
         dateFormatter         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
         referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
         referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
-        referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
+        referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
     }
     return self;
 }
