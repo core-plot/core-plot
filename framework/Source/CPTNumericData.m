@@ -10,7 +10,7 @@
 @interface CPTNumericData()
 
 -(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
--(NSUInteger)sampleIndex:(NSUInteger)index indexList:(va_list)indexList;
+-(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList;
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType;
 
 @end
@@ -512,19 +512,19 @@
 #pragma mark Samples
 
 /** @brief Gets the offset of a given sample in the data buffer.
- *  @param index The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{index}) should match the @ref numberOfDimensions.
  *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding
  *  dimension of the data buffer, this method returns @ref NSNotFound.
  **/
--(NSUInteger)sampleIndex:(NSUInteger)index, ...
+-(NSUInteger)sampleIndex:(NSUInteger)idx, ...
  {
     va_list indices;
 
-    va_start(indices, index);
+    va_start(indices, idx);
 
-    NSUInteger newIndex = [self sampleIndex:index indexList:indices];
+    NSUInteger newIndex = [self sampleIndex:idx indexList:indices];
 
     va_end(indices);
 
@@ -632,27 +632,27 @@
 }
 
 /** @brief Gets the value of a given sample in the data buffer.
- *  @param index The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{index}) should match the @ref numberOfDimensions.
  *  @return The sample value wrapped in an instance of NSNumber or @nil if any of the sample indices are out of bounds.
  *
  *  @note NSNumber does not support complex numbers. Complex number types will be cast to
  *  @float or @double before being wrapped in an instance of NSNumber.
  **/
--(NSNumber *)sampleValueAtIndex:(NSUInteger)index, ...
+-(NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...
  {
     NSUInteger newIndex;
 
     if ( self.numberOfDimensions > 1 ) {
         va_list indices;
-        va_start(indices, index);
+        va_start(indices, idx);
 
-        newIndex = [self sampleIndex:index indexList:indices];
+        newIndex = [self sampleIndex:idx indexList:indices];
 
         va_end(indices);
     }
     else {
-        newIndex = index;
+        newIndex = idx;
     }
 
     return [self sampleValueAtIndex:newIndex];
@@ -673,24 +673,24 @@
 }
 
 /** @brief Gets a pointer to a given sample in the data buffer.
- *  @param index The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{index}) should match the @ref numberOfDimensions.
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
--(void *)samplePointerAtIndex:(NSUInteger)index, ...
+-(void *)samplePointerAtIndex:(NSUInteger)idx, ...
  {
     NSUInteger newIndex;
 
     if ( self.numberOfDimensions > 1 ) {
         va_list indices;
-        va_start(indices, index);
+        va_start(indices, idx);
 
-        newIndex = [self sampleIndex:index indexList:indices];
+        newIndex = [self sampleIndex:idx indexList:indices];
 
         va_end(indices);
     }
     else {
-        newIndex = index;
+        newIndex = idx;
     }
 
     return [self samplePointer:newIndex];
@@ -722,14 +722,14 @@
 /** @internal
  *  @brief Gets the offset of a given sample in the data buffer. This method does not call @par{va_end()}
  *  on the @par{indexList}.
- *  @param index The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{index}) should match the @ref numberOfDimensions.
  *  @param indexList A @par{va_list} of the additional indices.
  *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding
  *  dimension of the data buffer, this method returns @ref NSNotFound.
  **/
--(NSUInteger)sampleIndex:(NSUInteger)index indexList:(va_list)indexList
+-(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList
 {
     NSArray *theShape   = self.shape;
     NSUInteger numDims  = theShape.count;
@@ -739,23 +739,23 @@
         NSUInteger *dims        = calloc( numDims, sizeof(NSUInteger) );
         NSUInteger *dimProducts = calloc( numDims, sizeof(NSUInteger) );
         NSUInteger *indices     = calloc( numDims, sizeof(NSUInteger) );
-        NSUInteger idx          = 0;
+        NSUInteger argIndex     = 0;
 
-        indices[0] = index;
+        indices[0] = idx;
         for ( NSNumber *dim in theShape ) {
-            if ( idx > 0 ) {
-                indices[idx] = va_arg(indexList, NSUInteger);
+            if ( argIndex > 0 ) {
+                indices[argIndex] = va_arg(indexList, NSUInteger);
             }
-            dims[idx] = [dim unsignedIntegerValue];
+            dims[argIndex] = [dim unsignedIntegerValue];
 
-            if ( indices[idx] >= dims[idx] ) {
+            if ( indices[argIndex] >= dims[argIndex] ) {
                 free(dims);
                 free(dimProducts);
                 free(indices);
                 return NSNotFound;
             }
 
-            idx++;
+            argIndex++;
         }
 
         switch ( self.dataOrder ) {
@@ -794,7 +794,7 @@
         free(indices);
     }
     else {
-        newIndex = index;
+        newIndex = idx;
     }
 
     return newIndex;
@@ -1145,7 +1145,7 @@
             newData = [decoder decodeObject];
 
             [decoder decodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(newDataType.dataTypeFormat)];
-            [decoder decodeValueOfObjCType:@encode(NSUInteger) at:&(newDataType.sampleBytes)];
+            [decoder decodeValueOfObjCType:@encode(size_t) at:&(newDataType.sampleBytes)];
             [decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(newDataType.byteOrder)];
 
             shapeArray = [decoder decodeObject];

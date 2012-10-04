@@ -62,10 +62,10 @@ CPTScatterPlotInterpolation;
  *  @link CPTScatterPlotDataSource::symbolsForScatterPlot:recordIndexRange: -symbolsForScatterPlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param plot The scatter plot.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The plot symbol to show for the point with the given index.
  **/
--(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index;
+-(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -87,22 +87,22 @@ CPTScatterPlotInterpolation;
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The scatter plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index;
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data point was
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The scatter plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
@@ -134,12 +134,12 @@ CPTScatterPlotInterpolation;
 /// @name Visible Points
 /// @{
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
--(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index;
+-(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)idx;
 /// @}
 
 /// @name Plot Symbols
 /// @{
--(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index;
+-(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx;
 /// @}
 
 @end

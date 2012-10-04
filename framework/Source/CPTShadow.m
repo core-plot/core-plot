@@ -1,6 +1,7 @@
 #import "CPTShadow.h"
 
 #import "CPTColor.h"
+#import "CPTDefinitions.h"
 #import "CPTMutableShadow.h"
 #import "NSCoderExtensions.h"
 
@@ -71,7 +72,7 @@
 {
     if ( (self = [super init]) ) {
         shadowOffset     = CGSizeZero;
-        shadowBlurRadius = 0.0;
+        shadowBlurRadius = CPTFloat(0.0);
         shadowColor      = nil;
     }
     return self;

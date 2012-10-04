@@ -48,6 +48,55 @@
 #define cpt_weak_property assign
 #endif
 
+// Type safety defines
+
+/**
+ *  @def CPTFloat
+ *  @hideinitializer
+ *  @param x The number to cast.
+ *  @brief Casts a number to @ref CGFloat.
+ **/
+#define CPTFloat(x) ( (CGFloat)(x) )
+
+/**
+ *  @def CPTPointMake
+ *  @hideinitializer
+ *  @param x The x-coordinate of the point.
+ *  @param y The y-coordinate of the point.
+ *  @brief A replacement for @ref CGPointMake(), casting each parameter to @ref CGFloat.
+ **/
+#define CPTPointMake(x, y) CGPointMake( (CGFloat)(x), (CGFloat)(y) )
+
+/**
+ *  @def CPTSizeMake
+ *  @hideinitializer
+ *  @param w The width of the size.
+ *  @param h The height of the size.
+ *  @brief A replacement for @ref CGSizeMake(), casting each parameter to @ref CGFloat.
+ **/
+#define CPTSizeMake(w, h) CGSizeMake( (CGFloat)(w), (CGFloat)(h) )
+
+/**
+ *  @def CPTRectMake
+ *  @hideinitializer
+ *  @param x The x-coordinate of the rectangle.
+ *  @param y The y-coordinate of the rectangle.
+ *  @param w The width of the rectangle.
+ *  @param h The height of the rectangle.
+ *  @brief A replacement for @ref CGRectMake(), casting each parameter to @ref CGFloat.
+ **/
+#define CPTRectMake(x, y, w, h) CGRectMake( (CGFloat)(x), (CGFloat)(y), (CGFloat)(w), (CGFloat)(h) )
+
+/**
+ *  @def CPTRectInset
+ *  @hideinitializer
+ *  @param rect The rectangle to offset.
+ *  @param dx The x-offset.
+ *  @param dy The y-offset.
+ *  @brief A replacement for @ref CGRectInset(), casting each offset parameter to @ref CGFloat.
+ **/
+#define CPTRectInset(rect, dx, dy) CGRectInset( rect, (CGFloat)(dx), (CGFloat)(dy) )
+
 /**
  *  @brief Enumeration of numeric types
  **/

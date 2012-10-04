@@ -168,7 +168,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaFill2                       = nil;
         areaBaseValue                   = [[NSDecimalNumber notANumber] decimalValue];
         areaBaseValue2                  = [[NSDecimalNumber notANumber] decimalValue];
-        plotSymbolMarginForHitDetection = 0.0;
+        plotSymbolMarginForHitDetection = CPTFloat(0.0);
         interpolation                   = CPTScatterPlotInterpolationLinear;
         self.labelField                 = CPTScatterPlotFieldY;
     }
@@ -273,8 +273,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
 
-        for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-            CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:index];
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:idx];
             if ( symbol ) {
                 [array addObject:symbol];
             }
@@ -294,12 +294,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 #pragma mark Symbols
 
 /** @brief Returns the plot symbol to use for a given index.
- *  @param index The index of the record.
+ *  @param idx The index of the record.
  *  @return The plot symbol to use, or @nil if no plot symbol should be drawn.
  **/
--(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)index
+-(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx
 {
-    CPTPlotSymbol *symbol = [self cachedValueForKey:CPTScatterPlotBindingPlotSymbols recordIndex:index];
+    CPTPlotSymbol *symbol = [self cachedValueForKey:CPTScatterPlotBindingPlotSymbols recordIndex:idx];
 
     if ( (symbol == nil) || (symbol == [CPTPlot nilData]) ) {
         symbol = self.plotSymbol;
@@ -413,7 +413,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             const double x = *xBytes++;
             const double y = *yBytes++;
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
-                viewPoints[i] = CGPointMake(NAN, NAN);
+                viewPoints[i] = CPTPointMake(NAN, NAN);
             }
             else {
                 double plotPoint[2];
@@ -435,7 +435,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             const NSDecimal x = *xBytes++;
             const NSDecimal y = *yBytes++;
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
-                viewPoints[i] = CGPointMake(NAN, NAN);
+                viewPoints[i] = CPTPointMake(NAN, NAN);
             }
             else {
                 NSDecimal plotPoint[2];
@@ -539,10 +539,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 }
 
 /** @brief Returns the plot area view point of a visible point.
- *  @param index The index of the point.
+ *  @param idx The index of the point.
  *  @return The view point of the visible point at the index passed.
  **/
--(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)index
+-(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)idx
 {
     NSUInteger dataCount = self.cachedDataCount;
     CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
@@ -551,7 +551,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
 
-    CGPoint result = viewPoints[index];
+    CGPoint result = viewPoints[idx];
 
     free(viewPoints);
     free(drawPointFlags);
@@ -631,7 +631,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             if ( theFill && ( !NSDecimalIsNotANumber(&theAreaBaseValue) ) ) {
                 // clear the plot shadow if any--not needed for fills
                 CGContextSaveGState(context);
-                CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
+                CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
 
                 NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
                 NSDecimal plotPoint[2];
@@ -670,7 +670,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             Class symbolClass = [CPTPlotSymbol class];
 
             // clear the plot shadow if any--symbols draw their own shadows
-            CGContextSetShadowWithColor(context, CGSizeZero, 0.0, NULL);
+            CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
 
             if ( self.useFastRendering ) {
                 CGFloat scale = self.contentsScale;
@@ -688,7 +688,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {
-                            [currentSymbol renderAsVectorInContext:context atPoint:viewPoints[i] scale:1.0];
+                            [currentSymbol renderAsVectorInContext:context atPoint:viewPoints[i] scale:CPTFloat(1.0)];
                         }
                     }
                 }
@@ -705,8 +705,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     CGMutablePathRef dataLinePath                = CGPathCreateMutable();
     CPTScatterPlotInterpolation theInterpolation = self.interpolation;
     BOOL lastPointSkipped                        = YES;
-    CGFloat firstXValue                          = 0.0;
-    CGFloat lastXValue                           = 0.0;
+    CGFloat firstXValue                          = CPTFloat(0.0);
+    CGFloat lastXValue                           = CPTFloat(0.0);
     NSUInteger lastDrawnPointIndex               = NSMaxRange(indexRange);
     CGPoint lastControlPoint;
 
@@ -744,7 +744,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                     case CPTScatterPlotInterpolationHistogram:
                     {
-                        CGFloat x = (viewPoints[i - 1].x + viewPoints[i].x) / (CGFloat)2.0;
+                        CGFloat x = (viewPoints[i - 1].x + viewPoints[i].x) / CPTFloat(2.0);
                         CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoints[i - 1].y);
                         CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
@@ -768,15 +768,15 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                             //    partway to viewpoint[i-1] and partway to viewpoint[i+1]
                             // Project the resulting tangent line back to the viewpoint
                             // Use the endpoints of the tangent as control points in a bezier curve from viewpoint to viewpoint
-                            CGFloat c  = (CGFloat)0.2; // tangent lenght must be in interval [0;1]
-                            CGPoint t1 = CGPointMake( viewPoint.x - ( (viewPoint.x - viewPoints[i - 1].x) * c ),
-                                                      viewPoint.y - ( (viewPoint.y - viewPoints[i - 1].y) * c ) );
-                            CGPoint t2 = CGPointMake( viewPoint.x + ( (viewPoints[i + 1].x - viewPoint.x) * c ),
-                                                      viewPoint.y + ( (viewPoints[i + 1].y - viewPoint.y) * c ) );
+                            CGFloat c  = CPTFloat(0.2); // tangent lenght must be in interval [0;1]
+                            CGPoint t1 = CPTPointMake( viewPoint.x - ( (viewPoint.x - viewPoints[i - 1].x) * c ),
+                                                       viewPoint.y - ( (viewPoint.y - viewPoints[i - 1].y) * c ) );
+                            CGPoint t2 = CPTPointMake( viewPoint.x + ( (viewPoints[i + 1].x - viewPoint.x) * c ),
+                                                       viewPoint.y + ( (viewPoints[i + 1].y - viewPoint.y) * c ) );
 
                             // vector from viewpoint to tangent center
-                            CGPoint center = CGPointMake( t1.x + ( (t2.x - t1.x) / (CGFloat)2.0 ), t1.y + ( (t2.y - t1.y) / (CGFloat)2.0 ) );
-                            CGPoint v      = CGPointMake(center.x - viewPoint.x, center.y - viewPoint.y);
+                            CGPoint center = CPTPointMake( t1.x + ( (t2.x - t1.x) / CPTFloat(2.0) ), t1.y + ( (t2.y - t1.y) / CPTFloat(2.0) ) );
+                            CGPoint v      = CPTPointMake(center.x - viewPoint.x, center.y - viewPoint.y);
 
                             // project the tangent to the viewpoint
                             t1.x = t1.x - v.x;
@@ -820,17 +820,17 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return dataLinePath;
 }
 
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    [super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+    [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
     CPTLineStyle *theLineStyle = self.dataLineStyle;
 
     if ( theLineStyle ) {
         [theLineStyle setLineStyleInContext:context];
 
-        CGPoint alignedStartPoint = CPTAlignPointToUserSpace( context, CGPointMake( CGRectGetMinX(rect), CGRectGetMidY(rect) ) );
-        CGPoint alignedEndPoint   = CPTAlignPointToUserSpace( context, CGPointMake( CGRectGetMaxX(rect), CGRectGetMidY(rect) ) );
+        CGPoint alignedStartPoint = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMinX(rect), CGRectGetMidY(rect) ) );
+        CGPoint alignedEndPoint   = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMaxX(rect), CGRectGetMidY(rect) ) );
         CGContextMoveToPoint(context, alignedStartPoint.x, alignedStartPoint.y);
         CGContextAddLineToPoint(context, alignedEndPoint.x, alignedEndPoint.y);
 
@@ -841,7 +841,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     if ( thePlotSymbol ) {
         [thePlotSymbol renderInContext:context
-                               atPoint:CGPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) )
+                               atPoint:CPTPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) )
                                  scale:self.contentsScale
                          alignToPixels:YES];
     }
@@ -855,7 +855,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGPathRef swatchPath;
             CGFloat radius = legend.swatchCornerRadius;
             if ( radius > 0.0 ) {
-                radius     = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
+                radius     = MIN( MIN( radius, rect.size.width / CPTFloat(2.0) ), rect.size.height / CPTFloat(2.0) );
                 swatchPath = CreateRoundedRectPath(rect, radius);
             }
             else {
@@ -880,12 +880,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 CGContextClip(context);
 
                 if ( CPTDecimalGreaterThanOrEqualTo(self.areaBaseValue2, self.areaBaseValue) ) {
-                    [fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
-                    [fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
+                    [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                    [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
                 }
                 else {
-                    [fill2 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
-                    [fill1 fillRect:CGRectMake(CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / (CGFloat)2.0) inContext:context];
+                    [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                    [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
                 }
 
                 CGContextRestoreGState(context);
@@ -964,10 +964,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
+-(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
 {
-    NSNumber *xValue = [self cachedNumberForField:CPTScatterPlotFieldX recordIndex:index];
-    NSNumber *yValue = [self cachedNumberForField:CPTScatterPlotFieldY recordIndex:index];
+    NSNumber *xValue = [self cachedNumberForField:CPTScatterPlotFieldX recordIndex:idx];
+    NSNumber *yValue = [self cachedNumberForField:CPTScatterPlotFieldY recordIndex:idx];
 
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
@@ -980,10 +980,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     label.contentLayer.hidden = self.hidden || isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 
     if ( positiveDirection ) {
-        label.displacement = CGPointMake(0.0, self.labelOffset);
+        label.displacement = CPTPointMake(0.0, self.labelOffset);
     }
     else {
-        label.displacement = CGPointMake(0.0, -self.labelOffset);
+        label.displacement = CPTPointMake(0.0, -self.labelOffset);
     }
 }
 
@@ -1028,11 +1028,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
-        NSUInteger index      = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
+        NSUInteger idx        = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
 
-        if ( index != NSNotFound ) {
-            CGPoint center        = [self plotAreaPointOfVisiblePointAtIndex:index];
-            CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:index];
+        if ( idx != NSNotFound ) {
+            CGPoint center        = [self plotAreaPointOfVisiblePointAtIndex:idx];
+            CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:idx];
 
             CGRect symbolRect = CGRectZero;
             if ( [symbol isKindOfClass:[CPTPlotSymbol class]] ) {
@@ -1041,16 +1041,16 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             else {
                 symbolRect.size = CGSizeZero;
             }
-            symbolRect.size.width  += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
-            symbolRect.size.height += (CGFloat)2.0 * plotSymbolMarginForHitDetection;
-            symbolRect.origin       = CGPointMake( center.x - (CGFloat)0.5 * CGRectGetWidth(symbolRect), center.y - (CGFloat)0.5 * CGRectGetHeight(symbolRect) );
+            symbolRect.size.width  += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
+            symbolRect.size.height += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
+            symbolRect.origin       = CPTPointMake( center.x - CPTFloat(0.5) * CGRectGetWidth(symbolRect), center.y - CPTFloat(0.5) * CGRectGetHeight(symbolRect) );
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
-                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index];
+                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx];
                 }
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
-                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:index withEvent:event];
+                    [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx withEvent:event];
                 }
                 return YES;
             }

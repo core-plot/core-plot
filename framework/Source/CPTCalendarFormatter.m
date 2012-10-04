@@ -101,7 +101,7 @@
     [coder encodeObject:self.dateFormatter forKey:@"CPTCalendarFormatter.dateFormatter"];
     [coder encodeObject:self.referenceDate forKey:@"CPTCalendarFormatter.referenceDate"];
     [coder encodeObject:self.referenceCalendar forKey:@"CPTCalendarFormatter.referenceCalendar"];
-    [coder encodeInteger:self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
+    [coder encodeInteger:(NSInteger)self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder

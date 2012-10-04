@@ -408,7 +408,7 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord
 {
     if ( !range ) {
-        return 0.0;
+        return CPTFloat(0.0);
     }
 
     NSDecimal factor = CPTDecimalDivide(CPTDecimalSubtract(plotCoord, range.location), range.length);
@@ -424,7 +424,7 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
     if ( !range || (range.lengthDouble == 0.0) ) {
-        return 0.0;
+        return CPTFloat(0.0);
     }
     return viewLength * (CGFloat)( (plotCoord - range.locationDouble) / range.lengthDouble );
 }
@@ -466,7 +466,7 @@
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
     if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) || (plotCoord <= 0.0) ) {
-        return 0.0;
+        return CPTFloat(0.0);
     }
 
     double logLoc   = log10(range.locationDouble);
@@ -510,8 +510,8 @@
         return CGPointZero;
     }
 
-    CGFloat viewX = 0.0;
-    CGFloat viewY = 0.0;
+    CGFloat viewX = CPTFloat(0.0);
+    CGFloat viewY = CPTFloat(0.0);
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
@@ -545,7 +545,7 @@
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
 
-    return CGPointMake(viewX, viewY);
+    return CPTPointMake(viewX, viewY);
 }
 
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
@@ -560,8 +560,8 @@
         return CGPointZero;
     }
 
-    CGFloat viewX = 0.0;
-    CGFloat viewY = 0.0;
+    CGFloat viewX = CPTFloat(0.0);
+    CGFloat viewY = CPTFloat(0.0);
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
@@ -589,7 +589,7 @@
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
 
-    return CGPointMake(viewX, viewY);
+    return CPTPointMake(viewX, viewY);
 }
 
 // Plot point for view point
@@ -914,13 +914,13 @@
 
     if ( isDragging ) {
         CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
-        CGPoint displacement    = CGPointMake(pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y);
+        CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y);
         CGPoint pointToUse      = pointInPlotArea;
 
         // Allow delegate to override
         if ( [self.delegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
             displacement = [self.delegate plotSpace:self willDisplaceBy:displacement];
-            pointToUse   = CGPointMake(lastDragPoint.x + displacement.x, lastDragPoint.y + displacement.y);
+            pointToUse   = CPTPointMake(lastDragPoint.x + displacement.x, lastDragPoint.y + displacement.y);
         }
 
         NSDecimal lastPoint[2], newPoint[2];

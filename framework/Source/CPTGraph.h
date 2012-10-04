@@ -93,7 +93,7 @@ CPTGraphLayerType;
 /// @name Retrieving Plots
 /// @{
 -(NSArray *)allPlots;
--(CPTPlot *)plotAtIndex:(NSUInteger)index;
+-(CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier;
 /// @}
 
@@ -103,14 +103,14 @@ CPTGraphLayerType;
 -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPTPlotSpace *)space;
 -(void)removePlot:(CPTPlot *)plot;
 -(void)removePlotWithIdentifier:(id<NSCopying>)identifier;
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space;
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx;
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(CPTPlotSpace *)space;
 /// @}
 
 /// @name Retrieving Plot Spaces
 /// @{
 -(NSArray *)allPlotSpaces;
--(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)index;
+-(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx;
 -(CPTPlotSpace *)plotSpaceWithIdentifier:(id<NSCopying>)identifier;
 /// @}
 

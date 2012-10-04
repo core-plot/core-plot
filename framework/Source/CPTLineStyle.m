@@ -1,6 +1,7 @@
 #import "CPTLineStyle.h"
 
 #import "CPTColor.h"
+#import "CPTDefinitions.h"
 #import "CPTFill.h"
 #import "CPTMutableLineStyle.h"
 #import "NSCoderExtensions.h"
@@ -109,10 +110,10 @@
     if ( (self = [super init]) ) {
         lineCap      = kCGLineCapButt;
         lineJoin     = kCGLineJoinMiter;
-        miterLimit   = 10.0;
-        lineWidth    = 1.0;
+        miterLimit   = CPTFloat(10.0);
+        lineWidth    = CPTFloat(1.0);
         dashPattern  = nil;
-        patternPhase = 0.0;
+        patternPhase = CPTFloat(0.0);
         lineColor    = [[CPTColor blackColor] retain];
         lineFill     = nil;
     }
@@ -192,7 +193,7 @@
         free(dashLengths);
     }
     else {
-        CGContextSetLineDash(context, 0.0, NULL, 0);
+        CGContextSetLineDash(context, CPTFloat(0.0), NULL, 0);
     }
     CGContextSetStrokeColorWithColor(context, lineColor.cgColor);
 }

@@ -56,11 +56,11 @@ CPTBarPlotField;
  *  @link CPTBarPlotDataSource::barFillsForBarPlot:recordIndexRange: -barFillsForBarPlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param barPlot The bar plot.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The bar fill for the bar with the given index. If the data source returns @nil, the default fill is used.
  *  If the data source returns an NSNull object, no fill is drawn.
  **/
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
+-(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets an array of bar line styles for the given bar plot.
  *  @param barPlot The bar plot.
@@ -74,11 +74,11 @@ CPTBarPlotField;
  *  @link CPTBarPlotDataSource::barLineStylesForBarPlot:recordIndexRange: -barLineStylesForBarPlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param barPlot The bar plot.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The bar line style for the bar with the given index. If the data source returns @nil, the default line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
--(CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
+-(CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -87,10 +87,10 @@ CPTBarPlotField;
 
 /** @brief @optional Gets the legend title for the given bar plot bar.
  *  @param barPlot The bar plot.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The title text for the legend entry for the point with the given index.
  **/
--(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index;
+-(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /// @}
 @end
@@ -111,22 +111,22 @@ CPTBarPlotField;
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The bar plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index;
+-(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a bar was
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The bar plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+-(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

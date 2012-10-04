@@ -666,11 +666,11 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint point)
 
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
-    point.x = round(point.x - (CGFloat)0.5) + (CGFloat)0.5;
+    point.x = round( point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    point.y = round(point.y - (CGFloat)0.5) + (CGFloat)0.5;
+    point.y = round( point.y - CPTFloat(0.5) ) + CPTFloat(0.5);
 #else
-    point.y = -floor(-point.y) - (CGFloat)0.5;
+    point.y = -floor(-point.y) - CPTFloat(0.5);
 #endif
 
     // Convert the device aligned coordinate back to user space.
@@ -717,16 +717,16 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect rect)
 
     CGPoint oldOrigin = rect.origin;
 
-    rect.origin.x   = round(rect.origin.x - (CGFloat)0.5);
-    rect.size.width = round(oldOrigin.x + rect.size.width - (CGFloat)0.5) - rect.origin.x;
-    rect.origin.x  += 0.5;
+    rect.origin.x   = round( rect.origin.x - CPTFloat(0.5) );
+    rect.size.width = round( oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
+    rect.origin.x  += CPTFloat(0.5);
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    rect.origin.y    = round(rect.origin.y - (CGFloat)0.5);
-    rect.size.height = round(oldOrigin.y + rect.size.height - (CGFloat)0.5) - rect.origin.y;
-    rect.origin.y   += 0.5;
+    rect.origin.y    = round( rect.origin.y - CPTFloat(0.5) );
+    rect.size.height = round( oldOrigin.y + rect.size.height - CPTFloat(0.5) ) - rect.origin.y;
+    rect.origin.y   += CPTFloat(0.5);
 #else
-    rect.origin.y    = -floor( -CGRectGetMaxY(rect) ) - (CGFloat)0.5;
+    rect.origin.y    = -floor( -CGRectGetMaxY(rect) ) - CPTFloat(0.5);
     rect.size.height = round(oldOrigin.y - rect.origin.y);
 #endif
 
@@ -753,7 +753,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint point)
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     point.y = round(point.y);
 #else
-    point.y = -floor(-point.y + (CGFloat)0.5);
+    point.y = -floor( -point.y + CPTFloat(0.5) );
 #endif
 
     return CGContextConvertPointToUserSpace(context, point);
@@ -782,7 +782,7 @@ CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect rect)
     rect.origin.y    = round(rect.origin.y);
     rect.size.height = round(oldOrigin.y + rect.size.height) - rect.origin.y;
 #else
-    rect.origin.y    = -floor(-CGRectGetMaxY(rect) + (CGFloat)0.5);
+    rect.origin.y    = -floor( -CGRectGetMaxY(rect) + CPTFloat(0.5) );
     rect.size.height = round(oldOrigin.y - rect.origin.y);
 #endif
 

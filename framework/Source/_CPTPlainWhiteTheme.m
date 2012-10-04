@@ -43,10 +43,10 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
     borderLineStyle.lineColor = [CPTColor blackColor];
-    borderLineStyle.lineWidth = 1.0;
+    borderLineStyle.lineWidth = CPTFloat(1.0);
 
     plotAreaFrame.borderLineStyle = borderLineStyle;
-    plotAreaFrame.cornerRadius    = 0.0;
+    plotAreaFrame.cornerRadius    = CPTFloat(0.0);
 }
 
 -(void)applyThemeToAxisSet:(CPTXYAxisSet *)axisSet
@@ -54,21 +54,21 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 
     majorLineStyle.lineCap   = kCGLineCapButt;
-    majorLineStyle.lineColor = [CPTColor colorWithGenericGray:0.5];
-    majorLineStyle.lineWidth = 1.0;
+    majorLineStyle.lineColor = [CPTColor colorWithGenericGray:CPTFloat(0.5)];
+    majorLineStyle.lineWidth = CPTFloat(1.0);
 
     CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
     minorLineStyle.lineCap   = kCGLineCapButt;
     minorLineStyle.lineColor = [CPTColor blackColor];
-    minorLineStyle.lineWidth = 1.0;
+    minorLineStyle.lineWidth = CPTFloat(1.0);
 
     CPTXYAxis *x                        = axisSet.xAxis;
     CPTMutableTextStyle *blackTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
     blackTextStyle.color    = [CPTColor blackColor];
-    blackTextStyle.fontSize = 14.0;
+    blackTextStyle.fontSize = CPTFloat(14.0);
     CPTMutableTextStyle *minorTickBlackTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
     minorTickBlackTextStyle.color    = [CPTColor blackColor];
-    minorTickBlackTextStyle.fontSize = 12.0;
+    minorTickBlackTextStyle.fontSize = CPTFloat(12.0);
     x.labelingPolicy                 = CPTAxisLabelingPolicyFixedInterval;
     x.majorIntervalLength            = CPTDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal    = CPTDecimalFromDouble(0.0);
@@ -77,8 +77,8 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
     x.majorTickLineStyle             = majorLineStyle;
     x.minorTickLineStyle             = minorLineStyle;
     x.axisLineStyle                  = majorLineStyle;
-    x.majorTickLength                = 7.0;
-    x.minorTickLength                = 5.0;
+    x.majorTickLength                = CPTFloat(7.0);
+    x.minorTickLength                = CPTFloat(5.0);
     x.labelTextStyle                 = blackTextStyle;
     x.minorTickLabelTextStyle        = blackTextStyle;
     x.titleTextStyle                 = blackTextStyle;
@@ -92,8 +92,8 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
     y.majorTickLineStyle          = majorLineStyle;
     y.minorTickLineStyle          = minorLineStyle;
     y.axisLineStyle               = majorLineStyle;
-    y.majorTickLength             = 7.0;
-    y.minorTickLength             = 5.0;
+    y.majorTickLength             = CPTFloat(7.0);
+    y.minorTickLength             = CPTFloat(5.0);
     y.labelTextStyle              = blackTextStyle;
     y.minorTickLabelTextStyle     = minorTickBlackTextStyle;
     y.titleTextStyle              = blackTextStyle;

@@ -133,7 +133,7 @@
     viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat) - 25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
 }
 
 -(void)testViewPointForDoublePrecisionPlotPointLog
@@ -165,7 +165,7 @@
     viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat) - 25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
 }
 
 #pragma mark -

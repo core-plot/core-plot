@@ -13,6 +13,7 @@
 
 -(void)updateNotifications;
 -(void)graphNeedsRedraw:(NSNotification *)notification;
+-(void)handlePinchGesture:(id)aPinchGestureRecognizer;
 
 @end
 
@@ -72,7 +73,7 @@
     self.allowPinchScaling = YES;
 
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
-    self.layer.sublayerTransform = CATransform3DMakeScale(1.0, -1.0, 1.0);
+    self.layer.sublayerTransform = CATransform3DMakeScale( (CGFloat)1.0, (CGFloat) - 1.0, (CGFloat)1.0 );
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -157,6 +158,7 @@
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
+
     if ( !collapsesLayers ) {
         pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
     }
@@ -191,10 +193,10 @@
 
 /// @cond
 
--(void)setAllowPinchScaling:(BOOL)yn
+-(void)setAllowPinchScaling:(BOOL)allowScaling
 {
-    if ( allowPinchScaling != yn ) {
-        allowPinchScaling = yn;
+    if ( allowPinchScaling != allowScaling ) {
+        allowPinchScaling = allowScaling;
         if ( allowPinchScaling ) {
             // Register for pinches
             Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
@@ -297,7 +299,7 @@
         hostedGraph.contentsScale = screen.scale;
     }
     else {
-        hostedGraph.contentsScale = 1.0;
+        hostedGraph.contentsScale = (CGFloat)1.0;
     }
     hostedGraph.hostingView = self;
 
@@ -314,10 +316,10 @@
     [self updateNotifications];
 }
 
--(void)setCollapsesLayers:(BOOL)yn
+-(void)setCollapsesLayers:(BOOL)collapse
 {
-    if ( yn != collapsesLayers ) {
-        collapsesLayers = yn;
+    if ( collapse != collapsesLayers ) {
+        collapsesLayers = collapse;
         if ( collapsesLayers ) {
             [hostedGraph removeFromSuperlayer];
             [self setNeedsDisplay];

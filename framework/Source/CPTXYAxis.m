@@ -43,7 +43,7 @@
 
 /** @property CPTConstraints *axisConstraints
  *  @brief The constraints used when positioning relative to the plot area.
- *  If @nil (the default), the axis is fixed relative to the plot space coordinates, 
+ *  If @nil (the default), the axis is fixed relative to the plot space coordinates,
  *  crossing the orthogonal axis at @ref orthogonalCoordinateDecimal and moves only
  *  whenever the plot space ranges change.
  *  @see @ref orthogonalCoordinateDecimal
@@ -227,20 +227,20 @@
         CGPoint startViewPoint = baseViewPoint;
         CGPoint endViewPoint   = baseViewPoint;
 
-        CGFloat startFactor = 0.0;
-        CGFloat endFactor   = 0.0;
+        CGFloat startFactor = CPTFloat(0.0);
+        CGFloat endFactor   = CPTFloat(0.0);
         switch ( self.tickDirection ) {
             case CPTSignPositive:
-                endFactor = 1.0;
+                endFactor = CPTFloat(1.0);
                 break;
 
             case CPTSignNegative:
-                endFactor = -1.0;
+                endFactor = -CPTFloat(1.0);
                 break;
 
             case CPTSignNone:
-                startFactor = -0.5;
-                endFactor   = 0.5;
+                startFactor = -CPTFloat(0.5);
+                endFactor   = CPTFloat(0.5);
                 break;
 
             default:
@@ -331,11 +331,11 @@
         if ( minCap || maxCap ) {
             switch ( self.coordinate ) {
                 case CPTCoordinateX:
-                    axisDirection = (range.lengthDouble >= 0.0) ? CGPointMake(1.0, 0.0) : CGPointMake(-1.0, 0.0);
+                    axisDirection = ( range.lengthDouble >= CPTFloat(0.0) ) ? CPTPointMake(1.0, 0.0) : CPTPointMake(-1.0, 0.0);
                     break;
 
                 case CPTCoordinateY:
-                    axisDirection = (range.lengthDouble >= 0.0) ? CGPointMake(0.0, 1.0) : CGPointMake(0.0, -1.0);
+                    axisDirection = ( range.lengthDouble >= CPTFloat(0.0) ) ? CPTPointMake(0.0, 1.0) : CPTPointMake(0.0, -1.0);
                     break;
 
                 default:
@@ -346,7 +346,7 @@
         if ( minCap ) {
             NSDecimal endPoint = range.minLimit;
             CGPoint viewPoint  = CPTAlignPointToUserSpace(context, [self viewPointForCoordinateDecimalNumber:endPoint]);
-            [minCap renderAsVectorInContext:context atPoint:viewPoint inDirection:CGPointMake(-axisDirection.x, -axisDirection.y)];
+            [minCap renderAsVectorInContext:context atPoint:viewPoint inDirection:CPTPointMake(-axisDirection.x, -axisDirection.y)];
         }
 
         if ( maxCap ) {
@@ -537,10 +537,10 @@
                         CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
 
                         // Fill band
-                        CGRect fillRect = CGRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                      MIN(startViewPoint.y, endViewPoint.y),
-                                                      ABS(endViewPoint.x - startViewPoint.x),
-                                                      ABS(endViewPoint.y - startViewPoint.y) );
+                        CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                       MIN(startViewPoint.y, endViewPoint.y),
+                                                       ABS(endViewPoint.x - startViewPoint.x),
+                                                       ABS(endViewPoint.y - startViewPoint.y) );
                         [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                     }
                 }
@@ -569,10 +569,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
 
                     // Fill band
-                    CGRect fillRect = CGRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                  MIN(startViewPoint.y, endViewPoint.y),
-                                                  ABS(endViewPoint.x - startViewPoint.x),
-                                                  ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                   MIN(startViewPoint.y, endViewPoint.y),
+                                                   ABS(endViewPoint.x - startViewPoint.x),
+                                                   ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
@@ -630,10 +630,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
 
                     // Fill band
-                    CGRect fillRect = CGRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                  MIN(startViewPoint.y, endViewPoint.y),
-                                                  ABS(endViewPoint.x - startViewPoint.x),
-                                                  ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                   MIN(startViewPoint.y, endViewPoint.y),
+                                                   ABS(endViewPoint.x - startViewPoint.x),
+                                                   ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
 
                     [bandRange release];

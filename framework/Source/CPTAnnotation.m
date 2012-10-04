@@ -60,8 +60,8 @@
         annotationHostLayer = nil;
         contentLayer        = nil;
         displacement        = CGPointZero;
-        contentAnchorPoint  = CGPointMake(0.5, 0.5);
-        rotation            = 0.0;
+        contentAnchorPoint  = CPTPointMake(0.5, 0.5);
+        rotation            = CPTFloat(0.0);
     }
     return self;
 }

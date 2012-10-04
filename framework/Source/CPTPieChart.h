@@ -61,10 +61,10 @@ CPTPieDirection;
  *  @link CPTPieChartDataSource::sliceFillsForPieChart:recordIndexRange: -sliceFillsForPieChart:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param pieChart The pie chart.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The pie slice fill for the slice with the given index.
  **/
--(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
+-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -83,10 +83,10 @@ CPTPieDirection;
  *  @link CPTPieChartDataSource::radialOffsetsForPieChart:recordIndexRange: -radialOffsetsForPieChart:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param pieChart The pie chart.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The radial offset in view coordinates. Zero is no offset.
  **/
--(CGFloat)radialOffsetForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
+-(CGFloat)radialOffsetForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
 /// @{
 
@@ -95,10 +95,10 @@ CPTPieDirection;
 
 /** @brief @optional Gets the legend title for the given pie chart slice.
  *  @param pieChart The pie chart.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The title text for the legend entry for the point with the given index.
  **/
--(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
+-(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
 /// @}
 @end
@@ -119,22 +119,22 @@ CPTPieDirection;
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The pie chart.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  **/
--(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index;
+-(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a pie slice was
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The pie chart.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+-(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

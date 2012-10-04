@@ -41,13 +41,13 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
  *  that will be drawn by the legend. Returning @NO will cause the legend to not draw the default
  *  legend graphics. It is then the delegate&rsquo;s responsiblity to do this.
  *  @param legend The legend.
- *  @param index The zero-based index of the legend entry for the given plot.
+ *  @param idx The zero-based index of the legend entry for the given plot.
  *  @param plot The plot.
  *  @param rect The bounding rectangle to use when drawing the swatch.
  *  @param context The graphics context to draw into.
  *  @return @YES if the legend should draw the default swatch or @NO if the delegate handled the drawing.
  **/
--(BOOL)legend:(CPTLegend *)legend shouldDrawSwatchAtIndex:(NSUInteger)index forPlot:(CPTPlot *)plot inRect:(CGRect)rect inContext:(CGContextRef)context;
+-(BOOL)legend:(CPTLegend *)legend shouldDrawSwatchAtIndex:(NSUInteger)idx forPlot:(CPTPlot *)plot inRect:(CGRect)rect inContext:(CGContextRef)context;
 
 /// @}
 
@@ -118,11 +118,11 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @name Plots
 /// @{
 -(NSArray *)allPlots;
--(CPTPlot *)plotAtIndex:(NSUInteger)index;
+-(CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier;
 
 -(void)addPlot:(CPTPlot *)plot;
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index;
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx;
 -(void)removePlot:(CPTPlot *)plot;
 -(void)removePlotWithIdentifier:(id<NSCopying>)identifier;
 /// @}

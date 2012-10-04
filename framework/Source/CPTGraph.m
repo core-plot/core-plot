@@ -189,10 +189,10 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         plots       = [[NSMutableArray alloc] init];
 
         // Margins
-        self.paddingLeft   = 20.0;
-        self.paddingTop    = 20.0;
-        self.paddingRight  = 20.0;
-        self.paddingBottom = 20.0;
+        self.paddingLeft   = CPTFloat(20.0);
+        self.paddingTop    = CPTFloat(20.0);
+        self.paddingRight  = CPTFloat(20.0);
+        self.paddingBottom = CPTFloat(20.0);
 
         // Plot area
         CPTPlotAreaFrame *newArea = [(CPTPlotAreaFrame *)[CPTPlotAreaFrame alloc] initWithFrame:self.bounds];
@@ -386,12 +386,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 }
 
 /** @brief Gets the plot at the given index in the plot array.
- *  @param index An index within the bounds of the plot array.
+ *  @param idx An index within the bounds of the plot array.
  *  @return The plot at the given index.
  **/
--(CPTPlot *)plotAtIndex:(NSUInteger)index
+-(CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
-    return [self.plots objectAtIndex:index];
+    return [self.plots objectAtIndex:idx];
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
@@ -451,25 +451,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 /** @brief Add a plot to the default plot space at the given index in the plot array.
  *  @param plot The plot.
- *  @param index An index within the bounds of the plot array.
+ *  @param idx An index within the bounds of the plot array.
  **/
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx
 {
-    [self insertPlot:plot atIndex:index intoPlotSpace:self.defaultPlotSpace];
+    [self insertPlot:plot atIndex:idx intoPlotSpace:self.defaultPlotSpace];
 }
 
 /** @brief Add a plot to the given plot space at the given index in the plot array.
  *  @param plot The plot.
- *  @param index An index within the bounds of the plot array.
+ *  @param idx An index within the bounds of the plot array.
  *  @param space The plot space.
  **/
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space
+-(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(CPTPlotSpace *)space
 {
     if ( plot ) {
-        [self.plots insertObject:plot atIndex:index];
+        [self.plots insertObject:plot atIndex:idx];
         plot.plotSpace = space;
         plot.graph     = self;
-        [self.plotAreaFrame.plotGroup insertPlot:plot atIndex:index];
+        [self.plotAreaFrame.plotGroup insertPlot:plot atIndex:idx];
     }
 }
 
@@ -505,12 +505,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 }
 
 /** @brief Gets the plot space at the given index in the plot space array.
- *  @param index An index within the bounds of the plot space array.
+ *  @param idx An index within the bounds of the plot space array.
  *  @return The plot space at the given index.
  **/
--(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)index
+-(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx
 {
-    return self.plotSpaces.count > index ? [self.plotSpaces objectAtIndex:index] : nil;
+    return self.plotSpaces.count > idx ? [self.plotSpaces objectAtIndex:idx] : nil;
 }
 
 /** @brief Gets the plot space with the given identifier from the plot space array.
@@ -708,39 +708,39 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
     switch ( self.legendAnchor ) {
         case CPTRectAnchorBottomLeft:
-            contentAnchor = CGPointMake(0.0, 0.0);
+            contentAnchor = CPTPointMake(0.0, 0.0);
             break;
 
         case CPTRectAnchorBottom:
-            contentAnchor = CGPointMake(0.5, 0.0);
+            contentAnchor = CPTPointMake(0.5, 0.0);
             break;
 
         case CPTRectAnchorBottomRight:
-            contentAnchor = CGPointMake(1.0, 0.0);
+            contentAnchor = CPTPointMake(1.0, 0.0);
             break;
 
         case CPTRectAnchorLeft:
-            contentAnchor = CGPointMake(0.0, 0.5);
+            contentAnchor = CPTPointMake(0.0, 0.5);
             break;
 
         case CPTRectAnchorRight:
-            contentAnchor = CGPointMake(1.0, 0.5);
+            contentAnchor = CPTPointMake(1.0, 0.5);
             break;
 
         case CPTRectAnchorTopLeft:
-            contentAnchor = CGPointMake(0.0, 1.0);
+            contentAnchor = CPTPointMake(0.0, 1.0);
             break;
 
         case CPTRectAnchorTop:
-            contentAnchor = CGPointMake(0.5, 1.0);
+            contentAnchor = CPTPointMake(0.5, 1.0);
             break;
 
         case CPTRectAnchorTopRight:
-            contentAnchor = CGPointMake(1.0, 1.0);
+            contentAnchor = CPTPointMake(1.0, 1.0);
             break;
 
         case CPTRectAnchorCenter:
-            contentAnchor = CGPointMake(0.5, 0.5);
+            contentAnchor = CPTPointMake(0.5, 0.5);
             break;
 
         default:

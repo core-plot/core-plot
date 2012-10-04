@@ -63,7 +63,7 @@ typedef struct CGPointError CGPointError;
 -(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 -(void)drawRangeInContext:(CGContextRef)context lineStyle:(CPTLineStyle *)lineStyle viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
--(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)index;
+-(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)idx;
 
 @end
 
@@ -428,17 +428,17 @@ typedef struct CGPointError CGPointError;
             if ( drawPointFlags[i] ) {
                 CGFloat x   = viewPoints[i].x;
                 CGFloat y   = viewPoints[i].y;
-                CGPoint pos = CPTAlignPointToUserSpace( context, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGPoint pos = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignPointToUserSpace( context, CGPointMake(x, viewPoints[i].high) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
                 viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignPointToUserSpace( context, CGPointMake(x, viewPoints[i].low) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
                 viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignPointToUserSpace( context, CGPointMake(viewPoints[i].left, y) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
                 viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignPointToUserSpace( context, CGPointMake(viewPoints[i].right, y) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
         }
@@ -448,17 +448,17 @@ typedef struct CGPointError CGPointError;
             if ( drawPointFlags[i] ) {
                 CGFloat x   = viewPoints[i].x;
                 CGFloat y   = viewPoints[i].y;
-                CGPoint pos = CPTAlignIntegralPointToUserSpace( context, CGPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGPoint pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CGPointMake(x, viewPoints[i].high) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
                 viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CGPointMake(x, viewPoints[i].low) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
                 viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CGPointMake(viewPoints[i].left, y) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
                 viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CGPointMake(viewPoints[i].right, y) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
         }
@@ -522,8 +522,8 @@ typedef struct CGPointError CGPointError;
                 NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
                 NSUInteger maxIndex   = NSMaxRange(indexRange);
 
-                for ( NSUInteger index = indexRange.location; index < maxIndex; index++ ) {
-                    CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:index];
+                for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+                    CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:idx];
                     if ( dataSourceLineStyle ) {
                         [array addObject:dataSourceLineStyle];
                     }
@@ -644,8 +644,8 @@ typedef struct CGPointError CGPointError;
             CGPathRelease(fillPath);
         }
 
-        CGSize halfGapSize   = CGSizeMake(self.gapWidth * (CGFloat)0.5, self.gapHeight * (CGFloat)0.5);
-        CGFloat halfBarWidth = self.barWidth * (CGFloat)0.5;
+        CGSize halfGapSize   = CPTSizeMake( self.gapWidth * CPTFloat(0.5), self.gapHeight * CPTFloat(0.5) );
+        CGFloat halfBarWidth = self.barWidth * CPTFloat(0.5);
         BOOL alignPoints     = self.alignsPointsToPixels;
 
         for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
@@ -674,8 +674,8 @@ typedef struct CGPointError CGPointError;
 
         // centre-high
         if ( !isnan(viewPoint->high) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y + halfGapSize.height);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->x, viewPoint->high);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x, viewPoint->y + halfGapSize.height);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x, viewPoint->high);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -686,8 +686,8 @@ typedef struct CGPointError CGPointError;
 
         // centre-low
         if ( !isnan(viewPoint->low) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x, viewPoint->y - halfGapSize.height);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->x, viewPoint->low);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x, viewPoint->y - halfGapSize.height);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x, viewPoint->low);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -698,8 +698,8 @@ typedef struct CGPointError CGPointError;
 
         // top bar
         if ( !isnan(viewPoint->high) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->high);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfBarWidth, viewPoint->high);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -710,8 +710,8 @@ typedef struct CGPointError CGPointError;
 
         // bottom bar
         if ( !isnan(viewPoint->low) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfBarWidth, viewPoint->low);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfBarWidth, viewPoint->low);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -722,8 +722,8 @@ typedef struct CGPointError CGPointError;
 
         // centre-left
         if ( !isnan(viewPoint->left) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x - halfGapSize.width, viewPoint->y);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->left, viewPoint->y);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfGapSize.width, viewPoint->y);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->left, viewPoint->y);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -734,8 +734,8 @@ typedef struct CGPointError CGPointError;
 
         // centre-right
         if ( !isnan(viewPoint->right) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->x + halfGapSize.width, viewPoint->y);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->right, viewPoint->y);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->x + halfGapSize.width, viewPoint->y);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->right, viewPoint->y);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -746,8 +746,8 @@ typedef struct CGPointError CGPointError;
 
         // left bar
         if ( !isnan(viewPoint->left) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->left, viewPoint->y - halfBarWidth);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->left, viewPoint->y - halfBarWidth);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -758,8 +758,8 @@ typedef struct CGPointError CGPointError;
 
         // right bar
         if ( !isnan(viewPoint->right) ) {
-            CGPoint alignedHighPoint = CGPointMake(viewPoint->right, viewPoint->y - halfBarWidth);
-            CGPoint alignedLowPoint  = CGPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
+            CGPoint alignedHighPoint = CPTPointMake(viewPoint->right, viewPoint->y - halfBarWidth);
+            CGPoint alignedLowPoint  = CPTPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
             if ( alignPoints ) {
                 alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
                 alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
@@ -776,9 +776,9 @@ typedef struct CGPointError CGPointError;
     }
 }
 
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    [super drawSwatchForLegend:legend atIndex:index inRect:rect inContext:context];
+    [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
     CPTFill *theFill = self.areaFill;
 
@@ -786,7 +786,7 @@ typedef struct CGPointError CGPointError;
         CGPathRef swatchPath;
         CGFloat radius = legend.swatchCornerRadius;
         if ( radius > 0.0 ) {
-            radius     = MIN(MIN(radius, rect.size.width / (CGFloat)2.0), rect.size.height / (CGFloat)2.0);
+            radius     = MIN( MIN( radius, rect.size.width / CPTFloat(2.0) ), rect.size.height / CPTFloat(2.0) );
             swatchPath = CreateRoundedRectPath(rect, radius);
         }
         else {
@@ -802,7 +802,7 @@ typedef struct CGPointError CGPointError;
         CGPathRelease(swatchPath);
     }
 
-    CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:index];
+    CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];
 
     if ( [theBarLineStyle isKindOfClass:[CPTLineStyle class]] ) {
         CGPointError viewPoint;
@@ -816,15 +816,15 @@ typedef struct CGPointError CGPointError;
         [self drawRangeInContext:context
                        lineStyle:theBarLineStyle
                        viewPoint:&viewPoint
-                     halfGapSize:CGSizeMake(MIN(self.gapWidth, rect.size.width / (CGFloat)2.0) * (CGFloat)0.5, MIN(self.gapHeight, rect.size.height / (CGFloat)2.0) * (CGFloat)0.5)
-                    halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * (CGFloat)0.5
+                     halfGapSize:CPTSizeMake( MIN( self.gapWidth, rect.size.width / CPTFloat(2.0) ) * CPTFloat(0.5), MIN( self.gapHeight, rect.size.height / CPTFloat(2.0) ) * CPTFloat(0.5) )
+                    halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * CPTFloat(0.5)
                      alignPoints:YES];
     }
 }
 
--(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)index
+-(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)idx
 {
-    CPTLineStyle *theBarLineStyle = [self cachedValueForKey:CPTRangePlotBindingBarLineStyles recordIndex:index];
+    CPTLineStyle *theBarLineStyle = [self cachedValueForKey:CPTRangePlotBindingBarLineStyles recordIndex:idx];
 
     if ( (theBarLineStyle == nil) || (theBarLineStyle == [CPTPlot nilData]) ) {
         theBarLineStyle = self.barLineStyle;
@@ -911,9 +911,9 @@ typedef struct CGPointError CGPointError;
 
 /// @cond
 
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index
+-(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
 {
-    NSNumber *xValue = [self cachedNumberForField:CPTRangePlotFieldX recordIndex:index];
+    NSNumber *xValue = [self cachedNumberForField:CPTRangePlotFieldX recordIndex:idx];
 
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
@@ -923,7 +923,7 @@ typedef struct CGPointError CGPointError;
     }
 
     NSNumber *yValue;
-    NSArray *yValues       = [NSArray arrayWithObject:[self cachedNumberForField:CPTRangePlotFieldY recordIndex:index]];
+    NSArray *yValues       = [NSArray arrayWithObject:[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
     NSArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
         yValue = [yValuesSorted lastObject];
@@ -936,10 +936,10 @@ typedef struct CGPointError CGPointError;
     label.contentLayer.hidden = self.hidden || isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 
     if ( positiveDirection ) {
-        label.displacement = CGPointMake(0.0, self.labelOffset);
+        label.displacement = CPTPointMake(0.0, self.labelOffset);
     }
     else {
-        label.displacement = CGPointMake(0.0, -self.labelOffset);
+        label.displacement = CPTPointMake(0.0, -self.labelOffset);
     }
 }
 
@@ -966,7 +966,7 @@ typedef struct CGPointError CGPointError;
         for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
                 lastViewPoint = viewPoints[i];
-                CGPoint lastPoint       = CGPointMake(lastViewPoint.x, lastViewPoint.y);
+                CGPoint lastPoint       = CPTPointMake(lastViewPoint.x, lastViewPoint.y);
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lastPoint);
                 if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
                     minimumDistanceSquared = distanceSquared;
@@ -1035,14 +1035,14 @@ typedef struct CGPointError CGPointError;
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
-        NSUInteger index      = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
-        if ( index != NSNotFound ) {
+        if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
-                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index];
+                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx];
             }
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
-                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:index withEvent:event];
+                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx withEvent:event];
             }
             return YES;
         }

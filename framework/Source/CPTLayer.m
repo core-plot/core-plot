@@ -33,7 +33,7 @@
 @property (nonatomic, readwrite, assign) BOOL useFastRendering;
 
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
--(NSString *)subLayersAtIndex:(NSUInteger)index;
+-(NSString *)subLayersAtIndex:(NSUInteger)idx;
 
 @end
 
@@ -164,10 +164,10 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super init]) ) {
-        paddingLeft          = 0.0;
-        paddingTop           = 0.0;
-        paddingRight         = 0.0;
-        paddingBottom        = 0.0;
+        paddingLeft          = CPTFloat(0.0);
+        paddingTop           = CPTFloat(0.0);
+        paddingRight         = CPTFloat(0.0);
+        paddingBottom        = CPTFloat(0.0);
         masksToBorder        = NO;
         shadow               = nil;
         renderingRecursively = NO;
@@ -383,8 +383,8 @@
         if ( CATransform3DIsAffine(transform3D) ) {
             CGRect selfBounds    = self.bounds;
             CGPoint anchorPoint  = self.anchorPoint;
-            CGPoint anchorOffset = CGPointMake(anchorOffset.x = selfBounds.origin.x + anchorPoint.x * selfBounds.size.width,
-                                               anchorOffset.y = selfBounds.origin.y + anchorPoint.y * selfBounds.size.height);
+            CGPoint anchorOffset = CPTPointMake(anchorOffset.x = selfBounds.origin.x + anchorPoint.x * selfBounds.size.width,
+                                                anchorOffset.y = selfBounds.origin.y + anchorPoint.y * selfBounds.size.height);
 
             CGAffineTransform affineTransform = CGAffineTransformMakeTranslation(-anchorOffset.x, -anchorOffset.y);
             affineTransform = CGAffineTransformConcat( affineTransform, CATransform3DGetAffineTransform(transform3D) );
@@ -417,7 +417,7 @@
     NSMutableData *pdfData         = [[NSMutableData alloc] init];
     CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (CFMutableDataRef)pdfData );
 
-    const CGRect mediaBox   = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
+    const CGRect mediaBox   = CPTRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
     CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
 
     CPTPushCGContext(pdfContext);
@@ -550,14 +550,14 @@
     CGRect selfBounds   = self.bounds;
     CGSize subLayerSize = selfBounds.size;
     subLayerSize.width  -= leftPadding + rightPadding;
-    subLayerSize.width   = MAX(subLayerSize.width, (CGFloat)0.0);
+    subLayerSize.width   = MAX( subLayerSize.width, CPTFloat(0.0) );
     subLayerSize.width   = round(subLayerSize.width);
     subLayerSize.height -= topPadding + bottomPadding;
-    subLayerSize.height  = MAX(subLayerSize.height, (CGFloat)0.0);
+    subLayerSize.height  = MAX( subLayerSize.height, CPTFloat(0.0) );
     subLayerSize.height  = round(subLayerSize.height);
 
     CGRect subLayerFrame;
-    subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
+    subLayerFrame.origin = CPTPointMake( round(leftPadding), round(bottomPadding) );
     subLayerFrame.size   = subLayerSize;
 
     NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
@@ -672,7 +672,7 @@
         CGRect selfBounds = self.bounds;
 
         if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
+            CGFloat radius = MIN( MIN( self.cornerRadius, selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
             path                 = CreateRoundedRectPath(selfBounds, radius);
             self.outerBorderPath = path;
             CGPathRelease(path);
@@ -835,7 +835,7 @@
 
 -(CGFloat)contentsScale
 {
-    CGFloat scale = 1.0;
+    CGFloat scale = CPTFloat(1.0);
 
     if ( [CALayer instancesRespondToSelector:@selector(contentsScale)] ) {
         scale = super.contentsScale;
@@ -911,18 +911,18 @@
 
 /// @cond
 
--(NSString *)subLayersAtIndex:(NSUInteger)index
+-(NSString *)subLayersAtIndex:(NSUInteger)idx
 {
     NSMutableString *result = [NSMutableString string];
 
-    for ( NSUInteger i = 0; i < index; i++ ) {
+    for ( NSUInteger i = 0; i < idx; i++ ) {
         [result appendString:@"    "];
     }
     [result appendString:[self description]];
 
     for ( CPTLayer *sublayer in self.sublayers ) {
         [result appendString:@"\n"];
-        [result appendString:[sublayer subLayersAtIndex:index + 1]];
+        [result appendString:[sublayer subLayersAtIndex:idx + 1]];
     }
 
     return result;

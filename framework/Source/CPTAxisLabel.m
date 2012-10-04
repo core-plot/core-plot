@@ -68,8 +68,8 @@
     if ( layer ) {
         if ( (self = [super init]) ) {
             contentLayer = [layer retain];
-            offset       = 20.0;
-            rotation     = 0.0;
+            offset       = CPTFloat(20.0);
+            rotation     = CPTFloat(0.0);
             alignment    = CPTAlignmentCenter;
             tickLocation = CPTDecimalFromInteger(0);
         }
@@ -141,13 +141,13 @@
 
     CGPoint newPosition = point;
     CGFloat *value      = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
-    CGFloat angle       = 0.0;
+    CGFloat angle       = CPTFloat(0.0);
 
     CGFloat labelRotation = self.rotation;
     if ( isnan(labelRotation) ) {
-        labelRotation = (coordinate == CPTCoordinateX ? (CGFloat)M_PI_2 : 0.0);
+        labelRotation = ( coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0) );
     }
-    content.transform = CATransform3DMakeRotation(labelRotation, 0.0, 0.0, 1.0);
+    content.transform = CATransform3DMakeRotation( labelRotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
@@ -158,15 +158,15 @@
 
             switch ( coordinate ) {
                 case CPTCoordinateX:
-                    angle = (CGFloat)M_PI;
+                    angle = CPTFloat(M_PI);
 
                     switch ( self.alignment ) {
                         case CPTAlignmentBottom:
-                            newPosition.y += contentFrame.size.height / (CGFloat)2.0;
+                            newPosition.y += contentFrame.size.height / CPTFloat(2.0);
                             break;
 
                         case CPTAlignmentTop:
-                            newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
+                            newPosition.y -= contentFrame.size.height / CPTFloat(2.0);
                             break;
 
                         default: // middle
@@ -176,15 +176,15 @@
                     break;
 
                 case CPTCoordinateY:
-                    angle = -(CGFloat)M_PI_2;
+                    angle = -CPTFloat(M_PI_2);
 
                     switch ( self.alignment ) {
                         case CPTAlignmentLeft:
-                            newPosition.x += contentFrame.size.width / (CGFloat)2.0;
+                            newPosition.x += contentFrame.size.width / CPTFloat(2.0);
                             break;
 
                         case CPTAlignmentRight:
-                            newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
+                            newPosition.x -= contentFrame.size.width / CPTFloat(2.0);
                             break;
 
                         default: // center
@@ -208,11 +208,11 @@
 
                     switch ( self.alignment ) {
                         case CPTAlignmentBottom:
-                            newPosition.y += contentFrame.size.height / (CGFloat)2.0;
+                            newPosition.y += contentFrame.size.height / CPTFloat(2.0);
                             break;
 
                         case CPTAlignmentTop:
-                            newPosition.y -= contentFrame.size.height / (CGFloat)2.0;
+                            newPosition.y -= contentFrame.size.height / CPTFloat(2.0);
                             break;
 
                         default: // middle
@@ -222,15 +222,15 @@
                     break;
 
                 case CPTCoordinateY:
-                    angle = (CGFloat)M_PI_2;
+                    angle = CPTFloat(M_PI_2);
 
                     switch ( self.alignment ) {
                         case CPTAlignmentLeft:
-                            newPosition.x += contentFrame.size.width / (CGFloat)2.0;
+                            newPosition.x += contentFrame.size.width / CPTFloat(2.0);
                             break;
 
                         case CPTAlignmentRight:
-                            newPosition.x -= contentFrame.size.width / (CGFloat)2.0;
+                            newPosition.x -= contentFrame.size.width / CPTFloat(2.0);
                             break;
 
                         default: // center
@@ -250,20 +250,20 @@
             break;
     }
 
-    angle += M_PI;
+    angle += CPTFloat(M_PI);
     angle -= labelRotation;
     CGFloat newAnchorX = cos(angle);
     CGFloat newAnchorY = sin(angle);
 
     if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
         newAnchorX /= ABS(newAnchorY);
-        newAnchorY  = signbit(newAnchorY) ? -1.0 : 1.0;
+        newAnchorY  = signbit(newAnchorY) ? -CPTFloat(1.0) : CPTFloat(1.0);
     }
     else {
         newAnchorY /= ABS(newAnchorX);
-        newAnchorX  = signbit(newAnchorX) ? -1.0 : 1.0;
+        newAnchorX  = signbit(newAnchorX) ? -CPTFloat(1.0) : CPTFloat(1.0);
     }
-    CGPoint anchor = CGPointMake( (newAnchorX + (CGFloat)1.0) / (CGFloat)2.0, (newAnchorY + (CGFloat)1.0) / (CGFloat)2.0 );
+    CGPoint anchor = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
 
     content.anchorPoint = anchor;
     content.position    = newPosition;
@@ -279,7 +279,7 @@
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-    [self positionRelativeToViewPoint:CGPointMake( (firstPoint.x + secondPoint.x) / (CGFloat)2.0, (firstPoint.y + secondPoint.y) / (CGFloat)2.0 )
+    [self positionRelativeToViewPoint:CPTPointMake( (firstPoint.x + secondPoint.x) / CPTFloat(2.0), (firstPoint.y + secondPoint.y) / CPTFloat(2.0) )
                         forCoordinate:coordinate
                           inDirection:direction];
 }

@@ -17,7 +17,7 @@
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {
     UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-    CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake(10000.0, 10000.0)];
+    CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake( (CGFloat)10000.0, (CGFloat)10000.0 )];
 
     return textSize;
 }

@@ -97,7 +97,7 @@
     NSInteger *intData   = (NSInteger *)[data mutableBytes];
 
     for ( NSUInteger i = 0; i < nElements; i++ ) {
-        intData[i] = i;
+        intData[i] = (NSInteger)i;
     }
 
     CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
@@ -160,7 +160,7 @@
     data   = [NSMutableData dataWithLength:nElems * sizeof(char)];
     char *charSamples = (char *)[data mutableBytes];
     for ( NSUInteger i = 0; i < nElems; i++ ) {
-        charSamples[i] = sin(i);
+        charSamples[i] = (char)sin(i);
     }
 
     nd = [[CPTMutableNumericData alloc] initWithData:data

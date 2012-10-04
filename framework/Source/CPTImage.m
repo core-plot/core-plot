@@ -1,5 +1,6 @@
 #import "CPTImage.h"
 
+#import "CPTDefinitions.h"
 #import "NSCoderExtensions.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -89,7 +90,7 @@
  **/
 -(id)initWithCGImage:(CGImageRef)anImage
 {
-    return [self initWithCGImage:anImage scale:1.0];
+    return [self initWithCGImage:anImage scale:CPTFloat(1.0)];
 }
 
 /// @name Initialization
@@ -118,7 +119,7 @@
 {
     CGDataProviderRef dataProvider = NULL;
     CGImageRef cgImage             = NULL;
-    CGFloat imageScale             = 1.0;
+    CGFloat imageScale             = CPTFloat(1.0);
 
     // Try to load @2x file if the system supports hi-dpi display
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -146,7 +147,7 @@
         }
         [hiDpiPath release];
         if ( !dataProvider ) {
-            imageScale = 1.0;
+            imageScale = CPTFloat(1.0);
         }
     }
 
@@ -451,7 +452,7 @@
 
     if ( theImage ) {
         CGFloat imageScale   = self.scale;
-        CGFloat contextScale = 1.0;
+        CGFloat contextScale = CPTFloat(1.0);
 
         if ( rect.size.height != 0.0 ) {
             CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
@@ -469,7 +470,7 @@
             }
             CGContextScaleCTM(context, scaleRatio, scaleRatio);
 
-            CGRect imageBounds = CGRectMake( 0.0, 0.0, (CGFloat)CGImageGetWidth(theImage), (CGFloat)CGImageGetHeight(theImage) );
+            CGRect imageBounds = CPTRectMake( 0.0, 0.0, CGImageGetWidth(theImage), CGImageGetHeight(theImage) );
             CGContextDrawTiledImage(context, imageBounds, theImage);
         }
         else {

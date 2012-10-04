@@ -100,7 +100,7 @@
             self.layer.contentsScale = myWindow.backingScaleFactor;
         }
         else {
-            self.layer.contentsScale = 1.0;
+            self.layer.contentsScale = CPTFloat(1.0);
         }
 
         if ( ![NSGraphicsContext currentContextDrawingToScreen] ) {
@@ -112,14 +112,14 @@
             CGRect sourceRect      = NSRectToCGRect(self.frame);
 
             // scale the view isotropically so that it fits on the printed page
-            CGFloat widthScale  = (sourceRect.size.width != 0.0) ? destinationRect.size.width / sourceRect.size.width : 1.0;
-            CGFloat heightScale = (sourceRect.size.height != 0.0) ? destinationRect.size.height / sourceRect.size.height : 1.0;
+            CGFloat widthScale  = ( sourceRect.size.width != CPTFloat(0.0) ) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);
+            CGFloat heightScale = ( sourceRect.size.height != CPTFloat(0.0) ) ? destinationRect.size.height / sourceRect.size.height : CPTFloat(1.0);
             CGFloat scale       = MIN(widthScale, heightScale);
 
             // position the view so that its centered on the printed page
             CGPoint offset = destinationRect.origin;
-            offset.x += ( ( destinationRect.size.width - (sourceRect.size.width * scale) ) / 2.0 );
-            offset.y += ( ( destinationRect.size.height - (sourceRect.size.height * scale) ) / 2.0 );
+            offset.x += ( ( destinationRect.size.width - (sourceRect.size.width * scale) ) / CPTFloat(2.0) );
+            offset.y += ( ( destinationRect.size.height - (sourceRect.size.height * scale) ) / CPTFloat(2.0) );
 
             NSAffineTransform *transform = [NSAffineTransform transform];
             [transform translateXBy:offset.x yBy:offset.y];
@@ -221,7 +221,7 @@
                 myLayer.contentsScale = myWindow.backingScaleFactor;
             }
             else {
-                myLayer.contentsScale = 1.0;
+                myLayer.contentsScale = CPTFloat(1.0);
             }
 
             [myLayer addSublayer:hostedGraph];

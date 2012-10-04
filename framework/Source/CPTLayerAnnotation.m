@@ -129,7 +129,7 @@
             CGFloat yPosition = [self.yConstraints positionForLowerBound:CGRectGetMinY(anchorLayerBounds)
                                                               upperBound:CGRectGetMaxY(anchorLayerBounds)];
 
-            CGPoint referencePoint = CGPointMake(xPosition, yPosition);
+            CGPoint referencePoint = CPTPointMake(xPosition, yPosition);
             CGPoint newPosition    = [theAnchorLayer convertPoint:referencePoint toLayer:hostLayer];
 
             CGPoint offset = self.displacement;
@@ -138,7 +138,7 @@
 
             content.anchorPoint = self.contentAnchorPoint;
             content.position    = newPosition;
-            content.transform   = CATransform3DMakeRotation(self.rotation, 0.0, 0.0, 1.0);
+            content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
             [content pixelAlign];
             [content setNeedsDisplay];
         }
@@ -159,48 +159,48 @@
 
     switch ( self.rectAnchor ) {
         case CPTRectAnchorRight:
-            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
             break;
 
         case CPTRectAnchorTopRight:
-            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorTop:
-            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorTopLeft:
-            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorLeft:
-            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
             break;
 
         case CPTRectAnchorBottomLeft:
-            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorBottom:
-            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorBottomRight:
-            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:0.0];
-            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:0.0];
+            xConstraint = [[CPTConstraints alloc] initWithUpperOffset:CPTFloat(0.0)];
+            yConstraint = [[CPTConstraints alloc] initWithLowerOffset:CPTFloat(0.0)];
             break;
 
         case CPTRectAnchorCenter:
-            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
-            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:0.5];
+            xConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
+            yConstraint = [[CPTConstraints alloc] initWithRelativeOffset:CPTFloat(0.5)];
             break;
     }
 

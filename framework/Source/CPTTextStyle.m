@@ -1,6 +1,7 @@
 #import "CPTTextStyle.h"
 
 #import "CPTColor.h"
+#import "CPTDefinitions.h"
 #import "CPTMutableTextStyle.h"
 #import "NSCoderExtensions.h"
 
@@ -74,7 +75,7 @@
 {
     if ( (self = [super init]) ) {
         fontName      = @"Helvetica";
-        fontSize      = 12.0;
+        fontSize      = CPTFloat(12.0);
         color         = [[CPTColor blackColor] retain];
         textAlignment = CPTTextAlignmentLeft;
     }

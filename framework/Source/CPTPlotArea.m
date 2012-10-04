@@ -296,21 +296,21 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
     sublayerBounds.origin = CGPointZero;
     CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
-    sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
+    sublayerPosition = CPTPointMake(-sublayerPosition.x, -sublayerPosition.y);
 
     NSSet *excludedLayers = [self sublayersExcludedFromAutomaticLayout];
     for ( CALayer *subLayer in self.sublayers ) {
         if ( [excludedLayers containsObject:subLayer] ) {
             continue;
         }
-        subLayer.frame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
+        subLayer.frame = CPTRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
     }
 
     // make the plot group the same size as the plot area to clip the plots
     CPTPlotGroup *thePlotGroup = self.plotGroup;
     if ( thePlotGroup ) {
         CGSize selfBoundsSize = self.bounds.size;
-        thePlotGroup.frame = CGRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
+        thePlotGroup.frame = CPTRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
     }
 }
 
@@ -325,8 +325,8 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 {
     CPTGraphLayerType *buLayerOrder = self.bottomUpLayerOrder;
 
-    for ( CPTGraphLayerType i = 0; i < kCPTNumberOfLayers; i++ ) {
-        *(buLayerOrder++) = i;
+    for ( int i = 0; i < kCPTNumberOfLayers; i++ ) {
+        *(buLayerOrder++) = (CPTGraphLayerType)i;
     }
 
     NSArray *tdLayerOrder = self.topDownLayerOrder;
@@ -364,7 +364,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 -(unsigned)indexForLayerType:(CPTGraphLayerType)layerType
 {
     CPTGraphLayerType *buLayerOrder = self.bottomUpLayerOrder;
-    unsigned index                  = 0;
+    unsigned idx                    = 0;
 
     for ( NSInteger i = 0; i < kCPTNumberOfLayers; i++ ) {
         if ( buLayerOrder[i] == layerType ) {
@@ -373,42 +373,42 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
         switch ( buLayerOrder[i] ) {
             case CPTGraphLayerTypeMinorGridLines:
                 if ( self.minorGridLineGroup ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeMajorGridLines:
                 if ( self.majorGridLineGroup ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeAxisLines:
                 if ( self.axisSet ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypePlots:
                 if ( self.plotGroup ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeAxisLabels:
                 if ( self.axisLabelGroup ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeAxisTitles:
                 if ( self.axisTitleGroup ) {
-                    index++;
+                    idx++;
                 }
                 break;
         }
     }
-    return index;
+    return idx;
 }
 
 /// @endcond
@@ -532,7 +532,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
  **/
 -(unsigned)sublayerIndexForAxis:(CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
 {
-    unsigned index = 0;
+    unsigned idx = 0;
 
     for ( CPTAxis *currentAxis in self.axisSet.axes ) {
         if ( currentAxis == axis ) {
@@ -542,25 +542,25 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
         switch ( layerType ) {
             case CPTGraphLayerTypeMinorGridLines:
                 if ( currentAxis.minorGridLineStyle ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeMajorGridLines:
                 if ( currentAxis.majorGridLineStyle ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeAxisLabels:
                 if ( currentAxis.axisLabels.count > 0 ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
             case CPTGraphLayerTypeAxisTitles:
                 if ( currentAxis.axisTitle ) {
-                    index++;
+                    idx++;
                 }
                 break;
 
@@ -569,7 +569,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
         }
     }
 
-    return index;
+    return idx;
 }
 
 #pragma mark -

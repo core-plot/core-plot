@@ -60,11 +60,11 @@
 
 /// @name Samples
 /// @{
--(NSUInteger)sampleIndex:(NSUInteger)index, ...;
+-(NSUInteger)sampleIndex:(NSUInteger)idx, ...;
 -(void *)samplePointer:(NSUInteger)sample;
--(void *)samplePointerAtIndex:(NSUInteger)index, ...;
+-(void *)samplePointerAtIndex:(NSUInteger)idx, ...;
 -(NSNumber *)sampleValue:(NSUInteger)sample;
--(NSNumber *)sampleValueAtIndex:(NSUInteger)index, ...;
+-(NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
 -(NSArray *)sampleArray;
 /// @}
 

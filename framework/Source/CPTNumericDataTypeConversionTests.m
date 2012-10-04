@@ -90,7 +90,7 @@ static const double precision           = 1.0e-6;
     NSInteger *samples  = (NSInteger *)[data mutableBytes];
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = sin(i) * 1000.0;
+        samples[i] = (NSInteger)(sin(i) * 1000.0);
     }
 
     CPTNumericData *intData = [[CPTNumericData alloc] initWithData:data
@@ -264,7 +264,7 @@ static const double precision           = 1.0e-6;
     NSInteger *samples  = (NSInteger *)[data mutableBytes];
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = sin(i) * 1000.0;
+        samples[i] = (NSInteger)(sin(i) * 1000.0);
     }
     CPTNumericDataType theDataType = CPTDataType( CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() );
 

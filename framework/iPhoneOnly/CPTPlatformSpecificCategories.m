@@ -26,7 +26,7 @@
     CGSize boundsSize = self.bounds.size;
 
     if ( UIGraphicsBeginImageContextWithOptions ) {
-        UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, 0.0);
+        UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, (CGFloat)0.0);
     }
     else {
         UIGraphicsBeginImageContext(boundsSize);
@@ -36,8 +36,8 @@
     CGContextSaveGState(context);
     CGContextSetAllowsAntialiasing(context, true);
 
-    CGContextTranslateCTM(context, 0.0, boundsSize.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextTranslateCTM(context, (CGFloat)0.0, boundsSize.height);
+    CGContextScaleCTM(context, (CGFloat)1.0, (CGFloat) - 1.0);
 
     [self layoutAndRenderInContext:context];
     CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();

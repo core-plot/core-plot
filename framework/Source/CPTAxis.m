@@ -466,16 +466,16 @@ double niceNum(double x, BOOL round);
         majorTickLocations          = [[NSSet set] retain];
         minorTickLocations          = [[NSSet set] retain];
         preferredNumberOfMajorTicks = 0;
-        minorTickLength             = 3.0;
-        majorTickLength             = 5.0;
-        labelOffset                 = 2.0;
-        minorTickLabelOffset        = 2.0;
-        labelRotation               = 0.0;
-        minorTickLabelRotation      = 0.0;
+        minorTickLength             = CPTFloat(3.0);
+        majorTickLength             = CPTFloat(5.0);
+        labelOffset                 = CPTFloat(2.0);
+        minorTickLabelOffset        = CPTFloat(2.0);
+        labelRotation               = CPTFloat(0.0);
+        minorTickLabelRotation      = CPTFloat(0.0);
         labelAlignment              = CPTAlignmentCenter;
         minorTickLabelAlignment     = CPTAlignmentCenter;
         title                       = nil;
-        titleOffset                 = 30.0;
+        titleOffset                 = CPTFloat(30.0);
         axisLineStyle               = [[CPTLineStyle alloc] init];
         majorTickLineStyle          = [[CPTLineStyle alloc] init];
         minorTickLineStyle          = [[CPTLineStyle alloc] init];
@@ -1120,9 +1120,9 @@ double niceNum(double x, BOOL round);
  *  @internal
  *  @brief Determines a @quote{nice} number (a multiple of @num{2}, @num{5}, or @num{10}) near the given number.
  *  @param x The number to round.
- *  @param round If @YES, the result is rounded to nearest nice number, otherwise the result is the smallest nice number greater than or equal to the given number.
+ *  @param roundNearest If @YES, the result is rounded to nearest nice number, otherwise the result is the smallest nice number greater than or equal to the given number.
  */
-double niceNum(double x, BOOL round)
+double niceNum(double x, BOOL roundNearest)
 {
     if ( x == 0.0 ) {
         return 0.0;
@@ -1133,19 +1133,19 @@ double niceNum(double x, BOOL round)
         x = -x;
     }
 
-    double exponent = floor( log10(x) );
-    double fraction = x / pow(10.0, exponent);
+    double exponent     = floor( log10(x) );
+    double fractionPart = x / pow(10.0, exponent);
 
     double roundedFraction;
 
-    if ( round ) {
-        if ( fraction < 1.5 ) {
+    if ( roundNearest ) {
+        if ( fractionPart < 1.5 ) {
             roundedFraction = 1.0;
         }
-        else if ( fraction < 3.0 ) {
+        else if ( fractionPart < 3.0 ) {
             roundedFraction = 2.0;
         }
-        else if ( fraction < 7.0 ) {
+        else if ( fractionPart < 7.0 ) {
             roundedFraction = 5.0;
         }
         else {
@@ -1153,13 +1153,13 @@ double niceNum(double x, BOOL round)
         }
     }
     else {
-        if ( fraction <= 1.0 ) {
+        if ( fractionPart <= 1.0 ) {
             roundedFraction = 1.0;
         }
-        else if ( fraction <= 2.0 ) {
+        else if ( fractionPart <= 2.0 ) {
             roundedFraction = 2.0;
         }
-        else if ( fraction <= 5.0 ) {
+        else if ( fractionPart <= 5.0 ) {
             roundedFraction = 5.0;
         }
         else {
@@ -1284,7 +1284,7 @@ double niceNum(double x, BOOL round)
     CGFloat offset = theLabelOffset;
     switch ( self.tickDirection ) {
         case CPTSignNone:
-            offset += self.majorTickLength / (CGFloat)2.0;
+            offset += self.majorTickLength / CPTFloat(2.0);
             break;
 
         case CPTSignPositive:

@@ -61,10 +61,10 @@ CPTPlotCachePrecision;
  *  Implement one and only one of the optional methods in this section.
  *  @param plot The plot.
  *  @param fieldEnum The field index.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return A data point.
  **/
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of plot data for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -79,10 +79,10 @@ CPTPlotCachePrecision;
  *  Implement one and only one of the optional methods in this section.
  *  @param plot The plot.
  *  @param fieldEnum The field index.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return A data point.
  **/
--(double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of plot data for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -126,12 +126,12 @@ CPTPlotCachePrecision;
  *  @link CPTPlotDataSource::dataLabelsForPlot:recordIndexRange: -dataLabelsForPlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param plot The plot.
- *  @param index The data index of interest.
+ *  @param idx The data index of interest.
  *  @return The data label for the point with the given index.
  *  If you return @nil, the default data label will be used. If you return an instance of NSNull,
  *  no label will be shown for the index in question.
  **/
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index;
+-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -153,22 +153,22 @@ CPTPlotCachePrecision;
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
  *  @if iOSOnly touched data label. @endif
  **/
--(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index;
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data label was
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The plot.
- *  @param index The index of the
+ *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
  *  @if iOSOnly touched data label. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index withEvent:(CPTNativeEvent *)event;
+-(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
@@ -272,7 +272,7 @@ CPTPlotCachePrecision;
 -(void)reloadData;
 -(void)reloadDataIfNeeded;
 -(void)reloadDataInIndexRange:(NSRange)indexRange;
--(void)insertDataAtIndex:(NSUInteger)index numberOfRecords:(NSUInteger)numberOfRecords;
+-(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords;
 -(void)deleteDataInIndexRange:(NSRange)indexRange;
 /// @}
 
@@ -286,16 +286,16 @@ CPTPlotCachePrecision;
 /// @name Data Cache
 /// @{
 -(CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum;
--(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
--(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
--(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
+-(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
+-(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
+-(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 -(NSArray *)cachedArrayForKey:(NSString *)key;
--(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)index;
+-(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)idx;
 
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
--(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)index;
+-(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx;
 -(void)cacheArray:(NSArray *)array forKey:(NSString *)key;
--(void)cacheArray:(NSArray *)array forKey:(NSString *)key atRecordIndex:(NSUInteger)index;
+-(void)cacheArray:(NSArray *)array forKey:(NSString *)key atRecordIndex:(NSUInteger)idx;
 /// @}
 
 /// @name Plot Data Ranges
@@ -307,8 +307,8 @@ CPTPlotCachePrecision;
 /// @name Legends
 /// @{
 -(NSUInteger)numberOfLegendEntries;
--(NSString *)titleForLegendEntryAtIndex:(NSUInteger)index;
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)index inRect:(CGRect)rect inContext:(CGContextRef)context;
+-(NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx;
+-(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context;
 /// @}
 
 @end
@@ -329,7 +329,7 @@ CPTPlotCachePrecision;
 
 /// @name Data Labels
 /// @{
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)index;
+-(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx;
 /// @}
 
 /// @name User Interaction

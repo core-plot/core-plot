@@ -80,13 +80,13 @@ CPTGradientType;
 -(CPTGradient *)gradientWithBlendingMode:(CPTGradientBlendingMode)mode;
 
 -(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position; // positions given relative to [0,1]
--(CPTGradient *)removeColorStopAtIndex:(NSUInteger)index;
+-(CPTGradient *)removeColorStopAtIndex:(NSUInteger)idx;
 -(CPTGradient *)removeColorStopAtPosition:(CGFloat)position;
 /// @}
 
 /// @name Information
 /// @{
--(CGColorRef)newColorStopAtIndex:(NSUInteger)index;
+-(CGColorRef)newColorStopAtIndex:(NSUInteger)idx;
 -(CGColorRef)newColorAtPosition:(CGFloat)position;
 /// @}
 

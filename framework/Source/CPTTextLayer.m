@@ -4,7 +4,7 @@
 #import "CPTShadow.h"
 #import <tgmath.h>
 
-const CGFloat kCPTTextLayerMarginWidth = 1.0;
+const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 /**
  *  @brief A Core Animation layer that displays text drawn in a uniform style.
@@ -199,7 +199,7 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     }
     CGSize textSize      = [self.text sizeWithTextStyle:self.textStyle];
     CGSize shadowOffset  = CGSizeZero;
-    CGFloat shadowRadius = 0.0;
+    CGFloat shadowRadius = CPTFloat(0.0);
     CPTShadow *myShadow  = self.shadow;
     if ( myShadow ) {
         shadowOffset = myShadow.shadowOffset;
@@ -207,10 +207,10 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
     }
 
     // Add small margin
-    textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
+    textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * CPTFloat(2.0);
     textSize.width  = ceil(textSize.width);
 
-    textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * (CGFloat)2.0;
+    textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * CPTFloat(2.0);
     textSize.height  = ceil(textSize.height);
 
     return textSize;
@@ -250,12 +250,12 @@ const CGFloat kCPTTextLayerMarginWidth = 1.0;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextTranslateCTM(context, CPTFloat(0.0), self.bounds.size.height);
+    CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
 #endif
 
     CGSize shadowOffset  = CGSizeZero;
-    CGFloat shadowRadius = 0.0;
+    CGFloat shadowRadius = CPTFloat(0.0);
     CPTShadow *myShadow  = self.shadow;
     if ( myShadow ) {
         shadowOffset = myShadow.shadowOffset;

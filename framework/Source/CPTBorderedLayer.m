@@ -129,13 +129,13 @@
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
     if ( theLineStyle ) {
-        CGFloat inset     = theLineStyle.lineWidth / (CGFloat)2.0;
+        CGFloat inset     = theLineStyle.lineWidth / CPTFloat(2.0);
         CGRect selfBounds = CGRectInset(self.bounds, inset, inset);
 
         [theLineStyle setLineStyleInContext:context];
 
         if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(self.cornerRadius, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
+            CGFloat radius = MIN( MIN( self.cornerRadius, selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
             CGContextBeginPath(context);
             AddRoundedRectPath(context, selfBounds, radius);
             [theLineStyle strokePathInContext:context];
@@ -166,7 +166,7 @@
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
     if ( theLineStyle ) {
-        CGFloat inset = theLineStyle.lineWidth / (CGFloat)2.0;
+        CGFloat inset = theLineStyle.lineWidth / CPTFloat(2.0);
 
         *left   += inset;
         *top    += inset;
@@ -194,7 +194,7 @@
         CGRect selfBounds = self.bounds;
 
         if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(self.cornerRadius + lineWidth / (CGFloat)2.0, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
+            CGFloat radius = MIN( MIN( self.cornerRadius + lineWidth / CPTFloat(2.0), selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
             path                 = CreateRoundedRectPath(selfBounds, radius);
             self.outerBorderPath = path;
             CGPathRelease(path);
@@ -225,7 +225,7 @@
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
         if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(self.cornerRadius - lineWidth / (CGFloat)2.0, selfBounds.size.width / (CGFloat)2.0), selfBounds.size.height / (CGFloat)2.0);
+            CGFloat radius = MIN( MIN( self.cornerRadius - lineWidth / CPTFloat(2.0), selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
             path                 = CreateRoundedRectPath(selfBounds, radius);
             self.innerBorderPath = path;
             CGPathRelease(path);
