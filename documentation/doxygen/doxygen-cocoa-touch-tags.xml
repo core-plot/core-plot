@@ -478,6 +478,34 @@
             <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
             <anchor>//apple_ref/c/tdef/CGSize</anchor>
         </member>
+        <member kind="function">
+            <type>CGPoint</type>
+            <name>CGPointMake</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/CGPointMake</anchor>
+            <arglist>(CGFloat x, CGFloat y)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGRect</type>
+            <name>CGRectInset</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/CGRectInset</anchor>
+            <arglist>(CGRect rect, CGFloat dx, CGFloat dy)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGRect</type>
+            <name>CGRectMake</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/CGRectMake</anchor>
+            <arglist>(CGFloat x, CGFloat y, CGFloat width, CGFloat height)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGSize</type>
+            <name>CGSizeMake</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/func/CGSizeMake</anchor>
+            <arglist>(CGFloat width, CGFloat height)</arglist>
+        </member>
     </compound>
     <compound kind="file">
         <name>CGImage Reference</name>
