@@ -318,7 +318,12 @@
  **/
 -(BOOL)isEqualToRange:(CPTPlotRange *)otherRange
 {
-    return CPTDecimalEquals(self.location, otherRange.location) && CPTDecimalEquals(self.length, otherRange.length);
+    if ( otherRange ) {
+        return CPTDecimalEquals(self.location, otherRange.location) && CPTDecimalEquals(self.length, otherRange.length);
+    }
+    else {
+        return NO;
+    }
 }
 
 /** @brief Determines whether the receiver entirely contains another range.
@@ -327,7 +332,12 @@
  **/
 -(BOOL)containsRange:(CPTPlotRange *)otherRange
 {
-    return CPTDecimalGreaterThanOrEqualTo(otherRange.minLimit, self.minLimit) && CPTDecimalLessThanOrEqualTo(otherRange.maxLimit, self.maxLimit);
+    if ( otherRange ) {
+        return CPTDecimalGreaterThanOrEqualTo(otherRange.minLimit, self.minLimit) && CPTDecimalLessThanOrEqualTo(otherRange.maxLimit, self.maxLimit);
+    }
+    else {
+        return NO;
+    }
 }
 
 /** @brief Determines whether a given range intersects the receiver.
