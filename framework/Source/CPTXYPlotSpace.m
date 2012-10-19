@@ -108,7 +108,7 @@
 /// @name Initialization
 /// @{
 
-/** @brief Initializes a newly allocated CPTAnnotation object.
+/** @brief Initializes a newly allocated CPTXYPlotSpace object.
  *
  *  The initialized object will have the following properties:
  *  - @ref xRange = [@num{0}, @num{1}]
@@ -273,16 +273,24 @@
 -(void)setXRange:(CPTPlotRange *)range
 {
     NSParameterAssert(range);
+
     if ( ![range isEqualToRange:xRange] ) {
         CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
         [xRange release];
         xRange = [constrainedRange copy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification object:self];
-        if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
-            [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                            object:self];
+
+        id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+            [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
         }
-        if ( self.graph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                object:theGraph];
         }
     }
 }
@@ -290,16 +298,24 @@
 -(void)setYRange:(CPTPlotRange *)range
 {
     NSParameterAssert(range);
+
     if ( ![range isEqualToRange:yRange] ) {
         CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
         [yRange release];
         yRange = [constrainedRange copy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification object:self];
-        if ( [self.delegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
-            [self.delegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateY];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                            object:self];
+
+        id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+            [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateY];
         }
-        if ( self.graph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                object:theGraph];
         }
     }
 }
@@ -381,8 +397,14 @@
 {
     if ( newScaleType != xScaleType ) {
         xScaleType = newScaleType;
-        if ( self.graph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                            object:self];
+
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                object:theGraph];
         }
     }
 }
@@ -391,8 +413,13 @@
 {
     if ( newScaleType != yScaleType ) {
         yScaleType = newScaleType;
-        if ( self.graph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                            object:self];
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                object:theGraph];
         }
     }
 }

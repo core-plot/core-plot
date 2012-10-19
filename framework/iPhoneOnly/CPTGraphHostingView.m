@@ -146,44 +146,44 @@
     }
 
     CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
-    if ( !collapsesLayers ) {
-        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
+    if ( !self.collapsesLayers ) {
+        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:self.hostedGraph];
     }
     else {
         pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
     }
-    [hostedGraph pointingDeviceDownEvent:event atPoint:pointOfTouch];
+    [self.hostedGraph pointingDeviceDownEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
 
-    if ( !collapsesLayers ) {
-        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
+    if ( !self.collapsesLayers ) {
+        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:self.hostedGraph];
     }
     else {
         pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
     }
-    [hostedGraph pointingDeviceDraggedEvent:event atPoint:pointOfTouch];
+    [self.hostedGraph pointingDeviceDraggedEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint pointOfTouch = [[[event touchesForView:self] anyObject] locationInView:self];
 
-    if ( !collapsesLayers ) {
-        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:hostedGraph];
+    if ( !self.collapsesLayers ) {
+        pointOfTouch = [self.layer convertPoint:pointOfTouch toLayer:self.hostedGraph];
     }
     else {
         pointOfTouch.y = self.frame.size.height - pointOfTouch.y;
     }
-    [hostedGraph pointingDeviceUpEvent:event atPoint:pointOfTouch];
+    [self.hostedGraph pointingDeviceUpEvent:event atPoint:pointOfTouch];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [hostedGraph pointingDeviceCancelledEvent:event];
+    [self.hostedGraph pointingDeviceCancelledEvent:event];
 }
 
 /// @endcond
@@ -218,17 +218,18 @@
 -(void)handlePinchGesture:(id)aPinchGestureRecognizer
 {
     CGPoint interactionPoint = [aPinchGestureRecognizer locationInView:self];
+    CPTGraph *theHostedGraph = self.hostedGraph;
 
-    if ( !collapsesLayers ) {
-        interactionPoint = [self.layer convertPoint:interactionPoint toLayer:hostedGraph];
+    if ( !self.collapsesLayers ) {
+        interactionPoint = [self.layer convertPoint:interactionPoint toLayer:theHostedGraph];
     }
     else {
         interactionPoint.y = self.frame.size.height - interactionPoint.y;
     }
 
-    CGPoint pointInPlotArea = [hostedGraph convertPoint:interactionPoint toLayer:hostedGraph.plotAreaFrame.plotArea];
+    CGPoint pointInPlotArea = [theHostedGraph convertPoint:interactionPoint toLayer:theHostedGraph.plotAreaFrame.plotArea];
 
-    for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+    for ( CPTPlotSpace *space in theHostedGraph.allPlotSpaces ) {
         if ( space.allowsUserInteraction ) {
             [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
         }
@@ -246,15 +247,15 @@
 
 -(void)drawRect:(CGRect)rect
 {
-    if ( !collapsesLayers ) {
-        return;
-    }
+    if ( self.collapsesLayers ) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextTranslateCTM(context, 0, self.bounds.size.height);
+        CGContextScaleCTM(context, 1, -1);
 
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1, -1);
-    hostedGraph.frame = self.bounds;
-    [hostedGraph layoutAndRenderInContext:context];
+        CPTGraph *theHostedGraph = self.hostedGraph;
+        theHostedGraph.frame = self.bounds;
+        [theHostedGraph layoutAndRenderInContext:context];
+    }
 }
 
 -(void)graphNeedsRedraw:(NSNotification *)notification
@@ -271,10 +272,15 @@
 
 -(void)updateNotifications
 {
-    if ( collapsesLayers ) {
+    if ( self.collapsesLayers ) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        if ( hostedGraph ) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(graphNeedsRedraw:) name:CPTGraphNeedsRedrawNotification object:hostedGraph];
+
+        CPTGraph *theHostedGraph = self.hostedGraph;
+        if ( theHostedGraph ) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(graphNeedsRedraw:)
+                                                         name:CPTGraphNeedsRedrawNotification
+                                                       object:theHostedGraph];
         }
     }
 }
@@ -303,7 +309,7 @@
     }
     hostedGraph.hostingView = self;
 
-    if ( !collapsesLayers ) {
+    if ( !self.collapsesLayers ) {
         if ( hostedGraph ) {
             hostedGraph.frame = self.layer.bounds;
             [self.layer addSublayer:hostedGraph];
@@ -320,13 +326,16 @@
 {
     if ( collapse != collapsesLayers ) {
         collapsesLayers = collapse;
+
+        CPTGraph *theHostedGraph = self.hostedGraph;
+
         if ( collapsesLayers ) {
-            [hostedGraph removeFromSuperlayer];
+            [theHostedGraph removeFromSuperlayer];
             [self setNeedsDisplay];
         }
         else {
-            if ( hostedGraph ) {
-                [self.layer addSublayer:hostedGraph];
+            if ( theHostedGraph ) {
+                [self.layer addSublayer:theHostedGraph];
             }
         }
         [self updateNotifications];
@@ -337,13 +346,14 @@
 {
     [super setFrame:newFrame];
 
-    [hostedGraph setNeedsLayout];
+    CPTGraph *theHostedGraph = self.hostedGraph;
+    [theHostedGraph setNeedsLayout];
 
-    if ( collapsesLayers ) {
+    if ( self.collapsesLayers ) {
         [self setNeedsDisplay];
     }
     else {
-        hostedGraph.frame = self.bounds;
+        theHostedGraph.frame = self.bounds;
     }
 }
 
@@ -351,13 +361,14 @@
 {
     [super setBounds:newBounds];
 
-    [hostedGraph setNeedsLayout];
+    CPTGraph *theHostedGraph = self.hostedGraph;
+    [theHostedGraph setNeedsLayout];
 
-    if ( collapsesLayers ) {
+    if ( self.collapsesLayers ) {
         [self setNeedsDisplay];
     }
     else {
-        hostedGraph.frame = newBounds;
+        theHostedGraph.frame = newBounds;
     }
 }
 

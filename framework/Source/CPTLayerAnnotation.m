@@ -63,6 +63,11 @@
         xConstraints = nil;
         yConstraints = nil;
         [self setConstraints];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(positionContentLayer)
+                                                     name:CPTLayerBoundsDidChangeNotification
+                                                   object:anchorLayer];
     }
     return self;
 }
@@ -71,8 +76,15 @@
 
 /// @cond
 
+// anchorLayer is required; this will fail the assertion in -initWithAnchorLayer:
+-(id)init
+{
+    return [self initWithAnchorLayer:nil];
+}
+
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     anchorLayer = nil;
     [xConstraints release];
     [yConstraints release];
@@ -140,7 +152,6 @@
             content.position    = newPosition;
             content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
             [content pixelAlign];
-            [content setNeedsDisplay];
         }
     }
 }

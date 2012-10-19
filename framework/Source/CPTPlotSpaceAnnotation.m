@@ -44,7 +44,11 @@
     if ( (self = [super init]) ) {
         plotSpace       = [newPlotSpace retain];
         anchorPlotPoint = [newPlotPoint copy];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(positionContentLayer) name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(positionContentLayer)
+                                                     name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                   object:plotSpace];
     }
     return self;
 }
@@ -52,6 +56,12 @@
 /// @}
 
 /// @cond
+
+// plotSpace is required; this will fail the assertion in -initWithPlotSpace:anchorPlotPoint:
+-(id)init
+{
+    return [self initWithPlotSpace:nil anchorPlotPoint:nil];
+}
 
 -(void)dealloc
 {
@@ -128,7 +138,6 @@
                 content.position    = newPosition;
                 content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
                 [content pixelAlign];
-                [content setNeedsDisplay];
             }
         }
     }

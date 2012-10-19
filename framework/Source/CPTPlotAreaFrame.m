@@ -50,6 +50,7 @@
  *
  *  This is the designated initializer. The initialized layer will have the following properties:
  *  - @ref plotArea = a new CPTPlotArea with the same frame rectangle
+ *  - @ref masksToBorder = @YES
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
  *  @param newFrame The frame rectangle.
@@ -64,6 +65,7 @@
         self.plotArea = newPlotArea;
         [newPlotArea release];
 
+        self.masksToBorder              = YES;
         self.needsDisplayOnBoundsChange = YES;
     }
     return self;

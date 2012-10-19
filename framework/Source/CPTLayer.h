@@ -6,6 +6,16 @@
 @class CPTGraph;
 @class CPTShadow;
 
+/// @name Layout
+/// @{
+
+/** @brief Notification sent by all layers when the layer @link CALayer::bounds bounds @endlink change.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTLayerBoundsDidChangeNotification;
+
+/// @}
+
 @interface CPTLayer : CALayer<CPTResponder> {
     @private
     CGFloat paddingLeft;

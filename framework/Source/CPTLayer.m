@@ -15,6 +15,8 @@
 #import <objc/runtime.h>
 #import <tgmath.h>
 
+NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeNotification";
+
 /** @defgroup animation Animatable Properties
  *  @brief Custom layer properties that can be animated using Core Animation.
  *  @if MacOnly
@@ -323,7 +325,9 @@
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
     // This is where subclasses do their drawing
-    [self applyMaskToContext:context];
+    if ( self.renderingRecursively ) {
+        [self applyMaskToContext:context];
+    }
     [self.shadow setShadowInContext:context];
 }
 
@@ -543,30 +547,32 @@
  **/
 -(void)layoutSublayers
 {
-    CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
+    CGRect selfBounds    = self.bounds;
+    NSArray *mySublayers = self.sublayers;
 
-    [self sublayerMarginLeft:&leftPadding top:&topPadding right:&rightPadding bottom:&bottomPadding];
+    if ( mySublayers.count > 0 ) {
+        CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
 
-    CGRect selfBounds   = self.bounds;
-    CGSize subLayerSize = selfBounds.size;
-    subLayerSize.width  -= leftPadding + rightPadding;
-    subLayerSize.width   = MAX( subLayerSize.width, CPTFloat(0.0) );
-    subLayerSize.width   = round(subLayerSize.width);
-    subLayerSize.height -= topPadding + bottomPadding;
-    subLayerSize.height  = MAX( subLayerSize.height, CPTFloat(0.0) );
-    subLayerSize.height  = round(subLayerSize.height);
+        [self sublayerMarginLeft:&leftPadding top:&topPadding right:&rightPadding bottom:&bottomPadding];
 
-    CGRect subLayerFrame;
-    subLayerFrame.origin = CPTPointMake( round(leftPadding), round(bottomPadding) );
-    subLayerFrame.size   = subLayerSize;
+        CGSize subLayerSize = selfBounds.size;
+        subLayerSize.width  -= leftPadding + rightPadding;
+        subLayerSize.width   = MAX(subLayerSize.width, (CGFloat)0.0);
+        subLayerSize.width   = round(subLayerSize.width);
+        subLayerSize.height -= topPadding + bottomPadding;
+        subLayerSize.height  = MAX(subLayerSize.height, (CGFloat)0.0);
+        subLayerSize.height  = round(subLayerSize.height);
 
-    NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
-    Class layerClass         = [CPTLayer class];
-    for ( CALayer *subLayer in self.sublayers ) {
-        if ( ![excludedSublayers containsObject:subLayer] && [subLayer isKindOfClass:layerClass] ) {
-            subLayer.frame = subLayerFrame;
-            [subLayer setNeedsLayout];
-            [subLayer setNeedsDisplay];
+        CGRect subLayerFrame;
+        subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
+        subLayerFrame.size   = subLayerSize;
+
+        NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+        Class layerClass         = [CPTLayer class];
+        for ( CALayer *subLayer in mySublayers ) {
+            if ( [subLayer isKindOfClass:layerClass] && ![excludedSublayers containsObject:subLayer] ) {
+                subLayer.frame = subLayerFrame;
+            }
         }
     }
 }
@@ -575,7 +581,7 @@
 
 -(NSSet *)sublayersExcludedFromAutomaticLayout
 {
-    return [NSSet set];
+    return nil;
 }
 
 /** @brief Returns the margins that should be left between the bounds of the receiver and all sublayers.
@@ -726,18 +732,9 @@
 
     CGPathRef maskPath = self.sublayerMaskingPath;
     if ( maskPath ) {
-        //        CGAffineTransform transform = CATransform3DGetAffineTransform(self.transform);
-        //        CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(self.sublayerTransform);
-
         CGContextTranslateCTM(context, -layerOffset.x, -layerOffset.y);
-        //        CGContextConcatCTM(context, CGAffineTransformInvert(transform));
-        //        CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
-
         CGContextAddPath(context, maskPath);
         CGContextClip(context);
-
-        //        CGContextConcatCTM(context, sublayerTransform);
-        //        CGContextConcatCTM(context, transform);
         CGContextTranslateCTM(context, layerOffset.x, layerOffset.y);
     }
 
@@ -753,8 +750,10 @@
  **/
 -(void)applyMaskToContext:(CGContextRef)context
 {
-    if ( [self.superlayer isKindOfClass:[CPTLayer class]] ) {
-        [(CPTLayer *)self.superlayer applySublayerMaskToContext:context forSublayer:self withOffset:CGPointZero];
+    CPTLayer *mySuperlayer = (CPTLayer *)self.superlayer;
+
+    if ( [mySuperlayer isKindOfClass:[CPTLayer class]] ) {
+        [mySuperlayer applySublayerMaskToContext:context forSublayer:self withOffset:CGPointZero];
     }
 
     CGPathRef maskPath = self.maskingPath;
@@ -769,16 +768,22 @@
 -(void)setNeedsLayout
 {
     [super setNeedsLayout];
-    if ( self.graph ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+    CPTGraph *theGraph = self.graph;
+    if ( theGraph ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                            object:theGraph];
     }
 }
 
 -(void)setNeedsDisplay
 {
     [super setNeedsDisplay];
-    if ( self.graph ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification object:self.graph];
+
+    CPTGraph *theGraph = self.graph;
+    if ( theGraph ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                            object:theGraph];
     }
 }
 
@@ -866,20 +871,28 @@
     if ( newPath != innerBorderPath ) {
         CGPathRelease(innerBorderPath);
         innerBorderPath = CGPathRetain(newPath);
+        [self.mask setNeedsDisplay];
     }
 }
 
 -(void)setBounds:(CGRect)newBounds
 {
-    [super setBounds:newBounds];
-    self.outerBorderPath = NULL;
-    self.innerBorderPath = NULL;
+    if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
+        [super setBounds:newBounds];
+
+        self.outerBorderPath = NULL;
+        self.innerBorderPath = NULL;
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLayerBoundsDidChangeNotification
+                                                            object:self];
+    }
 }
 
 -(void)setCornerRadius:(CGFloat)newRadius
 {
     if ( newRadius != self.cornerRadius ) {
         super.cornerRadius = newRadius;
+
         [self setNeedsDisplay];
 
         self.outerBorderPath = NULL;
@@ -916,13 +929,19 @@
     NSMutableString *result = [NSMutableString string];
 
     for ( NSUInteger i = 0; i < idx; i++ ) {
-        [result appendString:@"    "];
+        [result appendString:@".   "];
     }
     [result appendString:[self description]];
 
     for ( CPTLayer *sublayer in self.sublayers ) {
         [result appendString:@"\n"];
-        [result appendString:[sublayer subLayersAtIndex:idx + 1]];
+
+        if ( [sublayer respondsToSelector:@selector(subLayersAtIndex:)] ) {
+            [result appendString:[sublayer subLayersAtIndex:idx + 1]];
+        }
+        else {
+            [result appendString:[sublayer description]];
+        }
     }
 
     return result;

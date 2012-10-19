@@ -268,7 +268,6 @@
     content.anchorPoint = anchor;
     content.position    = newPosition;
     [content pixelAlign];
-    [content setNeedsDisplay];
 }
 
 /** @brief Positions the axis label between two given points.
