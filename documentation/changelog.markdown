@@ -1,5 +1,3 @@
-*For best results, view this document using a Markdown reader.*
-
 # Next Release
 
 ## Release Notes
