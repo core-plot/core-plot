@@ -25,6 +25,7 @@
 		AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
+		C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7DA71633537100BC9515 /* Default-568h@2x.png */; };
 		F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MSFT.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GOOG.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = SOURCE_ROOT; };
+		C3BB7DA71633537100BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				AB0364760FEF4603007B09A9 /* caution.png */,
+				C3BB7DA71633537100BC9515 /* Default-568h@2x.png */,
 				AB6FA6090FEB6DAA008DB04A /* YHOO.plist */,
 				AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */,
 				AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */,
@@ -254,6 +257,7 @@
 				AB0363AC0FEF3687007B09A9 /* GOOG.plist in Resources */,
 				AB0363AD0FEF368A007B09A9 /* AAPL.plist in Resources */,
 				AB0364770FEF4603007B09A9 /* caution.png in Resources */,
+				C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

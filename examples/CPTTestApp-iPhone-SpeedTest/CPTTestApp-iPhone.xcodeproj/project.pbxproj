@@ -25,6 +25,7 @@
 		BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */; };
 		BC9B843A0FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */; };
 		BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD650FD85732008875A4 /* CorePlotIcon.png */; };
+		C3BB7D6E163351BD00BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */; };
 		F7AE270A0FFFB61E001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		BC9B84380FB8B76B0035D8DA /* CPTTestAppScatterPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestAppScatterPlotController.h; sourceTree = "<group>"; };
 		BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTestAppScatterPlotController.m; sourceTree = "<group>"; };
 		BCB3FD650FD85732008875A4 /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
+		C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				BC8166D11100DD6F006D898E /* 62-contrast.png */,
 				BC8166CC1100DD00006D898E /* 16-line-chart.png */,
 				BC8166CD1100DD00006D898E /* 17-bar-chart.png */,
+				C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */,
 				BC74A34010FC418D00E7E90D /* PieChart.xib */,
 				BCB3FD650FD85732008875A4 /* CorePlotIcon.png */,
 				282CCBFD0DB6C98000C4EA27 /* BarChart.xib */,
@@ -253,6 +256,7 @@
 				BC8166CE1100DD00006D898E /* 16-line-chart.png in Resources */,
 				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
 				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,
+				C3BB7D6E163351BD00BC9515 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
