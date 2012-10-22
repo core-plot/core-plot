@@ -1584,13 +1584,8 @@ double niceNum(double x, BOOL roundNearest)
  **/
 -(void)layoutSublayers
 {
-    if ( self.needsRelabel ) {
-        [self relabel];
-    }
-    else {
-        [self updateMajorTickLabels];
-        [self updateMinorTickLabels];
-    }
+    [self updateMajorTickLabels];
+    [self updateMinorTickLabels];
 
     [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
                                   forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
@@ -1856,7 +1851,6 @@ double niceNum(double x, BOOL roundNearest)
     if ( newNeedsRelabel != needsRelabel ) {
         needsRelabel = newNeedsRelabel;
         if ( needsRelabel ) {
-            [self setNeedsLayout];
             [self setNeedsDisplay];
             if ( self.separateLayers ) {
                 [self.majorGridLines setNeedsDisplay];
