@@ -92,12 +92,12 @@
 
 -(CPTXYAxis *)xAxis
 {
-    return [self.axes objectAtIndex:CPTCoordinateX];
+    return (CPTXYAxis *)[self axisForCoordinate:CPTCoordinateX atIndex:0];
 }
 
 -(CPTXYAxis *)yAxis
 {
-    return [self.axes objectAtIndex:CPTCoordinateY];
+    return (CPTXYAxis *)[self axisForCoordinate:CPTCoordinateY atIndex:0];
 }
 
 /// @endcond

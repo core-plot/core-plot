@@ -112,6 +112,39 @@
 }
 
 #pragma mark -
+#pragma mark Axes
+
+/**
+ *  @brief Returns the first, second, third, etc. axis with the given coordinate value.
+ *
+ *  For example, to find the second x-axis, use a @par{coordinate} of #CPTCoordinateX
+ *  and @par{idx} of @num{1}.
+ *
+ *  @param coordinate The axis coordinate.
+ *  @param idx The zero-based index.
+ *  @return The axis matching the given coordinate and index, or @nil if no match is found.
+ **/
+-(CPTAxis *)axisForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx
+{
+    CPTAxis *foundAxis = nil;
+    NSUInteger count   = 0;
+
+    for ( CPTAxis *axis in self.axes ) {
+        if ( axis.coordinate == coordinate ) {
+            if ( count == idx ) {
+                foundAxis = axis;
+                break;
+            }
+            else {
+                count++;
+            }
+        }
+    }
+
+    return foundAxis;
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond
