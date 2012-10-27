@@ -281,6 +281,8 @@
 
     [super renderAsVectorInContext:context];
 
+    [self relabel];
+
     CPTPlotRange *thePlotRange    = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     CPTMutablePlotRange *range    = [thePlotRange mutableCopy];
     CPTPlotRange *theVisibleRange = self.visibleRange;
