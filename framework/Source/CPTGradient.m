@@ -781,23 +781,12 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             break;
     }
 
-    if ( 0.0 != components[3] ) {
-        //undo premultiplication that CG requires
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-        CGFloat colorComponents[4] = { components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3] };
-        gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
+    CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
+    gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else
-        gradientColor = CGColorCreateGenericRGB(components[0] / components[3], components[1] / components[3], components[2] / components[3], components[3]);
+    gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
 #endif
-    }
-    else {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-        CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
-        gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
-#else
-        gradientColor = CGColorCreateGenericRGB(components[0], components[1], components[2], components[3]);
-#endif
-    }
 
     return gradientColor;
 }
@@ -1310,11 +1299,6 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
         out[2] = (color2->color.blue - color1->color.blue) * position + color1->color.blue;
         out[3] = (color2->color.alpha - color1->color.alpha) * position + color1->color.alpha;
     }
-
-    //Premultiply the color by the alpha.
-    out[0] *= out[3];
-    out[1] *= out[3];
-    out[2] *= out[3];
 }
 
 //Chromatic Evaluation -
@@ -1394,11 +1378,6 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     }
 
     transformHSV_RGB(out);
-
-    //Premultiply the color by the alpha.
-    out[0] *= out[3];
-    out[1] *= out[3];
-    out[2] *= out[3];
 }
 
 // Inverse Chromatic Evaluation -
@@ -1473,11 +1452,6 @@ void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     }
 
     transformHSV_RGB(out);
-
-    // Premultiply the color by the alpha.
-    out[0] *= out[3];
-    out[1] *= out[3];
-    out[2] *= out[3];
 }
 
 void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
