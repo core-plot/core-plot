@@ -80,6 +80,7 @@
 
         [self.graph setDataPuller:aStock];
         [self.navigationController pushViewController:self.graph animated:YES];
+        self.graph.view.frame = self.view.bounds;
     }
 }
 
@@ -193,10 +194,12 @@
 // Override to allow orientations other than the default portrait orientation.
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return interfaceOrientation == UIInterfaceOrientationPortrait ||
-           interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-           interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+    return YES;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+{
+    graph.view.frame = self.view.bounds;
 }
 
 #pragma mark -

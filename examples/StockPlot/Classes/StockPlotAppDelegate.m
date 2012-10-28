@@ -19,10 +19,15 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    // Override point for customization after app launch
-    [[navigationController navigationBar] setTintColor:[UIColor blackColor]];
-    [window addSubview:[navigationController view]];
-    [window makeKeyAndVisible];
+    [[self.navigationController navigationBar] setTintColor:[UIColor blackColor]];
+
+    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
+        self.window.rootViewController = self.navigationController;
+    }
+    else {
+        [self.window addSubview:self.navigationController.view];
+    }
+    [self.window makeKeyAndVisible];
 }
 
 -(void)applicationWillTerminate:(UIApplication *)application

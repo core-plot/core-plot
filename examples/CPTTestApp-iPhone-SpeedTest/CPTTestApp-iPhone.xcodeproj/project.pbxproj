@@ -25,6 +25,9 @@
 		BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */; };
 		BC9B843A0FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */; };
 		BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD650FD85732008875A4 /* CorePlotIcon.png */; };
+		C385879A163DA26A00DBF63D /* UINavigationController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858795163DA26A00DBF63D /* UINavigationController+LegacyRotation.m */; };
+		C385879B163DA26A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858797163DA26A00DBF63D /* UITabBarController+LegacyRotation.m */; };
+		C385879C163DA26A00DBF63D /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858799163DA26A00DBF63D /* UIViewController+LegacyRotation.m */; };
 		C3BB7D6E163351BD00BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */; };
 		F7AE270A0FFFB61E001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
@@ -74,6 +77,12 @@
 		BC9B84380FB8B76B0035D8DA /* CPTTestAppScatterPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestAppScatterPlotController.h; sourceTree = "<group>"; };
 		BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTestAppScatterPlotController.m; sourceTree = "<group>"; };
 		BCB3FD650FD85732008875A4 /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
+		C3858794163DA26A00DBF63D /* UINavigationController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UINavigationController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C3858795163DA26A00DBF63D /* UINavigationController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UINavigationController+LegacyRotation.m"; sourceTree = "<group>"; };
+		C3858796163DA26A00DBF63D /* UITabBarController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UITabBarController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C3858797163DA26A00DBF63D /* UITabBarController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UITabBarController+LegacyRotation.m"; sourceTree = "<group>"; };
+		C3858798163DA26A00DBF63D /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C3858799163DA26A00DBF63D /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +115,12 @@
 				BC74A33910FC40C600E7E90D /* CPTTestAppPieChartController.m */,
 				BC9B84380FB8B76B0035D8DA /* CPTTestAppScatterPlotController.h */,
 				BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */,
+				C3858794163DA26A00DBF63D /* UINavigationController+LegacyRotation.h */,
+				C3858795163DA26A00DBF63D /* UINavigationController+LegacyRotation.m */,
+				C3858796163DA26A00DBF63D /* UITabBarController+LegacyRotation.h */,
+				C3858797163DA26A00DBF63D /* UITabBarController+LegacyRotation.m */,
+				C3858798163DA26A00DBF63D /* UIViewController+LegacyRotation.h */,
+				C3858799163DA26A00DBF63D /* UIViewController+LegacyRotation.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -273,6 +288,9 @@
 				BC9B843A0FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m in Sources */,
 				BC74A33A10FC40C600E7E90D /* CPTTestAppPieChartController.m in Sources */,
 				4E5EFFBC11B7DC6D00D8D6CB /* TestXYTheme.m in Sources */,
+				C385879A163DA26A00DBF63D /* UINavigationController+LegacyRotation.m in Sources */,
+				C385879B163DA26A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */,
+				C385879C163DA26A00DBF63D /* UIViewController+LegacyRotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

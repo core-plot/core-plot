@@ -17,8 +17,15 @@
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
-    [window addSubview:[navigationController view]];
-    [window makeKeyAndVisible];
+
+    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
+        self.window.rootViewController = self.navigationController;
+    }
+    else {
+        [self.window addSubview:self.navigationController.view];
+    }
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 

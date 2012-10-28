@@ -252,10 +252,11 @@
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;
+    [defaultLayerHostingView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 #else
-    [defaultLayerHostingView setAutoresizesSubviews:YES];
     [defaultLayerHostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 #endif
+    [defaultLayerHostingView setAutoresizesSubviews:YES];
 
     [hostingView addSubview:defaultLayerHostingView];
     [self generateData];

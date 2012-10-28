@@ -24,7 +24,8 @@
     self.mainViewController = viewController;
     [viewController release];
 
-    [self.view insertSubview:mainViewController.view belowSubview:infoButton];
+    [self.view insertSubview:self.mainViewController.view belowSubview:infoButton];
+    self.mainViewController.view.frame = self.view.bounds;
 }
 
 -(void)loadFlipsideViewController
@@ -33,6 +34,8 @@
 
     self.flipsideViewController = viewController;
     [viewController release];
+
+    self.flipsideViewController.view.frame = self.view.bounds;
 
     // Set up the navigation bar
     UINavigationBar *aNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];

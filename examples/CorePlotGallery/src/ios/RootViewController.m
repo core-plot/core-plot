@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = NO;
-    self.contentSizeForViewInPopover     = CGSizeMake(320.0, 600.0);
+    self.contentSizeForViewInPopover     = self.view.bounds.size;
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -72,6 +72,7 @@
     else {
         detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
         [self.navigationController pushViewController:detailViewController animated:YES];
+        detailViewController.view.frame = self.view.bounds;
         detailViewController.detailItem = plotItem;
         [detailViewController release];
         detailViewController = nil;

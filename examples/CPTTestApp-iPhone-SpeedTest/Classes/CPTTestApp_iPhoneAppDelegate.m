@@ -13,8 +13,13 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    // Add the tab bar controller's current view as a subview of the window
-    [window addSubview:tabBarController.view];
+    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
+        self.window.rootViewController = self.tabBarController;
+    }
+    else {
+        [self.window addSubview:self.tabBarController.view];
+    }
+    [self.window makeKeyAndVisible];
 }
 
 /*

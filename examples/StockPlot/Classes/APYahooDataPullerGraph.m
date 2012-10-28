@@ -14,7 +14,7 @@
 {
     if ( !graph ) {
         graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-        CPTTheme *theme = [CPTTheme themeNamed:@"Dark Gradients"];
+        CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
         [graph applyTheme:theme];
         graph.paddingTop    = 30.0;
         graph.paddingBottom = 30.0;
@@ -33,9 +33,7 @@
         [graph addPlot:dataSourceLinePlot];
     }
 
-    if ( [[self.graphHost.layer sublayers] indexOfObject:graph] == NSNotFound ) {
-        [self.graphHost.layer addSublayer:graph];
-    }
+    self.graphHost.hostedGraph = graph;
 
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 
@@ -71,7 +69,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    graph.frame = self.view.bounds;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -84,22 +81,17 @@
 // Override to allow orientations other than the default portrait orientation.
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return interfaceOrientation == UIInterfaceOrientationPortrait ||
-           interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-           interfaceOrientation == UIInterfaceOrientationLandscapeRight;
+    return YES;
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 {
     //    NSLog(@"willRotateToInterfaceOrientation");
-    //[graph.axisSet relabelAxes];
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
 {
     //    NSLog(@"didRotateFromInterfaceOrientation");
-    [graph.axisSet relabelAxes];
 }
 
 -(void)didReceiveMemoryWarning

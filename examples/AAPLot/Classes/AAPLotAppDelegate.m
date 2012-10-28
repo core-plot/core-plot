@@ -16,8 +16,13 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    [window addSubview:[rootViewController view]];
-    [window makeKeyAndVisible];
+    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
+        self.window.rootViewController = self.rootViewController;
+    }
+    else {
+        [self.window addSubview:self.rootViewController.view];
+    }
+    [self.window makeKeyAndVisible];
 }
 
 -(void)dealloc

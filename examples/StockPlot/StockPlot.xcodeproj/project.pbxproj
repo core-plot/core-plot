@@ -25,6 +25,9 @@
 		AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
+		C38587CF163DAB7A00DBF63D /* UINavigationController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C38587CA163DAB7A00DBF63D /* UINavigationController+LegacyRotation.m */; };
+		C38587D0163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C38587CC163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m */; };
+		C38587D1163DAB7A00DBF63D /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C38587CE163DAB7A00DBF63D /* UIViewController+LegacyRotation.m */; };
 		C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7DA71633537100BC9515 /* Default-568h@2x.png */; };
 		F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
@@ -74,6 +77,12 @@
 		AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MSFT.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GOOG.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = SOURCE_ROOT; };
+		C38587C9163DAB7A00DBF63D /* UINavigationController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UINavigationController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C38587CA163DAB7A00DBF63D /* UINavigationController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UINavigationController+LegacyRotation.m"; sourceTree = "<group>"; };
+		C38587CB163DAB7A00DBF63D /* UITabBarController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UITabBarController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C38587CC163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UITabBarController+LegacyRotation.m"; sourceTree = "<group>"; };
+		C38587CD163DAB7A00DBF63D /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
+		C38587CE163DAB7A00DBF63D /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C3BB7DA71633537100BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,14 +107,20 @@
 			children = (
 				AB4913C50FECC2B8008A08AB /* APYahooDataPuller.h */,
 				AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */,
-				AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancalData.m */,
 				AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancalData.h */,
+				AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancalData.m */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* StockPlotAppDelegate.h */,
 				1D3623250D0F684500981E51 /* StockPlotAppDelegate.m */,
 				AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */,
 				AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */,
+				C38587C9163DAB7A00DBF63D /* UINavigationController+LegacyRotation.h */,
+				C38587CA163DAB7A00DBF63D /* UINavigationController+LegacyRotation.m */,
+				C38587CB163DAB7A00DBF63D /* UITabBarController+LegacyRotation.h */,
+				C38587CC163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m */,
+				C38587CD163DAB7A00DBF63D /* UIViewController+LegacyRotation.h */,
+				C38587CE163DAB7A00DBF63D /* UIViewController+LegacyRotation.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -274,6 +289,9 @@
 				AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */,
 				AB4913C80FECC2B8008A08AB /* APYahooDataPuller.m in Sources */,
 				AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancalData.m in Sources */,
+				C38587CF163DAB7A00DBF63D /* UINavigationController+LegacyRotation.m in Sources */,
+				C38587D0163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */,
+				C38587D1163DAB7A00DBF63D /* UIViewController+LegacyRotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

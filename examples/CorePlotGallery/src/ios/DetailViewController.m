@@ -129,6 +129,7 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    self.hostingView.frame = self.view.bounds;
     [detailItem renderInView:hostingView withTheme:[self currentTheme]];
 }
 
