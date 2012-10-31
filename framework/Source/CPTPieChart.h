@@ -88,7 +88,7 @@ CPTPieDirection;
  **/
 -(CGFloat)radialOffsetForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
-/// @{
+/// @}
 
 /// @name Legends
 /// @{
