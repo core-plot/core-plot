@@ -595,19 +595,27 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)idx
 {
-    NSUInteger dataCount = self.cachedDataCount;
-    CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
-    BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
+    NSParameterAssert(idx < self.cachedDataCount);
 
-    [self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
-    [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
+    CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
+    CGPoint viewPoint;
 
-    CGPoint result = viewPoints[idx];
+    if ( self.doublePrecisionCache ) {
+        double plotPoint[2];
+        plotPoint[CPTScatterPlotFieldX] = [self cachedDoubleForField:CPTScatterPlotFieldX recordIndex:idx];
+        plotPoint[CPTScatterPlotFieldY] = [self cachedDoubleForField:CPTScatterPlotFieldY recordIndex:idx];
 
-    free(viewPoints);
-    free(drawPointFlags);
+        viewPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+    }
+    else {
+        NSDecimal plotPoint[2];
+        plotPoint[CPTScatterPlotFieldX] = [self cachedDecimalForField:CPTScatterPlotFieldX recordIndex:idx];
+        plotPoint[CPTScatterPlotFieldY] = [self cachedDecimalForField:CPTScatterPlotFieldY recordIndex:idx];
 
-    return result;
+        viewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    }
+
+    return viewPoint;
 }
 
 #pragma mark -
