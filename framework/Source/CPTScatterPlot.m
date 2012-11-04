@@ -375,21 +375,72 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         // Ensure that whenever the path crosses over a region boundary, both points
         // are included. This ensures no lines are left out that shouldn't be.
+        CPTScatterPlotInterpolation theInterpolation = self.interpolation;
+
         memset( pointDrawFlags, NO, dataCount * sizeof(BOOL) );
         if ( dataCount > 0 ) {
             pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
                                  yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
                                  !nanFlags[0]);
         }
-        for ( NSUInteger i = 1; i < dataCount; i++ ) {
-            if ( !visibleOnly && !nanFlags[i - 1] && !nanFlags[i] && ( (xRangeFlags[i - 1] != xRangeFlags[i]) || (yRangeFlags[i - 1] != yRangeFlags[i]) ) ) {
-                pointDrawFlags[i - 1] = YES;
-                pointDrawFlags[i]     = YES;
+        if ( visibleOnly ) {
+            for ( NSUInteger i = 1; i < dataCount; i++ ) {
+                if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                     (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                     !nanFlags[i] ) {
+                    pointDrawFlags[i] = YES;
+                }
             }
-            else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-                      (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-                      !nanFlags[i] ) {
-                pointDrawFlags[i] = YES;
+        }
+        else {
+            switch ( theInterpolation ) {
+                case CPTScatterPlotInterpolationCurved:
+                    // Keep 2 points outside of the visible area on each side to maintain the correct curvature of the line
+                    if ( dataCount > 1 ) {
+                        if ( !nanFlags[0] && !nanFlags[1] && ( (xRangeFlags[0] != xRangeFlags[1]) || (yRangeFlags[0] != yRangeFlags[1]) ) ) {
+                            pointDrawFlags[0] = YES;
+                            pointDrawFlags[1] = YES;
+                        }
+                        else if ( (xRangeFlags[1] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  (yRangeFlags[1] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  !nanFlags[1] ) {
+                            pointDrawFlags[1] = YES;
+                        }
+                    }
+
+                    for ( NSUInteger i = 2; i < dataCount; i++ ) {
+                        if ( !nanFlags[i - 2] && !nanFlags[i - 1] && !nanFlags[i] ) {
+                            pointDrawFlags[i - 2] = YES;
+                            pointDrawFlags[i - 1] = YES;
+                            pointDrawFlags[i]     = YES;
+                        }
+                        else if ( !nanFlags[i - 1] && !nanFlags[i] && ( (xRangeFlags[i - 1] != xRangeFlags[i]) || (yRangeFlags[i - 1] != yRangeFlags[i]) ) ) {
+                            pointDrawFlags[i - 2] = YES;
+                            pointDrawFlags[i - 1] = YES;
+                            pointDrawFlags[i]     = YES;
+                        }
+                        else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  !nanFlags[i] ) {
+                            pointDrawFlags[i] = YES;
+                        }
+                    }
+                    break;
+
+                default:
+                    // Keep 1 point outside of the visible area on each side
+                    for ( NSUInteger i = 1; i < dataCount; i++ ) {
+                        if ( !nanFlags[i - 1] && !nanFlags[i] && ( (xRangeFlags[i - 1] != xRangeFlags[i]) || (yRangeFlags[i - 1] != yRangeFlags[i]) ) ) {
+                            pointDrawFlags[i - 1] = YES;
+                            pointDrawFlags[i]     = YES;
+                        }
+                        else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                                  !nanFlags[i] ) {
+                            pointDrawFlags[i] = YES;
+                        }
+                    }
+                    break;
             }
         }
 
