@@ -69,7 +69,7 @@ copytree(macFramework, join(macosDir, 'CorePlot.framework'), symlinks=True)
 RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Universal Library')
 iOSLibFile = join(join(projectRoot, 'build/Release-universal'), 'libCorePlot-CocoaTouch.a')
 copy(iOSLibFile, iosDir)
-iOSHeaderFile = join(join(projectRoot, 'build/Release-iphoneos'), 'include/CorePlot-CocoaTouch')
+iOSHeaderFile = join(join(projectRoot, 'build/Release-universal'), 'CorePlotHeaders')
 copytree(iOSHeaderFile, join(iosDir, 'CorePlotHeaders'))
 
 # Build Docs
