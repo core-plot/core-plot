@@ -165,6 +165,20 @@ CPTPieDirection;
 @property (nonatomic, readwrite, copy) CPTFill *overlayFill;
 @property (nonatomic, readwrite, assign) BOOL labelRotationRelativeToRadius;
 
+/** @brief Searches the pie slices for one corresponding to the given angle.
+ *  Throws an exception if no such pie slice exists.
+ *  @param angle An angle in radians.
+ *  @return The index of the pie slice that matches the given angle.
+ **/
+-(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle;
+
+/** @brief Computes the halfway-point between the starting and ending angles of a given pie slice.
+ *  @param angle A pie slice index.
+ *  @return The angle that is halfway between the slice's starting and ending angles, or zero if
+ *  an angle matching the given index cannot be found.
+ **/
+-(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)index;
+
 /// @name Factory Methods
 /// @{
 +(CPTColor *)defaultPieSliceColorForIndex:(NSUInteger)pieSliceIndex;

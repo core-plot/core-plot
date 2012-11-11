@@ -42,6 +42,7 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
 
 -(void)updateNormalizedData;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
+-(CGFloat)pieSliceValueForRadians:(CGFloat)radians;
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
 -(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle;
 
@@ -121,6 +122,76 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
  *  If @YES, the labels are rotated relative to the radius of the pie chart (zero rotation is parallel to the radius).
  **/
 @synthesize labelRotationRelativeToRadius;
+
+#pragma mark - Instance methods
+
+-(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle
+{
+    // Convert the angle to its pie slice value
+    angle = [self pieSliceValueForRadians:angle];
+
+    assert(angle >= 0 && angle <= 1);
+
+    CGFloat startingAngle = [self normalizedPosition:self.startAngle];
+
+    // Iterate through the pie slices and compute their starting and ending angles.
+    // If the angle we are searching for lies within those two angles, return the index
+    // of that pie slice.
+    for ( NSUInteger currentIndex = 0; currentIndex < self.cachedDataCount; currentIndex++ ) {
+        CGFloat width = CPTFloat([self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex]);
+        if ( isnan(width) ) {
+            continue;
+        }
+        CGFloat endingAngle = startingAngle;
+
+        if ( self.sliceDirection == CPTPieDirectionClockwise ) {
+            endingAngle -= width;
+        }
+        else {
+            endingAngle += width;
+        }
+
+        if ( [self angle:angle betweenStartAngle:startingAngle endAngle:endingAngle] ) {
+            return currentIndex;
+        }
+
+        startingAngle = endingAngle;
+    }
+
+    // Searched every pie slice but couldn't find one that corresponds to the given angle. Should never happen.
+    @throw[NSException exceptionWithName : @"PieSliceIndexNotFound"
+           reason :[NSString stringWithFormat:@"Slice for angle %f cannot be found", angle]
+           userInfo : nil];
+}
+
+-(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)index
+{
+    NSUInteger sampleCount = self.cachedDataCount;
+
+    if ( sampleCount == 0 ) {
+        return 0;
+    }
+
+    CGFloat startingWidth = 0;
+
+    // Iterate through the pie slices until the slice with the given index is found
+    for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
+        CGFloat currentWidth = CPTFloat([self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex]);
+
+        // If the slice index is a match...
+        if ( !isnan(currentWidth) && (index == currentIndex) ) {
+            // Compute and return the angle that is halfway between the slice's starting and ending angles
+            CGFloat startingAngle  = [self radiansForPieSliceValue:startingWidth];
+            CGFloat finishingAngle = [self radiansForPieSliceValue:startingWidth + currentWidth];
+            return (startingAngle + finishingAngle) / 2;
+        }
+
+        startingWidth += currentWidth;
+    }
+
+    // Searched every pie slice but couldn't find one that corresponds to the given index
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
@@ -651,6 +722,18 @@ static const CGFloat colorLookupTable[10][3] =
             break;
     }
     return angle;
+}
+
+/** @brief Returns the pie slice value that corresponds to the given angle. In other words, it
+ *  is the inverse of radiansForPieSliceValue:.
+ *  @param radian The angle to be converted to a pie slice value.
+ *  @return The pie slice value that is equivalent to the given angle.
+ **/
+-(CGFloat)pieSliceValueForRadians:(CGFloat)radians
+{
+    radians = CPTFloat( fmod(radians, 2 * M_PI) / (2 * M_PI) );
+
+    return radians >= 0 ? radians : radians + 1;
 }
 
 -(void)addSliceToPath:(CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle
