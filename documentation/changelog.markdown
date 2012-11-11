@@ -1,4 +1,4 @@
-# Next Release
+# Release 1.1 (November 11, 2012)
 
 ## Release Notes
 
