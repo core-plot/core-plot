@@ -209,14 +209,21 @@ CPTTradingRangePlotField;
     CGFloat barCornerRadius;
 }
 
+/// @name Appearance
+/// @{
+@property (nonatomic, readwrite, assign) CPTTradingRangePlotStyle plotStyle;
+@property (nonatomic, readwrite, assign) CGFloat barWidth;    // In view coordinates
+@property (nonatomic, readwrite, assign) CGFloat stickLength; // In view coordinates
+@property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
+/// @}
+
+/// @name Drawing
+/// @{
 @property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;
 @property (nonatomic, readwrite, copy) CPTLineStyle *increaseLineStyle;
 @property (nonatomic, readwrite, copy) CPTLineStyle *decreaseLineStyle;
 @property (nonatomic, readwrite, copy) CPTFill *increaseFill;
 @property (nonatomic, readwrite, copy) CPTFill *decreaseFill;
-@property (nonatomic, readwrite, assign) CPTTradingRangePlotStyle plotStyle;
-@property (nonatomic, readwrite, assign) CGFloat barWidth;    // In view coordinates
-@property (nonatomic, readwrite, assign) CGFloat stickLength; // In view coordinates
-@property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
+/// @}
 
 @end

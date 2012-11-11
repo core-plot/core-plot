@@ -122,14 +122,25 @@ CPTScatterPlotInterpolation;
     CGFloat plotSymbolMarginForHitDetection;
 }
 
+/// @name Appearance
+/// @{
+@property (nonatomic, readwrite) NSDecimal areaBaseValue;
+@property (nonatomic, readwrite) NSDecimal areaBaseValue2;
+@property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
+/// @}
+
+/// @name Drawing
+/// @{
 @property (nonatomic, readwrite, copy) CPTLineStyle *dataLineStyle;
 @property (nonatomic, readwrite, copy) CPTPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy) CPTFill *areaFill;
 @property (nonatomic, readwrite, copy) CPTFill *areaFill2;
-@property (nonatomic, readwrite) NSDecimal areaBaseValue;
-@property (nonatomic, readwrite) NSDecimal areaBaseValue2;
-@property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
+/// @}
+
+/// @name User Interaction
+/// @{
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
+/// @}
 
 /// @name Visible Points
 /// @{

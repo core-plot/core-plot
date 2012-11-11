@@ -110,7 +110,7 @@ CPTRangePlotField;
     CPTFill *areaFill;
 }
 
-/// @name Bar Appearance
+/// @name Appearance
 /// @{
 @property (nonatomic, readwrite, copy) CPTLineStyle *barLineStyle;
 @property (nonatomic, readwrite) CGFloat barWidth;
@@ -118,7 +118,7 @@ CPTRangePlotField;
 @property (nonatomic, readwrite) CGFloat gapWidth;
 /// @}
 
-/// @name Area Fill
+/// @name Drawing
 /// @{
 @property (nonatomic, copy) CPTFill *areaFill;
 /// @}

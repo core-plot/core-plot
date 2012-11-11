@@ -151,6 +151,8 @@ CPTBarPlotField;
     CPTPlotRange *plotRange;
 }
 
+/// @name Appearance
+/// @{
 @property (nonatomic, readwrite, assign) BOOL barWidthsAreInViewCoordinates;
 @property (nonatomic, readwrite, assign) NSDecimal barWidth;
 @property (nonatomic, readwrite, assign) CGFloat barWidthScale;
@@ -158,12 +160,17 @@ CPTBarPlotField;
 @property (nonatomic, readwrite, assign) CGFloat barOffsetScale;
 @property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
 @property (nonatomic, readwrite, assign) CGFloat barBaseCornerRadius;
-@property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, copy) CPTFill *fill;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
 @property (nonatomic, readwrite, assign) NSDecimal baseValue;
 @property (nonatomic, readwrite, assign) BOOL barBasesVary;
 @property (nonatomic, readwrite, copy) CPTPlotRange *plotRange;
+/// @}
+
+/// @name Drawing
+/// @{
+@property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, copy) CPTFill *fill;
+/// @}
 
 /// @name Factory Methods
 /// @{
