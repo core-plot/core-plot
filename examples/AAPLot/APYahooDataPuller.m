@@ -76,7 +76,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     return [NSDictionary dictionaryWithDictionary:rep];
 }
 
--(BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag;
+-(BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag
 {
     NSLog(@"writeToFile:%@", path);
     BOOL success = [[self plistRep] writeToFile:path atomically:flag];
@@ -179,7 +179,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 }
 
 // http://www.goldb.org/ystockquote.html
--(NSString *)URL;
+-(NSString *)URL
 {
     unsigned int unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit;
 
@@ -310,7 +310,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     }
 }
 
--(void)parseCSVAndPopulate;
+-(void)parseCSVAndPopulate
 {
     NSArray *csvLines              = [self.csvString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSMutableArray *newFinancials  = [NSMutableArray arrayWithCapacity:[csvLines count]];

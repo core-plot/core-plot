@@ -28,7 +28,7 @@
     [super dealloc];
 }
 
--(void)setView:(UIView *)aView;
+-(void)setView:(UIView *)aView
 {
     [super setView:aView];
     if ( nil == aView ) {
@@ -179,7 +179,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTScatterPlotFieldX :
                             *nextValue++ = (double)(i + 1);
@@ -204,7 +204,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTScatterPlotFieldX:
                             *nextValue++ = CPTDecimalFromUnsignedInteger(i + 1);
@@ -231,7 +231,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTBarPlotFieldBarLocation:
                             *nextValue++ = (double)(i + 1);
@@ -256,7 +256,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTBarPlotFieldBarLocation:
                             *nextValue++ = CPTDecimalFromUnsignedInteger(i + 1);
@@ -283,7 +283,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTTradingRangePlotFieldX:
                             *nextValue++ = (double)(i + 1);
@@ -326,7 +326,7 @@
                 NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                 NSNumber *value;
 
-                for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
+                for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
                         case CPTTradingRangePlotFieldX:
                             *nextValue++ = CPTDecimalFromUnsignedInteger(i + 1);
@@ -611,7 +611,7 @@
     }
 }
 
--(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp;
+-(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp
 {
     CPTXYPlotSpace *plotSpace       = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
     CPTXYPlotSpace *volumePlotSpace = (CPTXYPlotSpace *)[self.graph plotSpaceWithIdentifier:@"Volume Plot Space"];

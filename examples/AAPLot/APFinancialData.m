@@ -3,7 +3,7 @@
 
 @implementation NSDictionary(APFinancialData)
 
-+(id)dictionaryWithCSVLine:(NSString *)csvLine;
++(id)dictionaryWithCSVLine:(NSString *)csvLine
 {
     NSArray *csvChunks = [csvLine componentsSeparatedByString:@","];
 
