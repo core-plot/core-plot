@@ -14,18 +14,6 @@
 #import "PlotGallery.h"
 #import "PlotItem.h"
 
-/*
- * // Add new PlotItems to this list
- * static NSString *plotClasses[] =
- * {
- *  @"SimpleScatterPlot",
- *  @"GradientScatterPlot",
- *  @"SimplePieChart",
- *  @"VerticalBarChart",
- *  @"CompositePlot"
- * };
- */
-
 @implementation Plot_GalleryAppDelegate
 
 @synthesize window;
