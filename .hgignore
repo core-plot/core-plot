@@ -28,6 +28,8 @@ build/*
 **.xcuserstate
 **/xcuserdata/*
 
+# AppCode settings
+**/.idea/*
 
 # documentation
 **.docset/*
