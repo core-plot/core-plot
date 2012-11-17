@@ -4,6 +4,7 @@
 @class CPTPlotSpace;
 
 @interface CPTPlotSpaceAnnotation : CPTAnnotation {
+    @private
     NSArray *anchorPlotPoint;
     CPTPlotSpace *plotSpace;
 }

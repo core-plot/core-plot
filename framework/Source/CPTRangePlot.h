@@ -103,6 +103,7 @@ CPTRangePlotField;
 #pragma mark -
 
 @interface CPTRangePlot : CPTPlot {
+    @private
     CPTLineStyle *barLineStyle;
     CGFloat barWidth;
     CGFloat gapHeight;
