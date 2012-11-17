@@ -10,6 +10,7 @@
 
 @interface Plot_Gallery_MacAppDelegate : NSObject<NSApplicationDelegate>
 {
+    @private
     NSWindow *window;
 }
 

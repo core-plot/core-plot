@@ -19,7 +19,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     if ( (self = [super init]) ) {
         graph    = nil;
         plotData = nil;
-        title    = @"OHLC Plot";
+
+        self.title   = @"OHLC Plot";
+        self.section = kFinancialPlots;
     }
 
     return self;

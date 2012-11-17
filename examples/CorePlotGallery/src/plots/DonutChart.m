@@ -13,7 +13,8 @@ NSString *const outerChartName = @"Outer";
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Donut Chart";
+        self.title   = @"Donut Chart";
+        self.section = kPieCharts;
     }
 
     return self;
@@ -53,7 +54,7 @@ NSString *const outerChartName = @"Outer";
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    graph.title = title;
+    graph.title = self.title;
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color                = [CPTColor grayColor];
     textStyle.fontName             = @"Helvetica-Bold";

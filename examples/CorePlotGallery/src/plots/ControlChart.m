@@ -17,7 +17,8 @@ const NSUInteger numberOfPoints = 11;
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Control Chart";
+        self.title   = @"Control Chart";
+        self.section = kLinePlots;
     }
 
     return self;

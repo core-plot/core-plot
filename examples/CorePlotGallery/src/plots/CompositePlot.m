@@ -21,7 +21,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Composite Plot";
+        self.title   = @"Composite Plot";
+        self.section = kDemoPlots;
     }
 
     return self;

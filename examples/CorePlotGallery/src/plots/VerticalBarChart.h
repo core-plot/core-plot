@@ -12,6 +12,7 @@
                                        CPTPlotDataSource,
                                        CPTBarPlotDelegate>
 {
+    @private
     CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
     NSArray *plotData;

@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Simple Pie Chart";
+        self.title   = @"Simple Pie Chart";
+        self.section = kPieCharts;
     }
 
     return self;
@@ -58,7 +59,7 @@
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    graph.title = title;
+    graph.title = self.title;
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color                = [CPTColor grayColor];
     textStyle.fontName             = @"Helvetica-Bold";
@@ -90,7 +91,7 @@
     piePlot.dataSource = self;
     piePlot.pieRadius  = MIN(0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
                              0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
-    piePlot.identifier     = title;
+    piePlot.identifier     = self.title;
     piePlot.startAngle     = M_PI_4;
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
     piePlot.overlayFill    = [CPTFill fillWithGradient:overlayGradient];

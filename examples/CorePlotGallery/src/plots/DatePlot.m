@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Date Plot";
+        self.title   = @"Date Plot";
+        self.section = kLinePlots;
     }
 
     return self;

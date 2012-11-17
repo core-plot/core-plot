@@ -10,7 +10,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Colored Bar Chart";
+        self.title   = @"Colored Bar Chart";
+        self.section = kBarPlots;
     }
 
     return self;

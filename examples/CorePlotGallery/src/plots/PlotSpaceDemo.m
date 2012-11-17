@@ -19,7 +19,8 @@ static const CGFloat titleOffset     = 25.0;
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Plot Space Demo";
+        self.title   = @"Plot Space Demo";
+        self.section = kDemoPlots;
     }
 
     return self;

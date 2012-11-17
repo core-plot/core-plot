@@ -4,6 +4,7 @@
                                       CPTPlotDataSource,
                                       CPTBarPlotDelegate>
 {
+    @private
     NSArray *plotData;
 }
 

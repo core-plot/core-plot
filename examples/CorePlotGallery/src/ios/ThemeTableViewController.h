@@ -19,6 +19,7 @@
 
 @interface ThemeTableViewController : UITableViewController
 {
+    @private
     UIPopoverController *themePopoverController;
     id<ThemeTableViewControllerDelegate> delegate;
     NSMutableArray *themes;

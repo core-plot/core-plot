@@ -10,6 +10,7 @@
 
 @interface PlotGalleryAppDelegate_iPhone : NSObject<UIApplicationDelegate>
 {
+    @private
     UIWindow *window;
     UINavigationController *navigationController;
 }

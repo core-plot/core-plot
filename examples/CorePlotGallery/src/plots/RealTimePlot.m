@@ -20,9 +20,11 @@ NSString *kPlotIdentifier       = @"Data Source Plot";
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title     = @"Real Time Plot";
         plotData  = [[NSMutableArray alloc] initWithCapacity:kMaxDataPoints];
         dataTimer = nil;
+
+        self.title   = @"Real Time Plot";
+        self.section = kLinePlots;
     }
 
     return self;
@@ -143,7 +145,7 @@ NSString *kPlotIdentifier       = @"Data Source Plot";
 
 -(void)newData:(NSTimer *)theTimer
 {
-    CPTGraph *theGraph = [graphs objectAtIndex:0];
+    CPTGraph *theGraph = [self.graphs objectAtIndex:0];
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
 
     if ( thePlot ) {

@@ -12,7 +12,7 @@
                                CPTPlotDataSource,
                                CPTScatterPlotDelegate>
 {
-    CGFloat labelRotation;
+    @private
     NSArray *plotData;
 }
 

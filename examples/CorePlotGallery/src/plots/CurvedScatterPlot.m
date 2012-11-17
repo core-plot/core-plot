@@ -16,7 +16,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Curved Scatter Plot";
+        self.title   = @"Curved Scatter Plot";
+        self.section = kLinePlots;
     }
 
     return self;
@@ -24,8 +25,8 @@
 
 -(void)killGraph
 {
-    if ( [graphs count] ) {
-        CPTGraph *graph = [graphs objectAtIndex:0];
+    if ( [self.graphs count] ) {
+        CPTGraph *graph = [self.graphs objectAtIndex:0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -249,7 +250,7 @@
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    CPTXYGraph *graph = [graphs objectAtIndex:0];
+    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];

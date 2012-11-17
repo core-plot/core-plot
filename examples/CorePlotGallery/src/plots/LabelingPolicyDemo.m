@@ -19,7 +19,8 @@ static const CGFloat titleOffset     = 25.0;
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Axis Labeling Policies";
+        self.title   = @"Axis Labeling Policies";
+        self.section = kDemoPlots;
     }
 
     return self;

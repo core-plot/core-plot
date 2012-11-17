@@ -13,6 +13,7 @@
 
 @interface Plot_GalleryAppDelegate : NSObject<UIApplicationDelegate>
 {
+    @private
     UIWindow *window;
 
     UISplitViewController *splitViewController;

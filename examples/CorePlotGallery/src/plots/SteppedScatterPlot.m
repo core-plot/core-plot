@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Stepped Scatter Plot";
+        self.title   = @"Stepped Scatter Plot";
+        self.section = kLinePlots;
     }
 
     return self;

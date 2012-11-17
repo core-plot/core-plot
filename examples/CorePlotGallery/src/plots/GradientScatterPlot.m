@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Gradient Scatter Plot";
+        self.title   = @"Gradient Scatter Plot";
+        self.section = kLinePlots;
     }
 
     return self;
@@ -26,8 +27,8 @@
 
 -(void)killGraph
 {
-    if ( [graphs count] ) {
-        CPTGraph *graph = [graphs objectAtIndex:0];
+    if ( [self.graphs count] ) {
+        CPTGraph *graph = [self.graphs objectAtIndex:0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -205,7 +206,7 @@
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    CPTGraph *graph = [graphs objectAtIndex:0];
+    CPTGraph *graph = [self.graphs objectAtIndex:0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];

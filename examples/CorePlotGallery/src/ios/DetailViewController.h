@@ -15,6 +15,7 @@
                                                    UISplitViewControllerDelegate,
                                                    ThemeTableViewControllerDelegate>
 {
+    @private
     UIPopoverController *popoverController;
     UIToolbar *toolbar;
 

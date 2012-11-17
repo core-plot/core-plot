@@ -44,6 +44,7 @@ static PlotGallery *sharedPlotGallery = nil;
             if ( (self = [super init]) ) {
                 sharedPlotGallery = self;
                 plotItems         = [[NSMutableArray alloc] init];
+                plotSections      = [[NSCountedSet alloc] init];
             }
         }
     }
@@ -78,21 +79,47 @@ static PlotGallery *sharedPlotGallery = nil;
 -(void)addPlotItem:(PlotItem *)plotItem
 {
     [plotItems addObject:plotItem];
+
+    NSString *sectionName = plotItem.section;
+    if ( sectionName ) {
+        [plotSections addObject:sectionName];
+    }
 }
 
 -(NSUInteger)count
 {
-    return [plotItems count];
+    return plotItems.count;
 }
 
--(PlotItem *)objectAtIndex:(NSUInteger)index
+-(NSUInteger)numberOfSections
 {
-    return [plotItems objectAtIndex:index];
+    return plotSections.count;
+}
+
+-(NSInteger)numberOfRowsInSection:(NSInteger)section
+{
+    return [plotSections countForObject:[[self sectionTitles] objectAtIndex:section]];
+}
+
+-(PlotItem *)objectInSection:(NSInteger)section atIndex:(NSUInteger)index
+{
+    NSUInteger offset = 0;
+
+    for ( NSUInteger i = 0; i < section; i++ ) {
+        offset += [self numberOfRowsInSection:i];
+    }
+
+    return [plotItems objectAtIndex:offset + index];
 }
 
 -(void)sortByTitle
 {
     [plotItems sortUsingSelector:@selector(titleCompare:)];
+}
+
+-(NSArray *)sectionTitles
+{
+    return [[plotSections allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 @end

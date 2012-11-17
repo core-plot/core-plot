@@ -17,7 +17,8 @@ static const CGFloat titleOffset = 25.0;
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Line Caps";
+        self.title   = @"Line Caps";
+        self.section = kDemoPlots;
     }
 
     return self;

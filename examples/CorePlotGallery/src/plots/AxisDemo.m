@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Axis Demo";
+        self.title   = @"Axis Demo";
+        self.section = kDemoPlots;
     }
 
     return self;

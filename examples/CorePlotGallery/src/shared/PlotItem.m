@@ -16,10 +16,17 @@
 #import <Quartz/Quartz.h>
 #endif
 
+NSString *const kDemoPlots      = @"Demos";
+NSString *const kPieCharts      = @"Pie Charts";
+NSString *const kLinePlots      = @"Line Plots";
+NSString *const kBarPlots       = @"Bar Plots";
+NSString *const kFinancialPlots = @"Financial Plots";
+
 @implementation PlotItem
 
 @synthesize defaultLayerHostingView;
 @synthesize graphs;
+@synthesize section;
 @synthesize title;
 
 +(void)registerPlotItem:(id)item
@@ -41,7 +48,10 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        graphs = [[NSMutableArray alloc] init];
+        defaultLayerHostingView = nil;
+        graphs                  = [[NSMutableArray alloc] init];
+        section                 = nil;
+        title                   = nil;
     }
 
     return self;
@@ -81,6 +91,9 @@
 -(void)dealloc
 {
     [self killGraph];
+    [title release];
+    [section release];
+
     [super dealloc];
 }
 
@@ -91,7 +104,13 @@
 
 -(NSComparisonResult)titleCompare:(PlotItem *)other
 {
-    return [title caseInsensitiveCompare:other.title];
+    NSComparisonResult comparisonResult = [self.section caseInsensitiveCompare:other.section];
+
+    if ( comparisonResult == NSOrderedSame ) {
+        comparisonResult = [self.title caseInsensitiveCompare:other.title];
+    }
+
+    return comparisonResult;
 }
 
 -(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
@@ -283,7 +302,7 @@
 
 -(NSString *)imageUID
 {
-    return title;
+    return self.title;
 }
 
 -(NSString *)imageRepresentationType
@@ -298,7 +317,7 @@
 
 -(NSString *)imageTitle
 {
-    return title;
+    return self.title;
 }
 
 /*

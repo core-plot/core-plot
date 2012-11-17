@@ -18,7 +18,8 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        title = @"Vertical Bar Chart";
+        self.title   = @"Vertical Bar Chart";
+        self.section = kBarPlots;
     }
 
     return self;
@@ -26,8 +27,8 @@
 
 -(void)killGraph
 {
-    if ( [graphs count] ) {
-        CPTGraph *graph = [graphs objectAtIndex:0];
+    if ( [self.graphs count] ) {
+        CPTGraph *graph = [self.graphs objectAtIndex:0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -266,7 +267,7 @@
 
     NSLog(@"Bar for '%@' was selected at index %d. Value = %f", plot.identifier, (int)index, [value floatValue]);
 
-    CPTGraph *graph = [graphs objectAtIndex:0];
+    CPTGraph *graph = [self.graphs objectAtIndex:0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];

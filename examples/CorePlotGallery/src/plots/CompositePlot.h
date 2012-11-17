@@ -13,6 +13,7 @@
                                     CPTScatterPlotDelegate,
                                     CPTBarPlotDelegate>
 {
+    @private
     CPTGraphHostingView *scatterPlotView;
     CPTGraphHostingView *barChartView;
     CPTGraphHostingView *pieChartView;

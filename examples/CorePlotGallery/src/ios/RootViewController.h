@@ -12,6 +12,7 @@
 
 @interface RootViewController : UITableViewController
 {
+    @private
     DetailViewController *detailViewController;
 }
 

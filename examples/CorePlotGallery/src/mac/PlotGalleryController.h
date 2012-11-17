@@ -16,19 +16,17 @@
 @interface PlotGalleryController : NSObject<NSSplitViewDelegate,
                                             PlotViewDelegate>
 {
+    @private
     IBOutlet NSSplitView *splitView;
     IBOutlet NSScrollView *scrollView;
     IBOutlet IKImageBrowserView *imageBrowser;
     IBOutlet NSPopUpButton *themePopUpButton;
 
     IBOutlet PlotView *hostingView;
-    CPTGraphHostingView *defaultGraphHostingView;
 
     PlotItem *plotItem;
 
     NSString *currentThemeName;
-
-    void *nuHandle;
 }
 
 @property (nonatomic, retain) PlotItem *plotItem;

@@ -33,12 +33,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tv
 {
-    return 1;
+    return [[PlotGallery sharedPlotGallery] numberOfSections];
 }
 
 -(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] count];
+    return [[PlotGallery sharedPlotGallery] numberOfRowsInSection:section];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,11 +52,16 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
-    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectAtIndex:indexPath.row];
+    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:indexPath.section atIndex:indexPath.row];
     cell.imageView.image = [plotItem image];
     cell.textLabel.text  = plotItem.title;
 
     return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[[PlotGallery sharedPlotGallery] sectionTitles] objectAtIndex:section];
 }
 
 #pragma mark -
@@ -64,7 +69,7 @@
 
 -(void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectAtIndex:indexPath.row];
+    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:indexPath.section atIndex:indexPath.row];
 
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
         detailViewController.detailItem = plotItem;

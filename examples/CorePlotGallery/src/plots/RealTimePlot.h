@@ -7,6 +7,7 @@
 
 @interface RealTimePlot : PlotItem<CPTPlotDataSource>
 {
+    @private
     NSMutableArray *plotData;
     NSUInteger currentIndex;
     NSTimer *dataTimer;

@@ -16,6 +16,7 @@
 
 @interface PlotView : NSView
 {
+    @private
     id<PlotViewDelegate> delegate;
 }
 

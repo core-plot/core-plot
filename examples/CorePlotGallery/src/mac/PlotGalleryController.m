@@ -140,6 +140,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
     }
 }
 
+#pragma mark -
 #pragma mark IKImageBrowserViewDataSource methods
 
 -(NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)browser
@@ -149,9 +150,34 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 
 -(id)imageBrowser:(IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
 {
-    return [[PlotGallery sharedPlotGallery] objectAtIndex:index];
+    return [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
 }
 
+-(NSUInteger)numberOfGroupsInImageBrowser:(IKImageBrowserView *)aBrowser
+{
+    return [[PlotGallery sharedPlotGallery] numberOfSections];
+}
+
+-(NSDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
+{
+    NSString *groupTitle = [[[PlotGallery sharedPlotGallery] sectionTitles] objectAtIndex:index];
+
+    NSUInteger offset = 0;
+
+    for ( NSUInteger i = 0; i < index; i++ ) {
+        offset += [[PlotGallery sharedPlotGallery] numberOfRowsInSection:i];
+    }
+
+    NSValue *groupRange = [NSValue valueWithRange:NSMakeRange(offset, [[PlotGallery sharedPlotGallery] numberOfRowsInSection:index])];
+
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithInt:IKGroupDisclosureStyle], IKImageBrowserGroupStyleKey,
+            groupTitle, IKImageBrowserGroupTitleKey,
+            groupRange, IKImageBrowserGroupRangeKey,
+            nil];
+}
+
+#pragma mark -
 #pragma mark IKImageBrowserViewDelegate methods
 
 -(void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
@@ -159,11 +185,12 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
     NSUInteger index = [[browser selectionIndexes] firstIndex];
 
     if ( index != NSNotFound ) {
-        PlotItem *item = [[PlotGallery sharedPlotGallery] objectAtIndex:index];
+        PlotItem *item = [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
         self.plotItem = item;
     }
 }
 
+#pragma mark -
 #pragma mark NSSplitViewDelegate methods
 
 -(CGFloat)splitView:(NSSplitView *)sv constrainMinCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
