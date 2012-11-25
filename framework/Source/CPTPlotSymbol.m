@@ -412,11 +412,13 @@
 {
     CPTPlotSymbol *copy = [[[self class] allocWithZone:zone] init];
 
+    copy.anchorPoint         = self.anchorPoint;
     copy.size                = self.size;
     copy.symbolType          = self.symbolType;
     copy.usesEvenOddClipRule = self.usesEvenOddClipRule;
     copy.lineStyle           = [[self.lineStyle copy] autorelease];
     copy.fill                = [[self.fill copy] autorelease];
+    copy.shadow              = [[self.shadow copy] autorelease];
 
     if ( self.customSymbolPath ) {
         CGPathRef pathCopy = CGPathCreateCopy(self.customSymbolPath);
