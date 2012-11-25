@@ -551,6 +551,7 @@
             CGContextTranslateCTM(context, center.x + ( symbolAnchor.x - CPTFloat(0.5) ) * symbolSize.width, center.y + ( symbolAnchor.y - CPTFloat(0.5) ) * symbolSize.height);
             CGContextScaleCTM(context, scale, scale);
             [self.shadow setShadowInContext:context];
+            CGContextBeginTransparencyLayer(context, NULL);
 
             if ( theFill ) {
                 // use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
@@ -579,6 +580,7 @@
                 [theLineStyle strokePathInContext:context];
             }
 
+            CGContextEndTransparencyLayer(context);
             CGContextRestoreGState(context);
         }
     }
