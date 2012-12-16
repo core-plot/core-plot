@@ -728,7 +728,7 @@ static const CGFloat colorLookupTable[10][3] =
 -(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle
 {
     // Convert the angle to its pie slice value
-    CGFloat pieAngle      = [self normalizedPosition:( angle / CPTFloat(2.0 * M_PI) )];
+    CGFloat pieAngle      = [self normalizedPosition:angle];
     CGFloat startingAngle = [self normalizedPosition:self.startAngle];
 
     // Iterate through the pie slices and compute their starting and ending angles.
