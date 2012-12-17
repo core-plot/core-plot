@@ -83,7 +83,7 @@
         [detailItem release];
 
         detailItem = [newDetailItem retain];
-        [detailItem renderInView:hostingView withTheme:[self currentTheme]];
+        [detailItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
     }
 
     if ( popoverController != nil ) {
@@ -132,7 +132,7 @@
     if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) {
         self.hostingView.frame = self.view.bounds;
     }
-    [detailItem renderInView:hostingView withTheme:[self currentTheme]];
+    [detailItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
 }
 
 #pragma mark -
@@ -214,7 +214,7 @@
         themeTableViewController = nil;
     }
 
-    [detailItem renderInView:hostingView withTheme:[self currentTheme]];
+    [detailItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
 }
 
 @end

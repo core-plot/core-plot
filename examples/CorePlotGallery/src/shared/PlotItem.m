@@ -86,6 +86,8 @@ NSString *const kFinancialPlots = @"Financial Plots";
     cachedImage = nil;
 
     [graphs removeAllObjects];
+
+    [[CPTAnimation sharedInstance] removeAllAnimationOperations];
 }
 
 -(void)dealloc
@@ -152,7 +154,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
         [imageView setOpaque:YES];
         [imageView setUserInteractionEnabled:NO];
 
-        [self renderInView:imageView withTheme:nil];
+        [self renderInView:imageView withTheme:nil animated:NO];
 
         CGSize boundsSize = imageView.bounds.size;
 
@@ -204,7 +206,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
         NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
         [imageView setWantsLayer:YES];
 
-        [self renderInView:imageView withTheme:nil];
+        [self renderInView:imageView withTheme:nil animated:NO];
 
         CGSize boundsSize = imageFrame.size;
 
@@ -260,9 +262,9 @@ NSString *const kFinancialPlots = @"Financial Plots";
 #endif
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
--(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme
+-(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 #else
--(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme
+-(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 #endif
 {
     [self killGraph];
@@ -279,10 +281,10 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
     [hostingView addSubview:defaultLayerHostingView];
     [self generateData];
-    [self renderInLayer:defaultLayerHostingView withTheme:theme];
+    [self renderInLayer:defaultLayerHostingView withTheme:theme animated:animated];
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
+-(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }

@@ -59,9 +59,9 @@
 #endif
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
--(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme
+-(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 #else
--(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme
+-(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 #endif
 {
     [self killGraph];

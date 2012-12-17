@@ -117,7 +117,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 -(IBAction)themeSelectionDidChange:(id)sender
 {
     self.currentThemeName = [sender titleOfSelectedItem];
-    [plotItem renderInView:hostingView withTheme:[self currentTheme]];
+    [plotItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
 }
 
 #pragma mark -
@@ -136,7 +136,7 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 
         plotItem = [item retain];
 
-        [plotItem renderInView:hostingView withTheme:[self currentTheme]];
+        [plotItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
     }
 }
 
