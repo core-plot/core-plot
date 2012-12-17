@@ -12,6 +12,7 @@
     // Date,Open,High,Low,Close,Volume,Adj Close
     // 2009-06-08,143.82,144.23,139.43,143.85,33255400,143.85
     NSDate *theDate = [[NSDateFormatter csvDateFormatter] dateFromString:(NSString *)[csvChunks objectAtIndex:0]];
+
     [csvDict setObject:theDate forKey:@"date"];
     NSDecimalNumber *theOpen = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:1]];
     [csvDict setObject:theOpen forKey:@"open"];

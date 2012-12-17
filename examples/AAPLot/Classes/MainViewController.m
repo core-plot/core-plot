@@ -613,12 +613,15 @@
 
 -(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp
 {
+    static CPTAnimationOperation *animationOperation = nil;
+
     CPTXYPlotSpace *plotSpace       = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
     CPTXYPlotSpace *volumePlotSpace = (CPTXYPlotSpace *)[self.graph plotSpaceWithIdentifier:@"Volume Plot Space"];
 
     NSDecimalNumber *high   = [datapuller overallHigh];
     NSDecimalNumber *low    = [datapuller overallLow];
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
+
     NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     NSDecimalNumber *pricePlotSpaceDisplacementPercent = [NSDecimalNumber decimalNumberWithMantissa:33
                                                                                            exponent:-2
@@ -628,8 +631,13 @@
     NSDecimalNumber *lowDisplayLocation      = [low decimalNumberBySubtracting:lengthDisplacementValue];
     NSDecimalNumber *lengthDisplayLocation   = [length decimalNumberByAdding:lengthDisplacementValue];
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0f) length:CPTDecimalFromInteger([datapuller.financialData count])];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
+
+    CPTScatterPlot *linePlot = (CPTScatterPlot *)[graph plotWithIdentifier:@"Data Source Plot"];
+    linePlot.areaBaseValue  = [high decimalValue];
+    linePlot.areaBaseValue2 = [low decimalValue];
+
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 
@@ -646,14 +654,26 @@
     NSDecimalNumber *volumeLowDisplayLocation      = overallVolumeLow;
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
-    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromInteger([datapuller.financialData count])];
-    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
+    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
+//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
+
+    if ( animationOperation ) {
+        [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
+        [animationOperation release];
+    }
+
+    animationOperation = [[CPTAnimation animate:volumePlotSpace
+                                       property:@"yRange"
+                                  fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                             length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                    toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                             length:[volumeLengthDisplayLocation decimalValue]]
+                                       duration:2.5] retain];
 
     axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
-
-    axisSet.yAxis.majorIntervalLength         = CPTDecimalFromString(@"50.0");
+    axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
     axisSet.yAxis.minorTicksPerInterval       = 4;
-    axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
+    axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
     NSArray *exclusionRanges = [NSArray arrayWithObjects:
                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]],
                                 nil];
