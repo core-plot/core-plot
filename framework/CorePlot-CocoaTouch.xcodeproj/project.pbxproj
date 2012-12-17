@@ -182,6 +182,26 @@
 		C3B623D4107EC9800009EF0B /* _CPTFillColor.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828A0FB89E610035D8DA /* _CPTFillColor.h */; settings = {ATTRIBUTES = (); }; };
 		C3B623D5107EC9820009EF0B /* _CPTFillGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828C0FB89E610035D8DA /* _CPTFillGradient.h */; settings = {ATTRIBUTES = (); }; };
 		C3B623D6107EC9830009EF0B /* _CPTFillImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B828E0FB89E610035D8DA /* _CPTFillImage.h */; settings = {ATTRIBUTES = (); }; };
+		C3C68320166138E200340E39 /* CPTAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C68318166138E200340E39 /* CPTAnimation.h */; };
+		C3C68321166138E200340E39 /* CPTAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C68319166138E200340E39 /* CPTAnimation.m */; };
+		C3C68322166138E200340E39 /* CPTAnimationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6831A166138E200340E39 /* CPTAnimationOperation.h */; };
+		C3C68323166138E200340E39 /* CPTAnimationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6831B166138E200340E39 /* CPTAnimationOperation.m */; };
+		C3C68324166138E200340E39 /* CPTAnimationPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6831C166138E200340E39 /* CPTAnimationPeriod.h */; };
+		C3C68325166138E200340E39 /* CPTAnimationPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6831D166138E200340E39 /* CPTAnimationPeriod.m */; };
+		C3C68326166138E200340E39 /* _CPTAnimationTimingFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6831E166138E200340E39 /* _CPTAnimationTimingFunctions.h */; };
+		C3C68327166138E200340E39 /* _CPTAnimationTimingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6831F166138E200340E39 /* _CPTAnimationTimingFunctions.m */; };
+		C3C683341661391A00340E39 /* _CPTAnimationCGFloatPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C683281661391A00340E39 /* _CPTAnimationCGFloatPeriod.h */; };
+		C3C683351661391A00340E39 /* _CPTAnimationCGFloatPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C683291661391A00340E39 /* _CPTAnimationCGFloatPeriod.m */; };
+		C3C683361661391A00340E39 /* _CPTAnimationCGPointPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6832A1661391A00340E39 /* _CPTAnimationCGPointPeriod.h */; };
+		C3C683371661391A00340E39 /* _CPTAnimationCGPointPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6832B1661391A00340E39 /* _CPTAnimationCGPointPeriod.m */; };
+		C3C683381661391A00340E39 /* _CPTAnimationCGRectPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6832C1661391A00340E39 /* _CPTAnimationCGRectPeriod.h */; };
+		C3C683391661391A00340E39 /* _CPTAnimationCGRectPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6832D1661391A00340E39 /* _CPTAnimationCGRectPeriod.m */; };
+		C3C6833A1661391A00340E39 /* _CPTAnimationCGSizePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C6832E1661391A00340E39 /* _CPTAnimationCGSizePeriod.h */; };
+		C3C6833B1661391A00340E39 /* _CPTAnimationCGSizePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C6832F1661391A00340E39 /* _CPTAnimationCGSizePeriod.m */; };
+		C3C6833C1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C683301661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h */; };
+		C3C6833D1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C683311661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m */; };
+		C3C6833E1661391A00340E39 /* _CPTAnimationPlotRangePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C683321661391A00340E39 /* _CPTAnimationPlotRangePeriod.h */; };
+		C3C6833F1661391A00340E39 /* _CPTAnimationPlotRangePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C683331661391A00340E39 /* _CPTAnimationPlotRangePeriod.m */; };
 		C3CAFB3B1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CAFB391229E48200F5C989 /* CPTMutableNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (); }; };
 		C3CAFB3C1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CAFB3A1229E48200F5C989 /* CPTMutableNumericData+TypeConversion.m */; };
 		C3CCA04813E8D94800CE6DB1 /* _CPTConstraintsFixed.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CCA04413E8D94800CE6DB1 /* _CPTConstraintsFixed.h */; settings = {ATTRIBUTES = (); }; };
@@ -363,6 +383,26 @@
 		C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoderExtensions.m; path = Source/NSCoderExtensions.m; sourceTree = "<group>"; };
 		C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutablePlotRange.h; path = Source/CPTMutablePlotRange.h; sourceTree = "<group>"; };
 		C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutablePlotRange.m; path = Source/CPTMutablePlotRange.m; sourceTree = "<group>"; };
+		C3C68318166138E200340E39 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimation.h; path = Source/CPTAnimation.h; sourceTree = "<group>"; };
+		C3C68319166138E200340E39 /* CPTAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimation.m; path = Source/CPTAnimation.m; sourceTree = "<group>"; };
+		C3C6831A166138E200340E39 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationOperation.h; path = Source/CPTAnimationOperation.h; sourceTree = "<group>"; };
+		C3C6831B166138E200340E39 /* CPTAnimationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimationOperation.m; path = Source/CPTAnimationOperation.m; sourceTree = "<group>"; };
+		C3C6831C166138E200340E39 /* CPTAnimationPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationPeriod.h; path = Source/CPTAnimationPeriod.h; sourceTree = "<group>"; };
+		C3C6831D166138E200340E39 /* CPTAnimationPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimationPeriod.m; path = Source/CPTAnimationPeriod.m; sourceTree = "<group>"; };
+		C3C6831E166138E200340E39 /* _CPTAnimationTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationTimingFunctions.h; path = Source/_CPTAnimationTimingFunctions.h; sourceTree = "<group>"; };
+		C3C6831F166138E200340E39 /* _CPTAnimationTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationTimingFunctions.m; path = Source/_CPTAnimationTimingFunctions.m; sourceTree = "<group>"; };
+		C3C683281661391A00340E39 /* _CPTAnimationCGFloatPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGFloatPeriod.h; path = Source/_CPTAnimationCGFloatPeriod.h; sourceTree = "<group>"; };
+		C3C683291661391A00340E39 /* _CPTAnimationCGFloatPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationCGFloatPeriod.m; path = Source/_CPTAnimationCGFloatPeriod.m; sourceTree = "<group>"; };
+		C3C6832A1661391A00340E39 /* _CPTAnimationCGPointPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGPointPeriod.h; path = Source/_CPTAnimationCGPointPeriod.h; sourceTree = "<group>"; };
+		C3C6832B1661391A00340E39 /* _CPTAnimationCGPointPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationCGPointPeriod.m; path = Source/_CPTAnimationCGPointPeriod.m; sourceTree = "<group>"; };
+		C3C6832C1661391A00340E39 /* _CPTAnimationCGRectPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGRectPeriod.h; path = Source/_CPTAnimationCGRectPeriod.h; sourceTree = "<group>"; };
+		C3C6832D1661391A00340E39 /* _CPTAnimationCGRectPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationCGRectPeriod.m; path = Source/_CPTAnimationCGRectPeriod.m; sourceTree = "<group>"; };
+		C3C6832E1661391A00340E39 /* _CPTAnimationCGSizePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGSizePeriod.h; path = Source/_CPTAnimationCGSizePeriod.h; sourceTree = "<group>"; };
+		C3C6832F1661391A00340E39 /* _CPTAnimationCGSizePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationCGSizePeriod.m; path = Source/_CPTAnimationCGSizePeriod.m; sourceTree = "<group>"; };
+		C3C683301661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationNSDecimalPeriod.h; path = Source/_CPTAnimationNSDecimalPeriod.h; sourceTree = "<group>"; };
+		C3C683311661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationNSDecimalPeriod.m; path = Source/_CPTAnimationNSDecimalPeriod.m; sourceTree = "<group>"; };
+		C3C683321661391A00340E39 /* _CPTAnimationPlotRangePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationPlotRangePeriod.h; path = Source/_CPTAnimationPlotRangePeriod.h; sourceTree = "<group>"; };
+		C3C683331661391A00340E39 /* _CPTAnimationPlotRangePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationPlotRangePeriod.m; path = Source/_CPTAnimationPlotRangePeriod.m; sourceTree = "<group>"; };
 		C3CADE2F11B1886B00D36017 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = license.txt; path = Source/license.txt; sourceTree = "<group>"; };
 		C3CADE3011B188A800D36017 /* CPTNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTNumericData.h; path = Source/CPTNumericData.h; sourceTree = "<group>"; };
 		C3CADE3111B188A800D36017 /* CPTNumericData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTNumericData.m; path = Source/CPTNumericData.m; sourceTree = "<group>"; };
@@ -601,6 +641,7 @@
 				C3CADE2911B1885200D36017 /* Numeric Data */,
 				BC9B82A20FB89E610035D8DA /* Types and Functions */,
 				077F28500FE18011000BCA52 /* Layers */,
+				C3C68316166138B500340E39 /* Animation */,
 				0718DE4411D1ED7D00AF4851 /* Annotations */,
 				C3B623A9107EC5460009EF0B /* Layout */,
 				070CB8100FC9DDED00F3152B /* Text */,
@@ -797,6 +838,33 @@
 			name = Layout;
 			sourceTree = "<group>";
 		};
+		C3C68316166138B500340E39 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				C3C68318166138E200340E39 /* CPTAnimation.h */,
+				C3C68319166138E200340E39 /* CPTAnimation.m */,
+				C3C6831A166138E200340E39 /* CPTAnimationOperation.h */,
+				C3C6831B166138E200340E39 /* CPTAnimationOperation.m */,
+				C3C6831C166138E200340E39 /* CPTAnimationPeriod.h */,
+				C3C6831D166138E200340E39 /* CPTAnimationPeriod.m */,
+				C3C683281661391A00340E39 /* _CPTAnimationCGFloatPeriod.h */,
+				C3C683291661391A00340E39 /* _CPTAnimationCGFloatPeriod.m */,
+				C3C6832A1661391A00340E39 /* _CPTAnimationCGPointPeriod.h */,
+				C3C6832B1661391A00340E39 /* _CPTAnimationCGPointPeriod.m */,
+				C3C6832C1661391A00340E39 /* _CPTAnimationCGRectPeriod.h */,
+				C3C6832D1661391A00340E39 /* _CPTAnimationCGRectPeriod.m */,
+				C3C6832E1661391A00340E39 /* _CPTAnimationCGSizePeriod.h */,
+				C3C6832F1661391A00340E39 /* _CPTAnimationCGSizePeriod.m */,
+				C3C683301661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h */,
+				C3C683311661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m */,
+				C3C683321661391A00340E39 /* _CPTAnimationPlotRangePeriod.h */,
+				C3C683331661391A00340E39 /* _CPTAnimationPlotRangePeriod.m */,
+				C3C6831E166138E200340E39 /* _CPTAnimationTimingFunctions.h */,
+				C3C6831F166138E200340E39 /* _CPTAnimationTimingFunctions.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
 		C3CADE2911B1885200D36017 /* Numeric Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,6 +974,16 @@
 				C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */,
 				BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */,
 				C3B623D3107EC97A0009EF0B /* NSNumberExtensions.h in Headers */,
+				C3C68320166138E200340E39 /* CPTAnimation.h in Headers */,
+				C3C68322166138E200340E39 /* CPTAnimationOperation.h in Headers */,
+				C3C68324166138E200340E39 /* CPTAnimationPeriod.h in Headers */,
+				C3C68326166138E200340E39 /* _CPTAnimationTimingFunctions.h in Headers */,
+				C3C683341661391A00340E39 /* _CPTAnimationCGFloatPeriod.h in Headers */,
+				C3C683361661391A00340E39 /* _CPTAnimationCGPointPeriod.h in Headers */,
+				C3C683381661391A00340E39 /* _CPTAnimationCGRectPeriod.h in Headers */,
+				C3C6833A1661391A00340E39 /* _CPTAnimationCGSizePeriod.h in Headers */,
+				C3C6833C1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
+				C3C6833E1661391A00340E39 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,6 +1152,16 @@
 				C349DCB1151AAFAB00BFD6A7 /* CPTCalendarFormatter.m in Sources */,
 				C3286C0815D8769800A436A8 /* _CPTMaskLayer.m in Sources */,
 				C3408C4715FC1CA8004F1D70 /* _CPTBorderLayer.m in Sources */,
+				C3C68321166138E200340E39 /* CPTAnimation.m in Sources */,
+				C3C68323166138E200340E39 /* CPTAnimationOperation.m in Sources */,
+				C3C68325166138E200340E39 /* CPTAnimationPeriod.m in Sources */,
+				C3C68327166138E200340E39 /* _CPTAnimationTimingFunctions.m in Sources */,
+				C3C683351661391A00340E39 /* _CPTAnimationCGFloatPeriod.m in Sources */,
+				C3C683371661391A00340E39 /* _CPTAnimationCGPointPeriod.m in Sources */,
+				C3C683391661391A00340E39 /* _CPTAnimationCGRectPeriod.m in Sources */,
+				C3C6833B1661391A00340E39 /* _CPTAnimationCGSizePeriod.m in Sources */,
+				C3C6833D1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m in Sources */,
+				C3C6833F1661391A00340E39 /* _CPTAnimationPlotRangePeriod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

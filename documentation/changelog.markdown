@@ -1,3 +1,13 @@
+# Next Release
+
+## Release Notes
+
+## Details
+- **New**: Added animation support for plot ranges, decimal values, and other properties.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 1.1 (November 11, 2012)
 
 ## Release Notes

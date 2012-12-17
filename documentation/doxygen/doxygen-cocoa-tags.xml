@@ -856,6 +856,11 @@
             <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
             <anchor>//apple_ref/doc/c_ref/Nil</anchor>
         </member>
+        <member kind="typedef">
+            <name>SEL</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ObjCRuntimeRef/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/SEL</anchor>
+        </member>
     </compound>
 
     <compound kind="file">
