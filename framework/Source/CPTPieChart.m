@@ -887,7 +887,12 @@ static const CGFloat colorLookupTable[10][3] =
             label.displacement = CPTPointMake( labelRadius * cos(labelAngle), labelRadius * sin(labelAngle) );
 
             if ( self.labelRotationRelativeToRadius ) {
-                label.rotation = self.labelRotation + labelAngle;
+                CGFloat rotation = [self normalizedPosition:self.labelRotation + labelAngle];
+                if ( ( rotation > CPTFloat(0.25) ) && ( rotation < CPTFloat(0.75) ) ) {
+                    rotation -= CPTFloat(0.5);
+                }
+
+                label.rotation = rotation * CPTFloat(2.0 * M_PI);
             }
 
             contentLayer.hidden = NO;
