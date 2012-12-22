@@ -382,10 +382,16 @@
 
     // Set range
     NSDecimal zero = CPTDecimalFromInteger(0);
-    if ( unionXRange && !CPTDecimalEquals(unionXRange.length, zero) ) {
+    if ( unionXRange ) {
+        if ( CPTDecimalEquals(unionXRange.length, zero) ) {
+            [unionXRange unionPlotRange:self.xRange];
+        }
         self.xRange = unionXRange;
     }
-    if ( unionYRange && !CPTDecimalEquals(unionYRange.length, zero) ) {
+    if ( unionYRange ) {
+        if ( CPTDecimalEquals(unionYRange.length, zero) ) {
+            [unionYRange unionPlotRange:self.yRange];
+        }
         self.yRange = unionYRange;
     }
 
