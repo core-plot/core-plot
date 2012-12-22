@@ -750,10 +750,14 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
     [super renderAsVectorInContext:context];
 
+    CGContextBeginTransparencyLayer(context, NULL);
+
     for ( NSUInteger ii = 0; ii < barCount; ii++ ) {
         // Draw
         [self drawBarInContext:context recordIndex:ii];
     }
+
+    CGContextEndTransparencyLayer(context);
 }
 
 -(BOOL)barAtRecordIndex:(NSUInteger)idx basePoint:(CGPoint *)basePoint tipPoint:(CGPoint *)tipPoint
