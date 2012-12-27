@@ -36,6 +36,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
 -(NSString *)subLayersAtIndex:(NSUInteger)idx;
+-(CGSize)shadowMargin;
 
 @end
 
@@ -534,6 +535,22 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     }
 }
 
+-(CGSize)shadowMargin
+{
+    CGSize margin = CGSizeZero;
+
+    CPTShadow *myShadow = self.shadow;
+
+    if ( myShadow ) {
+        CGSize shadowOffset  = myShadow.shadowOffset;
+        CGFloat shadowRadius = myShadow.shadowBlurRadius;
+
+        margin = CGSizeMake( ceil( ABS(shadowOffset.width) + ABS(shadowRadius) ), ceil( ABS(shadowOffset.height) + ABS(shadowRadius) ) );
+    }
+
+    return margin;
+}
+
 /// @endcond
 
 /// @name Layout
@@ -875,9 +892,34 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     }
 }
 
+-(CGRect)bounds
+{
+    CGRect actualBounds = super.bounds;
+
+    if ( self.shadow ) {
+        CGSize sizeOffset = [self shadowMargin];
+
+        actualBounds.origin.x    += sizeOffset.width;
+        actualBounds.origin.y    += sizeOffset.height;
+        actualBounds.size.width  -= sizeOffset.width * CPTFloat(2.0);
+        actualBounds.size.height -= sizeOffset.height * CPTFloat(2.0);
+    }
+
+    return actualBounds;
+}
+
 -(void)setBounds:(CGRect)newBounds
 {
     if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
+        if ( self.shadow ) {
+            CGSize sizeOffset = [self shadowMargin];
+
+            newBounds.origin.x    -= sizeOffset.width;
+            newBounds.origin.y    -= sizeOffset.height;
+            newBounds.size.width  += sizeOffset.width * CPTFloat(2.0);
+            newBounds.size.height += sizeOffset.height * CPTFloat(2.0);
+        }
+
         [super setBounds:newBounds];
 
         self.outerBorderPath = NULL;
@@ -886,6 +928,46 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLayerBoundsDidChangeNotification
                                                             object:self];
     }
+}
+
+-(CGPoint)anchorPoint
+{
+    CGPoint adjustedAnchor = super.anchorPoint;
+
+    if ( self.shadow ) {
+        CGSize sizeOffset   = [self shadowMargin];
+        CGRect selfBounds   = self.bounds;
+        CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
+                                          selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
+
+        if ( selfBounds.size.width > CPTFloat(0.0) ) {
+            adjustedAnchor.x = ( adjustedAnchor.x - CPTFloat(0.5) ) * (adjustedSize.width / selfBounds.size.width) + CPTFloat(0.5);
+        }
+        if ( selfBounds.size.height > CPTFloat(0.0) ) {
+            adjustedAnchor.y = ( adjustedAnchor.y - CPTFloat(0.5) ) * (adjustedSize.height / selfBounds.size.height) + CPTFloat(0.5);
+        }
+    }
+
+    return adjustedAnchor;
+}
+
+-(void)setAnchorPoint:(CGPoint)newAnchorPoint
+{
+    if ( self.shadow ) {
+        CGSize sizeOffset   = [self shadowMargin];
+        CGRect selfBounds   = self.bounds;
+        CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
+                                          selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
+
+        if ( adjustedSize.width > CPTFloat(0.0) ) {
+            newAnchorPoint.x = ( newAnchorPoint.x - CPTFloat(0.5) ) * (selfBounds.size.width / adjustedSize.width) + CPTFloat(0.5);
+        }
+        if ( adjustedSize.height > CPTFloat(0.0) ) {
+            newAnchorPoint.y = ( newAnchorPoint.y - CPTFloat(0.5) ) * (selfBounds.size.height / adjustedSize.height) + CPTFloat(0.5);
+        }
+    }
+
+    [super setAnchorPoint:newAnchorPoint];
 }
 
 -(void)setCornerRadius:(CGFloat)newRadius

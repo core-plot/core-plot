@@ -197,20 +197,13 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( self.text == nil ) {
         return CGSizeZero;
     }
-    CGSize textSize      = [self.text sizeWithTextStyle:self.textStyle];
-    CGSize shadowOffset  = CGSizeZero;
-    CGFloat shadowRadius = CPTFloat(0.0);
-    CPTShadow *myShadow  = self.shadow;
-    if ( myShadow ) {
-        shadowOffset = myShadow.shadowOffset;
-        shadowRadius = myShadow.shadowBlurRadius;
-    }
+    CGSize textSize = [self.text sizeWithTextStyle:self.textStyle];
 
     // Add small margin
-    textSize.width += (ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth) * CPTFloat(2.0);
+    textSize.width += kCPTTextLayerMarginWidth * CPTFloat(2.0);
     textSize.width  = ceil(textSize.width);
 
-    textSize.height += (ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth) * CPTFloat(2.0);
+    textSize.height += kCPTTextLayerMarginWidth * CPTFloat(2.0);
     textSize.height  = ceil(textSize.height);
 
     return textSize;
@@ -250,21 +243,16 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CPTFloat(0.0), self.bounds.size.height);
+    CGFloat contextHeight = CPTFloat( CGBitmapContextGetHeight(context) );
+    if ( contextHeight == CPTFloat(0.0) ) {
+        // FIXME: won't work if this layer has a shadow
+        contextHeight = self.bounds.size.height;
+    }
+    CGContextTranslateCTM(context, CPTFloat(0.0), contextHeight);
     CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
 #endif
 
-    CGSize shadowOffset  = CGSizeZero;
-    CGFloat shadowRadius = CPTFloat(0.0);
-    CPTShadow *myShadow  = self.shadow;
-    if ( myShadow ) {
-        shadowOffset = myShadow.shadowOffset;
-        shadowRadius = myShadow.shadowBlurRadius;
-    }
-
-    CGRect newBounds = CGRectInset(self.bounds,
-                                   ABS(shadowOffset.width) + shadowRadius + kCPTTextLayerMarginWidth,
-                                   ABS(shadowOffset.height) + shadowRadius + kCPTTextLayerMarginWidth);
+    CGRect newBounds = CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth);
     newBounds.origin.x    += self.paddingLeft;
     newBounds.origin.y    += self.paddingBottom;
     newBounds.size.width  -= self.paddingLeft + self.paddingRight;

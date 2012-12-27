@@ -16,6 +16,8 @@
 
 /// @endcond
 
+#pragma mark -
+
 /**
  *  @brief A layer with a border line and background fill.
  *
@@ -383,6 +385,7 @@
                 [newBorderLayer addSublayer:self];
 
                 newBorderLayer.transform = self.transform;
+                newBorderLayer.shadow    = self.shadow;
 
                 self.transform = CATransform3DIdentity;
 
@@ -452,6 +455,17 @@
     }
     else {
         [super setTransform:newTransform];
+    }
+}
+
+-(void)setShadow:(CPTShadow *)newShadow
+{
+    if ( newShadow != self.shadow ) {
+        [super setShadow:newShadow];
+
+        if ( self.masksToBorder ) {
+            self.borderLayer.shadow = newShadow;
+        }
     }
 }
 
