@@ -243,7 +243,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
-    CGFloat contextHeight = CPTFloat( CGBitmapContextGetHeight(context) );
+    CGFloat contextHeight = CPTFloat( CGBitmapContextGetHeight(context) ) / self.contentsScale;
     if ( contextHeight == CPTFloat(0.0) ) {
         // FIXME: won't work if this layer has a shadow
         contextHeight = self.bounds.size.height;
