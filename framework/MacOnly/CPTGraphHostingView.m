@@ -11,6 +11,8 @@
 
 @property (readonly) CGFloat backingScaleFactor;
 
+-(void)viewDidChangeBackingProperties;
+
 @end
 #endif
 #endif
@@ -94,16 +96,9 @@
 -(void)drawRect:(NSRect)dirtyRect
 {
     if ( self.hostedGraph ) {
-        NSWindow *myWindow = self.window;
-        // backingScaleFactor property is available in MacOS 10.7 and later
-        if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
-            self.layer.contentsScale = myWindow.backingScaleFactor;
-        }
-        else {
-            self.layer.contentsScale = CPTFloat(1.0);
-        }
-
         if ( ![NSGraphicsContext currentContextDrawingToScreen] ) {
+            [self viewDidChangeBackingProperties];
+
             NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
 
             [graphicsContext saveGraphicsState];
@@ -197,6 +192,27 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark HiDPI display support
+
+/// @cond
+
+-(void)viewDidChangeBackingProperties
+{
+    CPTLayer *myLayer  = (CPTLayer *)self.layer;
+    NSWindow *myWindow = self.window;
+
+    // backingScaleFactor property is available in MacOS 10.7 and later
+    if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
+        myLayer.contentsScale = myWindow.backingScaleFactor;
+    }
+    else {
+        myLayer.contentsScale = CPTFloat(1.0);
+    }
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond
@@ -211,20 +227,12 @@
         hostedGraph.hostingView = nil;
         [hostedGraph release];
         hostedGraph = [newGraph retain];
+
         if ( hostedGraph ) {
             hostedGraph.hostingView = self;
-            CPTLayer *myLayer = (CPTLayer *)self.layer;
 
-            NSWindow *myWindow = self.window;
-            // backingScaleFactor property is available in MacOS 10.7 and later
-            if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
-                myLayer.contentsScale = myWindow.backingScaleFactor;
-            }
-            else {
-                myLayer.contentsScale = CPTFloat(1.0);
-            }
-
-            [myLayer addSublayer:hostedGraph];
+            [self viewDidChangeBackingProperties];
+            [self.layer addSublayer:hostedGraph];
         }
     }
 }
