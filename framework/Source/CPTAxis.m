@@ -50,6 +50,7 @@
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
+-(void)updateAxisTitle;
 
 double niceNum(double x, BOOL round);
 
@@ -1380,7 +1381,12 @@ double niceNum(double x, BOOL roundNearest)
         self.minorLabelFormatterChanged = NO;
     }
 
-    [self setNeedsLayout];
+    if ( useMajorAxisLabels ) {
+        [self updateMajorTickLabels];
+    }
+    else {
+        [self updateMinorTickLabels];
+    }
 }
 
 /// @endcond
@@ -1570,6 +1576,13 @@ double niceNum(double x, BOOL roundNearest)
     return CPTDecimalNaN();
 }
 
+-(void)updateAxisTitle
+{
+    [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
+                                  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
+                                    inDirection:self.tickDirection];
+}
+
 #pragma mark -
 #pragma mark Layout
 
@@ -1586,10 +1599,7 @@ double niceNum(double x, BOOL roundNearest)
 {
     [self updateMajorTickLabels];
     [self updateMinorTickLabels];
-
-    [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
-                                  forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
-                                    inDirection:self.tickDirection];
+    [self updateAxisTitle];
 }
 
 /// @}
@@ -1660,7 +1670,7 @@ double niceNum(double x, BOOL roundNearest)
             }
         }
 
-        [self setNeedsLayout];
+        [self updateMajorTickLabels];
     }
 }
 
@@ -1674,6 +1684,9 @@ double niceNum(double x, BOOL roundNearest)
         [newLabels retain];
         [minorTickAxisLabels release];
         minorTickAxisLabels = newLabels;
+
+        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+
         if ( minorTickAxisLabels ) {
             CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
             CALayer *lastLayer                = nil;
@@ -1693,7 +1706,7 @@ double niceNum(double x, BOOL roundNearest)
             }
         }
 
-        [self setNeedsLayout];
+        [self updateMinorTickLabels];
     }
 }
 
@@ -1711,7 +1724,7 @@ double niceNum(double x, BOOL roundNearest)
             }
         }
 
-        [self setNeedsLayout];
+        [self updateMajorTickLabels];
     }
 }
 
@@ -1729,7 +1742,7 @@ double niceNum(double x, BOOL roundNearest)
             }
         }
 
-        [self setNeedsLayout];
+        [self updateMinorTickLabels];
     }
 }
 
@@ -1747,9 +1760,9 @@ double niceNum(double x, BOOL roundNearest)
             CPTLayer *contentLayer = axisTitle.contentLayer;
             if ( contentLayer ) {
                 [self.plotArea.axisTitleGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisTitles]];
+                [self updateAxisTitle];
             }
         }
-        [self setNeedsLayout];
     }
 }
 
@@ -1784,9 +1797,7 @@ double niceNum(double x, BOOL roundNearest)
     if ( newOffset != titleOffset ) {
         titleOffset           = newOffset;
         self.axisTitle.offset = titleOffset;
-        [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
-                                      forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
-                                        inDirection:self.tickDirection];
+        [self updateAxisTitle];
     }
 }
 
@@ -1795,9 +1806,7 @@ double niceNum(double x, BOOL roundNearest)
     if ( newRotation != titleRotation ) {
         titleRotation           = newRotation;
         self.axisTitle.rotation = titleRotation;
-        [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
-                                      forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
-                                        inDirection:self.tickDirection];
+        [self updateAxisTitle];
     }
 }
 
@@ -1815,7 +1824,7 @@ double niceNum(double x, BOOL roundNearest)
             [(CPTTextLayer *) contentLayer setText:title];
         }
 
-        [self setNeedsLayout];
+        [self updateAxisTitle];
     }
 }
 
@@ -1823,7 +1832,7 @@ double niceNum(double x, BOOL roundNearest)
 {
     if ( NSDecimalCompare(&newLocation, &titleLocation) != NSOrderedSame ) {
         titleLocation = newLocation;
-        [self setNeedsLayout];
+        [self updateAxisTitle];
     }
 }
 
