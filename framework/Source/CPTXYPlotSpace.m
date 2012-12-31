@@ -765,9 +765,11 @@
     }
 
     // Ask the delegate if it is OK
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
     BOOL shouldScale = YES;
-    if ( [self.delegate respondsToSelector:@selector(plotSpace:shouldScaleBy:aboutPoint:)] ) {
-        shouldScale = [self.delegate plotSpace:self shouldScaleBy:interactionScale aboutPoint:plotAreaPoint];
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldScaleBy:aboutPoint:)] ) {
+        shouldScale = [theDelegate plotSpace:self shouldScaleBy:interactionScale aboutPoint:plotAreaPoint];
     }
     if ( !shouldScale ) {
         return;
@@ -816,9 +818,9 @@
     CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY] autorelease];
 
     // Delegate may still veto/modify the range
-    if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-        newRangeX = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-        newRangeY = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+        newRangeX = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
+        newRangeY = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
     }
 
     self.xRange = newRangeX;
@@ -946,13 +948,15 @@
     }
 
     if ( isDragging ) {
-        CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
+        CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame.plotArea];
         CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y);
         CGPoint pointToUse      = pointInPlotArea;
 
+        id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
         // Allow delegate to override
-        if ( [self.delegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
-            displacement = [self.delegate plotSpace:self willDisplaceBy:displacement];
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
+            displacement = [theDelegate plotSpace:self willDisplaceBy:displacement];
             pointToUse   = CPTPointMake(lastDragPoint.x + displacement.x, lastDragPoint.y + displacement.y);
         }
 
@@ -978,9 +982,9 @@
         }
 
         // Delegate override
-        if ( [self.delegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-            self.xRange = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-            self.yRange = [self.delegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+            self.xRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
+            self.yRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
         }
         else {
             self.xRange = newRangeX;
