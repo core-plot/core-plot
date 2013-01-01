@@ -24,7 +24,7 @@
 
 /// @name Drawing
 /// @{
--(void)renderBorderedLayer:(CPTBorderedLayer *)layer asVectorInContext:(CGContextRef)context;
+-(void)renderBorderedLayerAsVectorInContext:(CGContextRef)context;
 /// @}
 
 @end

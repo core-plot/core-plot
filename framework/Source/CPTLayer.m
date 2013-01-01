@@ -36,7 +36,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
 -(NSString *)subLayersAtIndex:(NSUInteger)idx;
--(CGSize)shadowMargin;
 
 @end
 
@@ -94,6 +93,11 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  *  @brief The shadow drawn under the layer content. If @nil (the default), no shadow is drawn.
  **/
 @synthesize shadow;
+
+/** @property CGSize shadowMargin
+ *  @brief The maximum margin size needed to fully enclose the layer @ref shadow.
+ **/
+@dynamic shadowMargin;
 
 /** @property CGPathRef outerBorderPath
  *  @brief A drawing path that encompasses the outer boundary of the layer border.
@@ -574,10 +578,10 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
         CGSize subLayerSize = selfBounds.size;
         subLayerSize.width  -= leftPadding + rightPadding;
-        subLayerSize.width   = MAX(subLayerSize.width, (CGFloat)0.0);
+        subLayerSize.width   = MAX( subLayerSize.width, CPTFloat(0.0) );
         subLayerSize.width   = round(subLayerSize.width);
         subLayerSize.height -= topPadding + bottomPadding;
-        subLayerSize.height  = MAX(subLayerSize.height, (CGFloat)0.0);
+        subLayerSize.height  = MAX( subLayerSize.height, CPTFloat(0.0) );
         subLayerSize.height  = round(subLayerSize.height);
 
         CGRect subLayerFrame;
@@ -897,7 +901,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     CGRect actualBounds = super.bounds;
 
     if ( self.shadow ) {
-        CGSize sizeOffset = [self shadowMargin];
+        CGSize sizeOffset = self.shadowMargin;
 
         actualBounds.origin.x    += sizeOffset.width;
         actualBounds.origin.y    += sizeOffset.height;
@@ -912,7 +916,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 {
     if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
         if ( self.shadow ) {
-            CGSize sizeOffset = [self shadowMargin];
+            CGSize sizeOffset = self.shadowMargin;
 
             newBounds.origin.x    -= sizeOffset.width;
             newBounds.origin.y    -= sizeOffset.height;
@@ -935,7 +939,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     CGPoint adjustedAnchor = super.anchorPoint;
 
     if ( self.shadow ) {
-        CGSize sizeOffset   = [self shadowMargin];
+        CGSize sizeOffset   = self.shadowMargin;
         CGRect selfBounds   = self.bounds;
         CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
                                           selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
@@ -954,7 +958,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)setAnchorPoint:(CGPoint)newAnchorPoint
 {
     if ( self.shadow ) {
-        CGSize sizeOffset   = [self shadowMargin];
+        CGSize sizeOffset   = self.shadowMargin;
         CGRect selfBounds   = self.bounds;
         CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
                                           selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );

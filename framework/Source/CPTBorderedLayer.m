@@ -113,7 +113,9 @@
 
     [coder encodeObject:self.borderLineStyle forKey:@"CPTBorderedLayer.borderLineStyle"];
     [coder encodeObject:self.fill forKey:@"CPTBorderedLayer.fill"];
-    [coder encodeBool:self.inLayout forKey:@"CPTBorderedLayer.inLayout"];
+
+    // No need to archive these properties:
+    // inLayout
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -121,7 +123,8 @@
     if ( (self = [super initWithCoder:coder]) ) {
         borderLineStyle = [[coder decodeObjectForKey:@"CPTBorderedLayer.borderLineStyle"] copy];
         fill            = [[coder decodeObjectForKey:@"CPTBorderedLayer.fill"] copy];
-        inLayout        = [coder decodeBoolForKey:@"CPTBorderedLayer.inLayout"];
+
+        inLayout = NO;
     }
     return self;
 }
@@ -140,37 +143,36 @@
     }
 
     [super renderAsVectorInContext:context];
-    [self renderBorderedLayer:self asVectorInContext:context];
+    [self renderBorderedLayerAsVectorInContext:context];
 }
 
 /// @endcond
 
 /** @brief Draws the fill and border of a CPTBorderedLayer into the given graphics context.
- *  @param layer The CPTBorderedLayer that provides the fill and border line style.
  *  @param context The graphics context to draw into.
  **/
--(void)renderBorderedLayer:(CPTBorderedLayer *)layer asVectorInContext:(CGContextRef)context
+-(void)renderBorderedLayerAsVectorInContext:(CGContextRef)context
 {
-    CPTFill *theFill = layer.fill;
+    CPTFill *theFill = self.fill;
 
     if ( theFill ) {
-        BOOL useMask = layer.masksToBounds;
-        layer.masksToBounds = YES;
+        BOOL useMask = self.masksToBounds;
+        self.masksToBounds = YES;
         CGContextBeginPath(context);
-        CGContextAddPath(context, layer.maskingPath);
+        CGContextAddPath(context, self.maskingPath);
         [theFill fillPathInContext:context];
-        layer.masksToBounds = useMask;
+        self.masksToBounds = useMask;
     }
 
-    CPTLineStyle *theLineStyle = layer.borderLineStyle;
+    CPTLineStyle *theLineStyle = self.borderLineStyle;
     if ( theLineStyle ) {
         CGFloat inset      = theLineStyle.lineWidth * (CGFloat)0.5;
-        CGRect layerBounds = CGRectInset(layer.bounds, inset, inset);
+        CGRect layerBounds = CGRectInset(self.bounds, inset, inset);
 
         [theLineStyle setLineStyleInContext:context];
 
-        if ( layer.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(layer.cornerRadius, layerBounds.size.width * (CGFloat)0.5), layerBounds.size.height * (CGFloat)0.5);
+        if ( self.cornerRadius > 0.0 ) {
+            CGFloat radius = MIN(MIN(self.cornerRadius, layerBounds.size.width * (CGFloat)0.5), layerBounds.size.height * (CGFloat)0.5);
             CGContextBeginPath(context);
             AddRoundedRectPath(context, layerBounds, radius);
             [theLineStyle strokePathInContext:context];
@@ -324,14 +326,11 @@
             self.innerBorderPath = NULL;
             [self setNeedsLayout];
         }
+
         [borderLineStyle release];
         borderLineStyle = [newLineStyle copy];
-        if ( self.masksToBorder ) {
-            [self.superlayer setNeedsDisplay];
-        }
-        else {
-            [self setNeedsDisplay];
-        }
+
+        [self.borderLayer setNeedsDisplay];
     }
 }
 
@@ -340,12 +339,8 @@
     if ( newFill != fill ) {
         [fill release];
         fill = [newFill copy];
-        if ( self.masksToBorder ) {
-            [self.superlayer setNeedsDisplay];
-        }
-        else {
-            [self setNeedsDisplay];
-        }
+
+        [self.borderLayer setNeedsDisplay];
     }
 }
 

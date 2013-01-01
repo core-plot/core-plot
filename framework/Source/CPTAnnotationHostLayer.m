@@ -151,15 +151,27 @@
 
 -(NSSet *)sublayersExcludedFromAutomaticLayout
 {
-    NSMutableSet *layers = [NSMutableSet set];
+    NSMutableArray *annotations = self.mutableAnnotations;
 
-    for ( CPTAnnotation *annotation in self.mutableAnnotations ) {
-        CALayer *content = annotation.contentLayer;
-        if ( content ) {
-            [layers addObject:content];
+    if ( annotations.count > 0 ) {
+        NSMutableSet *excludedSublayers = [[[super sublayersExcludedFromAutomaticLayout] mutableCopy] autorelease];
+
+        if ( !excludedSublayers ) {
+            excludedSublayers = [NSMutableSet set];
         }
+
+        for ( CPTAnnotation *annotation in annotations ) {
+            CALayer *content = annotation.contentLayer;
+            if ( content ) {
+                [excludedSublayers addObject:content];
+            }
+        }
+
+        return excludedSublayers;
     }
-    return layers;
+    else {
+        return [super sublayersExcludedFromAutomaticLayout];
+    }
 }
 
 -(void)layoutSublayers
