@@ -599,6 +599,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     for ( CPTAxis *axis in self.axisSet.axes ) {
         if ( axis.plotSpace == plotSpace ) {
             [axis setNeedsRelabel];
+            [axis updateAxisTitle];
             backgroundBandsNeedRedraw |= (axis.backgroundLimitBands.count > 0);
         }
     }

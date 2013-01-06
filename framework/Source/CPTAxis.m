@@ -50,7 +50,6 @@
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
--(void)updateAxisTitle;
 
 double niceNum(double x, BOOL round);
 
@@ -1576,6 +1575,9 @@ double niceNum(double x, BOOL roundNearest)
     return CPTDecimalNaN();
 }
 
+/**
+ *  @brief Update the axis title position.
+ **/
 -(void)updateAxisTitle
 {
     [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]

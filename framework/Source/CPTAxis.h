@@ -219,6 +219,11 @@ CPTAxisLabelingPolicy;
 @property (nonatomic, readonly, retain) CPTAxisSet *axisSet;
 /// @}
 
+/// @name Title
+/// @{
+-(void)updateAxisTitle;
+/// @}
+
 /// @name Labels
 /// @{
 -(void)relabel;
