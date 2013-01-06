@@ -6,6 +6,10 @@
 
 #import "CurvedScatterPlot.h"
 
+NSString *const kData   = @"Data Source Plot";
+NSString *const kFirst  = @"First Derivative";
+NSString *const kSecond = @"Second Derivative";
+
 @implementation CurvedScatterPlot
 
 +(void)load
@@ -42,12 +46,62 @@
 {
     if ( plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
+
         for ( NSUInteger i = 0; i < 11; i++ ) {
-            id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
-            id y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 0.5];
+            NSNumber *x = [NSNumber numberWithDouble:1.0 + i * 0.05];
+            NSNumber *y = [NSNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 0.5];
             [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
         }
+
         plotData = [contentArray retain];
+    }
+
+    if ( plotData1 == nil ) {
+        NSMutableArray *contentArray = [NSMutableArray array];
+
+        for ( NSUInteger i = 1; i < plotData.count; i++ ) {
+            NSDictionary *point1 = [plotData objectAtIndex:i - 1];
+            NSDictionary *point2 = [plotData objectAtIndex:i];
+
+            double x1   = [(NSNumber *)[point1 objectForKey:@"x"] doubleValue];
+            double x2   = [(NSNumber *)[point2 objectForKey:@"x"] doubleValue];
+            double dx   = x2 - x1;
+            double xLoc = (x1 + x2) * 0.5;
+
+            double y1 = [(NSNumber *)[point1 objectForKey:@"y"] doubleValue];
+            double y2 = [(NSNumber *)[point2 objectForKey:@"y"] doubleValue];
+            double dy = y2 - y1;
+
+            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSDecimalNumber numberWithDouble:xLoc], @"x",
+                                     [NSDecimalNumber numberWithDouble:(dy / dx) / 20.0], @"y", nil]];
+        }
+
+        plotData1 = [contentArray retain];
+    }
+
+    if ( plotData2 == nil ) {
+        NSMutableArray *contentArray = [NSMutableArray array];
+
+        for ( NSUInteger i = 1; i < plotData1.count; i++ ) {
+            NSDictionary *point1 = [plotData1 objectAtIndex:i - 1];
+            NSDictionary *point2 = [plotData1 objectAtIndex:i];
+
+            double x1   = [(NSNumber *)[point1 objectForKey:@"x"] doubleValue];
+            double x2   = [(NSNumber *)[point2 objectForKey:@"x"] doubleValue];
+            double dx   = x2 - x1;
+            double xLoc = (x1 + x2) * 0.5;
+
+            double y1 = [(NSNumber *)[point1 objectForKey:@"y"] doubleValue];
+            double y2 = [(NSNumber *)[point2 objectForKey:@"y"] doubleValue];
+            double dy = y2 - y1;
+
+            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSDecimalNumber numberWithDouble:xLoc], @"x",
+                                     [NSDecimalNumber numberWithDouble:(dy / dx) / 20.0], @"y", nil]];
+        }
+
+        plotData2 = [contentArray retain];
     }
 }
 
@@ -97,7 +151,7 @@
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.majorIntervalLength   = CPTDecimalFromDouble(0.1);
-    x.minorTicksPerInterval = 2;
+    x.minorTicksPerInterval = 4;
     x.majorGridLineStyle    = majorGridLineStyle;
     x.minorGridLineStyle    = minorGridLineStyle;
     x.axisConstraints       = [CPTConstraints constraintWithRelativeOffset:0.5];
@@ -112,7 +166,7 @@
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.minorTicksPerInterval       = 2;
+    y.minorTicksPerInterval       = 4;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
     y.minorGridLineStyle          = minorGridLineStyle;
@@ -132,7 +186,7 @@
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
-    dataSourceLinePlot.identifier = @"Data Source Plot";
+    dataSourceLinePlot.identifier = kData;
 
     // Make the data source line use curved interpolation
     dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationCurved;
@@ -145,8 +199,27 @@
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
+    // First derivative
+    CPTScatterPlot *firstPlot = [[[CPTScatterPlot alloc] init] autorelease];
+    firstPlot.identifier    = kFirst;
+    lineStyle.lineWidth     = 2.0;
+    lineStyle.lineColor     = [CPTColor redColor];
+    firstPlot.dataLineStyle = lineStyle;
+    firstPlot.dataSource    = self;
+
+//    [graph addPlot:firstPlot];
+
+    // Second derivative
+    CPTScatterPlot *secondPlot = [[[CPTScatterPlot alloc] init] autorelease];
+    secondPlot.identifier    = kSecond;
+    lineStyle.lineColor      = [CPTColor blueColor];
+    secondPlot.dataLineStyle = lineStyle;
+    secondPlot.dataSource    = self;
+
+//    [graph addPlot:secondPlot];
+
     // Auto scale the plot space to fit the plot data
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
+    [plotSpace scaleToFitPlots:[graph allPlots]];
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
 
@@ -183,6 +256,7 @@
 
     // Add legend
     graph.legend                 = [CPTLegend legendWithGraph:graph];
+    graph.legend.numberOfRows    = 1;
     graph.legend.textStyle       = x.titleTextStyle;
     graph.legend.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.legend.borderLineStyle = x.axisLineStyle;
@@ -204,16 +278,37 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    NSUInteger numRecords = 0;
+    NSString *identifier  = (NSString *)plot.identifier;
+
+    if ( [identifier isEqualToString:kData] ) {
+        numRecords = plotData.count;
+    }
+    else if ( [identifier isEqualToString:kFirst] ) {
+        numRecords = plotData1.count;
+    }
+    else if ( [identifier isEqualToString:kSecond] ) {
+        numRecords = plotData2.count;
+    }
+
+    return numRecords;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSNumber *num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+    NSNumber *num        = nil;
+    NSString *identifier = (NSString *)plot.identifier;
 
-    if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = [NSNumber numberWithDouble:[num doubleValue]];
+    if ( [identifier isEqualToString:kData] ) {
+        num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
     }
+    else if ( [identifier isEqualToString:kFirst] ) {
+        num = [[plotData1 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+    }
+    else if ( [identifier isEqualToString:kSecond] ) {
+        num = [[plotData2 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+    }
+
     return num;
 }
 
@@ -233,12 +328,12 @@
             axisSet.xAxis.visibleAxisRange = changedRange;
             break;
 
-        case CPTCoordinateY:
+        case CPTCoordinateY :
             [changedRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
             axisSet.yAxis.visibleAxisRange = changedRange;
             break;
 
-        default:
+        default :
             break;
     }
 
