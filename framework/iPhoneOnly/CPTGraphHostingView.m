@@ -84,15 +84,11 @@
     return self;
 }
 
-/// @endcond
-
 // On iOS, the init method is not called when loading from a XIB
 -(void)awakeFromNib
 {
     [self commonInit];
 }
-
-/// @cond
 
 -(void)dealloc
 {
@@ -105,6 +101,8 @@
 
 #pragma mark -
 #pragma mark NSCoding methods
+
+/// @cond
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
@@ -132,6 +130,8 @@
     }
     return self;
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Touch handling
