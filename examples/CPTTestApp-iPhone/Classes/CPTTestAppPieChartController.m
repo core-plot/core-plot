@@ -52,13 +52,6 @@
 #pragma mark -
 #pragma mark Initialization and teardown
 
--(void)dealloc
-{
-    [dataForChart release];
-    [timer release];
-    [super dealloc];
-}
-
 -(void)viewDidAppear:(BOOL)animated
 {
     // Add some initial data
@@ -80,8 +73,6 @@
 
     NSLog(@"\n----------------------------\ntimerFired: %lu", counter++);
 #endif
-
-    [pieChart release];
 
     // Create pieChart from theme
     pieChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
@@ -114,7 +105,6 @@
     piePlot.borderLineStyle = [CPTLineStyle lineStyle];
     piePlot.delegate        = self;
     [pieChart addPlot:piePlot];
-    [piePlot release];
 
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
@@ -156,8 +146,7 @@
 
     textStyle.color = [CPTColor lightGrayColor];
     label.textStyle = textStyle;
-    [textStyle release];
-    return [label autorelease];
+    return label;
 }
 
 -(CGFloat)radialOffsetForPieChart:(CPTPieChart *)piePlot recordIndex:(NSUInteger)index

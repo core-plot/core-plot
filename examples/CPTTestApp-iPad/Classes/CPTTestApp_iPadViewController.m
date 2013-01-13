@@ -82,14 +82,6 @@
     // e.g. self.myOutlet = nil;
 }
 
--(void)dealloc
-{
-    [dataForChart release];
-    [dataForPlot release];
-
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot construction methods
 
@@ -137,10 +129,10 @@
     y.labelExclusionRanges = exclusionRanges;
 
     // Create a green plot area
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Green Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.f;
     lineStyle.lineColor              = [CPTColor greenColor];
     lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
@@ -169,10 +161,10 @@
     [dataSourceLinePlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
 
     // Create a blue plot area
-    CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *boundLinePlot = [[CPTScatterPlot alloc] init];
     boundLinePlot.identifier = @"Blue Plot";
 
-    lineStyle            = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+    lineStyle            = [boundLinePlot.dataLineStyle mutableCopy];
     lineStyle.miterLimit = 1.0f;
     lineStyle.lineWidth  = 3.0f;
     lineStyle.lineColor  = [CPTColor blueColor];
@@ -253,7 +245,6 @@
         newLabel.offset       = x.labelOffset + x.majorTickLength;
         newLabel.rotation     = M_PI / 4;
         [customLabels addObject:newLabel];
-        [newLabel release];
     }
 
     x.axisLabels = [NSSet setWithArray:customLabels];
@@ -304,7 +295,7 @@
     pieGraph.axisSet = nil;
 
     // Prepare a radial overlay gradient for shading/gloss
-    CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
+    CPTGradient *overlayGradient = [[CPTGradient alloc] init];
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.0];
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.3] atPosition:0.9];
@@ -321,7 +312,6 @@
     piePlot.labelOffset     = 5.0;
     piePlot.overlayFill     = [CPTFill fillWithGradient:overlayGradient];
     [pieGraph addPlot:piePlot];
-    [piePlot release];
 
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:NAN], [NSNumber numberWithDouble:60.0], nil];
@@ -433,12 +423,12 @@
                 break;
 
             default:
-                newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText] autorelease];
+                newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText];
                 break;
         }
     }
     else if ( [plot isKindOfClass:[CPTScatterPlot class]] ) {
-        newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText] autorelease];
+        newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index] style:whiteText];
     }
 
     return newLayer;

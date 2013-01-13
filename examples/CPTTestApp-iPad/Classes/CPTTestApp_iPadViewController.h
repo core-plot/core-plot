@@ -18,7 +18,7 @@
     NSMutableArray *dataForChart, *dataForPlot;
 }
 
-@property (readwrite, retain, nonatomic) NSMutableArray *dataForChart, *dataForPlot;
+@property (readwrite, strong, nonatomic) NSMutableArray *dataForChart, *dataForPlot;
 
 // Plot construction methods
 -(void)constructScatterPlot;

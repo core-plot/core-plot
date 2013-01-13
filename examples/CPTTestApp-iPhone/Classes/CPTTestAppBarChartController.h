@@ -13,7 +13,7 @@
     NSTimer *timer;
 }
 
-@property (readwrite, retain, nonatomic) NSTimer *timer;
+@property (readwrite, strong, nonatomic) NSTimer *timer;
 
 -(void)timerFired;
 

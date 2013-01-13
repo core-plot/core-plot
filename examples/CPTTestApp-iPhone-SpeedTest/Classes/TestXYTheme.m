@@ -91,7 +91,7 @@
     minorGridLineStyle.lineWidth = 0.25f;
     minorGridLineStyle.lineColor = [CPTColor blueColor];
 
-    CPTMutableTextStyle *whiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
+    CPTMutableTextStyle *whiteTextStyle = [[CPTMutableTextStyle alloc] init];
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = 14.0f;
 

@@ -20,12 +20,6 @@
 #pragma mark -
 #pragma mark Initialization and teardown
 
--(void)dealloc
-{
-    [dataForChart release];
-    [super dealloc];
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -52,7 +46,6 @@
     piePlot.startAngle     = M_PI_4;
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
     [pieChart addPlot:piePlot];
-    [piePlot release];
 
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];

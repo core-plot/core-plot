@@ -8,6 +8,6 @@
     NSMutableArray *dataForChart;
 }
 
-@property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;
+@property (readwrite, strong, nonatomic) NSMutableArray *dataForChart;
 
 @end

@@ -34,11 +34,4 @@
  * }
  */
 
--(void)dealloc
-{
-    [tabBarController release];
-    [window release];
-    [super dealloc];
-}
-
 @end

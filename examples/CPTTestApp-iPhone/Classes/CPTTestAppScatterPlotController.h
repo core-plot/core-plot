@@ -15,6 +15,6 @@
     NSMutableArray *dataForPlot;
 }
 
-@property (readwrite, retain, nonatomic) NSMutableArray *dataForPlot;
+@property (readwrite, strong, nonatomic) NSMutableArray *dataForPlot;
 
 @end

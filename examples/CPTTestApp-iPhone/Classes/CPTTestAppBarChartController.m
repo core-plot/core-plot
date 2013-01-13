@@ -34,8 +34,6 @@
     NSLog(@"\n----------------------------\ntimerFired: %lu", counter++);
 #endif
 
-    [barChart release];
-
     // Create barChart from theme
     barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
@@ -97,7 +95,6 @@
         newLabel.offset       = x.labelOffset + x.majorTickLength;
         newLabel.rotation     = M_PI / 4;
         [customLabels addObject:newLabel];
-        [newLabel release];
     }
 
     x.axisLabels = [NSSet setWithArray:customLabels];
