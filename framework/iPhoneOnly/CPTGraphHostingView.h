@@ -4,7 +4,7 @@
 @class CPTGraph;
 
 @interface CPTGraphHostingView : UIView {
-    @protected
+    @private
     CPTGraph *hostedGraph;
     BOOL collapsesLayers;
     BOOL allowPinchScaling;
