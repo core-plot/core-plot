@@ -9,7 +9,7 @@
 @protocol CPTRotationDelegate;
 
 @interface RotationView : NSView {
-    id<CPTRotationDelegate> rotationDelegate;
+    id<CPTRotationDelegate> __unsafe_unretained rotationDelegate;
 
     CATransform3D rotationTransform;
 
@@ -17,7 +17,7 @@
 }
 
 @property (readwrite, nonatomic) CATransform3D rotationTransform;
-@property (readwrite, assign, nonatomic) id<CPTRotationDelegate> rotationDelegate;
+@property (readwrite, unsafe_unretained, nonatomic) id<CPTRotationDelegate> rotationDelegate;
 
 @end
 

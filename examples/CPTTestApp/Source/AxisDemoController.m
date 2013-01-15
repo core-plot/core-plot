@@ -1,13 +1,23 @@
 #import "AxisDemoController.h"
 
+@interface AxisDemoController()
+
+@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+
+@end
+
+#pragma mark -
+
 @implementation AxisDemoController
+
+@synthesize hostView;
 
 -(void)awakeFromNib
 {
     [super awakeFromNib];
 
     // Create graph
-    CPTXYGraph *graph = [[(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)] autorelease];
+    CPTXYGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     graph.fill           = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.cornerRadius   = 20.0;
     hostView.hostedGraph = graph;

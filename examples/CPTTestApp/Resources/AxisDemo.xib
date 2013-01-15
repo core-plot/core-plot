@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<int key="IBDocument.SystemTarget">1060</int>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1617</string>
+			<string key="NS.object.0">2844</string>
 		</object>
-		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSCustomView</string>
-			<string>NSWindowTemplate</string>
-			<string>NSView</string>
+		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
-		</object>
-		<object class="NSArray" key="IBDocument.PluginDependencies">
-			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string>NSView</string>
+			<string>NSWindowTemplate</string>
+		</array>
+		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-		</object>
+		</array>
 		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys" id="0">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-			</object>
-			<reference key="dict.values" ref="0"/>
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
 		</object>
-		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
-			<bool key="EncodedWithXMLCoder">YES</bool>
+		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<object class="NSCustomObject" id="1001">
 				<string key="NSClassName">Controller</string>
 			</object>
@@ -51,22 +44,10 @@
 				<object class="NSView" key="NSWindowView" id="638168184">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
-					<object class="NSMutableArray" key="NSSubviews">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSCustomView" id="1046326037">
-							<reference key="NSNextResponder" ref="638168184"/>
-							<int key="NSvFlags">274</int>
-							<string key="NSFrameSize">{777, 567}</string>
-							<reference key="NSSuperview" ref="638168184"/>
-							<reference key="NSNextKeyView"/>
-							<bool key="NSViewIsLayerTreeHost">YES</bool>
-							<int key="NSViewLayerContentsRedrawPolicy">2</int>
-							<string key="NSClassName">CPTGraphHostingView</string>
-						</object>
-					</object>
+					<array class="NSMutableArray" key="NSSubviews"/>
 					<string key="NSFrameSize">{777, 567}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSNextKeyView" ref="1046326037"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -75,33 +56,31 @@
 			<object class="NSCustomObject" id="898608056">
 				<string key="NSClassName">AxisDemoController</string>
 			</object>
-		</object>
+		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<object class="NSMutableArray" key="connectionRecords">
-				<bool key="EncodedWithXMLCoder">YES</bool>
+			<array class="NSMutableArray" key="connectionRecords">
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">axisDemoWindow</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="904909874"/>
+					</object>
+					<int key="connectionID">8</int>
+				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">hostView</string>
 						<reference key="source" ref="898608056"/>
-						<reference key="destination" ref="1046326037"/>
+						<reference key="destination" ref="638168184"/>
 					</object>
-					<int key="connectionID">5</int>
+					<int key="connectionID">10</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">plotSymbolWindow</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="904909874"/>
-					</object>
-					<int key="connectionID">7</int>
-				</object>
-			</object>
+			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
-				<object class="NSArray" key="orderedObjects">
-					<bool key="EncodedWithXMLCoder">YES</bool>
+				<array key="orderedObjects">
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<reference key="object" ref="0"/>
+						<array key="object" id="0"/>
 						<reference key="children" ref="1000"/>
 						<nil key="parent"/>
 					</object>
@@ -126,10 +105,9 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">1</int>
 						<reference key="object" ref="904909874"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
+						<array class="NSMutableArray" key="children">
 							<reference ref="638168184"/>
-						</object>
+						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -141,70 +119,155 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
 						<reference key="object" ref="638168184"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1046326037"/>
-						</object>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="904909874"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="1046326037"/>
-						<reference key="parent" ref="638168184"/>
+				</array>
+			</object>
+			<dictionary class="NSMutableDictionary" key="flattenedProperties">
+				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1.IBWindowTemplateEditedContentRect">{{19, 188}, {777, 567}}</string>
+				<boolean value="YES" key="1.NSWindowTemplate.visibleAtLaunch"/>
+				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3.CustomClassName">CPTGraphHostingView</string>
+				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+			</dictionary>
+			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
+			<nil key="activeLocalization"/>
+			<dictionary class="NSMutableDictionary" key="localizations"/>
+			<nil key="sourceID"/>
+			<int key="maxID">10</int>
+		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AxisDemoController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">hostView</string>
+						<string key="NS.object.0">CPTGraphHostingView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">hostView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">hostView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AxisDemoController.h</string>
 					</object>
 				</object>
-			</object>
-			<object class="NSMutableDictionary" key="flattenedProperties">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="NSArray" key="dict.sortedKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>-1.IBPluginDependency</string>
-					<string>-2.IBPluginDependency</string>
-					<string>-3.IBPluginDependency</string>
-					<string>1.IBPluginDependency</string>
-					<string>1.IBWindowTemplateEditedContentRect</string>
-					<string>1.NSWindowTemplate.visibleAtLaunch</string>
-					<string>2.IBPluginDependency</string>
-					<string>3.IBPluginDependency</string>
-					<string>4.IBPluginDependency</string>
+				<object class="IBPartialClassDescription">
+					<string key="className">CPTGraphHostingView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/CPTGraphHostingView.h</string>
+					</object>
 				</object>
-				<object class="NSMutableArray" key="dict.values">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{19, 188}, {777, 567}}</string>
-					<boolean value="YES"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="IBPartialClassDescription">
+					<string key="className">Controller</string>
+					<string key="superclassName">NSArrayController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="axisDemo:">id</string>
+						<string key="explodeLayers:">id</string>
+						<string key="exportToPDF:">id</string>
+						<string key="exportToPNG:">id</string>
+						<string key="insertData:">id</string>
+						<string key="plotSymbolDemo:">id</string>
+						<string key="printDocument:">id</string>
+						<string key="reassembleLayers:">id</string>
+						<string key="reloadDataSourcePlot:">id</string>
+						<string key="removeData:">id</string>
+						<string key="selectionDemo:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="axisDemo:">
+							<string key="name">axisDemo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="explodeLayers:">
+							<string key="name">explodeLayers:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="exportToPDF:">
+							<string key="name">exportToPDF:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="exportToPNG:">
+							<string key="name">exportToPNG:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="insertData:">
+							<string key="name">insertData:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="plotSymbolDemo:">
+							<string key="name">plotSymbolDemo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="printDocument:">
+							<string key="name">printDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reassembleLayers:">
+							<string key="name">reassembleLayers:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reloadDataSourcePlot:">
+							<string key="name">reloadDataSourcePlot:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeData:">
+							<string key="name">removeData:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectionDemo:">
+							<string key="name">selectionDemo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="axisDemoWindow">NSWindow</string>
+						<string key="hostView">CPTGraphHostingView</string>
+						<string key="plotSymbolWindow">NSWindow</string>
+						<string key="selectionDemoWindow">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="axisDemoWindow">
+							<string key="name">axisDemoWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="hostView">
+							<string key="name">hostView</string>
+							<string key="candidateClassName">CPTGraphHostingView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="plotSymbolWindow">
+							<string key="name">plotSymbolWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selectionDemoWindow">
+							<string key="name">selectionDemoWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/Controller.h</string>
+					</object>
 				</object>
-			</object>
-			<object class="NSMutableDictionary" key="unlocalizedProperties">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<reference key="dict.sortedKeys" ref="0"/>
-				<reference key="dict.values" ref="0"/>
-			</object>
-			<nil key="activeLocalization"/>
-			<object class="NSMutableDictionary" key="localizations">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<reference key="dict.sortedKeys" ref="0"/>
-				<reference key="dict.values" ref="0"/>
-			</object>
-			<nil key="sourceID"/>
-			<int key="maxID">7</int>
+			</array>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1050" key="NS.object.0"/>
-		</object>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
-			<integer value="3000" key="NS.object.0"/>
+			<real value="1060" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>

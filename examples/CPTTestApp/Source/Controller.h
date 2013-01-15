@@ -4,9 +4,9 @@
 
 @interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
     IBOutlet CPTGraphHostingView *hostView;
-    IBOutlet NSWindow *plotSymbolWindow;
-    IBOutlet NSWindow *axisDemoWindow;
-    IBOutlet NSWindow *selectionDemoWindow;
+    IBOutlet __unsafe_unretained NSWindow *plotSymbolWindow;
+    IBOutlet __unsafe_unretained NSWindow *axisDemoWindow;
+    IBOutlet __unsafe_unretained NSWindow *selectionDemoWindow;
     CPTXYGraph *graph;
     RotationView *overlayRotationView;
     CPTPlotSpaceAnnotation *symbolTextAnnotation;
