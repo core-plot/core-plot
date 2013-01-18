@@ -4,7 +4,6 @@
 #import "CPTGraph.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
-#import "CPTPlotSpace.h"
 
 /**
  *  @brief A container layer for the set of axes for a graph.

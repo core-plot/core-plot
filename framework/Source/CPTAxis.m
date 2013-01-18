@@ -15,15 +15,12 @@
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTMutablePlotRange.h"
-#import "CPTPlatformSpecificCategories.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 #import "CPTShadow.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
-#import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
-#import "NSDecimalNumberExtensions.h"
 
 /** @defgroup axisAnimation Axes
  *  @brief Axis properties that can be animated using Core Animation.
@@ -138,7 +135,7 @@ double niceNum(double x, BOOL round);
  *  @brief The axis title.
  *  If @nil, no title is drawn.
  **/
-@synthesize axisTitle;
+@dynamic axisTitle;
 
 /** @property CGFloat titleOffset
  *  @brief The offset distance between the axis title and the axis line.
@@ -298,7 +295,7 @@ double niceNum(double x, BOOL round);
 @synthesize majorTickLocations;
 
 /** @property NSUInteger preferredNumberOfMajorTicks
- *  @brief The number of ticks that should be targeted when autogenerating positions.
+ *  @brief The number of ticks that should be targeted when auto-generating positions.
  *  This property only applies when the #CPTAxisLabelingPolicyAutomatic or
  *  #CPTAxisLabelingPolicyEqualDivisions policies are in use.
  *  If zero (@num{0}) (the default), Core Plot will choose a reasonable number of ticks.
@@ -355,7 +352,7 @@ double niceNum(double x, BOOL round);
 /** @property NSArray *alternatingBandFills
  *  @brief An array of two or more fills to be drawn between successive major tick marks.
  *
- *  When initializing the fills, provide an NSArray containing any combinination of CPTFill,
+ *  When initializing the fills, provide an NSArray containing any combination of CPTFill,
  *  CPTColor, CPTGradient, and/or CPTImage objects. Blank (transparent) bands can be created
  *  by using an NSNull object in place of some of the CPTFill objects.
  **/

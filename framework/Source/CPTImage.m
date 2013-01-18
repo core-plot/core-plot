@@ -52,7 +52,7 @@
  *  @brief Anchor the tiled image to the context origin?
  *
  *  If @YES, the origin of the tiled image is anchored to the origin of the drawing context.
- *  If @NO, the origin of the tiled image is set to the orgin of rectangle passed to
+ *  If @NO, the origin of the tiled image is set to the origin of the rectangle passed to
  *  @link CPTImage::drawInRect:inContext: -drawInRect:inContext: @endlink.
  *  The default value is @YES.
  *  If @ref tiled is @NO, this property has no effect.
@@ -464,7 +464,7 @@
         CGContextSaveGState(context);
 
         if ( self.isTiled ) {
-            CGContextClipToRect(context, *(CGRect *)&rect);
+            CGContextClipToRect(context, rect);
             if ( !self.tileAnchoredToContext ) {
                 CGContextTranslateCTM(context, rect.origin.x, rect.origin.y);
             }

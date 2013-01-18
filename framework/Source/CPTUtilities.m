@@ -58,7 +58,7 @@ int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
  **/
 int CPTDecimalIntValue(NSDecimal decimalNumber)
 {
-    return (int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue];
+    return [[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] intValue];
 }
 
 /**
@@ -118,7 +118,7 @@ uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
  **/
 unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
 {
-    return (unsigned int)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntValue];
+    return [[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] unsignedIntValue];
 }
 
 /**
@@ -138,7 +138,7 @@ NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
  **/
 float CPTDecimalFloatValue(NSDecimal decimalNumber)
 {
-    return (float)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
+    return [[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
 }
 
 /**
@@ -148,7 +148,7 @@ float CPTDecimalFloatValue(NSDecimal decimalNumber)
  **/
 double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 {
-    return (double)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
+    return [[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] doubleValue];
 }
 
 /**
@@ -173,7 +173,7 @@ CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
  **/
 NSString *CPTDecimalStringValue(NSDecimal decimalNumber)
 {
-    return (NSString *)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] stringValue];
+    return [[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] stringValue];
 }
 
 #pragma mark -
@@ -600,7 +600,7 @@ NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
 /**
  *  @brief Extracts the color information from a @ref CGColorRef and returns it as a CPTRGBAColor.
  *
- *  Supports RGBA and grayscale colorspaces.
+ *  Supports RGBA and grayscale color spaces.
  *
  *  @param color The color.
  *  @return The RGBA components of the color.

@@ -1,7 +1,6 @@
 #import "CPTNumericDataTypeConversionPerformanceTests.h"
 
 #import "CPTNumericData+TypeConversion.h"
-#import "CPTNumericData.h"
 #import <mach/mach_time.h>
 
 static const size_t numberOfSamples  = 10000000;
@@ -95,7 +94,7 @@ static const NSUInteger numberOfReps = 5;
     NSInteger *samples  = (NSInteger *)[data mutableBytes];
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = sin(i) * 1000.0;
+        samples[i] = (NSInteger)(sin(i) * 1000.0);
     }
 
     CPTNumericData *integerNumericData = [[CPTNumericData alloc] initWithData:data

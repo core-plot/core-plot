@@ -1,8 +1,5 @@
 #import "CPTPlatformSpecificCategories.h"
 
-#import "CPTUtilities.h"
-#import <AppKit/AppKit.h>
-
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /** @brief Gets an image of the layer contents.

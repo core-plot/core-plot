@@ -1,10 +1,6 @@
 #import "_CPTBorderLayer.h"
 
 #import "CPTBorderedLayer.h"
-#import "CPTFill.h"
-#import "CPTLineStyle.h"
-#import "CPTPathExtensions.h"
-#import "CPTUtilities.h"
 
 /**
  *  @brief A utility layer used to draw the fill and border of a CPTBorderedLayer.

@@ -367,6 +367,15 @@
     return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", [super description], self.startValue, self.endValue, self.duration, self.delay];
 }
 
+-(void)dealloc
+{
+    [startValue release];
+    [endValue release];
+    [startValue release];
+    [endValue release];
+    [super dealloc];
+}
+
 /// @endcond
 
 @end

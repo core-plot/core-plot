@@ -1,9 +1,6 @@
 #import "CPTAxisLabel.h"
 #import "CPTAxisLabelTests.h"
 #import "CPTBorderedLayer.h"
-#import "CPTColor.h"
-#import "CPTExceptions.h"
-#import "CPTFill.h"
 #import "CPTMutableTextStyle.h"
 #import <tgmath.h>
 

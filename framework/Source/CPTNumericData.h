@@ -19,7 +19,7 @@
 /// @name Data Format
 /// @{
 @property (assign, readonly) CPTNumericDataType dataType;
-@property (readonly) CPTDataTypeFormat dataTypeFormat;
+@property (readonly, assign) CPTDataTypeFormat dataTypeFormat;
 @property (readonly) size_t sampleBytes;
 @property (readonly) CFByteOrder byteOrder;
 /// @}

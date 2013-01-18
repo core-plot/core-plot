@@ -1,9 +1,7 @@
 #import "CPTLegendEntry.h"
 
 #import "CPTPlot.h"
-#import "CPTTextStyle.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond

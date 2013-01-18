@@ -1,7 +1,6 @@
 #import "CPTAnnotation.h"
 
 #import "CPTAnnotationHostLayer.h"
-#import "CPTLayer.h"
 #import "NSCoderExtensions.h"
 
 /** @brief An annotation positions a content layer relative to some anchor point.

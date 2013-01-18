@@ -59,6 +59,9 @@ NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType)
         case CFByteOrderBigEndian:
             byteOrderString = @">";
             break;
+
+        default:
+            break;
     }
 
     switch ( dataType.dataTypeFormat ) {
@@ -108,7 +111,7 @@ BOOL CPTDataTypeIsSupported(CPTNumericDataType format)
             break;
 
         default:
-            // invalid byteorder
+            // invalid byte order
             result = NO;
             break;
     }

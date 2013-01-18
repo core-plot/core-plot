@@ -1,7 +1,6 @@
 #import "_CPTAnimationNSDecimalPeriod.h"
 
 #import "CPTUtilities.h"
-#import "NSNumberExtensions.h"
 
 @implementation _CPTAnimationNSDecimalPeriod
 

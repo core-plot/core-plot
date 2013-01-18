@@ -1,7 +1,5 @@
 #import "CPTMutableNumericData.h"
 
-#import "CPTExceptions.h"
-
 /** @brief An annotated NSMutableData type.
  *
  *  CPTNumericData combines a mutable data buffer with information

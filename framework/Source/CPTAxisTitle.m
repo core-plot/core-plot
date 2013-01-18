@@ -1,6 +1,5 @@
 #import "CPTAxisTitle.h"
 
-#import "CPTExceptions.h"
 #import "CPTLayer.h"
 #import "CPTUtilities.h"
 #import <tgmath.h>

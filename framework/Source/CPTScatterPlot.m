@@ -5,7 +5,6 @@
 #import "CPTLegend.h"
 #import "CPTLineStyle.h"
 #import "CPTMutableNumericData.h"
-#import "CPTNumericData.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
@@ -14,8 +13,6 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
-#import <stdlib.h>
 #import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
@@ -671,7 +668,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         // Draw fills
         NSDecimal theAreaBaseValue;
-        CPTFill *theFill;
+        CPTFill *theFill = nil;
 
         for ( NSUInteger i = 0; i < 2; i++ ) {
             switch ( i ) {
@@ -788,7 +785,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
                 lastPointSkipped = NO;
                 firstPoint       = viewPoint;
-                // Control point used for bezier curves - reset after skipped points
+                // Control point used for Bezier curves - reset after skipped points
                 lastControlPoint = viewPoint;
             }
             else {
@@ -813,7 +810,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                     case CPTScatterPlotInterpolationCurved:
                     {
-                        // draw cubic bezier curves from viewpoint to viewpoint with control points based on tangents at viewpoints
+                        // draw cubic Bezier curves from viewpoint to viewpoint with control points based on tangents at viewpoints
                         CGPoint nextPoint;
                         if ( i < lastDrawnPointIndex ) {
                             nextPoint = viewPoints[i + 1];
@@ -835,7 +832,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                             // Estimate the tangent of viewpoint[i] to be the line between two points,
                             //    partway to viewpoint[i-1] and partway to viewpoint[i+1]
                             // Project the resulting tangent line back to the viewpoint
-                            // Use the endpoints of the tangent as control points in a bezier curve from viewpoint to viewpoint
+                            // Use the endpoints of the tangent as control points in a Bezier curve from viewpoint to viewpoint
                             const CGFloat c = CPTFloat(0.5); // tangent length must be in interval [0;1]
 
                             CGPoint t1 = CGPointMake( viewPoint.x - ( (viewPoint.x - lastPoint.x) * c ),

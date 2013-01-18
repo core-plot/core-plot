@@ -2,7 +2,6 @@
 
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
-#import "CPTLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
@@ -195,7 +194,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
         gradientType      = (CPTGradientType)[coder decodeIntForKey : @"CPTGradient.type"];
         angle             = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
-        self.blendingMode = [coder decodeIntForKey:@"CPTGradient.blendingMode"];
+        self.blendingMode = (CPTGradientBlendingMode)[coder decodeIntForKey : @"CPTGradient.blendingMode"];
 
         NSUInteger count = (NSUInteger)[coder decodeIntegerForKey : @"CPTGradient.elementCount"];
 
@@ -813,7 +812,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CGContextSaveGState(context);
 
-    CGContextClipToRect(context, *(CGRect *)&rect);
+    CGContextClipToRect(context, rect);
 
     switch ( self.gradientType ) {
         case CPTGradientTypeAxial:
@@ -976,44 +975,44 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
     else { // ok, we'll do the calculations now
         CGFloat x, y;
-        CGFloat sina, cosa, tana;
+        CGFloat sinA, cosA, tanA;
 
         CGFloat length;
-        CGFloat deltax, deltay;
+        CGFloat deltaX, deltaY;
 
-        CGFloat rangle = self.angle * (CGFloat)(M_PI / 180.0); //convert the angle to radians
+        CGFloat rAngle = self.angle * CPTFloat(M_PI / 180.0); //convert the angle to radians
 
-        if ( fabs( tan(rangle) ) <= 1.0 ) { //for range [-45,45], [135,225]
+        if ( fabs( tan(rAngle) ) <= CPTFloat(1.0) ) { //for range [-45,45], [135,225]
             x = CGRectGetWidth(rect);
             y = CGRectGetHeight(rect);
 
-            sina = sin(rangle);
-            cosa = cos(rangle);
-            tana = tan(rangle);
+            sinA = sin(rAngle);
+            cosA = cos(rAngle);
+            tanA = tan(rAngle);
 
-            length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
+            length = x / fabs(cosA) + ( y - x * fabs(tanA) ) * fabs(sinA);
 
-            deltax = length * cosa / CPTFloat(2.0);
-            deltay = length * sina / CPTFloat(2.0);
+            deltaX = length * cosA / CPTFloat(2.0);
+            deltaY = length * sinA / CPTFloat(2.0);
         }
         else { //for range [45,135], [225,315]
             x = CGRectGetHeight(rect);
             y = CGRectGetWidth(rect);
 
-            rangle -= CPTFloat(M_PI_2);
+            rAngle -= CPTFloat(M_PI_2);
 
-            sina = sin(rangle);
-            cosa = cos(rangle);
-            tana = tan(rangle);
+            sinA = sin(rAngle);
+            cosA = cos(rAngle);
+            tanA = tan(rAngle);
 
-            length = x / fabs(cosa) + ( y - x * fabs(tana) ) * fabs(sina);
+            length = x / fabs(cosA) + ( y - x * fabs(tanA) ) * fabs(sinA);
 
-            deltax = -length * sina / CPTFloat(2.0);
-            deltay = length * cosa / CPTFloat(2.0);
+            deltaX = -length * sinA / CPTFloat(2.0);
+            deltaY = length * cosA / CPTFloat(2.0);
         }
 
-        startPoint = CPTPointMake(CGRectGetMidX(rect) - deltax, CGRectGetMidY(rect) - deltay);
-        endPoint   = CPTPointMake(CGRectGetMidX(rect) + deltax, CGRectGetMidY(rect) + deltay);
+        startPoint = CPTPointMake(CGRectGetMidX(rect) - deltaX, CGRectGetMidY(rect) - deltaY);
+        endPoint   = CPTPointMake(CGRectGetMidX(rect) + deltaX, CGRectGetMidY(rect) + deltaY);
     }
 
     // Calls to CoreGraphics
@@ -1026,27 +1025,27 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CGPoint startPoint, endPoint;
     CGFloat startRadius, endRadius;
-    CGFloat scalex, scaley;
+    CGFloat scaleX, scaleY;
 
     startPoint = endPoint = CPTPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) );
 
     startRadius = -CPTFloat(1.0);
     if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
-        scalex        = CGRectGetWidth(rect) / CGRectGetHeight(rect);
-        startPoint.x /= scalex;
-        endPoint.x   /= scalex;
-        scaley        = CPTFloat(1.0);
+        scaleX        = CGRectGetWidth(rect) / CGRectGetHeight(rect);
+        startPoint.x /= scaleX;
+        endPoint.x   /= scaleX;
+        scaleY        = CPTFloat(1.0);
         endRadius     = CGRectGetHeight(rect) / CPTFloat(2.0);
     }
     else {
-        scalex        = CPTFloat(1.0);
-        scaley        = CGRectGetHeight(rect) / CGRectGetWidth(rect);
-        startPoint.y /= scaley;
-        endPoint.y   /= scaley;
+        scaleX        = CPTFloat(1.0);
+        scaleY        = CGRectGetHeight(rect) / CGRectGetWidth(rect);
+        startPoint.y /= scaleY;
+        endPoint.y   /= scaleY;
         endRadius     = CGRectGetWidth(rect) / CPTFloat(2.0);
     }
 
-    CGContextScaleCTM(context, scalex, scaley);
+    CGContextScaleCTM(context, scaleX, scaleY);
 
     CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
 
@@ -1120,7 +1119,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradientElement removedElement;
 
     if ( elementList != NULL ) {
-        if ( index == 0 ) {
+        if ( idx == 0 ) {
             CPTGradientElement *tmpNext = elementList;
             elementList = elementList->nextElement;
 
@@ -1301,7 +1300,7 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
     }
 }
 
-//Chromatic Evaluation -
+//  Chromatic Evaluation -
 //    This blends colors by their Hue, Saturation, and Value(Brightness) right now I just
 //    transform the RGB values stored in the CPTGradientElements to HSB, in the future I may
 //    streamline it to avoid transforming in and out of HSB colorspace *for later*
@@ -1309,7 +1308,7 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 //    For the chromatic blend we shift the hue of color1 to meet the hue of color2. To do
 //    this we will add to the hue's angle (if we subtract we'll be doing the inverse
 //    chromatic...scroll down more for that). All we need to do is keep adding to the hue
-//  until we wrap around the colorwheel and get to color2.
+//    until we wrap around the color wheel and get to color2.
 void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
     CGFloat position = *in;
@@ -1380,7 +1379,7 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     transformHSV_RGB(out);
 }
 
-// Inverse Chromatic Evaluation -
+//  Inverse Chromatic Evaluation -
 //    Inverse Chromatic is about the same story as Chromatic Blend, but here the Hue
 //    is strictly decreasing, that is we need to get from color1 to color2 by decreasing
 //    the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
@@ -1536,6 +1535,9 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
             G = p;
             B = q;
             break;
+
+        default:
+            break;
     }
 
     components[0] = R;
@@ -1543,7 +1545,7 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
     components[2] = B;
 }
 
-void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. graycale color)
+void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. grayscale color)
 { //    we want to fill it with a sensible value
     if ( isnan(color1[0]) && isnan(color2[0]) ) {
         color1[0] = color2[0] = 0;

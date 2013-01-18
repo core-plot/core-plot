@@ -2,7 +2,6 @@
 #import "CPTDefinitions.h"
 #import "CPTTextStyle.h"
 #import "CPTTextStyleTests.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation CPTTextStyleTests
 

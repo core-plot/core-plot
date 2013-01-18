@@ -1,8 +1,5 @@
-#import "CPTExceptions.h"
-#import "CPTPlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceTests.h"
-#import "CPTUtilities.h"
 #import "CPTXYGraph.h"
 
 @implementation CPTPlotSpaceTests

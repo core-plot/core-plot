@@ -1,6 +1,5 @@
 #import "CPTXYAxisSet.h"
 
-#import "CPTDefinitions.h"
 #import "CPTLineStyle.h"
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"

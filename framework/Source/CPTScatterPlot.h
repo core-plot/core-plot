@@ -32,7 +32,7 @@ CPTScatterPlotField;
  **/
 typedef enum _CPTScatterPlotInterpolation {
     CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
-    CPTScatterPlotInterpolationStepped,   ///< Steps beginnning at data point.
+    CPTScatterPlotInterpolationStepped,   ///< Steps beginning at data point.
     CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
     CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
 }

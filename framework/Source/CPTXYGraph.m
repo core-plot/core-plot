@@ -1,6 +1,5 @@
 #import "CPTXYGraph.h"
 
-#import "CPTExceptions.h"
 #import "CPTXYAxis.h"
 #import "CPTXYAxisSet.h"
 #import "CPTXYPlotSpace.h"

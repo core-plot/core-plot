@@ -1,6 +1,5 @@
 #import "CPTPlotRangeTests.h"
 
-#import "CPTExceptions.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
 

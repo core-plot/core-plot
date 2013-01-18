@@ -4,7 +4,6 @@
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
 #import "NSCoderExtensions.h"
-#import <Foundation/Foundation.h>
 #import <tgmath.h>
 
 /// @cond
@@ -573,12 +572,11 @@
         {
             CGPathRef customPath = self.customLineCapPath;
             if ( customPath ) {
-                CGRect oldBounds                 = CGRectNull;
                 CGAffineTransform scaleTransform = CGAffineTransformIdentity;
 
-                oldBounds = CGPathGetBoundingBox(customPath);
-                CGFloat dx1 = lineCapSize.width / oldBounds.size.width;
-                CGFloat dy1 = lineCapSize.height / oldBounds.size.height;
+                CGRect oldBounds = CGPathGetBoundingBox(customPath);
+                CGFloat dx1      = lineCapSize.width / oldBounds.size.width;
+                CGFloat dy1      = lineCapSize.height / oldBounds.size.height;
                 scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, dx1, dy1);
                 scaleTransform = CGAffineTransformConcat( scaleTransform,
                                                           CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height) );

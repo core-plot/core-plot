@@ -39,7 +39,7 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
  *
  *  The "swatch" is the graphical part of the legend entry, usually accompanied by a text title
  *  that will be drawn by the legend. Returning @NO will cause the legend to not draw the default
- *  legend graphics. It is then the delegate&rsquo;s responsiblity to do this.
+ *  legend graphics. It is then the delegate&rsquo;s responsibility to do this.
  *  @param legend The legend.
  *  @param idx The zero-based index of the legend entry for the given plot.
  *  @param plot The plot.

@@ -1,6 +1,5 @@
 #import "_CPTConstraintsRelative.h"
 
-#import "CPTExceptions.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 

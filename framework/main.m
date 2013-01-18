@@ -7,7 +7,6 @@
 //
 
 #import "GTMUnitTestingUtilities.h"
-#import <Cocoa/Cocoa.h>
 
 void GTMRestoreColorProfile(void);
 

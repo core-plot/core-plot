@@ -2,7 +2,6 @@
 
 #import "CPTBorderedLayer.h"
 #import "CPTColor.h"
-#import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTMutableLineStyle.h"
@@ -12,7 +11,6 @@
 #import "CPTXYAxis.h"
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
-#import "CPTXYPlotSpace.h"
 
 NSString *const kCPTStocksTheme = @"Stocks";
 
@@ -33,7 +31,7 @@ NSString *const kCPTStocksTheme = @"Stocks";
 
 #pragma mark -
 
--(void)applyThemeToBackground:(CPTXYGraph *)graph
+-(void)applyThemeToBackground:(CPTGraph *)graph
 {
     graph.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
 }
@@ -62,8 +60,9 @@ NSString *const kCPTStocksTheme = @"Stocks";
     plotAreaFrame.cornerRadius    = CPTFloat(14.0);
 }
 
--(void)applyThemeToAxisSet:(CPTXYAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
 {
+    CPTXYAxisSet *xyAxisSet             = (CPTXYAxisSet *)axisSet;
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 
     majorLineStyle.lineCap   = kCGLineCapRound;
@@ -74,7 +73,7 @@ NSString *const kCPTStocksTheme = @"Stocks";
     minorLineStyle.lineColor = [CPTColor whiteColor];
     minorLineStyle.lineWidth = CPTFloat(3.0);
 
-    CPTXYAxis *x                        = axisSet.xAxis;
+    CPTXYAxis *x                        = xyAxisSet.xAxis;
     CPTMutableTextStyle *whiteTextStyle = [[[CPTMutableTextStyle alloc] init] autorelease];
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = CPTFloat(14.0);
@@ -95,7 +94,7 @@ NSString *const kCPTStocksTheme = @"Stocks";
     x.minorTickLabelTextStyle        = minorTickWhiteTextStyle;
     x.titleTextStyle                 = whiteTextStyle;
 
-    CPTXYAxis *y = axisSet.yAxis;
+    CPTXYAxis *y = xyAxisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 4;

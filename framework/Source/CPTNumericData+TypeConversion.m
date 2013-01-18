@@ -75,7 +75,7 @@
 }
 
 #pragma mark -
-#pragma mark Data conversion utilites
+#pragma mark Data conversion utilities
 
 /** @brief Copies a data buffer and converts the data to a new data type without changing the byte order.
  *

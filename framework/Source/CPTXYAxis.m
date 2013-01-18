@@ -1,9 +1,6 @@
 #import "CPTXYAxis.h"
 
-#import "CPTAxisLabel.h"
 #import "CPTConstraints.h"
-#import "CPTDefinitions.h"
-#import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLimitBand.h"
 #import "CPTLineCap.h"

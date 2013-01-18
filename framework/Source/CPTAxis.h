@@ -55,7 +55,7 @@ CPTAxisLabelingPolicy;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
- *  to update the labels. It is then the delegate&rsquo;s responsiblity to do this.
+ *  to update the labels. It is then the delegate&rsquo;s responsibility to do this.
  *  @param axis The axis.
  *  @param locations The locations of the major ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
@@ -64,7 +64,7 @@ CPTAxisLabelingPolicy;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
- *  to update the labels. It is then the delegate&rsquo;s responsiblity to do this.
+ *  to update the labels. It is then the delegate&rsquo;s responsibility to do this.
  *  @param axis The axis.
  *  @param locations The locations of the minor ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.

@@ -72,7 +72,7 @@
         dateFormatter         = [aDateFormatter retain];
         referenceDate         = nil;
         referenceCalendar     = nil;
-        referenceCalendarUnit = 0;
+        referenceCalendarUnit = NSEraCalendarUnit;
     }
     return self;
 }

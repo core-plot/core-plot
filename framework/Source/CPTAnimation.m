@@ -2,7 +2,6 @@
 
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
-#import "CPTUtilities.h"
 #import "_CPTAnimationTimingFunctions.h"
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
@@ -12,7 +11,7 @@ static CPTAnimation *instance = nil;
 /// @cond
 @interface CPTAnimation()
 
-@property (nonatomic, readwrite) CGFloat timeOffset;
+@property (nonatomic, readwrite, assign) CGFloat timeOffset;
 @property (nonatomic, readwrite, retain) NSMutableArray *animationOperations;
 @property (nonatomic, readwrite, retain) NSMutableArray *runningAnimationOperations;
 @property (nonatomic, readwrite, retain) NSMutableArray *expiredAnimationOperations;
@@ -251,13 +250,11 @@ static CPTAnimation *instance = nil;
 
         CPTAnimationPeriod *period = animationOperation.period;
 
-        CGFloat progress  = 0.0;
         CGFloat duration  = period.duration;
         CGFloat startTime = period.startOffset + period.delay;
         CGFloat endTime   = startTime + duration;
 
         if ( currentTime > endTime ) {
-            progress = 1.0;
             [expiredOperations addObject:animationOperation];
 
             if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
@@ -282,7 +279,7 @@ static CPTAnimation *instance = nil;
                     }
                 }
 
-                progress = timingFunction(currentTime - startTime, duration);
+                CGFloat progress = timingFunction(currentTime - startTime, duration);
 
                 NSValue *tweenedValue = [period tweenedValueForProgress:progress];
                 SEL boundSetter       = animationOperation.boundSetter;

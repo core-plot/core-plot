@@ -7,8 +7,6 @@
 @interface CPTDataSourceTestCase : CPTTestCase<CPTPlotDataSource> {
     @private
     NSArray *xData, *yData;
-    CPTMutablePlotRange *xRange, *yRange;
-
     NSMutableArray *plots;
 
     NSUInteger nRecords;

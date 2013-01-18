@@ -6,10 +6,7 @@
 #import "CPTLegend.h"
 #import "CPTLineStyle.h"
 #import "CPTMutableNumericData+TypeConversion.h"
-#import "CPTMutableNumericData.h"
 #import "CPTMutablePlotRange.h"
-#import "CPTNumericData+TypeConversion.h"
-#import "CPTNumericData.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
@@ -18,7 +15,6 @@
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimation Plots
@@ -599,7 +595,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 +(id)nilData
 {
-    static id nilObject;
+    static id nilObject = nil;
 
     if ( !nilObject ) {
         nilObject = [[NSObject alloc] init];
@@ -1109,9 +1105,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(CPTNumericDataType)doubleDataType
 {
     static CPTNumericDataType dataType;
-    static BOOL inited = NO;
+    static BOOL initialized = NO;
 
-    if ( !inited ) {
+    if ( !initialized ) {
         dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
     }
 
@@ -1121,9 +1117,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(CPTNumericDataType)decimalDataType
 {
     static CPTNumericDataType dataType;
-    static BOOL inited = NO;
+    static BOOL initialized = NO;
 
-    if ( !inited ) {
+    if ( !initialized ) {
         dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
     }
 

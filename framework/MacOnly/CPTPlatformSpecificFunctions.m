@@ -1,8 +1,5 @@
 #import "CPTPlatformSpecificFunctions.h"
 
-#import "CPTDefinitions.h"
-#import "CPTPlatformSpecificDefines.h"
-
 /** @brief Node in a linked list of graphics contexts.
 **/
 typedef struct _CPTContextNode {

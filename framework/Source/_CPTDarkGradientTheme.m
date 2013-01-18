@@ -2,7 +2,6 @@
 
 #import "CPTBorderedLayer.h"
 #import "CPTColor.h"
-#import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTMutableLineStyle.h"
@@ -12,7 +11,6 @@
 #import "CPTXYAxis.h"
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
-#import "CPTXYPlotSpace.h"
 
 NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
 
@@ -61,7 +59,7 @@ NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
     axis.titleTextStyle              = textStyle;
 }
 
--(void)applyThemeToBackground:(CPTXYGraph *)graph
+-(void)applyThemeToBackground:(CPTGraph *)graph
 {
     CPTColor *endColor         = [CPTColor colorWithGenericGray:CPTFloat(0.1)];
     CPTGradient *graphGradient = [CPTGradient gradientWithBeginningColor:endColor endingColor:endColor];
@@ -88,7 +86,7 @@ NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
     plotAreaFrame.cornerRadius    = CPTFloat(10.0);
 }
 
--(void)applyThemeToAxisSet:(CPTXYAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
 {
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 

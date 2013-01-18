@@ -1,11 +1,8 @@
 #import "CPTPlotRange.h"
 
-#import "CPTDefinitions.h"
 #import "CPTMutablePlotRange.h"
-#import "CPTPlatformSpecificCategories.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
-#import "NSDecimalNumberExtensions.h"
 
 /// @cond
 @interface CPTPlotRange()

@@ -7,11 +7,8 @@
 #import "CPTMutablePlotRange.h"
 #import "CPTPlot.h"
 #import "CPTPlotArea.h"
-#import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTUtilities.h"
-#import "CPTXYAxis.h"
-#import "CPTXYAxisSet.h"
 #import "NSNumberExtensions.h"
 
 /// @cond
@@ -495,7 +492,7 @@
     return coordinate;
 }
 
-// Log (only one version since there are no trancendental functions for NSDecimal)
+// Log (only one version since there are no transcendental functions for NSDecimal)
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
     if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) || (plotCoord <= 0.0) ) {
@@ -533,7 +530,7 @@
 // Plot area view point for plot point
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
-    CGSize layerSize      = CGSizeZero;
+    CGSize layerSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
@@ -543,8 +540,8 @@
         return CGPointZero;
     }
 
-    CGFloat viewX = CPTFloat(0.0);
-    CGFloat viewY = CPTFloat(0.0);
+    CGFloat viewX;
+    CGFloat viewY;
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
@@ -583,7 +580,7 @@
 
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
-    CGSize layerSize      = CGSizeZero;
+    CGSize layerSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
@@ -593,8 +590,8 @@
         return CGPointZero;
     }
 
-    CGFloat viewX = CPTFloat(0.0);
-    CGFloat viewY = CPTFloat(0.0);
+    CGFloat viewX;
+    CGFloat viewY;
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
@@ -628,7 +625,7 @@
 // Plot point for view point
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
-    CGSize boundsSize     = CGSizeZero;
+    CGSize boundsSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
@@ -670,7 +667,7 @@
 
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
-    CGSize boundsSize     = CGSizeZero;
+    CGSize boundsSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {

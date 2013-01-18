@@ -1,6 +1,5 @@
 #import "CPTAxisLabel.h"
 
-#import "CPTExceptions.h"
 #import "CPTLayer.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTTextLayer.h"

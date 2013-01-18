@@ -2,7 +2,6 @@
 
 #import "CPTColorSpace.h"
 #import "CPTDefinitions.h"
-#import "CPTPlatformSpecificFunctions.h"
 #import "NSCoderExtensions.h"
 
 /** @brief An immutable color.

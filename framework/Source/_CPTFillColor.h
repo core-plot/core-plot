@@ -8,7 +8,7 @@
 
 /// @name Initialization
 /// @{
--(id)initWithColor:(CPTColor *)aCcolor;
+-(id)initWithColor:(CPTColor *)aColor;
 /// @}
 
 /// @name Drawing

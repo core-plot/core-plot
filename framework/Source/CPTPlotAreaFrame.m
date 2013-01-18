@@ -1,8 +1,6 @@
 #import "CPTPlotAreaFrame.h"
 
 #import "CPTAxisSet.h"
-#import "CPTDefinitions.h"
-#import "CPTLineStyle.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotGroup.h"
 

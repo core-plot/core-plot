@@ -1,17 +1,13 @@
 #import "CPTLayer.h"
 
 #import "CPTAxisSet.h"
-#import "CPTExceptions.h"
 #import "CPTGraph.h"
-#import "CPTLineStyle.h"
 #import "CPTPathExtensions.h"
-#import "CPTPlatformSpecificDefines.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTShadow.h"
 #import "CPTUtilities.h"
 #import "CorePlotProbes.h"
 #import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <objc/runtime.h>
 #import <tgmath.h>
 
@@ -322,7 +318,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  *
  *  This method replaces the CALayer @link CALayer::drawInContext: -drawInContext: @endlink method
  *  to ensure that layer content is always drawn as vectors
- *  and objects rather than as a cached bitmapped image representation.
+ *  and objects rather than as a cached bit-mapped image representation.
  *  Subclasses should do all drawing here and must call @super to set up the clipping path.
  *
  *  @param context The graphics context to draw into.

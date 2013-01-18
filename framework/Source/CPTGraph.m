@@ -3,7 +3,6 @@
 #import "CPTAxis.h"
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
-#import "CPTFill.h"
 #import "CPTGraphHostingView.h"
 #import "CPTLayerAnnotation.h"
 #import "CPTLegend.h"
@@ -299,7 +298,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        hostingView              = [[coder decodeObjectForKey:@"CPTGraph.hostingView"] retain];
+        hostingView              = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
         plotAreaFrame            = [[coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"] retain];
         plots                    = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
         plotSpaces               = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];

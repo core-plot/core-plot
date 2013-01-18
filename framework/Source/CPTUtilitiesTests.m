@@ -1,6 +1,5 @@
 #import "CPTDefinitions.h"
 #import "CPTUtilities.h"
-#import "CPTUtilities.h"
 #import "CPTUtilitiesTests.h"
 
 @implementation CPTUtilitiesTests
@@ -52,20 +51,20 @@
 {
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
 
-    STAssertEquals( (float)CPTDecimalFloatValue([d decimalValue]), (float)42.0, @"Result incorrect" );
+    STAssertEquals(CPTDecimalFloatValue([d decimalValue]), (float)42.0, @"Result incorrect");
 
     d = [NSDecimalNumber decimalNumberWithString:@"42.1"];
-    STAssertEquals( (float)CPTDecimalFloatValue([d decimalValue]), (float)42.1, @"Result incorrect" );
+    STAssertEquals(CPTDecimalFloatValue([d decimalValue]), (float)42.1, @"Result incorrect");
 }
 
 -(void)testCPTDecimalDoubleValue
 {
     NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithString:@"42"];
 
-    STAssertEquals( (double)CPTDecimalDoubleValue([d decimalValue]), (double)42.0, @"Result incorrect" );
+    STAssertEquals(CPTDecimalDoubleValue([d decimalValue]), (double)42.0, @"Result incorrect");
 
     d = [NSDecimalNumber decimalNumberWithString:@"42.1"];
-    STAssertEquals( (double)CPTDecimalDoubleValue([d decimalValue]), (double)42.1, @"Result incorrect" );
+    STAssertEquals(CPTDecimalDoubleValue([d decimalValue]), (double)42.1, @"Result incorrect");
 }
 
 -(void)testToDecimalConversion
@@ -93,27 +92,27 @@
 
     // signed conversions
     testValue  = CPTDecimalFromChar(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromShort(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLong(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLongLong(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInt(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInteger(-1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&negativeOne, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &negativeOne) == NSOrderedSame, errMessage);
 }
 
@@ -128,52 +127,52 @@
 
     // signed conversions
     testValue  = CPTDecimalFromChar(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromShort(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLong(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLongLong(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInt(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInteger(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     // unsigned conversions
     testValue  = CPTDecimalFromUnsignedChar(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedShort(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedLong(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedLongLong(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedInt(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedInteger(0);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, errMessage);
 }
 
@@ -185,52 +184,52 @@
 
     // signed conversions
     testValue  = CPTDecimalFromChar(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromShort(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLong(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromLongLong(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInt(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromInteger(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     // unsigned conversions
     testValue  = CPTDecimalFromUnsignedChar(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedShort(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedLong(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedLongLong(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedInt(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 
     testValue  = CPTDecimalFromUnsignedInteger(1);
-    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil), nil];
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
     STAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, errMessage);
 }
 

@@ -2,7 +2,6 @@
 
 #import "CPTAxis.h"
 #import "CPTAxisSet.h"
-#import "CPTGridLines.h"
 #import "CPTPlotArea.h"
 
 /** @brief A group of grid line layers.

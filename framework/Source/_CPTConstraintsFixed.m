@@ -1,6 +1,5 @@
 #import "_CPTConstraintsFixed.h"
 
-#import "CPTExceptions.h"
 #import "NSCoderExtensions.h"
 
 /// @cond

@@ -2,7 +2,6 @@
 
 #import "CPTExceptions.h"
 #import "CPTNumericData+TypeConversion.h"
-#import "CPTNumericData.h"
 
 @implementation CPTNumericDataTests
 
@@ -27,7 +26,7 @@
                 [NSNumber numberWithUnsignedInt:2],
                 [NSNumber numberWithUnsignedInt:2],
                 [NSNumber numberWithUnsignedInt:2],
-                (id)nil
+                nil
                ];
 
     NSUInteger nElems  = 2 * 2 * 2;
@@ -64,7 +63,7 @@
     id shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:2],
                 [NSNumber numberWithUnsignedInt:2],
                 [NSNumber numberWithUnsignedInt:2],
-                (id)nil];
+                nil];
     NSUInteger nElems = 5;
 
     STAssertThrowsSpecificNamed([[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
