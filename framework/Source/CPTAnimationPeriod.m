@@ -371,8 +371,6 @@
 {
     [startValue release];
     [endValue release];
-    [startValue release];
-    [endValue release];
     [super dealloc];
 }
 
