@@ -1596,8 +1596,13 @@ double niceNum(double x, BOOL roundNearest)
  **/
 -(void)layoutSublayers
 {
-    [self updateMajorTickLabels];
-    [self updateMinorTickLabels];
+    if ( self.needsRelabel ) {
+        [self relabel];
+    }
+    else {
+        [self updateMajorTickLabels];
+        [self updateMinorTickLabels];
+    }
     [self updateAxisTitle];
 }
 
