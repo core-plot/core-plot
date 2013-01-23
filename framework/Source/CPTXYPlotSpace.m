@@ -754,10 +754,12 @@
 
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
-    if ( !self.graph.plotAreaFrame || (interactionScale <= 1.e-6) ) {
+    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+
+    if ( !plotArea || (interactionScale <= 1.e-6) ) {
         return;
     }
-    if ( ![self.graph.plotAreaFrame.plotArea containsPoint:plotAreaPoint] ) {
+    if ( ![plotArea containsPoint:plotAreaPoint] ) {
         return;
     }
 
@@ -841,10 +843,10 @@
  *  If the receiver has a @ref delegate and the delegate handles the event,
  *  this method always returns @YES.
  *  If @ref allowsUserInteraction is @NO
- *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  or the graph does not have a @link CPTPlotAreaFrame::plotArea plotArea @endlink layer,
  *  this method always returns @NO.
  *  Otherwise, if the @par{interactionPoint} is within the bounds of the
- *  @link CPTGraph::plotAreaFrame plotAreaFrame @endlink, a drag operation starts and
+ *  @link CPTPlotAreaFrame::plotArea plotArea @endlink, a drag operation starts and
  *  this method returns @YES.
  *
  *  @param event The OS event.
@@ -860,12 +862,13 @@
         return YES;
     }
 
-    if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame ) {
+    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
 
-    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame];
-    if ( [self.graph.plotAreaFrame containsPoint:pointInPlotArea] ) {
+    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
+    if ( [plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
         lastDragPoint = pointInPlotArea;
         isDragging    = YES;
@@ -884,7 +887,7 @@
  *  If the receiver has a @ref delegate and the delegate handles the event,
  *  this method always returns @YES.
  *  If @ref allowsUserInteraction is @NO
- *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  or the graph does not have a @link CPTPlotAreaFrame::plotArea plotArea @endlink layer,
  *  this method always returns @NO.
  *  Otherwise, if a drag operation is in progress, it ends and
  *  this method returns @YES.
@@ -901,7 +904,7 @@
         return YES;
     }
 
-    if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame ) {
+    if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame.plotArea ) {
         return NO;
     }
 
@@ -922,7 +925,7 @@
  *  If the receiver has a @ref delegate and the delegate handles the event,
  *  this method always returns @YES.
  *  If @ref allowsUserInteraction is @NO
- *  or the graph does not have a @link CPTGraph::plotAreaFrame plotAreaFrame @endlink layer,
+ *  or the graph does not have a @link CPTPlotAreaFrame::plotArea plotArea @endlink layer,
  *  this method always returns @NO.
  *  Otherwise, if a drag operation is in progress, the @ref xRange
  *  and @ref yRange are shifted to follow the drag and
@@ -940,12 +943,13 @@
         return YES;
     }
 
-    if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame ) {
+    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
 
     if ( isDragging ) {
-        CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:self.graph.plotAreaFrame.plotArea];
+        CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
         CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDragPoint.x, pointInPlotArea.y - lastDragPoint.y);
         CGPoint pointToUse      = pointInPlotArea;
 
