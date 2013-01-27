@@ -655,7 +655,7 @@
         newIndex = idx;
     }
 
-    return [self sampleValueAtIndex:newIndex];
+    return [self sampleValue:newIndex];
 }
 
 /** @brief Gets a pointer to a given sample in the data buffer.
