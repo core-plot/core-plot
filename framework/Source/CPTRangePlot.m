@@ -635,7 +635,7 @@ typedef struct CGPointError CGPointError;
 
             CGContextSaveGState(context);
 
-            // Pick the current linestyle with a low alpha component
+            // Pick the current line style with a low alpha component
             [self.areaFill fillPathInContext:context];
 
             CGPathRelease(fillPath);

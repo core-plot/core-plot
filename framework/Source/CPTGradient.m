@@ -27,7 +27,7 @@
 
 @end
 
-// C Fuctions for color blending
+// C Functions for color blending
 static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);
 static void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
 static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);

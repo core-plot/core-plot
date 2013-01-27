@@ -20,7 +20,7 @@
  *  Everyone has a their own preferred coding style, and no one way can be considered right. Nonetheless, in a
  *  project like Core Plot, with many developers contributing, it is worthwhile defining a set of basic coding
  *  standards to prevent a mishmash of different styles which can become frustrating when
- *  navigating the code base. See the file <code>"Coding Style.mdown"</code> found in the <code>documentation</code> directory
+ *  navigating the code base. See the file <code>"Coding Style.markdown"</code> found in the <code>documentation</code> directory
  *  of the project source for specific guidelines.
  *
  *  @subsection documentation Documentation Policy
