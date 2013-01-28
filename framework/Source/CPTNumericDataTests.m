@@ -22,12 +22,12 @@
 
 -(void)testNumberOfDimensionsGivesShapeCount
 {
-    id shape = [NSArray arrayWithObjects:
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                nil
-               ];
+    NSArray *shape = [NSArray arrayWithObjects:
+                      [NSNumber numberWithUnsignedInt:2],
+                      [NSNumber numberWithUnsignedInt:2],
+                      [NSNumber numberWithUnsignedInt:2],
+                      nil
+                     ];
 
     NSUInteger nElems  = 2 * 2 * 2;
     CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
@@ -60,10 +60,10 @@
 
 -(void)testIllegalShapeRaisesException
 {
-    id shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                nil];
+    NSArray *shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:2],
+                      [NSNumber numberWithUnsignedInt:2],
+                      [NSNumber numberWithUnsignedInt:2],
+                      nil];
     NSUInteger nElems = 5;
 
     STAssertThrowsSpecificNamed([[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
