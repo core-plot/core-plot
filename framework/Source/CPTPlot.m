@@ -12,6 +12,7 @@
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
+#import "CPTShadow.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
@@ -1108,7 +1109,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     static BOOL initialized = NO;
 
     if ( !initialized ) {
-        dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
+        dataType    = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
+        initialized = YES;
     }
 
     return dataType;
@@ -1120,7 +1122,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     static BOOL initialized = NO;
 
     if ( !initialized ) {
-        dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
+        dataType    = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
+        initialized = YES;
     }
 
     return dataType;

@@ -523,7 +523,7 @@ static const CGFloat colorLookupTable[10][3] =
     BOOL hasNonZeroOffsets = NO;
     NSArray *offsetArray   = [self cachedArrayForKey:CPTPieChartBindingPieSliceRadialOffsets];
     for ( NSNumber *offset in offsetArray ) {
-        if ( [offset cgFloatValue] != 0.0 ) {
+        if ( [offset cgFloatValue] != CPTFloat(0.0) ) {
             hasNonZeroOffsets = YES;
             break;
         }

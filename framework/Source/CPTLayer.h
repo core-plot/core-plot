@@ -47,7 +47,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Drawing
 /// @{
-@property (readwrite, assign) CGFloat contentsScale;
+@property (readwrite) CGFloat contentsScale;
 @property (nonatomic, readonly, assign) BOOL useFastRendering;
 @property (nonatomic, readwrite, copy) CPTShadow *shadow;
 @property (nonatomic, readonly) CGSize shadowMargin;

@@ -12,16 +12,16 @@ CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
     // CGPathAddArcToPoint will draw straight lines past the start and end of the arc
     // in order to create the path from the current position and the destination position.
 
-    CGFloat minx = CGRectGetMinX(rect), midx = CGRectGetMidX(rect), maxx = CGRectGetMaxX(rect);
-    CGFloat miny = CGRectGetMinY(rect), midy = CGRectGetMidY(rect), maxy = CGRectGetMaxY(rect);
+    CGFloat minX = CGRectGetMinX(rect), midX = CGRectGetMidX(rect), maxX = CGRectGetMaxX(rect);
+    CGFloat minY = CGRectGetMinY(rect), midY = CGRectGetMidY(rect), maxY = CGRectGetMaxY(rect);
 
     CGMutablePathRef path = CGPathCreateMutable();
 
-    CGPathMoveToPoint(path, NULL, minx, midy);
-    CGPathAddArcToPoint(path, NULL, minx, miny, midx, miny, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, maxx, miny, maxx, midy, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, maxx, maxy, midx, maxy, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, minx, maxy, minx, midy, cornerRadius);
+    CGPathMoveToPoint(path, NULL, minX, midY);
+    CGPathAddArcToPoint(path, NULL, minX, minY, midX, minY, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, maxX, minY, maxX, midY, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, maxX, maxY, midX, maxY, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, minX, maxY, minX, midY, cornerRadius);
     CGPathCloseSubpath(path);
 
     return path;

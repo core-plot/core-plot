@@ -11,25 +11,25 @@
 
 /// @name Data Buffer
 /// @{
-@property (copy, readonly) NSData *data;
-@property (readonly) const void *bytes;
-@property (readonly) NSUInteger length;
+@property (readonly, copy) NSData *data;
+@property (readonly, assign) const void *bytes;
+@property (readonly, assign) NSUInteger length;
 /// @}
 
 /// @name Data Format
 /// @{
-@property (assign, readonly) CPTNumericDataType dataType;
+@property (readonly, assign) CPTNumericDataType dataType;
 @property (readonly, assign) CPTDataTypeFormat dataTypeFormat;
-@property (readonly) size_t sampleBytes;
-@property (readonly) CFByteOrder byteOrder;
+@property (readonly, assign) size_t sampleBytes;
+@property (readonly, assign) CFByteOrder byteOrder;
 /// @}
 
 /// @name Dimensions
 /// @{
-@property (copy, readonly) NSArray *shape;
-@property (readonly) NSUInteger numberOfDimensions;
-@property (readonly) NSUInteger numberOfSamples;
-@property (readonly) CPTDataOrder dataOrder;
+@property (readonly, copy) NSArray *shape;
+@property (readonly, assign) NSUInteger numberOfDimensions;
+@property (readonly, assign) NSUInteger numberOfSamples;
+@property (readonly, assign) CPTDataOrder dataOrder;
 /// @}
 
 /// @name Factory Methods

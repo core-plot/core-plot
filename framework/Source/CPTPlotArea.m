@@ -8,7 +8,7 @@
 #import "CPTLineStyle.h"
 #import "CPTPlotGroup.h"
 
-static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
+static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
 /// @cond
 @interface CPTPlotArea()
@@ -325,7 +325,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
 {
     CPTGraphLayerType *buLayerOrder = self.bottomUpLayerOrder;
 
-    for ( int i = 0; i < kCPTNumberOfLayers; i++ ) {
+    for ( size_t i = 0; i < kCPTNumberOfLayers; i++ ) {
         *(buLayerOrder++) = (CPTGraphLayerType)i;
     }
 
@@ -366,7 +366,7 @@ static const int kCPTNumberOfLayers = 6; // number of primary layers to arrange
     CPTGraphLayerType *buLayerOrder = self.bottomUpLayerOrder;
     unsigned idx                    = 0;
 
-    for ( NSInteger i = 0; i < kCPTNumberOfLayers; i++ ) {
+    for ( size_t i = 0; i < kCPTNumberOfLayers; i++ ) {
         if ( buLayerOrder[i] == layerType ) {
             break;
         }
