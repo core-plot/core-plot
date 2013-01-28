@@ -270,6 +270,9 @@
 
     // should be mutable--if not, this will error
     ndCopy.dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() );
+
+    [nd release];
+    [ndCopy release];
 }
 
 @end
