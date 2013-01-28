@@ -7,6 +7,7 @@
 #import "CPTMutableNumericData.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlotArea.h"
+#import "CPTPlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTPlotSymbol.h"

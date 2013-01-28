@@ -1,6 +1,5 @@
 #import "CPTTextLayer.h"
 
-#import "CPTPlatformSpecificCategories.h"
 #import "CPTShadow.h"
 #import <tgmath.h>
 

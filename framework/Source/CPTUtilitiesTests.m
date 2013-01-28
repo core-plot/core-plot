@@ -1,6 +1,6 @@
-#import "CPTDefinitions.h"
-#import "CPTUtilities.h"
 #import "CPTUtilitiesTests.h"
+
+#import "CPTUtilities.h"
 
 @implementation CPTUtilitiesTests
 

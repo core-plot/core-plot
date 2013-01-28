@@ -1,6 +1,7 @@
 #import "CPTLegendEntry.h"
 
 #import "CPTPlot.h"
+#import "CPTTextStyle.h"
 #import "CPTUtilities.h"
 #import <tgmath.h>
 

@@ -1,8 +1,6 @@
 #import "CPTAnnotationHostLayer.h"
 #import "CPTDefinitions.h"
-#import "CPTMutableTextStyle.h"
 #import "CPTNumericDataType.h"
-#import "CPTPlotRange.h"
 
 /// @file
 
@@ -14,6 +12,7 @@
 @class CPTPlotSpace;
 @class CPTPlotSpaceAnnotation;
 @class CPTPlotRange;
+@class CPTTextStyle;
 
 /// @ingroup plotBindingsAllPlots
 /// @{

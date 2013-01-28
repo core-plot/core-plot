@@ -1,9 +1,12 @@
 #import "CPTLegend.h"
 
 #import "CPTExceptions.h"
+#import "CPTFill.h"
 #import "CPTGraph.h"
 #import "CPTLegendEntry.h"
+#import "CPTLineStyle.h"
 #import "CPTPlot.h"
+#import "CPTTextStyle.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
