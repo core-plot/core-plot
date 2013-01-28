@@ -5,6 +5,7 @@
 #import "_CPTDarkGradientTheme.h"
 #import "_CPTPlainBlackTheme.h"
 #import "_CPTPlainWhiteTheme.h"
+#import "_CPTSlateTheme.h"
 #import "_CPTStocksTheme.h"
 
 @implementation CPTThemeTests
@@ -51,28 +52,35 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 
-    STAssertTrue([theme isKindOfClass:[_CPTDarkGradientTheme class]], @"Should be CPTDarkGradientTheme");
+    STAssertTrue([theme isKindOfClass:[_CPTDarkGradientTheme class]], @"Should be _CPTDarkGradientTheme");
 }
 
 -(void)testThemeNamedPlainBlackShouldReturnCPTPlainBlackTheme
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainBlackTheme];
 
-    STAssertTrue([theme isKindOfClass:[_CPTPlainBlackTheme class]], @"Should be CPTPlainBlackTheme");
+    STAssertTrue([theme isKindOfClass:[_CPTPlainBlackTheme class]], @"Should be _CPTPlainBlackTheme");
 }
 
 -(void)testThemeNamedPlainWhiteShouldReturnCPTPlainWhiteTheme
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
 
-    STAssertTrue([theme isKindOfClass:[_CPTPlainWhiteTheme class]], @"Should be CPTPlainWhiteTheme");
+    STAssertTrue([theme isKindOfClass:[_CPTPlainWhiteTheme class]], @"Should be _CPTPlainWhiteTheme");
 }
 
 -(void)testThemeNamedStocksShouldReturnCPTStocksTheme
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTStocksTheme];
 
-    STAssertTrue([theme isKindOfClass:[_CPTStocksTheme class]], @"Should be CPTStocksTheme");
+    STAssertTrue([theme isKindOfClass:[_CPTStocksTheme class]], @"Should be _CPTStocksTheme");
+}
+
+-(void)testThemeNamedSlateShouldReturnCPTSlateTheme
+{
+    CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
+
+    STAssertTrue([theme isKindOfClass:[_CPTSlateTheme class]], @"Should be _CPTSlateTheme");
 }
 
 @end
