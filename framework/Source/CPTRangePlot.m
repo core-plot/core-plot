@@ -654,10 +654,10 @@ typedef struct CGPointError CGPointError;
                         halfBarWidth:halfBarWidth
                          alignPoints:alignPoints];
         }
-
-        free(viewPoints);
-        free(drawPointFlags);
     }
+
+    free(viewPoints);
+    free(drawPointFlags);
 }
 
 -(void)drawRangeInContext:(CGContextRef)context
@@ -951,7 +951,7 @@ typedef struct CGPointError CGPointError;
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
     NSUInteger dataCount     = self.cachedDataCount;
-    CGPointError *viewPoints = malloc( dataCount * sizeof(CGPointError) );
+    CGPointError *viewPoints = calloc( dataCount, sizeof(CGPointError) );
     BOOL *drawPointFlags     = malloc( dataCount * sizeof(BOOL) );
 
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];

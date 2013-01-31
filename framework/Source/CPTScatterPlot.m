@@ -469,9 +469,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 double plotPoint[2];
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
-                viewPoints[i]             = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-                viewPoints[i].x          += originTransformed.x;
-                viewPoints[i].y          += originTransformed.y;
+
+                CGPoint plotAreaViewPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+                viewPoints[i]    = plotAreaViewPoint;
+                viewPoints[i].x += originTransformed.x;
+                viewPoints[i].y += originTransformed.y;
             }
         }
     }

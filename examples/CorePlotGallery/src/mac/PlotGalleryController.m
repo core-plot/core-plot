@@ -101,10 +101,10 @@ const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
 {
     CPTTheme *theme;
 
-    if ( currentThemeName == kThemeTableViewControllerNoTheme ) {
+    if ( [currentThemeName isEqualToString:kThemeTableViewControllerNoTheme] ) {
         theme = (id)[NSNull null];
     }
-    else if ( currentThemeName == kThemeTableViewControllerDefaultTheme ) {
+    else if ( [currentThemeName isEqualToString:kThemeTableViewControllerDefaultTheme] ) {
         theme = nil;
     }
     else {

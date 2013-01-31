@@ -470,14 +470,16 @@
         layerSize.height += symbolMargin;
 
         self.anchorPoint = CPTPointMake(0.5, 0.5);
-        theCachedLayer   = CGLayerCreateWithContext(context, layerSize, NULL);
 
-        [self renderAsVectorInContext:CGLayerGetContext(theCachedLayer)
+        CGLayerRef newLayer = CGLayerCreateWithContext(context, layerSize, NULL);
+
+        [self renderAsVectorInContext:CGLayerGetContext(newLayer)
                               atPoint:CPTPointMake( layerSize.width * CPTFloat(0.5), layerSize.height * CPTFloat(0.5) )
                                 scale:scale];
 
-        self.cachedLayer = theCachedLayer;
-        CGLayerRelease(theCachedLayer);
+        self.cachedLayer = newLayer;
+        CGLayerRelease(newLayer);
+        theCachedLayer   = self.cachedLayer;
         self.anchorPoint = symbolAnchor;
     }
 

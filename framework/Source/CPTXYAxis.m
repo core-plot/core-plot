@@ -148,6 +148,8 @@
             break;
 
         default:
+            *lower = NAN;
+            *upper = NAN;
             break;
     }
 }
