@@ -1,6 +1,5 @@
 #import "CPTDefinitions.h"
 #import "CPTGraph.h"
-#import <Foundation/Foundation.h>
 
 @interface CPTXYGraph : CPTGraph {
     @private

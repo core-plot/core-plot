@@ -1,5 +1,4 @@
 #import "CPTNumericDataType.h"
-#import <Foundation/Foundation.h>
 
 @interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding> {
     @protected

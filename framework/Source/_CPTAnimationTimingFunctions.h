@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-
 /// @file
 
 typedef CGFloat (*CPTAnimationTimingFunction)(CGFloat, CGFloat);

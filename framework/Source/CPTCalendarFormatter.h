@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 @interface CPTCalendarFormatter : NSNumberFormatter {
     @private
     NSDateFormatter *dateFormatter;

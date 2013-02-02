@@ -1,5 +1,4 @@
 #import "CPTBorderedLayer.h"
-#import <Foundation/Foundation.h>
 
 /// @file
 

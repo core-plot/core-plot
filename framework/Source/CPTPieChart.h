@@ -1,6 +1,5 @@
 #import "CPTDefinitions.h"
 #import "CPTPlot.h"
-#import <Foundation/Foundation.h>
 
 /// @file
 

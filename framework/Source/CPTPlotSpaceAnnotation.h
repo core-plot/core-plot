@@ -1,5 +1,4 @@
 #import "CPTAnnotation.h"
-#import <Foundation/Foundation.h>
 
 @class CPTPlotSpace;
 

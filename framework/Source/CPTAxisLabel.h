@@ -1,5 +1,4 @@
 #import "CPTDefinitions.h"
-#import <Foundation/Foundation.h>
 
 @class CPTLayer;
 @class CPTTextStyle;

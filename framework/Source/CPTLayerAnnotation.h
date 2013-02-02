@@ -1,6 +1,5 @@
 #import "CPTAnnotation.h"
 #import "CPTDefinitions.h"
-#import <Foundation/Foundation.h>
 
 @class CPTConstraints;
 

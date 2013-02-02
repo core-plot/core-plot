@@ -1,5 +1,4 @@
 #import "CPTAxis.h"
-#import <Foundation/Foundation.h>
 
 @class CPTConstraints;
 

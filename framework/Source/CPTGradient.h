@@ -4,7 +4,6 @@
 /// @file
 
 #import "CPTDefinitions.h"
-#import <Foundation/Foundation.h>
 
 /**
  *  @brief A structure representing one node in a linked list of RGBA colors.

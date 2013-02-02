@@ -1,5 +1,4 @@
 #import "CPTTextStyle.h"
-#import <Foundation/Foundation.h>
 
 @class CPTColor;
 

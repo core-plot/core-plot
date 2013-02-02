@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 @class CPTPlotRange;
 @class CPTFill;
 

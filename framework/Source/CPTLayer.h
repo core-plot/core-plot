@@ -1,6 +1,5 @@
 #import "CPTDefinitions.h"
 #import "CPTResponder.h"
-#import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
 @class CPTGraph;

@@ -1,5 +1,4 @@
 #import "CPTFill.h"
-#import <Foundation/Foundation.h>
 
 @class CPTImage;
 

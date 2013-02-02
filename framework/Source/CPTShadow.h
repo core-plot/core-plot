@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-
 @class CPTColor;
 
 @interface CPTShadow : NSObject<NSCoding, NSCopying, NSMutableCopying> {

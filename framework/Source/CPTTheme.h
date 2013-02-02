@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 /// @ingroup themeNames
 /// @{
 extern NSString *const kCPTDarkGradientTheme; ///< A graph theme with dark gray gradient backgrounds and light gray lines.

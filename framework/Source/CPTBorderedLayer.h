@@ -1,5 +1,4 @@
 #import "CPTAnnotationHostLayer.h"
-#import <Foundation/Foundation.h>
 
 @class CPTLineStyle;
 @class CPTFill;

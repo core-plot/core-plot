@@ -1,7 +1,6 @@
 #import "CPTDefinitions.h"
 #import "CPTLayer.h"
 #import "CPTTextStyle.h"
-#import <Foundation/Foundation.h>
 
 /// @file
 

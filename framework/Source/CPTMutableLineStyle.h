@@ -1,5 +1,4 @@
 #import "CPTLineStyle.h"
-#import <Foundation/Foundation.h>
 
 @class CPTColor;
 

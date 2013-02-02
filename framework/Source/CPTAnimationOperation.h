@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-
 #import "CPTAnimation.h"
 #import "CPTDefinitions.h"
 

@@ -1,5 +1,4 @@
 #import "CPTDefinitions.h"
-#import <UIKit/UIKit.h>
 
 @class CPTGraph;
 

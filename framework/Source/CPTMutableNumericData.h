@@ -1,6 +1,5 @@
 #import "CPTNumericData.h"
 #import "CPTNumericDataType.h"
-#import <Foundation/Foundation.h>
 
 @interface CPTMutableNumericData : CPTNumericData {
 }

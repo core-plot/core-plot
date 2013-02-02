@@ -3,10 +3,6 @@
 #import "CPTDefinitions.h"
 #import "NSCoderExtensions.h"
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
-
 /// @cond
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

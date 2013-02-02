@@ -1,8 +1,6 @@
 #import "CPTColor.h"
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
-#import <AppKit/AppKit.h>
-#import <QuartzCore/QuartzCore.h>
 
 /** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
  *  @brief Platform-specific extensions to CPTLayer.

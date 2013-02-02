@@ -1,3 +1,5 @@
+#import <Cocoa/Cocoa.h>
+
 #import <CorePlot/CPTAnimation.h>
 #import <CorePlot/CPTAnimationOperation.h>
 #import <CorePlot/CPTAnimationPeriod.h>

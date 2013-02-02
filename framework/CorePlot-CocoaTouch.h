@@ -1,3 +1,6 @@
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import "CPTAnimation.h"
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"

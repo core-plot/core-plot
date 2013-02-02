@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-
 @interface CPTImage : NSObject<NSCoding, NSCopying> {
     @private
     CGImageRef image;

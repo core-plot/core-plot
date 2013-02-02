@@ -1,6 +1,4 @@
 #import "CPTShadow.h"
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 
 @class CPTColor;
 

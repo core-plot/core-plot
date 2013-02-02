@@ -217,6 +217,7 @@
 		C3D68B0E1221651200EB4863 /* CPTNumericData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3111B188A800D36017 /* CPTNumericData.m */; };
 		C3D68B0F1221651500EB4863 /* CPTNumericDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3911B188B600D36017 /* CPTNumericDataType.h */; settings = {ATTRIBUTES = (); }; };
 		C3D68B101221651600EB4863 /* CPTNumericDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CADE3A11B188B600D36017 /* CPTNumericDataType.m */; };
+		C3D9825116BD406600DE7977 /* CorePlot_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */; };
 		C40CFB94107EC1B40057E828 /* _CPTXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C40CFB92107EC1B40057E828 /* _CPTXYTheme.h */; settings = {ATTRIBUTES = (); }; };
 		C40CFB95107EC1B40057E828 /* _CPTXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C40CFB93107EC1B40057E828 /* _CPTXYTheme.m */; };
 		D0C047BF12D6568500DA8047 /* CPTRangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C047BD12D6568500DA8047 /* CPTRangePlot.m */; };
@@ -273,7 +274,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "main-cocoatouch.m"; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_CocoaTouch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
 		BC74A2C010FC087800E7E90D /* CPTPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPieChart.h; path = Source/CPTPieChart.h; sourceTree = "<group>"; };
 		BC74A2C110FC087800E7E90D /* CPTPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPieChart.m; path = Source/CPTPieChart.m; sourceTree = "<group>"; };
@@ -420,6 +420,7 @@
 		C3CCA04713E8D94800CE6DB1 /* _CPTConstraintsRelative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTConstraintsRelative.m; path = Source/_CPTConstraintsRelative.m; sourceTree = "<group>"; };
 		C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLineCap.h; path = Source/CPTLineCap.h; sourceTree = "<group>"; };
 		C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLineCap.m; path = Source/CPTLineCap.m; sourceTree = "<group>"; };
+		C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
 		C40CFB92107EC1B40057E828 /* _CPTXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTXYTheme.h; path = Source/_CPTXYTheme.h; sourceTree = "<group>"; };
 		C40CFB93107EC1B40057E828 /* _CPTXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTXYTheme.m; path = Source/_CPTXYTheme.m; sourceTree = "<group>"; };
 		D0C047BD12D6568500DA8047 /* CPTRangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTRangePlot.m; path = Source/CPTRangePlot.m; sourceTree = "<group>"; };
@@ -609,7 +610,7 @@
 			children = (
 				BC89A7991024AB19009D5261 /* CorePlotProbes.d */,
 				BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */,
-				32CA4F630368D1EE00C91783 /* CorePlot_CocoaTouch_Prefix.pch */,
+				C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */,
 			);
 			name = "Other Sources";
@@ -984,6 +985,7 @@
 				C3C6833A1661391A00340E39 /* _CPTAnimationCGSizePeriod.h in Headers */,
 				C3C6833C1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
 				C3C6833E1661391A00340E39 /* _CPTAnimationPlotRangePeriod.h in Headers */,
+				C3D9825116BD406600DE7977 /* CorePlot_Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1189,6 +1191,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
@@ -1207,6 +1211,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (

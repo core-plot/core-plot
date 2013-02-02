@@ -1,5 +1,4 @@
 #import "CPTFill.h"
-#import <Foundation/Foundation.h>
 
 @interface _CPTFillColor : CPTFill<NSCopying, NSCoding> {
     @private

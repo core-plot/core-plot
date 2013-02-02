@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
     #include <TargetConditionals.h>
-    #if TARGET_OS_IPHONE // iPhone SDK
+    #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         #import <Foundation/Foundation.h>
         #import <UIKit/UIKit.h>
     #else
