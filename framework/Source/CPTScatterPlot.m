@@ -667,7 +667,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
 
     if ( firstDrawnPointIndex != NSNotFound ) {
-        NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex) );
+        NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
 
         // Draw fills
         NSDecimal theAreaBaseValue;
@@ -770,6 +770,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     NSUInteger lastDrawnPointIndex               = NSMaxRange(indexRange);
     CGPoint lastControlPoint                     = CGPointZero;
 
+    if ( lastDrawnPointIndex > 0 ) {
+        lastDrawnPointIndex--;
+    }
+    
     for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
         CGPoint viewPoint = viewPoints[i];
 
