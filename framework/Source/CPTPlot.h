@@ -200,7 +200,7 @@ CPTPlotCachePrecision;
     CGFloat labelRotation;
     NSUInteger labelField;
     CPTTextStyle *labelTextStyle;
-    NSNumberFormatter *labelFormatter;
+    NSFormatter *labelFormatter;
     NSRange labelIndexRange;
     NSMutableArray *labelAnnotations;
     CPTShadow *labelShadow;
@@ -248,7 +248,7 @@ CPTPlotCachePrecision;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, retain) NSNumberFormatter *labelFormatter;
+@property (nonatomic, readwrite, retain) NSFormatter *labelFormatter;
 @property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
 /// @}
 

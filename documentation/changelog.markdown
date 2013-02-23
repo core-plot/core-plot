@@ -4,6 +4,7 @@
 
 ## Details
 - **New**: Added animation support for plot ranges, decimal values, and other properties.
+- **Changed**: Changed the type of all axis and plot label formatters from `NSNumberFormatter` to `NSFormatter`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
@@ -11,6 +12,8 @@
 # Release 1.1 (November 11, 2012)
 
 ## Release Notes
+
+This release adds many new plot properties, delegate methods, and data bindings.
 
 ## Details
 - **New**: Added Bezier curve interpolation option to `CPTScatterPlot`.

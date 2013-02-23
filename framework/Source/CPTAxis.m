@@ -227,7 +227,7 @@ double niceNum(double x, BOOL round);
  **/
 @synthesize minorTickLabelTextStyle;
 
-/** @property NSNumberFormatter *labelFormatter
+/** @property NSFormatter *labelFormatter
  *  @brief The number formatter used to format the label text.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
  *  the numerical plot coordinate into a string (e.g., @quote{Jan 10, 2010}).
@@ -235,7 +235,7 @@ double niceNum(double x, BOOL round);
  **/
 @synthesize labelFormatter;
 
-/** @property NSNumberFormatter *minorTickLabelFormatter
+/** @property NSFormatter *minorTickLabelFormatter
  *  @brief The number formatter used to format the label text of minor ticks.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
  *  the numerical plot coordinate into a string (e.g., @quote{Jan 10, 2010}).
@@ -1236,7 +1236,7 @@ double niceNum(double x, BOOL roundNearest)
     CGFloat theLabelOffset;
     CGFloat theLabelRotation;
     CPTTextStyle *theLabelTextStyle;
-    NSNumberFormatter *theLabelFormatter;
+    NSFormatter *theLabelFormatter;
     BOOL theLabelFormatterChanged;
 
     if ( useMajorAxisLabels ) {
@@ -2155,7 +2155,7 @@ double niceNum(double x, BOOL roundNearest)
     }
 }
 
--(void)setLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter
+-(void)setLabelFormatter:(NSFormatter *)newTickLabelFormatter
 {
     if ( newTickLabelFormatter != labelFormatter ) {
         [labelFormatter release];
@@ -2165,7 +2165,7 @@ double niceNum(double x, BOOL roundNearest)
     }
 }
 
--(void)setMinorTickLabelFormatter:(NSNumberFormatter *)newMinorTickLabelFormatter
+-(void)setMinorTickLabelFormatter:(NSFormatter *)newMinorTickLabelFormatter
 {
     if ( newMinorTickLabelFormatter != minorTickLabelFormatter ) {
         [minorTickLabelFormatter release];

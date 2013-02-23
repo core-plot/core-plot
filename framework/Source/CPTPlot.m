@@ -180,7 +180,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize labelTextStyle;
 
-/** @property NSNumberFormatter *labelFormatter
+/** @property NSFormatter *labelFormatter
  *  @brief The number formatter used to format the data labels.
  *  Set this property to @nil to hide the data labels.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
@@ -1319,9 +1319,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     Class nullClass       = [NSNull class];
     Class annotationClass = [CPTAnnotation class];
 
-    CPTTextStyle *dataLabelTextStyle      = self.labelTextStyle;
-    NSNumberFormatter *dataLabelFormatter = self.labelFormatter;
-    BOOL plotProvidesLabels               = dataLabelTextStyle && dataLabelFormatter;
+    CPTTextStyle *dataLabelTextStyle = self.labelTextStyle;
+    NSFormatter *dataLabelFormatter  = self.labelFormatter;
+    BOOL plotProvidesLabels          = dataLabelTextStyle && dataLabelFormatter;
 
     BOOL hasCachedLabels         = NO;
     NSMutableArray *cachedLabels = (NSMutableArray *)[self cachedArrayForKey:CPTPlotBindingDataLabels];
@@ -1722,7 +1722,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setLabelFormatter:(NSNumberFormatter *)newTickLabelFormatter
+-(void)setLabelFormatter:(NSFormatter *)newTickLabelFormatter
 {
     if ( newTickLabelFormatter != labelFormatter ) {
         [labelFormatter release];
