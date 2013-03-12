@@ -261,6 +261,17 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
     [super renderAsVectorInContext:context];
 
+    BOOL useMask = self.masksToBounds;
+    self.masksToBounds = YES;
+    CGContextSaveGState(context);
+
+    CGPathRef maskPath = self.maskingPath;
+    if ( maskPath ) {
+        CGContextBeginPath(context);
+        CGContextAddPath(context, maskPath);
+        CGContextClip(context);
+    }
+
     [self.fill fillRect:self.bounds inContext:context];
 
     NSArray *theAxes = self.axisSet.axes;
@@ -271,6 +282,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     for ( CPTAxis *axis in theAxes ) {
         [axis drawBackgroundLimitsInContext:context];
     }
+
+    CGContextRestoreGState(context);
+    self.masksToBounds = useMask;
 }
 
 /// @endcond

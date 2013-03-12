@@ -1,6 +1,7 @@
 #import "CPTXYAxisSet.h"
 
 #import "CPTLineStyle.h"
+#import "CPTPathExtensions.h"
 #import "CPTUtilities.h"
 #import "CPTXYAxis.h"
 
@@ -78,7 +79,20 @@
         CGRect borderRect   = CPTAlignRectToUserSpace(context, [self convertRect:superlayer.bounds fromLayer:superlayer]);
 
         [theLineStyle setLineStyleInContext:context];
-        [theLineStyle strokeRect:borderRect inContext:context];
+
+        CGFloat radius = superlayer.cornerRadius;
+
+        if ( radius > 0.0 ) {
+            radius = MIN( MIN( radius, borderRect.size.width * CPTFloat(0.5) ), borderRect.size.height * CPTFloat(0.5) );
+
+            CGContextBeginPath(context);
+            AddRoundedRectPath(context, borderRect, radius);
+
+            [theLineStyle strokePathInContext:context];
+        }
+        else {
+            [theLineStyle strokeRect:borderRect inContext:context];
+        }
     }
 }
 
