@@ -619,7 +619,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         if ( (desiredColumnCount == 0) || (col < desiredColumnCount) ) {
             maxTitleWidth[col] = MAX(MAX(maxTitleWidth[col], titleSize.width), theSwatchSize.width);
 
-            if ( row < desiredColumnWidths.count ) {
+            if ( col < desiredColumnWidths.count ) {
                 id desiredColumnWidth = [desiredColumnWidths objectAtIndex:col];
                 if ( [desiredColumnWidth isKindOfClass:numberClass] ) {
                     maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *) desiredColumnWidth cgFloatValue]);
