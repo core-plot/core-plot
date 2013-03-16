@@ -1,7 +1,5 @@
 #import "CPTMutableTextStyle.h"
 
-#import "CPTColor.h"
-
 /** @brief Mutable wrapper for text style properties.
  *
  *  Use this whenever you need to customize the properties of a text style.

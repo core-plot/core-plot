@@ -1,6 +1,5 @@
 #import "CPTLayer.h"
 
-#import "CPTAxisSet.h"
 #import "CPTGraph.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificFunctions.h"
