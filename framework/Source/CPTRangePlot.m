@@ -575,8 +575,8 @@ typedef struct CGPointError CGPointError;
     [super renderAsVectorInContext:context];
 
     // Calculate view points, and align to user space
-    CGPointError *viewPoints = malloc( dataCount * sizeof(CGPointError) );
-    BOOL *drawPointFlags     = malloc( dataCount * sizeof(BOOL) );
+    CGPointError *viewPoints = calloc( dataCount, sizeof(CGPointError) );
+    BOOL *drawPointFlags     = calloc( dataCount, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO];
