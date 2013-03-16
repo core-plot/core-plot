@@ -707,12 +707,11 @@
         {
             CGPathRef customPath = self.customSymbolPath;
             if ( customPath ) {
-                CGAffineTransform scaleTransform = CGAffineTransformIdentity;
-
                 CGRect oldBounds = CGPathGetBoundingBox(customPath);
                 CGFloat dx1      = symbolSize.width / oldBounds.size.width;
                 CGFloat dy1      = symbolSize.height / oldBounds.size.height;
-                scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, dx1, dy1);
+
+                CGAffineTransform scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, dx1, dy1);
                 scaleTransform = CGAffineTransformConcat( scaleTransform,
                                                           CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height) );
                 CGPathAddPath(symbolPath, &scaleTransform, customPath);
