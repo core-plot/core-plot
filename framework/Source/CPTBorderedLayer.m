@@ -443,6 +443,16 @@
     }
 }
 
+-(void)setHidden:(BOOL)newHidden
+{
+    if ( self.masksToBorder ) {
+        [self.borderLayer setHidden:newHidden];
+    }
+    else {
+        [super setHidden:newHidden];
+    }
+}
+
 -(void)setTransform:(CATransform3D)newTransform
 {
     if ( self.masksToBorder ) {

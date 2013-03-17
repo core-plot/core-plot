@@ -336,47 +336,49 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 -(void)recursivelyRenderInContext:(CGContextRef)context
 {
-    // render self
-    CGContextSaveGState(context);
-
-    [self applyTransform:self.transform toContext:context];
-
-    self.renderingRecursively = YES;
-    if ( !self.masksToBounds ) {
-        CGContextSaveGState(context);
-    }
-    [self renderAsVectorInContext:context];
-    if ( !self.masksToBounds ) {
-        CGContextRestoreGState(context);
-    }
-    self.renderingRecursively = NO;
-
-    // render sublayers
-    NSArray *sublayersCopy = [self.sublayers copy];
-    for ( CALayer *currentSublayer in sublayersCopy ) {
+    if ( !self.hidden ) {
+        // render self
         CGContextSaveGState(context);
 
-        // Shift origin of context to match starting coordinate of sublayer
-        CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
-        CGRect currentSublayerBounds       = currentSublayer.bounds;
-        CGContextTranslateCTM(context,
-                              currentSublayerFrameOrigin.x - currentSublayerBounds.origin.x,
-                              currentSublayerFrameOrigin.y - currentSublayerBounds.origin.y);
-        [self applyTransform:self.sublayerTransform toContext:context];
-        if ( [currentSublayer isKindOfClass:[CPTLayer class]] ) {
-            [(CPTLayer *) currentSublayer recursivelyRenderInContext:context];
+        [self applyTransform:self.transform toContext:context];
+
+        self.renderingRecursively = YES;
+        if ( !self.masksToBounds ) {
+            CGContextSaveGState(context);
         }
-        else {
-            if ( self.masksToBounds ) {
-                CGContextClipToRect(context, currentSublayer.bounds);
+        [self renderAsVectorInContext:context];
+        if ( !self.masksToBounds ) {
+            CGContextRestoreGState(context);
+        }
+        self.renderingRecursively = NO;
+
+        // render sublayers
+        NSArray *sublayersCopy = [self.sublayers copy];
+        for ( CALayer *currentSublayer in sublayersCopy ) {
+            CGContextSaveGState(context);
+
+            // Shift origin of context to match starting coordinate of sublayer
+            CGPoint currentSublayerFrameOrigin = currentSublayer.frame.origin;
+            CGRect currentSublayerBounds       = currentSublayer.bounds;
+            CGContextTranslateCTM(context,
+                                  currentSublayerFrameOrigin.x - currentSublayerBounds.origin.x,
+                                  currentSublayerFrameOrigin.y - currentSublayerBounds.origin.y);
+            [self applyTransform:self.sublayerTransform toContext:context];
+            if ( [currentSublayer isKindOfClass:[CPTLayer class]] ) {
+                [(CPTLayer *) currentSublayer recursivelyRenderInContext:context];
             }
-            [currentSublayer drawInContext:context];
+            else {
+                if ( self.masksToBounds ) {
+                    CGContextClipToRect(context, currentSublayer.bounds);
+                }
+                [currentSublayer drawInContext:context];
+            }
+            CGContextRestoreGState(context);
         }
+        [sublayersCopy release];
+
         CGContextRestoreGState(context);
     }
-    [sublayersCopy release];
-
-    CGContextRestoreGState(context);
 }
 
 /// @cond

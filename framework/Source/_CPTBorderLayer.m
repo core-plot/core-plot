@@ -93,6 +93,10 @@
 
 -(void)renderAsVectorInContext:(CGContextRef)context
 {
+    if ( self.hidden ) {
+        return;
+    }
+
     CPTBorderedLayer *theMaskedLayer = self.maskedLayer;
 
     if ( theMaskedLayer ) {
