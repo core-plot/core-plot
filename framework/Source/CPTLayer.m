@@ -482,21 +482,31 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
     CGPoint newPosition;
 
-    if ( scale == 1.0 ) {
-        newPosition.x = round(currentPosition.x);
-        newPosition.y = round(currentPosition.y);
-    }
-    else {
-        newPosition.x = round(currentPosition.x * scale) / scale;
-        newPosition.y = round(currentPosition.y * scale) / scale;
-    }
-
     if ( CATransform3DIsIdentity(self.transform) ) {
         CGSize currentSize = self.bounds.size;
         CGPoint anchor     = self.anchorPoint;
 
-        newPosition.x += (currentSize.width * anchor.x) - round(currentSize.width * anchor.x);
-        newPosition.y += (currentSize.height * anchor.y) - round(currentSize.height * anchor.y);
+        CGPoint newAnchor = CGPointMake(currentSize.width * anchor.x,
+                                        currentSize.height * anchor.y);
+
+        if ( scale == 1.0 ) {
+            newPosition.x = round( currentPosition.x + anchor.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+            newPosition.y = round( currentPosition.y + anchor.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+        }
+        else {
+            newPosition.x = round( (currentPosition.x + anchor.x - newAnchor.x) * scale - CPTFloat(0.5) ) / scale + newAnchor.x;
+            newPosition.y = round( (currentPosition.y + anchor.y - newAnchor.y) * scale - CPTFloat(0.5) ) / scale + newAnchor.y;
+        }
+    }
+    else {
+        if ( scale == 1.0 ) {
+            newPosition.x = round(currentPosition.x);
+            newPosition.y = round(currentPosition.y);
+        }
+        else {
+            newPosition.x = round(currentPosition.x * scale) / scale;
+            newPosition.y = round(currentPosition.y * scale) / scale;
+        }
     }
 
     self.position = newPosition;
