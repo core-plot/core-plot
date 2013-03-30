@@ -1739,6 +1739,7 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
 
+        [self layoutIfNeeded];
         [self updateMajorTickLabels];
     }
 }
@@ -1757,6 +1758,7 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
 
+        [self layoutIfNeeded];
         [self updateMinorTickLabels];
     }
 }
@@ -1812,6 +1814,7 @@ NSDecimal niceNum(NSDecimal x)
     if ( newOffset != titleOffset ) {
         titleOffset           = newOffset;
         self.axisTitle.offset = titleOffset;
+        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1821,6 +1824,7 @@ NSDecimal niceNum(NSDecimal x)
     if ( newRotation != titleRotation ) {
         titleRotation           = newRotation;
         self.axisTitle.rotation = titleRotation;
+        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1839,6 +1843,7 @@ NSDecimal niceNum(NSDecimal x)
             [(CPTTextLayer *) contentLayer setText:title];
         }
 
+        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1847,6 +1852,7 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( NSDecimalCompare(&newLocation, &titleLocation) != NSOrderedSame ) {
         titleLocation = newLocation;
+        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1941,6 +1947,7 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newOffset != labelOffset ) {
         labelOffset = newOffset;
+        [self layoutIfNeeded];
         [self updateMajorTickLabels];
     }
 }
@@ -1949,6 +1956,7 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newOffset != minorTickLabelOffset ) {
         minorTickLabelOffset = newOffset;
+        [self layoutIfNeeded];
         [self updateMinorTickLabels];
     }
 }
@@ -1960,6 +1968,7 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *label in self.axisLabels ) {
             label.rotation = labelRotation;
         }
+        [self layoutIfNeeded];
         [self updateMajorTickLabels];
     }
 }
@@ -1971,6 +1980,7 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
             label.rotation = labelRotation;
         }
+        [self layoutIfNeeded];
         [self updateMinorTickLabels];
     }
 }
