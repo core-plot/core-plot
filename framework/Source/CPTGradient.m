@@ -77,6 +77,16 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 @synthesize gradientType;
 
+/** @property CGPoint startAnchor
+ *  @brief The anchor point for starting point of a radial gradient. Defaults to (@num{0.5}, @num{0.5}) which centers the gradient on the drawing rectangle.
+ **/
+@synthesize startAnchor;
+
+/** @property CGPoint endAnchor
+ *  @brief The anchor point for ending point of a radial gradient. Defaults to (@num{0.5}, @num{0.5}) which centers the gradient on the drawing rectangle.
+ **/
+@synthesize endAnchor;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -89,6 +99,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  *  - @ref blendingMode = #CPTLinearBlendingMode
  *  - @ref angle = @num{0.0}
  *  - @ref gradientType = #CPTGradientTypeAxial
+ *  - @ref startAnchor = (@num{0.5}, @num{0.5})
+ *  - @ref endAnchor = (@num{0.5}, @num{0.5})
  *
  *  @return The initialized object.
  **/
@@ -101,6 +113,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
         angle        = CPTFloat(0.0);
         gradientType = CPTGradientTypeAxial;
+        startAnchor  = CPTPointMake(0.5, 0.5);
+        endAnchor    = CPTPointMake(0.5, 0.5);
     }
     return self;
 }
@@ -151,6 +165,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     copy.blendingMode  = self.blendingMode;
     copy->angle        = self->angle;
     copy->gradientType = self->gradientType;
+    copy->startAnchor  = self->startAnchor;
+    copy->endAnchor    = self->endAnchor;
 
     return copy;
 }
@@ -181,6 +197,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         [coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
         [coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
         [coder encodeInt:gradientType forKey:@"CPTGradient.type"];
+        [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
+        [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
     }
     else {
         [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
@@ -195,6 +213,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         gradientType      = (CPTGradientType)[coder decodeIntForKey : @"CPTGradient.type"];
         angle             = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
         self.blendingMode = (CPTGradientBlendingMode)[coder decodeIntForKey : @"CPTGradient.blendingMode"];
+        startAnchor       = [coder decodeCPTPointForKey:@"CPTPlotSymbol.startAnchor"];
+        endAnchor         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.endAnchor"];
 
         NSUInteger count = (NSUInteger)[coder decodeIntegerForKey : @"CPTGradient.elementCount"];
 
@@ -1015,7 +1035,6 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         endPoint   = CPTPointMake(CGRectGetMidX(rect) + deltaX, CGRectGetMidY(rect) + deltaY);
     }
 
-    // Calls to CoreGraphics
     CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
 
     return myCGShading;
@@ -1027,7 +1046,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CGFloat startRadius, endRadius;
     CGFloat scaleX, scaleY;
 
-    startPoint = endPoint = CPTPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) );
+    CGPoint theStartAnchor = self.startAnchor;
+
+    startPoint = CPTPointMake( fma( CGRectGetWidth(rect), theStartAnchor.x, CGRectGetMinX(rect) ),
+                               fma( CGRectGetHeight(rect), theStartAnchor.y, CGRectGetMinY(rect) ) );
+
+    CGPoint theEndAnchor = self.endAnchor;
+    endPoint = CPTPointMake( fma( CGRectGetWidth(rect), theEndAnchor.x, CGRectGetMinX(rect) ),
+                             fma( CGRectGetHeight(rect), theEndAnchor.y, CGRectGetMinY(rect) ) );
 
     startRadius = -CPTFloat(1.0);
     if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {

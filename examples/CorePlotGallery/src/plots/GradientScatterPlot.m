@@ -145,11 +145,14 @@
     plotSpace.globalYRange = globalYRange;
 
     // Add plot symbols
-    CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
-    symbolLineStyle.lineColor = [CPTColor blackColor];
+    CPTGradient *symbolGradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:0.75 green:0.75 blue:1.0 alpha:1.0]
+                                                              endingColor:[CPTColor blueColor]];
+    symbolGradient.gradientType = CPTGradientTypeRadial;
+    symbolGradient.startAnchor  = CPTPointMake(0.25, 0.75);
+
     CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
-    plotSymbol.fill               = [CPTFill fillWithColor:[CPTColor blueColor]];
-    plotSymbol.lineStyle          = symbolLineStyle;
+    plotSymbol.fill               = [CPTFill fillWithGradient:symbolGradient];
+    plotSymbol.lineStyle          = nil;
     plotSymbol.size               = CGSizeMake(10.0, 10.0);
     dataSourceLinePlot.plotSymbol = plotSymbol;
 

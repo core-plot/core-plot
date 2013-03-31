@@ -4,6 +4,7 @@
 
 ## Details
 - **New**: Added animation support for plot ranges, decimal values, and other properties.
+- **New**: Added starting and ending anchor point properties for radial gradients.
 - **Changed**: Changed the type of all axis and plot label formatters from `NSNumberFormatter` to `NSFormatter`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
