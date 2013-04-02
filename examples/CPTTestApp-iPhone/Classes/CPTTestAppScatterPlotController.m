@@ -178,9 +178,9 @@
     static CPTTextStyle *positiveStyle = nil;
     static CPTTextStyle *negativeStyle = nil;
 
-    NSNumberFormatter *formatter = axis.labelFormatter;
-    CGFloat labelOffset          = axis.labelOffset;
-    NSDecimalNumber *zero        = [NSDecimalNumber zero];
+    NSFormatter *formatter = axis.labelFormatter;
+    CGFloat labelOffset    = axis.labelOffset;
+    NSDecimalNumber *zero  = [NSDecimalNumber zero];
 
     NSMutableSet *newLabels = [NSMutableSet set];
 
