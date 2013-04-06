@@ -1,11 +1,15 @@
-# Next Release
+# Release 1.2 (April 6, 2013)
 
 ## Release Notes
+
+This release adds animation support for plot ranges, decimal values, and other properties.
+It also updates some of the example apps to use ARC.
 
 ## Details
 - **New**: Added animation support for plot ranges, decimal values, and other properties.
 - **New**: Added starting and ending anchor point properties for radial gradients.
 - **Changed**: Changed the type of all axis and plot label formatters from `NSNumberFormatter` to `NSFormatter`.
+- **Changed**: Updated all *CPTTestApp* example apps for Mac and iOS to use ARC.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
@@ -45,9 +49,19 @@ This release adds many new plot properties, delegate methods, and data bindings.
 
 ## Release Notes
 
-This release contains changes that will break apps built against earlier Core Plot versions. `CPTPlotRange` has been split into mutable and immutable variants similar to `CPTLineStyle` and `CPTTextStyle`. This change will break existing code that changes plot ranges; that code should be updated to use the mutable versions. The `CPTBarPlotField` enum was changed so that the field values start at zero like all other plots. This will affect any existing code that used hard-coded values for the fields instead of the enum field names (`CPTBarPlotFieldBarLocation`, etc.). The `CPTNewCGColorFromNSColor()` function was renamed to `CPTCreateCGColorFromNSColor()` to conform to Apple's memory management naming conventions.
+This release contains changes that will break apps built against earlier Core Plot
+versions. `CPTPlotRange` has been split into mutable and immutable variants similar to
+`CPTLineStyle` and `CPTTextStyle`. This change will break existing code that changes plot
+ranges; that code should be updated to use the mutable versions. The `CPTBarPlotField`
+enum was changed so that the field values start at zero like all other plots. This will
+affect any existing code that used hard-coded values for the fields instead of the enum
+field names (`CPTBarPlotFieldBarLocation`, etc.). The `CPTNewCGColorFromNSColor()`
+function was renamed to `CPTCreateCGColorFromNSColor()` to conform to Apple's memory
+management naming conventions.
 
-Core Plot now supports projects that use automatic reference counting (ARC). For compatibility with older systems, Core Plot itself does not use ARC but its header files and binaries can be used in applications that do.
+Core Plot now supports projects that use automatic reference counting (ARC). For
+compatibility with older systems, Core Plot itself does not use ARC but its header files
+and binaries can be used in applications that do.
 
 ## Details
 - **New**: Added a script to automatically format the code following the coding standards using uncrustify.
@@ -73,7 +87,13 @@ Core Plot now supports projects that use automatic reference counting (ARC). For
 
 ## Release Notes
 
-This release contains several changes that will break apps built against earlier Core Plot versions. The MacOS hosting view has been renamed and many deprecated properties and methods have been removed. The axis constraints system has been changed; the new class-based system is easier to set up and less prone to problems than the old struct-based system. This release also adds support for many new features including hi-dpi displays on MacOS, @2x images on both iOS and MacOS, shadows on many plot elements, arrows and other line caps on axis lines, and animation support for many plot properties.
+This release contains several changes that will break apps built against earlier Core Plot
+versions. The MacOS hosting view has been renamed and many deprecated properties and
+methods have been removed. The axis constraints system has been changed; the new
+class-based system is easier to set up and less prone to problems than the old
+struct-based system. This release also adds support for many new features including hi-dpi
+displays on MacOS, @2x images on both iOS and MacOS, shadows on many plot elements, arrows
+and other line caps on axis lines, and animation support for many plot properties.
 
 ## Details
 
@@ -105,7 +125,11 @@ This release contains several changes that will break apps built against earlier
 
 ## Release Notes
 
-This release contains several changes that will break apps built against earlier Core Plot versions. The class prefix for all Core Plot classes and public symbols changed from "CP" to "CPT". Also, the iOS SDK is no longer supported. iOS projects that were built against the SDK must be updated to include the Core Plot project file or link against the new universal static library instead. 
+This release contains several changes that will break apps built against earlier Core Plot
+versions. The class prefix for all Core Plot classes and public symbols changed from
+"CP" to "CPT". Also, the iOS SDK is no longer supported. iOS projects that were built
+against the SDK must be updated to include the Core Plot project file or link against the
+new universal static library instead. 
 
 ## Details
 
@@ -128,7 +152,11 @@ This release contains several changes that will break apps built against earlier
 
 ## Release Notes
 
-This release adds a new plot type (range plots) and adds features to several other plot types. `CPTextStyle` and `CPLineStyle` have been split into mutable and immutable variants similar to Cocoa's string, data, and collection classes. This change will break existing code that changes text style and line style properties; that code should be updated to use the mutable versions.
+This release adds a new plot type (range plots) and adds features to several other plot
+types. `CPTextStyle` and `CPLineStyle` have been split into mutable and immutable
+variants similar to Cocoa's string, data, and collection classes. This change will break
+existing code that changes text style and line style properties; that code should be
+updated to use the mutable versions.
 
 ## Details
 
@@ -152,7 +180,8 @@ This release adds a new plot type (range plots) and adds features to several oth
 
 ## Release Notes
 
-This is a maintenance release that corrects some packaging errors in release 0.2.1. It also adds support for missing data in all plot types.
+This is a maintenance release that corrects some packaging errors in release 0.2.1.
+It also adds support for missing data in all plot types.
 
 ## Details
 
@@ -168,7 +197,8 @@ This is a maintenance release that corrects some packaging errors in release 0.2
 
 ## Release Notes
 
-This release adds methods to improve plot performance by only updating the parts of the data cache that changed. It also adds support for Xcode 3.2.4 and the iOS 4.1 SDK.
+This release adds methods to improve plot performance by only updating the parts of the
+data cache that changed. It also adds support for Xcode 3.2.4 and the iOS 4.1 SDK.
 
 ## Details
 
@@ -186,7 +216,10 @@ This release adds methods to improve plot performance by only updating the parts
 
 ## Release Notes
 
-This release adds data labels to all plots and adds features to scatter plots and pie charts. It also makes substantial improvements to `CPNumericData` and modifies the plots to use it for the internal data cache. All C++ code has been removed from Core Plot, which improves performance and simplifies the process of linking Core Plot into other projects.
+This release adds data labels to all plots and adds features to scatter plots and pie charts.
+It also makes substantial improvements to `CPNumericData` and modifies the plots to use it
+for the internal data cache. All C++ code has been removed from Core Plot, which improves
+performance and simplifies the process of linking Core Plot into other projects.
 
 ## Details
 
