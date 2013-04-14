@@ -95,7 +95,7 @@
 		07BF0DF40F2B7BFB002FCEA7 /* CPTDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BF0DF20F2B7BFB002FCEA7 /* CPTDefinitions.m */; };
 		07C4679B0FE1A24C00299939 /* CPTMutableTextStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467990FE1A24C00299939 /* CPTMutableTextStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07C4679C0FE1A24C00299939 /* CPTMutableTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C4679A0FE1A24C00299939 /* CPTMutableTextStyle.m */; };
-		07C467B80FE1A96E00299939 /* CPTTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (); }; };
+		07C467B80FE1A96E00299939 /* CPTTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = 07C467B60FE1A96E00299939 /* CPTTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07C467B90FE1A96E00299939 /* CPTTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C467B70FE1A96E00299939 /* CPTTextStylePlatformSpecific.m */; };
 		07CA112F0FAC8F85000861CE /* CPTGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 07CA112D0FAC8F85000861CE /* CPTGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07CA11300FAC8F85000861CE /* CPTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA112E0FAC8F85000861CE /* CPTGradient.m */; };
