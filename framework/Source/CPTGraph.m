@@ -106,12 +106,25 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 /** @property NSString *title
  *  @brief The title string.
- *  Default is @nil.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize title;
 
+/** @property NSAttributedString *attributedTitle
+ *  @brief The styled title string.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref title property to the
+ *  same string without formatting information. It also replaces the @ref titleTextStyle with
+ *  a style matching the first position (location @num{0}) of the styled title.
+ *  Default is @nil.
+ **/
+@synthesize attributedTitle;
+
 /** @property CPTTextStyle *titleTextStyle
  *  @brief The text style of the title.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize titleTextStyle;
 
@@ -162,6 +175,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  This is the designated initializer. The initialized layer will have the following properties:
  *  - @ref hostingView = @nil
  *  - @ref title = @nil
+ *  - @ref attributedTitle = @nil
  *  - @ref titlePlotAreaFrameAnchor = #CPTRectAnchorTop
  *  - @ref titleTextStyle = default text style
  *  - @ref titleDisplacement = (@num{0.0}, @num{0.0})
@@ -211,6 +225,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
         // Title
         title                    = nil;
+        attributedTitle          = nil;
         titlePlotAreaFrameAnchor = CPTRectAnchorTop;
         titleTextStyle           = [[CPTTextStyle textStyle] retain];
         titleDisplacement        = CGPointZero;
@@ -241,6 +256,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         plots                    = [theLayer->plots retain];
         plotSpaces               = [theLayer->plotSpaces retain];
         title                    = [theLayer->title retain];
+        attributedTitle          = [theLayer->attributedTitle retain];
         titlePlotAreaFrameAnchor = theLayer->titlePlotAreaFrameAnchor;
         titleTextStyle           = [theLayer->titleTextStyle retain];
         titleDisplacement        = theLayer->titleDisplacement;
@@ -261,6 +277,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     [plots release];
     [plotSpaces release];
     [title release];
+    [attributedTitle release];
     [titleTextStyle release];
     [titleAnnotation release];
     [legend release];
@@ -285,6 +302,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     [coder encodeObject:self.plots forKey:@"CPTGraph.plots"];
     [coder encodeObject:self.plotSpaces forKey:@"CPTGraph.plotSpaces"];
     [coder encodeObject:self.title forKey:@"CPTGraph.title"];
+    [coder encodeObject:self.attributedTitle forKey:@"CPTGraph.attributedTitle"];
     [coder encodeObject:self.titleTextStyle forKey:@"CPTGraph.titleTextStyle"];
     [coder encodeInt:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
     [coder encodeCPTPoint:self.titleDisplacement forKey:@"CPTGraph.titleDisplacement"];
@@ -303,6 +321,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         plots                    = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
         plotSpaces               = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
         title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
+        attributedTitle          = [[coder decodeObjectForKey:@"CPTGraph.attributedTitle"] copy];
         titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
         titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
         titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
@@ -805,6 +824,10 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         [title release];
         title = [newTitle copy];
         CPTLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
+
+        [attributedTitle release];
+        attributedTitle = nil;
+
         if ( title ) {
             if ( theTitleAnnotation ) {
                 ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).text = title;
@@ -830,11 +853,57 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     }
 }
 
+-(void)setAttributedTitle:(NSAttributedString *)newTitle
+{
+    if ( newTitle != attributedTitle ) {
+        [attributedTitle release];
+        attributedTitle = [newTitle copy];
+        CPTLayerAnnotation *theTitleAnnotation = self.titleAnnotation;
+
+        [titleTextStyle release];
+        [title release];
+
+        if ( attributedTitle ) {
+            titleTextStyle = [[CPTTextStyle textStyleWithAttributes:[attributedTitle attributesAtIndex:0
+                                                                                        effectiveRange:NULL]] retain];
+            title = [attributedTitle.string copy];
+
+            if ( theTitleAnnotation ) {
+                ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).attributedText = attributedTitle;
+            }
+            else {
+                CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
+                CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithAttributedText:attributedTitle];
+                newTitleAnnotation.contentLayer = newTextLayer;
+                newTitleAnnotation.displacement = self.titleDisplacement;
+                newTitleAnnotation.rectAnchor   = self.titlePlotAreaFrameAnchor;
+                [self addAnnotation:newTitleAnnotation];
+                self.titleAnnotation = newTitleAnnotation;
+                [newTextLayer release];
+                [newTitleAnnotation release];
+            }
+        }
+        else {
+            titleTextStyle = nil;
+            title          = nil;
+
+            if ( theTitleAnnotation ) {
+                [self removeAnnotation:theTitleAnnotation];
+                self.titleAnnotation = nil;
+            }
+        }
+    }
+}
+
 -(void)setTitleTextStyle:(CPTMutableTextStyle *)newStyle
 {
     if ( newStyle != titleTextStyle ) {
         [titleTextStyle release];
-        titleTextStyle                                                  = [newStyle copy];
+        titleTextStyle = [newStyle copy];
+
+        [attributedTitle release];
+        attributedTitle = nil;
+
         ( (CPTTextLayer *)self.titleAnnotation.contentLayer ).textStyle = titleTextStyle;
     }
 }

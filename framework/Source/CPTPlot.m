@@ -106,8 +106,18 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /** @property NSString *title
  *  @brief The title of the plot displayed in the legend.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize title;
+
+/** @property NSAttributedString *attributedTitle
+ *  @brief The styled title of the plot displayed in the legend.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref title property to the
+ *  same string without formatting information.
+ **/
+@synthesize attributedTitle;
 
 /** @property CPTPlotSpace *plotSpace
  *  @brief The plot space for the plot.
@@ -231,6 +241,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  - @ref cachePrecision = #CPTPlotCachePrecisionAuto
  *  - @ref dataSource = @nil
  *  - @ref title = @nil
+ *  - @ref attributedTitle = @nil
  *  - @ref plotSpace = @nil
  *  - @ref dataNeedsReloading = @NO
  *  - @ref needsRelabel = @YES
@@ -255,6 +266,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         cachePrecision       = CPTPlotCachePrecisionAuto;
         dataSource           = nil;
         title                = nil;
+        attributedTitle      = nil;
         plotSpace            = nil;
         dataNeedsReloading   = NO;
         needsRelabel         = YES;
@@ -288,6 +300,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         cachePrecision       = theLayer->cachePrecision;
         dataSource           = theLayer->dataSource;
         title                = [theLayer->title retain];
+        attributedTitle      = [theLayer->attributedTitle retain];
         plotSpace            = [theLayer->plotSpace retain];
         dataNeedsReloading   = theLayer->dataNeedsReloading;
         needsRelabel         = theLayer->needsRelabel;
@@ -308,6 +321,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     [cachedData release];
     [title release];
+    [attributedTitle release];
     [plotSpace release];
     [labelTextStyle release];
     [labelFormatter release];
@@ -332,6 +346,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         [coder encodeConditionalObject:self.dataSource forKey:@"CPTPlot.dataSource"];
     }
     [coder encodeObject:self.title forKey:@"CPTPlot.title"];
+    [coder encodeObject:self.attributedTitle forKey:@"CPTPlot.attributedTitle"];
     [coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
     [coder encodeInt:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
@@ -356,6 +371,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( (self = [super initWithCoder:coder]) ) {
         dataSource           = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
         title                = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
+        attributedTitle      = [[coder decodeObjectForKey:@"CPTPlot.attributedTitle"] copy];
         plotSpace            = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
         cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
@@ -1507,8 +1523,29 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     NSString *legendTitle = self.title;
 
     if ( !legendTitle ) {
-        if ( [self.identifier isKindOfClass:[NSString class]] ) {
-            legendTitle = (NSString *)self.identifier;
+        id myIdentifier = self.identifier;
+
+        if ( [myIdentifier isKindOfClass:[NSString class]] ) {
+            legendTitle = (NSString *)myIdentifier;
+        }
+    }
+
+    return legendTitle;
+}
+
+/** @brief The styled title text of a legend entry.
+ *  @param idx The index of the desired title.
+ *  @return The styled title of the legend entry at the requested index.
+ **/
+-(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
+{
+    NSAttributedString *legendTitle = self.attributedTitle;
+
+    if ( !legendTitle ) {
+        id myIdentifier = self.identifier;
+
+        if ( [myIdentifier isKindOfClass:[NSAttributedString class]] ) {
+            legendTitle = (NSAttributedString *)myIdentifier;
         }
     }
 
@@ -1643,6 +1680,23 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( newTitle != title ) {
         [title release];
         title = [newTitle copy];
+
+        [attributedTitle release];
+        attributedTitle = nil;
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+    }
+}
+
+-(void)setAttributedTitle:(NSAttributedString *)newTitle
+{
+    if ( newTitle != attributedTitle ) {
+        [attributedTitle release];
+        attributedTitle = [newTitle copy];
+
+        [title release];
+        title = [attributedTitle.string copy];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
     }
 }

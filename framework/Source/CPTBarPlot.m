@@ -1224,6 +1224,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return legendTitle;
 }
 
+/** @internal
+ *  @brief The styled title text of a legend entry.
+ *  @param idx The index of the desired title.
+ *  @return The styled title of the legend entry at the requested index.
+ **/
+-(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
+{
+    NSAttributedString *legendTitle = nil;
+
+    id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(attributedLegendTitleForBarPlot:recordIndex:)] ) {
+        legendTitle = [theDataSource attributedLegendTitleForBarPlot:self recordIndex:idx];
+    }
+    else {
+        legendTitle = [super attributedTitleForLegendEntryAtIndex:idx];
+    }
+
+    return legendTitle;
+}
+
 /// @endcond
 
 #pragma mark -

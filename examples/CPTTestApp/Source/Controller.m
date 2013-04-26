@@ -74,13 +74,21 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     self.hostView.hostedGraph = graph;
 
     // Graph title
-    graph.title = @"This is the Graph Title\nThis is the Second Line";
-    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color                = [CPTColor grayColor];
-    textStyle.fontName             = @"Helvetica-Bold";
-    textStyle.fontSize             = 18.0;
-    textStyle.textAlignment        = CPTTextAlignmentCenter;
-    graph.titleTextStyle           = textStyle;
+    NSString *lineOne = @"This is the Graph Title";
+    NSString *lineTwo = @"This is the Second Line of the Title";
+
+    NSMutableAttributedString *graphTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", lineOne, lineTwo]];
+    [graphTitle addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(0, lineOne.length)];
+    [graphTitle addAttribute:NSForegroundColorAttributeName value:[NSColor darkGrayColor] range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = CPTTextAlignmentCenter;
+    [graphTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, graphTitle.length)];
+    NSFont *titleFont = [NSFont fontWithName:@"Helvetica-Bold" size:18.0];
+    [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(0, lineOne.length)];
+    titleFont = [NSFont fontWithName:@"Helvetica" size:14.0];
+    [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
+    graph.attributedTitle = graphTitle;
+
     graph.titleDisplacement        = CGPointMake(0.0, 25.0);
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
@@ -128,7 +136,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
                                 nil];
     x.labelExclusionRanges = exclusionRanges;
 
-    x.title         = @"X Axis\nLine 2";
+    NSMutableAttributedString *xTitle = [[NSMutableAttributedString alloc] initWithString:@"X Axis\nLine 2"];
+    [xTitle addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, 6)];
+    [xTitle addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(7, 6)];
+    NSMutableParagraphStyle *xParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    xParagraphStyle.alignment = CPTTextAlignmentCenter;
+    [xTitle addAttribute:NSParagraphStyleAttributeName value:xParagraphStyle range:NSMakeRange(0, xTitle.length)];
+    x.attributedTitle = xTitle;
+
     x.titleOffset   = 30.0;
     x.titleLocation = CPTDecimalFromString(@"3.0");
 
@@ -148,7 +163,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
                                      nil];
     y.labelExclusionRanges = exclusionRanges;
 
-    y.title         = @"Y Axis\nLine 2";
+    NSMutableAttributedString *yTitle = [[NSMutableAttributedString alloc] initWithString:@"Y Axis\nLine 2"];
+    [yTitle addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, 6)];
+    [yTitle addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(7, 6)];
+    NSMutableParagraphStyle *yParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    yParagraphStyle.alignment = CPTTextAlignmentCenter;
+    [yTitle addAttribute:NSParagraphStyleAttributeName value:yParagraphStyle range:NSMakeRange(0, yTitle.length)];
+    y.attributedTitle = yTitle;
+
     y.titleOffset   = 30.0;
     y.titleLocation = CPTDecimalFromString(@"2.7");
 

@@ -91,6 +91,13 @@ CPTBarPlotField;
  **/
 -(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
+/** @brief @optional Gets the styled legend title for the given bar plot bar.
+ *  @param barPlot The bar plot.
+ *  @param idx The data index of interest.
+ *  @return The styled title text for the legend entry for the point with the given index.
+ **/
+-(NSAttributedString *)attributedLegendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
+
 /// @}
 @end
 

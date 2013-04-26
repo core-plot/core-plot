@@ -178,9 +178,20 @@
     return num;
 }
 
--(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(NSAttributedString *)attributedLegendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-    return [NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index];
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
+#else
+    NSColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].nsColor;
+#endif
+
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:sliceColor
+                  range:NSMakeRange(4, 5)];
+
+    return [title autorelease];
 }
 
 @end

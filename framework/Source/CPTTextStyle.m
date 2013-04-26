@@ -17,6 +17,8 @@
 
 /// @endcond
 
+#pragma mark -
+
 /** @brief Immutable wrapper for various text style properties.
  *
  *  If you need to customize properties, you should create a CPTMutableTextStyle.

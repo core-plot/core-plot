@@ -2,6 +2,8 @@
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
 
+#pragma mark CPTColor
+
 /** @category CPTColor(CPTPlatformSpecificColorExtensions)
  *  @brief Platform-specific extensions to CPTColor.
  **/
@@ -10,6 +12,8 @@
 @property (nonatomic, readonly, retain) UIColor *uiColor;
 
 @end
+
+#pragma mark - CPTLayer
 
 /** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
  *  @brief Platform-specific extensions to CPTLayer.
@@ -23,6 +27,8 @@
 
 @end
 
+#pragma mark - NSNumber
+
 /** @category NSNumber(CPTPlatformSpecificNumberExtensions)
  *  @brief Platform-specific extensions to NSNumber.
  **/
@@ -32,5 +38,19 @@
 -(BOOL)isLessThanOrEqualTo:(NSNumber *)other;
 -(BOOL)isGreaterThan:(NSNumber *)other;
 -(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other;
+
+@end
+
+#pragma mark - NSAttributedString
+
+/** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
+ *  @brief NSAttributedString extensions for drawing styled text.
+ **/
+@interface NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
+
+/// @name Drawing
+/// @{
+-(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
+/// @}
 
 @end

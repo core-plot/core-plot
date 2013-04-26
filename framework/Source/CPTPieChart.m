@@ -939,6 +939,27 @@ static const CGFloat colorLookupTable[10][3] =
     return legendTitle;
 }
 
+/** @internal
+ *  @brief The styled title text of a legend entry.
+ *  @param idx The index of the desired title.
+ *  @return The styled title of the legend entry at the requested index.
+ **/
+-(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
+{
+    NSAttributedString *legendTitle = nil;
+
+    id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(attributedLegendTitleForPieChart:recordIndex:)] ) {
+        legendTitle = [theDataSource attributedLegendTitleForPieChart:self recordIndex:idx];
+    }
+    else {
+        legendTitle = [super attributedTitleForLegendEntryAtIndex:idx];
+    }
+
+    return legendTitle;
+}
+
 /// @endcond
 
 #pragma mark -

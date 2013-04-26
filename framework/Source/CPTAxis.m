@@ -128,6 +128,8 @@ NSDecimal niceNum(NSDecimal x);
 
 /** @property CPTTextStyle *titleTextStyle
  *  @brief The text style used to draw the axis title text.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize titleTextStyle;
 
@@ -145,8 +147,20 @@ NSDecimal niceNum(NSDecimal x);
 
 /** @property NSString *title
  *  @brief A convenience property for setting the text title of the axis.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize title;
+
+/** @property NSAttributedString *attributedTitle
+ *  @brief A convenience property for setting the styled text title of the axis.
+ *
+ *  Assigning a new value to this property also sets the value of the @ref title property to the
+ *  same string without formatting information. It also replaces the @ref titleTextStyle with
+ *  a style matching the first position (location @num{0}) of the styled title.
+ *  Default is @nil.
+ **/
+@synthesize attributedTitle;
 
 /** @property CGFloat titleRotation
  *  @brief The rotation angle of the axis title in radians.
@@ -419,6 +433,7 @@ NSDecimal niceNum(NSDecimal x);
  *  - @ref labelAlignment = #CPTAlignmentCenter
  *  - @ref minorTickLabelAlignment = #CPTAlignmentCenter
  *  - @ref title = @nil
+ *  - @ref attributedTitle = @nil
  *  - @ref titleOffset = @num{30.0}
  *  - @ref axisLineStyle = default line style
  *  - @ref majorTickLineStyle = default line style
@@ -472,6 +487,7 @@ NSDecimal niceNum(NSDecimal x);
         labelAlignment              = CPTAlignmentCenter;
         minorTickLabelAlignment     = CPTAlignmentCenter;
         title                       = nil;
+        attributedTitle             = nil;
         titleOffset                 = CPTFloat(30.0);
         axisLineStyle               = [[CPTLineStyle alloc] init];
         majorTickLineStyle          = [[CPTLineStyle alloc] init];
@@ -542,6 +558,7 @@ NSDecimal niceNum(NSDecimal x);
         labelAlignment              = theLayer->labelAlignment;
         minorTickLabelAlignment     = theLayer->labelAlignment;
         title                       = [theLayer->title retain];
+        attributedTitle             = [theLayer->attributedTitle retain];
         titleOffset                 = theLayer->titleOffset;
         axisLineStyle               = [theLayer->axisLineStyle retain];
         majorTickLineStyle          = [theLayer->majorTickLineStyle retain];
@@ -596,6 +613,7 @@ NSDecimal niceNum(NSDecimal x);
     [majorTickLocations release];
     [minorTickLocations release];
     [title release];
+    [attributedTitle release];
     [axisLineStyle release];
     [majorTickLineStyle release];
     [minorTickLineStyle release];
@@ -668,6 +686,7 @@ NSDecimal niceNum(NSDecimal x);
     [coder encodeObject:self.minorTickAxisLabels forKey:@"CPTAxis.minorTickAxisLabels"];
     [coder encodeObject:self.axisTitle forKey:@"CPTAxis.axisTitle"];
     [coder encodeObject:self.title forKey:@"CPTAxis.title"];
+    [coder encodeObject:self.attributedTitle forKey:@"CPTAxis.attributedTitle"];
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTAxis.titleOffset"];
     [coder encodeCGFloat:self.titleRotation forKey:@"CPTAxis.titleRotation"];
     [coder encodeDecimal:self.titleLocation forKey:@"CPTAxis.titleLocation"];
@@ -724,6 +743,7 @@ NSDecimal niceNum(NSDecimal x);
         minorTickAxisLabels         = [[coder decodeObjectForKey:@"CPTAxis.minorTickAxisLabels"] retain];
         axisTitle                   = [[coder decodeObjectForKey:@"CPTAxis.axisTitle"] retain];
         title                       = [[coder decodeObjectForKey:@"CPTAxis.title"] copy];
+        attributedTitle             = [[coder decodeObjectForKey:@"CPTAxis.attributedTitle"] copy];
         titleOffset                 = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
         titleRotation               = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
         titleLocation               = [coder decodeDecimalForKey:@"CPTAxis.titleLocation"];
@@ -1785,11 +1805,23 @@ NSDecimal niceNum(NSDecimal x)
 
 -(CPTAxisTitle *)axisTitle
 {
-    if ( (axisTitle == nil) && (title != nil) ) {
-        CPTAxisTitle *newTitle = [[CPTAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
-        newTitle.rotation = self.titleRotation;
-        self.axisTitle    = newTitle;
-        [newTitle release];
+    if ( !axisTitle ) {
+        CPTAxisTitle *newTitle = nil;
+
+        if ( attributedTitle ) {
+            CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithAttributedText:attributedTitle];
+            newTitle = [[CPTAxisTitle alloc] initWithContentLayer:textLayer];
+            [textLayer release];
+        }
+        else if ( title ) {
+            newTitle = [[CPTAxisTitle alloc] initWithText:title textStyle:self.titleTextStyle];
+        }
+
+        if ( newTitle ) {
+            newTitle.rotation = self.titleRotation;
+            self.axisTitle    = newTitle;
+            [newTitle release];
+        }
     }
     return axisTitle;
 }
@@ -1800,9 +1832,12 @@ NSDecimal niceNum(NSDecimal x)
         [titleTextStyle release];
         titleTextStyle = [newStyle copy];
 
+        [attributedTitle release];
+        attributedTitle = nil;
+
         CPTLayer *contentLayer = self.axisTitle.contentLayer;
         if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
-            [(CPTTextLayer *) contentLayer setTextStyle:titleTextStyle];
+            ( (CPTTextLayer *)contentLayer ).textStyle = titleTextStyle;
         }
 
         [self setNeedsLayout];
@@ -1838,9 +1873,43 @@ NSDecimal niceNum(NSDecimal x)
             self.axisTitle = nil;
         }
 
+        [attributedTitle release];
+        attributedTitle = nil;
+
         CPTLayer *contentLayer = self.axisTitle.contentLayer;
         if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
-            [(CPTTextLayer *) contentLayer setText:title];
+            ( (CPTTextLayer *)contentLayer ).text = title;
+        }
+
+        [self layoutIfNeeded];
+        [self updateAxisTitle];
+    }
+}
+
+-(void)setAttributedTitle:(NSAttributedString *)newTitle
+{
+    if ( newTitle != attributedTitle ) {
+        [attributedTitle release];
+        attributedTitle = [newTitle copy];
+
+        [titleTextStyle release];
+        [title release];
+
+        if ( attributedTitle ) {
+            titleTextStyle = [[CPTTextStyle textStyleWithAttributes:[attributedTitle attributesAtIndex:0
+                                                                                        effectiveRange:NULL]] retain];
+            title = [attributedTitle.string copy];
+        }
+        else {
+            titleTextStyle = nil;
+            title          = nil;
+
+            self.axisTitle = nil;
+        }
+
+        CPTLayer *contentLayer = self.axisTitle.contentLayer;
+        if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
+            ( (CPTTextLayer *)contentLayer ).attributedText = attributedTitle;
         }
 
         [self layoutIfNeeded];

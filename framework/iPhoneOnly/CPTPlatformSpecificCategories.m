@@ -1,5 +1,9 @@
 #import "CPTPlatformSpecificCategories.h"
 
+#import "CPTPlatformSpecificFunctions.h"
+
+#pragma mark CPTColor
+
 @implementation CPTColor(CPTPlatformSpecificColorExtensions)
 
 /** @property uiColor
@@ -14,7 +18,7 @@
 
 @end
 
-#pragma mark -
+#pragma mark - CPTLayer
 
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
@@ -51,7 +55,7 @@
 
 @end
 
-#pragma mark -
+#pragma mark - NSNumber
 
 @implementation NSNumber(CPTPlatformSpecificNumberExtensions)
 
@@ -89,6 +93,28 @@
 -(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other
 {
     return [self compare:other] == NSOrderedSame || [self compare:other] == NSOrderedDescending;
+}
+
+@end
+
+#pragma mark - NSAttributedString
+
+@implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
+
+/** @brief Draws the styled text into the given graphics context.
+ *  @param rect The bounding rectangle in which to draw the text.
+ *  @param context The graphics context to draw into.
+ *  @since Available on iOS 6.0 and later. Does nothing on earlier versions.
+ **/
+-(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context
+{
+    if ( [self respondsToSelector:@selector(drawInRect:)] ) {
+        CPTPushCGContext(context);
+
+        [self drawInRect:rect];
+
+        CPTPopCGContext();
+    }
 }
 
 @end

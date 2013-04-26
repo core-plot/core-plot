@@ -190,6 +190,7 @@ CPTPlotCachePrecision;
     @private
     __cpt_weak id<CPTPlotDataSource> dataSource;
     NSString *title;
+    NSAttributedString *attributedTitle;
     CPTPlotSpace *plotSpace;
     BOOL dataNeedsReloading;
     NSMutableDictionary *cachedData;
@@ -215,6 +216,7 @@ CPTPlotCachePrecision;
 /// @name Identification
 /// @{
 @property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
 /// @}
 
 /// @name Plot Space
@@ -307,6 +309,7 @@ CPTPlotCachePrecision;
 /// @{
 -(NSUInteger)numberOfLegendEntries;
 -(NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx;
+-(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx;
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context;
 /// @}
 

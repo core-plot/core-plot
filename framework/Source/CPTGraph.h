@@ -46,6 +46,7 @@ CPTGraphLayerType;
     NSMutableArray *plots;
     NSMutableArray *plotSpaces;
     NSString *title;
+    NSAttributedString *attributedTitle;
     CPTTextStyle *titleTextStyle;
     CPTRectAnchor titlePlotAreaFrameAnchor;
     CGPoint titleDisplacement;
@@ -64,6 +65,7 @@ CPTGraphLayerType;
 /// @name Title
 /// @{
 @property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
 @property (nonatomic, readwrite, copy) CPTTextStyle *titleTextStyle;
 @property (nonatomic, readwrite, assign) CGPoint titleDisplacement;
 @property (nonatomic, readwrite, assign) CPTRectAnchor titlePlotAreaFrameAnchor;

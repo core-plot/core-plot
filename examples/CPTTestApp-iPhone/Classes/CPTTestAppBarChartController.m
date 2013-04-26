@@ -57,12 +57,21 @@
     barChart.plotAreaFrame.paddingBottom = 80.0;
 
     // Graph title
-    barChart.title = @"Graph Title\nLine 2";
-    CPTMutableTextStyle *textStyle = [CPTTextStyle textStyle];
-    textStyle.color                   = [CPTColor grayColor];
-    textStyle.fontSize                = 16.0f;
-    textStyle.textAlignment           = CPTTextAlignmentCenter;
-    barChart.titleTextStyle           = textStyle;
+    NSString *lineOne = @"Graph Title";
+    NSString *lineTwo = @"Line 2";
+
+    NSMutableAttributedString *graphTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", lineOne, lineTwo]];
+    [graphTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, lineOne.length)];
+    [graphTitle addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = CPTTextAlignmentCenter;
+    [graphTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, graphTitle.length)];
+    UIFont *titleFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
+    [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(0, lineOne.length)];
+    titleFont = [UIFont fontWithName:@"Helvetica" size:12.0];
+    [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
+    barChart.attributedTitle = graphTitle;
+
     barChart.titleDisplacement        = CGPointMake(0.0f, -20.0f);
     barChart.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 

@@ -1,3 +1,15 @@
+# Next Release
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Added support for styled text in all titles, labels, and text layers.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 1.2 (April 6, 2013)
 
 ## Release Notes
