@@ -20,6 +20,22 @@
         <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">
+        <name>NSAttributedString</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSAttributedString_Class/Reference/NSAttributedString.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableAttributedString</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableAttributedString_Class/Reference/NSMutableAttributedString.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
         <name>NSCalendar</name>
         <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSCalendar_Class/Reference/NSCalendar.html</filename>
         <base>NSObject</base>
@@ -410,6 +426,26 @@
         <name>UIView</name>
         <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIView_Class/UIView/UIView.html</filename>
         <base>UIResponder</base>
+    </compound>
+
+    <compound kind="file">
+        <name>NSAttributedString UIKit Additions Reference</name>
+        <filename>https://developer.apple.com/library/ios/#documentation/UIKit/reference/NSAttributedString_UIKit_Additions/Reference/Reference.html</filename>
+        <member kind="define">
+            <name>NSFontAttributeName</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/UIKit/reference/NSAttributedString_UIKit_Additions/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSFontAttributeName</anchor>
+        </member>
+        <member kind="define">
+            <name>NSForegroundColorAttributeName</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/UIKit/reference/NSAttributedString_UIKit_Additions/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSForegroundColorAttributeName</anchor>
+        </member>
+        <member kind="define">
+            <name>NSParagraphStyleAttributeName</name>
+            <anchorfile>https://developer.apple.com/library/ios/#documentation/UIKit/reference/NSAttributedString_UIKit_Additions/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSParagraphStyleAttributeName</anchor>
+        </member>
     </compound>
 
     <!-- Core Graphics -->
