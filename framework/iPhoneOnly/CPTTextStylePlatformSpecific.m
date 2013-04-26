@@ -182,7 +182,7 @@
 
     [self drawInRect:rect
             withFont:theFont
-       lineBreakMode:UILineBreakModeWordWrap
+       lineBreakMode:NSLineBreakByWordWrapping
            alignment:(NSTextAlignment)style.textAlignment];
 
     CGContextRestoreGState(context);
