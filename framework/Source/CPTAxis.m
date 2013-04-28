@@ -40,6 +40,7 @@
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, retain) NSMutableArray *mutableBackgroundLimitBands;
+@property (nonatomic, readonly) CGFloat tickOffset;
 
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
@@ -259,6 +260,7 @@ NSDecimal niceNum(NSDecimal x);
 
 @synthesize labelFormatterChanged;
 @synthesize minorLabelFormatterChanged;
+@dynamic tickOffset;
 
 /** @property NSSet *axisLabels
  *  @brief The set of axis labels.
@@ -1256,6 +1258,24 @@ NSDecimal niceNum(NSDecimal x)
 
 /// @cond
 
+-(CGFloat)tickOffset
+{
+    CGFloat offset = CPTFloat(0.0);
+
+    switch ( self.tickDirection ) {
+        case CPTSignNone:
+            offset += self.majorTickLength * CPTFloat(0.5);
+            break;
+
+        case CPTSignPositive:
+        case CPTSignNegative:
+            offset += self.majorTickLength;
+            break;
+    }
+
+    return offset;
+}
+
 /**
  *  @internal
  *  @brief Updates the set of axis labels using the given locations.
@@ -1312,17 +1332,7 @@ NSDecimal niceNum(NSDecimal x)
         return;
     }
 
-    CGFloat offset = theLabelOffset;
-    switch ( self.tickDirection ) {
-        case CPTSignNone:
-            offset += self.majorTickLength / CPTFloat(2.0);
-            break;
-
-        case CPTSignPositive:
-        case CPTSignNegative:
-            offset += self.majorTickLength;
-            break;
-    }
+    CGFloat offset = self.tickOffset + theLabelOffset;
 
     [self.plotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
@@ -1762,7 +1772,6 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
 
-        [self layoutIfNeeded];
         [self updateMajorTickLabels];
     }
 }
@@ -1781,7 +1790,6 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
 
-        [self layoutIfNeeded];
         [self updateMinorTickLabels];
     }
 }
@@ -1841,9 +1849,8 @@ NSDecimal niceNum(NSDecimal x)
         CPTLayer *contentLayer = self.axisTitle.contentLayer;
         if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
             ( (CPTTextLayer *)contentLayer ).textStyle = titleTextStyle;
+            [self updateAxisTitle];
         }
-
-        [self setNeedsLayout];
     }
 }
 
@@ -1852,7 +1859,6 @@ NSDecimal niceNum(NSDecimal x)
     if ( newOffset != titleOffset ) {
         titleOffset           = newOffset;
         self.axisTitle.offset = titleOffset;
-        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1862,7 +1868,6 @@ NSDecimal niceNum(NSDecimal x)
     if ( newRotation != titleRotation ) {
         titleRotation           = newRotation;
         self.axisTitle.rotation = titleRotation;
-        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -1882,10 +1887,8 @@ NSDecimal niceNum(NSDecimal x)
         CPTLayer *contentLayer = self.axisTitle.contentLayer;
         if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
             ( (CPTTextLayer *)contentLayer ).text = title;
+            [self updateAxisTitle];
         }
-
-        [self layoutIfNeeded];
-        [self updateAxisTitle];
     }
 }
 
@@ -1913,10 +1916,8 @@ NSDecimal niceNum(NSDecimal x)
         CPTLayer *contentLayer = self.axisTitle.contentLayer;
         if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
             ( (CPTTextLayer *)contentLayer ).attributedText = attributedTitle;
+            [self updateAxisTitle];
         }
-
-        [self layoutIfNeeded];
-        [self updateAxisTitle];
     }
 }
 
@@ -1924,7 +1925,6 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( NSDecimalCompare(&newLocation, &titleLocation) != NSOrderedSame ) {
         titleLocation = newLocation;
-        [self layoutIfNeeded];
         [self updateAxisTitle];
     }
 }
@@ -2002,16 +2002,30 @@ NSDecimal niceNum(NSDecimal x)
 -(void)setMajorTickLength:(CGFloat)newLength
 {
     if ( newLength != majorTickLength ) {
-        majorTickLength   = newLength;
-        self.needsRelabel = YES;
+        majorTickLength = newLength;
+
+        CGFloat newOffset   = self.tickOffset;
+        CGFloat majorOffset = newOffset + self.labelOffset;
+        CGFloat minorOffset = newOffset + self.minorTickLabelOffset;
+
+        for ( CPTAxisLabel *label in self.axisLabels ) {
+            label.offset = majorOffset;
+        }
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            label.offset = minorOffset;
+        }
+
+        [self setNeedsDisplay];
+        [self updateMajorTickLabels];
+        [self updateMinorTickLabels];
     }
 }
 
 -(void)setMinorTickLength:(CGFloat)newLength
 {
     if ( newLength != minorTickLength ) {
-        minorTickLength   = newLength;
-        self.needsRelabel = YES;
+        minorTickLength = newLength;
+        [self setNeedsDisplay];
     }
 }
 
@@ -2019,7 +2033,12 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newOffset != labelOffset ) {
         labelOffset = newOffset;
-        [self layoutIfNeeded];
+
+        CGFloat majorOffset = self.tickOffset + newOffset;
+        for ( CPTAxisLabel *label in self.axisLabels ) {
+            label.offset = majorOffset;
+        }
+
         [self updateMajorTickLabels];
     }
 }
@@ -2028,7 +2047,12 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newOffset != minorTickLabelOffset ) {
         minorTickLabelOffset = newOffset;
-        [self layoutIfNeeded];
+
+        CGFloat minorOffset = self.tickOffset + newOffset;
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            label.offset = minorOffset;
+        }
+
         [self updateMinorTickLabels];
     }
 }
@@ -2040,7 +2064,6 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *label in self.axisLabels ) {
             label.rotation = labelRotation;
         }
-        [self layoutIfNeeded];
         [self updateMajorTickLabels];
     }
 }
@@ -2052,7 +2075,6 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
             label.rotation = minorTickLabelRotation;
         }
-        [self layoutIfNeeded];
         [self updateMinorTickLabels];
     }
 }
@@ -2060,8 +2082,8 @@ NSDecimal niceNum(NSDecimal x)
 -(void)setLabelAlignment:(CPTAlignment)newAlignment
 {
     if ( newAlignment != labelAlignment ) {
-        labelAlignment    = newAlignment;
-        self.needsRelabel = YES;
+        labelAlignment = newAlignment;
+        [self updateMajorTickLabels];
     }
 }
 
@@ -2069,10 +2091,11 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newAlignment != minorTickLabelAlignment ) {
         minorTickLabelAlignment = newAlignment;
-        self.needsRelabel       = YES;
+        [self updateMinorTickLabels];
     }
 }
 
+// TODO: Add label shadow for minor tick labels
 -(void)setLabelShadow:(CPTShadow *)newLabelShadow
 {
     if ( newLabelShadow != labelShadow ) {
@@ -2081,6 +2104,7 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *label in self.axisLabels ) {
             label.contentLayer.shadow = labelShadow;
         }
+        [self updateMajorTickLabels];
     }
 }
 
@@ -2278,8 +2302,22 @@ NSDecimal niceNum(NSDecimal x)
 -(void)setTickDirection:(CPTSign)newDirection
 {
     if ( newDirection != tickDirection ) {
-        tickDirection     = newDirection;
-        self.needsRelabel = YES;
+        tickDirection = newDirection;
+
+        CGFloat newOffset   = self.tickOffset;
+        CGFloat majorOffset = newOffset + self.labelOffset;
+        CGFloat minorOffset = newOffset + self.minorTickLabelOffset;
+
+        for ( CPTAxisLabel *label in self.axisLabels ) {
+            label.offset = majorOffset;
+        }
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            label.offset = minorOffset;
+        }
+
+        [self setNeedsDisplay];
+        [self updateMajorTickLabels];
+        [self updateMinorTickLabels];
     }
 }
 
