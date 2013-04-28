@@ -7,6 +7,7 @@ To be determined.
 ## Details
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
+- **New**: Added a property to hide plot data labels.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 

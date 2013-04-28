@@ -166,6 +166,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize needsRelabel;
 
+/** @property BOOL showLabels
+ *  @brief Set to @NO to override all other label settings and hide the data labels. Defaults to @YES.
+ **/
+@synthesize showLabels;
+
 /** @property CGFloat labelOffset
  *  @brief The distance that labels should be offset from their anchor points. The direction of the offset is defined by subclasses.
  *  @ingroup plotAnimationAllPlots
@@ -245,6 +250,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  - @ref plotSpace = @nil
  *  - @ref dataNeedsReloading = @NO
  *  - @ref needsRelabel = @YES
+ *  - @ref showLabels = @YES
  *  - @ref labelOffset = @num{0.0}
  *  - @ref labelRotation = @num{0.0}
  *  - @ref labelField = @num{0}
@@ -270,6 +276,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = nil;
         dataNeedsReloading   = NO;
         needsRelabel         = YES;
+        showLabels           = YES;
         labelOffset          = CPTFloat(0.0);
         labelRotation        = CPTFloat(0.0);
         labelField           = 0;
@@ -304,6 +311,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = [theLayer->plotSpace retain];
         dataNeedsReloading   = theLayer->dataNeedsReloading;
         needsRelabel         = theLayer->needsRelabel;
+        showLabels           = theLayer->showLabels;
         labelOffset          = theLayer->labelOffset;
         labelRotation        = theLayer->labelRotation;
         labelField           = theLayer->labelField;
@@ -350,6 +358,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     [coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
     [coder encodeInt:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
+    [coder encodeBool:self.showLabels forKey:@"CPTPlot.showLabels"];
     [coder encodeCGFloat:self.labelOffset forKey:@"CPTPlot.labelOffset"];
     [coder encodeCGFloat:self.labelRotation forKey:@"CPTPlot.labelRotation"];
     [coder encodeInteger:(NSInteger)self.labelField forKey:@"CPTPlot.labelField"];
@@ -375,6 +384,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
         cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
+        showLabels           = [coder decodeBoolForKey:@"CPTPlot.showLabels"];
         labelOffset          = [coder decodeCGFloatForKey:@"CPTPlot.labelOffset"];
         labelRotation        = [coder decodeCGFloatForKey:@"CPTPlot.labelRotation"];
         labelField           = (NSUInteger)[coder decodeIntegerForKey : @"CPTPlot.labelField"];
@@ -1348,7 +1358,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         }
     }
 
-    if ( !hasCachedLabels && !plotProvidesLabels ) {
+    if ( !self.showLabels || (!hasCachedLabels && !plotProvidesLabels) ) {
         for ( CPTAnnotation *annotation in self.labelAnnotations ) {
             if ( [annotation isKindOfClass:annotationClass] ) {
                 [self removeAnnotation:annotation];
@@ -1731,6 +1741,17 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( needsRelabel ) {
             [self setNeedsLayout];
         }
+    }
+}
+
+-(void)setShowLabels:(BOOL)newShowLabels
+{
+    if ( newShowLabels != showLabels ) {
+        showLabels = newShowLabels;
+        if ( showLabels ) {
+            [self setNeedsLayout];
+        }
+        [self setNeedsRelabel];
     }
 }
 

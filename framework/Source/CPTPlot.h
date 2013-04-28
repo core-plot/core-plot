@@ -197,6 +197,7 @@ CPTPlotCachePrecision;
     NSUInteger cachedDataCount;
     CPTPlotCachePrecision cachePrecision;
     BOOL needsRelabel;
+    BOOL showLabels;
     CGFloat labelOffset;
     CGFloat labelRotation;
     NSUInteger labelField;
@@ -246,6 +247,7 @@ CPTPlotCachePrecision;
 /// @name Data Labels
 /// @{
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readwrite, assign) BOOL showLabels;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
