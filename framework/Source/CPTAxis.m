@@ -287,6 +287,11 @@ NSDecimal niceNum(NSDecimal x);
  **/
 @synthesize labelShadow;
 
+/** @property CPTShadow *minorTickLabelShadow
+ *  @brief The shadow applied to each minor tick axis label.
+ **/
+@synthesize minorTickLabelShadow;
+
 // Major ticks
 
 /** @property NSDecimal majorIntervalLength
@@ -465,6 +470,7 @@ NSDecimal niceNum(NSDecimal x);
  *  - @ref plotArea = @nil
  *  - @ref separateLayers = @NO
  *  - @ref labelShadow = @nil
+ *  - @ref minorTickLabelShadow = @nil
  *  - @ref alternatingBandFills = @nil
  *  - @ref minorGridLines = @nil
  *  - @ref majorGridLines = @nil
@@ -525,6 +531,7 @@ NSDecimal niceNum(NSDecimal x);
         plotArea                           = nil;
         separateLayers                     = NO;
         labelShadow                        = nil;
+        minorTickLabelShadow               = nil;
         visibleRange                       = nil;
         visibleAxisRange                   = nil;
         gridLinesRange                     = nil;
@@ -590,6 +597,7 @@ NSDecimal niceNum(NSDecimal x);
         plotArea                    = theLayer->plotArea;
         separateLayers              = theLayer->separateLayers;
         labelShadow                 = [theLayer->labelShadow retain];
+        minorTickLabelShadow        = [theLayer->minorTickLabelShadow retain];
         visibleRange                = [theLayer->visibleRange retain];
         visibleAxisRange            = [theLayer->visibleAxisRange retain];
         gridLinesRange              = [theLayer->gridLinesRange retain];
@@ -638,6 +646,7 @@ NSDecimal niceNum(NSDecimal x);
     [alternatingBandFills release];
     [mutableBackgroundLimitBands release];
     [labelShadow release];
+    [minorTickLabelShadow release];
 
     [super dealloc];
 }
@@ -702,6 +711,7 @@ NSDecimal niceNum(NSDecimal x);
     [coder encodeObject:self.mutableBackgroundLimitBands forKey:@"CPTAxis.mutableBackgroundLimitBands"];
     [coder encodeBool:self.separateLayers forKey:@"CPTAxis.separateLayers"];
     [coder encodeObject:self.labelShadow forKey:@"CPTAxis.labelShadow"];
+    [coder encodeObject:self.minorTickLabelShadow forKey:@"CPTAxis.minorTickLabelShadow"];
     [coder encodeConditionalObject:self.plotArea forKey:@"CPTAxis.plotArea"];
     [coder encodeConditionalObject:self.minorGridLines forKey:@"CPTAxis.minorGridLines"];
     [coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
@@ -759,6 +769,7 @@ NSDecimal niceNum(NSDecimal x);
         mutableBackgroundLimitBands = [[coder decodeObjectForKey:@"CPTAxis.mutableBackgroundLimitBands"] mutableCopy];
         separateLayers              = [coder decodeBoolForKey:@"CPTAxis.separateLayers"];
         labelShadow                 = [[coder decodeObjectForKey:@"CPTAxis.labelShadow"] retain];
+        minorTickLabelShadow        = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelShadow"] retain];
         plotArea                    = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
         minorGridLines              = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
         majorGridLines              = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
@@ -1292,6 +1303,7 @@ NSDecimal niceNum(NSDecimal x)
     CPTTextStyle *theLabelTextStyle;
     NSFormatter *theLabelFormatter;
     BOOL theLabelFormatterChanged;
+    CPTShadow *theShadow;
 
     if ( useMajorAxisLabels ) {
         if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
@@ -1306,6 +1318,7 @@ NSDecimal niceNum(NSDecimal x)
         theLabelTextStyle        = self.labelTextStyle;
         theLabelFormatter        = self.labelFormatter;
         theLabelFormatterChanged = self.labelFormatterChanged;
+        theShadow                = self.labelShadow;
     }
     else {
         if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateMinorAxisLabelsAtLocations:)] ) {
@@ -1320,6 +1333,7 @@ NSDecimal niceNum(NSDecimal x)
         theLabelTextStyle        = self.minorTickLabelTextStyle;
         theLabelFormatter        = self.minorTickLabelFormatter;
         theLabelFormatterChanged = self.minorLabelFormatterChanged;
+        theShadow                = self.minorTickLabelShadow;
     }
 
     if ( (locations.count == 0) || !theLabelTextStyle || !theLabelFormatter ) {
@@ -1349,7 +1363,6 @@ NSDecimal niceNum(NSDecimal x)
     CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
     CPTLayer *lastLayer               = nil;
     CPTPlotArea *thePlotArea          = self.plotArea;
-    CPTShadow *theShadow              = self.labelShadow;
 
     for ( NSDecimalNumber *tickLocation in locations ) {
         NSDecimal locationDecimal = tickLocation.decimalValue;
@@ -2095,7 +2108,6 @@ NSDecimal niceNum(NSDecimal x)
     }
 }
 
-// TODO: Add label shadow for minor tick labels
 -(void)setLabelShadow:(CPTShadow *)newLabelShadow
 {
     if ( newLabelShadow != labelShadow ) {
@@ -2105,6 +2117,18 @@ NSDecimal niceNum(NSDecimal x)
             label.contentLayer.shadow = labelShadow;
         }
         [self updateMajorTickLabels];
+    }
+}
+
+-(void)setMinorTickLabelShadow:(CPTShadow *)newLabelShadow
+{
+    if ( newLabelShadow != minorTickLabelShadow ) {
+        [minorTickLabelShadow release];
+        minorTickLabelShadow = [newLabelShadow retain];
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            label.contentLayer.shadow = minorTickLabelShadow;
+        }
+        [self updateMinorTickLabels];
     }
 }
 

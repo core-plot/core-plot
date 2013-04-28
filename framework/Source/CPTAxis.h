@@ -127,6 +127,7 @@ CPTAxisLabelingPolicy;
     NSMutableArray *mutableBackgroundLimitBands;
     BOOL separateLayers;
     CPTShadow *labelShadow;
+    CPTShadow *minorTickLabelShadow;
     __cpt_weak CPTPlotArea *plotArea;
     __cpt_weak CPTGridLines *minorGridLines;
     __cpt_weak CPTGridLines *majorGridLines;
@@ -174,6 +175,7 @@ CPTAxisLabelingPolicy;
 @property (nonatomic, readonly, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, retain) NSArray *labelExclusionRanges;
 @property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, retain) CPTShadow *minorTickLabelShadow;
 /// @}
 
 /// @name Major Ticks
