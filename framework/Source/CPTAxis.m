@@ -2050,7 +2050,7 @@ NSDecimal niceNum(NSDecimal x)
     if ( newRotation != minorTickLabelRotation ) {
         minorTickLabelRotation = newRotation;
         for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-            label.rotation = labelRotation;
+            label.rotation = minorTickLabelRotation;
         }
         [self layoutIfNeeded];
         [self updateMinorTickLabels];
