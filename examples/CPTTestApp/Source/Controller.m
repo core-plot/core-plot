@@ -89,7 +89,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
     graph.attributedTitle = graphTitle;
 
-    graph.titleDisplacement        = CGPointMake(0.0, 25.0);
+    graph.titleDisplacement        = CGPointMake(0.0, 50.0);
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
     // Graph padding
