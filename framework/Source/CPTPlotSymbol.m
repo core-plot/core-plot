@@ -125,14 +125,6 @@
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGPathRelease(cachedSymbolPath);
-    CGPathRelease(customSymbolPath);
-    CGLayerRelease(cachedLayer);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

@@ -197,12 +197,6 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     [super dealloc];
 }
 
--(void)finalize
-{
-    free(bottomUpLayerOrder);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -
