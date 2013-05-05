@@ -323,7 +323,9 @@ static const CGFloat colorLookupTable[10][3] =
 
     // Slice fills
     if ( [theDataSource respondsToSelector:@selector(sliceFillsForPieChart:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource sliceFillsForPieChart:self recordIndexRange:indexRange] forKey:CPTPieChartBindingPieSliceFills atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource sliceFillsForPieChart:self recordIndexRange:indexRange]
+                  forKey:CPTPieChartBindingPieSliceFills
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -346,7 +348,9 @@ static const CGFloat colorLookupTable[10][3] =
 
     // Slice radial offsets
     if ( [theDataSource respondsToSelector:@selector(radialOffsetsForPieChart:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource radialOffsetsForPieChart:self recordIndexRange:indexRange] forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource radialOffsetsForPieChart:self recordIndexRange:indexRange]
+                  forKey:CPTPieChartBindingPieSliceRadialOffsets
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)] ) {
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];

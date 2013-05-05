@@ -265,7 +265,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     // Update plot symbols
     if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange] forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange]
+                  forKey:CPTScatterPlotBindingPlotSymbols
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -773,7 +775,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( lastDrawnPointIndex > 0 ) {
         lastDrawnPointIndex--;
     }
-    
+
     for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
         CGPoint viewPoint = viewPoints[i];
 

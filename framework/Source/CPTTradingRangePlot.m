@@ -314,7 +314,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     // Fills
     if ( [theDataSource respondsToSelector:@selector(increaseFillsForTradingRangePlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingIncreaseFills
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -336,7 +338,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingDecreaseFills
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -359,7 +363,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     // Line styles
     if ( [theDataSource respondsToSelector:@selector(lineStylesForTradingRangePlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingLineStyles
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -381,7 +387,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingIncreaseLineStyles
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -403,7 +411,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange] forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingDecreaseLineStyles
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];

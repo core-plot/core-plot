@@ -524,7 +524,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     // Data labels
     if ( [theDataSource respondsToSelector:@selector(dataLabelsForPlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange] forKey:CPTPlotBindingDataLabels atRecordIndex:indexRange.location];
+        [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange]
+                  forKey:CPTPlotBindingDataLabels
+           atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
         id nilObject          = [CPTPlot nilData];
@@ -541,7 +543,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             }
         }
 
-        [self cacheArray:array forKey:CPTPlotBindingDataLabels atRecordIndex:indexRange.location];
+        [self cacheArray:array
+                  forKey:CPTPlotBindingDataLabels
+           atRecordIndex:indexRange.location];
         [array release];
     }
 
