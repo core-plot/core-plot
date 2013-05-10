@@ -69,8 +69,8 @@
 
 /** @internal
  *  @brief Creates and returns a new CPTAnimationPeriod instance initialized with the provided start and end values and duration.
- *  @param aStart The starting value.
- *  @param anEnd The ending value.
+ *  @param aStartValue The starting value.
+ *  @param anEndValue The ending value.
  *  @param aDuration The animation duration in seconds.
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.

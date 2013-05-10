@@ -1171,7 +1171,6 @@ NSDecimal niceNum(NSDecimal x);
  *  @internal
  *  @brief Determines a @quote{nice} number (a multiple of @num{2}, @num{5}, or @num{10}) near the given number.
  *  @param x The number to round.
- *  @param roundNearest If @YES, the result is rounded to nearest nice number, otherwise the result is the smallest nice number greater than or equal to the given number.
  */
 NSDecimal niceNum(NSDecimal x)
 {
