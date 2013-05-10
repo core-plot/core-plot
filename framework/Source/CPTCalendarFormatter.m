@@ -151,9 +151,13 @@
  *  @param coordinateValue The time value.
  *  @return The date string.
  **/
--(NSString *)stringForObjectValue:(NSDecimalNumber *)coordinateValue
+-(NSString *)stringForObjectValue:(id)coordinateValue
 {
-    NSInteger componentIncrement = [coordinateValue integerValue];
+    NSInteger componentIncrement = 0;
+
+    if ( [coordinateValue respondsToSelector:@selector(integerValue)] ) {
+        componentIncrement = [coordinateValue integerValue];
+    }
 
     NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
 

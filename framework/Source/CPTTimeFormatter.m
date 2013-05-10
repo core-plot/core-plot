@@ -124,18 +124,23 @@
  *  @param coordinateValue The time value.
  *  @return The date string.
  **/
--(NSString *)stringForObjectValue:(NSDecimalNumber *)coordinateValue
+-(NSString *)stringForObjectValue:(id)coordinateValue
 {
-    NSDate *date;
+    NSString *string = nil;
 
-    if ( self.referenceDate ) {
-        date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
+    if ( [coordinateValue respondsToSelector:@selector(doubleValue)] ) {
+        NSDate *date;
+
+        if ( self.referenceDate ) {
+            date = [[NSDate alloc] initWithTimeInterval:[coordinateValue doubleValue] sinceDate:self.referenceDate];
+        }
+        else {
+            date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
+        }
+        string = [self.dateFormatter stringFromDate:date];
+        [date release];
     }
-    else {
-        date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
-    }
-    NSString *string = [self.dateFormatter stringFromDate:date];
-    [date release];
+
     return string;
 }
 
