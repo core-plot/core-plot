@@ -174,6 +174,10 @@
             dateComponents.month = componentIncrement;
             break;
 
+        case NSWeekCalendarUnit:
+            dateComponents.week = componentIncrement;
+            break;
+
         case NSDayCalendarUnit:
             dateComponents.day = componentIncrement;
             break;
@@ -234,6 +238,15 @@
             else {
                 [NSException raise:CPTException format:@"Unsupported calendar unit: NSYearForWeekOfYearCalendarUnit"];
             }
+            break;
+#endif
+#if MAC_OS_X_VERSION_10_7 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
+        case NSCalendarCalendarUnit:
+            [NSException raise:CPTException format:@"Unsupported calendar unit: NSCalendarCalendarUnit"];
+            break;
+
+        case NSTimeZoneCalendarUnit:
+            [NSException raise:CPTException format:@"Unsupported calendar unit: NSTimeZoneCalendarUnit"];
             break;
 #endif
         default:
