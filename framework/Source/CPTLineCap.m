@@ -97,12 +97,8 @@
 
 -(void)dealloc
 {
-    [lineStyle release];
-    [fill release];
     CGPathRelease(cachedLineCapPath);
     CGPathRelease(customLineCapPath);
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -130,8 +126,8 @@
     if ( (self = [super init]) ) {
         size                = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
         lineCapType         = (CPTLineCapType)[coder decodeIntForKey : @"CPTLineCap.lineCapType"];
-        lineStyle           = [[coder decodeObjectForKey:@"CPTLineCap.lineStyle"] retain];
-        fill                = [[coder decodeObjectForKey:@"CPTLineCap.fill"] retain];
+        lineStyle           = [coder decodeObjectForKey:@"CPTLineCap.lineStyle"];
+        fill                = [coder decodeObjectForKey:@"CPTLineCap.fill"];
         customLineCapPath   = [coder newCGPathDecodeForKey:@"CPTLineCap.customLineCapPath"];
         usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTLineCap.usesEvenOddClipRule"];
 
@@ -202,7 +198,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeNone;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeOpenArrow.
@@ -214,7 +210,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeOpenArrow;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSolidArrow.
@@ -226,7 +222,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeSolidArrow;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSweptArrow.
@@ -238,7 +234,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeSweptArrow;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeRectangle.
@@ -250,7 +246,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeRectangle;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeEllipse.
@@ -262,7 +258,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeEllipse;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeDiamond.
@@ -274,7 +270,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeDiamond;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypePentagon.
@@ -286,7 +282,7 @@
 
     lineCap.lineCapType = CPTLineCapTypePentagon;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeHexagon.
@@ -298,7 +294,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeHexagon;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeBar.
@@ -310,7 +306,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeBar;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCross.
@@ -322,7 +318,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeCross;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSnow.
@@ -334,7 +330,7 @@
 
     lineCap.lineCapType = CPTLineCapTypeSnow;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
@@ -348,7 +344,7 @@
     lineCap.lineCapType       = CPTLineCapTypeCustom;
     lineCap.customLineCapPath = aPath;
 
-    return [lineCap autorelease];
+    return lineCap;
 }
 
 #pragma mark -
@@ -363,8 +359,8 @@
     copy.size                = self.size;
     copy.lineCapType         = self.lineCapType;
     copy.usesEvenOddClipRule = self.usesEvenOddClipRule;
-    copy.lineStyle           = [[self.lineStyle copy] autorelease];
-    copy.fill                = [[self.fill copy] autorelease];
+    copy.lineStyle           = [self.lineStyle copy];
+    copy.fill                = [self.fill copy];
 
     if ( self.customLineCapPath ) {
         CGPathRef pathCopy = CGPathCreateCopy(self.customLineCapPath);

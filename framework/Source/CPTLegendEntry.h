@@ -20,7 +20,7 @@
 
 /// @name Formatting
 /// @{
-@property (nonatomic, readwrite, retain) CPTTextStyle *textStyle;
+@property (nonatomic, readwrite, strong) CPTTextStyle *textStyle;
 /// @}
 
 /// @name Layout

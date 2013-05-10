@@ -7,7 +7,7 @@
  **/
 -(NSDecimalNumber *)decimalNumber
 {
-    return [[self copy] autorelease];
+    return [self copy];
 }
 
 @end

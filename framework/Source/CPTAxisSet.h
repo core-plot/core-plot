@@ -11,7 +11,7 @@
 
 /// @name Axes
 /// @{
-@property (nonatomic, readwrite, retain) NSArray *axes;
+@property (nonatomic, readwrite, strong) NSArray *axes;
 /// @}
 
 /// @name Drawing

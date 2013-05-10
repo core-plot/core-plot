@@ -235,19 +235,11 @@ static const CGFloat colorLookupTable[10][3] =
         endAngle                      = theLayer->endAngle;
         sliceDirection                = theLayer->sliceDirection;
         centerAnchor                  = theLayer->centerAnchor;
-        borderLineStyle               = [theLayer->borderLineStyle retain];
-        overlayFill                   = [theLayer->overlayFill retain];
+        borderLineStyle               = theLayer->borderLineStyle;
+        overlayFill                   = theLayer->overlayFill;
         labelRotationRelativeToRadius = theLayer->labelRotationRelativeToRadius;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [borderLineStyle release];
-    [overlayFill release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -343,7 +335,6 @@ static const CGFloat colorLookupTable[10][3] =
         }
 
         [self cacheArray:array forKey:CPTPieChartBindingPieSliceFills atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Slice radial offsets
@@ -362,7 +353,6 @@ static const CGFloat colorLookupTable[10][3] =
         }
 
         [self cacheArray:array forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Legend
@@ -429,8 +419,6 @@ static const CGFloat colorLookupTable[10][3] =
             }
             [self cacheNumbers:normalizedSliceValues forField:CPTPieChartFieldSliceWidthNormalized];
             [self cacheNumbers:cumulativeSliceValues forField:CPTPieChartFieldSliceWidthSum];
-            [normalizedSliceValues release];
-            [cumulativeSliceValues release];
         }
         else {
             NSDecimal valueSum         = CPTDecimalFromInteger(0);
@@ -469,8 +457,6 @@ static const CGFloat colorLookupTable[10][3] =
             }
             [self cacheNumbers:normalizedSliceValues forField:CPTPieChartFieldSliceWidthNormalized];
             [self cacheNumbers:cumulativeSliceValues forField:CPTPieChartFieldSliceWidthSum];
-            [normalizedSliceValues release];
-            [cumulativeSliceValues release];
         }
     }
     else {
@@ -868,8 +854,6 @@ static const CGFloat colorLookupTable[10][3] =
         NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateX]];
         NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateY]];
         label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
-        [xValue release];
-        [yValue release];
 
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : idx];
         if ( self.hidden || isnan(currentWidth) ) {
@@ -1306,7 +1290,6 @@ static const CGFloat colorLookupTable[10][3] =
 -(void)setBorderLineStyle:(CPTLineStyle *)newStyle
 {
     if ( borderLineStyle != newStyle ) {
-        [borderLineStyle release];
         borderLineStyle = [newStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

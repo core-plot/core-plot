@@ -36,8 +36,8 @@ CPTLineCapType;
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTLineCapType lineCapType;
-@property (nonatomic, readwrite, retain) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, retain) CPTFill *fill;
+@property (nonatomic, readwrite, strong) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, strong) CPTFill *fill;
 @property (nonatomic, readwrite, assign) CGPathRef customLineCapPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 

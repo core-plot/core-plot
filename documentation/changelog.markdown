@@ -8,7 +8,9 @@ To be determined.
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
 - **New**: Added a property to hide plot data labels.
+- **Changed**: Increased the deployment target to iOS 4.3 and Mac OS X 10.6.
 - **Changed**: Removed support for garbage collection.
+- **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 

@@ -28,7 +28,7 @@
  **/
 +(CPTLimitBand *)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
-    return [[[CPTLimitBand alloc] initWithRange:newRange fill:newFill] autorelease];
+    return [[CPTLimitBand alloc] initWithRange:newRange fill:newFill];
 }
 
 /** @brief Initializes a newly allocated CPTLimitBand object with the provided range and fill.
@@ -39,22 +39,11 @@
 -(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
     if ( (self = [super init]) ) {
-        range = [newRange retain];
-        fill  = [newFill retain];
+        range = newRange;
+        fill  = newFill;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [range release];
-    [fill release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods

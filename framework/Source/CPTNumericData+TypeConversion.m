@@ -39,10 +39,10 @@
     if ( (myDataType.dataTypeFormat == newDataType.dataTypeFormat) &&
          (myDataType.sampleBytes == newDataType.sampleBytes) &&
          (myDataType.byteOrder == newDataType.byteOrder) ) {
-        newData = [self.data retain];
+        newData = self.data;
     }
     else if ( ( myDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
-        newData = [self.data retain];
+        newData = self.data;
     }
     else {
         NSUInteger sampleCount = self.data.length / myDataType.sampleBytes;
@@ -55,12 +55,10 @@
             [self swapByteOrderForData:(NSMutableData *)sourceData sampleSize:myDataType.sampleBytes];
         }
         else {
-            sourceData = [self.data retain];
+            sourceData = self.data;
         }
 
         [self convertData:sourceData dataType:&myDataType toData:(NSMutableData *)newData dataType:&newDataType];
-
-        [sourceData release];
 
         if ( newDataType.byteOrder != hostByteOrder ) {
             [self swapByteOrderForData:(NSMutableData *)newData sampleSize:newDataType.sampleBytes];
@@ -70,7 +68,6 @@
     CPTNumericData *result = [CPTNumericData numericDataWithData:newData
                                                         dataType:newDataType
                                                            shape:self.shape];
-    [newData release];
     return result;
 }
 

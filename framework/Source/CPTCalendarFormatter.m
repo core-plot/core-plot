@@ -55,7 +55,6 @@
     newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
 
     self = [self initWithDateFormatter:newDateFormatter];
-    [newDateFormatter release];
 
     return self;
 }
@@ -69,25 +68,13 @@
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
     if ( (self = [super init]) ) {
-        dateFormatter         = [aDateFormatter retain];
+        dateFormatter         = aDateFormatter;
         referenceDate         = nil;
         referenceCalendar     = nil;
         referenceCalendarUnit = NSEraCalendarUnit;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [referenceCalendar release];
-    [referenceDate release];
-    [dateFormatter release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -107,7 +94,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        dateFormatter         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
+        dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];
         referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
         referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
         referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
@@ -155,7 +142,7 @@
 {
     NSInteger componentIncrement = [coordinateValue integerValue];
 
-    NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 
     switch ( self.referenceCalendarUnit ) {
         case NSEraCalendarUnit:

@@ -54,7 +54,7 @@
  **/
 +(id)textStyle
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 #pragma mark -
@@ -78,24 +78,13 @@
     if ( (self = [super init]) ) {
         fontName      = @"Helvetica";
         fontSize      = CPTFloat(12.0);
-        color         = [[CPTColor blackColor] retain];
+        color         = [CPTColor blackColor];
         textAlignment = CPTTextAlignmentLeft;
     }
     return self;
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [fontName release];
-    [color release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods

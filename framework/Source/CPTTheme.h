@@ -17,7 +17,7 @@ extern NSString *const kCPTStocksTheme;       ///< A graph theme with a gradient
     Class graphClass;
 }
 
-@property (nonatomic, readwrite, retain) Class graphClass;
+@property (nonatomic, readwrite, strong) Class graphClass;
 
 /// @name Theme Management
 /// @{

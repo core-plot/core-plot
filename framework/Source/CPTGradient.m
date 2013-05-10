@@ -9,7 +9,7 @@
 /// @cond
 @interface CPTGradient()
 
-@property (nonatomic, readwrite, retain) CPTColorSpace *colorspace;
+@property (nonatomic, readwrite, strong) CPTColorSpace *colorspace;
 @property (nonatomic, readwrite, assign) CPTGradientBlendingMode blendingMode;
 
 -(void)commonInit;
@@ -125,16 +125,14 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(void)commonInit
 {
-    colorspace  = [[CPTColorSpace genericRGBSpace] retain];
+    colorspace  = [CPTColorSpace genericRGBSpace];
     elementList = NULL;
 }
 
 -(void)dealloc
 {
-    [colorspace release];
     CGFunctionRelease(gradientFunction);
     [self removeAllElements];
-    [super dealloc];
 }
 
 /// @endcond
@@ -265,7 +263,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua selected gradient.
@@ -309,7 +307,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color3];
     [newInstance addElement:&color4];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua normal gradient.
@@ -345,7 +343,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color3];
     [newInstance addElement:&color4];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua pressed gradient.
@@ -381,7 +379,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color3];
     [newInstance addElement:&color4];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified selected gradient.
@@ -405,7 +403,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified normal gradient.
@@ -429,7 +427,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified pressed gradient.
@@ -453,7 +451,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified dark gradient.
@@ -477,7 +475,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list selected gradient.
@@ -505,7 +503,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list unselected gradient.
@@ -533,7 +531,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [newInstance addElement:&color1];
     [newInstance addElement:&color2];
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with a rainbow gradient.
@@ -563,7 +561,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     newInstance.blendingMode = CPTChromaticBlendingMode;
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 /** @brief Creates and returns a new CPTGradient instance initialized with a hydrogen spectrum gradient.
@@ -644,7 +642,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     newInstance.blendingMode = CPTChromaticBlendingMode;
 
-    return [newInstance autorelease];
+    return newInstance;
 }
 
 #pragma mark -
@@ -673,7 +671,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     newGradient.angle        = self.angle;
     newGradient.gradientType = self.gradientType;
 
-    return [newGradient autorelease];
+    return newGradient;
 }
 
 /** @brief Copies the current gradient and sets a new blending mode.
@@ -685,7 +683,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradient *newGradient = [self copy];
 
     newGradient.blendingMode = mode;
-    return [newGradient autorelease];
+    return newGradient;
 }
 
 /** @brief Copies the current gradient and adds a color stop.
@@ -709,7 +707,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     //Pass it off to addElement to take care of adding it to the elementList
     [newGradient addElement:&newGradientElement];
 
-    return [newGradient autorelease];
+    return newGradient;
 }
 
 /** @brief Copies the current gradient and removes the color stop at @par{position} from the list of color stops.
@@ -725,7 +723,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
     }
 
-    return [newGradient autorelease];
+    return newGradient;
 }
 
 /** @brief Copies the current gradient and removes the color stop at @par{index} from the list of color stops.
@@ -741,7 +739,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtIndex:]: index (%lu) beyond bounds", [self class], (unsigned long)idx];
     }
 
-    return [newGradient autorelease];
+    return newGradient;
 }
 
 #pragma mark -

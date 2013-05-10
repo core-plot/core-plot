@@ -19,10 +19,10 @@
 @property (nonatomic, readonly, assign) CGLineJoin lineJoin;
 @property (nonatomic, readonly, assign) CGFloat miterLimit;
 @property (nonatomic, readonly, assign) CGFloat lineWidth;
-@property (nonatomic, readonly, retain) NSArray *dashPattern;
+@property (nonatomic, readonly, strong) NSArray *dashPattern;
 @property (nonatomic, readonly, assign) CGFloat patternPhase;
-@property (nonatomic, readonly, retain) CPTColor *lineColor;
-@property (nonatomic, readonly, retain) CPTFill *lineFill;
+@property (nonatomic, readonly, strong) CPTColor *lineColor;
+@property (nonatomic, readonly, strong) CPTFill *lineFill;
 
 /// @name Factory Methods
 /// @{

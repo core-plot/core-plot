@@ -6,7 +6,7 @@
     CPTXYPlotSpace *plotSpace;
 }
 
-@property (retain) CPTScatterPlot *plot;
-@property (retain) CPTXYPlotSpace *plotSpace;
+@property (strong) CPTScatterPlot *plot;
+@property (strong) CPTXYPlotSpace *plotSpace;
 
 @end

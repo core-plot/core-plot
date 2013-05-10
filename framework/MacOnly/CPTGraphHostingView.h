@@ -8,7 +8,7 @@
     NSRect printRect;
 }
 
-@property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;
+@property (nonatomic, readwrite, strong) CPTGraph *hostedGraph;
 @property (nonatomic, readwrite, assign) NSRect printRect;
 
 @end

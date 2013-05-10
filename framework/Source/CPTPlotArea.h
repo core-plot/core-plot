@@ -26,17 +26,17 @@
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPTGridLineGroup *minorGridLineGroup;
-@property (nonatomic, readwrite, retain) CPTGridLineGroup *majorGridLineGroup;
-@property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPTPlotGroup *plotGroup;
-@property (nonatomic, readwrite, retain) CPTAxisLabelGroup *axisLabelGroup;
-@property (nonatomic, readwrite, retain) CPTAxisLabelGroup *axisTitleGroup;
+@property (nonatomic, readwrite, strong) CPTGridLineGroup *minorGridLineGroup;
+@property (nonatomic, readwrite, strong) CPTGridLineGroup *majorGridLineGroup;
+@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong) CPTPlotGroup *plotGroup;
+@property (nonatomic, readwrite, strong) CPTAxisLabelGroup *axisLabelGroup;
+@property (nonatomic, readwrite, strong) CPTAxisLabelGroup *axisTitleGroup;
 /// @}
 
 /// @name Layer Ordering
 /// @{
-@property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong) NSArray *topDownLayerOrder;
 /// @}
 
 /// @name Decorations
