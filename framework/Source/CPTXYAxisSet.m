@@ -52,8 +52,6 @@
         yAxis.tickDirection = CPTSignNegative;
 
         self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
-        [xAxis release];
-        [yAxis release];
     }
     return self;
 }

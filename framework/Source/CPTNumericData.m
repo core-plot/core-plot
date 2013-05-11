@@ -114,10 +114,9 @@
                 dataType:(CPTNumericDataType)newDataType
                    shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:newDataType
-                                 shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:newDataType
+                                shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -130,10 +129,9 @@
           dataTypeString:(NSString *)newDataTypeString
                    shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                 shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -150,10 +148,9 @@
                  dataType:(CPTNumericDataType)newDataType
                     shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:newDataType
-                                  shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:newDataType
+                                 shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -170,10 +167,9 @@
            dataTypeString:(NSString *)newDataTypeString
                     shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                  shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                 shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -188,11 +184,10 @@
                    shape:(NSArray *)shapeArray
                dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:newDataType
-                                 shape:shapeArray
-                             dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:newDataType
+                                shape:shapeArray
+                            dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -207,11 +202,10 @@
                    shape:(NSArray *)shapeArray
                dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                 shape:shapeArray
-                             dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                shape:shapeArray
+                            dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -230,11 +224,10 @@
                     shape:(NSArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:newDataType
-                                  shape:shapeArray
-                              dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:newDataType
+                                 shape:shapeArray
+                             dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -253,11 +246,10 @@
                     shape:(NSArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                  shape:shapeArray
-                              dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                 shape:shapeArray
+                             dataOrder:order];
 }
 
 #pragma mark -
@@ -439,7 +431,7 @@
     dataOrder = order;
 
     if ( shapeArray == nil ) {
-        shape = [[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]] retain];
+        shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
     }
     else {
         NSUInteger prod = 1;
@@ -454,14 +446,6 @@
 
         shape = [shapeArray copy];
     }
-}
-
--(void)dealloc
-{
-    [data release];
-    [shape release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -712,7 +696,6 @@
     }
 
     NSArray *result = [NSArray arrayWithArray:samples];
-    [samples release];
 
     return result;
 }
@@ -1026,7 +1009,7 @@
         [self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
     }
 
-    return [sampleData autorelease];
+    return sampleData;
 }
 
 /// @endcond

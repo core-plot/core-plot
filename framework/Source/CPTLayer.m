@@ -212,12 +212,12 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         paddingRight         = theLayer->paddingRight;
         paddingBottom        = theLayer->paddingBottom;
         masksToBorder        = theLayer->masksToBorder;
-        shadow               = [theLayer->shadow retain];
+        shadow               = theLayer->shadow;
         renderingRecursively = theLayer->renderingRecursively;
         graph                = theLayer->graph;
         outerBorderPath      = CGPathRetain(theLayer->outerBorderPath);
         innerBorderPath      = CGPathRetain(theLayer->innerBorderPath);
-        identifier           = [theLayer->identifier retain];
+        identifier           = theLayer->identifier;
     }
     return self;
 }
@@ -225,19 +225,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)dealloc
 {
     graph = nil;
-    [shadow release];
-    [identifier release];
     CGPathRelease(outerBorderPath);
     CGPathRelease(innerBorderPath);
-
-    [super dealloc];
-}
-
--(void)finalize
-{
-    CGPathRelease(outerBorderPath);
-    CGPathRelease(innerBorderPath);
-    [super finalize];
 }
 
 /// @endcond
@@ -375,7 +364,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             }
             CGContextRestoreGState(context);
         }
-        [sublayersCopy release];
 
         CGContextRestoreGState(context);
     }
@@ -421,7 +409,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(NSData *)dataForPDFRepresentationOfLayer
 {
     NSMutableData *pdfData         = [[NSMutableData alloc] init];
-    CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (CFMutableDataRef)pdfData );
+    CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (__bridge CFMutableDataRef)pdfData );
 
     const CGRect mediaBox   = CPTRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
     CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
@@ -438,7 +426,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     CGContextRelease(pdfContext);
     CGDataConsumerRelease(dataConsumer);
 
-    return [pdfData autorelease];
+    return pdfData;
 }
 
 #pragma mark -
@@ -880,7 +868,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)setShadow:(CPTShadow *)newShadow
 {
     if ( newShadow != shadow ) {
-        [shadow release];
         shadow = [newShadow copy];
         [self setNeedsLayout];
         [self setNeedsDisplay];

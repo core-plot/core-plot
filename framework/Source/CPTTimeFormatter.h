@@ -6,7 +6,7 @@
     NSDate *referenceDate;
 }
 
-@property (nonatomic, readwrite, retain) NSDateFormatter *dateFormatter;
+@property (nonatomic, readwrite, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, readwrite, copy) NSDate *referenceDate;
 
 /// @name Initialization

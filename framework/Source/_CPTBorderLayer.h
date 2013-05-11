@@ -7,6 +7,6 @@
     CPTBorderedLayer *maskedLayer;
 }
 
-@property (nonatomic, readwrite, retain) CPTBorderedLayer *maskedLayer;
+@property (nonatomic, readwrite, strong) CPTBorderedLayer *maskedLayer;
 
 @end

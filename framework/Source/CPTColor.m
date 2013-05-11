@@ -48,7 +48,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:CPTFloat(1.0)] retain];
+        color = [self colorWithGenericGray:CPTFloat(1.0)];
     }
     return color;
 }
@@ -62,7 +62,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:(CGFloat)(2.0 / 3.0)] retain];
+        color = [self colorWithGenericGray:(CGFloat)(2.0 / 3.0)];
     }
     return color;
 }
@@ -76,7 +76,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:CPTFloat(0.5)] retain];
+        color = [self colorWithGenericGray:CPTFloat(0.5)];
     }
     return color;
 }
@@ -90,7 +90,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:(CGFloat)(1.0 / 3.0)] retain];
+        color = [self colorWithGenericGray:(CGFloat)(1.0 / 3.0)];
     }
     return color;
 }
@@ -104,7 +104,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[self colorWithGenericGray:CPTFloat(0.0)] retain];
+        color = [self colorWithGenericGray:CPTFloat(0.0)];
     }
     return color;
 }
@@ -241,7 +241,7 @@
  **/
 +(CPTColor *)colorWithCGColor:(CGColorRef)newCGColor
 {
-    return [[[CPTColor alloc] initWithCGColor:newCGColor] autorelease];
+    return [[CPTColor alloc] initWithCGColor:newCGColor];
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided RGBA color components.
@@ -253,7 +253,7 @@
  **/
 +(CPTColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
-    return [[[CPTColor alloc] initWithComponentRed:red green:green blue:blue alpha:alpha] autorelease];
+    return [[CPTColor alloc] initWithComponentRed:red green:green blue:blue alpha:alpha];
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided gray level.
@@ -267,7 +267,7 @@
     CPTColor *color     = [[CPTColor alloc] initWithCGColor:colorRef];
 
     CGColorRelease(colorRef);
-    return [color autorelease];
+    return color;
 }
 
 #pragma mark -
@@ -314,13 +314,6 @@
 -(void)dealloc
 {
     CGColorRelease(cgColor);
-    [super dealloc];
-}
-
--(void)finalize
-{
-    CGColorRelease(cgColor);
-    [super finalize];
 }
 
 /// @endcond
@@ -361,7 +354,6 @@
     for ( size_t i = 0; i < numberOfComponents; i++ ) {
         NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
         [coder encodeCGFloat:colorComponents[i] forKey:newKey];
-        [newKey release];
     }
 }
 
@@ -377,7 +369,6 @@
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
             NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
             colorComponents[i] = [coder decodeCGFloatForKey:newKey];
-            [newKey release];
         }
 
         cgColor = CGColorCreate(colorSpace, colorComponents);

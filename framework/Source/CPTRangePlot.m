@@ -175,17 +175,10 @@ typedef struct CGPointError CGPointError;
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
-        barLineStyle = [theLayer->barLineStyle retain];
+        barLineStyle = theLayer->barLineStyle;
         areaFill     = nil;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [barLineStyle release];
-    [areaFill release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -533,7 +526,6 @@ typedef struct CGPointError CGPointError;
                 }
 
                 [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-                [array release];
             }
         }
         else {
@@ -1061,7 +1053,6 @@ typedef struct CGPointError CGPointError;
 -(void)setBarLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( barLineStyle != newLineStyle ) {
-        [barLineStyle release];
         barLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1071,7 +1062,6 @@ typedef struct CGPointError CGPointError;
 -(void)setAreaFill:(CPTFill *)newFill
 {
     if ( newFill != areaFill ) {
-        [areaFill release];
         areaFill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

@@ -65,8 +65,6 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     delegate = nil;
     graph    = nil;
-    [identifier release];
-    [super dealloc];
 }
 
 /// @endcond

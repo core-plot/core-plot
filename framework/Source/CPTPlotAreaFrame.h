@@ -9,8 +9,8 @@
     CPTPlotArea *plotArea;
 }
 
-@property (nonatomic, readonly, retain) CPTPlotArea *plotArea;
-@property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPTPlotGroup *plotGroup;
+@property (nonatomic, readonly, strong) CPTPlotArea *plotArea;
+@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong) CPTPlotGroup *plotGroup;
 
 @end

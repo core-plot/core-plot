@@ -10,7 +10,7 @@
 
 @property (nonatomic, readwrite, assign) CGSize shadowOffset;
 @property (nonatomic, readwrite, assign) CGFloat shadowBlurRadius;
-@property (nonatomic, readwrite, retain) CPTColor *shadowColor;
+@property (nonatomic, readwrite, strong) CPTColor *shadowColor;
 
 @end
 
@@ -53,7 +53,7 @@
  **/
 +(id)shadow
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 /// @name Initialization
@@ -80,17 +80,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [shadowColor release];
-
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -108,7 +97,7 @@
     if ( (self = [super init]) ) {
         shadowOffset     = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
         shadowBlurRadius = [coder decodeCGFloatForKey:@"CPTShadow.shadowBlurRadius"];
-        shadowColor      = [[coder decodeObjectForKey:@"CPTShadow.shadowColor"] retain];
+        shadowColor      = [coder decodeObjectForKey:@"CPTShadow.shadowColor"];
     }
     return self;
 }

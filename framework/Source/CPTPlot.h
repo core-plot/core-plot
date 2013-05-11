@@ -222,12 +222,12 @@ CPTPlotCachePrecision;
 
 /// @name Plot Space
 /// @{
-@property (nonatomic, readwrite, retain) CPTPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong) CPTPlotSpace *plotSpace;
 /// @}
 
 /// @name Plot Area
 /// @{
-@property (nonatomic, readonly, retain) CPTPlotArea *plotArea;
+@property (nonatomic, readonly, strong) CPTPlotArea *plotArea;
 /// @}
 
 /// @name Data Loading
@@ -252,8 +252,8 @@ CPTPlotCachePrecision;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, retain) NSFormatter *labelFormatter;
-@property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
+@property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
 /// @}
 
 /// @name Drawing

@@ -141,7 +141,6 @@
         if ( replaceCount == 1 ) {
             dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
         }
-        [hiDpiPath release];
         if ( !dataProvider ) {
             imageScale = CPTFloat(1.0);
         }
@@ -159,7 +158,6 @@
         self = [self initWithCGImage:cgImage scale:imageScale];
     }
     else {
-        [self release];
         self = nil;
     }
     CGImageRelease(cgImage);
@@ -172,13 +170,6 @@
 -(void)dealloc
 {
     CGImageRelease(image);
-    [super dealloc];
-}
-
--(void)finalize
-{
-    CGImageRelease(image);
-    [super finalize];
 }
 
 /// @endcond
@@ -238,7 +229,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
-    return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
+    return [[self alloc] initWithCGImage:anImage scale:newScale];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef and scale @num{1.0}.
@@ -247,7 +238,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage
 {
-    return [[[self alloc] initWithCGImage:anImage] autorelease];
+    return [[self alloc] initWithCGImage:anImage];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the contents of a PNG file.
@@ -261,7 +252,7 @@
  **/
 +(CPTImage *)imageForPNGFile:(NSString *)path
 {
-    return [[[self alloc] initForPNGFile:path] autorelease];
+    return [[self alloc] initForPNGFile:path];
 }
 
 #pragma mark -
@@ -365,7 +356,7 @@
             CFDataRef otherProviderData     = CGDataProviderCopyData(otherProvider);
 
             if ( selfProviderData && otherProviderData ) {
-                equalImages = [(NSData *) selfProviderData isEqualToData:(NSData *)otherProviderData];
+                equalImages = [(__bridge NSData *) selfProviderData isEqualToData:(__bridge NSData *)otherProviderData];
             }
             else {
                 equalImages = (selfProviderData == otherProviderData);
