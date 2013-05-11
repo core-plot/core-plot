@@ -882,6 +882,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     if ( newShadow != shadow ) {
         [shadow release];
         shadow = [newShadow copy];
+        [self setNeedsLayout];
         [self setNeedsDisplay];
     }
 }

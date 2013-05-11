@@ -453,9 +453,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
 {
-    CPTPlotArea *thePlotArea   = self.plotArea;
     CPTPlotSpace *thePlotSpace = self.plotSpace;
-    CGPoint originTransformed  = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
 
     // Calculate points
     if ( self.doublePrecisionCache ) {
@@ -472,10 +470,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
 
-                CGPoint plotAreaViewPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
-                viewPoints[i]    = plotAreaViewPoint;
-                viewPoints[i].x += originTransformed.x;
-                viewPoints[i].y += originTransformed.y;
+                viewPoints[i] = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
             }
         }
     }
@@ -496,10 +491,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
 
-                CGPoint plotAreaViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
-                viewPoints[i]    = plotAreaViewPoint;
-                viewPoints[i].x += originTransformed.x;
-                viewPoints[i].y += originTransformed.y;
+                viewPoints[i] = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
             }
         }
     }

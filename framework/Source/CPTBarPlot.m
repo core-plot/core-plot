@@ -767,7 +767,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     CPTCoordinate dependentCoord   = (horizontalBars ? CPTCoordinateX : CPTCoordinateY);
 
     CPTPlotSpace *thePlotSpace = self.plotSpace;
-    CPTPlotArea *thePlotArea   = self.plotArea;
 
     if ( self.doublePrecisionCache ) {
         double plotPoint[2];
@@ -781,7 +780,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( isnan(plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+        *tipPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
 
         // Base point
         if ( !self.barBasesVary ) {
@@ -793,7 +792,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( isnan(plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:thePlotArea];
+        *basePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
     }
     else {
         NSDecimal plotPoint[2];
@@ -807,7 +806,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *tipPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+        *tipPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
 
         // Base point
         if ( !self.barBasesVary ) {
@@ -819,7 +818,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *basePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint] fromLayer:thePlotArea];
+        *basePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
     }
 
     // Determine bar width and offset.
