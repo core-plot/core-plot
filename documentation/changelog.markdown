@@ -8,6 +8,8 @@ To be determined.
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
 - **New**: Added a property to hide plot data labels.
+- **New**: Added support for momentum scrolling.
+- **New**: Added support for "rubber band" snap-back when scrolling reaches the global x- and y-ranges.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
