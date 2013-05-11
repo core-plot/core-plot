@@ -4,9 +4,9 @@
 @class CPTPlotRange;
 
 typedef enum _CPTRubberBandType {
-    kCPTRubberBandNone,
-    kCPTRubberBandLeft,
-    kCPTRubberBandRight
+    CPTRubberBandNone,
+    CPTRubberBandLeft,
+    CPTRubberBandRight
 }
 CPTRubberBandType;
 
@@ -20,9 +20,12 @@ CPTRubberBandType;
     CPTScaleType yScaleType;
     CGPoint lastDragPoint;
     BOOL isDragging;
+    BOOL allowsMomentum;
+    BOOL elasticGlobalXRange;
+    BOOL elasticGlobalYRange;
     BOOL hasMomentum;
-    CPTRubberBandType rubberBand;
     CGPoint momentum;
+    CPTRubberBandType rubberBand;
 }
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
