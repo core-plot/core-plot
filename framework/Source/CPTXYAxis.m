@@ -409,7 +409,7 @@
         NSDecimal endPlotPoint[2];
         startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
         endPlotPoint[orthogonalCoordinate]   = orthogonalRange.end;
-        CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
+        CGPoint originTransformed = [self convertPoint:self.bounds.origin fromLayer:thePlotArea];
 
         CGContextBeginPath(context);
 
@@ -420,7 +420,8 @@
                 continue;
             }
 
-            startPlotPoint[selfCoordinate] = endPlotPoint[selfCoordinate] = locationDecimal;
+            startPlotPoint[selfCoordinate] = locationDecimal;
+            endPlotPoint[selfCoordinate]   = locationDecimal;
 
             // Start point
             CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
