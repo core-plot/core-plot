@@ -1,5 +1,8 @@
 #import "CPTXYPlotSpace.h"
 
+#import "CPTAnimation.h"
+#import "CPTAnimationOperation.h"
+#import "CPTAnimationPeriod.h"
 #import "CPTAxisSet.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
@@ -9,7 +12,10 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTUtilities.h"
-#import "NSNumberExtensions.h"
+#import <tgmath.h>
+
+static const CGFloat kCPTMomentumTime = CPTFloat(0.25); // Deceleration time in seconds for momentum scrolling
+static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in seconds when scrolled past the global range
 
 /// @cond
 @interface CPTXYPlotSpace()
@@ -25,14 +31,15 @@
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
 -(CPTPlotRange *)constrainRange:(CPTPlotRange *)existingRange toGlobalRange:(CPTPlotRange *)globalRange;
-
--(void)handleMomentum;
+-(void)animateRange:(CPTPlotRange *)oldRange property:(NSString *)property globalRange:(CPTPlotRange *)globalRange shift:(NSDecimal)shift;
+-(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange elastic:(BOOL)elastic withDisplacement:(CGFloat *)displacement;
 
 @property (nonatomic, readwrite) BOOL isDragging;
 @property (nonatomic, readwrite) CGPoint lastDragPoint;
-@property (nonatomic, readwrite) BOOL hasMomentum;
-@property (nonatomic, readwrite) CGPoint momentum;
-@property (nonatomic, readwrite) CPTRubberBandType rubberBand;
+@property (nonatomic, readwrite) CGPoint lastDisplacement;
+@property (nonatomic, readwrite) NSTimeInterval lastDragTime;
+@property (nonatomic, readwrite) NSTimeInterval lastDeltaTime;
+@property (nonatomic, readwrite, retain) NSMutableArray *animations;
 
 @end
 
@@ -126,9 +133,10 @@
 
 @synthesize isDragging;
 @synthesize lastDragPoint;
-@synthesize hasMomentum;
-@synthesize momentum;
-@synthesize rubberBand;
+@synthesize lastDisplacement;
+@synthesize lastDragTime;
+@synthesize lastDeltaTime;
+@synthesize animations;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -154,17 +162,18 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
-        xRange        = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
-        yRange        = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
-        globalXRange  = nil;
-        globalYRange  = nil;
-        xScaleType    = CPTScaleTypeLinear;
-        yScaleType    = CPTScaleTypeLinear;
-        lastDragPoint = CGPointZero;
-        isDragging    = NO;
-        hasMomentum   = NO;
-        momentum      = CGPointZero;
-        rubberBand    = CPTRubberBandNone;
+        xRange           = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
+        yRange           = [[CPTPlotRange alloc] initWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
+        globalXRange     = nil;
+        globalYRange     = nil;
+        xScaleType       = CPTScaleTypeLinear;
+        yScaleType       = CPTScaleTypeLinear;
+        lastDragPoint    = CGPointZero;
+        lastDisplacement = CGPointZero;
+        lastDragTime     = 0.0;
+        lastDeltaTime    = 0.0;
+        isDragging       = NO;
+        animations       = [[NSMutableArray alloc] init];
 
         allowsMomentum      = NO;
         elasticGlobalXRange = NO;
@@ -183,6 +192,8 @@
     [yRange release];
     [globalXRange release];
     [globalYRange release];
+    [animations release];
+
     [super dealloc];
 }
 
@@ -209,10 +220,11 @@
 
     // No need to archive these properties:
     // lastDragPoint
+    // lastDisplacement
+    // lastDragTime
+    // lastDeltaTime
     // isDragging
-    // hasMomentum
-    // momentum
-    // rubberBand
+    // animations
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -229,11 +241,12 @@
         elasticGlobalXRange = [coder decodeBoolForKey:@"CPTXYPlotSpace.elasticGlobalXRange"];
         elasticGlobalYRange = [coder decodeBoolForKey:@"CPTXYPlotSpace.elasticGlobalYRange"];
 
-        lastDragPoint = CGPointZero;
-        isDragging    = NO;
-        hasMomentum   = NO;
-        momentum      = CGPointZero;
-        rubberBand    = CPTRubberBandNone;
+        lastDragPoint    = CGPointZero;
+        lastDisplacement = CGPointZero;
+        lastDragTime     = 0.0;
+        lastDeltaTime    = 0.0;
+        isDragging       = NO;
+        animations       = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -405,6 +418,46 @@
         [newRange shiftLocationToFitInRange:globalRange];
         return newRange;
     }
+}
+
+-(void)animateRange:(CPTPlotRange *)oldRange property:(NSString *)property globalRange:(CPTPlotRange *)globalRange shift:(NSDecimal)shift
+{
+    NSMutableArray *animationArray = self.animations;
+    CPTAnimationOperation *op;
+
+    CPTMutablePlotRange *newRange = [oldRange mutableCopy];
+
+    BOOL hasShift = !CPTDecimalEquals( shift, CPTDecimalFromInteger(0) );
+
+    if ( hasShift ) {
+        newRange.location = CPTDecimalAdd(newRange.location, shift);
+
+        op = [CPTAnimation animate:self
+                          property:property
+                     fromPlotRange:oldRange
+                       toPlotRange:newRange
+                          duration:kCPTMomentumTime
+                    animationCurve:CPTAnimationCurveQuadraticOut
+                          delegate:nil];
+        [animationArray addObject:op];
+    }
+
+    if ( globalRange ) {
+        CPTPlotRange *constrainedRange = [self constrainRange:newRange toGlobalRange:globalRange];
+
+        if ( ![newRange isEqualToRange:constrainedRange] ) {
+            op = [CPTAnimation animate:self
+                              property:property
+                         fromPlotRange:newRange
+                           toPlotRange:constrainedRange
+                              duration:kCPTBounceTime
+                             withDelay:(hasShift ? kCPTMomentumTime:0.0)
+                        animationCurve:CPTAnimationCurveElasticOut
+                              delegate:nil];
+            [animationArray addObject:op];
+        }
+    }
+    [newRange release];
 }
 
 -(void)setGlobalXRange:(CPTPlotRange *)newRange
@@ -614,7 +667,7 @@
     CGFloat viewY;
 
     switch ( self.xScaleType ) {
-        case CPTScaleTypeLinear:
+        case CPTScaleTypeLinear :
             viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
@@ -936,8 +989,7 @@
     BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 
     if ( handledByDelegate ) {
-        self.isDragging  = NO;
-        self.hasMomentum = NO;
+        self.isDragging = NO;
         return YES;
     }
 
@@ -949,10 +1001,16 @@
     CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
     if ( [plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
-        self.lastDragPoint = pointInPlotArea;
-        self.isDragging    = YES;
-        self.hasMomentum   = NO;
-        self.rubberBand    = CPTRubberBandNone;
+        self.lastDragPoint    = pointInPlotArea;
+        self.lastDisplacement = CGPointZero;
+        self.lastDragTime     = event.timestamp;
+        self.lastDeltaTime    = 0.0;
+        self.isDragging       = YES;
+
+        // Clear any previous animations
+        for ( CPTAnimationOperation *op in self.animations ) {
+            [[CPTAnimation sharedInstance] removeAnimationOperation:op];
+        }
 
         return YES;
     }
@@ -986,20 +1044,42 @@
         return YES;
     }
 
-    if ( !self.allowsUserInteraction || !self.graph.plotAreaFrame.plotArea ) {
+    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
 
     if ( self.isDragging ) {
-        self.isDragging  = NO;
-        self.hasMomentum = self.allowsMomentum;
-        self.rubberBand  = CPTRubberBandNone;
+        self.isDragging = NO;
 
         if ( self.allowsMomentum ) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 60), dispatch_get_current_queue(), ^{
-                               [self handleMomentum];
-                           }
-                          );
+            NSTimeInterval deltaT = event.timestamp - self.lastDragTime;
+            if ( deltaT > 0.0 ) {
+                CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
+                CGPoint displacement    = self.lastDisplacement;
+
+                CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / self.lastDeltaTime;
+                CGFloat acceleration     = speed / kCPTMomentumTime;
+                CGFloat distanceTraveled = speed * kCPTMomentumTime - CPTFloat(0.5) * acceleration * kCPTMomentumTime * kCPTMomentumTime;
+                distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
+                CGFloat theta = atan2(displacement.y, displacement.x);
+
+                NSDecimal lastPoint[2], newPoint[2];
+                [self plotPoint:lastPoint forPlotAreaViewPoint:pointInPlotArea];
+                [self plotPoint:newPoint forPlotAreaViewPoint:CGPointMake( pointInPlotArea.x + distanceTraveled * cos(theta), pointInPlotArea.y + distanceTraveled * sin(theta) )];
+
+                // X range
+                NSDecimal shiftX = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
+                [self animateRange:self.xRange property:@"xRange" globalRange:self.globalXRange shift:shiftX];
+
+                // Y range
+                NSDecimal shiftY = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
+                [self animateRange:self.yRange property:@"yRange" globalRange:self.globalYRange shift:shiftY];
+            }
+        }
+        else {
+            [self animateRange:self.xRange property:@"xRange" globalRange:self.globalXRange shift:CPTDecimalFromInteger(0)];
+            [self animateRange:self.yRange property:@"yRange" globalRange:self.globalYRange shift:CPTDecimalFromInteger(0)];
         }
 
         return YES;
@@ -1055,51 +1135,27 @@
             pointToUse   = CPTPointMake(lastDraggedPoint.x + displacement.x, lastDraggedPoint.y + displacement.y);
         }
 
-        self.momentum = displacement;
-
         NSDecimal lastPoint[2], newPoint[2];
         [self plotPoint:lastPoint forPlotAreaViewPoint:lastDraggedPoint];
         [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
 
-        CPTMutablePlotRange *newRangeX = [[self.xRange mutableCopy] autorelease];
-        CPTMutablePlotRange *newRangeY = [[self.yRange mutableCopy] autorelease];
+        // X range
+        NSLog(@"X");
+        NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
+        CPTPlotRange *newRangeX = [self  shiftRange:self.xRange
+                                                 by:shiftX
+                                      inGlobalRange:self.globalXRange
+                                            elastic:self.elasticGlobalXRange
+                                   withDisplacement:&displacement.x];
 
-        NSDecimal shiftX = CPTDecimalSubtract(lastPoint[0], newPoint[0]);
-        NSDecimal shiftY = CPTDecimalSubtract(lastPoint[1], newPoint[1]);
-        newRangeX.location = CPTDecimalAdd(newRangeX.location, shiftX);
-        newRangeY.location = CPTDecimalAdd(newRangeY.location, shiftY);
-
-        CPTPlotRange *globalX = self.globalXRange;
-        if ( globalX ) {
-            if ( !self.elasticGlobalXRange ) {
-                newRangeX = (CPTMutablePlotRange *)[self constrainRange:newRangeX toGlobalRange:globalX];
-            }
-            else if ( newRangeX.locationDouble < globalX.locationDouble ) {
-                if ( shiftX._isNegative ) {
-                    NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(globalX.location, newRangeX.location), newRangeX.length);
-                    diff = CPTDecimalFromDouble( MIN( 1.0, CPTDecimalDoubleValue( CPTDecimalMultiply( diff, CPTDecimalFromInteger(3) ) ) ) );
-
-                    // diff=1 => no scaling
-                    // diff=0 => full scaling
-                    newRangeX.location = CPTDecimalAdd( self.xRange.location, CPTDecimalMultiply( shiftX, CPTDecimalSubtract(CPTDecimalFromInteger(1), diff) ) );
-                }
-            }
-            else if ( newRangeX.endDouble > globalX.endDouble ) {
-                if ( !shiftX._isNegative ) {
-                    NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(newRangeX.end, globalX.end), newRangeX.length);
-                    diff = CPTDecimalFromDouble( MIN( 1.0, CPTDecimalDoubleValue( CPTDecimalMultiply( diff, CPTDecimalFromInteger(3) ) ) ) );
-
-                    // diff=1 => no scaling
-                    // diff=0 => full scaling
-                    newRangeX.location = CPTDecimalAdd( self.xRange.location, CPTDecimalMultiply( shiftX, CPTDecimalSubtract(CPTDecimalFromInteger(1), diff) ) );
-                }
-            }
-        }
-
-        CPTPlotRange *globalY = self.globalYRange;
-        if ( globalY ) {
-            newRangeY = (CPTMutablePlotRange *)[self constrainRange:newRangeY toGlobalRange:globalY];
-        }
+        // Y range
+        NSLog(@"Y");
+        NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
+        CPTPlotRange *newRangeY = [self  shiftRange:self.yRange
+                                                 by:shiftY
+                                      inGlobalRange:self.globalYRange
+                                            elastic:self.elasticGlobalYRange
+                                   withDisplacement:&displacement.y];
 
         // Delegate override
         if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
@@ -1111,7 +1167,12 @@
             self.yRange = newRangeY;
         }
 
-        self.lastDragPoint = pointInPlotArea;
+        self.lastDragPoint    = pointInPlotArea;
+        self.lastDisplacement = displacement;
+
+        NSTimeInterval currentTime = event.timestamp;
+        self.lastDeltaTime = currentTime - self.lastDragTime;
+        self.lastDragTime  = currentTime;
 
         return YES;
     }
@@ -1119,167 +1180,38 @@
     return NO;
 }
 
--(void)handleMomentum
+-(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange elastic:(BOOL)elastic withDisplacement:(CGFloat *)displacement
 {
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTMutablePlotRange *newRange = [oldRange mutableCopy];
 
-    if ( !self.allowsUserInteraction || !plotArea || !self.hasMomentum || !self.allowsMomentum ) {
-        return;
-    }
+    newRange.location = CPTDecimalAdd(newRange.location, shift);
 
-    CGPoint lastDraggedPoint = self.lastDragPoint;
-    CGPoint oldMomentum      = self.momentum;
-    CGPoint pointToUse       = CPTPointMake(lastDraggedPoint.x + oldMomentum.x, lastDraggedPoint.y + oldMomentum.y);
+    if ( globalRange ) {
+        CPTPlotRange *constrainedRange = [self constrainRange:newRange toGlobalRange:globalRange];
 
-    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+        if ( elastic ) {
+            if ( ![newRange isEqualToRange:constrainedRange] ) {
+                // reduce the shift as we get farther outside the global range
+                NSDecimal rangeLength = newRange.length;
 
-    CGFloat friction = CPTFloat(0.9);
+                if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
+                    NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.location, newRange.location), rangeLength);
+                    diff = CPTDecimalMax( CPTDecimalMin( CPTDecimalMultiply( diff, CPTDecimalFromDouble(2.5) ), CPTDecimalFromInteger(1) ), CPTDecimalFromInteger(-1) );
 
-    CPTRubberBandType rubberBandType = self.rubberBand;
+                    newRange.location = CPTDecimalSubtract( newRange.location, CPTDecimalMultiply( shift, CPTDecimalAbs(diff) ) );
 
-    CPTPlotRange *globalX = self.globalXRange;
-    CPTPlotRange *globalY = self.globalYRange;
-
-    if ( rubberBandType != CPTRubberBandNone ) {
-        NSDecimal diff;
-
-        if ( rubberBandType == CPTRubberBandLeft ) {
-            diff = CPTDecimalSubtract(globalX.location, self.xRange.location);
+                    *displacement = *displacement * ( CPTFloat(1.0) - ABS( CPTDecimalCGFloatValue(diff) ) );
+                }
+            }
         }
         else {
-            diff = CPTDecimalSubtract(self.xRange.end, globalX.end);
-        }
-
-        diff = CPTDecimalDivide(diff, self.xRange.length);
-        diff = CPTDecimalFromDouble( MIN( 1.0, CPTDecimalDoubleValue( CPTDecimalMultiply( diff, CPTDecimalFromInteger(3) ) ) ) );
-
-        // diff=0 => friction=0.9
-        // diff=1 => friction=0.6
-        friction = CPTFloat(0.9) - CPTDecimalCGFloatValue(diff) * CPTFloat(0.25);
-//        NSLog(@"rubberBand %g; %g", oldMomentum.x, friction);
-    }
-
-    self.momentum = CPTPointMake(oldMomentum.x * friction, oldMomentum.y * friction);
-
-    NSDecimal lastPoint[2], newPoint[2];
-    [self plotPoint:lastPoint forPlotAreaViewPoint:lastDraggedPoint];
-    [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
-
-    CPTMutablePlotRange *newRangeX = [[self.xRange mutableCopy] autorelease];
-    CPTMutablePlotRange *newRangeY = [[self.yRange mutableCopy] autorelease];
-
-    NSDecimal shiftX = CPTDecimalSubtract(lastPoint[0], newPoint[0]);
-    NSDecimal shiftY = CPTDecimalSubtract(lastPoint[1], newPoint[1]);
-
-    if ( rubberBandType != CPTRubberBandNone ) {
-        if ( rubberBandType == CPTRubberBandLeft ) {
-            shiftX._isNegative = 0;
-        }
-        else if ( rubberBandType == CPTRubberBandRight ) {
-            shiftX._isNegative = 1;
+            [constrainedRange retain];
+            [newRange release];
+            newRange = (CPTMutablePlotRange *)constrainedRange;
         }
     }
 
-    newRangeX.location = CPTDecimalAdd(newRangeX.location, shiftX);
-    newRangeY.location = CPTDecimalAdd(newRangeY.location, shiftY);
-
-    if ( globalX ) {
-        if ( !self.elasticGlobalXRange ) {
-            newRangeX = (CPTMutablePlotRange *)[self constrainRange:newRangeX toGlobalRange:globalX];
-        }
-        else {
-            if ( newRangeX.locationDouble < globalX.locationDouble ) {
-                if ( rubberBandType == CPTRubberBandNone ) {
-                    NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(globalX.location, newRangeX.location), newRangeX.length);
-                    diff = CPTDecimalFromDouble( MIN( 1.0, CPTDecimalDoubleValue( CPTDecimalMultiply( diff, CPTDecimalFromInteger(3) ) ) ) );
-
-                    // slow momentum down faster past global range bounds
-                    friction      = CPTFloat(0.9) - CPTDecimalCGFloatValue(diff) / CPTFloat(3.0);
-                    oldMomentum   = self.momentum;
-                    self.momentum = CPTPointMake(oldMomentum.x * friction, oldMomentum.y);
-
-                    // diff=1 => no scaling
-                    // diff=0 => full scaling
-                    newRangeX.location = CPTDecimalAdd( self.xRange.location, CPTDecimalMultiply( shiftX, CPTDecimalSubtract(CPTDecimalFromInteger(1), diff) ) );
-                }
-            }
-            else if ( newRangeX.endDouble > globalX.endDouble ) {
-                if ( rubberBandType == CPTRubberBandNone ) {
-                    NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(newRangeX.end, globalX.end), newRangeX.length);
-                    diff = CPTDecimalFromDouble( MIN( 1.0, CPTDecimalDoubleValue( CPTDecimalMultiply( diff, CPTDecimalFromInteger(3) ) ) ) );
-
-                    // slow momentum down faster past global range bounds
-                    friction      = CPTFloat(0.9) - CPTDecimalCGFloatValue(diff) / CPTFloat(3.0);
-                    oldMomentum   = self.momentum;
-                    self.momentum = CPTPointMake(oldMomentum.x * friction, oldMomentum.y);
-
-                    // diff=1 => no scaling
-                    // diff=0 => full scaling
-                    newRangeX.location = CPTDecimalAdd( self.xRange.location, CPTDecimalMultiply( shiftX, CPTDecimalSubtract(CPTDecimalFromInteger(1), diff) ) );
-                }
-            }
-            else if ( rubberBandType != CPTRubberBandNone ) {
-                if ( rubberBandType == CPTRubberBandLeft ) {
-                    newRangeX.location = globalX.location;
-                }
-                else if ( rubberBandType == CPTRubberBandRight ) {
-                    newRangeX.location = CPTDecimalSubtract(globalX.end, newRangeX.length);
-                }
-
-                self.rubberBand  = NO;
-                self.hasMomentum = NO;
-            }
-        }
-    }
-
-    if ( globalY ) {
-        newRangeY = (CPTMutablePlotRange *)[self constrainRange:newRangeY toGlobalRange:globalY];
-    }
-
-    // Delegate override
-    if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-        self.xRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-        self.yRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
-    }
-    else {
-        self.xRange = newRangeX;
-        self.yRange = newRangeY;
-    }
-
-    self.lastDragPoint = pointToUse;
-
-    if ( self.hasMomentum ) {
-        oldMomentum = self.momentum;
-        if ( ABS(oldMomentum.x) < CPTFloat(0.5) ) {
-            CGFloat rubberBandMomentum = CPTFloat(22.0);
-
-            if ( rubberBandType != CPTRubberBandNone ) {
-                self.momentum = CGPointMake(oldMomentum.x / friction, oldMomentum.y / friction);
-            }
-            else {
-                if ( globalX && (self.xRange.locationDouble < globalX.locationDouble) ) {
-                    self.momentum   = CPTPointMake(rubberBandMomentum, oldMomentum.y);
-                    self.rubberBand = CPTRubberBandLeft;
-//                    NSLog(@"rubberBand left");
-                }
-                else if ( globalX && (self.xRange.endDouble > globalX.endDouble) ) {
-                    self.momentum   = CPTPointMake(-rubberBandMomentum, oldMomentum.y);
-                    self.rubberBand = CPTRubberBandRight;
-//                    NSLog(@"rubberBand right");
-                }
-                else {
-                    self.hasMomentum = NO;
-                }
-            }
-        }
-
-        if ( self.hasMomentum ) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 60), dispatch_get_current_queue(), ^{
-                               [self handleMomentum];
-                           }
-                          );
-        }
-    }
+    return [newRange autorelease];
 }
 
 /// @}

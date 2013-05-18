@@ -3,13 +3,6 @@
 
 @class CPTPlotRange;
 
-typedef enum _CPTRubberBandType {
-    CPTRubberBandNone,
-    CPTRubberBandLeft,
-    CPTRubberBandRight
-}
-CPTRubberBandType;
-
 @interface CPTXYPlotSpace : CPTPlotSpace {
     @private
     CPTPlotRange *xRange;
@@ -19,13 +12,14 @@ CPTRubberBandType;
     CPTScaleType xScaleType;
     CPTScaleType yScaleType;
     CGPoint lastDragPoint;
+    CGPoint lastDisplacement;
+    NSTimeInterval lastDragTime;
+    NSTimeInterval lastDeltaTime;
     BOOL isDragging;
     BOOL allowsMomentum;
     BOOL elasticGlobalXRange;
     BOOL elasticGlobalYRange;
-    BOOL hasMomentum;
-    CGPoint momentum;
-    CPTRubberBandType rubberBand;
+    NSMutableArray *animations;
 }
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
