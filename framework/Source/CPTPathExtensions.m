@@ -1,5 +1,7 @@
 #import "CPTPathExtensions.h"
 
+#import "CPTDefinitions.h"
+
 /** @brief Creates a rectangular path with rounded corners.
  *
  *  @param rect The bounding rectangle for the path.
@@ -17,12 +19,19 @@ CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 
     CGMutablePathRef path = CGPathCreateMutable();
 
-    CGPathMoveToPoint(path, NULL, minX, midY);
-    CGPathAddArcToPoint(path, NULL, minX, minY, midX, minY, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, maxX, minY, maxX, midY, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, maxX, maxY, midX, maxY, cornerRadius);
-    CGPathAddArcToPoint(path, NULL, minX, maxY, minX, midY, cornerRadius);
-    CGPathCloseSubpath(path);
+    if ( cornerRadius > CPTFloat(0.0) ) {
+        cornerRadius = MIN( MIN( cornerRadius, rect.size.width * CPTFloat(0.5) ), rect.size.height * CPTFloat(0.5) );
+
+        CGPathMoveToPoint(path, NULL, minX, midY);
+        CGPathAddArcToPoint(path, NULL, minX, minY, midX, minY, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxX, minY, maxX, midY, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, maxX, maxY, midX, maxY, cornerRadius);
+        CGPathAddArcToPoint(path, NULL, minX, maxY, minX, midY, cornerRadius);
+        CGPathCloseSubpath(path);
+    }
+    else {
+        CGPathAddRect(path, NULL, rect);
+    }
 
     return path;
 }

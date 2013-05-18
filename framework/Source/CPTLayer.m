@@ -703,20 +703,9 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             return path;
         }
 
-        CGRect selfBounds = self.bounds;
-
-        if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN( MIN( self.cornerRadius, selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
-            path                 = CreateRoundedRectPath(selfBounds, radius);
-            self.outerBorderPath = path;
-            CGPathRelease(path);
-        }
-        else {
-            CGMutablePathRef mutablePath = CGPathCreateMutable();
-            CGPathAddRect(mutablePath, NULL, selfBounds);
-            self.outerBorderPath = mutablePath;
-            CGPathRelease(mutablePath);
-        }
+        path                 = CreateRoundedRectPath(self.bounds, self.cornerRadius);
+        self.outerBorderPath = path;
+        CGPathRelease(path);
 
         return self.outerBorderPath;
     }

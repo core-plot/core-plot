@@ -82,9 +82,7 @@
 
         CGFloat radius = superlayer.cornerRadius;
 
-        if ( radius > 0.0 ) {
-            radius = MIN( MIN( radius, borderRect.size.width * CPTFloat(0.5) ), borderRect.size.height * CPTFloat(0.5) );
-
+        if ( radius > CPTFloat(0.0) ) {
             CGContextBeginPath(context);
             AddRoundedRectPath(context, borderRect, radius);
 

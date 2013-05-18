@@ -943,17 +943,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         CPTFill *fill2 = self.areaFill2;
 
         if ( fill1 || fill2 ) {
-            CGPathRef swatchPath;
-            CGFloat radius = legend.swatchCornerRadius;
-            if ( radius > 0.0 ) {
-                radius     = MIN( MIN( radius, rect.size.width / CPTFloat(2.0) ), rect.size.height / CPTFloat(2.0) );
-                swatchPath = CreateRoundedRectPath(rect, radius);
-            }
-            else {
-                CGMutablePathRef mutablePath = CGPathCreateMutable();
-                CGPathAddRect(mutablePath, NULL, rect);
-                swatchPath = mutablePath;
-            }
+            CGPathRef swatchPath = CreateRoundedRectPath(rect, legend.swatchCornerRadius);
 
             if ( fill1 && !fill2 ) {
                 CGContextBeginPath(context);

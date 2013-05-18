@@ -171,8 +171,9 @@
 
         [theLineStyle setLineStyleInContext:context];
 
-        if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN(MIN(self.cornerRadius, layerBounds.size.width * (CGFloat)0.5), layerBounds.size.height * (CGFloat)0.5);
+        CGFloat radius = self.cornerRadius;
+
+        if ( radius > CPTFloat(0.0) ) {
             CGContextBeginPath(context);
             AddRoundedRectPath(context, layerBounds, radius);
             [theLineStyle strokePathInContext:context];
@@ -236,21 +237,11 @@
             return path;
         }
 
-        CGFloat lineWidth = self.borderLineStyle.lineWidth;
-        CGRect selfBounds = self.bounds;
+        CGFloat radius = self.cornerRadius + self.borderLineStyle.lineWidth;
 
-        if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN( MIN( self.cornerRadius + lineWidth / CPTFloat(2.0), selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
-            path                 = CreateRoundedRectPath(selfBounds, radius);
-            self.outerBorderPath = path;
-            CGPathRelease(path);
-        }
-        else {
-            CGMutablePathRef mutablePath = CGPathCreateMutable();
-            CGPathAddRect(mutablePath, NULL, selfBounds);
-            self.outerBorderPath = mutablePath;
-            CGPathRelease(mutablePath);
-        }
+        path                 = CreateRoundedRectPath(self.bounds, radius);
+        self.outerBorderPath = path;
+        CGPathRelease(path);
 
         return self.outerBorderPath;
     }
@@ -270,18 +261,9 @@
         CGFloat lineWidth = self.borderLineStyle.lineWidth;
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
-        if ( self.cornerRadius > 0.0 ) {
-            CGFloat radius = MIN( MIN( self.cornerRadius - lineWidth / CPTFloat(2.0), selfBounds.size.width / CPTFloat(2.0) ), selfBounds.size.height / CPTFloat(2.0) );
-            path                 = CreateRoundedRectPath(selfBounds, radius);
-            self.innerBorderPath = path;
-            CGPathRelease(path);
-        }
-        else {
-            CGMutablePathRef mutablePath = CGPathCreateMutable();
-            CGPathAddRect(mutablePath, NULL, selfBounds);
-            self.innerBorderPath = mutablePath;
-            CGPathRelease(mutablePath);
-        }
+        path                 = CreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+        self.innerBorderPath = path;
+        CGPathRelease(path);
 
         return self.innerBorderPath;
     }

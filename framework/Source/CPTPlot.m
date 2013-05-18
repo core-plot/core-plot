@@ -1579,17 +1579,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     CPTLineStyle *theLineStyle = legend.swatchBorderLineStyle;
 
     if ( theFill || theLineStyle ) {
-        CGPathRef swatchPath;
-        CGFloat radius = legend.swatchCornerRadius;
-        if ( radius > 0.0 ) {
-            radius     = MIN( MIN( radius, rect.size.width / CPTFloat(2.0) ), rect.size.height / CPTFloat(2.0) );
-            swatchPath = CreateRoundedRectPath(rect, radius);
-        }
-        else {
-            CGMutablePathRef mutablePath = CGPathCreateMutable();
-            CGPathAddRect(mutablePath, NULL, rect);
-            swatchPath = mutablePath;
-        }
+        CGPathRef swatchPath = CreateRoundedRectPath(rect, legend.swatchCornerRadius);
 
         if ( theFill ) {
             CGContextBeginPath(context);
