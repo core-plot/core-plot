@@ -78,6 +78,7 @@ BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalNaN(void);
 NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand);
 NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand);
+NSDecimal CPTDecimalAbs(NSDecimal value);
 
 /// @}
 

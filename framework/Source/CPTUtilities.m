@@ -605,6 +605,21 @@ NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
     }
 }
 
+/**
+ *  @brief Determines the absolute value of an @ref NSDecimal value.
+ *  @param value The input value for the calculation.
+ *  @return The absolute value of the argument.
+ **/
+NSDecimal CPTDecimalAbs(NSDecimal value)
+{
+    if ( CPTDecimalGreaterThanOrEqualTo( value, CPTDecimalFromInteger(0) ) ) {
+        return value;
+    }
+    else {
+        return CPTDecimalMultiply( value, CPTDecimalFromInteger(-1) );
+    }
+}
+
 #pragma mark -
 #pragma mark Ranges
 
