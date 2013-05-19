@@ -490,12 +490,12 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
                                         currentSize.height * anchor.y);
 
         if ( scale == 1.0 ) {
-            newPosition.x = round( currentPosition.x + anchor.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
-            newPosition.y = round( currentPosition.y + anchor.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+            newPosition.x = round( currentPosition.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+            newPosition.y = round( currentPosition.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
         }
         else {
-            newPosition.x = round( (currentPosition.x + anchor.x - newAnchor.x) * scale - CPTFloat(0.5) ) / scale + newAnchor.x;
-            newPosition.y = round( (currentPosition.y + anchor.y - newAnchor.y) * scale - CPTFloat(0.5) ) / scale + newAnchor.y;
+            newPosition.x = round( (currentPosition.x - newAnchor.x) * scale - CPTFloat(0.5) ) / scale + newAnchor.x;
+            newPosition.y = round( (currentPosition.y - newAnchor.y) * scale - CPTFloat(0.5) ) / scale + newAnchor.y;
         }
     }
     else {
