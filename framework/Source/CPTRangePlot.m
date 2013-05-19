@@ -783,13 +783,9 @@ typedef struct CGPointError CGPointError;
     CPTFill *theFill = self.areaFill;
 
     if ( theFill ) {
-        CGPathRef swatchPath = CreateRoundedRectPath(rect, legend.swatchCornerRadius);
-
         CGContextBeginPath(context);
-        CGContextAddPath(context, swatchPath);
+        AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
         [theFill fillPathInContext:context];
-
-        CGPathRelease(swatchPath);
     }
 
     CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];

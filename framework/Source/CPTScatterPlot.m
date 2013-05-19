@@ -943,7 +943,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         CPTFill *fill2 = self.areaFill2;
 
         if ( fill1 || fill2 ) {
-            CGPathRef swatchPath = CreateRoundedRectPath(rect, legend.swatchCornerRadius);
+            CGPathRef swatchPath = CreateRoundedRectPath(CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
 
             if ( fill1 && !fill2 ) {
                 CGContextBeginPath(context);

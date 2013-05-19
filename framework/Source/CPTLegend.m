@@ -474,10 +474,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
              ( (desiredColumnCount == 0) || (col < desiredColumnCount) ) ) {
             CGFloat left        = columnPositions[col];
             CGFloat rowPosition = rowPositions[row];
-            CGRect swatchRect   = CPTAlignRectToUserSpace( context, CPTRectMake(left,
-                                                                                rowPosition + (actualRowHeights[row] - theSwatchSize.height) / CPTFloat(2.0),
-                                                                                theSwatchSize.width,
-                                                                                theSwatchSize.height) );
+            CGRect swatchRect   = CPTRectMake(left,
+                                              rowPosition + (actualRowHeights[row] - theSwatchSize.height) * CPTFloat(0.5),
+                                              theSwatchSize.width,
+                                              theSwatchSize.height);
             BOOL legendShouldDrawSwatch = YES;
             if ( delegateCanDraw ) {
                 legendShouldDrawSwatch = [theDelegate      legend:self
