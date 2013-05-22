@@ -38,23 +38,35 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
 
-    if ( styleFont ) {
-        newStyle.fontName = styleFont.fontName;
-        newStyle.fontSize = styleFont.pointSize;
+    if ( hasFontAttributeName ) {
+        UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+
+        if ( styleFont ) {
+            newStyle.fontName = styleFont.fontName;
+            newStyle.fontSize = styleFont.pointSize;
+        }
     }
 
     // Color
-    UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
-    if ( styleColor ) {
-        newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+
+    if ( hasColorAttributeName ) {
+        UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+        if ( styleColor ) {
+            newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        }
     }
 
     // Text alignment
-    NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
-    if ( paragraphStyle ) {
-        newStyle.textAlignment = paragraphStyle.alignment;
+    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
+
+    if ( hasParagraphAttributeName ) {
+        NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+        if ( paragraphStyle ) {
+            newStyle.textAlignment = paragraphStyle.alignment;
+        }
     }
 
     return [[newStyle copy] autorelease];
