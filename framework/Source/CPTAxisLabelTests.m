@@ -18,8 +18,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
     CGPoint newAnchor = CGPointMake(contentSize.width * anchor.x,
                                     contentSize.height * anchor.y);
 
-    newPosition.x = round( position.x + anchor.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
-    newPosition.y = round( position.y + anchor.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+    newPosition.x = round( position.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+    newPosition.y = round( position.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
 
     return newPosition;
 }
