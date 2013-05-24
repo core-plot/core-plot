@@ -73,15 +73,15 @@ CPTGraphLayerType;
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPTPlotAreaFrame *plotAreaFrame;
-@property (nonatomic, readonly, retain) CPTPlotSpace *defaultPlotSpace;
-@property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong) CPTPlotAreaFrame *plotAreaFrame;
+@property (nonatomic, readonly, strong) CPTPlotSpace *defaultPlotSpace;
+@property (nonatomic, readwrite, strong) NSArray *topDownLayerOrder;
 /// @}
 
 /// @name Legend
 /// @{
-@property (nonatomic, readwrite, retain) CPTLegend *legend;
+@property (nonatomic, readwrite, strong) CPTLegend *legend;
 @property (nonatomic, readwrite, assign) CPTRectAnchor legendAnchor;
 @property (nonatomic, readwrite, assign) CGPoint legendDisplacement;
 /// @}

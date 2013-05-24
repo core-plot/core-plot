@@ -134,19 +134,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [xRange release];
-    [yRange release];
-    [globalXRange release];
-    [globalYRange release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -273,7 +260,6 @@
 
     if ( ![range isEqualToRange:xRange] ) {
         CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
-        [xRange release];
         xRange = [constrainedRange copy];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
@@ -298,7 +284,6 @@
 
     if ( ![range isEqualToRange:yRange] ) {
         CPTPlotRange *constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
-        [yRange release];
         yRange = [constrainedRange copy];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
@@ -327,10 +312,10 @@
     }
 
     if ( CPTDecimalGreaterThanOrEqualTo(existingRange.length, globalRange.length) ) {
-        return [[globalRange copy] autorelease];
+        return [globalRange copy];
     }
     else {
-        CPTMutablePlotRange *newRange = [[existingRange mutableCopy] autorelease];
+        CPTMutablePlotRange *newRange = [existingRange mutableCopy];
         [newRange shiftEndToFitInRange:globalRange];
         [newRange shiftLocationToFitInRange:globalRange];
         return newRange;
@@ -340,7 +325,6 @@
 -(void)setGlobalXRange:(CPTPlotRange *)newRange
 {
     if ( ![newRange isEqualToRange:globalXRange] ) {
-        [globalXRange release];
         globalXRange = [newRange copy];
         self.xRange  = [self constrainRange:self.xRange toGlobalRange:globalXRange];
     }
@@ -349,7 +333,6 @@
 -(void)setGlobalYRange:(CPTPlotRange *)newRange
 {
     if ( ![newRange isEqualToRange:globalYRange] ) {
-        [globalYRange release];
         globalYRange = [newRange copy];
         self.yRange  = [self constrainRange:self.yRange toGlobalRange:globalYRange];
     }
@@ -391,9 +374,6 @@
         }
         self.yRange = unionYRange;
     }
-
-    [unionXRange release];
-    [unionYRange release];
 }
 
 -(void)setXScaleType:(CPTScaleType)newScaleType
@@ -813,8 +793,8 @@
     }
 
     // New ranges
-    CPTPlotRange *newRangeX = [[[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX] autorelease];
-    CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY] autorelease];
+    CPTPlotRange *newRangeX = [[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX];
+    CPTPlotRange *newRangeY = [[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY];
 
     // Delegate may still veto/modify the range
     if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
@@ -965,8 +945,8 @@
         [self plotPoint:lastPoint forPlotAreaViewPoint:lastDragPoint];
         [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
 
-        CPTMutablePlotRange *newRangeX = [[self.xRange mutableCopy] autorelease];
-        CPTMutablePlotRange *newRangeY = [[self.yRange mutableCopy] autorelease];
+        CPTMutablePlotRange *newRangeX = [self.xRange mutableCopy];
+        CPTMutablePlotRange *newRangeY = [self.yRange mutableCopy];
 
         NSDecimal shiftX = CPTDecimalSubtract(lastPoint[0], newPoint[0]);
         NSDecimal shiftY = CPTDecimalSubtract(lastPoint[1], newPoint[1]);

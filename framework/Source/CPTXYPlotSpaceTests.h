@@ -6,6 +6,6 @@
     CPTXYGraph *graph;
 }
 
-@property (retain, readwrite) CPTXYGraph *graph;
+@property (strong, readwrite) CPTXYGraph *graph;
 
 @end

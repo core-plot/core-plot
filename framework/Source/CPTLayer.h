@@ -68,7 +68,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Layout
 /// @{
-@property (readonly) NSSet *sublayersExcludedFromAutomaticLayout;
+@property (nonatomic, readonly, strong) NSSet *sublayersExcludedFromAutomaticLayout;
 /// @}
 
 /// @name Initialization

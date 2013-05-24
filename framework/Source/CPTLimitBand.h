@@ -7,8 +7,8 @@
     CPTFill *fill;
 }
 
-@property (nonatomic, readwrite, retain) CPTPlotRange *range;
-@property (nonatomic, readwrite, retain) CPTFill *fill;
+@property (nonatomic, readwrite, strong) CPTPlotRange *range;
+@property (nonatomic, readwrite, strong) CPTFill *fill;
 
 /// @name Factory Methods
 /// @{

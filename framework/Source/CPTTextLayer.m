@@ -48,7 +48,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
 {
     if ( (self = [super initWithFrame:CGRectZero]) ) {
-        textStyle      = [newStyle retain];
+        textStyle      = newStyle;
         text           = [newText copy];
         attributedText = nil;
 
@@ -92,9 +92,9 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( (self = [super initWithLayer:layer]) ) {
         CPTTextLayer *theLayer = (CPTTextLayer *)layer;
 
-        textStyle      = [theLayer->textStyle retain];
-        text           = [theLayer->text retain];
-        attributedText = [theLayer->attributedText retain];
+        textStyle      = theLayer->textStyle;
+        text           = theLayer->text;
+        attributedText = theLayer->attributedText;
     }
     return self;
 }
@@ -121,19 +121,6 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [textStyle release];
-    [text release];
-    [attributedText release];
-
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -151,7 +138,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        textStyle      = [[coder decodeObjectForKey:@"CPTTextLayer.textStyle"] retain];
+        textStyle      = [coder decodeObjectForKey:@"CPTTextLayer.textStyle"];
         text           = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
         attributedText = [[coder decodeObjectForKey:@"CPTTextLayer.attributedText"] copy];
     }
@@ -168,10 +155,8 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(void)setText:(NSString *)newValue
 {
     if ( text != newValue ) {
-        [text release];
         text = [newValue copy];
 
-        [attributedText release];
         attributedText = nil;
 
         [self sizeToFit];
@@ -181,10 +166,8 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(void)setTextStyle:(CPTTextStyle *)newStyle
 {
     if ( textStyle != newStyle ) {
-        [textStyle release];
-        textStyle = [newStyle retain];
+        textStyle = newStyle;
 
-        [attributedText release];
         attributedText = nil;
 
         [self sizeToFit];
@@ -194,14 +177,11 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(void)setAttributedText:(NSAttributedString *)newValue
 {
     if ( attributedText != newValue ) {
-        [attributedText release];
         attributedText = [newValue copy];
 
-        [textStyle release];
-        [text release];
         if ( attributedText.length > 0 ) {
-            textStyle = [[CPTTextStyle textStyleWithAttributes:[attributedText attributesAtIndex:0
-                                                                                  effectiveRange:NULL]] retain];
+            textStyle = [CPTTextStyle textStyleWithAttributes:[attributedText attributesAtIndex:0
+                                                                                 effectiveRange:NULL]];
             text = [attributedText.string copy];
         }
         else {

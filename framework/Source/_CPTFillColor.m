@@ -33,20 +33,10 @@
 -(id)initWithColor:(CPTColor *)aColor
 {
     if ( (self = [super init]) ) {
-        fillColor = [aColor retain];
+        fillColor = aColor;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [fillColor release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -108,7 +98,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillColor = [[coder decodeObjectForKey:@"_CPTFillColor.fillColor"] retain];
+        fillColor = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
     }
     return self;
 }

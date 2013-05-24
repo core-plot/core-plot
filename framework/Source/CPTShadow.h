@@ -9,7 +9,7 @@
 
 @property (nonatomic, readonly, assign) CGSize shadowOffset;
 @property (nonatomic, readonly, assign) CGFloat shadowBlurRadius;
-@property (nonatomic, readonly, retain) CPTColor *shadowColor;
+@property (nonatomic, readonly, strong) CPTColor *shadowColor;
 
 /// @name Factory Methods
 /// @{

@@ -14,10 +14,10 @@
 @property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
 @property (nonatomic, readwrite, assign) CGFloat miterLimit;
 @property (nonatomic, readwrite, assign) CGFloat lineWidth;
-@property (nonatomic, readwrite, retain) NSArray *dashPattern;
+@property (nonatomic, readwrite, strong) NSArray *dashPattern;
 @property (nonatomic, readwrite, assign) CGFloat patternPhase;
-@property (nonatomic, readwrite, retain) CPTColor *lineColor;
-@property (nonatomic, readwrite, retain) CPTFill *lineFill;
+@property (nonatomic, readwrite, strong) CPTColor *lineColor;
+@property (nonatomic, readwrite, strong) CPTFill *lineFill;
 
 @end
 
@@ -85,7 +85,7 @@
  **/
 +(id)lineStyle
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 /// @name Initialization
@@ -114,25 +114,13 @@
         lineWidth    = CPTFloat(1.0);
         dashPattern  = nil;
         patternPhase = CPTFloat(0.0);
-        lineColor    = [[CPTColor blackColor] retain];
+        lineColor    = [CPTColor blackColor];
         lineFill     = nil;
     }
     return self;
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [lineColor release];
-    [lineFill release];
-    [dashPattern release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -158,10 +146,10 @@
         lineJoin     = (CGLineJoin)[coder decodeIntForKey : @"CPTLineStyle.lineJoin"];
         miterLimit   = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
         lineWidth    = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
-        dashPattern  = [[coder decodeObjectForKey:@"CPTLineStyle.dashPattern"] retain];
+        dashPattern  = [coder decodeObjectForKey:@"CPTLineStyle.dashPattern"];
         patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
-        lineColor    = [[coder decodeObjectForKey:@"CPTLineStyle.lineColor"] retain];
-        lineFill     = [[coder decodeObjectForKey:@"CPTLineStyle.lineFill"] retain];
+        lineColor    = [coder decodeObjectForKey:@"CPTLineStyle.lineColor"];
+        lineFill     = [coder decodeObjectForKey:@"CPTLineStyle.lineFill"];
     }
     return self;
 }

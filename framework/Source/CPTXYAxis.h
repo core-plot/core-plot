@@ -11,7 +11,7 @@
 /// @name Positioning
 /// @{
 @property (nonatomic, readwrite) NSDecimal orthogonalCoordinateDecimal;
-@property (nonatomic, readwrite, retain) CPTConstraints *axisConstraints;
+@property (nonatomic, readwrite, strong) CPTConstraints *axisConstraints;
 /// @}
 
 @end

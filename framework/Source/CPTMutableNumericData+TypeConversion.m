@@ -104,7 +104,6 @@
     if ( newDataType.sampleBytes > myDataType.sampleBytes ) {
         NSMutableData *newData = [[NSMutableData alloc] initWithLength:(sampleCount * newDataType.sampleBytes)];
         [self convertData:myData dataType:&myDataType toData:newData dataType:&newDataType];
-        [data release];
         data   = newData;
         myData = newData;
     }

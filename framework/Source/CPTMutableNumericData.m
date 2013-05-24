@@ -40,7 +40,6 @@
 -(void)setShape:(NSArray *)newShape
 {
     if ( newShape != shape ) {
-        [shape release];
         shape = [newShape copy];
 
         NSUInteger sampleCount = 1;
