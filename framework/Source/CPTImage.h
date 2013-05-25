@@ -13,7 +13,6 @@
 @property (nonatomic, readwrite, copy) CPTNativeImage *nativeImage;
 @property (nonatomic, readwrite, assign) CGImageRef image;
 @property (nonatomic, readwrite, assign) CGFloat scale;
-@property (nonatomic, readwrite, assign) CGFloat lastDrawnScale;
 @property (nonatomic, readwrite, assign, getter = isTiled) BOOL tiled;
 @property (nonatomic, readwrite, assign) BOOL tileAnchoredToContext;
 

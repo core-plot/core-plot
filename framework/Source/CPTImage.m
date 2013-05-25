@@ -16,6 +16,12 @@
 #endif
 #endif
 
+@interface CPTImage()
+
+@property (nonatomic, readwrite, assign) CGFloat lastDrawnScale;
+
+@end
+
 /// @endcond
 
 #pragma mark -
