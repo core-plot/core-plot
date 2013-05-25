@@ -35,6 +35,7 @@ CPTPlotSymbolType;
     CGPathRef customSymbolPath;
     BOOL usesEvenOddClipRule;
     CGLayerRef cachedLayer;
+    CGFloat cachedScale;
     CPTShadow *shadow;
 }
 

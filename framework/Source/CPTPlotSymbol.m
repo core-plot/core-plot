@@ -12,6 +12,7 @@
 
 @property (nonatomic, readwrite, assign) CGPathRef cachedSymbolPath;
 @property (nonatomic, readwrite, assign) CGLayerRef cachedLayer;
+@property (nonatomic, readwrite, assign) CGFloat cachedScale;
 
 -(CGPathRef)newSymbolPath;
 
@@ -71,6 +72,7 @@
 @dynamic cachedSymbolPath;
 
 @synthesize cachedLayer;
+@synthesize cachedScale;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -105,6 +107,7 @@
         customSymbolPath    = NULL;
         usesEvenOddClipRule = NO;
         cachedLayer         = NULL;
+        cachedScale         = CPTFloat(0.0);
     }
     return self;
 }
@@ -154,6 +157,7 @@
     // No need to archive these properties:
     // cachedSymbolPath
     // cachedLayer
+    // cachedScale
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -170,6 +174,7 @@
 
         cachedSymbolPath = NULL;
         cachedLayer      = NULL;
+        cachedScale      = CPTFloat(0.0);
     }
     return self;
 }
@@ -482,8 +487,9 @@
     }
 
     CGLayerRef theCachedLayer = self.cachedLayer;
+    CGFloat theCachedScale    = self.cachedScale;
 
-    if ( !theCachedLayer ) {
+    if ( !theCachedLayer || (theCachedScale != scale) ) {
         CGSize layerSize  = symbolSize;
         CGFloat lineWidth = self.lineStyle.lineWidth;
 
@@ -505,6 +511,7 @@
 
         self.cachedLayer = newLayer;
         CGLayerRelease(newLayer);
+        self.cachedScale = scale;
         theCachedLayer   = self.cachedLayer;
         self.anchorPoint = symbolAnchor;
     }
