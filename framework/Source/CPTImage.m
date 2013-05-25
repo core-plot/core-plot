@@ -26,21 +26,24 @@
 
 #pragma mark -
 
-/** @brief An immutable image.
+/** @brief A bitmap image.
  *
- *  An immutable object wrapper class around @ref CGImageRef.
+ *  If initialized from a file or
+ *  @if MacOnly NSImage, @endif
+ *  @if iOSOnly UIImage, @endif
+ *  and an @2x version of the image file is available, the image will be rendered correctly on
+ *  Retina and non-Retina displays.
  **/
 
 @implementation CPTImage
 
-// FIXME: docs
-
 /** @property CPTNativeImage *nativeImage
-**/
+ *  @brief A platform-native representation of the image.
+ **/
 @synthesize nativeImage;
 
 /** @property CGImageRef image
- *  @brief The @ref CGImageRef to wrap around.
+ *  @brief The image drawn into a @ref CGImageRef.
  **/
 @synthesize image;
 
@@ -49,10 +52,9 @@
  **/
 @synthesize scale;
 
-// FIXME: docs
-
 /** @property CGFloat lastDrawnScale
-**/
+ *  The scale factor used the last time the image was rendered into @ref image.
+ **/
 @synthesize lastDrawnScale;
 
 /** @property BOOL tiled
@@ -77,7 +79,12 @@
 
 #pragma mark -
 #pragma mark Init/Dealloc
-// FIXME:
+
+/** @brief Initializes a CPTImage instance with the provided platform-native image.
+ *
+ *  @param anImage The platform-native image.
+ *  @return A CPTImage instance initialized with the provided image.
+ **/
 -(id)initWithNativeImage:(CPTNativeImage *)anImage
 {
     if ( (self = [self init]) ) {
@@ -211,11 +218,21 @@
 #pragma mark -
 #pragma mark Factory Methods
 
+/** @brief Initializes a CPTImage instance with the named image.
+ *
+ *  @param name The name of the image to load.
+ *  @return A new CPTImage instance initialized with the named image.
+ **/
 +(CPTImage *)imageNamed:(NSString *)name
 {
     return [self imageWithNativeImage:[CPTNativeImage imageNamed:name]];
 }
 
+/** @brief Initializes a CPTImage instance with the provided platform-native image.
+ *
+ *  @param anImage The platform-native image.
+ *  @return A new CPTImage instance initialized with the provided image.
+ **/
 +(CPTImage *)imageWithNativeImage:(CPTNativeImage *)anImage
 {
     return [[self alloc] initWithNativeImage:anImage];
