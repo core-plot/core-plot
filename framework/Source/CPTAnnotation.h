@@ -3,14 +3,7 @@
 @class CPTAnnotationHostLayer;
 @class CPTLayer;
 
-@interface CPTAnnotation : NSObject<NSCoding> {
-    @private
-    __cpt_weak CPTAnnotationHostLayer *annotationHostLayer;
-    CPTLayer *contentLayer;
-    CGPoint contentAnchorPoint;
-    CGPoint displacement;
-    CGFloat rotation;
-}
+@interface CPTAnnotation : NSObject<NSCoding>
 
 @property (nonatomic, readwrite, strong) CPTLayer *contentLayer;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTAnnotationHostLayer *annotationHostLayer;

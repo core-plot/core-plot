@@ -36,9 +36,7 @@
     NSData *newData           = nil;
     CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
 
-    if ( (myDataType.dataTypeFormat == newDataType.dataTypeFormat) &&
-         (myDataType.sampleBytes == newDataType.sampleBytes) &&
-         (myDataType.byteOrder == newDataType.byteOrder) ) {
+    if ( CPTDataTypeEqualToDataType(myDataType, newDataType) ) {
         newData = self.data;
     }
     else if ( ( myDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {

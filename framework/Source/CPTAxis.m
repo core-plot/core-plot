@@ -138,7 +138,7 @@ NSDecimal niceNum(NSDecimal x);
  *  @brief The axis title.
  *  If @nil, no title is drawn.
  **/
-@dynamic axisTitle;
+@synthesize axisTitle;
 
 /** @property CGFloat titleOffset
  *  @brief The offset distance between the axis title and the axis line.
@@ -174,7 +174,7 @@ NSDecimal niceNum(NSDecimal x);
  *  @brief The position along the axis where the axis title should be centered.
  *  If @NAN (the default), the @ref defaultTitleLocation will be used.
  **/
-@dynamic titleLocation;
+@synthesize titleLocation;
 
 /** @property NSDecimal defaultTitleLocation
  *  @brief The position along the axis where the axis title should be centered

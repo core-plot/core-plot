@@ -186,28 +186,7 @@ CPTPlotCachePrecision;
 
 #pragma mark -
 
-@interface CPTPlot : CPTAnnotationHostLayer {
-    @private
-    __cpt_weak id<CPTPlotDataSource> dataSource;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CPTPlotSpace *plotSpace;
-    BOOL dataNeedsReloading;
-    NSMutableDictionary *cachedData;
-    NSUInteger cachedDataCount;
-    CPTPlotCachePrecision cachePrecision;
-    BOOL needsRelabel;
-    BOOL showLabels;
-    CGFloat labelOffset;
-    CGFloat labelRotation;
-    NSUInteger labelField;
-    CPTTextStyle *labelTextStyle;
-    NSFormatter *labelFormatter;
-    NSRange labelIndexRange;
-    NSMutableArray *labelAnnotations;
-    CPTShadow *labelShadow;
-    BOOL alignsPointsToPixels;
-}
+@interface CPTPlot : CPTAnnotationHostLayer
 
 /// @name Data Source
 /// @{

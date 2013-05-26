@@ -69,7 +69,7 @@
  **/
 @synthesize usesEvenOddClipRule;
 
-@dynamic cachedSymbolPath;
+@synthesize cachedSymbolPath;
 
 @synthesize cachedLayer;
 @synthesize cachedScale;

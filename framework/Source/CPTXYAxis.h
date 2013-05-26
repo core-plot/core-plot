@@ -2,11 +2,7 @@
 
 @class CPTConstraints;
 
-@interface CPTXYAxis : CPTAxis {
-    @private
-    NSDecimal orthogonalCoordinateDecimal;
-    CPTConstraints *axisConstraints;
-}
+@interface CPTXYAxis : CPTAxis
 
 /// @name Positioning
 /// @{

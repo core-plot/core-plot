@@ -24,20 +24,7 @@ typedef enum _CPTPlotSymbolType {
 }
 CPTPlotSymbolType;
 
-@interface CPTPlotSymbol : NSObject<NSCoding, NSCopying> {
-    @private
-    CGPoint anchorPoint;
-    CGSize size;
-    CPTPlotSymbolType symbolType;
-    CPTLineStyle *lineStyle;
-    CPTFill *fill;
-    CGPathRef cachedSymbolPath;
-    CGPathRef customSymbolPath;
-    BOOL usesEvenOddClipRule;
-    CGLayerRef cachedLayer;
-    CGFloat cachedScale;
-    CPTShadow *shadow;
-}
+@interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>
 
 @property (nonatomic, readwrite, assign) CGPoint anchorPoint;
 @property (nonatomic, readwrite, assign) CGSize size;

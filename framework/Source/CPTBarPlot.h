@@ -140,22 +140,7 @@ CPTBarPlotField;
 
 #pragma mark -
 
-@interface CPTBarPlot : CPTPlot {
-    @private
-    CPTLineStyle *lineStyle;
-    CPTFill *fill;
-    NSDecimal barWidth;
-    CGFloat barWidthScale;
-    NSDecimal barOffset;
-    CGFloat barOffsetScale;
-    CGFloat barCornerRadius;
-    CGFloat barBaseCornerRadius;
-    NSDecimal baseValue;
-    BOOL barsAreHorizontal;
-    BOOL barBasesVary;
-    BOOL barWidthsAreInViewCoordinates;
-    CPTPlotRange *plotRange;
-}
+@interface CPTBarPlot : CPTPlot
 
 /// @name Appearance
 /// @{

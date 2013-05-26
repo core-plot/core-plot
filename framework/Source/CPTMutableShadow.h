@@ -2,8 +2,7 @@
 
 @class CPTColor;
 
-@interface CPTMutableShadow : CPTShadow {
-}
+@interface CPTMutableShadow : CPTShadow
 
 @property (nonatomic, readwrite, assign) CGSize shadowOffset;
 @property (nonatomic, readwrite, assign) CGFloat shadowBlurRadius;

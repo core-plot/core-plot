@@ -1,19 +1,7 @@
 @class CPTColor;
 @class CPTFill;
 
-@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @private
-    CGLineCap lineCap;
-//    CGLineDash lineDash; // We should make a struct to keep this information
-    CGLineJoin lineJoin;
-    CGFloat miterLimit;
-    CGFloat lineWidth;
-    NSArray *dashPattern;
-    CGFloat patternPhase;
-//    StrokePattern; // We should make a struct to keep this information
-    CPTColor *lineColor;
-    CPTFill *lineFill;
-}
+@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
 @property (nonatomic, readonly, assign) CGLineCap lineCap;
 @property (nonatomic, readonly, assign) CGLineJoin lineJoin;

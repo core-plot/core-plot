@@ -26,6 +26,9 @@
 
 -(CPTPlotRange *)constrainRange:(CPTPlotRange *)existingRange toGlobalRange:(CPTPlotRange *)globalRange;
 
+@property (nonatomic, readwrite, assign) CGPoint lastDragPoint;
+@property (nonatomic, readwrite, assign) BOOL isDragging;
+
 @end
 
 /// @endcond
@@ -98,6 +101,9 @@
  *  @brief The scale type of the y coordinate. Defaults to #CPTScaleTypeLinear.
  **/
 @synthesize yScaleType;
+
+@synthesize lastDragPoint;
+@synthesize isDragging;
 
 #pragma mark -
 #pragma mark Init/Dealloc

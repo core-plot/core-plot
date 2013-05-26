@@ -1,14 +1,6 @@
 #import "CPTPlatformSpecificDefines.h"
 
-@interface CPTImage : NSObject<NSCoding, NSCopying> {
-    @private
-    CPTNativeImage *nativeImage;
-    CGImageRef image;
-    CGFloat scale;
-    CGFloat lastDrawnScale;
-    BOOL tiled;
-    BOOL tileAnchoredToContext;
-}
+@interface CPTImage : NSObject<NSCoding, NSCopying>
 
 @property (nonatomic, readwrite, copy) CPTNativeImage *nativeImage;
 @property (nonatomic, readwrite, assign) CGImageRef image;

@@ -76,62 +76,7 @@ CPTAxisLabelingPolicy;
 
 #pragma mark -
 
-@interface CPTAxis : CPTLayer {
-    @private
-    CPTCoordinate coordinate;
-    CPTPlotSpace *plotSpace;
-    NSSet *majorTickLocations;
-    NSSet *minorTickLocations;
-    CGFloat majorTickLength;
-    CGFloat minorTickLength;
-    CGFloat labelOffset;
-    CGFloat minorTickLabelOffset;
-    CGFloat labelRotation;
-    CGFloat minorTickLabelRotation;
-    CPTAlignment labelAlignment;
-    CPTAlignment minorTickLabelAlignment;
-    CPTLineStyle *axisLineStyle;
-    CPTLineStyle *majorTickLineStyle;
-    CPTLineStyle *minorTickLineStyle;
-    CPTLineStyle *majorGridLineStyle;
-    CPTLineStyle *minorGridLineStyle;
-    CPTLineCap *axisLineCapMin;
-    CPTLineCap *axisLineCapMax;
-    NSDecimal labelingOrigin;
-    NSDecimal majorIntervalLength;
-    NSUInteger minorTicksPerInterval;
-    NSUInteger preferredNumberOfMajorTicks;
-    CPTAxisLabelingPolicy labelingPolicy;
-    CPTTextStyle *labelTextStyle;
-    CPTTextStyle *minorTickLabelTextStyle;
-    CPTTextStyle *titleTextStyle;
-    NSFormatter *labelFormatter;
-    NSFormatter *minorTickLabelFormatter;
-    BOOL labelFormatterChanged;
-    BOOL minorLabelFormatterChanged;
-    NSSet *axisLabels;
-    NSSet *minorTickAxisLabels;
-    CPTAxisTitle *axisTitle;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CGFloat titleOffset;
-    CGFloat titleRotation;
-    NSDecimal titleLocation;
-    CPTSign tickDirection;
-    BOOL needsRelabel;
-    NSArray *labelExclusionRanges;
-    CPTPlotRange *visibleRange;
-    CPTPlotRange *visibleAxisRange;
-    CPTPlotRange *gridLinesRange;
-    NSArray *alternatingBandFills;
-    NSMutableArray *mutableBackgroundLimitBands;
-    BOOL separateLayers;
-    CPTShadow *labelShadow;
-    CPTShadow *minorTickLabelShadow;
-    __cpt_weak CPTPlotArea *plotArea;
-    __cpt_weak CPTGridLines *minorGridLines;
-    __cpt_weak CPTGridLines *majorGridLines;
-}
+@interface CPTAxis : CPTLayer
 
 /// @name Axis
 /// @{

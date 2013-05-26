@@ -2,8 +2,7 @@
 
 @class CPTXYAxis;
 
-@interface CPTXYAxisSet : CPTAxisSet {
-}
+@interface CPTXYAxisSet : CPTAxisSet
 
 @property (nonatomic, readonly, strong) CPTXYAxis *xAxis;
 @property (nonatomic, readonly, strong) CPTXYAxis *yAxis;

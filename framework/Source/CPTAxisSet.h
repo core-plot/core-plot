@@ -3,11 +3,7 @@
 @class CPTAxis;
 @class CPTLineStyle;
 
-@interface CPTAxisSet : CPTLayer {
-    @private
-    NSArray *axes;
-    CPTLineStyle *borderLineStyle;
-}
+@interface CPTAxisSet : CPTLayer
 
 /// @name Axes
 /// @{

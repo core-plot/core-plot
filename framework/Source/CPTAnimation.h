@@ -82,16 +82,6 @@ CPTAnimationCurve;
 #pragma mark -
 
 @interface CPTAnimation : NSObject
-{
-    @private
-    NSMutableArray *animationOperations;
-    NSMutableArray *runningAnimationOperations;
-    NSMutableArray *expiredAnimationOperations;
-    NSTimer *timer;
-
-    CGFloat timeOffset;
-    CPTAnimationCurve defaultAnimationCurve;
-}
 
 /// @name Time
 /// @{

@@ -2,9 +2,7 @@
 
 @class CPTXYGraph;
 
-@interface CPTXYPlotSpaceTests : CPTTestCase {
-    CPTXYGraph *graph;
-}
+@interface CPTXYPlotSpaceTests : CPTTestCase
 
 @property (strong, readwrite) CPTXYGraph *graph;
 

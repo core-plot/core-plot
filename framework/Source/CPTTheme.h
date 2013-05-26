@@ -12,10 +12,7 @@ extern NSString *const kCPTStocksTheme;       ///< A graph theme with a gradient
 @class CPTAxisSet;
 @class CPTMutableTextStyle;
 
-@interface CPTTheme : NSObject<NSCoding> {
-    @private
-    Class graphClass;
-}
+@interface CPTTheme : NSObject<NSCoding>
 
 @property (nonatomic, readwrite, strong) Class graphClass;
 

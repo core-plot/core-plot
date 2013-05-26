@@ -57,7 +57,7 @@
  **/
 @synthesize usesEvenOddClipRule;
 
-@dynamic cachedLineCapPath;
+@synthesize cachedLineCapPath;
 
 #pragma mark -
 #pragma mark Init/Dealloc

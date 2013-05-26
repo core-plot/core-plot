@@ -38,17 +38,7 @@ CPTGradientType;
 @class CPTColorSpace;
 @class CPTColor;
 
-@interface CPTGradient : NSObject<NSCopying, NSCoding> {
-    @private
-    CPTColorSpace *colorspace;
-    CPTGradientElement *elementList;
-    CPTGradientBlendingMode blendingMode;
-    CGFunctionRef gradientFunction;
-    CGFloat angle; // angle in degrees
-    CPTGradientType gradientType;
-    CGPoint startAnchor;
-    CGPoint endAnchor;
-}
+@interface CPTGradient : NSObject<NSCopying, NSCoding>
 
 /// @name Gradient Type
 /// @{

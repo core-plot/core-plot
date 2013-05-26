@@ -2,8 +2,7 @@
 
 @class CPTColor;
 
-@interface CPTMutableLineStyle : CPTLineStyle {
-}
+@interface CPTMutableLineStyle : CPTLineStyle
 
 @property (nonatomic, readwrite, assign) CGLineCap lineCap;
 @property (nonatomic, readwrite, assign) CGLineJoin lineJoin;

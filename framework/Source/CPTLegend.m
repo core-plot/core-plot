@@ -71,7 +71,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @brief The size of the graphical swatch.
  *  If swatchSize is (@num{0.0}, @num{0.0}), swatches will be drawn using a square @num{150%} of the text size on a side.
  **/
-@dynamic swatchSize;
+@synthesize swatchSize;
 
 /** @property CPTLineStyle *swatchBorderLineStyle
  *  @brief The line style for the border drawn around each swatch.

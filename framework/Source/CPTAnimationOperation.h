@@ -3,17 +3,7 @@
 
 @class CPTAnimationPeriod;
 
-@interface CPTAnimationOperation : NSObject {
-    @private
-    CPTAnimationPeriod *period;
-    CPTAnimationCurve animationCurve;
-
-    id boundObject;
-    SEL boundGetter;
-    SEL boundSetter;
-
-    __cpt_weak NSObject<CPTAnimationDelegate> *delegate;
-}
+@interface CPTAnimationOperation : NSObject
 
 /// @name Animation Timing
 /// @{

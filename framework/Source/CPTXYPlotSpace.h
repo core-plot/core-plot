@@ -3,17 +3,7 @@
 
 @class CPTPlotRange;
 
-@interface CPTXYPlotSpace : CPTPlotSpace {
-    @private
-    CPTPlotRange *xRange;
-    CPTPlotRange *yRange;
-    CPTPlotRange *globalXRange;
-    CPTPlotRange *globalYRange;
-    CPTScaleType xScaleType;
-    CPTScaleType yScaleType;
-    CGPoint lastDragPoint;
-    BOOL isDragging;
-}
+@interface CPTXYPlotSpace : CPTPlotSpace
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
 @property (nonatomic, readwrite, copy) CPTPlotRange *yRange;

@@ -1,6 +1,5 @@
 #import "CPTLayer.h"
 
-@interface CPTAxisLabelGroup : CPTLayer {
-}
+@interface CPTAxisLabelGroup : CPTLayer
 
 @end

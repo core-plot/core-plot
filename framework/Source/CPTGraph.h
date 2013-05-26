@@ -39,23 +39,7 @@ CPTGraphLayerType;
 
 #pragma mark -
 
-@interface CPTGraph : CPTBorderedLayer {
-    @private
-    __cpt_weak CPTGraphHostingView *hostingView;
-    CPTPlotAreaFrame *plotAreaFrame;
-    NSMutableArray *plots;
-    NSMutableArray *plotSpaces;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CPTTextStyle *titleTextStyle;
-    CPTRectAnchor titlePlotAreaFrameAnchor;
-    CGPoint titleDisplacement;
-    CPTLayerAnnotation *titleAnnotation;
-    CPTLegend *legend;
-    CPTLayerAnnotation *legendAnnotation;
-    CPTRectAnchor legendAnchor;
-    CGPoint legendDisplacement;
-}
+@interface CPTGraph : CPTBorderedLayer
 
 /// @name Hosting View
 /// @{

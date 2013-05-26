@@ -54,28 +54,7 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 #pragma mark -
 
-@interface CPTLegend : CPTBorderedLayer {
-    @private
-    NSMutableArray *plots;
-    NSMutableArray *legendEntries;
-    BOOL layoutChanged;
-    CPTTextStyle *textStyle;
-    CGSize swatchSize;
-    CPTLineStyle *swatchBorderLineStyle;
-    CGFloat swatchCornerRadius;
-    CPTFill *swatchFill;
-    NSUInteger numberOfRows;
-    NSUInteger numberOfColumns;
-    BOOL equalRows;
-    BOOL equalColumns;
-    NSArray *rowHeights;
-    NSArray *rowHeightsThatFit;
-    NSArray *columnWidths;
-    NSArray *columnWidthsThatFit;
-    CGFloat columnMargin;
-    CGFloat rowMargin;
-    CGFloat titleOffset;
-}
+@interface CPTLegend : CPTBorderedLayer
 
 /// @name Formatting
 /// @{

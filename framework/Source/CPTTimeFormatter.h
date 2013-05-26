@@ -1,10 +1,6 @@
 /// @file
 
-@interface CPTTimeFormatter : NSNumberFormatter {
-    @private
-    NSDateFormatter *dateFormatter;
-    NSDate *referenceDate;
-}
+@interface CPTTimeFormatter : NSNumberFormatter
 
 @property (nonatomic, readwrite, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, readwrite, copy) NSDate *referenceDate;

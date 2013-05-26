@@ -10,19 +10,7 @@
 @class CPTLineStyle;
 @class CPTFill;
 
-@interface CPTPlotArea : CPTAnnotationHostLayer {
-    @private
-    CPTGridLineGroup *minorGridLineGroup;
-    CPTGridLineGroup *majorGridLineGroup;
-    CPTAxisSet *axisSet;
-    CPTPlotGroup *plotGroup;
-    CPTAxisLabelGroup *axisLabelGroup;
-    CPTAxisLabelGroup *axisTitleGroup;
-    CPTFill *fill;
-    NSArray *topDownLayerOrder;
-    CPTGraphLayerType *bottomUpLayerOrder;
-    BOOL updatingLayers;
-}
+@interface CPTPlotArea : CPTAnnotationHostLayer
 
 /// @name Layers
 /// @{

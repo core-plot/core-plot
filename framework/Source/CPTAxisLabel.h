@@ -3,14 +3,7 @@
 @class CPTLayer;
 @class CPTTextStyle;
 
-@interface CPTAxisLabel : NSObject<NSCoding> {
-    @private
-    CPTLayer *contentLayer;
-    CGFloat offset;
-    CGFloat rotation;
-    CPTAlignment alignment;
-    NSDecimal tickLocation;
-}
+@interface CPTAxisLabel : NSObject<NSCoding>
 
 @property (nonatomic, readwrite, strong) CPTLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;

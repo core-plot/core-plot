@@ -11,6 +11,8 @@
 
 @property (nonatomic, readwrite, strong) CPTColorSpace *colorspace;
 @property (nonatomic, readwrite, assign) CPTGradientBlendingMode blendingMode;
+@property (nonatomic, readwrite, assign) CPTGradientElement *elementList;
+@property (nonatomic, readwrite, assign) CGFunctionRef gradientFunction;
 
 -(void)commonInit;
 -(void)addElement:(CPTGradientElement *)newElement;
@@ -87,6 +89,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 @synthesize endAnchor;
 
+@synthesize elementList;
+@synthesize gradientFunction;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -146,7 +151,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CPTGradient *copy = [[[self class] allocWithZone:zone] init];
 
-    CPTGradientElement *currentElement = elementList;
+    CPTGradientElement *currentElement = self.elementList;
 
     while ( currentElement != NULL ) {
         [copy addElement:currentElement];
@@ -173,7 +178,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     if ( [coder allowsKeyedCoding] ) {
         NSUInteger count                   = 0;
-        CPTGradientElement *currentElement = elementList;
+        CPTGradientElement *currentElement = self.elementList;
         while ( currentElement != NULL ) {
             [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
             [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
@@ -656,7 +661,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CPTGradient *newGradient = [[[self class] alloc] init];
 
-    CPTGradientElement *curElement = elementList;
+    CPTGradientElement *curElement = self.elementList;
     CPTGradientElement tempElement;
 
     while ( curElement != NULL ) {
@@ -776,18 +781,19 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CGFloat components[4] = { CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0) };
     CGColorRef gradientColor;
+    CPTGradientElement *curElement = self.elementList;
 
     switch ( self.blendingMode ) {
         case CPTLinearBlendingMode:
-            linearEvaluation(&elementList, &position, components);
+            linearEvaluation(&curElement, &position, components);
             break;
 
         case CPTChromaticBlendingMode:
-            chromaticEvaluation(&elementList, &position, components);
+            chromaticEvaluation(&curElement, &position, components);
             break;
 
         case CPTInverseChromaticBlendingMode:
-            inverseChromaticEvaluation(&elementList, &position, components);
+            inverseChromaticEvaluation(&curElement, &position, components);
             break;
     }
 
@@ -946,8 +952,10 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CGFloat theHash    = CPTFloat(0.0);
     CGFloat multiplier = CPTFloat(256.0);
 
-    if ( elementList ) {
-        CPTRGBAColor color = elementList->color;
+    CPTGradientElement *curElement = self.elementList;
+
+    if ( curElement ) {
+        CPTRGBAColor color = curElement->color;
 
         theHash    += multiplier * color.red;
         multiplier *= CPTFloat(256.0);
@@ -965,6 +973,17 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setGradientFunction:(CGFunctionRef)newGradientFunction
+{
+    if ( newGradientFunction != gradientFunction ) {
+        CGFunctionRelease(gradientFunction);
+        gradientFunction = newGradientFunction;
+    }
+}
 
 #pragma mark -
 #pragma mark Private Methods
@@ -1026,7 +1045,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         endPoint   = CPTPointMake(CGRectGetMidX(rect) + deltaX, CGRectGetMidY(rect) + deltaY);
     }
 
-    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, gradientFunction, false, false);
+    CGShadingRef myCGShading = CGShadingCreateAxial(self.colorspace.cgColorSpace, startPoint, endPoint, self.gradientFunction, false, false);
 
     return myCGShading;
 }
@@ -1064,7 +1083,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     CGContextScaleCTM(context, scaleX, scaleY);
 
-    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, gradientFunction, true, true);
+    CGShadingRef myCGShading = CGShadingCreateRadial(self.colorspace.cgColorSpace, startPoint, startRadius, endPoint, endRadius, self.gradientFunction, true, true);
 
     return myCGShading;
 }
@@ -1089,20 +1108,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             break;
     }
 
-    // replace the current CoreGraphics Function with new one
-    if ( gradientFunction != NULL ) {
-        CGFunctionRelease(gradientFunction);
-    }
-
     CGFunctionCallbacks evaluationCallbackInfo = { 0, evaluationFunction, NULL }; // Version, evaluator function, cleanup function
 
     static const CGFloat input_value_range[2]   = { 0, 1 };                   // range  for the evaluator input
     static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
 
-    gradientFunction = CGFunctionCreate(&elementList,             //the two transition colors
-                                        1, input_value_range,     //number of inputs (just fraction of progression)
-                                        4, output_value_ranges,   //number of outputs (4 - RGBa)
-                                        &evaluationCallbackInfo); //info for using the evaluator function
+    self.gradientFunction = CGFunctionCreate(&elementList,             //the two transition colors
+                                             1, input_value_range,     //number of inputs (just fraction of progression)
+                                             4, output_value_ranges,   //number of outputs (4 - RGBa)
+                                             &evaluationCallbackInfo); //info for using the evaluator function
 }
 
 -(void)addElement:(CPTGradientElement *)newElement
@@ -1116,7 +1130,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         }
     }
     else {
-        CPTGradientElement *curElement = elementList;
+        CPTGradientElement *curElement = self.elementList;
 
         while ( curElement->nextElement != NULL &&
                 !( (curElement->position <= newElement->position) &&
@@ -1135,9 +1149,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CPTGradientElement removedElement;
 
-    if ( elementList != NULL ) {
+    if ( self.elementList != NULL ) {
         if ( idx == 0 ) {
-            CPTGradientElement *tmpNext = elementList;
+            CPTGradientElement *tmpNext = self.elementList;
             elementList = elementList->nextElement;
 
             removedElement = *tmpNext;
@@ -1147,7 +1161,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         }
 
         NSUInteger count                   = 1; //we want to start one ahead
-        CPTGradientElement *currentElement = elementList;
+        CPTGradientElement *currentElement = self.elementList;
         while ( currentElement->nextElement != NULL ) {
             if ( count == idx ) {
                 CPTGradientElement *tmpNext = currentElement->nextElement;
@@ -1179,9 +1193,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CPTGradientElement removedElement;
 
-    if ( elementList != NULL ) {
-        if ( elementList->position == position ) {
-            CPTGradientElement *tmpNext = elementList;
+    if ( self.elementList != NULL ) {
+        if ( self.elementList->position == position ) {
+            CPTGradientElement *tmpNext = self.elementList;
             elementList = elementList->nextElement;
 
             removedElement = *tmpNext;
@@ -1190,7 +1204,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             return removedElement;
         }
         else {
-            CPTGradientElement *curElement = elementList;
+            CPTGradientElement *curElement = self.elementList;
             while ( curElement->nextElement != NULL ) {
                 if ( curElement->nextElement->position == position ) {
                     CPTGradientElement *tmpNext = curElement->nextElement;
@@ -1228,7 +1242,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 -(CPTGradientElement *)elementAtIndex:(NSUInteger)idx
 {
     NSUInteger count                   = 0;
-    CPTGradientElement *currentElement = elementList;
+    CPTGradientElement *currentElement = self.elementList;
 
     while ( currentElement != NULL ) {
         if ( count == idx ) {
@@ -1245,7 +1259,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 -(NSUInteger)elementCount
 {
     NSUInteger count                   = 0;
-    CPTGradientElement *currentElement = elementList;
+    CPTGradientElement *currentElement = self.elementList;
 
     while ( currentElement ) {
         count++;
