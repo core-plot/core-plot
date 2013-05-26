@@ -17,7 +17,7 @@
 {
     double values[5] = { 0.5, 0.5, 0.5, 0.5, 0.5 };
 
-    self.plot = [[CPTScatterPlot new] autorelease];
+    self.plot = [CPTScatterPlot new];
     NSMutableArray *yValues = [NSMutableArray array];
     for ( NSInteger i = 0; i < 5; i++ ) {
         [yValues addObject:[NSNumber numberWithDouble:values[i]]];
@@ -27,7 +27,7 @@
 
     CPTPlotRange *xPlotRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
     CPTPlotRange *yPlotRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(1)];
-    self.plotSpace        = [[[CPTXYPlotSpace alloc] init] autorelease];
+    self.plotSpace        = [[CPTXYPlotSpace alloc] init];
     self.plotSpace.xRange = xPlotRange;
     self.plotSpace.yRange = yPlotRange;
 }

@@ -24,7 +24,6 @@
         }
     }
     else {
-        [self release];
         self = nil;
     }
     return self;

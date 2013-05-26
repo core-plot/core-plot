@@ -436,7 +436,6 @@ NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
     NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
 
     [theScanner scanDecimal:&result];
-    [theScanner release];
 
     return result;
 }

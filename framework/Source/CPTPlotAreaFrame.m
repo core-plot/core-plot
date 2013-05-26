@@ -7,7 +7,7 @@
 /// @cond
 @interface CPTPlotAreaFrame()
 
-@property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
+@property (nonatomic, readwrite, strong) CPTPlotArea *plotArea;
 
 @end
 
@@ -61,7 +61,6 @@
 
         CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame:newFrame];
         self.plotArea = newPlotArea;
-        [newPlotArea release];
 
         self.masksToBorder              = YES;
         self.needsDisplayOnBoundsChange = YES;
@@ -78,15 +77,9 @@
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
 
-        plotArea = [theLayer->plotArea retain];
+        plotArea = theLayer->plotArea;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [plotArea release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -106,7 +99,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
+        plotArea = [coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"];
     }
     return self;
 }
@@ -122,8 +115,7 @@
 {
     if ( newPlotArea != plotArea ) {
         [plotArea removeFromSuperlayer];
-        [plotArea release];
-        plotArea = [newPlotArea retain];
+        plotArea = newPlotArea;
         if ( plotArea ) {
             [self insertSublayer:plotArea atIndex:0];
         }

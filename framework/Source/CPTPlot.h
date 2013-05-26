@@ -186,28 +186,7 @@ CPTPlotCachePrecision;
 
 #pragma mark -
 
-@interface CPTPlot : CPTAnnotationHostLayer {
-    @private
-    __cpt_weak id<CPTPlotDataSource> dataSource;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CPTPlotSpace *plotSpace;
-    BOOL dataNeedsReloading;
-    NSMutableDictionary *cachedData;
-    NSUInteger cachedDataCount;
-    CPTPlotCachePrecision cachePrecision;
-    BOOL needsRelabel;
-    BOOL showLabels;
-    CGFloat labelOffset;
-    CGFloat labelRotation;
-    NSUInteger labelField;
-    CPTTextStyle *labelTextStyle;
-    NSFormatter *labelFormatter;
-    NSRange labelIndexRange;
-    NSMutableArray *labelAnnotations;
-    CPTShadow *labelShadow;
-    BOOL alignsPointsToPixels;
-}
+@interface CPTPlot : CPTAnnotationHostLayer
 
 /// @name Data Source
 /// @{
@@ -222,12 +201,12 @@ CPTPlotCachePrecision;
 
 /// @name Plot Space
 /// @{
-@property (nonatomic, readwrite, retain) CPTPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong) CPTPlotSpace *plotSpace;
 /// @}
 
 /// @name Plot Area
 /// @{
-@property (nonatomic, readonly, retain) CPTPlotArea *plotArea;
+@property (nonatomic, readonly, strong) CPTPlotArea *plotArea;
 /// @}
 
 /// @name Data Loading
@@ -252,8 +231,8 @@ CPTPlotCachePrecision;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, retain) NSFormatter *labelFormatter;
-@property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
+@property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
 /// @}
 
 /// @name Drawing

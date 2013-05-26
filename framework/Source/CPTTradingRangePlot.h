@@ -192,20 +192,7 @@ CPTTradingRangePlotField;
 
 #pragma mark -
 
-@interface CPTTradingRangePlot : CPTPlot {
-    @private
-    CPTLineStyle *lineStyle;
-    CPTLineStyle *increaseLineStyle;
-    CPTLineStyle *decreaseLineStyle;
-    CPTFill *increaseFill;
-    CPTFill *decreaseFill;
-
-    CPTTradingRangePlotStyle plotStyle;
-
-    CGFloat barWidth;
-    CGFloat stickLength;
-    CGFloat barCornerRadius;
-}
+@interface CPTTradingRangePlot : CPTPlot
 
 /// @name Appearance
 /// @{

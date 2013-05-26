@@ -16,17 +16,34 @@
 #endif
 #endif
 
+@interface CPTImage()
+
+@property (nonatomic, readwrite, assign) CGFloat lastDrawnScale;
+
+@end
+
 /// @endcond
 
-/** @brief An immutable image.
+#pragma mark -
+
+/** @brief A bitmap image.
  *
- *  An immutable object wrapper class around @ref CGImageRef.
+ *  If initialized from a file or
+ *  @if MacOnly NSImage, @endif
+ *  @if iOSOnly UIImage, @endif
+ *  and an @2x version of the image file is available, the image will be rendered correctly on
+ *  Retina and non-Retina displays.
  **/
 
 @implementation CPTImage
 
+/** @property CPTNativeImage *nativeImage
+ *  @brief A platform-native representation of the image.
+ **/
+@synthesize nativeImage;
+
 /** @property CGImageRef image
- *  @brief The @ref CGImageRef to wrap around.
+ *  @brief The image drawn into a @ref CGImageRef.
  **/
 @synthesize image;
 
@@ -34,6 +51,11 @@
  *  @brief The image scale. Must be greater than zero.
  **/
 @synthesize scale;
+
+/** @property CGFloat lastDrawnScale
+ *  The scale factor used the last time the image was rendered into @ref image.
+ **/
+@synthesize lastDrawnScale;
 
 /** @property BOOL tiled
  *  @brief Draw as a tiled image?
@@ -58,6 +80,19 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
+/** @brief Initializes a CPTImage instance with the provided platform-native image.
+ *
+ *  @param anImage The platform-native image.
+ *  @return A CPTImage instance initialized with the provided image.
+ **/
+-(id)initWithNativeImage:(CPTNativeImage *)anImage
+{
+    if ( (self = [self init]) ) {
+        nativeImage = anImage;
+    }
+    return self;
+}
+
 /** @brief Initializes a CPTImage instance with the provided @ref CGImageRef.
  *
  *  This is the designated initializer.
@@ -72,8 +107,10 @@
 
     if ( (self = [super init]) ) {
         CGImageRetain(anImage);
+        nativeImage           = nil;
         image                 = anImage;
         scale                 = newScale;
+        lastDrawnScale        = newScale;
         tiled                 = NO;
         tileAnchoredToContext = YES;
     }
@@ -113,58 +150,7 @@
  **/
 -(id)initForPNGFile:(NSString *)path
 {
-    CGDataProviderRef dataProvider = NULL;
-    CGImageRef cgImage             = NULL;
-    CGFloat imageScale             = CPTFloat(1.0);
-
-    // Try to load @2x file if the system supports hi-dpi display
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    UIScreen *screen = [UIScreen mainScreen];
-    // scale property is available in iOS 4.0 and later
-    if ( [screen respondsToSelector:@selector(scale)] ) {
-        imageScale = screen.scale;
-    }
-#else
-    NSScreen *screen = [NSScreen mainScreen];
-    // backingScaleFactor property is available in MacOS 10.7 and later
-    if ( [screen respondsToSelector:@selector(backingScaleFactor)] ) {
-        imageScale = screen.backingScaleFactor;
-    }
-#endif
-
-    if ( imageScale > 1.0 ) {
-        NSMutableString *hiDpiPath = [path mutableCopy];
-        NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
-                                                                withString:@"@2x.png"
-                                                                   options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
-                                                                     range:NSMakeRange(hiDpiPath.length - 4, 4)];
-        if ( replaceCount == 1 ) {
-            dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
-        }
-        [hiDpiPath release];
-        if ( !dataProvider ) {
-            imageScale = CPTFloat(1.0);
-        }
-    }
-
-    // if hi-dpi display or @2x image not available, load the 1x image at the original path
-    if ( !dataProvider ) {
-        dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
-    if ( dataProvider ) {
-        cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
-    }
-
-    if ( cgImage ) {
-        self = [self initWithCGImage:cgImage scale:imageScale];
-    }
-    else {
-        [self release];
-        self = nil;
-    }
-    CGImageRelease(cgImage);
-    CGDataProviderRelease(dataProvider);
-    return self;
+    return [self initWithNativeImage:[[CPTNativeImage alloc] initWithContentsOfFile:path]];
 }
 
 /// @cond
@@ -172,13 +158,6 @@
 -(void)dealloc
 {
     CGImageRelease(image);
-    [super dealloc];
-}
-
--(void)finalize
-{
-    CGImageRelease(image);
-    [super finalize];
 }
 
 /// @endcond
@@ -190,17 +169,23 @@
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
+    [coder encodeObject:self.nativeImage forKey:@"CPTImage.nativeImage"];
     [coder encodeCGImage:self.image forKey:@"CPTImage.image"];
     [coder encodeCGFloat:self.scale forKey:@"CPTImage.scale"];
+    [coder encodeCGFloat:self.lastDrawnScale forKey:@"CPTImage.lastDrawnScale"];
     [coder encodeBool:self.tiled forKey:@"CPTImage.tiled"];
     [coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
+
+    // lastDrawnScale
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
+        nativeImage           = [[coder decodeObjectForKey:@"CPTImage.nativeImage"] copy];
         image                 = [coder newCGImageDecodeForKey:@"CPTImage.image"];
         scale                 = [coder decodeCGFloatForKey:@"CPTImage.scale"];
+        lastDrawnScale        = [coder decodeCGFloatForKey:@"CPTImage.lastDrawnScale"];
         tiled                 = [coder decodeBoolForKey:@"CPTImage.tiled"];
         tileAnchoredToContext = [coder decodeBoolForKey:@"CPTImage.tileAnchoredToContext"];
     }
@@ -218,8 +203,10 @@
 {
     CPTImage *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->image                 = CGImageCreateCopy(self.image);
+    copy->nativeImage           = [self->nativeImage copy];
+    copy->image                 = CGImageCreateCopy(self->image);
     copy->scale                 = self->scale;
+    copy->lastDrawnScale        = self->lastDrawnScale;
     copy->tiled                 = self->tiled;
     copy->tileAnchoredToContext = self->tileAnchoredToContext;
 
@@ -231,6 +218,26 @@
 #pragma mark -
 #pragma mark Factory Methods
 
+/** @brief Initializes a CPTImage instance with the named image.
+ *
+ *  @param name The name of the image to load.
+ *  @return A new CPTImage instance initialized with the named image.
+ **/
++(CPTImage *)imageNamed:(NSString *)name
+{
+    return [self imageWithNativeImage:[CPTNativeImage imageNamed:name]];
+}
+
+/** @brief Initializes a CPTImage instance with the provided platform-native image.
+ *
+ *  @param anImage The platform-native image.
+ *  @return A new CPTImage instance initialized with the provided image.
+ **/
++(CPTImage *)imageWithNativeImage:(CPTNativeImage *)anImage
+{
+    return [[self alloc] initWithNativeImage:anImage];
+}
+
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef.
  *  @param anImage The image to wrap.
  *  @param newScale The image scale.
@@ -238,7 +245,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
-    return [[[self alloc] initWithCGImage:anImage scale:newScale] autorelease];
+    return [[self alloc] initWithCGImage:anImage scale:newScale];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef and scale @num{1.0}.
@@ -247,7 +254,7 @@
  **/
 +(CPTImage *)imageWithCGImage:(CGImageRef)anImage
 {
-    return [[[self alloc] initWithCGImage:anImage] autorelease];
+    return [[self alloc] initWithCGImage:anImage];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the contents of a PNG file.
@@ -261,7 +268,7 @@
  **/
 +(CPTImage *)imageForPNGFile:(NSString *)path
 {
-    return [[[self alloc] initForPNGFile:path] autorelease];
+    return [[self alloc] initForPNGFile:path];
 }
 
 #pragma mark -
@@ -365,7 +372,7 @@
             CFDataRef otherProviderData     = CGDataProviderCopyData(otherProvider);
 
             if ( selfProviderData && otherProviderData ) {
-                equalImages = [(NSData *) selfProviderData isEqualToData:(NSData *)otherProviderData];
+                equalImages = [(__bridge NSData *) selfProviderData isEqualToData:(__bridge NSData *)otherProviderData];
             }
             else {
                 equalImages = (selfProviderData == otherProviderData);
@@ -417,7 +424,64 @@
         CGImageRetain(newImage);
         CGImageRelease(image);
         image = newImage;
+
+        nativeImage = nil;
     }
+}
+
+-(void)setNativeImage:(CPTNativeImage *)newImage
+{
+    if ( newImage != nativeImage ) {
+        nativeImage = [newImage copy];
+
+        CGImageRelease(image);
+        image = NULL;
+    }
+}
+
+-(CPTNativeImage *)nativeImage
+{
+    if ( !nativeImage ) {
+        CGImageRef imageRef = self.image;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        CGFloat theScale = self.scale;
+
+        if ( imageRef && ( theScale > CPTFloat(0.0) ) ) {
+            nativeImage = [UIImage imageWithCGImage:imageRef
+                                              scale:theScale
+                                        orientation:UIImageOrientationUp];
+        }
+#else
+        if ( [NSImage instancesRespondToSelector:@selector(initWithCGImage:size:)] ) {
+            nativeImage = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
+        }
+        else {
+            CGSize imageSize = CGSizeMake( CGImageGetWidth(imageRef), CGImageGetHeight(imageRef) );
+
+            NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                                 pixelsWide:(NSInteger)imageSize.width
+                                                                                 pixelsHigh:(NSInteger)imageSize.height
+                                                                              bitsPerSample:8
+                                                                            samplesPerPixel:4
+                                                                                   hasAlpha:YES
+                                                                                   isPlanar:NO
+                                                                             colorSpaceName:NSCalibratedRGBColorSpace
+                                                                                bytesPerRow:(NSInteger)imageSize.width * 4
+                                                                               bitsPerPixel:32];
+
+            NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+            CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
+
+            CGContextDrawImage(context, CPTRectMake(0.0, 0.0, imageSize.width, imageSize.height), imageRef);
+
+            nativeImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(imageSize)];
+            [nativeImage addRepresentation:imageRep];
+        }
+#endif
+    }
+
+    return nativeImage;
 }
 
 -(void)setScale:(CGFloat)newScale
@@ -444,17 +508,35 @@
  **/
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    CGImageRef theImage = self.image;
+    CPTNativeImage *theNativeImage = self.nativeImage;
+    CGImageRef theImage            = self.image;
 
+    // compute drawing scale
+    CGFloat lastScale    = self.lastDrawnScale;
+    CGFloat contextScale = CPTFloat(1.0);
+
+    if ( rect.size.height != CPTFloat(0.0) ) {
+        CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
+        contextScale = deviceRect.size.height / rect.size.height;
+    }
+
+    // generate a Core Graphics image if needed
+    if ( theNativeImage && ( !theImage || (contextScale != lastScale) ) ) {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        theImage = theNativeImage.CGImage;
+#else
+        NSRect drawingRect = NSZeroRect;
+        theImage = [theNativeImage CGImageForProposedRect:&drawingRect
+                                                  context:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]
+                                                    hints:nil];
+#endif
+        self.image = theImage;
+        self.scale = contextScale;
+    }
+
+    // draw the image
     if ( theImage ) {
-        CGFloat imageScale   = self.scale;
-        CGFloat contextScale = CPTFloat(1.0);
-
-        if ( rect.size.height != 0.0 ) {
-            CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
-            contextScale = deviceRect.size.height / rect.size.height;
-        }
-
+        CGFloat imageScale = self.scale;
         CGFloat scaleRatio = contextScale / imageScale;
 
         CGContextSaveGState(context);
@@ -475,6 +557,8 @@
         }
 
         CGContextRestoreGState(context);
+
+        self.lastDrawnScale = contextScale;
     }
 }
 

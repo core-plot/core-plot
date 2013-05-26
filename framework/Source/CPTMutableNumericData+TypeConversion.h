@@ -8,10 +8,10 @@
 
 /// @name Data Format
 /// @{
-@property (readwrite, assign) CPTNumericDataType dataType;
-@property (readwrite, assign) CPTDataTypeFormat dataTypeFormat;
-@property (readwrite, assign) size_t sampleBytes;
-@property (readwrite, assign) CFByteOrder byteOrder;
+@property (nonatomic, readwrite, assign) CPTNumericDataType dataType;
+@property (nonatomic, readwrite, assign) CPTDataTypeFormat dataTypeFormat;
+@property (nonatomic, readwrite, assign) size_t sampleBytes;
+@property (nonatomic, readwrite, assign) CFByteOrder byteOrder;
 /// @}
 
 /// @name Type Conversion

@@ -40,6 +40,8 @@ void drawErrorText(CGContextRef context, CGRect rect)
     CGContextRestoreGState(context);
 }
 
+#pragma mark -
+
 @implementation CorePlotQCPlugIn
 
 // TODO: Make the port accessors dynamic, that way certain inputs can be removed based on settings and subclasses won't need the @dynamic declarations
@@ -62,7 +64,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
 /*
  * Synthesized accessors for internal PlugIn settings
  */
-@synthesize numberOfPlots;
+@dynamic numberOfPlots;
 
 +(NSDictionary *)attributes
 {
@@ -112,15 +114,6 @@ void drawErrorText(CGContextRef context, CGRect rect)
     }
 
     return self;
-}
-
--(void)finalize
-{
-    /*
-     * Release any non garbage collected resources created in -init.
-     */
-
-    [super finalize];
 }
 
 -(void)dealloc
@@ -648,6 +641,11 @@ static void _BufferReleaseCallback(const void *address, void *context)
 #pragma mark -
 #pragma markMethods for dealing with plugin keys
 
+-(NSUInteger)numberOfPlots
+{
+    return numberOfPlots;
+}
+
 -(void)setNumberOfPlots:(NSUInteger)number
 {
     number = MAX(1, number);
@@ -775,6 +773,8 @@ static void _BufferReleaseCallback(const void *address, void *context)
 }
 
 @end
+
+#pragma mark -
 
 @implementation CorePlotQCPlugIn(Execution)
 

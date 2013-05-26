@@ -24,12 +24,6 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 @dynamic yRange;
 @synthesize plots;
 
--(void)dealloc
-{
-    self.plots = nil;
-    [super dealloc];
-}
-
 -(void)setUp
 {
     //check CPTDataSource conformance

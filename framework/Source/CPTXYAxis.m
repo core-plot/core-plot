@@ -82,15 +82,9 @@
         CPTXYAxis *theLayer = (CPTXYAxis *)layer;
 
         orthogonalCoordinateDecimal = theLayer->orthogonalCoordinateDecimal;
-        axisConstraints             = [theLayer->axisConstraints retain];
+        axisConstraints             = theLayer->axisConstraints;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [axisConstraints release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -112,7 +106,7 @@
 {
     if ( (self = [super initWithCoder:coder]) ) {
         orthogonalCoordinateDecimal = [coder decodeDecimalForKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
-        axisConstraints             = [[coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"] retain];
+        axisConstraints             = [coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"];
     }
     return self;
 }
@@ -315,7 +309,6 @@
         // given for grid lines and ticks.
         CPTPlotRange *theVisibleAxisRange = self.visibleAxisRange;
         if ( theVisibleAxisRange ) {
-            [range release];
             range = [theVisibleAxisRange mutableCopy];
         }
         if ( theLineStyle ) {
@@ -356,8 +349,6 @@
             [maxCap renderAsVectorInContext:context atPoint:viewPoint inDirection:axisDirection];
         }
     }
-
-    [range release];
 }
 
 /// @endcond
@@ -445,9 +436,6 @@
         // Stroke grid lines
         [lineStyle setLineStyleInContext:context];
         [lineStyle strokePathInContext:context];
-
-        [orthogonalRange release];
-        [labeledRange release];
     }
 }
 
@@ -500,7 +488,6 @@
                 sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
             }
             locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-            [sortDescriptor release];
 
             NSUInteger bandIndex = 0;
             id null              = [NSNull null];
@@ -578,9 +565,6 @@
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
-
-            [range release];
-            [orthogonalRange release];
         }
     }
 }
@@ -637,14 +621,9 @@
                                                    ABS(endViewPoint.x - startViewPoint.x),
                                                    ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
-
-                    [bandRange release];
                 }
             }
         }
-
-        [range release];
-        [orthogonalRange release];
     }
 }
 
@@ -727,8 +706,7 @@
 -(void)setAxisConstraints:(CPTConstraints *)newConstraints
 {
     if ( ![axisConstraints isEqualToConstraint:newConstraints] ) {
-        [axisConstraints release];
-        axisConstraints = [newConstraints retain];
+        axisConstraints = newConstraints;
         [self setNeedsDisplay];
         [self setNeedsLayout];
     }

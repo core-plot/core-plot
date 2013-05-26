@@ -220,11 +220,10 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [boundLinePlot bind:CPTScatterPlotBindingYValues toObject:self withKeyPath:@"arrangedObjects.y" options:nil];
 
     // Put an area gradient under the plot above
-    NSString *pathToFillImage = [[NSBundle mainBundle] pathForResource:@"BlueTexture" ofType:@"png"];
-    CPTImage *fillImage       = [CPTImage imageForPNGFile:pathToFillImage];
+    CPTImage *fillImage = [CPTImage imageNamed:@"BlueTexture"];
     fillImage.tiled = YES;
-    CPTFill *areaGradientFill = [CPTFill fillWithImage:fillImage];
-    boundLinePlot.areaFill      = areaGradientFill;
+    CPTFill *areaImageFill = [CPTFill fillWithImage:fillImage];
+    boundLinePlot.areaFill      = areaImageFill;
     boundLinePlot.areaBaseValue = [[NSDecimalNumber one] decimalValue];
 
     // Add plot symbols
@@ -267,8 +266,8 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     // Put an area gradient under the plot above
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle               = -90.0;
-    areaGradientFill                 = [CPTFill fillWithGradient:areaGradient];
+    areaGradient.angle = -90.0;
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 

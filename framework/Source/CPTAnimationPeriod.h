@@ -3,14 +3,7 @@
 @class CPTAnimationOperation;
 @class CPTPlotRange;
 
-@interface CPTAnimationPeriod : NSObject {
-    @private
-    NSValue *startValue;
-    NSValue *endValue;
-    CGFloat duration;
-    CGFloat delay;
-    CGFloat startOffset;
-}
+@interface CPTAnimationPeriod : NSObject
 
 /// @name Timing Values
 /// @{

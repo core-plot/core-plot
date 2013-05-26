@@ -93,7 +93,7 @@
  **/
 +(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
-    return [[[self alloc] initWithLocation:loc length:len] autorelease];
+    return [[self alloc] initWithLocation:loc length:len];
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.

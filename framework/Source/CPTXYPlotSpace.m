@@ -184,21 +184,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [xRange release];
-    [yRange release];
-    [globalXRange release];
-    [globalYRange release];
-    [animations release];
-
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -348,7 +333,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
         }
 
-        [xRange release];
         xRange = [constrainedRange copy];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
@@ -381,7 +365,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
         }
 
-        [yRange release];
         yRange = [constrainedRange copy];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
@@ -410,10 +393,10 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     }
 
     if ( CPTDecimalGreaterThanOrEqualTo(existingRange.length, globalRange.length) ) {
-        return [[globalRange copy] autorelease];
+        return [globalRange copy];
     }
     else {
-        CPTMutablePlotRange *newRange = [[existingRange mutableCopy] autorelease];
+        CPTMutablePlotRange *newRange = [existingRange mutableCopy];
         [newRange shiftEndToFitInRange:globalRange];
         [newRange shiftLocationToFitInRange:globalRange];
         return newRange;
@@ -457,13 +440,11 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             [animationArray addObject:op];
         }
     }
-    [newRange release];
 }
 
 -(void)setGlobalXRange:(CPTPlotRange *)newRange
 {
     if ( ![newRange isEqualToRange:globalXRange] ) {
-        [globalXRange release];
         globalXRange = [newRange copy];
         self.xRange  = [self constrainRange:self.xRange toGlobalRange:globalXRange];
     }
@@ -472,7 +453,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(void)setGlobalYRange:(CPTPlotRange *)newRange
 {
     if ( ![newRange isEqualToRange:globalYRange] ) {
-        [globalYRange release];
         globalYRange = [newRange copy];
         self.yRange  = [self constrainRange:self.yRange toGlobalRange:globalYRange];
     }
@@ -514,9 +494,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         }
         self.yRange = unionYRange;
     }
-
-    [unionXRange release];
-    [unionYRange release];
 }
 
 -(void)setXScaleType:(CPTScaleType)newScaleType
@@ -936,8 +913,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     }
 
     // New ranges
-    CPTPlotRange *newRangeX = [[[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX] autorelease];
-    CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY] autorelease];
+    CPTPlotRange *newRangeX = [[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX];
+    CPTPlotRange *newRangeY = [[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY];
 
     // Delegate may still veto/modify the range
     if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
@@ -1140,7 +1117,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
 
         // X range
-        NSLog(@"X");
         NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
         CPTPlotRange *newRangeX = [self  shiftRange:self.xRange
                                                  by:shiftX
@@ -1149,7 +1125,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                                    withDisplacement:&displacement.x];
 
         // Y range
-        NSLog(@"Y");
         NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
         CPTPlotRange *newRangeY = [self  shiftRange:self.yRange
                                                  by:shiftY
@@ -1205,13 +1180,11 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             }
         }
         else {
-            [constrainedRange retain];
-            [newRange release];
             newRange = (CPTMutablePlotRange *)constrainedRange;
         }
     }
 
-    return [newRange autorelease];
+    return newRange;
 }
 
 /// @}

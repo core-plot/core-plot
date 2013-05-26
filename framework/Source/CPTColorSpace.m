@@ -76,13 +76,6 @@
 -(void)dealloc
 {
     CGColorSpaceRelease(cgColorSpace);
-    [super dealloc];
-}
-
--(void)finalize
-{
-    CGColorSpaceRelease(cgColorSpace);
-    [super finalize];
 }
 
 /// @endcond
