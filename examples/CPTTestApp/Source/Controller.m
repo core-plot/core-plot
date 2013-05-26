@@ -288,6 +288,10 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
+    plotSpace.allowsMomentum      = YES;
+    plotSpace.elasticGlobalXRange = YES;
+    plotSpace.elasticGlobalYRange = YES;
+
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
     CPTPlotRange *xRange        = plotSpace.xRange;
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
@@ -295,8 +299,8 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
-    plotSpace.globalYRange = globalYRange;
+    plotSpace.globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(5.0)];
+    plotSpace.globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(6.0)];
 
     // set the x and y shift to match the new ranges
     CGFloat length = xRange.lengthDouble;
@@ -428,23 +432,6 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     else {
         return nil; // Use default label style
     }
-}
-
-#pragma mark -
-#pragma mark Plot Space Delegate Methods
-
--(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
-{
-    // Impose a limit on how far user can scroll in x
-    if ( coordinate == CPTCoordinateX ) {
-        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
-        CPTMutablePlotRange *changedRange = [newRange mutableCopy];
-        [changedRange shiftEndToFitInRange:maxRange];
-        [changedRange shiftLocationToFitInRange:maxRange];
-        newRange = changedRange;
-    }
-
-    return newRange;
 }
 
 #pragma mark -

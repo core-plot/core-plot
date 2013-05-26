@@ -3,10 +3,10 @@
 
 // cache common values to improve performance
 
-#define kCacheSize 3 ///< @hideinitializer The size of the decimal number cache used by various utility functions.
+#define kCacheSize 4 ///< @hideinitializer The size of the decimal number cache used by various utility functions.
 
 static NSDecimal cache[kCacheSize];
-static BOOL cacheValueInitialized[kCacheSize] = { NO, NO, NO };
+static BOOL cacheValueInitialized[kCacheSize] = { NO, NO, NO, NO };
 
 #pragma mark -
 #pragma mark Convert NSDecimal to primitive types
@@ -571,6 +571,53 @@ BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
 NSDecimal CPTDecimalNaN(void)
 {
     return [[NSDecimalNumber notANumber] decimalValue];
+}
+
+/**
+ *  @brief Determines the smaller of two @ref NSDecimal values.
+ *  @param leftOperand The first value to compare.
+ *  @param rightOperand The second value to compare.
+ *  @return The smaller of the two arguments.
+ **/
+NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+    if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending ) {
+        return leftOperand;
+    }
+    else {
+        return rightOperand;
+    }
+}
+
+/**
+ *  @brief Determines the larger of two @ref NSDecimal values.
+ *  @param leftOperand The first value to compare.
+ *  @param rightOperand The second value to compare.
+ *  @return The larger of the two arguments.
+ **/
+NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
+{
+    if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending ) {
+        return leftOperand;
+    }
+    else {
+        return rightOperand;
+    }
+}
+
+/**
+ *  @brief Determines the absolute value of an @ref NSDecimal value.
+ *  @param value The input value for the calculation.
+ *  @return The absolute value of the argument.
+ **/
+NSDecimal CPTDecimalAbs(NSDecimal value)
+{
+    if ( CPTDecimalGreaterThanOrEqualTo( value, CPTDecimalFromInteger(0) ) ) {
+        return value;
+    }
+    else {
+        return CPTDecimalMultiply( value, CPTDecimalFromInteger(-1) );
+    }
 }
 
 #pragma mark -
