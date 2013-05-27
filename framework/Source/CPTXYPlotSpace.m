@@ -1058,7 +1058,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                 CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
                 CGPoint displacement    = self.lastDisplacement;
 
-                CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / self.lastDeltaTime;
+                CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(self.lastDeltaTime);
                 CGFloat acceleration     = speed / kCPTMomentumTime;
                 CGFloat distanceTraveled = speed * kCPTMomentumTime - CPTFloat(0.5) * acceleration * kCPTMomentumTime * kCPTMomentumTime;
                 distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
