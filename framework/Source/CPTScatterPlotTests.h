@@ -1,12 +1,9 @@
 #import "CPTTestCase.h"
 #import <CorePlot/CorePlot.h>
 
-@interface CPTScatterPlotTests : CPTTestCase {
-    CPTScatterPlot *plot;
-    CPTXYPlotSpace *plotSpace;
-}
+@interface CPTScatterPlotTests : CPTTestCase
 
-@property (retain) CPTScatterPlot *plot;
-@property (retain) CPTXYPlotSpace *plotSpace;
+@property (strong) CPTScatterPlot *plot;
+@property (strong) CPTXYPlotSpace *plotSpace;
 
 @end

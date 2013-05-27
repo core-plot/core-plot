@@ -1,7 +1,4 @@
-@interface CPTColor : NSObject<NSCopying, NSCoding> {
-    @private
-    CGColorRef cgColor;
-}
+@interface CPTColor : NSObject<NSCopying, NSCoding>
 
 @property (nonatomic, readonly, assign) CGColorRef cgColor;
 

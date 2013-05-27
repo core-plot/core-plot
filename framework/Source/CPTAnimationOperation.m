@@ -67,17 +67,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [period release];
-    [boundObject release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark Description
 

@@ -2,13 +2,7 @@
 
 @class CPTColor;
 
-@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @protected
-    NSString *fontName;
-    CGFloat fontSize;
-    CPTColor *color;
-    CPTTextAlignment textAlignment;
-}
+@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
 @property (readonly, copy, nonatomic) NSString *fontName;
 @property (readonly, assign, nonatomic) CGFloat fontSize;

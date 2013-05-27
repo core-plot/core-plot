@@ -78,12 +78,10 @@
     boundLinePlot.dataSource    = self;
     [graph addPlot:boundLinePlot];
 
-    // Do a blue gradient
-    CPTColor *areaColor1       = [CPTColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
-    CPTGradient *areaGradient1 = [CPTGradient gradientWithBeginningColor:areaColor1 endingColor:[CPTColor clearColor]];
-    areaGradient1.angle = -90.0f;
-    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient1];
-    boundLinePlot.areaFill      = areaGradientFill;
+    CPTImage *fillImage = [CPTImage imageNamed:@"BlueTexture"];
+    fillImage.tiled = YES;
+    CPTFill *areaImageFill = [CPTFill fillWithImage:fillImage];
+    boundLinePlot.areaFill      = areaImageFill;
     boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
 
     // Add plot symbols
@@ -108,8 +106,8 @@
     // Put an area gradient under the plot above
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle               = -90.0f;
-    areaGradientFill                 = [CPTFill fillWithGradient:areaGradient];
+    areaGradient.angle = -90.0f;
+    CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
 

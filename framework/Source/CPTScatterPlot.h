@@ -109,17 +109,7 @@ CPTScatterPlotInterpolation;
 
 #pragma mark -
 
-@interface CPTScatterPlot : CPTPlot {
-    @private
-    CPTScatterPlotInterpolation interpolation;
-    CPTLineStyle *dataLineStyle;
-    CPTPlotSymbol *plotSymbol;
-    CPTFill *areaFill;
-    CPTFill *areaFill2;
-    NSDecimal areaBaseValue;
-    NSDecimal areaBaseValue2;
-    CGFloat plotSymbolMarginForHitDetection;
-}
+@interface CPTScatterPlot : CPTPlot
 
 /// @name Appearance
 /// @{

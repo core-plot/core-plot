@@ -15,7 +15,7 @@
     CFDataRef iccProfile    = CGColorSpaceCopyICCProfile(colorSpace.cgColorSpace);
     CFDataRef newIccProfile = CGColorSpaceCopyICCProfile(newColorSpace.cgColorSpace);
 
-    STAssertTrue([(NSData *) iccProfile isEqualToData:(NSData *)newIccProfile], @"Color spaces not equal");
+    STAssertTrue([(__bridge NSData *) iccProfile isEqualToData:(__bridge NSData *)newIccProfile], @"Color spaces not equal");
 
     CFRelease(iccProfile);
     CFRelease(newIccProfile);
