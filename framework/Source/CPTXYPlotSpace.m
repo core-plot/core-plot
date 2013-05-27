@@ -374,7 +374,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     if ( ![range isEqualToRange:yRange] ) {
         CPTPlotRange *constrainedRange;
 
-        if ( self.elasticGlobalXRange ) {
+        if ( self.elasticGlobalYRange ) {
             constrainedRange = range;
         }
         else {
