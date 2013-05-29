@@ -1933,7 +1933,7 @@ NSDecimal niceNum(NSDecimal x)
 
 -(void)setMinorTickLocations:(NSSet *)newLocations
 {
-    if ( newLocations != majorTickLocations ) {
+    if ( newLocations != minorTickLocations ) {
         minorTickLocations = newLocations;
         if ( self.separateLayers ) {
             [self.minorGridLines setNeedsDisplay];
