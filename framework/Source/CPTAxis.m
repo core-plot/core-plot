@@ -1997,7 +1997,7 @@ NSDecimal niceNum(NSDecimal x)
 
 -(void)setMinorTickLocations:(NSSet *)newLocations
 {
-    if ( newLocations != majorTickLocations ) {
+    if ( newLocations != minorTickLocations ) {
         [minorTickLocations release];
         minorTickLocations = [newLocations retain];
         if ( self.separateLayers ) {
