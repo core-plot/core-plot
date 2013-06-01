@@ -117,24 +117,24 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 -(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-    graph.title = title;
+    graph.title = self.title;
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color                = [CPTColor grayColor];
     textStyle.fontName             = @"Helvetica-Bold";
-    textStyle.fontSize             = round(bounds.size.height / (CGFloat)20.0);
+    textStyle.fontSize             = round( bounds.size.height / CPTFloat(20.0) );
     graph.titleTextStyle           = textStyle;
-    graph.titleDisplacement        = CGPointMake( 0.0f, round(bounds.size.height / (CGFloat)18.0) ); // Ensure that title displacement falls on an integral pixel
+    graph.titleDisplacement        = CPTPointMake( 0.0, textStyle.fontSize * CPTFloat(1.5) );
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 }
 
 -(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
 {
-    CGFloat boundsPadding = round(bounds.size.width / (CGFloat)20.0); // Ensure that padding falls on an integral pixel
+    CGFloat boundsPadding = round( bounds.size.width / CPTFloat(20.0) ); // Ensure that padding falls on an integral pixel
 
     graph.paddingLeft = boundsPadding;
 
     if ( graph.titleDisplacement.y > 0.0 ) {
-        graph.paddingTop = graph.titleDisplacement.y * 2;
+        graph.paddingTop = graph.titleTextStyle.fontSize * 2.0;
     }
     else {
         graph.paddingTop = boundsPadding;

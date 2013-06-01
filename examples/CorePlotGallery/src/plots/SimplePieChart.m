@@ -59,25 +59,11 @@
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    graph.title = self.title;
-    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color                = [CPTColor grayColor];
-    textStyle.fontName             = @"Helvetica-Bold";
-    textStyle.fontSize             = bounds.size.height / 20.0f;
-    graph.titleTextStyle           = textStyle;
-    graph.titleDisplacement        = CGPointMake(0.0f, bounds.size.height / 18.0f);
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+    [self setTitleDefaultsForGraph:graph withBounds:bounds];
+    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
     graph.plotAreaFrame.masksToBorder = NO;
-
-    // Graph padding
-    CGFloat boundsPadding = bounds.size.width / 20.0f;
-    graph.paddingLeft   = boundsPadding;
-    graph.paddingTop    = graph.titleDisplacement.y * 2;
-    graph.paddingRight  = boundsPadding;
-    graph.paddingBottom = boundsPadding;
-
-    graph.axisSet = nil;
+    graph.axisSet                     = nil;
 
     // Overlay gradient for pie chart
     CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
@@ -114,7 +100,7 @@
     graph.legend = theLegend;
 
     graph.legendAnchor       = CPTRectAnchorRight;
-    graph.legendDisplacement = CGPointMake(-boundsPadding - 10.0, 0.0);
+    graph.legendDisplacement = CGPointMake(-graph.paddingRight - 10.0, 0.0);
 }
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
