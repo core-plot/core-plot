@@ -2,17 +2,6 @@
 
 #import "NSCoderExtensions.h"
 
-/// @cond
-@interface CPTColorSpace()
-
-@property (nonatomic, readwrite, assign) CGColorSpaceRef cgColorSpace;
-
-@end
-
-/// @endcond
-
-#pragma mark -
-
 /** @brief An immutable color space.
  *
  *  An immutable object wrapper class around @ref CGColorSpaceRef.
@@ -96,22 +85,6 @@
         cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
     }
     return self;
-}
-
-/// @endcond
-
-#pragma mark -
-#pragma mark Accessors
-
-/// @cond
-
--(void)setCGColorSpace:(CGColorSpaceRef)newSpace
-{
-    if ( newSpace != cgColorSpace ) {
-        CGColorSpaceRelease(cgColorSpace);
-        CGColorSpaceRetain(newSpace);
-        cgColorSpace = newSpace;
-    }
 }
 
 /// @endcond

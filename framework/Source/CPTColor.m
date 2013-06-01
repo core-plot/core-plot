@@ -389,8 +389,10 @@
 {
     CGColorRef cgColorCopy = NULL;
 
-    if ( cgColor ) {
-        cgColorCopy = CGColorCreateCopy(cgColor);
+    CGColorRef myColor = self.cgColor;
+
+    if ( myColor ) {
+        cgColorCopy = CGColorCreateCopy(myColor);
     }
     CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithCGColor:cgColorCopy];
     CGColorRelease(cgColorCopy);

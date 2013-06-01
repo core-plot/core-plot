@@ -127,9 +127,9 @@
 {
     CPTShadow *shadowCopy = [[CPTShadow allocWithZone:zone] init];
 
-    shadowCopy->shadowOffset     = self->shadowOffset;
-    shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor      = [self->shadowColor copy];
+    shadowCopy.shadowOffset     = self.shadowOffset;
+    shadowCopy.shadowBlurRadius = self.shadowBlurRadius;
+    shadowCopy.shadowColor      = self.shadowColor;
 
     return shadowCopy;
 }
@@ -145,9 +145,9 @@
 {
     CPTShadow *shadowCopy = [[CPTMutableShadow allocWithZone:zone] init];
 
-    shadowCopy->shadowOffset     = self->shadowOffset;
-    shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor      = [self->shadowColor copy];
+    shadowCopy.shadowOffset     = self.shadowOffset;
+    shadowCopy.shadowBlurRadius = self.shadowBlurRadius;
+    shadowCopy.shadowColor      = self.shadowColor;
 
     return shadowCopy;
 }

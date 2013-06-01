@@ -9,6 +9,8 @@
 
 @property (nonatomic, readwrite) NSDecimal location;
 @property (nonatomic, readwrite) NSDecimal length;
+@property (nonatomic, readwrite) double locationDouble;
+@property (nonatomic, readwrite) double lengthDouble;
 
 @end
 
@@ -138,16 +140,16 @@
 -(void)setLocation:(NSDecimal)newLocation
 {
     if ( !CPTDecimalEquals(location, newLocation) ) {
-        location       = newLocation;
-        locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLocation] doubleValue];
+        location            = newLocation;
+        self.locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLocation] doubleValue];
     }
 }
 
 -(void)setLength:(NSDecimal)newLength
 {
     if ( !CPTDecimalEquals(length, newLength) ) {
-        length       = newLength;
-        lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLength] doubleValue];
+        length            = newLength;
+        self.lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLength] doubleValue];
     }
 }
 
@@ -235,10 +237,10 @@
     CPTPlotRange *newRange = [[CPTPlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
-        newRange->location       = self->location;
-        newRange->length         = self->length;
-        newRange->locationDouble = self->locationDouble;
-        newRange->lengthDouble   = self->lengthDouble;
+        newRange.location       = self.location;
+        newRange.length         = self.length;
+        newRange.locationDouble = self.locationDouble;
+        newRange.lengthDouble   = self.lengthDouble;
     }
     return newRange;
 }
@@ -255,10 +257,10 @@
     CPTPlotRange *newRange = [[CPTMutablePlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
-        newRange->location       = self->location;
-        newRange->length         = self->length;
-        newRange->locationDouble = self->locationDouble;
-        newRange->lengthDouble   = self->lengthDouble;
+        newRange.location       = self.location;
+        newRange.length         = self.length;
+        newRange.locationDouble = self.locationDouble;
+        newRange.lengthDouble   = self.lengthDouble;
     }
     return newRange;
 }
@@ -422,10 +424,13 @@
 
 -(NSString *)description
 {
+    NSDecimal myLocation = self.location;
+    NSDecimal myLength   = self.length;
+
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
             [super description],
-            NSDecimalString(&location, [NSLocale currentLocale]),
-            NSDecimalString(&length, [NSLocale currentLocale])];
+            NSDecimalString(&myLocation, [NSLocale currentLocale]),
+            NSDecimalString(&myLength, [NSLocale currentLocale])];
 }
 
 /// @endcond

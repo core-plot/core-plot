@@ -164,26 +164,29 @@
  **/
 -(void)setLineStyleInContext:(CGContextRef)context
 {
-    CGContextSetLineCap(context, lineCap);
-    CGContextSetLineJoin(context, lineJoin);
-    CGContextSetMiterLimit(context, miterLimit);
-    CGContextSetLineWidth(context, lineWidth);
-    NSUInteger dashCount = dashPattern.count;
+    CGContextSetLineCap(context, self.lineCap);
+    CGContextSetLineJoin(context, self.lineJoin);
+    CGContextSetMiterLimit(context, self.miterLimit);
+    CGContextSetLineWidth(context, self.lineWidth);
+
+    NSArray *myDashPattern = self.dashPattern;
+
+    NSUInteger dashCount = myDashPattern.count;
     if ( dashCount > 0 ) {
         CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
 
         NSUInteger dashCounter = 0;
-        for ( NSNumber *currentDashLength in dashPattern ) {
+        for ( NSNumber *currentDashLength in myDashPattern ) {
             dashLengths[dashCounter++] = [currentDashLength cgFloatValue];
         }
 
-        CGContextSetLineDash(context, patternPhase, dashLengths, dashCount);
+        CGContextSetLineDash(context, self.patternPhase, dashLengths, dashCount);
         free(dashLengths);
     }
     else {
         CGContextSetLineDash(context, CPTFloat(0.0), NULL, 0);
     }
-    CGContextSetStrokeColorWithColor(context, lineColor.cgColor);
+    CGContextSetStrokeColorWithColor(context, self.lineColor.cgColor);
 }
 
 /** @brief Stroke the current path in the given graphics context.
@@ -234,14 +237,14 @@
 {
     CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
 
-    styleCopy->lineCap      = self->lineCap;
-    styleCopy->lineJoin     = self->lineJoin;
-    styleCopy->miterLimit   = self->miterLimit;
-    styleCopy->lineWidth    = self->lineWidth;
-    styleCopy->dashPattern  = [self->dashPattern copy];
-    styleCopy->patternPhase = self->patternPhase;
-    styleCopy->lineColor    = [self->lineColor copy];
-    styleCopy->lineFill     = [self->lineFill copy];
+    styleCopy.lineCap      = self.lineCap;
+    styleCopy.lineJoin     = self.lineJoin;
+    styleCopy.miterLimit   = self.miterLimit;
+    styleCopy.lineWidth    = self.lineWidth;
+    styleCopy.dashPattern  = self.dashPattern;
+    styleCopy.patternPhase = self.patternPhase;
+    styleCopy.lineColor    = self.lineColor;
+    styleCopy.lineFill     = self.lineFill;
 
     return styleCopy;
 }
@@ -257,14 +260,14 @@
 {
     CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
 
-    styleCopy->lineCap      = self->lineCap;
-    styleCopy->lineJoin     = self->lineJoin;
-    styleCopy->miterLimit   = self->miterLimit;
-    styleCopy->lineWidth    = self->lineWidth;
-    styleCopy->dashPattern  = [self->dashPattern copy];
-    styleCopy->patternPhase = self->patternPhase;
-    styleCopy->lineColor    = [self->lineColor copy];
-    styleCopy->lineFill     = [self->lineFill copy];
+    styleCopy.lineCap      = self.lineCap;
+    styleCopy.lineJoin     = self.lineJoin;
+    styleCopy.miterLimit   = self.miterLimit;
+    styleCopy.lineWidth    = self.lineWidth;
+    styleCopy.dashPattern  = self.dashPattern;
+    styleCopy.patternPhase = self.patternPhase;
+    styleCopy.lineColor    = self.lineColor;
+    styleCopy.lineFill     = self.lineFill;
 
     return styleCopy;
 }

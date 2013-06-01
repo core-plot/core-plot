@@ -1628,6 +1628,7 @@
 					"-Wextra",
 					"-Wno-unused-parameter",
 					"-Wobjc-interface-ivars",
+					"-Wdirect-ivar-access",
 				);
 				PRODUCT_NAME = CorePlot;
 				WRAPPER_EXTENSION = framework;
@@ -1658,6 +1659,7 @@
 					"-Wextra",
 					"-Wno-unused-parameter",
 					"-Wobjc-interface-ivars",
+					"-Wdirect-ivar-access",
 				);
 				PRODUCT_NAME = CorePlot;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";

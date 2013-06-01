@@ -41,6 +41,8 @@
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableBackgroundLimitBands;
 @property (nonatomic, readonly) CGFloat tickOffset;
+@property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
+@property (nonatomic, readwrite, assign) BOOL labelsUpdated;
 
 -(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
 -(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
@@ -418,6 +420,9 @@ NSDecimal niceNum(NSDecimal x);
  **/
 @dynamic axisSet;
 
+@synthesize inTitleUpdate;
+@synthesize labelsUpdated;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -541,6 +546,8 @@ NSDecimal niceNum(NSDecimal x);
         mutableBackgroundLimitBands = nil;
         minorGridLines              = nil;
         majorGridLines              = nil;
+        inTitleUpdate               = NO;
+        labelsUpdated               = NO;
 
         self.needsDisplayOnBoundsChange = YES;
     }
@@ -607,6 +614,8 @@ NSDecimal niceNum(NSDecimal x);
         mutableBackgroundLimitBands = theLayer->mutableBackgroundLimitBands;
         minorGridLines              = theLayer->minorGridLines;
         majorGridLines              = theLayer->majorGridLines;
+        inTitleUpdate               = theLayer->inTitleUpdate;
+        labelsUpdated               = theLayer->labelsUpdated;
     }
     return self;
 }
@@ -686,6 +695,10 @@ NSDecimal niceNum(NSDecimal x);
     [coder encodeConditionalObject:self.plotArea forKey:@"CPTAxis.plotArea"];
     [coder encodeConditionalObject:self.minorGridLines forKey:@"CPTAxis.minorGridLines"];
     [coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
+
+    // No need to archive these properties:
+    // inTitleUpdate
+    // labelsUpdated
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -744,6 +757,9 @@ NSDecimal niceNum(NSDecimal x);
         plotArea                    = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
         minorGridLines              = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
         majorGridLines              = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
+
+        inTitleUpdate = NO;
+        labelsUpdated = NO;
     }
     return self;
 }
@@ -1379,22 +1395,16 @@ NSDecimal niceNum(NSDecimal x)
         [label.contentLayer removeFromSuperlayer];
     }
 
-    // do not use accessor because we've already updated the layer hierarchy
+    self.labelsUpdated = YES;
     if ( useMajorAxisLabels ) {
-        axisLabels                 = newAxisLabels;
+        self.axisLabels            = newAxisLabels;
         self.labelFormatterChanged = NO;
     }
     else {
-        minorTickAxisLabels             = newAxisLabels;
+        self.minorTickAxisLabels        = newAxisLabels;
         self.minorLabelFormatterChanged = NO;
     }
-
-    if ( useMajorAxisLabels ) {
-        [self updateMajorTickLabels];
-    }
-    else {
-        [self updateMinorTickLabels];
-    }
+    self.labelsUpdated = NO;
 }
 
 /// @endcond
@@ -1654,29 +1664,34 @@ NSDecimal niceNum(NSDecimal x)
 -(void)setAxisLabels:(NSSet *)newLabels
 {
     if ( newLabels != axisLabels ) {
-        for ( CPTAxisLabel *label in axisLabels ) {
-            [label.contentLayer removeFromSuperlayer];
+        if ( self.labelsUpdated ) {
+            axisLabels = newLabels;
         }
-
-        axisLabels = newLabels;
-
-        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
-
-        if ( axisLabels ) {
-            CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
-            CALayer *lastLayer                = nil;
-
+        else {
             for ( CPTAxisLabel *label in axisLabels ) {
-                CPTLayer *contentLayer = label.contentLayer;
-                if ( contentLayer ) {
-                    if ( lastLayer ) {
-                        [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
-                    }
-                    else {
-                        [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
-                    }
+                [label.contentLayer removeFromSuperlayer];
+            }
 
-                    lastLayer = contentLayer;
+            axisLabels = newLabels;
+
+            [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+
+            if ( axisLabels ) {
+                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CALayer *lastLayer                = nil;
+
+                for ( CPTAxisLabel *label in axisLabels ) {
+                    CPTLayer *contentLayer = label.contentLayer;
+                    if ( contentLayer ) {
+                        if ( lastLayer ) {
+                            [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+                        }
+                        else {
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                        }
+
+                        lastLayer = contentLayer;
+                    }
                 }
             }
         }
@@ -1688,29 +1703,34 @@ NSDecimal niceNum(NSDecimal x)
 -(void)setMinorTickAxisLabels:(NSSet *)newLabels
 {
     if ( newLabels != minorTickAxisLabels ) {
-        for ( CPTAxisLabel *label in minorTickAxisLabels ) {
-            [label.contentLayer removeFromSuperlayer];
+        if ( self.labelsUpdated ) {
+            minorTickAxisLabels = newLabels;
         }
-
-        minorTickAxisLabels = newLabels;
-
-        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
-
-        if ( minorTickAxisLabels ) {
-            CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
-            CALayer *lastLayer                = nil;
-
+        else {
             for ( CPTAxisLabel *label in minorTickAxisLabels ) {
-                CPTLayer *contentLayer = label.contentLayer;
-                if ( contentLayer ) {
-                    if ( lastLayer ) {
-                        [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
-                    }
-                    else {
-                        [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
-                    }
+                [label.contentLayer removeFromSuperlayer];
+            }
 
-                    lastLayer = contentLayer;
+            minorTickAxisLabels = newLabels;
+
+            [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+
+            if ( minorTickAxisLabels ) {
+                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CALayer *lastLayer                = nil;
+
+                for ( CPTAxisLabel *label in minorTickAxisLabels ) {
+                    CPTLayer *contentLayer = label.contentLayer;
+                    if ( contentLayer ) {
+                        if ( lastLayer ) {
+                            [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
+                        }
+                        else {
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                        }
+
+                        lastLayer = contentLayer;
+                    }
                 }
             }
         }
@@ -1798,12 +1818,16 @@ NSDecimal niceNum(NSDecimal x)
     if ( newStyle != titleTextStyle ) {
         titleTextStyle = [newStyle copy];
 
-        attributedTitle = nil;
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate   = YES;
+            self.attributedTitle = nil;
+            self.inTitleUpdate   = NO;
 
-        CPTLayer *contentLayer = self.axisTitle.contentLayer;
-        if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
-            ( (CPTTextLayer *)contentLayer ).textStyle = titleTextStyle;
-            [self updateAxisTitle];
+            CPTLayer *contentLayer = self.axisTitle.contentLayer;
+            if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
+                ( (CPTTextLayer *)contentLayer ).textStyle = titleTextStyle;
+                [self updateAxisTitle];
+            }
         }
     }
 }
@@ -1832,16 +1856,22 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newTitle != title ) {
         title = [newTitle copy];
-        if ( title == nil ) {
-            self.axisTitle = nil;
-        }
 
-        attributedTitle = nil;
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate   = YES;
+            self.attributedTitle = nil;
+            self.inTitleUpdate   = NO;
 
-        CPTLayer *contentLayer = self.axisTitle.contentLayer;
-        if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
-            ( (CPTTextLayer *)contentLayer ).text = title;
-            [self updateAxisTitle];
+            if ( title ) {
+                CPTLayer *contentLayer = self.axisTitle.contentLayer;
+                if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
+                    ( (CPTTextLayer *)contentLayer ).text = title;
+                    [self updateAxisTitle];
+                }
+            }
+            else {
+                self.axisTitle = nil;
+            }
         }
     }
 }
@@ -1851,22 +1881,28 @@ NSDecimal niceNum(NSDecimal x)
     if ( newTitle != attributedTitle ) {
         attributedTitle = [newTitle copy];
 
-        if ( attributedTitle ) {
-            titleTextStyle = [CPTTextStyle textStyleWithAttributes:[attributedTitle attributesAtIndex:0
-                                                                                       effectiveRange:NULL]];
-            title = [attributedTitle.string copy];
-        }
-        else {
-            titleTextStyle = nil;
-            title          = nil;
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate = YES;
 
-            self.axisTitle = nil;
-        }
+            if ( attributedTitle ) {
+                self.titleTextStyle = [CPTTextStyle textStyleWithAttributes:[attributedTitle attributesAtIndex:0
+                                                                                                effectiveRange:NULL]];
+                self.title = attributedTitle.string;
 
-        CPTLayer *contentLayer = self.axisTitle.contentLayer;
-        if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
-            ( (CPTTextLayer *)contentLayer ).attributedText = attributedTitle;
-            [self updateAxisTitle];
+                CPTLayer *contentLayer = self.axisTitle.contentLayer;
+                if ( [contentLayer isKindOfClass:[CPTTextLayer class]] ) {
+                    ( (CPTTextLayer *)contentLayer ).attributedText = attributedTitle;
+                    [self updateAxisTitle];
+                }
+            }
+            else {
+                self.titleTextStyle = nil;
+                self.title          = nil;
+
+                self.axisTitle = nil;
+            }
+
+            self.inTitleUpdate = NO;
         }
     }
 }
@@ -2233,12 +2269,7 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( newMinorTickLabelFormatter != minorTickLabelFormatter ) {
         minorTickLabelFormatter = newMinorTickLabelFormatter;
-        if ( !newMinorTickLabelFormatter ) {
-            for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-                [label.contentLayer removeFromSuperlayer];
-            }
-            minorTickAxisLabels = [NSSet set];
-        }
+
         self.minorLabelFormatterChanged = YES;
         self.needsRelabel               = YES;
     }

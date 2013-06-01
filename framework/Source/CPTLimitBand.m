@@ -55,8 +55,8 @@
     CPTLimitBand *newBand = [[CPTLimitBand allocWithZone:zone] init];
 
     if ( newBand ) {
-        newBand->range = [self->range copyWithZone:zone];
-        newBand->fill  = [self->fill copyWithZone:zone];
+        newBand.range = self.range;
+        newBand.fill  = self.fill;
     }
     return newBand;
 }
@@ -71,12 +71,12 @@
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
     if ( [encoder allowsKeyedCoding] ) {
-        [encoder encodeObject:range forKey:@"CPTLimitBand.range"];
-        [encoder encodeObject:fill forKey:@"CPTLimitBand.fill"];
+        [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
+        [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
     }
     else {
-        [encoder encodeObject:range];
-        [encoder encodeObject:fill];
+        [encoder encodeObject:self.range];
+        [encoder encodeObject:self.fill];
     }
 }
 

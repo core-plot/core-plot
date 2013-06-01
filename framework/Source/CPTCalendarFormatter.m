@@ -114,10 +114,10 @@
     CPTCalendarFormatter *newFormatter = [[CPTCalendarFormatter allocWithZone:zone] init];
 
     if ( newFormatter ) {
-        newFormatter->dateFormatter         = [self->dateFormatter copyWithZone:zone];
-        newFormatter->referenceDate         = [self->referenceDate copyWithZone:zone];
-        newFormatter->referenceCalendar     = [self->referenceCalendar copyWithZone:zone];
-        newFormatter->referenceCalendarUnit = self->referenceCalendarUnit;
+        newFormatter.dateFormatter         = self.dateFormatter;
+        newFormatter.referenceDate         = self.referenceDate;
+        newFormatter.referenceCalendar     = self.referenceCalendar;
+        newFormatter.referenceCalendarUnit = self.referenceCalendarUnit;
     }
     return newFormatter;
 }

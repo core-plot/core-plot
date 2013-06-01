@@ -65,15 +65,15 @@
 
 -(void)commonInit
 {
-    hostedGraph     = nil;
-    collapsesLayers = NO;
+    self.hostedGraph     = nil;
+    self.collapsesLayers = NO;
 
     self.backgroundColor = [UIColor clearColor];
 
     self.allowPinchScaling = YES;
 
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
-    self.layer.sublayerTransform = CATransform3DMakeScale( (CGFloat)1.0, (CGFloat) - 1.0, (CGFloat)1.0 );
+    self.layer.sublayerTransform = CATransform3DMakeScale( CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0) );
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -302,7 +302,7 @@
         hostedGraph.contentsScale = screen.scale;
     }
     else {
-        hostedGraph.contentsScale = (CGFloat)1.0;
+        hostedGraph.contentsScale = CPTFloat(1.0);
     }
     hostedGraph.hostingView = self;
 

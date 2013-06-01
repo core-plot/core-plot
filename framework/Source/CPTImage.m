@@ -203,12 +203,20 @@
 {
     CPTImage *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->nativeImage           = [self->nativeImage copy];
-    copy->image                 = CGImageCreateCopy(self->image);
-    copy->scale                 = self->scale;
-    copy->lastDrawnScale        = self->lastDrawnScale;
-    copy->tiled                 = self->tiled;
-    copy->tileAnchoredToContext = self->tileAnchoredToContext;
+    CPTNativeImage *theNativeImage = self.nativeImage;
+
+    if ( theNativeImage ) {
+        copy.nativeImage = theNativeImage;
+    }
+    else {
+        CGImageRef imageCopy = CGImageCreateCopy(self.image);
+        self.image = imageCopy;
+        CGImageRelease(imageCopy);
+    }
+    copy.scale                 = self.scale;
+    copy.lastDrawnScale        = self.lastDrawnScale;
+    copy.tiled                 = self.tiled;
+    copy.tileAnchoredToContext = self.tileAnchoredToContext;
 
     return copy;
 }
@@ -425,17 +433,18 @@
         CGImageRelease(image);
         image = newImage;
 
-        nativeImage = nil;
+        self.nativeImage = nil;
     }
 }
 
 -(void)setNativeImage:(CPTNativeImage *)newImage
 {
     if ( newImage != nativeImage ) {
-        nativeImage = [newImage copy];
+        self.image = NULL;
 
-        CGImageRelease(image);
-        image = NULL;
+        if ( newImage ) {
+            nativeImage = [newImage copy];
+        }
     }
 }
 

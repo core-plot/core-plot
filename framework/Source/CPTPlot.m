@@ -58,6 +58,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @property (nonatomic, readwrite, copy) NSArray *dataLabels;
 
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
+@property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
 -(CPTMutableNumericData *)numericDataForNumbers:(id)numbers;
 -(void)setCachedDataType:(CPTNumericDataType)newDataType;
@@ -218,6 +219,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize alignsPointsToPixels;
 
+@synthesize inTitleUpdate;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -286,6 +289,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         labelIndexRange      = NSMakeRange(0, 0);
         labelAnnotations     = nil;
         alignsPointsToPixels = YES;
+        inTitleUpdate        = NO;
 
         self.masksToBounds              = YES;
         self.needsDisplayOnBoundsChange = YES;
@@ -321,6 +325,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         labelIndexRange      = theLayer->labelIndexRange;
         labelAnnotations     = theLayer->labelAnnotations;
         alignsPointsToPixels = theLayer->alignsPointsToPixels;
+        inTitleUpdate        = theLayer->inTitleUpdate;
     }
     return self;
 }
@@ -359,6 +364,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     // dataNeedsReloading
     // cachedData
     // cachedDataCount
+    // inTitleUpdate
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -390,6 +396,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         cachedData         = [[NSMutableDictionary alloc] initWithCapacity:5];
         cachedDataCount    = 0;
         dataNeedsReloading = YES;
+        inTitleUpdate      = NO;
     }
     return self;
 }
@@ -1650,9 +1657,13 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( newTitle != title ) {
         title = [newTitle copy];
 
-        attributedTitle = nil;
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate   = YES;
+            self.attributedTitle = nil;
+            self.inTitleUpdate   = NO;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+        }
     }
 }
 
@@ -1661,9 +1672,13 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( newTitle != attributedTitle ) {
         attributedTitle = [newTitle copy];
 
-        title = [attributedTitle.string copy];
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate = YES;
+            self.title         = attributedTitle.string;
+            self.inTitleUpdate = NO;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+        }
     }
 }
 

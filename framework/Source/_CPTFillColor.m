@@ -73,7 +73,7 @@
 {
     _CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillColor = [self->fillColor copyWithZone:zone];
+    copy.fillColor = self.fillColor;
 
     return copy;
 }

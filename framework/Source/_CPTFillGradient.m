@@ -67,7 +67,7 @@
 {
     _CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillGradient = [self->fillGradient copyWithZone:zone];
+    copy.fillGradient = self.fillGradient;
 
     return copy;
 }

@@ -73,7 +73,7 @@
 {
     _CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillImage = [self->fillImage copyWithZone:zone];
+    copy.fillImage = self.fillImage;
 
     return copy;
 }

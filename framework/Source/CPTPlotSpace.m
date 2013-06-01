@@ -123,8 +123,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -149,8 +151,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -175,8 +179,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -201,8 +207,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
     }
     return handledByDelegate;
 }

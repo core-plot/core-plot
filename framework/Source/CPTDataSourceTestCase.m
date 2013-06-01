@@ -39,16 +39,18 @@ const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
 -(void)buildData
 {
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.nRecords];
+    NSUInteger recordCount = self.nRecords;
 
-    for ( NSUInteger i = 0; i < self.nRecords; i++ ) {
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:recordCount];
+
+    for ( NSUInteger i = 0; i < recordCount; i++ ) {
         [arr insertObject:[NSDecimalNumber numberWithUnsignedInteger:i] atIndex:i];
     }
     self.xData = arr;
 
-    arr = [NSMutableArray arrayWithCapacity:self.nRecords];
-    for ( NSUInteger i = 0; i < self.nRecords; i++ ) {
-        [arr insertObject:[NSDecimalNumber numberWithDouble:sin(2 * M_PI * (double)i / (double)nRecords)] atIndex:i];
+    arr = [NSMutableArray arrayWithCapacity:recordCount];
+    for ( NSUInteger i = 0; i < recordCount; i++ ) {
+        [arr insertObject:[NSDecimalNumber numberWithDouble:sin(2 * M_PI * (double)i / (double)recordCount)] atIndex:i];
     }
     self.yData = arr;
 }

@@ -90,8 +90,8 @@
     CPTTimeFormatter *newFormatter = [[CPTTimeFormatter allocWithZone:zone] init];
 
     if ( newFormatter ) {
-        newFormatter->dateFormatter = [self->dateFormatter copyWithZone:zone];
-        newFormatter->referenceDate = [self->referenceDate copyWithZone:zone];
+        newFormatter.dateFormatter = self.dateFormatter;
+        newFormatter.referenceDate = self.referenceDate;
     }
     return newFormatter;
 }

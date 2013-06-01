@@ -102,10 +102,10 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        self->fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
-        self->fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
-        self->color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
-        self->textAlignment = (CPTTextAlignment)[coder decodeIntForKey : @"CPTTextStyle.textAlignment"];
+        fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
+        fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+        color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+        textAlignment = (CPTTextAlignment)[coder decodeIntForKey : @"CPTTextStyle.textAlignment"];
     }
     return self;
 }
@@ -121,10 +121,10 @@
 {
     CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
 
-    newCopy->fontName      = [self->fontName copy];
-    newCopy->color         = [self->color copy];
-    newCopy->fontSize      = self->fontSize;
-    newCopy->textAlignment = self->textAlignment;
+    newCopy.fontName      = self.fontName;
+    newCopy.color         = self.color;
+    newCopy.fontSize      = self.fontSize;
+    newCopy.textAlignment = self.textAlignment;
     return newCopy;
 }
 
@@ -139,10 +139,10 @@
 {
     CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
 
-    newCopy->fontName      = [self->fontName copy];
-    newCopy->color         = [self->color copy];
-    newCopy->fontSize      = self->fontSize;
-    newCopy->textAlignment = self->textAlignment;
+    newCopy.fontName      = self.fontName;
+    newCopy.color         = self.color;
+    newCopy.fontSize      = self.fontSize;
+    newCopy.textAlignment = self.textAlignment;
     return newCopy;
 }
 

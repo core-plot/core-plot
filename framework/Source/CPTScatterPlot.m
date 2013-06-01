@@ -1111,8 +1111,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             else {
                 symbolRect.size = CGSizeZero;
             }
-            symbolRect.size.width  += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
-            symbolRect.size.height += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
+            CGFloat margin = self.plotSymbolMarginForHitDetection * CPTFloat(2.0);
+            symbolRect.size.width  += margin;
+            symbolRect.size.height += margin;
             symbolRect.origin       = CPTPointMake( center.x - CPTFloat(0.5) * CGRectGetWidth(symbolRect), center.y - CPTFloat(0.5) * CGRectGetHeight(symbolRect) );
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {

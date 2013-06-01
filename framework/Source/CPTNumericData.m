@@ -9,8 +9,10 @@
 /// @cond
 @interface CPTNumericData()
 
+@property (nonatomic, readwrite, copy) NSData *data;
 @property (nonatomic, readwrite, assign) CPTNumericDataType dataType;
 @property (nonatomic, readwrite, copy) NSArray *shape;
+@property (nonatomic, readwrite, assign) CPTDataOrder dataOrder;
 
 -(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList;
@@ -424,17 +426,12 @@
 {
     NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 
-    if ( [self isKindOfClass:[CPTMutableNumericData class]] ) {
-        data = [newData mutableCopy];
-    }
-    else {
-        data = [newData copy];
-    }
-    dataType  = newDataType;
-    dataOrder = order;
+    self.data      = newData;
+    self.dataType  = newDataType;
+    self.dataOrder = order;
 
     if ( shapeArray == nil ) {
-        shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
+        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
     }
     else {
         NSUInteger prod = 1;
@@ -447,7 +444,7 @@
                         format:@"Shape product (%lu) does not match data size (%lu)", (unsigned long)prod, (unsigned long)self.numberOfSamples];
         }
 
-        shape = [shapeArray copy];
+        self.shape = shapeArray;
     }
 }
 
@@ -493,6 +490,18 @@
     return self.dataType.byteOrder;
 }
 
+-(void)setData:(NSData *)newData
+{
+    if ( data != newData ) {
+        if ( [self isKindOfClass:[CPTMutableNumericData class]] ) {
+            data = [newData mutableCopy];
+        }
+        else {
+            data = [newData copy];
+        }
+    }
+}
+
 -(void)setDataType:(CPTNumericDataType)newDataType
 {
     CPTNumericDataType oldDataType = dataType;
@@ -500,9 +509,6 @@
     if ( CPTDataTypeEqualToDataType(oldDataType, newDataType) ) {
         return;
     }
-
-    NSParameterAssert(oldDataType.dataTypeFormat != CPTUndefinedDataType);
-    NSParameterAssert(oldDataType.byteOrder != CFByteOrderUnknown);
 
     NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
@@ -514,27 +520,29 @@
         return;
     }
 
-    NSMutableData *myData     = (NSMutableData *)self.data;
-    CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
+    if ( (oldDataType.dataTypeFormat != CPTUndefinedDataType) && (oldDataType.byteOrder != CFByteOrderUnknown) ) {
+        NSMutableData *myData     = (NSMutableData *)self.data;
+        CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
 
-    NSUInteger sampleCount = myData.length / oldDataType.sampleBytes;
+        NSUInteger sampleCount = myData.length / oldDataType.sampleBytes;
 
-    if ( oldDataType.byteOrder != hostByteOrder ) {
-        [self swapByteOrderForData:myData sampleSize:oldDataType.sampleBytes];
-    }
+        if ( oldDataType.byteOrder != hostByteOrder ) {
+            [self swapByteOrderForData:myData sampleSize:oldDataType.sampleBytes];
+        }
 
-    if ( newDataType.sampleBytes > oldDataType.sampleBytes ) {
-        NSData *oldData = [myData copy];
-        myData.length = sampleCount * newDataType.sampleBytes;
-        [self convertData:oldData dataType:&oldDataType toData:myData dataType:&newDataType];
-    }
-    else {
-        [self convertData:myData dataType:&oldDataType toData:myData dataType:&newDataType];
-        myData.length = sampleCount * newDataType.sampleBytes;
-    }
+        if ( newDataType.sampleBytes > oldDataType.sampleBytes ) {
+            NSData *oldData = [myData copy];
+            myData.length = sampleCount * newDataType.sampleBytes;
+            [self convertData:oldData dataType:&oldDataType toData:myData dataType:&newDataType];
+        }
+        else {
+            [self convertData:myData dataType:&oldDataType toData:myData dataType:&newDataType];
+            myData.length = sampleCount * newDataType.sampleBytes;
+        }
 
-    if ( newDataType.byteOrder != hostByteOrder ) {
-        [self swapByteOrderForData:myData sampleSize:newDataType.sampleBytes];
+        if ( newDataType.byteOrder != hostByteOrder ) {
+            [self swapByteOrderForData:myData sampleSize:newDataType.sampleBytes];
+        }
     }
 }
 
@@ -543,12 +551,16 @@
     if ( newShape != shape ) {
         shape = [newShape copy];
 
-        NSUInteger sampleCount = 1;
-        for ( NSNumber *num in shape ) {
-            sampleCount *= [num unsignedIntegerValue];
-        }
+        NSMutableData *myData = (NSMutableData *)self.data;
 
-        ( (NSMutableData *)self.data ).length = sampleCount * self.sampleBytes;
+        if ( [myData isKindOfClass:[NSMutableData class]] ) {
+            NSUInteger sampleCount = 1;
+            for ( NSNumber *num in shape ) {
+                sampleCount *= [num unsignedIntegerValue];
+            }
+
+            myData.length = sampleCount * self.sampleBytes;
+        }
     }
 }
 

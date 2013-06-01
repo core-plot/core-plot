@@ -1265,6 +1265,7 @@
 					"-Wextra",
 					"-Wno-unused-parameter",
 					"-Wobjc-interface-ivars",
+					"-Wdirect-ivar-access",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1318,6 +1319,7 @@
 					"-Wextra",
 					"-Wno-unused-parameter",
 					"-Wobjc-interface-ivars",
+					"-Wdirect-ivar-access",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

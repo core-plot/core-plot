@@ -7,6 +7,17 @@
 
 const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
+/// @cond
+@interface CPTTextLayer()
+
+@property (nonatomic, readwrite, assign) BOOL inTextUpdate;
+
+@end
+
+/// @endcond
+
+#pragma mark -
+
 /**
  *  @brief A Core Animation layer that displays text drawn in a uniform style.
  **/
@@ -37,6 +48,8 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  **/
 @synthesize attributedText;
 
+@synthesize inTextUpdate;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -51,6 +64,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         textStyle      = newStyle;
         text           = [newText copy];
         attributedText = nil;
+        inTextUpdate   = NO;
 
         self.needsDisplayOnBoundsChange = NO;
         [self sizeToFit];
@@ -95,6 +109,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         textStyle      = theLayer->textStyle;
         text           = theLayer->text;
         attributedText = theLayer->attributedText;
+        inTextUpdate   = theLayer->inTextUpdate;
     }
     return self;
 }
@@ -133,6 +148,9 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     [coder encodeObject:self.textStyle forKey:@"CPTTextLayer.textStyle"];
     [coder encodeObject:self.text forKey:@"CPTTextLayer.text"];
     [coder encodeObject:self.attributedText forKey:@"CPTTextLayer.attributedText"];
+
+    // No need to archive these properties:
+    // inTextUpdate
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -141,6 +159,8 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         textStyle      = [coder decodeObjectForKey:@"CPTTextLayer.textStyle"];
         text           = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
         attributedText = [[coder decodeObjectForKey:@"CPTTextLayer.attributedText"] copy];
+
+        inTextUpdate = NO;
     }
     return self;
 }
@@ -157,9 +177,13 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( text != newValue ) {
         text = [newValue copy];
 
-        attributedText = nil;
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate   = YES;
+            self.attributedText = nil;
+            self.inTextUpdate   = NO;
 
-        [self sizeToFit];
+            [self sizeToFit];
+        }
     }
 }
 
@@ -168,9 +192,13 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( textStyle != newStyle ) {
         textStyle = newStyle;
 
-        attributedText = nil;
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate   = YES;
+            self.attributedText = nil;
+            self.inTextUpdate   = NO;
 
-        [self sizeToFit];
+            [self sizeToFit];
+        }
     }
 }
 
@@ -179,17 +207,23 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( attributedText != newValue ) {
         attributedText = [newValue copy];
 
-        if ( attributedText.length > 0 ) {
-            textStyle = [CPTTextStyle textStyleWithAttributes:[attributedText attributesAtIndex:0
-                                                                                 effectiveRange:NULL]];
-            text = [attributedText.string copy];
-        }
-        else {
-            textStyle = nil;
-            text      = nil;
-        }
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate = YES;
 
-        [self sizeToFit];
+            if ( newValue.length > 0 ) {
+                self.textStyle = [CPTTextStyle textStyleWithAttributes:[newValue attributesAtIndex:0
+                                                                                    effectiveRange:NULL]];
+                self.text = newValue.string;
+            }
+            else {
+                self.textStyle = nil;
+                self.text      = nil;
+            }
+
+            self.inTextUpdate = NO;
+
+            [self sizeToFit];
+        }
     }
 }
 
