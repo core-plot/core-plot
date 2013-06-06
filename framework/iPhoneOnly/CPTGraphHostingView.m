@@ -296,15 +296,13 @@
     hostedGraph             = newLayer;
 
     // Screen scaling
-    UIScreen *screen = [UIScreen mainScreen];
-    // scale property is available in iOS 4.0 and later
-    if ( [screen respondsToSelector:@selector(scale)] ) {
-        hostedGraph.contentsScale = screen.scale;
+    UIScreen *screen = self.window.screen;
+    if ( !screen ) {
+        screen = [UIScreen mainScreen];
     }
-    else {
-        hostedGraph.contentsScale = CPTFloat(1.0);
-    }
-    hostedGraph.hostingView = self;
+
+    hostedGraph.contentsScale = screen.scale;
+    hostedGraph.hostingView   = self;
 
     if ( !self.collapsesLayers ) {
         if ( hostedGraph ) {

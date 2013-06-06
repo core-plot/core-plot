@@ -87,9 +87,16 @@
  **/
 -(id)initWithNativeImage:(CPTNativeImage *)anImage
 {
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    if ( (self = [self initWithCGImage:NULL scale:anImage.scale]) ) {
+        nativeImage = anImage;
+    }
+#else
     if ( (self = [self init]) ) {
         nativeImage = anImage;
     }
+#endif
+
     return self;
 }
 
@@ -150,7 +157,84 @@
  **/
 -(id)initForPNGFile:(NSString *)path
 {
-    return [self initWithNativeImage:[[CPTNativeImage alloc] initWithContentsOfFile:path]];
+    CGFloat imageScale = CPTFloat(1.0);
+
+    // Try to load @2x file if the system supports hi-dpi display
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    CGDataProviderRef dataProvider = NULL;
+    CGImageRef cgImage             = NULL;
+
+    for ( UIScreen *screen in [UIScreen screens] ) {
+        imageScale = MAX(imageScale, screen.scale);
+    }
+    if ( imageScale > 1.0 ) {
+        NSMutableString *hiDpiPath = [path mutableCopy];
+        NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
+                                                                withString:@"@2x.png"
+                                                                   options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
+                                                                     range:NSMakeRange(hiDpiPath.length - 4, 4)];
+        if ( replaceCount == 1 ) {
+            dataProvider = CGDataProviderCreateWithFilename([hiDpiPath cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+        if ( !dataProvider ) {
+            imageScale = CPTFloat(1.0);
+        }
+    }
+
+    // if hi-dpi display or @2x image not available, load the 1x image at the original path
+    if ( !dataProvider ) {
+        dataProvider = CGDataProviderCreateWithFilename([path cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    if ( dataProvider ) {
+        cgImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, YES, kCGRenderingIntentDefault);
+    }
+
+    if ( cgImage ) {
+        self = [self initWithCGImage:cgImage scale:imageScale];
+    }
+    else {
+        self = nil;
+    }
+    CGImageRelease(cgImage);
+    CGDataProviderRelease(dataProvider);
+    return self;
+
+#else
+    NSImage *newNativeImage = nil;
+    NSImageRep *imageRep    = nil;
+
+    // backingScaleFactor property is available in MacOS 10.7 and later
+    if ( [NSScreen instancesRespondToSelector:@selector(backingScaleFactor)] ) {
+        for ( NSScreen *screen in [NSScreen screens] ) {
+            imageScale = MAX(imageScale, screen.backingScaleFactor);
+        }
+    }
+
+    if ( imageScale > 1.0 ) {
+        NSMutableString *hiDpiPath = [path mutableCopy];
+        NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
+                                                                withString:@"@2x.png"
+                                                                   options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
+                                                                     range:NSMakeRange(hiDpiPath.length - 4, 4)];
+        if ( replaceCount == 1 ) {
+            imageRep = [NSImageRep imageRepWithContentsOfFile:path];
+            if ( imageRep ) {
+                NSSize size = imageRep.size;
+                size.width   *= 0.5;
+                size.height  *= 0.5;
+                imageRep.size = size;
+                [newNativeImage addRepresentation:imageRep];
+            }
+        }
+    }
+
+    imageRep = [NSImageRep imageRepWithContentsOfFile:path];
+    if ( imageRep ) {
+        [newNativeImage addRepresentation:imageRep];
+    }
+
+    return [self initWithNativeImage:newNativeImage];
+#endif
 }
 
 /// @cond
@@ -532,15 +616,17 @@
     // generate a Core Graphics image if needed
     if ( theNativeImage && ( !theImage || (contextScale != lastScale) ) ) {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-        theImage = theNativeImage.CGImage;
+        theImage   = theNativeImage.CGImage;
+        self.scale = theNativeImage.scale;
 #else
-        NSRect drawingRect = NSZeroRect;
+        NSSize imageSize   = theNativeImage.size;
+        NSRect drawingRect = NSMakeRect(0.0, 0.0, imageSize.width, imageSize.height);
         theImage = [theNativeImage CGImageForProposedRect:&drawingRect
                                                   context:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]
                                                     hints:nil];
+        self.scale = contextScale;
 #endif
         self.image = theImage;
-        self.scale = contextScale;
     }
 
     // draw the image
@@ -557,7 +643,8 @@
             }
             CGContextScaleCTM(context, scaleRatio, scaleRatio);
 
-            CGRect imageBounds = CPTRectMake( 0.0, 0.0, CGImageGetWidth(theImage), CGImageGetHeight(theImage) );
+            CGRect imageBounds = CPTRectMake(0.0, 0.0, CGImageGetWidth(theImage) / imageScale, CGImageGetHeight(theImage) / imageScale);
+
             CGContextDrawTiledImage(context, imageBounds, theImage);
         }
         else {
