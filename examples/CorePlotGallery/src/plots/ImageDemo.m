@@ -73,10 +73,7 @@
     // Tiled
     titleLayer = [[CPTTextLayer alloc] initWithText:@"Tiled image"
                                               style:textStyle];
-    NSString *pathToFillImage = [[NSBundle mainBundle] pathForResource:@"Checkerboard" ofType:@"png"];
-    CPTImage *fillImage       = [CPTImage imageForPNGFile:pathToFillImage];
-
-//    CPTImage *fillImage = [CPTImage imageNamed:@"Checkerboard"];
+    CPTImage *fillImage = [CPTImage imageNamed:@"Checkerboard"];
     fillImage.tiled          = YES;
     titleLayer.fill          = [CPTFill fillWithImage:fillImage];
     titleLayer.paddingLeft   = 25.0;
