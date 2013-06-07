@@ -3,14 +3,7 @@
 @class CPTPlot;
 @class CPTTextStyle;
 
-@interface CPTLegendEntry : NSObject<NSCoding> {
-    @private
-    __cpt_weak CPTPlot *plot;
-    NSUInteger index;
-    NSUInteger row;
-    NSUInteger column;
-    CPTTextStyle *textStyle;
-}
+@interface CPTLegendEntry : NSObject<NSCoding>
 
 /// @name Plot Info
 /// @{
@@ -20,7 +13,7 @@
 
 /// @name Formatting
 /// @{
-@property (nonatomic, readwrite, retain) CPTTextStyle *textStyle;
+@property (nonatomic, readwrite, strong) CPTTextStyle *textStyle;
 /// @}
 
 /// @name Layout

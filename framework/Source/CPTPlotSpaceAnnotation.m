@@ -42,7 +42,7 @@
     NSParameterAssert(newPlotSpace);
 
     if ( (self = [super init]) ) {
-        plotSpace       = [newPlotSpace retain];
+        plotSpace       = newPlotSpace;
         anchorPlotPoint = [newPlotPoint copy];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -66,9 +66,6 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [plotSpace release];
-    [anchorPlotPoint release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -90,7 +87,7 @@
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
-        plotSpace       = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"] retain];
+        plotSpace       = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
     }
     return self;
 }
@@ -153,7 +150,6 @@
 -(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
-        [anchorPlotPoint release];
         anchorPlotPoint = [newPlotPoint copy];
         [self positionContentLayer];
     }

@@ -33,21 +33,10 @@
 -(id)initWithGradient:(CPTGradient *)aGradient
 {
     if ( (self = [super init]) ) {
-        fillGradient = [aGradient retain];
+        fillGradient = aGradient;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [fillGradient release];
-
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -78,7 +67,7 @@
 {
     _CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillGradient = [self->fillGradient copyWithZone:zone];
+    copy.fillGradient = self.fillGradient;
 
     return copy;
 }
@@ -103,7 +92,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillGradient = [[coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"] retain];
+        fillGradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
     }
     return self;
 }

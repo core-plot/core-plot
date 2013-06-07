@@ -9,8 +9,8 @@
 /// @cond
 @interface CPTLegendEntry()
 
-@property (nonatomic, readonly, retain) NSString *title;
-@property (nonatomic, readonly, retain) NSAttributedString *attributedTitle;
+@property (nonatomic, readonly, strong) NSString *title;
+@property (nonatomic, readonly, strong) NSAttributedString *attributedTitle;
 
 @end
 
@@ -93,17 +93,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [textStyle release];
-
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -125,7 +114,7 @@
         index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
         row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
         column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
-        textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
+        textStyle = [coder decodeObjectForKey:@"CPTLegendEntry.textStyle"];
     }
     return self;
 }

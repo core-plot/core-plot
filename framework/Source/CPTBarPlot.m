@@ -178,16 +178,19 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
     barLineStyle.lineWidth = CPTFloat(1.0);
     barLineStyle.lineColor = [CPTColor blackColor];
-    barPlot.lineStyle      = barLineStyle;
-    [barLineStyle release];
-    barPlot.barsAreHorizontal             = horizontal;
-    barPlot.barWidth                      = CPTDecimalFromDouble(0.8);
-    barPlot.barWidthsAreInViewCoordinates = NO;
-    barPlot.barCornerRadius               = CPTFloat(2.0);
+
+    barPlot.lineStyle         = barLineStyle;
+    barPlot.barsAreHorizontal = horizontal;
+    barPlot.barWidth          = CPTDecimalFromDouble(0.8);
+    barPlot.barCornerRadius   = CPTFloat(2.0);
+
     CPTGradient *fillGradient = [CPTGradient gradientWithBeginningColor:color endingColor:[CPTColor blackColor]];
     fillGradient.angle = (CGFloat)(horizontal ? -90.0 : 0.0);
     barPlot.fill       = [CPTFill fillWithGradient:fillGradient];
-    return [barPlot autorelease];
+
+    barPlot.barWidthsAreInViewCoordinates = NO;
+
+    return barPlot;
 }
 
 #pragma mark -
@@ -241,7 +244,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         lineStyle                     = [[CPTLineStyle alloc] init];
-        fill                          = [[CPTFill fillWithColor:[CPTColor blackColor]] retain];
+        fill                          = [CPTFill fillWithColor:[CPTColor blackColor]];
         barWidth                      = CPTDecimalFromDouble(0.5);
         barWidthScale                 = CPTFloat(1.0);
         barWidthsAreInViewCoordinates = NO;
@@ -269,8 +272,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBarPlot *theLayer = (CPTBarPlot *)layer;
 
-        lineStyle                     = [theLayer->lineStyle retain];
-        fill                          = [theLayer->fill retain];
+        lineStyle                     = theLayer->lineStyle;
+        fill                          = theLayer->fill;
         barWidth                      = theLayer->barWidth;
         barWidthScale                 = theLayer->barWidthScale;
         barWidthsAreInViewCoordinates = theLayer->barWidthsAreInViewCoordinates;
@@ -281,17 +284,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         baseValue                     = theLayer->baseValue;
         barBasesVary                  = theLayer->barBasesVary;
         barsAreHorizontal             = theLayer->barsAreHorizontal;
-        plotRange                     = [theLayer->plotRange retain];
+        plotRange                     = theLayer->plotRange;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [lineStyle release];
-    [fill release];
-    [plotRange release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -414,7 +409,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 }
             }
             [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
-            [locationData release];
         }
         else if ( theDataSource ) {
             // Get locations from the datasource
@@ -454,7 +448,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 }
             }
             [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
-            [locationData release];
         }
     }
 
@@ -480,7 +473,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         }
 
         [self cacheArray:array forKey:CPTBarPlotBindingBarFills atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Bar line styles
@@ -505,7 +497,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         }
 
         [self cacheArray:array forKey:CPTBarPlotBindingBarLineStyles atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Legend
@@ -644,7 +635,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 if ( self.barsAreHorizontal ) {
                     NSDecimal base = self.baseValue;
                     if ( ![range contains:base] ) {
-                        CPTMutablePlotRange *newRange = [[range mutableCopy] autorelease];
+                        CPTMutablePlotRange *newRange = [range mutableCopy];
                         [newRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:base length:CPTDecimalFromInteger(0)]];
                         range = newRange;
                     }
@@ -655,7 +646,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 if ( !self.barsAreHorizontal ) {
                     NSDecimal base = self.baseValue;
                     if ( ![range contains:base] ) {
-                        CPTMutablePlotRange *newRange = [[range mutableCopy] autorelease];
+                        CPTMutablePlotRange *newRange = [range mutableCopy];
                         [newRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:base length:CPTDecimalFromInteger(0)]];
                         range = newRange;
                     }
@@ -709,7 +700,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         range.length   = CPTDecimalSubtract(rangeLength, barWidthLength);
     }
 
-    return [range autorelease];
+    return range;
 }
 
 #pragma mark -
@@ -1379,7 +1370,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 -(void)setLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( lineStyle != newLineStyle ) {
-        [lineStyle release];
         lineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1389,7 +1379,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 -(void)setFill:(CPTFill *)newFill
 {
     if ( fill != newFill ) {
-        [fill release];
         fill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

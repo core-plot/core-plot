@@ -12,13 +12,7 @@ typedef enum _CPTPlotRangeComparisonResult {
 }
 CPTPlotRangeComparisonResult;
 
-@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @private
-    NSDecimal location;
-    NSDecimal length;
-    double locationDouble;
-    double lengthDouble;
-}
+@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
 /// @name Range Limits
 /// @{
