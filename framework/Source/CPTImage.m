@@ -100,6 +100,16 @@
     return self;
 }
 
+/** @brief Initializes a CPTImage instance with the contents of a file.
+ *
+ *  @param path The full or partial path to the image file.
+ *  @return A CPTImage instance initialized from the file at the given path.
+ **/
+-(id)initWithContentsOfFile:(NSString *)path
+{
+    return [self initWithNativeImage:[[CPTNativeImage alloc] initWithContentsOfFile:path]];
+}
+
 /** @brief Initializes a CPTImage instance with the provided @ref CGImageRef.
  *
  *  This is the designated initializer.
@@ -328,6 +338,16 @@
 +(CPTImage *)imageWithNativeImage:(CPTNativeImage *)anImage
 {
     return [[self alloc] initWithNativeImage:anImage];
+}
+
+/** @brief Initializes a CPTImage instance with the contents of a file.
+ *
+ *  @param path The full or partial path to the image file.
+ *  @return A new CPTImage instance initialized from the file at the given path.
+ **/
++(CPTImage *)imageWithContentsOfFile:(NSString *)path
+{
+    return [[self alloc] initWithContentsOfFile:path];
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef.
