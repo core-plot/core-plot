@@ -330,8 +330,12 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 #endif
 
         CGRect newBounds = CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth);
-        newBounds.origin.x    += self.paddingLeft;
-        newBounds.origin.y    += self.paddingBottom;
+        newBounds.origin.x += self.paddingLeft;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        newBounds.origin.y += self.paddingTop;
+#else
+        newBounds.origin.y += self.paddingBottom;
+#endif
         newBounds.size.width  -= self.paddingLeft + self.paddingRight;
         newBounds.size.height -= self.paddingTop + self.paddingBottom;
 
