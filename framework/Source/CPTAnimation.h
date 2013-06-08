@@ -85,7 +85,7 @@ CPTAnimationCurve;
 
 /// @name Time
 /// @{
-@property (nonatomic, readonly, assign) CGFloat timeOffset;
+@property (nonatomic, readonly) CGFloat timeOffset;
 /// @}
 
 /// @name Animation Curve

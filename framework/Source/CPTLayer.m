@@ -806,10 +806,10 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         CGRect currentFrame = self.frame;
         if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
             COREPLOT_LAYER_POSITION_CHANGE( (char *)class_getName([self class]),
-                                            (int)ceil(currentFrame.origin.x * 1000.0),
-                                            (int)ceil(currentFrame.origin.y * 1000.0),
-                                            (int)ceil(currentFrame.size.width * 1000.0),
-                                            (int)ceil(currentFrame.size.height * 1000.0) );
+                                            (int)lrint( ceil(currentFrame.origin.x * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.origin.y * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.size.width * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.size.height * 1000.0) ) );
         }
     }
 }
@@ -836,7 +836,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             Class layerClass = [CPTLayer class];
             for ( CALayer *subLayer in self.sublayers ) {
                 if ( [subLayer isKindOfClass:layerClass] ) {
-                    ( (CPTLayer *)subLayer ).contentsScale = newContentsScale;
+                    subLayer.contentsScale = newContentsScale;
                 }
             }
         }

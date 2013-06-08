@@ -4,7 +4,7 @@
 
 @interface CPTAnnotationHostLayer : CPTLayer
 
-@property (nonatomic, readonly, strong) NSArray *annotations;
+@property (nonatomic, readonly) NSArray *annotations;
 
 /// @name Annotations
 /// @{

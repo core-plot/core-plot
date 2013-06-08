@@ -42,7 +42,7 @@ CPTGradientType;
 
 /// @name Gradient Type
 /// @{
-@property (nonatomic, readonly, assign) CPTGradientBlendingMode blendingMode;
+@property (nonatomic, readonly) CPTGradientBlendingMode blendingMode;
 @property (nonatomic, readwrite, assign) CPTGradientType gradientType;
 /// @}
 

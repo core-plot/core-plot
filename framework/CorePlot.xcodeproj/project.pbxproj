@@ -1625,10 +1625,16 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
-					"-Wobjc-interface-ivars",
-					"-Wdirect-ivar-access",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
 				);
 				PRODUCT_NAME = CorePlot;
 				WRAPPER_EXTENSION = framework;
@@ -1656,10 +1662,16 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
-					"-Wobjc-interface-ivars",
-					"-Wdirect-ivar-access",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
 				);
 				PRODUCT_NAME = CorePlot;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";

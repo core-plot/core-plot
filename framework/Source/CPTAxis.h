@@ -99,7 +99,7 @@ CPTAxisLabelingPolicy;
 @property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleRotation;
 @property (nonatomic, readwrite, assign) NSDecimal titleLocation;
-@property (nonatomic, readonly, assign) NSDecimal defaultTitleLocation;
+@property (nonatomic, readonly) NSDecimal defaultTitleLocation;
 /// @}
 
 /// @name Labels
@@ -117,7 +117,7 @@ CPTAxisLabelingPolicy;
 @property (nonatomic, readwrite, strong) NSFormatter *minorTickLabelFormatter;
 @property (nonatomic, readwrite, strong) NSSet *axisLabels;
 @property (nonatomic, readwrite, strong) NSSet *minorTickAxisLabels;
-@property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readonly) BOOL needsRelabel;
 @property (nonatomic, readwrite, strong) NSArray *labelExclusionRanges;
 @property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
 @property (nonatomic, readwrite, strong) CPTShadow *minorTickLabelShadow;
@@ -150,7 +150,7 @@ CPTAxisLabelingPolicy;
 /// @name Background Bands
 /// @{
 @property (nonatomic, readwrite, copy) NSArray *alternatingBandFills;
-@property (nonatomic, readonly, strong) NSArray *backgroundLimitBands;
+@property (nonatomic, readonly) NSArray *backgroundLimitBands;
 /// @}
 
 /// @name Plot Space
@@ -162,9 +162,9 @@ CPTAxisLabelingPolicy;
 /// @{
 @property (nonatomic, readwrite, assign) BOOL separateLayers;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlotArea *plotArea;
-@property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTGridLines *majorGridLines;
-@property (nonatomic, readonly, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readonly) __cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readonly) __cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readonly) CPTAxisSet *axisSet;
 /// @}
 
 /// @name Title

@@ -1093,7 +1093,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     blendingMode = mode;
 
     // Choose what blending function to use
-    void *evaluationFunction = NULL;
+    CGFunctionEvaluateCallback evaluationFunction = NULL;
     switch ( blendingMode ) {
         case CPTLinearBlendingMode:
             evaluationFunction = &linearEvaluation;
@@ -1535,7 +1535,7 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
     CGFloat S = components[1];
     CGFloat V = components[2];
 
-    int Hi    = (int)floor( H / CPTFloat(60.0) ) % 6;
+    int Hi    = (int)lrint( floor( H / CPTFloat(60.0) ) ) % 6;
     CGFloat f = H / CPTFloat(60.0) - Hi;
     CGFloat p = V * (CPTFloat(1.0) - S);
     CGFloat q = V * (CPTFloat(1.0) - f * S);

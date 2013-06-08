@@ -1,6 +1,6 @@
 @interface CPTColorSpace : NSObject<NSCoding>
 
-@property (nonatomic, readonly, assign) CGColorSpaceRef cgColorSpace;
+@property (nonatomic, readonly) CGColorSpaceRef cgColorSpace;
 
 /// @name Factory Methods
 /// @{

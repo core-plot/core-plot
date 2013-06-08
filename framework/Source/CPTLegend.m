@@ -556,7 +556,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
     NSUInteger legendEntryCount = self.legendEntries.count;
     if ( (rowCount == 0) && (columnCount == 0) ) {
-        rowCount    = (NSUInteger)sqrt( (double)legendEntryCount );
+        rowCount    = (NSUInteger)lrint( sqrt( (double)legendEntryCount ) );
         columnCount = rowCount;
         if ( rowCount * columnCount < legendEntryCount ) {
             columnCount++;

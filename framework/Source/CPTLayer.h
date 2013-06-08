@@ -33,7 +33,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 /// @name Drawing
 /// @{
 @property (readwrite) CGFloat contentsScale;
-@property (nonatomic, readonly, assign) BOOL useFastRendering;
+@property (nonatomic, readonly) BOOL useFastRendering;
 @property (nonatomic, readwrite, copy) CPTShadow *shadow;
 @property (nonatomic, readonly) CGSize shadowMargin;
 /// @}
@@ -43,8 +43,8 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 @property (nonatomic, readwrite, assign) BOOL masksToBorder;
 @property (nonatomic, readwrite, assign) CGPathRef outerBorderPath;
 @property (nonatomic, readwrite, assign) CGPathRef innerBorderPath;
-@property (nonatomic, readonly, assign) CGPathRef maskingPath;
-@property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
+@property (nonatomic, readonly) CGPathRef maskingPath;
+@property (nonatomic, readonly) CGPathRef sublayerMaskingPath;
 /// @}
 
 /// @name Identification
@@ -54,7 +54,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Layout
 /// @{
-@property (nonatomic, readonly, strong) NSSet *sublayersExcludedFromAutomaticLayout;
+@property (nonatomic, readonly) NSSet *sublayersExcludedFromAutomaticLayout;
 /// @}
 
 /// @name Initialization

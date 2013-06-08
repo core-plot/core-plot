@@ -1182,9 +1182,6 @@ static const CGFloat colorLookupTable[10][3] =
                 startingAngle = endingAngle;
             }
             break;
-
-        default:
-            break;
     }
 
     return NSNotFound;

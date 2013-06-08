@@ -59,7 +59,7 @@ CPTGraphLayerType;
 /// @{
 @property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
 @property (nonatomic, readwrite, strong) CPTPlotAreaFrame *plotAreaFrame;
-@property (nonatomic, readonly, strong) CPTPlotSpace *defaultPlotSpace;
+@property (nonatomic, readonly) CPTPlotSpace *defaultPlotSpace;
 @property (nonatomic, readwrite, strong) NSArray *topDownLayerOrder;
 /// @}
 

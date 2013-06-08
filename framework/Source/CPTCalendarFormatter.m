@@ -236,8 +236,6 @@
             [NSException raise:CPTException format:@"Unsupported calendar unit: NSTimeZoneCalendarUnit"];
             break;
 #endif
-        default:
-            break;
     }
 
     NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:0];

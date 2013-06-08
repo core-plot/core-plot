@@ -881,10 +881,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                         CGPathAddCurveToPoint(dataLinePath, NULL, cp1.x, cp1.y, cp2.x, cp2.y, viewPoint.x, viewPoint.y);
                     }
                     break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Interpolation method not supported in scatter plot."];
-                        break;
                 }
             }
             lastPoint = viewPoint;

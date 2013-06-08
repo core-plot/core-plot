@@ -1262,10 +1262,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MACH_O_TYPE = staticlib;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
-					"-Wobjc-interface-ivars",
-					"-Wdirect-ivar-access",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1316,10 +1322,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MACH_O_TYPE = staticlib;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
-					"-Wobjc-interface-ivars",
-					"-Wdirect-ivar-access",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

@@ -93,7 +93,7 @@ for dt in dataTypes:
             print "\t\t\t\t%s *toBytes = (%s *)sampleData.mutableBytes;" % (t, t)
             print "\t\t\t\tfor ( id sample in newData ) {"
             print "\t\t\t\t\tif ( [sample respondsToSelector:@selector(%sValue)] ) {" % nsnumber_methods[t]
-            print "\t\t\t\t\t\t*toBytes++ = (%s)[(NSNumber *)sample %sValue];" % (t, nsnumber_methods[t])
+            print "\t\t\t\t\t\t*toBytes++ = (%s)[sample %sValue];" % (t, nsnumber_methods[t])
             print "\t\t\t\t\t}"
             print "\t\t\t\t\telse {"
             print "\t\t\t\t\t\t*toBytes++ = %s;" % null_values[t]

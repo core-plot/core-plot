@@ -9,8 +9,8 @@
 /// @cond
 @interface CPTLegendEntry()
 
-@property (nonatomic, readonly, strong) NSString *title;
-@property (nonatomic, readonly, strong) NSAttributedString *attributedTitle;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSAttributedString *attributedTitle;
 
 @end
 

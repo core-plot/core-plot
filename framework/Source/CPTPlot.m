@@ -561,7 +561,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             [(NSMutableData *)numericData.data increaseLengthBy:length];
 
-            void *start        = [numericData samplePointer:idx];
+            int8_t *start      = [numericData samplePointer:idx];
             size_t bytesToMove = numericData.data.length - (idx + numberOfRecords) * sampleSize;
             if ( bytesToMove > 0 ) {
                 memmove(start + length, start, bytesToMove);
@@ -593,7 +593,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( [data isKindOfClass:numericClass] ) {
             CPTMutableNumericData *numericData = (CPTMutableNumericData *)data;
             size_t sampleSize                  = numericData.sampleBytes;
-            void *start                        = [numericData samplePointer:indexRange.location];
+            int8_t *start                      = [numericData samplePointer:indexRange.location];
             size_t length                      = sampleSize * indexRange.length;
             size_t bytesToMove                 = numericData.data.length - (indexRange.location + indexRange.length) * sampleSize;
             if ( bytesToMove > 0 ) {
@@ -748,9 +748,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                             data                 = mutableData;
                         }
                         break;
-
-                    default:
-                        break;
                 }
 
                 // add the data to the cache
@@ -759,7 +756,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                 switch ( data.dataOrder ) {
                     case CPTDataOrderRowsFirst:
                     {
-                        const void *sourceEnd = data.bytes + data.length;
+                        const void *sourceEnd = (const int8_t *)(data.bytes) + data.length;
 
                         for ( NSUInteger fieldNum = 0; fieldNum < fieldCount; fieldNum++ ) {
                             NSMutableData *tempData = [[NSMutableData alloc] initWithLength:bufferLength];
@@ -806,9 +803,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                             [self cacheNumbers:tempNumericData forField:fieldNum atRecordIndex:indexRange.location];
                         }
                         hasData = YES;
-                        break;
-
-                    default:
                         break;
                 }
             }
@@ -921,7 +915,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             self.cachedDataCount = numberOfRecords;
 
             NSUInteger startByte = idx * cachedNumbers.sampleBytes;
-            void *cachePtr       = cachedNumbers.mutableBytes + startByte;
+            void *cachePtr       = (int8_t *)(cachedNumbers.mutableBytes) + startByte;
             size_t numberOfBytes = MIN(mutableNumbers.data.length, cachedNumbers.data.length - startByte);
             memcpy(cachePtr, mutableNumbers.bytes, numberOfBytes);
 
@@ -1803,10 +1797,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             case CPTPlotCachePrecisionDecimal:
                 [self setCachedDataType:self.decimalDataType];
-                break;
-
-            default:
-                [NSException raise:NSInvalidArgumentException format:@"Invalid cache precision"];
                 break;
         }
     }

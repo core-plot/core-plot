@@ -110,10 +110,6 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
         case kCGPathElementCloseSubpath: // 0 points
             break;
-
-        default:
-            // unknown element type
-            break;
     }
 
     NSMutableArray *pathData = (__bridge NSMutableArray *)info;
@@ -388,10 +384,6 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
             case kCGPathElementCloseSubpath: // 0 points
                 break;
-
-            default:
-                // unknown element type
-                break;
         }
 
         switch ( type ) {
@@ -413,10 +405,6 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
 
             case kCGPathElementCloseSubpath:
                 CGPathCloseSubpath(newPath);
-                break;
-
-            default:
-                // unknown element type
                 break;
         }
     }

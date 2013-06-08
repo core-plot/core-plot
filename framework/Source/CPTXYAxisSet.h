@@ -4,7 +4,7 @@
 
 @interface CPTXYAxisSet : CPTAxisSet
 
-@property (nonatomic, readonly, strong) CPTXYAxis *xAxis;
-@property (nonatomic, readonly, strong) CPTXYAxis *yAxis;
+@property (nonatomic, readonly) CPTXYAxis *xAxis;
+@property (nonatomic, readonly) CPTXYAxis *yAxis;
 
 @end

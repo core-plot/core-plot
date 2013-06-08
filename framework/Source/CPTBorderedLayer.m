@@ -10,7 +10,7 @@
 
 @interface CPTBorderedLayer()
 
-@property (nonatomic, readonly, strong) CPTLayer *borderLayer;
+@property (nonatomic, readonly) CPTLayer *borderLayer;
 
 @end
 

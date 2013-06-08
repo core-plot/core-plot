@@ -138,9 +138,13 @@
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
+    BOOL validDirection = NO;
+
     switch ( direction ) {
         case CPTSignNone:
         case CPTSignNegative:
+            validDirection = YES;
+
             *value -= self.offset;
 
             switch ( coordinate ) {
@@ -187,6 +191,8 @@
             break;
 
         case CPTSignPositive:
+            validDirection = YES;
+
             *value += self.offset;
 
             switch ( coordinate ) {
@@ -231,10 +237,10 @@
                     break;
             }
             break;
+    }
 
-        default:
-            [NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
-            break;
+    if ( !validDirection ) {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
     }
 
     angle += CPTFloat(M_PI);
@@ -318,7 +324,7 @@
     double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
 
     if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
+        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
     }
 
     return hashValue;

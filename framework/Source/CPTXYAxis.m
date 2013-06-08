@@ -235,9 +235,6 @@
                 startFactor = -CPTFloat(0.5);
                 endFactor   = CPTFloat(0.5);
                 break;
-
-            default:
-                NSLog(@"Invalid sign in [CPTXYAxis drawTicksInContext:]");
         }
 
         switch ( self.coordinate ) {
@@ -657,6 +654,8 @@
 // Center title in the plot range by default
 -(NSDecimal)defaultTitleLocation
 {
+    NSDecimal location;
+
     CPTPlotSpace *thePlotSpace  = self.plotSpace;
     CPTCoordinate theCoordinate = self.coordinate;
 
@@ -667,8 +666,7 @@
 
         switch ( scaleType ) {
             case CPTScaleTypeLinear:
-                return axisRange.midPoint;
-
+                location = axisRange.midPoint;
                 break;
 
             case CPTScaleTypeLog:
@@ -677,23 +675,24 @@
                 double end = axisRange.endDouble;
 
                 if ( (loc > 0.0) && (end >= 0.0) ) {
-                    return CPTDecimalFromDouble( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
+                    location = CPTDecimalFromDouble( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
                 }
                 else {
-                    return axisRange.midPoint;
+                    location = axisRange.midPoint;
                 }
             }
             break;
 
             default:
-                return axisRange.midPoint;
-
+                location = axisRange.midPoint;
                 break;
         }
     }
     else {
-        return CPTDecimalFromInteger(0);
+        location = CPTDecimalFromInteger(0);
     }
+
+    return location;
 }
 
 /// @endcond

@@ -20,7 +20,7 @@
 /// @{
 @property (nonatomic, readwrite, assign) NSUInteger row;
 @property (nonatomic, readwrite, assign) NSUInteger column;
-@property (nonatomic, readonly, assign) CGSize titleSize;
+@property (nonatomic, readonly) CGSize titleSize;
 /// @}
 
 /// @name Drawing

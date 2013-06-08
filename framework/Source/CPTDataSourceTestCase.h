@@ -9,8 +9,8 @@
 @property (copy, readwrite) NSArray *xData;
 @property (copy, readwrite) NSArray *yData;
 @property (assign, readwrite) NSUInteger nRecords;
-@property (strong, readonly) CPTMutablePlotRange *xRange;
-@property (strong, readonly) CPTMutablePlotRange *yRange;
+@property (readonly) CPTMutablePlotRange *xRange;
+@property (readonly) CPTMutablePlotRange *yRange;
 @property (strong, readwrite) NSMutableArray *plots;
 
 -(void)buildData;

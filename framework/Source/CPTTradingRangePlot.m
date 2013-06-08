@@ -549,10 +549,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                    low:lowPoint.y
                                            alignPoints:alignPoints];
                         break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
-                        break;
                 }
             }
         }
@@ -645,10 +641,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                   high:highPoint.y
                                                    low:lowPoint.y
                                            alignPoints:alignPoints];
-                        break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
                         break;
                 }
             }
@@ -906,9 +898,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                        low:CGRectGetMinY(rect)
                                alignPoints:YES];
             break;
-
-        default:
-            break;
     }
 }
 
@@ -1114,7 +1103,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTPlotRange *yRange         = thePlotSpace.yRange;
 
     CGPoint openPoint, highPoint, lowPoint, closePoint;
-    CGFloat lastViewX, lastViewMin, lastViewMax;
+    CGFloat lastViewX   = CPTFloat(0.0);
+    CGFloat lastViewMin = CPTFloat(0.0);
+    CGFloat lastViewMax = CPTFloat(0.0);
 
     NSUInteger result              = NSNotFound;
     CGFloat minimumDistanceSquared = NAN;
@@ -1315,10 +1306,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             case CPTTradingRangePlotStyleCandleStick:
                 offset = self.barWidth * CPTFloat(0.5);
-                break;
-
-            default:
-                [NSException raise:CPTException format:@"Invalid plot style in -dataIndexFromInteractionPoint:"];
                 break;
         }
 

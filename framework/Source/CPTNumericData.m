@@ -841,9 +841,6 @@
                 }
 
                 break;
-
-            default:
-                break;
         }
 
         free(dims);
@@ -880,7 +877,7 @@
                     int8_t *toBytes = (int8_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(charValue)] ) {
-                            *toBytes++ = (int8_t)[(NSNumber *)sample charValue];
+                            *toBytes++ = (int8_t)[sample charValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -894,7 +891,7 @@
                     int16_t *toBytes = (int16_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(shortValue)] ) {
-                            *toBytes++ = (int16_t)[(NSNumber *)sample shortValue];
+                            *toBytes++ = (int16_t)[sample shortValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -908,7 +905,7 @@
                     int32_t *toBytes = (int32_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(longValue)] ) {
-                            *toBytes++ = (int32_t)[(NSNumber *)sample longValue];
+                            *toBytes++ = (int32_t)[sample longValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -922,7 +919,7 @@
                     int64_t *toBytes = (int64_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(longLongValue)] ) {
-                            *toBytes++ = (int64_t)[(NSNumber *)sample longLongValue];
+                            *toBytes++ = (int64_t)[sample longLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -940,7 +937,7 @@
                     uint8_t *toBytes = (uint8_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedCharValue)] ) {
-                            *toBytes++ = (uint8_t)[(NSNumber *)sample unsignedCharValue];
+                            *toBytes++ = (uint8_t)[sample unsignedCharValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -954,7 +951,7 @@
                     uint16_t *toBytes = (uint16_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedShortValue)] ) {
-                            *toBytes++ = (uint16_t)[(NSNumber *)sample unsignedShortValue];
+                            *toBytes++ = (uint16_t)[sample unsignedShortValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -968,7 +965,7 @@
                     uint32_t *toBytes = (uint32_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedLongValue)] ) {
-                            *toBytes++ = (uint32_t)[(NSNumber *)sample unsignedLongValue];
+                            *toBytes++ = (uint32_t)[sample unsignedLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -982,7 +979,7 @@
                     uint64_t *toBytes = (uint64_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedLongLongValue)] ) {
-                            *toBytes++ = (uint64_t)[(NSNumber *)sample unsignedLongLongValue];
+                            *toBytes++ = (uint64_t)[sample unsignedLongLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -1000,7 +997,7 @@
                     float *toBytes = (float *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float)[(NSNumber *) sample floatValue];
+                            *toBytes++ = (float)[sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1014,7 +1011,7 @@
                     double *toBytes = (double *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double)[(NSNumber *) sample doubleValue];
+                            *toBytes++ = (double)[sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1032,7 +1029,7 @@
                     float complex *toBytes = (float complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float complex)[(NSNumber *) sample floatValue];
+                            *toBytes++ = (float complex)[sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1046,7 +1043,7 @@
                     double complex *toBytes = (double complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double complex)[(NSNumber *) sample doubleValue];
+                            *toBytes++ = (double complex)[sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1064,7 +1061,7 @@
                     NSDecimal *toBytes = (NSDecimal *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(decimalValue)] ) {
-                            *toBytes++ = (NSDecimal)[(NSNumber *)sample decimalValue];
+                            *toBytes++ = [sample decimalValue];
                         }
                         else {
                             *toBytes++ = CPTDecimalNaN();

@@ -5,24 +5,24 @@
 /// @name Data Buffer
 /// @{
 @property (nonatomic, readonly, copy) NSData *data;
-@property (nonatomic, readonly, assign) const void *bytes;
-@property (nonatomic, readonly, assign) NSUInteger length;
+@property (nonatomic, readonly) const void *bytes;
+@property (nonatomic, readonly) NSUInteger length;
 /// @}
 
 /// @name Data Format
 /// @{
-@property (nonatomic, readonly, assign) CPTNumericDataType dataType;
-@property (nonatomic, readonly, assign) CPTDataTypeFormat dataTypeFormat;
-@property (nonatomic, readonly, assign) size_t sampleBytes;
-@property (nonatomic, readonly, assign) CFByteOrder byteOrder;
+@property (nonatomic, readonly) CPTNumericDataType dataType;
+@property (nonatomic, readonly) CPTDataTypeFormat dataTypeFormat;
+@property (nonatomic, readonly) size_t sampleBytes;
+@property (nonatomic, readonly) CFByteOrder byteOrder;
 /// @}
 
 /// @name Dimensions
 /// @{
 @property (nonatomic, readonly, copy) NSArray *shape;
-@property (nonatomic, readonly, assign) NSUInteger numberOfDimensions;
-@property (nonatomic, readonly, assign) NSUInteger numberOfSamples;
-@property (nonatomic, readonly, assign) CPTDataOrder dataOrder;
+@property (nonatomic, readonly) NSUInteger numberOfDimensions;
+@property (nonatomic, readonly) NSUInteger numberOfSamples;
+@property (nonatomic, readonly) CPTDataOrder dataOrder;
 /// @}
 
 /// @name Factory Methods

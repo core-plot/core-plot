@@ -67,15 +67,15 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @name Layout
 /// @{
-@property (nonatomic, readonly, assign) BOOL layoutChanged;
+@property (nonatomic, readonly) BOOL layoutChanged;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfRows;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfColumns;
 @property (nonatomic, readwrite, assign) BOOL equalRows;
 @property (nonatomic, readwrite, assign) BOOL equalColumns;
 @property (nonatomic, readwrite, copy) NSArray *rowHeights;
-@property (nonatomic, readonly, strong) NSArray *rowHeightsThatFit;
+@property (nonatomic, readonly) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, copy) NSArray *columnWidths;
-@property (nonatomic, readonly, strong) NSArray *columnWidthsThatFit;
+@property (nonatomic, readonly) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;

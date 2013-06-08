@@ -753,9 +753,6 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         case CPTRectAnchorCenter:
             contentAnchor = CPTPointMake(0.5, 0.5);
             break;
-
-        default:
-            break;
     }
 
     return contentAnchor;
@@ -891,7 +888,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     }
 }
 
--(void)setTitleTextStyle:(CPTMutableTextStyle *)newStyle
+-(void)setTitleTextStyle:(CPTTextStyle *)newStyle
 {
     if ( newStyle != titleTextStyle ) {
         titleTextStyle = [newStyle copy];

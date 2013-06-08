@@ -206,26 +206,26 @@ CPTPlotCachePrecision;
 
 /// @name Plot Area
 /// @{
-@property (nonatomic, readonly, strong) CPTPlotArea *plotArea;
+@property (nonatomic, readonly) CPTPlotArea *plotArea;
 /// @}
 
 /// @name Data Loading
 /// @{
-@property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readonly) BOOL dataNeedsReloading;
 /// @}
 
 /// @name Data Cache
 /// @{
-@property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
-@property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
+@property (nonatomic, readonly) NSUInteger cachedDataCount;
+@property (nonatomic, readonly) BOOL doublePrecisionCache;
 @property (nonatomic, readwrite, assign) CPTPlotCachePrecision cachePrecision;
-@property (nonatomic, readonly, assign) CPTNumericDataType doubleDataType;
-@property (nonatomic, readonly, assign) CPTNumericDataType decimalDataType;
+@property (nonatomic, readonly) CPTNumericDataType doubleDataType;
+@property (nonatomic, readonly) CPTNumericDataType decimalDataType;
 /// @}
 
 /// @name Data Labels
 /// @{
-@property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readonly) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) BOOL showLabels;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;

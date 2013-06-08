@@ -312,6 +312,7 @@ static CPTAnimation *instance = nil;
                     }
                 }
                 @catch ( NSException *exception ) {
+#pragma unused(exception)
                     // something went wrong; don't run this operation any more
                     [expiredOperations addObject:animationOperation];
 

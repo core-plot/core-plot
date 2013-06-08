@@ -44,9 +44,9 @@
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 @property (nonatomic, readwrite, assign) BOOL labelsUpdated;
 
--(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
--(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
--(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations;
+-(void)generateFixedIntervalMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations;
+-(void)autoGenerateMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations;
+-(void)generateEqualMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations;
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
@@ -807,7 +807,7 @@ NSDecimal niceNum(NSDecimal x);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)generateFixedIntervalMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)generateFixedIntervalMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations
 {
     NSMutableSet *majorLocations = [NSMutableSet set];
     NSMutableSet *minorLocations = [NSMutableSet set];
@@ -886,8 +886,12 @@ NSDecimal niceNum(NSDecimal x);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)autoGenerateMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)autoGenerateMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations
 {
+    // Create sets for locations
+    NSMutableSet *majorLocations = [NSMutableSet set];
+    NSMutableSet *minorLocations = [NSMutableSet set];
+
     // Get plot range
     CPTMutablePlotRange *range    = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
     CPTPlotRange *theVisibleRange = self.visibleRange;
@@ -897,6 +901,7 @@ NSDecimal niceNum(NSDecimal x);
     }
 
     // Validate scale type
+    BOOL valid             = YES;
     CPTScaleType scaleType = [self.plotSpace scaleTypeForCoordinate:self.coordinate];
 
     switch ( scaleType ) {
@@ -907,29 +912,26 @@ NSDecimal niceNum(NSDecimal x);
         case CPTScaleTypeLog:
             // supported scale type--check range
             if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) ) {
-                *newMajorLocations = [NSMutableSet set];
-                *newMinorLocations = [NSMutableSet set];
-                return;
+                valid = NO;
             }
             break;
 
         default:
             // unsupported scale type--bail out
-            *newMajorLocations = [NSMutableSet set];
-            *newMinorLocations = [NSMutableSet set];
-            return;
-
+            valid = NO;
             break;
+    }
+
+    if ( !valid ) {
+        *newMajorLocations = majorLocations;
+        *newMinorLocations = minorLocations;
+        return;
     }
 
     // Cache some values
     NSUInteger numTicks   = self.preferredNumberOfMajorTicks;
     NSUInteger minorTicks = self.minorTicksPerInterval + 1;
     double length         = fabs(range.lengthDouble);
-
-    // Create sets for locations
-    NSMutableSet *majorLocations = [NSMutableSet set];
-    NSMutableSet *minorLocations = [NSMutableSet set];
 
     // Filter troublesome values and return empty sets
     if ( length != 0.0 ) {
@@ -1034,8 +1036,8 @@ NSDecimal niceNum(NSDecimal x);
                     double minorInterval = intervalStep * pow( 10.0, floor( log10(minLimit) ) ) / minorTicks;
 
                     // Determine the initial and final major indexes for the actual visible range
-                    NSInteger initialIndex = (NSInteger)floor( log10( minLimit / fabs(interval) ) ); // can be negative
-                    NSInteger finalIndex   = (NSInteger)ceil( log10( maxLimit / fabs(interval) ) );  // can be negative
+                    NSInteger initialIndex = (NSInteger)lrint( floor( log10( minLimit / fabs(interval) ) ) ); // can be negative
+                    NSInteger finalIndex   = (NSInteger)lrint( ceil( log10( maxLimit / fabs(interval) ) ) );  // can be negative
 
                     // Iterate through the indexes with visible ticks and build the locations sets
                     for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
@@ -1080,7 +1082,7 @@ NSDecimal niceNum(NSDecimal x);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)generateEqualMajorTickLocations:(NSSet **)newMajorLocations minorTickLocations:(NSSet **)newMinorLocations
+-(void)generateEqualMajorTickLocations:(NSSet * __autoreleasing *)newMajorLocations minorTickLocations:(NSSet * __autoreleasing *)newMinorLocations
 {
     NSMutableSet *majorLocations = [NSMutableSet set];
     NSMutableSet *minorLocations = [NSMutableSet set];
@@ -1166,7 +1168,7 @@ NSDecimal niceNum(NSDecimal x)
         x        = CPTDecimalMultiply(x, minusOne);
     }
 
-    short exponent = (short)floor( log10( CPTDecimalDoubleValue(x) ) );
+    short exponent = (short)lrint( floor( log10( CPTDecimalDoubleValue(x) ) ) );
 
     NSDecimal fractionPart;
     NSDecimalMultiplyByPowerOf10(&fractionPart, &x, -exponent, NSRoundPlain);
