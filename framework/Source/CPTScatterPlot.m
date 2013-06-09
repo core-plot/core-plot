@@ -663,6 +663,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( firstDrawnPointIndex != NSNotFound ) {
         NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
 
+        CPTLineStyle *theLineStyle = self.dataLineStyle;
+
         // Draw fills
         NSDecimal theAreaBaseValue;
         CPTFill *theFill = nil;
@@ -683,9 +685,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     break;
             }
             if ( theFill && ( !NSDecimalIsNotANumber(&theAreaBaseValue) ) ) {
-                // clear the plot shadow if any--not needed for fills
-                CGContextSaveGState(context);
-                CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
+                // clear the plot shadow if any--not needed for fills when the plot has a data line
+                if ( theLineStyle ) {
+                    CGContextSaveGState(context);
+                    CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
+                }
 
                 NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
                 NSDecimal plotPoint[2];
@@ -704,12 +708,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                 CGPathRelease(dataLinePath);
 
-                CGContextRestoreGState(context);
+                if ( theLineStyle ) {
+                    CGContextRestoreGState(context);
+                }
             }
         }
 
         // Draw line
-        CPTLineStyle *theLineStyle = self.dataLineStyle;
         if ( theLineStyle ) {
             CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
             CGContextBeginPath(context);
