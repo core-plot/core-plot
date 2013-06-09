@@ -893,8 +893,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         }
     }
 
-    CGFloat radius     = MIN( MIN( self.barCornerRadius, barRect.size.width * CPTFloat(0.5) ), barRect.size.height * CPTFloat(0.5) );
-    CGFloat baseRadius = MIN( MIN( self.barBaseCornerRadius, barRect.size.width * CPTFloat(0.5) ), barRect.size.height * CPTFloat(0.5) );
+    CGFloat radius     = MIN( MIN( self.barCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
+    CGFloat baseRadius = MIN( MIN( self.barBaseCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
 
     if ( widthNegative && (barRect.size.width > 0.0) ) {
         barRect.origin.x  += barRect.size.width;
@@ -1252,7 +1252,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     while ( (ii < barCount) && (idx == NSNotFound) ) {
         CGMutablePathRef path = [self newBarPathWithContext:NULL recordIndex:ii];
 
-        if ( CGPathContainsPoint(path, nil, point, false) ) {
+        if ( CGPathContainsPoint(path, NULL, point, false) ) {
             idx = ii;
         }
 
