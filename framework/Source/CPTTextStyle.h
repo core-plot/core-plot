@@ -8,12 +8,14 @@
     CGFloat fontSize;
     CPTColor *color;
     CPTTextAlignment textAlignment;
+    NSLineBreakMode lineBreakMode;
 }
 
 @property (readonly, copy, nonatomic) NSString *fontName;
 @property (readonly, assign, nonatomic) CGFloat fontSize;
 @property (readonly, copy, nonatomic) CPTColor *color;
 @property (readonly, assign, nonatomic) CPTTextAlignment textAlignment;
+@property (readonly, assign, nonatomic) NSLineBreakMode lineBreakMode;
 
 /// @name Factory Methods
 /// @{

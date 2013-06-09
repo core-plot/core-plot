@@ -438,6 +438,49 @@
         </member>
     </compound>
     <compound kind="class" objc="yes">
+        <name>NSParagraphStyle</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSMutableCopying-p</base>
+        <member kind="enumeration">
+            <name>NSLineBreakMode</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/NSLineBreakMode</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByWordWrapping</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByWordWrapping</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByCharWrapping</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByCharWrapping</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByClipping</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByClipping</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingHead</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByTruncatingHead</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingTail</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByTruncatingTail</anchor>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingMiddle</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSParagraphStyle_Class/Reference/Reference.html</anchorfile>
+            <anchor>//apple_ref/doc/c_ref/NSLineBreakByTruncatingMiddle</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
         <name>NSResponder</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSResponder_Class/Reference/Reference.html</filename>
         <base>NSObject</base>

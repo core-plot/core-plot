@@ -12,7 +12,7 @@
  *  The dictionary will contain values for the following keys that represent the receiver's text style:
  *  - #NSFontAttributeName: The font used to draw text. If missing, no font information was specified.
  *  - #NSForegroundColorAttributeName: The color used to draw text. If missing, no color information was specified.
- *  - #NSParagraphStyleAttributeName: The paragraph alignment used to draw multi-line text.
+ *  - #NSParagraphStyleAttributeName: The text alignment and line break mode used to draw multi-line text.
  **/
 @dynamic attributes;
 
@@ -25,7 +25,7 @@
  *  - #NSFontAttributeName: Sets the @link CPTTextStyle::fontName fontName @endlink
  *  and @link CPTTextStyle::fontSize fontSize @endlink.
  *  - #NSForegroundColorAttributeName: Sets the @link CPTTextStyle::color color @endlink.
- *  - #NSParagraphStyleAttributeName: Sets the @link CPTTextStyle::textAlignment textAlignment @endlink.
+ *  - #NSParagraphStyleAttributeName: Sets the @link CPTTextStyle::textAlignment textAlignment @endlink and @link CPTTextStyle::lineBreakMode lineBreakMode @endlink.
  *
  *  Properties associated with missing keys will be inialized to their default values.
  *
@@ -50,10 +50,11 @@
         newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
     }
 
-    // Text alignment
+    // Text alignment and line break mode
     NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
     if ( paragraphStyle ) {
         newStyle.textAlignment = paragraphStyle.alignment;
+        newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
     return [[newStyle copy] autorelease];
@@ -83,10 +84,11 @@
                         forKey:NSForegroundColorAttributeName];
     }
 
-    // Text alignment
+    // Text alignment and line break mode
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = self.textAlignment;
-
+    paragraphStyle.lineBreakMode = self.lineBreakMode;
+    
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
 
@@ -123,10 +125,11 @@
         newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
     }
 
-    // Text alignment
+    // Text alignment and line break mode
     NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
     if ( paragraphStyle ) {
         newStyle.textAlignment = paragraphStyle.alignment;
+        newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
     return newStyle;
@@ -194,6 +197,7 @@
         NSColor *foregroundColor                = style.color.nsColor;
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.alignment = style.textAlignment;
+        paragraphStyle.lineBreakMode = style.lineBreakMode;
 
         NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                     theFont, NSFontAttributeName,
