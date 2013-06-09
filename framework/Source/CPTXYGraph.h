@@ -1,11 +1,7 @@
 #import "CPTDefinitions.h"
 #import "CPTGraph.h"
 
-@interface CPTXYGraph : CPTGraph {
-    @private
-    CPTScaleType xScaleType;
-    CPTScaleType yScaleType;
-}
+@interface CPTXYGraph : CPTGraph
 
 /// @name Initialization
 /// @{

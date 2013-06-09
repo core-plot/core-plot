@@ -2,15 +2,9 @@
 
 @class CPTGraph;
 
-@interface CPTGraphHostingView : UIView {
-    @private
-    CPTGraph *hostedGraph;
-    BOOL collapsesLayers;
-    BOOL allowPinchScaling;
-    __cpt_weak id pinchGestureRecognizer;
-}
+@interface CPTGraphHostingView : UIView
 
-@property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;
+@property (nonatomic, readwrite, strong) CPTGraph *hostedGraph;
 @property (nonatomic, readwrite, assign) BOOL collapsesLayers;
 @property (nonatomic, readwrite, assign) BOOL allowPinchScaling;
 

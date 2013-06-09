@@ -6,7 +6,7 @@
 /// @cond
 @interface CPTAnnotationHostLayer()
 
-@property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
+@property (nonatomic, readwrite, strong) NSMutableArray *mutableAnnotations;
 
 @end
 
@@ -59,15 +59,9 @@
     if ( (self = [super initWithLayer:layer]) ) {
         CPTAnnotationHostLayer *theLayer = (CPTAnnotationHostLayer *)layer;
 
-        mutableAnnotations = [theLayer->mutableAnnotations retain];
+        mutableAnnotations = theLayer->mutableAnnotations;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [mutableAnnotations release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -99,7 +93,7 @@
 
 -(NSArray *)annotations
 {
-    return [[self.mutableAnnotations copy] autorelease];
+    return [self.mutableAnnotations copy];
 }
 
 /**
@@ -154,7 +148,7 @@
     NSMutableArray *annotations = self.mutableAnnotations;
 
     if ( annotations.count > 0 ) {
-        NSMutableSet *excludedSublayers = [[[super sublayersExcludedFromAutomaticLayout] mutableCopy] autorelease];
+        NSMutableSet *excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
 
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];

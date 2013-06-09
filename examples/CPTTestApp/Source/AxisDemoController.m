@@ -2,7 +2,7 @@
 
 @interface AxisDemoController()
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @end
 

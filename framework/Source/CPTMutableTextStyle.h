@@ -2,8 +2,7 @@
 
 @class CPTColor;
 
-@interface CPTMutableTextStyle : CPTTextStyle {
-}
+@interface CPTMutableTextStyle : CPTTextStyle
 
 @property (readwrite, copy, nonatomic) NSString *fontName;
 @property (readwrite, assign, nonatomic) CGFloat fontSize;

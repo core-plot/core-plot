@@ -10,7 +10,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupScatterPlots;
 -(void)initializeData;
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, readwrite) NSUInteger selectedIndex;

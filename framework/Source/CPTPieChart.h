@@ -148,18 +148,7 @@ CPTPieDirection;
 
 #pragma mark -
 
-@interface CPTPieChart : CPTPlot {
-    @private
-    CGFloat pieRadius;
-    CGFloat pieInnerRadius;
-    CGFloat startAngle;
-    CGFloat endAngle;
-    CPTPieDirection sliceDirection;
-    CGPoint centerAnchor;
-    CPTLineStyle *borderLineStyle;
-    CPTFill *overlayFill;
-    BOOL labelRotationRelativeToRadius;
-}
+@interface CPTPieChart : CPTPlot
 
 /// @name Appearance
 /// @{

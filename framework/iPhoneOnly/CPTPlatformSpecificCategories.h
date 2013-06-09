@@ -9,7 +9,7 @@
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 
-@property (nonatomic, readonly, retain) UIColor *uiColor;
+@property (nonatomic, readonly) UIColor *uiColor;
 
 @end
 

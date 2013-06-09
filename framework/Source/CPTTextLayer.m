@@ -7,6 +7,17 @@
 
 const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
+/// @cond
+@interface CPTTextLayer()
+
+@property (nonatomic, readwrite, assign) BOOL inTextUpdate;
+
+@end
+
+/// @endcond
+
+#pragma mark -
+
 /**
  *  @brief A Core Animation layer that displays text drawn in a uniform style.
  **/
@@ -37,6 +48,8 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  **/
 @synthesize attributedText;
 
+@synthesize inTextUpdate;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -48,9 +61,10 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
 {
     if ( (self = [super initWithFrame:CGRectZero]) ) {
-        textStyle      = [newStyle retain];
+        textStyle      = newStyle;
         text           = [newText copy];
         attributedText = nil;
+        inTextUpdate   = NO;
 
         self.needsDisplayOnBoundsChange = NO;
         [self sizeToFit];
@@ -92,9 +106,10 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     if ( (self = [super initWithLayer:layer]) ) {
         CPTTextLayer *theLayer = (CPTTextLayer *)layer;
 
-        textStyle      = [theLayer->textStyle retain];
-        text           = [theLayer->text retain];
-        attributedText = [theLayer->attributedText retain];
+        textStyle      = theLayer->textStyle;
+        text           = theLayer->text;
+        attributedText = theLayer->attributedText;
+        inTextUpdate   = theLayer->inTextUpdate;
     }
     return self;
 }
@@ -121,19 +136,6 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [textStyle release];
-    [text release];
-    [attributedText release];
-
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -146,14 +148,19 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     [coder encodeObject:self.textStyle forKey:@"CPTTextLayer.textStyle"];
     [coder encodeObject:self.text forKey:@"CPTTextLayer.text"];
     [coder encodeObject:self.attributedText forKey:@"CPTTextLayer.attributedText"];
+
+    // No need to archive these properties:
+    // inTextUpdate
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        textStyle      = [[coder decodeObjectForKey:@"CPTTextLayer.textStyle"] retain];
+        textStyle      = [coder decodeObjectForKey:@"CPTTextLayer.textStyle"];
         text           = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
         attributedText = [[coder decodeObjectForKey:@"CPTTextLayer.attributedText"] copy];
+
+        inTextUpdate = NO;
     }
     return self;
 }
@@ -168,48 +175,55 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 -(void)setText:(NSString *)newValue
 {
     if ( text != newValue ) {
-        [text release];
         text = [newValue copy];
 
-        [attributedText release];
-        attributedText = nil;
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate   = YES;
+            self.attributedText = nil;
+            self.inTextUpdate   = NO;
 
-        [self sizeToFit];
+            [self sizeToFit];
+        }
     }
 }
 
 -(void)setTextStyle:(CPTTextStyle *)newStyle
 {
     if ( textStyle != newStyle ) {
-        [textStyle release];
-        textStyle = [newStyle retain];
+        textStyle = newStyle;
 
-        [attributedText release];
-        attributedText = nil;
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate   = YES;
+            self.attributedText = nil;
+            self.inTextUpdate   = NO;
 
-        [self sizeToFit];
+            [self sizeToFit];
+        }
     }
 }
 
 -(void)setAttributedText:(NSAttributedString *)newValue
 {
     if ( attributedText != newValue ) {
-        [attributedText release];
         attributedText = [newValue copy];
 
-        [textStyle release];
-        [text release];
-        if ( attributedText.length > 0 ) {
-            textStyle = [[CPTTextStyle textStyleWithAttributes:[attributedText attributesAtIndex:0
-                                                                                  effectiveRange:NULL]] retain];
-            text = [attributedText.string copy];
-        }
-        else {
-            textStyle = nil;
-            text      = nil;
-        }
+        if ( !self.inTextUpdate ) {
+            self.inTextUpdate = YES;
 
-        [self sizeToFit];
+            if ( newValue.length > 0 ) {
+                self.textStyle = [CPTTextStyle textStyleWithAttributes:[newValue attributesAtIndex:0
+                                                                                    effectiveRange:NULL]];
+                self.text = newValue.string;
+            }
+            else {
+                self.textStyle = nil;
+                self.text      = nil;
+            }
+
+            self.inTextUpdate = NO;
+
+            [self sizeToFit];
+        }
     }
 }
 

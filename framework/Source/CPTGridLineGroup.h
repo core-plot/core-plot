@@ -2,11 +2,7 @@
 
 @class CPTPlotArea;
 
-@interface CPTGridLineGroup : CPTLayer {
-    @private
-    __cpt_weak CPTPlotArea *plotArea;
-    BOOL major;
-}
+@interface CPTGridLineGroup : CPTLayer
 
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlotArea *plotArea;
 @property (nonatomic, readwrite) BOOL major;

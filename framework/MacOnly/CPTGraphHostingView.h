@@ -2,13 +2,9 @@
 
 @class CPTGraph;
 
-@interface CPTGraphHostingView : NSView {
-    @private
-    CPTGraph *hostedGraph;
-    NSRect printRect;
-}
+@interface CPTGraphHostingView : NSView
 
-@property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;
+@property (nonatomic, readwrite, strong) CPTGraph *hostedGraph;
 @property (nonatomic, readwrite, assign) NSRect printRect;
 
 @end

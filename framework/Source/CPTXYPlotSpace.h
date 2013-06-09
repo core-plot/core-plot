@@ -3,24 +3,7 @@
 
 @class CPTPlotRange;
 
-@interface CPTXYPlotSpace : CPTPlotSpace {
-    @private
-    CPTPlotRange *xRange;
-    CPTPlotRange *yRange;
-    CPTPlotRange *globalXRange;
-    CPTPlotRange *globalYRange;
-    CPTScaleType xScaleType;
-    CPTScaleType yScaleType;
-    CGPoint lastDragPoint;
-    CGPoint lastDisplacement;
-    NSTimeInterval lastDragTime;
-    NSTimeInterval lastDeltaTime;
-    BOOL isDragging;
-    BOOL allowsMomentum;
-    BOOL elasticGlobalXRange;
-    BOOL elasticGlobalYRange;
-    NSMutableArray *animations;
-}
+@interface CPTXYPlotSpace : CPTPlotSpace
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
 @property (nonatomic, readwrite, copy) CPTPlotRange *yRange;
