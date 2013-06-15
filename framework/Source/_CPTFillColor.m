@@ -75,6 +75,14 @@
 }
 
 #pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    return self.fillColor.opaque;
+}
+
+#pragma mark -
 #pragma mark NSCopying Methods
 
 /// @cond

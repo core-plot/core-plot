@@ -50,6 +50,8 @@ CPTGradientType;
     CGPoint endAnchor;
 }
 
+@property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
+
 /// @name Gradient Type
 /// @{
 @property (nonatomic, readonly, assign) CPTGradientBlendingMode blendingMode;

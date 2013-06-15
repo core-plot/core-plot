@@ -12,6 +12,8 @@
 
 @property (nonatomic, readonly, retain) CPTLayer *borderLayer;
 
+-(void)updateOpacity;
+
 @end
 
 /// @endcond
@@ -166,7 +168,7 @@
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
     if ( theLineStyle ) {
-        CGFloat inset      = theLineStyle.lineWidth * (CGFloat)0.5;
+        CGFloat inset      = theLineStyle.lineWidth * CPTFloat(0.5);
         CGRect layerBounds = CGRectInset(self.bounds, inset, inset);
 
         [theLineStyle setLineStyleInContext:context];
@@ -293,6 +295,20 @@
     [super removeFromSuperlayer];
 }
 
+-(void)updateOpacity
+{
+    BOOL opaqueLayer = ( ( self.cornerRadius <= CPTFloat(0.0) ) && self.fill.opaque );
+
+    CPTLineStyle *lineStyle = self.borderLineStyle;
+
+    if ( lineStyle ) {
+        opaqueLayer &= lineStyle.opaque;
+    }
+
+    self.opaque             = NO;
+    self.borderLayer.opaque = opaqueLayer;
+}
+
 /// @endcond
 
 #pragma mark -
@@ -312,6 +328,8 @@
         [borderLineStyle release];
         borderLineStyle = [newLineStyle copy];
 
+        [self updateOpacity];
+
         [self.borderLayer setNeedsDisplay];
     }
 }
@@ -322,7 +340,18 @@
         [fill release];
         fill = [newFill copy];
 
+        [self updateOpacity];
+
         [self.borderLayer setNeedsDisplay];
+    }
+}
+
+-(void)setCornerRadius:(CGFloat)newRadius
+{
+    if ( newRadius != self.cornerRadius ) {
+        super.cornerRadius = newRadius;
+
+        [self updateOpacity];
     }
 }
 

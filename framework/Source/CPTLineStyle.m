@@ -23,6 +23,8 @@
 
 /// @endcond
 
+#pragma mark -
+
 /** @brief Immutable wrapper for various line drawing properties.
  *
  *  Create a CPTMutableLineStyle if you want to customize properties.
@@ -76,6 +78,11 @@
  *  @ref lineColor.
  **/
 @synthesize lineFill;
+
+/** @property BOOL opaque
+ *  @brief If @YES, a line drawn using the line style is completely opaque.
+ */
+@dynamic opaque;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -235,6 +242,28 @@
     else {
         CGContextStrokeRect(context, rect);
     }
+}
+
+#pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    BOOL opaqueLine = (self.dashPattern.count <= 1);
+
+    CPTColor *color = self.lineColor;
+
+    if ( color ) {
+        opaqueLine &= color.opaque;
+    }
+
+    CPTFill *fill = self.lineFill;
+
+    if ( fill ) {
+        opaqueLine &= fill.opaque;
+    }
+
+    return opaqueLine;
 }
 
 #pragma mark -

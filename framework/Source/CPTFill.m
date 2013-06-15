@@ -136,6 +136,20 @@
 
 @implementation CPTFill(AbstractMethods)
 
+/** @property BOOL opaque
+ *  @brief If @YES, the fill is completely opaque.
+ */
+@dynamic opaque;
+
+#pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    // do nothing--subclasses override to describe the fill opacity
+    return NO;
+}
+
 #pragma mark -
 #pragma mark Drawing
 

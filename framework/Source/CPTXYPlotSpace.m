@@ -1140,7 +1140,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
 
         // X range
-        NSLog(@"X");
         NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
         CPTPlotRange *newRangeX = [self  shiftRange:self.xRange
                                                  by:shiftX
@@ -1149,7 +1148,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                                    withDisplacement:&displacement.x];
 
         // Y range
-        NSLog(@"Y");
         NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
         CPTPlotRange *newRangeY = [self  shiftRange:self.yRange
                                                  by:shiftY

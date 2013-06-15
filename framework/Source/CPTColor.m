@@ -18,6 +18,11 @@
  **/
 @synthesize cgColor;
 
+/** @property BOOL opaque
+ *  @brief If @YES, the color is completely opaque.
+ */
+@dynamic opaque;
+
 #pragma mark -
 #pragma mark Factory Methods
 
@@ -340,6 +345,14 @@
 
     CGColorRelease(newCGColor);
     return newColor;
+}
+
+#pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    return CGColorGetAlpha(self.cgColor) >= CPTFloat(1.0);
 }
 
 #pragma mark -

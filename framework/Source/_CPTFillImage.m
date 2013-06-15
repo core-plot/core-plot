@@ -75,6 +75,14 @@
 }
 
 #pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    return self.fillImage.opaque;
+}
+
+#pragma mark -
 #pragma mark NSCopying Methods
 
 /// @cond

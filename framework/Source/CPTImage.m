@@ -55,6 +55,11 @@
  **/
 @synthesize tileAnchoredToContext;
 
+/** @property BOOL opaque
+ *  @brief If @YES, the image is completely opaque.
+ */
+@dynamic opaque;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -405,6 +410,27 @@
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    BOOL opaqueImage           = NO;
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(self.image);
+
+    switch ( alphaInfo ) {
+        case kCGImageAlphaNone:
+        case kCGImageAlphaNoneSkipFirst:
+        case kCGImageAlphaNoneSkipLast:
+            opaqueImage = YES;
+            break;
+
+        default:
+            break;
+    }
+    return opaqueImage;
+}
 
 #pragma mark -
 #pragma mark Accessors

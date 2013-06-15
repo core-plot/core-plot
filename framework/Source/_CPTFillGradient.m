@@ -70,6 +70,14 @@
 }
 
 #pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    return self.fillGradient.opaque;
+}
+
+#pragma mark -
 #pragma mark NSCopying Methods
 
 /// @cond

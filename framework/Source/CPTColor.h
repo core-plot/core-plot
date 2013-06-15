@@ -4,6 +4,7 @@
 }
 
 @property (nonatomic, readonly, assign) CGColorRef cgColor;
+@property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 
 /// @name Factory Methods
 /// @{

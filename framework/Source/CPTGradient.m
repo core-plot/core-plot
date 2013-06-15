@@ -87,6 +87,11 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  **/
 @synthesize endAnchor;
 
+/** @property BOOL opaque
+ *  @brief If @YES, the gradient is completely opaque.
+ */
+@dynamic opaque;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -878,6 +883,23 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         CGShadingRelease(myCGShading);
         CGContextRestoreGState(context);
     }
+}
+
+#pragma mark -
+#pragma mark Opacity
+
+-(BOOL)isOpaque
+{
+    BOOL opaqueGradient = YES;
+
+    CPTGradientElement *list = elementList;
+
+    while ( opaqueGradient && (list != NULL) ) {
+        opaqueGradient &= ( list->color.alpha >= CPTFloat(1.0) );
+        list            = list->nextElement;
+    }
+
+    return opaqueGradient;
 }
 
 #pragma mark -
