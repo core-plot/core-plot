@@ -3,6 +3,7 @@
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTShadow.h"
 #import "CPTTextStylePlatformSpecific.h"
+#import "CPTUtilities.h"
 #import <tgmath.h>
 
 const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
@@ -37,6 +38,16 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  **/
 @synthesize attributedText;
 
+/** @property CGSize maximumSize
+ *  @brief The maximum size of the layer. The default is {@num{0.0}, @num{0.0}}.
+ *
+ *  A text layer will size itself to fit its text drawn with its text style unless it exceeds this size.
+ *  If the @par{width} and/or @par{height} of this size is less than or equal to zero (@num{0.0}),
+ *  no size limit will be enforced in the corresponding dimension. The maximum layer size includes
+ *  any padding applied to the layer.
+ **/
+@synthesize maximumSize;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -51,6 +62,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         textStyle      = [newStyle retain];
         text           = [newText copy];
         attributedText = nil;
+        maximumSize    = CGSizeZero;
 
         self.needsDisplayOnBoundsChange = NO;
         [self sizeToFit];
@@ -213,6 +225,14 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     }
 }
 
+-(void)setMaximumSize:(CGSize)newSize
+{
+    if ( !CGSizeEqualToSize(maximumSize, newSize) ) {
+        maximumSize = newSize;
+        [self sizeToFit];
+    }
+}
+
 -(void)setShadow:(CPTShadow *)newShadow
 {
     if ( newShadow != self.shadow ) {
@@ -301,6 +321,14 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         newBounds.size         = sizeThatFits;
         newBounds.size.width  += self.paddingLeft + self.paddingRight;
         newBounds.size.height += self.paddingTop + self.paddingBottom;
+
+        CGSize maxSize = self.maximumSize;
+        if ( maxSize.width > CPTFloat(0.0) ) {
+            newBounds.size.width = MIN(newBounds.size.width, maxSize.width);
+        }
+        if ( maxSize.height > CPTFloat(0.0) ) {
+            newBounds.size.height = MIN(newBounds.size.height, maxSize.height);
+        }
 
         self.bounds = newBounds;
         [self setNeedsLayout];

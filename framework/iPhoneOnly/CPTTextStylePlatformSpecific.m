@@ -66,7 +66,7 @@
         NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
         if ( paragraphStyle ) {
             newStyle.textAlignment = paragraphStyle.alignment;
-            newStyle.lineBreakMode=paragraphStyle.lineBreakMode;
+            newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
         }
     }
 
@@ -99,8 +99,8 @@
 
     // Text alignment and line break mode
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = self.textAlignment;
-    paragraphStyle.lineBreakMode=self.lineBreakMode;
+    paragraphStyle.alignment     = self.textAlignment;
+    paragraphStyle.lineBreakMode = self.lineBreakMode;
 
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
@@ -142,7 +142,7 @@
     NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
     if ( paragraphStyle ) {
         newStyle.textAlignment = paragraphStyle.alignment;
-        newStyle.lineBreakMode=paragraphStyle.lineBreakMode;
+        newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
     return newStyle;

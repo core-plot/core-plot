@@ -86,9 +86,9 @@
 
     // Text alignment and line break mode
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = self.textAlignment;
+    paragraphStyle.alignment     = self.textAlignment;
     paragraphStyle.lineBreakMode = self.lineBreakMode;
-    
+
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
 
@@ -196,7 +196,7 @@
     if ( theFont ) {
         NSColor *foregroundColor                = style.color.nsColor;
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment = style.textAlignment;
+        paragraphStyle.alignment     = style.textAlignment;
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
         NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:

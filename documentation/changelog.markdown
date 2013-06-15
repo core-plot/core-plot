@@ -11,6 +11,7 @@ To be determined.
 - **New**: Added support for momentum scrolling.
 - **New**: Added support for "rubber band" snap-back when scrolling reaches the global x- and y-ranges.
 - **New**: Added line break mode support to `CPTTextStyle`.
+- **New**: Added a maximum layer size to `CPTTextLayer`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
