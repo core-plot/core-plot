@@ -48,7 +48,7 @@
 @synthesize textAlignment;
 
 /** @property NSLineBreakMode lineBreakMode
- *  @brief The line break mode used when laying out the text. Default is #NSLineBreakByWordWrapping.
+ *  @brief The line break mode used when laying out the text. Default is @link NSParagraphStyle::NSLineBreakByWordWrapping NSLineBreakByWordWrapping @endlink.
  **/
 @synthesize lineBreakMode;
 
@@ -76,7 +76,7 @@
  *  - @ref fontSize = @num{12.0}
  *  - @ref color = opaque black
  *  - @ref textAlignment = #CPTTextAlignmentLeft
- *  - @ref lineBreakMode = #NSLineBreakByWordWrapping
+ *  - @ref lineBreakMode = @link NSParagraphStyle::NSLineBreakByWordWrapping NSLineBreakByWordWrapping @endlink
  *
  *  @return The initialized object.
  **/
