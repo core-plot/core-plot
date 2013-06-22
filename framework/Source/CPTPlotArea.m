@@ -311,20 +311,63 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     sublayerBounds.origin = CGPointZero;
     CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
     sublayerPosition = CPTPointMake(-sublayerPosition.x, -sublayerPosition.y);
+    CGRect sublayerFrame = CPTRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 
-    NSSet *excludedLayers = [self sublayersExcludedFromAutomaticLayout];
-    for ( CALayer *subLayer in self.sublayers ) {
-        if ( [excludedLayers containsObject:subLayer] ) {
-            continue;
-        }
-        subLayer.frame = CPTRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
-    }
+    self.minorGridLineGroup.frame = sublayerFrame;
+    self.majorGridLineGroup.frame = sublayerFrame;
+    self.axisSet.frame            = sublayerFrame;
 
     // make the plot group the same size as the plot area to clip the plots
     CPTPlotGroup *thePlotGroup = self.plotGroup;
     if ( thePlotGroup ) {
         CGSize selfBoundsSize = self.bounds.size;
         thePlotGroup.frame = CPTRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
+    }
+
+    // the label and title groups never have anything to draw; make them as small as possible to save memory
+    sublayerFrame             = CPTRectMake(sublayerPosition.x, sublayerPosition.y, 0.0, 0.0);
+    self.axisLabelGroup.frame = sublayerFrame;
+    self.axisTitleGroup.frame = sublayerFrame;
+}
+
+-(NSSet *)sublayersExcludedFromAutomaticLayout
+{
+    CPTGridLineGroup *minorGrid = self.minorGridLineGroup;
+    CPTGridLineGroup *majorGrid = self.majorGridLineGroup;
+    CPTAxisSet *theAxisSet      = self.axisSet;
+    CPTPlotGroup *thePlotGroup  = self.plotGroup;
+    CPTAxisLabelGroup *labels   = self.axisLabelGroup;
+    CPTAxisLabelGroup *titles   = self.axisTitleGroup;
+
+    if ( minorGrid || majorGrid || theAxisSet || thePlotGroup || labels || titles ) {
+        NSMutableSet *excludedSublayers = [[[super sublayersExcludedFromAutomaticLayout] mutableCopy] autorelease];
+        if ( !excludedSublayers ) {
+            excludedSublayers = [NSMutableSet set];
+        }
+
+        if ( minorGrid ) {
+            [excludedSublayers addObject:minorGrid];
+        }
+        if ( majorGrid ) {
+            [excludedSublayers addObject:majorGrid];
+        }
+        if ( theAxisSet ) {
+            [excludedSublayers addObject:theAxisSet];
+        }
+        if ( thePlotGroup ) {
+            [excludedSublayers addObject:thePlotGroup];
+        }
+        if ( labels ) {
+            [excludedSublayers addObject:labels];
+        }
+        if ( titles ) {
+            [excludedSublayers addObject:titles];
+        }
+
+        return excludedSublayers;
+    }
+    else {
+        return [super sublayersExcludedFromAutomaticLayout];
     }
 }
 
