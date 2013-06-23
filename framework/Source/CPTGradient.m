@@ -895,8 +895,8 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradientElement *list = elementList;
 
     while ( opaqueGradient && (list != NULL) ) {
-        opaqueGradient &= ( list->color.alpha >= CPTFloat(1.0) );
-        list            = list->nextElement;
+        opaqueGradient = opaqueGradient && ( list->color.alpha >= CPTFloat(1.0) );
+        list           = list->nextElement;
     }
 
     return opaqueGradient;

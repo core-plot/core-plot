@@ -254,13 +254,13 @@
     CPTColor *color = self.lineColor;
 
     if ( color ) {
-        opaqueLine &= color.opaque;
+        opaqueLine = opaqueLine && color.opaque;
     }
 
     CPTFill *fill = self.lineFill;
 
     if ( fill ) {
-        opaqueLine &= fill.opaque;
+        opaqueLine = opaqueLine && fill.opaque;
     }
 
     return opaqueLine;
