@@ -302,7 +302,7 @@
     CPTLineStyle *lineStyle = self.borderLineStyle;
 
     if ( lineStyle ) {
-        opaqueLayer &= lineStyle.opaque;
+        opaqueLayer = opaqueLayer && lineStyle.opaque;
     }
 
     self.opaque             = NO;
