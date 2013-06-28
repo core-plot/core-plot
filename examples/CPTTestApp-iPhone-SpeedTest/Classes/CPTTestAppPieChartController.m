@@ -36,6 +36,8 @@
     pieChart.paddingRight  = 20.0;
     pieChart.paddingBottom = 20.0;
 
+    pieChart.plotAreaFrame.masksToBorder = NO;
+
     pieChart.axisSet = nil;
 
     // Add pie chart

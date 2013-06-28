@@ -33,6 +33,8 @@
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
     hostingView.hostedGraph = graph;
 
+    graph.plotAreaFrame.masksToBorder = NO;
+
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = NO;

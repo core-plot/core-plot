@@ -50,6 +50,7 @@
     graph.plotAreaFrame.paddingLeft   = 50.0;
     graph.plotAreaFrame.paddingRight  = 50.0;
     graph.plotAreaFrame.cornerRadius  = 10.0;
+    graph.plotAreaFrame.masksToBorder = NO;
 
     graph.plotAreaFrame.axisSet.borderLineStyle = [CPTLineStyle lineStyle];
 

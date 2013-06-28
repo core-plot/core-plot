@@ -53,6 +53,7 @@
 
     graph.plotAreaFrame.borderLineStyle = nil;
     graph.plotAreaFrame.cornerRadius    = 0.0;
+    graph.plotAreaFrame.masksToBorder   = NO;
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;

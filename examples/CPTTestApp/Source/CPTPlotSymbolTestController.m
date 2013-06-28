@@ -32,6 +32,7 @@
     grayColor                = CGColorCreateGenericGray(0.2, 0.3);
     graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
     CGColorRelease(grayColor);
+    graph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;

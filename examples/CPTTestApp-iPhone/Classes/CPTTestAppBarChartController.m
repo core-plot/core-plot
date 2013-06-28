@@ -44,6 +44,7 @@
     // Border
     barChart.plotAreaFrame.borderLineStyle = nil;
     barChart.plotAreaFrame.cornerRadius    = 0.0f;
+    barChart.plotAreaFrame.masksToBorder   = NO;
 
     // Paddings
     barChart.paddingLeft   = 0.0f;

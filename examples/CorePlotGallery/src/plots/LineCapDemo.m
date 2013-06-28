@@ -47,6 +47,7 @@ static const CGFloat titleOffset = 25.0;
     graph.plotAreaFrame.paddingBottom = 25.0;
     graph.plotAreaFrame.paddingLeft   = 25.0;
     graph.plotAreaFrame.paddingRight  = 25.0;
+    graph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;

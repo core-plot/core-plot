@@ -70,6 +70,7 @@ const NSUInteger numberOfPoints = 11;
     graph.plotAreaFrame.paddingRight  = 15.0;
     graph.plotAreaFrame.paddingBottom = 35.0;
     graph.plotAreaFrame.paddingLeft   = 35.0;
+    graph.plotAreaFrame.masksToBorder = NO;
 
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];

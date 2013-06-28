@@ -81,6 +81,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     graph.plotAreaFrame.paddingRight    = 10.0;
     graph.plotAreaFrame.paddingBottom   = 30.0;
     graph.plotAreaFrame.paddingLeft     = 35.0;
+    graph.plotAreaFrame.masksToBorder   = NO;
 
     // Axes
     CPTXYAxisSet *xyAxisSet = (id)graph.axisSet;

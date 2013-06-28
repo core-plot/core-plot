@@ -60,6 +60,7 @@
 
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
+    graph.plotAreaFrame.masksToBorder = NO;
 #if HORIZONTAL
     graph.plotAreaFrame.paddingBottom += 30.0;
 #else

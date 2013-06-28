@@ -71,6 +71,7 @@ NSString *kPlotIdentifier       = @"Data Source Plot";
     graph.plotAreaFrame.paddingRight  = 15.0;
     graph.plotAreaFrame.paddingBottom = 55.0;
     graph.plotAreaFrame.paddingLeft   = 55.0;
+    graph.plotAreaFrame.masksToBorder = NO;
 
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];

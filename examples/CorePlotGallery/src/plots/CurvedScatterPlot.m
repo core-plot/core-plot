@@ -124,6 +124,7 @@ NSString *const kSecond = @"Second Derivative";
     graph.plotAreaFrame.paddingTop    += 40.0;
     graph.plotAreaFrame.paddingRight  += 55.0;
     graph.plotAreaFrame.paddingBottom += 40.0;
+    graph.plotAreaFrame.masksToBorder  = NO;
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;

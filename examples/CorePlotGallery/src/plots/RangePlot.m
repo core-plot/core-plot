@@ -74,6 +74,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
+    graph.plotAreaFrame.masksToBorder = NO;
 
     // Instructions
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];

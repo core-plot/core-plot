@@ -46,6 +46,7 @@
     graph.plotAreaFrame.paddingTop    += 25.0;
     graph.plotAreaFrame.paddingRight  += 20.0;
     graph.plotAreaFrame.paddingBottom += 20.0;
+    graph.plotAreaFrame.masksToBorder  = NO;
 
     // Create grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
