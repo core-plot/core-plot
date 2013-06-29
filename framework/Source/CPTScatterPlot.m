@@ -37,7 +37,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 @property (nonatomic, readwrite, copy) NSArray *xValues;
 @property (nonatomic, readwrite, copy) NSArray *yValues;
-@property (nonatomic, readwrite, retain) NSArray *plotSymbols;
+@property (nonatomic, readwrite, strong) NSArray *plotSymbols;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
@@ -182,26 +182,16 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( (self = [super initWithLayer:layer]) ) {
         CPTScatterPlot *theLayer = (CPTScatterPlot *)layer;
 
-        dataLineStyle                   = [theLayer->dataLineStyle retain];
-        plotSymbol                      = [theLayer->plotSymbol retain];
-        areaFill                        = [theLayer->areaFill retain];
-        areaFill2                       = [theLayer->areaFill2 retain];
+        dataLineStyle                   = theLayer->dataLineStyle;
+        plotSymbol                      = theLayer->plotSymbol;
+        areaFill                        = theLayer->areaFill;
+        areaFill2                       = theLayer->areaFill2;
         areaBaseValue                   = theLayer->areaBaseValue;
         areaBaseValue2                  = theLayer->areaBaseValue2;
         plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
         interpolation                   = theLayer->interpolation;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [dataLineStyle release];
-    [plotSymbol release];
-    [areaFill release];
-    [areaFill2 release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -284,7 +274,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         }
 
         [self cacheArray:array forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
-        [array release];
     }
 }
 
@@ -896,10 +885,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                         CGPathAddCurveToPoint(dataLinePath, NULL, cp1.x, cp1.y, cp2.x, cp2.y, viewPoint.x, viewPoint.y);
                     }
                     break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Interpolation method not supported in scatter plot."];
-                        break;
                 }
             }
             lastPoint = viewPoint;
@@ -1126,8 +1111,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             else {
                 symbolRect.size = CGSizeZero;
             }
-            symbolRect.size.width  += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
-            symbolRect.size.height += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
+            CGFloat margin = self.plotSymbolMarginForHitDetection * CPTFloat(2.0);
+            symbolRect.size.width  += margin;
+            symbolRect.size.height += margin;
             symbolRect.origin       = CPTPointMake( center.x - CPTFloat(0.5) * CGRectGetWidth(symbolRect), center.y - CPTFloat(0.5) * CGRectGetHeight(symbolRect) );
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
@@ -1163,7 +1149,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)setPlotSymbol:(CPTPlotSymbol *)aSymbol
 {
     if ( aSymbol != plotSymbol ) {
-        [plotSymbol release];
         plotSymbol = [aSymbol copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1173,7 +1158,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)setDataLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( dataLineStyle != newLineStyle ) {
-        [dataLineStyle release];
         dataLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1183,7 +1167,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)setAreaFill:(CPTFill *)newFill
 {
     if ( newFill != areaFill ) {
-        [areaFill release];
         areaFill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1193,7 +1176,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)setAreaFill2:(CPTFill *)newFill
 {
     if ( newFill != areaFill2 ) {
-        [areaFill2 release];
         areaFill2 = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

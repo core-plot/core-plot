@@ -2,11 +2,8 @@
 
 @class CPTBorderedLayer;
 
-@interface CPTBorderLayer : CPTLayer {
-    @private
-    CPTBorderedLayer *maskedLayer;
-}
+@interface CPTBorderLayer : CPTLayer
 
-@property (nonatomic, readwrite, retain) CPTBorderedLayer *maskedLayer;
+@property (nonatomic, readwrite, strong) CPTBorderedLayer *maskedLayer;
 
 @end

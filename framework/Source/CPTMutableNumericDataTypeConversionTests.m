@@ -27,7 +27,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertEqualsWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
     }
-    [numericData release];
 }
 
 -(void)testDoubleToFloatInPlaceConversion
@@ -49,7 +48,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertEqualsWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
     }
-    [numericData release];
 }
 
 -(void)testFloatToIntegerInPlaceConversion
@@ -71,7 +69,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertEqualsWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
     }
-    [numericData release];
 }
 
 -(void)testIntegerToFloatInPlaceConversion
@@ -93,7 +90,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertEqualsWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
     }
-    [numericData release];
 }
 
 -(void)testDecimalToDoubleInPlaceConversion
@@ -115,7 +111,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertEquals(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
     }
-    [numericData release];
 }
 
 -(void)testDoubleToDecimalInPlaceConversion
@@ -137,7 +132,6 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
-    [numericData release];
 }
 
 -(void)testTypeConversionSwapsByteOrderIntegerInPlace
@@ -163,7 +157,6 @@ static const double precision           = 1.0e-6;
 
     uint32_t startRoundTrip = *(const uint32_t *)numericData.bytes;
     STAssertEquals(start, startRoundTrip, @"Round trip");
-    [numericData release];
 }
 
 -(void)testTypeConversionSwapsByteOrderDoubleInPlace
@@ -195,7 +188,6 @@ static const double precision           = 1.0e-6;
 
     double startRoundTrip = *(const double *)numericData.bytes;
     STAssertEquals(start, startRoundTrip, @"Round trip");
-    [numericData release];
 }
 
 @end

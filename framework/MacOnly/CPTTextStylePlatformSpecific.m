@@ -57,7 +57,7 @@
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
-    return [[newStyle copy] autorelease];
+    return [newStyle copy];
 }
 
 #pragma mark -
@@ -92,9 +92,7 @@
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
 
-    [paragraphStyle release];
-
-    return [[myAttributes copy] autorelease];
+    return [myAttributes copy];
 }
 
 /// @endcond
@@ -162,8 +160,6 @@
                                     nil];
 
         textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
-
-        [attributes release];
     }
     else {
         textSize = CGSizeZero;
@@ -205,9 +201,6 @@
                                     paragraphStyle, NSParagraphStyleAttributeName,
                                     nil];
         [self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
-
-        [paragraphStyle release];
-        [attributes release];
     }
     CPTPopCGContext();
 }

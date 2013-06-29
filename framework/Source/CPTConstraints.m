@@ -19,7 +19,7 @@
  **/
 +(CPTConstraints *)constraintWithLowerOffset:(CGFloat)newOffset
 {
-    return [[(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithLowerOffset : newOffset] autorelease];
+    return [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithLowerOffset : newOffset];
 }
 
 /** @brief Creates and returns a new CPTConstraints instance initialized with a fixed offset from the upper bound.
@@ -28,7 +28,7 @@
  **/
 +(CPTConstraints *)constraintWithUpperOffset:(CGFloat)newOffset
 {
-    return [[(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithUpperOffset : newOffset] autorelease];
+    return [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithUpperOffset : newOffset];
 }
 
 /** @brief Creates and returns a new CPTConstraints instance initialized with a proportional offset relative to the bounds.
@@ -41,7 +41,7 @@
  **/
 +(CPTConstraints *)constraintWithRelativeOffset:(CGFloat)newOffset
 {
-    return [[(_CPTConstraintsRelative *)[_CPTConstraintsRelative alloc] initWithRelativeOffset : newOffset] autorelease];
+    return [(_CPTConstraintsRelative *)[_CPTConstraintsRelative alloc] initWithRelativeOffset : newOffset];
 }
 
 #pragma mark -
@@ -53,8 +53,6 @@
  **/
 -(id)initWithLowerOffset:(CGFloat)newOffset
 {
-    [self release];
-
     self = [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithLowerOffset : newOffset];
 
     return self;
@@ -66,8 +64,6 @@
  **/
 -(id)initWithUpperOffset:(CGFloat)newOffset
 {
-    [self release];
-
     self = [(_CPTConstraintsFixed *)[_CPTConstraintsFixed alloc] initWithUpperOffset : newOffset];
 
     return self;
@@ -83,8 +79,6 @@
  **/
 -(id)initWithRelativeOffset:(CGFloat)newOffset
 {
-    [self release];
-
     self = [(_CPTConstraintsRelative *)[_CPTConstraintsRelative alloc] initWithRelativeOffset : newOffset];
 
     return self;

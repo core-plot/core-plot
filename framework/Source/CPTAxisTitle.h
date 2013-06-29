@@ -1,6 +1,5 @@
 #import "CPTAxisLabel.h"
 
-@interface CPTAxisTitle : CPTAxisLabel {
-}
+@interface CPTAxisTitle : CPTAxisLabel
 
 @end

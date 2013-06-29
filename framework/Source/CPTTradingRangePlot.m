@@ -215,27 +215,16 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         CPTTradingRangePlot *theLayer = (CPTTradingRangePlot *)layer;
 
         plotStyle         = theLayer->plotStyle;
-        lineStyle         = [theLayer->lineStyle retain];
-        increaseLineStyle = [theLayer->increaseLineStyle retain];
-        decreaseLineStyle = [theLayer->decreaseLineStyle retain];
-        increaseFill      = [theLayer->increaseFill retain];
-        decreaseFill      = [theLayer->decreaseFill retain];
+        lineStyle         = theLayer->lineStyle;
+        increaseLineStyle = theLayer->increaseLineStyle;
+        decreaseLineStyle = theLayer->decreaseLineStyle;
+        increaseFill      = theLayer->increaseFill;
+        decreaseFill      = theLayer->decreaseFill;
         barWidth          = theLayer->barWidth;
         stickLength       = theLayer->stickLength;
         barCornerRadius   = theLayer->barCornerRadius;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [lineStyle release];
-    [increaseLineStyle release];
-    [decreaseLineStyle release];
-    [increaseFill release];
-    [decreaseFill release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -333,7 +322,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
-        [array release];
     }
 
     if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
@@ -357,7 +345,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Line styles
@@ -382,7 +369,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
-        [array release];
     }
 
     if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
@@ -406,7 +392,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
-        [array release];
     }
 
     if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
@@ -430,7 +415,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
-        [array release];
     }
 }
 
@@ -564,10 +548,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                    low:lowPoint.y
                                            alignPoints:alignPoints];
                         break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
-                        break;
                 }
             }
         }
@@ -660,10 +640,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                   high:highPoint.y
                                                    low:lowPoint.y
                                            alignPoints:alignPoints];
-                        break;
-
-                    default:
-                        [NSException raise:CPTException format:@"Invalid plot style in renderAsVectorInContext"];
                         break;
                 }
             }
@@ -921,9 +897,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                        low:CGRectGetMinY(rect)
                                alignPoints:YES];
             break;
-
-        default:
-            break;
     }
 }
 
@@ -1129,7 +1102,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTPlotRange *yRange         = thePlotSpace.yRange;
 
     CGPoint openPoint, highPoint, lowPoint, closePoint;
-    CGFloat lastViewX, lastViewMin, lastViewMax;
+    CGFloat lastViewX   = CPTFloat(0.0);
+    CGFloat lastViewMin = CPTFloat(0.0);
+    CGFloat lastViewMax = CPTFloat(0.0);
 
     NSUInteger result              = NSNotFound;
     CGFloat minimumDistanceSquared = NAN;
@@ -1331,10 +1306,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
             case CPTTradingRangePlotStyleCandleStick:
                 offset = self.barWidth * CPTFloat(0.5);
                 break;
-
-            default:
-                [NSException raise:CPTException format:@"Invalid plot style in -dataIndexFromInteractionPoint:"];
-                break;
         }
 
         if ( ( point.x < (lastViewX - offset) ) || ( point.x > (lastViewX + offset) ) ) {
@@ -1420,7 +1391,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( lineStyle != newLineStyle ) {
-        [lineStyle release];
         lineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1430,7 +1400,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setIncreaseLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( increaseLineStyle != newLineStyle ) {
-        [increaseLineStyle release];
         increaseLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1440,7 +1409,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setDecreaseLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( decreaseLineStyle != newLineStyle ) {
-        [decreaseLineStyle release];
         decreaseLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1450,7 +1418,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setIncreaseFill:(CPTFill *)newFill
 {
     if ( increaseFill != newFill ) {
-        [increaseFill release];
         increaseFill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1460,7 +1427,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(void)setDecreaseFill:(CPTFill *)newFill
 {
     if ( decreaseFill != newFill ) {
-        [decreaseFill release];
         decreaseFill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

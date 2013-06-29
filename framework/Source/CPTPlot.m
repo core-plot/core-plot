@@ -50,14 +50,15 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @interface CPTPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
-@property (nonatomic, readwrite, retain) NSMutableDictionary *cachedData;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *cachedData;
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) NSRange labelIndexRange;
-@property (nonatomic, readwrite, retain) NSMutableArray *labelAnnotations;
+@property (nonatomic, readwrite, strong) NSMutableArray *labelAnnotations;
 @property (nonatomic, readwrite, copy) NSArray *dataLabels;
 
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
+@property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
 -(CPTMutableNumericData *)numericDataForNumbers:(id)numbers;
 -(void)setCachedDataType:(CPTNumericDataType)newDataType;
@@ -218,6 +219,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize alignsPointsToPixels;
 
+@synthesize inTitleUpdate;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -285,6 +288,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         labelIndexRange      = NSMakeRange(0, 0);
         labelAnnotations     = nil;
         alignsPointsToPixels = YES;
+        inTitleUpdate        = NO;
 
         self.masksToBounds              = YES;
         self.needsDisplayOnBoundsChange = YES;
@@ -301,41 +305,28 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlot *theLayer = (CPTPlot *)layer;
 
-        cachedData           = [theLayer->cachedData retain];
+        cachedData           = theLayer->cachedData;
         cachedDataCount      = theLayer->cachedDataCount;
         cachePrecision       = theLayer->cachePrecision;
         dataSource           = theLayer->dataSource;
-        title                = [theLayer->title retain];
-        attributedTitle      = [theLayer->attributedTitle retain];
-        plotSpace            = [theLayer->plotSpace retain];
+        title                = theLayer->title;
+        attributedTitle      = theLayer->attributedTitle;
+        plotSpace            = theLayer->plotSpace;
         dataNeedsReloading   = theLayer->dataNeedsReloading;
         needsRelabel         = theLayer->needsRelabel;
         showLabels           = theLayer->showLabels;
         labelOffset          = theLayer->labelOffset;
         labelRotation        = theLayer->labelRotation;
         labelField           = theLayer->labelField;
-        labelTextStyle       = [theLayer->labelTextStyle retain];
-        labelFormatter       = [theLayer->labelFormatter retain];
-        labelShadow          = [theLayer->labelShadow retain];
+        labelTextStyle       = theLayer->labelTextStyle;
+        labelFormatter       = theLayer->labelFormatter;
+        labelShadow          = theLayer->labelShadow;
         labelIndexRange      = theLayer->labelIndexRange;
-        labelAnnotations     = [theLayer->labelAnnotations retain];
+        labelAnnotations     = theLayer->labelAnnotations;
         alignsPointsToPixels = theLayer->alignsPointsToPixels;
+        inTitleUpdate        = theLayer->inTitleUpdate;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [cachedData release];
-    [title release];
-    [attributedTitle release];
-    [plotSpace release];
-    [labelTextStyle release];
-    [labelFormatter release];
-    [labelShadow release];
-    [labelAnnotations release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -372,6 +363,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     // dataNeedsReloading
     // cachedData
     // cachedDataCount
+    // inTitleUpdate
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -380,7 +372,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         dataSource           = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
         title                = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
         attributedTitle      = [[coder decodeObjectForKey:@"CPTPlot.attributedTitle"] copy];
-        plotSpace            = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
+        plotSpace            = [coder decodeObjectForKey:@"CPTPlot.plotSpace"];
         cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
         showLabels           = [coder decodeBoolForKey:@"CPTPlot.showLabels"];
@@ -388,8 +380,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         labelRotation        = [coder decodeCGFloatForKey:@"CPTPlot.labelRotation"];
         labelField           = (NSUInteger)[coder decodeIntegerForKey : @"CPTPlot.labelField"];
         labelTextStyle       = [[coder decodeObjectForKey:@"CPTPlot.labelTextStyle"] copy];
-        labelFormatter       = [[coder decodeObjectForKey:@"CPTPlot.labelFormatter"] retain];
-        labelShadow          = [[coder decodeObjectForKey:@"CPTPlot.labelShadow"] retain];
+        labelFormatter       = [coder decodeObjectForKey:@"CPTPlot.labelFormatter"];
+        labelShadow          = [coder decodeObjectForKey:@"CPTPlot.labelShadow"];
         labelIndexRange      = [[coder decodeObjectForKey:@"CPTPlot.labelIndexRange"] rangeValue];
         labelAnnotations     = [[coder decodeObjectForKey:@"CPTPlot.labelAnnotations"] mutableCopy];
         alignsPointsToPixels = [coder decodeBoolForKey:@"CPTPlot.alignsPointsToPixels"];
@@ -403,6 +395,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         cachedData         = [[NSMutableDictionary alloc] initWithCapacity:5];
         cachedDataCount    = 0;
         dataNeedsReloading = YES;
+        inTitleUpdate      = NO;
     }
     return self;
 }
@@ -544,7 +537,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         [self cacheArray:array
                   forKey:CPTPlotBindingDataLabels
            atRecordIndex:indexRange.location];
-        [array release];
     }
 
     [self relabelIndexRange:indexRange];
@@ -567,7 +559,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             [(NSMutableData *)numericData.data increaseLengthBy : length];
 
-            void *start        = [numericData samplePointer:idx];
+            int8_t *start      = [numericData samplePointer:idx];
             size_t bytesToMove = numericData.data.length - (idx + numberOfRecords) * sampleSize;
             if ( bytesToMove > 0 ) {
                 memmove(start + length, start, bytesToMove);
@@ -599,7 +591,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( [data isKindOfClass:numericClass] ) {
             CPTMutableNumericData *numericData = (CPTMutableNumericData *)data;
             size_t sampleSize                  = numericData.sampleBytes;
-            void *start                        = [numericData samplePointer:indexRange.location];
+            int8_t *start                      = [numericData samplePointer:indexRange.location];
             size_t length                      = sampleSize * indexRange.length;
             size_t bytesToMove                 = numericData.data.length - (indexRange.location + indexRange.length) * sampleSize;
             if ( bytesToMove > 0 ) {
@@ -709,7 +701,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     id<CPTPlotDataSource> theDataSource = self.dataSource;
 
     if ( [theDataSource respondsToSelector:@selector(dataForPlot:recordIndexRange:)] ) {
-        CPTNumericData *data = [[theDataSource dataForPlot:self recordIndexRange:indexRange] retain];
+        CPTNumericData *data = [theDataSource dataForPlot:self recordIndexRange:indexRange];
 
         if ( [data isKindOfClass:[CPTNumericData class]] ) {
             const NSUInteger sampleCount = data.numberOfSamples;
@@ -727,16 +719,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                             if ( !CPTDataTypeEqualToDataType(dataType, self.doubleDataType) ) {
                                 CPTMutableNumericData *mutableData = [data mutableCopy];
                                 mutableData.dataType = self.doubleDataType;
-                                [data release];
-                                data = mutableData;
+                                data                 = mutableData;
                             }
                         }
                         else {
                             if ( !CPTDataTypeEqualToDataType(dataType, self.decimalDataType) ) {
                                 CPTMutableNumericData *mutableData = [data mutableCopy];
                                 mutableData.dataType = self.decimalDataType;
-                                [data release];
-                                data = mutableData;
+                                data                 = mutableData;
                             }
                         }
                         break;
@@ -745,8 +735,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                         if ( !CPTDataTypeEqualToDataType(dataType, self.decimalDataType) ) {
                             CPTMutableNumericData *mutableData = [data mutableCopy];
                             mutableData.dataType = self.decimalDataType;
-                            [data release];
-                            data = mutableData;
+                            data                 = mutableData;
                         }
                         break;
 
@@ -754,12 +743,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                         if ( !CPTDataTypeEqualToDataType(dataType, self.doubleDataType) ) {
                             CPTMutableNumericData *mutableData = [data mutableCopy];
                             mutableData.dataType = self.doubleDataType;
-                            [data release];
-                            data = mutableData;
+                            data                 = mutableData;
                         }
-                        break;
-
-                    default:
                         break;
                 }
 
@@ -769,7 +754,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                 switch ( data.dataOrder ) {
                     case CPTDataOrderRowsFirst:
                     {
-                        const void *sourceEnd = data.bytes + data.length;
+                        const void *sourceEnd = (const int8_t *)(data.bytes) + data.length;
 
                         for ( NSUInteger fieldNum = 0; fieldNum < fieldCount; fieldNum++ ) {
                             NSMutableData *tempData = [[NSMutableData alloc] initWithLength:bufferLength];
@@ -796,11 +781,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                             CPTMutableNumericData *tempNumericData = [[CPTMutableNumericData alloc] initWithData:tempData
                                                                                                         dataType:dataType
                                                                                                            shape:nil];
-                            [tempData release];
 
                             [self cacheNumbers:tempNumericData forField:fieldNum atRecordIndex:indexRange.location];
-
-                            [tempNumericData release];
                         }
                         hasData = YES;
                     }
@@ -815,22 +797,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                             CPTMutableNumericData *tempNumericData = [[CPTMutableNumericData alloc] initWithData:tempData
                                                                                                         dataType:dataType
                                                                                                            shape:nil];
-                            [tempData release];
 
                             [self cacheNumbers:tempNumericData forField:fieldNum atRecordIndex:indexRange.location];
-
-                            [tempNumericData release];
                         }
                         hasData = YES;
-                        break;
-
-                    default:
                         break;
                 }
             }
         }
-
-        [data release];
     }
 
     return hasData;
@@ -939,7 +913,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             self.cachedDataCount = numberOfRecords;
 
             NSUInteger startByte = idx * cachedNumbers.sampleBytes;
-            void *cachePtr       = cachedNumbers.mutableBytes + startByte;
+            void *cachePtr       = (int8_t *)(cachedNumbers.mutableBytes) + startByte;
             size_t numberOfBytes = MIN(mutableNumbers.data.length, cachedNumbers.data.length - startByte);
             memcpy(cachePtr, mutableNumbers.bytes, numberOfBytes);
 
@@ -985,7 +959,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         [NSException raise:CPTException format:@"Unsupported number array format"];
     }
 
-    return [mutableNumbers autorelease];
+    return mutableNumbers;
 }
 
 /// @endcond
@@ -1309,7 +1283,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     for ( NSNumber *field in fields ) {
         CPTPlotRange *currentRange = [self plotRangeForField:field.unsignedIntValue];
         if ( !unionRange ) {
-            unionRange = [[currentRange mutableCopy] autorelease];
+            unionRange = [currentRange mutableCopy];
         }
         else {
             [unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntValue]];
@@ -1395,7 +1369,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             newLabelLayer = nil;
         }
         else {
-            newLabelLayer = [[self cachedValueForKey:CPTPlotBindingDataLabels recordIndex:i] retain];
+            newLabelLayer = [self cachedValueForKey:CPTPlotBindingDataLabels recordIndex:i];
 
             if ( ( (newLabelLayer == nil) || (newLabelLayer == nilObject) ) && plotProvidesLabels ) {
                 NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
@@ -1403,7 +1377,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             }
 
             if ( [newLabelLayer isKindOfClass:nullClass] || (newLabelLayer == nilObject) ) {
-                [newLabelLayer release];
                 newLabelLayer = nil;
             }
         }
@@ -1417,7 +1390,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                     labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
                     [labelArray replaceObjectAtIndex:i withObject:labelAnnotation];
                     [self addAnnotation:labelAnnotation];
-                    [labelAnnotation release];
                 }
             }
             else {
@@ -1432,7 +1404,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                 labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
                 [labelArray addObject:labelAnnotation];
                 [self addAnnotation:labelAnnotation];
-                [labelAnnotation release];
             }
             else {
                 [labelArray addObject:nullObject];
@@ -1444,8 +1415,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             labelAnnotation.rotation     = theRotation;
             [self positionLabelAnnotation:labelAnnotation forIndex:i];
             [self updateContentAnchorForLabel:labelAnnotation];
-
-            [newLabelLayer release];
         }
     }
 
@@ -1678,26 +1647,30 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(void)setTitle:(NSString *)newTitle
 {
     if ( newTitle != title ) {
-        [title release];
         title = [newTitle copy];
 
-        [attributedTitle release];
-        attributedTitle = nil;
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate   = YES;
+            self.attributedTitle = nil;
+            self.inTitleUpdate   = NO;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+        }
     }
 }
 
 -(void)setAttributedTitle:(NSAttributedString *)newTitle
 {
     if ( newTitle != attributedTitle ) {
-        [attributedTitle release];
         attributedTitle = [newTitle copy];
 
-        [title release];
-        title = [attributedTitle.string copy];
+        if ( !self.inTitleUpdate ) {
+            self.inTitleUpdate = YES;
+            self.title         = attributedTitle.string;
+            self.inTitleUpdate = NO;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsLayoutForPlotNotification object:self];
+        }
     }
 }
 
@@ -1748,7 +1721,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(void)setLabelTextStyle:(CPTTextStyle *)newStyle
 {
     if ( newStyle != labelTextStyle ) {
-        [labelTextStyle release];
         labelTextStyle = [newStyle copy];
 
         if ( labelTextStyle && !self.labelFormatter ) {
@@ -1757,7 +1729,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             newFormatter.maximumFractionDigits = 1;
             newFormatter.minimumFractionDigits = 1;
             self.labelFormatter                = newFormatter;
-            [newFormatter release];
         }
 
         self.needsRelabel = YES;
@@ -1790,8 +1761,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(void)setLabelFormatter:(NSFormatter *)newTickLabelFormatter
 {
     if ( newTickLabelFormatter != labelFormatter ) {
-        [labelFormatter release];
-        labelFormatter    = [newTickLabelFormatter retain];
+        labelFormatter    = newTickLabelFormatter;
         self.needsRelabel = YES;
     }
 }
@@ -1799,8 +1769,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(void)setLabelShadow:(CPTShadow *)newLabelShadow
 {
     if ( newLabelShadow != labelShadow ) {
-        [labelShadow release];
-        labelShadow = [newLabelShadow retain];
+        labelShadow = newLabelShadow;
 
         Class annotationClass = [CPTAnnotation class];
         for ( CPTAnnotation *label in self.labelAnnotations ) {
@@ -1826,10 +1795,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             case CPTPlotCachePrecisionDecimal:
                 [self setCachedDataType:self.decimalDataType];
-                break;
-
-            default:
-                [NSException raise:NSInvalidArgumentException format:@"Invalid cache precision"];
                 break;
         }
     }

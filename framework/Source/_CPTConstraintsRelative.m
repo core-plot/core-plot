@@ -79,7 +79,7 @@
 {
     _CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->offset = self->offset;
+    copy.offset = self.offset;
 
     return copy;
 }

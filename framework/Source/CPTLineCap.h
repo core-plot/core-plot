@@ -23,21 +23,12 @@ typedef enum _CPTLineCapType {
 }
 CPTLineCapType;
 
-@interface CPTLineCap : NSObject<NSCoding, NSCopying> {
-    @private
-    CGSize size;
-    CPTLineCapType lineCapType;
-    CPTLineStyle *lineStyle;
-    CPTFill *fill;
-    CGPathRef cachedLineCapPath;
-    CGPathRef customLineCapPath;
-    BOOL usesEvenOddClipRule;
-}
+@interface CPTLineCap : NSObject<NSCoding, NSCopying>
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTLineCapType lineCapType;
-@property (nonatomic, readwrite, retain) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, retain) CPTFill *fill;
+@property (nonatomic, readwrite, strong) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, strong) CPTFill *fill;
 @property (nonatomic, readwrite, assign) CGPathRef customLineCapPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 

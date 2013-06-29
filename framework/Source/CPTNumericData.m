@@ -9,6 +9,11 @@
 /// @cond
 @interface CPTNumericData()
 
+@property (nonatomic, readwrite, copy) NSData *data;
+@property (nonatomic, readwrite, assign) CPTNumericDataType dataType;
+@property (nonatomic, readwrite, copy) NSArray *shape;
+@property (nonatomic, readwrite, assign) CPTDataOrder dataOrder;
+
 -(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList;
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType;
@@ -114,10 +119,9 @@
                 dataType:(CPTNumericDataType)newDataType
                    shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:newDataType
-                                 shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:newDataType
+                                shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -130,10 +134,9 @@
           dataTypeString:(NSString *)newDataTypeString
                    shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                 shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -150,10 +153,9 @@
                  dataType:(CPTNumericDataType)newDataType
                     shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:newDataType
-                                  shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:newDataType
+                                 shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -170,10 +172,9 @@
            dataTypeString:(NSString *)newDataTypeString
                     shape:(NSArray *)shapeArray
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                  shape:shapeArray]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                 shape:shapeArray];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -188,11 +189,10 @@
                    shape:(NSArray *)shapeArray
                dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:newDataType
-                                 shape:shapeArray
-                             dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:newDataType
+                                shape:shapeArray
+                            dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -207,11 +207,10 @@
                    shape:(NSArray *)shapeArray
                dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithData:newData
-                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                 shape:shapeArray
-                             dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithData:newData
+                             dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                shape:shapeArray
+                            dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -230,11 +229,10 @@
                     shape:(NSArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:newDataType
-                                  shape:shapeArray
-                              dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:newDataType
+                                 shape:shapeArray
+                             dataOrder:order];
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
@@ -253,11 +251,10 @@
                     shape:(NSArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    return [[[self alloc] initWithArray:newData
-                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
-                                  shape:shapeArray
-                              dataOrder:order]
-            autorelease];
+    return [[self alloc] initWithArray:newData
+                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
+                                 shape:shapeArray
+                             dataOrder:order];
 }
 
 #pragma mark -
@@ -429,17 +426,12 @@
 {
     NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 
-    if ( [self isKindOfClass:[CPTMutableNumericData class]] ) {
-        data = [newData mutableCopy];
-    }
-    else {
-        data = [newData copy];
-    }
-    dataType  = newDataType;
-    dataOrder = order;
+    self.data      = newData;
+    self.dataType  = newDataType;
+    self.dataOrder = order;
 
     if ( shapeArray == nil ) {
-        shape = [[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]] retain];
+        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
     }
     else {
         NSUInteger prod = 1;
@@ -452,16 +444,8 @@
                         format:@"Shape product (%lu) does not match data size (%lu)", (unsigned long)prod, (unsigned long)self.numberOfSamples];
         }
 
-        shape = [shapeArray copy];
+        self.shape = shapeArray;
     }
-}
-
--(void)dealloc
-{
-    [data release];
-    [shape release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -504,6 +488,80 @@
 -(CFByteOrder)byteOrder
 {
     return self.dataType.byteOrder;
+}
+
+-(void)setData:(NSData *)newData
+{
+    if ( data != newData ) {
+        if ( [self isKindOfClass:[CPTMutableNumericData class]] ) {
+            data = [newData mutableCopy];
+        }
+        else {
+            data = [newData copy];
+        }
+    }
+}
+
+-(void)setDataType:(CPTNumericDataType)newDataType
+{
+    CPTNumericDataType oldDataType = dataType;
+
+    if ( CPTDataTypeEqualToDataType(oldDataType, newDataType) ) {
+        return;
+    }
+
+    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
+    NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
+
+    dataType = newDataType;
+
+    if ( ( oldDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
+        return;
+    }
+
+    if ( (oldDataType.dataTypeFormat != CPTUndefinedDataType) && (oldDataType.byteOrder != CFByteOrderUnknown) ) {
+        NSMutableData *myData     = (NSMutableData *)self.data;
+        CFByteOrder hostByteOrder = CFByteOrderGetCurrent();
+
+        NSUInteger sampleCount = myData.length / oldDataType.sampleBytes;
+
+        if ( oldDataType.byteOrder != hostByteOrder ) {
+            [self swapByteOrderForData:myData sampleSize:oldDataType.sampleBytes];
+        }
+
+        if ( newDataType.sampleBytes > oldDataType.sampleBytes ) {
+            NSData *oldData = [myData copy];
+            myData.length = sampleCount * newDataType.sampleBytes;
+            [self convertData:oldData dataType:&oldDataType toData:myData dataType:&newDataType];
+        }
+        else {
+            [self convertData:myData dataType:&oldDataType toData:myData dataType:&newDataType];
+            myData.length = sampleCount * newDataType.sampleBytes;
+        }
+
+        if ( newDataType.byteOrder != hostByteOrder ) {
+            [self swapByteOrderForData:myData sampleSize:newDataType.sampleBytes];
+        }
+    }
+}
+
+-(void)setShape:(NSArray *)newShape
+{
+    if ( newShape != shape ) {
+        shape = [newShape copy];
+
+        NSMutableData *myData = (NSMutableData *)self.data;
+
+        if ( [myData isKindOfClass:[NSMutableData class]] ) {
+            NSUInteger sampleCount = 1;
+            for ( NSNumber *num in shape ) {
+                sampleCount *= [num unsignedIntegerValue];
+            }
+
+            myData.length = sampleCount * self.sampleBytes;
+        }
+    }
 }
 
 /// @endcond
@@ -712,7 +770,6 @@
     }
 
     NSArray *result = [NSArray arrayWithArray:samples];
-    [samples release];
 
     return result;
 }
@@ -784,9 +841,6 @@
                 }
 
                 break;
-
-            default:
-                break;
         }
 
         free(dims);
@@ -823,7 +877,7 @@
                     int8_t *toBytes = (int8_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(charValue)] ) {
-                            *toBytes++ = (int8_t)[(NSNumber *)sample charValue];
+                            *toBytes++ = (int8_t)[sample charValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -837,7 +891,7 @@
                     int16_t *toBytes = (int16_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(shortValue)] ) {
-                            *toBytes++ = (int16_t)[(NSNumber *)sample shortValue];
+                            *toBytes++ = (int16_t)[sample shortValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -851,7 +905,7 @@
                     int32_t *toBytes = (int32_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(longValue)] ) {
-                            *toBytes++ = (int32_t)[(NSNumber *)sample longValue];
+                            *toBytes++ = (int32_t)[sample longValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -865,7 +919,7 @@
                     int64_t *toBytes = (int64_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(longLongValue)] ) {
-                            *toBytes++ = (int64_t)[(NSNumber *)sample longLongValue];
+                            *toBytes++ = (int64_t)[sample longLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -883,7 +937,7 @@
                     uint8_t *toBytes = (uint8_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedCharValue)] ) {
-                            *toBytes++ = (uint8_t)[(NSNumber *)sample unsignedCharValue];
+                            *toBytes++ = (uint8_t)[sample unsignedCharValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -897,7 +951,7 @@
                     uint16_t *toBytes = (uint16_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedShortValue)] ) {
-                            *toBytes++ = (uint16_t)[(NSNumber *)sample unsignedShortValue];
+                            *toBytes++ = (uint16_t)[sample unsignedShortValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -911,7 +965,7 @@
                     uint32_t *toBytes = (uint32_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedLongValue)] ) {
-                            *toBytes++ = (uint32_t)[(NSNumber *)sample unsignedLongValue];
+                            *toBytes++ = (uint32_t)[sample unsignedLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -925,7 +979,7 @@
                     uint64_t *toBytes = (uint64_t *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(unsignedLongLongValue)] ) {
-                            *toBytes++ = (uint64_t)[(NSNumber *)sample unsignedLongLongValue];
+                            *toBytes++ = (uint64_t)[sample unsignedLongLongValue];
                         }
                         else {
                             *toBytes++ = 0;
@@ -943,7 +997,7 @@
                     float *toBytes = (float *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float)[(NSNumber *)sample floatValue];
+                            *toBytes++ = (float)[sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -957,7 +1011,7 @@
                     double *toBytes = (double *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double)[(NSNumber *)sample doubleValue];
+                            *toBytes++ = (double)[sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -975,7 +1029,7 @@
                     float complex *toBytes = (float complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float complex)[(NSNumber *)sample floatValue];
+                            *toBytes++ = (float complex)[sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -989,7 +1043,7 @@
                     double complex *toBytes = (double complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double complex)[(NSNumber *)sample doubleValue];
+                            *toBytes++ = (double complex)[sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1007,7 +1061,7 @@
                     NSDecimal *toBytes = (NSDecimal *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(decimalValue)] ) {
-                            *toBytes++ = (NSDecimal)[(NSNumber *)sample decimalValue];
+                            *toBytes++ = [sample decimalValue];
                         }
                         else {
                             *toBytes++ = CPTDecimalNaN();
@@ -1026,7 +1080,7 @@
         [self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
     }
 
-    return [sampleData autorelease];
+    return sampleData;
 }
 
 /// @endcond

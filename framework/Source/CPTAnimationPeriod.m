@@ -77,7 +77,7 @@
  **/
 +(id)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    return [[[self alloc] initWithStartValue:aStartValue endValue:anEndValue duration:aDuration withDelay:aDelay] autorelease];
+    return [[self alloc] initWithStartValue:aStartValue endValue:anEndValue duration:aDuration withDelay:aDelay];
 }
 
 /// @endcond
@@ -217,8 +217,6 @@
  **/
 -(id)initWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue :[NSNumber numberWithCGFloat:aStart]
             endValue :[NSNumber numberWithCGFloat:anEnd]
             duration : aDuration
@@ -237,8 +235,6 @@
  **/
 -(id)initWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationCGPointPeriod *)[_CPTAnimationCGPointPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
             endValue :[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
             duration : aDuration
@@ -257,8 +253,6 @@
  **/
 -(id)initWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationCGSizePeriod *)[_CPTAnimationCGSizePeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
             endValue :[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
             duration : aDuration
@@ -277,8 +271,6 @@
  **/
 -(id)initWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationCGRectPeriod *)[_CPTAnimationCGRectPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
             endValue :[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
             duration : aDuration
@@ -297,8 +289,6 @@
  **/
 -(id)initWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationNSDecimalPeriod *)[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartDecimal objCType:@encode(NSDecimal)]
             endValue :[NSValue valueWithBytes:&anEndDecimal objCType:@encode(NSDecimal)]
             duration : aDuration
@@ -317,8 +307,6 @@
  **/
 -(id)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    [self release];
-
     self = [(_CPTAnimationPlotRangePeriod *)[_CPTAnimationPlotRangePeriod alloc] initWithStartValue : (NSValue *)aStartPlotRange
             endValue : (NSValue *)anEndPlotRange
             duration : aDuration
@@ -365,13 +353,6 @@
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", [super description], self.startValue, self.endValue, self.duration, self.delay];
-}
-
--(void)dealloc
-{
-    [startValue release];
-    [endValue release];
-    [super dealloc];
 }
 
 /// @endcond
