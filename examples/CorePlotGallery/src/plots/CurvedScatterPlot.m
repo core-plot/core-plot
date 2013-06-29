@@ -301,13 +301,13 @@ NSString *const kSecond = @"Second Derivative";
     NSString *identifier = (NSString *)plot.identifier;
 
     if ( [identifier isEqualToString:kData] ) {
-        num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+        num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kFirst] ) {
-        num = [[plotData1 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+        num = [[plotData1 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kSecond] ) {
-        num = [[plotData2 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x":@"y")];
+        num = [[plotData2 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
 
     return num;
@@ -323,18 +323,18 @@ NSString *const kSecond = @"Second Derivative";
     CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
 
     switch ( coordinate ) {
-        case CPTCoordinateX :
+        case CPTCoordinateX:
             [changedRange expandRangeByFactor:CPTDecimalFromDouble(1.025)];
             changedRange.location          = newRange.location;
             axisSet.xAxis.visibleAxisRange = changedRange;
             break;
 
-        case CPTCoordinateY :
+        case CPTCoordinateY:
             [changedRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
             axisSet.yAxis.visibleAxisRange = changedRange;
             break;
 
-        default :
+        default:
             break;
     }
 

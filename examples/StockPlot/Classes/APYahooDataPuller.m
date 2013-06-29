@@ -64,7 +64,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     for ( id key in [aFinancialLine allKeys] ) {
         id something = [aFinancialLine objectForKey:key];
         if ( [something respondsToSelector:@selector(decimalValue)] ) {
-            something = [NSDecimalNumber decimalNumberWithDecimal:[(NSNumber *) something decimalValue]];
+            something = [NSDecimalNumber decimalNumberWithDecimal:[(NSNumber *)something decimalValue]];
             [aFinancialLine setObject:something forKey:key];
         }
     }

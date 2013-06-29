@@ -21,7 +21,7 @@
     NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Create graph from theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     hostView.hostedGraph = graph;

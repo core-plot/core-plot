@@ -33,7 +33,7 @@
 -(void)windowControllerDidLoadNib:(NSWindowController *)windowController
 {
     // Create graph from theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     graphView.hostedGraph = graph;
@@ -81,7 +81,7 @@
     y.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Create the main plot for the delimited data
-    CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame : graph.bounds] autorelease];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
     CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];

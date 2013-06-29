@@ -17,7 +17,7 @@
     [super awakeFromNib];
 
     // Create graph
-    CPTXYGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
+    CPTXYGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
     graph.fill           = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.cornerRadius   = 20.0;
     hostView.hostedGraph = graph;

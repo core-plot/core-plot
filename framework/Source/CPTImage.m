@@ -370,7 +370,7 @@
             CFDataRef otherProviderData     = CGDataProviderCopyData(otherProvider);
 
             if ( selfProviderData && otherProviderData ) {
-                equalImages = [(NSData *) selfProviderData isEqualToData:(NSData *)otherProviderData];
+                equalImages = [(NSData *)selfProviderData isEqualToData : (NSData *)otherProviderData];
             }
             else {
                 equalImages = (selfProviderData == otherProviderData);

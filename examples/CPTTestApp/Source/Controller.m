@@ -68,7 +68,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(self.hostView.bounds)];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     self.hostView.hostedGraph = graph;
@@ -179,7 +179,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     // Add an extra y axis (red)
     // We add constraints to this axis below
-    CPTXYAxis *y2 = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:CGRectZero];
+    CPTXYAxis *y2 = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame : CGRectZero];
     y2.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
     y2.orthogonalCoordinateDecimal = CPTDecimalFromString(@"3");
     y2.minorTicksPerInterval       = 0;
@@ -405,7 +405,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         num = [NSDecimalNumber numberWithInt:(index + 1) * (index + 1)];
         if ( [plot.identifier isEqual:barPlot2] ) {
-            num = [(NSDecimalNumber *) num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+            num = [(NSDecimalNumber *)num decimalNumberBySubtracting :[NSDecimalNumber decimalNumberWithString:@"10"]];
         }
     }
     else {
@@ -420,10 +420,10 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    if ( [(NSString *)plot.identifier isEqualToString:barPlot2] ) {
+    if ( [(NSString *)plot.identifier isEqualToString : barPlot2] ) {
         return (id)[NSNull null]; // Don't show any label
     }
-    else if ( [(NSString *)plot.identifier isEqualToString:barPlot1] && (index < 4) ) {
+    else if ( [(NSString *)plot.identifier isEqualToString : barPlot1] && (index < 4) ) {
         return (id)[NSNull null];
     }
     else if ( index % 4 ) {
@@ -585,7 +585,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     graph.masksToBounds            = NO;
     graph.superlayer.masksToBounds = NO;
 
-    overlayRotationView                   = [(RotationView *)[RotationView alloc] initWithFrame:self.hostView.frame];
+    overlayRotationView                   = [(RotationView *)[RotationView alloc] initWithFrame : self.hostView.frame];
     overlayRotationView.rotationDelegate  = self;
     overlayRotationView.rotationTransform = perspectiveRotation;
     [overlayRotationView setAutoresizingMask:[self.hostView autoresizingMask]];
@@ -672,7 +672,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform
 {
     [CATransaction begin];
-    [CATransaction setValue:(id) kCFBooleanTrue forKey:kCATransactionDisableActions];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 
     graph.superlayer.sublayerTransform = rotationTransform;
 

@@ -133,16 +133,16 @@
         [self addInputPortWithType:QCPortTypeStructure
                             forKey:[NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)index]
                     withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                         [NSString stringWithFormat:@"Data Values %u", (unsigned)(index + 1)], QCPortAttributeNameKey,
-                         QCPortTypeStructure, QCPortAttributeTypeKey,
-                         nil]];
+                                    [NSString stringWithFormat:@"Data Values %u", (unsigned)(index + 1)], QCPortAttributeNameKey,
+                                    QCPortTypeStructure, QCPortAttributeTypeKey,
+                                    nil]];
 
         [self addInputPortWithType:QCPortTypeStructure
                             forKey:[NSString stringWithFormat:@"plotLabels%lu", (unsigned long)index]
                     withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                         [NSString stringWithFormat:@"Data Labels %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                         QCPortTypeStructure, QCPortAttributeTypeKey,
-                         nil]];
+                                    [NSString stringWithFormat:@"Data Labels %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
+                                    QCPortTypeStructure, QCPortAttributeTypeKey,
+                                    nil]];
 
         // TODO: add support for used defined fill colors.  As of now we use a single color
         // multiplied against the 'default' pie chart colors
@@ -150,10 +150,10 @@
         [self addInputPortWithType:QCPortTypeColor
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                     withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                         [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                         QCPortTypeColor, QCPortAttributeTypeKey,
-                         grayColor, QCPortAttributeDefaultValueKey,
-                         nil]];
+                                    [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
+                                    QCPortTypeColor, QCPortAttributeTypeKey,
+                                    grayColor, QCPortAttributeDefaultValueKey,
+                                    nil]];
         CGColorRelease(grayColor);
 
         // Add the new plot to the graph
@@ -261,7 +261,7 @@
 
     CGColorRelease(fillColor);
 
-    return [[(CPTFill *)[CPTFill alloc] initWithColor:fillCPColor] autorelease];
+    return [[(CPTFill *)[CPTFill alloc] initWithColor : fillCPColor] autorelease];
 }
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index

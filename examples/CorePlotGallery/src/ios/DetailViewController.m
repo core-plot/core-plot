@@ -107,9 +107,9 @@
     self.popoverController = pc;
 }
 
--(void)  splitViewController:(UISplitViewController *)svc
-      willShowViewController:(UIViewController *)aViewController
-   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+-(void)   splitViewController:(UISplitViewController *)svc
+       willShowViewController:(UIViewController *)aViewController
+    invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     NSMutableArray *items = [[toolbar items] mutableCopy];
 

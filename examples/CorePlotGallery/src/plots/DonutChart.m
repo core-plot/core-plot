@@ -160,7 +160,7 @@ NSString *const outerChartName = @"Outer";
 
     CPTTextLayer *newLayer = nil;
 
-    if ( [(NSString *)plot.identifier isEqualToString:outerChartName] ) {
+    if ( [(NSString *)plot.identifier isEqualToString : outerChartName] ) {
         if ( !whiteText ) {
             whiteText       = [[CPTMutableTextStyle alloc] init];
             whiteText.color = [CPTColor whiteColor];
@@ -183,7 +183,7 @@ NSString *const outerChartName = @"Outer";
 {
     CGFloat result = 0.0;
 
-    if ( [(NSString *)pieChart.identifier isEqualToString:outerChartName] ) {
+    if ( [(NSString *)pieChart.identifier isEqualToString : outerChartName] ) {
         result = (index == 0 ? 15.0 : 0.0);
     }
     return result;

@@ -231,7 +231,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         [self exposeBinding:CPTPlotBindingDataLabels];
     }
 }
-
 #endif
 
 /// @endcond
@@ -420,7 +419,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     return [NSArray class];
 }
-
 #endif
 
 #pragma mark -
@@ -567,7 +565,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             size_t sampleSize                  = numericData.sampleBytes;
             size_t length                      = sampleSize * numberOfRecords;
 
-            [(NSMutableData *)numericData.data increaseLengthBy:length];
+            [(NSMutableData *)numericData.data increaseLengthBy : length];
 
             void *start        = [numericData samplePointer:idx];
             size_t bytesToMove = numericData.data.length - (idx + numberOfRecords) * sampleSize;
@@ -612,7 +610,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             dataBuffer.length -= length;
         }
         else {
-            [(NSMutableArray *) data removeObjectsInRange:indexRange];
+            [(NSMutableArray *)data removeObjectsInRange : indexRange];
         }
     }
 
@@ -974,7 +972,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( ( (NSArray *)numbers ).count == 0 ) {
             loadedDataType = self.doubleDataType;
         }
-        else if ( [[(NSArray *) numbers objectAtIndex:0] isKindOfClass:[NSDecimalNumber class]] ) {
+        else if ( [[(NSArray *)numbers objectAtIndex : 0] isKindOfClass:[NSDecimalNumber class]] ) {
             loadedDataType = self.decimalDataType;
         }
         else {

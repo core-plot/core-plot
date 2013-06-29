@@ -134,7 +134,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         [self exposeBinding:CPTScatterPlotBindingPlotSymbols];
     }
 }
-
 #endif
 
 /// @endcond

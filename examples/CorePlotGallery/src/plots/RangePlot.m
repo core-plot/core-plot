@@ -68,7 +68,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #endif
 
     [graph release];
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:bounds];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -98,7 +98,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Setup fill and bar style
     CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
-    areaFill = [(CPTFill *)[CPTFill alloc] initWithColor:transparentGreen];
+    areaFill = [(CPTFill *)[CPTFill alloc] initWithColor : transparentGreen];
 
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
     lineStyle.lineWidth = 1.0f;

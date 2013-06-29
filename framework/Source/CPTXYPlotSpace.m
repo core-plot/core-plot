@@ -451,7 +451,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                          fromPlotRange:newRange
                            toPlotRange:constrainedRange
                               duration:kCPTBounceTime
-                             withDelay:(hasShift ? kCPTMomentumTime:0.0)
+                             withDelay:(hasShift ? kCPTMomentumTime : 0.0)
                         animationCurve:CPTAnimationCurveElasticOut
                               delegate:nil];
             [animationArray addObject:op];
@@ -667,7 +667,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     CGFloat viewY;
 
     switch ( self.xScaleType ) {
-        case CPTScaleTypeLinear :
+        case CPTScaleTypeLinear:
             viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
@@ -1141,7 +1141,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
         // X range
         NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
-        CPTPlotRange *newRangeX = [self  shiftRange:self.xRange
+        CPTPlotRange *newRangeX = [self shiftRange:self.xRange
                                                  by:shiftX
                                       inGlobalRange:self.globalXRange
                                             elastic:self.elasticGlobalXRange
@@ -1149,7 +1149,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
         // Y range
         NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
-        CPTPlotRange *newRangeY = [self  shiftRange:self.yRange
+        CPTPlotRange *newRangeY = [self shiftRange:self.yRange
                                                  by:shiftY
                                       inGlobalRange:self.globalYRange
                                             elastic:self.elasticGlobalYRange

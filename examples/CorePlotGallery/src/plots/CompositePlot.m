@@ -55,7 +55,6 @@
     [barChartView needsDisplay];
     [pieChartView needsDisplay];
 }
-
 #endif
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -451,7 +450,7 @@
         num = [[dataForPlot objectAtIndex:index] valueForKey:key];
 
         // Green plot gets shifted above the blue
-        if ( [(NSString *)plot.identifier isEqualToString:@"Green Plot"] ) {
+        if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
             if ( fieldEnum == CPTScatterPlotFieldY ) {
                 num = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:[num doubleValue] + 1.0];
             }
@@ -515,7 +514,6 @@
         pieChartView.frame    = CGRectMake(684.0f, 408.0f, 320.0f, 320.0f);
     }
 }
-
 #endif
 
 @end

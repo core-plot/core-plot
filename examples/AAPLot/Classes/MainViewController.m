@@ -167,7 +167,7 @@
         numFields = 2;
     }
 
-    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double):sizeof(NSDecimal) )];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
 
     const NSUInteger maxIndex = NSMaxRange(indexRange);
 
@@ -181,7 +181,7 @@
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                     switch ( fieldEnum ) {
-                        case CPTScatterPlotFieldX :
+                        case CPTScatterPlotFieldX:
                             *nextValue++ = (double)(i + 1);
                             break;
 
@@ -365,9 +365,9 @@
     }
 
     CPTMutableNumericData *numericData = [CPTMutableNumericData numericDataWithData:data
-                                                                           dataType:(useDoubles ? plot.doubleDataType:plot.decimalDataType)
+                                                                           dataType:(useDoubles ? plot.doubleDataType : plot.decimalDataType)
                                                                               shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:indexRange.length],
-                                                 [NSNumber numberWithUnsignedInteger:numFields], nil]
+                                                                                     [NSNumber numberWithUnsignedInteger:numFields], nil]
                                                                           dataOrder:CPTDataOrderRowsFirst];
     [data release];
 
@@ -389,7 +389,7 @@
         numFields = 2;
     }
 
-    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double):sizeof(NSDecimal) )];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
 
     const NSUInteger maxIndex = NSMaxRange(indexRange);
 
@@ -403,11 +403,11 @@
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
-                        case CPTScatterPlotFieldX :
+                        case CPTScatterPlotFieldX:
                             *nextValue++ = (double)(i + 1);
                             break;
 
-                        case CPTScatterPlotFieldY :
+                        case CPTScatterPlotFieldY:
                             value = [fData objectForKey:@"close"];
                             NSAssert(value, @"Close value was nil");
                             *nextValue++ = [value doubleValue];
@@ -587,20 +587,19 @@
     }
 
     CPTMutableNumericData *numericData = [CPTMutableNumericData numericDataWithData:data
-                                                                           dataType:(useDoubles ? plot.doubleDataType:plot.decimalDataType)
+                                                                           dataType:(useDoubles ? plot.doubleDataType : plot.decimalDataType)
                                                                               shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:indexRange.length],
-                                                 [NSNumber numberWithUnsignedInteger:numFields], nil]
+                                                                                     [NSNumber numberWithUnsignedInteger:numFields], nil]
                                                                           dataOrder:CPTDataOrderColumnsFirst];
     [data release];
 
     return numericData;
 }
-
 #endif
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    if ( ![(NSString *)plot.identifier isEqualToString:@"OHLC"] ) {
+    if ( ![(NSString *)plot.identifier isEqualToString : @"OHLC"] ) {
         return (id)[NSNull null]; // Don't show any label
     }
     else if ( index % 5 ) {

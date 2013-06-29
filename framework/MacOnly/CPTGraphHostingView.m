@@ -43,7 +43,7 @@
     if ( (self = [super initWithFrame:frame]) ) {
         hostedGraph = nil;
         printRect   = NSZeroRect;
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
+        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(frame)];
         self.layer = mainLayer;
         [mainLayer release];
     }
@@ -75,7 +75,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
+        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(self.frame)];
         self.layer = mainLayer;
         [mainLayer release];
 

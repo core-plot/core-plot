@@ -387,7 +387,7 @@
             NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
             num = [[dataForPlot objectAtIndex:index] valueForKey:key];
             // Green plot gets shifted above the blue
-            if ( [(NSString *)plot.identifier isEqualToString:@"Green Plot"] ) {
+            if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {
                     num = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:[num doubleValue] + 1.0];
                 }

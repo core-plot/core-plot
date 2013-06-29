@@ -367,7 +367,7 @@
     [coder encodeCGColorSpace:CGColorGetColorSpace(theColor) forKey:@"CPTColor.colorSpace"];
 
     size_t numberOfComponents = CGColorGetNumberOfComponents(theColor);
-    [coder encodeInt64:(int64_t) numberOfComponents forKey:@"CPTColor.numberOfComponents"];
+    [coder encodeInt64:(int64_t)numberOfComponents forKey:@"CPTColor.numberOfComponents"];
 
     const CGFloat *colorComponents = CGColorGetComponents(theColor);
 

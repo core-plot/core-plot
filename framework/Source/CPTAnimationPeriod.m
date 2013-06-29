@@ -219,10 +219,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue:[NSNumber numberWithCGFloat:aStart]
-                                                                                       endValue:[NSNumber numberWithCGFloat:anEnd]
-                                                                                       duration:aDuration
-                                                                                      withDelay:aDelay];
+    self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue :[NSNumber numberWithCGFloat:aStart]
+            endValue :[NSNumber numberWithCGFloat:anEnd]
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -239,10 +239,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationCGPointPeriod *)[_CPTAnimationCGPointPeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
-                                                                                       endValue:[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
-                                                                                       duration:aDuration
-                                                                                      withDelay:aDelay];
+    self = [(_CPTAnimationCGPointPeriod *)[_CPTAnimationCGPointPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
+            endValue :[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -259,10 +259,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationCGSizePeriod *)[_CPTAnimationCGSizePeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
-                                                                                     endValue:[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
-                                                                                     duration:aDuration
-                                                                                    withDelay:aDelay];
+    self = [(_CPTAnimationCGSizePeriod *)[_CPTAnimationCGSizePeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
+            endValue :[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -279,10 +279,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationCGRectPeriod *)[_CPTAnimationCGRectPeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
-                                                                                     endValue:[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
-                                                                                     duration:aDuration
-                                                                                    withDelay:aDelay];
+    self = [(_CPTAnimationCGRectPeriod *)[_CPTAnimationCGRectPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
+            endValue :[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -299,10 +299,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationNSDecimalPeriod *)[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartDecimal objCType:@encode(NSDecimal)]
-                                                                                           endValue:[NSValue valueWithBytes:&anEndDecimal objCType:@encode(NSDecimal)]
-                                                                                           duration:aDuration
-                                                                                          withDelay:aDelay];
+    self = [(_CPTAnimationNSDecimalPeriod *)[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartDecimal objCType:@encode(NSDecimal)]
+            endValue :[NSValue valueWithBytes:&anEndDecimal objCType:@encode(NSDecimal)]
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -319,10 +319,10 @@
 {
     [self release];
 
-    self = [(_CPTAnimationPlotRangePeriod *)[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)aStartPlotRange
-                                                                                           endValue:(NSValue *)anEndPlotRange
-                                                                                           duration:aDuration
-                                                                                          withDelay:aDelay];
+    self = [(_CPTAnimationPlotRangePeriod *)[_CPTAnimationPlotRangePeriod alloc] initWithStartValue : (NSValue *)aStartPlotRange
+            endValue : (NSValue *)anEndPlotRange
+            duration : aDuration
+            withDelay : aDelay];
 
     return self;
 }
@@ -402,7 +402,7 @@
                                                             duration:duration
                                                            withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -427,7 +427,7 @@
                                                             duration:duration
                                                            withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -450,7 +450,7 @@
                                                             duration:duration
                                                            withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault
@@ -477,7 +477,7 @@
                                                                  duration:duration
                                                                 withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -502,7 +502,7 @@
                                                                  duration:duration
                                                                 withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -525,7 +525,7 @@
                                                                  duration:duration
                                                                 withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault
@@ -552,7 +552,7 @@
                                                                 duration:duration
                                                                withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -577,7 +577,7 @@
                                                                 duration:duration
                                                                withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -600,7 +600,7 @@
                                                                 duration:duration
                                                                withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault
@@ -627,7 +627,7 @@
                                                                 duration:duration
                                                                withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -652,7 +652,7 @@
                                                                 duration:duration
                                                                withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -675,7 +675,7 @@
                                                                 duration:duration
                                                                withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault
@@ -702,7 +702,7 @@
                                                                    duration:duration
                                                                   withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -727,7 +727,7 @@
                                                                    duration:duration
                                                                   withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -750,7 +750,7 @@
                                                                    duration:duration
                                                                   withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault
@@ -777,7 +777,7 @@
                                                                      duration:duration
                                                                     withDelay:delay];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -802,7 +802,7 @@
                                                                      duration:duration
                                                                     withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:animationCurve
@@ -825,7 +825,7 @@
                                                                      duration:duration
                                                                     withDelay:0.0];
 
-    return [self   animate:object
+    return [self animate:object
                   property:property
                     period:period
             animationCurve:CPTAnimationCurveDefault

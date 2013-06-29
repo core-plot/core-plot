@@ -208,7 +208,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         self.paddingBottom = CPTFloat(20.0);
 
         // Plot area
-        CPTPlotAreaFrame *newArea = [(CPTPlotAreaFrame *)[CPTPlotAreaFrame alloc] initWithFrame:self.bounds];
+        CPTPlotAreaFrame *newArea = [(CPTPlotAreaFrame *)[CPTPlotAreaFrame alloc] initWithFrame : self.bounds];
         self.plotAreaFrame = newArea;
         [newArea release];
 

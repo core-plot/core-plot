@@ -143,7 +143,6 @@
 
     return values + indexRange.location;
 }
-
 #endif
 
 #else
@@ -176,7 +175,6 @@
     }
     return returnArray;
 }
-
 #endif
 #endif
 

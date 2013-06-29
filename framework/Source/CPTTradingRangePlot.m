@@ -163,7 +163,6 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self exposeBinding:CPTTradingRangePlotBindingDecreaseLineStyles];
     }
 }
-
 #endif
 
 /// @endcond
@@ -195,8 +194,8 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
         lineStyle         = [[CPTLineStyle alloc] init];
         increaseLineStyle = nil;
         decreaseLineStyle = nil;
-        increaseFill      = [(CPTFill *)[CPTFill alloc] initWithColor:[CPTColor whiteColor]];
-        decreaseFill      = [(CPTFill *)[CPTFill alloc] initWithColor:[CPTColor blackColor]];
+        increaseFill      = [(CPTFill *)[CPTFill alloc] initWithColor :[CPTColor whiteColor]];
+        decreaseFill      = [(CPTFill *)[CPTFill alloc] initWithColor :[CPTColor blackColor]];
         barWidth          = CPTFloat(5.0);
         stickLength       = CPTFloat(3.0);
         barCornerRadius   = CPTFloat(0.0);

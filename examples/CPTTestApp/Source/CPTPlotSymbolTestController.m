@@ -17,7 +17,7 @@
     [super awakeFromNib];
 
     // Create graph
-    graph                = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
+    graph                = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
     hostView.hostedGraph = graph;
 
     // Remove axes
@@ -46,7 +46,7 @@
 
     // Create a series of plots that uses the data source method
     for ( NSUInteger i = CPTPlotSymbolTypeNone; i <= CPTPlotSymbolTypeCustom; i++ ) {
-        CPTScatterPlot *dataSourceLinePlot = [(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:graph.bounds];
+        CPTScatterPlot *dataSourceLinePlot = [(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame : graph.bounds];
         dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
         dataSourceLinePlot.shadow     = lineShadow;
 

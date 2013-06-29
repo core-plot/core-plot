@@ -207,7 +207,6 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         [self exposeBinding:CPTBarPlotBindingBarLineStyles];
     }
 }
-
 #endif
 
 /// @endcond

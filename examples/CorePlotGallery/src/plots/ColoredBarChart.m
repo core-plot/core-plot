@@ -36,7 +36,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:bounds];
+    CPTGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -161,7 +161,7 @@
         case CPTBarPlotFieldBarLocation:
             nums = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( NSUInteger i = indexRange.location; i < NSMaxRange(indexRange); i++ ) {
-                [(NSMutableArray *) nums addObject:[NSDecimalNumber numberWithUnsignedInteger:i]];
+                [(NSMutableArray *)nums addObject :[NSDecimalNumber numberWithUnsignedInteger:i]];
             }
             break;
 

@@ -175,7 +175,6 @@ static const CGFloat colorLookupTable[10][3] =
         [self exposeBinding:CPTPieChartBindingPieSliceRadialOffsets];
     }
 }
-
 #endif
 
 /// @endcond
@@ -535,7 +534,7 @@ static const CGFloat colorLookupTable[10][3] =
 
     CGRect bounds;
     if ( overlay && hasNonZeroOffsets ) {
-        CGFloat                                                 radius = self.pieRadius + borderStyle.lineWidth*CPTFloat(0.5);
+        CGFloat radius = self.pieRadius + borderStyle.lineWidth * CPTFloat(0.5);
 
         bounds = CPTRectMake( centerPoint.x - radius, centerPoint.y - radius, radius * CPTFloat(2.0), radius * CPTFloat(2.0) );
     }

@@ -1780,7 +1780,7 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *axisLabel in self.axisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *) contentLayer setTextStyle:labelTextStyle];
+                [(CPTTextLayer *)contentLayer setTextStyle : labelTextStyle];
             }
         }
 
@@ -1798,7 +1798,7 @@ NSDecimal niceNum(NSDecimal x)
         for ( CPTAxisLabel *axisLabel in self.minorTickAxisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *) contentLayer setTextStyle:minorTickLabelTextStyle];
+                [(CPTTextLayer *)contentLayer setTextStyle : minorTickLabelTextStyle];
             }
         }
 

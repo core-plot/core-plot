@@ -240,7 +240,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
     return cachedImage;
 }
-
 #endif
 
 -(void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme
@@ -258,7 +257,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 -(void)setFrameSize:(NSSize)size
 {
 }
-
 #endif
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -269,7 +267,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
     [self killGraph];
 
-    defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
+    defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame : hostingView.bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;
@@ -328,7 +326,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
  *  return graph.title;
  * }
  */
-
 #endif
 
 @end

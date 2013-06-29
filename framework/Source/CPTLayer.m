@@ -365,7 +365,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
                                   currentSublayerFrameOrigin.y - currentSublayerBounds.origin.y);
             [self applyTransform:self.sublayerTransform toContext:context];
             if ( [currentSublayer isKindOfClass:[CPTLayer class]] ) {
-                [(CPTLayer *) currentSublayer recursivelyRenderInContext:context];
+                [(CPTLayer *)currentSublayer recursivelyRenderInContext : context];
             }
             else {
                 if ( self.masksToBounds ) {
@@ -744,7 +744,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
     CALayer *superlayer = self.superlayer;
     if ( [superlayer isKindOfClass:[CPTLayer class]] ) {
-        [(CPTLayer *) superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
+        [(CPTLayer *)superlayer applySublayerMaskToContext : context forSublayer : self withOffset : layerOffset];
     }
 
     CGPathRef maskPath = self.sublayerMaskingPath;

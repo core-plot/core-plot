@@ -480,7 +480,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
                                               theSwatchSize.height);
             BOOL legendShouldDrawSwatch = YES;
             if ( delegateCanDraw ) {
-                legendShouldDrawSwatch = [theDelegate      legend:self
+                legendShouldDrawSwatch = [theDelegate legend:self
                                           shouldDrawSwatchAtIndex:legendEntry.index
                                                           forPlot:legendEntry.plot
                                                            inRect:swatchRect
@@ -611,7 +611,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( row < desiredRowHeights.count ) {
                 id desiredRowHeight = [desiredRowHeights objectAtIndex:row];
                 if ( [desiredRowHeight isKindOfClass:numberClass] ) {
-                    maxTitleHeight[row] = MAX(maxTitleHeight[row], [(NSNumber *) desiredRowHeight cgFloatValue]);
+                    maxTitleHeight[row] = MAX(maxTitleHeight[row], [(NSNumber *)desiredRowHeight cgFloatValue]);
                 }
             }
         }
@@ -622,7 +622,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( col < desiredColumnWidths.count ) {
                 id desiredColumnWidth = [desiredColumnWidths objectAtIndex:col];
                 if ( [desiredColumnWidth isKindOfClass:numberClass] ) {
-                    maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *) desiredColumnWidth cgFloatValue]);
+                    maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *)desiredColumnWidth cgFloatValue]);
                 }
             }
         }

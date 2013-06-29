@@ -289,9 +289,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithData:(NSData *)newData
-   dataTypeString:(NSString *)newDataTypeString
-            shape:(NSArray *)shapeArray
+-(id) initWithData:(NSData *)newData
+    dataTypeString:(NSString *)newDataTypeString
+             shape:(NSArray *)shapeArray
 {
     return [self initWithData:newData
                      dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -365,10 +365,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithData:(NSData *)newData
-   dataTypeString:(NSString *)newDataTypeString
-            shape:(NSArray *)shapeArray
-        dataOrder:(CPTDataOrder)order
+-(id) initWithData:(NSData *)newData
+    dataTypeString:(NSString *)newDataTypeString
+             shape:(NSArray *)shapeArray
+         dataOrder:(CPTDataOrder)order
 {
     return [self initWithData:newData
                      dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -943,7 +943,7 @@
                     float *toBytes = (float *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float)[(NSNumber *) sample floatValue];
+                            *toBytes++ = (float)[(NSNumber *)sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -957,7 +957,7 @@
                     double *toBytes = (double *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double)[(NSNumber *) sample doubleValue];
+                            *toBytes++ = (double)[(NSNumber *)sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -975,7 +975,7 @@
                     float complex *toBytes = (float complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(floatValue)] ) {
-                            *toBytes++ = (float complex)[(NSNumber *) sample floatValue];
+                            *toBytes++ = (float complex)[(NSNumber *)sample floatValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -989,7 +989,7 @@
                     double complex *toBytes = (double complex *)sampleData.mutableBytes;
                     for ( id sample in newData ) {
                         if ( [sample respondsToSelector:@selector(doubleValue)] ) {
-                            *toBytes++ = (double complex)[(NSNumber *) sample doubleValue];
+                            *toBytes++ = (double complex)[(NSNumber *)sample doubleValue];
                         }
                         else {
                             *toBytes++ = NAN;
@@ -1051,7 +1051,7 @@
     [descriptionString appendFormat:@" ] {%@, %@, %@}>",
      CPTDataTypeStringFromDataType(self.dataType),
      self.shape,
-     (self.dataOrder == CPTDataOrderRowsFirst ? @"by rows":@"by columns")];
+     (self.dataOrder == CPTDataOrderRowsFirst ? @"by rows" : @"by columns")];
 
     return descriptionString;
 }
@@ -1134,7 +1134,7 @@
         if ( [decoder allowsKeyedCoding] ) {
             newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
-            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntForKey : @"CPTNumericData.dataType.dataTypeFormat"],
+            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntForKey: @"CPTNumericData.dataType.dataTypeFormat"],
                                        (size_t)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.sampleBytes"],
                                        (CFByteOrder)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.byteOrder"] );
 

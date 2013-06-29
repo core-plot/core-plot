@@ -144,7 +144,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     // encode data count
     NSUInteger dataCount = pathData.count;
     NSString *newKey     = [[NSString alloc] initWithFormat:@"%@.count", key];
-    [self encodeInteger:(NSInteger) dataCount forKey:newKey];
+    [self encodeInteger:(NSInteger)dataCount forKey:newKey];
     [newKey release];
 
     // encode data elements
@@ -239,7 +239,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     if ( decodeArray ) {
         size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
         newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
-        [self encodeInt64:(int64_t) numberOfComponents forKey:newKey];
+        [self encodeInt64:(int64_t)numberOfComponents forKey:newKey];
         [newKey release];
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {

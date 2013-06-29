@@ -44,7 +44,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
+    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
     [graph applyTheme:theme];
     hostView.hostedGraph = graph;
@@ -179,10 +179,10 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 {
     NSUInteger count = 0;
 
-    if ( [(NSString *)plot.identifier isEqualToString:MAIN_PLOT] ) {
+    if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
         count = [self.dataForPlot count];
     }
-    else if ( [(NSString *)plot.identifier isEqualToString:SELECTION_PLOT] ) {
+    else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
         if ( self.selectedIndex < NSUIntegerMax ) {
             count = 5;
         }
@@ -195,11 +195,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 {
     NSNumber *num = nil;
 
-    if ( [(NSString *)plot.identifier isEqualToString:MAIN_PLOT] ) {
+    if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
         num = [[self.dataForPlot objectAtIndex:index] valueForKey:key];
     }
-    else if ( [(NSString *)plot.identifier isEqualToString:SELECTION_PLOT] ) {
+    else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 
         switch ( fieldEnum ) {
@@ -259,7 +259,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     CPTPlotSymbol *symbol = (id)[NSNull null];
 
-    if ( [(NSString *)plot.identifier isEqualToString:SELECTION_PLOT] && (index == 2) ) {
+    if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] && (index == 2) ) {
         if ( !redDot ) {
             redDot            = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;
@@ -289,7 +289,6 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     self.selectedIndex = NSUIntegerMax;
     return YES;
 }
-
 #endif
 
 #pragma mark -

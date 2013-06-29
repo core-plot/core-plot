@@ -127,7 +127,7 @@
 
 -(CPTAxisSet *)newAxisSet
 {
-    CPTXYAxisSet *newAxisSet = [(CPTXYAxisSet *)[CPTXYAxisSet alloc] initWithFrame:self.bounds];
+    CPTXYAxisSet *newAxisSet = [(CPTXYAxisSet *)[CPTXYAxisSet alloc] initWithFrame : self.bounds];
 
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;

@@ -198,7 +198,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             count++;
             currentElement = currentElement->nextElement;
         }
-        [coder encodeInteger:(NSInteger) count forKey:@"CPTGradient.elementCount"];
+        [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
         [coder encodeInt:blendingMode forKey:@"CPTGradient.blendingMode"];
         [coder encodeCGFloat:angle forKey:@"CPTGradient.angle"];
         [coder encodeInt:gradientType forKey:@"CPTGradient.type"];
@@ -1594,7 +1594,7 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 }
 
 void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. grayscale color)
-{ //    we want to fill it with a sensible value
+{                                                 //    we want to fill it with a sensible value
     if ( isnan(color1[0]) && isnan(color2[0]) ) {
         color1[0] = color2[0] = 0;
     }

@@ -147,15 +147,15 @@
     if ( [dp loadingData] ) {
         if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
             accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [(UIActivityIndicatorView *) accessory setHidesWhenStopped:NO];
+            [(UIActivityIndicatorView *)accessory setHidesWhenStopped : NO];
             [cell setAccessoryView:accessory];
             [accessory release];
         }
-        [(UIActivityIndicatorView *) accessory startAnimating];
+        [(UIActivityIndicatorView *)accessory startAnimating];
     }
     else {
         if ( [accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
-            [(UIActivityIndicatorView *) accessory stopAnimating];
+            [(UIActivityIndicatorView *)accessory stopAnimating];
         }
         if ( [dp staleData] ) {
             if ( ![accessory isMemberOfClass:[UIImageView class]] ) {

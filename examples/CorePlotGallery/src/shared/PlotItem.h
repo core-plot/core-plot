@@ -18,7 +18,6 @@ typedef CGRect CGNSRect;
 
 #import <CorePlot/CorePlot.h>
 typedef NSRect CGNSRect;
-
 #endif
 
 extern NSString *const kDemoPlots;

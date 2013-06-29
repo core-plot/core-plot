@@ -138,7 +138,6 @@ typedef struct CGPointError CGPointError;
         [self exposeBinding:CPTRangePlotBindingBarLineStyles];
     }
 }
-
 #endif
 
 /// @endcond
