@@ -373,7 +373,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
                                                                   dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                      shape:nil];
-                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+                locationData.shape = @[@(indexRange.length)];
 
                 double doublePrecisionDelta = 1.0;
                 if ( indexRange.length > 1 ) {
@@ -392,7 +392,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
                                                                   dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
                                                                      shape:nil];
-                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+                locationData.shape = @[@(indexRange.length)];
 
                 NSDecimal delta = CPTDecimalFromInteger(1);
                 if ( indexRange.length > 1 ) {
@@ -421,7 +421,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
                                                                   dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                      shape:nil];
-                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+                locationData.shape = @[@(indexRange.length)];
 
                 double locationDouble = 0.0;
                 double *dataBytes     = (double *)locationData.mutableBytes;
@@ -435,7 +435,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
                                                                   dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
                                                                      shape:nil];
-                locationData.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:indexRange.length]];
+                locationData.shape = @[@(indexRange.length)];
 
                 NSDecimal locationDecimal = CPTDecimalFromInteger(0);
                 NSDecimal *dataBytes      = (NSDecimal *)locationData.mutableBytes;
@@ -1078,12 +1078,10 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"barCornerRadius",
-                @"barBaseCornerRadius",
-                @"barOffsetScale",
-                @"barWidthScale",
-                nil];
+        keys = @[@"barCornerRadius",
+                 @"barBaseCornerRadius",
+                 @"barOffsetScale",
+                 @"barWidthScale"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -1125,7 +1123,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
     NSNumber *offsetLocation;
     if ( self.doublePrecisionCache ) {
-        offsetLocation = [NSNumber numberWithDouble:([location doubleValue] + [self doubleLengthInPlotCoordinates:self.barOffset] * self.barOffsetScale)];
+        offsetLocation = @([location doubleValue] + [self doubleLengthInPlotCoordinates:self.barOffset] * self.barOffsetScale);
     }
     else {
         NSDecimal decimalLocation = [location decimalValue];
@@ -1135,7 +1133,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
     // Offset
     if ( horizontalBars ) {
-        label.anchorPlotPoint = [NSArray arrayWithObjects:length, offsetLocation, nil];
+        label.anchorPlotPoint = @[length, offsetLocation];
 
         if ( positiveDirection ) {
             label.displacement = CPTPointMake(self.labelOffset, 0.0);
@@ -1145,7 +1143,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         }
     }
     else {
-        label.anchorPlotPoint = [NSArray arrayWithObjects:offsetLocation, length, nil];
+        label.anchorPlotPoint = @[offsetLocation, length];
 
         if ( positiveDirection ) {
             label.displacement = CPTPointMake(0.0, self.labelOffset);
@@ -1478,11 +1476,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObjects:
-            [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarLocation],
-            [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip],
-            [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarBase],
-            nil];
+    return @[@(CPTBarPlotFieldBarLocation),
+             @(CPTBarPlotFieldBarTip),
+             @(CPTBarPlotFieldBarBase)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -1493,27 +1489,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         case CPTCoordinateX:
             if ( self.barsAreHorizontal ) {
                 if ( self.barBasesVary ) {
-                    result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip], [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarBase], nil];
+                    result = @[@(CPTBarPlotFieldBarTip), @(CPTBarPlotFieldBarBase)];
                 }
                 else {
-                    result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip], nil];
+                    result = @[@(CPTBarPlotFieldBarTip)];
                 }
             }
             else {
-                result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarLocation], nil];
+                result = @[@(CPTBarPlotFieldBarLocation)];
             }
             break;
 
         case CPTCoordinateY:
             if ( self.barsAreHorizontal ) {
-                result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarLocation], nil];
+                result = @[@(CPTBarPlotFieldBarLocation)];
             }
             else {
                 if ( self.barBasesVary ) {
-                    result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip], [NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarBase], nil];
+                    result = @[@(CPTBarPlotFieldBarTip), @(CPTBarPlotFieldBarBase)];
                 }
                 else {
-                    result = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTBarPlotFieldBarTip], nil];
+                    result = @[@(CPTBarPlotFieldBarTip)];
                 }
             }
             break;

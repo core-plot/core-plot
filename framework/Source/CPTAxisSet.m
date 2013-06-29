@@ -40,7 +40,7 @@
 -(id)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        axes            = [NSArray array];
+        axes            = @[];
         borderLineStyle = nil;
 
         self.needsDisplayOnBoundsChange = YES;

@@ -776,14 +776,12 @@ NSDecimal niceNum(NSDecimal x);
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"titleOffset",
-                @"titleRotation",
-                @"labelOffset",
-                @"minorTickLabelOffset",
-                @"labelRotation",
-                @"minorTickLabelRotation",
-                nil];
+        keys = @[@"titleOffset",
+                 @"titleRotation",
+                 @"labelOffset",
+                 @"minorTickLabelOffset",
+                 @"labelRotation",
+                 @"minorTickLabelRotation"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -1050,7 +1048,7 @@ NSDecimal niceNum(NSDecimal x);
                             if ( minorPointLocation > maxLimit ) {
                                 continue;
                             }
-                            [minorLocations addObject:[NSDecimalNumber numberWithDouble:minorPointLocation]];
+                            [minorLocations addObject:@(minorPointLocation)];
                         }
                         minorInterval *= intervalStep;
 
@@ -1060,7 +1058,7 @@ NSDecimal niceNum(NSDecimal x);
                         if ( pointLocation > maxLimit ) {
                             continue;
                         }
-                        [majorLocations addObject:[NSDecimalNumber numberWithDouble:pointLocation]];
+                        [majorLocations addObject:@(pointLocation)];
                     }
                 }
             }
@@ -2508,7 +2506,7 @@ NSDecimal niceNum(NSDecimal x)
                     [NSException raise:CPTException format:@"Alternating band fills must be one or more of the following: CPTFill, CPTColor, CPTGradient, CPTImage, or [NSNull null]."];
                 }
 
-                [fillArray replaceObjectAtIndex:i withObject:newFill];
+                fillArray[i] = newFill;
 
                 i++;
             }

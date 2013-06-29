@@ -113,7 +113,7 @@
                 // Get plot area point
                 NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
                 for ( NSUInteger i = 0; i < anchorCount; i++ ) {
-                    decimalPoint[i] = [[plotAnchor objectAtIndex:i] decimalValue];
+                    decimalPoint[i] = [plotAnchor[i] decimalValue];
                 }
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
                 CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];

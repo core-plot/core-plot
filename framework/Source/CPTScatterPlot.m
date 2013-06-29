@@ -978,8 +978,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                nil];
+        keys = @[];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -1004,7 +1003,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:CPTScatterPlotFieldX], [NSNumber numberWithUnsignedInt:CPTScatterPlotFieldY], nil];
+    return @[@(CPTScatterPlotFieldX), @(CPTScatterPlotFieldY)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -1013,11 +1012,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     switch ( coord ) {
         case CPTCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTScatterPlotFieldX]];
+            result = @[@(CPTScatterPlotFieldX)];
             break;
 
         case CPTCoordinateY:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTScatterPlotFieldY]];
+            result = @[@(CPTScatterPlotFieldY)];
             break;
 
         default:
@@ -1046,7 +1045,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         positiveDirection = !positiveDirection;
     }
 
-    label.anchorPlotPoint     = [NSArray arrayWithObjects:xValue, yValue, nil];
+    label.anchorPlotPoint     = @[xValue, yValue];
     label.contentLayer.hidden = self.hidden || isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 
     if ( positiveDirection ) {

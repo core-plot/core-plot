@@ -348,7 +348,7 @@ static const CGFloat colorLookupTable[10][3] =
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             CGFloat offset = [theDataSource radialOffsetForPieChart:self recordIndex:idx];
-            [array addObject:[NSNumber numberWithCGFloat:offset]];
+            [array addObject:@(offset)];
         }
 
         [self cacheArray:array forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
@@ -396,9 +396,9 @@ static const CGFloat colorLookupTable[10][3] =
             CPTNumericDataType dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
 
             CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            normalizedSliceValues.shape = @[@(sampleCount)];
             CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            cumulativeSliceValues.shape = @[@(sampleCount)];
 
             double cumulativeSum = 0.0;
 
@@ -433,9 +433,9 @@ static const CGFloat colorLookupTable[10][3] =
             CPTNumericDataType dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
 
             CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            normalizedSliceValues.shape = @[@(sampleCount)];
             CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            cumulativeSliceValues.shape = @[@(sampleCount)];
 
             NSDecimal cumulativeSum = CPTDecimalFromInteger(0);
 
@@ -531,7 +531,7 @@ static const CGFloat colorLookupTable[10][3] =
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : currentIndex];
 
         if ( !isnan(currentWidth) ) {
-            CGFloat radialOffset = [(NSNumber *)[offsetArray objectAtIndex:currentIndex] cgFloatValue];
+            CGFloat radialOffset = [(NSNumber *)offsetArray[currentIndex] cgFloatValue];
 
             // draw slice
             CGContextSaveGState(context);
@@ -779,13 +779,11 @@ static const CGFloat colorLookupTable[10][3] =
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"pieRadius",
-                @"pieInnerRadius",
-                @"startAngle",
-                @"endAngle",
-                @"centerAnchor",
-                nil];
+        keys = @[@"pieRadius",
+                 @"pieInnerRadius",
+                 @"startAngle",
+                 @"endAngle",
+                 @"centerAnchor"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -810,7 +808,7 @@ static const CGFloat colorLookupTable[10][3] =
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTPieChartFieldSliceWidth]];
+    return @[@(CPTPieChartFieldSliceWidth)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -840,7 +838,7 @@ static const CGFloat colorLookupTable[10][3] =
         [self.plotSpace plotPoint:plotPoint forPlotAreaViewPoint:centerPoint];
         NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateX]];
         NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateY]];
-        label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+        label.anchorPlotPoint = @[xValue, yValue];
 
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : idx];
         if ( self.hidden || isnan(currentWidth) ) {

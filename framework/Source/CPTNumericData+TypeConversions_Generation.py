@@ -63,13 +63,14 @@ for dt in dataTypes:
         print "\t\tswitch ( self.sampleBytes ) {"
         for t in types[dt]:
             print "\t\t\tcase sizeof(%s):" % t
-            if ( t == "NSDecimal" ):
-                number_class = "NSDecimalNumber"
-                number_method = "decimalNumber"
+            if ( t == "float complex" ):
+                print "\t\t\t\tresult = @(*( crealf(%s *)[self samplePointer:sample]) );" % (t)
+            elif ( t == "double complex" ):
+                print "\t\t\t\tresult = @(*( creal(%s *)[self samplePointer:sample]) );" % (t)
+            elif ( t == "NSDecimal" ):
+                print "\t\t\t\tresult = [NSDecimalNumber decimalNumberWithDecimal:*(%s *)[self samplePointer:sample]];" % (t)
             else:
-                number_class = "NSNumber"
-                number_method = "number"
-            print "\t\t\t\tresult = [%s %sWith%s:*(%s *)[self samplePointer:sample]];" % (number_class, number_method, nsnumber_factory[t], t)
+                print "\t\t\t\tresult = @(*(%s *)[self samplePointer:sample]);" % (t)
             print "\t\t\t\tbreak;"
         print "\t\t}"
     print "\t\tbreak;"

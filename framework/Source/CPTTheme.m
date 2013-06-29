@@ -81,7 +81,7 @@ static NSMutableSet *themes = nil;
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
-    return [themes sortedArrayUsingDescriptors:[NSArray arrayWithObject:nameSort]];
+    return [themes sortedArrayUsingDescriptors:@[nameSort]];
 }
 
 /** @brief Gets a named theme.

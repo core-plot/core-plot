@@ -92,8 +92,8 @@
  **/
 +(id)periodWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    return [_CPTAnimationCGFloatPeriod periodWithStartValue:[NSNumber numberWithCGFloat:aStart]
-                                                   endValue:[NSNumber numberWithCGFloat:anEnd]
+    return [_CPTAnimationCGFloatPeriod periodWithStartValue:@(aStart)
+                                                   endValue:@(anEnd)
                                                    duration:aDuration
                                                   withDelay:aDelay];
 }
@@ -217,8 +217,8 @@
  **/
 -(id)initWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue :[NSNumber numberWithCGFloat:aStart]
-            endValue :[NSNumber numberWithCGFloat:anEnd]
+    self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue : @(aStart)
+            endValue : @(anEnd)
             duration : aDuration
             withDelay : aDelay];
 

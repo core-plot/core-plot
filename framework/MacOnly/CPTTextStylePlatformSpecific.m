@@ -155,9 +155,9 @@
     CGSize textSize;
 
     if ( theFont ) {
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont
+        };
 
         textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
     }
@@ -195,11 +195,11 @@
         paragraphStyle.alignment     = style.textAlignment;
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    foregroundColor, NSForegroundColorAttributeName,
-                                    paragraphStyle, NSParagraphStyleAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont,
+            NSForegroundColorAttributeName: foregroundColor,
+            NSParagraphStyleAttributeName: paragraphStyle
+        };
         [self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
     }
     CPTPopCGContext();

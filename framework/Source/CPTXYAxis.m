@@ -484,7 +484,7 @@
             else {
                 sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
             }
-            locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+            locations = [locations sortedArrayUsingDescriptors:@[sortDescriptor]];
 
             NSUInteger bandIndex = 0;
             id null              = [NSNull null];
@@ -510,7 +510,7 @@
             for ( NSDecimalNumber *location in locations ) {
                 NSDecimal currentLocation = [location decimalValue];
                 if ( !CPTDecimalEquals(CPTDecimalSubtract(currentLocation, lastLocation), zero) ) {
-                    CPTFill *bandFill = [bandArray objectAtIndex:bandIndex++];
+                    CPTFill *bandFill = bandArray[bandIndex++];
                     bandIndex %= bandCount;
 
                     if ( bandFill != null ) {
@@ -543,7 +543,7 @@
                 endLocation = CPTDecimalNaN();
             }
             if ( !CPTDecimalEquals(lastLocation, endLocation) ) {
-                CPTFill *bandFill = [bandArray objectAtIndex:bandIndex];
+                CPTFill *bandFill = bandArray[bandIndex];
 
                 if ( bandFill != null ) {
                     // Start point

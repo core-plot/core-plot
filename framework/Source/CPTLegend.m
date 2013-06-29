@@ -421,7 +421,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     CGFloat theColumnMargin = self.columnMargin;
 
     for ( NSUInteger col = 0; col < columnCount; col++ ) {
-        NSNumber *colWidth = [computedColumnWidths objectAtIndex:col];
+        NSNumber *colWidth = computedColumnWidths[col];
         CGFloat width      = [colWidth cgFloatValue];
         actualColumnWidths[col] = width;
         if ( col < columnCount - 1 ) {
@@ -439,7 +439,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
     for ( NSUInteger rw = 0; rw < rowCount; rw++ ) {
         NSUInteger row      = rowCount - rw - 1;
-        NSNumber *rowHeight = [computedRowHeights objectAtIndex:row];
+        NSNumber *rowHeight = computedRowHeights[row];
         CGFloat height      = [rowHeight cgFloatValue];
         actualRowHeights[row] = height;
         if ( row < rowCount - 1 ) {
@@ -507,10 +507,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"swatchSize",
-                @"swatchCornerRadius",
-                nil];
+        keys = @[@"swatchSize",
+                 @"swatchCornerRadius"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -597,7 +595,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             maxTitleHeight[row] = MAX(MAX(maxTitleHeight[row], titleSize.height), theSwatchSize.height);
 
             if ( row < desiredRowHeights.count ) {
-                id desiredRowHeight = [desiredRowHeights objectAtIndex:row];
+                id desiredRowHeight = desiredRowHeights[row];
                 if ( [desiredRowHeight isKindOfClass:numberClass] ) {
                     maxTitleHeight[row] = MAX(maxTitleHeight[row], [(NSNumber *)desiredRowHeight cgFloatValue]);
                 }
@@ -608,7 +606,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             maxTitleWidth[col] = MAX(MAX(maxTitleWidth[col], titleSize.width), theSwatchSize.width);
 
             if ( col < desiredColumnWidths.count ) {
-                id desiredColumnWidth = [desiredColumnWidths objectAtIndex:col];
+                id desiredColumnWidth = desiredColumnWidths[col];
                 if ( [desiredColumnWidth isKindOfClass:numberClass] ) {
                     maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *)desiredColumnWidth cgFloatValue]);
                 }
@@ -628,13 +626,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     // save row heights and column widths
     NSMutableArray *maxRowHeights = [[NSMutableArray alloc] initWithCapacity:rowCount];
     for ( NSUInteger i = 0; i < rowCount; i++ ) {
-        [maxRowHeights addObject:[NSNumber numberWithCGFloat:maxTitleHeight[i]]];
+        [maxRowHeights addObject:@(maxTitleHeight[i])];
     }
     self.rowHeightsThatFit = maxRowHeights;
 
     NSMutableArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:columnCount];
     for ( NSUInteger i = 0; i < columnCount; i++ ) {
-        [maxColumnWidths addObject:[NSNumber numberWithCGFloat:maxTitleWidth[i]]];
+        [maxColumnWidths addObject:@(maxTitleWidth[i])];
     }
     self.columnWidthsThatFit = maxColumnWidths;
 
@@ -693,7 +691,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
-    return [self.plots objectAtIndex:idx];
+    return (self.plots)[idx];
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
@@ -757,7 +755,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             legendEntryIndex = theLegendEntries.count;
         }
         else {
-            CPTPlot *lastPlot = [thePlots objectAtIndex:idx];
+            CPTPlot *lastPlot = thePlots[idx];
             for ( CPTLegendEntry *legendEntry in theLegendEntries ) {
                 if ( legendEntry.plot == lastPlot ) {
                     break;

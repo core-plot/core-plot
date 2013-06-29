@@ -20,7 +20,7 @@
     self.plot = [CPTScatterPlot new];
     NSMutableArray *yValues = [NSMutableArray array];
     for ( NSInteger i = 0; i < 5; i++ ) {
-        [yValues addObject:[NSNumber numberWithDouble:values[i]]];
+        [yValues addObject:@(values[i])];
     }
     [self.plot setYValues:yValues];
     self.plot.cachePrecision = CPTPlotCachePrecisionDouble;
@@ -45,7 +45,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:NO numberOfPoints:values.count];
@@ -61,7 +61,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:values.count];
@@ -77,7 +77,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:NO numberOfPoints:values.count];
@@ -93,7 +93,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:values.count];
@@ -109,7 +109,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:NO numberOfPoints:values.count];
@@ -125,7 +125,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:values.count];
@@ -142,7 +142,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:NO numberOfPoints:values.count];
@@ -163,12 +163,12 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:values.count];
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        if ( [self.plotSpace.xRange compareToNumber:[NSNumber numberWithDouble:inRangeValues[i]]] == CPTPlotRangeComparisonResultNumberInRange ) {
+        if ( [self.plotSpace.xRange compareToNumber:@(inRangeValues[i])] == CPTPlotRangeComparisonResultNumberInRange ) {
             STAssertTrue(drawFlags[i], @"Test that correct points included when some are in range, others out (%g).", inRangeValues[i]);
         }
         else {
@@ -185,7 +185,7 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:NO numberOfPoints:values.count];
@@ -206,12 +206,12 @@
     NSMutableArray *values  = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        [values addObject:[NSNumber numberWithDouble:inRangeValues[i]]];
+        [values addObject:@(inRangeValues[i])];
     }
     [self.plot setXValues:values];
     [self.plot calculatePointsToDraw:drawFlags forPlotSpace:self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:values.count];
     for ( NSUInteger i = 0; i < 5; i++ ) {
-        if ( [self.plotSpace.xRange compareToNumber:[NSNumber numberWithDouble:inRangeValues[i]]] == CPTPlotRangeComparisonResultNumberInRange ) {
+        if ( [self.plotSpace.xRange compareToNumber:@(inRangeValues[i])] == CPTPlotRangeComparisonResultNumberInRange ) {
             STAssertTrue(drawFlags[i], @"Test that correct points included when some are in range, others out, crossing range (%g).", inRangeValues[i]);
         }
         else {

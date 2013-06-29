@@ -975,11 +975,9 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"barWidth",
-                @"stickLength",
-                @"barCornerRadius",
-                nil];
+        keys = @[@"barWidth",
+                 @"stickLength",
+                 @"barCornerRadius"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -1004,13 +1002,11 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObjects:
-            [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldX],
-            [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldOpen],
-            [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldClose],
-            [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldHigh],
-            [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldLow],
-            nil];
+    return @[@(CPTTradingRangePlotFieldX),
+             @(CPTTradingRangePlotFieldOpen),
+             @(CPTTradingRangePlotFieldClose),
+             @(CPTTradingRangePlotFieldHigh),
+             @(CPTTradingRangePlotFieldLow)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -1019,16 +1015,14 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     switch ( coord ) {
         case CPTCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldX]];
+            result = @[@(CPTTradingRangePlotFieldX)];
             break;
 
         case CPTCoordinateY:
-            result = [NSArray arrayWithObjects:
-                      [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldOpen],
-                      [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldLow],
-                      [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldHigh],
-                      [NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldClose],
-                      nil];
+            result = @[@(CPTTradingRangePlotFieldOpen),
+                       @(CPTTradingRangePlotFieldLow),
+                       @(CPTTradingRangePlotFieldHigh),
+                       @(CPTTradingRangePlotFieldClose)];
             break;
 
         default:
@@ -1056,19 +1050,19 @@ const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     NSNumber *xValue = [self cachedNumberForField:CPTTradingRangePlotFieldX recordIndex:idx];
     NSNumber *yValue;
-    NSArray *yValues = [NSArray arrayWithObjects:[self cachedNumberForField:CPTTradingRangePlotFieldOpen recordIndex:idx],
-                        [self cachedNumberForField:CPTTradingRangePlotFieldClose recordIndex:idx],
-                        [self cachedNumberForField:CPTTradingRangePlotFieldHigh recordIndex:idx],
-                        [self cachedNumberForField:CPTTradingRangePlotFieldLow recordIndex:idx], nil];
+    NSArray *yValues = @[[self cachedNumberForField:CPTTradingRangePlotFieldOpen recordIndex:idx],
+                         [self cachedNumberForField:CPTTradingRangePlotFieldClose recordIndex:idx],
+                         [self cachedNumberForField:CPTTradingRangePlotFieldHigh recordIndex:idx],
+                         [self cachedNumberForField:CPTTradingRangePlotFieldLow recordIndex:idx]];
     NSArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
         yValue = [yValuesSorted lastObject];
     }
     else {
-        yValue = [yValuesSorted objectAtIndex:0];
+        yValue = yValuesSorted[0];
     }
 
-    label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
+    label.anchorPlotPoint = @[xValue, yValue];
 
     if ( positiveDirection ) {
         label.displacement = CPTPointMake(0.0, self.labelOffset);

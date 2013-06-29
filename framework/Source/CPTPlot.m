@@ -442,10 +442,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"labelOffset",
-                @"labelRotation",
-                nil];
+        keys = @[@"labelOffset",
+                 @"labelRotation"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -682,7 +680,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         }
     }
     else {
-        numbers = [NSArray array];
+        numbers = @[];
     }
 
     return numbers;
@@ -708,8 +706,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             CPTNumericDataType dataType  = data.dataType;
 
             NSArray *theShape           = data.shape;
-            const NSUInteger rowCount   = [[theShape objectAtIndex:0] unsignedIntegerValue];
-            const NSUInteger fieldCount = [[theShape objectAtIndex:1] unsignedIntegerValue];
+            const NSUInteger rowCount   = [theShape[0] unsignedIntegerValue];
+            const NSUInteger fieldCount = [theShape[1] unsignedIntegerValue];
 
             if ( (sampleCount > 0) && (fieldCount > 0) && (data.numberOfDimensions == 2) ) {
                 // convert data type if needed
@@ -825,14 +823,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum
 {
-    NSNumber *cacheKey = [NSNumber numberWithUnsignedInteger:fieldEnum];
+    NSNumber *cacheKey = @(fieldEnum);
 
     if ( numbers ) {
         CPTMutableNumericData *mutableNumbers = [self numericDataForNumbers:numbers];
 
         NSUInteger sampleCount = mutableNumbers.numberOfSamples;
         if ( sampleCount > 0 ) {
-            [self.cachedData setObject:mutableNumbers forKey:cacheKey];
+            (self.cachedData)[cacheKey] = mutableNumbers;
         }
         else {
             [self.cachedData removeObjectForKey:cacheKey];
@@ -898,16 +896,16 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             }
 
             // Ensure the data cache exists and is the right size
-            NSNumber *cacheKey                   = [NSNumber numberWithUnsignedInteger:fieldEnum];
-            CPTMutableNumericData *cachedNumbers = [self.cachedData objectForKey:cacheKey];
+            NSNumber *cacheKey                   = @(fieldEnum);
+            CPTMutableNumericData *cachedNumbers = (self.cachedData)[cacheKey];
             if ( !cachedNumbers ) {
                 cachedNumbers = [CPTMutableNumericData numericDataWithData:[NSData data]
                                                                   dataType:mutableNumbers.dataType
                                                                      shape:nil];
-                [self.cachedData setObject:cachedNumbers forKey:cacheKey];
+                (self.cachedData)[cacheKey] = cachedNumbers;
             }
             NSUInteger numberOfRecords = [self.dataSource numberOfRecordsForPlot:self];
-            cachedNumbers.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:numberOfRecords]];
+            cachedNumbers.shape = @[@(numberOfRecords)];
 
             // Update the cache
             self.cachedDataCount = numberOfRecords;
@@ -946,7 +944,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( ( (NSArray *)numbers ).count == 0 ) {
             loadedDataType = self.doubleDataType;
         }
-        else if ( [[(NSArray *)numbers objectAtIndex : 0] isKindOfClass:[NSDecimalNumber class]] ) {
+        else if ( [( (NSArray *)numbers )[0] isKindOfClass :[NSDecimalNumber class]] ) {
             loadedDataType = self.decimalDataType;
         }
         else {
@@ -975,7 +973,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             Class numberClass              = [NSNumber class];
             for ( id key in [dataCache allKeys] ) {
                 if ( [key isKindOfClass:numberClass] ) {
-                    result = CPTDataTypeEqualToDataType([(CPTMutableNumericData *)[dataCache objectForKey:key] dataType], self.doubleDataType);
+                    result = CPTDataTypeEqualToDataType([(CPTMutableNumericData *)dataCache[key] dataType], self.doubleDataType);
                     break;
                 }
             }
@@ -999,7 +997,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum
 {
-    return [self.cachedData objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
+    return (self.cachedData)[@(fieldEnum)];
 }
 
 /** @brief Retrieves a single number from the cache.
@@ -1097,7 +1095,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     for ( id key in [dataDictionary allKeys] ) {
         if ( [key isKindOfClass:numberClass] ) {
-            CPTMutableNumericData *numericData = [dataDictionary objectForKey:key];
+            CPTMutableNumericData *numericData = dataDictionary[key];
             numericData.dataType = newDataType;
         }
     }
@@ -1137,7 +1135,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(NSArray *)cachedArrayForKey:(NSString *)key
 {
-    return [self.cachedData objectForKey:key];
+    return (self.cachedData)[key];
 }
 
 /** @brief Retrieves a single value from the cache.
@@ -1147,7 +1145,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)idx
 {
-    return [[self cachedArrayForKey:key] objectAtIndex:idx];
+    return [self cachedArrayForKey:key][idx];
 }
 
 /** @brief Copies an array of arbitrary values to the cache.
@@ -1159,7 +1157,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( array ) {
         NSUInteger sampleCount = array.count;
         if ( sampleCount > 0 ) {
-            [self.cachedData setObject:array forKey:key];
+            (self.cachedData)[key] = array;
         }
         else {
             [self.cachedData removeObjectForKey:key];
@@ -1185,14 +1183,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( sampleCount > 0 ) {
             // Ensure the data cache exists and is the right size
             NSUInteger numberOfRecords   = [self.dataSource numberOfRecordsForPlot:self];
-            NSMutableArray *cachedValues = [self.cachedData objectForKey:key];
+            NSMutableArray *cachedValues = (self.cachedData)[key];
             if ( !cachedValues ) {
                 cachedValues = [NSMutableArray arrayWithCapacity:numberOfRecords];
                 NSNull *nullObject = [NSNull null];
                 for ( NSUInteger i = 0; i < numberOfRecords; i++ ) {
                     [cachedValues addObject:nullObject];
                 }
-                [self.cachedData setObject:cachedValues forKey:key];
+                (self.cachedData)[key] = cachedValues;
             }
 
             // Update the cache
@@ -1384,17 +1382,17 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
         CPTPlotSpaceAnnotation *labelAnnotation;
         if ( i < oldLabelCount ) {
-            labelAnnotation = [labelArray objectAtIndex:i];
+            labelAnnotation = labelArray[i];
             if ( newLabelLayer ) {
                 if ( [labelAnnotation isKindOfClass:nullClass] ) {
                     labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
-                    [labelArray replaceObjectAtIndex:i withObject:labelAnnotation];
+                    labelArray[i]   = labelAnnotation;
                     [self addAnnotation:labelAnnotation];
                 }
             }
             else {
                 if ( [labelAnnotation isKindOfClass:annotationClass] ) {
-                    [labelArray replaceObjectAtIndex:i withObject:nullObject];
+                    labelArray[i] = nullObject;
                     [self removeAnnotation:labelAnnotation];
                 }
             }
@@ -1420,7 +1418,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     // remove labels that are no longer needed
     while ( labelArray.count > sampleCount ) {
-        CPTAnnotation *oldAnnotation = [labelArray objectAtIndex:labelArray.count - 1];
+        CPTAnnotation *oldAnnotation = labelArray[labelArray.count - 1];
         if ( [oldAnnotation isKindOfClass:annotationClass] ) {
             [self removeAnnotation:oldAnnotation];
         }
@@ -1476,7 +1474,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     Class annotationClass = [CPTAnnotation class];
 
     for ( NSUInteger i = 0; i < labelCount; i++ ) {
-        CPTPlotSpaceAnnotation *annotation = [annotations objectAtIndex:i];
+        CPTPlotSpaceAnnotation *annotation = annotations[i];
         if ( [annotation isKindOfClass:annotationClass] ) {
             [self positionLabelAnnotation:annotation forIndex:i];
             [self updateContentAnchorForLabel:annotation];
@@ -1603,7 +1601,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         Class annotationClass      = [CPTAnnotation class];
 
         for ( NSUInteger idx = 0; idx < labelCount; idx++ ) {
-            CPTPlotSpaceAnnotation *annotation = [labelArray objectAtIndex:idx];
+            CPTPlotSpaceAnnotation *annotation = labelArray[idx];
             if ( [annotation isKindOfClass:annotationClass] ) {
                 CPTLayer *labelLayer = annotation.contentLayer;
                 if ( labelLayer && !labelLayer.hidden ) {
@@ -1840,7 +1838,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray array];
+    return @[];
 }
 
 /** @brief The field identifiers that correspond to a particular coordinate.
@@ -1849,7 +1847,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    return [NSArray array];
+    return @[];
 }
 
 #pragma mark -

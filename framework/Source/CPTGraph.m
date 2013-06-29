@@ -355,10 +355,8 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"titleDisplacement",
-                @"legendDisplacement",
-                nil];
+        keys = @[@"titleDisplacement",
+                 @"legendDisplacement"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -404,7 +402,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
-    return [self.plots objectAtIndex:idx];
+    return (self.plots)[idx];
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
@@ -506,7 +504,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
 -(CPTPlotSpace *)defaultPlotSpace
 {
-    return self.plotSpaces.count > 0 ? [self.plotSpaces objectAtIndex:0] : nil;
+    return self.plotSpaces.count > 0 ? (self.plotSpaces)[0] : nil;
 }
 
 /** @brief All plot spaces associated with the graph.
@@ -523,7 +521,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  **/
 -(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx
 {
-    return self.plotSpaces.count > idx ? [self.plotSpaces objectAtIndex:idx] : nil;
+    return self.plotSpaces.count > idx ? (self.plotSpaces)[idx] : nil;
 }
 
 /** @brief Gets the plot space with the given identifier from the plot space array.

@@ -431,7 +431,7 @@
     self.dataOrder = order;
 
     if ( shapeArray == nil ) {
-        self.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:self.numberOfSamples]];
+        self.shape = @[@(self.numberOfSamples)];
     }
     else {
         NSUInteger prod = 1;
@@ -612,19 +612,19 @@
             case CPTIntegerDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(int8_t):
-                        result = [NSNumber numberWithChar:*(int8_t *)[self samplePointer:sample]];
+                        result = @(*(int8_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(int16_t):
-                        result = [NSNumber numberWithShort:*(int16_t *)[self samplePointer:sample]];
+                        result = @(*(int16_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(int32_t):
-                        result = [NSNumber numberWithLong:*(int32_t *)[self samplePointer:sample]];
+                        result = @(*(int32_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(int64_t):
-                        result = [NSNumber numberWithLongLong:*(int64_t *)[self samplePointer:sample]];
+                        result = @(*(int64_t *)[self samplePointer:sample]);
                         break;
                 }
                 break;
@@ -632,19 +632,19 @@
             case CPTUnsignedIntegerDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(uint8_t):
-                        result = [NSNumber numberWithUnsignedChar:*(uint8_t *)[self samplePointer:sample]];
+                        result = @(*(uint8_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(uint16_t):
-                        result = [NSNumber numberWithUnsignedShort:*(uint16_t *)[self samplePointer:sample]];
+                        result = @(*(uint16_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(uint32_t):
-                        result = [NSNumber numberWithUnsignedLong:*(uint32_t *)[self samplePointer:sample]];
+                        result = @(*(uint32_t *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(uint64_t):
-                        result = [NSNumber numberWithUnsignedLongLong:*(uint64_t *)[self samplePointer:sample]];
+                        result = @(*(uint64_t *)[self samplePointer:sample]);
                         break;
                 }
                 break;
@@ -652,11 +652,11 @@
             case CPTFloatingPointDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(float):
-                        result = [NSNumber numberWithFloat:*(float *)[self samplePointer:sample]];
+                        result = @(*(float *)[self samplePointer:sample]);
                         break;
 
                     case sizeof(double):
-                        result = [NSNumber numberWithDouble:*(double *)[self samplePointer:sample]];
+                        result = @(*(double *)[self samplePointer:sample]);
                         break;
                 }
                 break;
@@ -664,11 +664,11 @@
             case CPTComplexFloatingPointDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(float complex):
-                        result = [NSNumber numberWithFloat:crealf(*(float complex *)[self samplePointer:sample])];
+                        result = @( crealf(*(float complex *)[self samplePointer:sample]) );
                         break;
 
                     case sizeof(double complex):
-                        result = [NSNumber numberWithDouble:creal(*(double complex *)[self samplePointer:sample])];
+                        result = @( creal(*(double complex *)[self samplePointer:sample]) );
                         break;
                 }
                 break;

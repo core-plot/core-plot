@@ -88,11 +88,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *
  *  Example usage:
  *  @code
- *  [graph setTopDownLayerOrder:[NSArray arrayWithObjects:
- *      [NSNumber numberWithInt:CPTGraphLayerTypePlots],
- *      [NSNumber numberWithInt:CPTGraphLayerTypeAxisLabels],
- *      [NSNumber numberWithInt:CPTGraphLayerTypeMajorGridLines],
- *      ..., nil]];
+ *  [graph setTopDownLayerOrder:@[
+ *      @(CPTGraphLayerTypePlots),
+ *      @(CPTGraphLayerTypeAxisLabels),
+ *      @(CPTGraphLayerTypeMajorGridLines)];
  *  @endcode
  **/
 @synthesize topDownLayerOrder;
@@ -374,7 +373,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         buLayerOrder = self.bottomUpLayerOrder;
 
         for ( NSUInteger layerIndex = 0; layerIndex < [tdLayerOrder count]; layerIndex++ ) {
-            CPTGraphLayerType layerType = (CPTGraphLayerType)[[tdLayerOrder objectAtIndex:layerIndex] intValue];
+            CPTGraphLayerType layerType = (CPTGraphLayerType)[tdLayerOrder[layerIndex] intValue];
             NSUInteger i                = kCPTNumberOfLayers - layerIndex - 1;
             while ( buLayerOrder[i] != layerType ) {
                 if ( i == 0 ) {

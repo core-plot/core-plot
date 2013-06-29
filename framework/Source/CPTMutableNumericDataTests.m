@@ -21,14 +21,10 @@
 
 -(void)testNumberOfDimensionsGivesShapeCount
 {
-    id shape = [NSArray arrayWithObjects:
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                nil
-               ];
+    id shape = @[@2, @2, @2];
 
-    NSUInteger nElems         = 2 * 2 * 2;
+    NSUInteger nElems = 2 * 2 * 2;
+
     CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                       shape:shape];
@@ -38,7 +34,8 @@
 
 -(void)testNilShapeCorrectElementCount
 {
-    NSUInteger nElems         = 13;
+    NSUInteger nElems = 13;
+
     CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
                                                              dataTypeString:@"=f4"
                                                                       shape:nil];
@@ -55,10 +52,8 @@
 
 -(void)testIllegalShapeRaisesException
 {
-    id shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                [NSNumber numberWithUnsignedInt:2],
-                nil];
+    id shape = @[@2, @2, @2];
+
     NSUInteger nElems = 5;
 
     CPTNumericData *testData = nil;
