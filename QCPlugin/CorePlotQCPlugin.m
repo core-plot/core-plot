@@ -72,10 +72,10 @@ void drawErrorText(CGContextRef context, CGRect rect)
      * Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
      */
 
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            kQCPlugIn_Name, QCPlugInAttributeNameKey,
-            kQCPlugIn_Description, QCPlugInAttributeDescriptionKey,
-            nil];
+    return @{
+               QCPlugInAttributeNameKey: kQCPlugIn_Name,
+               QCPlugInAttributeDescriptionKey: kQCPlugIn_Description
+    };
 }
 
 +(QCPlugInExecutionMode)executionMode
@@ -163,28 +163,26 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
 +(NSArray *)sortedPropertyPortKeys
 {
-    return [NSArray arrayWithObjects:
-            @"inputPixelsWide",
-            @"inputPixelsHigh",
-            @"inputPlotAreaColor",
-            @"inputAxisColor",
-            @"inputAxisLineWidth",
+    return @[@"inputPixelsWide",
+             @"inputPixelsHigh",
+             @"inputPlotAreaColor",
+             @"inputAxisColor",
+             @"inputAxisLineWidth",
 
-            @"inputXMin",
-            @"inputXMax",
-            @"inputYMin",
-            @"inputYMax",
+             @"inputXMin",
+             @"inputXMax",
+             @"inputYMin",
+             @"inputYMax",
 
-            @"inputXMajorIntervals",
-            @"inputYMajorIntervals",
-            @"inputAxisMajorTickLength",
-            @"inputAxisMajorTickWidth",
+             @"inputXMajorIntervals",
+             @"inputYMajorIntervals",
+             @"inputAxisMajorTickLength",
+             @"inputAxisMajorTickWidth",
 
-            @"inputXMinorIntervals",
-            @"inputYMinorIntervals",
-            @"inputAxisMinorTickLength",
-            @"inputAxisMinorTickWidth",
-            nil];
+             @"inputXMinorIntervals",
+             @"inputYMinorIntervals",
+             @"inputAxisMinorTickLength",
+             @"inputAxisMinorTickWidth"];
 }
 
 +(NSDictionary *)attributesForPropertyPortWithKey:(NSString *)key
@@ -194,161 +192,161 @@ void drawErrorText(CGContextRef context, CGRect rect)
      */
 
     if ( [key isEqualToString:@"inputXMin"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Range Min", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:-1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Range Min",
+                   QCPortAttributeDefaultValueKey: @ - 1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputXMax"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Range Max", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Range Max",
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMin"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Range Min", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:-1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Range Min",
+                   QCPortAttributeDefaultValueKey: @ - 1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMax"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Range Max", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Range Max",
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputXMajorIntervals"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Major Intervals", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
-                [NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Major Intervals",
+                   QCPortAttributeDefaultValueKey: @4.0,
+                   QCPortAttributeMinimumValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMajorIntervals"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Major Intervals", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:4], QCPortAttributeDefaultValueKey,
-                [NSNumber numberWithFloat:0], QCPortAttributeMinimumValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Major Intervals",
+                   QCPortAttributeDefaultValueKey: @4.0,
+                   QCPortAttributeMinimumValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputXMinorIntervals"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Minor Intervals", QCPortAttributeNameKey,
-                [NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
-                [NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Minor Intervals",
+                   QCPortAttributeDefaultValueKey: @1,
+                   QCPortAttributeMinimumValueKey: @0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMinorIntervals"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Minor Intervals", QCPortAttributeNameKey,
-                [NSNumber numberWithInt:1], QCPortAttributeDefaultValueKey,
-                [NSNumber numberWithInt:0], QCPortAttributeMinimumValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Minor Intervals",
+                   QCPortAttributeDefaultValueKey: @1,
+                   QCPortAttributeMinimumValueKey: @0
+        };
     }
 
     if ( [key isEqualToString:@"inputAxisColor"] ) {
         CGColorRef axisColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
-        NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"Axis Color", QCPortAttributeNameKey,
-                                (id)axisColor, QCPortAttributeDefaultValueKey,
-                                nil];
+        NSDictionary *result = @{
+            QCPortAttributeNameKey: @"Axis Color",
+            QCPortAttributeDefaultValueKey: (id)axisColor
+        };
         CGColorRelease(axisColor);
         return result;
     }
 
     if ( [key isEqualToString:@"inputAxisLineWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Axis Line Width", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Axis Line Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputAxisMajorTickWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Major Tick Width", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:2.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Major Tick Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @2.0
+        };
     }
 
     if ( [key isEqualToString:@"inputAxisMinorTickWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Minor Tick Width", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Minor Tick Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputAxisMajorTickLength"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Major Tick Length", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:10.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Major Tick Length",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @10.0
+        };
     }
 
     if ( [key isEqualToString:@"inputAxisMinorTickLength"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Minor Tick Length", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:3.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Minor Tick Length",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @3.0
+        };
     }
 
     if ( [key isEqualToString:@"inputMajorGridLineWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Major Grid Line Width", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Major Grid Line Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
 
     if ( [key isEqualToString:@"inputMinorGridLineWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Minor Grid Line Width", QCPortAttributeNameKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithDouble:0.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Minor Grid Line Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
-        NSDictionary *result     = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"Plot Area Color", QCPortAttributeNameKey,
-                                    (id)plotAreaColor, QCPortAttributeDefaultValueKey,
-                                    nil];
+        NSDictionary *result     = @{
+            QCPortAttributeNameKey: @"Plot Area Color",
+            QCPortAttributeDefaultValueKey: (id)plotAreaColor
+        };
         CGColorRelease(plotAreaColor);
         return result;
     }
 
     if ( [key isEqualToString:@"inputPixelsWide"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Pixels Wide", QCPortAttributeNameKey,
-                [NSNumber numberWithInt:1], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithInt:512], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Pixels Wide",
+                   QCPortAttributeMinimumValueKey: @1,
+                   QCPortAttributeDefaultValueKey: @512
+        };
     }
 
     if ( [key isEqualToString:@"inputPixelsHigh"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Pixels High", QCPortAttributeNameKey,
-                [NSNumber numberWithInt:1], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithInt:512], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Pixels High",
+                   QCPortAttributeMinimumValueKey: @1,
+                   QCPortAttributeDefaultValueKey: @512
+        };
     }
 
     if ( [key isEqualToString:@"outputImage"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Image", QCPortAttributeNameKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Image"
+        };
     }
 
     return nil;
@@ -635,7 +633,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    return [NSNumber numberWithInt:0];
+    return @0;
 }
 
 #pragma mark -
@@ -662,9 +660,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
 +(NSArray *)plugInKeys
 {
-    return [NSArray arrayWithObjects:
-            @"numberOfPlots",
-            nil];
+    return @[@"numberOfPlots"];
 }
 
 -(id)serializedValueForKey:(NSString *)key;
@@ -675,7 +671,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
      */
 
     if ( [key isEqualToString:@"numberOfPlots"] ) {
-        return [NSNumber numberWithInt:self.numberOfPlots];
+        return @(self.numberOfPlots);
     }
     else {
         return [super serializedValueForKey:key];
@@ -793,7 +789,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
     // Draw the plot ...
     CGSize boundsSize = graph.bounds.size;
-    CGContextClearRect( bitmapContext, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height) );
+    CGContextClearRect( bitmapContext, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetRGBFillColor(bitmapContext, 0.0, 0.0, 0.0, 0.0);
     CGContextFillRect( bitmapContext, CGRectMake(0, 0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(bitmapContext, true);

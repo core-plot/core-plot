@@ -48,22 +48,18 @@
     x.majorIntervalLength         = CPTDecimalFromString(@"0.5");
     x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
     x.minorTicksPerInterval       = 2;
-    NSArray *exclusionRanges = [NSArray arrayWithObjects:
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(2.99) length:CPTDecimalFromFloat(0.02)],
-                                nil];
+    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(2.99) length:CPTDecimalFromFloat(0.02)]];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromString(@"0.5");
     y.minorTicksPerInterval       = 5;
     y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
-    exclusionRanges               = [NSArray arrayWithObjects:
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)],
-                                     nil];
+    exclusionRanges               = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
+                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
+                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)]];
     y.labelExclusionRanges = exclusionRanges;
     y.delegate             = self;
 
@@ -98,7 +94,7 @@
     lineStyle                        = [CPTMutableLineStyle lineStyle];
     lineStyle.lineWidth              = 3.f;
     lineStyle.lineColor              = [CPTColor greenColor];
-    lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    lineStyle.dashPattern            = @[@5.0f, @5.0f];
     dataSourceLinePlot.dataLineStyle = lineStyle;
     dataSourceLinePlot.identifier    = @"Green Plot";
     dataSourceLinePlot.dataSource    = self;
@@ -119,16 +115,18 @@
     fadeInAnimation.duration            = 1.0f;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.fillMode            = kCAFillModeForwards;
-    fadeInAnimation.toValue             = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.toValue             = @1.0f;
     [dataSourceLinePlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
 
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
     NSUInteger i;
     for ( i = 0; i < 60; i++ ) {
-        id x = [NSNumber numberWithFloat:1 + i * 0.05];
-        id y = [NSNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
-        [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+        NSNumber *x = @(1.0 + i * 0.05);
+        NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+        [contentArray addObject:@{ @"x": x,
+                                   @"y": y }
+        ];
     }
     self.dataForPlot = contentArray;
 
@@ -157,12 +155,12 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [[dataForPlot objectAtIndex:index] valueForKey:key];
+    NSNumber *num = [dataForPlot[index] valueForKey:key];
 
     // Green plot gets shifted above the blue
     if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
         if ( fieldEnum == CPTScatterPlotFieldY ) {
-            num = [NSNumber numberWithDouble:[num doubleValue] + 1.0];
+            num = @([num doubleValue] + 1.0);
         }
     }
     return num;

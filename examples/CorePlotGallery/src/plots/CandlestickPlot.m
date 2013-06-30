@@ -39,13 +39,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
             double rLow      = MIN( rOpen, MIN(rClose, (rand() / (double)RAND_MAX - 0.5) * 0.5 + rOpen) );
 
             [newData addObject:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-              [NSDecimalNumber numberWithDouble:x], [NSNumber numberWithInt:CPTTradingRangePlotFieldX],
-              [NSDecimalNumber numberWithDouble:rOpen], [NSNumber numberWithInt:CPTTradingRangePlotFieldOpen],
-              [NSDecimalNumber numberWithDouble:rHigh], [NSNumber numberWithInt:CPTTradingRangePlotFieldHigh],
-              [NSDecimalNumber numberWithDouble:rLow], [NSNumber numberWithInt:CPTTradingRangePlotFieldLow],
-              [NSDecimalNumber numberWithDouble:rClose], [NSNumber numberWithInt:CPTTradingRangePlotFieldClose],
-              nil]];
+             @{ @(CPTTradingRangePlotFieldX): @(x),
+                @(CPTTradingRangePlotFieldOpen): @(rOpen),
+                @(CPTTradingRangePlotFieldHigh): @(rHigh),
+                @(CPTTradingRangePlotFieldLow): @(rLow),
+                @(CPTTradingRangePlotFieldClose): @(rClose) }
+            ];
         }
 
         plotData = [newData retain];
@@ -194,11 +193,11 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     if ( [plot.identifier isEqual:@"Data Source Plot"] ) {
         switch ( fieldEnum ) {
             case CPTScatterPlotFieldX:
-                num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldX]];
+                num = plotData[index][@(CPTTradingRangePlotFieldX)];
                 break;
 
             case CPTScatterPlotFieldY:
-                num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInt:CPTTradingRangePlotFieldClose]];
+                num = plotData[index][@(CPTTradingRangePlotFieldClose)];
                 break;
 
             default:
@@ -206,7 +205,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
         }
     }
     else {
-        num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
+        num = plotData[index][@(fieldEnum)];
     }
     return num;
 }

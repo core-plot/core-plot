@@ -34,7 +34,7 @@ const NSUInteger numberOfPoints = 11;
         for ( NSUInteger i = 0; i < numberOfPoints; i++ ) {
             double y = 12.0 * rand() / (double)RAND_MAX + 5.0;
             sum += y;
-            [contentArray addObject:[NSNumber numberWithDouble:y]];
+            [contentArray addObject:@(y)];
         }
 
         plotData = [contentArray retain];
@@ -129,7 +129,7 @@ const NSUInteger numberOfPoints = 11;
     lineStyle                     = [CPTMutableLineStyle lineStyle];
     lineStyle.lineWidth           = 2.0;
     lineStyle.lineColor           = [CPTColor redColor];
-    lineStyle.dashPattern         = [NSArray arrayWithObjects:[NSNumber numberWithInteger:10], [NSNumber numberWithInteger:6], nil];
+    lineStyle.dashPattern         = @[@10, @6];
     controlLinePlot.dataLineStyle = lineStyle;
 
     controlLinePlot.dataSource = self;
@@ -142,7 +142,7 @@ const NSUInteger numberOfPoints = 11;
     lineStyle                     = [CPTMutableLineStyle lineStyle];
     lineStyle.lineWidth           = 1.0;
     lineStyle.lineColor           = [CPTColor orangeColor];
-    lineStyle.dashPattern         = [NSArray arrayWithObjects:[NSNumber numberWithInteger:5], [NSNumber numberWithInteger:5], nil];
+    lineStyle.dashPattern         = @[@5, @5];
     warningLinePlot.dataLineStyle = lineStyle;
 
     warningLinePlot.dataSource = self;
@@ -170,7 +170,7 @@ const NSUInteger numberOfPoints = 11;
 
     // Auto scale the plot space to fit the plot data
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObject:linePlot]];
+    [plotSpace scaleToFitPlots:@[linePlot]];
 
     // Adjust visible ranges so plot symbols along the edges are not clipped
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
@@ -191,7 +191,7 @@ const NSUInteger numberOfPoints = 11;
     plotSpace.yRange = yRange;
 
     // Add legend
-    graph.legend                 = [CPTLegend legendWithPlots:[NSArray arrayWithObjects:linePlot, controlLinePlot, warningLinePlot, centerLinePlot, nil]];
+    graph.legend                 = [CPTLegend legendWithPlots:@[linePlot, controlLinePlot, warningLinePlot, centerLinePlot]];
     graph.legend.textStyle       = x.titleTextStyle;
     graph.legend.borderLineStyle = x.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
@@ -252,7 +252,7 @@ const NSUInteger numberOfPoints = 11;
 
         case CPTScatterPlotFieldY:
             if ( plot.identifier == kDataLine ) {
-                number = [[plotData objectAtIndex:index] doubleValue];
+                number = [plotData[index] doubleValue];
             }
             else if ( plot.identifier == kCenterLine ) {
                 number = meanValue;
