@@ -1,8 +1,10 @@
-# Next Release
+# Release 1.3 (June 30, 2013)
 
 ## Release Notes
 
-To be determined.
+This release adds support for styled text (via `NSAttributedString`) in all titles, labels, and text layers.
+It adds support for momentum scrolling and "rubber band" snap-back when scrolling beyond
+the global x- and y-ranges.
 
 ## Details
 - **New**: Added support for styled text in all titles, labels, and text layers.
