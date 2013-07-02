@@ -5,8 +5,6 @@
 
 @class CPTColor;
 @class CPTFill;
-@class CPTMutableNumericData;
-@class CPTNumericData;
 @class CPTPieChart;
 @class CPTTextLayer;
 @class CPTLineStyle;

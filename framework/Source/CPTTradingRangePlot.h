@@ -4,8 +4,6 @@
 /// @file
 
 @class CPTLineStyle;
-@class CPTMutableNumericData;
-@class CPTNumericData;
 @class CPTTradingRangePlot;
 @class CPTFill;
 
