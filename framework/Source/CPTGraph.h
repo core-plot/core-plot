@@ -27,15 +27,14 @@ extern NSString *const CPTGraphNeedsRedrawNotification;
 /**
  *  @brief Enumeration of graph layers.
  **/
-typedef enum _CPTGraphLayerType {
+typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
     CPTGraphLayerTypeMinorGridLines, ///< Minor grid lines.
     CPTGraphLayerTypeMajorGridLines, ///< Major grid lines.
     CPTGraphLayerTypeAxisLines,      ///< Axis lines.
     CPTGraphLayerTypePlots,          ///< Plots.
     CPTGraphLayerTypeAxisLabels,     ///< Axis labels.
     CPTGraphLayerTypeAxisTitles      ///< Axis titles.
-}
-CPTGraphLayerType;
+};
 
 #pragma mark -
 

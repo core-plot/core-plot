@@ -19,14 +19,13 @@
 /**
  *  @brief Enumeration of labeling policies
  **/
-typedef enum _CPTAxisLabelingPolicy {
+typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
     CPTAxisLabelingPolicyNone,              ///< No labels provided; user sets labels and tick locations.
     CPTAxisLabelingPolicyLocationsProvided, ///< User sets tick locations; axis makes labels.
     CPTAxisLabelingPolicyFixedInterval,     ///< Fixed interval labeling policy.
     CPTAxisLabelingPolicyAutomatic,         ///< Automatic labeling policy.
     CPTAxisLabelingPolicyEqualDivisions     ///< Divide the plot range into equal parts.
-}
-CPTAxisLabelingPolicy;
+};
 
 #pragma mark -
 

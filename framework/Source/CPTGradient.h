@@ -19,21 +19,19 @@ CPTGradientElement;
 /**
  *  @brief Enumeration of blending modes
  **/
-typedef enum _CPTBlendingMode {
+typedef NS_ENUM (NSInteger, CPTGradientBlendingMode) {
     CPTLinearBlendingMode,          ///< Linear blending mode
     CPTChromaticBlendingMode,       ///< Chromatic blending mode
     CPTInverseChromaticBlendingMode ///< Inverse chromatic blending mode
-}
-CPTGradientBlendingMode;
+};
 
 /**
  *  @brief Enumeration of gradient types
  **/
-typedef enum _CPTGradientType {
+typedef NS_ENUM (NSInteger, CPTGradientType) {
     CPTGradientTypeAxial, ///< Axial gradient
     CPTGradientTypeRadial ///< Radial gradient
-}
-CPTGradientType;
+};
 
 @class CPTColorSpace;
 @class CPTColor;

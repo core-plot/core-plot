@@ -19,15 +19,14 @@ extern NSString *const CPTRangePlotBindingBarLineStyles;
 /**
  *  @brief Enumeration of range plot data source field types
  **/
-typedef enum _CPTRangePlotField {
+typedef NS_ENUM (NSInteger, CPTRangePlotField) {
     CPTRangePlotFieldX,     ///< X values.
     CPTRangePlotFieldY,     ///< Y values.
     CPTRangePlotFieldHigh,  ///< relative High values.
     CPTRangePlotFieldLow,   ///< relative Low values.
     CPTRangePlotFieldLeft,  ///< relative Left values.
     CPTRangePlotFieldRight, ///< relative Right values.
-}
-CPTRangePlotField;
+};
 
 #pragma mark -
 

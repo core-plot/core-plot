@@ -5,12 +5,11 @@
 /**
  *  @brief Enumeration of possible results of a plot range comparison.
  **/
-typedef enum _CPTPlotRangeComparisonResult {
+typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
     CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
     CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
-}
-CPTPlotRangeComparisonResult;
+};
 
 @interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 

@@ -6,7 +6,7 @@
 /**
  *  @brief Line cap types.
  **/
-typedef enum _CPTLineCapType {
+typedef NS_ENUM (NSInteger, CPTLineCapType) {
     CPTLineCapTypeNone,       ///< No line cap.
     CPTLineCapTypeOpenArrow,  ///< Open arrow line cap.
     CPTLineCapTypeSolidArrow, ///< Solid arrow line cap.
@@ -20,8 +20,7 @@ typedef enum _CPTLineCapType {
     CPTLineCapTypeCross,      ///< X line cap.
     CPTLineCapTypeSnow,       ///< Snowflake line cap.
     CPTLineCapTypeCustom      ///< Custom line cap.
-}
-CPTLineCapType;
+};
 
 @interface CPTLineCap : NSObject<NSCoding, NSCopying>
 

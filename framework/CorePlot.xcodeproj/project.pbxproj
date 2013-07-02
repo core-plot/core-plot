@@ -1635,6 +1635,7 @@
 					"-Wno-custom-atomic-properties",
 					"-Wno-gnu",
 					"-Wno-assign-enum",
+					"-Wno-pedantic",
 				);
 				PRODUCT_NAME = CorePlot;
 				WRAPPER_EXTENSION = framework;
@@ -1672,6 +1673,7 @@
 					"-Wno-custom-atomic-properties",
 					"-Wno-gnu",
 					"-Wno-assign-enum",
+					"-Wno-pedantic",
 				);
 				PRODUCT_NAME = CorePlot;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";

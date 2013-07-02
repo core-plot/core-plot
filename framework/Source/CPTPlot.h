@@ -22,12 +22,11 @@ extern NSString *const CPTPlotBindingDataLabels;
 /**
  *  @brief Enumeration of cache precisions.
  **/
-typedef enum _CPTPlotCachePrecision {
+typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
     CPTPlotCachePrecisionAuto,   ///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
     CPTPlotCachePrecisionDouble, ///< All cached data will be converted to double precision.
     CPTPlotCachePrecisionDecimal ///< All cached data will be converted to @ref NSDecimal.
-}
-CPTPlotCachePrecision;
+};
 
 #pragma mark -
 

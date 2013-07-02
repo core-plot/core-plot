@@ -25,12 +25,11 @@ extern NSString *const CPTBarPlotBindingBarLineStyles;
 /**
  *  @brief Enumeration of bar plot data source field types
  **/
-typedef enum _CPTBarPlotField {
+typedef NS_ENUM (NSInteger, CPTBarPlotField) {
     CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
     CPTBarPlotFieldBarTip,      ///< Bar tip value.
     CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
-}
-CPTBarPlotField;
+};
 
 #pragma mark -
 

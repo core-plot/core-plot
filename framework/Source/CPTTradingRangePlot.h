@@ -26,23 +26,21 @@ extern NSString *const CPTTradingRangePlotBindingDecreaseLineStyles;
 /**
  *  @brief Enumeration of Quote plot render style types.
  **/
-typedef enum _CPTTradingRangePlotStyle {
+typedef NS_ENUM (NSInteger, CPTTradingRangePlotStyle) {
     CPTTradingRangePlotStyleOHLC,       ///< Open-High-Low-Close (OHLC) plot.
     CPTTradingRangePlotStyleCandleStick ///< Candlestick plot.
-}
-CPTTradingRangePlotStyle;
+};
 
 /**
  *  @brief Enumeration of Quote plot data source field types.
  **/
-typedef enum _CPTTradingRangePlotField {
+typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
     CPTTradingRangePlotFieldX,    ///< X values.
     CPTTradingRangePlotFieldOpen, ///< Open values.
     CPTTradingRangePlotFieldHigh, ///< High values.
     CPTTradingRangePlotFieldLow,  ///< Low values.
     CPTTradingRangePlotFieldClose ///< Close values.
-}
-CPTTradingRangePlotField;
+};
 
 #pragma mark -
 

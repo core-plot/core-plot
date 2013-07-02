@@ -21,21 +21,19 @@ extern NSString *const CPTPieChartBindingPieSliceRadialOffsets;
 /**
  *  @brief Enumeration of pie chart data source field types.
  **/
-typedef enum _CPTPieChartField {
+typedef NS_ENUM (NSInteger, CPTPieChartField) {
     CPTPieChartFieldSliceWidth,           ///< Pie slice width.
     CPTPieChartFieldSliceWidthNormalized, ///< Pie slice width normalized [0, 1].
     CPTPieChartFieldSliceWidthSum         ///< Cumulative sum of pie slice widths.
-}
-CPTPieChartField;
+};
 
 /**
  *  @brief Enumeration of pie slice drawing directions.
  **/
-typedef enum _CPTPieDirection {
+typedef NS_ENUM (NSInteger, CPTPieDirection) {
     CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
     CPTPieDirectionCounterClockwise ///< Pie slices are drawn in a counter-clockwise direction.
-}
-CPTPieDirection;
+};
 
 #pragma mark -
 

@@ -1272,6 +1272,7 @@
 					"-Wno-custom-atomic-properties",
 					"-Wno-gnu",
 					"-Wno-assign-enum",
+					"-Wno-pedantic",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1332,6 +1333,7 @@
 					"-Wno-custom-atomic-properties",
 					"-Wno-gnu",
 					"-Wno-assign-enum",
+					"-Wno-pedantic",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

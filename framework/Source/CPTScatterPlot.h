@@ -20,22 +20,20 @@ extern NSString *const CPTScatterPlotBindingPlotSymbols;
 /**
  *  @brief Enumeration of scatter plot data source field types
  **/
-typedef enum _CPTScatterPlotField {
+typedef NS_ENUM (NSInteger, CPTScatterPlotField) {
     CPTScatterPlotFieldX, ///< X values.
     CPTScatterPlotFieldY  ///< Y values.
-}
-CPTScatterPlotField;
+};
 
 /**
  *  @brief Enumeration of scatter plot interpolation algorithms
  **/
-typedef enum _CPTScatterPlotInterpolation {
+typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
     CPTScatterPlotInterpolationStepped,   ///< Steps beginning at data point.
     CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
     CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
-}
-CPTScatterPlotInterpolation;
+};
 
 #pragma mark -
 

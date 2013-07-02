@@ -4,7 +4,7 @@
 /**
  *  @brief Enumeration of animation curves.
  **/
-typedef enum _CPTAnimationCurve {
+typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
     CPTAnimationCurveDefault,          ///< Use the default animation curve.
     CPTAnimationCurveLinear,           ///< Linear animation curve.
     CPTAnimationCurveBackIn,           ///< Backing in animation curve.
@@ -37,8 +37,7 @@ typedef enum _CPTAnimationCurve {
     CPTAnimationCurveQuinticIn,        ///< Quintic in animation curve.
     CPTAnimationCurveQuinticOut,       ///< Quintic out animation curve.
     CPTAnimationCurveQuinticInOut      ///< Quintic in and out animation curve.
-}
-CPTAnimationCurve;
+};
 
 /**
  *  @brief Animation delegate.

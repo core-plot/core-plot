@@ -7,7 +7,7 @@
 /**
  *  @brief Plot symbol types.
  **/
-typedef enum _CPTPlotSymbolType {
+typedef NS_ENUM (NSInteger, CPTPlotSymbolType) {
     CPTPlotSymbolTypeNone,      ///< No symbol.
     CPTPlotSymbolTypeRectangle, ///< Rectangle symbol.
     CPTPlotSymbolTypeEllipse,   ///< Elliptical symbol.
@@ -21,8 +21,7 @@ typedef enum _CPTPlotSymbolType {
     CPTPlotSymbolTypeDash,      ///< Dash symbol.
     CPTPlotSymbolTypeSnow,      ///< Snowflake symbol.
     CPTPlotSymbolTypeCustom     ///< Custom symbol.
-}
-CPTPlotSymbolType;
+};
 
 @interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>
 
