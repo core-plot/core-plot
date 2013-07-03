@@ -346,7 +346,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     [coder encodeObject:self.title forKey:@"CPTPlot.title"];
     [coder encodeObject:self.attributedTitle forKey:@"CPTPlot.attributedTitle"];
     [coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
-    [coder encodeInt:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
+    [coder encodeInteger:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
     [coder encodeBool:self.showLabels forKey:@"CPTPlot.showLabels"];
     [coder encodeCGFloat:self.labelOffset forKey:@"CPTPlot.labelOffset"];
@@ -373,7 +373,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         title                = [[coder decodeObjectForKey:@"CPTPlot.title"] copy];
         attributedTitle      = [[coder decodeObjectForKey:@"CPTPlot.attributedTitle"] copy];
         plotSpace            = [coder decodeObjectForKey:@"CPTPlot.plotSpace"];
-        cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
+        cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntegerForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
         showLabels           = [coder decodeBoolForKey:@"CPTPlot.showLabels"];
         labelOffset          = [coder decodeCGFloatForKey:@"CPTPlot.labelOffset"];

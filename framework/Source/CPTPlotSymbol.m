@@ -134,7 +134,7 @@
 {
     [coder encodeCPTPoint:self.anchorPoint forKey:@"CPTPlotSymbol.anchorPoint"];
     [coder encodeCPTSize:self.size forKey:@"CPTPlotSymbol.size"];
-    [coder encodeInt:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
+    [coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
     [coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
     [coder encodeObject:self.fill forKey:@"CPTPlotSymbol.fill"];
     [coder encodeObject:self.shadow forKey:@"CPTPlotSymbol.shadow"];
@@ -152,7 +152,7 @@
     if ( (self = [super init]) ) {
         anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
         size                = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
-        symbolType          = (CPTPlotSymbolType)[coder decodeIntForKey : @"CPTPlotSymbol.symbolType"];
+        symbolType          = (CPTPlotSymbolType)[coder decodeIntegerForKey : @"CPTPlotSymbol.symbolType"];
         lineStyle           = [coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"];
         fill                = [coder decodeObjectForKey:@"CPTPlotSymbol.fill"];
         shadow              = [[coder decodeObjectForKey:@"CPTPlotSymbol.shadow"] copy];

@@ -88,7 +88,7 @@
     [coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
     [coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
     [coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
-    [coder encodeInt:self.alignment forKey:@"CPTAxisLabel.alignment"];
+    [coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
     [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
@@ -98,7 +98,7 @@
         contentLayer = [coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"];
         offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
         rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-        alignment    = (CPTAlignment)[coder decodeIntForKey : @"CPTAxisLabel.alignment"];
+        alignment    = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxisLabel.alignment"];
         tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
     }
     return self;

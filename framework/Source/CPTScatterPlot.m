@@ -205,7 +205,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInt:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
+    [coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
     [coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
@@ -218,7 +218,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation                   = (CPTScatterPlotInterpolation)[coder decodeIntForKey : @"CPTScatterPlot.interpolation"];
+        interpolation                   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey : @"CPTScatterPlot.interpolation"];
         dataLineStyle                   = [[coder decodeObjectForKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol                      = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill                        = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];

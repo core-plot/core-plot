@@ -294,12 +294,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
     [coder encodeObject:self.title forKey:@"CPTGraph.title"];
     [coder encodeObject:self.attributedTitle forKey:@"CPTGraph.attributedTitle"];
     [coder encodeObject:self.titleTextStyle forKey:@"CPTGraph.titleTextStyle"];
-    [coder encodeInt:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
+    [coder encodeInteger:self.titlePlotAreaFrameAnchor forKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
     [coder encodeCPTPoint:self.titleDisplacement forKey:@"CPTGraph.titleDisplacement"];
     [coder encodeObject:self.titleAnnotation forKey:@"CPTGraph.titleAnnotation"];
     [coder encodeObject:self.legend forKey:@"CPTGraph.legend"];
     [coder encodeObject:self.legendAnnotation forKey:@"CPTGraph.legendAnnotation"];
-    [coder encodeInt:self.legendAnchor forKey:@"CPTGraph.legendAnchor"];
+    [coder encodeInteger:self.legendAnchor forKey:@"CPTGraph.legendAnchor"];
     [coder encodeCPTPoint:self.legendDisplacement forKey:@"CPTGraph.legendDisplacement"];
 
     // No need to archive these properties:
@@ -316,12 +316,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
         attributedTitle          = [[coder decodeObjectForKey:@"CPTGraph.attributedTitle"] copy];
         titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
-        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
+        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
         titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
         titleAnnotation          = [coder decodeObjectForKey:@"CPTGraph.titleAnnotation"];
         legend                   = [coder decodeObjectForKey:@"CPTGraph.legend"];
         legendAnnotation         = [coder decodeObjectForKey:@"CPTGraph.legendAnnotation"];
-        legendAnchor             = (CPTRectAnchor)[coder decodeIntForKey : @"CPTGraph.legendAnchor"];
+        legendAnchor             = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.legendAnchor"];
         legendDisplacement       = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
 
         inTitleUpdate = NO;

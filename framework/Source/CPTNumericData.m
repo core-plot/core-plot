@@ -1155,12 +1155,12 @@
         [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
         CPTNumericDataType selfDataType = self.dataType;
-        [encoder encodeInt:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
+        [encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
         [encoder encodeInt64:(int64_t)selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
         [encoder encodeInt64:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
 
         [encoder encodeObject:self.shape forKey:@"CPTNumericData.shape"];
-        [encoder encodeInt:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
+        [encoder encodeInteger:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
     }
     else {
         [encoder encodeObject:self.data];
@@ -1188,12 +1188,12 @@
         if ( [decoder allowsKeyedCoding] ) {
             newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
-            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntForKey: @"CPTNumericData.dataType.dataTypeFormat"],
+            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey: @"CPTNumericData.dataType.dataTypeFormat"],
                                        (size_t)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.sampleBytes"],
                                        (CFByteOrder)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.byteOrder"] );
 
             shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
-            order      = (CPTDataOrder)[decoder decodeIntForKey : @"CPTNumericData.dataOrder"];
+            order      = (CPTDataOrder)[decoder decodeIntegerForKey : @"CPTNumericData.dataOrder"];
         }
         else {
             newData = [decoder decodeObject];

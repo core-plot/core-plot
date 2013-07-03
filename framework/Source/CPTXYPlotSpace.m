@@ -197,8 +197,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     [coder encodeObject:self.yRange forKey:@"CPTXYPlotSpace.yRange"];
     [coder encodeObject:self.globalXRange forKey:@"CPTXYPlotSpace.globalXRange"];
     [coder encodeObject:self.globalYRange forKey:@"CPTXYPlotSpace.globalYRange"];
-    [coder encodeInt:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
-    [coder encodeInt:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
+    [coder encodeInteger:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
+    [coder encodeInteger:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
     [coder encodeBool:self.allowsMomentum forKey:@"CPTXYPlotSpace.allowsMomentum"];
     [coder encodeBool:self.elasticGlobalXRange forKey:@"CPTXYPlotSpace.elasticGlobalXRange"];
     [coder encodeBool:self.elasticGlobalYRange forKey:@"CPTXYPlotSpace.elasticGlobalYRange"];
@@ -219,8 +219,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         yRange       = [[coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"] copy];
         globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
         globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
-        xScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.xScaleType"];
-        yScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.yScaleType"];
+        xScaleType   = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.xScaleType"];
+        yScaleType   = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.yScaleType"];
 
         allowsMomentum      = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
         elasticGlobalXRange = [coder decodeBoolForKey:@"CPTXYPlotSpace.elasticGlobalXRange"];

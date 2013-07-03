@@ -104,7 +104,7 @@
     [coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
     [coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
     [coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
-    [coder encodeInt:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
+    [coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
     [coder encodeInteger:(NSInteger)self.lineBreakMode forKey:@"CPTTextStyle.lineBreakMode"];
 }
 
@@ -114,7 +114,7 @@
         fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
         fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
         color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
-        textAlignment = (CPTTextAlignment)[coder decodeIntForKey : @"CPTTextStyle.textAlignment"];
+        textAlignment = (CPTTextAlignment)[coder decodeIntegerForKey : @"CPTTextStyle.textAlignment"];
         lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey : @"CPTTextStyle.lineBreakMode"];
     }
     return self;

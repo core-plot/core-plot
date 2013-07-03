@@ -195,9 +195,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
             currentElement = currentElement->nextElement;
         }
         [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
-        [coder encodeInt:self.blendingMode forKey:@"CPTGradient.blendingMode"];
+        [coder encodeInteger:self.blendingMode forKey:@"CPTGradient.blendingMode"];
         [coder encodeCGFloat:self.angle forKey:@"CPTGradient.angle"];
-        [coder encodeInt:self.gradientType forKey:@"CPTGradient.type"];
+        [coder encodeInteger:self.gradientType forKey:@"CPTGradient.type"];
         [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
         [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
     }
@@ -211,9 +211,9 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     if ( (self = [super init]) ) {
         [self commonInit];
 
-        gradientType      = (CPTGradientType)[coder decodeIntForKey : @"CPTGradient.type"];
+        gradientType      = (CPTGradientType)[coder decodeIntegerForKey : @"CPTGradient.type"];
         angle             = [coder decodeCGFloatForKey:@"CPTGradient.angle"];
-        self.blendingMode = (CPTGradientBlendingMode)[coder decodeIntForKey : @"CPTGradient.blendingMode"];
+        self.blendingMode = (CPTGradientBlendingMode)[coder decodeIntegerForKey : @"CPTGradient.blendingMode"];
         startAnchor       = [coder decodeCPTPointForKey:@"CPTPlotSymbol.startAnchor"];
         endAnchor         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.endAnchor"];
 
