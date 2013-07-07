@@ -1,3 +1,15 @@
+# Next Release
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 1.3 (June 30, 2013)
 
 ## Release Notes
