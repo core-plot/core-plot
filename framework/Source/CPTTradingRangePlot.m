@@ -37,8 +37,8 @@ NSString *const CPTTradingRangePlotBindingLineStyles         = @"lineStyles";   
 NSString *const CPTTradingRangePlotBindingIncreaseLineStyles = @"increaseLineStyles"; ///< Line styles used to outline candlestick symbols when close >= open.
 NSString *const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineStyles"; ///< Line styles used to outline candlestick symbols when close < open.
 
-const CPTCoordinate independentCoord = CPTCoordinateX;
-const CPTCoordinate dependentCoord   = CPTCoordinateY;
+static const CPTCoordinate independentCoord = CPTCoordinateX;
+static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 /// @cond
 @interface CPTTradingRangePlot()
