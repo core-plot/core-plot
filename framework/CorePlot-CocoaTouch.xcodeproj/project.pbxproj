@@ -1273,6 +1273,7 @@
 					"-Wno-gnu",
 					"-Wno-assign-enum",
 					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1334,6 +1335,7 @@
 					"-Wno-gnu",
 					"-Wno-assign-enum",
 					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
