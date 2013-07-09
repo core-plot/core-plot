@@ -50,6 +50,8 @@
 -(NSSet *)filteredTickLocations:(NSSet *)allLocations;
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
+-(void)updateMajorTickLabelOffsets;
+-(void)updateMinorTickLabelOffsets;
 
 NSDecimal niceNum(NSDecimal x);
 
@@ -243,6 +245,24 @@ NSDecimal niceNum(NSDecimal x);
  *  @brief The text style used to draw the label text of minor tick labels.
  **/
 @synthesize minorTickLabelTextStyle;
+
+/** @property CPTSign tickLabelDirection
+ *  @brief The offset direction for major tick labels.
+ *  The direction is given as the sign that ticks extend along
+ *  the axis (e.g., positive or negative). If the label direction
+ *  is #CPTSignNone (the default), the labels are offset in the
+ *  direction indicated by the @ref tickDirection.
+ **/
+@synthesize tickLabelDirection;
+
+/** @property CPTSign minorTickLabelDirection
+ *  @brief The offset direction for minor tick labels.
+ *  The direction is given as the sign that ticks extend along
+ *  the axis (e.g., positive or negative). If the label direction
+ *  is #CPTSignNone (the default), the labels are offset in the
+ *  direction indicated by the @ref tickDirection.
+ **/
+@synthesize minorTickLabelDirection;
 
 /** @property NSFormatter *labelFormatter
  *  @brief The number formatter used to format the label text.
@@ -450,6 +470,8 @@ NSDecimal niceNum(NSDecimal x);
  *  - @ref axisLineStyle = default line style
  *  - @ref majorTickLineStyle = default line style
  *  - @ref minorTickLineStyle = default line style
+ *  - @ref tickLabelDirection = #CPTSignNone
+ *  - @ref minorTickLabelDirection = #CPTSignNone
  *  - @ref majorGridLineStyle = @nil
  *  - @ref minorGridLineStyle= @nil
  *  - @ref axisLineCapMin = @nil
@@ -505,6 +527,8 @@ NSDecimal niceNum(NSDecimal x);
         axisLineStyle               = [[CPTLineStyle alloc] init];
         majorTickLineStyle          = [[CPTLineStyle alloc] init];
         minorTickLineStyle          = [[CPTLineStyle alloc] init];
+        tickLabelDirection          = CPTSignNone;
+        minorTickLabelDirection     = CPTSignNone;
         majorGridLineStyle          = nil;
         minorGridLineStyle          = nil;
         axisLineCapMin              = nil;
@@ -581,6 +605,8 @@ NSDecimal niceNum(NSDecimal x);
         axisLineStyle               = theLayer->axisLineStyle;
         majorTickLineStyle          = theLayer->majorTickLineStyle;
         minorTickLineStyle          = theLayer->minorTickLineStyle;
+        tickLabelDirection          = theLayer->tickLabelDirection;
+        minorTickLabelDirection     = theLayer->minorTickLabelDirection;
         majorGridLineStyle          = theLayer->majorGridLineStyle;
         minorGridLineStyle          = theLayer->minorGridLineStyle;
         axisLineCapMin              = theLayer->axisLineCapMin;
@@ -657,6 +683,8 @@ NSDecimal niceNum(NSDecimal x);
     [coder encodeObject:self.axisLineStyle forKey:@"CPTAxis.axisLineStyle"];
     [coder encodeObject:self.majorTickLineStyle forKey:@"CPTAxis.majorTickLineStyle"];
     [coder encodeObject:self.minorTickLineStyle forKey:@"CPTAxis.minorTickLineStyle"];
+    [coder encodeInteger:self.tickLabelDirection forKey:@"CPTAxis.tickLabelDirection"];
+    [coder encodeInteger:self.minorTickLabelDirection forKey:@"CPTAxis.minorTickLabelDirection"];
     [coder encodeObject:self.majorGridLineStyle forKey:@"CPTAxis.majorGridLineStyle"];
     [coder encodeObject:self.minorGridLineStyle forKey:@"CPTAxis.minorGridLineStyle"];
     [coder encodeObject:self.axisLineCapMin forKey:@"CPTAxis.axisLineCapMin"];
@@ -719,6 +747,8 @@ NSDecimal niceNum(NSDecimal x);
         axisLineStyle               = [[coder decodeObjectForKey:@"CPTAxis.axisLineStyle"] copy];
         majorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.majorTickLineStyle"] copy];
         minorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.minorTickLineStyle"] copy];
+        tickLabelDirection          = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.tickLabelDirection"];
+        minorTickLabelDirection     = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.minorTickLabelDirection"];
         majorGridLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.majorGridLineStyle"] copy];
         minorGridLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.minorGridLineStyle"] copy];
         axisLineCapMin              = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMin"] copy];
@@ -1276,6 +1306,7 @@ NSDecimal niceNum(NSDecimal x)
 -(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels
 {
     CPTAlignment theLabelAlignment;
+    CPTSign theLabelDirection;
     CGFloat theLabelOffset;
     CGFloat theLabelRotation;
     CPTTextStyle *theLabelTextStyle;
@@ -1291,6 +1322,7 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
         theLabelAlignment        = self.labelAlignment;
+        theLabelDirection        = self.tickLabelDirection;
         theLabelOffset           = self.labelOffset;
         theLabelRotation         = self.labelRotation;
         theLabelTextStyle        = self.labelTextStyle;
@@ -1306,6 +1338,7 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
         theLabelAlignment        = self.minorTickLabelAlignment;
+        theLabelDirection        = self.minorTickLabelDirection;
         theLabelOffset           = self.minorTickLabelOffset;
         theLabelRotation         = self.minorTickLabelRotation;
         theLabelTextStyle        = self.minorTickLabelTextStyle;
@@ -1324,7 +1357,15 @@ NSDecimal niceNum(NSDecimal x)
         return;
     }
 
-    CGFloat offset = self.tickOffset + theLabelOffset;
+    CPTSign direction = self.tickDirection;
+
+    if ( theLabelDirection == CPTSignNone ) {
+        theLabelDirection = direction;
+    }
+
+    if ( (direction == CPTSignNone) || (theLabelDirection == direction) ) {
+        theLabelOffset += self.tickOffset;
+    }
 
     [self.plotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
@@ -1366,7 +1407,7 @@ NSDecimal niceNum(NSDecimal x)
         }
 
         newAxisLabel.rotation  = theLabelRotation;
-        newAxisLabel.offset    = offset;
+        newAxisLabel.offset    = theLabelOffset;
         newAxisLabel.alignment = theLabelAlignment;
 
         if ( needsNewContentLayer || theLabelFormatterChanged ) {
@@ -1553,6 +1594,46 @@ NSDecimal niceNum(NSDecimal x)
     }
 }
 
+-(void)updateMajorTickLabelOffsets
+{
+    CPTSign direction      = self.tickDirection;
+    CPTSign labelDirection = self.tickLabelDirection;
+
+    if ( labelDirection == CPTSignNone ) {
+        labelDirection = direction;
+    }
+
+    CGFloat majorOffset = self.labelOffset;
+
+    if ( (direction == CPTSignNone) || (labelDirection == direction) ) {
+        majorOffset += self.tickOffset;
+    }
+
+    for ( CPTAxisLabel *label in self.axisLabels ) {
+        label.offset = majorOffset;
+    }
+}
+
+-(void)updateMinorTickLabelOffsets
+{
+    CPTSign direction      = self.tickDirection;
+    CPTSign labelDirection = self.minorTickLabelDirection;
+
+    if ( labelDirection == CPTSignNone ) {
+        labelDirection = direction;
+    }
+
+    CGFloat minorOffset = self.minorTickLabelOffset;
+
+    if ( (direction == CPTSignNone) || (labelDirection == direction) ) {
+        minorOffset += self.tickOffset;
+    }
+
+    for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+        label.offset = minorOffset;
+    }
+}
+
 /// @endcond
 
 /**
@@ -1561,7 +1642,12 @@ NSDecimal niceNum(NSDecimal x)
 -(void)updateMajorTickLabels
 {
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
-    CPTSign direction                  = self.tickDirection;
+
+    CPTSign direction = self.tickLabelDirection;
+
+    if ( direction == CPTSignNone ) {
+        direction = self.tickDirection;
+    }
 
     for ( CPTAxisLabel *label in self.axisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
@@ -1575,7 +1661,12 @@ NSDecimal niceNum(NSDecimal x)
 -(void)updateMinorTickLabels
 {
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
-    CPTSign direction                  = self.tickDirection;
+
+    CPTSign direction = self.minorTickLabelDirection;
+
+    if ( direction == CPTSignNone ) {
+        direction = self.tickDirection;
+    }
 
     for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
         CGPoint tickBasePoint = [self viewPointForCoordinateDecimalNumber:label.tickLocation];
@@ -1987,16 +2078,8 @@ NSDecimal niceNum(NSDecimal x)
     if ( newLength != majorTickLength ) {
         majorTickLength = newLength;
 
-        CGFloat newOffset   = self.tickOffset;
-        CGFloat majorOffset = newOffset + self.labelOffset;
-        CGFloat minorOffset = newOffset + self.minorTickLabelOffset;
-
-        for ( CPTAxisLabel *label in self.axisLabels ) {
-            label.offset = majorOffset;
-        }
-        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-            label.offset = minorOffset;
-        }
+        [self updateMajorTickLabelOffsets];
+        [self updateMinorTickLabelOffsets];
 
         [self setNeedsDisplay];
         [self updateMajorTickLabels];
@@ -2017,11 +2100,7 @@ NSDecimal niceNum(NSDecimal x)
     if ( newOffset != labelOffset ) {
         labelOffset = newOffset;
 
-        CGFloat majorOffset = self.tickOffset + newOffset;
-        for ( CPTAxisLabel *label in self.axisLabels ) {
-            label.offset = majorOffset;
-        }
-
+        [self updateMajorTickLabelOffsets];
         [self updateMajorTickLabels];
     }
 }
@@ -2031,11 +2110,7 @@ NSDecimal niceNum(NSDecimal x)
     if ( newOffset != minorTickLabelOffset ) {
         minorTickLabelOffset = newOffset;
 
-        CGFloat minorOffset = self.tickOffset + newOffset;
-        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-            label.offset = minorOffset;
-        }
-
+        [self updateMinorTickLabelOffsets];
         [self updateMinorTickLabels];
     }
 }
@@ -2280,19 +2355,31 @@ NSDecimal niceNum(NSDecimal x)
     if ( newDirection != tickDirection ) {
         tickDirection = newDirection;
 
-        CGFloat newOffset   = self.tickOffset;
-        CGFloat majorOffset = newOffset + self.labelOffset;
-        CGFloat minorOffset = newOffset + self.minorTickLabelOffset;
-
-        for ( CPTAxisLabel *label in self.axisLabels ) {
-            label.offset = majorOffset;
-        }
-        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
-            label.offset = minorOffset;
-        }
+        [self updateMajorTickLabelOffsets];
+        [self updateMinorTickLabelOffsets];
 
         [self setNeedsDisplay];
         [self updateMajorTickLabels];
+        [self updateMinorTickLabels];
+    }
+}
+
+-(void)setTickLabelDirection:(CPTSign)newDirection
+{
+    if ( newDirection != tickLabelDirection ) {
+        tickLabelDirection = newDirection;
+
+        [self updateMajorTickLabelOffsets];
+        [self updateMajorTickLabels];
+    }
+}
+
+-(void)setMinorTickLabelDirection:(CPTSign)newDirection
+{
+    if ( newDirection != minorTickLabelDirection ) {
+        minorTickLabelDirection = newDirection;
+
+        [self updateMinorTickLabelOffsets];
         [self updateMinorTickLabels];
     }
 }

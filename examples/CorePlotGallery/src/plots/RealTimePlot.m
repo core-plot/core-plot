@@ -5,10 +5,10 @@
 
 #import "RealTimePlot.h"
 
-const double kFrameRate         = 5.0;  // frames per second
-const double kAlpha             = 0.25; // smoothing constant
-const NSUInteger kMaxDataPoints = 51;
-NSString *kPlotIdentifier       = @"Data Source Plot";
+static const double kFrameRate         = 5.0;  // frames per second
+static const double kAlpha             = 0.25; // smoothing constant
+static const NSUInteger kMaxDataPoints = 51;
+static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 @implementation RealTimePlot
 

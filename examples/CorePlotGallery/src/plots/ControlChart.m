@@ -5,7 +5,7 @@ NSString *const kCenterLine  = @"Center Line";
 NSString *const kControlLine = @"Control Line";
 NSString *const kWarningLine = @"Warning Line";
 
-const NSUInteger numberOfPoints = 11;
+static const NSUInteger numberOfPoints = 11;
 
 @implementation ControlChart
 

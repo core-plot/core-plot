@@ -112,6 +112,8 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, assign) CPTAlignment minorTickLabelAlignment;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
 @property (nonatomic, readwrite, copy) CPTTextStyle *minorTickLabelTextStyle;
+@property (nonatomic, readwrite, assign) CPTSign tickLabelDirection;
+@property (nonatomic, readwrite, assign) CPTSign minorTickLabelDirection;
 @property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
 @property (nonatomic, readwrite, strong) NSFormatter *minorTickLabelFormatter;
 @property (nonatomic, readwrite, strong) NSSet *axisLabels;

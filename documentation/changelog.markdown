@@ -5,6 +5,20 @@
 To be determined.
 
 ## Details
+- **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
+# Release 1.3 (June 30, 2013)
+
+## Release Notes
+
+This release adds support for styled text (via `NSAttributedString`) in all titles, labels, and text layers.
+It adds support for momentum scrolling and "rubber band" snap-back when scrolling beyond
+the global x- and y-ranges.
+
+## Details
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
 - **New**: Added a property to hide plot data labels.

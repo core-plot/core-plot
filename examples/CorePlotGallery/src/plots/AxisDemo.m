@@ -133,14 +133,16 @@
     y2.separateLayers              = NO;
     y2.preferredNumberOfMajorTicks = 6;
     y2.minorTicksPerInterval       = 9;
-    y2.tickDirection               = CPTSignPositive;
+    y2.tickDirection               = CPTSignNone;
+    y2.tickLabelDirection          = CPTSignPositive;
+    y2.labelTextStyle              = y.labelTextStyle;
     y2.axisLineStyle               = axisLineStyle;
-    y2.majorTickLength             = 6.0;
+    y2.majorTickLength             = 12.0;
     y2.majorTickLineStyle          = axisLineStyle;
-    y2.minorTickLength             = 4.0;
+    y2.minorTickLength             = 8.0;
     y2.title                       = @"Y2 Axis";
     y2.titleTextStyle              = axisTitleTextStyle;
-    y2.titleOffset                 = 30.0;
+    y2.titleOffset                 = -50.0;
 
     // Add the y2 axis to the axis set
     graph.axisSet.axes = @[x, y, y2];

@@ -4,7 +4,7 @@
 #import "CPTScatterPlot.h"
 #import "CPTUtilities.h"
 
-const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
+static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
 /// @cond
 @interface CPTDataSourceTestCase()
