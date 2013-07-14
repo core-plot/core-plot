@@ -43,13 +43,6 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 {
     [plotData removeAllObjects];
     currentIndex = 0;
-    [dataTimer release];
-    dataTimer = [[NSTimer timerWithTimeInterval:1.0 / kFrameRate
-                                         target:self
-                                       selector:@selector(newData:)
-                                       userInfo:nil
-                                        repeats:YES] retain];
-    [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSDefaultRunLoopMode];
 }
 
 -(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
@@ -130,6 +123,21 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 1)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
+
+    [dataTimer invalidate];
+    [dataTimer release];
+
+    if ( animated ) {
+        dataTimer = [[NSTimer timerWithTimeInterval:1.0 / kFrameRate
+                                             target:self
+                                           selector:@selector(newData:)
+                                           userInfo:nil
+                                            repeats:YES] retain];
+        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSDefaultRunLoopMode];
+    }
+    else {
+        dataTimer = nil;
+    }
 }
 
 -(void)dealloc
