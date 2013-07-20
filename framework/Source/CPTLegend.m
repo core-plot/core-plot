@@ -666,7 +666,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         legendSize.height += ( self.rowMargin * (rows - 1) );
     }
 
-    self.bounds = CPTRectMake(0.0, 0.0, legendSize.width, legendSize.height);
+    self.bounds = CPTRectMake( 0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height) );
     [self pixelAlign];
 
     self.layoutChanged = NO;

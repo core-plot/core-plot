@@ -343,6 +343,9 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
             newBounds.size.height = MIN(newBounds.size.height, maxSize.height);
         }
 
+        newBounds.size.width  = ceil(newBounds.size.width);
+        newBounds.size.height = ceil(newBounds.size.height);
+
         self.bounds = newBounds;
         [self setNeedsLayout];
         [self setNeedsDisplay];
