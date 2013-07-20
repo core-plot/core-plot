@@ -683,7 +683,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [maxRowHeights release];
     [maxColumnWidths release];
 
-    self.bounds = CPTRectMake(0.0, 0.0, legendSize.width, legendSize.height);
+    self.bounds = CPTRectMake( 0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height) );
     [self pixelAlign];
 
     self.layoutChanged = NO;

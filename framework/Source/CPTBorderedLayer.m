@@ -202,10 +202,9 @@
 {
     [super sublayerMarginLeft:left top:top right:right bottom:bottom];
 
-    CPTLineStyle *theLineStyle = self.borderLineStyle;
-    if ( theLineStyle ) {
-        CGFloat inset = theLineStyle.lineWidth * CPTFloat(0.5);
+    CGFloat inset = self.borderLineStyle.lineWidth * CPTFloat(0.5);
 
+    if ( inset > CPTFloat(0.0) ) {
         *left   += inset;
         *top    += inset;
         *right  += inset;
