@@ -74,16 +74,11 @@ static const CGFloat titleOffset     = 25.0;
     axisTitleTextStyle.fontSize = 14.0;
 
     // Tick locations
-    NSSet *majorTickLocations = [NSSet setWithObjects:[NSDecimalNumber zero],
-                                 [NSDecimalNumber numberWithUnsignedInteger:30],
-                                 [NSDecimalNumber numberWithUnsignedInteger:50],
-                                 [NSDecimalNumber numberWithUnsignedInteger:85],
-                                 [NSDecimalNumber numberWithUnsignedInteger:100],
-                                 nil];
+    NSSet *majorTickLocations = [NSSet setWithObjects:@0, @30, @50, @85, @100, nil];
 
     NSMutableSet *minorTickLocations = [NSMutableSet set];
     for ( NSUInteger loc = 0; loc <= 100; loc += 10 ) {
-        [minorTickLocations addObject:[NSDecimalNumber numberWithUnsignedInteger:loc]];
+        [minorTickLocations addObject:@(loc)];
     }
 
     // Axes
@@ -182,7 +177,7 @@ static const CGFloat titleOffset     = 25.0;
     axisEqualDivisions.titleOffset                 = titleOffset;
 
     // Add axes to the graph
-    graph.axisSet.axes = [NSArray arrayWithObjects:axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, axisEqualDivisions, nil];
+    graph.axisSet.axes = @[axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, axisEqualDivisions];
 }
 
 @end

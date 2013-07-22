@@ -99,8 +99,8 @@
 {
     _CPTConstraintsFixed *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->offset         = self->offset;
-    copy->isFixedToLower = self->isFixedToLower;
+    copy.offset         = self.offset;
+    copy.isFixedToLower = self.isFixedToLower;
 
     return copy;
 }

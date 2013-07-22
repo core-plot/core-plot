@@ -67,16 +67,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [contentLayer release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -95,7 +85,7 @@
 {
     if ( (self = [super init]) ) {
         annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
-        contentLayer        = [[coder decodeObjectForKey:@"CPTAnnotation.contentLayer"] retain];
+        contentLayer        = [coder decodeObjectForKey:@"CPTAnnotation.contentLayer"];
         contentAnchorPoint  = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
         displacement        = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
         rotation            = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
@@ -126,10 +116,9 @@
 {
     if ( newLayer != contentLayer ) {
         [contentLayer removeFromSuperlayer];
-        [contentLayer release];
-        contentLayer = [newLayer retain];
+        contentLayer = newLayer;
         if ( contentLayer ) {
-            [annotationHostLayer addSublayer:contentLayer];
+            [self.annotationHostLayer addSublayer:contentLayer];
         }
     }
 }
@@ -137,10 +126,12 @@
 -(void)setAnnotationHostLayer:(CPTAnnotationHostLayer *)newLayer
 {
     if ( newLayer != annotationHostLayer ) {
-        [contentLayer removeFromSuperlayer];
+        CPTLayer *myContent = self.contentLayer;
+
+        [myContent removeFromSuperlayer];
         annotationHostLayer = newLayer;
-        if ( contentLayer ) {
-            [annotationHostLayer addSublayer:contentLayer];
+        if ( myContent ) {
+            [annotationHostLayer addSublayer:myContent];
         }
     }
 }

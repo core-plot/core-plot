@@ -1,6 +1,5 @@
 #import "CPTTestCase.h"
 
-@interface CPTNumericDataTypeConversionTests : CPTTestCase {
-}
+@interface CPTNumericDataTypeConversionTests : CPTTestCase
 
 @end

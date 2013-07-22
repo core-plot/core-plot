@@ -22,12 +22,11 @@ extern NSString *const CPTPlotBindingDataLabels;
 /**
  *  @brief Enumeration of cache precisions.
  **/
-typedef enum _CPTPlotCachePrecision {
+typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
     CPTPlotCachePrecisionAuto,   ///< Cache precision is determined automatically from the data. All cached data will be converted to match the last data loaded.
     CPTPlotCachePrecisionDouble, ///< All cached data will be converted to double precision.
     CPTPlotCachePrecisionDecimal ///< All cached data will be converted to @ref NSDecimal.
-}
-CPTPlotCachePrecision;
+};
 
 #pragma mark -
 
@@ -186,28 +185,7 @@ CPTPlotCachePrecision;
 
 #pragma mark -
 
-@interface CPTPlot : CPTAnnotationHostLayer {
-    @private
-    __cpt_weak id<CPTPlotDataSource> dataSource;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CPTPlotSpace *plotSpace;
-    BOOL dataNeedsReloading;
-    NSMutableDictionary *cachedData;
-    NSUInteger cachedDataCount;
-    CPTPlotCachePrecision cachePrecision;
-    BOOL needsRelabel;
-    BOOL showLabels;
-    CGFloat labelOffset;
-    CGFloat labelRotation;
-    NSUInteger labelField;
-    CPTTextStyle *labelTextStyle;
-    NSFormatter *labelFormatter;
-    NSRange labelIndexRange;
-    NSMutableArray *labelAnnotations;
-    CPTShadow *labelShadow;
-    BOOL alignsPointsToPixels;
-}
+@interface CPTPlot : CPTAnnotationHostLayer
 
 /// @name Data Source
 /// @{
@@ -222,38 +200,38 @@ CPTPlotCachePrecision;
 
 /// @name Plot Space
 /// @{
-@property (nonatomic, readwrite, retain) CPTPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong) CPTPlotSpace *plotSpace;
 /// @}
 
 /// @name Plot Area
 /// @{
-@property (nonatomic, readonly, retain) CPTPlotArea *plotArea;
+@property (nonatomic, readonly) CPTPlotArea *plotArea;
 /// @}
 
 /// @name Data Loading
 /// @{
-@property (nonatomic, readonly, assign) BOOL dataNeedsReloading;
+@property (nonatomic, readonly) BOOL dataNeedsReloading;
 /// @}
 
 /// @name Data Cache
 /// @{
-@property (nonatomic, readonly, assign) NSUInteger cachedDataCount;
-@property (nonatomic, readonly, assign) BOOL doublePrecisionCache;
+@property (nonatomic, readonly) NSUInteger cachedDataCount;
+@property (nonatomic, readonly) BOOL doublePrecisionCache;
 @property (nonatomic, readwrite, assign) CPTPlotCachePrecision cachePrecision;
-@property (nonatomic, readonly, assign) CPTNumericDataType doubleDataType;
-@property (nonatomic, readonly, assign) CPTNumericDataType decimalDataType;
+@property (nonatomic, readonly) CPTNumericDataType doubleDataType;
+@property (nonatomic, readonly) CPTNumericDataType decimalDataType;
 /// @}
 
 /// @name Data Labels
 /// @{
-@property (nonatomic, readonly, assign) BOOL needsRelabel;
+@property (nonatomic, readonly) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) BOOL showLabels;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
 @property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, retain) NSFormatter *labelFormatter;
-@property (nonatomic, readwrite, retain) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
+@property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
 /// @}
 
 /// @name Drawing

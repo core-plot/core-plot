@@ -40,14 +40,13 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
             float rRight     = (rand() / (float)RAND_MAX * 0.125f + 0.125f) * oneDay;
 
             [newData addObject:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-              [NSDecimalNumber numberWithFloat:x], [NSNumber numberWithInt:CPTRangePlotFieldX],
-              [NSDecimalNumber numberWithFloat:y], [NSNumber numberWithInt:CPTRangePlotFieldY],
-              [NSDecimalNumber numberWithFloat:rHigh], [NSNumber numberWithInt:CPTRangePlotFieldHigh],
-              [NSDecimalNumber numberWithFloat:rLow], [NSNumber numberWithInt:CPTRangePlotFieldLow],
-              [NSDecimalNumber numberWithFloat:rLeft], [NSNumber numberWithInt:CPTRangePlotFieldLeft],
-              [NSDecimalNumber numberWithFloat:rRight], [NSNumber numberWithInt:CPTRangePlotFieldRight],
-              nil]];
+             @{ @(CPTRangePlotFieldX): @(x),
+                @(CPTRangePlotFieldY): @(y),
+                @(CPTRangePlotFieldHigh): @(rHigh),
+                @(CPTRangePlotFieldLow): @(rLow),
+                @(CPTRangePlotFieldLeft): @(rLeft),
+                @(CPTRangePlotFieldRight): @(rRight) }
+            ];
         }
 
         plotData = [newData retain];
@@ -175,9 +174,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
-
-    return num;
+    return plotData[index][@(fieldEnum)];
 }
 
 #pragma mark -
