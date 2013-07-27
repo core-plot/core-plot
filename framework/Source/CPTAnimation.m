@@ -6,8 +6,6 @@
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 
-static CPTAnimation *instance = nil;
-
 /// @cond
 @interface CPTAnimation()
 
@@ -128,10 +126,16 @@ static CPTAnimation *instance = nil;
  **/
 +(CPTAnimation *)sharedInstance
 {
-    if ( !instance ) {
-        instance = [[CPTAnimation alloc] init];
-    }
-    return instance;
+    static dispatch_once_t once;
+    static CPTAnimation *shared;
+
+    dispatch_once(&once, ^{
+                      shared = [[self alloc] init];
+                  }
+
+                 );
+
+    return shared;
 }
 
 #pragma mark -
