@@ -37,7 +37,6 @@
     newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
 
     self = [self initWithDateFormatter:newDateFormatter];
-    [newDateFormatter release];
 
     return self;
 }
@@ -51,22 +50,11 @@
 -(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
     if ( (self = [super init]) ) {
-        dateFormatter = [aDateFormatter retain];
+        dateFormatter = aDateFormatter;
         referenceDate = nil;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [referenceDate release];
-    [dateFormatter release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -84,7 +72,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        dateFormatter = [[coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"] retain];
+        dateFormatter = [coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"];
         referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
     }
     return self;
@@ -102,8 +90,8 @@
     CPTTimeFormatter *newFormatter = [[CPTTimeFormatter allocWithZone:zone] init];
 
     if ( newFormatter ) {
-        newFormatter->dateFormatter = [self->dateFormatter copyWithZone:zone];
-        newFormatter->referenceDate = [self->referenceDate copyWithZone:zone];
+        newFormatter.dateFormatter = self.dateFormatter;
+        newFormatter.referenceDate = self.referenceDate;
     }
     return newFormatter;
 }
@@ -138,7 +126,6 @@
             date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:[coordinateValue doubleValue]];
         }
         string = [self.dateFormatter stringFromDate:date];
-        [date release];
     }
 
     return string;

@@ -45,7 +45,6 @@
         printRect   = NSZeroRect;
         CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(frame)];
         self.layer = mainLayer;
-        [mainLayer release];
     }
     return self;
 }
@@ -53,8 +52,6 @@
 -(void)dealloc
 {
     [hostedGraph removeFromSuperlayer];
-    [hostedGraph release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -77,7 +74,6 @@
     if ( (self = [super initWithCoder:coder]) ) {
         CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(self.frame)];
         self.layer = mainLayer;
-        [mainLayer release];
 
         hostedGraph      = nil;
         self.hostedGraph = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
@@ -225,8 +221,7 @@
         self.wantsLayer = YES;
         [hostedGraph removeFromSuperlayer];
         hostedGraph.hostingView = nil;
-        [hostedGraph release];
-        hostedGraph = [newGraph retain];
+        hostedGraph             = newGraph;
 
         if ( hostedGraph ) {
             hostedGraph.hostingView = self;

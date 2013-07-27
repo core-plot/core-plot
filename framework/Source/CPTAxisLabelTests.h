@@ -1,6 +1,5 @@
 #import "CPTTestCase.h"
 
-@interface CPTAxisLabelTests : CPTTestCase {
-}
+@interface CPTAxisLabelTests : CPTTestCase
 
 @end

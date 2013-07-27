@@ -154,7 +154,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(void)newData:(NSTimer *)theTimer
 {
-    CPTGraph *theGraph = [self.graphs objectAtIndex:0];
+    CPTGraph *theGraph = (self.graphs)[0];
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
 
     if ( thePlot ) {
@@ -169,7 +169,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                                                         length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 1)];
 
         currentIndex++;
-        [plotData addObject:[NSNumber numberWithDouble:(1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX]];
+        [plotData addObject:@( (1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
         [thePlot insertDataAtIndex:plotData.count - 1 numberOfRecords:1];
     }
 }
@@ -188,11 +188,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = [NSNumber numberWithUnsignedInteger:index + currentIndex - plotData.count];
+            num = @(index + currentIndex - plotData.count);
             break;
 
         case CPTScatterPlotFieldY:
-            num = [plotData objectAtIndex:index];
+            num = plotData[index];
             break;
 
         default:

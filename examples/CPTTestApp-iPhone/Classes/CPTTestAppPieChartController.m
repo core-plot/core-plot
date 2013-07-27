@@ -35,7 +35,7 @@
         [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
 
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"pieRadius"];
-        animation.toValue  = [NSNumber numberWithDouble:newRadius];
+        animation.toValue  = @(newRadius);
         animation.fillMode = kCAFillModeForwards;
         animation.delegate = self;
         [piePlot addAnimation:animation forKey:@"pieRadius"];
@@ -55,7 +55,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
+    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @60.0, nil];
 
     self.dataForChart = contentArray;
 
@@ -132,10 +132,10 @@
     }
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        return [self.dataForChart objectAtIndex:index];
+        return (self.dataForChart)[index];
     }
     else {
-        return [NSNumber numberWithInt:index];
+        return @(index);
     }
 }
 

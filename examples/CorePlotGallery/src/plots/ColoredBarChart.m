@@ -22,7 +22,7 @@
     if ( plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
-            [contentArray addObject:[NSDecimalNumber numberWithDouble:10.0 * rand() / (double)RAND_MAX + 5.0]];
+            [contentArray addObject:@(10.0 * rand() / (double)RAND_MAX + 5.0)];
         }
         plotData = [contentArray retain];
     }
@@ -161,7 +161,7 @@
         case CPTBarPlotFieldBarLocation:
             nums = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( NSUInteger i = indexRange.location; i < NSMaxRange(indexRange); i++ ) {
-                [(NSMutableArray *)nums addObject :[NSDecimalNumber numberWithUnsignedInteger:i]];
+                [(NSMutableArray *)nums addObject : @(i)];
             }
             break;
 

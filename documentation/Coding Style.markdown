@@ -136,6 +136,18 @@ Instance variables should be private or protected. No special naming convention 
     	CPTFill *fill;
     }
 
+    // property and method declarations
+    
+    @end
+
+Beginning with Core Plot 2.0, the minimum deployment target requires the modern Objective-C runtime. Core Plot classes should no longer declare instance variables in the header file and should instead declare public or private properties and rely on auto-synthesized instance variables.
+
+    @interface CPTGraph : CPTLayer
+    
+    // property and method declarations
+    
+    @end
+
 Methods
 -------
 Methods are declared in a class header only if they have not already been declared in an ancestor class (e.g., `super`) or protocol. Methods such as `init` and `dealloc` thus need not be re-declared.

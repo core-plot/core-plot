@@ -1,18 +1,9 @@
 #import "CPTPlatformSpecificFunctions.h"
 
-/** @brief Node in a linked list of graphics contexts.
-**/
-typedef struct _CPTContextNode {
-    NSGraphicsContext *context;       ///< The graphics context.
-    struct _CPTContextNode *nextNode; ///< Pointer to the next node in the list.
-}
-CPTContextNode;
-
-#pragma mark -
 #pragma mark Graphics Context
 
 // linked list to store saved contexts
-static CPTContextNode *pushedContexts = NULL;
+static NSMutableArray *pushedContexts = nil;
 
 /** @brief Pushes the current AppKit graphics context onto a stack and replaces it with the given Core Graphics context.
  *  @param newContext The graphics context.
@@ -20,11 +11,11 @@ static CPTContextNode *pushedContexts = NULL;
 void CPTPushCGContext(CGContextRef newContext)
 {
     if ( newContext ) {
-        CPTContextNode *newNode = malloc( sizeof(CPTContextNode) );
-        newNode->context = [NSGraphicsContext currentContext];
+        if ( !pushedContexts ) {
+            pushedContexts = [[NSMutableArray alloc] init];
+        }
+        [pushedContexts addObject:[NSGraphicsContext currentContext]];
         [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
-        newNode->nextNode = pushedContexts;
-        pushedContexts    = newNode;
     }
 }
 
@@ -33,11 +24,9 @@ void CPTPushCGContext(CGContextRef newContext)
  **/
 void CPTPopCGContext(void)
 {
-    if ( pushedContexts ) {
-        [NSGraphicsContext setCurrentContext:pushedContexts->context];
-        CPTContextNode *next = pushedContexts->nextNode;
-        free(pushedContexts);
-        pushedContexts = next;
+    if ( pushedContexts.count > 0 ) {
+        [NSGraphicsContext setCurrentContext:pushedContexts.lastObject];
+        [pushedContexts removeLastObject];
     }
 }
 
