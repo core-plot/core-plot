@@ -96,6 +96,7 @@
     theLegend.fill            = [CPTFill fillWithColor:[CPTColor whiteColor]];
     theLegend.borderLineStyle = [CPTLineStyle lineStyle];
     theLegend.cornerRadius    = 5.0;
+    theLegend.delegate        = self;
 
     graph.legend = theLegend;
 
@@ -140,6 +141,14 @@
     plotData = newData;
 
     [plot reloadData];
+}
+
+#pragma mark -
+#pragma mark CPTLegendDelegate Methods
+
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx;
+{
+    NSLog(@"Legend entry for '%@' was selected at index %lu.", plot.identifier, (unsigned long)idx);
 }
 
 #pragma mark -

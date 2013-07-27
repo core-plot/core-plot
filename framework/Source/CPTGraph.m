@@ -953,10 +953,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  -# All plots in reverse order (i.e., from front to back in the layer order)
  *  -# The axis set
  *  -# The plot area
+ *  -# The legend
  *
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES. If none of the layers
- *  handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
  *  @param event The OS event.
  *  @param interactionPoint The coordinates of the interaction.
@@ -978,6 +979,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
     // Plot area
     if ( [self.plotAreaFrame pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+
+    // Legend
+    if ( [self.legend pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
         return YES;
     }
 
@@ -1003,10 +1009,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  -# All plots in reverse order (i.e., from front to back in the layer order)
  *  -# The axis set
  *  -# The plot area
+ *  -# The legend
  *
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES. If none of the layers
- *  handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
  *  @param event The OS event.
  *  @param interactionPoint The coordinates of the interaction.
@@ -1028,6 +1035,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
     // Plot area
     if ( [self.plotAreaFrame pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+
+    // Legend
+    if ( [self.legend pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
         return YES;
     }
 
@@ -1053,10 +1065,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  -# All plots in reverse order (i.e., from front to back in the layer order)
  *  -# The axis set
  *  -# The plot area
+ *  -# The legend
  *
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES. If none of the layers
- *  handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
  *  @param event The OS event.
  *  @param interactionPoint The coordinates of the interaction.
@@ -1078,6 +1091,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
     // Plot area
     if ( [self.plotAreaFrame pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+
+    // Legend
+    if ( [self.legend pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
         return YES;
     }
 
@@ -1104,10 +1122,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  -# All plots in reverse order (i.e., from front to back in the layer order)
  *  -# The axis set
  *  -# The plot area
+ *  -# The legend
  *
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES. If none of the layers
- *  handle the event, it is passed to all plot spaces whether or not they handle it or not.
+ *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
  *  @param event The OS event.
  *  @return Whether the event was handled or not.
@@ -1128,6 +1147,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 
     // Plot area
     if ( [self.plotAreaFrame pointingDeviceCancelledEvent:event] ) {
+        return YES;
+    }
+
+    // Legend
+    if ( [self.legend pointingDeviceCancelledEvent:event] ) {
         return YES;
     }
 

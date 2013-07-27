@@ -913,6 +913,117 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /// @endcond
 
 #pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
+ *
+ *
+ *  If this legend has a delegate that responds to the
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex: -legend:legendEntryForPlot:wasSelectedAtIndex: @endlink and/or
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: -legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: @endlink
+ *  methods, the legend entries are searched to find the plot and index of the one whose swatch or title contains the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a legend entry.
+ *  This method returns @NO if the @par{interactionPoint} is too far away from all of the legend entries.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    NSArray *myPlots = self.plots;
+
+    if ( self.hidden || (myPlots.count == 0) ) {
+        return NO;
+    }
+
+    id<CPTLegendDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
+        // Convert the interaction point to the local coordinate system
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            interactionPoint = [self convertPoint:interactionPoint fromLayer:theGraph];
+        }
+        else {
+            for ( CPTPlot *plot in myPlots ) {
+                CPTGraph *plotGraph = plot.graph;
+
+                if ( plotGraph ) {
+                    interactionPoint = [self convertPoint:interactionPoint fromLayer:plotGraph];
+                    break;
+                }
+            }
+        }
+
+        // Update layout if needed
+        [self recalculateLayout];
+
+        // Hit test the legend entries
+        CGFloat rMargin = self.rowMargin;
+        CGFloat cMargin = self.columnMargin;
+
+        CGFloat swatchWidth = self.swatchSize.width + self.titleOffset;
+
+        NSUInteger row = NSNotFound;
+        NSUInteger col = NSNotFound;
+
+        // Rows
+        CGFloat position = CGRectGetMaxY(self.bounds) - self.paddingTop;
+        NSUInteger i     = 0;
+        for ( NSNumber *height in self.rowHeightsThatFit ) {
+            CGFloat rowHeight = height.cgFloatValue;
+            if ( (interactionPoint.y <= position) && (interactionPoint.y >= position - rowHeight) ) {
+                row = i;
+                break;
+            }
+
+            position -= rowHeight + rMargin;
+            i++;
+        }
+
+        // Columns
+        position = self.paddingLeft;
+        i        = 0;
+        for ( NSNumber *width in self.columnWidthsThatFit ) {
+            CGFloat colWidth = width.cgFloatValue;
+            if ( (interactionPoint.x >= position) && (interactionPoint.x <= position + colWidth) ) {
+                col = i;
+                break;
+            }
+
+            position += colWidth + swatchWidth + cMargin;
+            i++;
+        }
+
+        // Notify the delegate if we found a hit
+        if ( (row != NSNotFound) && (col != NSNotFound) ) {
+            for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
+                if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
+                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index];
+                    }
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
+                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index withEvent:event];
+                    }
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/// @}
+
+#pragma mark -
 #pragma mark Description
 
 /// @cond

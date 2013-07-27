@@ -10,6 +10,7 @@
 
 @interface SimplePieChart : PlotItem<CPTPlotSpaceDelegate,
                                      CPTPieChartDelegate,
+                                     CPTLegendDelegate,
                                      CPTPlotDataSource>
 {
     @private

@@ -6,6 +6,7 @@ To be determined.
 
 ## Details
 - **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
+- **New**: Added legend delegate methods to notify the delegate when a legend entry is selected.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
