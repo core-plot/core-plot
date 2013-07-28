@@ -1214,12 +1214,12 @@ static const CGFloat colorLookupTable[10][3] =
 
 -(NSArray *)sliceWidths
 {
-    return [[self cachedNumbersForField:CPTPieChartFieldSliceWidthNormalized] sampleArray];
+    return [[self cachedNumbersForField:CPTPieChartFieldSliceWidth] sampleArray];
 }
 
 -(void)setSliceWidths:(NSArray *)newSliceWidths
 {
-    [self cacheNumbers:newSliceWidths forField:CPTPieChartFieldSliceWidthNormalized];
+    [self cacheNumbers:newSliceWidths forField:CPTPieChartFieldSliceWidth];
     [self updateNormalizedData];
 }
 
