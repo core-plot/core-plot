@@ -5,16 +5,10 @@
 
 extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text.
 
-@interface CPTTextLayer : CPTBorderedLayer {
-    @private
-    NSString *text;
-    CPTTextStyle *textStyle;
-    NSAttributedString *attributedText;
-    CGSize maximumSize;
-}
+@interface CPTTextLayer : CPTBorderedLayer
 
 @property (readwrite, copy, nonatomic) NSString *text;
-@property (readwrite, retain, nonatomic) CPTTextStyle *textStyle;
+@property (readwrite, strong, nonatomic) CPTTextStyle *textStyle;
 @property (readwrite, copy, nonatomic) NSAttributedString *attributedText;
 @property (readwrite, nonatomic) CGSize maximumSize;
 

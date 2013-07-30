@@ -1,34 +1,28 @@
 #import "CPTNumericDataType.h"
 
-@interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding> {
-    @protected
-    NSData *data;
-    CPTNumericDataType dataType;
-    NSArray *shape; // array of dimension shapes (NSNumber<unsigned>)
-    CPTDataOrder dataOrder;
-}
+@interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding>
 
 /// @name Data Buffer
 /// @{
-@property (readonly, copy) NSData *data;
-@property (readonly, assign) const void *bytes;
-@property (readonly, assign) NSUInteger length;
+@property (nonatomic, readonly, copy) NSData *data;
+@property (nonatomic, readonly) const void *bytes;
+@property (nonatomic, readonly) NSUInteger length;
 /// @}
 
 /// @name Data Format
 /// @{
-@property (readonly, assign) CPTNumericDataType dataType;
-@property (readonly, assign) CPTDataTypeFormat dataTypeFormat;
-@property (readonly, assign) size_t sampleBytes;
-@property (readonly, assign) CFByteOrder byteOrder;
+@property (nonatomic, readonly) CPTNumericDataType dataType;
+@property (nonatomic, readonly) CPTDataTypeFormat dataTypeFormat;
+@property (nonatomic, readonly) size_t sampleBytes;
+@property (nonatomic, readonly) CFByteOrder byteOrder;
 /// @}
 
 /// @name Dimensions
 /// @{
-@property (readonly, copy) NSArray *shape;
-@property (readonly, assign) NSUInteger numberOfDimensions;
-@property (readonly, assign) NSUInteger numberOfSamples;
-@property (readonly, assign) CPTDataOrder dataOrder;
+@property (nonatomic, readonly, copy) NSArray *shape;
+@property (nonatomic, readonly) NSUInteger numberOfDimensions;
+@property (nonatomic, readonly) NSUInteger numberOfSamples;
+@property (nonatomic, readonly) CPTDataOrder dataOrder;
 /// @}
 
 /// @name Factory Methods

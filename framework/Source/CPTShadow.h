@@ -1,15 +1,10 @@
 @class CPTColor;
 
-@interface CPTShadow : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @private
-    CGSize shadowOffset;
-    CGFloat shadowBlurRadius;
-    CPTColor *shadowColor;
-}
+@interface CPTShadow : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
-@property (nonatomic, readonly, assign) CGSize shadowOffset;
-@property (nonatomic, readonly, assign) CGFloat shadowBlurRadius;
-@property (nonatomic, readonly, retain) CPTColor *shadowColor;
+@property (nonatomic, readonly) CGSize shadowOffset;
+@property (nonatomic, readonly) CGFloat shadowBlurRadius;
+@property (nonatomic, readonly) CPTColor *shadowColor;
 
 /// @name Factory Methods
 /// @{

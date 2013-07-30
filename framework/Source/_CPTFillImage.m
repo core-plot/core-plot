@@ -33,20 +33,10 @@
 -(id)initWithImage:(CPTImage *)anImage
 {
     if ( (self = [super init]) ) {
-        fillImage = [anImage retain];
+        fillImage = anImage;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [fillImage release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -91,7 +81,7 @@
 {
     _CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillImage = [self->fillImage copyWithZone:zone];
+    copy.fillImage = self.fillImage;
 
     return copy;
 }
@@ -116,7 +106,7 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillImage = [[coder decodeObjectForKey:@"_CPTFillImage.fillImage"] retain];
+        fillImage = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
     }
     return self;
 }

@@ -48,16 +48,6 @@ static NSMutableSet *themes = nil;
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [graphClass release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -71,8 +61,7 @@ static NSMutableSet *themes = nil;
 
 -(id)initWithCoder:(NSCoder *)coder
 {
-    [self release];
-    self = [[CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]] retain];
+    self = [CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]];
 
     if ( self ) {
         self.graphClass = NSClassFromString([coder decodeObjectForKey:@"CPTTheme.graphClass"]);
@@ -92,7 +81,7 @@ static NSMutableSet *themes = nil;
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
-    return [themes sortedArrayUsingDescriptors:[NSArray arrayWithObject:nameSort]];
+    return [themes sortedArrayUsingDescriptors:@[nameSort]];
 }
 
 /** @brief Gets a named theme.
@@ -111,7 +100,7 @@ static NSMutableSet *themes = nil;
         }
     }
 
-    return [newTheme autorelease];
+    return newTheme;
 }
 
 /** @brief Register a theme class.
@@ -157,8 +146,7 @@ static NSMutableSet *themes = nil;
             [NSException raise:CPTException format:@"Invalid graph class for theme; must be a subclass of CPTGraph"];
         }
         else {
-            [graphClass release];
-            graphClass = [newGraphClass retain];
+            graphClass = newGraphClass;
         }
     }
 }

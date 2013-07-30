@@ -67,17 +67,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [period release];
-    [boundObject release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark Description
 
@@ -85,7 +74,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", [super description], self.boundObject, NSStringFromSelector(self.boundGetter), period];
+    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", [super description], self.boundObject, NSStringFromSelector(self.boundGetter), self.period];
 }
 
 /// @endcond

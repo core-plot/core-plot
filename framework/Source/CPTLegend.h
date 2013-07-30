@@ -84,28 +84,7 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 #pragma mark -
 
-@interface CPTLegend : CPTBorderedLayer {
-    @private
-    NSMutableArray *plots;
-    NSMutableArray *legendEntries;
-    BOOL layoutChanged;
-    CPTTextStyle *textStyle;
-    CGSize swatchSize;
-    CPTLineStyle *swatchBorderLineStyle;
-    CGFloat swatchCornerRadius;
-    CPTFill *swatchFill;
-    NSUInteger numberOfRows;
-    NSUInteger numberOfColumns;
-    BOOL equalRows;
-    BOOL equalColumns;
-    NSArray *rowHeights;
-    NSArray *rowHeightsThatFit;
-    NSArray *columnWidths;
-    NSArray *columnWidthsThatFit;
-    CGFloat columnMargin;
-    CGFloat rowMargin;
-    CGFloat titleOffset;
-}
+@interface CPTLegend : CPTBorderedLayer
 
 /// @name Formatting
 /// @{
@@ -118,15 +97,15 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @name Layout
 /// @{
-@property (nonatomic, readonly, assign) BOOL layoutChanged;
+@property (nonatomic, readonly) BOOL layoutChanged;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfRows;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfColumns;
 @property (nonatomic, readwrite, assign) BOOL equalRows;
 @property (nonatomic, readwrite, assign) BOOL equalColumns;
 @property (nonatomic, readwrite, copy) NSArray *rowHeights;
-@property (nonatomic, readonly, retain) NSArray *rowHeightsThatFit;
+@property (nonatomic, readonly) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, copy) NSArray *columnWidths;
-@property (nonatomic, readonly, retain) NSArray *columnWidthsThatFit;
+@property (nonatomic, readonly) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;

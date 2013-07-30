@@ -10,7 +10,7 @@
 
 @interface CPTBorderedLayer()
 
-@property (nonatomic, readonly, retain) CPTLayer *borderLayer;
+@property (nonatomic, readonly) CPTLayer *borderLayer;
 
 -(void)updateOpacity;
 
@@ -87,19 +87,11 @@
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBorderedLayer *theLayer = (CPTBorderedLayer *)layer;
 
-        borderLineStyle = [theLayer->borderLineStyle retain];
-        fill            = [theLayer->fill retain];
+        borderLineStyle = theLayer->borderLineStyle;
+        fill            = theLayer->fill;
         inLayout        = theLayer->inLayout;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [borderLineStyle release];
-    [fill release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -324,7 +316,6 @@
             [self setNeedsLayout];
         }
 
-        [borderLineStyle release];
         borderLineStyle = [newLineStyle copy];
 
         [self updateOpacity];
@@ -336,7 +327,6 @@
 -(void)setFill:(CPTFill *)newFill
 {
     if ( newFill != fill ) {
-        [fill release];
         fill = [newFill copy];
 
         [self updateOpacity];
@@ -363,7 +353,6 @@
             CPTMaskLayer *maskLayer = [[CPTMaskLayer alloc] initWithFrame:self.bounds];
             [maskLayer setNeedsDisplay];
             self.mask = maskLayer;
-            [maskLayer release];
         }
         else {
             self.mask = nil;
@@ -397,8 +386,6 @@
                 [superLayer setNeedsLayout];
 
                 theBorderLayer = newBorderLayer;
-
-                [newBorderLayer autorelease];
             }
             else {
                 theBorderLayer = superLayer;

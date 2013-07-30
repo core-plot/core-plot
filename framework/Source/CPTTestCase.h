@@ -1,6 +1,5 @@
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface CPTTestCase : SenTestCase {
-}
+@interface CPTTestCase : SenTestCase
 
 @end
