@@ -73,7 +73,7 @@
     self.allowPinchScaling = YES;
 
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
-    self.layer.sublayerTransform = CATransform3DMakeScale( (CGFloat)1.0, (CGFloat) - 1.0, (CGFloat)1.0 );
+    self.layer.sublayerTransform = CATransform3DMakeScale( CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0) );
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -82,12 +82,6 @@
         [self commonInit];
     }
     return self;
-}
-
-// On iOS, the init method is not called when loading from a XIB
--(void)awakeFromNib
-{
-    [self commonInit];
 }
 
 -(void)dealloc
@@ -119,12 +113,10 @@
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        collapsesLayers  = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
-        hostedGraph      = nil;
-        self.hostedGraph = [coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"]; // setup layers
+        [self commonInit];
 
-        allowPinchScaling      = NO;
-        pinchGestureRecognizer = nil;
+        collapsesLayers  = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
+        self.hostedGraph = [coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"]; // setup layers
 
         self.allowPinchScaling = [coder decodeBoolForKey:@"CPTGraphHostingView.allowPinchScaling"]; // set gesture recognizer if needed
     }
