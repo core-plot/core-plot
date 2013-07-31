@@ -1,5 +1,6 @@
 @class CPTColor;
 @class CPTFill;
+@class CPTGradient;
 
 @interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
     @private
@@ -13,6 +14,7 @@
 //    StrokePattern; // We should make a struct to keep this information
     CPTColor *lineColor;
     CPTFill *lineFill;
+    CPTGradient *lineGradient;
 }
 
 @property (nonatomic, readonly, assign) CGLineCap lineCap;
@@ -23,6 +25,7 @@
 @property (nonatomic, readonly, assign) CGFloat patternPhase;
 @property (nonatomic, readonly, retain) CPTColor *lineColor;
 @property (nonatomic, readonly, retain) CPTFill *lineFill;
+@property (nonatomic, readonly, retain) CPTGradient *lineGradient;
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 
 /// @name Factory Methods

@@ -115,8 +115,9 @@
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
     CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
-    lineStyle.lineWidth              = 3.0;
-    lineStyle.lineColor              = [CPTColor greenColor];
+    lineStyle.lineWidth              = 5.0;
+    lineStyle.lineJoin               = kCGLineJoinRound;
+    lineStyle.lineGradient           = [CPTGradient gradientWithBeginningColor:[CPTColor greenColor] endingColor:[CPTColor whiteColor]];
     dataSourceLinePlot.dataLineStyle = lineStyle;
     dataSourceLinePlot.dataSource    = self;
     [graph addPlot:dataSourceLinePlot];
@@ -153,7 +154,7 @@
     CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
     plotSymbol.fill               = [CPTFill fillWithGradient:symbolGradient];
     plotSymbol.lineStyle          = nil;
-    plotSymbol.size               = CGSizeMake(10.0, 10.0);
+    plotSymbol.size               = CGSizeMake(12.0, 12.0);
     dataSourceLinePlot.plotSymbol = plotSymbol;
 
     // Set plot delegate, to know when symbols have been touched
