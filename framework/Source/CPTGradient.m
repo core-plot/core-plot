@@ -786,19 +786,18 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 {
     CGFloat components[4] = { CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0) };
     CGColorRef gradientColor;
-    CPTGradientElement *curElement = self.elementList;
 
     switch ( self.blendingMode ) {
         case CPTLinearBlendingMode:
-            linearEvaluation(&curElement, &position, components);
+            linearEvaluation( (__bridge void *)(self), &position, components );
             break;
 
         case CPTChromaticBlendingMode:
-            chromaticEvaluation(&curElement, &position, components);
+            chromaticEvaluation( (__bridge void *)(self), &position, components );
             break;
 
         case CPTInverseChromaticBlendingMode:
-            inverseChromaticEvaluation(&curElement, &position, components);
+            inverseChromaticEvaluation( (__bridge void *)(self), &position, components );
             break;
     }
 

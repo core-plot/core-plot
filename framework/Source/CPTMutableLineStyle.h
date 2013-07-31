@@ -12,5 +12,6 @@
 @property (nonatomic, readwrite, assign) CGFloat patternPhase;
 @property (nonatomic, readwrite, strong) CPTColor *lineColor;
 @property (nonatomic, readwrite, strong) CPTFill *lineFill;
+@property (nonatomic, readwrite, strong) CPTGradient *lineGradient;
 
 @end

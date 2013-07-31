@@ -1,5 +1,6 @@
 @class CPTColor;
 @class CPTFill;
+@class CPTGradient;
 
 @interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
@@ -11,6 +12,7 @@
 @property (nonatomic, readonly) CGFloat patternPhase;
 @property (nonatomic, readonly) CPTColor *lineColor;
 @property (nonatomic, readonly) CPTFill *lineFill;
+@property (nonatomic, readonly) CPTGradient *lineGradient;
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 
 /// @name Factory Methods

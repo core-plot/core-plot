@@ -44,12 +44,18 @@
  **/
 @dynamic lineColor;
 
-/** @property CPTFill *lineFill;
+/** @property CPTFill *lineFill
  *  @brief The current line fill. Default is @nil.
  *
- *  If @nil, the line is drawn using the
- *  @ref lineColor.
+ *  If @nil, the line is drawn using the @ref lineGradient or @ref lineColor.
  **/
 @dynamic lineFill;
+
+/** @property CPTGradient *lineGradient
+ *  @brief The current line gradient fill. Default is @nil.
+ *
+ *  If @nil, the line is drawn using the @ref lineFill or @ref lineColor.
+ **/
+@dynamic lineGradient;
 
 @end

@@ -3,6 +3,7 @@
 #import "CPTColor.h"
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
+#import "CPTGradient.h"
 #import "CPTMutableLineStyle.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
@@ -18,6 +19,9 @@
 @property (nonatomic, readwrite, assign) CGFloat patternPhase;
 @property (nonatomic, readwrite, strong) CPTColor *lineColor;
 @property (nonatomic, readwrite, strong) CPTFill *lineFill;
+@property (nonatomic, readwrite, strong) CPTGradient *lineGradient;
+
+-(void)strokePathWithGradient:(CPTGradient *)gradient inContext:(CGContextRef)context;
 
 @end
 
@@ -25,9 +29,13 @@
 
 #pragma mark -
 
-/** @brief Immutable wrapper for various line drawing properties.
+/** @brief Immutable wrapper for various line drawing properties. Create a CPTMutableLineStyle if you want to customize properties.
  *
- *  Create a CPTMutableLineStyle if you want to customize properties.
+ *  The line stroke can be drawn three different ways, prioritized in the following order:
+ *
+ *  -# A gradient that follows the stroked path (@ref lineGradient)
+ *  -# As a cut out mask over an area filled with a CPTFill (@ref lineFill)
+ *  -# Filled with a solid color (@ref lineColor)
  *
  *  @see See Apple&rsquo;s <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF105">Quartz 2D</a>
  *  and <a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a>
@@ -74,10 +82,16 @@
 /** @property CPTFill *lineFill
  *  @brief The current line fill. Default is @nil.
  *
- *  If @nil, the line is drawn using the
- *  @ref lineColor.
+ *  If @nil, the line is drawn using the @ref lineGradient or @ref lineColor.
  **/
 @synthesize lineFill;
+
+/** @property CPTGradient *lineGradient
+ *  @brief The current line gradient fill. Default is @nil.
+ *
+ *  If @nil, the line is drawn using the @ref lineFill or @ref lineColor.
+ **/
+@synthesize lineGradient;
 
 /** @property BOOL opaque
  *  @brief If @YES, a line drawn using the line style is completely opaque.
@@ -109,6 +123,7 @@
  *  - @ref patternPhase = @num{0.0}
  *  - @ref lineColor = opaque black
  *  - @ref lineFill = @nil
+ *  - @ref lineGradient = @nil
  *
  *  @return The initialized object.
  **/
@@ -123,6 +138,7 @@
         patternPhase = CPTFloat(0.0);
         lineColor    = [CPTColor blackColor];
         lineFill     = nil;
+        lineGradient = nil;
     }
     return self;
 }
@@ -144,6 +160,7 @@
     [coder encodeCGFloat:self.patternPhase forKey:@"CPTLineStyle.patternPhase"];
     [coder encodeObject:self.lineColor forKey:@"CPTLineStyle.lineColor"];
     [coder encodeObject:self.lineFill forKey:@"CPTLineStyle.lineFill"];
+    [coder encodeObject:self.lineGradient forKey:@"CPTLineStyle.lineGradient"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -157,6 +174,7 @@
         patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
         lineColor    = [coder decodeObjectForKey:@"CPTLineStyle.lineColor"];
         lineFill     = [coder decodeObjectForKey:@"CPTLineStyle.lineFill"];
+        lineGradient = [coder decodeObjectForKey:@"CPTLineStyle.lineGradient"];
     }
     return self;
 }
@@ -203,11 +221,15 @@
  **/
 -(void)strokePathInContext:(CGContextRef)context
 {
-    CPTFill *theFill = self.lineFill;
+    CPTGradient *gradient = self.lineGradient;
+    CPTFill *fill         = self.lineFill;
 
-    if ( theFill ) {
+    if ( gradient ) {
+        [self strokePathWithGradient:gradient inContext:context];
+    }
+    else if ( fill ) {
         CGContextReplacePathWithStrokedPath(context);
-        [theFill fillPathInContext:context];
+        [fill fillPathInContext:context];
     }
     else {
         CGContextStrokePath(context);
@@ -222,36 +244,73 @@
  **/
 -(void)strokeRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    CPTFill *theFill = self.lineFill;
+    CPTGradient *gradient = self.lineGradient;
+    CPTFill *fill         = self.lineFill;
 
-    if ( theFill ) {
+    if ( gradient ) {
+        CGContextBeginPath(context);
+        CGContextAddRect(context, rect);
+        [self strokePathWithGradient:gradient inContext:context];
+    }
+    else if ( fill ) {
         CGContextBeginPath(context);
         CGContextAddRect(context, rect);
         CGContextReplacePathWithStrokedPath(context);
-        [theFill fillPathInContext:context];
+        [fill fillPathInContext:context];
     }
     else {
         CGContextStrokeRect(context, rect);
     }
 }
 
+/// @cond
+
+-(void)strokePathWithGradient:(CPTGradient *)gradient inContext:(CGContextRef)context
+{
+    if ( gradient ) {
+        CGRect deviceRect = CGContextConvertRectToDeviceSpace( context, CPTRectMake(0.0, 0.0, 1.0, 1.0) );
+
+        CGFloat step = CPTFloat(2.0) / deviceRect.size.height;
+
+        CGFloat startWidth = self.lineWidth;
+
+        CGPathRef path = CGContextCopyPath(context);
+        CGContextBeginPath(context);
+
+        for ( CGFloat width = startWidth; width > CPTFloat(0.0); width -= step ) {
+            CGContextSetLineWidth(context, width);
+
+            CGColorRef gradientColor = [gradient newColorAtPosition:CPTFloat(1.0) - width / startWidth];
+            CGContextSetStrokeColorWithColor(context, gradientColor);
+            CGColorRelease(gradientColor);
+
+            CGContextAddPath(context, path);
+            CGContextStrokePath(context);
+        }
+
+        CGPathRelease(path);
+    }
+}
+
+/// @endcond
+
 #pragma mark -
 #pragma mark Opacity
 
 -(BOOL)isOpaque
 {
-    BOOL opaqueLine = (self.dashPattern.count <= 1);
+    BOOL opaqueLine = NO;
 
-    CPTColor *color = self.lineColor;
-
-    if ( color ) {
-        opaqueLine = opaqueLine && color.opaque;
-    }
-
-    CPTFill *fill = self.lineFill;
-
-    if ( fill ) {
-        opaqueLine = opaqueLine && fill.opaque;
+    if ( self.dashPattern.count <= 1 ) {
+        if ( self.lineGradient ) {
+            opaqueLine = self.lineGradient.opaque;
+        }
+        else if ( self.lineFill ) {
+            opaqueLine = self.lineFill.opaque;
+        }
+        else if ( self.lineColor ) {
+            opaqueLine = self.lineColor.opaque;
+        }
     }
 
     return opaqueLine;
@@ -274,6 +333,7 @@
     styleCopy.patternPhase = self.patternPhase;
     styleCopy.lineColor    = self.lineColor;
     styleCopy.lineFill     = self.lineFill;
+    styleCopy.lineGradient = self.lineGradient;
 
     return styleCopy;
 }
@@ -297,6 +357,7 @@
     styleCopy.patternPhase = self.patternPhase;
     styleCopy.lineColor    = self.lineColor;
     styleCopy.lineFill     = self.lineFill;
+    styleCopy.lineGradient = self.lineGradient;
 
     return styleCopy;
 }
