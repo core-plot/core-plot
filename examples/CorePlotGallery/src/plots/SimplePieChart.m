@@ -182,9 +182,11 @@
 #endif
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
-    [title addAttribute:NSForegroundColorAttributeName
-                  value:sliceColor
-                  range:NSMakeRange(4, 5)];
+    if ( &NSForegroundColorAttributeName != NULL ) {
+        [title addAttribute:NSForegroundColorAttributeName
+                      value:sliceColor
+                      range:NSMakeRange(4, 5)];
+    }
 
     return [title autorelease];
 }
