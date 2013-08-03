@@ -1378,6 +1378,10 @@ NSDecimal niceNum(NSDecimal x)
         return;
     }
 
+    NSDictionary *textAttributes = [theLabelTextStyle attributes];
+    BOOL hasAttributedFormatter  = ([theLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
+                                                                withDefaultAttributes:textAttributes] != nil);
+
     CPTSign direction = self.tickDirection;
 
     if ( theLabelDirection == CPTSignNone ) {
@@ -1432,8 +1436,15 @@ NSDecimal niceNum(NSDecimal x)
         newAxisLabel.alignment = theLabelAlignment;
 
         if ( needsNewContentLayer || theLabelFormatterChanged ) {
-            NSString *labelString       = [theLabelFormatter stringForObjectValue:tickLocation];
-            CPTTextLayer *newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
+            CPTTextLayer *newLabelLayer;
+            if ( hasAttributedFormatter ) {
+                NSAttributedString *labelString = [theLabelFormatter attributedStringForObjectValue:tickLocation withDefaultAttributes:textAttributes];
+                newLabelLayer = [[CPTTextLayer alloc] initWithAttributedText:labelString];
+            }
+            else {
+                NSString *labelString = [theLabelFormatter stringForObjectValue:tickLocation];
+                newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
+            }
             [oldAxisLabel.contentLayer removeFromSuperlayer];
             newAxisLabel.contentLayer = newLabelLayer;
 

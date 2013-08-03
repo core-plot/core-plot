@@ -1370,6 +1370,10 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         return;
     }
 
+    NSDictionary *textAttributes = [dataLabelTextStyle attributes];
+    BOOL hasAttributedFormatter  = ([dataLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
+                                                                 withDefaultAttributes:textAttributes] != nil);
+
     NSUInteger sampleCount = self.cachedDataCount;
     NSRange indexRange     = self.labelIndexRange;
     NSUInteger maxIndex    = NSMaxRange(indexRange);
@@ -1398,8 +1402,14 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             newLabelLayer = [[self cachedValueForKey:CPTPlotBindingDataLabels recordIndex:i] retain];
 
             if ( ( (newLabelLayer == nil) || (newLabelLayer == nilObject) ) && plotProvidesLabels ) {
-                NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
-                newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
+                if ( hasAttributedFormatter ) {
+                    NSAttributedString *labelString = [dataLabelFormatter attributedStringForObjectValue:dataValue withDefaultAttributes:textAttributes];
+                    newLabelLayer = [[CPTTextLayer alloc] initWithAttributedText:labelString];
+                }
+                else {
+                    NSString *labelString = [dataLabelFormatter stringForObjectValue:dataValue];
+                    newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:dataLabelTextStyle];
+                }
             }
 
             if ( [newLabelLayer isKindOfClass:nullClass] || (newLabelLayer == nilObject) ) {
