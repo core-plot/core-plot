@@ -536,20 +536,7 @@
 
 -(BOOL)isOpaque
 {
-    BOOL opaqueImage           = NO;
-    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(self.image);
-
-    switch ( alphaInfo ) {
-        case kCGImageAlphaNone:
-        case kCGImageAlphaNoneSkipFirst:
-        case kCGImageAlphaNoneSkipLast:
-            opaqueImage = YES;
-            break;
-
-        default:
-            break;
-    }
-    return opaqueImage;
+    return NO;
 }
 
 #pragma mark -
