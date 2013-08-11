@@ -273,8 +273,8 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ( (context == CPTFunctionDataSourceKVOContext) && [keyPath isEqualToString:@"plotSpace"] && [object isEqual:self.dataPlot] ) {
-        CPTPlotSpace *oldSpace = [change objectForKey:NSKeyValueChangeOldKey];
-        CPTPlotSpace *newSpace = [change objectForKey:NSKeyValueChangeNewKey];
+        CPTPlotSpace *oldSpace = change[NSKeyValueChangeOldKey];
+        CPTPlotSpace *newSpace = change[NSKeyValueChangeNewKey];
 
         if ( oldSpace ) {
             [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -343,11 +343,9 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
             *yBytes++ = function(x);
         }
 
-        NSArray *shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:indexRange.length], [NSNumber numberWithUnsignedInteger:2], nil];
-
         numericData = [CPTNumericData numericDataWithData:data
                                                  dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
-                                                    shape:shape
+                                                    shape:@[@(indexRange.length), @2]
                                                 dataOrder:CPTDataOrderColumnsFirst];
     }
 
