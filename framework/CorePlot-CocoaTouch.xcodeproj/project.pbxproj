@@ -124,6 +124,8 @@
 		C30C85AC1047428100181766 /* CPTPlotGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C85AA1047428100181766 /* CPTPlotGroup.m */; };
 		C318F4C111EA18A400595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (); }; };
 		C318F4C211EA18A400595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4C011EA18A400595FF9 /* CPTLimitBand.m */; };
+		C31A40BF17ABD6C60020C5C6 /* CPTFunctionDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C31A40BD17ABD6C60020C5C6 /* CPTFunctionDataSource.h */; };
+		C31A40C017ABD6C60020C5C6 /* CPTFunctionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C31A40BE17ABD6C60020C5C6 /* CPTFunctionDataSource.m */; };
 		C3286C0715D8769800A436A8 /* _CPTMaskLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3286C0515D8769800A436A8 /* _CPTMaskLayer.h */; settings = {ATTRIBUTES = (); }; };
 		C3286C0815D8769800A436A8 /* _CPTMaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3286C0615D8769800A436A8 /* _CPTMaskLayer.m */; };
 		C32EE1BD13EC4AF900038266 /* CPTShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = C32EE1BB13EC4AF900038266 /* CPTShadow.h */; settings = {ATTRIBUTES = (); }; };
@@ -343,6 +345,8 @@
 		C30E97A014B290650012204A /* DoxygenLayout.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = DoxygenLayout.xml; path = ../documentation/doxygen/DoxygenLayout.xml; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLimitBand.h; path = Source/CPTLimitBand.h; sourceTree = "<group>"; };
 		C318F4C011EA18A400595FF9 /* CPTLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLimitBand.m; path = Source/CPTLimitBand.m; sourceTree = "<group>"; };
+		C31A40BD17ABD6C60020C5C6 /* CPTFunctionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTFunctionDataSource.h; path = Source/CPTFunctionDataSource.h; sourceTree = "<group>"; };
+		C31A40BE17ABD6C60020C5C6 /* CPTFunctionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTFunctionDataSource.m; path = Source/CPTFunctionDataSource.m; sourceTree = "<group>"; };
 		C3286C0515D8769800A436A8 /* _CPTMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTMaskLayer.h; path = Source/_CPTMaskLayer.h; sourceTree = "<group>"; };
 		C3286C0615D8769800A436A8 /* _CPTMaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTMaskLayer.m; path = Source/_CPTMaskLayer.m; sourceTree = "<group>"; };
 		C32EE1BB13EC4AF900038266 /* CPTShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTShadow.h; path = Source/CPTShadow.h; sourceTree = "<group>"; };
@@ -688,6 +692,8 @@
 				BC9B82AC0FB89E610035D8DA /* CPTPlotRange.m */,
 				C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */,
 				C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */,
+				C31A40BD17ABD6C60020C5C6 /* CPTFunctionDataSource.h */,
+				C31A40BE17ABD6C60020C5C6 /* CPTFunctionDataSource.m */,
 			);
 			name = "Types and Functions";
 			sourceTree = SOURCE_ROOT;
@@ -986,6 +992,7 @@
 				C3C6833C1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
 				C3C6833E1661391A00340E39 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C3D9825116BD406600DE7977 /* CorePlot_Prefix.pch in Headers */,
+				C31A40BF17ABD6C60020C5C6 /* CPTFunctionDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,6 +1171,7 @@
 				C3C6833B1661391A00340E39 /* _CPTAnimationCGSizePeriod.m in Sources */,
 				C3C6833D1661391A00340E39 /* _CPTAnimationNSDecimalPeriod.m in Sources */,
 				C3C6833F1661391A00340E39 /* _CPTAnimationPlotRangePeriod.m in Sources */,
+				C31A40C017ABD6C60020C5C6 /* CPTFunctionDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

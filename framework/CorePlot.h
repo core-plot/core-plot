@@ -19,6 +19,7 @@
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTExceptions.h>
 #import <CorePlot/CPTFill.h>
+#import <CorePlot/CPTFunctionDataSource.h>
 #import <CorePlot/CPTGradient.h>
 #import <CorePlot/CPTGraph.h>
 #import <CorePlot/CPTImage.h>

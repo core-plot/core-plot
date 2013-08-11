@@ -8,7 +8,8 @@ To be determined.
 - **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
 - **New**: Added legend delegate methods to notify the delegate when a legend entry is selected.
 - **New**: Added support for lines drawn with a gradient following the stroked path.
-- **New**: Added support axis and plot data label formatters that return styled text.
+- **New**: Added support for axis and plot data label formatters that return styled text.
+- **New**: Added a datasource class that automatically creates scatter plot data from a function.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
