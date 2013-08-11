@@ -584,7 +584,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 
     self.cachedDataCount += numberOfRecords;
-    [self reloadDataInIndexRange:NSMakeRange(idx, self.cachedDataCount - idx)];
+    [self reloadDataInIndexRange:NSMakeRange(idx, numberOfRecords)];
 }
 
 /** @brief Delete records in the given index range from the plot data cache.
