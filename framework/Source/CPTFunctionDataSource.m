@@ -47,6 +47,11 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  **/
 @synthesize resolution;
 
+/** @property CPTPlotRange *dataRange
+ *  @brief The maximum range of x-values that will be plotted. If @nil (the default), the function will be plotted for all visible x-values.
+ **/
+@synthesize dataRange;
+
 @synthesize cachedStep;
 @synthesize cachedCount;
 @synthesize dataCount;
@@ -83,6 +88,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
         dataCount          = 0;
         cachedCount        = 0;
         cachedPlotRange    = nil;
+        dataRange          = nil;
 
         dataPlot.cachePrecision = CPTPlotCachePrecisionDouble;
         dataPlot.dataSource     = self;
@@ -110,6 +116,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 -(void)dealloc
 {
     [cachedPlotRange release];
+    [dataRange release];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -139,10 +146,27 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
     }
 }
 
+-(void)setDataRange:(CPTPlotRange *)newRange
+{
+    if ( newRange != dataRange ) {
+        [dataRange release];
+        dataRange = [newRange retain];
+
+        if ( ![dataRange containsRange:self.cachedPlotRange] ) {
+            self.cachedCount     = 0;
+            self.cachedPlotRange = nil;
+
+            [self plotBoundsChanged];
+        }
+    }
+}
+
 /// @endcond
 
 #pragma mark -
 #pragma mark Notifications
+
+/// @cond
 
 /** @internal
  *  @brief Reloads the plot with more closely spaced data points when needed.
@@ -171,8 +195,10 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 {
     CPTPlot *plot = self.dataPlot;
 
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)plot.plotSpace;
-    CPTPlotRange *plotRange   = plotSpace.xRange;
+    CPTXYPlotSpace *plotSpace      = (CPTXYPlotSpace *)plot.plotSpace;
+    CPTMutablePlotRange *plotRange = [plotSpace.xRange mutableCopy];
+
+    [plotRange intersectionPlotRange:self.dataRange];
 
     CPTMutablePlotRange *cachedRange = self.cachedPlotRange;
 
@@ -183,7 +209,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
     }
     else if ( ![cachedRange intersectsRange:plotRange] || (step == 0.0) ) {
         self.cachedCount     = 0;
-        self.cachedPlotRange = [[plotSpace.xRange mutableCopy] autorelease];
+        self.cachedPlotRange = plotRange;
 
         [self plotBoundsChanged];
     }
@@ -241,7 +267,11 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
             }
         }
     }
+
+    [plotRange release];
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark KVO Methods
