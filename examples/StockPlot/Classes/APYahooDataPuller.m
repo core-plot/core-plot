@@ -62,10 +62,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 
 //    NSArray *keys = [NSArray arrayWithObjects:@"adjClose", @"close", @"high", @"low", @"open", @"volume", nil];
     for ( id key in [aFinancialLine allKeys] ) {
-        id something = [aFinancialLine objectForKey:key];
+        id something = aFinancialLine[key];
         if ( [something respondsToSelector:@selector(decimalValue)] ) {
-            something = [NSDecimalNumber decimalNumberWithDecimal:[(NSNumber *)something decimalValue]];
-            [aFinancialLine setObject:something forKey:key];
+            something           = [NSDecimalNumber decimalNumberWithDecimal:[(NSNumber *)something decimalValue]];
+            aFinancialLine[key] = something;
         }
     }
     return [NSDictionary dictionaryWithDictionary:aFinancialLine];
@@ -80,9 +80,9 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
         NSDictionary *financialLine          = nil;
         NSUInteger i                         = 0, count = [mutableFinancialData count];
         for ( i = 0; i < count; i++ ) {
-            financialLine = (NSDictionary *)[mutableFinancialData objectAtIndex:i];
-            financialLine = [self sanitizedFinancialLine:financialLine];
-            [mutableFinancialData replaceObjectAtIndex:i withObject:financialLine];
+            financialLine           = (NSDictionary *)mutableFinancialData[i];
+            financialLine           = [self sanitizedFinancialLine:financialLine];
+            mutableFinancialData[i] = financialLine;
         }
 
         [financialData release];
@@ -98,12 +98,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 {
     NSMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
 
-    [rep setObject:[self symbol] forKey:@"symbol"];
-    [rep setObject:[self startDate] forKey:@"startDate"];
-    [rep setObject:[self endDate] forKey:@"endDate"];
-    [rep setObject:[self overallHigh] forKey:@"overallHigh"];
-    [rep setObject:[self overallLow] forKey:@"overallLow"];
-    [rep setObject:[self financialData] forKey:@"financalData"];
+    rep[@"symbol"]       = [self symbol];
+    rep[@"startDate"]    = [self startDate];
+    rep[@"endDate"]      = [self endDate];
+    rep[@"overallHigh"]  = [self overallHigh];
+    rep[@"overallLow"]   = [self overallLow];
+    rep[@"financalData"] = [self financialData];
     return [NSDictionary dictionaryWithDictionary:rep];
 }
 
@@ -118,12 +118,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 {
     self = [super init];
     if ( self != nil ) {
-        self.symbol        = [aDict objectForKey:@"symbol"];
-        self.startDate     = [aDict objectForKey:@"startDate"];
-        self.overallLow    = [NSDecimalNumber decimalNumberWithDecimal:[[aDict objectForKey:@"overallLow"] decimalValue]];
-        self.overallHigh   = [NSDecimalNumber decimalNumberWithDecimal:[[aDict objectForKey:@"overallHigh"] decimalValue]];
-        self.endDate       = [aDict objectForKey:@"endDate"];
-        self.financialData = [aDict objectForKey:@"financalData"];
+        self.symbol        = aDict[@"symbol"];
+        self.startDate     = aDict[@"startDate"];
+        self.overallLow    = [NSDecimalNumber decimalNumberWithDecimal:[aDict[@"overallLow"] decimalValue]];
+        self.overallHigh   = [NSDecimalNumber decimalNumberWithDecimal:[aDict[@"overallHigh"] decimalValue]];
+        self.endDate       = aDict[@"endDate"];
+        self.financialData = aDict[@"financalData"];
 
         self.targetSymbol    = aSymbol;
         self.targetStartDate = aStartDate;
@@ -135,7 +135,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 -(NSString *)pathForSymbol:(NSString *)aSymbol
 {
     NSArray *paths               = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *docPath            = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
 
     return docPath;
@@ -170,12 +170,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     }
 
     NSMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
-    [rep setObject:aSymbol forKey:@"symbol"];
-    [rep setObject:aStartDate forKey:@"startDate"];
-    [rep setObject:anEndDate forKey:@"endDate"];
-    [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallHigh"];
-    [rep setObject:[NSDecimalNumber notANumber] forKey:@"overallLow"];
-    [rep setObject:[NSArray array] forKey:@"financalData"];
+    rep[@"symbol"]       = aSymbol;
+    rep[@"startDate"]    = aStartDate;
+    rep[@"endDate"]      = anEndDate;
+    rep[@"overallHigh"]  = [NSDecimalNumber notANumber];
+    rep[@"overallLow"]   = [NSDecimalNumber notANumber];
+    rep[@"financalData"] = @[];
     return [self initWithDictionary:rep targetSymbol:aSymbol targetStartDate:aStartDate targetEndDate:anEndDate];
 }
 
@@ -343,12 +343,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
     self.overallLow  = [NSDecimalNumber notANumber];
 
     for ( NSUInteger i = 1; i < [csvLines count] - 1; i++ ) {
-        line             = (NSString *)[csvLines objectAtIndex:i];
+        line             = (NSString *)csvLines[i];
         currentFinancial = [NSDictionary dictionaryWithCSVLine:line];
         [newFinancials addObject:currentFinancial];
 
-        NSDecimalNumber *high = [currentFinancial objectForKey:@"high"];
-        NSDecimalNumber *low  = [currentFinancial objectForKey:@"low"];
+        NSDecimalNumber *high = currentFinancial[@"high"];
+        NSDecimalNumber *low  = currentFinancial[@"low"];
 
         if ( [self.overallHigh isEqual:[NSDecimalNumber notANumber]] ) {
             self.overallHigh = high;

@@ -24,7 +24,6 @@
         }
     }
     else {
-        [self release];
         self = nil;
     }
     return self;
@@ -76,10 +75,10 @@
     double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
 
     if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
+        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
     }
-    hashValue += (NSUInteger)fmod(ABS(self.rotation), (double)NSUIntegerMax);
-    hashValue += (NSUInteger)fmod(ABS(self.offset), (double)NSUIntegerMax);
+    hashValue += (NSUInteger)lrint( fmod(ABS(self.rotation), (double)NSUIntegerMax) );
+    hashValue += (NSUInteger)lrint( fmod(ABS(self.offset), (double)NSUIntegerMax) );
 
     return hashValue;
 }

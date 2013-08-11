@@ -6,16 +6,14 @@
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 
-static CPTAnimation *instance = nil;
-
 /// @cond
 @interface CPTAnimation()
 
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
-@property (nonatomic, readwrite, retain) NSMutableArray *animationOperations;
-@property (nonatomic, readwrite, retain) NSMutableArray *runningAnimationOperations;
-@property (nonatomic, readwrite, retain) NSMutableArray *expiredAnimationOperations;
-@property (nonatomic, readwrite, retain) NSTimer *timer;
+@property (nonatomic, readwrite, strong) NSMutableArray *animationOperations;
+@property (nonatomic, readwrite, strong) NSMutableArray *runningAnimationOperations;
+@property (nonatomic, readwrite, strong) NSMutableArray *expiredAnimationOperations;
+@property (nonatomic, readwrite, strong) NSTimer *timer;
 
 +(SEL)setterFromProperty:(NSString *)property;
 
@@ -116,14 +114,7 @@ static CPTAnimation *instance = nil;
         }
     }
 
-    [animationOperations release];
-    [runningAnimationOperations release];
-    [expiredAnimationOperations release];
-
     [timer invalidate];
-    [timer release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -135,10 +126,16 @@ static CPTAnimation *instance = nil;
  **/
 +(CPTAnimation *)sharedInstance
 {
-    if ( !instance ) {
-        instance = [[CPTAnimation alloc] init];
-    }
-    return instance;
+    static dispatch_once_t once;
+    static CPTAnimation *shared;
+
+    dispatch_once(&once, ^{
+                      shared = [[self alloc] init];
+                  }
+
+                 );
+
+    return shared;
 }
 
 #pragma mark -
@@ -173,7 +170,7 @@ static CPTAnimation *instance = nil;
 
     [[CPTAnimation sharedInstance] performSelector:@selector(addAnimationOperation:) withObject:animationOperation afterDelay:0];
 
-    return [animationOperation autorelease];
+    return animationOperation;
 }
 
 /// @cond
@@ -281,27 +278,8 @@ static CPTAnimation *instance = nil;
 
                 CGFloat progress = timingFunction(currentTime - startTime, duration);
 
-                NSValue *tweenedValue = [period tweenedValueForProgress:progress];
-                SEL boundSetter       = animationOperation.boundSetter;
-
-                NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[boundObject class] instanceMethodSignatureForSelector:boundSetter]];
-                [invocation setTarget:boundObject];
-                [invocation setSelector:boundSetter];
-
-                if ( [tweenedValue isKindOfClass:valueClass] ) {
-                    NSUInteger bufferSize = 0;
-                    NSGetSizeAndAlignment(tweenedValue.objCType, &bufferSize, NULL);
-
-                    void *buffer = malloc(bufferSize);
-                    [tweenedValue getValue:buffer];
-
-                    [invocation setArgument:buffer atIndex:2];
-
-                    free(buffer);
-                }
-                else {
-                    [invocation setArgument:&tweenedValue atIndex:2];
-                }
+                id tweenedValue = [period tweenedValueForProgress:progress];
+                SEL boundSetter = animationOperation.boundSetter;
 
                 @try {
                     if ( [animationDelegate respondsToSelector:@selector(animationWillUpdate:)] ) {
@@ -310,7 +288,26 @@ static CPTAnimation *instance = nil;
                                                 afterDelay:0];
                     }
 
-                    [invocation invoke];
+                    if ( [tweenedValue isKindOfClass:valueClass] ) {
+                        NSValue *value = (NSValue *)tweenedValue;
+
+                        NSUInteger bufferSize = 0;
+                        NSGetSizeAndAlignment(value.objCType, &bufferSize, NULL);
+
+                        void *buffer = malloc(bufferSize);
+                        [tweenedValue getValue:buffer];
+
+                        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[boundObject class] instanceMethodSignatureForSelector:boundSetter]];
+                        [invocation setTarget:boundObject];
+                        [invocation setSelector:boundSetter];
+                        [invocation setArgument:buffer atIndex:2];
+                        [invocation invoke];
+
+                        free(buffer);
+                    }
+                    else {
+                        [boundObject performSelector:boundSetter withObject:tweenedValue afterDelay:0];
+                    }
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {
                         [animationDelegate performSelector:@selector(animationDidUpdate:)
@@ -319,6 +316,7 @@ static CPTAnimation *instance = nil;
                     }
                 }
                 @catch ( NSException *exception ) {
+#pragma unused(exception)
                     // something went wrong; don't run this operation any more
                     [expiredOperations addObject:animationOperation];
 

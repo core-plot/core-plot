@@ -96,15 +96,15 @@
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInt:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
-    [coder encodeInt:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
+    [coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
+    [coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        xScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.xScaleType"];
-        yScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.yScaleType"];
+        xScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYGraph.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYGraph.yScaleType"];
     }
     return self;
 }

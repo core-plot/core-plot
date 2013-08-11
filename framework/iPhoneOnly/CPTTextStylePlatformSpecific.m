@@ -70,7 +70,7 @@
         }
     }
 
-    return [[newStyle copy] autorelease];
+    return [newStyle copy];
 }
 
 #pragma mark -
@@ -116,11 +116,9 @@
 
         [myAttributes setValue:paragraphStyle
                         forKey:NSParagraphStyleAttributeName];
-
-        [paragraphStyle release];
     }
 
-    return [[myAttributes copy] autorelease];
+    return [myAttributes copy];
 }
 
 /// @endcond

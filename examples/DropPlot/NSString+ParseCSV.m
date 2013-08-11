@@ -12,7 +12,7 @@
     NSMutableString *theConcatenatedField = [NSMutableString string];
     unsigned int i;
     for ( i = 0; i < [theFields count]; i++ ) {
-        NSString *theField = [theFields objectAtIndex:i];
+        NSString *theField = theFields[i];
         switch ( inField ) {
             case NO:
                 if ( ([theField hasPrefix:@"\""] == YES) && ([theField hasSuffix:@"\""] == NO) ) {

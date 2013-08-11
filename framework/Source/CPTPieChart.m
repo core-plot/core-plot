@@ -234,19 +234,11 @@ static const CGFloat colorLookupTable[10][3] =
         endAngle                      = theLayer->endAngle;
         sliceDirection                = theLayer->sliceDirection;
         centerAnchor                  = theLayer->centerAnchor;
-        borderLineStyle               = [theLayer->borderLineStyle retain];
-        overlayFill                   = [theLayer->overlayFill retain];
+        borderLineStyle               = theLayer->borderLineStyle;
+        overlayFill                   = theLayer->overlayFill;
         labelRotationRelativeToRadius = theLayer->labelRotationRelativeToRadius;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [borderLineStyle release];
-    [overlayFill release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -264,7 +256,7 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeCGFloat:self.pieInnerRadius forKey:@"CPTPieChart.pieInnerRadius"];
     [coder encodeCGFloat:self.startAngle forKey:@"CPTPieChart.startAngle"];
     [coder encodeCGFloat:self.endAngle forKey:@"CPTPieChart.endAngle"];
-    [coder encodeInt:self.sliceDirection forKey:@"CPTPieChart.sliceDirection"];
+    [coder encodeInteger:self.sliceDirection forKey:@"CPTPieChart.sliceDirection"];
     [coder encodeCPTPoint:self.centerAnchor forKey:@"CPTPieChart.centerAnchor"];
     [coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
     [coder encodeObject:self.overlayFill forKey:@"CPTPieChart.overlayFill"];
@@ -278,7 +270,7 @@ static const CGFloat colorLookupTable[10][3] =
         pieInnerRadius                = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
         startAngle                    = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
         endAngle                      = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
-        sliceDirection                = (CPTPieDirection)[coder decodeIntForKey : @"CPTPieChart.sliceDirection"];
+        sliceDirection                = (CPTPieDirection)[coder decodeIntegerForKey : @"CPTPieChart.sliceDirection"];
         centerAnchor                  = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
         borderLineStyle               = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
         overlayFill                   = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
@@ -342,7 +334,6 @@ static const CGFloat colorLookupTable[10][3] =
         }
 
         [self cacheArray:array forKey:CPTPieChartBindingPieSliceFills atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Slice radial offsets
@@ -357,11 +348,10 @@ static const CGFloat colorLookupTable[10][3] =
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             CGFloat offset = [theDataSource radialOffsetForPieChart:self recordIndex:idx];
-            [array addObject:[NSNumber numberWithCGFloat:offset]];
+            [array addObject:@(offset)];
         }
 
         [self cacheArray:array forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
-        [array release];
     }
 
     // Legend
@@ -406,9 +396,9 @@ static const CGFloat colorLookupTable[10][3] =
             CPTNumericDataType dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
 
             CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            normalizedSliceValues.shape = @[@(sampleCount)];
             CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            cumulativeSliceValues.shape = @[@(sampleCount)];
 
             double cumulativeSum = 0.0;
 
@@ -428,8 +418,6 @@ static const CGFloat colorLookupTable[10][3] =
             }
             [self cacheNumbers:normalizedSliceValues forField:CPTPieChartFieldSliceWidthNormalized];
             [self cacheNumbers:cumulativeSliceValues forField:CPTPieChartFieldSliceWidthSum];
-            [normalizedSliceValues release];
-            [cumulativeSliceValues release];
         }
         else {
             NSDecimal valueSum         = CPTDecimalFromInteger(0);
@@ -445,9 +433,9 @@ static const CGFloat colorLookupTable[10][3] =
             CPTNumericDataType dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
 
             CPTMutableNumericData *normalizedSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            normalizedSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            normalizedSliceValues.shape = @[@(sampleCount)];
             CPTMutableNumericData *cumulativeSliceValues = [[CPTMutableNumericData alloc] initWithData:[NSData data] dataType:dataType shape:nil];
-            cumulativeSliceValues.shape = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:sampleCount]];
+            cumulativeSliceValues.shape = @[@(sampleCount)];
 
             NSDecimal cumulativeSum = CPTDecimalFromInteger(0);
 
@@ -468,8 +456,6 @@ static const CGFloat colorLookupTable[10][3] =
             }
             [self cacheNumbers:normalizedSliceValues forField:CPTPieChartFieldSliceWidthNormalized];
             [self cacheNumbers:cumulativeSliceValues forField:CPTPieChartFieldSliceWidthSum];
-            [normalizedSliceValues release];
-            [cumulativeSliceValues release];
         }
     }
     else {
@@ -545,7 +531,7 @@ static const CGFloat colorLookupTable[10][3] =
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : currentIndex];
 
         if ( !isnan(currentWidth) ) {
-            CGFloat radialOffset = [(NSNumber *)[offsetArray objectAtIndex:currentIndex] cgFloatValue];
+            CGFloat radialOffset = [(NSNumber *)offsetArray[currentIndex] cgFloatValue];
 
             // draw slice
             CGContextSaveGState(context);
@@ -793,13 +779,11 @@ static const CGFloat colorLookupTable[10][3] =
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"pieRadius",
-                @"pieInnerRadius",
-                @"startAngle",
-                @"endAngle",
-                @"centerAnchor",
-                nil];
+        keys = @[@"pieRadius",
+                 @"pieInnerRadius",
+                 @"startAngle",
+                 @"endAngle",
+                 @"centerAnchor"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -824,7 +808,7 @@ static const CGFloat colorLookupTable[10][3] =
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTPieChartFieldSliceWidth]];
+    return @[@(CPTPieChartFieldSliceWidth)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -854,9 +838,7 @@ static const CGFloat colorLookupTable[10][3] =
         [self.plotSpace plotPoint:plotPoint forPlotAreaViewPoint:centerPoint];
         NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateX]];
         NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateY]];
-        label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];
-        [xValue release];
-        [yValue release];
+        label.anchorPlotPoint = @[xValue, yValue];
 
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : idx];
         if ( self.hidden || isnan(currentWidth) ) {
@@ -1197,9 +1179,6 @@ static const CGFloat colorLookupTable[10][3] =
                 startingAngle = endingAngle;
             }
             break;
-
-        default:
-            break;
     }
 
     return NSNotFound;
@@ -1293,7 +1272,6 @@ static const CGFloat colorLookupTable[10][3] =
 -(void)setBorderLineStyle:(CPTLineStyle *)newStyle
 {
     if ( borderLineStyle != newStyle ) {
-        [borderLineStyle release];
         borderLineStyle = [newStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

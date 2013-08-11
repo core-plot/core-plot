@@ -14,7 +14,7 @@
 
     CGFloat tweenedValue = start + progress * (end - start);
 
-    return [NSNumber numberWithCGFloat:tweenedValue];
+    return @(tweenedValue);
 }
 
 @end

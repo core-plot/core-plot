@@ -57,7 +57,7 @@
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
-    return [[newStyle copy] autorelease];
+    return [newStyle copy];
 }
 
 #pragma mark -
@@ -92,9 +92,7 @@
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
 
-    [paragraphStyle release];
-
-    return [[myAttributes copy] autorelease];
+    return [myAttributes copy];
 }
 
 /// @endcond
@@ -157,13 +155,11 @@
     CGSize textSize;
 
     if ( theFont ) {
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont
+        };
 
         textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
-
-        [attributes release];
     }
     else {
         textSize = CGSizeZero;
@@ -199,15 +195,12 @@
         paragraphStyle.alignment     = style.textAlignment;
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    foregroundColor, NSForegroundColorAttributeName,
-                                    paragraphStyle, NSParagraphStyleAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont,
+            NSForegroundColorAttributeName: foregroundColor,
+            NSParagraphStyleAttributeName: paragraphStyle
+        };
         [self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
-
-        [paragraphStyle release];
-        [attributes release];
     }
     CPTPopCGContext();
 }

@@ -1,5 +1,4 @@
-@interface CPTConstraints : NSObject<NSCoding, NSCopying> {
-}
+@interface CPTConstraints : NSObject<NSCoding, NSCopying>
 
 /// @name Factory Methods
 /// @{

@@ -1,6 +1,5 @@
 #import "_CPTXYTheme.h"
 
-@interface _CPTStocksTheme : _CPTXYTheme {
-}
+@interface _CPTStocksTheme : _CPTXYTheme
 
 @end

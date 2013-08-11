@@ -174,17 +174,10 @@ typedef struct CGPointError CGPointError;
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
-        barLineStyle = [theLayer->barLineStyle retain];
+        barLineStyle = theLayer->barLineStyle;
         areaFill     = nil;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [barLineStyle release];
-    [areaFill release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -532,7 +525,6 @@ typedef struct CGPointError CGPointError;
                 }
 
                 [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-                [array release];
             }
         }
         else {
@@ -830,11 +822,9 @@ typedef struct CGPointError CGPointError;
     static NSArray *keys = nil;
 
     if ( !keys ) {
-        keys = [[NSArray alloc] initWithObjects:
-                @"barWidth",
-                @"gapHeight",
-                @"gapWidth",
-                nil];
+        keys = @[@"barWidth",
+                 @"gapHeight",
+                 @"gapWidth"];
     }
 
     if ( [keys containsObject:aKey] ) {
@@ -859,14 +849,12 @@ typedef struct CGPointError CGPointError;
 
 -(NSArray *)fieldIdentifiers
 {
-    return [NSArray arrayWithObjects:
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldX],
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldY],
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldHigh],
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldLow],
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldLeft],
-            [NSNumber numberWithUnsignedInt:CPTRangePlotFieldRight],
-            nil];
+    return @[@(CPTRangePlotFieldX),
+             @(CPTRangePlotFieldY),
+             @(CPTRangePlotFieldHigh),
+             @(CPTRangePlotFieldLow),
+             @(CPTRangePlotFieldLeft),
+             @(CPTRangePlotFieldRight)];
 }
 
 -(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
@@ -875,11 +863,11 @@ typedef struct CGPointError CGPointError;
 
     switch ( coord ) {
         case CPTCoordinateX:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldX]];
+            result = @[@(CPTRangePlotFieldX)];
             break;
 
         case CPTCoordinateY:
-            result = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:CPTRangePlotFieldY]];
+            result = @[@(CPTRangePlotFieldY)];
             break;
 
         default:
@@ -908,16 +896,16 @@ typedef struct CGPointError CGPointError;
     }
 
     NSNumber *yValue;
-    NSArray *yValues       = [NSArray arrayWithObject:[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
+    NSArray *yValues       = @[[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
     NSArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
         yValue = [yValuesSorted lastObject];
     }
     else {
-        yValue = [yValuesSorted objectAtIndex:0];
+        yValue = yValuesSorted[0];
     }
 
-    label.anchorPlotPoint     = [NSArray arrayWithObjects:xValue, yValue, nil];
+    label.anchorPlotPoint     = @[xValue, yValue];
     label.contentLayer.hidden = self.hidden || isnan([xValue doubleValue]) || isnan([yValue doubleValue]);
 
     if ( positiveDirection ) {
@@ -1046,7 +1034,6 @@ typedef struct CGPointError CGPointError;
 -(void)setBarLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( barLineStyle != newLineStyle ) {
-        [barLineStyle release];
         barLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1056,7 +1043,6 @@ typedef struct CGPointError CGPointError;
 -(void)setAreaFill:(CPTFill *)newFill
 {
     if ( newFill != areaFill ) {
-        [areaFill release];
         areaFill = [newFill copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

@@ -28,8 +28,13 @@ the global x- and y-ranges.
 - **New**: Added a property to hide plot data labels.
 - **New**: Added support for momentum scrolling.
 - **New**: Added support for "rubber band" snap-back when scrolling reaches the global x- and y-ranges.
+- **New**: Added two additional initialization methods to `CPTImage`. 
+- **Changed**: Increased the deployment target to iOS 4.3 and Mac OS X 10.6.
 - **New**: Added line break mode support to `CPTTextStyle`.
 - **New**: Added a maximum layer size to `CPTTextLayer`.
+- **Changed**: Removed support for garbage collection.
+- **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
+- **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 

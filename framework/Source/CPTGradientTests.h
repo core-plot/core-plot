@@ -1,6 +1,5 @@
 #import "CPTTestCase.h"
 
-@interface CPTGradientTests : CPTTestCase {
-}
+@interface CPTGradientTests : CPTTestCase
 
 @end

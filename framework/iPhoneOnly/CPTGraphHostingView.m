@@ -65,8 +65,8 @@
 
 -(void)commonInit
 {
-    hostedGraph     = nil;
-    collapsesLayers = NO;
+    self.hostedGraph     = nil;
+    self.collapsesLayers = NO;
 
     self.backgroundColor = [UIColor clearColor];
 
@@ -87,8 +87,6 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [hostedGraph release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -193,16 +191,16 @@
             // Register for pinches
             Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
             if ( pinchClass ) {
-                pinchGestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-                [self addGestureRecognizer:pinchGestureRecognizer];
-                [pinchGestureRecognizer release];
+                UIPinchGestureRecognizer *gestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+                [self addGestureRecognizer:gestureRecognizer];
+                self.pinchGestureRecognizer = gestureRecognizer;
             }
         }
         else {
-            if ( pinchGestureRecognizer ) {
-                [self removeGestureRecognizer:pinchGestureRecognizer];
+            if ( self.pinchGestureRecognizer ) {
+                [self removeGestureRecognizer:self.pinchGestureRecognizer];
+                self.pinchGestureRecognizer = nil;
             }
-            pinchGestureRecognizer = nil;
         }
     }
 }
@@ -223,11 +221,11 @@
 
     for ( CPTPlotSpace *space in theHostedGraph.allPlotSpaces ) {
         if ( space.allowsUserInteraction ) {
-            [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+            [space scaleBy:[[self.pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
         }
     }
 
-    [pinchGestureRecognizer setScale:1.0f];
+    [self.pinchGestureRecognizer setScale:1.0f];
 }
 
 /// @endcond
@@ -287,19 +285,16 @@
 
     [hostedGraph removeFromSuperlayer];
     hostedGraph.hostingView = nil;
-    [hostedGraph release];
-    hostedGraph = [newLayer retain];
+    hostedGraph             = newLayer;
 
     // Screen scaling
-    UIScreen *screen = [UIScreen mainScreen];
-    // scale property is available in iOS 4.0 and later
-    if ( [screen respondsToSelector:@selector(scale)] ) {
-        hostedGraph.contentsScale = screen.scale;
+    UIScreen *screen = self.window.screen;
+    if ( !screen ) {
+        screen = [UIScreen mainScreen];
     }
-    else {
-        hostedGraph.contentsScale = (CGFloat)1.0;
-    }
-    hostedGraph.hostingView = self;
+
+    hostedGraph.contentsScale = screen.scale;
+    hostedGraph.hostingView   = self;
 
     if ( !self.collapsesLayers ) {
         if ( hostedGraph ) {
