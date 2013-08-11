@@ -83,29 +83,42 @@
     NSMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
-    UIFont *styleFont = [UIFont fontWithName:self.fontName size:self.fontSize];
+    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
 
-    if ( styleFont ) {
-        [myAttributes setValue:styleFont
-                        forKey:NSFontAttributeName];
+    if ( hasFontAttributeName ) {
+        UIFont *styleFont = [UIFont fontWithName:self.fontName size:self.fontSize];
+
+        if ( styleFont ) {
+            [myAttributes setValue:styleFont
+                            forKey:NSFontAttributeName];
+        }
     }
 
     // Color
-    UIColor *styleColor = self.color.uiColor;
-    if ( styleColor ) {
-        [myAttributes setValue:styleColor
-                        forKey:NSForegroundColorAttributeName];
+    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+
+    if ( hasColorAttributeName ) {
+        UIColor *styleColor = self.color.uiColor;
+
+        if ( styleColor ) {
+            [myAttributes setValue:styleColor
+                            forKey:NSForegroundColorAttributeName];
+        }
     }
 
     // Text alignment and line break mode
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment     = self.textAlignment;
-    paragraphStyle.lineBreakMode = self.lineBreakMode;
+    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
 
-    [myAttributes setValue:paragraphStyle
-                    forKey:NSParagraphStyleAttributeName];
+    if ( hasParagraphAttributeName ) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.alignment     = self.textAlignment;
+        paragraphStyle.lineBreakMode = self.lineBreakMode;
 
-    [paragraphStyle release];
+        [myAttributes setValue:paragraphStyle
+                        forKey:NSParagraphStyleAttributeName];
+
+        [paragraphStyle release];
+    }
 
     return [[myAttributes copy] autorelease];
 }
@@ -125,24 +138,38 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
 
-    if ( styleFont ) {
-        newStyle.fontName = styleFont.fontName;
-        newStyle.fontSize = styleFont.pointSize;
+    if ( hasFontAttributeName ) {
+        UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+
+        if ( styleFont ) {
+            newStyle.fontName = styleFont.fontName;
+            newStyle.fontSize = styleFont.pointSize;
+        }
     }
 
     // Color
-    UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
-    if ( styleColor ) {
-        newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+
+    if ( hasColorAttributeName ) {
+        UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+
+        if ( styleColor ) {
+            newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        }
     }
 
     // Text alignment and line break mode
-    NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
-    if ( paragraphStyle ) {
-        newStyle.textAlignment = paragraphStyle.alignment;
-        newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
+    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
+
+    if ( hasParagraphAttributeName ) {
+        NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+
+        if ( paragraphStyle ) {
+            newStyle.textAlignment = paragraphStyle.alignment;
+            newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
+        }
     }
 
     return newStyle;
