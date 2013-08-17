@@ -29,6 +29,7 @@
 		C385879B163DA26A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858797163DA26A00DBF63D /* UITabBarController+LegacyRotation.m */; };
 		C385879C163DA26A00DBF63D /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858799163DA26A00DBF63D /* UIViewController+LegacyRotation.m */; };
 		C3BB7D6E163351BD00BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */; };
+		C3F47B6817BF98490075181F /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6717BF98490075181F /* CorePlotIcon@2x.png */; };
 		F7AE270A0FFFB61E001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		C3858798163DA26A00DBF63D /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
 		C3858799163DA26A00DBF63D /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3F47B6717BF98490075181F /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				C3BB7D6D163351BD00BC9515 /* Default-568h@2x.png */,
 				BC74A34010FC418D00E7E90D /* PieChart.xib */,
 				BCB3FD650FD85732008875A4 /* CorePlotIcon.png */,
+				C3F47B6717BF98490075181F /* CorePlotIcon@2x.png */,
 				282CCBFD0DB6C98000C4EA27 /* BarChart.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -272,6 +275,7 @@
 				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
 				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,
 				C3BB7D6E163351BD00BC9515 /* Default-568h@2x.png in Resources */,
+				C3F47B6817BF98490075181F /* CorePlotIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
