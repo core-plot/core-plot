@@ -2,6 +2,18 @@
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
+/// @cond
+
+@interface CPTPlotSpace()
+
+@property (nonatomic, readwrite) BOOL isDragging;
+
+@end
+
+/// @endcond
+
+#pragma mark -
+
 /**
  *  @brief Defines the coordinate system of a plot.
  *
@@ -19,6 +31,11 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *  @brief Determines whether user can interactively change plot range and/or zoom.
  **/
 @synthesize allowsUserInteraction;
+
+/** @property BOOL isDragging
+ *  @brief Returns @YES when the user is actively dragging the plot space.
+ **/
+@synthesize isDragging;
 
 /** @property __cpt_weak CPTGraph *graph
  *  @brief The graph of the space.
@@ -41,6 +58,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *  The initialized object will have the following properties:
  *  - @ref identifier = @nil
  *  - @ref allowsUserInteraction = @NO
+ *  - @ref isDragging = @NO
  *  - @ref graph = @nil
  *  - @ref delegate = @nil
  *
@@ -51,6 +69,7 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
     if ( (self = [super init]) ) {
         identifier            = nil;
         allowsUserInteraction = NO;
+        isDragging            = NO;
         graph                 = nil;
         delegate              = nil;
     }
@@ -82,6 +101,9 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
         [coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
     }
     [coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
+
+    // No need to archive these properties:
+    // isDragging
 }
 
 -(id)initWithCoder:(NSCoder *)coder
@@ -91,6 +113,8 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
         identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
         delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
         allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
+
+        isDragging = NO;
     }
     return self;
 }
