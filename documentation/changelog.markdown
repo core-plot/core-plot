@@ -10,6 +10,7 @@ To be determined.
 - **New**: Added support for lines drawn with a gradient following the stroked path.
 - **New**: Added support for axis and plot data label formatters that return styled text.
 - **New**: Added a datasource class that automatically creates scatter plot data from a function.
+- **New**: Added an option to turn off automatic plot data label anchor point adjustments.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 

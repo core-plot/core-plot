@@ -166,6 +166,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize needsRelabel;
 
+/** @property BOOL adjustLabelAnchors
+ *  @brief If @YES, data labels anchor points are adjusted automatically when the labels are positioned. If @NO, data labels anchor points do not change.
+ **/
+@synthesize adjustLabelAnchors;
+
 /** @property BOOL showLabels
  *  @brief Set to @NO to override all other label settings and hide the data labels. Defaults to @YES.
  **/
@@ -249,6 +254,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  - @ref plotSpace = @nil
  *  - @ref dataNeedsReloading = @NO
  *  - @ref needsRelabel = @YES
+ *  - @ref adjustLabelAnchors = @YES
  *  - @ref showLabels = @YES
  *  - @ref labelOffset = @num{0.0}
  *  - @ref labelRotation = @num{0.0}
@@ -275,6 +281,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = nil;
         dataNeedsReloading   = NO;
         needsRelabel         = YES;
+        adjustLabelAnchors   = YES;
         showLabels           = YES;
         labelOffset          = CPTFloat(0.0);
         labelRotation        = CPTFloat(0.0);
@@ -310,6 +317,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = [theLayer->plotSpace retain];
         dataNeedsReloading   = theLayer->dataNeedsReloading;
         needsRelabel         = theLayer->needsRelabel;
+        adjustLabelAnchors   = theLayer->adjustLabelAnchors;
         showLabels           = theLayer->showLabels;
         labelOffset          = theLayer->labelOffset;
         labelRotation        = theLayer->labelRotation;
@@ -357,6 +365,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     [coder encodeObject:self.plotSpace forKey:@"CPTPlot.plotSpace"];
     [coder encodeInt:self.cachePrecision forKey:@"CPTPlot.cachePrecision"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTPlot.needsRelabel"];
+    [coder encodeBool:self.adjustLabelAnchors forKey:@"CPTPlot.adjustLabelAnchors"];
     [coder encodeBool:self.showLabels forKey:@"CPTPlot.showLabels"];
     [coder encodeCGFloat:self.labelOffset forKey:@"CPTPlot.labelOffset"];
     [coder encodeCGFloat:self.labelRotation forKey:@"CPTPlot.labelRotation"];
@@ -383,6 +392,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         plotSpace            = [[coder decodeObjectForKey:@"CPTPlot.plotSpace"] retain];
         cachePrecision       = (CPTPlotCachePrecision)[coder decodeIntForKey : @"CPTPlot.cachePrecision"];
         needsRelabel         = [coder decodeBoolForKey:@"CPTPlot.needsRelabel"];
+        adjustLabelAnchors   = [coder decodeBoolForKey:@"CPTPlot.adjustLabelAnchors"];
         showLabels           = [coder decodeBoolForKey:@"CPTPlot.showLabels"];
         labelOffset          = [coder decodeCGFloatForKey:@"CPTPlot.labelOffset"];
         labelRotation        = [coder decodeCGFloatForKey:@"CPTPlot.labelRotation"];
@@ -1483,7 +1493,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 -(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label
 {
-    if ( label ) {
+    if ( label && self.adjustLabelAnchors ) {
         CGPoint displacement = label.displacement;
         if ( CGPointEqualToPoint(displacement, CGPointZero) ) {
             displacement.y = CPTFloat(1.0); // put the label above the data point if zero displacement
@@ -1494,11 +1504,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
         if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
             newAnchorX /= ABS(newAnchorY);
-            newAnchorY  = signbit(newAnchorY) ? -CPTFloat(1.0) : CPTFloat(1.0);
+            newAnchorY  = signbit(newAnchorY) ? CPTFloat(-1.0) : CPTFloat(1.0);
         }
         else {
             newAnchorY /= ABS(newAnchorX);
-            newAnchorX  = signbit(newAnchorX) ? -CPTFloat(1.0) : CPTFloat(1.0);
+            newAnchorX  = signbit(newAnchorX) ? CPTFloat(-1.0) : CPTFloat(1.0);
         }
 
         label.contentAnchorPoint = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
