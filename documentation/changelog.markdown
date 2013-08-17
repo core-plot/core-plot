@@ -1,3 +1,15 @@
+# Release 2.0 (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Next Release
 
 ## Release Notes
@@ -10,7 +22,6 @@ To be determined.
 - **New**: Added support for lines drawn with a gradient following the stroked path.
 - **New**: Added support for axis and plot data label formatters that return styled text.
 - **New**: Added a datasource class that automatically creates scatter plot data from a function.
-- **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
