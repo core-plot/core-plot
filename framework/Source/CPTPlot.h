@@ -225,6 +225,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /// @name Data Labels
 /// @{
 @property (nonatomic, readonly) BOOL needsRelabel;
+@property (nonatomic, readwrite, assign) BOOL adjustLabelAnchors;
 @property (nonatomic, readwrite, assign) BOOL showLabels;
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
