@@ -22,6 +22,28 @@
  **/
 extern NSString *const CPTGraphNeedsRedrawNotification;
 
+/** @brief Notification sent by a graph after adding a new plot space.
+ *  @ingroup notification
+ *
+ *  The notification <code>userInfo</code> dictionary will include the new plot space under the
+ *  CPTGraphPlotSpaceNotificationKey key.
+ **/
+extern NSString *const CPTGraphDidAddPlotSpaceNotification;
+
+/** @brief Notification sent by a graph after removing a plot space.
+ *  @ingroup notification
+ *
+ *  The notification <code>userInfo</code> dictionary will include the removed plot space under the
+ *  CPTGraphPlotSpaceNotificationKey key.
+ **/
+extern NSString *const CPTGraphDidRemovePlotSpaceNotification;
+
+/** @brief The <code>userInfo</code> dictionary key used by the CPTGraphDidAddPlotSpaceNotification
+ *  and CPTGraphDidRemovePlotSpaceNotification notifications for the plot space.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTGraphPlotSpaceNotificationKey;
+
 /// @}
 
 /**

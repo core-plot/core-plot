@@ -24,7 +24,10 @@
  *  @ingroup animation
  **/
 
-NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotification";
+NSString *const CPTGraphNeedsRedrawNotification        = @"CPTGraphNeedsRedrawNotification";
+NSString *const CPTGraphDidAddPlotSpaceNotification    = @"CPTGraphDidAddPlotSpaceNotification";
+NSString *const CPTGraphDidRemovePlotSpaceNotification = @"CPTGraphDidRemovePlotSpaceNotification";
+NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNotificationKey";
 
 /// @cond
 @interface CPTGraph()
@@ -569,7 +572,16 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 {
     [self.plotSpaces addObject:space];
     space.graph = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plotSpaceMappingDidChange:) name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:space];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(plotSpaceMappingDidChange:)
+                                                 name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                               object:space];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphDidAddPlotSpaceNotification
+                                                        object:self
+                                                      userInfo:@{ CPTGraphPlotSpaceNotificationKey: space }
+    ];
 }
 
 /** @brief Remove a plot space from the graph.
@@ -578,7 +590,9 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 -(void)removePlotSpace:(CPTPlotSpace *)plotSpace
 {
     if ( [self.plotSpaces containsObject:plotSpace] ) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTPlotSpaceCoordinateMappingDidChangeNotification object:plotSpace];
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                      object:plotSpace];
 
         // Remove space
         plotSpace.graph = nil;
@@ -590,6 +604,11 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
                 axis.plotSpace = nil;
             }
         }
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphDidRemovePlotSpaceNotification
+                                                            object:self
+                                                          userInfo:@{ CPTGraphPlotSpaceNotificationKey: plotSpace }
+        ];
     }
     else {
         [NSException raise:CPTException format:@"Tried to remove CPTPlotSpace which did not exist."];
