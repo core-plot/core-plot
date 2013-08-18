@@ -27,22 +27,24 @@
 
 -(void)generateData
 {
-    NSTimeInterval oneDay = 24 * 60 * 60;
+    if ( !plotData ) {
+        const NSTimeInterval oneDay = 24 * 60 * 60;
 
-    // Add some data
-    NSMutableArray *newData = [NSMutableArray array];
-    NSUInteger i;
+        // Add some data
+        NSMutableArray *newData = [NSMutableArray array];
+        NSUInteger i;
 
-    for ( i = 0; i < 5; i++ ) {
-        NSTimeInterval x = oneDay * i;
-        id y             = [NSDecimalNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
-        [newData addObject:
-         [NSDictionary dictionaryWithObjectsAndKeys:
-          [NSDecimalNumber numberWithFloat:x], [NSNumber numberWithInt:CPTScatterPlotFieldX],
-          y, [NSNumber numberWithInt:CPTScatterPlotFieldY],
-          nil]];
+        for ( i = 0; i < 5; i++ ) {
+            NSTimeInterval x = oneDay * i;
+            id y             = [NSDecimalNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
+            [newData addObject:
+             [NSDictionary dictionaryWithObjectsAndKeys:
+              [NSDecimalNumber numberWithFloat:x], [NSNumber numberWithInt:CPTScatterPlotFieldX],
+              y, [NSNumber numberWithInt:CPTScatterPlotFieldY],
+              nil]];
+        }
+        plotData = [newData retain];
     }
-    plotData = [newData retain];
 }
 
 -(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated

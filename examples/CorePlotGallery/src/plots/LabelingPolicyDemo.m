@@ -111,6 +111,7 @@ static const CGFloat titleOffset     = 25.0;
         newLabel.offset       = axisNone.labelOffset + axisNone.majorTickLength / 2.0;
 
         [newAxisLabels addObject:newLabel];
+        [newLabel release];
     }
     axisNone.axisLabels = newAxisLabels;
 
@@ -183,6 +184,9 @@ static const CGFloat titleOffset     = 25.0;
 
     // Add axes to the graph
     graph.axisSet.axes = [NSArray arrayWithObjects:axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, axisEqualDivisions, nil];
+
+    [majorTickLineStyle release];
+    [minorTickLineStyle release];
 }
 
 @end

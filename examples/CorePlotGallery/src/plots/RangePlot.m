@@ -97,13 +97,17 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [instructionsAnnotation release];
 
     // Setup fill and bar style
-    CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
-    areaFill = [(CPTFill *)[CPTFill alloc] initWithColor : transparentGreen];
+    if ( !areaFill ) {
+        CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
+        areaFill = [(CPTFill *)[CPTFill alloc] initWithColor : transparentGreen];
+    }
 
-    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-    lineStyle.lineWidth = 1.0f;
-    lineStyle.lineColor = [CPTColor greenColor];
-    barLineStyle        = [lineStyle retain];
+    if ( !barLineStyle ) {
+        CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+        lineStyle.lineWidth = 1.0f;
+        lineStyle.lineColor = [CPTColor greenColor];
+        barLineStyle        = [lineStyle retain];
+    }
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
