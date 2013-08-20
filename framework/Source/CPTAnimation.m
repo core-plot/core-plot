@@ -194,7 +194,18 @@ static CPTAnimation *instance = nil;
 -(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation
 {
     if ( animationOperation ) {
-        [self.animationOperations addObject:animationOperation];
+        NSMutableArray *theAnimationOperations = self.animationOperations;
+
+        for ( CPTAnimationOperation *operation in theAnimationOperations ) {
+            if ( operation.boundObject == animationOperation.boundObject ) {
+                if ( (operation.boundGetter == animationOperation.boundGetter) && (operation.boundSetter == animationOperation.boundSetter) ) {
+                    [self removeAnimationOperation:operation];
+                    break;
+                }
+            }
+        }
+
+        [theAnimationOperations addObject:animationOperation];
 
         if ( !self.timer ) {
             self.timer = [NSTimer timerWithTimeInterval:kCPTAnimationFrameRate target:self selector:@selector(update:) userInfo:nil repeats:YES];
