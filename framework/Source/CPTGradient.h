@@ -19,42 +19,30 @@ CPTGradientElement;
 /**
  *  @brief Enumeration of blending modes
  **/
-typedef enum _CPTBlendingMode {
+typedef NS_ENUM (NSInteger, CPTGradientBlendingMode) {
     CPTLinearBlendingMode,          ///< Linear blending mode
     CPTChromaticBlendingMode,       ///< Chromatic blending mode
     CPTInverseChromaticBlendingMode ///< Inverse chromatic blending mode
-}
-CPTGradientBlendingMode;
+};
 
 /**
  *  @brief Enumeration of gradient types
  **/
-typedef enum _CPTGradientType {
+typedef NS_ENUM (NSInteger, CPTGradientType) {
     CPTGradientTypeAxial, ///< Axial gradient
     CPTGradientTypeRadial ///< Radial gradient
-}
-CPTGradientType;
+};
 
 @class CPTColorSpace;
 @class CPTColor;
 
-@interface CPTGradient : NSObject<NSCopying, NSCoding> {
-    @private
-    CPTColorSpace *colorspace;
-    CPTGradientElement *elementList;
-    CPTGradientBlendingMode blendingMode;
-    CGFunctionRef gradientFunction;
-    CGFloat angle; // angle in degrees
-    CPTGradientType gradientType;
-    CGPoint startAnchor;
-    CGPoint endAnchor;
-}
+@interface CPTGradient : NSObject<NSCopying, NSCoding>
 
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 
 /// @name Gradient Type
 /// @{
-@property (nonatomic, readonly, assign) CPTGradientBlendingMode blendingMode;
+@property (nonatomic, readonly) CPTGradientBlendingMode blendingMode;
 @property (nonatomic, readwrite, assign) CPTGradientType gradientType;
 /// @}
 

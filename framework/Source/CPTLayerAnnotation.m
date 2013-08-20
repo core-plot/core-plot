@@ -6,8 +6,8 @@
 /// @cond
 @interface CPTLayerAnnotation()
 
-@property (nonatomic, readwrite, retain) CPTConstraints *xConstraints;
-@property (nonatomic, readwrite, retain) CPTConstraints *yConstraints;
+@property (nonatomic, readwrite, strong) CPTConstraints *xConstraints;
+@property (nonatomic, readwrite, strong) CPTConstraints *yConstraints;
 
 -(void)setConstraints;
 
@@ -85,9 +85,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     anchorLayer = nil;
-    [xConstraints release];
-    [yConstraints release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -104,16 +101,16 @@
     [coder encodeConditionalObject:self.anchorLayer forKey:@"CPTLayerAnnotation.anchorLayer"];
     [coder encodeObject:self.xConstraints forKey:@"CPTLayerAnnotation.xConstraints"];
     [coder encodeObject:self.yConstraints forKey:@"CPTLayerAnnotation.yConstraints"];
-    [coder encodeInt:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
+    [coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorLayer  = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
-        xConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"] retain];
-        yConstraints = [[coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"] retain];
-        rectAnchor   = (CPTRectAnchor)[coder decodeIntForKey : @"CPTLayerAnnotation.rectAnchor"];
+        xConstraints = [coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"];
+        yConstraints = [coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"];
+        rectAnchor   = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTLayerAnnotation.rectAnchor"];
     }
     return self;
 }
@@ -215,10 +212,8 @@
     }
 
     self.xConstraints = xConstraint;
-    [xConstraint release];
 
     self.yConstraints = yConstraint;
-    [yConstraint release];
 }
 
 /// @endcond

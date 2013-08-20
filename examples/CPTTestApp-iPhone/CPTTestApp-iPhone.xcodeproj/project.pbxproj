@@ -27,8 +27,9 @@
 		C34B5596163C7D2C002EFA85 /* UINavigationController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34B5591163C7D2B002EFA85 /* UINavigationController+LegacyRotation.m */; };
 		C34B5597163C7D2C002EFA85 /* UITabBarController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34B5593163C7D2C002EFA85 /* UITabBarController+LegacyRotation.m */; };
 		C34B5598163C7D2C002EFA85 /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34B5595163C7D2C002EFA85 /* UIViewController+LegacyRotation.m */; };
+		C3B9F2C317BFD350003D2B6B /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */; };
+		C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F9D317503CDD001CCC50 /* BlueTexture.png */; };
 		C3BB7D611633516500BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D601633516500BC9515 /* Default-568h@2x.png */; };
-		C3F47B6317BF97380075181F /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6217BF97380075181F /* CorePlotIcon@2x.png */; };
 		F7AE270A0FFFB61E001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -81,8 +82,9 @@
 		C34B5593163C7D2C002EFA85 /* UITabBarController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBarController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UITabBarController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C34B5594163C7D2C002EFA85 /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
 		C34B5595163C7D2C002EFA85 /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
+		C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
+		C3B9F9D317503CDD001CCC50 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
 		C3BB7D601633516500BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		C3F47B6217BF97380075181F /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,10 +163,11 @@
 				BC8166D11100DD6F006D898E /* 62-contrast.png */,
 				BC8166CC1100DD00006D898E /* 16-line-chart.png */,
 				BC8166CD1100DD00006D898E /* 17-bar-chart.png */,
+				C3B9F9D317503CDD001CCC50 /* BlueTexture.png */,
 				C3BB7D601633516500BC9515 /* Default-568h@2x.png */,
 				BC74A34010FC418D00E7E90D /* PieChart.xib */,
 				BCB3FD650FD85732008875A4 /* CorePlotIcon.png */,
-				C3F47B6217BF97380075181F /* CorePlotIcon@2x.png */,
+				C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */,
 				282CCBFD0DB6C98000C4EA27 /* BarChart.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -270,7 +273,8 @@
 				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
 				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,
 				C3BB7D611633516500BC9515 /* Default-568h@2x.png in Resources */,
-				C3F47B6317BF97380075181F /* CorePlotIcon@2x.png in Resources */,
+				C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */,
+				C3B9F2C317BFD350003D2B6B /* CorePlotIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

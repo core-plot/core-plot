@@ -7,7 +7,7 @@
     NSArray *positions;
 }
 
-@property (readwrite, retain) CPTLayer *layer;
-@property (readwrite, retain) NSArray *positions;
+@property (readwrite, strong) CPTLayer *layer;
+@property (readwrite, strong) NSArray *positions;
 
 @end

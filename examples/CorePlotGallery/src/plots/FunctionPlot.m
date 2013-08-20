@@ -88,7 +88,7 @@
 
     // Axes
     PiNumberFormatter *formatter = [[PiNumberFormatter alloc] init];
-    formatter.multiplier = [NSNumber numberWithInteger:4];
+    formatter.multiplier = @4;
 
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -154,9 +154,9 @@
 
         if ( &NSFontAttributeName != NULL ) {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-            UIFont *italicFont = [self italicFontForFont:[textAttributes objectForKey:NSFontAttributeName]];
+            UIFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
 #else
-            NSFont *italicFont = [self italicFontForFont:[textAttributes objectForKey:NSFontAttributeName]];
+            NSFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
 #endif
 
             [title addAttribute:NSFontAttributeName

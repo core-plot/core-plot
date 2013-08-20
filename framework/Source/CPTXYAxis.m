@@ -83,15 +83,9 @@
         CPTXYAxis *theLayer = (CPTXYAxis *)layer;
 
         orthogonalCoordinateDecimal = theLayer->orthogonalCoordinateDecimal;
-        axisConstraints             = [theLayer->axisConstraints retain];
+        axisConstraints             = theLayer->axisConstraints;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [axisConstraints release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -113,7 +107,7 @@
 {
     if ( (self = [super initWithCoder:coder]) ) {
         orthogonalCoordinateDecimal = [coder decodeDecimalForKey:@"CPTXYAxis.orthogonalCoordinateDecimal"];
-        axisConstraints             = [[coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"] retain];
+        axisConstraints             = [coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"];
     }
     return self;
 }
@@ -252,9 +246,6 @@
                 startFactor = -CPTFloat(0.5);
                 endFactor   = CPTFloat(0.5);
                 break;
-
-            default:
-                NSLog(@"Invalid sign in [CPTXYAxis drawTicksInContext:]");
         }
 
         switch ( self.coordinate ) {
@@ -326,7 +317,6 @@
         // given for grid lines and ticks.
         CPTPlotRange *theVisibleAxisRange = self.visibleAxisRange;
         if ( theVisibleAxisRange ) {
-            [range release];
             range = [theVisibleAxisRange mutableCopy];
         }
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
@@ -373,8 +363,6 @@
             [maxCap renderAsVectorInContext:context atPoint:viewPoint inDirection:axisDirection];
         }
     }
-
-    [range release];
 }
 
 /// @endcond
@@ -472,9 +460,6 @@
         // Stroke grid lines
         [lineStyle setLineStyleInContext:context];
         [lineStyle strokePathInContext:context];
-
-        [orthogonalRange release];
-        [labeledRange release];
     }
 }
 
@@ -526,8 +511,7 @@
             else {
                 sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
             }
-            locations = [locations sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-            [sortDescriptor release];
+            locations = [locations sortedArrayUsingDescriptors:@[sortDescriptor]];
 
             NSUInteger bandIndex = 0;
             id null              = [NSNull null];
@@ -553,7 +537,7 @@
             for ( NSDecimalNumber *location in locations ) {
                 NSDecimal currentLocation = [location decimalValue];
                 if ( !CPTDecimalEquals(CPTDecimalSubtract(currentLocation, lastLocation), zero) ) {
-                    CPTFill *bandFill = [bandArray objectAtIndex:bandIndex++];
+                    CPTFill *bandFill = bandArray[bandIndex++];
                     bandIndex %= bandCount;
 
                     if ( bandFill != null ) {
@@ -586,7 +570,7 @@
                 endLocation = CPTDecimalNaN();
             }
             if ( !CPTDecimalEquals(lastLocation, endLocation) ) {
-                CPTFill *bandFill = [bandArray objectAtIndex:bandIndex];
+                CPTFill *bandFill = bandArray[bandIndex];
 
                 if ( bandFill != null ) {
                     // Start point
@@ -605,9 +589,6 @@
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
-
-            [range release];
-            [orthogonalRange release];
         }
     }
 }
@@ -664,14 +645,9 @@
                                                    ABS(endViewPoint.x - startViewPoint.x),
                                                    ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
-
-                    [bandRange release];
                 }
             }
         }
-
-        [range release];
-        [orthogonalRange release];
     }
 }
 
@@ -705,6 +681,8 @@
 // Center title in the plot range by default
 -(NSDecimal)defaultTitleLocation
 {
+    NSDecimal location;
+
     CPTPlotSpace *thePlotSpace  = self.plotSpace;
     CPTCoordinate theCoordinate = self.coordinate;
 
@@ -715,8 +693,7 @@
 
         switch ( scaleType ) {
             case CPTScaleTypeLinear:
-                return axisRange.midPoint;
-
+                location = axisRange.midPoint;
                 break;
 
             case CPTScaleTypeLog:
@@ -725,23 +702,24 @@
                 double end = axisRange.endDouble;
 
                 if ( (loc > 0.0) && (end >= 0.0) ) {
-                    return CPTDecimalFromDouble( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
+                    location = CPTDecimalFromDouble( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
                 }
                 else {
-                    return axisRange.midPoint;
+                    location = axisRange.midPoint;
                 }
             }
             break;
 
             default:
-                return axisRange.midPoint;
-
+                location = axisRange.midPoint;
                 break;
         }
     }
     else {
-        return CPTDecimalFromInteger(0);
+        location = CPTDecimalFromInteger(0);
     }
+
+    return location;
 }
 
 /// @endcond
@@ -754,8 +732,7 @@
 -(void)setAxisConstraints:(CPTConstraints *)newConstraints
 {
     if ( ![axisConstraints isEqualToConstraint:newConstraints] ) {
-        [axisConstraints release];
-        axisConstraints = [newConstraints retain];
+        axisConstraints = newConstraints;
         [self setNeedsDisplay];
         [self setNeedsLayout];
     }

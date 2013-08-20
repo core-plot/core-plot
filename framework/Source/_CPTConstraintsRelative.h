@@ -1,9 +1,6 @@
 #import "CPTConstraints.h"
 
-@interface _CPTConstraintsRelative : CPTConstraints {
-    @private
-    CGFloat offset;
-}
+@interface _CPTConstraintsRelative : CPTConstraints
 
 /// @name Initialization
 /// @{

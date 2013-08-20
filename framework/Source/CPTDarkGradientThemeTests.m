@@ -14,9 +14,6 @@
 
     // Assert
     STAssertEquals([graph class], [CPTXYGraph class], @"graph should be of type CPTXYGraph");
-
-    [graph release];
-    [theme release];
 }
 
 -(void)testNewThemeSetGraphClassReturnedClassShouldBeOfCorrectType
@@ -31,9 +28,6 @@
 
     // Assert
     STAssertEquals([graph class], [CPTDerivedXYGraph class], @"graph should be of type CPTDerivedXYGraph");
-
-    [graph release];
-    [theme release];
 }
 
 @end
