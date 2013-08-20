@@ -11,6 +11,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import <tgmath.h>
 
 /// @cond
 @interface CPTXYAxis()
@@ -211,6 +212,16 @@
         return;
     }
 
+    CGFloat lineWidth = lineStyle.lineWidth;
+
+    CPTAlignPointFunction alignmentFunction = NULL;
+    if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        alignmentFunction = CPTAlignIntegralPointToUserSpace;
+    }
+    else {
+        alignmentFunction = CPTAlignPointToUserSpace;
+    }
+
     [lineStyle setLineStyleInContext:context];
     CGContextBeginPath(context);
 
@@ -261,8 +272,8 @@
                 NSLog(@"Invalid coordinate in [CPTXYAxis drawTicksInContext:]");
         }
 
-        startViewPoint = CPTAlignPointToUserSpace(context, startViewPoint);
-        endViewPoint   = CPTAlignPointToUserSpace(context, endViewPoint);
+        startViewPoint = alignmentFunction(context, startViewPoint);
+        endViewPoint   = alignmentFunction(context, endViewPoint);
 
         // Add tick line
         CGContextMoveToPoint(context, startViewPoint.x, startViewPoint.y);
@@ -318,9 +329,15 @@
             [range release];
             range = [theVisibleAxisRange mutableCopy];
         }
+        CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
         if ( theLineStyle ) {
-            CGPoint startViewPoint = CPTAlignPointToUserSpace(context, [self viewPointForCoordinateDecimalNumber:range.location]);
-            CGPoint endViewPoint   = CPTAlignPointToUserSpace(context, [self viewPointForCoordinateDecimalNumber:range.end]);
+            CGFloat lineWidth = theLineStyle.lineWidth;
+            if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+                alignmentFunction = CPTAlignIntegralPointToUserSpace;
+            }
+
+            CGPoint startViewPoint = alignmentFunction(context, [self viewPointForCoordinateDecimalNumber:range.location]);
+            CGPoint endViewPoint   = alignmentFunction(context, [self viewPointForCoordinateDecimalNumber:range.end]);
             [theLineStyle setLineStyleInContext:context];
             CGContextBeginPath(context);
             CGContextMoveToPoint(context, startViewPoint.x, startViewPoint.y);
@@ -346,13 +363,13 @@
 
         if ( minCap ) {
             NSDecimal endPoint = range.minLimit;
-            CGPoint viewPoint  = CPTAlignPointToUserSpace(context, [self viewPointForCoordinateDecimalNumber:endPoint]);
+            CGPoint viewPoint  = alignmentFunction(context, [self viewPointForCoordinateDecimalNumber:endPoint]);
             [minCap renderAsVectorInContext:context atPoint:viewPoint inDirection:CPTPointMake(-axisDirection.x, -axisDirection.y)];
         }
 
         if ( maxCap ) {
             NSDecimal endPoint = range.maxLimit;
-            CGPoint viewPoint  = CPTAlignPointToUserSpace(context, [self viewPointForCoordinateDecimalNumber:endPoint]);
+            CGPoint viewPoint  = alignmentFunction(context, [self viewPointForCoordinateDecimalNumber:endPoint]);
             [maxCap renderAsVectorInContext:context atPoint:viewPoint inDirection:axisDirection];
         }
     }
@@ -411,6 +428,16 @@
         endPlotPoint[orthogonalCoordinate]   = orthogonalRange.end;
         CGPoint originTransformed = [self convertPoint:self.bounds.origin fromLayer:thePlotArea];
 
+        CGFloat lineWidth = lineStyle.lineWidth;
+
+        CPTAlignPointFunction alignmentFunction = NULL;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+        else {
+            alignmentFunction = CPTAlignPointToUserSpace;
+        }
+
         CGContextBeginPath(context);
 
         for ( NSDecimalNumber *location in locations ) {
@@ -434,8 +461,8 @@
             endViewPoint.y += originTransformed.y;
 
             // Align to pixels
-            startViewPoint = CPTAlignPointToUserSpace(context, startViewPoint);
-            endViewPoint   = CPTAlignPointToUserSpace(context, endViewPoint);
+            startViewPoint = alignmentFunction(context, startViewPoint);
+            endViewPoint   = alignmentFunction(context, endViewPoint);
 
             // Add grid line
             CGContextMoveToPoint(context, startViewPoint.x, startViewPoint.y);
