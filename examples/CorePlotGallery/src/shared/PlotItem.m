@@ -73,6 +73,8 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 -(void)killGraph
 {
+    [[CPTAnimation sharedInstance] removeAllAnimationOperations];
+
     // Remove the CPTLayerHostingView
     if ( defaultLayerHostingView ) {
         [defaultLayerHostingView removeFromSuperview];
@@ -86,8 +88,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
     cachedImage = nil;
 
     [graphs removeAllObjects];
-
-    [[CPTAnimation sharedInstance] removeAllAnimationOperations];
 }
 
 -(void)dealloc
