@@ -81,15 +81,16 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)dealloc
 {
-    [hostedGraph removeFromSuperlayer];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [hostedGraph removeObserver:self forKeyPath:@"plotAreaFrame" context:CPTGraphHostingViewKVOContext];
+    [hostedGraph.plotAreaFrame removeObserver:self forKeyPath:@"plotArea" context:CPTGraphHostingViewKVOContext];
 
     for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
         [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
     }
+
+    [hostedGraph removeFromSuperlayer];
 }
 
 /// @endcond
@@ -364,7 +365,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
             if ( oldPlotArea ) {
                 [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                                name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                                name:CPTLayerBoundsDidChangeNotification
                                                               object:oldPlotArea];
             }
 
@@ -394,9 +395,24 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;
-        [hostedGraph removeFromSuperlayer];
-        hostedGraph.hostingView = nil;
-        hostedGraph             = newGraph;
+
+        if ( hostedGraph ) {
+            [hostedGraph removeFromSuperlayer];
+            hostedGraph.hostingView = nil;
+
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTGraphDidAddPlotSpaceNotification object:hostedGraph];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTGraphDidRemovePlotSpaceNotification object:hostedGraph];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLayerBoundsDidChangeNotification object:hostedGraph.plotAreaFrame.plotArea];
+
+            [hostedGraph removeObserver:self forKeyPath:@"plotAreaFrame" context:CPTGraphHostingViewKVOContext];
+            [hostedGraph.plotAreaFrame removeObserver:self forKeyPath:@"plotArea" context:CPTGraphHostingViewKVOContext];
+
+            for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+                [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
+            }
+        }
+
+        hostedGraph = newGraph;
 
         if ( hostedGraph ) {
             hostedGraph.hostingView = self;
