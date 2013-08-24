@@ -629,7 +629,10 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
         if ( axis.plotSpace == plotSpace ) {
             [axis setNeedsRelabel];
             [axis updateAxisTitle];
-            backgroundBandsNeedRedraw |= (axis.backgroundLimitBands.count > 0);
+
+            if ( !backgroundBandsNeedRedraw ) {
+                backgroundBandsNeedRedraw = (axis.alternatingBandFills.count > 0) || (axis.backgroundLimitBands.count > 0);
+            }
         }
     }
     for ( CPTPlot *plot in self.plots ) {
