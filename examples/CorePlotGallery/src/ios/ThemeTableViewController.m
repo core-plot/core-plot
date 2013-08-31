@@ -16,7 +16,9 @@
 
 -(void)setupThemes
 {
+    [themes release];
     themes = [[NSMutableArray alloc] init];
+
     [themes addObject:kThemeTableViewControllerDefaultTheme];
     [themes addObject:kThemeTableViewControllerNoTheme];
 
