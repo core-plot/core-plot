@@ -118,7 +118,8 @@
         [contentLayer removeFromSuperlayer];
         contentLayer = newLayer;
         if ( contentLayer ) {
-            [self.annotationHostLayer addSublayer:contentLayer];
+            CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
+            [hostLayer addSublayer:contentLayer];
         }
     }
 }
@@ -131,7 +132,7 @@
         [myContent removeFromSuperlayer];
         annotationHostLayer = newLayer;
         if ( myContent ) {
-            [annotationHostLayer addSublayer:myContent];
+            [newLayer addSublayer:myContent];
         }
     }
 }

@@ -182,12 +182,16 @@
 
 -(NSString *)title
 {
-    return [self.plot titleForLegendEntryAtIndex:self.index];
+    CPTPlot *thePlot = self.plot;
+
+    return [thePlot titleForLegendEntryAtIndex:self.index];
 }
 
 -(NSAttributedString *)attributedTitle
 {
-    return [self.plot attributedTitleForLegendEntryAtIndex:self.index];
+    CPTPlot *thePlot = self.plot;
+
+    return [thePlot attributedTitleForLegendEntryAtIndex:self.index];
 }
 
 -(CGSize)titleSize

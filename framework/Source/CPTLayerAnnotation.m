@@ -66,7 +66,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(positionContentLayer)
                                                      name:CPTLayerBoundsDidChangeNotification
-                                                   object:anchorLayer];
+                                                   object:newAnchorLayer];
     }
     return self;
 }

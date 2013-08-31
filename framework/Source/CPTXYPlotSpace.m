@@ -628,7 +628,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
     CGSize layerSize;
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
         layerSize = plotArea.bounds.size;
@@ -678,7 +679,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
     CGSize layerSize;
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
         layerSize = plotArea.bounds.size;
@@ -723,7 +725,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
     CGSize boundsSize;
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
         boundsSize = plotArea.bounds.size;
@@ -765,7 +768,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
     CGSize boundsSize;
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
     if ( plotArea ) {
         boundsSize = plotArea.bounds.size;
@@ -851,7 +855,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)plotAreaPoint
 {
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
     if ( !plotArea || (interactionScale <= 1.e-6) ) {
         return;
@@ -967,12 +972,13 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         return YES;
     }
 
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
     if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
 
-    CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
+    CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
     if ( [plotArea containsPoint:pointInPlotArea] ) {
         // Handle event
         self.lastDragPoint    = pointInPlotArea;
@@ -1018,7 +1024,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         return YES;
     }
 
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
     if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
@@ -1029,7 +1036,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         if ( self.allowsMomentum ) {
             NSTimeInterval deltaT = event.timestamp - self.lastDragTime;
             if ( deltaT > 0.0 ) {
-                CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
+                CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
                 CGPoint displacement    = self.lastDisplacement;
 
                 CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(self.lastDeltaTime);
@@ -1089,7 +1096,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         return YES;
     }
 
-    CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
     if ( !self.allowsUserInteraction || !plotArea ) {
         return NO;
     }
@@ -1097,7 +1105,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     if ( self.isDragging ) {
         CGPoint lastDraggedPoint = self.lastDragPoint;
 
-        CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
+        CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
         CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDraggedPoint.x, pointInPlotArea.y - lastDraggedPoint.y);
         CGPoint pointToUse      = pointInPlotArea;
 

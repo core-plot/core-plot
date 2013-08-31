@@ -137,7 +137,8 @@
                 free(decimalPoint);
 
                 CGPoint newPosition;
-                CPTPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
+                CPTGraph *theGraph    = thePlotSpace.graph;
+                CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
                 if ( plotArea ) {
                     newPosition = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:hostLayer];
                 }

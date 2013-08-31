@@ -13,6 +13,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 
 @interface CPTFunctionDataSource()
 
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlot *dataPlot;
 @property (nonatomic, readwrite) double cachedStep;
 @property (nonatomic, readwrite) NSUInteger dataCount;
 @property (nonatomic, readwrite) NSUInteger cachedCount;
@@ -90,17 +91,17 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
         cachedPlotRange    = nil;
         dataRange          = nil;
 
-        dataPlot.cachePrecision = CPTPlotCachePrecisionDouble;
-        dataPlot.dataSource     = self;
+        plot.cachePrecision = CPTPlotCachePrecisionDouble;
+        plot.dataSource     = self;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(plotBoundsChanged)
                                                      name:CPTLayerBoundsDidChangeNotification
-                                                   object:dataPlot];
-        [dataPlot addObserver:self
-                   forKeyPath:@"plotSpace"
-                      options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-                      context:CPTFunctionDataSourceKVOContext];
+                                                   object:plot];
+        [plot addObserver:self
+               forKeyPath:@"plotSpace"
+                  options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                  context:CPTFunctionDataSourceKVOContext];
     }
     return self;
 }
@@ -117,7 +118,8 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    [dataPlot removeObserver:self forKeyPath:@"plotSpace" context:CPTFunctionDataSourceKVOContext];
+    CPTPlot *plot = dataPlot;
+    [plot removeObserver:self forKeyPath:@"plotSpace" context:CPTFunctionDataSourceKVOContext];
 }
 
 /// @endcond

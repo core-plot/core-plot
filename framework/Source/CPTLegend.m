@@ -460,6 +460,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
         if ( ( (desiredRowCount == 0) || (row < desiredRowCount) ) &&
              ( (desiredColumnCount == 0) || (col < desiredColumnCount) ) ) {
+            CPTPlot *thePlot = legendEntry.plot;
+
             CGFloat left        = columnPositions[col];
             CGFloat rowPosition = rowPositions[row];
             CGRect swatchRect   = CPTRectMake(left,
@@ -470,15 +472,15 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( delegateCanDraw ) {
                 legendShouldDrawSwatch = [theDelegate legend:self
                                           shouldDrawSwatchAtIndex:legendEntry.index
-                                                          forPlot:legendEntry.plot
+                                                          forPlot:thePlot
                                                            inRect:swatchRect
                                                         inContext:context];
             }
             if ( legendShouldDrawSwatch ) {
-                [legendEntry.plot drawSwatchForLegend:self
-                                              atIndex:legendEntry.index
-                                               inRect:swatchRect
-                                            inContext:context];
+                [thePlot drawSwatchForLegend:self
+                                     atIndex:legendEntry.index
+                                      inRect:swatchRect
+                                   inContext:context];
             }
 
             left += theSwatchSize.width + theOffset;
@@ -984,11 +986,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         if ( (row != NSNotFound) && (col != NSNotFound) ) {
             for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
                 if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
+                    CPTPlot *legendPlot = legendEntry.plot;
+
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
-                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index];
+                        [theDelegate legend:self legendEntryForPlot:legendPlot wasSelectedAtIndex:legendEntry.index];
                     }
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
-                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index withEvent:event];
+                        [theDelegate legend:self legendEntryForPlot:legendPlot wasSelectedAtIndex:legendEntry.index withEvent:event];
                     }
                     return YES;
                 }

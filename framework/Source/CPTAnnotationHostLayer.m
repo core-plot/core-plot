@@ -121,7 +121,8 @@
         [self.mutableAnnotations removeObject:annotation];
     }
     else {
-        [NSException raise:CPTException format:@"Tried to remove CPTAnnotation from %@. Host layer was %@.", self, annotation.annotationHostLayer];
+        CPTAnnotationHostLayer *hostLayer = annotation.annotationHostLayer;
+        [NSException raise:CPTException format:@"Tried to remove CPTAnnotation from %@. Host layer was %@.", self, hostLayer];
     }
 }
 

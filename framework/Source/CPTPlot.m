@@ -348,8 +348,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     [super encodeWithCoder:coder];
 
-    if ( [self.dataSource conformsToProtocol:@protocol(NSCoding)] ) {
-        [coder encodeConditionalObject:self.dataSource forKey:@"CPTPlot.dataSource"];
+    id<CPTPlotDataSource> theDataSource = self.dataSource;
+    if ( [theDataSource conformsToProtocol:@protocol(NSCoding)] ) {
+        [coder encodeConditionalObject:theDataSource forKey:@"CPTPlot.dataSource"];
     }
     [coder encodeObject:self.title forKey:@"CPTPlot.title"];
     [coder encodeObject:self.attributedTitle forKey:@"CPTPlot.attributedTitle"];
@@ -497,7 +498,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     [self.cachedData removeAllObjects];
     self.cachedDataCount = 0;
-    [self reloadDataInIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
+
+    id<CPTPlotDataSource> theDataSource = self.dataSource;
+    [self reloadDataInIndexRange:NSMakeRange(0, [theDataSource numberOfRecordsForPlot:self])];
 }
 
 /**
@@ -914,7 +917,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                                                                      shape:nil];
                 (self.cachedData)[cacheKey] = cachedNumbers;
             }
-            NSUInteger numberOfRecords = [self.dataSource numberOfRecordsForPlot:self];
+            id<CPTPlotDataSource> theDataSource = self.dataSource;
+            NSUInteger numberOfRecords          = [theDataSource numberOfRecordsForPlot:self];
             cachedNumbers.shape = @[@(numberOfRecords)];
 
             // Update the cache
@@ -1192,8 +1196,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         NSUInteger sampleCount = array.count;
         if ( sampleCount > 0 ) {
             // Ensure the data cache exists and is the right size
-            NSUInteger numberOfRecords   = [self.dataSource numberOfRecordsForPlot:self];
-            NSMutableArray *cachedValues = (self.cachedData)[key];
+            id<CPTPlotDataSource> theDataSource = self.dataSource;
+            NSUInteger numberOfRecords          = [theDataSource numberOfRecordsForPlot:self];
+            NSMutableArray *cachedValues        = (self.cachedData)[key];
             if ( !cachedValues ) {
                 cachedValues = [NSMutableArray arrayWithCapacity:numberOfRecords];
                 NSNull *nullObject = [NSNull null];
@@ -1712,7 +1717,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 -(CPTPlotArea *)plotArea
 {
-    return self.graph.plotAreaFrame.plotArea;
+    CPTGraph *theGraph = self.graph;
+
+    return theGraph.plotAreaFrame.plotArea;
 }
 
 -(void)setNeedsRelabel:(BOOL)newNeedsRelabel

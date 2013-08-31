@@ -97,8 +97,9 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     [coder encodeConditionalObject:self.graph forKey:@"CPTPlotSpace.graph"];
     [coder encodeObject:self.identifier forKey:@"CPTPlotSpace.identifier"];
-    if ( [self.delegate conformsToProtocol:@protocol(NSCoding)] ) {
-        [coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+    if ( [theDelegate conformsToProtocol:@protocol(NSCoding)] ) {
+        [coder encodeConditionalObject:theDelegate forKey:@"CPTPlotSpace.delegate"];
     }
     [coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
 

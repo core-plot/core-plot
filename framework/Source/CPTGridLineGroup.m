@@ -101,7 +101,8 @@
         return;
     }
 
-    for ( CPTAxis *axis in self.plotArea.axisSet.axes ) {
+    CPTPlotArea *thePlotArea = self.plotArea;
+    for ( CPTAxis *axis in thePlotArea.axisSet.axes ) {
         if ( !axis.separateLayers ) {
             [axis drawGridLinesInContext:context isMajor:self.major];
         }
@@ -120,7 +121,7 @@
     if ( newPlotArea != plotArea ) {
         plotArea = newPlotArea;
 
-        if ( plotArea ) {
+        if ( newPlotArea ) {
             [self setNeedsDisplay];
         }
     }

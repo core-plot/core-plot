@@ -96,7 +96,8 @@
         return;
     }
 
-    [self.axis drawGridLinesInContext:context isMajor:self.major];
+    CPTAxis *theAxis = self.axis;
+    [theAxis drawGridLinesInContext:context isMajor:self.major];
 }
 
 /// @endcond

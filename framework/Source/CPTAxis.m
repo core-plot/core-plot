@@ -1371,7 +1371,8 @@ NSDecimal niceNum(NSDecimal x)
         theLabelOffset += self.tickOffset;
     }
 
-    [self.plotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+    CPTPlotArea *thePlotArea = self.plotArea;
+    [thePlotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
     NSMutableSet *oldAxisLabels;
     if ( useMajorAxisLabels ) {
@@ -1383,9 +1384,8 @@ NSDecimal niceNum(NSDecimal x)
 
     NSMutableSet *newAxisLabels       = [[NSMutableSet alloc] initWithCapacity:locations.count];
     CPTAxisLabel *blankLabel          = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
-    CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+    CPTAxisLabelGroup *axisLabelGroup = thePlotArea.axisLabelGroup;
     CPTLayer *lastLayer               = nil;
-    CPTPlotArea *thePlotArea          = self.plotArea;
 
     for ( NSDecimalNumber *tickLocation in locations ) {
         NSDecimal locationDecimal = tickLocation.decimalValue;
@@ -1556,7 +1556,8 @@ NSDecimal niceNum(NSDecimal x)
 
     self.needsRelabel = NO;
     if ( self.alternatingBandFills.count > 0 ) {
-        [self.plotArea setNeedsDisplay];
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea setNeedsDisplay];
     }
 
     if ( [self.delegate respondsToSelector:@selector(axisDidRelabel:)] ) {
@@ -1743,7 +1744,9 @@ NSDecimal niceNum(NSDecimal x)
         }
 
         [self.mutableBackgroundLimitBands addObject:limitBand];
-        [self.plotArea setNeedsDisplay];
+
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea setNeedsDisplay];
     }
 }
 
@@ -1754,7 +1757,9 @@ NSDecimal niceNum(NSDecimal x)
 {
     if ( limitBand ) {
         [self.mutableBackgroundLimitBands removeObject:limitBand];
-        [self.plotArea setNeedsDisplay];
+
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea setNeedsDisplay];
     }
 }
 
@@ -1776,10 +1781,11 @@ NSDecimal niceNum(NSDecimal x)
 
             axisLabels = newLabels;
 
-            [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
             if ( axisLabels ) {
-                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CPTAxisLabelGroup *axisLabelGroup = thePlotArea.axisLabelGroup;
                 CALayer *lastLayer                = nil;
 
                 for ( CPTAxisLabel *label in axisLabels ) {
@@ -1789,7 +1795,7 @@ NSDecimal niceNum(NSDecimal x)
                             [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
                         }
                         else {
-                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
                         }
 
                         lastLayer = contentLayer;
@@ -1815,10 +1821,11 @@ NSDecimal niceNum(NSDecimal x)
 
             minorTickAxisLabels = newLabels;
 
-            [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
             if ( minorTickAxisLabels ) {
-                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CPTAxisLabelGroup *axisLabelGroup = thePlotArea.axisLabelGroup;
                 CALayer *lastLayer                = nil;
 
                 for ( CPTAxisLabel *label in minorTickAxisLabels ) {
@@ -1828,7 +1835,7 @@ NSDecimal niceNum(NSDecimal x)
                             [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
                         }
                         else {
-                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
                         }
 
                         lastLayer = contentLayer;
@@ -1881,13 +1888,14 @@ NSDecimal niceNum(NSDecimal x)
         [axisTitle.contentLayer removeFromSuperlayer];
         axisTitle = newTitle;
 
-        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
 
         if ( axisTitle ) {
             axisTitle.offset = self.titleOffset;
             CPTLayer *contentLayer = axisTitle.contentLayer;
             if ( contentLayer ) {
-                [self.plotArea.axisTitleGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisTitles]];
+                [thePlotArea.axisTitleGroup insertSublayer:contentLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisTitles]];
                 [self updateAxisTitle];
             }
         }
@@ -2042,8 +2050,11 @@ NSDecimal niceNum(NSDecimal x)
         if ( needsRelabel ) {
             [self setNeedsDisplay];
             if ( self.separateLayers ) {
-                [self.majorGridLines setNeedsDisplay];
-                [self.minorGridLines setNeedsDisplay];
+                CPTGridLines *gridlines = self.majorGridLines;
+                [gridlines setNeedsDisplay];
+
+                gridlines = self.minorGridLines;
+                [gridlines setNeedsDisplay];
             }
             else {
                 CPTPlotArea *thePlotArea = self.plotArea;
@@ -2059,10 +2070,12 @@ NSDecimal niceNum(NSDecimal x)
     if ( newLocations != majorTickLocations ) {
         majorTickLocations = newLocations;
         if ( self.separateLayers ) {
-            [self.majorGridLines setNeedsDisplay];
+            CPTGridLines *gridlines = self.majorGridLines;
+            [gridlines setNeedsDisplay];
         }
         else {
-            [self.plotArea.majorGridLineGroup setNeedsDisplay];
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea.majorGridLineGroup setNeedsDisplay];
         }
 
         self.needsRelabel = YES;
@@ -2074,10 +2087,12 @@ NSDecimal niceNum(NSDecimal x)
     if ( newLocations != minorTickLocations ) {
         minorTickLocations = newLocations;
         if ( self.separateLayers ) {
-            [self.minorGridLines setNeedsDisplay];
+            CPTGridLines *gridlines = self.minorGridLines;
+            [gridlines setNeedsDisplay];
         }
         else {
-            [self.plotArea.minorGridLineGroup setNeedsDisplay];
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea.minorGridLineGroup setNeedsDisplay];
         }
 
         self.needsRelabel = YES;
@@ -2231,20 +2246,22 @@ NSDecimal niceNum(NSDecimal x)
     if ( newLineStyle != majorGridLineStyle ) {
         majorGridLineStyle = [newLineStyle copy];
 
-        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMajorGridLines];
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea updateAxisSetLayersForType:CPTGraphLayerTypeMajorGridLines];
 
         if ( majorGridLineStyle ) {
             if ( self.separateLayers ) {
-                if ( !self.majorGridLines ) {
-                    CPTGridLines *gridLines = [[CPTGridLines alloc] init];
-                    self.majorGridLines = gridLines;
+                CPTGridLines *gridLines = self.majorGridLines;
+                if ( gridLines ) {
+                    [gridLines setNeedsDisplay];
                 }
                 else {
-                    [self.majorGridLines setNeedsDisplay];
+                    gridLines           = [[CPTGridLines alloc] init];
+                    self.majorGridLines = gridLines;
                 }
             }
             else {
-                [self.plotArea.majorGridLineGroup setNeedsDisplay];
+                [thePlotArea.majorGridLineGroup setNeedsDisplay];
             }
         }
         else {
@@ -2258,20 +2275,22 @@ NSDecimal niceNum(NSDecimal x)
     if ( newLineStyle != minorGridLineStyle ) {
         minorGridLineStyle = [newLineStyle copy];
 
-        [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMinorGridLines];
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea updateAxisSetLayersForType:CPTGraphLayerTypeMinorGridLines];
 
         if ( minorGridLineStyle ) {
             if ( self.separateLayers ) {
-                if ( !self.minorGridLines ) {
-                    CPTGridLines *gridLines = [[CPTGridLines alloc] init];
-                    self.minorGridLines = gridLines;
+                CPTGridLines *gridLines = self.minorGridLines;
+                if ( gridLines ) {
+                    [gridLines setNeedsDisplay];
                 }
                 else {
-                    [self.minorGridLines setNeedsDisplay];
+                    gridLines           = [[CPTGridLines alloc] init];
+                    self.minorGridLines = gridLines;
                 }
             }
             else {
-                [self.plotArea.minorGridLineGroup setNeedsDisplay];
+                [thePlotArea.minorGridLineGroup setNeedsDisplay];
             }
         }
         else {
@@ -2400,12 +2419,16 @@ NSDecimal niceNum(NSDecimal x)
     if ( newRange != gridLinesRange ) {
         gridLinesRange = [newRange copy];
         if ( self.separateLayers ) {
-            [self.minorGridLines setNeedsDisplay];
-            [self.majorGridLines setNeedsDisplay];
+            CPTGridLines *gridlines = self.majorGridLines;
+            [gridlines setNeedsDisplay];
+
+            gridlines = self.minorGridLines;
+            [gridlines setNeedsDisplay];
         }
         else {
-            [self.plotArea.minorGridLineGroup setNeedsDisplay];
-            [self.plotArea.majorGridLineGroup setNeedsDisplay];
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea.majorGridLineGroup setNeedsDisplay];
+            [thePlotArea.minorGridLineGroup setNeedsDisplay];
         }
     }
 }
@@ -2415,24 +2438,25 @@ NSDecimal niceNum(NSDecimal x)
     if ( newPlotArea != plotArea ) {
         plotArea = newPlotArea;
 
-        if ( plotArea ) {
-            [plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMinorGridLines];
-            CPTGridLines *gridLines = self.minorGridLines;
-            if ( gridLines ) {
-                [gridLines removeFromSuperlayer];
-                [plotArea.minorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMinorGridLines]];
+        CPTGridLines *theMinorGridLines = self.minorGridLines;
+        CPTGridLines *theMajorGridLines = self.majorGridLines;
+
+        if ( newPlotArea ) {
+            [newPlotArea updateAxisSetLayersForType:CPTGraphLayerTypeMinorGridLines];
+            if ( theMinorGridLines ) {
+                [theMinorGridLines removeFromSuperlayer];
+                [newPlotArea.minorGridLineGroup insertSublayer:theMinorGridLines atIndex:[newPlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMinorGridLines]];
             }
 
-            [plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMajorGridLines];
-            gridLines = self.majorGridLines;
-            if ( gridLines ) {
-                [gridLines removeFromSuperlayer];
-                [plotArea.majorGridLineGroup insertSublayer:gridLines atIndex:[plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMajorGridLines]];
+            [newPlotArea updateAxisSetLayersForType:CPTGraphLayerTypeMajorGridLines];
+            if ( theMajorGridLines ) {
+                [theMajorGridLines removeFromSuperlayer];
+                [newPlotArea.majorGridLineGroup insertSublayer:theMajorGridLines atIndex:[newPlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMajorGridLines]];
             }
 
-            [plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
+            [newPlotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
             if ( self.axisLabels.count > 0 ) {
-                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CPTAxisLabelGroup *axisLabelGroup = newPlotArea.axisLabelGroup;
                 CALayer *lastLayer                = nil;
 
                 for ( CPTAxisLabel *label in self.axisLabels ) {
@@ -2444,7 +2468,7 @@ NSDecimal niceNum(NSDecimal x)
                             [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
                         }
                         else {
-                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[newPlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
                         }
 
                         lastLayer = contentLayer;
@@ -2453,7 +2477,7 @@ NSDecimal niceNum(NSDecimal x)
             }
 
             if ( self.minorTickAxisLabels.count > 0 ) {
-                CPTAxisLabelGroup *axisLabelGroup = self.plotArea.axisLabelGroup;
+                CPTAxisLabelGroup *axisLabelGroup = newPlotArea.axisLabelGroup;
                 CALayer *lastLayer                = nil;
 
                 for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
@@ -2465,7 +2489,7 @@ NSDecimal niceNum(NSDecimal x)
                             [axisLabelGroup insertSublayer:contentLayer below:lastLayer];
                         }
                         else {
-                            [axisLabelGroup insertSublayer:contentLayer atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                            [axisLabelGroup insertSublayer:contentLayer atIndex:[newPlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
                         }
 
                         lastLayer = contentLayer;
@@ -2473,16 +2497,17 @@ NSDecimal niceNum(NSDecimal x)
                 }
             }
 
-            [plotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
+            [newPlotArea updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
             CPTLayer *content = self.axisTitle.contentLayer;
             if ( content ) {
                 [content removeFromSuperlayer];
-                [plotArea.axisTitleGroup insertSublayer:content atIndex:[plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisTitles]];
+                [newPlotArea.axisTitleGroup insertSublayer:content atIndex:[newPlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisTitles]];
             }
         }
         else {
-            [self.minorGridLines removeFromSuperlayer];
-            [self.majorGridLines removeFromSuperlayer];
+            [theMinorGridLines removeFromSuperlayer];
+            [theMajorGridLines removeFromSuperlayer];
+
             for ( CPTAxisLabel *label in self.axisLabels ) {
                 [label.contentLayer removeFromSuperlayer];
             }
@@ -2522,13 +2547,14 @@ NSDecimal niceNum(NSDecimal x)
             }
         }
         else {
+            CPTPlotArea *thePlotArea = self.plotArea;
             self.minorGridLines = nil;
             if ( self.minorGridLineStyle ) {
-                [self.plotArea.minorGridLineGroup setNeedsDisplay];
+                [thePlotArea.minorGridLineGroup setNeedsDisplay];
             }
             self.majorGridLines = nil;
             if ( self.majorGridLineStyle ) {
-                [self.plotArea.majorGridLineGroup setNeedsDisplay];
+                [thePlotArea.majorGridLineGroup setNeedsDisplay];
             }
         }
     }
@@ -2536,26 +2562,36 @@ NSDecimal niceNum(NSDecimal x)
 
 -(void)setMinorGridLines:(CPTGridLines *)newGridLines
 {
-    if ( newGridLines != minorGridLines ) {
-        [minorGridLines removeFromSuperlayer];
+    CPTGridLines *oldGridLines = minorGridLines;
+
+    if ( newGridLines != oldGridLines ) {
+        [oldGridLines removeFromSuperlayer];
         minorGridLines = newGridLines;
-        if ( minorGridLines ) {
-            minorGridLines.major = NO;
-            minorGridLines.axis  = self;
-            [self.plotArea.minorGridLineGroup insertSublayer:minorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMinorGridLines]];
+
+        if ( newGridLines ) {
+            newGridLines.major = NO;
+            newGridLines.axis  = self;
+
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea.minorGridLineGroup insertSublayer:newGridLines atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMinorGridLines]];
         }
     }
 }
 
 -(void)setMajorGridLines:(CPTGridLines *)newGridLines
 {
-    if ( newGridLines != majorGridLines ) {
-        [majorGridLines removeFromSuperlayer];
+    CPTGridLines *oldGridLines = majorGridLines;
+
+    if ( newGridLines != oldGridLines ) {
+        [oldGridLines removeFromSuperlayer];
         majorGridLines = newGridLines;
-        if ( majorGridLines ) {
-            majorGridLines.major = YES;
-            majorGridLines.axis  = self;
-            [self.plotArea.majorGridLineGroup insertSublayer:majorGridLines atIndex:[self.plotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMajorGridLines]];
+
+        if ( newGridLines ) {
+            newGridLines.major = YES;
+            newGridLines.axis  = self;
+
+            CPTPlotArea *thePlotArea = self.plotArea;
+            [thePlotArea.majorGridLineGroup insertSublayer:newGridLines atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeMajorGridLines]];
         }
     }
 }
@@ -2614,7 +2650,9 @@ NSDecimal niceNum(NSDecimal x)
         else {
             alternatingBandFills = [newFills copy];
         }
-        [self.plotArea setNeedsDisplay];
+
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea setNeedsDisplay];
     }
 }
 
@@ -2625,7 +2663,9 @@ NSDecimal niceNum(NSDecimal x)
 
 -(CPTAxisSet *)axisSet
 {
-    return self.plotArea.axisSet;
+    CPTPlotArea *thePlotArea = self.plotArea;
+
+    return thePlotArea.axisSet;
 }
 
 -(void)setHidden:(BOOL)newHidden

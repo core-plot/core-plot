@@ -464,7 +464,8 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     // Labels
-    [self relabelIndexRange:NSMakeRange(0, [self.dataSource numberOfRecordsForPlot:self])];
+    id<CPTPlotDataSource> theDataSource = self.dataSource;
+    [self relabelIndexRange:NSMakeRange(0, [theDataSource numberOfRecordsForPlot:self])];
 }
 
 /// @endcond
@@ -1003,10 +1004,13 @@ static const CGFloat colorLookupTable[10][3] =
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     id<CPTPieChartDelegate> theDelegate = self.delegate;
-    if ( self.graph && self.plotArea && !self.hidden &&
+    CPTGraph *theGraph                  = self.graph;
+    CPTPlotArea *thePlotArea            = self.plotArea;
+
+    if ( theGraph && thePlotArea && !self.hidden &&
          ([theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
           [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)]) ) {
-        CGPoint plotAreaPoint = [self.graph convertPoint:interactionPoint toLayer:self.plotArea];
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
         if ( idx != NSNotFound ) {

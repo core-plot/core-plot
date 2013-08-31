@@ -197,8 +197,9 @@
             }
         }
         else {
-            if ( self.pinchGestureRecognizer ) {
-                [self removeGestureRecognizer:self.pinchGestureRecognizer];
+            UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
+            if ( pinchRecognizer ) {
+                [self removeGestureRecognizer:pinchRecognizer];
                 self.pinchGestureRecognizer = nil;
             }
         }
@@ -219,13 +220,15 @@
 
     CGPoint pointInPlotArea = [theHostedGraph convertPoint:interactionPoint toLayer:theHostedGraph.plotAreaFrame.plotArea];
 
+    UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
+
     for ( CPTPlotSpace *space in theHostedGraph.allPlotSpaces ) {
         if ( space.allowsUserInteraction ) {
-            [space scaleBy:[[self.pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+            [space scaleBy:[[pinchRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
         }
     }
 
-    [self.pinchGestureRecognizer setScale:1.0f];
+    [pinchRecognizer setScale:1.0f];
 }
 
 /// @endcond
