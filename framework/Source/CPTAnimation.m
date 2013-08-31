@@ -12,13 +12,19 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
 @property (nonatomic, readwrite, strong) NSMutableArray *animationOperations;
 @property (nonatomic, readwrite, strong) NSMutableArray *runningAnimationOperations;
-@property (nonatomic, readwrite, strong) NSMutableArray *expiredAnimationOperations;
-@property (nonatomic, readwrite, strong) NSTimer *timer;
+@property (nonatomic, readwrite, strong) NSMutableArray *cancelledAnimationOperations;
+@property (nonatomic, readwrite) dispatch_source_t timer;
+@property (nonatomic, readwrite) dispatch_queue_t animationQueue;
 
 +(SEL)setterFromProperty:(NSString *)property;
 
 -(CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
--(void)update:(NSTimer *)theTimer;
+
+-(void)startTimer;
+-(void)cancelTimer;
+-(void)update;
+
+dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block);
 
 @end
 /// @endcond
@@ -60,18 +66,24 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 @synthesize runningAnimationOperations;
 
 /** @internal
- *  @property NSMutableArray *expiredAnimationOperations
+ *  @property NSMutableArray *cancelledAnimationOperations
  *  @brief The list of completed animation operations.
  *
  *  These operations are removed from @ref animationOperations and the list is cleared after every animation frame.
  **/
-@synthesize expiredAnimationOperations;
+@synthesize cancelledAnimationOperations;
 
 /** @internal
- *  @property NSTimer *timer
+ *  @property dispatch_source_t timer
  *  @brief The animation timer. Each tick of the timer corresponds to one animation frame.
  **/
 @synthesize timer;
+
+/** @internal
+ *  @property dispatch_queue_t animationQueue;
+ *  @brief The serial dispatch queue used to synchronize animation updates.
+ **/
+@synthesize animationQueue;
 
 /// @name Initialization
 /// @{
@@ -87,12 +99,14 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 -(id)init
 {
     if ( (self = [super init]) ) {
-        animationOperations        = [[NSMutableArray alloc] init];
-        runningAnimationOperations = [[NSMutableArray alloc] init];
-        expiredAnimationOperations = [[NSMutableArray alloc] init];
-        timer                      = nil;
-        timeOffset                 = 0.0;
-        defaultAnimationCurve      = CPTAnimationCurveLinear;
+        animationOperations          = [[NSMutableArray alloc] init];
+        runningAnimationOperations   = [[NSMutableArray alloc] init];
+        cancelledAnimationOperations = [[NSMutableArray alloc] init];
+        timer                        = NULL;
+        timeOffset                   = 0.0;
+        defaultAnimationCurve        = CPTAnimationCurveLinear;
+
+        animationQueue = dispatch_queue_create("CorePlot.CPTAnimation.animationQueue", NULL);
     }
 
     return self;
@@ -104,17 +118,22 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 
 -(void)dealloc
 {
+    [self cancelTimer];
+
+    dispatch_release(animationQueue);
+
+    NSArray *runModes = @[NSRunLoopCommonModes];
+
     for ( CPTAnimationOperation *animationOperation in animationOperations ) {
         NSObject<CPTAnimationDelegate> *animationDelegate = animationOperation.delegate;
 
         if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
-            [animationDelegate performSelector:@selector(animationCancelled:)
-                                    withObject:animationOperation
-                                    afterDelay:0];
+            [animationDelegate performSelectorOnMainThread:@selector(animationCancelled:)
+                                                withObject:animationOperation
+                                             waitUntilDone:NO
+                                                     modes:runModes];
         }
     }
-
-    [timer invalidate];
 }
 
 /// @endcond
@@ -130,8 +149,8 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
     static CPTAnimation *shared;
 
     dispatch_once(&once, ^{
-                      shared = [[self alloc] init];
-                  }
+        shared = [[self alloc] init];
+    }
 
                  );
 
@@ -168,7 +187,10 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
         }
     }
 
-    [[CPTAnimation sharedInstance] performSelector:@selector(addAnimationOperation:) withObject:animationOperation afterDelay:0];
+    [[CPTAnimation sharedInstance] performSelectorOnMainThread:@selector(addAnimationOperation:)
+                                                    withObject:animationOperation
+                                                 waitUntilDone:NO
+                                                         modes:@[NSRunLoopCommonModes]];
 
     return animationOperation;
 }
@@ -177,7 +199,8 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 
 +(SEL)setterFromProperty:(NSString *)property
 {
-    return NSSelectorFromString([NSString stringWithFormat:@"set%@:", [property stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:[[property substringToIndex:1] capitalizedString]]]);
+    return NSSelectorFromString([NSString stringWithFormat:@"set%@:", [property stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                                                                                                        withString:[[property substringToIndex:1] capitalizedString]]]);
 }
 
 /// @endcond
@@ -191,25 +214,27 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 -(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation
 {
     if ( animationOperation ) {
-        NSMutableArray *theAnimationOperations = self.animationOperations;
+        dispatch_async(self.animationQueue, ^{
+            NSMutableArray *theAnimationOperations = self.animationOperations;
 
-        for ( CPTAnimationOperation *operation in theAnimationOperations ) {
-            if ( operation.boundObject == animationOperation.boundObject ) {
-                if ( (operation.boundGetter == animationOperation.boundGetter) && (operation.boundSetter == animationOperation.boundSetter) ) {
-                    [self removeAnimationOperation:operation];
-                    break;
+            for ( CPTAnimationOperation *operation in theAnimationOperations ) {
+                if ( operation.boundObject == animationOperation.boundObject ) {
+                    if ( (operation.boundGetter == animationOperation.boundGetter) && (operation.boundSetter == animationOperation.boundSetter) ) {
+                        [self removeAnimationOperation:operation];
+                        break;
+                    }
                 }
+            }
+
+            [theAnimationOperations addObject:animationOperation];
+
+            if ( !self.timer ) {
+                [self startTimer];
             }
         }
 
-        [theAnimationOperations addObject:animationOperation];
-
-        if ( !self.timer ) {
-            self.timer = [NSTimer timerWithTimeInterval:kCPTAnimationFrameRate target:self selector:@selector(update:) userInfo:nil repeats:YES];
-            [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-        }
+                      );
     }
-
     return animationOperation;
 }
 
@@ -219,12 +244,11 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 -(void)removeAnimationOperation:(CPTAnimationOperation *)animationOperation
 {
     if ( animationOperation ) {
-        NSMutableArray *theAnimationOperations = self.animationOperations;
-
-        if ( [theAnimationOperations containsObject:animationOperation] ) {
-            [self.expiredAnimationOperations addObject:animationOperation];
-            [theAnimationOperations removeObject:animationOperation];
+        dispatch_async(self.animationQueue, ^{
+            [self.cancelledAnimationOperations addObject:animationOperation];
         }
+
+                      );
     }
 }
 
@@ -232,27 +256,49 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 **/
 -(void)removeAllAnimationOperations
 {
-    NSMutableArray *theAnimationOperations = self.animationOperations;
+    dispatch_async(self.animationQueue, ^{
+        [self.cancelledAnimationOperations addObjectsFromArray:self.animationOperations];
+    }
 
-    [self.expiredAnimationOperations addObjectsFromArray:theAnimationOperations];
-    [theAnimationOperations removeAllObjects];
+                  );
 }
 
 #pragma mark -
 
 /// @cond
 
--(void)update:(NSTimer *)theTimer
+-(void)update
 {
     self.timeOffset += kCPTAnimationFrameRate;
 
     NSMutableArray *theAnimationOperations = self.animationOperations;
     NSMutableArray *runningOperations      = self.runningAnimationOperations;
-    NSMutableArray *expiredOperations      = self.expiredAnimationOperations;
+    NSMutableArray *expiredOperations      = [[NSMutableArray alloc] init];
 
     CGFloat currentTime = self.timeOffset;
     Class valueClass    = [NSValue class];
+    NSArray *runModes   = @[NSRunLoopCommonModes];
 
+    // Remove any cancelled animation operations
+    NSMutableArray *cancelledOperations = self.cancelledAnimationOperations;
+
+    for ( CPTAnimationOperation *animationOperation in cancelledOperations ) {
+        [runningOperations removeObjectIdenticalTo:animationOperation];
+        [theAnimationOperations removeObjectIdenticalTo:animationOperation];
+
+        NSObject<CPTAnimationDelegate> *animationDelegate = animationOperation.delegate;
+
+        if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
+            [animationDelegate performSelectorOnMainThread:@selector(animationCancelled:)
+                                                withObject:animationOperation
+                                             waitUntilDone:NO
+                                                     modes:runModes];
+        }
+    }
+
+    [cancelledOperations removeAllObjects];
+
+    // Update all waiting and running animation operations
     for ( CPTAnimationOperation *animationOperation in theAnimationOperations ) {
         NSObject<CPTAnimationDelegate> *animationDelegate = animationOperation.delegate;
 
@@ -266,9 +312,10 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
             [expiredOperations addObject:animationOperation];
 
             if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
-                [animationDelegate performSelector:@selector(animationDidFinish:)
-                                        withObject:animationOperation
-                                        afterDelay:0];
+                [animationDelegate performSelectorOnMainThread:@selector(animationDidFinish:)
+                                                    withObject:animationOperation
+                                                 waitUntilDone:NO
+                                                         modes:runModes];
             }
         }
         else if ( currentTime >= startTime ) {
@@ -281,12 +328,12 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
                     [runningOperations addObject:animationOperation];
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidStart:)] ) {
-                        [animationDelegate performSelector:@selector(animationDidStart:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
+                        [animationDelegate performSelectorOnMainThread:@selector(animationDidStart:)
+                                                            withObject:animationOperation
+                                                         waitUntilDone:NO
+                                                                 modes:runModes];
                     }
                 }
-
                 CGFloat progress = timingFunction(currentTime - startTime, duration);
 
                 id tweenedValue = [period tweenedValueForProgress:progress];
@@ -294,9 +341,10 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 
                 @try {
                     if ( [animationDelegate respondsToSelector:@selector(animationWillUpdate:)] ) {
-                        [animationDelegate performSelector:@selector(animationWillUpdate:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
+                        [animationDelegate performSelectorOnMainThread:@selector(animationWillUpdate:)
+                                                            withObject:animationOperation
+                                                         waitUntilDone:NO
+                                                                 modes:runModes];
                     }
 
                     if ( [tweenedValue isKindOfClass:valueClass] ) {
@@ -312,18 +360,26 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
                         [invocation setTarget:boundObject];
                         [invocation setSelector:boundSetter];
                         [invocation setArgument:buffer atIndex:2];
-                        [invocation invoke];
+
+                        [invocation performSelectorOnMainThread:@selector(invoke)
+                                                     withObject:nil
+                                                  waitUntilDone:NO
+                                                          modes:runModes];
 
                         free(buffer);
                     }
                     else {
-                        [boundObject performSelector:boundSetter withObject:tweenedValue afterDelay:0];
+                        [boundObject performSelectorOnMainThread:boundSetter
+                                                      withObject:tweenedValue
+                                                   waitUntilDone:NO
+                                                           modes:runModes];
                     }
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {
-                        [animationDelegate performSelector:@selector(animationDidUpdate:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
+                        [animationDelegate performSelectorOnMainThread:@selector(animationDidUpdate:)
+                                                            withObject:animationOperation
+                                                         waitUntilDone:NO
+                                                                 modes:runModes];
                     }
                 }
                 @catch ( NSException *exception ) {
@@ -332,9 +388,10 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
                     [expiredOperations addObject:animationOperation];
 
                     if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
-                        [animationDelegate performSelector:@selector(animationCancelled:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
+                        [animationDelegate performSelectorOnMainThread:@selector(animationCancelled:)
+                                                            withObject:animationOperation
+                                                         waitUntilDone:NO
+                                                                 modes:runModes];
                     }
                 }
             }
@@ -346,12 +403,41 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
         [theAnimationOperations removeObjectIdenticalTo:animationOperation];
     }
 
-    [expiredOperations removeAllObjects];
-
     if ( theAnimationOperations.count == 0 ) {
-        [self.timer invalidate];
-        self.timer = nil;
+        [self cancelTimer];
     }
+}
+
+-(void)startTimer
+{
+    self.timer = CreateDispatchTimer(kCPTAnimationFrameRate, self.animationQueue, ^{
+        [self update];
+    }
+
+                                    );
+}
+
+-(void)cancelTimer
+{
+    dispatch_source_t theTimer = self.timer;
+
+    if ( theTimer ) {
+        dispatch_source_cancel(theTimer);
+        dispatch_release(theTimer);
+        self.timer = NULL;
+    }
+}
+
+dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block)
+{
+    dispatch_source_t newTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+
+    if ( newTimer ) {
+        dispatch_source_set_timer(newTimer, dispatch_time(DISPATCH_TIME_NOW, 0), (uint64_t)(interval * NSEC_PER_SEC), 0);
+        dispatch_source_set_event_handler(newTimer, block);
+        dispatch_resume(newTimer);
+    }
+    return newTimer;
 }
 
 /// @endcond
@@ -509,7 +595,11 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ timeOffset: %g; %u active and %u expired operations>", [super description], self.timeOffset, (unsigned)self.animationOperations.count, (unsigned)self.expiredAnimationOperations.count];
+    return [NSString stringWithFormat:@"<%@ timeOffset: %g; %lu active and %lu running operations>",
+            [super description],
+            self.timeOffset,
+            (unsigned long)self.animationOperations.count,
+            (unsigned long)self.runningAnimationOperations.count];
 }
 
 /// @endcond

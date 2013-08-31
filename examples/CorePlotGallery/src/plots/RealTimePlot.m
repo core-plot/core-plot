@@ -134,7 +134,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                                            selector:@selector(newData:)
                                            userInfo:nil
                                             repeats:YES] retain];
-        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSRunLoopCommonModes];
     }
     else {
         dataTimer = nil;
