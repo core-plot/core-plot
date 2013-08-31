@@ -25,11 +25,6 @@
     return self;
 }
 
--(void)killGraph
-{
-    [super killGraph];
-}
-
 -(void)dealloc
 {
     [plotData release];

@@ -20,11 +20,6 @@ NSString *const outerChartName = @"Outer";
     return self;
 }
 
--(void)killGraph
-{
-    [super killGraph];
-}
-
 -(void)dealloc
 {
     [plotData release];
