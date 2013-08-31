@@ -14,7 +14,7 @@ typedef double (*CPTDataSourceFunction)(double);
 @interface CPTFunctionDataSource : NSObject<CPTPlotDataSource>
 
 @property (nonatomic, readonly) CPTDataSourceFunction dataSourceFunction;
-@property (nonatomic, readonly) __cpt_weak CPTPlot *dataPlot;
+@property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTPlot *dataPlot;
 
 @property (nonatomic, readwrite) CGFloat resolution;
 @property (nonatomic, readwrite, strong) CPTPlotRange *dataRange;
