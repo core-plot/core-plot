@@ -248,12 +248,6 @@
     [graph release];
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark CPTBarPlot delegate methods
 
