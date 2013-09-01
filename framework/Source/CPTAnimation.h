@@ -99,7 +99,7 @@ typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
 
 /// @name Property Animation
 /// @{
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property period:(CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate;
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property period:(CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate;
 /// @}
 
 /// @name Animation Management

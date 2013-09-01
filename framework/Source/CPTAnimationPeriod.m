@@ -376,7 +376,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property from:(CGFloat)from to:(CGFloat)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property from:(CGFloat)from to:(CGFloat)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStart:from
                                                                  end:to
@@ -401,7 +401,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property from:(CGFloat)from to:(CGFloat)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property from:(CGFloat)from to:(CGFloat)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStart:from
                                                                  end:to
@@ -451,7 +451,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPoint:(CGPoint)from toPoint:(CGPoint)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPoint:(CGPoint)from toPoint:(CGPoint)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPoint:from
                                                                  endPoint:to
@@ -476,7 +476,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPoint:(CGPoint)from toPoint:(CGPoint)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPoint:(CGPoint)from toPoint:(CGPoint)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPoint:from
                                                                  endPoint:to
@@ -526,7 +526,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromSize:(CGSize)from toSize:(CGSize)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromSize:(CGSize)from toSize:(CGSize)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartSize:from
                                                                  endSize:to
@@ -551,7 +551,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromSize:(CGSize)from toSize:(CGSize)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromSize:(CGSize)from toSize:(CGSize)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartSize:from
                                                                  endSize:to
@@ -601,7 +601,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromRect:(CGRect)from toRect:(CGRect)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromRect:(CGRect)from toRect:(CGRect)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartRect:from
                                                                  endRect:to
@@ -626,7 +626,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromRect:(CGRect)from toRect:(CGRect)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromRect:(CGRect)from toRect:(CGRect)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartRect:from
                                                                  endRect:to
@@ -676,7 +676,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromDecimal:(NSDecimal)from toDecimal:(NSDecimal)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromDecimal:(NSDecimal)from toDecimal:(NSDecimal)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartDecimal:from
                                                                  endDecimal:to
@@ -701,7 +701,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromDecimal:(NSDecimal)from toDecimal:(NSDecimal)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromDecimal:(NSDecimal)from toDecimal:(NSDecimal)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartDecimal:from
                                                                  endDecimal:to
@@ -751,7 +751,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPlotRange:(CPTPlotRange *)from toPlotRange:(CPTPlotRange *)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPlotRange:(CPTPlotRange *)from toPlotRange:(CPTPlotRange *)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPlotRange:from
                                                                  endPlotRange:to
@@ -776,7 +776,7 @@
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPlotRange:(CPTPlotRange *)from toPlotRange:(CPTPlotRange *)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(NSObject<CPTAnimationDelegate> *)delegate
++(CPTAnimationOperation *)animate:(id)object property:(NSString *)property fromPlotRange:(CPTPlotRange *)from toPlotRange:(CPTPlotRange *)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPlotRange:from
                                                                  endPlotRange:to
