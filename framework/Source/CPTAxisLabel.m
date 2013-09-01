@@ -175,7 +175,7 @@
                     break;
 
                 case CPTCoordinateY:
-                    angle = -CPTFloat(M_PI_2);
+                    angle = CPTFloat(-M_PI_2);
 
                     switch ( self.alignment ) {
                         case CPTAlignmentLeft:
@@ -256,11 +256,11 @@
 
     if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
         newAnchorX /= ABS(newAnchorY);
-        newAnchorY  = signbit(newAnchorY) ? -CPTFloat(1.0) : CPTFloat(1.0);
+        newAnchorY  = signbit(newAnchorY) ? CPTFloat(-1.0) : CPTFloat(1.0);
     }
     else {
         newAnchorY /= ABS(newAnchorX);
-        newAnchorX  = signbit(newAnchorX) ? -CPTFloat(1.0) : CPTFloat(1.0);
+        newAnchorX  = signbit(newAnchorX) ? CPTFloat(-1.0) : CPTFloat(1.0);
     }
     CGPoint anchor = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
 

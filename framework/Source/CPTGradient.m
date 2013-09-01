@@ -1077,7 +1077,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     endPoint = CPTPointMake( fma( CGRectGetWidth(rect), theEndAnchor.x, CGRectGetMinX(rect) ),
                              fma( CGRectGetHeight(rect), theEndAnchor.y, CGRectGetMinY(rect) ) );
 
-    startRadius = -CPTFloat(1.0);
+    startRadius = CPTFloat(-1.0);
     if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
         scaleX        = CGRectGetWidth(rect) / CGRectGetHeight(rect);
         startPoint.x /= scaleX;

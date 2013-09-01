@@ -245,11 +245,11 @@
                 break;
 
             case CPTSignNegative:
-                endFactor = -CPTFloat(1.0);
+                endFactor = CPTFloat(-1.0);
                 break;
 
             case CPTSignNone:
-                startFactor = -CPTFloat(0.5);
+                startFactor = CPTFloat(-0.5);
                 endFactor   = CPTFloat(0.5);
                 break;
 
