@@ -47,7 +47,7 @@
  *  @param newStyle The text style for the label.
  *  @return The initialized CPTAxisLabel object.
  **/
--(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
+-(instancetype)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
 {
     CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
 
@@ -61,7 +61,7 @@
  *  @param layer The label content.
  *  @return The initialized CPTAxisLabel object.
  **/
--(id)initWithContentLayer:(CPTLayer *)layer
+-(instancetype)initWithContentLayer:(CPTLayer *)layer
 {
     if ( layer ) {
         if ( (self = [super init]) ) {
@@ -92,7 +92,7 @@
     [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         contentLayer = [coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"];

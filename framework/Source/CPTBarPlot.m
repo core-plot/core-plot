@@ -171,7 +171,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
  *  @param horizontal If @YES, the bars will have a horizontal orientation, otherwise they will be vertical.
  *  @return A new CPTBarPlot instance initialized with a linear gradient bar fill.
  **/
-+(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal
++(instancetype)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal
 {
     CPTBarPlot *barPlot               = [[CPTBarPlot alloc] init];
     CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
@@ -239,7 +239,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBarPlot object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         lineStyle                     = [[CPTLineStyle alloc] init];
@@ -266,7 +266,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBarPlot *theLayer = (CPTBarPlot *)layer;
@@ -314,7 +314,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     [coder encodeObject:self.plotRange forKey:@"CPTBarPlot.plotRange"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         lineStyle                     = [[coder decodeObjectForKey:@"CPTBarPlot.lineStyle"] copy];

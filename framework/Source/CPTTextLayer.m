@@ -69,7 +69,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  *  @param newStyle The text style used to draw the text.
  *  @return The initialized CPTTextLayer object.
  **/
--(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
+-(instancetype)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
 {
     if ( (self = [super initWithFrame:CGRectZero]) ) {
         textStyle      = newStyle;
@@ -89,7 +89,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  *  @param newText The text to display.
  *  @return The initialized CPTTextLayer object.
  **/
--(id)initWithText:(NSString *)newText
+-(instancetype)initWithText:(NSString *)newText
 {
     return [self initWithText:newText style:[CPTTextStyle textStyle]];
 }
@@ -98,7 +98,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  *  @param newText The styled text to display.
  *  @return The initialized CPTTextLayer object.
  **/
--(id)initWithAttributedText:(NSAttributedString *)newText
+-(instancetype)initWithAttributedText:(NSAttributedString *)newText
 {
     CPTTextStyle *newStyle = [CPTTextStyle textStyleWithAttributes:[newText attributesAtIndex:0 effectiveRange:NULL]];
 
@@ -113,7 +113,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTTextLayer *theLayer = (CPTTextLayer *)layer;
@@ -141,7 +141,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTTextLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     return [self initWithText:nil style:nil];
 }
@@ -165,7 +165,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
     // inTextUpdate
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         textStyle      = [coder decodeObjectForKey:@"CPTTextLayer.textStyle"];

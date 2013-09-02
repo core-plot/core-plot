@@ -33,7 +33,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -131,7 +131,7 @@
 
 /// @cond
 
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 

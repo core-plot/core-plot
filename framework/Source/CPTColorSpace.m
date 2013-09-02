@@ -25,7 +25,7 @@
  *
  *  @return A shared CPTColorSpace object initialized with the standard RGB colorspace.
  **/
-+(CPTColorSpace *)genericRGBSpace
++(instancetype)genericRGBSpace
 {
     static CPTColorSpace *space = nil;
 
@@ -51,7 +51,7 @@
  *  @param colorSpace The color space.
  *  @return The initialized CPTColorSpace object.
  **/
--(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
+-(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
 {
     if ( (self = [super init]) ) {
         CGColorSpaceRetain(colorSpace);
@@ -79,7 +79,7 @@
     [coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];

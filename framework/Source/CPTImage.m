@@ -90,7 +90,7 @@
  *  @param anImage The platform-native image.
  *  @return A CPTImage instance initialized with the provided image.
  **/
--(id)initWithNativeImage:(CPTNativeImage *)anImage
+-(instancetype)initWithNativeImage:(CPTNativeImage *)anImage
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     if ( (self = [self initWithCGImage:NULL scale:anImage.scale]) ) {
@@ -110,7 +110,7 @@
  *  @param path The full or partial path to the image file.
  *  @return A CPTImage instance initialized from the file at the given path.
  **/
--(id)initWithContentsOfFile:(NSString *)path
+-(instancetype)initWithContentsOfFile:(NSString *)path
 {
     return [self initWithNativeImage:[[CPTNativeImage alloc] initWithContentsOfFile:path]];
 }
@@ -123,7 +123,7 @@
  *  @param newScale The image scale. Must be greater than zero.
  *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
--(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
+-(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
     NSParameterAssert(newScale > 0.0);
 
@@ -143,7 +143,7 @@
  *  @param anImage The image to wrap.
  *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
--(id)initWithCGImage:(CGImageRef)anImage
+-(instancetype)initWithCGImage:(CGImageRef)anImage
 {
     return [self initWithCGImage:anImage scale:CPTFloat(1.0)];
 }
@@ -154,7 +154,7 @@
 /** @brief Initializes a newly allocated CPTImage object with a @NULL image.
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     return [self initWithCGImage:NULL];
 }
@@ -170,7 +170,7 @@
  *  @param path The file system path of the file.
  *  @return A CPTImage instance initialized with the contents of the PNG file.
  **/
--(id)initForPNGFile:(NSString *)path
+-(instancetype)initForPNGFile:(NSString *)path
 {
     CGFloat imageScale = CPTFloat(1.0);
 
@@ -279,7 +279,7 @@
     // lastDrawnScale
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         nativeImage           = [[coder decodeObjectForKey:@"CPTImage.nativeImage"] copy];
@@ -331,7 +331,7 @@
  *  @param name The name of the image to load.
  *  @return A new CPTImage instance initialized with the named image.
  **/
-+(CPTImage *)imageNamed:(NSString *)name
++(instancetype)imageNamed:(NSString *)name
 {
     return [self imageWithNativeImage:[CPTNativeImage imageNamed:name]];
 }
@@ -341,7 +341,7 @@
  *  @param anImage The platform-native image.
  *  @return A new CPTImage instance initialized with the provided image.
  **/
-+(CPTImage *)imageWithNativeImage:(CPTNativeImage *)anImage
++(instancetype)imageWithNativeImage:(CPTNativeImage *)anImage
 {
     return [[self alloc] initWithNativeImage:anImage];
 }
@@ -351,7 +351,7 @@
  *  @param path The full or partial path to the image file.
  *  @return A new CPTImage instance initialized from the file at the given path.
  **/
-+(CPTImage *)imageWithContentsOfFile:(NSString *)path
++(instancetype)imageWithContentsOfFile:(NSString *)path
 {
     return [[self alloc] initWithContentsOfFile:path];
 }
@@ -361,7 +361,7 @@
  *  @param newScale The image scale.
  *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
++(instancetype)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
     return [[self alloc] initWithCGImage:anImage scale:newScale];
 }
@@ -370,7 +370,7 @@
  *  @param anImage The image to wrap.
  *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage
++(instancetype)imageWithCGImage:(CGImageRef)anImage
 {
     return [[self alloc] initWithCGImage:anImage];
 }
@@ -384,7 +384,7 @@
  *  @param path The file system path of the file.
  *  @return A new CPTImage instance initialized with the contents of the PNG file.
  **/
-+(CPTImage *)imageForPNGFile:(NSString *)path
++(instancetype)imageForPNGFile:(NSString *)path
 {
     return [[self alloc] initForPNGFile:path];
 }

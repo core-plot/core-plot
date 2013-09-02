@@ -94,7 +94,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         anchorPoint         = CPTPointMake(0.5, 0.5);
@@ -147,7 +147,7 @@
     // cachedScale
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
@@ -263,7 +263,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
  **/
-+(CPTPlotSymbol *)plotSymbol
++(instancetype)plotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -275,7 +275,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
  **/
-+(CPTPlotSymbol *)crossPlotSymbol
++(instancetype)crossPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -287,7 +287,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
  **/
-+(CPTPlotSymbol *)ellipsePlotSymbol
++(instancetype)ellipsePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -299,7 +299,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
  **/
-+(CPTPlotSymbol *)rectanglePlotSymbol
++(instancetype)rectanglePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -311,7 +311,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
  **/
-+(CPTPlotSymbol *)plusPlotSymbol
++(instancetype)plusPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -323,7 +323,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
  **/
-+(CPTPlotSymbol *)starPlotSymbol
++(instancetype)starPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -335,7 +335,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
  **/
-+(CPTPlotSymbol *)diamondPlotSymbol
++(instancetype)diamondPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -347,7 +347,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
  **/
-+(CPTPlotSymbol *)trianglePlotSymbol
++(instancetype)trianglePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -359,7 +359,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
  **/
-+(CPTPlotSymbol *)pentagonPlotSymbol
++(instancetype)pentagonPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -371,7 +371,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
  **/
-+(CPTPlotSymbol *)hexagonPlotSymbol
++(instancetype)hexagonPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -383,7 +383,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
  **/
-+(CPTPlotSymbol *)dashPlotSymbol
++(instancetype)dashPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -395,7 +395,7 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
  **/
-+(CPTPlotSymbol *)snowPlotSymbol
++(instancetype)snowPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
@@ -408,7 +408,7 @@
  *  @param aPath The bounding path for the custom symbol.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  **/
-+(CPTPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
++(instancetype)customPlotSymbolWithPath:(CGPathRef)aPath
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 

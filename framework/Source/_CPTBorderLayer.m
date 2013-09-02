@@ -31,7 +31,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBorderLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         maskedLayer = nil;
@@ -45,7 +45,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBorderLayer *theLayer = (CPTBorderLayer *)layer;
@@ -69,7 +69,7 @@
     [coder encodeObject:self.maskedLayer forKey:@"CPTBorderLayer.maskedLayer"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         maskedLayer = [coder decodeObjectForKey:@"CPTBorderLayer.maskedLayer"];

@@ -54,7 +54,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotAreaFrame object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotArea = nil;
@@ -72,7 +72,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
@@ -96,7 +96,7 @@
     [coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         plotArea = [coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"];

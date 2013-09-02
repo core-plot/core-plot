@@ -506,7 +506,7 @@ NSDecimal niceNum(NSDecimal x);
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTAxis object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotSpace                   = nil;
@@ -582,7 +582,7 @@ NSDecimal niceNum(NSDecimal x);
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTAxis *theLayer = (CPTAxis *)layer;
@@ -729,7 +729,7 @@ NSDecimal niceNum(NSDecimal x);
     // labelsUpdated
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         coordinate                  = (CPTCoordinate)[coder decodeIntegerForKey : @"CPTAxis.coordinate"];

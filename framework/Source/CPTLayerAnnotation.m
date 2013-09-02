@@ -52,7 +52,7 @@
  *  @param newAnchorLayer The reference layer. Must be non-@nil.
  *  @return The initialized CPTLayerAnnotation object.
  **/
--(id)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
+-(instancetype)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
 {
     NSParameterAssert(newAnchorLayer);
 
@@ -76,7 +76,7 @@
 /// @cond
 
 // anchorLayer is required; this will fail the assertion in -initWithAnchorLayer:
--(id)init
+-(instancetype)init
 {
     return [self initWithAnchorLayer:nil];
 }
@@ -104,7 +104,7 @@
     [coder encodeInteger:self.rectAnchor forKey:@"CPTLayerAnnotation.rectAnchor"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorLayer  = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];

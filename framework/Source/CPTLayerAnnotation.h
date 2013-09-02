@@ -8,6 +8,6 @@
 @property (nonatomic, readonly) __cpt_weak CPTLayer *anchorLayer;
 @property (nonatomic, readwrite, assign) CPTRectAnchor rectAnchor;
 
--(id)initWithAnchorLayer:(CPTLayer *)anchorLayer;
+-(instancetype)initWithAnchorLayer:(CPTLayer *)anchorLayer;
 
 @end

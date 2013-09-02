@@ -12,9 +12,9 @@
 /// @cond
 @interface CPTAnimationPeriod()
 
-+(id)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
++(instancetype)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
--(id)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
+-(instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
 @property (nonatomic, readwrite) CGFloat startOffset;
 
@@ -75,7 +75,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [[self alloc] initWithStartValue:aStartValue endValue:anEndValue duration:aDuration withDelay:aDelay];
 }
@@ -90,7 +90,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationCGFloatPeriod periodWithStartValue:@(aStart)
                                                    endValue:@(anEnd)
@@ -106,7 +106,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationCGPointPeriod periodWithStartValue:[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
                                                    endValue:[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]                                                                                 duration:aDuration
@@ -121,7 +121,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationCGSizePeriod periodWithStartValue:[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
                                                   endValue:[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]                                                                                 duration:aDuration
@@ -136,7 +136,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationCGRectPeriod periodWithStartValue:[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
                                                   endValue:[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]                                                                                 duration:aDuration
@@ -151,7 +151,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationNSDecimalPeriod periodWithStartValue:[NSValue valueWithBytes:&aStartDecimal objCType:@encode(NSDecimal)]
                                                      endValue:[NSValue valueWithBytes:&anEndDecimal objCType:@encode(NSDecimal)]                                                                                 duration:aDuration
@@ -166,7 +166,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(id)periodWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)aStartPlotRange
                                                      endValue:(NSValue *)anEndPlotRange
@@ -192,7 +192,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     if ( (self = [super init]) ) {
         startValue  = [aStartValue copy];
@@ -215,7 +215,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue : @(aStart)
             endValue : @(anEnd)
@@ -233,7 +233,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationCGPointPeriod *)[_CPTAnimationCGPointPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
             endValue :[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
@@ -251,7 +251,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationCGSizePeriod *)[_CPTAnimationCGSizePeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
             endValue :[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
@@ -269,7 +269,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationCGRectPeriod *)[_CPTAnimationCGRectPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
             endValue :[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
@@ -287,7 +287,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationNSDecimalPeriod *)[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartDecimal objCType:@encode(NSDecimal)]
             endValue :[NSValue valueWithBytes:&anEndDecimal objCType:@encode(NSDecimal)]
@@ -305,7 +305,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(id)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [(_CPTAnimationPlotRangePeriod *)[_CPTAnimationPlotRangePeriod alloc] initWithStartValue : (NSValue *)aStartPlotRange
             endValue : (NSValue *)anEndPlotRange
@@ -320,7 +320,7 @@
 /** @brief Initializes a newly allocated CPTAnimationPeriod object with no start or end values and a @par{duration} and @par{delay} of zero (@num{0}).
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     return [self initWithStartValue:nil endValue:nil duration:0.0 withDelay:0.0];
 }

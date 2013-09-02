@@ -14,9 +14,9 @@ extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text
 
 /// @name Initialization
 /// @{
--(id)initWithText:(NSString *)newText;
--(id)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle;
--(id)initWithAttributedText:(NSAttributedString *)newText;
+-(instancetype)initWithText:(NSString *)newText;
+-(instancetype)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle;
+-(instancetype)initWithAttributedText:(NSAttributedString *)newText;
 /// @}
 
 /// @name Layout

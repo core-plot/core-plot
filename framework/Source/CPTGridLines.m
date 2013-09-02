@@ -33,7 +33,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGridLines object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         axis  = nil;
@@ -48,7 +48,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTGridLines *theLayer = (CPTGridLines *)layer;
@@ -74,7 +74,7 @@
     [coder encodeBool:self.major forKey:@"CPTGridLines.major"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         axis  = [coder decodeObjectForKey:@"CPTGridLines.axis"];

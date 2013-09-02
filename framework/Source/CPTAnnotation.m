@@ -53,7 +53,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         annotationHostLayer = nil;
@@ -81,7 +81,7 @@
     [coder encodeCGFloat:self.rotation forKey:@"CPTAnnotation.rotation"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];

@@ -59,7 +59,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Initialization
 /// @{
--(id)initWithFrame:(CGRect)newFrame;
+-(instancetype)initWithFrame:(CGRect)newFrame;
 /// @}
 
 /// @name Drawing

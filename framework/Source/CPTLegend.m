@@ -187,7 +187,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param newPlots An array of plots.
  *  @return A new CPTLegend instance.
  **/
-+(id)legendWithPlots:(NSArray *)newPlots
++(instancetype)legendWithPlots:(NSArray *)newPlots
 {
     return [[self alloc] initWithPlots:newPlots];
 }
@@ -196,7 +196,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param graph The graph.
  *  @return A new CPTLegend instance.
  **/
-+(id)legendWithGraph:(CPTGraph *)graph
++(instancetype)legendWithGraph:(CPTGraph *)graph
 {
     return [[self alloc] initWithGraph:graph];
 }
@@ -236,7 +236,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTLegend object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plots                 = [[NSMutableArray alloc] init];
@@ -274,7 +274,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param newPlots An array of plots.
  *  @return The initialized CPTLegend object.
  **/
--(id)initWithPlots:(NSArray *)newPlots
+-(instancetype)initWithPlots:(NSArray *)newPlots
 {
     if ( (self = [self initWithFrame:CGRectZero]) ) {
         for ( CPTPlot *plot in newPlots ) {
@@ -288,7 +288,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param graph A graph.
  *  @return The initialized CPTLegend object.
  **/
--(id)initWithGraph:(CPTGraph *)graph
+-(instancetype)initWithGraph:(CPTGraph *)graph
 {
     if ( (self = [self initWithFrame:CGRectZero]) ) {
         for ( CPTPlot *plot in [graph allPlots] ) {
@@ -300,7 +300,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTLegend *theLayer = (CPTLegend *)layer;
@@ -365,7 +365,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTLegend.titleOffset"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         plots                 = [[coder decodeObjectForKey:@"CPTLegend.plots"] mutableCopy];

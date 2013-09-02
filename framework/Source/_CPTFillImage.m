@@ -30,7 +30,7 @@
  *  @param anImage The image.
  *  @return The initialized _CPTFillImage object.
  **/
--(id)initWithImage:(CPTImage *)anImage
+-(instancetype)initWithImage:(CPTImage *)anImage
 {
     if ( (self = [super init]) ) {
         fillImage = anImage;
@@ -103,7 +103,7 @@
     [coder encodeObject:self.fillImage forKey:@"_CPTFillImage.fillImage"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         fillImage = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];

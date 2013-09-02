@@ -200,7 +200,7 @@ static const CGFloat colorLookupTable[10][3] =
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPieChart object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         pieRadius                     = CPTFloat(0.8) * ( MIN(newFrame.size.width, newFrame.size.height) / CPTFloat(2.0) );
@@ -223,7 +223,7 @@ static const CGFloat colorLookupTable[10][3] =
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPieChart *theLayer = (CPTPieChart *)layer;
@@ -263,7 +263,7 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeBool:self.labelRotationRelativeToRadius forKey:@"CPTPieChart.labelRotationRelativeToRadius"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         pieRadius                     = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];

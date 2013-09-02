@@ -38,7 +38,7 @@ static NSMutableSet *themes = nil;
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         graphClass = Nil;
@@ -59,7 +59,7 @@ static NSMutableSet *themes = nil;
     [coder encodeObject:NSStringFromClass(self.graphClass) forKey:@"CPTTheme.graphClass"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]];
 
@@ -89,7 +89,7 @@ static NSMutableSet *themes = nil;
  *  @return A CPTTheme instance with name matching @par{themeName} or @nil if no themes with a matching name were found.
  *  @see See @ref themeNames "Theme Names" for a list of named themes provided by Core Plot.
  **/
-+(CPTTheme *)themeNamed:(NSString *)themeName
++(instancetype)themeNamed:(NSString *)themeName
 {
     CPTTheme *newTheme = nil;
 

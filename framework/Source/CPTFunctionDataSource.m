@@ -66,7 +66,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  *  @param function The function used to generate plot data.
  *  @return A new CPTFunctionDataSource instance initialized with the provided function and plot.
  **/
-+(id)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
++(instancetype)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
 {
     return [[self alloc] initForPlot:plot withFunction:function];
 }
@@ -76,7 +76,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  *  @param function The function used to generate plot data.
  *  @return The initialized CPTFunctionDataSource object.
  **/
--(id)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
+-(instancetype)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
 {
     NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
     NSParameterAssert(function);
@@ -109,7 +109,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 /// @cond
 
 // function and plot are required; this will fail the assertions in -initForPlot:withFunction:
--(id)init
+-(instancetype)init
 {
     return [self initForPlot:nil withFunction:NULL];
 }

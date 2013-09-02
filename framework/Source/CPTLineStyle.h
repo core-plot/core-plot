@@ -17,7 +17,7 @@
 
 /// @name Factory Methods
 /// @{
-+(id)lineStyle;
++(instancetype)lineStyle;
 /// @}
 
 /// @name Drawing

@@ -91,7 +91,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         animationOperations        = [[NSMutableArray alloc] init];
@@ -137,7 +137,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 /** @brief A shared CPTAnimation instance responsible for scheduling and executing animations.
  *  @return The shared CPTAnimation instance.
  **/
-+(CPTAnimation *)sharedInstance
++(instancetype)sharedInstance
 {
     static dispatch_once_t once;
     static CPTAnimation *shared;

@@ -30,7 +30,7 @@
  *  @param aColor The color.
  *  @return The initialized _CPTFillColor object.
  **/
--(id)initWithColor:(CPTColor *)aColor
+-(instancetype)initWithColor:(CPTColor *)aColor
 {
     if ( (self = [super init]) ) {
         fillColor = aColor;
@@ -103,7 +103,7 @@
     [coder encodeObject:self.fillColor forKey:@"_CPTFillColor.fillColor"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         fillColor = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];

@@ -30,7 +30,7 @@
  *  @param aGradient The gradient.
  *  @return The initialized _CPTFillGradient object.
  **/
--(id)initWithGradient:(CPTGradient *)aGradient
+-(instancetype)initWithGradient:(CPTGradient *)aGradient
 {
     if ( (self = [super init]) ) {
         fillGradient = aGradient;
@@ -97,7 +97,7 @@
     [coder encodeObject:self.fillGradient forKey:@"_CPTFillGradient.fillGradient"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         fillGradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];

@@ -59,23 +59,23 @@ typedef NS_ENUM (NSInteger, CPTGradientType) {
 
 /// @name Factory Methods
 /// @{
-+(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end;
-+(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition;
++(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end;
++(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition;
 
-+(CPTGradient *)aquaSelectedGradient;
-+(CPTGradient *)aquaNormalGradient;
-+(CPTGradient *)aquaPressedGradient;
++(instancetype)aquaSelectedGradient;
++(instancetype)aquaNormalGradient;
++(instancetype)aquaPressedGradient;
 
-+(CPTGradient *)unifiedSelectedGradient;
-+(CPTGradient *)unifiedNormalGradient;
-+(CPTGradient *)unifiedPressedGradient;
-+(CPTGradient *)unifiedDarkGradient;
++(instancetype)unifiedSelectedGradient;
++(instancetype)unifiedNormalGradient;
++(instancetype)unifiedPressedGradient;
++(instancetype)unifiedDarkGradient;
 
-+(CPTGradient *)sourceListSelectedGradient;
-+(CPTGradient *)sourceListUnselectedGradient;
++(instancetype)sourceListSelectedGradient;
++(instancetype)sourceListUnselectedGradient;
 
-+(CPTGradient *)rainbowGradient;
-+(CPTGradient *)hydrogenSpectrumGradient;
++(instancetype)rainbowGradient;
++(instancetype)hydrogenSpectrumGradient;
 /// @}
 
 /// @name Modification

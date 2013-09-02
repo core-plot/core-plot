@@ -13,7 +13,7 @@
 /// @name Initialization
 /// @{
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         self.graphClass = [CPTXYGraph class];

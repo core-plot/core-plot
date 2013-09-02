@@ -13,8 +13,8 @@
 
 /// @name Initialization
 /// @{
--(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)style;
--(id)initWithContentLayer:(CPTLayer *)layer;
+-(instancetype)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)style;
+-(instancetype)initWithContentLayer:(CPTLayer *)layer;
 /// @}
 
 /// @name Layout

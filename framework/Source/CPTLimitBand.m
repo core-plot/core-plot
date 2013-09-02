@@ -26,7 +26,7 @@
  *  @param newFill The fill used to draw the interior of the band.
  *  @return A new CPTLimitBand instance initialized with the provided range and fill.
  **/
-+(CPTLimitBand *)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
++(instancetype)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
     return [[CPTLimitBand alloc] initWithRange:newRange fill:newFill];
 }
@@ -36,7 +36,7 @@
  *  @param newFill The fill used to draw the interior of the band.
  *  @return The initialized CPTLimitBand object.
  **/
--(id)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
+-(instancetype)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill
 {
     if ( (self = [super init]) ) {
         range = newRange;
@@ -80,7 +80,7 @@
     }
 }
 
--(id)initWithCoder:(NSCoder *)decoder
+-(instancetype)initWithCoder:(NSCoder *)decoder
 {
     CPTPlotRange *newRange;
     CPTFill *newFill;

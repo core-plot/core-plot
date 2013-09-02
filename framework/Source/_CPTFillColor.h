@@ -4,7 +4,7 @@
 
 /// @name Initialization
 /// @{
--(id)initWithColor:(CPTColor *)aColor;
+-(instancetype)initWithColor:(CPTColor *)aColor;
 /// @}
 
 /// @name Drawing

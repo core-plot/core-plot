@@ -155,7 +155,7 @@ typedef struct CGPointError CGPointError;
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTRangePlot object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         barLineStyle = [[CPTLineStyle alloc] init];
@@ -170,7 +170,7 @@ typedef struct CGPointError CGPointError;
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
@@ -198,7 +198,7 @@ typedef struct CGPointError CGPointError;
     [coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         barLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];

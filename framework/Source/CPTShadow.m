@@ -51,7 +51,7 @@
 /** @brief Creates and returns a new CPTShadow instance.
  *  @return A new CPTShadow instance.
  **/
-+(id)shadow
++(instancetype)shadow
 {
     return [[self alloc] init];
 }
@@ -68,7 +68,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         shadowOffset     = CGSizeZero;
@@ -92,7 +92,7 @@
     [coder encodeObject:self.shadowColor forKey:@"CPTShadow.shadowColor"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         shadowOffset     = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];

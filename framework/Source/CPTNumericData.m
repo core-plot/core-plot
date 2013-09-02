@@ -115,9 +115,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithData:(NSData *)newData
-                dataType:(CPTNumericDataType)newDataType
-                   shape:(NSArray *)shapeArray
++(instancetype)numericDataWithData:(NSData *)newData
+                          dataType:(CPTNumericDataType)newDataType
+                             shape:(NSArray *)shapeArray
 {
     return [[self alloc] initWithData:newData
                              dataType:newDataType
@@ -130,9 +130,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithData:(NSData *)newData
-          dataTypeString:(NSString *)newDataTypeString
-                   shape:(NSArray *)shapeArray
++(instancetype)numericDataWithData:(NSData *)newData
+                    dataTypeString:(NSString *)newDataTypeString
+                             shape:(NSArray *)shapeArray
 {
     return [[self alloc] initWithData:newData
                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -149,9 +149,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithArray:(NSArray *)newData
-                 dataType:(CPTNumericDataType)newDataType
-                    shape:(NSArray *)shapeArray
++(instancetype)numericDataWithArray:(NSArray *)newData
+                           dataType:(CPTNumericDataType)newDataType
+                              shape:(NSArray *)shapeArray
 {
     return [[self alloc] initWithArray:newData
                               dataType:newDataType
@@ -168,9 +168,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithArray:(NSArray *)newData
-           dataTypeString:(NSString *)newDataTypeString
-                    shape:(NSArray *)shapeArray
++(instancetype)numericDataWithArray:(NSArray *)newData
+                     dataTypeString:(NSString *)newDataTypeString
+                              shape:(NSArray *)shapeArray
 {
     return [[self alloc] initWithArray:newData
                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -184,10 +184,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithData:(NSData *)newData
-                dataType:(CPTNumericDataType)newDataType
-                   shape:(NSArray *)shapeArray
-               dataOrder:(CPTDataOrder)order
++(instancetype)numericDataWithData:(NSData *)newData
+                          dataType:(CPTNumericDataType)newDataType
+                             shape:(NSArray *)shapeArray
+                         dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithData:newData
                              dataType:newDataType
@@ -202,10 +202,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithData:(NSData *)newData
-          dataTypeString:(NSString *)newDataTypeString
-                   shape:(NSArray *)shapeArray
-               dataOrder:(CPTDataOrder)order
++(instancetype)numericDataWithData:(NSData *)newData
+                    dataTypeString:(NSString *)newDataTypeString
+                             shape:(NSArray *)shapeArray
+                         dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithData:newData
                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -224,10 +224,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithArray:(NSArray *)newData
-                 dataType:(CPTNumericDataType)newDataType
-                    shape:(NSArray *)shapeArray
-                dataOrder:(CPTDataOrder)order
++(instancetype)numericDataWithArray:(NSArray *)newData
+                           dataType:(CPTNumericDataType)newDataType
+                              shape:(NSArray *)shapeArray
+                          dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithArray:newData
                               dataType:newDataType
@@ -246,10 +246,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(id)numericDataWithArray:(NSArray *)newData
-           dataTypeString:(NSString *)newDataTypeString
-                    shape:(NSArray *)shapeArray
-                dataOrder:(CPTDataOrder)order
++(instancetype)numericDataWithArray:(NSArray *)newData
+                     dataTypeString:(NSString *)newDataTypeString
+                              shape:(NSArray *)shapeArray
+                          dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithArray:newData
                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -266,9 +266,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithData:(NSData *)newData
-         dataType:(CPTNumericDataType)newDataType
-            shape:(NSArray *)shapeArray
+-(instancetype)initWithData:(NSData *)newData
+                   dataType:(CPTNumericDataType)newDataType
+                      shape:(NSArray *)shapeArray
 {
     if ( (self = [super init]) ) {
         [self commonInitWithData:newData
@@ -305,9 +305,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithArray:(NSArray *)newData
-          dataType:(CPTNumericDataType)newDataType
-             shape:(NSArray *)shapeArray
+-(instancetype)initWithArray:(NSArray *)newData
+                    dataType:(CPTNumericDataType)newDataType
+                       shape:(NSArray *)shapeArray
 {
     return [self initWithData:[self dataFromArray:newData dataType:newDataType]
                      dataType:newDataType
@@ -324,9 +324,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithArray:(NSArray *)newData
-    dataTypeString:(NSString *)newDataTypeString
-             shape:(NSArray *)shapeArray
+-(instancetype)initWithArray:(NSArray *)newData
+              dataTypeString:(NSString *)newDataTypeString
+                       shape:(NSArray *)shapeArray
 {
     return [self initWithArray:newData
                       dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -340,10 +340,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithData:(NSData *)newData
-         dataType:(CPTNumericDataType)newDataType
-            shape:(NSArray *)shapeArray
-        dataOrder:(CPTDataOrder)order
+-(instancetype)initWithData:(NSData *)newData
+                   dataType:(CPTNumericDataType)newDataType
+                      shape:(NSArray *)shapeArray
+                  dataOrder:(CPTDataOrder)order
 {
     if ( (self = [super init]) ) {
         [self commonInitWithData:newData
@@ -384,10 +384,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithArray:(NSArray *)newData
-          dataType:(CPTNumericDataType)newDataType
-             shape:(NSArray *)shapeArray
-         dataOrder:(CPTDataOrder)order
+-(instancetype)initWithArray:(NSArray *)newData
+                    dataType:(CPTNumericDataType)newDataType
+                       shape:(NSArray *)shapeArray
+                   dataOrder:(CPTDataOrder)order
 {
     return [self initWithData:[self dataFromArray:newData dataType:newDataType]
                      dataType:newDataType
@@ -406,10 +406,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(id)initWithArray:(NSArray *)newData
-    dataTypeString:(NSString *)newDataTypeString
-             shape:(NSArray *)shapeArray
-         dataOrder:(CPTDataOrder)order
+-(instancetype)initWithArray:(NSArray *)newData
+              dataTypeString:(NSString *)newDataTypeString
+                       shape:(NSArray *)shapeArray
+                   dataOrder:(CPTDataOrder)order
 {
     return [self initWithArray:newData
                       dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -1177,7 +1177,7 @@
     }
 }
 
--(id)initWithCoder:(NSCoder *)decoder
+-(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
         NSData *newData;

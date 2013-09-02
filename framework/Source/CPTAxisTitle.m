@@ -16,7 +16,7 @@
 /// @name Initialization
 /// @{
 
--(id)initWithContentLayer:(CPTLayer *)layer
+-(instancetype)initWithContentLayer:(CPTLayer *)layer
 {
     if ( layer ) {
         if ( (self = [super initWithContentLayer:layer]) ) {

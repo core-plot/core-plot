@@ -5,33 +5,33 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTColor *)clearColor;
-+(CPTColor *)whiteColor;
-+(CPTColor *)lightGrayColor;
-+(CPTColor *)grayColor;
-+(CPTColor *)darkGrayColor;
-+(CPTColor *)blackColor;
-+(CPTColor *)redColor;
-+(CPTColor *)greenColor;
-+(CPTColor *)blueColor;
-+(CPTColor *)cyanColor;
-+(CPTColor *)yellowColor;
-+(CPTColor *)magentaColor;
-+(CPTColor *)orangeColor;
-+(CPTColor *)purpleColor;
-+(CPTColor *)brownColor;
++(instancetype)clearColor;
++(instancetype)whiteColor;
++(instancetype)lightGrayColor;
++(instancetype)grayColor;
++(instancetype)darkGrayColor;
++(instancetype)blackColor;
++(instancetype)redColor;
++(instancetype)greenColor;
++(instancetype)blueColor;
++(instancetype)cyanColor;
++(instancetype)yellowColor;
++(instancetype)magentaColor;
++(instancetype)orangeColor;
++(instancetype)purpleColor;
++(instancetype)brownColor;
 
-+(CPTColor *)colorWithCGColor:(CGColorRef)newCGColor;
-+(CPTColor *)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
-+(CPTColor *)colorWithGenericGray:(CGFloat)gray;
++(instancetype)colorWithCGColor:(CGColorRef)newCGColor;
++(instancetype)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
++(instancetype)colorWithGenericGray:(CGFloat)gray;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithCGColor:(CGColorRef)cgColor;
--(id)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
+-(instancetype)initWithCGColor:(CGColorRef)cgColor;
+-(instancetype)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 
--(CPTColor *)colorWithAlphaComponent:(CGFloat)alpha;
+-(instancetype)colorWithAlphaComponent:(CGFloat)alpha;
 /// @}
 
 @end

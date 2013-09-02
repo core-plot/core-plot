@@ -36,19 +36,19 @@ typedef NS_ENUM (NSInteger, CPTPlotSymbolType) {
 
 /// @name Factory Methods
 /// @{
-+(CPTPlotSymbol *)plotSymbol;
-+(CPTPlotSymbol *)crossPlotSymbol;
-+(CPTPlotSymbol *)ellipsePlotSymbol;
-+(CPTPlotSymbol *)rectanglePlotSymbol;
-+(CPTPlotSymbol *)plusPlotSymbol;
-+(CPTPlotSymbol *)starPlotSymbol;
-+(CPTPlotSymbol *)diamondPlotSymbol;
-+(CPTPlotSymbol *)trianglePlotSymbol;
-+(CPTPlotSymbol *)pentagonPlotSymbol;
-+(CPTPlotSymbol *)hexagonPlotSymbol;
-+(CPTPlotSymbol *)dashPlotSymbol;
-+(CPTPlotSymbol *)snowPlotSymbol;
-+(CPTPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath;
++(instancetype)plotSymbol;
++(instancetype)crossPlotSymbol;
++(instancetype)ellipsePlotSymbol;
++(instancetype)rectanglePlotSymbol;
++(instancetype)plusPlotSymbol;
++(instancetype)starPlotSymbol;
++(instancetype)diamondPlotSymbol;
++(instancetype)trianglePlotSymbol;
++(instancetype)pentagonPlotSymbol;
++(instancetype)hexagonPlotSymbol;
++(instancetype)dashPlotSymbol;
++(instancetype)snowPlotSymbol;
++(instancetype)customPlotSymbolWithPath:(CGPathRef)aPath;
 /// @}
 
 /// @name Drawing

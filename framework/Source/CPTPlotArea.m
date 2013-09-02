@@ -135,7 +135,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotArea object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         minorGridLineGroup = nil;
@@ -161,7 +161,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlotArea *theLayer = (CPTPlotArea *)layer;
@@ -210,7 +210,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     // updatingLayers
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         minorGridLineGroup = [coder decodeObjectForKey:@"CPTPlotArea.minorGridLineGroup"];

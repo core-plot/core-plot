@@ -58,7 +58,7 @@
 /** @brief Creates and returns a new CPTTextStyle instance.
  *  @return A new CPTTextStyle instance.
  **/
-+(id)textStyle
++(instancetype)textStyle
 {
     return [[self alloc] init];
 }
@@ -80,7 +80,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         fontName      = @"Helvetica";
@@ -108,7 +108,7 @@
     [coder encodeInteger:(NSInteger)self.lineBreakMode forKey:@"CPTTextStyle.lineBreakMode"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];

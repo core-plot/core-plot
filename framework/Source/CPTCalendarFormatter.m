@@ -47,7 +47,7 @@
  *  The default formatter uses @ref NSDateFormatterMediumStyle for dates and times.
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
 
@@ -65,7 +65,7 @@
  *  @param aDateFormatter The date formatter.
  *  @return The new instance.
  **/
--(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
+-(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
     if ( (self = [super init]) ) {
         dateFormatter         = aDateFormatter;
@@ -91,7 +91,7 @@
     [coder encodeInteger:(NSInteger)self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];

@@ -37,7 +37,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTAxisSet object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         axes            = @[];
@@ -52,7 +52,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTAxisSet *theLayer = (CPTAxisSet *)layer;
@@ -78,7 +78,7 @@
     [coder encodeObject:self.borderLineStyle forKey:@"CPTAxisSet.borderLineStyle"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         axes            = [[coder decodeObjectForKey:@"CPTAxisSet.axes"] copy];

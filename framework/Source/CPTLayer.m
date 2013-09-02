@@ -163,7 +163,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  *  @param newFrame The frame rectangle.
  *  @return The initialized object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super init]) ) {
         paddingLeft          = CPTFloat(0.0);
@@ -193,7 +193,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 /** @brief Initializes a newly allocated CPTLayer object with an empty frame rectangle.
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     return [self initWithFrame:CGRectZero];
 }
@@ -202,7 +202,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTLayer *theLayer = (CPTLayer *)layer;
@@ -255,7 +255,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     // innerBorderPath
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         paddingLeft   = [coder decodeCGFloatForKey:@"CPTLayer.paddingLeft"];

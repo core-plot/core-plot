@@ -7,7 +7,7 @@
 
 /// @name Initialization
 /// @{
--(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter;
+-(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter;
 /// @}
 
 @end

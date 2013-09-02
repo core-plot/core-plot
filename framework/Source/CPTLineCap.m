@@ -77,7 +77,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         size                = CPTSizeMake(5.0, 5.0);
@@ -121,7 +121,7 @@
     // cachedLineCapPath
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         size                = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
@@ -192,7 +192,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeNone.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeNone.
  **/
-+(CPTLineCap *)lineCap
++(instancetype)lineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -204,7 +204,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeOpenArrow.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeOpenArrow.
  **/
-+(CPTLineCap *)openArrowPlotLineCap
++(instancetype)openArrowPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -216,7 +216,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSolidArrow.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSolidArrow.
  **/
-+(CPTLineCap *)solidArrowPlotLineCap
++(instancetype)solidArrowPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -228,7 +228,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSweptArrow.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSweptArrow.
  **/
-+(CPTLineCap *)sweptArrowPlotLineCap
++(instancetype)sweptArrowPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -240,7 +240,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeRectangle.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeRectangle.
  **/
-+(CPTLineCap *)rectanglePlotLineCap
++(instancetype)rectanglePlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -252,7 +252,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeEllipse.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeEllipse.
  **/
-+(CPTLineCap *)ellipsePlotLineCap
++(instancetype)ellipsePlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -264,7 +264,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeDiamond.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeDiamond.
  **/
-+(CPTLineCap *)diamondPlotLineCap
++(instancetype)diamondPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -276,7 +276,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypePentagon.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypePentagon.
  **/
-+(CPTLineCap *)pentagonPlotLineCap
++(instancetype)pentagonPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -288,7 +288,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeHexagon.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeHexagon.
  **/
-+(CPTLineCap *)hexagonPlotLineCap
++(instancetype)hexagonPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -300,7 +300,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeBar.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeBar.
  **/
-+(CPTLineCap *)barPlotLineCap
++(instancetype)barPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -312,7 +312,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCross.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCross.
  **/
-+(CPTLineCap *)crossPlotLineCap
++(instancetype)crossPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -324,7 +324,7 @@
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSnow.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeSnow.
  **/
-+(CPTLineCap *)snowPlotLineCap
++(instancetype)snowPlotLineCap
 {
     CPTLineCap *lineCap = [[self alloc] init];
 
@@ -337,7 +337,7 @@
  *  @param aPath The bounding path for the custom line cap.
  *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
  **/
-+(CPTLineCap *)customLineCapWithPath:(CGPathRef)aPath
++(instancetype)customLineCapWithPath:(CGPathRef)aPath
 {
     CPTLineCap *lineCap = [[self alloc] init];
 

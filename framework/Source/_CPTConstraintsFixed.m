@@ -30,7 +30,7 @@
  *  @param newOffset The offset.
  *  @return The initialized CPTConstraints object.
  **/
--(id)initWithLowerOffset:(CGFloat)newOffset
+-(instancetype)initWithLowerOffset:(CGFloat)newOffset
 {
     if ( (self = [super init]) ) {
         offset         = newOffset;
@@ -44,7 +44,7 @@
  *  @param newOffset The offset.
  *  @return The initialized CPTConstraints object.
  **/
--(id)initWithUpperOffset:(CGFloat)newOffset
+-(instancetype)initWithUpperOffset:(CGFloat)newOffset
 {
     if ( (self = [super init]) ) {
         offset         = newOffset;
@@ -123,7 +123,7 @@
     [coder encodeBool:self.isFixedToLower forKey:@"_CPTConstraintsFixed.isFixedToLower"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         offset         = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];

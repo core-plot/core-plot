@@ -33,19 +33,19 @@ typedef NS_ENUM (NSInteger, CPTLineCapType) {
 
 /// @name Factory Methods
 /// @{
-+(CPTLineCap *)lineCap;
-+(CPTLineCap *)openArrowPlotLineCap;
-+(CPTLineCap *)solidArrowPlotLineCap;
-+(CPTLineCap *)sweptArrowPlotLineCap;
-+(CPTLineCap *)rectanglePlotLineCap;
-+(CPTLineCap *)ellipsePlotLineCap;
-+(CPTLineCap *)diamondPlotLineCap;
-+(CPTLineCap *)pentagonPlotLineCap;
-+(CPTLineCap *)hexagonPlotLineCap;
-+(CPTLineCap *)barPlotLineCap;
-+(CPTLineCap *)crossPlotLineCap;
-+(CPTLineCap *)snowPlotLineCap;
-+(CPTLineCap *)customLineCapWithPath:(CGPathRef)aPath;
++(instancetype)lineCap;
++(instancetype)openArrowPlotLineCap;
++(instancetype)solidArrowPlotLineCap;
++(instancetype)sweptArrowPlotLineCap;
++(instancetype)rectanglePlotLineCap;
++(instancetype)ellipsePlotLineCap;
++(instancetype)diamondPlotLineCap;
++(instancetype)pentagonPlotLineCap;
++(instancetype)hexagonPlotLineCap;
++(instancetype)barPlotLineCap;
++(instancetype)crossPlotLineCap;
++(instancetype)snowPlotLineCap;
++(instancetype)customLineCapWithPath:(CGPathRef)aPath;
 /// @}
 
 /// @name Drawing

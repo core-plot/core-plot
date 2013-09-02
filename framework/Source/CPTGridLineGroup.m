@@ -38,7 +38,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGridLineGroup object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotArea = nil;
@@ -53,7 +53,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTGridLineGroup *theLayer = (CPTGridLineGroup *)layer;
@@ -79,7 +79,7 @@
     [coder encodeBool:self.major forKey:@"CPTGridLineGroup.major"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         plotArea = [coder decodeObjectForKey:@"CPTGridLineGroup.plotArea"];

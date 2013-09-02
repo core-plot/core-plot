@@ -164,7 +164,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
 
 /// @name Factory Methods
 /// @{
-+(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
++(instancetype)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
 /// @}
 
 /// @name Data Ranges

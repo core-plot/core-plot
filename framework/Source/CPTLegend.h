@@ -113,14 +113,14 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @name Factory Methods
 /// @{
-+(id)legendWithPlots:(NSArray *)newPlots;
-+(id)legendWithGraph:(CPTGraph *)graph;
++(instancetype)legendWithPlots:(NSArray *)newPlots;
++(instancetype)legendWithGraph:(CPTGraph *)graph;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithPlots:(NSArray *)newPlots;
--(id)initWithGraph:(CPTGraph *)graph;
+-(instancetype)initWithPlots:(NSArray *)newPlots;
+-(instancetype)initWithGraph:(CPTGraph *)graph;
 /// @}
 
 /// @name Plots

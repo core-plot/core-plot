@@ -21,12 +21,12 @@ typedef double (*CPTDataSourceFunction)(double);
 
 /// @name Factory Methods
 /// @{
-+(id)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
++(instancetype)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
+-(instancetype)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
 /// @}
 
 @end

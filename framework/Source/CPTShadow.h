@@ -8,7 +8,7 @@
 
 /// @name Factory Methods
 /// @{
-+(id)shadow;
++(instancetype)shadow;
 /// @}
 
 /// @name Drawing

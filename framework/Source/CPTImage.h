@@ -11,22 +11,22 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTImage *)imageNamed:(NSString *)name;
++(instancetype)imageNamed:(NSString *)name;
 
-+(CPTImage *)imageWithNativeImage:(CPTNativeImage *)anImage;
-+(CPTImage *)imageWithContentsOfFile:(NSString *)path;
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage;
-+(CPTImage *)imageForPNGFile:(NSString *)path;
++(instancetype)imageWithNativeImage:(CPTNativeImage *)anImage;
++(instancetype)imageWithContentsOfFile:(NSString *)path;
++(instancetype)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
++(instancetype)imageWithCGImage:(CGImageRef)anImage;
++(instancetype)imageForPNGFile:(NSString *)path;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithNativeImage:(CPTNativeImage *)anImage;
--(id)initWithContentsOfFile:(NSString *)path;
--(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
--(id)initWithCGImage:(CGImageRef)anImage;
--(id)initForPNGFile:(NSString *)path;
+-(instancetype)initWithNativeImage:(CPTNativeImage *)anImage;
+-(instancetype)initWithContentsOfFile:(NSString *)path;
+-(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
+-(instancetype)initWithCGImage:(CGImageRef)anImage;
+-(instancetype)initForPNGFile:(NSString *)path;
 /// @}
 
 /// @name Drawing

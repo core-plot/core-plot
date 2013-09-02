@@ -94,7 +94,7 @@ typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
 
 /// @name Animation Controller Instance
 /// @{
-+(CPTAnimation *)sharedInstance;
++(instancetype)sharedInstance;
 /// @}
 
 /// @name Property Animation

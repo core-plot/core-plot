@@ -93,7 +93,7 @@
  *  @param len The length of the range.
  *  @return A new CPTPlotRange instance initialized with the provided location and length.
  **/
-+(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
++(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
     return [[self alloc] initWithLocation:loc length:len];
 }
@@ -103,7 +103,7 @@
  *  @param len The length of the range.
  *  @return The initialized CPTPlotRange object.
  **/
--(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
+-(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
     if ( (self = [super init]) ) {
         self.location = loc;
@@ -123,7 +123,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
 
@@ -278,7 +278,7 @@
     [encoder encodeDecimal:self.length forKey:@"CPTPlotRange.length"];
 }
 
--(id)initWithCoder:(NSCoder *)decoder
+-(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
         self.location = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];

@@ -6,7 +6,7 @@
 
 /// @name Initialization
 /// @{
--(id)initWithImage:(CPTImage *)anImage;
+-(instancetype)initWithImage:(CPTImage *)anImage;
 /// @}
 
 /// @name Drawing

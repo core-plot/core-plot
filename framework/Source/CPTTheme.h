@@ -20,7 +20,7 @@ extern NSString *const kCPTStocksTheme;       ///< A graph theme with a gradient
 /// @{
 +(void)registerTheme:(Class)themeClass;
 +(NSArray *)themeClasses;
-+(CPTTheme *)themeNamed:(NSString *)theme;
++(instancetype)themeNamed:(NSString *)theme;
 +(NSString *)name;
 /// @}
 

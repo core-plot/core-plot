@@ -114,7 +114,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         [self commonInit];
@@ -206,7 +206,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     }
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         [self commonInit];
@@ -245,7 +245,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param end The ending color.
  *  @return A new CPTGradient instance initialized with an axial linear gradient between the two given colors.
  **/
-+(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end
++(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end
 {
     return [self gradientWithBeginningColor:begin endingColor:end beginningPosition:CPTFloat(0.0) endingPosition:CPTFloat(1.0)];
 }
@@ -257,7 +257,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param endingPosition The ending position (@num{0} ≤ @par{endingPosition} ≤ @num{1}).
  *  @return A new CPTGradient instance initialized with an axial linear gradient between the two given colors, at two given normalized positions.
  **/
-+(CPTGradient *)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
++(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -279,7 +279,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua selected gradient.
  *  @return A new CPTGradient instance initialized with the Aqua selected gradient.
  **/
-+(CPTGradient *)aquaSelectedGradient
++(instancetype)aquaSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -323,7 +323,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua normal gradient.
  *  @return A new CPTGradient instance initialized with the Aqua normal gradient.
  **/
-+(CPTGradient *)aquaNormalGradient
++(instancetype)aquaNormalGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -359,7 +359,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua pressed gradient.
  *  @return A new CPTGradient instance initialized with the Aqua pressed gradient.
  **/
-+(CPTGradient *)aquaPressedGradient
++(instancetype)aquaPressedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -395,7 +395,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified selected gradient.
  *  @return A new CPTGradient instance initialized with the unified selected gradient.
  **/
-+(CPTGradient *)unifiedSelectedGradient
++(instancetype)unifiedSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -419,7 +419,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified normal gradient.
  *  @return A new CPTGradient instance initialized with the unified normal gradient.
  **/
-+(CPTGradient *)unifiedNormalGradient
++(instancetype)unifiedNormalGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -443,7 +443,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified pressed gradient.
  *  @return A new CPTGradient instance initialized with the unified pressed gradient.
  **/
-+(CPTGradient *)unifiedPressedGradient
++(instancetype)unifiedPressedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -467,7 +467,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified dark gradient.
  *  @return A new CPTGradient instance initialized with the unified dark gradient.
  **/
-+(CPTGradient *)unifiedDarkGradient
++(instancetype)unifiedDarkGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -491,7 +491,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list selected gradient.
  *  @return A new CPTGradient instance initialized with the source list selected gradient.
  **/
-+(CPTGradient *)sourceListSelectedGradient
++(instancetype)sourceListSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -519,7 +519,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list unselected gradient.
  *  @return A new CPTGradient instance initialized with the source list unselected gradient.
  **/
-+(CPTGradient *)sourceListUnselectedGradient
++(instancetype)sourceListUnselectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -547,7 +547,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with a rainbow gradient.
  *  @return A new CPTGradient instance initialized with a rainbow gradient.
  **/
-+(CPTGradient *)rainbowGradient
++(instancetype)rainbowGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -577,7 +577,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with a hydrogen spectrum gradient.
  *  @return A new CPTGradient instance initialized with a hydrogen spectrum gradient.
  **/
-+(CPTGradient *)hydrogenSpectrumGradient
++(instancetype)hydrogenSpectrumGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 

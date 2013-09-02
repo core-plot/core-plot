@@ -6,7 +6,7 @@
 
 /// @name Initialization
 /// @{
--(id)initWithGradient:(CPTGradient *)aGradient;
+-(instancetype)initWithGradient:(CPTGradient *)aGradient;
 /// @}
 
 /// @name Drawing

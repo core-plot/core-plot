@@ -4,12 +4,12 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTColorSpace *)genericRGBSpace;
++(instancetype)genericRGBSpace;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace;
+-(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace;
 /// @}
 
 @end

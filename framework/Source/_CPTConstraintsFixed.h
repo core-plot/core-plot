@@ -4,8 +4,8 @@
 
 /// @name Initialization
 /// @{
--(id)initWithLowerOffset:(CGFloat)newOffset;
--(id)initWithUpperOffset:(CGFloat)newOffset;
+-(instancetype)initWithLowerOffset:(CGFloat)newOffset;
+-(instancetype)initWithUpperOffset:(CGFloat)newOffset;
 /// @}
 
 /// @name Comparison

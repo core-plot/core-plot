@@ -32,12 +32,12 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 
 /// @name Factory Methods
 /// @{
-+(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
++(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+-(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 /// @}
 
 /// @name Checking Ranges

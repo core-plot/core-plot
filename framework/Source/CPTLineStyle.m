@@ -104,7 +104,7 @@
 /** @brief Creates and returns a new CPTLineStyle instance.
  *  @return A new CPTLineStyle instance.
  **/
-+(id)lineStyle
++(instancetype)lineStyle
 {
     return [[self alloc] init];
 }
@@ -127,7 +127,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         lineCap      = kCGLineCapButt;
@@ -163,7 +163,7 @@
     [coder encodeObject:self.lineGradient forKey:@"CPTLineStyle.lineGradient"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         lineCap      = (CGLineCap)[coder decodeIntForKey : @"CPTLineStyle.lineCap"];

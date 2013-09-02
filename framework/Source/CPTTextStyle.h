@@ -12,7 +12,7 @@
 
 /// @name Factory Methods
 /// @{
-+(id)textStyle;
++(instancetype)textStyle;
 /// @}
 
 @end
@@ -28,7 +28,7 @@
 
 /// @name Factory Methods
 /// @{
-+(id)textStyleWithAttributes:(NSDictionary *)attributes;
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes;
 /// @}
 
 @end
