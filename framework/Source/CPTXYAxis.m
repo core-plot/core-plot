@@ -194,6 +194,17 @@
         }
     }
 
+    if ( isnan(point.x) || isnan(point.y) ) {
+        NSLog( @"[CPTXYAxis viewPointForCoordinateDecimalNumber:%@] was %@", NSDecimalString(&coordinateDecimalNumber, nil), CPTStringFromPoint(point) );
+
+        if ( isnan(point.x) ) {
+            point.x = CPTFloat(0.0);
+        }
+        if ( isnan(point.y) ) {
+            point.y = CPTFloat(0.0);
+        }
+    }
+
     return point;
 }
 
