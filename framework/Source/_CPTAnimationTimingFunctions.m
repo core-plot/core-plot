@@ -240,7 +240,7 @@ CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat time, CGFloat duration)
     }
 
     if ( time < CPTFloat(1.0) ) {
-        return -CPTFloat(0.5) * ( sqrt(CPTFloat(1.0) - time * time) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * ( sqrt(CPTFloat(1.0) - time * time) - CPTFloat(1.0) );
     }
     else {
         time -= 2.0;
@@ -326,7 +326,7 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat time, CGFloat duration)
     time -= 1.0;
 
     if ( time < CPTFloat(0.0) ) {
-        return -CPTFloat(0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
+        return CPTFloat(-0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
     }
     else {
         return pow(CPTFloat(2.0), CPTFloat(-10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) * CPTFloat(0.5) + CPTFloat(1.0);
@@ -468,7 +468,7 @@ CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat time, CGFloat duration
         return 1.0;
     }
 
-    return -CPTFloat(0.5) * ( cos(CPTFloat(M_PI) * time) - CPTFloat(1.0) );
+    return CPTFloat(-0.5) * ( cos(CPTFloat(M_PI) * time) - CPTFloat(1.0) );
 }
 
 #pragma mark -
@@ -613,7 +613,7 @@ CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat time, CGFloat duration)
     else {
         time -= 1.0;
 
-        return -CPTFloat(0.5) * ( time * ( time - CPTFloat(2.0) ) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * ( time * ( time - CPTFloat(2.0) ) - CPTFloat(1.0) );
     }
 }
 
@@ -686,7 +686,7 @@ CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat time, CGFloat duration)
     else {
         time -= 2.0;
 
-        return -CPTFloat(0.5) * ( time * time * time * time - CPTFloat(2.0) );
+        return CPTFloat(-0.5) * ( time * time * time * time - CPTFloat(2.0) );
     }
 }
 

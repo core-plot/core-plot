@@ -188,6 +188,17 @@
         }
     }
 
+    if ( isnan(point.x) || isnan(point.y) ) {
+        NSLog( @"[CPTXYAxis viewPointForCoordinateDecimalNumber:%@] was %@", NSDecimalString(&coordinateDecimalNumber, nil), CPTStringFromPoint(point) );
+
+        if ( isnan(point.x) ) {
+            point.x = CPTFloat(0.0);
+        }
+        if ( isnan(point.y) ) {
+            point.y = CPTFloat(0.0);
+        }
+    }
+
     return point;
 }
 
@@ -239,11 +250,11 @@
                 break;
 
             case CPTSignNegative:
-                endFactor = -CPTFloat(1.0);
+                endFactor = CPTFloat(-1.0);
                 break;
 
             case CPTSignNone:
-                startFactor = -CPTFloat(0.5);
+                startFactor = CPTFloat(-0.5);
                 endFactor   = CPTFloat(0.5);
                 break;
         }
