@@ -6,8 +6,8 @@
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 
-NSString *const CPTAnimationOperationKey = @"CPTAnimationOperationKey";
-NSString *const CPTAnimationValueKey     = @"CPTAnimationValueKey";
+static NSString *const CPTAnimationOperationKey = @"CPTAnimationOperationKey";
+static NSString *const CPTAnimationValueKey     = @"CPTAnimationValueKey";
 
 /// @cond
 @interface CPTAnimation()
