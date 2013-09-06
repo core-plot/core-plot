@@ -319,7 +319,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         return;
     }
 
-    if ( self.areaFill || self.areaFill2 || self.dataLineStyle.dashPattern ) {
+    CPTLineStyle *lineStyle = self.dataLineStyle;
+
+    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill ) {
         // show all points to preserve the line dash and area fills
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             pointDrawFlags[i] = YES;
