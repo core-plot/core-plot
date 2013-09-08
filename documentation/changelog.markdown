@@ -12,6 +12,7 @@ To be determined.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
 - **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the deprecated plot space methods.
 
 
 

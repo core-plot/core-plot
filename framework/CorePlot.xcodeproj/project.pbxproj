@@ -1659,7 +1659,6 @@
 					"-Wno-assign-enum",
 					"-Wno-pedantic",
 					"-Wno-documentation",
-					"-Wno-deprecated-implementations",
 				);
 				PRODUCT_NAME = CorePlot;
 				WRAPPER_EXTENSION = framework;
@@ -1699,7 +1698,6 @@
 					"-Wno-assign-enum",
 					"-Wno-pedantic",
 					"-Wno-documentation",
-					"-Wno-deprecated-implementations",
 				);
 				PRODUCT_NAME = CorePlot;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
