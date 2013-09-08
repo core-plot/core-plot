@@ -165,7 +165,7 @@
     plotPoint[myCoordinate]         = CPTDecimalDoubleValue(coordinateDecimalNumber);
     plotPoint[orthogonalCoordinate] = CPTDecimalDoubleValue(orthogonalCoord);
 
-    return [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint] fromLayer:self.plotArea];
+    return [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:self.plotArea];
 }
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
@@ -462,12 +462,12 @@
             endPlotPoint[selfCoordinate]   = locationDecimal;
 
             // Start point
-            CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+            CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
             startViewPoint.x += originTransformed.x;
             startViewPoint.y += originTransformed.y;
 
             // End point
-            CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+            CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
             endViewPoint.x += originTransformed.x;
             endViewPoint.y += originTransformed.y;
 
@@ -570,11 +570,11 @@
                     if ( bandFill != null ) {
                         // Start point
                         startPlotPoint[selfCoordinate] = currentLocation;
-                        CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+                        CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
 
                         // End point
                         endPlotPoint[selfCoordinate] = lastLocation;
-                        CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+                        CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                         // Fill band
                         CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
@@ -602,11 +602,11 @@
                 if ( bandFill != null ) {
                     // Start point
                     startPlotPoint[selfCoordinate] = endLocation;
-                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
 
                     // End point
                     endPlotPoint[selfCoordinate] = lastLocation;
-                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
                     CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
@@ -663,11 +663,11 @@
 
                     // Start point
                     startPlotPoint[selfCoordinate] = bandRange.location;
-                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint];
+                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
 
                     // End point
                     endPlotPoint[selfCoordinate] = bandRange.end;
-                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint];
+                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
                     CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),

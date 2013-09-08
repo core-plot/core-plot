@@ -650,9 +650,16 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
 /// @cond
 
-// Plot area view point for plot point
--(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
+-(NSUInteger)numberOfCoordinates
 {
+    return 2;
+}
+
+// Plot area view point for plot point
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count
+{
+    CGPoint viewPoint = [super plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:count];
+
     CGSize layerSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
@@ -660,21 +667,18 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         layerSize = plotArea.bounds.size;
     }
     else {
-        return CGPointZero;
+        return viewPoint;
     }
-
-    CGFloat viewX;
-    CGFloat viewY;
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
-            viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
         case CPTScaleTypeLog:
         {
             double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
-            viewX = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:x];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:x];
         }
         break;
 
@@ -684,13 +688,13 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
-            viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
         case CPTScaleTypeLog:
         {
             double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
-            viewY = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
         }
         break;
 
@@ -698,11 +702,13 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
 
-    return CPTPointMake(viewX, viewY);
+    return viewPoint;
 }
 
--(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count
 {
+    CGPoint viewPoint = [super plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:count];
+
     CGSize layerSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
@@ -710,19 +716,16 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         layerSize = plotArea.bounds.size;
     }
     else {
-        return CGPointZero;
+        return viewPoint;
     }
-
-    CGFloat viewX;
-    CGFloat viewY;
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
-            viewX = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
         case CPTScaleTypeLog:
-            viewX = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
         default:
@@ -731,23 +734,25 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
-            viewY = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
         case CPTScaleTypeLog:
-            viewY = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
 
-    return CPTPointMake(viewX, viewY);
+    return viewPoint;
 }
 
 // Plot point for view point
--(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
 {
+    [super plotPoint:plotPoint numberOfCoordinates:count forPlotAreaViewPoint:point];
+
     CGSize boundsSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
@@ -788,8 +793,10 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     }
 }
 
--(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
 {
+    [super doublePrecisionPlotPoint:plotPoint numberOfCoordinates:count forPlotAreaViewPoint:point];
+
     CGSize boundsSize;
     CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
 
@@ -858,14 +865,14 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 }
 
 // Plot point for event
--(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event
 {
-    [self plotPoint:plotPoint forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
+    [self plotPoint:plotPoint numberOfCoordinates:count forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
 
--(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event
 {
-    [self doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
+    [self doublePrecisionPlotPoint:plotPoint numberOfCoordinates:count forPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
 
 /// @endcond
@@ -900,7 +907,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     // Determine point in plot coordinates
     NSDecimal const decimalScale = CPTDecimalFromCGFloat(interactionScale);
     NSDecimal plotInteractionPoint[2];
-    [self plotPoint:plotInteractionPoint forPlotAreaViewPoint:plotAreaPoint];
+    [self plotPoint:plotInteractionPoint numberOfCoordinates:2 forPlotAreaViewPoint:plotAreaPoint];
 
     // Cache old ranges
     CPTPlotRange *oldRangeX = self.xRange;
@@ -1065,8 +1072,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                 CGFloat theta = atan2(displacement.y, displacement.x);
 
                 NSDecimal lastPoint[2], newPoint[2];
-                [self plotPoint:lastPoint forPlotAreaViewPoint:pointInPlotArea];
-                [self plotPoint:newPoint forPlotAreaViewPoint:CGPointMake( pointInPlotArea.x + distanceTraveled * cos(theta), pointInPlotArea.y + distanceTraveled * sin(theta) )];
+                [self plotPoint:lastPoint numberOfCoordinates:2 forPlotAreaViewPoint:pointInPlotArea];
+                [self plotPoint:newPoint numberOfCoordinates:2 forPlotAreaViewPoint:CGPointMake( pointInPlotArea.x + distanceTraveled * cos(theta), pointInPlotArea.y + distanceTraveled * sin(theta) )];
 
                 // X range
                 NSDecimal shiftX = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
@@ -1136,8 +1143,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         }
 
         NSDecimal lastPoint[2], newPoint[2];
-        [self plotPoint:lastPoint forPlotAreaViewPoint:lastDraggedPoint];
-        [self plotPoint:newPoint forPlotAreaViewPoint:pointToUse];
+        [self plotPoint:lastPoint numberOfCoordinates:2 forPlotAreaViewPoint:lastDraggedPoint];
+        [self plotPoint:newPoint numberOfCoordinates:2 forPlotAreaViewPoint:pointToUse];
 
         // X range
         NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);

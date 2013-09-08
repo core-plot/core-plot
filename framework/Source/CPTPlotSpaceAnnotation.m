@@ -136,7 +136,7 @@
                     decimalPoint[i] = [[plotAnchor objectAtIndex:i] decimalValue];
                 }
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
-                CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint];
+                CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint numberOfCoordinates:anchorCount];
                 free(decimalPoint);
 
                 CGPoint newPosition;

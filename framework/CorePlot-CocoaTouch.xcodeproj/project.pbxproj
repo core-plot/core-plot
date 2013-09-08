@@ -1202,6 +1202,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				OTHER_CFLAGS = (
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-deprecated-implementations",
+				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1222,6 +1227,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				OTHER_CFLAGS = (
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-deprecated-implementations",
+				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",

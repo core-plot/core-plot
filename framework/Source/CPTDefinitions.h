@@ -45,6 +45,16 @@
 #define cpt_weak_property assign
 #endif
 
+// Deprecated method attribute
+
+/**
+ *  @def cpt_deprecated
+ *  @hideinitializer
+ *  @brief Marks a method declaration as deprecated.
+ **/
+
+#define cpt_deprecated __attribute__( (deprecated) )
+
 // Type safety defines
 
 /**

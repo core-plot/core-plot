@@ -128,6 +128,8 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraph *graph;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak id<CPTPlotSpaceDelegate> delegate;
 
+@property (nonatomic, readonly) NSUInteger numberOfCoordinates;
+
 @end
 
 #pragma mark -
@@ -139,14 +141,25 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint;
--(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint;
--(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
--(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point;
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint cpt_deprecated;
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count;
+
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint cpt_deprecated;
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count;
+
+-(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point cpt_deprecated;
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
+
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point cpt_deprecated;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 
 -(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event;
--(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event;
--(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event;
+
+-(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event cpt_deprecated;
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
+
+-(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event cpt_deprecated;
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
 /// @}
 
 /// @name Coordinate Range

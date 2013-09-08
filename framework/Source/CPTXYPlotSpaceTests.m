@@ -52,7 +52,7 @@
     plotPoint[CPTCoordinateX] = CPTDecimalFromDouble(5.0);
     plotPoint[CPTCoordinateY] = CPTDecimalFromDouble(5.0);
 
-    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
@@ -62,7 +62,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(5.0)];
 
-    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
@@ -84,7 +84,7 @@
     plotPoint[CPTCoordinateX] = 5.0;
     plotPoint[CPTCoordinateY] = 5.0;
 
-    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
@@ -94,7 +94,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(5.0)];
 
-    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
@@ -119,7 +119,7 @@
     plotPoint[CPTCoordinateX] = CPTDecimalFromDouble( sqrt(10.0) );
     plotPoint[CPTCoordinateY] = CPTDecimalFromDouble( sqrt(10.0) );
 
-    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
@@ -129,7 +129,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(10.0)
                                                     length:CPTDecimalFromDouble(90.0)];
 
-    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
@@ -151,7 +151,7 @@
     plotPoint[CPTCoordinateX] = sqrt(10.0);
     plotPoint[CPTCoordinateY] = sqrt(10.0);
 
-    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
@@ -161,7 +161,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(10.0)
                                                     length:CPTDecimalFromDouble(90.0)];
 
-    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+    viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
     STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
     STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
@@ -186,7 +186,7 @@
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
     NSString *errMessage;
 
-    [plotSpace plotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+    [plotSpace plotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
 
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", NSDecimalString(&plotPoint[CPTCoordinateX], nil)];
     STAssertTrue(CPTDecimalEquals( plotPoint[CPTCoordinateX], CPTDecimalFromDouble(5.0) ), errMessage);
@@ -210,7 +210,7 @@
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
     NSString *errMessage;
 
-    [plotSpace doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+    [plotSpace doublePrecisionPlotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
 
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %g", plotPoint[CPTCoordinateX]];
     STAssertEquals(plotPoint[CPTCoordinateX], 5.0, errMessage);
@@ -237,7 +237,7 @@
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
     NSString *errMessage;
 
-    [plotSpace plotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+    [plotSpace plotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
 
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", NSDecimalString(&plotPoint[CPTCoordinateX], nil)];
     STAssertTrue(CPTDecimalEquals( plotPoint[CPTCoordinateX], CPTDecimalFromDouble( sqrt(10.0) ) ), errMessage);
@@ -261,7 +261,7 @@
     CGPoint viewPoint = CGPointMake(50.0, 25.0);
     NSString *errMessage;
 
-    [plotSpace doublePrecisionPlotPoint:plotPoint forPlotAreaViewPoint:viewPoint];
+    [plotSpace doublePrecisionPlotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
 
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %g", plotPoint[CPTCoordinateX]];
     STAssertEquals(plotPoint[CPTCoordinateX], sqrt(10.0), errMessage);

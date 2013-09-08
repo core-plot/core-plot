@@ -11,6 +11,7 @@ To be determined.
 - **New**: Added support for axis and plot data label formatters that return styled text.
 - **New**: Added a datasource class that automatically creates scatter plot data from a function.
 - **New**: Added an option to turn off automatic plot data label anchor point adjustments.
+- **New**: Added a count parameter to all plot space methods that take a c-style array of coordinate values and deprecated the old versions. These methods will be removed in release 2.0.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
@@ -21,14 +22,14 @@ To be determined.
 
 This release adds support for styled text (via `NSAttributedString`) in all titles, labels, and text layers.
 It adds support for momentum scrolling and "rubber band" snap-back when scrolling beyond
-the global x- and y-ranges.
+the global *x*- and *y*-ranges.
 
 ## Details
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
 - **New**: Added a property to hide plot data labels.
 - **New**: Added support for momentum scrolling.
-- **New**: Added support for "rubber band" snap-back when scrolling reaches the global x- and y-ranges.
+- **New**: Added support for "rubber band" snap-back when scrolling reaches the global *x*- and *y*-ranges.
 - **New**: Added line break mode support to `CPTTextStyle`.
 - **New**: Added a maximum layer size to `CPTTextLayer`.
 - **Changed**: Miscellaneous bug fixes and cleanup.

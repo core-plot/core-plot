@@ -851,7 +851,7 @@ static const CGFloat colorLookupTable[10][3] =
                                              plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
 
         NSDecimal plotPoint[2];
-        [self.plotSpace plotPoint:plotPoint forPlotAreaViewPoint:centerPoint];
+        [self.plotSpace plotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:centerPoint];
         NSDecimalNumber *xValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateX]];
         NSDecimalNumber *yValue = [[NSDecimalNumber alloc] initWithDecimal:plotPoint[CPTCoordinateY]];
         label.anchorPlotPoint = [NSArray arrayWithObjects:xValue, yValue, nil];

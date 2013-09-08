@@ -30,6 +30,11 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  **/
 @synthesize delegate;
 
+/** @property NSUInteger numberOfCoordinates
+ *  @brief The number of coordinate values that determine a point in the plot space.
+ **/
+@dynamic numberOfCoordinates;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -217,38 +222,97 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 
 @implementation CPTPlotSpace(AbstractMethods)
 
+-(NSUInteger)numberOfCoordinates
+{
+    return 0;
+}
+
 /** @brief Converts a data point to plot area drawing coordinates.
  *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *  @return The drawing coordinates of the data point.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::plotAreaViewPointForPlotPoint:numberOfCoordinates: -plotAreaViewPointForPlotPoint:numberOfCoordinates: @endlink instead.
  **/
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint
 {
+    return [self plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates];
+}
+
+/** @brief Converts a data point to plot area drawing coordinates.
+ *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @return The drawing coordinates of the data point.
+ **/
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
+
     return CGPointZero;
 }
 
 /** @brief Converts a data point to plot area drawing coordinates.
  *  @param plotPoint A c-style array of data point coordinates (as @double values).
  *  @return The drawing coordinates of the data point.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::plotAreaViewPointForDoublePrecisionPlotPoint:numberOfCoordinates: -plotAreaViewPointForDoublePrecisionPlotPoint:numberOfCoordinates: @endlink instead.
  **/
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint
 {
+    return [self plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates];
+}
+
+/** @brief Converts a data point to plot area drawing coordinates.
+ *  @param plotPoint A c-style array of data point coordinates (as @double values).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @return The drawing coordinates of the data point.
+ **/
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
+
     return CGPointZero;
 }
 
 /** @brief Converts a point given in plot area drawing coordinates to the data coordinate space.
  *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *  @param point The drawing coordinates of the data point.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::plotPoint:numberOfCoordinates:forPlotAreaViewPoint: -plotPoint:numberOfCoordinates:forPlotAreaViewPoint: @endlink instead.
  **/
 -(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
+    [self plotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates forPlotAreaViewPoint:point];
+}
+
+/** @brief Converts a point given in plot area drawing coordinates to the data coordinate space.
+ *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @param point The drawing coordinates of the data point.
+ **/
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
 }
 
 /** @brief Converts a point given in drawing coordinates to the data coordinate space.
  *  @param plotPoint A c-style array of data point coordinates (as @double values).
  *  @param point The drawing coordinates of the data point.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::doublePrecisionPlotPoint:numberOfCoordinates:forPlotAreaViewPoint: -doublePrecisionPlotPoint:numberOfCoordinates:forPlotAreaViewPoint: @endlink instead.
  **/
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point
 {
+    [self doublePrecisionPlotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates forPlotAreaViewPoint:point];
+}
+
+/** @brief Converts a point given in drawing coordinates to the data coordinate space.
+ *  @param plotPoint A c-style array of data point coordinates (as @double values).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @param point The drawing coordinates of the data point.
+ **/
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
 }
 
 /** @brief Converts the interaction point of an OS event to plot area drawing coordinates.
@@ -263,17 +327,43 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 /** @brief Converts the interaction point of an OS event to the data coordinate space.
  *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *  @param event The event.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::plotPoint:numberOfCoordinates:forEvent: -plotPoint:numberOfCoordinates:forEvent: @endlink instead.
  **/
 -(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event
 {
+    [self plotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates forEvent:event];
+}
+
+/** @brief Converts the interaction point of an OS event to the data coordinate space.
+ *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @param event The event.
+ **/
+-(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
 }
 
 /** @brief Converts the interaction point of an OS event to the data coordinate space.
  *  @param plotPoint A c-style array of data point coordinates (as @double values).
  *  @param event The event.
+ *  @deprecated This method will be removed in the 2.0 release. Use
+ *  @link CPTPlotSpace::doublePrecisionPlotPoint:numberOfCoordinates:forEvent: -doublePrecisionPlotPoint:numberOfCoordinates:forEvent: @endlink instead.
  **/
 -(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event
 {
+    [self doublePrecisionPlotPoint:plotPoint numberOfCoordinates:self.numberOfCoordinates forEvent:event];
+}
+
+/** @brief Converts the interaction point of an OS event to the data coordinate space.
+ *  @param plotPoint A c-style array of data point coordinates (as @double values).
+ *  @param count The number of coordinate values in the @par{plotPoint} array.
+ *  @param event The event.
+ **/
+-(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
 }
 
 /** @brief Sets the range of values for a given coordinate.

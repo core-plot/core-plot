@@ -1640,6 +1640,11 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-deprecated-implementations",
+				);
 				PRODUCT_NAME = CorePlot;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1663,6 +1668,11 @@
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_CFLAGS = (
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-deprecated-implementations",
+				);
 				PRODUCT_NAME = CorePlot;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;

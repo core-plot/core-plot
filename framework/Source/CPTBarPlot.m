@@ -556,8 +556,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 break;
         }
 
-        CGPoint originPoint    = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint];
-        CGPoint displacedPoint = [thePlotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint];
+        CGPoint originPoint    = [thePlotSpace plotAreaViewPointForPlotPoint:originPlotPoint numberOfCoordinates:2];
+        CGPoint displacedPoint = [thePlotSpace plotAreaViewPointForPlotPoint:displacedPlotPoint numberOfCoordinates:2];
 
         switch ( coordinate ) {
             case CPTCoordinateX:
@@ -586,8 +586,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         CGPoint displacedViewPoint = CPTPointMake(floatLength, floatLength);
         double originPlotPoint[2], displacedPlotPoint[2];
         CPTPlotSpace *thePlotSpace = self.plotSpace;
-        [thePlotSpace doublePrecisionPlotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [thePlotSpace doublePrecisionPlotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+        [thePlotSpace doublePrecisionPlotPoint:originPlotPoint numberOfCoordinates:2 forPlotAreaViewPoint:originViewPoint];
+        [thePlotSpace doublePrecisionPlotPoint:displacedPlotPoint numberOfCoordinates:2 forPlotAreaViewPoint:displacedViewPoint];
         if ( self.barsAreHorizontal ) {
             length = displacedPlotPoint[CPTCoordinateY] - originPlotPoint[CPTCoordinateY];
         }
@@ -611,8 +611,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         CGPoint displacedViewPoint = CPTPointMake(floatLength, floatLength);
         NSDecimal originPlotPoint[2], displacedPlotPoint[2];
         CPTPlotSpace *thePlotSpace = self.plotSpace;
-        [thePlotSpace plotPoint:originPlotPoint forPlotAreaViewPoint:originViewPoint];
-        [thePlotSpace plotPoint:displacedPlotPoint forPlotAreaViewPoint:displacedViewPoint];
+        [thePlotSpace plotPoint:originPlotPoint numberOfCoordinates:2 forPlotAreaViewPoint:originViewPoint];
+        [thePlotSpace plotPoint:displacedPlotPoint numberOfCoordinates:2 forPlotAreaViewPoint:displacedViewPoint];
         if ( self.barsAreHorizontal ) {
             length = CPTDecimalSubtract(displacedPlotPoint[CPTCoordinateY], originPlotPoint[CPTCoordinateY]);
         }
@@ -779,7 +779,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( isnan(plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *tipPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+        *tipPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
         // Base point
         if ( !self.barBasesVary ) {
@@ -791,7 +791,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( isnan(plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *basePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint];
+        *basePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
     }
     else {
         NSDecimal plotPoint[2];
@@ -805,7 +805,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *tipPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+        *tipPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
         // Base point
         if ( !self.barBasesVary ) {
@@ -817,7 +817,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
             return NO;
         }
-        *basePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint];
+        *basePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
     }
 
     // Determine bar width and offset.
