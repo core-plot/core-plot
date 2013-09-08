@@ -169,6 +169,22 @@
         </member>
     </compound>
     <compound kind="class" objc="yes">
+        <name>NSCursor</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSCursor_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <member kind="function" static="yes">
+            <type>NSCursor *</type>
+            <name>closedHandCursor</name>
+            <anchor>//apple_ref/occ/clm/NSCursor/closedHandCursor</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>NSCursor *</type>
+            <name>openHandCursor</name>
+            <anchor>//apple_ref/occ/clm/NSCursor/openHandCursor</anchor>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
         <name>NSData</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSData_Class/Reference/Reference.html</filename>
         <base>NSObject</base>

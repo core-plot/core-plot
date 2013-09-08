@@ -115,16 +115,11 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding> {
-    @private
-    __cpt_weak CPTGraph *graph;
-    id<NSCopying, NSCoding, NSObject> identifier;
-    __cpt_weak id<CPTPlotSpaceDelegate> delegate;
-    BOOL allowsUserInteraction;
-}
+@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>
 
 @property (nonatomic, readwrite, copy) id<NSCopying, NSCoding, NSObject> identifier;
-@property (nonatomic, readwrite, assign) BOOL allowsUserInteraction;
+@property (nonatomic, readwrite) BOOL allowsUserInteraction;
+@property (nonatomic, readonly) BOOL isDragging;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraph *graph;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak id<CPTPlotSpaceDelegate> delegate;
 

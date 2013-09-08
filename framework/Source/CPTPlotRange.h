@@ -5,20 +5,13 @@
 /**
  *  @brief Enumeration of possible results of a plot range comparison.
  **/
-typedef enum _CPTPlotRangeComparisonResult {
+typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
     CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
     CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
-}
-CPTPlotRangeComparisonResult;
+};
 
-@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @private
-    NSDecimal location;
-    NSDecimal length;
-    double locationDouble;
-    double lengthDouble;
-}
+@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
 /// @name Range Limits
 /// @{
@@ -39,12 +32,12 @@ CPTPlotRangeComparisonResult;
 
 /// @name Factory Methods
 /// @{
-+(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
++(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+-(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
 /// @}
 
 /// @name Checking Ranges

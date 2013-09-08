@@ -32,18 +32,18 @@
 
         // Add some data
         NSMutableArray *newData = [NSMutableArray array];
-        NSUInteger i;
 
-        for ( i = 0; i < 5; i++ ) {
+        for ( NSUInteger i = 0; i < 5; i++ ) {
             NSTimeInterval x = oneDay * i;
-            id y             = [NSDecimalNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
+            NSNumber *y      = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+
             [newData addObject:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-              [NSDecimalNumber numberWithFloat:x], [NSNumber numberWithInt:CPTScatterPlotFieldX],
-              y, [NSNumber numberWithInt:CPTScatterPlotFieldY],
-              nil]];
+             @{ @(CPTScatterPlotFieldX): @(x),
+                @(CPTScatterPlotFieldY): y }
+            ];
+
+            plotData = [newData retain];
         }
-        plotData = [newData retain];
     }
 }
 
@@ -134,9 +134,7 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithInt:fieldEnum]];
-
-    return num;
+    return plotData[index][@(fieldEnum)];
 }
 
 @end

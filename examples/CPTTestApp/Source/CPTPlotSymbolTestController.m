@@ -2,7 +2,7 @@
 
 @interface CPTPlotSymbolTestController()
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @end
 
@@ -71,19 +71,19 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num;
+    NSNumber *num;
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lud", (unsigned long)index]];
+            num = @(index);
             break;
 
         case CPTScatterPlotFieldY:
-            num = [NSDecimalNumber decimalNumberWithString:(NSString *)plot.identifier];
+            num = @([(NSString *)plot.identifier integerValue]);
             break;
 
         default:
-            num = [NSDecimalNumber zero];
+            num = @0;
     }
     return num;
 }

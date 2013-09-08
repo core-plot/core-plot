@@ -33,7 +33,7 @@
  *  @param newOffset The offset.
  *  @return The initialized CPTConstraints object.
  **/
--(id)initWithRelativeOffset:(CGFloat)newOffset
+-(instancetype)initWithRelativeOffset:(CGFloat)newOffset
 {
     if ( (self = [super init]) ) {
         offset = newOffset;
@@ -79,7 +79,7 @@
 {
     _CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->offset = self->offset;
+    copy.offset = self.offset;
 
     return copy;
 }
@@ -101,7 +101,7 @@
     [coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsRelative.offset"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];

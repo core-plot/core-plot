@@ -1,11 +1,8 @@
-@interface CPTImage : NSObject<NSCoding, NSCopying> {
-    @private
-    CGImageRef image;
-    CGFloat scale;
-    BOOL tiled;
-    BOOL tileAnchoredToContext;
-}
+#import "CPTPlatformSpecificDefines.h"
 
+@interface CPTImage : NSObject<NSCoding, NSCopying>
+
+@property (nonatomic, readwrite, copy) CPTNativeImage *nativeImage;
 @property (nonatomic, readwrite, assign) CGImageRef image;
 @property (nonatomic, readwrite, assign) CGFloat scale;
 @property (nonatomic, readwrite, assign, getter = isTiled) BOOL tiled;
@@ -14,16 +11,22 @@
 
 /// @name Factory Methods
 /// @{
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
-+(CPTImage *)imageWithCGImage:(CGImageRef)anImage;
-+(CPTImage *)imageForPNGFile:(NSString *)path;
++(instancetype)imageNamed:(NSString *)name;
+
++(instancetype)imageWithNativeImage:(CPTNativeImage *)anImage;
++(instancetype)imageWithContentsOfFile:(NSString *)path;
++(instancetype)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
++(instancetype)imageWithCGImage:(CGImageRef)anImage;
++(instancetype)imageForPNGFile:(NSString *)path;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
--(id)initWithCGImage:(CGImageRef)anImage;
--(id)initForPNGFile:(NSString *)path;
+-(instancetype)initWithNativeImage:(CPTNativeImage *)anImage;
+-(instancetype)initWithContentsOfFile:(NSString *)path;
+-(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
+-(instancetype)initWithCGImage:(CGImageRef)anImage;
+-(instancetype)initForPNGFile:(NSString *)path;
 /// @}
 
 /// @name Drawing

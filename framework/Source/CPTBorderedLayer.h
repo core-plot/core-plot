@@ -3,12 +3,7 @@
 @class CPTLineStyle;
 @class CPTFill;
 
-@interface CPTBorderedLayer : CPTAnnotationHostLayer {
-    @private
-    CPTLineStyle *borderLineStyle;
-    CPTFill *fill;
-    BOOL inLayout;
-}
+@interface CPTBorderedLayer : CPTAnnotationHostLayer
 
 /// @name Drawing
 /// @{

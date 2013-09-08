@@ -136,8 +136,8 @@
             currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
             NSArray *columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 
-            double xValue = [[columnValues objectAtIndex:0] doubleValue];
-            double yValue = [[columnValues objectAtIndex:1] doubleValue];
+            double xValue = [columnValues[0] doubleValue];
+            double yValue = [columnValues[1] doubleValue];
             if ( xValue < minimumValueForXAxis ) {
                 minimumValueForXAxis = xValue;
             }
@@ -152,9 +152,11 @@
             }
 
 #ifdef USE_NSDECIMAL
-            [dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:0]], @"x", [NSDecimalNumber decimalNumberWithString:[columnValues objectAtIndex:1]], @"y", nil]];
+            [dataPoints addObject:@{ @"x": [NSDecimalNumber decimalNumberWithString:columnValues[0]], @"y": [NSDecimalNumber decimalNumberWithString:columnValues[1]] }
+            ];
 #else
-            [dataPoints addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:xValue], @"x", [NSNumber numberWithDouble:yValue], @"y", nil]];
+            [dataPoints addObject:@{ @"x": @(xValue), @"y": @(yValue) }
+            ];
 #endif
             // Create a dictionary of the items, keyed to the header titles
 //			NSDictionary *keyedImportedItems = [[NSDictionary alloc] initWithObjects:columnValues forKeys:columnHeaders];
@@ -262,7 +264,7 @@
 -(IBAction)exportToPDF:(id)sender;
 {
     NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
-    [pdfSavingDialog setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
+    [pdfSavingDialog setAllowedFileTypes:@[@"pdf"]];
 
     if ( [pdfSavingDialog runModal] == NSOKButton ) {
         NSData *dataForPDF = [graph dataForPDFRepresentationOfLayer];
@@ -273,7 +275,7 @@
 -(IBAction)exportToPNG:(id)sender;
 {
     NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
-    [pngSavingDialog setAllowedFileTypes:[NSArray arrayWithObject:@"png"]];
+    [pngSavingDialog setAllowedFileTypes:@[@"png"]];
 
     if ( [pngSavingDialog runModal] == NSOKButton ) {
         NSImage *image            = [graph imageOfLayer];
@@ -295,7 +297,7 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [[dataPoints objectAtIndex:index] valueForKey:key];
+    NSNumber *num = [dataPoints[index] valueForKey:key];
 
     return num;
 }
@@ -351,65 +353,65 @@
 
             double start[2];
             [graph.defaultPlotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
-            NSArray *anchorPoint = [NSArray arrayWithObjects:
-                                    [NSNumber numberWithDouble:start[CPTCoordinateX]],
-                                    [NSNumber numberWithDouble:start[CPTCoordinateY]],
-                                    nil];
+            NSArray *anchorPoint = [NSArray arrayWithObjects :
+                                    [graph.defaultPlotSpace doublePrecisionPlotPoint:start forPlotAreaViewPoint:dragStartInPlotArea];
+                                    NSArray *anchorPoint = @[@(start[CPTCoordinateX]),
+                                                             @(start[CPTCoordinateY])];
 
-            // now create the annotation
-            zoomAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-            zoomAnnotation.contentLayer = zoomRectangleLayer;
+// now create the annotation
+                                    zoomAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
+                                    zoomAnnotation.contentLayer = zoomRectangleLayer;
 
-            [graph.plotAreaFrame.plotArea addAnnotation:zoomAnnotation];
-        }
-    }
+                                    [graph.plotAreaFrame.plotArea addAnnotation:zoomAnnotation];
+                                    }
+                                    }
 
-    return NO;
-}
+                                    return NO;
+                                    }
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
-{
-    if ( zoomAnnotation ) {
-        dragEnd = interactionPoint;
+                                    -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+                                    {
+                                        if ( zoomAnnotation ) {
+                                            dragEnd = interactionPoint;
 
-        // double-click to completely zoom out
-        if ( [event clickCount] == 2 ) {
-            CPTPlotArea *plotArea     = graph.plotAreaFrame.plotArea;
-            CGPoint dragEndInPlotArea = [graph convertPoint:interactionPoint toLayer:plotArea];
+// double-click to completely zoom out
+                                            if ( [event clickCount] == 2 ) {
+                                                CPTPlotArea *plotArea = graph.plotAreaFrame.plotArea;
+                                                CGPoint dragEndInPlotArea = [graph convertPoint:interactionPoint toLayer:plotArea];
 
-            if ( CGRectContainsPoint(plotArea.bounds, dragEndInPlotArea) ) {
-                [self zoomOut];
-            }
-        }
-        else if ( !CGPointEqualToPoint(dragStart, dragEnd) ) {
-            // no accidental drag, so zoom in
-            [self zoomIn];
-        }
+                                                if ( CGRectContainsPoint(plotArea.bounds, dragEndInPlotArea) ) {
+                                                    [self zoomOut];
+                                                }
+                                            }
+                                            else if ( !CGPointEqualToPoint(dragStart, dragEnd) ) {
+// no accidental drag, so zoom in
+                                                [self zoomIn];
+                                            }
 
-        // and we're done with the drag
-        [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-        [zoomAnnotation release];
-        zoomAnnotation = nil;
+// and we're done with the drag
+                                            [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
+                                            [zoomAnnotation release];
+                                            zoomAnnotation = nil;
 
-        dragStart = CGPointZero;
-        dragEnd   = CGPointZero;
-    }
+                                            dragStart = CGPointZero;
+                                            dragEnd = CGPointZero;
+                                        }
 
-    return NO;
-}
+                                        return NO;
+                                    }
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
-{
-    if ( zoomAnnotation ) {
-        [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-        [zoomAnnotation release];
-        zoomAnnotation = nil;
+                                    -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
+                                    {
+                                        if ( zoomAnnotation ) {
+                                            [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
+                                            [zoomAnnotation release];
+                                            zoomAnnotation = nil;
 
-        dragStart = CGPointZero;
-        dragEnd   = CGPointZero;
-    }
+                                            dragStart = CGPointZero;
+                                            dragEnd = CGPointZero;
+                                        }
 
-    return NO;
-}
+                                        return NO;
+                                    }
 
-@end
+                                    @end

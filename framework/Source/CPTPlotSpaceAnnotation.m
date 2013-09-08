@@ -49,12 +49,12 @@
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
--(id)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
+-(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
 {
     NSParameterAssert(newPlotSpace);
 
     if ( (self = [super init]) ) {
-        plotSpace       = [newPlotSpace retain];
+        plotSpace       = newPlotSpace;
         anchorPlotPoint = [newPlotPoint copy];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,7 +70,7 @@
 /// @cond
 
 // plotSpace is required; this will fail the assertion in -initWithPlotSpace:anchorPlotPoint:
--(id)init
+-(instancetype)init
 {
     return [self initWithPlotSpace:nil anchorPlotPoint:nil];
 }
@@ -78,9 +78,6 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [plotSpace release];
-    [anchorPlotPoint release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -98,11 +95,11 @@
     [coder encodeConditionalObject:self.plotSpace forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
-        plotSpace       = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"] retain];
+        plotSpace       = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
     }
     return self;
 }
@@ -133,14 +130,15 @@
                 // Get plot area point
                 NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * anchorCount);
                 for ( NSUInteger i = 0; i < anchorCount; i++ ) {
-                    decimalPoint[i] = [[plotAnchor objectAtIndex:i] decimalValue];
+                    decimalPoint[i] = [plotAnchor[i] decimalValue];
                 }
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
                 CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:decimalPoint numberOfCoordinates:anchorCount];
                 free(decimalPoint);
 
                 CGPoint newPosition;
-                CPTPlotArea *plotArea = thePlotSpace.graph.plotAreaFrame.plotArea;
+                CPTGraph *theGraph    = thePlotSpace.graph;
+                CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
                 if ( plotArea ) {
                     newPosition = [plotArea convertPoint:plotAreaViewAnchorPoint toLayer:hostLayer];
                 }
@@ -170,7 +168,6 @@
 -(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
-        [anchorPlotPoint release];
         anchorPlotPoint = [newPlotPoint copy];
         [self setContentNeedsLayout];
     }

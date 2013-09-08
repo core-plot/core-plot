@@ -38,6 +38,6 @@ Key
 
 **(1)**	Zero or one layer of this type
 
-**(*)**	Zero or more layers of this type
+**(\*)**	Zero or more layers of this type
 
 **{n}**	n is the element drawn by the indicated layer

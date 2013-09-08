@@ -2,6 +2,18 @@
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
+/// @cond
+
+@interface CPTPlotSpace()
+
+@property (nonatomic, readwrite) BOOL isDragging;
+
+@end
+
+/// @endcond
+
+#pragma mark -
+
 /**
  *  @brief Defines the coordinate system of a plot.
  *
@@ -19,6 +31,11 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *  @brief Determines whether user can interactively change plot range and/or zoom.
  **/
 @synthesize allowsUserInteraction;
+
+/** @property BOOL isDragging
+ *  @brief Returns @YES when the user is actively dragging the plot space.
+ **/
+@synthesize isDragging;
 
 /** @property __cpt_weak CPTGraph *graph
  *  @brief The graph of the space.
@@ -46,16 +63,18 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
  *  The initialized object will have the following properties:
  *  - @ref identifier = @nil
  *  - @ref allowsUserInteraction = @NO
+ *  - @ref isDragging = @NO
  *  - @ref graph = @nil
  *  - @ref delegate = @nil
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         identifier            = nil;
         allowsUserInteraction = NO;
+        isDragging            = NO;
         graph                 = nil;
         delegate              = nil;
     }
@@ -70,8 +89,6 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     delegate = nil;
     graph    = nil;
-    [identifier release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -85,19 +102,25 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     [coder encodeConditionalObject:self.graph forKey:@"CPTPlotSpace.graph"];
     [coder encodeObject:self.identifier forKey:@"CPTPlotSpace.identifier"];
-    if ( [self.delegate conformsToProtocol:@protocol(NSCoding)] ) {
-        [coder encodeConditionalObject:self.delegate forKey:@"CPTPlotSpace.delegate"];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+    if ( [theDelegate conformsToProtocol:@protocol(NSCoding)] ) {
+        [coder encodeConditionalObject:theDelegate forKey:@"CPTPlotSpace.delegate"];
     }
     [coder encodeBool:self.allowsUserInteraction forKey:@"CPTPlotSpace.allowsUserInteraction"];
+
+    // No need to archive these properties:
+    // isDragging
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         graph                 = [coder decodeObjectForKey:@"CPTPlotSpace.graph"];
         identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
         delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
         allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
+
+        isDragging = NO;
     }
     return self;
 }
@@ -130,8 +153,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDownEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceDownEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -156,8 +181,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceUpEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceUpEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -182,8 +209,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceDraggedEvent:atPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceDraggedEvent:event atPoint:interactionPoint];
     }
     return handledByDelegate;
 }
@@ -208,8 +237,10 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 {
     BOOL handledByDelegate = NO;
 
-    if ( [delegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
-        handledByDelegate = ![delegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandlePointingDeviceCancelledEvent:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandlePointingDeviceCancelledEvent:event];
     }
     return handledByDelegate;
 }

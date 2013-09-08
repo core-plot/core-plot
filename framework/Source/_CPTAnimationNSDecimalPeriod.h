@@ -1,6 +1,5 @@
 #import "CPTAnimationPeriod.h"
 
-@interface _CPTAnimationNSDecimalPeriod : CPTAnimationPeriod {
-}
+@interface _CPTAnimationNSDecimalPeriod : CPTAnimationPeriod
 
 @end

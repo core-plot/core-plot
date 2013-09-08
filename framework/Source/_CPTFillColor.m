@@ -30,23 +30,13 @@
  *  @param aColor The color.
  *  @return The initialized _CPTFillColor object.
  **/
--(id)initWithColor:(CPTColor *)aColor
+-(instancetype)initWithColor:(CPTColor *)aColor
 {
     if ( (self = [super init]) ) {
-        fillColor = [aColor retain];
+        fillColor = aColor;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [fillColor release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -91,7 +81,7 @@
 {
     _CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillColor = [self->fillColor copyWithZone:zone];
+    copy.fillColor = self.fillColor;
 
     return copy;
 }
@@ -113,10 +103,10 @@
     [coder encodeObject:self.fillColor forKey:@"_CPTFillColor.fillColor"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillColor = [[coder decodeObjectForKey:@"_CPTFillColor.fillColor"] retain];
+        fillColor = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
     }
     return self;
 }

@@ -16,7 +16,9 @@
 
 -(void)setupThemes
 {
+    [themes release];
     themes = [[NSMutableArray alloc] init];
+
     [themes addObject:kThemeTableViewControllerDefaultTheme];
     [themes addObject:kThemeTableViewControllerNoTheme];
 
@@ -68,7 +70,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
-    cell.textLabel.text = [themes objectAtIndex:indexPath.row];
+    cell.textLabel.text = themes[indexPath.row];
 
     return cell;
 }
@@ -78,7 +80,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate themeSelectedAtIndex:[themes objectAtIndex:indexPath.row]];
+    [delegate themeSelectedAtIndex:themes[indexPath.row]];
 }
 
 #pragma mark -
