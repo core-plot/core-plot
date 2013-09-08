@@ -198,8 +198,8 @@
     double start[2], end[2];
 
     // obtain the datapoints for the drag start and end
-    [plotSpace doublePrecisionPlotPoint:start forPlotAreaViewPoint:dragStartInPlotArea];
-    [plotSpace doublePrecisionPlotPoint:end forPlotAreaViewPoint:dragEndInPlotArea];
+    [plotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
+    [plotSpace doublePrecisionPlotPoint:end numberOfCoordinates:2 forPlotAreaViewPoint:dragEndInPlotArea];
 
     // recalculate the min and max values
     minimumValueForXAxis = MIN(start[CPTCoordinateX], end[CPTCoordinateX]);
@@ -350,7 +350,7 @@
             zoomRectangleLayer.fill = [CPTFill fillWithColor:transparentFillColor];
 
             double start[2];
-            [graph.defaultPlotSpace doublePrecisionPlotPoint:start forPlotAreaViewPoint:dragStartInPlotArea];
+            [graph.defaultPlotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
             NSArray *anchorPoint = [NSArray arrayWithObjects:
                                     [NSNumber numberWithDouble:start[CPTCoordinateX]],
                                     [NSNumber numberWithDouble:start[CPTCoordinateY]],
