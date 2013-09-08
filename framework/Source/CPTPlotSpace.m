@@ -222,10 +222,14 @@ NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSp
 
 @implementation CPTPlotSpace(AbstractMethods)
 
+/// @cond
+
 -(NSUInteger)numberOfCoordinates
 {
     return 0;
 }
+
+/// @endcond
 
 /** @brief Converts a data point to plot area drawing coordinates.
  *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
