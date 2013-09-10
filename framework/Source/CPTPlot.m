@@ -1233,21 +1233,13 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     NSUInteger numberOfSamples = numbers.numberOfSamples;
     if ( numberOfSamples > 0 ) {
         if ( self.doublePrecisionCache ) {
-            // TODO: Should use Accelerate framework for min and max as soon as the minimum iOS version is 4.0
+            double *doubles = (double *)numbers.bytes;
 
             double min = INFINITY;
             double max = -INFINITY;
 
-            const double *doubles    = (const double *)numbers.bytes;
-            const double *lastSample = doubles + numberOfSamples;
-            while ( doubles < lastSample ) {
-                double value = *doubles++;
-
-                if ( !isnan(value) ) {
-                    min = MIN(min, value);
-                    max = MAX(max, value);
-                }
-            }
+            vDSP_minvD(doubles, 1, &min, (vDSP_Length)numberOfSamples);
+            vDSP_maxvD(doubles, 1, &max, (vDSP_Length)numberOfSamples);
 
             if ( max >= min ) {
                 range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min) length:CPTDecimalFromDouble(max - min)];

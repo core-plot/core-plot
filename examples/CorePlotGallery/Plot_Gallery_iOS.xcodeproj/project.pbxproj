@@ -52,6 +52,7 @@
 		C3BA675D175EC22100CFABBA /* Checkerboard.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675B175EC22100CFABBA /* Checkerboard.png */; };
 		C3BA675E175EC22100CFABBA /* Checkerboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */; };
 		C3BB7D371633428900BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D361633428900BC9515 /* Default-568h@2x.png */; };
+		C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282917DE9A7E008EED1E /* Accelerate.framework */; };
 		C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BAB175EB30800F27173 /* ImageDemo.m */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 		C3F47B5D17BF94CA0075181F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B5C17BF94CA0075181F /* Icon@2x.png */; };
@@ -152,6 +153,7 @@
 		C3BA675B175EC22100CFABBA /* Checkerboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkerboard.png; path = img/Checkerboard.png; sourceTree = "<group>"; };
 		C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkerboard@2x.png"; path = "img/Checkerboard@2x.png"; sourceTree = "<group>"; };
 		C3BB7D361633428900BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3CD282917DE9A7E008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D70BAA175EB30800F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BAB175EB30800F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
 		C3F34F2812AB25AE008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */,
+				C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +211,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 				4F5EBAC212297F2400D147E7 /* QuartzCore.framework */,
+				C3CD282917DE9A7E008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

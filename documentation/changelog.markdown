@@ -7,6 +7,7 @@ To be determined.
 ## Details
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **New**: Added two additional initialization methods to `CPTImage`. 
+- **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
 - **Changed**: Increased the deployment target to iOS 4.3 and Mac OS X 10.6.
 - **Changed**: Removed support for garbage collection.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
