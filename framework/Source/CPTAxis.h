@@ -5,6 +5,7 @@
 /// @file
 
 @class CPTAxis;
+@class CPTAxisLabel;
 @class CPTAxisSet;
 @class CPTAxisTitle;
 @class CPTGridLines;
@@ -69,6 +70,45 @@ CPTAxisLabelingPolicy;
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
 -(BOOL)axis:(CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(NSSet *)locations;
+
+/// @}
+
+/// @name Label Selection
+/// @{
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ **/
+-(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a minor tick axis label was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that a minor tick axis label was
+ *  @if MacOnly clicked. @endif
+ *  @if iOSOnly touched. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

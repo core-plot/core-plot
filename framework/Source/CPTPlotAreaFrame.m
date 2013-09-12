@@ -126,6 +126,7 @@
         plotArea = [newPlotArea retain];
         if ( plotArea ) {
             [self insertSublayer:plotArea atIndex:0];
+            plotArea.graph = self.graph;
         }
         [self setNeedsLayout];
     }
@@ -149,6 +150,15 @@
 -(void)setPlotGroup:(CPTPlotGroup *)newPlotGroup
 {
     self.plotArea.plotGroup = newPlotGroup;
+}
+
+-(void)setGraph:(CPTGraph *)newGraph
+{
+    if ( newGraph != self.graph ) {
+        [super setGraph:newGraph];
+
+        self.plotArea.graph = newGraph;
+    }
 }
 
 /// @endcond

@@ -144,6 +144,38 @@
 }
 
 #pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
+ *
+ *
+ *  The event will be passed to each axis belonging to the receiver in turn. This method
+ *  returns @YES if any of its axes handle the event.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    for ( CPTAxis *axis in self.axes ) {
+        if ( [axis pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+            return YES;
+        }
+    }
+
+    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/// @}
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond
@@ -154,14 +186,17 @@
         for ( CPTAxis *axis in axes ) {
             [axis removeFromSuperlayer];
             axis.plotArea = nil;
+            axis.graph    = nil;
         }
         [newAxes retain];
         [axes release];
         axes = newAxes;
         CPTPlotArea *plotArea = (CPTPlotArea *)self.superlayer;
+        CPTGraph *theGraph    = plotArea.graph;
         for ( CPTAxis *axis in axes ) {
             [self addSublayer:axis];
             axis.plotArea = plotArea;
+            axis.graph    = theGraph;
         }
         [self setNeedsLayout];
         [self setNeedsDisplay];
