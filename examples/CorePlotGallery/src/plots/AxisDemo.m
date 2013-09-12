@@ -98,6 +98,7 @@
     x.titleTextStyle              = axisTitleTextStyle;
     x.titleOffset                 = 25.0;
     x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
+    x.delegate                    = self;
 
     // Label y with an automatic labeling policy.
     axisLineStyle.lineColor = [CPTColor greenColor];
@@ -117,6 +118,7 @@
     y.titleTextStyle        = axisTitleTextStyle;
     y.titleOffset           = 30.0;
     y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.delegate              = self;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
     [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
@@ -143,9 +145,19 @@
     y2.title                       = @"Y2 Axis";
     y2.titleTextStyle              = axisTitleTextStyle;
     y2.titleOffset                 = -50.0;
+    y2.delegate                    = self;
 
     // Add the y2 axis to the axis set
     graph.axisSet.axes = @[x, y, y2];
+}
+
+#pragma mark - Axis delegate
+
+-(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label
+{
+    NSDecimal labelLocation = label.tickLocation;
+
+    NSLog( @"%@ label was selected at location %@", axis.title, NSDecimalString(&labelLocation, nil) );
 }
 
 @end

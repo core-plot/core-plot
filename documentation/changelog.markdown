@@ -31,6 +31,7 @@ To be determined.
 - **New**: Added a datasource class that automatically creates scatter plot data from a function.
 - **New**: Added an option to turn off automatic plot data label anchor point adjustments.
 - **New**: Added a count parameter to all plot space methods that take a c-style array of coordinate values and deprecated the old versions. These methods will be removed in release 2.0.
+- **New**: Added axis label selection delegate methods.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 

@@ -673,9 +673,11 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         [self updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
 
         if ( axisSet ) {
+            CPTGraph *theGraph = self.graph;
             [self insertSublayer:axisSet atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLines]];
             for ( CPTAxis *axis in axisSet.axes ) {
                 axis.plotArea = self;
+                axis.graph    = theGraph;
             }
         }
         [self setNeedsLayout];
@@ -723,6 +725,17 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( newArray != topDownLayerOrder ) {
         topDownLayerOrder = newArray;
         [self updateLayerOrder];
+    }
+}
+
+-(void)setGraph:(CPTGraph *)newGraph
+{
+    if ( newGraph != self.graph ) {
+        [super setGraph:newGraph];
+
+        for ( CPTAxis *axis in self.axisSet.axes ) {
+            axis.graph = newGraph;
+        }
     }
 }
 

@@ -8,7 +8,7 @@
 
 #import "PlotItem.h"
 
-@interface AxisDemo : PlotItem
+@interface AxisDemo : PlotItem<CPTAxisDelegate>
 {
 }
 

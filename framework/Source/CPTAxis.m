@@ -1764,6 +1764,93 @@ NSDecimal niceNum(NSDecimal x)
 }
 
 #pragma mark -
+#pragma mark Responder Chain and User interaction
+
+/// @name User Interaction
+/// @{
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
+ *
+ *
+ *  If this axis has a delegate that responds to the
+ *  @link CPTAxisDelegate::axis:labelWasSelected: -axis:labelWasSelected: @endlink and/or
+ *  @link CPTAxisDelegate::axis:labelWasSelected:withEvent: -axis:labelWasSelected:withEvent: @endlink
+ *  methods, the axis labels are searched to find the one containing the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
+ *
+ *  If this axis has a delegate that responds to the
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected: -axis:minorTickLabelWasSelected: @endlink and/or
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected:withEvent: -axis:minorTickLabelWasSelected:withEvent: @endlink
+ *  methods, the minor tick axis labels are searched to find the one containing the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
+ *
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the labels.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    CPTGraph *theGraph = self.graph;
+
+    if ( !theGraph || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTAxisDelegate> theDelegate = self.delegate;
+
+    // Tick labels
+    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
+        for ( CPTAxisLabel *label in self.axisLabels ) {
+            CPTLayer *contentLayer = label.contentLayer;
+            if ( contentLayer && !contentLayer.hidden ) {
+                CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+
+                if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ) {
+                        [theDelegate axis:self labelWasSelected:label];
+                    }
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
+                        [theDelegate axis:self labelWasSelected:label withEvent:event];
+                    }
+                    return YES;
+                }
+            }
+        }
+    }
+
+    // Minor tick labels
+    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            CPTLayer *contentLayer = label.contentLayer;
+            if ( contentLayer && !contentLayer.hidden ) {
+                CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+
+                if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ) {
+                        [theDelegate axis:self minorTickLabelWasSelected:label];
+                    }
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
+                        [theDelegate axis:self minorTickLabelWasSelected:label withEvent:event];
+                    }
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/// @}
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond
