@@ -330,20 +330,26 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
         }
 
-        xRange = [constrainedRange copy];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                            object:self];
-
         id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
-        if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
-            [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+            constrainedRange = [theDelegate plotSpace:self willChangePlotRangeTo:constrainedRange forCoordinate:CPTCoordinateX];
         }
 
-        CPTGraph *theGraph = self.graph;
-        if ( theGraph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
-                                                                object:theGraph];
+        if ( ![constrainedRange isEqualToRange:xRange] ) {
+            xRange = [constrainedRange copy];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                                object:self];
+
+            if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+                [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
+            }
+
+            CPTGraph *theGraph = self.graph;
+            if ( theGraph ) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                    object:theGraph];
+            }
         }
     }
 }
@@ -362,20 +368,26 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
             constrainedRange = [self constrainRange:range toGlobalRange:self.globalYRange];
         }
 
-        yRange = [constrainedRange copy];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                            object:self];
-
         id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
-        if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
-            [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateY];
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+            constrainedRange = [theDelegate plotSpace:self willChangePlotRangeTo:constrainedRange forCoordinate:CPTCoordinateY];
         }
 
-        CPTGraph *theGraph = self.graph;
-        if ( theGraph ) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
-                                                                object:theGraph];
+        if ( ![constrainedRange isEqualToRange:yRange] ) {
+            yRange = [constrainedRange copy];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                                object:self];
+
+            if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+                [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateY];
+            }
+
+            CPTGraph *theGraph = self.graph;
+            if ( theGraph ) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                    object:theGraph];
+            }
         }
     }
 }
@@ -925,12 +937,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     CPTPlotRange *newRangeX = [[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX];
     CPTPlotRange *newRangeY = [[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY];
 
-    // Delegate may still veto/modify the range
-    if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-        newRangeX = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-        newRangeY = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
-    }
-
     BOOL oldElasticGlobalXRange = self.elasticGlobalXRange;
     BOOL oldElasticGlobalYRange = self.elasticGlobalYRange;
     self.elasticGlobalXRange = NO;
@@ -1144,15 +1150,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                                             elastic:self.elasticGlobalYRange
                                    withDisplacement:&displacement.y];
 
-        // Delegate override
-        if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-            self.xRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeX forCoordinate:CPTCoordinateX];
-            self.yRange = [theDelegate plotSpace:self willChangePlotRangeTo:newRangeY forCoordinate:CPTCoordinateY];
-        }
-        else {
-            self.xRange = newRangeX;
-            self.yRange = newRangeY;
-        }
+        self.xRange = newRangeX;
+        self.yRange = newRangeY;
 
         self.lastDragPoint    = pointInPlotArea;
         self.lastDisplacement = displacement;
