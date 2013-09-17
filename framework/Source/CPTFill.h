@@ -26,6 +26,7 @@
 @interface CPTFill(AbstractMethods)
 
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
+@property (nonatomic, readonly) CGColorRef cgColor;
 
 /// @name Drawing
 /// @{

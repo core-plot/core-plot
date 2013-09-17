@@ -147,15 +147,17 @@
  **/
 -(void)renderBorderedLayerAsVectorInContext:(CGContextRef)context
 {
-    CPTFill *theFill = self.fill;
+    if ( !self.backgroundColor || !self.useFastRendering ) {
+        CPTFill *theFill = self.fill;
 
-    if ( theFill ) {
-        BOOL useMask = self.masksToBounds;
-        self.masksToBounds = YES;
-        CGContextBeginPath(context);
-        CGContextAddPath(context, self.maskingPath);
-        [theFill fillPathInContext:context];
-        self.masksToBounds = useMask;
+        if ( theFill ) {
+            BOOL useMask = self.masksToBounds;
+            self.masksToBounds = YES;
+            CGContextBeginPath(context);
+            CGContextAddPath(context, self.maskingPath);
+            [theFill fillPathInContext:context];
+            self.masksToBounds = useMask;
+        }
     }
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
@@ -288,7 +290,13 @@
 
 -(void)updateOpacity
 {
-    BOOL opaqueLayer = ( ( self.cornerRadius <= CPTFloat(0.0) ) && self.fill.opaque );
+    BOOL opaqueLayer = ( self.cornerRadius <= CPTFloat(0.0) );
+
+    CPTFill *theFill = self.fill;
+
+    if ( theFill ) {
+        opaqueLayer = opaqueLayer && theFill.opaque && !theFill.cgColor;
+    }
 
     CPTLineStyle *lineStyle = self.borderLineStyle;
 
@@ -296,7 +304,6 @@
         opaqueLayer = opaqueLayer && lineStyle.opaque;
     }
 
-    self.opaque             = NO;
     self.borderLayer.opaque = opaqueLayer;
 }
 
@@ -329,9 +336,11 @@
     if ( newFill != fill ) {
         fill = [newFill copy];
 
-        [self updateOpacity];
+        CPTLayer *border = self.borderLayer;
+        border.backgroundColor = fill.cgColor;
+        [border setNeedsDisplay];
 
-        [self.borderLayer setNeedsDisplay];
+        [self updateOpacity];
     }
 }
 
@@ -380,8 +389,12 @@
 
                 newBorderLayer.transform = self.transform;
                 newBorderLayer.shadow    = self.shadow;
+                newBorderLayer.opaque    = self.opaque;
 
-                self.transform = CATransform3DIdentity;
+                newBorderLayer.backgroundColor = self.backgroundColor;
+
+                self.transform       = CATransform3DIdentity;
+                self.backgroundColor = NULL;
 
                 [superLayer setNeedsLayout];
 
@@ -397,6 +410,9 @@
         if ( [superLayer isKindOfClass:[CPTBorderLayer class]] ) {
             if ( superLayer.maskedLayer == self ) {
                 self.transform = superLayer.transform;
+                self.opaque    = superLayer.opaque;
+
+                self.backgroundColor = superLayer.backgroundColor;
 
                 [superLayer.superlayer replaceSublayer:superLayer with:self];
 
@@ -468,6 +484,16 @@
         if ( self.masksToBorder ) {
             self.borderLayer.shadow = newShadow;
         }
+    }
+}
+
+-(void)setBackgroundColor:(CGColorRef)newColor
+{
+    if ( self.masksToBorder ) {
+        [self.borderLayer setBackgroundColor:newColor];
+    }
+    else {
+        [super setBackgroundColor:newColor];
     }
 }
 

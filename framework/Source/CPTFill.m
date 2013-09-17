@@ -135,6 +135,11 @@
  */
 @dynamic opaque;
 
+/** @property CGColorRef cgColor
+ *  @brief Returns a @ref CGColorRef describing the fill if the fill can be represented as a color, @NULL otherwise.
+ */
+@dynamic cgColor;
+
 #pragma mark -
 #pragma mark Opacity
 
@@ -142,6 +147,15 @@
 {
     // do nothing--subclasses override to describe the fill opacity
     return NO;
+}
+
+#pragma mark -
+#pragma mark Color
+
+-(CGColorRef)cgColor
+{
+    // do nothing--subclasses override to describe the color
+    return NULL;
 }
 
 #pragma mark -

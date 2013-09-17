@@ -73,6 +73,14 @@
 }
 
 #pragma mark -
+#pragma mark Color
+
+-(CGColorRef)cgColor
+{
+    return self.fillColor.cgColor;
+}
+
+#pragma mark -
 #pragma mark NSCopying Methods
 
 /// @cond
