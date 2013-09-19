@@ -198,7 +198,8 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     [self encodeCGColorSpace:colorSpace forKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
-    [self encodeInt32:(int32_t)CGImageGetBitmapInfo(image) forKey:newKey];
+    const CGBitmapInfo info = CGImageGetBitmapInfo(image);
+    [self encodeBytes:(const void *)(&info) length:sizeof(CGBitmapInfo) forKey:newKey];
 
     CGDataProviderRef provider = CGImageGetDataProvider(image);
     CFDataRef providerData     = CGDataProviderCopyData(provider);
@@ -439,7 +440,8 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     CGColorSpaceRef colorSpace = [self newCGColorSpaceDecodeForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
-    CGBitmapInfo bitmapInfo = (CGBitmapInfo)[self decodeInt32ForKey : newKey];
+    NSUInteger length;
+    const CGBitmapInfo *bitmapInfo = (const void *)[self decodeBytesForKey:newKey returnedLength:&length];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
     CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectForKey:newKey] );
@@ -472,7 +474,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
                                         bitsPerPixel,
                                         bytesPerRow,
                                         colorSpace,
-                                        bitmapInfo,
+                                        *bitmapInfo,
                                         provider,
                                         decodeArray,
                                         shouldInterpolate,

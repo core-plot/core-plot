@@ -353,65 +353,63 @@
 
             double start[2];
             [graph.defaultPlotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
-            NSArray *anchorPoint = [NSArray arrayWithObjects :
-                                    [graph.defaultPlotSpace doublePrecisionPlotPoint:start forPlotAreaViewPoint:dragStartInPlotArea];
-                                    NSArray *anchorPoint = @[@(start[CPTCoordinateX]),
-                                                             @(start[CPTCoordinateY])];
+            NSArray *anchorPoint = @[@(start[CPTCoordinateX]),
+                                     @(start[CPTCoordinateY])];
 
 // now create the annotation
-                                    zoomAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-                                    zoomAnnotation.contentLayer = zoomRectangleLayer;
+            zoomAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
+            zoomAnnotation.contentLayer = zoomRectangleLayer;
 
-                                    [graph.plotAreaFrame.plotArea addAnnotation:zoomAnnotation];
-                                    }
-                                    }
+            [graph.plotAreaFrame.plotArea addAnnotation:zoomAnnotation];
+        }
+    }
 
-                                    return NO;
-                                    }
+    return NO;
+}
 
-                                    -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
-                                    {
-                                        if ( zoomAnnotation ) {
-                                            dragEnd = interactionPoint;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+    if ( zoomAnnotation ) {
+        dragEnd = interactionPoint;
 
 // double-click to completely zoom out
-                                            if ( [event clickCount] == 2 ) {
-                                                CPTPlotArea *plotArea = graph.plotAreaFrame.plotArea;
-                                                CGPoint dragEndInPlotArea = [graph convertPoint:interactionPoint toLayer:plotArea];
+        if ( [event clickCount] == 2 ) {
+            CPTPlotArea *plotArea     = graph.plotAreaFrame.plotArea;
+            CGPoint dragEndInPlotArea = [graph convertPoint:interactionPoint toLayer:plotArea];
 
-                                                if ( CGRectContainsPoint(plotArea.bounds, dragEndInPlotArea) ) {
-                                                    [self zoomOut];
-                                                }
-                                            }
-                                            else if ( !CGPointEqualToPoint(dragStart, dragEnd) ) {
+            if ( CGRectContainsPoint(plotArea.bounds, dragEndInPlotArea) ) {
+                [self zoomOut];
+            }
+        }
+        else if ( !CGPointEqualToPoint(dragStart, dragEnd) ) {
 // no accidental drag, so zoom in
-                                                [self zoomIn];
-                                            }
+            [self zoomIn];
+        }
 
 // and we're done with the drag
-                                            [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-                                            [zoomAnnotation release];
-                                            zoomAnnotation = nil;
+        [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
+        [zoomAnnotation release];
+        zoomAnnotation = nil;
 
-                                            dragStart = CGPointZero;
-                                            dragEnd = CGPointZero;
-                                        }
+        dragStart = CGPointZero;
+        dragEnd   = CGPointZero;
+    }
 
-                                        return NO;
-                                    }
+    return NO;
+}
 
-                                    -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
-                                    {
-                                        if ( zoomAnnotation ) {
-                                            [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-                                            [zoomAnnotation release];
-                                            zoomAnnotation = nil;
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
+{
+    if ( zoomAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
+        [zoomAnnotation release];
+        zoomAnnotation = nil;
 
-                                            dragStart = CGPointZero;
-                                            dragEnd = CGPointZero;
-                                        }
+        dragStart = CGPointZero;
+        dragEnd   = CGPointZero;
+    }
 
-                                        return NO;
-                                    }
+    return NO;
+}
 
-                                    @end
+@end
