@@ -9,11 +9,11 @@
 /// @cond
 @interface CPTGraphHostingView()
 
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak id pinchGestureRecognizer;
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 -(void)updateNotifications;
 -(void)graphNeedsRedraw:(NSNotification *)notification;
--(void)handlePinchGesture:(id)aPinchGestureRecognizer;
+-(void)handlePinchGesture:(UIPinchGestureRecognizer *)aPinchGestureRecognizer;
 
 @end
 
@@ -189,12 +189,9 @@
         allowPinchScaling = allowScaling;
         if ( allowPinchScaling ) {
             // Register for pinches
-            Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
-            if ( pinchClass ) {
-                UIPinchGestureRecognizer *gestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-                [self addGestureRecognizer:gestureRecognizer];
-                self.pinchGestureRecognizer = gestureRecognizer;
-            }
+            UIPinchGestureRecognizer *gestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+            [self addGestureRecognizer:gestureRecognizer];
+            self.pinchGestureRecognizer = gestureRecognizer;
         }
         else {
             UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
@@ -206,7 +203,7 @@
     }
 }
 
--(void)handlePinchGesture:(id)aPinchGestureRecognizer
+-(void)handlePinchGesture:(UIPinchGestureRecognizer *)aPinchGestureRecognizer
 {
     CGPoint interactionPoint = [aPinchGestureRecognizer locationInView:self];
     CPTGraph *theHostedGraph = self.hostedGraph;
@@ -228,7 +225,7 @@
         }
     }
 
-    [pinchRecognizer setScale:1.0f];
+    [pinchRecognizer setScale:1.0];
 }
 
 /// @endcond
