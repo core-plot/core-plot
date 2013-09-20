@@ -192,8 +192,22 @@
  **/
 -(CGSize)sizeWithTextStyle:(CPTTextStyle *)style
 {
-    UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-    CGSize textSize = [self sizeWithFont:theFont constrainedToSize:CGSizeMake( CPTFloat(10000.0), CPTFloat(10000.0) )];
+    CGSize textSize;
+
+    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
+        textSize = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                      options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                   attributes:style.attributes
+                                      context:nil].size;
+    }
+    else {
+        UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        textSize = [self sizeWithFont:theFont constrainedToSize:CPTSizeMake(10000.0, 10000.0)];
+#pragma clang diagnostic pop
+    }
 
     return textSize;
 }
@@ -220,12 +234,21 @@
 
     CPTPushCGContext(context);
 
-    UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+    if ( [self respondsToSelector:@selector(drawInRect:withAttributes:)] ) {
+        [self drawInRect:rect
+          withAttributes:style.attributes];
+    }
+    else {
+        UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
-    [self drawInRect:rect
-            withFont:theFont
-       lineBreakMode:style.lineBreakMode
-           alignment:(NSTextAlignment)style.textAlignment];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [self drawInRect:rect
+                withFont:theFont
+           lineBreakMode:style.lineBreakMode
+               alignment:(NSTextAlignment)style.textAlignment];
+#pragma clang diagnostic pop
+    }
 
     CGContextRestoreGState(context);
     CPTPopCGContext();
