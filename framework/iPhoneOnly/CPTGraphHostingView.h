@@ -7,7 +7,7 @@
     CPTGraph *hostedGraph;
     BOOL collapsesLayers;
     BOOL allowPinchScaling;
-    __cpt_weak id pinchGestureRecognizer;
+    __cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer;
 }
 
 @property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;
