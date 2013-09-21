@@ -4,6 +4,7 @@
 #import "CPTMutableTextStyle.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
+#import "tgmath.h"
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
@@ -192,11 +193,12 @@
 {
     CGSize textSize;
 
-    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
-        textSize = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
-                                      options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                   attributes:style.attributes
-                                      context:nil].size;
+    // -sizeWithAttributes: method is available in iOS 7.0 and later
+    if ( [self respondsToSelector:@selector(sizeWithAttributes:)] ) {
+        textSize = [self sizeWithAttributes:style.attributes];
+
+        textSize.width  = ceil(textSize.width);
+        textSize.height = ceil(textSize.height);
     }
     else {
         UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
@@ -232,9 +234,12 @@
 
     CPTPushCGContext(context);
 
-    if ( [self respondsToSelector:@selector(drawInRect:withAttributes:)] ) {
-        [self drawInRect:rect
-          withAttributes:style.attributes];
+    // -drawWithRect:options:attributes:context: method is available in iOS 7.0 and later
+    if ( [self respondsToSelector:@selector(drawWithRect:options:attributes:context:)] ) {
+        [self drawWithRect:rect
+                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                attributes:style.attributes
+                   context:nil];
     }
     else {
         UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
