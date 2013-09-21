@@ -26,6 +26,7 @@ build/*
 **.mode?v?
 **.perspectivev?
 **.xcuserstate
+**.xccheckout
 **/xcuserdata/*
 
 # AppCode settings
