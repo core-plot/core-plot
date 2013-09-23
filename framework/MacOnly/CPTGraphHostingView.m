@@ -231,6 +231,32 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 /// @endcond
 
 #pragma mark -
+#pragma mark Trackpad handling
+
+/// @cond
+
+-(void)magnifyWithEvent:(NSEvent *)event
+{
+    CPTGraph *theGraph = self.hostedGraph;
+
+    if ( theGraph ) {
+        CGPoint pointOfMagnification = NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
+        CGPoint pointInHostedGraph   = [self.layer convertPoint:pointOfMagnification toLayer:theGraph];
+        CGPoint pointInPlotArea      = [theGraph convertPoint:pointInHostedGraph toLayer:theGraph.plotAreaFrame.plotArea];
+
+        CGFloat scale = event.magnification + CPTFloat(1.0);
+
+        for ( CPTPlotSpace *space in theGraph.allPlotSpaces ) {
+            if ( space.allowsUserInteraction ) {
+                [space scaleBy:scale aboutPoint:pointInPlotArea];
+            }
+        }
+    }
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark HiDPI display support
 
 /// @cond
