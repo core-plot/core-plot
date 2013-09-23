@@ -221,13 +221,15 @@
 
     UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
 
+    CGFloat scale = pinchRecognizer.scale;
+
     for ( CPTPlotSpace *space in theHostedGraph.allPlotSpaces ) {
         if ( space.allowsUserInteraction ) {
-            [space scaleBy:[[pinchRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+            [space scaleBy:scale aboutPoint:pointInPlotArea];
         }
     }
 
-    [pinchRecognizer setScale:1.0];
+    pinchRecognizer.scale = 1.0;
 }
 
 /// @endcond
