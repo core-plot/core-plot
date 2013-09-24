@@ -62,6 +62,11 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
  **/
 @synthesize openHandCursor;
 
+/** @property BOOL allowPinchScaling
+ *  @brief Whether a pinch will trigger plot space scaling. Default is @YES.
+ **/
+@synthesize allowPinchScaling;
+
 /// @cond
 
 -(instancetype)initWithFrame:(NSRect)frame
@@ -70,8 +75,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
         hostedGraph = nil;
         printRect   = NSZeroRect;
 
-        closedHandCursor = [NSCursor closedHandCursor];
-        openHandCursor   = [NSCursor openHandCursor];
+        closedHandCursor  = [NSCursor closedHandCursor];
+        openHandCursor    = [NSCursor openHandCursor];
+        allowPinchScaling = YES;
 
         CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(frame)];
         self.layer = mainLayer;
@@ -108,6 +114,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
     [coder encodeRect:self.printRect forKey:@"CPTLayerHostingView.printRect"];
     [coder encodeObject:self.closedHandCursor forKey:@"CPTLayerHostingView.closedHandCursor"];
     [coder encodeObject:self.openHandCursor forKey:@"CPTLayerHostingView.openHandCursor"];
+    [coder encodeBool:self.allowPinchScaling forKey:@"CPTLayerHostingView.allowPinchScaling"];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -121,6 +128,13 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
         self.printRect        = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
         self.closedHandCursor = [coder decodeObjectForKey:@"CPTLayerHostingView.closedHandCursor"];
         self.openHandCursor   = [coder decodeObjectForKey:@"CPTLayerHostingView.openHandCursor"];
+
+        if ( [coder containsValueForKey:@"CPTLayerHostingView.allowPinchScaling"] ) {
+            self.allowPinchScaling = [coder decodeBoolForKey:@"CPTLayerHostingView.allowPinchScaling"];
+        }
+        else {
+            self.allowPinchScaling = YES;
+        }
     }
     return self;
 }
@@ -239,7 +253,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 {
     CPTGraph *theGraph = self.hostedGraph;
 
-    if ( theGraph ) {
+    if ( theGraph && self.allowPinchScaling ) {
         CGPoint pointOfMagnification = NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
         CGPoint pointInHostedGraph   = [self.layer convertPoint:pointOfMagnification toLayer:theGraph];
         CGPoint pointInPlotArea      = [theGraph convertPoint:pointInHostedGraph toLayer:theGraph.plotAreaFrame.plotArea];

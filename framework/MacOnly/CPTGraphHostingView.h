@@ -20,4 +20,9 @@
 @property (nonatomic, readwrite, strong) NSCursor *openHandCursor;
 /// @}
 
+/// @name User Interaction
+/// @{
+@property (nonatomic, readwrite, assign) BOOL allowPinchScaling;
+/// @}
+
 @end
