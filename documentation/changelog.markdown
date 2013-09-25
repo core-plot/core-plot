@@ -1,3 +1,23 @@
+# Release 2.0 (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
+- **New**: Added two additional initialization methods to `CPTImage`. 
+- **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
+- **New**: Added support for pinch zoom gestures on the Mac.
+- **Changed**: Increased the deployment target to iOS 4.3 and Mac OS X 10.6.
+- **Changed**: Removed support for garbage collection.
+- **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
+- **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the deprecated plot space methods.
+
+
+
 # Next Release
 
 ## Release Notes

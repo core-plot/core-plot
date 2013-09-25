@@ -1,8 +1,6 @@
 #import "CPTTestCase.h"
 
-@interface CPTUtilitiesTests : CPTTestCase {
-    CGContextRef context;
-}
+@interface CPTUtilitiesTests : CPTTestCase
 
 @property (readwrite, assign) CGContextRef context;
 

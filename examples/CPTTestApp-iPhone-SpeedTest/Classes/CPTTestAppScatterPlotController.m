@@ -153,7 +153,7 @@
     double *values = [self valuesForPlotWithIdentifier:[plot identifier] field:fieldEnum];
 
     if ( values ) {
-        num = [NSNumber numberWithDouble:values[indx]];
+        num = @(values[indx]);
     }
     return num;
 }

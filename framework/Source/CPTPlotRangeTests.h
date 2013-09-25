@@ -2,10 +2,8 @@
 
 @class CPTMutablePlotRange;
 
-@interface CPTPlotRangeTests : CPTTestCase {
-    CPTMutablePlotRange *plotRange;
-}
+@interface CPTPlotRangeTests : CPTTestCase
 
-@property (retain, readwrite) CPTMutablePlotRange *plotRange;
+@property (strong, readwrite) CPTMutablePlotRange *plotRange;
 
 @end

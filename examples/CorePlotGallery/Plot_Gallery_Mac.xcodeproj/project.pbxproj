@@ -39,6 +39,9 @@
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
 		C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
 		C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */; };
+		C3BA6763175EC23000CFABBA /* Checkerboard.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA6761175EC22F00CFABBA /* Checkerboard.png */; };
+		C3BA6764175EC23000CFABBA /* Checkerboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA6762175EC23000CFABBA /* Checkerboard@2x.png */; };
+		C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
 /* End PBXBuildFile section */
@@ -141,6 +144,10 @@
 		C3A14BEB13AEB7E700D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
 		C3A31A5414DF782A00734AB7 /* ColoredBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColoredBarChart.h; path = src/plots/ColoredBarChart.h; sourceTree = "<group>"; };
 		C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; };
+		C3BA6761175EC22F00CFABBA /* Checkerboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkerboard.png; path = img/Checkerboard.png; sourceTree = "<group>"; };
+		C3BA6762175EC23000CFABBA /* Checkerboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkerboard@2x.png"; path = "img/Checkerboard@2x.png"; sourceTree = "<group>"; };
+		C3D70BA4175EB29E00F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
+		C3D70BA5175EB29E00F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
 		C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 		C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedScatterPlot.h; path = src/plots/CurvedScatterPlot.h; sourceTree = "<group>"; };
@@ -253,6 +260,8 @@
 		4F22FF9812342D54006BF615 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3BA6761175EC22F00CFABBA /* Checkerboard.png */,
+				C3BA6762175EC23000CFABBA /* Checkerboard@2x.png */,
 				4F22FFAD12342DB1006BF615 /* PlotItem.h */,
 				4F22FFAE12342DB1006BF615 /* PlotItem.m */,
 				4F22FFAB12342DB1006BF615 /* PlotGallery.h */,
@@ -286,6 +295,8 @@
 				C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */,
 				4F22FF9C12342D7C006BF615 /* GradientScatterPlot.h */,
 				4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */,
+				C3D70BA4175EB29E00F27173 /* ImageDemo.h */,
+				C3D70BA5175EB29E00F27173 /* ImageDemo.m */,
 				C39C4E3F13BFE1A900CD9194 /* LabelingPolicyDemo.h */,
 				C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */,
 				C367249113E103910070F47A /* LineCapDemo.h */,
@@ -400,6 +411,8 @@
 				4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */,
 				4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */,
 				4F35EBBD12360D89007C3389 /* Icon.icns in Resources */,
+				C3BA6763175EC23000CFABBA /* Checkerboard.png in Resources */,
+				C3BA6764175EC23000CFABBA /* Checkerboard@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +449,7 @@
 				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
 				C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */,
 				C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */,
+				C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */,
 				C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

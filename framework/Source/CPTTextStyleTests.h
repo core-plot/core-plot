@@ -1,6 +1,5 @@
 #import "CPTTestCase.h"
 
-@interface CPTTextStyleTests : CPTTestCase {
-}
+@interface CPTTextStyleTests : CPTTestCase
 
 @end

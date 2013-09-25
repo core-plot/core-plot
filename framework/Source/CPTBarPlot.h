@@ -25,12 +25,11 @@ extern NSString *const CPTBarPlotBindingBarLineStyles;
 /**
  *  @brief Enumeration of bar plot data source field types
  **/
-typedef enum _CPTBarPlotField {
+typedef NS_ENUM (NSInteger, CPTBarPlotField) {
     CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
     CPTBarPlotFieldBarTip,      ///< Bar tip value.
     CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
-}
-CPTBarPlotField;
+};
 
 #pragma mark -
 
@@ -140,22 +139,7 @@ CPTBarPlotField;
 
 #pragma mark -
 
-@interface CPTBarPlot : CPTPlot {
-    @private
-    CPTLineStyle *lineStyle;
-    CPTFill *fill;
-    NSDecimal barWidth;
-    CGFloat barWidthScale;
-    NSDecimal barOffset;
-    CGFloat barOffsetScale;
-    CGFloat barCornerRadius;
-    CGFloat barBaseCornerRadius;
-    NSDecimal baseValue;
-    BOOL barsAreHorizontal;
-    BOOL barBasesVary;
-    BOOL barWidthsAreInViewCoordinates;
-    CPTPlotRange *plotRange;
-}
+@interface CPTBarPlot : CPTPlot
 
 /// @name Appearance
 /// @{
@@ -180,7 +164,7 @@ CPTBarPlotField;
 
 /// @name Factory Methods
 /// @{
-+(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
++(instancetype)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
 /// @}
 
 /// @name Data Ranges

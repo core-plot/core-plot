@@ -23,7 +23,7 @@
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 
-@property (nonatomic, readonly, retain) NSColor *nsColor;
+@property (nonatomic, readonly) NSColor *nsColor;
 
 @end
 

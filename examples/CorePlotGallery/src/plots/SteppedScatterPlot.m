@@ -30,9 +30,10 @@
     if ( plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
-            id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
-            id y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 1.2];
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            NSNumber *x = @(1.0 + i * 0.05);
+            NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+            [contentArray addObject:@{ @"x": x, @"y": y }
+            ];
         }
         plotData = [contentArray retain];
     }
@@ -86,7 +87,7 @@
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
+    [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
     [yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
@@ -121,10 +122,10 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [[plotData objectAtIndex:index] valueForKey:key];
+    NSNumber *num = [plotData[index] valueForKey:key];
 
     if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = [NSNumber numberWithDouble:[num doubleValue]];
+        num = @([num doubleValue]);
     }
 
     return num;
