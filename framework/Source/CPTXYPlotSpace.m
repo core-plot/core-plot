@@ -1047,12 +1047,14 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         self.isDragging = NO;
 
         if ( self.allowsMomentum ) {
-            NSTimeInterval deltaT = event.timestamp - self.lastDragTime;
-            if ( deltaT > 0.0 ) {
+            NSTimeInterval deltaT     = event.timestamp - self.lastDragTime;
+            NSTimeInterval lastDeltaT = self.lastDeltaTime;
+
+            if ( (deltaT > 0.0) && (lastDeltaT > 0.0) ) {
                 CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
                 CGPoint displacement    = self.lastDisplacement;
 
-                CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(self.lastDeltaTime);
+                CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(lastDeltaT);
                 CGFloat acceleration     = speed / kCPTMomentumTime;
                 CGFloat distanceTraveled = speed * kCPTMomentumTime - CPTFloat(0.5) * acceleration * kCPTMomentumTime * kCPTMomentumTime;
                 distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
