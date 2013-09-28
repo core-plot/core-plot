@@ -47,7 +47,7 @@ copytree('READMEs', join(releaseRootDir, 'READMEs'), ignore=ignore_patterns('*.o
 
 # Add source code
 sourceDir = join(releaseRootDir, 'Source')
-copytree('framework', join(sourceDir, 'framework'), ignore=ignore_patterns('*.orig'))
+copytree('framework', join(sourceDir, 'framework'), ignore=ignore_patterns('*.docset','*.orig'))
 copytree('examples', join(sourceDir, 'examples'), ignore=ignore_patterns('*.orig'))
 copy('License.txt', sourceDir)
 

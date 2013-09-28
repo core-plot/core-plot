@@ -18,11 +18,18 @@ To be determined.
 
 
 
-# Next Release
+# Release 1.4 (September 28, 2013)
 
 ## Release Notes
 
-To be determined.
+This release adds a helper class that makes it easy to create a datasource to plot a mathematical function.
+The function datasource can plot any c-style function that returns the value of *y* = *f*(*x*).
+The release also adds new delegate methods for legends and axis labels, a new line drawing style, new axis and
+data label positioning options, and support for label formatters that return styled text.
+
+This release deprecates all plot space methods that take a c-style array of coordinate values.
+They have been replaced with equivalent methods that add an additional parameter to pass
+the size of the array and will be removed in a future release.
 
 ## Details
 - **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
@@ -33,6 +40,7 @@ To be determined.
 - **New**: Added an option to turn off automatic plot data label anchor point adjustments.
 - **New**: Added a count parameter to all plot space methods that take a c-style array of coordinate values and deprecated the old versions. These methods will be removed in release 2.0.
 - **New**: Added axis label selection delegate methods.
+- **Changed**: Updated all projects to support Xcode 5.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
 
