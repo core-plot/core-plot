@@ -6,11 +6,8 @@
 
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
-    NSDecimal start;
-    NSDecimal end;
-
-    [self.startValue getValue:&start];
-    [self.endValue getValue:&end];
+    NSDecimal start = [(NSDecimalNumber *)self.startValue decimalValue];
+    NSDecimal end   = [(NSDecimalNumber *)self.endValue decimalValue];
 
     NSDecimal length       = CPTDecimalSubtract(end, start);
     NSDecimal tweenedValue = CPTDecimalAdd( start, CPTDecimalMultiply(CPTDecimalFromCGFloat(progress), length) );

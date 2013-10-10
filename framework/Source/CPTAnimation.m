@@ -365,13 +365,19 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             id boundObject  = animationOperation.boundObject;
             id tweenedValue = parameters[CPTAnimationValueKey];
 
-            if ( [tweenedValue isKindOfClass:[NSValue class]] ) {
+            if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
+                NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
+
+                IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                setterMethod(boundObject, boundSetter, buffer);
+            }
+            else if ( [tweenedValue isKindOfClass:[NSValue class]] ) {
                 NSValue *value = (NSValue *)tweenedValue;
 
                 NSUInteger bufferSize = 0;
                 NSGetSizeAndAlignment(value.objCType, &bufferSize, NULL);
 
-                NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[boundObject class] instanceMethodSignatureForSelector:boundSetter]];
+                NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundSetter]];
                 [invocation setTarget:boundObject];
                 [invocation setSelector:boundSetter];
 
@@ -391,8 +397,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                 [delegate animationDidUpdate:animationOperation];
             }
         }
-        @catch ( NSException *exception ) {
-#pragma unused(exception)
+        @catch ( NSException *__unused exception ) {
             // something went wrong; don't run this operation any more
             animationOperation.canceled = YES;
         }
