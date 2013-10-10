@@ -221,10 +221,10 @@
  **/
 -(instancetype)initWithStart:(CGFloat)aStart end:(CGFloat)anEnd duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationCGFloatPeriod *)[_CPTAnimationCGFloatPeriod alloc] initWithStartValue : @(aStart)
-            endValue : @(anEnd)
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationCGFloatPeriod alloc] initWithStartValue:@(aStart)
+                                                         endValue:@(anEnd)
+                                                         duration:aDuration
+                                                        withDelay:aDelay];
 
     return self;
 }
@@ -239,10 +239,10 @@
  **/
 -(instancetype)initWithStartPoint:(CGPoint)aStartPoint endPoint:(CGPoint)anEndPoint duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationCGPointPeriod *)[_CPTAnimationCGPointPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
-            endValue :[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationCGPointPeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)]
+                                                         endValue:[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
+                                                         duration:aDuration
+                                                        withDelay:aDelay];
 
     return self;
 }
@@ -257,10 +257,10 @@
  **/
 -(instancetype)initWithStartSize:(CGSize)aStartSize endSize:(CGSize)anEndSize duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationCGSizePeriod *)[_CPTAnimationCGSizePeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
-            endValue :[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationCGSizePeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)]
+                                                        endValue:[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
+                                                        duration:aDuration
+                                                       withDelay:aDelay];
 
     return self;
 }
@@ -275,10 +275,10 @@
  **/
 -(instancetype)initWithStartRect:(CGRect)aStartRect endRect:(CGRect)anEndRect duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationCGRectPeriod *)[_CPTAnimationCGRectPeriod alloc] initWithStartValue :[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
-            endValue :[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationCGRectPeriod alloc] initWithStartValue:[NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)]
+                                                        endValue:[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
+                                                        duration:aDuration
+                                                       withDelay:aDelay];
 
     return self;
 }
@@ -293,10 +293,10 @@
  **/
 -(instancetype)initWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationNSDecimalPeriod *)[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue :[NSDecimalNumber decimalNumberWithDecimal:aStartDecimal]
-            endValue :[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue:[NSDecimalNumber decimalNumberWithDecimal:aStartDecimal]
+                                                           endValue:[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
+                                                           duration:aDuration
+                                                          withDelay:aDelay];
 
     return self;
 }
@@ -311,10 +311,10 @@
  **/
 -(instancetype)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    self = [(_CPTAnimationPlotRangePeriod *)[_CPTAnimationPlotRangePeriod alloc] initWithStartValue : (NSValue *)aStartPlotRange
-            endValue : (NSValue *)anEndPlotRange
-            duration : aDuration
-            withDelay : aDelay];
+    self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)aStartPlotRange
+                                                           endValue:(NSValue *)anEndPlotRange
+                                                           duration:aDuration
+                                                          withDelay:aDelay];
 
     return self;
 }
