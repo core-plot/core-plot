@@ -255,6 +255,7 @@ static CPTAnimation *instance = nil;
 
     CGFloat currentTime = self.timeOffset;
     Class valueClass    = [NSValue class];
+    Class decimalClass  = [NSDecimalNumber class];
 
     for ( CPTAnimationOperation *animationOperation in theAnimationOperations ) {
         NSObject<CPTAnimationDelegate> *animationDelegate = animationOperation.delegate;
@@ -295,25 +296,6 @@ static CPTAnimation *instance = nil;
                 NSValue *tweenedValue = [period tweenedValueForProgress:progress];
                 SEL boundSetter       = animationOperation.boundSetter;
 
-                NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[[boundObject class] instanceMethodSignatureForSelector:boundSetter]];
-                [invocation setTarget:boundObject];
-                [invocation setSelector:boundSetter];
-
-                if ( [tweenedValue isKindOfClass:valueClass] ) {
-                    NSUInteger bufferSize = 0;
-                    NSGetSizeAndAlignment(tweenedValue.objCType, &bufferSize, NULL);
-
-                    void *buffer = malloc(bufferSize);
-                    [tweenedValue getValue:buffer];
-
-                    [invocation setArgument:buffer atIndex:2];
-
-                    free(buffer);
-                }
-                else {
-                    [invocation setArgument:&tweenedValue atIndex:2];
-                }
-
                 @try {
                     if ( [animationDelegate respondsToSelector:@selector(animationWillUpdate:)] ) {
                         [animationDelegate performSelector:@selector(animationWillUpdate:)
@@ -321,7 +303,32 @@ static CPTAnimation *instance = nil;
                                                 afterDelay:0];
                     }
 
-                    [invocation invoke];
+                    if ( [tweenedValue isKindOfClass:decimalClass] ) {
+                        NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
+
+                        IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                        setterMethod(boundObject, boundSetter, buffer);
+                    }
+                    else if ( [tweenedValue isKindOfClass:valueClass] ) {
+                        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundSetter]];
+                        [invocation setTarget:boundObject];
+                        [invocation setSelector:boundSetter];
+
+                        NSUInteger bufferSize = 0;
+                        NSGetSizeAndAlignment(tweenedValue.objCType, &bufferSize, NULL);
+
+                        void *buffer = malloc(bufferSize);
+                        [tweenedValue getValue:buffer];
+
+                        [invocation setArgument:buffer atIndex:2];
+                        [invocation invoke];
+
+                        free(buffer);
+                    }
+                    else {
+                        IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                        setterMethod(boundObject, boundSetter, tweenedValue);
+                    }
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {
                         [animationDelegate performSelector:@selector(animationDidUpdate:)
@@ -329,7 +336,7 @@ static CPTAnimation *instance = nil;
                                                 afterDelay:0];
                     }
                 }
-                @catch ( NSException *exception ) {
+                @catch ( NSException *__unused exception ) {
                     // something went wrong; don't run this operation any more
                     [expiredOperations addObject:animationOperation];
 
