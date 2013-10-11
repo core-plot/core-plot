@@ -11,32 +11,22 @@
  **/
 typedef double (*CPTDataSourceFunction)(double);
 
-@interface CPTFunctionDataSource : NSObject<CPTPlotDataSource> {
-    @private
-    __cpt_weak CPTPlot *dataPlot;
-    CPTDataSourceFunction dataSourceFunction;
-    CGFloat resolution;
-    double cachedStep;
-    NSUInteger dataCount;
-    NSUInteger cachedCount;
-    CPTMutablePlotRange *cachedPlotRange;
-    CPTPlotRange *dataRange;
-}
+@interface CPTFunctionDataSource : NSObject<CPTPlotDataSource>
 
 @property (nonatomic, readonly) CPTDataSourceFunction dataSourceFunction;
 @property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTPlot *dataPlot;
 
 @property (nonatomic, readwrite) CGFloat resolution;
-@property (nonatomic, readwrite, retain) CPTPlotRange *dataRange;
+@property (nonatomic, readwrite, strong) CPTPlotRange *dataRange;
 
 /// @name Factory Methods
 /// @{
-+(id)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
++(instancetype)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
+-(instancetype)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function;
 /// @}
 
 @end

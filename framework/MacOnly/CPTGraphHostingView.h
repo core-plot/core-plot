@@ -2,13 +2,27 @@
 
 @class CPTGraph;
 
-@interface CPTGraphHostingView : NSView {
-    @private
-    CPTGraph *hostedGraph;
-    NSRect printRect;
-}
+@interface CPTGraphHostingView : NSView
 
-@property (nonatomic, readwrite, retain) CPTGraph *hostedGraph;
+/// @name Hosted graph
+/// @{
+@property (nonatomic, readwrite, strong) CPTGraph *hostedGraph;
+/// @}
+
+/// @name Printing
+/// @{
 @property (nonatomic, readwrite, assign) NSRect printRect;
+/// @}
+
+/// @name Cursors
+/// @{
+@property (nonatomic, readwrite, strong) NSCursor *closedHandCursor;
+@property (nonatomic, readwrite, strong) NSCursor *openHandCursor;
+/// @}
+
+/// @name User Interaction
+/// @{
+@property (nonatomic, readwrite, assign) BOOL allowPinchScaling;
+/// @}
 
 @end

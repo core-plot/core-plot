@@ -14,8 +14,6 @@
 {
     @private
     CPTPlotSpaceAnnotation *symbolTextAnnotation;
-
-    NSArray *plotData;
 }
 
 @end

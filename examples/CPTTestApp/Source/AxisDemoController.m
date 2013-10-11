@@ -2,7 +2,7 @@
 
 @interface AxisDemoController()
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @end
 
@@ -77,7 +77,7 @@
     x.title                       = @"X Axis";
     x.titleTextStyle              = axisTitleTextStyle;
     x.titleOffset                 = 25.0;
-    x.alternatingBandFills        = [NSArray arrayWithObjects:[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1], nil];
+    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
     x.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
 
     // Label y with an automatic label policy.
@@ -96,7 +96,7 @@
     y.title                 = @"Y Axis";
     y.titleTextStyle        = axisTitleTextStyle;
     y.titleOffset           = 30.0;
-    y.alternatingBandFills  = [NSArray arrayWithObjects:[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null]];
     y.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];

@@ -49,7 +49,11 @@
 		C3A14C1513AEE7CC00D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14C1413AEE7CC00D103EA /* RangePlot.m */; };
 		C3A31A5914DF783500734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5814DF783500734AB7 /* ColoredBarChart.m */; };
 		C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */; };
+		C3BA675D175EC22100CFABBA /* Checkerboard.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675B175EC22100CFABBA /* Checkerboard.png */; };
+		C3BA675E175EC22100CFABBA /* Checkerboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */; };
 		C3BB7D371633428900BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D361633428900BC9515 /* Default-568h@2x.png */; };
+		C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282917DE9A7E008EED1E /* Accelerate.framework */; };
+		C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BAB175EB30800F27173 /* ImageDemo.m */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 		C3F47B5D17BF94CA0075181F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B5C17BF94CA0075181F /* Icon@2x.png */; };
 /* End PBXBuildFile section */
@@ -146,7 +150,12 @@
 		C3A14C1413AEE7CC00D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
 		C3A31A5714DF783500734AB7 /* ColoredBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColoredBarChart.h; path = src/plots/ColoredBarChart.h; sourceTree = "<group>"; };
 		C3A31A5814DF783500734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; };
+		C3BA675B175EC22100CFABBA /* Checkerboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkerboard.png; path = img/Checkerboard.png; sourceTree = "<group>"; };
+		C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkerboard@2x.png"; path = "img/Checkerboard@2x.png"; sourceTree = "<group>"; };
 		C3BB7D361633428900BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3CD282917DE9A7E008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D70BAA175EB30800F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
+		C3D70BAB175EB30800F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
 		C3F34F2812AB25AE008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F2912AB25AE008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 		C3F47B5C17BF94CA0075181F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "src/ios/Icon@2x.png"; sourceTree = "<group>"; };
@@ -162,6 +171,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */,
+				C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +211,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 				4F5EBAC212297F2400D147E7 /* QuartzCore.framework */,
+				C3CD282917DE9A7E008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,6 +266,8 @@
 		4F22FE351234043F006BF615 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3BA675B175EC22100CFABBA /* Checkerboard.png */,
+				C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */,
 				4F22FE3812340464006BF615 /* PlotItem.h */,
 				4F22FE3912340464006BF615 /* PlotItem.m */,
 				4F22FE3612340464006BF615 /* PlotGallery.h */,
@@ -296,6 +309,8 @@
 				C31A40B917ABD6910020C5C6 /* FunctionPlot.m */,
 				4F22FE3E123404C2006BF615 /* GradientScatterPlot.h */,
 				4F22FE3F123404C2006BF615 /* GradientScatterPlot.m */,
+				C3D70BAA175EB30800F27173 /* ImageDemo.h */,
+				C3D70BAB175EB30800F27173 /* ImageDemo.m */,
 				C39C4E3C13BFE19E00CD9194 /* LabelingPolicyDemo.h */,
 				C39C4E3D13BFE19E00CD9194 /* LabelingPolicyDemo.m */,
 				C367249D13E103AC0070F47A /* LineCapDemo.h */,
@@ -398,6 +413,8 @@
 				4F754279126D0BEE00313026 /* DetailView-iPad.xib in Resources */,
 				4F754284126D0C5F00313026 /* DetailView.xib in Resources */,
 				C3BB7D371633428900BC9515 /* Default-568h@2x.png in Resources */,
+				C3BA675D175EC22100CFABBA /* Checkerboard.png in Resources */,
+				C3BA675E175EC22100CFABBA /* Checkerboard@2x.png in Resources */,
 				C3F47B5D17BF94CA0075181F /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +456,7 @@
 				C3858771163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m in Sources */,
 				C3858772163D8B8B00DBF63D /* UIViewController+LegacyRotation.m in Sources */,
 				C31A40BA17ABD6910020C5C6 /* FunctionPlot.m in Sources */,
+				C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */,
 				C3457A5317AD7C72000880F3 /* PiNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

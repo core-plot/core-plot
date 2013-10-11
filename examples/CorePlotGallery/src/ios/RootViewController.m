@@ -61,7 +61,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[[PlotGallery sharedPlotGallery] sectionTitles] objectAtIndex:section];
+    return [[PlotGallery sharedPlotGallery] sectionTitles][section];
 }
 
 #pragma mark -

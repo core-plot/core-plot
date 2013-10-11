@@ -1,6 +1,5 @@
 #import "CPTLayer.h"
 
-@interface CPTMaskLayer : CPTLayer  {
-}
+@interface CPTMaskLayer : CPTLayer
 
 @end
