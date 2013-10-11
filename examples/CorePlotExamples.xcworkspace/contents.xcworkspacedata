@@ -20,16 +20,10 @@
          location = "group:APFinancialData.m">
       </FileRef>
       <FileRef
-         location = "group:APFinancialData.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:APYahooDataPuller.h">
       </FileRef>
       <FileRef
          location = "group:APYahooDataPuller.m">
-      </FileRef>
-      <FileRef
-         location = "group:APYahooDataPuller.m.orig">
       </FileRef>
       <Group
          location = "group:Classes"
@@ -38,37 +32,19 @@
             location = "group:AAPLotAppDelegate.h">
          </FileRef>
          <FileRef
-            location = "group:AAPLotAppDelegate.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:AAPLotAppDelegate.m">
-         </FileRef>
-         <FileRef
-            location = "group:AAPLotAppDelegate.m.orig">
          </FileRef>
          <FileRef
             location = "group:FlipsideView.h">
          </FileRef>
          <FileRef
-            location = "group:FlipsideView.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:FlipsideView.m">
-         </FileRef>
-         <FileRef
-            location = "group:FlipsideView.m.orig">
          </FileRef>
          <FileRef
             location = "group:FlipsideViewController.h">
          </FileRef>
          <FileRef
-            location = "group:FlipsideViewController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:FlipsideViewController.m">
-         </FileRef>
-         <FileRef
-            location = "group:FlipsideViewController.m.orig">
          </FileRef>
          <FileRef
             location = "group:MainViewController.h">
@@ -77,19 +53,10 @@
             location = "group:MainViewController.m">
          </FileRef>
          <FileRef
-            location = "group:MainViewController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:RootViewController.h">
          </FileRef>
          <FileRef
-            location = "group:RootViewController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:RootViewController.m">
-         </FileRef>
-         <FileRef
-            location = "group:RootViewController.m.orig">
          </FileRef>
       </Group>
       <FileRef
@@ -99,28 +66,16 @@
          location = "group:FlipsideView.xib">
       </FileRef>
       <FileRef
-         location = "group:FlipsideView.xib.orig">
-      </FileRef>
-      <FileRef
          location = "group:Info.plist">
       </FileRef>
       <FileRef
          location = "group:main.m">
       </FileRef>
       <FileRef
-         location = "group:main.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:MainView.xib">
       </FileRef>
       <FileRef
-         location = "group:MainView.xib.orig">
-      </FileRef>
-      <FileRef
          location = "group:MainWindow.xib">
-      </FileRef>
-      <FileRef
-         location = "group:MainWindow.xib.orig">
       </FileRef>
       <FileRef
          location = "group:NSDateFormatterExtensions.h">
@@ -161,9 +116,6 @@
          location = "group:Plot_Gallery-Info.plist">
       </FileRef>
       <FileRef
-         location = "group:Plot_Gallery-Info.plist.orig">
-      </FileRef>
-      <FileRef
          location = "group:Plot_Gallery_iOS.xcodeproj">
       </FileRef>
       <FileRef
@@ -179,9 +131,6 @@
          location = "group:Plot_Gallery_Prefix.pch">
       </FileRef>
       <FileRef
-         location = "group:Plot_Gallery_Prefix.pch.orig">
-      </FileRef>
-      <FileRef
          location = "group:README">
       </FileRef>
       <Group
@@ -194,13 +143,7 @@
                location = "group:DetailViewController.h">
             </FileRef>
             <FileRef
-               location = "group:DetailViewController.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:DetailViewController.m">
-            </FileRef>
-            <FileRef
-               location = "group:DetailViewController.m.orig">
             </FileRef>
             <FileRef
                location = "group:Icon.png">
@@ -215,25 +158,13 @@
                   location = "group:DetailView-iPad.xib">
                </FileRef>
                <FileRef
-                  location = "group:DetailView-iPad.xib.orig">
-               </FileRef>
-               <FileRef
                   location = "group:MainWindow-iPad.xib">
-               </FileRef>
-               <FileRef
-                  location = "group:MainWindow-iPad.xib.orig">
                </FileRef>
                <FileRef
                   location = "group:Plot_GalleryAppDelegate.h">
                </FileRef>
                <FileRef
-                  location = "group:Plot_GalleryAppDelegate.h.orig">
-               </FileRef>
-               <FileRef
                   location = "group:Plot_GalleryAppDelegate.m">
-               </FileRef>
-               <FileRef
-                  location = "group:Plot_GalleryAppDelegate.m.orig">
                </FileRef>
             </Group>
             <Group
@@ -249,62 +180,32 @@
                   location = "group:PlotGalleryAppDelegate-iPhone.h">
                </FileRef>
                <FileRef
-                  location = "group:PlotGalleryAppDelegate-iPhone.h.orig">
-               </FileRef>
-               <FileRef
                   location = "group:PlotGalleryAppDelegate-iPhone.m">
                </FileRef>
                <FileRef
-                  location = "group:PlotGalleryAppDelegate-iPhone.m.orig">
-               </FileRef>
-               <FileRef
                   location = "group:RootViewController.xib">
-               </FileRef>
-               <FileRef
-                  location = "group:RootViewController.xib.orig">
                </FileRef>
             </Group>
             <FileRef
                location = "group:main.m">
             </FileRef>
             <FileRef
-               location = "group:main.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotHostView.h">
-            </FileRef>
-            <FileRef
-               location = "group:PlotHostView.h.orig">
             </FileRef>
             <FileRef
                location = "group:PlotHostView.m">
             </FileRef>
             <FileRef
-               location = "group:PlotHostView.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:RootViewController.h">
-            </FileRef>
-            <FileRef
-               location = "group:RootViewController.h.orig">
             </FileRef>
             <FileRef
                location = "group:RootViewController.m">
             </FileRef>
             <FileRef
-               location = "group:RootViewController.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:ThemeTableViewController.h">
             </FileRef>
             <FileRef
-               location = "group:ThemeTableViewController.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:ThemeTableViewController.m">
-            </FileRef>
-            <FileRef
-               location = "group:ThemeTableViewController.m.orig">
             </FileRef>
             <FileRef
                location = "group:ThemeTableViewController.xib">
@@ -330,43 +231,22 @@
                location = "group:main.m">
             </FileRef>
             <FileRef
-               location = "group:main.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:Plot_Gallery_MacAppDelegate.h">
-            </FileRef>
-            <FileRef
-               location = "group:Plot_Gallery_MacAppDelegate.h.orig">
             </FileRef>
             <FileRef
                location = "group:Plot_Gallery_MacAppDelegate.m">
             </FileRef>
             <FileRef
-               location = "group:Plot_Gallery_MacAppDelegate.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotGalleryController.h">
-            </FileRef>
-            <FileRef
-               location = "group:PlotGalleryController.h.orig">
             </FileRef>
             <FileRef
                location = "group:PlotGalleryController.m">
             </FileRef>
             <FileRef
-               location = "group:PlotGalleryController.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotView.h">
             </FileRef>
             <FileRef
-               location = "group:PlotView.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotView.m">
-            </FileRef>
-            <FileRef
-               location = "group:PlotView.m.orig">
             </FileRef>
          </Group>
          <Group
@@ -376,22 +256,13 @@
                location = "group:AxisDemo.h">
             </FileRef>
             <FileRef
-               location = "group:AxisDemo.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:AxisDemo.m">
             </FileRef>
             <FileRef
                location = "group:CandlestickPlot.h">
             </FileRef>
             <FileRef
-               location = "group:CandlestickPlot.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:CandlestickPlot.m">
-            </FileRef>
-            <FileRef
-               location = "group:CandlestickPlot.m.orig">
             </FileRef>
             <FileRef
                location = "group:ColoredBarChart.h">
@@ -400,19 +271,10 @@
                location = "group:ColoredBarChart.m">
             </FileRef>
             <FileRef
-               location = "group:ColoredBarChart.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:CompositePlot.h">
             </FileRef>
             <FileRef
-               location = "group:CompositePlot.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:CompositePlot.m">
-            </FileRef>
-            <FileRef
-               location = "group:CompositePlot.m.orig">
             </FileRef>
             <FileRef
                location = "group:ControlChart.h">
@@ -421,31 +283,16 @@
                location = "group:ControlChart.m">
             </FileRef>
             <FileRef
-               location = "group:ControlChart.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:CurvedScatterPlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:CurvedScatterPlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:CurvedScatterPlot.m">
             </FileRef>
             <FileRef
-               location = "group:CurvedScatterPlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:DatePlot.h">
             </FileRef>
             <FileRef
-               location = "group:DatePlot.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:DatePlot.m">
-            </FileRef>
-            <FileRef
-               location = "group:DatePlot.m.orig">
             </FileRef>
             <FileRef
                location = "group:DonutChart.h">
@@ -454,154 +301,76 @@
                location = "group:DonutChart.m">
             </FileRef>
             <FileRef
-               location = "group:DonutChart.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:FunctionPlot.h">
             </FileRef>
             <FileRef
                location = "group:FunctionPlot.m">
             </FileRef>
             <FileRef
-               location = "group:FunctionPlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:GradientScatterPlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:GradientScatterPlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:GradientScatterPlot.m">
             </FileRef>
             <FileRef
-               location = "group:GradientScatterPlot.m.orig">
-            </FileRef>
-            <FileRef
-               location = "group:ImageDemo.h.orig">
-            </FileRef>
-            <FileRef
-               location = "group:ImageDemo.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:LabelingPolicyDemo.h">
-            </FileRef>
-            <FileRef
-               location = "group:LabelingPolicyDemo.h.orig">
             </FileRef>
             <FileRef
                location = "group:LabelingPolicyDemo.m">
             </FileRef>
             <FileRef
-               location = "group:LabelingPolicyDemo.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:LineCapDemo.h">
-            </FileRef>
-            <FileRef
-               location = "group:LineCapDemo.h.orig">
             </FileRef>
             <FileRef
                location = "group:LineCapDemo.m">
             </FileRef>
             <FileRef
-               location = "group:LineCapDemo.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:OHLCPlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:OHLCPlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:OHLCPlot.m">
             </FileRef>
             <FileRef
-               location = "group:OHLCPlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotSpaceDemo.h">
-            </FileRef>
-            <FileRef
-               location = "group:PlotSpaceDemo.h.orig">
             </FileRef>
             <FileRef
                location = "group:PlotSpaceDemo.m">
             </FileRef>
             <FileRef
-               location = "group:PlotSpaceDemo.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:RangePlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:RangePlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:RangePlot.m">
             </FileRef>
             <FileRef
-               location = "group:RangePlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:RealTimePlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:RealTimePlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:RealTimePlot.m">
             </FileRef>
             <FileRef
-               location = "group:RealTimePlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:SimplePieChart.h">
-            </FileRef>
-            <FileRef
-               location = "group:SimplePieChart.h.orig">
             </FileRef>
             <FileRef
                location = "group:SimplePieChart.m">
             </FileRef>
             <FileRef
-               location = "group:SimplePieChart.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:SimpleScatterPlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:SimpleScatterPlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:SimpleScatterPlot.m">
             </FileRef>
             <FileRef
-               location = "group:SimpleScatterPlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:SteppedScatterPlot.h">
-            </FileRef>
-            <FileRef
-               location = "group:SteppedScatterPlot.h.orig">
             </FileRef>
             <FileRef
                location = "group:SteppedScatterPlot.m">
             </FileRef>
             <FileRef
-               location = "group:SteppedScatterPlot.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:VerticalBarChart.h">
             </FileRef>
             <FileRef
-               location = "group:VerticalBarChart.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:VerticalBarChart.m">
-            </FileRef>
-            <FileRef
-               location = "group:VerticalBarChart.m.orig">
             </FileRef>
          </Group>
          <Group
@@ -614,31 +383,16 @@
                location = "group:PiNumberFormatter.m">
             </FileRef>
             <FileRef
-               location = "group:PiNumberFormatter.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotGallery.h">
-            </FileRef>
-            <FileRef
-               location = "group:PlotGallery.h.orig">
             </FileRef>
             <FileRef
                location = "group:PlotGallery.m">
             </FileRef>
             <FileRef
-               location = "group:PlotGallery.m.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotItem.h">
             </FileRef>
             <FileRef
-               location = "group:PlotItem.h.orig">
-            </FileRef>
-            <FileRef
                location = "group:PlotItem.m">
-            </FileRef>
-            <FileRef
-               location = "group:PlotItem.m.orig">
             </FileRef>
          </Group>
       </Group>
@@ -672,28 +426,16 @@
             location = "group:AxisDemo.xib">
          </FileRef>
          <FileRef
-            location = "group:AxisDemo.xib.orig">
-         </FileRef>
-         <FileRef
             location = "group:BlueTexture.png">
          </FileRef>
          <FileRef
             location = "group:CPTTestApp.xib">
          </FileRef>
          <FileRef
-            location = "group:CPTTestApp.xib.orig">
-         </FileRef>
-         <FileRef
             location = "group:PlotSymbolDemo.xib">
          </FileRef>
          <FileRef
-            location = "group:PlotSymbolDemo.xib.orig">
-         </FileRef>
-         <FileRef
             location = "group:SelectionDemo.xib">
-         </FileRef>
-         <FileRef
-            location = "group:SelectionDemo.xib.orig">
          </FileRef>
       </Group>
       <Group
@@ -709,13 +451,7 @@
             location = "group:Controller.h">
          </FileRef>
          <FileRef
-            location = "group:Controller.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:Controller.m">
-         </FileRef>
-         <FileRef
-            location = "group:Controller.m.orig">
          </FileRef>
          <FileRef
             location = "group:CPTPlotSymbolTestController.h">
@@ -724,37 +460,19 @@
             location = "group:CPTPlotSymbolTestController.m">
          </FileRef>
          <FileRef
-            location = "group:CPTPlotSymbolTestController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:main.m">
-         </FileRef>
-         <FileRef
-            location = "group:main.m.orig">
          </FileRef>
          <FileRef
             location = "group:RotationView.h">
          </FileRef>
          <FileRef
-            location = "group:RotationView.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:RotationView.m">
-         </FileRef>
-         <FileRef
-            location = "group:RotationView.m.orig">
          </FileRef>
          <FileRef
             location = "group:SelectionDemoController.h">
          </FileRef>
          <FileRef
-            location = "group:SelectionDemoController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:SelectionDemoController.m">
-         </FileRef>
-         <FileRef
-            location = "group:SelectionDemoController.m.orig">
          </FileRef>
       </Group>
    </Group>
@@ -768,25 +486,13 @@
             location = "group:CPTTestApp_iPadAppDelegate.h">
          </FileRef>
          <FileRef
-            location = "group:CPTTestApp_iPadAppDelegate.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestApp_iPadAppDelegate.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestApp_iPadAppDelegate.m.orig">
          </FileRef>
          <FileRef
             location = "group:CPTTestApp_iPadViewController.h">
          </FileRef>
          <FileRef
-            location = "group:CPTTestApp_iPadViewController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestApp_iPadViewController.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestApp_iPadViewController.m.orig">
          </FileRef>
       </Group>
       <FileRef
@@ -811,9 +517,6 @@
          location = "group:main.m">
       </FileRef>
       <FileRef
-         location = "group:main.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:MainWindow.xib">
       </FileRef>
    </Group>
@@ -823,9 +526,6 @@
       <FileRef
          location = "group:BarChart.xib">
       </FileRef>
-      <FileRef
-         location = "group:BarChart.xib.orig">
-      </FileRef>
       <Group
          location = "group:Classes"
          name = "Classes">
@@ -833,25 +533,13 @@
             location = "group:CPTTestApp_iPhoneAppDelegate.h">
          </FileRef>
          <FileRef
-            location = "group:CPTTestApp_iPhoneAppDelegate.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestApp_iPhoneAppDelegate.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestApp_iPhoneAppDelegate.m.orig">
          </FileRef>
          <FileRef
             location = "group:CPTTestAppBarChartController.h">
          </FileRef>
          <FileRef
-            location = "group:CPTTestAppBarChartController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestAppBarChartController.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestAppBarChartController.m.orig">
          </FileRef>
          <FileRef
             location = "group:CPTTestAppPieChartController.h">
@@ -860,19 +548,10 @@
             location = "group:CPTTestAppPieChartController.m">
          </FileRef>
          <FileRef
-            location = "group:CPTTestAppPieChartController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestAppScatterPlotController.h">
          </FileRef>
          <FileRef
-            location = "group:CPTTestAppScatterPlotController.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestAppScatterPlotController.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestAppScatterPlotController.m.orig">
          </FileRef>
       </Group>
       <FileRef
@@ -910,31 +589,16 @@
          location = "group:Info.plist">
       </FileRef>
       <FileRef
-         location = "group:Info.plist.orig">
-      </FileRef>
-      <FileRef
          location = "group:main.m">
-      </FileRef>
-      <FileRef
-         location = "group:main.m.orig">
       </FileRef>
       <FileRef
          location = "group:MainWindow.xib">
       </FileRef>
       <FileRef
-         location = "group:MainWindow.xib.orig">
-      </FileRef>
-      <FileRef
          location = "group:PieChart.xib">
       </FileRef>
       <FileRef
-         location = "group:PieChart.xib.orig">
-      </FileRef>
-      <FileRef
          location = "group:ScatterPlot.xib">
-      </FileRef>
-      <FileRef
-         location = "group:ScatterPlot.xib.orig">
       </FileRef>
    </Group>
    <Group
@@ -959,16 +623,10 @@
             location = "group:CPTTestAppBarChartController.m">
          </FileRef>
          <FileRef
-            location = "group:CPTTestAppBarChartController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:CPTTestAppPieChartController.h">
          </FileRef>
          <FileRef
             location = "group:CPTTestAppPieChartController.m">
-         </FileRef>
-         <FileRef
-            location = "group:CPTTestAppPieChartController.m.orig">
          </FileRef>
          <FileRef
             location = "group:CPTTestAppScatterPlotController.h">
@@ -977,13 +635,7 @@
             location = "group:CPTTestAppScatterPlotController.m">
          </FileRef>
          <FileRef
-            location = "group:CPTTestAppScatterPlotController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:TestXYTheme.h">
-         </FileRef>
-         <FileRef
-            location = "group:TestXYTheme.h.orig">
          </FileRef>
          <FileRef
             location = "group:TestXYTheme.m">
@@ -1046,9 +698,6 @@
          location = "group:Controller.m">
       </FileRef>
       <FileRef
-         location = "group:Controller.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:CorePlotIcon.icns">
       </FileRef>
       <FileRef
@@ -1075,9 +724,6 @@
          name = "Source">
          <FileRef
             location = "group:main.m">
-         </FileRef>
-         <FileRef
-            location = "group:main.m.orig">
          </FileRef>
       </Group>
    </Group>
@@ -1122,9 +768,6 @@
          location = "group:main.m">
       </FileRef>
       <FileRef
-         location = "group:main.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:NSString+ParseCSV.h">
       </FileRef>
       <FileRef
@@ -1146,9 +789,6 @@
       </FileRef>
       <FileRef
          location = "group:Controller.m">
-      </FileRef>
-      <FileRef
-         location = "group:Controller.m.orig">
       </FileRef>
       <FileRef
          location = "group:CorePlotIcon.icns">
@@ -1178,9 +818,6 @@
          <FileRef
             location = "group:main.m">
          </FileRef>
-         <FileRef
-            location = "group:main.m.orig">
-         </FileRef>
       </Group>
    </Group>
    <Group
@@ -1209,9 +846,6 @@
          location = "group:CorePlotQCPlugin.m">
       </FileRef>
       <FileRef
-         location = "group:CorePlotQCPlugin.m.orig">
-      </FileRef>
-      <FileRef
          location = "group:CorePlotQCPlugin.xcodeproj">
       </FileRef>
       <FileRef
@@ -1221,37 +855,19 @@
          location = "group:CPBarPlotPlugin.h">
       </FileRef>
       <FileRef
-         location = "group:CPBarPlotPlugin.h.orig">
-      </FileRef>
-      <FileRef
          location = "group:CPBarPlotPlugin.m">
-      </FileRef>
-      <FileRef
-         location = "group:CPBarPlotPlugin.m.orig">
       </FileRef>
       <FileRef
          location = "group:CPPieChartPlugin.h">
       </FileRef>
       <FileRef
-         location = "group:CPPieChartPlugin.h.orig">
-      </FileRef>
-      <FileRef
          location = "group:CPPieChartPlugin.m">
-      </FileRef>
-      <FileRef
-         location = "group:CPPieChartPlugin.m.orig">
       </FileRef>
       <FileRef
          location = "group:CPScatterPlotPlugin.h">
       </FileRef>
       <FileRef
-         location = "group:CPScatterPlotPlugin.h.orig">
-      </FileRef>
-      <FileRef
          location = "group:CPScatterPlotPlugin.m">
-      </FileRef>
-      <FileRef
-         location = "group:CPScatterPlotPlugin.m.orig">
       </FileRef>
       <Group
          location = "group:English.lproj"
@@ -1272,9 +888,6 @@
       </FileRef>
       <FileRef
          location = "group:Controller.m">
-      </FileRef>
-      <FileRef
-         location = "group:Controller.m.orig">
       </FileRef>
       <FileRef
          location = "group:CorePlotIcon.icns">
@@ -1304,9 +917,6 @@
          <FileRef
             location = "group:main.m">
          </FileRef>
-         <FileRef
-            location = "group:main.m.orig">
-         </FileRef>
       </Group>
    </Group>
    <Group
@@ -1328,25 +938,13 @@
             location = "group:APYahooDataPuller.m">
          </FileRef>
          <FileRef
-            location = "group:APYahooDataPuller.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:APYahooDataPullerGraph.h">
-         </FileRef>
-         <FileRef
-            location = "group:APYahooDataPullerGraph.h.orig">
          </FileRef>
          <FileRef
             location = "group:APYahooDataPullerGraph.m">
          </FileRef>
          <FileRef
-            location = "group:APYahooDataPullerGraph.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:APYahooDataPullerGraph.xib">
-         </FileRef>
-         <FileRef
-            location = "group:APYahooDataPullerGraph.xib.orig">
          </FileRef>
          <FileRef
             location = "group:NSDictionary+APFinancalData.h">
@@ -1355,31 +953,16 @@
             location = "group:NSDictionary+APFinancalData.m">
          </FileRef>
          <FileRef
-            location = "group:NSDictionary+APFinancalData.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:RootViewController.h">
-         </FileRef>
-         <FileRef
-            location = "group:RootViewController.h.orig">
          </FileRef>
          <FileRef
             location = "group:RootViewController.m">
          </FileRef>
          <FileRef
-            location = "group:RootViewController.m.orig">
-         </FileRef>
-         <FileRef
             location = "group:StockPlotAppDelegate.h">
          </FileRef>
          <FileRef
-            location = "group:StockPlotAppDelegate.h.orig">
-         </FileRef>
-         <FileRef
             location = "group:StockPlotAppDelegate.m">
-         </FileRef>
-         <FileRef
-            location = "group:StockPlotAppDelegate.m.orig">
          </FileRef>
       </Group>
       <FileRef
@@ -1390,9 +973,6 @@
       </FileRef>
       <FileRef
          location = "group:main.m">
-      </FileRef>
-      <FileRef
-         location = "group:main.m.orig">
       </FileRef>
       <FileRef
          location = "group:MainWindow.xib">
