@@ -44,7 +44,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
+    graph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
     [graph applyTheme:theme];
     hostView.hostedGraph = graph;

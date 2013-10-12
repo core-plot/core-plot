@@ -28,10 +28,10 @@
     CPTXYGraph *graph;
 
     if ( self.graphClass ) {
-        graph = [(CPTXYGraph *)[self.graphClass alloc] initWithFrame : CPTRectMake(0.0, 0.0, 200.0, 200.0)];
+        graph = [[self.graphClass alloc] initWithFrame:CPTRectMake(0.0, 0.0, 200.0, 200.0)];
     }
     else {
-        graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : CPTRectMake(0.0, 0.0, 200.0, 200.0)];
+        graph = [[CPTXYGraph alloc] initWithFrame:CPTRectMake(0.0, 0.0, 200.0, 200.0)];
     }
     graph.paddingLeft   = CPTFloat(60.0);
     graph.paddingTop    = CPTFloat(60.0);

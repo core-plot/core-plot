@@ -149,7 +149,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
 
-        CPTPlotGroup *newPlotGroup = [(CPTPlotGroup *)[CPTPlotGroup alloc] initWithFrame : newFrame];
+        CPTPlotGroup *newPlotGroup = [[CPTPlotGroup alloc] initWithFrame:newFrame];
         self.plotGroup = newPlotGroup;
 
         self.needsDisplayOnBoundsChange = YES;
@@ -529,28 +529,28 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     switch ( layerType ) {
         case CPTGraphLayerTypeMinorGridLines:
             if ( !self.minorGridLineGroup ) {
-                CPTGridLineGroup *newGridLineGroup = [(CPTGridLineGroup *)[CPTGridLineGroup alloc] initWithFrame : self.bounds];
+                CPTGridLineGroup *newGridLineGroup = [[CPTGridLineGroup alloc] initWithFrame:self.bounds];
                 self.minorGridLineGroup = newGridLineGroup;
             }
             break;
 
         case CPTGraphLayerTypeMajorGridLines:
             if ( !self.majorGridLineGroup ) {
-                CPTGridLineGroup *newGridLineGroup = [(CPTGridLineGroup *)[CPTGridLineGroup alloc] initWithFrame : self.bounds];
+                CPTGridLineGroup *newGridLineGroup = [[CPTGridLineGroup alloc] initWithFrame:self.bounds];
                 self.majorGridLineGroup = newGridLineGroup;
             }
             break;
 
         case CPTGraphLayerTypeAxisLabels:
             if ( !self.axisLabelGroup ) {
-                CPTAxisLabelGroup *newAxisLabelGroup = [(CPTAxisLabelGroup *)[CPTAxisLabelGroup alloc] initWithFrame : self.bounds];
+                CPTAxisLabelGroup *newAxisLabelGroup = [[CPTAxisLabelGroup alloc] initWithFrame:self.bounds];
                 self.axisLabelGroup = newAxisLabelGroup;
             }
             break;
 
         case CPTGraphLayerTypeAxisTitles:
             if ( !self.axisTitleGroup ) {
-                CPTAxisLabelGroup *newAxisTitleGroup = [(CPTAxisLabelGroup *)[CPTAxisLabelGroup alloc] initWithFrame : self.bounds];
+                CPTAxisLabelGroup *newAxisTitleGroup = [[CPTAxisLabelGroup alloc] initWithFrame:self.bounds];
                 self.axisTitleGroup = newAxisTitleGroup;
             }
             break;

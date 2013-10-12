@@ -79,7 +79,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
         openHandCursor    = [NSCursor openHandCursor];
         allowPinchScaling = YES;
 
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(frame)];
+        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;
     }
     return self;
@@ -120,7 +120,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(self.frame)];
+        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
         self.layer = mainLayer;
 
         hostedGraph           = nil;

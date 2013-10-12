@@ -65,7 +65,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #endif
 
     [graph release];
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
+    graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTStocksTheme]];
 
@@ -104,7 +104,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
 
     // Line plot with gradient fill
-    CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame : graph.bounds] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
     dataSourceLinePlot.identifier    = @"Data Source Plot";
     dataSourceLinePlot.title         = @"Close Values";
     dataSourceLinePlot.dataLineStyle = nil;
@@ -129,7 +129,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     whiteLineStyle.lineWidth = 2.0;
-    CPTTradingRangePlot *ohlcPlot = [[(CPTTradingRangePlot *)[CPTTradingRangePlot alloc] initWithFrame : graph.bounds] autorelease];
+    CPTTradingRangePlot *ohlcPlot = [[[CPTTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle  = whiteLineStyle;
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];

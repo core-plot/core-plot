@@ -258,7 +258,7 @@
 
     CGColorRelease(fillColor);
 
-    return [[(CPTFill *)[CPTFill alloc] initWithColor : fillCPColor] autorelease];
+    return [[[CPTFill alloc] initWithColor:fillCPColor] autorelease];
 }
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index

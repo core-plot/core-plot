@@ -54,7 +54,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 

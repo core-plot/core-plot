@@ -71,7 +71,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(self.hostView.bounds)];
+    graph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     self.hostView.hostedGraph = graph;
@@ -178,7 +178,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     // Add an extra y axis (red)
     // We add constraints to this axis below
-    CPTXYAxis *y2 = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame : CGRectZero];
+    CPTXYAxis *y2 = [[CPTXYAxis alloc] initWithFrame:CGRectZero];
     y2.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
     y2.orthogonalCoordinateDecimal = CPTDecimalFromString(@"3");
     y2.minorTicksPerInterval       = 0;
@@ -585,7 +585,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     graph.masksToBounds            = NO;
     graph.superlayer.masksToBounds = NO;
 
-    overlayRotationView                   = [(RotationView *)[RotationView alloc] initWithFrame : self.hostView.frame];
+    overlayRotationView                   = [[RotationView alloc] initWithFrame:self.hostView.frame];
     overlayRotationView.rotationDelegate  = self;
     overlayRotationView.rotationTransform = perspectiveRotation;
     [overlayRotationView setAutoresizingMask:[self.hostView autoresizingMask]];

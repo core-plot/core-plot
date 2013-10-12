@@ -59,7 +59,7 @@
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotArea = nil;
 
-        CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame : newFrame];
+        CPTPlotArea *newPlotArea = [[CPTPlotArea alloc] initWithFrame:newFrame];
         self.plotArea = newPlotArea;
 
         self.masksToBorder              = YES;
