@@ -483,6 +483,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -502,6 +503,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
