@@ -2,6 +2,10 @@
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
+NSString *const CPTPlotSpaceCoordinateKey   = @"CPTPlotSpaceCoordinateKey";
+NSString *const CPTPlotSpaceScrollingKey    = @"CPTPlotSpaceScrollingKey";
+NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
+
 /// @cond
 
 @interface CPTPlotSpace()

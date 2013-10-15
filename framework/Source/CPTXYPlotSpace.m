@@ -336,10 +336,36 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         }
 
         if ( ![constrainedRange isEqualToRange:xRange] ) {
+            CGFloat displacement = self.lastDisplacement.x;
+            BOOL isScrolling     = NO;
+
+            if ( xRange && constrainedRange ) {
+                isScrolling = !CPTDecimalEquals(constrainedRange.location, xRange.location) && CPTDecimalEquals(constrainedRange.length, xRange.length);
+
+                if ( isScrolling && ( displacement == CPTFloat(0.0) ) ) {
+                    CPTGraph *theGraph    = self.graph;
+                    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
+
+                    if ( plotArea ) {
+                        NSDecimal rangeLength = constrainedRange.length;
+
+                        if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
+                            NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.location, xRange.location), rangeLength);
+
+                            displacement = plotArea.bounds.size.width * CPTDecimalCGFloatValue(diff);
+                        }
+                    }
+                }
+            }
+
             xRange = [constrainedRange copy];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:@{ CPTPlotSpaceCoordinateKey: @(CPTCoordinateX),
+                                                                          CPTPlotSpaceScrollingKey: @(isScrolling),
+                                                                          CPTPlotSpaceDisplacementKey: @(displacement) }
+            ];
 
             if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
                 [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
@@ -374,10 +400,36 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         }
 
         if ( ![constrainedRange isEqualToRange:yRange] ) {
+            CGFloat displacement = self.lastDisplacement.y;
+            BOOL isScrolling     = NO;
+
+            if ( yRange && constrainedRange ) {
+                isScrolling = !CPTDecimalEquals(constrainedRange.location, yRange.location) && CPTDecimalEquals(constrainedRange.length, yRange.length);
+
+                if ( isScrolling && ( displacement == CPTFloat(0.0) ) ) {
+                    CPTGraph *theGraph    = self.graph;
+                    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
+
+                    if ( plotArea ) {
+                        NSDecimal rangeLength = constrainedRange.length;
+
+                        if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
+                            NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.location, yRange.location), rangeLength);
+
+                            displacement = plotArea.bounds.size.height * CPTDecimalCGFloatValue(diff);
+                        }
+                    }
+                }
+            }
+
             yRange = [constrainedRange copy];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                                object:self];
+                                                                object:self
+                                                              userInfo:@{ CPTPlotSpaceCoordinateKey: @(CPTCoordinateY),
+                                                                          CPTPlotSpaceScrollingKey: @(isScrolling),
+                                                                          CPTPlotSpaceDisplacementKey: @(displacement) }
+            ];
 
             if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
                 [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateY];
@@ -511,7 +563,9 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         xScaleType = newScaleType;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                            object:self];
+                                                            object:self
+                                                          userInfo:@{ CPTPlotSpaceCoordinateKey: @(CPTCoordinateX) }
+        ];
 
         CPTGraph *theGraph = self.graph;
         if ( theGraph ) {
@@ -527,7 +581,10 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         yScaleType = newScaleType;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                            object:self];
+                                                            object:self
+                                                          userInfo:@{ CPTPlotSpaceCoordinateKey: @(CPTCoordinateY) }
+        ];
+
         CPTGraph *theGraph = self.graph;
         if ( theGraph ) {
             [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
@@ -1152,15 +1209,15 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                                             elastic:self.elasticGlobalYRange
                                    withDisplacement:&displacement.y];
 
-        self.xRange = newRangeX;
-        self.yRange = newRangeY;
-
         self.lastDragPoint    = pointInPlotArea;
         self.lastDisplacement = displacement;
 
         NSTimeInterval currentTime = event.timestamp;
         self.lastDeltaTime = currentTime - self.lastDragTime;
         self.lastDragTime  = currentTime;
+
+        self.xRange = newRangeX;
+        self.yRange = newRangeY;
 
         return YES;
     }
