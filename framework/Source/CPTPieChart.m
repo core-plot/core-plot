@@ -540,6 +540,7 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     [borderStyle setLineStyleInContext:context];
+    Class fillClass = [CPTFill class];
 
     while ( currentIndex < sampleCount ) {
         CGFloat currentWidth = (CGFloat)[self cachedDoubleForField : CPTPieChartFieldSliceWidthNormalized recordIndex : currentIndex];
@@ -573,7 +574,7 @@ static const CGFloat colorLookupTable[10][3] =
             CGPathCloseSubpath(slicePath);
 
             CPTFill *currentFill = [self sliceFillForIndex:currentIndex];
-            if ( currentFill ) {
+            if ( [currentFill isKindOfClass:fillClass] ) {
                 CGContextBeginPath(context);
                 CGContextAddPath(context, slicePath);
                 [currentFill fillPathInContext:context];
@@ -689,7 +690,7 @@ static const CGFloat colorLookupTable[10][3] =
     if ( theFill || theLineStyle ) {
         CGFloat radius = legend.swatchCornerRadius;
 
-        if ( theFill ) {
+        if ( [theFill isKindOfClass:[CPTFill class]] ) {
             CGContextBeginPath(context);
             AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), radius);
             [theFill fillPathInContext:context];

@@ -51,7 +51,7 @@ CPTPieDirection;
 /** @brief @optional Gets a range of slice fills for the given pie chart.
  *  @param pieChart The pie chart.
  *  @param indexRange The range of the data indexes of interest.
- *  @return The pie slice fill for the slice with the given index.
+ *  @return An array of pie slice fills.
  **/
 -(NSArray *)sliceFillsForPieChart:(CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
@@ -61,7 +61,8 @@ CPTPieDirection;
  *  is also implemented in the datasource.
  *  @param pieChart The pie chart.
  *  @param idx The data index of interest.
- *  @return The pie slice fill for the slice with the given index.
+ *  @return The pie slice fill for the slice with the given index. If the datasource returns @nil, the default fill is used.
+ *  If the data source returns an NSNull object, no fill is drawn.
  **/
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
