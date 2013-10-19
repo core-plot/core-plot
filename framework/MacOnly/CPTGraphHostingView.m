@@ -1,8 +1,14 @@
 #import "CPTGraphHostingView.h"
 
 #import "CPTGraph.h"
+#import "CPTPlotArea.h"
+#import "CPTPlotAreaFrame.h"
+#import "CPTPlotSpace.h"
 
 /// @cond
+
+static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOContext;
+
 // for MacOS 10.6 SDK compatibility
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -16,6 +22,16 @@
 @end
 #endif
 #endif
+
+#pragma mark -
+
+@interface CPTGraphHostingView()
+
+-(void)plotSpaceAdded:(NSNotification *)notification;
+-(void)plotSpaceRemoved:(NSNotification *)notification;
+-(void)plotAreaBoundsChanged;
+
+@end
 
 /// @endcond
 
@@ -36,25 +52,51 @@
  **/
 @synthesize printRect;
 
+/** @property NSCursor *closedHandCursor
+ *  @brief The cursor displayed when the user is actively dragging any plot space.
+ **/
+@synthesize closedHandCursor;
+
+/** @property NSCursor *openHandCursor
+ *  @brief The cursor displayed when the mouse pointer is over a plot area mapped to a plot space that allows user interaction, but not actively being dragged.
+ **/
+@synthesize openHandCursor;
+
+/** @property BOOL allowPinchScaling
+ *  @brief Whether a pinch will trigger plot space scaling. Default is @YES.
+ **/
+@synthesize allowPinchScaling;
+
 /// @cond
 
--(id)initWithFrame:(NSRect)frame
+-(instancetype)initWithFrame:(NSRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
         hostedGraph = nil;
         printRect   = NSZeroRect;
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(frame)];
+
+        closedHandCursor  = [NSCursor closedHandCursor];
+        openHandCursor    = [NSCursor openHandCursor];
+        allowPinchScaling = YES;
+
+        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;
-        [mainLayer release];
     }
     return self;
 }
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [hostedGraph removeObserver:self forKeyPath:@"plotAreaFrame" context:CPTGraphHostingViewKVOContext];
+    [hostedGraph.plotAreaFrame removeObserver:self forKeyPath:@"plotArea" context:CPTGraphHostingViewKVOContext];
+
+    for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+        [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
+    }
+
     [hostedGraph removeFromSuperlayer];
-    [hostedGraph release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -70,18 +112,29 @@
 
     [coder encodeObject:self.hostedGraph forKey:@"CPTLayerHostingView.hostedGraph"];
     [coder encodeRect:self.printRect forKey:@"CPTLayerHostingView.printRect"];
+    [coder encodeObject:self.closedHandCursor forKey:@"CPTLayerHostingView.closedHandCursor"];
+    [coder encodeObject:self.openHandCursor forKey:@"CPTLayerHostingView.openHandCursor"];
+    [coder encodeBool:self.allowPinchScaling forKey:@"CPTLayerHostingView.allowPinchScaling"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTLayer *mainLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : NSRectToCGRect(self.frame)];
+        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
         self.layer = mainLayer;
-        [mainLayer release];
 
-        hostedGraph      = nil;
-        self.hostedGraph = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
-        self.printRect   = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
+        hostedGraph           = nil;
+        self.hostedGraph      = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
+        self.printRect        = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
+        self.closedHandCursor = [coder decodeObjectForKey:@"CPTLayerHostingView.closedHandCursor"];
+        self.openHandCursor   = [coder decodeObjectForKey:@"CPTLayerHostingView.openHandCursor"];
+
+        if ( [coder containsValueForKey:@"CPTLayerHostingView.allowPinchScaling"] ) {
+            self.allowPinchScaling = [coder decodeBoolForKey:@"CPTLayerHostingView.allowPinchScaling"];
+        }
+        else {
+            self.allowPinchScaling = YES;
+        }
     }
     return self;
 }
@@ -192,6 +245,32 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark Trackpad handling
+
+/// @cond
+
+-(void)magnifyWithEvent:(NSEvent *)event
+{
+    CPTGraph *theGraph = self.hostedGraph;
+
+    if ( theGraph && self.allowPinchScaling ) {
+        CGPoint pointOfMagnification = NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
+        CGPoint pointInHostedGraph   = [self.layer convertPoint:pointOfMagnification toLayer:theGraph];
+        CGPoint pointInPlotArea      = [theGraph convertPoint:pointInHostedGraph toLayer:theGraph.plotAreaFrame.plotArea];
+
+        CGFloat scale = event.magnification + CPTFloat(1.0);
+
+        for ( CPTPlotSpace *space in theGraph.allPlotSpaces ) {
+            if ( space.allowsUserInteraction ) {
+                [space scaleBy:scale aboutPoint:pointInPlotArea];
+            }
+        }
+    }
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark HiDPI display support
 
 /// @cond
@@ -213,6 +292,139 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark Cursor management
+
+/// @cond
+
+-(void)resetCursorRects
+{
+    [super resetCursorRects];
+
+    CPTGraph *theGraph    = self.hostedGraph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
+
+    NSCursor *closedCursor = self.closedHandCursor;
+    NSCursor *openCursor   = self.openHandCursor;
+
+    if ( plotArea && (closedCursor || openCursor) ) {
+        BOOL allowsInteraction = NO;
+        BOOL isDragging        = NO;
+
+        for ( CPTPlotSpace *space in theGraph.allPlotSpaces ) {
+            allowsInteraction = allowsInteraction || space.allowsUserInteraction;
+            isDragging        = isDragging || space.isDragging;
+        }
+
+        if ( allowsInteraction ) {
+            NSCursor *cursor = isDragging ? closedCursor : openCursor;
+
+            if ( cursor ) {
+                CGRect plotAreaBounds = [self.layer convertRect:plotArea.bounds fromLayer:plotArea];
+
+                [self addCursorRect:NSRectFromCGRect(plotAreaBounds)
+                             cursor:cursor];
+            }
+        }
+    }
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Notifications
+
+/// @cond
+
+/** @internal
+ *  @brief Adds a KVO observer to a new plot space added to the hosted graph.
+ **/
+-(void)plotSpaceAdded:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+
+    [space addObserver:self
+            forKeyPath:@"isDragging"
+               options:NSKeyValueObservingOptionNew
+               context:CPTGraphHostingViewKVOContext];
+}
+
+/** @internal
+ *  @brief Removes the KVO observer from a plot space removed from the hosted graph.
+ **/
+-(void)plotSpaceRemoved:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+
+    [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
+    [self.window invalidateCursorRectsForView:self];
+}
+
+/** @internal
+ *  @brief Updates the cursor rect when the plot area is resized.
+ **/
+-(void)plotAreaBoundsChanged
+{
+    [self.window invalidateCursorRectsForView:self];
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark KVO Methods
+
+/// @cond
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ( context == CPTGraphHostingViewKVOContext ) {
+        CPTGraph *theGraph = self.hostedGraph;
+
+        if ( [keyPath isEqualToString:@"isDragging"] && [object isKindOfClass:[CPTPlotSpace class]] ) {
+            [self.window invalidateCursorRectsForView:self];
+        }
+        else if ( [keyPath isEqualToString:@"plotAreaFrame"] && (object == theGraph) ) {
+            CPTPlotAreaFrame *oldPlotAreaFrame = change[NSKeyValueChangeOldKey];
+            CPTPlotAreaFrame *newPlotAreaFrame = change[NSKeyValueChangeNewKey];
+
+            if ( oldPlotAreaFrame ) {
+                [oldPlotAreaFrame removeObserver:self forKeyPath:@"plotArea" context:CPTGraphHostingViewKVOContext];
+            }
+
+            if ( newPlotAreaFrame ) {
+                [newPlotAreaFrame addObserver:self
+                                   forKeyPath:@"plotArea"
+                                      options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                                      context:CPTGraphHostingViewKVOContext];
+            }
+        }
+        else if ( [keyPath isEqualToString:@"plotArea"] && (object == theGraph.plotAreaFrame) ) {
+            CPTPlotArea *oldPlotArea = change[NSKeyValueChangeOldKey];
+            CPTPlotArea *newPlotArea = change[NSKeyValueChangeNewKey];
+
+            if ( oldPlotArea ) {
+                [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                                name:CPTLayerBoundsDidChangeNotification
+                                                              object:oldPlotArea];
+            }
+
+            if ( newPlotArea ) {
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(plotAreaBoundsChanged)
+                                                             name:CPTLayerBoundsDidChangeNotification
+                                                           object:newPlotArea];
+            }
+        }
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond
@@ -223,17 +435,70 @@
 
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;
-        [hostedGraph removeFromSuperlayer];
-        hostedGraph.hostingView = nil;
-        [hostedGraph release];
-        hostedGraph = [newGraph retain];
+
+        if ( hostedGraph ) {
+            [hostedGraph removeFromSuperlayer];
+            hostedGraph.hostingView = nil;
+
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTGraphDidAddPlotSpaceNotification object:hostedGraph];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTGraphDidRemovePlotSpaceNotification object:hostedGraph];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:CPTLayerBoundsDidChangeNotification object:hostedGraph.plotAreaFrame.plotArea];
+
+            [hostedGraph removeObserver:self forKeyPath:@"plotAreaFrame" context:CPTGraphHostingViewKVOContext];
+            [hostedGraph.plotAreaFrame removeObserver:self forKeyPath:@"plotArea" context:CPTGraphHostingViewKVOContext];
+
+            for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+                [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
+            }
+        }
+
+        hostedGraph = newGraph;
 
         if ( hostedGraph ) {
             hostedGraph.hostingView = self;
 
             [self viewDidChangeBackingProperties];
             [self.layer addSublayer:hostedGraph];
+
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(plotSpaceAdded:)
+                                                         name:CPTGraphDidAddPlotSpaceNotification
+                                                       object:hostedGraph];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(plotSpaceRemoved:)
+                                                         name:CPTGraphDidRemovePlotSpaceNotification
+                                                       object:hostedGraph];
+
+            [hostedGraph addObserver:self
+                          forKeyPath:@"plotAreaFrame"
+                             options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                             context:CPTGraphHostingViewKVOContext];
+
+            for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+                [space addObserver:self
+                        forKeyPath:@"isDragging"
+                           options:NSKeyValueObservingOptionNew
+                           context:CPTGraphHostingViewKVOContext];
+            }
         }
+    }
+}
+
+-(void)setClosedHandCursor:(NSCursor *)newCursor
+{
+    if ( newCursor != closedHandCursor ) {
+        closedHandCursor = newCursor;
+
+        [self.window invalidateCursorRectsForView:self];
+    }
+}
+
+-(void)setOpenHandCursor:(NSCursor *)newCursor
+{
+    if ( newCursor != openHandCursor ) {
+        openHandCursor = newCursor;
+
+        [self.window invalidateCursorRectsForView:self];
     }
 }
 

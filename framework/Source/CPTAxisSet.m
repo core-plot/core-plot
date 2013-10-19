@@ -37,10 +37,10 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTAxisSet object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        axes            = [[NSArray array] retain];
+        axes            = @[];
         borderLineStyle = nil;
 
         self.needsDisplayOnBoundsChange = YES;
@@ -52,22 +52,15 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTAxisSet *theLayer = (CPTAxisSet *)layer;
 
-        axes            = [theLayer->axes retain];
-        borderLineStyle = [theLayer->borderLineStyle retain];
+        axes            = theLayer->axes;
+        borderLineStyle = theLayer->borderLineStyle;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [axes release];
-    [borderLineStyle release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -85,7 +78,7 @@
     [coder encodeObject:self.borderLineStyle forKey:@"CPTAxisSet.borderLineStyle"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         axes            = [[coder decodeObjectForKey:@"CPTAxisSet.axes"] copy];
@@ -188,8 +181,6 @@
             axis.plotArea = nil;
             axis.graph    = nil;
         }
-        [newAxes retain];
-        [axes release];
         axes = newAxes;
         CPTPlotArea *plotArea = (CPTPlotArea *)self.superlayer;
         CPTGraph *theGraph    = plotArea.graph;
@@ -206,7 +197,6 @@
 -(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( newLineStyle != borderLineStyle ) {
-        [borderLineStyle release];
         borderLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
     }

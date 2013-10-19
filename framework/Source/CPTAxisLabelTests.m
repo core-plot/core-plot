@@ -34,7 +34,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
         STAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPTCoordinateX inDirection:INT_MAX], NSException, NSInvalidArgumentException, @"Should raise NSInvalidArgumentException for invalid direction (type CPTSign)");
     }
     @finally {
-        [label release];
+        label = nil;
     }
 }
 
@@ -91,7 +91,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
         STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.5), precision, @"Should anchor at (0.0, 0.5)");
     }
     @finally {
-        [label release];
+        label = nil;
     }
 }
 
@@ -148,7 +148,7 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
         STAssertEqualsWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.0), precision, @"Should anchor at (0.5, 0.0)");
     }
     @finally {
-        [label release];
+        label = nil;
     }
 }
 

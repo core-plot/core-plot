@@ -1,6 +1,5 @@
 #import "_CPTXYTheme.h"
 
-@interface _CPTPlainWhiteTheme : _CPTXYTheme {
-}
+@interface _CPTPlainWhiteTheme : _CPTXYTheme
 
 @end

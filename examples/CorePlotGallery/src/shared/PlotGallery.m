@@ -98,7 +98,7 @@ static PlotGallery *sharedPlotGallery = nil;
 
 -(NSInteger)numberOfRowsInSection:(NSInteger)section
 {
-    return [plotSections countForObject:[[self sectionTitles] objectAtIndex:section]];
+    return [plotSections countForObject:[self sectionTitles][section]];
 }
 
 -(PlotItem *)objectInSection:(NSInteger)section atIndex:(NSUInteger)index
@@ -109,7 +109,7 @@ static PlotGallery *sharedPlotGallery = nil;
         offset += [self numberOfRowsInSection:i];
     }
 
-    return [plotItems objectAtIndex:offset + index];
+    return plotItems[offset + index];
 }
 
 -(void)sortByTitle

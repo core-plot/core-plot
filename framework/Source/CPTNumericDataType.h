@@ -3,25 +3,23 @@
 /**
  *  @brief Enumeration of data formats for numeric data.
  **/
-typedef enum _CPTDataTypeFormat {
+typedef NS_ENUM (NSInteger, CPTDataTypeFormat) {
     CPTUndefinedDataType = 0,        ///< Undefined
     CPTIntegerDataType,              ///< Integer
     CPTUnsignedIntegerDataType,      ///< Unsigned integer
     CPTFloatingPointDataType,        ///< Floating point
     CPTComplexFloatingPointDataType, ///< Complex floating point
     CPTDecimalDataType               ///< NSDecimal
-}
-CPTDataTypeFormat;
+};
 
 /**
  *  @brief Enumeration of memory arrangements for multi-dimensional data arrays.
  *  @see See <a href="http://en.wikipedia.org/wiki/Row-major_order">Wikipedia</a> for more information.
  **/
-typedef enum _CPTDataOrder {
+typedef NS_ENUM (NSInteger, CPTDataOrder) {
     CPTDataOrderRowsFirst,   ///< Numeric data is arranged in row-major order.
     CPTDataOrderColumnsFirst ///< Numeric data is arranged in column-major order.
-}
-CPTDataOrder;
+};
 
 /**
  *  @brief Structure that describes the encoding of numeric data samples.

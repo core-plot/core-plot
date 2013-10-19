@@ -10,7 +10,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupScatterPlots;
 -(void)initializeData;
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, readwrite) NSUInteger selectedIndex;
@@ -44,7 +44,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
+    graph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
     [graph applyTheme:theme];
     hostView.hostedGraph = graph;
@@ -146,7 +146,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     // Auto scale the plot space to fit the plot data
     // Compress ranges so we can scroll
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
+    [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     [xRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
     plotSpace.xRange = xRange;
@@ -165,9 +165,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 
     for ( NSUInteger i = 0; i < 100; i++ ) {
-        id x = [NSNumber numberWithDouble:i * 0.05];
-        id y = [NSNumber numberWithDouble:10.0 * rand() / (double)RAND_MAX - 5.0];
-        [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+        NSNumber *x = @(i * 0.05);
+        NSNumber *y = @(10.0 * rand() / (double)RAND_MAX - 5.0);
+        [contentArray addObject:@{ @"x": x,
+                                   @"y": y }
+        ];
     }
     self.dataForPlot = contentArray;
 }
@@ -197,7 +199,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-        num = [[self.dataForPlot objectAtIndex:index] valueForKey:key];
+        num = [(self.dataForPlot)[index] valueForKey : key];
     }
     else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -216,7 +218,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
                     case 2:
                     case 3:
                     case 4:
-                        num = [[self.dataForPlot objectAtIndex:self.selectedIndex] valueForKey:@"x"];
+                        num = [(self.dataForPlot)[self.selectedIndex] valueForKey : @"x"];
                         break;
 
                     default:
@@ -229,7 +231,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
                     case 0:
                     case 1:
                     case 2:
-                        num = [[self.dataForPlot objectAtIndex:self.selectedIndex] valueForKey:@"y"];
+                        num = [(self.dataForPlot)[self.selectedIndex] valueForKey : @"y"];
                         break;
 
                     case 3:

@@ -10,7 +10,7 @@
 
 @interface CPTBorderedLayer()
 
-@property (nonatomic, readonly, retain) CPTLayer *borderLayer;
+@property (nonatomic, readonly) CPTLayer *borderLayer;
 
 -(void)updateOpacity;
 
@@ -66,7 +66,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBorderedLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         borderLineStyle = nil;
@@ -82,24 +82,16 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBorderedLayer *theLayer = (CPTBorderedLayer *)layer;
 
-        borderLineStyle = [theLayer->borderLineStyle retain];
-        fill            = [theLayer->fill retain];
+        borderLineStyle = theLayer->borderLineStyle;
+        fill            = theLayer->fill;
         inLayout        = theLayer->inLayout;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [borderLineStyle release];
-    [fill release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -120,7 +112,7 @@
     // inLayout
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         borderLineStyle = [[coder decodeObjectForKey:@"CPTBorderedLayer.borderLineStyle"] copy];
@@ -155,15 +147,17 @@
  **/
 -(void)renderBorderedLayerAsVectorInContext:(CGContextRef)context
 {
-    CPTFill *theFill = self.fill;
+    if ( !self.backgroundColor || !self.useFastRendering ) {
+        CPTFill *theFill = self.fill;
 
-    if ( theFill ) {
-        BOOL useMask = self.masksToBounds;
-        self.masksToBounds = YES;
-        CGContextBeginPath(context);
-        CGContextAddPath(context, self.maskingPath);
-        [theFill fillPathInContext:context];
-        self.masksToBounds = useMask;
+        if ( theFill ) {
+            BOOL useMask = self.masksToBounds;
+            self.masksToBounds = YES;
+            CGContextBeginPath(context);
+            CGContextAddPath(context, self.maskingPath);
+            [theFill fillPathInContext:context];
+            self.masksToBounds = useMask;
+        }
     }
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
@@ -296,7 +290,13 @@
 
 -(void)updateOpacity
 {
-    BOOL opaqueLayer = ( ( self.cornerRadius <= CPTFloat(0.0) ) && self.fill.opaque );
+    BOOL opaqueLayer = ( self.cornerRadius <= CPTFloat(0.0) );
+
+    CPTFill *theFill = self.fill;
+
+    if ( theFill ) {
+        opaqueLayer = opaqueLayer && theFill.opaque && !theFill.cgColor;
+    }
 
     CPTLineStyle *lineStyle = self.borderLineStyle;
 
@@ -304,7 +304,6 @@
         opaqueLayer = opaqueLayer && lineStyle.opaque;
     }
 
-    self.opaque             = NO;
     self.borderLayer.opaque = opaqueLayer;
 }
 
@@ -324,7 +323,6 @@
             [self setNeedsLayout];
         }
 
-        [borderLineStyle release];
         borderLineStyle = [newLineStyle copy];
 
         [self updateOpacity];
@@ -336,12 +334,13 @@
 -(void)setFill:(CPTFill *)newFill
 {
     if ( newFill != fill ) {
-        [fill release];
         fill = [newFill copy];
 
-        [self updateOpacity];
+        CPTLayer *border = self.borderLayer;
+        border.backgroundColor = fill.cgColor;
+        [border setNeedsDisplay];
 
-        [self.borderLayer setNeedsDisplay];
+        [self updateOpacity];
     }
 }
 
@@ -363,7 +362,6 @@
             CPTMaskLayer *maskLayer = [[CPTMaskLayer alloc] initWithFrame:self.bounds];
             [maskLayer setNeedsDisplay];
             self.mask = maskLayer;
-            [maskLayer release];
         }
         else {
             self.mask = nil;
@@ -391,14 +389,16 @@
 
                 newBorderLayer.transform = self.transform;
                 newBorderLayer.shadow    = self.shadow;
+                newBorderLayer.opaque    = self.opaque;
 
-                self.transform = CATransform3DIdentity;
+                newBorderLayer.backgroundColor = self.backgroundColor;
+
+                self.transform       = CATransform3DIdentity;
+                self.backgroundColor = NULL;
 
                 [superLayer setNeedsLayout];
 
                 theBorderLayer = newBorderLayer;
-
-                [newBorderLayer autorelease];
             }
             else {
                 theBorderLayer = superLayer;
@@ -410,6 +410,9 @@
         if ( [superLayer isKindOfClass:[CPTBorderLayer class]] ) {
             if ( superLayer.maskedLayer == self ) {
                 self.transform = superLayer.transform;
+                self.opaque    = superLayer.opaque;
+
+                self.backgroundColor = superLayer.backgroundColor;
 
                 [superLayer.superlayer replaceSublayer:superLayer with:self];
 
@@ -481,6 +484,16 @@
         if ( self.masksToBorder ) {
             self.borderLayer.shadow = newShadow;
         }
+    }
+}
+
+-(void)setBackgroundColor:(CGColorRef)newColor
+{
+    if ( self.masksToBorder ) {
+        [self.borderLayer setBackgroundColor:newColor];
+    }
+    else {
+        [super setBackgroundColor:newColor];
     }
 }
 

@@ -16,32 +16,25 @@
     STAssertEquals(actual, expected, @"numberOfDimensions == 1");
     expected = [nd.shape count];
     STAssertEquals(actual, expected, @"numberOfDimensions == 1");
-
-    [nd release];
 }
 
 -(void)testNumberOfDimensionsGivesShapeCount
 {
-    NSArray *shape = [NSArray arrayWithObjects:
-                      [NSNumber numberWithUnsignedInt:2],
-                      [NSNumber numberWithUnsignedInt:2],
-                      [NSNumber numberWithUnsignedInt:2],
-                      nil
-                     ];
+    id shape = @[@2, @2, @2];
 
-    NSUInteger nElems  = 2 * 2 * 2;
+    NSUInteger nElems = 2 * 2 * 2;
+
     CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                         shape:shape];
 
     STAssertEquals(nd.numberOfDimensions, nd.shape.count, @"numberOfDimensions == shape.count == 3");
-
-    [nd release];
 }
 
 -(void)testNilShapeCorrectElementCount
 {
-    NSUInteger nElems  = 13;
+    NSUInteger nElems = 13;
+
     CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
                                                dataTypeString:@"=f4"
                                                         shape:nil];
@@ -54,21 +47,19 @@
     }
 
     STAssertEquals(prod, nElems, @"prod == nElems");
-
-    [nd release];
 }
 
 -(void)testIllegalShapeRaisesException
 {
-    NSArray *shape = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:2],
-                      [NSNumber numberWithUnsignedInt:2],
-                      [NSNumber numberWithUnsignedInt:2],
-                      nil];
+    id shape = @[@2, @2, @2];
+
     NSUInteger nElems = 5;
 
-    STAssertThrowsSpecificNamed([[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
-                                                            dataType:CPTDataType( CPTUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder() )
-                                                               shape:shape],
+    CPTNumericData *testData = nil;
+
+    STAssertThrowsSpecificNamed(testData = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
+                                                                       dataType:CPTDataType( CPTUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder() )
+                                                                          shape:shape],
                                 NSException,
                                 CPTNumericDataException,
                                 @"Illegal shape should throw");
@@ -84,8 +75,6 @@
     NSUInteger actual   = [nd.data length];
 
     STAssertEquals(expected, actual, @"data length");
-
-    [nd release];
 }
 
 -(void)testBytesEqualDataBytes
@@ -105,8 +94,6 @@
     NSData *expected = data;
     STAssertEqualObjects(data, nd.data, @"equal objects");
     STAssertTrue([expected isEqualToData:nd.data], @"data isEqualToData:");
-
-    [nd release];
 }
 
 -(void)testArchivingRoundTrip
@@ -134,8 +121,6 @@
     STAssertEquals(ndType.sampleBytes, nd2Type.sampleBytes, @"dataType.sampleBytes equal");
     STAssertEquals(ndType.byteOrder, nd2Type.byteOrder, @"dataType.byteOrder equal");
     STAssertEqualObjects(nd.shape, nd2.shape, @"shapes equal");
-
-    [nd release];
 }
 
 -(void)testKeyedArchivingRoundTrip
@@ -163,8 +148,6 @@
     STAssertEquals(ndType.sampleBytes, nd2Type.sampleBytes, @"dataType.sampleBytes equal");
     STAssertEquals(ndType.byteOrder, nd2Type.byteOrder, @"dataType.byteOrder equal");
     STAssertEqualObjects(nd.shape, nd2.shape, @"shapes equal");
-
-    [nd release];
 }
 
 -(void)testNumberOfSamplesCorrectForDataType
@@ -182,7 +165,6 @@
                                                         shape:nil];
 
     STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
-    [nd release];
 
     nElems = 10;
     data   = [NSMutableData dataWithLength:nElems * sizeof(char)];
@@ -196,7 +178,6 @@
                                         shape:nil];
 
     STAssertEquals([nd numberOfSamples], nElems, @"numberOfSamples == nElems");
-    [nd release];
 }
 
 -(void)testDataTypeAccessorsCorrectForDataType
@@ -236,8 +217,6 @@
                                         sampleBytes:sizeof(double)
                                           byteOrder:NSHostByteOrder()];
 
-    [fd release];
-
     const double *doubleSamples = (const double *)[dd.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         STAssertTrue(samples[i] == doubleSamples[i], @"(float)%g != (double)%g", samples[i], doubleSamples[i]);
@@ -262,8 +241,6 @@
     STAssertEquals( ( (float *)[fd.data bytes] ), (float *)[fd samplePointer:0], @"" );
     STAssertEquals( ( (float *)[fd.data bytes] ) + nElems - 1, (float *)[fd samplePointer:nElems - 1], @"" );
     STAssertNil([fd samplePointer:nElems], @"too many samples");
-
-    [fd release];
 }
 
 -(void)testSampleValueCorrect
@@ -282,8 +259,6 @@
 
     STAssertEqualsWithAccuracy([[fd sampleValue:0] doubleValue], sin(0), 0.01, @"sample value");
     STAssertEqualsWithAccuracy([[fd sampleValue:1] doubleValue], sin(1), 0.01, @"sample value");
-
-    [fd release];
 }
 
 -(void)testSampleIndexRowsFirstOrder
@@ -300,7 +275,7 @@
 
     CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(NSUInteger), NSHostByteOrder() )
-                                                        shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:rows], [NSNumber numberWithUnsignedInteger:cols], nil]
+                                                        shape:@[@(rows), @(cols)]
                                                     dataOrder:CPTDataOrderRowsFirst];
 
     STAssertEquals( ([fd sampleIndex:rows, 0]), (NSUInteger)NSNotFound, @"row index out of range" );
@@ -327,7 +302,7 @@
 
     CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(NSUInteger), NSHostByteOrder() )
-                                                        shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:rows], [NSNumber numberWithUnsignedInteger:cols], nil]
+                                                        shape:@[@(rows), @(cols)]
                                                     dataOrder:CPTDataOrderColumnsFirst];
 
     STAssertEquals( ([fd sampleIndex:rows, 0]), (NSUInteger)NSNotFound, @"row index out of range" );

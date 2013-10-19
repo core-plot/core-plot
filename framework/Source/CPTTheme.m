@@ -38,7 +38,7 @@ static NSMutableSet *themes = nil;
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         graphClass = Nil;
@@ -47,16 +47,6 @@ static NSMutableSet *themes = nil;
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [graphClass release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -69,10 +59,9 @@ static NSMutableSet *themes = nil;
     [coder encodeObject:NSStringFromClass(self.graphClass) forKey:@"CPTTheme.graphClass"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
-    [self release];
-    self = [[CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]] retain];
+    self = [CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]];
 
     if ( self ) {
         self.graphClass = NSClassFromString([coder decodeObjectForKey:@"CPTTheme.graphClass"]);
@@ -92,7 +81,7 @@ static NSMutableSet *themes = nil;
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
-    return [themes sortedArrayUsingDescriptors:[NSArray arrayWithObject:nameSort]];
+    return [themes sortedArrayUsingDescriptors:@[nameSort]];
 }
 
 /** @brief Gets a named theme.
@@ -100,7 +89,7 @@ static NSMutableSet *themes = nil;
  *  @return A CPTTheme instance with name matching @par{themeName} or @nil if no themes with a matching name were found.
  *  @see See @ref themeNames "Theme Names" for a list of named themes provided by Core Plot.
  **/
-+(CPTTheme *)themeNamed:(NSString *)themeName
++(instancetype)themeNamed:(NSString *)themeName
 {
     CPTTheme *newTheme = nil;
 
@@ -111,7 +100,7 @@ static NSMutableSet *themes = nil;
         }
     }
 
-    return [newTheme autorelease];
+    return newTheme;
 }
 
 /** @brief Register a theme class.
@@ -157,8 +146,7 @@ static NSMutableSet *themes = nil;
             [NSException raise:CPTException format:@"Invalid graph class for theme; must be a subclass of CPTGraph"];
         }
         else {
-            [graphClass release];
-            graphClass = [newGraphClass retain];
+            graphClass = newGraphClass;
         }
     }
 }

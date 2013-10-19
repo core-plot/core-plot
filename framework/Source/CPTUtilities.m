@@ -188,12 +188,12 @@ NSDecimal CPTDecimalFromChar(int8_t anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithChar:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithChar:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -205,12 +205,12 @@ NSDecimal CPTDecimalFromShort(int16_t anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithShort:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithShort:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -222,12 +222,12 @@ NSDecimal CPTDecimalFromLong(int32_t anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithLong:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithLong:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -239,12 +239,12 @@ NSDecimal CPTDecimalFromLongLong(int64_t anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithLongLong:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithLongLong:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -256,12 +256,12 @@ NSDecimal CPTDecimalFromInt(int anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithInt:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithInt:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -273,12 +273,12 @@ NSDecimal CPTDecimalFromInteger(NSInteger anInt)
 {
     if ( (anInt >= 0) && (anInt < kCacheSize) ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithInteger:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithInteger:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -290,12 +290,12 @@ NSDecimal CPTDecimalFromUnsignedChar(uint8_t anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedChar:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedChar:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -307,12 +307,12 @@ NSDecimal CPTDecimalFromUnsignedShort(uint16_t anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedShort:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedShort:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -324,12 +324,12 @@ NSDecimal CPTDecimalFromUnsignedLong(uint32_t anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedLong:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedLong:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -341,12 +341,12 @@ NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedLongLong:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedLongLong:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -358,12 +358,12 @@ NSDecimal CPTDecimalFromUnsignedInt(unsigned int anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedInt:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedInt:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -375,12 +375,12 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
 {
     if ( anInt < kCacheSize ) {
         if ( !cacheValueInitialized[anInt] ) {
-            cache[anInt]                 = [[NSNumber numberWithUnsignedInteger:anInt] decimalValue];
+            cache[anInt]                 = @(anInt).decimalValue;
             cacheValueInitialized[anInt] = YES;
         }
         return cache[anInt];
     }
-    return [[NSNumber numberWithUnsignedInteger:anInt] decimalValue];
+    return @(anInt).decimalValue;
 }
 
 /**
@@ -390,7 +390,7 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
  **/
 NSDecimal CPTDecimalFromFloat(float aFloat)
 {
-    return [[NSNumber numberWithFloat:aFloat] decimalValue];
+    return @(aFloat).decimalValue;
 }
 
 /**
@@ -400,7 +400,7 @@ NSDecimal CPTDecimalFromFloat(float aFloat)
  **/
 NSDecimal CPTDecimalFromDouble(double aDouble)
 {
-    return [[NSNumber numberWithDouble:aDouble] decimalValue];
+    return @(aDouble).decimalValue;
 }
 
 /**
@@ -410,12 +410,7 @@ NSDecimal CPTDecimalFromDouble(double aDouble)
  **/
 NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
 {
-#if CGFLOAT_IS_DOUBLE
-    return [[NSNumber numberWithDouble:aCGFloat] decimalValue];
-
-#else
-    return [[NSNumber numberWithFloat:aCGFloat] decimalValue];
-#endif
+    return @(aCGFloat).decimalValue;
 }
 
 /**
@@ -436,7 +431,6 @@ NSDecimal CPTDecimalFromString(NSString *stringRepresentation)
     NSScanner *theScanner = [[NSScanner alloc] initWithString:stringRepresentation];
 
     [theScanner scanDecimal:&result];
-    [theScanner release];
 
     return result;
 }

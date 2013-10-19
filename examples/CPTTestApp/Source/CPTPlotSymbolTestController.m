@@ -2,7 +2,7 @@
 
 @interface CPTPlotSymbolTestController()
 
-@property (nonatomic, readwrite, retain) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
 @end
 
@@ -17,7 +17,7 @@
     [super awakeFromNib];
 
     // Create graph
-    graph                = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : NSRectToCGRect(hostView.bounds)];
+    graph                = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
     hostView.hostedGraph = graph;
 
     // Remove axes
@@ -46,7 +46,7 @@
 
     // Create a series of plots that uses the data source method
     for ( NSUInteger i = CPTPlotSymbolTypeNone; i <= CPTPlotSymbolTypeCustom; i++ ) {
-        CPTScatterPlot *dataSourceLinePlot = [(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame : graph.bounds];
+        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
         dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
         dataSourceLinePlot.shadow     = lineShadow;
 
@@ -71,19 +71,19 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num;
+    NSNumber *num;
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%lud", (unsigned long)index]];
+            num = @(index);
             break;
 
         case CPTScatterPlotFieldY:
-            num = [NSDecimalNumber decimalNumberWithString:(NSString *)plot.identifier];
+            num = @([(NSString *)plot.identifier integerValue]);
             break;
 
         default:
-            num = [NSDecimalNumber zero];
+            num = @0;
     }
     return num;
 }
