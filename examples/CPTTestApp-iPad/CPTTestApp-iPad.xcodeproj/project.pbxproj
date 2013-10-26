@@ -17,6 +17,7 @@
 		28D7ACF80DDB3853001CB0EB /* CPTTestApp_iPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */; };
 		BC65753F11653FC60008F594 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65753611653F8A0008F594 /* libCorePlot-CocoaTouch.a */; };
 		BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65758E116549890008F594 /* QuartzCore.framework */; };
+		C3CD283917DE9C59008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD283817DE9C59008EED1E /* Accelerate.framework */; };
 		C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */; };
 		C3F47B6F17BF99DE0075181F /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		8D1107310486CEB800E47090 /* CPTTestApp_iPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CPTTestApp_iPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		BC65753011653F8A0008F594 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		BC65758E116549890008F594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C3CD283817DE9C59008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
 		C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +70,7 @@
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BC65753F11653FC60008F594 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */,
+				C3CD283917DE9C59008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +140,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				BC65758E116549890008F594 /* QuartzCore.framework */,
+				C3CD283817DE9C59008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -288,7 +292,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -309,7 +313,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",

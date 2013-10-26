@@ -2,15 +2,11 @@
 
 @class CPTPlotSpace;
 
-@interface CPTPlotSpaceAnnotation : CPTAnnotation {
-    @private
-    NSArray *anchorPlotPoint;
-    CPTPlotSpace *plotSpace;
-}
+@interface CPTPlotSpaceAnnotation : CPTAnnotation
 
 @property (nonatomic, readwrite, copy) NSArray *anchorPlotPoint;
-@property (nonatomic, readonly, retain) CPTPlotSpace *plotSpace;
+@property (nonatomic, readonly) CPTPlotSpace *plotSpace;
 
--(id)initWithPlotSpace:(CPTPlotSpace *)space anchorPlotPoint:(NSArray *)plotPoint;
+-(instancetype)initWithPlotSpace:(CPTPlotSpace *)space anchorPlotPoint:(NSArray *)plotPoint;
 
 @end

@@ -29,6 +29,7 @@
 		C38587D0163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C38587CC163DAB7A00DBF63D /* UITabBarController+LegacyRotation.m */; };
 		C38587D1163DAB7A00DBF63D /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C38587CE163DAB7A00DBF63D /* UIViewController+LegacyRotation.m */; };
 		C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7DA71633537100BC9515 /* Default-568h@2x.png */; };
+		C3CD284817DE9D1F008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD284717DE9D1F008EED1E /* Accelerate.framework */; };
 		F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		C38587CD163DAB7A00DBF63D /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
 		C38587CE163DAB7A00DBF63D /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C3BB7DA71633537100BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3CD284717DE9D1F008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */,
+				C3CD284817DE9D1F008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +145,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */,
 			);
 			indentWidth = 4;
 			name = CustomTemplate;
@@ -182,6 +184,8 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */,
+				C3CD284717DE9D1F008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -343,7 +347,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-falign-loops=16";
 				OTHER_LDFLAGS = (
@@ -365,7 +369,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-falign-loops=16";
 				OTHER_LDFLAGS = (
 					"-all_load",

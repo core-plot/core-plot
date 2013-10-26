@@ -23,7 +23,7 @@
                                     bitsPerComponent,
                                     width * bitsPerComponent * 4,
                                     colorSpace,
-                                    kCGImageAlphaNoneSkipLast);
+                                    (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
 
     CGColorSpaceRelease(colorSpace);
 }
@@ -76,8 +76,8 @@
 
     STAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"100"], [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(i)], @"NSInteger to NSDecimal conversion failed");
     STAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"100"], [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromUnsignedInteger(unsignedI)], @"NSUInteger to NSDecimal conversion failed");
-    STAssertEqualsWithAccuracy([[NSDecimalNumber numberWithFloat:f] floatValue], [[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromFloat(f)] floatValue], 1.0e-7, @"float to NSDecimal conversion failed");
-    STAssertEqualObjects([NSDecimalNumber numberWithDouble:d], [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble(d)], @"double to NSDecimal conversion failed.");
+    STAssertEqualsWithAccuracy([@(f)floatValue], [[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromFloat(f)] floatValue], 1.0e-7, @"float to NSDecimal conversion failed");
+    STAssertEqualObjects(@(d), [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble(d)], @"double to NSDecimal conversion failed.");
 }
 
 -(void)testConvertNegativeOne

@@ -1,18 +1,17 @@
-@interface CPTConstraints : NSObject<NSCoding, NSCopying> {
-}
+@interface CPTConstraints : NSObject<NSCoding, NSCopying>
 
 /// @name Factory Methods
 /// @{
-+(CPTConstraints *)constraintWithLowerOffset:(CGFloat)newOffset;
-+(CPTConstraints *)constraintWithUpperOffset:(CGFloat)newOffset;
-+(CPTConstraints *)constraintWithRelativeOffset:(CGFloat)newOffset;
++(instancetype)constraintWithLowerOffset:(CGFloat)newOffset;
++(instancetype)constraintWithUpperOffset:(CGFloat)newOffset;
++(instancetype)constraintWithRelativeOffset:(CGFloat)newOffset;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithLowerOffset:(CGFloat)newOffset;
--(id)initWithUpperOffset:(CGFloat)newOffset;
--(id)initWithRelativeOffset:(CGFloat)newOffset;
+-(instancetype)initWithLowerOffset:(CGFloat)newOffset;
+-(instancetype)initWithUpperOffset:(CGFloat)newOffset;
+-(instancetype)initWithRelativeOffset:(CGFloat)newOffset;
 /// @}
 
 @end

@@ -12,7 +12,7 @@
 
 /// @cond
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         // support old archives
