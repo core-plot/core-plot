@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
 		07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
-		073FA00A133CB0790076C654 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073FA009133CB0790076C654 /* QuartzCore.framework */; };
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
 		07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C13BBA0FF9322A00BEE616 /* BlueTexture.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -24,6 +23,7 @@
 		C34D4F8E0F8ED78400969C24 /* CPTPlotSymbolTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34D4F8C0F8ED78400969C24 /* CPTPlotSymbolTestController.m */; };
 		C38017DD124132020052B00D /* SelectionDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38017DC124132020052B00D /* SelectionDemo.xib */; };
 		C38017E1124132610052B00D /* SelectionDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38017E0124132610052B00D /* SelectionDemoController.m */; };
+		C39BB9A4181C154500D95E01 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,6 @@
 
 /* Begin PBXFileReference section */
 		07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
-		073FA009133CB0790076C654 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
 		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot.framework; path = ../../../../framework/build/Debug/CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = Source/Controller.h; sourceTree = "<group>"; };
 		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Controller.m; path = Source/Controller.m; sourceTree = "<group>"; };
@@ -101,9 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				073FA00A133CB0790076C654 /* QuartzCore.framework in Frameworks */,
 				07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				C39BB9A4181C154500D95E01 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +166,6 @@
 		29B97314FDCFA39411CA2CEA /* CPTTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				073FA009133CB0790076C654 /* QuartzCore.framework */,
 				07032B6311ABB9E000463D20 /* CorePlot.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
