@@ -16,7 +16,6 @@
 
     [theme setGraphClass:[CPTXYGraph class]];
     STAssertEquals([CPTXYGraph class], theme.graphClass, @"graphClass should be CPTXYGraph");
-    [theme release];
 }
 
 -(void)testSetGraphUsingDerivedClassShouldWork
@@ -25,7 +24,6 @@
 
     [theme setGraphClass:[CPTDerivedXYGraph class]];
     STAssertEquals([CPTDerivedXYGraph class], theme.graphClass, @"graphClass should be CPTDerivedXYGraph");
-    [theme release];
 }
 
 -(void)testSetGraphUsingCPTGraphShouldThrowException
@@ -37,7 +35,7 @@
     }
     @finally {
         STAssertNil(theme.graphClass, @"graphClass should be nil.");
-        [theme release];
+        theme = nil;
     }
 }
 

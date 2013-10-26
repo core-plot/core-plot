@@ -2,14 +2,11 @@
 
 @class CPTImage;
 
-@interface _CPTFillImage : CPTFill<NSCopying, NSCoding> {
-    @private
-    CPTImage *fillImage;
-}
+@interface _CPTFillImage : CPTFill<NSCopying, NSCoding>
 
 /// @name Initialization
 /// @{
--(id)initWithImage:(CPTImage *)anImage;
+-(instancetype)initWithImage:(CPTImage *)anImage;
 /// @}
 
 /// @name Drawing

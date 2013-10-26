@@ -210,6 +210,7 @@
 		C3CCA04913E8D94800CE6DB1 /* _CPTConstraintsFixed.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CCA04513E8D94800CE6DB1 /* _CPTConstraintsFixed.m */; };
 		C3CCA04A13E8D94800CE6DB1 /* _CPTConstraintsRelative.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CCA04613E8D94800CE6DB1 /* _CPTConstraintsRelative.h */; settings = {ATTRIBUTES = (); }; };
 		C3CCA04B13E8D94800CE6DB1 /* _CPTConstraintsRelative.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CCA04713E8D94800CE6DB1 /* _CPTConstraintsRelative.m */; };
+		C3CD282817DE957C008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282717DE957C008EED1E /* Accelerate.framework */; };
 		C3D3AD3413DF8E9D0004EA73 /* CPTLineCap.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */; settings = {ATTRIBUTES = (); }; };
 		C3D3AD3513DF8E9D0004EA73 /* CPTLineCap.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */; };
 		C3D68B091221650C00EB4863 /* CPTMutableNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CADE3D11B188C500D36017 /* CPTMutableNumericData.h */; settings = {ATTRIBUTES = (); }; };
@@ -392,7 +393,7 @@
 		C3C6831A166138E200340E39 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationOperation.h; path = Source/CPTAnimationOperation.h; sourceTree = "<group>"; };
 		C3C6831B166138E200340E39 /* CPTAnimationOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimationOperation.m; path = Source/CPTAnimationOperation.m; sourceTree = "<group>"; };
 		C3C6831C166138E200340E39 /* CPTAnimationPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationPeriod.h; path = Source/CPTAnimationPeriod.h; sourceTree = "<group>"; };
-		C3C6831D166138E200340E39 /* CPTAnimationPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimationPeriod.m; path = Source/CPTAnimationPeriod.m; sourceTree = "<group>"; };
+		C3C6831D166138E200340E39 /* CPTAnimationPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimationPeriod.m; path = Source/CPTAnimationPeriod.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3C6831E166138E200340E39 /* _CPTAnimationTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationTimingFunctions.h; path = Source/_CPTAnimationTimingFunctions.h; sourceTree = "<group>"; };
 		C3C6831F166138E200340E39 /* _CPTAnimationTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTAnimationTimingFunctions.m; path = Source/_CPTAnimationTimingFunctions.m; sourceTree = "<group>"; };
 		C3C683281661391A00340E39 /* _CPTAnimationCGFloatPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTAnimationCGFloatPeriod.h; path = Source/_CPTAnimationCGFloatPeriod.h; sourceTree = "<group>"; };
@@ -422,6 +423,7 @@
 		C3CCA04513E8D94800CE6DB1 /* _CPTConstraintsFixed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTConstraintsFixed.m; path = Source/_CPTConstraintsFixed.m; sourceTree = "<group>"; };
 		C3CCA04613E8D94800CE6DB1 /* _CPTConstraintsRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTConstraintsRelative.h; path = Source/_CPTConstraintsRelative.h; sourceTree = "<group>"; };
 		C3CCA04713E8D94800CE6DB1 /* _CPTConstraintsRelative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTConstraintsRelative.m; path = Source/_CPTConstraintsRelative.m; sourceTree = "<group>"; };
+		C3CD282717DE957C008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D3AD3213DF8E9D0004EA73 /* CPTLineCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLineCap.h; path = Source/CPTLineCap.h; sourceTree = "<group>"; };
 		C3D3AD3313DF8E9D0004EA73 /* CPTLineCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLineCap.m; path = Source/CPTLineCap.m; sourceTree = "<group>"; };
 		C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_Prefix.pch; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				BC9B836F0FB8A1700035D8DA /* UIKit.framework in Frameworks */,
 				BC9B83700FB8A1700035D8DA /* Foundation.framework in Frameworks */,
 				BC9B83710FB8A1700035D8DA /* CoreGraphics.framework in Frameworks */,
+				C3CD282817DE957C008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +639,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				C3CD282717DE957C008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1196,17 +1200,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				OTHER_CFLAGS = (
-					"-Wextra",
-					"-Wno-unused-parameter",
-					"-Wno-deprecated-implementations",
-				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1222,16 +1222,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				OTHER_CFLAGS = (
-					"-Wextra",
-					"-Wno-unused-parameter",
-					"-Wno-deprecated-implementations",
-				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1249,7 +1245,10 @@
 			buildSettings = {
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1271,12 +1270,22 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1297,7 +1306,10 @@
 			buildSettings = {
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1320,11 +1332,21 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MACH_O_TYPE = staticlib;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

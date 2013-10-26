@@ -1,13 +1,10 @@
 #import "CPTFill.h"
 
-@interface _CPTFillColor : CPTFill<NSCopying, NSCoding> {
-    @private
-    CPTColor *fillColor;
-}
+@interface _CPTFillColor : CPTFill<NSCopying, NSCoding>
 
 /// @name Initialization
 /// @{
--(id)initWithColor:(CPTColor *)aColor;
+-(instancetype)initWithColor:(CPTColor *)aColor;
 /// @}
 
 /// @name Drawing

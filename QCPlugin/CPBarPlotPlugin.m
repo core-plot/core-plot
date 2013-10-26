@@ -29,10 +29,10 @@
 
 +(NSDictionary *)attributes
 {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"Core Plot Bar Chart", QCPlugInAttributeNameKey,
-            @"Bar chart", QCPlugInAttributeDescriptionKey,
-            nil];
+    return @{
+               QCPlugInAttributeNameKey: @"Core Plot Bar Chart",
+               QCPlugInAttributeDescriptionKey: @"Bar chart"
+    };
 }
 
 +(NSDictionary *)attributesForPropertyPortWithKey:(NSString *)key
@@ -40,60 +40,60 @@
     // A few additional ports for the bar plot chart type ...
 
     if ( [key isEqualToString:@"inputBarWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Bar Width", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Bar Width",
+                   QCPortAttributeDefaultValueKey: @1.0,
+                   QCPortAttributeMinimumValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputBarOffset"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Bar Offset", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.5], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Bar Offset",
+                   QCPortAttributeDefaultValueKey: @0.5
+        };
     }
 
     if ( [key isEqualToString:@"inputBaseValue"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Base Value", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Base Value",
+                   QCPortAttributeDefaultValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputHorizontalBars"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Horizontal Bars", QCPortAttributeNameKey,
-                [NSNumber numberWithBool:NO], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Horizontal Bars",
+                   QCPortAttributeDefaultValueKey: @NO
+        };
     }
 
     if ( [key isEqualToString:@"inputXMin"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Range Min", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Range Min",
+                   QCPortAttributeDefaultValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputXMax"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"X Range Max", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"X Range Max",
+                   QCPortAttributeDefaultValueKey: @5.0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMin"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Range Min", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Range Min",
+                   QCPortAttributeDefaultValueKey: @0.0
+        };
     }
 
     if ( [key isEqualToString:@"inputYMax"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Y Range Max", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:5.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Y Range Max",
+                   QCPortAttributeDefaultValueKey: @5.0
+        };
     }
 
     return [super attributesForPropertyPortWithKey:key];
@@ -105,39 +105,35 @@
 
     [self addInputPortWithType:QCPortTypeStructure
                         forKey:[NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)index]
-                withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"Values %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                QCPortTypeStructure, QCPortAttributeTypeKey,
-                                nil]];
+                withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Values %lu", (unsigned long)(index + 1)],
+                                  QCPortAttributeTypeKey: QCPortTypeStructure }
+    ];
 
     CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
-                withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                QCPortTypeColor, QCPortAttributeTypeKey,
-                                lineColor, QCPortAttributeDefaultValueKey,
-                                nil]];
+                withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
+                                  QCPortAttributeTypeKey: QCPortTypeColor,
+                                  QCPortAttributeDefaultValueKey: (id)lineColor }
+    ];
     CGColorRelease(lineColor);
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
-                withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                QCPortTypeColor, QCPortAttributeTypeKey,
-                                fillColor, QCPortAttributeDefaultValueKey,
-                                nil]];
+                withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
+                                  QCPortAttributeTypeKey: QCPortTypeColor,
+                                  QCPortAttributeDefaultValueKey: (id)fillColor }
+    ];
     CGColorRelease(fillColor);
 
     [self addInputPortWithType:QCPortTypeNumber
                         forKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)index]
-                withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"Plot Line Width %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                QCPortTypeNumber, QCPortAttributeTypeKey,
-                                [NSNumber numberWithInt:1.0], QCPortAttributeDefaultValueKey,
-                                [NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
-                                nil]];
+                withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Width %lu", (unsigned long)(index + 1)],
+                                  QCPortAttributeTypeKey: QCPortTypeNumber,
+                                  QCPortAttributeDefaultValueKey: @1.0,
+                                  QCPortAttributeMinimumValueKey: @0.0 }
+    ];
 
     // Add the new plot to the graph
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];

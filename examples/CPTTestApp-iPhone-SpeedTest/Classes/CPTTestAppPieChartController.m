@@ -50,7 +50,7 @@
     [pieChart addPlot:piePlot];
 
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:60.0], nil];
+    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @60.0, nil];
     self.dataForChart = contentArray;
 
 #ifdef PERFORMANCE_TEST
@@ -79,10 +79,10 @@
     }
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        return [self.dataForChart objectAtIndex:index];
+        return (self.dataForChart)[index];
     }
     else {
-        return [NSNumber numberWithInt:index];
+        return @(index);
     }
 }
 

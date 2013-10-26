@@ -31,7 +31,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBorderLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         maskedLayer = nil;
@@ -45,21 +45,14 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBorderLayer *theLayer = (CPTBorderLayer *)layer;
 
-        maskedLayer = [theLayer->maskedLayer retain];
+        maskedLayer = theLayer->maskedLayer;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [maskedLayer release];
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -76,10 +69,10 @@
     [coder encodeObject:self.maskedLayer forKey:@"CPTBorderLayer.maskedLayer"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        maskedLayer = [[coder decodeObjectForKey:@"CPTBorderLayer.maskedLayer"] retain];
+        maskedLayer = [coder decodeObjectForKey:@"CPTBorderLayer.maskedLayer"];
     }
     return self;
 }
@@ -142,7 +135,7 @@
     CPTBorderedLayer *excludedLayer = self.maskedLayer;
 
     if ( excludedLayer ) {
-        NSMutableSet *excludedSublayers = [[[super sublayersExcludedFromAutomaticLayout] mutableCopy] autorelease];
+        NSMutableSet *excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
         }
@@ -164,8 +157,7 @@
 -(void)setMaskedLayer:(CPTBorderedLayer *)newLayer
 {
     if ( newLayer != maskedLayer ) {
-        [maskedLayer release];
-        maskedLayer = [newLayer retain];
+        maskedLayer = newLayer;
         [self setNeedsDisplay];
     }
 }
