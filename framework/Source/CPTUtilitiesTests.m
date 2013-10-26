@@ -23,7 +23,7 @@
                                     bitsPerComponent,
                                     width * bitsPerComponent * 4,
                                     colorSpace,
-                                    kCGImageAlphaNoneSkipLast);
+                                    (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
 
     CGColorSpaceRelease(colorSpace);
 }
