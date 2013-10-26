@@ -227,6 +227,13 @@ static CPTAnimation *instance = nil;
         if ( [theAnimationOperations containsObject:animationOperation] ) {
             [self.expiredAnimationOperations addObject:animationOperation];
             [theAnimationOperations removeObject:animationOperation];
+
+            NSObject<CPTAnimationDelegate> *animationDelegate = animationOperation.delegate;
+            if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
+                [animationDelegate performSelector:@selector(animationCancelled:)
+                                        withObject:animationOperation
+                                        afterDelay:0];
+            }
         }
     }
 }
@@ -236,6 +243,15 @@ static CPTAnimation *instance = nil;
 -(void)removeAllAnimationOperations
 {
     NSMutableArray *theAnimationOperations = self.animationOperations;
+
+    for ( CPTAnimationOperation *operation in theAnimationOperations ) {
+        NSObject<CPTAnimationDelegate> *animationDelegate = operation.delegate;
+        if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
+            [animationDelegate performSelector:@selector(animationCancelled:)
+                                    withObject:operation
+                                    afterDelay:0];
+        }
+    }
 
     [self.expiredAnimationOperations addObjectsFromArray:theAnimationOperations];
     [theAnimationOperations removeAllObjects];
@@ -266,16 +282,7 @@ static CPTAnimation *instance = nil;
         CGFloat startTime = period.startOffset + period.delay;
         CGFloat endTime   = startTime + duration;
 
-        if ( currentTime > endTime ) {
-            [expiredOperations addObject:animationOperation];
-
-            if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
-                [animationDelegate performSelector:@selector(animationDidFinish:)
-                                        withObject:animationOperation
-                                        afterDelay:0];
-            }
-        }
-        else if ( currentTime >= startTime ) {
+        if ( currentTime >= startTime ) {
             id boundObject = animationOperation.boundObject;
 
             CPTAnimationTimingFunction timingFunction = [self timingFunctionForAnimationCurve:animationOperation.animationCurve];
@@ -338,6 +345,16 @@ static CPTAnimation *instance = nil;
                         [animationDelegate performSelector:@selector(animationDidUpdate:)
                                                 withObject:animationOperation
                                                 afterDelay:0];
+                    }
+
+                    if ( currentTime >= endTime ) {
+                        [expiredOperations addObject:animationOperation];
+
+                        if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
+                            [animationDelegate performSelector:@selector(animationDidFinish:)
+                                                    withObject:animationOperation
+                                                    afterDelay:0];
+                        }
                     }
                 }
                 @catch ( NSException *__unused exception ) {
