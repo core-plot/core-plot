@@ -5,6 +5,13 @@
 
 @implementation _CPTAnimationPlotRangePeriod
 
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    IMP getterMethod = [boundObject methodForSelector:boundGetter];
+
+    self.startValue = getterMethod(boundObject, boundGetter);
+}
+
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CPTPlotRange *start = (CPTPlotRange *)self.startValue;

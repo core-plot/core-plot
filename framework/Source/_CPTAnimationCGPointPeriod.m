@@ -2,6 +2,21 @@
 
 @implementation _CPTAnimationCGPointPeriod
 
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
+
+    [invocation setTarget:boundObject];
+    [invocation setSelector:boundGetter];
+
+    [invocation invoke];
+
+    CGPoint start;
+    [invocation getReturnValue:&start];
+
+    self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGPoint)];
+}
+
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CGPoint start;

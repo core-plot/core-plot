@@ -608,6 +608,11 @@
             <anchor>//apple_ref/c/tdef/CGRect</anchor>
         </member>
         <member kind="typedef">
+            <name>CGRectNull</name>
+            <anchorfile>https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
+            <anchor>//apple_ref/c/tdef/CGRectNull</anchor>
+        </member>
+        <member kind="typedef">
             <name>CGSize</name>
             <anchorfile>https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CGGeometry/Reference/reference.html</anchorfile>
             <anchor>//apple_ref/c/tdef/CGSize</anchor>

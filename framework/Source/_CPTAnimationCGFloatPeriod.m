@@ -4,6 +4,21 @@
 
 @implementation _CPTAnimationCGFloatPeriod
 
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
+
+    [invocation setTarget:boundObject];
+    [invocation setSelector:boundGetter];
+
+    [invocation invoke];
+
+    CGFloat start;
+    [invocation getReturnValue:&start];
+
+    self.startValue = [NSNumber numberWithCGFloat:start];
+}
+
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CGFloat start;

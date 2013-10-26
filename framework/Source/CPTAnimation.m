@@ -289,6 +289,10 @@ static CPTAnimation *instance = nil;
                                                 withObject:animationOperation
                                                 afterDelay:0];
                     }
+
+                    if ( !period.startValue ) {
+                        [period setStartValueFromObject:boundObject propertyGetter:animationOperation.boundGetter];
+                    }
                 }
 
                 CGFloat progress = timingFunction(currentTime - startTime, duration);

@@ -2,6 +2,21 @@
 
 @implementation _CPTAnimationCGSizePeriod
 
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
+
+    [invocation setTarget:boundObject];
+    [invocation setSelector:boundGetter];
+
+    [invocation invoke];
+
+    CGSize start;
+    [invocation getReturnValue:&start];
+
+    self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGSize)];
+}
+
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CGSize start;
