@@ -13,7 +13,7 @@
 
     size_t bytesPerRow         = (4 * width + 15) & ~15ul;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGContextRef context       = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, kCGImageAlphaNoneSkipLast);
+    CGContextRef context       = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
     CGImageRef cgImage         = CGBitmapContextCreateImage(context);
 
     CPTImage *image = [CPTImage imageWithCGImage:cgImage];
