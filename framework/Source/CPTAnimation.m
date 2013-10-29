@@ -193,12 +193,18 @@ static CPTAnimation *instance = nil;
  **/
 -(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation
 {
-    if ( animationOperation ) {
+    id boundObject             = animationOperation.boundObject;
+    CPTAnimationPeriod *period = animationOperation.period;
+
+    if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue]) ) {
         NSMutableArray *theAnimationOperations = self.animationOperations;
 
+        SEL boundGetter = animationOperation.boundGetter;
+        SEL boundSetter = animationOperation.boundSetter;
+
         for ( CPTAnimationOperation *operation in theAnimationOperations ) {
-            if ( operation.boundObject == animationOperation.boundObject ) {
-                if ( (operation.boundGetter == animationOperation.boundGetter) && (operation.boundSetter == animationOperation.boundSetter) ) {
+            if ( operation.boundObject == boundObject ) {
+                if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
                     [self removeAnimationOperation:operation];
                     break;
                 }
