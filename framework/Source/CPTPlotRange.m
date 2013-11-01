@@ -418,6 +418,34 @@
 }
 
 #pragma mark -
+#pragma mark Label comparison
+
+/// @cond
+
+-(BOOL)isEqual:(id)object
+{
+    if ( self == object ) {
+        return YES;
+    }
+    else if ( [object isKindOfClass:[self class]] ) {
+        return [self isEqualToRange:object];
+    }
+    else {
+        return NO;
+    }
+}
+
+-(NSUInteger)hash
+{
+    NSDecimalNumber *locationNumber = [NSDecimalNumber decimalNumberWithDecimal:self.location];
+    NSDecimalNumber *lengthNumber   = [NSDecimalNumber decimalNumberWithDecimal:self.length];
+
+    return locationNumber.hash + lengthNumber.hash;
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Description
 
 /// @cond

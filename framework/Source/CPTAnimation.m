@@ -198,18 +198,20 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
  **/
 -(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation
 {
-    if ( animationOperation ) {
+    id boundObject             = animationOperation.boundObject;
+    CPTAnimationPeriod *period = animationOperation.period;
+
+    if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue]) ) {
         dispatch_async(self.animationQueue, ^{
             NSMutableArray *theAnimationOperations = self.animationOperations;
 
-            id object = animationOperation.boundObject;
-            SEL getter = animationOperation.boundGetter;
-            SEL setter = animationOperation.boundSetter;
+            SEL boundGetter = animationOperation.boundGetter;
+            SEL boundSetter = animationOperation.boundSetter;
 
-            if ( [object respondsToSelector:getter] && [object respondsToSelector:setter] ) {
+            if ( [boundObject respondsToSelector:boundGetter] && [boundObject respondsToSelector:boundSetter] ) {
                 for ( CPTAnimationOperation *operation in theAnimationOperations ) {
-                    if ( operation.boundObject == object ) {
-                        if ( (operation.boundGetter == getter) && (operation.boundSetter == setter) ) {
+                    if ( operation.boundObject == boundObject ) {
+                        if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
                             [self removeAnimationOperation:operation];
                             break;
                         }
