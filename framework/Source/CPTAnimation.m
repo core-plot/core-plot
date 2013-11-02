@@ -340,7 +340,13 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 {
     CPTAnimationOperation *animationOperation = parameters[CPTAnimationOperationKey];
 
-    if ( ![animationOperation isCanceled] ) {
+    __block BOOL canceled;
+
+    dispatch_sync(self.animationQueue, ^{
+        canceled = animationOperation.isCanceled;
+    });
+
+    if ( !canceled ) {
         @try {
             id<CPTAnimationDelegate> delegate = animationOperation.delegate;
 
@@ -376,8 +382,11 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                 [invocation invoke];
             }
             else {
-                IMP setterMethod = [boundObject methodForSelector:boundSetter];
-                setterMethod(boundObject, boundSetter, tweenedValue);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                id<NSObject> theObject = boundObject;
+                [theObject performSelector:boundSetter withObject:tweenedValue];
+#pragma clang diagnostic pop
             }
 
             if ( [delegate respondsToSelector:@selector(animationDidUpdate:)] ) {
@@ -386,7 +395,9 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
         }
         @catch ( NSException *__unused exception ) {
             // something went wrong; don't run this operation any more
-            animationOperation.canceled = YES;
+            dispatch_async(self.animationQueue, ^{
+                animationOperation.canceled = YES;
+            });
         }
     }
 }
