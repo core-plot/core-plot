@@ -123,9 +123,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
         if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
             dispatch_async(mainQueue, ^{
                 [animationDelegate animationCancelled:animationOperation];
-            }
-
-                          );
+            });
         }
     }
 }
@@ -144,9 +142,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
     dispatch_once(&once, ^{
         shared = [[self alloc] init];
-    }
-
-                 );
+    });
 
     return shared;
 }
@@ -224,9 +220,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             if ( !self.timer ) {
                 [self startTimer];
             }
-        }
-
-                      );
+        });
     }
     return animationOperation;
 }
@@ -239,9 +233,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
     if ( animationOperation ) {
         dispatch_async(self.animationQueue, ^{
             animationOperation.canceled = YES;
-        }
-
-                      );
+        });
     }
 }
 
@@ -253,9 +245,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
         for ( CPTAnimationOperation *animationOperation in self.animationOperations ) {
             animationOperation.canceled = YES;
         }
-    }
-
-                  );
+    });
 }
 
 #pragma mark -
@@ -291,9 +281,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
                 dispatch_async(mainQueue, ^{
                     [animationDelegate animationCancelled:animationOperation];
-                }
-
-                              );
+                });
             }
         }
         else if ( currentTime >= startTime ) {
@@ -308,9 +296,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidStart:)] ) {
                         dispatch_async(mainQueue, ^{
                             [animationDelegate animationDidStart:animationOperation];
-                        }
-
-                                      );
+                        });
                     }
                 }
                 CGFloat progress = timingFunction(currentTime - startTime, duration);
@@ -332,9 +318,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
                         dispatch_async(mainQueue, ^{
                             [animationDelegate animationDidFinish:animationOperation];
-                        }
-
-                                      );
+                        });
                     }
                 }
             }
@@ -411,9 +395,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 {
     self.timer = CreateDispatchTimer(kCPTAnimationFrameRate, self.animationQueue, ^{
         [self update];
-    }
-
-                                    );
+    });
 }
 
 -(void)cancelTimer
