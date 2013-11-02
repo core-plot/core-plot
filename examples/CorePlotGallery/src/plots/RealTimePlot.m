@@ -167,12 +167,14 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
         NSUInteger location       = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 2 : 0);
 
+        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
+                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
         CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(location)
                                                               length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
 
         [CPTAnimation animate:plotSpace
                      property:@"xRange"
-                fromPlotRange:plotSpace.xRange
+                fromPlotRange:oldRange
                   toPlotRange:newRange
                      duration:CPTFloat(1.0 / kFrameRate)];
 
