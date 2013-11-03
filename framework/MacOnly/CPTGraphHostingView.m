@@ -9,22 +9,6 @@
 
 static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOContext;
 
-// for MacOS 10.6 SDK compatibility
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-#if MAC_OS_X_VERSION_MAX_ALLOWED < 1070
-@interface NSWindow(CPTExtensions)
-
-@property (readonly) CGFloat backingScaleFactor;
-
--(void)viewDidChangeBackingProperties;
-
-@end
-#endif
-#endif
-
-#pragma mark -
-
 @interface CPTGraphHostingView()
 
 -(void)plotSpaceAdded:(NSNotification *)notification;
@@ -277,16 +261,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)viewDidChangeBackingProperties
 {
-    CPTLayer *myLayer  = (CPTLayer *)self.layer;
-    NSWindow *myWindow = self.window;
-
-    // backingScaleFactor property is available in MacOS 10.7 and later
-    if ( [myWindow respondsToSelector:@selector(backingScaleFactor)] ) {
-        myLayer.contentsScale = myWindow.backingScaleFactor;
-    }
-    else {
-        myLayer.contentsScale = CPTFloat(1.0);
-    }
+    self.layer.contentsScale = self.window.backingScaleFactor;
 }
 
 /// @endcond
