@@ -19,6 +19,10 @@
     BOOL isDragging;
     BOOL allowsMomentum;
     NSMutableArray *animations;
+    CPTAnimationCurve momentumAnimationCurve;
+    CPTAnimationCurve bounceAnimationCurve;
+    CGFloat momentumAcceleration;
+    CGFloat bounceAcceleration;
 }
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
@@ -29,5 +33,9 @@
 @property (nonatomic, readwrite, assign) CPTScaleType yScaleType;
 
 @property (nonatomic, readwrite) BOOL allowsMomentum;
+@property (nonatomic, readwrite) CPTAnimationCurve momentumAnimationCurve;
+@property (nonatomic, readwrite) CPTAnimationCurve bounceAnimationCurve;
+@property (nonatomic, readwrite) CGFloat momentumAcceleration;
+@property (nonatomic, readwrite) CGFloat bounceAcceleration;
 
 @end

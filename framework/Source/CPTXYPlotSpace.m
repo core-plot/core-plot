@@ -12,10 +12,8 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTUtilities.h"
+#import "NSCoderExtensions.h"
 #import <tgmath.h>
-
-static const CGFloat kCPTMomentumAcceleration = CPTFloat(2000.0); // Deceleration in pixels/second^2 for momentum scrolling
-static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back acceleration in pixels/second^2 when scrolled past the global range
 
 /// @cond
 @interface CPTXYPlotSpace()
@@ -119,6 +117,26 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
  **/
 @synthesize allowsMomentum;
 
+/** @property CPTAnimationCurve momentumAnimationCurve
+ *  @brief The animation curve used to stop the motion of the plot ranges when scrolling with momentum. Defaults to #CPTAnimationCurveQuadraticOut.
+ **/
+@synthesize momentumAnimationCurve;
+
+/** @property CPTAnimationCurve bounceAnimationCurve
+ *  @brief The animation curve used to return the plot range back to the global range after scrolling. Defaults to #CPTAnimationCurveQuadraticOut.
+ **/
+@synthesize bounceAnimationCurve;
+
+/** @property CGFloat momentumAcceleration
+ *  @brief Deceleration in pixels/second^2 for momentum scrolling. Defaults to @num{2000.0}.
+ **/
+@synthesize momentumAcceleration;
+
+/** @property CGFloat bounceAcceleration
+ *  @brief Bounce-back acceleration in pixels/second^2 when scrolled past the global range. Defaults to @num{3000.0}.
+ **/
+@synthesize bounceAcceleration;
+
 @synthesize isDragging;
 @synthesize lastDragPoint;
 @synthesize lastDisplacement;
@@ -142,6 +160,10 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
  *  - @ref xScaleType = #CPTScaleTypeLinear
  *  - @ref yScaleType = #CPTScaleTypeLinear
  *  - @ref allowsMomentum = @NO
+ *  - @ref momentumAnimationCurve = #CPTAnimationCurveQuadraticOut
+ *  - @ref bounceAnimationCurve = #CPTAnimationCurveQuadraticOut
+ *  - @ref momentumAcceleration = @num{2000.0}
+ *  - @ref bounceAcceleration = @num{3000.0}
  *
  *  @return The initialized object.
  **/
@@ -161,7 +183,11 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
         isDragging       = NO;
         animations       = [[NSMutableArray alloc] init];
 
-        allowsMomentum = NO;
+        allowsMomentum         = NO;
+        momentumAnimationCurve = CPTAnimationCurveQuadraticOut;
+        bounceAnimationCurve   = CPTAnimationCurveQuadraticOut;
+        momentumAcceleration   = 2000.0;
+        bounceAcceleration     = 3000.0;
     }
     return self;
 }
@@ -199,6 +225,10 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
     [coder encodeInt:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
     [coder encodeInt:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
     [coder encodeBool:self.allowsMomentum forKey:@"CPTXYPlotSpace.allowsMomentum"];
+    [coder encodeInt:self.momentumAnimationCurve forKey:@"CPTXYPlotSpace.momentumAnimationCurve"];
+    [coder encodeInt:self.bounceAnimationCurve forKey:@"CPTXYPlotSpace.bounceAnimationCurve"];
+    [coder encodeCGFloat:self.momentumAcceleration forKey:@"CPTXYPlotSpace.momentumAcceleration"];
+    [coder encodeCGFloat:self.bounceAcceleration forKey:@"CPTXYPlotSpace.bounceAcceleration"];
 
     // No need to archive these properties:
     // lastDragPoint
@@ -219,7 +249,11 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
         xScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.xScaleType"];
         yScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.yScaleType"];
 
-        allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
+        allowsMomentum         = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
+        momentumAnimationCurve = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.momentumAnimationCurve"];
+        bounceAnimationCurve   = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.bounceAnimationCurve"];
+        momentumAcceleration   = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.momentumAcceleration"];
+        bounceAcceleration     = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.bounceAcceleration"];
 
         lastDragPoint    = CGPointZero;
         lastDisplacement = CGPointZero;
@@ -450,7 +484,7 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
                      fromPlotRange:oldRange
                        toPlotRange:newRange
                           duration:momentumTime
-                    animationCurve:CPTAnimationCurveQuadraticOut
+                    animationCurve:self.momentumAnimationCurve
                           delegate:self];
         [animationArray addObject:op];
     }
@@ -486,7 +520,7 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
                     break;
             }
 
-            CGFloat bounceTime = sqrt(ABS(offset) / kCPTBounceAcceleration);
+            CGFloat bounceTime = sqrt(ABS(offset) / self.bounceAcceleration);
 
             op = [CPTAnimation animate:self
                               property:property
@@ -494,7 +528,7 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
                            toPlotRange:constrainedRange
                               duration:bounceTime
                              withDelay:(hasShift ? momentumTime : 0.0)
-                        animationCurve:CPTAnimationCurveQuadraticOut
+                        animationCurve:self.bounceAnimationCurve
                               delegate:self];
             [animationArray addObject:op];
         }
@@ -1102,9 +1136,10 @@ static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back
                 CGPoint pointInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
                 CGPoint displacement    = self.lastDisplacement;
 
+                CGFloat acceleration     = self.momentumAcceleration;
                 CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(lastDeltaT);
-                CGFloat momentumTime     = speed / (CPTFloat(2.0) * kCPTMomentumAcceleration);
-                CGFloat distanceTraveled = speed * momentumTime - CPTFloat(0.5) * kCPTMomentumAcceleration * momentumTime * momentumTime;
+                CGFloat momentumTime     = speed / (CPTFloat(2.0) * acceleration);
+                CGFloat distanceTraveled = speed * momentumTime - CPTFloat(0.5) * acceleration * momentumTime * momentumTime;
                 distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
                 CGFloat theta = atan2(displacement.y, displacement.x);
 
