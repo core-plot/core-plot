@@ -197,21 +197,7 @@ static CPTAnimation *instance = nil;
     CPTAnimationPeriod *period = animationOperation.period;
 
     if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue]) ) {
-        NSMutableArray *theAnimationOperations = self.animationOperations;
-
-        SEL boundGetter = animationOperation.boundGetter;
-        SEL boundSetter = animationOperation.boundSetter;
-
-        for ( CPTAnimationOperation *operation in theAnimationOperations ) {
-            if ( operation.boundObject == boundObject ) {
-                if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
-                    [self removeAnimationOperation:operation];
-                    break;
-                }
-            }
-        }
-
-        [theAnimationOperations addObject:animationOperation];
+        [self.animationOperations addObject:animationOperation];
 
         if ( !self.timer ) {
             self.timer = [NSTimer timerWithTimeInterval:kCPTAnimationFrameRate target:self selector:@selector(update:) userInfo:nil repeats:YES];
@@ -295,6 +281,19 @@ static CPTAnimation *instance = nil;
 
             if ( boundObject && timingFunction ) {
                 if ( ![runningOperations containsObject:animationOperation] ) {
+                    // Remove any running animations for the same property
+                    SEL boundGetter = animationOperation.boundGetter;
+                    SEL boundSetter = animationOperation.boundSetter;
+
+                    for ( CPTAnimationOperation *operation in runningOperations ) {
+                        if ( operation.boundObject == boundObject ) {
+                            if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
+                                [expiredOperations addObject:operation];
+                            }
+                        }
+                    }
+
+                    // Start the new animation
                     [runningOperations addObject:animationOperation];
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidStart:)] ) {
@@ -308,69 +307,71 @@ static CPTAnimation *instance = nil;
                     }
                 }
 
-                CGFloat progress = timingFunction(currentTime - startTime, duration);
+                if ( ![expiredOperations containsObject:animationOperation] ) {
+                    CGFloat progress = timingFunction(currentTime - startTime, duration);
 
-                NSValue *tweenedValue = [period tweenedValueForProgress:progress];
-                SEL boundSetter       = animationOperation.boundSetter;
+                    NSValue *tweenedValue = [period tweenedValueForProgress:progress];
+                    SEL boundSetter       = animationOperation.boundSetter;
 
-                @try {
-                    if ( [animationDelegate respondsToSelector:@selector(animationWillUpdate:)] ) {
-                        [animationDelegate performSelector:@selector(animationWillUpdate:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
-                    }
-
-                    if ( [tweenedValue isKindOfClass:decimalClass] ) {
-                        NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
-
-                        IMP setterMethod = [boundObject methodForSelector:boundSetter];
-                        setterMethod(boundObject, boundSetter, buffer);
-                    }
-                    else if ( [tweenedValue isKindOfClass:valueClass] ) {
-                        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundSetter]];
-                        [invocation setTarget:boundObject];
-                        [invocation setSelector:boundSetter];
-
-                        NSUInteger bufferSize = 0;
-                        NSGetSizeAndAlignment(tweenedValue.objCType, &bufferSize, NULL);
-
-                        void *buffer = malloc(bufferSize);
-                        [tweenedValue getValue:buffer];
-
-                        [invocation setArgument:buffer atIndex:2];
-                        [invocation invoke];
-
-                        free(buffer);
-                    }
-                    else {
-                        IMP setterMethod = [boundObject methodForSelector:boundSetter];
-                        setterMethod(boundObject, boundSetter, tweenedValue);
-                    }
-
-                    if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {
-                        [animationDelegate performSelector:@selector(animationDidUpdate:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
-                    }
-
-                    if ( currentTime >= endTime ) {
-                        [expiredOperations addObject:animationOperation];
-
-                        if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
-                            [animationDelegate performSelector:@selector(animationDidFinish:)
+                    @try {
+                        if ( [animationDelegate respondsToSelector:@selector(animationWillUpdate:)] ) {
+                            [animationDelegate performSelector:@selector(animationWillUpdate:)
                                                     withObject:animationOperation
                                                     afterDelay:0];
                         }
-                    }
-                }
-                @catch ( NSException *__unused exception ) {
-                    // something went wrong; don't run this operation any more
-                    [expiredOperations addObject:animationOperation];
 
-                    if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
-                        [animationDelegate performSelector:@selector(animationCancelled:)
-                                                withObject:animationOperation
-                                                afterDelay:0];
+                        if ( [tweenedValue isKindOfClass:decimalClass] ) {
+                            NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
+
+                            IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                            setterMethod(boundObject, boundSetter, buffer);
+                        }
+                        else if ( [tweenedValue isKindOfClass:valueClass] ) {
+                            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundSetter]];
+                            [invocation setTarget:boundObject];
+                            [invocation setSelector:boundSetter];
+
+                            NSUInteger bufferSize = 0;
+                            NSGetSizeAndAlignment(tweenedValue.objCType, &bufferSize, NULL);
+
+                            void *buffer = malloc(bufferSize);
+                            [tweenedValue getValue:buffer];
+
+                            [invocation setArgument:buffer atIndex:2];
+                            [invocation invoke];
+
+                            free(buffer);
+                        }
+                        else {
+                            IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                            setterMethod(boundObject, boundSetter, tweenedValue);
+                        }
+
+                        if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {
+                            [animationDelegate performSelector:@selector(animationDidUpdate:)
+                                                    withObject:animationOperation
+                                                    afterDelay:0];
+                        }
+
+                        if ( currentTime >= endTime ) {
+                            [expiredOperations addObject:animationOperation];
+
+                            if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
+                                [animationDelegate performSelector:@selector(animationDidFinish:)
+                                                        withObject:animationOperation
+                                                        afterDelay:0];
+                            }
+                        }
+                    }
+                    @catch ( NSException *__unused exception ) {
+                        // something went wrong; don't run this operation any more
+                        [expiredOperations addObject:animationOperation];
+
+                        if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
+                            [animationDelegate performSelector:@selector(animationCancelled:)
+                                                    withObject:animationOperation
+                                                    afterDelay:0];
+                        }
                     }
                 }
             }
