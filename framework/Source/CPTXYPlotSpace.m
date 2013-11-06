@@ -14,8 +14,8 @@
 #import "CPTUtilities.h"
 #import <tgmath.h>
 
-static const CGFloat kCPTMomentumTime = CPTFloat(0.25); // Deceleration time in seconds for momentum scrolling
-static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in seconds when scrolled past the global range
+static const CGFloat kCPTMomentumAcceleration = CPTFloat(2000.0); // Deceleration in pixels/second^2 for momentum scrolling
+static const CGFloat kCPTBounceAcceleration   = CPTFloat(3000.0); // Bounce-back acceleration in pixels/second^2 when scrolled past the global range
 
 /// @cond
 @interface CPTXYPlotSpace()
@@ -31,8 +31,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
 -(CPTPlotRange *)constrainRange:(CPTPlotRange *)existingRange toGlobalRange:(CPTPlotRange *)globalRange;
--(void)animateRange:(CPTPlotRange *)oldRange property:(NSString *)property globalRange:(CPTPlotRange *)globalRange shift:(NSDecimal)shift;
--(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange elastic:(BOOL)elastic withDisplacement:(CGFloat *)displacement;
+-(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime;
+-(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange withDisplacement:(CGFloat *)displacement;
 
 @property (nonatomic, readwrite) BOOL isDragging;
 @property (nonatomic, readwrite) CGPoint lastDragPoint;
@@ -119,18 +119,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
  **/
 @synthesize allowsMomentum;
 
-/** @property BOOL elasticGlobalXRange
- *  @brief If @YES, the plot space can scroll beyond the bounds set by the @ref globalXRange,
- *  and will bounce back to the @ref globalXRange when released. Defaults to @NO.
- **/
-@synthesize elasticGlobalXRange;
-
-/** @property BOOL elasticGlobalYRange
- *  @brief If @YES, the plot space can scroll beyond the bounds set by the @ref globalYRange,
- *  and will bounce back to the @ref globalYRange when released. Defaults to @NO.
- **/
-@synthesize elasticGlobalYRange;
-
 @synthesize isDragging;
 @synthesize lastDragPoint;
 @synthesize lastDisplacement;
@@ -154,8 +142,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
  *  - @ref xScaleType = #CPTScaleTypeLinear
  *  - @ref yScaleType = #CPTScaleTypeLinear
  *  - @ref allowsMomentum = @NO
- *  - @ref elasticGlobalXRange = @NO
- *  - @ref elasticGlobalYRange = @NO
  *
  *  @return The initialized object.
  **/
@@ -175,9 +161,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         isDragging       = NO;
         animations       = [[NSMutableArray alloc] init];
 
-        allowsMomentum      = NO;
-        elasticGlobalXRange = NO;
-        elasticGlobalYRange = NO;
+        allowsMomentum = NO;
     }
     return self;
 }
@@ -215,8 +199,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     [coder encodeInt:self.xScaleType forKey:@"CPTXYPlotSpace.xScaleType"];
     [coder encodeInt:self.yScaleType forKey:@"CPTXYPlotSpace.yScaleType"];
     [coder encodeBool:self.allowsMomentum forKey:@"CPTXYPlotSpace.allowsMomentum"];
-    [coder encodeBool:self.elasticGlobalXRange forKey:@"CPTXYPlotSpace.elasticGlobalXRange"];
-    [coder encodeBool:self.elasticGlobalYRange forKey:@"CPTXYPlotSpace.elasticGlobalYRange"];
 
     // No need to archive these properties:
     // lastDragPoint
@@ -237,9 +219,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         xScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.xScaleType"];
         yScaleType   = (CPTScaleType)[coder decodeIntForKey : @"CPTXYPlotSpace.yScaleType"];
 
-        allowsMomentum      = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
-        elasticGlobalXRange = [coder decodeBoolForKey:@"CPTXYPlotSpace.elasticGlobalXRange"];
-        elasticGlobalYRange = [coder decodeBoolForKey:@"CPTXYPlotSpace.elasticGlobalYRange"];
+        allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
 
         lastDragPoint    = CGPointZero;
         lastDisplacement = CGPointZero;
@@ -341,7 +321,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     if ( ![range isEqualToRange:xRange] ) {
         CPTPlotRange *constrainedRange;
 
-        if ( self.elasticGlobalXRange ) {
+        if ( self.allowsMomentum ) {
             constrainedRange = range;
         }
         else {
@@ -380,7 +360,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     if ( ![range isEqualToRange:yRange] ) {
         CPTPlotRange *constrainedRange;
 
-        if ( self.elasticGlobalYRange ) {
+        if ( self.allowsMomentum ) {
             constrainedRange = range;
         }
         else {
@@ -432,10 +412,31 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     }
 }
 
--(void)animateRange:(CPTPlotRange *)oldRange property:(NSString *)property globalRange:(CPTPlotRange *)globalRange shift:(NSDecimal)shift
+-(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime
 {
     NSMutableArray *animationArray = self.animations;
     CPTAnimationOperation *op;
+
+    NSString *property        = nil;
+    CPTPlotRange *oldRange    = nil;
+    CPTPlotRange *globalRange = nil;
+
+    switch ( coordinate ) {
+        case CPTCoordinateX:
+            property    = @"xRange";
+            oldRange    = self.xRange;
+            globalRange = self.globalXRange;
+            break;
+
+        case CPTCoordinateY:
+            property    = @"yRange";
+            oldRange    = self.yRange;
+            globalRange = self.globalYRange;
+            break;
+
+        default:
+            break;
+    }
 
     CPTMutablePlotRange *newRange = [oldRange mutableCopy];
 
@@ -448,9 +449,9 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                           property:property
                      fromPlotRange:oldRange
                        toPlotRange:newRange
-                          duration:kCPTMomentumTime
+                          duration:momentumTime
                     animationCurve:CPTAnimationCurveQuadraticOut
-                          delegate:nil];
+                          delegate:self];
         [animationArray addObject:op];
     }
 
@@ -458,14 +459,43 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         CPTPlotRange *constrainedRange = [self constrainRange:newRange toGlobalRange:globalRange];
 
         if ( ![newRange isEqualToRange:constrainedRange] ) {
+            CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(coordinate);
+
+            NSDecimal newPoint[2];
+            newPoint[coordinate]           = newRange.location;
+            newPoint[orthogonalCoordinate] = CPTDecimalFromInteger(1);
+
+            NSDecimal constrainedPoint[2];
+            constrainedPoint[coordinate]           = constrainedRange.location;
+            constrainedPoint[orthogonalCoordinate] = CPTDecimalFromInteger(1);
+
+            CGPoint newViewPoint         = [self plotAreaViewPointForPlotPoint:newPoint numberOfCoordinates:2];
+            CGPoint constrainedViewPoint = [self plotAreaViewPointForPlotPoint:constrainedPoint numberOfCoordinates:2];
+
+            CGFloat offset = CPTFloat(0.0);
+            switch ( coordinate ) {
+                case CPTCoordinateX:
+                    offset = constrainedViewPoint.x - newViewPoint.x;
+                    break;
+
+                case CPTCoordinateY:
+                    offset = constrainedViewPoint.y - newViewPoint.y;
+                    break;
+
+                default:
+                    break;
+            }
+
+            CGFloat bounceTime = sqrt(ABS(offset) / kCPTBounceAcceleration);
+
             op = [CPTAnimation animate:self
                               property:property
                          fromPlotRange:newRange
                            toPlotRange:constrainedRange
-                              duration:kCPTBounceTime
-                             withDelay:(hasShift ? kCPTMomentumTime : 0.0)
-                        animationCurve:CPTAnimationCurveElasticOut
-                              delegate:nil];
+                              duration:bounceTime
+                             withDelay:(hasShift ? momentumTime : 0.0)
+                        animationCurve:CPTAnimationCurveQuadraticOut
+                              delegate:self];
             [animationArray addObject:op];
         }
     }
@@ -958,16 +988,13 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     CPTPlotRange *newRangeX = [[[CPTPlotRange alloc] initWithLocation:newLocationX length:newLengthX] autorelease];
     CPTPlotRange *newRangeY = [[[CPTPlotRange alloc] initWithLocation:newLocationY length:newLengthY] autorelease];
 
-    BOOL oldElasticGlobalXRange = self.elasticGlobalXRange;
-    BOOL oldElasticGlobalYRange = self.elasticGlobalYRange;
-    self.elasticGlobalXRange = NO;
-    self.elasticGlobalYRange = NO;
+    BOOL oldMomentum = self.allowsMomentum;
+    self.allowsMomentum = NO;
 
     self.xRange = newRangeX;
     self.yRange = newRangeY;
 
-    self.elasticGlobalXRange = oldElasticGlobalXRange;
-    self.elasticGlobalYRange = oldElasticGlobalYRange;
+    self.allowsMomentum = oldMomentum;
 }
 
 /// @endcond
@@ -1021,9 +1048,11 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         self.isDragging       = YES;
 
         // Clear any previous animations
-        for ( CPTAnimationOperation *op in self.animations ) {
+        NSMutableArray *animationArray = self.animations;
+        for ( CPTAnimationOperation *op in animationArray ) {
             [[CPTAnimation sharedInstance] removeAnimationOperation:op];
         }
+        [animationArray removeAllObjects];
 
         return YES;
     }
@@ -1074,8 +1103,8 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
                 CGPoint displacement    = self.lastDisplacement;
 
                 CGFloat speed            = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(lastDeltaT);
-                CGFloat acceleration     = speed / kCPTMomentumTime;
-                CGFloat distanceTraveled = speed * kCPTMomentumTime - CPTFloat(0.5) * acceleration * kCPTMomentumTime * kCPTMomentumTime;
+                CGFloat momentumTime     = speed / (CPTFloat(2.0) * kCPTMomentumAcceleration);
+                CGFloat distanceTraveled = speed * momentumTime - CPTFloat(0.5) * kCPTMomentumAcceleration * momentumTime * momentumTime;
                 distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
                 CGFloat theta = atan2(displacement.y, displacement.x);
 
@@ -1085,16 +1114,16 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 
                 // X range
                 NSDecimal shiftX = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
-                [self animateRange:self.xRange property:@"xRange" globalRange:self.globalXRange shift:shiftX];
+                [self animateRangeForCoordinate:CPTCoordinateX shift:shiftX momentumTime:momentumTime];
 
                 // Y range
                 NSDecimal shiftY = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
-                [self animateRange:self.yRange property:@"yRange" globalRange:self.globalYRange shift:shiftY];
+                [self animateRangeForCoordinate:CPTCoordinateY shift:shiftY momentumTime:momentumTime];
             }
         }
         else {
-            [self animateRange:self.xRange property:@"xRange" globalRange:self.globalXRange shift:CPTDecimalFromInteger(0)];
-            [self animateRange:self.yRange property:@"yRange" globalRange:self.globalYRange shift:CPTDecimalFromInteger(0)];
+            [self animateRangeForCoordinate:CPTCoordinateX shift:CPTDecimalFromInteger(0) momentumTime:CPTFloat(0.0)];
+            [self animateRangeForCoordinate:CPTCoordinateY shift:CPTDecimalFromInteger(0) momentumTime:CPTFloat(0.0)];
         }
 
         return YES;
@@ -1159,7 +1188,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         CPTPlotRange *newRangeX = [self shiftRange:self.xRange
                                                  by:shiftX
                                       inGlobalRange:self.globalXRange
-                                            elastic:self.elasticGlobalXRange
                                    withDisplacement:&displacement.x];
 
         // Y range
@@ -1167,7 +1195,6 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
         CPTPlotRange *newRangeY = [self shiftRange:self.yRange
                                                  by:shiftY
                                       inGlobalRange:self.globalYRange
-                                            elastic:self.elasticGlobalYRange
                                    withDisplacement:&displacement.y];
 
         self.xRange = newRangeX;
@@ -1186,7 +1213,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     return NO;
 }
 
--(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange elastic:(BOOL)elastic withDisplacement:(CGFloat *)displacement
+-(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift inGlobalRange:(CPTPlotRange *)globalRange withDisplacement:(CGFloat *)displacement
 {
     CPTMutablePlotRange *newRange = [oldRange mutableCopy];
 
@@ -1195,7 +1222,7 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
     if ( globalRange ) {
         CPTPlotRange *constrainedRange = [self constrainRange:newRange toGlobalRange:globalRange];
 
-        if ( elastic ) {
+        if ( self.allowsMomentum ) {
             if ( ![newRange isEqualToRange:constrainedRange] ) {
                 // reduce the shift as we get farther outside the global range
                 NSDecimal rangeLength = newRange.length;
@@ -1221,5 +1248,17 @@ static const CGFloat kCPTBounceTime   = CPTFloat(0.5);  // Bounce-back time in s
 }
 
 /// @}
+
+#pragma mark -
+#pragma mark Animation Delegate
+
+/// @cond
+
+-(void)animationDidFinish:(CPTAnimationOperation *)operation
+{
+    [self.animations removeObjectIdenticalTo:operation];
+}
+
+/// @endcond
 
 @end

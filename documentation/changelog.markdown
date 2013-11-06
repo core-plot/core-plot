@@ -1,3 +1,15 @@
+# Next Release (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
+
+
+
 # Release 1.4 (September 28, 2013)
 
 ## Release Notes

@@ -287,10 +287,8 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
-    CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
-    plotSpace.allowsMomentum      = YES;
-    plotSpace.elasticGlobalXRange = YES;
-    plotSpace.elasticGlobalYRange = YES;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    plotSpace.allowsMomentum = YES;
 
     [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:boundLinePlot, dataSourceLinePlot, nil]];
     CPTPlotRange *xRange        = plotSpace.xRange;
