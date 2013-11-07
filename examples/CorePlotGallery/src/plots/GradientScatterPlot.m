@@ -72,6 +72,7 @@
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
+    plotSpace.allowsMomentum        = YES;
     plotSpace.delegate              = self;
 
     // Grid line styles

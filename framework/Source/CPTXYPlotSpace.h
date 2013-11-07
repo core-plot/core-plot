@@ -1,9 +1,10 @@
+#import "CPTAnimation.h"
 #import "CPTDefinitions.h"
 #import "CPTPlotSpace.h"
 
 @class CPTPlotRange;
 
-@interface CPTXYPlotSpace : CPTPlotSpace
+@interface CPTXYPlotSpace : CPTPlotSpace<CPTAnimationDelegate>
 
 @property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
 @property (nonatomic, readwrite, copy) CPTPlotRange *yRange;
@@ -13,7 +14,9 @@
 @property (nonatomic, readwrite, assign) CPTScaleType yScaleType;
 
 @property (nonatomic, readwrite) BOOL allowsMomentum;
-@property (nonatomic, readwrite) BOOL elasticGlobalXRange;
-@property (nonatomic, readwrite) BOOL elasticGlobalYRange;
+@property (nonatomic, readwrite) CPTAnimationCurve momentumAnimationCurve;
+@property (nonatomic, readwrite) CPTAnimationCurve bounceAnimationCurve;
+@property (nonatomic, readwrite) CGFloat momentumAcceleration;
+@property (nonatomic, readwrite) CGFloat bounceAcceleration;
 
 @end

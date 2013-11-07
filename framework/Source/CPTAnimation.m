@@ -199,23 +199,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
     if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue]) ) {
         dispatch_async(self.animationQueue, ^{
-            NSMutableArray *theAnimationOperations = self.animationOperations;
-
-            SEL boundGetter = animationOperation.boundGetter;
-            SEL boundSetter = animationOperation.boundSetter;
-
-            if ( [boundObject respondsToSelector:boundGetter] && [boundObject respondsToSelector:boundSetter] ) {
-                for ( CPTAnimationOperation *operation in theAnimationOperations ) {
-                    if ( operation.boundObject == boundObject ) {
-                        if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
-                            [self removeAnimationOperation:operation];
-                            break;
-                        }
-                    }
-                }
-
-                [theAnimationOperations addObject:animationOperation];
-            }
+            [self.animationOperations addObject:animationOperation];
 
             if ( !self.timer ) {
                 [self startTimer];
@@ -275,7 +259,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
         CGFloat startTime = period.startOffset + period.delay;
         CGFloat endTime   = startTime + duration;
 
-        if ( [animationOperation isCanceled] ) {
+        if ( animationOperation.isCanceled ) {
             [expiredOperations addObject:animationOperation];
 
             if ( [animationDelegate respondsToSelector:@selector(animationCancelled:)] ) {
@@ -291,6 +275,19 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
             if ( boundObject && timingFunction ) {
                 if ( ![runningOperations containsObject:animationOperation] ) {
+                    // Remove any running animations for the same property
+                    SEL boundGetter = animationOperation.boundGetter;
+                    SEL boundSetter = animationOperation.boundSetter;
+
+                    for ( CPTAnimationOperation *operation in runningOperations ) {
+                        if ( operation.boundObject == boundObject ) {
+                            if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
+                                operation.canceled = YES;
+                            }
+                        }
+                    }
+
+                    // Start the new animation
                     [runningOperations addObject:animationOperation];
 
                     if ( [animationDelegate respondsToSelector:@selector(animationDidStart:)] ) {
@@ -299,26 +296,28 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                         });
                     }
                 }
-                CGFloat progress = timingFunction(currentTime - startTime, duration);
+                if ( !animationOperation.isCanceled ) {
+                    CGFloat progress = timingFunction(currentTime - startTime, duration);
 
-                NSDictionary *parameters = @{
-                    CPTAnimationOperationKey: animationOperation,
-                    CPTAnimationValueKey: [period tweenedValueForProgress:progress]
-                };
+                    NSDictionary *parameters = @{
+                        CPTAnimationOperationKey: animationOperation,
+                        CPTAnimationValueKey: [period tweenedValueForProgress:progress]
+                    };
 
-                // Used -performSelectorOnMainThread:... instead of GCD to ensure the animation continues to run in all run loop common modes.
-                [self performSelectorOnMainThread:@selector(updateOnMainThreadWithParameters:)
-                                       withObject:parameters
-                                    waitUntilDone:NO
-                                            modes:runModes];
+                    // Used -performSelectorOnMainThread:... instead of GCD to ensure the animation continues to run in all run loop common modes.
+                    [self performSelectorOnMainThread:@selector(updateOnMainThreadWithParameters:)
+                                           withObject:parameters
+                                        waitUntilDone:NO
+                                                modes:runModes];
 
-                if ( currentTime >= endTime ) {
-                    [expiredOperations addObject:animationOperation];
+                    if ( currentTime >= endTime ) {
+                        [expiredOperations addObject:animationOperation];
 
-                    if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
-                        dispatch_async(mainQueue, ^{
-                            [animationDelegate animationDidFinish:animationOperation];
-                        });
+                        if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
+                            dispatch_async(mainQueue, ^{
+                                [animationDelegate animationDidFinish:animationOperation];
+                            });
+                        }
                     }
                 }
             }

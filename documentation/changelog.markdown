@@ -5,6 +5,18 @@
 To be determined.
 
 ## Details
+- **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
+
+
+
+# Next Release (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **New**: Added two additional initialization methods to `CPTImage`. 
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
