@@ -4,17 +4,6 @@
 #import "NSCoderExtensions.h"
 
 /// @cond
-// for MacOS 10.6 SDK compatibility
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-#if MAC_OS_X_VERSION_MAX_ALLOWED < 1070
-@interface NSScreen(CPTExtensions)
-
-@property (readonly) CGFloat backingScaleFactor;
-
-@end
-#endif
-#endif
 
 @interface CPTImage()
 
@@ -219,11 +208,8 @@
     NSImage *newNativeImage = nil;
     NSImageRep *imageRep    = nil;
 
-    // backingScaleFactor property is available in MacOS 10.7 and later
-    if ( [NSScreen instancesRespondToSelector:@selector(backingScaleFactor)] ) {
-        for ( NSScreen *screen in [NSScreen screens] ) {
-            imageScale = MAX(imageScale, screen.backingScaleFactor);
-        }
+    for ( NSScreen *screen in [NSScreen screens] ) {
+        imageScale = MAX(imageScale, screen.backingScaleFactor);
     }
 
     if ( imageScale > 1.0 ) {
