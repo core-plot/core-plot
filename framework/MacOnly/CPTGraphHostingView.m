@@ -261,7 +261,14 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)viewDidChangeBackingProperties
 {
-    self.layer.contentsScale = self.window.backingScaleFactor;
+    NSWindow *myWindow = self.window;
+
+    if ( myWindow ) {
+        self.layer.contentsScale = myWindow.backingScaleFactor;
+    }
+    else {
+        self.layer.contentsScale = CPTFloat(1.0);
+    }
 }
 
 /// @endcond
