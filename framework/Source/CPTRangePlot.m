@@ -234,27 +234,29 @@ typedef struct CGPointError CGPointError;
     if ( self.doublePrecisionCache ) {
         const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
         const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const double x = *xBytes++;
-            const double y = *yBytes++;
+
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const double x = xBytes[i];
+            const double y = yBytes[i];
+
             xRangeFlags[i] = [xRange compareToDouble:x];
             yRangeFlags[i] = [yRange compareToDouble:y];
-            nanFlags[i]    = isnan(x) || isnan(y);
-        }
+            nanFlags[i] = isnan(x) || isnan(y);
+        });
     }
     else {
         // Determine where each point lies in relation to range
         const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
         const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
 
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const NSDecimal *x = xBytes++;
-            const NSDecimal *y = yBytes++;
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const NSDecimal x = xBytes[i];
+            const NSDecimal y = yBytes[i];
 
-            xRangeFlags[i] = [xRange compareToDecimal:*x];
-            yRangeFlags[i] = [yRange compareToDecimal:*y];
-            nanFlags[i]    = NSDecimalIsNotANumber(x); // || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
-        }
+            xRangeFlags[i] = [xRange compareToDecimal:x];
+            yRangeFlags[i] = [yRange compareToDecimal:y];
+            nanFlags[i] = NSDecimalIsNotANumber(&x);
+        });
     }
 
     // Ensure that whenever the path crosses over a region boundary, both points
@@ -292,13 +294,14 @@ typedef struct CGPointError CGPointError;
         const double *lowBytes   = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
         const double *leftBytes  = (const double *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
         const double *rightBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const double x     = *xBytes++;
-            const double y     = *yBytes++;
-            const double high  = *highBytes++;
-            const double low   = *lowBytes++;
-            const double left  = *leftBytes++;
-            const double right = *rightBytes++;
+
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const double x = xBytes[i];
+            const double y = yBytes[i];
+            const double high = highBytes[i];
+            const double low = lowBytes[i];
+            const double left = leftBytes[i];
+            const double right = rightBytes[i];
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
                 viewPoints[i].x = NAN; // depending coordinates
                 viewPoints[i].y = NAN;
@@ -313,25 +316,25 @@ typedef struct CGPointError CGPointError;
 
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y + high;
-                pos                       = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].high        = pos.y;
+                pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].high = pos.y;
 
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y - low;
-                pos                       = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].low         = pos.y;
+                pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].low = pos.y;
 
                 plotPoint[CPTCoordinateX] = x - left;
                 plotPoint[CPTCoordinateY] = y;
-                pos                       = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].left        = pos.x;
+                pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].left = pos.x;
 
                 plotPoint[CPTCoordinateX] = x + right;
                 plotPoint[CPTCoordinateY] = y;
-                pos                       = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].right       = pos.x;
+                pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].right = pos.x;
             }
-        }
+        });
     }
     else {
         const NSDecimal *xBytes     = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
@@ -340,13 +343,14 @@ typedef struct CGPointError CGPointError;
         const NSDecimal *lowBytes   = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLow].data.bytes;
         const NSDecimal *leftBytes  = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldLeft].data.bytes;
         const NSDecimal *rightBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldRight].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const NSDecimal x     = *xBytes++;
-            const NSDecimal y     = *yBytes++;
-            const NSDecimal high  = *highBytes++;
-            const NSDecimal low   = *lowBytes++;
-            const NSDecimal left  = *leftBytes++;
-            const NSDecimal right = *rightBytes++;
+
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const NSDecimal x = xBytes[i];
+            const NSDecimal y = yBytes[i];
+            const NSDecimal high = highBytes[i];
+            const NSDecimal low = lowBytes[i];
+            const NSDecimal left = leftBytes[i];
+            const NSDecimal right = rightBytes[i];
 
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
                 viewPoints[i].x = NAN; // depending coordinates
@@ -365,8 +369,8 @@ typedef struct CGPointError CGPointError;
                     NSDecimal yh;
                     NSDecimalAdd(&yh, &y, &high, NSRoundPlain);
                     plotPoint[CPTCoordinateY] = yh;
-                    pos                       = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
-                    viewPoints[i].high        = pos.y;
+                    pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
+                    viewPoints[i].high = pos.y;
                 }
                 else {
                     viewPoints[i].high = NAN;
@@ -377,8 +381,8 @@ typedef struct CGPointError CGPointError;
                     NSDecimal yl;
                     NSDecimalSubtract(&yl, &y, &low, NSRoundPlain);
                     plotPoint[CPTCoordinateY] = yl;
-                    pos                       = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
-                    viewPoints[i].low         = pos.y;
+                    pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
+                    viewPoints[i].low = pos.y;
                 }
                 else {
                     viewPoints[i].low = NAN;
@@ -389,8 +393,8 @@ typedef struct CGPointError CGPointError;
                     NSDecimalSubtract(&xl, &x, &left, NSRoundPlain);
                     plotPoint[CPTCoordinateX] = xl;
                     plotPoint[CPTCoordinateY] = y;
-                    pos                       = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
-                    viewPoints[i].left        = pos.x;
+                    pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
+                    viewPoints[i].left = pos.x;
                 }
                 else {
                     viewPoints[i].left = NAN;
@@ -400,14 +404,14 @@ typedef struct CGPointError CGPointError;
                     NSDecimalAdd(&xr, &x, &right, NSRoundPlain);
                     plotPoint[CPTCoordinateX] = xr;
                     plotPoint[CPTCoordinateY] = y;
-                    pos                       = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
-                    viewPoints[i].right       = pos.x;
+                    pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
+                    viewPoints[i].right = pos.x;
                 }
                 else {
                     viewPoints[i].right = NAN;
                 }
             }
-        }
+        });
     }
 }
 
@@ -416,44 +420,44 @@ typedef struct CGPointError CGPointError;
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
     if ( self.barLineStyle.lineWidth > 0.0 ) {
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
-                CGFloat x   = viewPoints[i].x;
-                CGFloat y   = viewPoints[i].y;
+                CGFloat x = viewPoints[i].x;
+                CGFloat y = viewPoints[i].y;
                 CGPoint pos = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
-                viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
-                viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
-                viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
+                pos = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
+                viewPoints[i].high = pos.y;
+                pos = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
+                viewPoints[i].low = pos.y;
+                pos = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
+                viewPoints[i].left = pos.x;
+                pos = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
-        }
+        });
     }
     else {
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
-                CGFloat x   = viewPoints[i].x;
-                CGFloat y   = viewPoints[i].y;
+                CGFloat x = viewPoints[i].x;
+                CGFloat y = viewPoints[i].y;
                 CGPoint pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
-                viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
-                viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
-                viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
+                pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
+                viewPoints[i].high = pos.y;
+                pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
+                viewPoints[i].low = pos.y;
+                pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
+                viewPoints[i].left = pos.x;
+                pos = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
-        }
+        });
     }
 }
 

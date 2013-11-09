@@ -328,9 +328,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         if ( self.doublePrecisionCache ) {
             const double *xBytes = (const double *)[self cachedNumbersForField:CPTScatterPlotFieldX].data.bytes;
             const double *yBytes = (const double *)[self cachedNumbersForField:CPTScatterPlotFieldY].data.bytes;
-            for ( NSUInteger i = 0; i < dataCount; i++ ) {
-                const double x = *xBytes++;
-                const double y = *yBytes++;
+
+            dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+                const double x = xBytes[i];
+                const double y = yBytes[i];
 
                 CPTPlotRangeComparisonResult xFlag = [xRange compareToDouble:x];
                 xRangeFlags[i] = xFlag;
@@ -341,27 +342,28 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     yRangeFlags[i] = [yRange compareToDouble:y];
                 }
                 nanFlags[i] = isnan(x) || isnan(y);
-            }
+            });
         }
         else {
             // Determine where each point lies in relation to range
             const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTScatterPlotFieldX].data.bytes;
             const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTScatterPlotFieldY].data.bytes;
-            for ( NSUInteger i = 0; i < dataCount; i++ ) {
-                const NSDecimal *x = xBytes++;
-                const NSDecimal *y = yBytes++;
 
-                CPTPlotRangeComparisonResult xFlag = [xRange compareToDecimal:*x];
+            dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+                const NSDecimal x = xBytes[i];
+                const NSDecimal y = yBytes[i];
+
+                CPTPlotRangeComparisonResult xFlag = [xRange compareToDecimal:x];
                 xRangeFlags[i] = xFlag;
                 if ( xFlag != CPTPlotRangeComparisonResultNumberInRange ) {
                     yRangeFlags[i] = CPTPlotRangeComparisonResultNumberInRange; // if x is out of range, then y doesn't matter
                 }
                 else {
-                    yRangeFlags[i] = [yRange compareToDecimal:*y];
+                    yRangeFlags[i] = [yRange compareToDecimal:y];
                 }
 
-                nanFlags[i] = NSDecimalIsNotANumber(x) || NSDecimalIsNotANumber(y);
-            }
+                nanFlags[i] = NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y);
+            });
         }
 
         // Ensure that whenever the path crosses over a region boundary, both points
@@ -449,9 +451,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( self.doublePrecisionCache ) {
         const double *xBytes = (const double *)[self cachedNumbersForField:CPTScatterPlotFieldX].data.bytes;
         const double *yBytes = (const double *)[self cachedNumbersForField:CPTScatterPlotFieldY].data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const double x = *xBytes++;
-            const double y = *yBytes++;
+
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const double x = xBytes[i];
+            const double y = yBytes[i];
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
                 viewPoints[i] = CPTPointMake(NAN, NAN);
             }
@@ -462,7 +465,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                 viewPoints[i] = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
             }
-        }
+        });
     }
     else {
         CPTMutableNumericData *xData = [self cachedNumbersForField:CPTScatterPlotFieldX];
@@ -470,9 +473,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         const NSDecimal *xBytes = (const NSDecimal *)xData.data.bytes;
         const NSDecimal *yBytes = (const NSDecimal *)yData.data.bytes;
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const NSDecimal x = *xBytes++;
-            const NSDecimal y = *yBytes++;
+
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            const NSDecimal x = xBytes[i];
+            const NSDecimal y = yBytes[i];
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
                 viewPoints[i] = CPTPointMake(NAN, NAN);
             }
@@ -483,7 +487,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                 viewPoints[i] = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
             }
-        }
+        });
     }
 }
 
@@ -492,18 +496,18 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
     if ( self.dataLineStyle.lineWidth > 0.0 ) {
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
                 viewPoints[i] = CPTAlignPointToUserSpace(context, viewPoints[i]);
             }
-        }
+        });
     }
     else {
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
                 viewPoints[i] = CPTAlignIntegralPointToUserSpace(context, viewPoints[i]);
             }
-        }
+        });
     }
 }
 
