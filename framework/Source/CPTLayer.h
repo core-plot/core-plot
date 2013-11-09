@@ -88,18 +88,3 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 /// @}
 
 @end
-
-/// @cond
-// for MacOS 10.6 SDK compatibility
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-#if MAC_OS_X_VERSION_MAX_ALLOWED < 1070
-@interface CALayer(CPTExtensions)
-
-@property (readwrite) CGFloat contentsScale;
-
-@end
-#endif
-#endif
-
-/// @endcond
