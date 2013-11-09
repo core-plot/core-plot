@@ -975,29 +975,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @endcond
 
 #pragma mark -
-#pragma mark Animation
-
-/// @cond
-
-+(BOOL)needsDisplayForKey:(NSString *)aKey
-{
-    static NSArray *keys = nil;
-
-    if ( !keys ) {
-        keys = @[];
-    }
-
-    if ( [keys containsObject:aKey] ) {
-        return YES;
-    }
-    else {
-        return [super needsDisplayForKey:aKey];
-    }
-}
-
-/// @endcond
-
-#pragma mark -
 #pragma mark Fields
 
 /// @cond

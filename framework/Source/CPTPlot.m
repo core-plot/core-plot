@@ -450,11 +450,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"labelOffset",
-                 @"labelRotation"];
+        keys = [NSSet setWithArray:@[@"labelOffset",
+                                     @"labelRotation"]];
     }
 
     if ( [keys containsObject:aKey] ) {

@@ -803,15 +803,15 @@ NSDecimal niceNum(NSDecimal x);
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"titleOffset",
-                 @"titleRotation",
-                 @"labelOffset",
-                 @"minorTickLabelOffset",
-                 @"labelRotation",
-                 @"minorTickLabelRotation"];
+        keys = [NSSet setWithArray:@[@"titleOffset",
+                                     @"titleRotation",
+                                     @"labelOffset",
+                                     @"minorTickLabelOffset",
+                                     @"labelRotation",
+                                     @"minorTickLabelRotation"]];
     }
 
     if ( [keys containsObject:aKey] ) {

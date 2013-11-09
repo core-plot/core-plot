@@ -972,12 +972,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"barWidth",
-                 @"stickLength",
-                 @"barCornerRadius"];
+        keys = [NSSet setWithArray:@[@"barWidth",
+                                     @"stickLength",
+                                     @"barCornerRadius"]];
     }
 
     if ( [keys containsObject:aKey] ) {

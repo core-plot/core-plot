@@ -506,11 +506,11 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"swatchSize",
-                 @"swatchCornerRadius"];
+        keys = [NSSet setWithArray:@[@"swatchSize",
+                                     @"swatchCornerRadius"]];
     }
 
     if ( [keys containsObject:aKey] ) {

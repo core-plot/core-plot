@@ -823,12 +823,12 @@ typedef struct CGPointError CGPointError;
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"barWidth",
-                 @"gapHeight",
-                 @"gapWidth"];
+        keys = [NSSet setWithArray:@[@"barWidth",
+                                     @"gapHeight",
+                                     @"gapWidth"]];
     }
 
     if ( [keys containsObject:aKey] ) {

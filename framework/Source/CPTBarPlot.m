@@ -1075,13 +1075,13 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSArray *keys = nil;
+    static NSSet *keys = nil;
 
     if ( !keys ) {
-        keys = @[@"barCornerRadius",
-                 @"barBaseCornerRadius",
-                 @"barOffsetScale",
-                 @"barWidthScale"];
+        keys = [NSSet setWithArray:@[@"barCornerRadius",
+                                     @"barBaseCornerRadius",
+                                     @"barOffsetScale",
+                                     @"barWidthScale"]];
     }
 
     if ( [keys containsObject:aKey] ) {
