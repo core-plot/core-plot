@@ -8,6 +8,8 @@ static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames
 
 static NSString *const CPTAnimationOperationKey = @"CPTAnimationOperationKey";
 static NSString *const CPTAnimationValueKey     = @"CPTAnimationValueKey";
+static NSString *const CPTAnimationStartedKey   = @"CPTAnimationStartedKey";
+static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
 
 /// @cond
 @interface CPTAnimation()
@@ -274,6 +276,8 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             CPTAnimationTimingFunction timingFunction = [self timingFunctionForAnimationCurve:animationOperation.animationCurve];
 
             if ( boundObject && timingFunction ) {
+                BOOL started = NO;
+
                 if ( ![runningOperations containsObject:animationOperation] ) {
                     // Remove any running animations for the same property
                     SEL boundGetter = animationOperation.boundGetter;
@@ -289,19 +293,16 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
                     // Start the new animation
                     [runningOperations addObject:animationOperation];
-
-                    if ( [animationDelegate respondsToSelector:@selector(animationDidStart:)] ) {
-                        dispatch_async(mainQueue, ^{
-                            [animationDelegate animationDidStart:animationOperation];
-                        });
-                    }
+                    started = YES;
                 }
                 if ( !animationOperation.isCanceled ) {
                     CGFloat progress = timingFunction(currentTime - startTime, duration);
 
                     NSDictionary *parameters = @{
                         CPTAnimationOperationKey: animationOperation,
-                        CPTAnimationValueKey: [period tweenedValueForProgress:progress]
+                        CPTAnimationValueKey: [period tweenedValueForProgress:progress],
+                        CPTAnimationStartedKey: @(started),
+                        CPTAnimationFinishedKey: @(currentTime >= endTime)
                     };
 
                     // Used -performSelectorOnMainThread:... instead of GCD to ensure the animation continues to run in all run loop common modes.
@@ -312,12 +313,6 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
                     if ( currentTime >= endTime ) {
                         [expiredOperations addObject:animationOperation];
-
-                        if ( [animationDelegate respondsToSelector:@selector(animationDidFinish:)] ) {
-                            dispatch_async(mainQueue, ^{
-                                [animationDelegate animationDidFinish:animationOperation];
-                            });
-                        }
                     }
                 }
             }
@@ -348,6 +343,13 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
     if ( !canceled ) {
         @try {
             id<CPTAnimationDelegate> delegate = animationOperation.delegate;
+
+            NSNumber *started = parameters[CPTAnimationStartedKey];
+            if ( started.boolValue ) {
+                if ( [delegate respondsToSelector:@selector(animationDidStart:)] ) {
+                    [delegate animationDidStart:animationOperation];
+                }
+            }
 
             if ( [delegate respondsToSelector:@selector(animationWillUpdate:)] ) {
                 [delegate animationWillUpdate:animationOperation];
@@ -390,6 +392,13 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
             if ( [delegate respondsToSelector:@selector(animationDidUpdate:)] ) {
                 [delegate animationDidUpdate:animationOperation];
+            }
+
+            NSNumber *finished = parameters[CPTAnimationFinishedKey];
+            if ( finished.boolValue ) {
+                if ( [delegate respondsToSelector:@selector(animationDidFinish:)] ) {
+                    [delegate animationDidFinish:animationOperation];
+                }
             }
         }
         @catch ( NSException *__unused exception ) {
