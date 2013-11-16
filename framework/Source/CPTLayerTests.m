@@ -27,7 +27,7 @@ static const double precision = 1.0e-6;
     // starting layer positions for each test
     self.positions = @[@10.49999, @10.5, @10.50001, @10.99999, @11.0, @11.00001];
 
-    CPTLayer *newLayer = [[CPTLayer alloc] initWithFrame:CPTRectMake(0.0, 0.0, 99.0, 99.0)];
+    CPTLayer *newLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : CPTRectMake(0.0, 0.0, 99.0, 99.0)];
 
     self.layer = newLayer;
 }
@@ -43,7 +43,7 @@ static const double precision = 1.0e-6;
     NSArray *expected = @[@10.0, @10.0, @11.0, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(1.0)
-                     anchorPoint:CPTPointMake(0.0, 0.0)
+                     anchorPoint:CGPointZero
                         expected:expected];
 }
 
@@ -90,7 +90,7 @@ static const double precision = 1.0e-6;
     NSArray *expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(2.0)
-                     anchorPoint:CPTPointMake(0.0, 0.0)
+                     anchorPoint:CGPointZero
                         expected:expected];
 }
 

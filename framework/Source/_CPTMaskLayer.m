@@ -36,7 +36,7 @@
     CPTLayer *theMaskedLayer = (CPTLayer *)self.superlayer;
 
     if ( theMaskedLayer ) {
-        CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
+        CGContextSetRGBFillColor( context, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
 
         if ( [theMaskedLayer isKindOfClass:[CPTLayer class]] ) {
             CGPathRef maskingPath = theMaskedLayer.sublayerMaskingPath;

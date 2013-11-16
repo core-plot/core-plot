@@ -366,7 +366,9 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
         CGPathElementType type = (CGPathElementType)[self decodeIntForKey : newKey];
 
-        CGPoint point1, point2, point3;
+        CGPoint point1 = CGPointZero;
+        CGPoint point2 = CGPointZero;
+        CGPoint point3 = CGPointZero;
 
         switch ( type ) {
             case kCGPathElementAddCurveToPoint: // 3 points

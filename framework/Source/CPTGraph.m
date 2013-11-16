@@ -739,7 +739,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
     switch ( anchor ) {
         case CPTRectAnchorBottomLeft:
-            contentAnchor = CPTPointMake(0.0, 0.0);
+            contentAnchor = CGPointZero;
             break;
 
         case CPTRectAnchorBottom:

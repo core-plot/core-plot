@@ -2,6 +2,7 @@
 
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
+#import "CPTDefinitions.h"
 #import "_CPTAnimationTimingFunctions.h"
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
@@ -99,7 +100,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
         animationOperations        = [[NSMutableArray alloc] init];
         runningAnimationOperations = [[NSMutableArray alloc] init];
         timer                      = NULL;
-        timeOffset                 = 0.0;
+        timeOffset                 = CPTFloat(0.0);
         defaultAnimationCurve      = CPTAnimationCurveLinear;
 
         animationQueue = dispatch_queue_create("CorePlot.CPTAnimation.animationQueue", NULL);

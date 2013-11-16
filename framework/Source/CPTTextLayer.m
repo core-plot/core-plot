@@ -335,12 +335,12 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
         newBounds.size.width  += self.paddingLeft + self.paddingRight;
         newBounds.size.height += self.paddingTop + self.paddingBottom;
 
-        CGSize maxSize = self.maximumSize;
-        if ( maxSize.width > CPTFloat(0.0) ) {
-            newBounds.size.width = MIN(newBounds.size.width, maxSize.width);
+        CGSize myMaxSize = self.maximumSize;
+        if ( myMaxSize.width > CPTFloat(0.0) ) {
+            newBounds.size.width = MIN(newBounds.size.width, myMaxSize.width);
         }
-        if ( maxSize.height > CPTFloat(0.0) ) {
-            newBounds.size.height = MIN(newBounds.size.height, maxSize.height);
+        if ( myMaxSize.height > CPTFloat(0.0) ) {
+            newBounds.size.height = MIN(newBounds.size.height, myMaxSize.height);
         }
 
         newBounds.size.width  = ceil(newBounds.size.width);

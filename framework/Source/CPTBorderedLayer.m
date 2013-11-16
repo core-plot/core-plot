@@ -359,7 +359,7 @@
         [super setMasksToBorder:newMasksToBorder];
 
         if ( newMasksToBorder ) {
-            CPTMaskLayer *maskLayer = [[CPTMaskLayer alloc] initWithFrame:self.bounds];
+            CPTMaskLayer *maskLayer = [(CPTMaskLayer *)[CPTMaskLayer alloc] initWithFrame : self.bounds];
             [maskLayer setNeedsDisplay];
             self.mask = maskLayer;
         }
@@ -381,7 +381,7 @@
         // check layer structure
         if ( superLayer ) {
             if ( ![superLayer isKindOfClass:[CPTBorderLayer class]] ) {
-                CPTBorderLayer *newBorderLayer = [[CPTBorderLayer alloc] initWithFrame:self.frame];
+                CPTBorderLayer *newBorderLayer = [(CPTBorderLayer *)[CPTBorderLayer alloc] initWithFrame : self.frame];
                 newBorderLayer.maskedLayer = self;
 
                 [superLayer replaceSublayer:self with:newBorderLayer];

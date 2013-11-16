@@ -559,7 +559,7 @@
                          fromPlotRange:newRange
                            toPlotRange:constrainedRange
                               duration:bounceTime
-                             withDelay:(hasShift ? momentumTime : 0.0)
+                             withDelay:CPTFloat(hasShift ? momentumTime : 0.0)
                         animationCurve:self.bounceAnimationCurve
                               delegate:self];
             [animationArray addObject:op];
