@@ -3,29 +3,29 @@
 #import "CPTDefinitions.h"
 #import <tgmath.h>
 
-// time should be between 0 and duration for all timing functions
+// elapsedTime should be between 0 and duration for all timing functions
 
 #pragma mark Linear
 
 /**
  *  @brief Computes a linear animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionLinear(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionLinear(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time;
+    return elapsedTime;
 }
 
 #pragma mark -
@@ -33,77 +33,77 @@ CGFloat CPTAnimationTimingFunctionLinear(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a backing in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBackIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBackIn(CGFloat elapsedTime, CGFloat duration)
 {
     const CGFloat s = CPTFloat(1.70158);
 
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * ( ( s + CPTFloat(1.0) ) * time - s );
+    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s );
 }
 
 /**
  *  @brief Computes a backing out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBackOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBackOut(CGFloat elapsedTime, CGFloat duration)
 {
     const CGFloat s = CPTFloat(1.70158);
 
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time = time / duration - CPTFloat(1.0);
+    elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( time >= CPTFloat(0.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(0.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * ( ( s + CPTFloat(1.0) ) * time + s ) + CPTFloat(1.0);
+    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a backing in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat elapsedTime, CGFloat duration)
 {
     const CGFloat s = CPTFloat(1.70158 * 1.525);
 
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * ( time * time * ( ( s + CPTFloat(1.0) ) * time - s ) );
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s ) );
     }
     else {
-        time -= 2.0;
+        elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( time * time * ( ( s + CPTFloat(1.0) ) * time + s ) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(2.0) );
     }
 }
 
@@ -112,66 +112,66 @@ CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a bounce in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBounceIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBounceIn(CGFloat elapsedTime, CGFloat duration)
 {
-    return CPTFloat(1.0) - CPTAnimationTimingFunctionBounceOut(duration - time, duration);
+    return CPTFloat(1.0) - CPTAnimationTimingFunctionBounceOut(duration - elapsedTime, duration);
 }
 
 /**
  *  @brief Computes a bounce out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0 / 2.75) ) {
-        return CPTFloat(7.5625) * time * time;
+    if ( elapsedTime < CPTFloat(1.0 / 2.75) ) {
+        return CPTFloat(7.5625) * elapsedTime * elapsedTime;
     }
-    else if ( time < CPTFloat(2.0 / 2.75) ) {
-        time -= (1.5 / 2.75);
+    else if ( elapsedTime < CPTFloat(2.0 / 2.75) ) {
+        elapsedTime -= CPTFloat(1.5 / 2.75);
 
-        return CPTFloat(7.5625) * time * time + CPTFloat(0.75);
+        return CPTFloat(7.5625) * elapsedTime * elapsedTime + CPTFloat(0.75);
     }
-    else if ( time < CPTFloat(2.5 / 2.75) ) {
-        time -= (2.25 / 2.75);
+    else if ( elapsedTime < CPTFloat(2.5 / 2.75) ) {
+        elapsedTime -= CPTFloat(2.25 / 2.75);
 
-        return CPTFloat(7.5625) * time * time + CPTFloat(0.9375);
+        return CPTFloat(7.5625) * elapsedTime * elapsedTime + CPTFloat(0.9375);
     }
     else {
-        time -= (2.625 / 2.75);
+        elapsedTime -= CPTFloat(2.625 / 2.75);
 
-        return CPTFloat(7.5625) * time * time + CPTFloat(0.984375);
+        return CPTFloat(7.5625) * elapsedTime * elapsedTime + CPTFloat(0.984375);
     }
 }
 
 /**
  *  @brief Computes a bounce in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time < duration * CPTFloat(0.5) ) {
-        return CPTAnimationTimingFunctionBounceIn(time * CPTFloat(2.0), duration) * CPTFloat(0.5);
+    if ( elapsedTime < duration * CPTFloat(0.5) ) {
+        return CPTAnimationTimingFunctionBounceIn(elapsedTime * CPTFloat(2.0), duration) * CPTFloat(0.5);
     }
     else {
-        return CPTAnimationTimingFunctionBounceOut(time * CPTFloat(2.0) - duration, duration) * CPTFloat(0.5) +
+        return CPTAnimationTimingFunctionBounceOut(elapsedTime * CPTFloat(2.0) - duration, duration) * CPTFloat(0.5) +
                CPTFloat(0.5);
     }
 }
@@ -181,71 +181,71 @@ CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a circular in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return -( sqrt(CPTFloat(1.0) - time * time) - CPTFloat(1.0) );
+    return -( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
 }
 
 /**
  *  @brief Computes a circular out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time = time / duration - CPTFloat(1.0);
+    elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( time >= CPTFloat(0.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(0.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return sqrt(CPTFloat(1.0) - time * time);
+    return sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime);
 }
 
 /**
  *  @brief Computes a circular in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(-0.5) * ( sqrt(CPTFloat(1.0) - time * time) - CPTFloat(1.0) );
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(-0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
     }
     else {
-        time -= 2.0;
+        elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( sqrt(CPTFloat(1.0) - time * time) + CPTFloat(1.0) );
+        return CPTFloat(0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) + CPTFloat(1.0) );
     }
 }
 
@@ -254,82 +254,82 @@ CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a elastic in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
     CGFloat period = duration * CPTFloat(0.3);
     CGFloat s      = period * CPTFloat(0.25);
 
-    time -= 1.0;
+    elapsedTime -= CPTFloat(1.0);
 
-    return -( pow(CPTFloat(2.0), CPTFloat(10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
+    return -( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
 }
 
 /**
  *  @brief Computes a elastic out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
     CGFloat period = duration * CPTFloat(0.3);
     CGFloat s      = period * CPTFloat(0.25);
 
-    return pow(CPTFloat(2.0), CPTFloat(-10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) + CPTFloat(1.0);
+    return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a elastic in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
     CGFloat period = duration * CPTFloat(0.3 * 1.5);
     CGFloat s      = period * CPTFloat(0.25);
 
-    time -= 1.0;
+    elapsedTime -= CPTFloat(1.0);
 
-    if ( time < CPTFloat(0.0) ) {
-        return CPTFloat(-0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
+    if ( elapsedTime < CPTFloat(0.0) ) {
+        return CPTFloat(-0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
     }
     else {
-        return pow(CPTFloat(2.0), CPTFloat(-10.0) * time) * sin( (time * duration - s) * CPTFloat(2.0 * M_PI) / period ) * CPTFloat(0.5) + CPTFloat(1.0);
+        return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) * CPTFloat(0.5) + CPTFloat(1.0);
     }
 }
 
@@ -338,70 +338,70 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a exponential in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return pow( CPTFloat(2.0), CPTFloat(10.0) * ( time - CPTFloat(1.0) ) );
+    return pow( CPTFloat(2.0), CPTFloat(10.0) * ( elapsedTime - CPTFloat(1.0) ) );
 }
 
 /**
  *  @brief Computes a exponential out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return -pow(CPTFloat(2.0), CPTFloat(-10.0) * time) + CPTFloat(1.0);
+    return -pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a exponential in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
-    time -= 1.0;
+    elapsedTime /= duration * CPTFloat(0.5);
+    elapsedTime -= CPTFloat(1.0);
 
-    if ( time >= 1.0 ) {
-        return 1.0;
+    if ( elapsedTime >= 1.0 ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(0.0) ) {
-        return CPTFloat(0.5) * pow(CPTFloat(2.0), CPTFloat(10.0) * time);
+    if ( elapsedTime < CPTFloat(0.0) ) {
+        return CPTFloat(0.5) * pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime);
     }
     else {
-        return CPTFloat(0.5) * ( -pow(CPTFloat(2.0), CPTFloat(-10.0) * time) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * ( -pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(2.0) );
     }
 }
 
@@ -410,65 +410,65 @@ CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat time, CGFloat duratio
 
 /**
  *  @brief Computes a sinusoidal in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return -cos( time * CPTFloat(M_PI_2) ) + CPTFloat(1.0);
+    return -cos( elapsedTime * CPTFloat(M_PI_2) ) + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a sinusoidal out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return sin( time * CPTFloat(M_PI_2) );
+    return sin( elapsedTime * CPTFloat(M_PI_2) );
 }
 
 /**
  *  @brief Computes a sinusoidal in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return CPTFloat(-0.5) * ( cos(CPTFloat(M_PI) * time) - CPTFloat(1.0) );
+    return CPTFloat(-0.5) * ( cos(CPTFloat(M_PI) * elapsedTime) - CPTFloat(1.0) );
 }
 
 #pragma mark -
@@ -476,71 +476,71 @@ CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat time, CGFloat duration
 
 /**
  *  @brief Computes a cubic in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * time;
+    return elapsedTime * elapsedTime * elapsedTime;
 }
 
 /**
  *  @brief Computes a cubic out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time = time / duration - CPTFloat(1.0);
+    elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( time >= CPTFloat(0.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(0.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * time + CPTFloat(1.0);
+    return elapsedTime * elapsedTime * elapsedTime + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a cubic in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * time * time * time;
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
-        time -= 2.0;
+        elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( time * time * time + CPTFloat(2.0) );
+        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
     }
 }
 
@@ -549,71 +549,71 @@ CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a quadratic in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time;
+    return elapsedTime * elapsedTime;
 }
 
 /**
  *  @brief Computes a quadratic out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return -time * ( time - CPTFloat(2.0) );
+    return -elapsedTime * ( elapsedTime - CPTFloat(2.0) );
 }
 
 /**
  *  @brief Computes a quadratic in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * time * time;
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(0.5) * elapsedTime * elapsedTime;
     }
     else {
-        time -= 1.0;
+        elapsedTime -= CPTFloat(1.0);
 
-        return CPTFloat(-0.5) * ( time * ( time - CPTFloat(2.0) ) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * ( elapsedTime * ( elapsedTime - CPTFloat(2.0) ) - CPTFloat(1.0) );
     }
 }
 
@@ -622,71 +622,71 @@ CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a quartic in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * time * time;
+    return elapsedTime * elapsedTime * elapsedTime * elapsedTime;
 }
 
 /**
  *  @brief Computes a quartic out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time = time / duration - CPTFloat(1.0);
+    elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( time >= CPTFloat(0.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(0.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return -( time * time * time * time - CPTFloat(1.0) );
+    return -( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(1.0) );
 }
 
 /**
  *  @brief Computes a quartic in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * time * time * time * time;
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
-        time -= 2.0;
+        elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(-0.5) * ( time * time * time * time - CPTFloat(2.0) );
+        return CPTFloat(-0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(2.0) );
     }
 }
 
@@ -695,70 +695,70 @@ CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat time, CGFloat duration)
 
 /**
  *  @brief Computes a quintic in animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration;
+    elapsedTime /= duration;
 
-    if ( time >= CPTFloat(1.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(1.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * time * time * time;
+    return elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime;
 }
 
 /**
  *  @brief Computes a quintic out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time = time / duration - CPTFloat(1.0);
+    elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( time >= CPTFloat(0.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(0.0) ) {
+        return CPTFloat(1.0);
     }
 
-    return time * time * time * time * time + CPTFloat(1.0);
+    return elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(1.0);
 }
 
 /**
  *  @brief Computes a quintic in and out animation timing function.
- *  @param time The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
  *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{time}.
+ *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
-CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat time, CGFloat duration)
+CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( time <= CPTFloat(0.0) ) {
-        return 0.0;
+    if ( elapsedTime <= CPTFloat(0.0) ) {
+        return CPTFloat(0.0);
     }
 
-    time /= duration * CPTFloat(0.5);
+    elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( time >= CPTFloat(2.0) ) {
-        return 1.0;
+    if ( elapsedTime >= CPTFloat(2.0) ) {
+        return CPTFloat(1.0);
     }
 
-    if ( time < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * time * time * time * time * time;
+    if ( elapsedTime < CPTFloat(1.0) ) {
+        return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
-        time -= 2.0;
+        elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( time * time * time * time * time + CPTFloat(2.0) );
+        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
     }
 }

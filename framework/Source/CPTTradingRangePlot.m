@@ -1129,7 +1129,10 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTPlotRange *yRange         = thePlotSpace.yRange;
 
     CGPoint openPoint, highPoint, lowPoint, closePoint;
-    CGFloat lastViewX, lastViewMin, lastViewMax;
+
+    CGFloat lastViewX   = CPTFloat(0.0);
+    CGFloat lastViewMin = CPTFloat(0.0);
+    CGFloat lastViewMax = CPTFloat(0.0);
 
     NSUInteger result              = NSNotFound;
     CGFloat minimumDistanceSquared = NAN;
@@ -1321,7 +1324,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     if ( result != NSNotFound ) {
-        CGFloat offset;
+        CGFloat offset = CPTFloat(0.0);
 
         switch ( self.plotStyle ) {
             case CPTTradingRangePlotStyleOHLC:

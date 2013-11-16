@@ -393,7 +393,7 @@
  **/
 -(id)init
 {
-    return [self initWithStartValue:nil endValue:nil duration:0.0 withDelay:0.0];
+    return [self initWithStartValue:nil endValue:nil duration:CPTFloat(0.0) withDelay:CPTFloat(0.0)];
 }
 
 /// @endcond
@@ -495,7 +495,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStart:from
                                                                  end:to
                                                             duration:duration
-                                                           withDelay:0.0];
+                                                           withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -518,7 +518,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStart:from
                                                                  end:to
                                                             duration:duration
-                                                           withDelay:0.0];
+                                                           withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -570,7 +570,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPoint:from
                                                                  endPoint:to
                                                                  duration:duration
-                                                                withDelay:0.0];
+                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -593,7 +593,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPoint:from
                                                                  endPoint:to
                                                                  duration:duration
-                                                                withDelay:0.0];
+                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -645,7 +645,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartSize:from
                                                                  endSize:to
                                                                 duration:duration
-                                                               withDelay:0.0];
+                                                               withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -668,7 +668,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartSize:from
                                                                  endSize:to
                                                                 duration:duration
-                                                               withDelay:0.0];
+                                                               withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -720,7 +720,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartRect:from
                                                                  endRect:to
                                                                 duration:duration
-                                                               withDelay:0.0];
+                                                               withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -743,7 +743,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartRect:from
                                                                  endRect:to
                                                                 duration:duration
-                                                               withDelay:0.0];
+                                                               withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -795,7 +795,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartDecimal:from
                                                                  endDecimal:to
                                                                    duration:duration
-                                                                  withDelay:0.0];
+                                                                  withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -818,7 +818,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartDecimal:from
                                                                  endDecimal:to
                                                                    duration:duration
-                                                                  withDelay:0.0];
+                                                                  withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -870,7 +870,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPlotRange:from
                                                                  endPlotRange:to
                                                                      duration:duration
-                                                                    withDelay:0.0];
+                                                                    withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property
@@ -893,7 +893,7 @@
     CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartPlotRange:from
                                                                  endPlotRange:to
                                                                      duration:duration
-                                                                    withDelay:0.0];
+                                                                    withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                   property:property

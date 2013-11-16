@@ -749,28 +749,28 @@ static const CGFloat colorLookupTable[10][3] =
 }
 
 /** @brief Computes the halfway-point between the starting and ending angles of a given pie slice.
- *  @param index A pie slice index.
+ *  @param idx A pie slice index.
  *  @return The angle that is halfway between the slice's starting and ending angles, or @NAN if
  *  an angle matching the given index cannot be found.
  **/
--(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)index
+-(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)idx
 {
     NSUInteger sampleCount = self.cachedDataCount;
 
-    NSParameterAssert(index < sampleCount);
+    NSParameterAssert(idx < sampleCount);
 
     if ( sampleCount == 0 ) {
         return NAN;
     }
 
-    CGFloat startingWidth = 0.0;
+    CGFloat startingWidth = CPTFloat(0.0);
 
     // Iterate through the pie slices until the slice with the given index is found
     for ( NSUInteger currentIndex = 0; currentIndex < sampleCount; currentIndex++ ) {
         CGFloat currentWidth = CPTFloat([self cachedDoubleForField:CPTPieChartFieldSliceWidthNormalized recordIndex:currentIndex]);
 
         // If the slice index is a match...
-        if ( !isnan(currentWidth) && (index == currentIndex) ) {
+        if ( !isnan(currentWidth) && (idx == currentIndex) ) {
             // Compute and return the angle that is halfway between the slice's starting and ending angles
             CGFloat startingAngle  = [self radiansForPieSliceValue:startingWidth];
             CGFloat finishingAngle = [self radiansForPieSliceValue:startingWidth + currentWidth];

@@ -120,7 +120,11 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+#if MAC_OS_X_VERSION_10_6 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
     [dataPlot removeObserver:self forKeyPath:@"plotSpace" context:CPTFunctionDataSourceKVOContext];
+#else
+    [dataPlot removeObserver:self forKeyPath:@"plotSpace"];
+#endif
 
     [super dealloc];
 }

@@ -185,7 +185,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     barPlot.barWidthsAreInViewCoordinates = NO;
     barPlot.barCornerRadius               = CPTFloat(2.0);
     CPTGradient *fillGradient = [CPTGradient gradientWithBeginningColor:color endingColor:[CPTColor blackColor]];
-    fillGradient.angle = (CGFloat)(horizontal ? -90.0 : 0.0);
+    fillGradient.angle = CPTFloat(horizontal ? -90.0 : 0.0);
     barPlot.fill       = [CPTFill fillWithGradient:fillGradient];
     return [barPlot autorelease];
 }

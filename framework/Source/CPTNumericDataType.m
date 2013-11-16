@@ -211,7 +211,7 @@ BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType
 
 CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
 {
-    CPTDataTypeFormat result;
+    CPTDataTypeFormat result = CPTUndefinedDataType;
 
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
 
@@ -256,7 +256,7 @@ size_t SampleBytesForDataTypeString(NSString *dataTypeString)
 CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
 {
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
-    CFByteOrder result;
+    CFByteOrder result = CFByteOrderUnknown;
 
     switch ( [[dataTypeString lowercaseString] characterAtIndex:0] ) {
         case '=':

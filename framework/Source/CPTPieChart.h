@@ -186,7 +186,7 @@ CPTPieDirection;
 /// @name Information
 /// @{
 -(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle;
--(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)index;
+-(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)idx;
 /// @}
 
 /// @name Factory Methods

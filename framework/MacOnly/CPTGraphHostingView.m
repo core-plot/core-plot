@@ -11,6 +11,10 @@
 
 @property (readonly) CGFloat backingScaleFactor;
 
+@end
+
+@interface NSView(CPTExtensions)
+
 -(void)viewDidChangeBackingProperties;
 
 @end

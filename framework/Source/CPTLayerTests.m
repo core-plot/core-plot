@@ -34,7 +34,7 @@ static const double precision = 1.0e-6;
                       [NSNumber numberWithDouble:11.00001],
                       nil];
 
-    CPTLayer *newLayer = [[CPTLayer alloc] initWithFrame:CPTRectMake(0.0, 0.0, 99.0, 99.0)];
+    CPTLayer *newLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : CPTRectMake(0.0, 0.0, 99.0, 99.0)];
 
     self.layer = newLayer;
 
@@ -61,7 +61,7 @@ static const double precision = 1.0e-6;
                          nil];
 
     [self testPositionsWithScale:CPTFloat(1.0)
-                     anchorPoint:CPTPointMake(0.0, 0.0)
+                     anchorPoint:CGPointZero
                         expected:expected];
 }
 
@@ -143,7 +143,7 @@ static const double precision = 1.0e-6;
                          nil];
 
     [self testPositionsWithScale:CPTFloat(2.0)
-                     anchorPoint:CPTPointMake(0.0, 0.0)
+                     anchorPoint:CGPointZero
                         expected:expected];
 }
 

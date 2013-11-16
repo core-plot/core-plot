@@ -85,14 +85,25 @@ static NSMutableSet *themes = nil;
 #pragma mark -
 #pragma mark Theme management
 
-/** @brief List of the available theme classes, sorted by name.
+/** @brief A list of the available theme classes, sorted by name.
  *  @return An NSArray containing all available theme classes, sorted by name.
+ *  @if MacOnly
+ *  @since Sorting is supported on MacOS 10.6 and later. Returns an unsorted array on earlier systems.
+ *  @endif
+ *  @if iOSOnly
+ *  @since Sorting is supported on iOS 5 and later. Returns an unsorted array on earlier systems.
+ *  @endif
  **/
 +(NSArray *)themeClasses
 {
+#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_5_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
     return [themes sortedArrayUsingDescriptors:[NSArray arrayWithObject:nameSort]];
+
+#else
+    return [themes allObjects];
+#endif
 }
 
 /** @brief Gets a named theme.

@@ -2,6 +2,7 @@
 
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
+#import "CPTDefinitions.h"
 #import "_CPTAnimationTimingFunctions.h"
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
@@ -93,7 +94,7 @@ static CPTAnimation *instance = nil;
         runningAnimationOperations = [[NSMutableArray alloc] init];
         expiredAnimationOperations = [[NSMutableArray alloc] init];
         timer                      = nil;
-        timeOffset                 = 0.0;
+        timeOffset                 = CPTFloat(0.0);
         defaultAnimationCurve      = CPTAnimationCurveLinear;
     }
 
