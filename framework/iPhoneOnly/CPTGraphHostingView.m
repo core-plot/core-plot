@@ -266,9 +266,9 @@
 
 -(void)updateNotifications
 {
-    if ( self.collapsesLayers ) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+    if ( self.collapsesLayers ) {
         CPTGraph *theHostedGraph = self.hostedGraph;
         if ( theHostedGraph ) {
             [[NSNotificationCenter defaultCenter] addObserver:self
