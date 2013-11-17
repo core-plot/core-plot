@@ -30,8 +30,8 @@
     if ( plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
-            id x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
-            id y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 1.2];
+            NSNumber *x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
+            NSNumber *y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 1.2];
             [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
         }
         plotData = [contentArray retain];
@@ -81,7 +81,7 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
+    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(1.75);
 
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
@@ -122,10 +122,6 @@
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
     NSNumber *num = [[plotData objectAtIndex:index] valueForKey:key];
-
-    if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = [NSNumber numberWithDouble:[num doubleValue]];
-    }
 
     return num;
 }

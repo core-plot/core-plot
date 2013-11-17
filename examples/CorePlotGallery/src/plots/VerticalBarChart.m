@@ -80,11 +80,11 @@
 
     // Create grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth = 1.0f;
+    majorGridLineStyle.lineWidth = 1.0;
     majorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.75];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    minorGridLineStyle.lineWidth = 1.0f;
+    minorGridLineStyle.lineWidth = 1.0;
     minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
 
     // Create axes
@@ -115,7 +115,7 @@
 #endif
 
         x.title       = @"X Axis";
-        x.titleOffset = 30.0f;
+        x.titleOffset = 30.0;
 #if HORIZONTAL
         x.titleLocation = CPTDecimalFromInteger(55);
 #else
@@ -143,7 +143,7 @@
         y.majorTickLineStyle          = nil;
         y.minorTickLineStyle          = nil;
         y.labelOffset                 = 10.0;
-        y.labelRotation               = M_PI / 2;
+        y.labelRotation               = M_PI_2;
 #if HORIZONTAL
         y.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
         y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
@@ -153,7 +153,7 @@
 #endif
 
         y.title       = @"Y Axis";
-        y.titleOffset = 30.0f;
+        y.titleOffset = 30.0;
 #if HORIZONTAL
         y.titleLocation = CPTDecimalFromInteger(5);
 #else
@@ -174,10 +174,10 @@
     // Create first bar plot
     CPTBarPlot *barPlot = [[[CPTBarPlot alloc] init] autorelease];
     barPlot.lineStyle       = barLineStyle;
-    barPlot.fill            = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:1.0f green:0.0f blue:0.5f alpha:0.5f]];
+    barPlot.fill            = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:1.0 green:0.0 blue:0.5 alpha:0.5]];
     barPlot.barBasesVary    = YES;
     barPlot.barWidth        = CPTDecimalFromFloat(0.5f); // bar is 50% of the available space
-    barPlot.barCornerRadius = 10.0f;
+    barPlot.barCornerRadius = 10.0;
 #if HORIZONTAL
     barPlot.barsAreHorizontal = YES;
 #else
@@ -198,12 +198,12 @@
     CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
 
     barPlot2.lineStyle    = barLineStyle;
-    barPlot2.fill         = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:0.0f green:1.0f blue:0.5f alpha:0.5f]];
+    barPlot2.fill         = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.5 alpha:0.5]];
     barPlot2.barBasesVary = YES;
 
     barPlot2.barWidth = CPTDecimalFromFloat(1.0f); // bar is full (100%) width
-//	barPlot2.barOffset = -0.125f; // shifted left by 12.5%
-    barPlot2.barCornerRadius = 2.0f;
+//	barPlot2.barOffset = -0.125; // shifted left by 12.5%
+    barPlot2.barCornerRadius = 2.0;
 #if HORIZONTAL
     barPlot2.barsAreHorizontal = YES;
 #else
@@ -278,7 +278,7 @@
     // Setup a style for the annotation
     CPTMutableTextStyle *hitAnnotationTextStyle = [CPTMutableTextStyle textStyle];
     hitAnnotationTextStyle.color    = [CPTColor orangeColor];
-    hitAnnotationTextStyle.fontSize = 16.0f;
+    hitAnnotationTextStyle.fontSize = 16.0;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
@@ -300,7 +300,7 @@
     CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
     symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
     symbolTextAnnotation.contentLayer = textLayer;
-    symbolTextAnnotation.displacement = CGPointMake(0.0f, 0.0f);
+    symbolTextAnnotation.displacement = CGPointMake(0.0, 0.0);
 
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
 }

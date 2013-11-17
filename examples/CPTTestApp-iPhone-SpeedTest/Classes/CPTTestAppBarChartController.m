@@ -42,42 +42,42 @@
     x.axisLineStyle               = nil;
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
-    x.majorIntervalLength         = CPTDecimalFromString(@"5");
-    x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+    x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     x.title                       = @"X Axis";
     x.titleLocation               = CPTDecimalFromFloat(7.5f);
-    x.titleOffset                 = 55.0f;
+    x.titleOffset                 = 55.0;
 
     // Define some custom labels for the data elements
-    x.labelRotation  = M_PI / 4;
+    x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
-    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", @"Label E", nil];
+    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", nil];
     NSUInteger labelLocation     = 0;
-    NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:[xAxisLabels count]];
+    NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset       = x.labelOffset + x.majorTickLength;
-        newLabel.rotation     = M_PI / 4;
+        newLabel.rotation     = M_PI_4;
         [customLabels addObject:newLabel];
     }
 
-    x.axisLabels = [NSSet setWithArray:customLabels];
+    x.axisLabels = customLabels;
 
     CPTXYAxis *y = axisSet.yAxis;
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
     y.minorTickLineStyle          = nil;
-    y.majorIntervalLength         = CPTDecimalFromString(@"50");
-    y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+    y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     y.title                       = @"Y Axis";
-    y.titleOffset                 = 45.0f;
+    y.titleOffset                 = 45.0;
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
 
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
-    barPlot.baseValue  = CPTDecimalFromString(@"0");
+    barPlot.baseValue  = CPTDecimalFromDouble(0.0);
     barPlot.dataSource = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
     barPlot.identifier = @"Bar Plot 1";
@@ -86,9 +86,9 @@
     // Second bar plot
     barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
     barPlot.dataSource      = self;
-    barPlot.baseValue       = CPTDecimalFromString(@"0");
+    barPlot.baseValue       = CPTDecimalFromDouble(0.0);
     barPlot.barOffset       = CPTDecimalFromFloat(0.25f);
-    barPlot.barCornerRadius = 2.0f;
+    barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 

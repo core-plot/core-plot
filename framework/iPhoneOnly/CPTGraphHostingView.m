@@ -229,7 +229,7 @@
         }
     }
 
-    [pinchGestureRecognizer setScale:1.0f];
+    [pinchGestureRecognizer setScale:CPTFloat(1.0)];
 }
 
 /// @endcond

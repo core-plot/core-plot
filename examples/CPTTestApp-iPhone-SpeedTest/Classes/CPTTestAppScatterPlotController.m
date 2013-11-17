@@ -46,7 +46,7 @@
     boundLinePlot.identifier = @"Blue Plot";
 
     CPTMutableLineStyle *lineStyle = [boundLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth         = 1.0f;
+    lineStyle.lineWidth         = 1.0;
     lineStyle.lineColor         = [CPTColor blueColor];
     boundLinePlot.dataLineStyle = lineStyle;
 
@@ -58,7 +58,7 @@
     dataSourceLinePlot.identifier = @"Green Plot";
 
     lineStyle                        = [dataSourceLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth              = 1.0f;
+    lineStyle.lineWidth              = 1.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
 

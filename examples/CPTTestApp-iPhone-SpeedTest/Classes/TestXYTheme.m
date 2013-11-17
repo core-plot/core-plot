@@ -36,8 +36,8 @@
     axis.majorTickLineStyle          = majorLineStyle;
     axis.minorTickLineStyle          = minorLineStyle;
     axis.axisLineStyle               = majorLineStyle;
-    axis.majorTickLength             = 5.0f;
-    axis.minorTickLength             = 3.0f;
+    axis.majorTickLength             = 5.0;
+    axis.minorTickLength             = 3.0;
     axis.labelTextStyle              = textStyle;
     axis.titleTextStyle              = textStyle;
     //axis.labelFormatter = numberFormatter ;
@@ -47,21 +47,21 @@
 
 -(void)applyThemeToBackground:(CPTXYGraph *)graph
 {
-    CPTColor *endColor         = [CPTColor colorWithGenericGray:0.1f];
+    CPTColor *endColor         = [CPTColor colorWithGenericGray:0.1];
     CPTGradient *graphGradient = [CPTGradient gradientWithBeginningColor:endColor endingColor:endColor];
 
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2f] atPosition:0.3f];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.3f] atPosition:0.5f];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2f] atPosition:0.6f];
-    graphGradient.angle = 90.0f;
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.3];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.3] atPosition:0.5];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.6];
+    graphGradient.angle = 90.0;
     graph.fill          = [CPTFill fillWithGradient:graphGradient];
 }
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
 {
-    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:0.1f] endingColor:[CPTColor colorWithGenericGray:0.3f]];
+    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:0.1] endingColor:[CPTColor colorWithGenericGray:0.3]];
 
-    gradient.angle     = 90.0f;
+    gradient.angle     = 90.0;
     plotAreaFrame.fill = [CPTFill fillWithGradient:gradient];
 
     plotAreaFrame.paddingLeft   = 50;
@@ -76,24 +76,24 @@
 
     majorLineStyle.lineCap   = kCGLineCapSquare;
     majorLineStyle.lineColor = [CPTColor grayColor];
-    majorLineStyle.lineWidth = 2.0f;
+    majorLineStyle.lineWidth = 2.0;
 
     CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
     minorLineStyle.lineCap   = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPTColor grayColor];
-    minorLineStyle.lineWidth = 1.0f;
+    minorLineStyle.lineWidth = 1.0;
 
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth = 0.1f;
+    majorGridLineStyle.lineWidth = 0.1;
     majorGridLineStyle.lineColor = [CPTColor lightGrayColor];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    minorGridLineStyle.lineWidth = 0.25f;
+    minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [CPTColor blueColor];
 
     CPTMutableTextStyle *whiteTextStyle = [[CPTMutableTextStyle alloc] init];
     whiteTextStyle.color    = [CPTColor whiteColor];
-    whiteTextStyle.fontSize = 14.0f;
+    whiteTextStyle.fontSize = 14.0;
 
     [self applyThemeToAxis:axisSet.xAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];
     [self applyThemeToAxis:axisSet.yAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];

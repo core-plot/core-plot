@@ -31,9 +31,9 @@
     // Add a rotation animation
     CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotation.removedOnCompletion = YES;
-    rotation.fromValue           = [NSNumber numberWithFloat:M_PI * 5];
-    rotation.toValue             = [NSNumber numberWithFloat:0.0f];
-    rotation.duration            = 1.0f;
+    rotation.fromValue           = [NSNumber numberWithDouble:M_PI * 5];
+    rotation.toValue             = [NSNumber numberWithDouble:0.0];
+    rotation.duration            = 1.0;
     rotation.timingFunction      = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     rotation.delegate            = self;
     [piePlot addAnimation:rotation forKey:@"rotation"];
@@ -56,15 +56,15 @@
 {
     if ( UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ) {
         // Move the plots into place for portrait
-        scatterPlotView.frame = CGRectMake(20.0f, 55.0f, 728.0f, 556.0f);
-        barChartView.frame    = CGRectMake(20.0f, 644.0f, 340.0f, 340.0f);
-        pieChartView.frame    = CGRectMake(408.0f, 644.0f, 340.0f, 340.0f);
+        scatterPlotView.frame = CGRectMake(20.0, 55.0, 728.0, 556.0);
+        barChartView.frame    = CGRectMake(20.0, 644.0, 340.0, 340.0);
+        pieChartView.frame    = CGRectMake(408.0, 644.0, 340.0, 340.0);
     }
     else {
         // Move the plots into place for landscape
-        scatterPlotView.frame = CGRectMake(20.0f, 51.0f, 628.0f, 677.0f);
-        barChartView.frame    = CGRectMake(684.0f, 51.0f, 320.0f, 320.0f);
-        pieChartView.frame    = CGRectMake(684.0f, 408.0f, 320.0f, 320.0f);
+        scatterPlotView.frame = CGRectMake(20.0, 51.0, 628.0, 677.0);
+        barChartView.frame    = CGRectMake(684.0, 51.0, 320.0, 320.0);
+        pieChartView.frame    = CGRectMake(684.0, 408.0, 320.0, 320.0);
     }
 }
 
@@ -101,30 +101,30 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(2.0)];
-    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(3.0)];
+    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
+    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(3.0)];
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromString(@"0.5");
-    x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
+    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 2;
     NSArray *exclusionRanges = [NSArray arrayWithObjects:
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(2.99) length:CPTDecimalFromFloat(0.02)],
+                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
+                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
+                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.99) length:CPTDecimalFromDouble(0.02)],
                                 nil];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength         = CPTDecimalFromString(@"0.5");
+    y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"2");
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     exclusionRanges               = [NSArray arrayWithObjects:
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.99) length:CPTDecimalFromFloat(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.99) length:CPTDecimalFromFloat(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(3.99) length:CPTDecimalFromFloat(0.02)],
+                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
+                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
+                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(3.99) length:CPTDecimalFromDouble(0.02)],
                                      nil];
     y.labelExclusionRanges = exclusionRanges;
 
@@ -133,7 +133,7 @@
     dataSourceLinePlot.identifier = @"Green Plot";
 
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth              = 3.f;
+    lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -143,18 +143,18 @@
     // Put an area gradient under the plot above
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle = -90.0f;
+    areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
+    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(1.75);
 
     // Animate in the new plot, as an example
-    dataSourceLinePlot.opacity        = 0.0f;
+    dataSourceLinePlot.opacity        = 0.0;
     dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDecimal;
     [graph addPlot:dataSourceLinePlot];
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeInAnimation.duration            = 1.0f;
+    fadeInAnimation.duration            = 1.0;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.fillMode            = kCAFillModeForwards;
     fadeInAnimation.toValue             = [NSNumber numberWithFloat:1.0];
@@ -165,8 +165,8 @@
     boundLinePlot.identifier = @"Blue Plot";
 
     lineStyle            = [boundLinePlot.dataLineStyle mutableCopy];
-    lineStyle.miterLimit = 1.0f;
-    lineStyle.lineWidth  = 3.0f;
+    lineStyle.miterLimit = 1.0;
+    lineStyle.lineWidth  = 3.0;
     lineStyle.lineColor  = [CPTColor blueColor];
 
     boundLinePlot.dataSource     = self;
@@ -177,7 +177,7 @@
     // Do a blue gradient
     CPTColor *areaColor1       = [CPTColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
     CPTGradient *areaGradient1 = [CPTGradient gradientWithBeginningColor:areaColor1 endingColor:[CPTColor clearColor]];
-    areaGradient1.angle         = -90.0f;
+    areaGradient1.angle         = -90.0;
     areaGradientFill            = [CPTFill fillWithGradient:areaGradient1];
     boundLinePlot.areaFill      = areaGradientFill;
     boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
@@ -195,8 +195,8 @@
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
     NSUInteger i;
     for ( i = 0; i < 60; i++ ) {
-        id x = [NSNumber numberWithFloat:1 + i * 0.05];
-        id y = [NSNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
+        NSNumber *x = [NSNumber numberWithFloat:1 + i * 0.05];
+        NSNumber *y = [NSNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
         [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
     }
     self.dataForPlot = contentArray;
@@ -226,42 +226,42 @@
     x.axisLineStyle               = nil;
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
-    x.majorIntervalLength         = CPTDecimalFromString(@"5");
-    x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+    x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     x.title                       = @"X Axis";
     x.titleLocation               = CPTDecimalFromFloat(7.5f);
-    x.titleOffset                 = 55.0f;
+    x.titleOffset                 = 55.0;
 
     // Define some custom labels for the data elements
-    x.labelRotation  = M_PI / 4;
+    x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
-    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", @"Label E", nil];
+    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", nil];
     NSUInteger labelLocation     = 0;
-    NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:[xAxisLabels count]];
+    NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset       = x.labelOffset + x.majorTickLength;
-        newLabel.rotation     = M_PI / 4;
+        newLabel.rotation     = M_PI_4;
         [customLabels addObject:newLabel];
     }
 
-    x.axisLabels = [NSSet setWithArray:customLabels];
+    x.axisLabels = customLabels;
 
     CPTXYAxis *y = axisSet.yAxis;
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
     y.minorTickLineStyle          = nil;
-    y.majorIntervalLength         = CPTDecimalFromString(@"50");
-    y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
+    y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     y.title                       = @"Y Axis";
-    y.titleOffset                 = 45.0f;
+    y.titleOffset                 = 45.0;
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
 
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
-    barPlot.baseValue  = CPTDecimalFromString(@"0");
+    barPlot.baseValue  = CPTDecimalFromDouble(0.0);
     barPlot.dataSource = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
     barPlot.identifier = @"Bar Plot 1";
@@ -270,9 +270,9 @@
     // Second bar plot
     barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
     barPlot.dataSource      = self;
-    barPlot.baseValue       = CPTDecimalFromString(@"0");
+    barPlot.baseValue       = CPTDecimalFromDouble(0.0);
     barPlot.barOffset       = CPTDecimalFromFloat(0.25f);
-    barPlot.barCornerRadius = 2.0f;
+    barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
     barPlot.delegate        = self;
     [barChart addPlot:barPlot toPlotSpace:plotSpace];

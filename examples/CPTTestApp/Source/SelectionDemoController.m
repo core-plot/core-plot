@@ -165,8 +165,8 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
 
     for ( NSUInteger i = 0; i < 100; i++ ) {
-        id x = [NSNumber numberWithDouble:i * 0.05];
-        id y = [NSNumber numberWithDouble:10.0 * rand() / (double)RAND_MAX - 5.0];
+        NSNumber *x = [NSNumber numberWithDouble:i * 0.05];
+        NSNumber *y = [NSNumber numberWithDouble:10.0 * rand() / (double)RAND_MAX - 5.0];
         [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
     }
     self.dataForPlot = contentArray;

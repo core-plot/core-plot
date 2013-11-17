@@ -11,7 +11,7 @@
 #import "dlfcn.h"
 //#define EMBED_NU	1
 
-const float CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0f;
+const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
 #define kThemeTableViewControllerNoTheme      @"None"
 #define kThemeTableViewControllerDefaultTheme @"Default"

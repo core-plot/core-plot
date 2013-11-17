@@ -793,7 +793,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
     // Draw the plot ...
     CGSize boundsSize = graph.bounds.size;
-    CGContextClearRect( bitmapContext, CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height) );
+    CGContextClearRect( bitmapContext, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetRGBFillColor(bitmapContext, 0.0, 0.0, 0.0, 0.0);
     CGContextFillRect( bitmapContext, CGRectMake(0, 0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(bitmapContext, true);

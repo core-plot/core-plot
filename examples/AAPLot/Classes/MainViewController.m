@@ -43,13 +43,13 @@
     CPTTheme *theme = [CPTTheme themeNamed:kCPTStocksTheme];
     [graph applyTheme:theme];
     graph.frame                       = self.view.bounds;
-    graph.paddingRight                = 50.0f;
-    graph.paddingLeft                 = 50.0f;
+    graph.paddingRight                = 50.0;
+    graph.paddingLeft                 = 50.0;
     graph.plotAreaFrame.masksToBorder = NO;
-    graph.plotAreaFrame.cornerRadius  = 0.0f;
+    graph.plotAreaFrame.cornerRadius  = 0.0;
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
     borderLineStyle.lineColor           = [CPTColor whiteColor];
-    borderLineStyle.lineWidth           = 2.0f;
+    borderLineStyle.lineWidth           = 2.0;
     graph.plotAreaFrame.borderLineStyle = borderLineStyle;
     self.graphHost.hostedGraph          = graph;
 
@@ -75,14 +75,14 @@
 
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:1.0 alpha:0.6];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle = -90.0f;
+    areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(200.0);
 
     areaColor                         = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
-    areaGradient.angle                = -90.0f;
+    areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(400.0);
@@ -90,7 +90,7 @@
     // OHLC plot
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
-    whiteLineStyle.lineWidth = 1.0f;
+    whiteLineStyle.lineWidth = 1.0;
     CPTTradingRangePlot *ohlcPlot = [[[CPTTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle  = whiteLineStyle;
@@ -99,7 +99,7 @@
     whiteTextStyle.fontSize = 8.0;
     ohlcPlot.labelTextStyle = whiteTextStyle;
     ohlcPlot.labelOffset    = 5.0;
-    ohlcPlot.stickLength    = 2.0f;
+    ohlcPlot.stickLength    = 2.0;
     ohlcPlot.dataSource     = self;
     ohlcPlot.plotStyle      = CPTTradingRangePlotStyleOHLC;
     ohlcPlot.cachePrecision = CPTPlotCachePrecisionDecimal;

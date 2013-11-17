@@ -65,7 +65,7 @@
     CPTXYAxis *x          = axisSet.xAxis;
     x.separateLayers              = NO;
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5);
-    x.majorIntervalLength         = CPTDecimalFromString(@"0.5");
+    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     x.minorTicksPerInterval       = 4;
     x.tickDirection               = CPTSignNone;
     x.axisLineStyle               = axisLineStyle;

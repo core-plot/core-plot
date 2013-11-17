@@ -33,20 +33,20 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
         NSMutableArray *newData = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 5; i++ ) {
             NSTimeInterval x = oneDay * (i + 1.0);
-            float y          = 3.0f * rand() / (float)RAND_MAX + 1.2f;
-            float rHigh      = rand() / (float)RAND_MAX * 0.5f + 0.25f;
-            float rLow       = rand() / (float)RAND_MAX * 0.5f + 0.25f;
-            float rLeft      = (rand() / (float)RAND_MAX * 0.125f + 0.125f) * oneDay;
-            float rRight     = (rand() / (float)RAND_MAX * 0.125f + 0.125f) * oneDay;
+            double y         = 3.0 * rand() / (double)RAND_MAX + 1.2;
+            double rHigh     = rand() / (double)RAND_MAX * 0.5 + 0.25;
+            double rLow      = rand() / (double)RAND_MAX * 0.5 + 0.25;
+            double rLeft     = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
+            double rRight    = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
 
             [newData addObject:
              [NSDictionary dictionaryWithObjectsAndKeys:
-              [NSDecimalNumber numberWithFloat:x], [NSNumber numberWithInt:CPTRangePlotFieldX],
-              [NSDecimalNumber numberWithFloat:y], [NSNumber numberWithInt:CPTRangePlotFieldY],
-              [NSDecimalNumber numberWithFloat:rHigh], [NSNumber numberWithInt:CPTRangePlotFieldHigh],
-              [NSDecimalNumber numberWithFloat:rLow], [NSNumber numberWithInt:CPTRangePlotFieldLow],
-              [NSDecimalNumber numberWithFloat:rLeft], [NSNumber numberWithInt:CPTRangePlotFieldLeft],
-              [NSDecimalNumber numberWithFloat:rRight], [NSNumber numberWithInt:CPTRangePlotFieldRight],
+              [NSDecimalNumber numberWithDouble:x], [NSNumber numberWithInt:CPTRangePlotFieldX],
+              [NSDecimalNumber numberWithDouble:y], [NSNumber numberWithInt:CPTRangePlotFieldY],
+              [NSDecimalNumber numberWithDouble:rHigh], [NSNumber numberWithInt:CPTRangePlotFieldHigh],
+              [NSDecimalNumber numberWithDouble:rLow], [NSNumber numberWithInt:CPTRangePlotFieldLow],
+              [NSDecimalNumber numberWithDouble:rLeft], [NSNumber numberWithInt:CPTRangePlotFieldLeft],
+              [NSDecimalNumber numberWithDouble:rRight], [NSNumber numberWithInt:CPTRangePlotFieldRight],
               nil]];
         }
 
@@ -104,7 +104,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     if ( !barLineStyle ) {
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineWidth = 1.0f;
+        lineStyle.lineWidth = 1.0;
         lineStyle.lineColor = [CPTColor greenColor];
         barLineStyle        = [lineStyle retain];
     }

@@ -1,7 +1,7 @@
 #import "APYahooDataPuller.h"
 #import "NSDictionary+APFinancalData.h"
 
-NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
+NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     NSTimeInterval seconds = fabs(60.0 * 60.0 * 24.0 * 7.0 * numberOfWeeks);
 
@@ -181,7 +181,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 
 -(id)init
 {
-    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0f); //12 weeks ago
+    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); //12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
 
     NSDate *end = [NSDate date];
@@ -245,7 +245,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks)
 
 -(BOOL)staleData
 {
-    NSTimeInterval twelveHours = 60.0f * 60.f * 12.0f;
+    NSTimeInterval twelveHours = 60.0 * 60.0 * 12.0;
 
     return 0 >= self.financialData.count ||
            ![[self targetSymbol] isEqualToString:[self symbol]] ||

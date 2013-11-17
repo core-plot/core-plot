@@ -106,7 +106,7 @@
     lineColor = [self newDefaultColorForPlot:index alpha:1.0];
     fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-    lineStyle.lineWidth       = 3.f;
+    lineStyle.lineWidth       = 3.0;
     lineStyle.lineColor       = [CPTColor colorWithCGColor:lineColor];
     scatterPlot.dataLineStyle = lineStyle;
     scatterPlot.areaFill      = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
