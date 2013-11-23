@@ -91,20 +91,20 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromString(@"0.5");
-    x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
+    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
     x.minorTicksPerInterval       = 2;
     x.majorGridLineStyle          = majorGridLineStyle;
     x.minorGridLineStyle          = minorGridLineStyle;
 
     x.title         = @"X Axis";
     x.titleOffset   = 30.0;
-    x.titleLocation = CPTDecimalFromString(@"1.25");
+    x.titleLocation = CPTDecimalFromDouble(1.25);
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromString(@"1.0");
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
     y.minorTicksPerInterval       = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
@@ -113,7 +113,7 @@
 
     y.title         = @"Y Axis";
     y.titleOffset   = 30.0;
-    y.titleLocation = CPTDecimalFromString(@"1.0");
+    y.titleLocation = CPTDecimalFromDouble(1.0);
 
     // Set axes
     //graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
@@ -158,7 +158,7 @@
     // Set plot delegate, to know when symbols have been touched
     // We will display an annotation when a symbol is touched
     dataSourceLinePlot.delegate                        = self;
-    dataSourceLinePlot.plotSymbolMarginForHitDetection = 5.0f;
+    dataSourceLinePlot.plotSymbolMarginForHitDetection = 5.0;
 
     // Add legend
     graph.legend                 = [CPTLegend legendWithGraph:graph];
@@ -191,9 +191,6 @@
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
     NSNumber *num = [plotData[index] valueForKey:key];
 
-    if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = @([num doubleValue]);
-    }
     return num;
 }
 
@@ -230,7 +227,7 @@
     // Setup a style for the annotation
     CPTMutableTextStyle *hitAnnotationTextStyle = [CPTMutableTextStyle textStyle];
     hitAnnotationTextStyle.color    = [CPTColor whiteColor];
-    hitAnnotationTextStyle.fontSize = 16.0f;
+    hitAnnotationTextStyle.fontSize = 16.0;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
@@ -248,7 +245,7 @@
     CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
     symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
     symbolTextAnnotation.contentLayer = textLayer;
-    symbolTextAnnotation.displacement = CGPointMake(0.0f, 20.0f);
+    symbolTextAnnotation.displacement = CGPointMake(0.0, 20.0);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
 }
 

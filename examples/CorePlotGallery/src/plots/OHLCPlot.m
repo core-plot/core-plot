@@ -74,7 +74,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
     borderLineStyle.lineColor           = [CPTColor whiteColor];
-    borderLineStyle.lineWidth           = 2.0f;
+    borderLineStyle.lineWidth           = 2.0;
     graph.plotAreaFrame.borderLineStyle = borderLineStyle;
     graph.plotAreaFrame.paddingTop      = 10.0;
     graph.plotAreaFrame.paddingRight    = 10.0;
@@ -113,14 +113,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:1.0 alpha:0.6];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
-    areaGradient.angle = -90.0f;
+    areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
 
     areaColor                         = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
-    areaGradient.angle                = -90.0f;
+    areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(5.0);

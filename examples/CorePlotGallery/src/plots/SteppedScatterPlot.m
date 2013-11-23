@@ -82,7 +82,7 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromString(@"1.75");
+    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(1.75);
 
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
@@ -123,10 +123,6 @@
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
     NSNumber *num = [plotData[index] valueForKey:key];
-
-    if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = @([num doubleValue]);
-    }
 
     return num;
 }

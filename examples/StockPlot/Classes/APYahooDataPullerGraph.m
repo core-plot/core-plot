@@ -25,7 +25,7 @@
         dataSourceLinePlot.identifier = @"Data Source Plot";
 
         CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
-        lineStyle.lineWidth              = 1.f;
+        lineStyle.lineWidth              = 1.0;
         lineStyle.lineColor              = [CPTColor redColor];
         dataSourceLinePlot.dataLineStyle = lineStyle;
 

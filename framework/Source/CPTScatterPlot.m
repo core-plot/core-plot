@@ -46,6 +46,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 -(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
+-(CGPathRef)newCurvedDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
+-(void)computeControlPoints:(CGPoint *)cp1 points2:(CGPoint *)cp2 forViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 
 @end
 
@@ -310,7 +312,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     CPTLineStyle *lineStyle = self.dataLineStyle;
 
-    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill ) {
+    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) ) {
         // show all points to preserve the line dash and area fills
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             pointDrawFlags[i] = YES;
@@ -755,13 +757,17 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
-    CGMutablePathRef dataLinePath                = CGPathCreateMutable();
     CPTScatterPlotInterpolation theInterpolation = self.interpolation;
-    BOOL lastPointSkipped                        = YES;
-    CGPoint firstPoint                           = CGPointZero;
-    CGPoint lastPoint                            = CGPointZero;
-    NSUInteger lastDrawnPointIndex               = NSMaxRange(indexRange);
-    CGPoint lastControlPoint                     = CGPointZero;
+
+    if ( theInterpolation == CPTScatterPlotInterpolationCurved ) {
+        return [self newCurvedDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
+    }
+
+    CGMutablePathRef dataLinePath  = CGPathCreateMutable();
+    BOOL lastPointSkipped          = YES;
+    CGPoint firstPoint             = CGPointZero;
+    CGPoint lastPoint              = CGPointZero;
+    NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
 
     if ( lastDrawnPointIndex > 0 ) {
         lastDrawnPointIndex--;
@@ -785,8 +791,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
                 lastPointSkipped = NO;
                 firstPoint       = viewPoint;
-                // Control point used for Bezier curves - reset after skipped points
-                lastControlPoint = viewPoint;
             }
             else {
                 switch ( theInterpolation ) {
@@ -809,88 +813,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     break;
 
                     case CPTScatterPlotInterpolationCurved:
-                    {
-                        // draw cubic Bezier curves from viewpoint to viewpoint with control points based on tangents at viewpoints
-                        CGPoint nextPoint;
-                        if ( i < lastDrawnPointIndex ) {
-                            nextPoint = viewPoints[i + 1];
-                        }
-                        else {
-                            nextPoint = viewPoint;
-                        }
-
-                        CGPoint cp1, cp2;
-
-                        cp1 = lastControlPoint;
-                        // for first and last viewpoint after/before skipped viewpoints just let the control point
-                        // be at the viewpoint itself - first viewpoint is handled automatically by skipping logic
-                        if ( (i == lastDrawnPointIndex) || isnan(nextPoint.x) || isnan(nextPoint.y) ) {
-                            cp2              = viewPoint;
-                            lastControlPoint = cp2;
-                        }
-                        else {
-                            // Estimate the tangent of viewpoint[i] to be the line between two points,
-                            //    partway to viewpoint[i-1] and partway to viewpoint[i+1]
-                            // Project the resulting tangent line back to the viewpoint
-                            // Use the endpoints of the tangent as control points in a Bezier curve from viewpoint to viewpoint
-                            const CGFloat c = CPTFloat(0.5); // tangent length must be in interval [0;1]
-
-                            CGPoint t1 = CGPointMake( viewPoint.x - ( (viewPoint.x - lastPoint.x) * c ),
-                                                      viewPoint.y - ( (viewPoint.y - lastPoint.y) * c ) );
-                            CGPoint t2 = CGPointMake( viewPoint.x + ( (nextPoint.x - viewPoint.x) * c ),
-                                                      viewPoint.y + ( (nextPoint.y - viewPoint.y) * c ) );
-
-                            CGFloat scale = CPTFloat(0.0);
-                            CGFloat dist1 = sqrt( squareOfDistanceBetweenPoints(t1, viewPoint) );
-                            CGFloat dist2 = sqrt( squareOfDistanceBetweenPoints(t2, viewPoint) );
-
-                            if ( (dist1 + dist2) != CPTFloat(0.0) ) {
-                                scale = dist1 / (dist1 + dist2);
-                            }
-
-                            // vector from viewpoint to a point on the tangent
-                            CGPoint center = CPTPointMake( t1.x + ( (t2.x - t1.x) * scale ), t1.y + ( (t2.y - t1.y) * scale ) );
-                            CGPoint v      = CPTPointMake(center.x - viewPoint.x, center.y - viewPoint.y);
-
-                            // project the tangent to the viewpoint
-                            t1.x -= v.x;
-                            t1.y -= v.y;
-                            t2.x -= v.x;
-                            t2.y -= v.y;
-
-                            // DEBUG draw the control points
-//                            CGPoint currentPoint = CGPathGetCurrentPoint(dataLinePath);
-
-//                            CGPathMoveToPoint(dataLinePath, NULL, t1.x - CPTFloat(5.0), t1.y);
-//                            CGPathAddLineToPoint(dataLinePath, NULL, t1.x + CPTFloat(5.0), t1.y);
-//                            CGPathMoveToPoint(dataLinePath, NULL, t1.x, t1.y - CPTFloat(5.0));
-//                            CGPathAddLineToPoint(dataLinePath, NULL, t1.x, t1.y + CPTFloat(5.0));
-
-//                            CGPathMoveToPoint(dataLinePath, NULL, t2.x - CPTFloat(3.5), t2.y - CPTFloat(3.5));
-//                            CGPathAddLineToPoint(dataLinePath, NULL, t2.x + CPTFloat(3.5), t2.y + CPTFloat(3.5));
-//                            CGPathMoveToPoint(dataLinePath, NULL, t2.x + CPTFloat(3.5), t2.y - CPTFloat(3.5));
-//                            CGPathAddLineToPoint(dataLinePath, NULL, t2.x - CPTFloat(3.5), t2.y + CPTFloat(3.5));
-
-//                            CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
-
-                            // DEBUG draw the tangent line
-                            //                            CGPoint currentPoint = CGPathGetCurrentPoint(dataLinePath);
-                            //                            CGPathMoveToPoint(dataLinePath, NULL, t1.x, t1.y);
-                            //                            CGPathAddLineToPoint(dataLinePath, NULL, t2.x, t2.y);
-                            //                            CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
-                            // DEBUG draw the vector to tangent center
-//                            currentPoint = CGPathGetCurrentPoint(dataLinePath);
-//                            CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
-//                            CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x+v.x, viewPoint.y+v.y);
-//                            CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
-
-                            cp2              = t1;
-                            lastControlPoint = t2;
-                        }
-
-                        CGPathAddCurveToPoint(dataLinePath, NULL, cp1.x, cp1.y, cp2.x, cp2.y, viewPoint.x, viewPoint.y);
-                    }
-                    break;
+                        // Curved plot lines handled separately
+                        break;
                 }
             }
             lastPoint = viewPoint;
@@ -904,6 +828,202 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 
     return dataLinePath;
+}
+
+-(CGPathRef)newCurvedDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+{
+    CGMutablePathRef dataLinePath  = CGPathCreateMutable();
+    BOOL lastPointSkipped          = YES;
+    CGPoint firstPoint             = CGPointZero;
+    CGPoint lastPoint              = CGPointZero;
+    NSUInteger firstIndex          = indexRange.location;
+    NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
+
+    if ( lastDrawnPointIndex > 0 ) {
+        CGPoint *controlPoints1 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
+        CGPoint *controlPoints2 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
+
+        lastDrawnPointIndex--;
+
+        // Compute control points for each sub-range
+        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+            CGPoint viewPoint = viewPoints[i];
+
+            if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
+                if ( !lastPointSkipped ) {
+                    [self computeControlPoints:controlPoints1
+                                       points2:controlPoints2
+                                 forViewPoints:viewPoints
+                                    indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+
+                    lastPointSkipped = YES;
+                }
+            }
+            else {
+                if ( lastPointSkipped ) {
+                    lastPointSkipped = NO;
+                    firstIndex       = i;
+                }
+            }
+        }
+
+        if ( !lastPointSkipped ) {
+            [self computeControlPoints:controlPoints1
+                               points2:controlPoints2
+                         forViewPoints:viewPoints
+                            indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+        }
+
+        // Build the path
+        lastPointSkipped = YES;
+        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+            CGPoint viewPoint = viewPoints[i];
+
+            if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
+                if ( !lastPointSkipped ) {
+                    if ( !isnan(baselineYValue) ) {
+                        CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
+                        CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
+                        CGPathCloseSubpath(dataLinePath);
+                    }
+                    lastPointSkipped = YES;
+                }
+            }
+            else {
+                if ( lastPointSkipped ) {
+                    CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+                    lastPointSkipped = NO;
+                    firstPoint       = viewPoint;
+                }
+                else {
+                    CGPoint cp1 = controlPoints1[i];
+                    CGPoint cp2 = controlPoints2[i];
+
+#ifdef DEBUG_CURVES
+                    CGPoint currentPoint = CGPathGetCurrentPoint(dataLinePath);
+
+                    // add the control points
+                    CGPathMoveToPoint(dataLinePath, NULL, cp1.x - CPTFloat(5.0), cp1.y);
+                    CGPathAddLineToPoint(dataLinePath, NULL, cp1.x + CPTFloat(5.0), cp1.y);
+                    CGPathMoveToPoint( dataLinePath, NULL, cp1.x, cp1.y - CPTFloat(5.0) );
+                    CGPathAddLineToPoint( dataLinePath, NULL, cp1.x, cp1.y + CPTFloat(5.0) );
+
+                    CGPathMoveToPoint( dataLinePath, NULL, cp2.x - CPTFloat(3.5), cp2.y - CPTFloat(3.5) );
+                    CGPathAddLineToPoint( dataLinePath, NULL, cp2.x + CPTFloat(3.5), cp2.y + CPTFloat(3.5) );
+                    CGPathMoveToPoint( dataLinePath, NULL, cp2.x + CPTFloat(3.5), cp2.y - CPTFloat(3.5) );
+                    CGPathAddLineToPoint( dataLinePath, NULL, cp2.x - CPTFloat(3.5), cp2.y + CPTFloat(3.5) );
+
+                    // add a line connecting the control points
+                    CGPathMoveToPoint(dataLinePath, NULL, cp1.x, cp1.y);
+                    CGPathAddLineToPoint(dataLinePath, NULL, cp2.x, cp2.y);
+
+                    CGPathMoveToPoint(dataLinePath, NULL, currentPoint.x, currentPoint.y);
+#endif
+
+                    CGPathAddCurveToPoint(dataLinePath, NULL, cp1.x, cp1.y, cp2.x, cp2.y, viewPoint.x, viewPoint.y);
+                }
+                lastPoint = viewPoint;
+            }
+        }
+
+        if ( !lastPointSkipped && !isnan(baselineYValue) ) {
+            CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
+            CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
+            CGPathCloseSubpath(dataLinePath);
+        }
+
+        free(controlPoints1);
+        free(controlPoints2);
+    }
+
+    return dataLinePath;
+}
+
+// Compute the control points using the algorithm described at http://www.particleincell.com/blog/2012/bezier-splines/
+// cp1, cp2, and viewPoints should point to arrays of points with at least NSMaxRange(indexRange) elements each.
+-(void)computeControlPoints:(CGPoint *)cp1 points2:(CGPoint *)cp2 forViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange
+{
+    if ( indexRange.length == 2 ) {
+        NSUInteger rangeEnd = NSMaxRange(indexRange) - 1;
+        cp1[rangeEnd] = viewPoints[indexRange.location];
+        cp2[rangeEnd] = viewPoints[rangeEnd];
+    }
+    else if ( indexRange.length > 2 ) {
+        NSUInteger n = indexRange.length - 1;
+
+        // rhs vector
+        CGPoint *a = malloc( n * sizeof(CGPoint) );
+        CGPoint *b = malloc( n * sizeof(CGPoint) );
+        CGPoint *c = malloc( n * sizeof(CGPoint) );
+        CGPoint *r = malloc( n * sizeof(CGPoint) );
+
+        // left most segment
+        a[0] = CGPointZero;
+        b[0] = CPTPointMake(2.0, 2.0);
+        c[0] = CPTPointMake(1.0, 1.0);
+
+        CGPoint pt0 = viewPoints[indexRange.location];
+        CGPoint pt1 = viewPoints[indexRange.location + 1];
+        r[0] = CGPointMake(pt0.x + CPTFloat(2.0) * pt1.x,
+                           pt0.y + CPTFloat(2.0) * pt1.y);
+
+        // internal segments
+        for ( NSUInteger i = 1; i < n - 1; i++ ) {
+            a[i] = CPTPointMake(1.0, 1.0);
+            b[i] = CPTPointMake(4.0, 4.0);
+            c[i] = CPTPointMake(1.0, 1.0);
+
+            CGPoint pti  = viewPoints[indexRange.location + i];
+            CGPoint pti1 = viewPoints[indexRange.location + i + 1];
+            r[i] = CGPointMake(CPTFloat(4.0) * pti.x + CPTFloat(2.0) * pti1.x,
+                               CPTFloat(4.0) * pti.y + CPTFloat(2.0) * pti1.y);
+        }
+
+        // right segment
+        a[n - 1] = CPTPointMake(2.0, 2.0);
+        b[n - 1] = CPTPointMake(7.0, 7.0);
+        c[n - 1] = CGPointZero;
+
+        CGPoint ptn1 = viewPoints[indexRange.location + n - 1];
+        CGPoint ptn  = viewPoints[indexRange.location + n];
+        r[n - 1] = CGPointMake(CPTFloat(8.0) * ptn1.x + ptn.x,
+                               CPTFloat(8.0) * ptn1.y + ptn.y);
+
+        // solve Ax=b with the Thomas algorithm (from Wikipedia)
+        for ( NSUInteger i = 1; i < n; i++ ) {
+            CGPoint m = CGPointMake(a[i].x / b[i - 1].x,
+                                    a[i].y / b[i - 1].y);
+            b[i] = CGPointMake(b[i].x - m.x * c[i - 1].x,
+                               b[i].y - m.y * c[i - 1].y);
+            r[i] = CGPointMake(r[i].x - m.x * r[i - 1].x,
+                               r[i].y - m.y * r[i - 1].y);
+        }
+
+        cp1[indexRange.location + n] = CGPointMake(r[n - 1].x / b[n - 1].x,
+                                                   r[n - 1].y / b[n - 1].y);
+        for ( NSUInteger i = n - 2; i > 0; i-- ) {
+            cp1[indexRange.location + i + 1] = CGPointMake( (r[i].x - c[i].x * cp1[indexRange.location + i + 2].x) / b[i].x,
+                                                            (r[i].y - c[i].y * cp1[indexRange.location + i + 2].y) / b[i].y );
+        }
+        cp1[indexRange.location + 1] = CGPointMake( (r[0].x - c[0].x * cp1[indexRange.location + 2].x) / b[0].x,
+                                                    (r[0].y - c[0].y * cp1[indexRange.location + 2].y) / b[0].y );
+
+        // we have p1, now compute p2
+        NSUInteger rangeEnd = NSMaxRange(indexRange) - 1;
+        for ( NSUInteger i = indexRange.location + 1; i < rangeEnd; i++ ) {
+            cp2[i] = CGPointMake(CPTFloat(2.0) * viewPoints[i].x - cp1[i + 1].x,
+                                 CPTFloat(2.0) * viewPoints[i].y - cp1[i + 1].y);
+        }
+
+        cp2[rangeEnd] = CGPointMake( CPTFloat(0.5) * (viewPoints[rangeEnd].x + cp1[rangeEnd].x),
+                                     CPTFloat(0.5) * (viewPoints[rangeEnd].y + cp1[rangeEnd].y) );
+
+        // clean up
+        free(a);
+        free(b);
+        free(c);
+        free(r);
+    }
 }
 
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context

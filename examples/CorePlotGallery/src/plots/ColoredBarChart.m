@@ -84,11 +84,11 @@
         y.majorTickLineStyle          = nil;
         y.minorTickLineStyle          = nil;
         y.labelOffset                 = 10.0;
-        y.labelRotation               = M_PI / 2;
+        y.labelRotation               = M_PI_2;
         y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
 
         y.title       = @"Y Axis";
-        y.titleOffset = 30.0f;
+        y.titleOffset = 30.0;
     }
 
     // Create a bar line style

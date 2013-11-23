@@ -5,7 +5,7 @@
 
 #import "RotationView.h"
 
-static const CGFloat kMouseMovementScaleFactorForRotation = 1.0f;
+static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 @implementation RotationView
 
