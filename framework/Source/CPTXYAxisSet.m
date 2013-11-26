@@ -40,20 +40,18 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTXYAxisSet object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        CPTXYAxis *xAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame : newFrame];
+        CPTXYAxis *xAxis = [[CPTXYAxis alloc] initWithFrame:newFrame];
         xAxis.coordinate    = CPTCoordinateX;
         xAxis.tickDirection = CPTSignNegative;
 
-        CPTXYAxis *yAxis = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame : newFrame];
+        CPTXYAxis *yAxis = [[CPTXYAxis alloc] initWithFrame:newFrame];
         yAxis.coordinate    = CPTCoordinateY;
         yAxis.tickDirection = CPTSignNegative;
 
-        self.axes = [NSArray arrayWithObjects:xAxis, yAxis, nil];
-        [xAxis release];
-        [yAxis release];
+        self.axes = @[xAxis, yAxis];
     }
     return self;
 }

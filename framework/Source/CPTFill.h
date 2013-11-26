@@ -2,21 +2,20 @@
 @class CPTImage;
 @class CPTColor;
 
-@interface CPTFill : NSObject<NSCopying, NSCoding> {
-}
+@interface CPTFill : NSObject<NSCopying, NSCoding>
 
 /// @name Factory Methods
 /// @{
-+(CPTFill *)fillWithColor:(CPTColor *)aColor;
-+(CPTFill *)fillWithGradient:(CPTGradient *)aGradient;
-+(CPTFill *)fillWithImage:(CPTImage *)anImage;
++(instancetype)fillWithColor:(CPTColor *)aColor;
++(instancetype)fillWithGradient:(CPTGradient *)aGradient;
++(instancetype)fillWithImage:(CPTImage *)anImage;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithColor:(CPTColor *)aColor;
--(id)initWithGradient:(CPTGradient *)aGradient;
--(id)initWithImage:(CPTImage *)anImage;
+-(instancetype)initWithColor:(CPTColor *)aColor;
+-(instancetype)initWithGradient:(CPTGradient *)aGradient;
+-(instancetype)initWithImage:(CPTImage *)anImage;
 /// @}
 
 @end
@@ -27,6 +26,7 @@
 @interface CPTFill(AbstractMethods)
 
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
+@property (nonatomic, readonly) CGColorRef cgColor;
 
 /// @name Drawing
 /// @{

@@ -25,11 +25,6 @@
     return self;
 }
 
--(void)killGraph
-{
-    [super killGraph];
-}
-
 -(void)dealloc
 {
     [plotData release];
@@ -40,9 +35,9 @@
 {
     if ( plotData == nil ) {
         plotData = [[NSMutableArray alloc] initWithObjects:
-                    [NSNumber numberWithDouble:20.0],
-                    [NSNumber numberWithDouble:30.0],
-                    [NSNumber numberWithDouble:60.0],
+                    @20.0,
+                    @30.0,
+                    @60.0,
                     nil];
     }
 }
@@ -113,7 +108,7 @@
         whiteText.color = [CPTColor whiteColor];
     }
 
-    CPTTextLayer *newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [[plotData objectAtIndex:index] floatValue]]
+    CPTTextLayer *newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [plotData[index] floatValue]]
                                                            style:whiteText] autorelease];
     return newLayer;
 }
@@ -128,12 +123,12 @@
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [[plotData objectAtIndex:index] floatValue]);
+    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [plotData[index] floatValue]);
 
     NSMutableArray *newData = [[NSMutableArray alloc] init];
     NSUInteger dataCount    = ceil(10.0 * rand() / (double)RAND_MAX) + 1;
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
-        [newData addObject:[NSNumber numberWithDouble:100.0 * rand() / (double)RAND_MAX]];
+        [newData addObject:@(100.0 * rand() / (double)RAND_MAX)];
     }
     NSLog(@"newData: %@", newData);
 
@@ -164,10 +159,10 @@
     NSNumber *num;
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        num = [plotData objectAtIndex:index];
+        num = plotData[index];
     }
     else {
-        return [NSNumber numberWithInt:index];
+        return @(index);
     }
 
     return num;

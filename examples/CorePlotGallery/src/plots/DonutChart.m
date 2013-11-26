@@ -20,11 +20,6 @@ NSString *const outerChartName = @"Outer";
     return self;
 }
 
--(void)killGraph
-{
-    [super killGraph];
-}
-
 -(void)dealloc
 {
     [plotData release];
@@ -35,9 +30,9 @@ NSString *const outerChartName = @"Outer";
 {
     if ( plotData == nil ) {
         plotData = [[NSMutableArray alloc] initWithObjects:
-                    [NSNumber numberWithDouble:20.0],
-                    [NSNumber numberWithDouble:30.0],
-                    [NSNumber numberWithDouble:60.0],
+                    @20.0,
+                    @30.0,
+                    @60.0,
                     nil];
     }
 }
@@ -129,7 +124,7 @@ NSString *const outerChartName = @"Outer";
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, (unsigned long)index, [plotData objectAtIndex:index]);
+    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, (unsigned long)index, plotData[index]);
 }
 
 #pragma mark -
@@ -145,10 +140,10 @@ NSString *const outerChartName = @"Outer";
     NSNumber *num;
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        num = [plotData objectAtIndex:index];
+        num = plotData[index];
     }
     else {
-        return [NSNumber numberWithInt:index];
+        return @(index);
     }
 
     return num;
@@ -166,7 +161,7 @@ NSString *const outerChartName = @"Outer";
             whiteText.color = [CPTColor whiteColor];
         }
 
-        newLayer                 = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [[plotData objectAtIndex:index] floatValue]] style:whiteText] autorelease];
+        newLayer                 = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [plotData[index] floatValue]] style:whiteText] autorelease];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
         newLayer.cornerRadius    = 5.0;
         newLayer.paddingLeft     = 3.0;

@@ -9,6 +9,8 @@
 
 @property (nonatomic, readwrite) NSDecimal location;
 @property (nonatomic, readwrite) NSDecimal length;
+@property (nonatomic, readwrite) double locationDouble;
+@property (nonatomic, readwrite) double lengthDouble;
 
 @end
 
@@ -91,9 +93,9 @@
  *  @param len The length of the range.
  *  @return A new CPTPlotRange instance initialized with the provided location and length.
  **/
-+(id)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
++(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
-    return [[[self alloc] initWithLocation:loc length:len] autorelease];
+    return [[self alloc] initWithLocation:loc length:len];
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
@@ -101,7 +103,7 @@
  *  @param len The length of the range.
  *  @return The initialized CPTPlotRange object.
  **/
--(id)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
+-(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len
 {
     if ( (self = [super init]) ) {
         self.location = loc;
@@ -121,7 +123,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
 
@@ -138,16 +140,16 @@
 -(void)setLocation:(NSDecimal)newLocation
 {
     if ( !CPTDecimalEquals(location, newLocation) ) {
-        location       = newLocation;
-        locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLocation] doubleValue];
+        location            = newLocation;
+        self.locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLocation] doubleValue];
     }
 }
 
 -(void)setLength:(NSDecimal)newLength
 {
     if ( !CPTDecimalEquals(length, newLength) ) {
-        length       = newLength;
-        lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLength] doubleValue];
+        length            = newLength;
+        self.lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLength] doubleValue];
     }
 }
 
@@ -235,10 +237,10 @@
     CPTPlotRange *newRange = [[CPTPlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
-        newRange->location       = self->location;
-        newRange->length         = self->length;
-        newRange->locationDouble = self->locationDouble;
-        newRange->lengthDouble   = self->lengthDouble;
+        newRange.location       = self.location;
+        newRange.length         = self.length;
+        newRange.locationDouble = self.locationDouble;
+        newRange.lengthDouble   = self.lengthDouble;
     }
     return newRange;
 }
@@ -255,10 +257,10 @@
     CPTPlotRange *newRange = [[CPTMutablePlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
-        newRange->location       = self->location;
-        newRange->length         = self->length;
-        newRange->locationDouble = self->locationDouble;
-        newRange->lengthDouble   = self->lengthDouble;
+        newRange.location       = self.location;
+        newRange.length         = self.length;
+        newRange.locationDouble = self.locationDouble;
+        newRange.lengthDouble   = self.lengthDouble;
     }
     return newRange;
 }
@@ -276,7 +278,7 @@
     [encoder encodeDecimal:self.length forKey:@"CPTPlotRange.length"];
 }
 
--(id)initWithCoder:(NSCoder *)decoder
+-(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
         self.location = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];
@@ -450,10 +452,13 @@
 
 -(NSString *)description
 {
+    NSDecimal myLocation = self.location;
+    NSDecimal myLength   = self.length;
+
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
             [super description],
-            NSDecimalString(&location, [NSLocale currentLocale]),
-            NSDecimalString(&length, [NSLocale currentLocale])];
+            NSDecimalString(&myLocation, [NSLocale currentLocale]),
+            NSDecimalString(&myLength, [NSLocale currentLocale])];
 }
 
 /// @endcond

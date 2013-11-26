@@ -134,7 +134,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                                            selector:@selector(newData:)
                                            userInfo:nil
                                             repeats:YES] retain];
-        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSRunLoopCommonModes];
     }
     else {
         dataTimer = nil;
@@ -155,7 +155,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(void)newData:(NSTimer *)theTimer
 {
-    CPTGraph *theGraph = [self.graphs objectAtIndex:0];
+    CPTGraph *theGraph = (self.graphs)[0];
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
 
     if ( thePlot ) {
@@ -167,17 +167,19 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
         NSUInteger location       = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 2 : 0);
 
+        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
+                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
         CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(location)
                                                               length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
 
         [CPTAnimation animate:plotSpace
                      property:@"xRange"
-                fromPlotRange:plotSpace.xRange
+                fromPlotRange:oldRange
                   toPlotRange:newRange
                      duration:CPTFloat(1.0 / kFrameRate)];
 
         currentIndex++;
-        [plotData addObject:[NSNumber numberWithDouble:(1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX]];
+        [plotData addObject:@( (1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
         [thePlot insertDataAtIndex:plotData.count - 1 numberOfRecords:1];
     }
 }
@@ -196,11 +198,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = [NSNumber numberWithUnsignedInteger:index + currentIndex - plotData.count];
+            num = @(index + currentIndex - plotData.count);
             break;
 
         case CPTScatterPlotFieldY:
-            num = [plotData objectAtIndex:index];
+            num = plotData[index];
             break;
 
         default:

@@ -58,9 +58,9 @@
 /** @brief Creates and returns a new CPTTextStyle instance.
  *  @return A new CPTTextStyle instance.
  **/
-+(id)textStyle
++(instancetype)textStyle
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 #pragma mark -
@@ -80,12 +80,12 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         fontName      = @"Helvetica";
         fontSize      = CPTFloat(12.0);
-        color         = [[CPTColor blackColor] retain];
+        color         = [CPTColor blackColor];
         textAlignment = CPTTextAlignmentLeft;
         lineBreakMode = NSLineBreakByWordWrapping;
     }
@@ -93,17 +93,6 @@
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [fontName release];
-    [color release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -115,18 +104,18 @@
     [coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
     [coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
     [coder encodeObject:self.color forKey:@"CPTTextStyle.color"];
-    [coder encodeInt:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
+    [coder encodeInteger:self.textAlignment forKey:@"CPTTextStyle.textAlignment"];
     [coder encodeInteger:(NSInteger)self.lineBreakMode forKey:@"CPTTextStyle.lineBreakMode"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        self->fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
-        self->fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
-        self->color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
-        self->textAlignment = (CPTTextAlignment)[coder decodeIntForKey : @"CPTTextStyle.textAlignment"];
-        self->lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey : @"CPTTextStyle.lineBreakMode"];
+        fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
+        fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+        color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+        textAlignment = (CPTTextAlignment)[coder decodeIntegerForKey : @"CPTTextStyle.textAlignment"];
+        lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey : @"CPTTextStyle.lineBreakMode"];
     }
     return self;
 }
@@ -142,11 +131,11 @@
 {
     CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
 
-    newCopy->fontName      = [self->fontName copy];
-    newCopy->color         = [self->color copy];
-    newCopy->fontSize      = self->fontSize;
-    newCopy->textAlignment = self->textAlignment;
-    newCopy->lineBreakMode = self->lineBreakMode;
+    newCopy.fontName      = self.fontName;
+    newCopy.color         = self.color;
+    newCopy.fontSize      = self.fontSize;
+    newCopy.textAlignment = self.textAlignment;
+    newCopy.lineBreakMode = self.lineBreakMode;
     return newCopy;
 }
 
@@ -161,11 +150,11 @@
 {
     CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
 
-    newCopy->fontName      = [self->fontName copy];
-    newCopy->color         = [self->color copy];
-    newCopy->fontSize      = self->fontSize;
-    newCopy->textAlignment = self->textAlignment;
-    newCopy->lineBreakMode = self->lineBreakMode;
+    newCopy.fontName      = self.fontName;
+    newCopy.color         = self.color;
+    newCopy.fontSize      = self.fontSize;
+    newCopy.textAlignment = self.textAlignment;
+    newCopy.lineBreakMode = self.lineBreakMode;
     return newCopy;
 }
 

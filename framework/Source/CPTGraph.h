@@ -22,40 +22,45 @@
  **/
 extern NSString *const CPTGraphNeedsRedrawNotification;
 
+/** @brief Notification sent by a graph after adding a new plot space.
+ *  @ingroup notification
+ *
+ *  The notification <code>userInfo</code> dictionary will include the new plot space under the
+ *  CPTGraphPlotSpaceNotificationKey key.
+ **/
+extern NSString *const CPTGraphDidAddPlotSpaceNotification;
+
+/** @brief Notification sent by a graph after removing a plot space.
+ *  @ingroup notification
+ *
+ *  The notification <code>userInfo</code> dictionary will include the removed plot space under the
+ *  CPTGraphPlotSpaceNotificationKey key.
+ **/
+extern NSString *const CPTGraphDidRemovePlotSpaceNotification;
+
+/** @brief The <code>userInfo</code> dictionary key used by the CPTGraphDidAddPlotSpaceNotification
+ *  and CPTGraphDidRemovePlotSpaceNotification notifications for the plot space.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTGraphPlotSpaceNotificationKey;
+
 /// @}
 
 /**
  *  @brief Enumeration of graph layers.
  **/
-typedef enum _CPTGraphLayerType {
+typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
     CPTGraphLayerTypeMinorGridLines, ///< Minor grid lines.
     CPTGraphLayerTypeMajorGridLines, ///< Major grid lines.
     CPTGraphLayerTypeAxisLines,      ///< Axis lines.
     CPTGraphLayerTypePlots,          ///< Plots.
     CPTGraphLayerTypeAxisLabels,     ///< Axis labels.
     CPTGraphLayerTypeAxisTitles      ///< Axis titles.
-}
-CPTGraphLayerType;
+};
 
 #pragma mark -
 
-@interface CPTGraph : CPTBorderedLayer {
-    @private
-    __cpt_weak CPTGraphHostingView *hostingView;
-    CPTPlotAreaFrame *plotAreaFrame;
-    NSMutableArray *plots;
-    NSMutableArray *plotSpaces;
-    NSString *title;
-    NSAttributedString *attributedTitle;
-    CPTTextStyle *titleTextStyle;
-    CPTRectAnchor titlePlotAreaFrameAnchor;
-    CGPoint titleDisplacement;
-    CPTLayerAnnotation *titleAnnotation;
-    CPTLegend *legend;
-    CPTLayerAnnotation *legendAnnotation;
-    CPTRectAnchor legendAnchor;
-    CGPoint legendDisplacement;
-}
+@interface CPTGraph : CPTBorderedLayer
 
 /// @name Hosting View
 /// @{
@@ -73,15 +78,15 @@ CPTGraphLayerType;
 
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPTPlotAreaFrame *plotAreaFrame;
-@property (nonatomic, readonly, retain) CPTPlotSpace *defaultPlotSpace;
-@property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong) CPTPlotAreaFrame *plotAreaFrame;
+@property (nonatomic, readonly) CPTPlotSpace *defaultPlotSpace;
+@property (nonatomic, readwrite, strong) NSArray *topDownLayerOrder;
 /// @}
 
 /// @name Legend
 /// @{
-@property (nonatomic, readwrite, retain) CPTLegend *legend;
+@property (nonatomic, readwrite, strong) CPTLegend *legend;
 @property (nonatomic, readwrite, assign) CPTRectAnchor legendAnchor;
 @property (nonatomic, readwrite, assign) CGPoint legendDisplacement;
 /// @}

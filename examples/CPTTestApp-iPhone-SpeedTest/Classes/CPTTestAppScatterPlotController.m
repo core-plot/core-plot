@@ -65,11 +65,10 @@
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
 
-    NSUInteger i;
-    for ( i = 0; i < NUM_POINTS; i++ ) {
+    for ( NSUInteger i = 0; i < NUM_POINTS; i++ ) {
         xxx[i]  = i;
-        yyy1[i] = (NUM_POINTS / 3) * (rand() / (float)RAND_MAX);
-        yyy2[i] = (NUM_POINTS / 3) * (rand() / (float)RAND_MAX) + NUM_POINTS / 3;
+        yyy1[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX);
+        yyy2[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX) + NUM_POINTS / 3;
     }
 
 #define PERFORMANCE_TEST1
@@ -95,7 +94,7 @@
 {
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    float ylen                = NUM_POINTS * (rand() / (float)RAND_MAX);
+    float ylen                = NUM_POINTS * (rand() / (double)RAND_MAX);
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(ylen)];
@@ -153,7 +152,7 @@
     double *values = [self valuesForPlotWithIdentifier:[plot identifier] field:fieldEnum];
 
     if ( values ) {
-        num = [NSNumber numberWithDouble:values[indx]];
+        num = @(values[indx]);
     }
     return num;
 }

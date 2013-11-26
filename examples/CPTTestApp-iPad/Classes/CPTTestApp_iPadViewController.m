@@ -31,8 +31,8 @@
     // Add a rotation animation
     CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotation.removedOnCompletion = YES;
-    rotation.fromValue           = [NSNumber numberWithDouble:M_PI * 5];
-    rotation.toValue             = [NSNumber numberWithDouble:0.0];
+    rotation.fromValue           = @(M_PI * 5);
+    rotation.toValue             = @0.0;
     rotation.duration            = 1.0;
     rotation.timingFunction      = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     rotation.delegate            = self;
@@ -110,22 +110,18 @@
     x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 2;
-    NSArray *exclusionRanges = [NSArray arrayWithObjects:
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.99) length:CPTDecimalFromDouble(0.02)],
-                                nil];
+    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
+                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
+                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.99) length:CPTDecimalFromDouble(0.02)]];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 5;
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
-    exclusionRanges               = [NSArray arrayWithObjects:
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
-                                     [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(3.99) length:CPTDecimalFromDouble(0.02)],
-                                     nil];
+    exclusionRanges               = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
+                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
+                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(3.99) length:CPTDecimalFromDouble(0.02)]];
     y.labelExclusionRanges = exclusionRanges;
 
     // Create a green plot area
@@ -135,7 +131,7 @@
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
-    lineStyle.dashPattern            = [NSArray arrayWithObjects:[NSNumber numberWithFloat:5.0f], [NSNumber numberWithFloat:5.0f], nil];
+    lineStyle.dashPattern            = @[@5.0f, @5.0f];
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
@@ -157,7 +153,7 @@
     fadeInAnimation.duration            = 1.0;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.fillMode            = kCAFillModeForwards;
-    fadeInAnimation.toValue             = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.toValue             = @1.0;
     [dataSourceLinePlot addAnimation:fadeInAnimation forKey:@"animateOpacity"];
 
     // Create a blue plot area
@@ -193,11 +189,10 @@
 
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
-    NSUInteger i;
-    for ( i = 0; i < 60; i++ ) {
-        NSNumber *x = [NSNumber numberWithFloat:1 + i * 0.05];
-        NSNumber *y = [NSNumber numberWithFloat:1.2 * rand() / (float)RAND_MAX + 1.2];
-        [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+    for ( NSUInteger i = 0; i < 60; i++ ) {
+        NSNumber *x = @(1 + i * 0.05);
+        NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+        [contentArray addObject:@{ @"x": x, @"y": y }];
     }
     self.dataForPlot = contentArray;
 }
@@ -235,12 +230,12 @@
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
-    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", nil];
+    NSArray *customTickLocations = @[@1, @5, @10, @15];
+    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation     = 0;
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
-        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
+        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset       = x.labelOffset + x.majorTickLength;
         newLabel.rotation     = M_PI_4;
@@ -314,7 +309,7 @@
     [pieGraph addPlot:piePlot];
 
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:[NSNumber numberWithDouble:20.0], [NSNumber numberWithDouble:30.0], [NSNumber numberWithDouble:NAN], [NSNumber numberWithDouble:60.0], nil];
+    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @(NAN), @60.0, nil];
     self.dataForChart = contentArray;
 }
 
@@ -344,7 +339,7 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = nil;
+    NSNumber *num = nil;
 
     if ( [plot isKindOfClass:[CPTPieChart class]] ) {
         if ( index >= [self.dataForChart count] ) {
@@ -352,31 +347,31 @@
         }
 
         if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-            num = [self.dataForChart objectAtIndex:index];
+            num = (self.dataForChart)[index];
         }
         else {
-            num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+            num = @(index);
         }
     }
     else if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         switch ( fieldEnum ) {
             case CPTBarPlotFieldBarLocation:
                 if ( index == 4 ) {
-                    num = [NSDecimalNumber notANumber];
+                    num = @(NAN);
                 }
                 else {
-                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+                    num = @(index);
                 }
                 break;
 
             case CPTBarPlotFieldBarTip:
                 if ( index == 8 ) {
-                    num = [NSDecimalNumber notANumber];
+                    num = @(NAN);
                 }
                 else {
-                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index + 1) * (index + 1)];
+                    num = @( (index + 1) * (index + 1) );
                     if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-                        num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+                        num = @(num.integerValue - 10);
                     }
                 }
                 break;
@@ -385,16 +380,16 @@
     else {
         if ( index % 8 ) {
             NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-            num = [[dataForPlot objectAtIndex:index] valueForKey:key];
+            num = [dataForPlot[index] valueForKey:key];
             // Green plot gets shifted above the blue
             if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {
-                    num = (NSDecimalNumber *)[NSDecimalNumber numberWithDouble:[num doubleValue] + 1.0];
+                    num = @([num doubleValue] + 1.0);
                 }
             }
         }
         else {
-            num = [NSDecimalNumber notANumber];
+            num = @(NAN);
         }
     }
 

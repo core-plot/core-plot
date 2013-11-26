@@ -28,7 +28,7 @@
 -(void)killGraph
 {
     if ( [self.graphs count] ) {
-        CPTGraph *graph = [self.graphs objectAtIndex:0];
+        CPTGraph *graph = (self.graphs)[0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -54,7 +54,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -164,7 +164,7 @@
     }
 
     // Set axes
-    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, nil];
+    graph.axisSet.axes = @[x, y];
 
     // Create a bar line style
     CPTMutableLineStyle *barLineStyle = [[[CPTMutableLineStyle alloc] init] autorelease];
@@ -231,9 +231,9 @@
     theLegend.paddingBottom   = 12.0;
 
 #if HORIZONTAL
-    NSArray *plotPoint = [NSArray arrayWithObjects:[NSNumber numberWithInteger:95], [NSNumber numberWithInteger:0], nil];
+    NSArray *plotPoint = @[@95, @0];
 #else
-    NSArray *plotPoint = [NSArray arrayWithObjects:[NSNumber numberWithInteger:0], [NSNumber numberWithInteger:95], nil];
+    NSArray *plotPoint = @[@0, @95];
 #endif
     CPTPlotSpaceAnnotation *legendAnnotation = [[[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint] autorelease];
     legendAnnotation.contentLayer = theLegend;
@@ -246,12 +246,6 @@
     [graph.plotAreaFrame.plotArea addAnnotation:legendAnnotation];
 
     [graph release];
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -268,7 +262,7 @@
 
     NSLog(@"Bar for '%@' was selected at index %d. Value = %f", plot.identifier, (int)index, [value floatValue]);
 
-    CPTGraph *graph = [self.graphs objectAtIndex:0];
+    CPTGraph *graph = (self.graphs)[0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -282,12 +276,12 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x = [NSNumber numberWithInt:index];
-    NSNumber *y = [NSNumber numberWithInt:2]; //[self numberForPlot:plot field:0 recordIndex:index];
+    NSNumber *x = @(index);
+    NSNumber *y = @2; //[self numberForPlot:plot field:0 recordIndex:index];
 #if HORIZONTAL
     NSArray *anchorPoint = [NSArray arrayWithObjects:y, x, nil];
 #else
-    NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+    NSArray *anchorPoint = @[x, y];
 #endif
 
     // Add annotation
@@ -319,29 +313,24 @@
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
         // location
-        if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-            num = [NSDecimalNumber numberWithInt:index];
-        }
-        else {
-            num = [NSDecimalNumber numberWithInt:index];
-        }
+        num = @(index);
     }
     else if ( fieldEnum == CPTBarPlotFieldBarTip ) {
         // length
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-            num = [NSDecimalNumber numberWithInt:index];
+            num = @(index);
         }
         else {
-            num = [NSDecimalNumber numberWithInt:(index + 1) * (index + 1)];
+            num = @( (index + 1) * (index + 1) );
         }
     }
     else {
         // base
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-            num = [NSDecimalNumber numberWithInt:0];
+            num = @0;
         }
         else {
-            num = [NSDecimalNumber numberWithInt:index];
+            num = @(index);
         }
     }
 

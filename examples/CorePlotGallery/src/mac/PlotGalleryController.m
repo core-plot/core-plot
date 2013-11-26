@@ -160,7 +160,7 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
 -(NSDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
-    NSString *groupTitle = [[[PlotGallery sharedPlotGallery] sectionTitles] objectAtIndex:index];
+    NSString *groupTitle = [[PlotGallery sharedPlotGallery] sectionTitles][index];
 
     NSUInteger offset = 0;
 
@@ -170,11 +170,11 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
     NSValue *groupRange = [NSValue valueWithRange:NSMakeRange(offset, [[PlotGallery sharedPlotGallery] numberOfRowsInSection:index])];
 
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithInt:IKGroupDisclosureStyle], IKImageBrowserGroupStyleKey,
-            groupTitle, IKImageBrowserGroupTitleKey,
-            groupRange, IKImageBrowserGroupRangeKey,
-            nil];
+    return @{
+               IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
+               IKImageBrowserGroupTitleKey: groupTitle,
+               IKImageBrowserGroupRangeKey: groupRange
+    };
 }
 
 #pragma mark -
@@ -207,9 +207,9 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 {
     // Lock the LHS width
     NSRect frame   = [sender frame];
-    NSView *lhs    = [[sender subviews] objectAtIndex:0];
+    NSView *lhs    = [sender subviews][0];
     NSRect lhsRect = [lhs frame];
-    NSView *rhs    = [[sender subviews] objectAtIndex:1];
+    NSView *rhs    = [sender subviews][1];
     NSRect rhsRect = [rhs frame];
 
     CGFloat dividerThickness = [sender dividerThickness];

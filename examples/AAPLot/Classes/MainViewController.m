@@ -176,7 +176,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -186,7 +186,7 @@
                             break;
 
                         case CPTScatterPlotFieldY:
-                            value = [fData objectForKey:@"close"];
+                            value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
@@ -201,7 +201,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -211,7 +211,7 @@
                             break;
 
                         case CPTScatterPlotFieldY:
-                            value = [fData objectForKey:@"close"];
+                            value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
@@ -228,7 +228,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -238,7 +238,7 @@
                             break;
 
                         case CPTBarPlotFieldBarTip:
-                            value = [fData objectForKey:@"volume"];
+                            value = fData[@"volume"];
                             NSAssert(value, @"Volume value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
@@ -253,7 +253,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -263,7 +263,7 @@
                             break;
 
                         case CPTBarPlotFieldBarTip:
-                            value = [fData objectForKey:@"volume"];
+                            value = fData[@"volume"];
                             NSAssert(value, @"Volume value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
@@ -280,7 +280,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -290,25 +290,25 @@
                             break;
 
                         case CPTTradingRangePlotFieldOpen:
-                            value = [fData objectForKey:@"open"];
+                            value = fData[@"open"];
                             NSAssert(value, @"Open value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
 
                         case CPTTradingRangePlotFieldHigh:
-                            value = [fData objectForKey:@"high"];
+                            value = fData[@"high"];
                             NSAssert(value, @"High value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
 
                         case CPTTradingRangePlotFieldLow:
-                            value = [fData objectForKey:@"low"];
+                            value = fData[@"low"];
                             NSAssert(value, @"Low value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
 
                         case CPTTradingRangePlotFieldClose:
-                            value = [fData objectForKey:@"close"];
+                            value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
                             *nextValue++ = [value doubleValue];
                             break;
@@ -323,7 +323,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -333,25 +333,25 @@
                             break;
 
                         case CPTTradingRangePlotFieldOpen:
-                            value = [fData objectForKey:@"open"];
+                            value = fData[@"open"];
                             NSAssert(value, @"Open value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
 
                         case CPTTradingRangePlotFieldHigh:
-                            value = [fData objectForKey:@"high"];
+                            value = fData[@"high"];
                             NSAssert(value, @"High value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
 
                         case CPTTradingRangePlotFieldLow:
-                            value = [fData objectForKey:@"low"];
+                            value = fData[@"low"];
                             NSAssert(value, @"Low value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
 
                         case CPTTradingRangePlotFieldClose:
-                            value = [fData objectForKey:@"close"];
+                            value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
                             *nextValue++ = [value decimalValue];
                             break;
@@ -366,8 +366,8 @@
 
     CPTMutableNumericData *numericData = [CPTMutableNumericData numericDataWithData:data
                                                                            dataType:(useDoubles ? plot.doubleDataType : plot.decimalDataType)
-                                                                              shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:indexRange.length],
-                                                                                     [NSNumber numberWithUnsignedInteger:numFields], nil]
+                                                                              shape:@[@(indexRange.length),
+                                                                                      @(numFields)]
                                                                           dataOrder:CPTDataOrderRowsFirst];
     [data release];
 
@@ -588,8 +588,7 @@
 
     CPTMutableNumericData *numericData = [CPTMutableNumericData numericDataWithData:data
                                                                            dataType:(useDoubles ? plot.doubleDataType : plot.decimalDataType)
-                                                                              shape:[NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:indexRange.length],
-                                                                                     [NSNumber numberWithUnsignedInteger:numFields], nil]
+                                                                              shape:@[@(indexRange.length), @(numFields)]
                                                                           dataOrder:CPTDataOrderColumnsFirst];
     [data release];
 
@@ -673,9 +672,7 @@
     axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
     axisSet.yAxis.minorTicksPerInterval       = 4;
     axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    NSArray *exclusionRanges = [NSArray arrayWithObjects:
-                                [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]],
-                                nil];
+    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]]];
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 
