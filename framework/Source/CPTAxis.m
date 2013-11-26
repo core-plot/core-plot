@@ -2356,23 +2356,25 @@ NSDecimal niceNum(NSDecimal x)
 
         [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMajorGridLines];
 
-        if ( majorGridLineStyle ) {
-            if ( self.separateLayers ) {
-                if ( !self.majorGridLines ) {
-                    CPTGridLines *gridLines = [[CPTGridLines alloc] init];
+        if ( self.separateLayers ) {
+            if ( majorGridLineStyle ) {
+                CPTGridLines *gridLines = self.majorGridLines;
+
+                if ( gridLines ) {
+                    [gridLines setNeedsDisplay];
+                }
+                else {
+                    gridLines           = [[CPTGridLines alloc] init];
                     self.majorGridLines = gridLines;
                     [gridLines release];
                 }
-                else {
-                    [self.majorGridLines setNeedsDisplay];
-                }
             }
             else {
-                [self.plotArea.majorGridLineGroup setNeedsDisplay];
+                self.majorGridLines = nil;
             }
         }
         else {
-            self.majorGridLines = nil;
+            [self.plotArea.majorGridLineGroup setNeedsDisplay];
         }
     }
 }
@@ -2385,23 +2387,25 @@ NSDecimal niceNum(NSDecimal x)
 
         [self.plotArea updateAxisSetLayersForType:CPTGraphLayerTypeMinorGridLines];
 
-        if ( minorGridLineStyle ) {
-            if ( self.separateLayers ) {
-                if ( !self.minorGridLines ) {
-                    CPTGridLines *gridLines = [[CPTGridLines alloc] init];
+        if ( self.separateLayers ) {
+            if ( minorGridLineStyle ) {
+                CPTGridLines *gridLines = self.minorGridLines;
+
+                if ( gridLines ) {
+                    [gridLines setNeedsDisplay];
+                }
+                else {
+                    gridLines           = [[CPTGridLines alloc] init];
                     self.minorGridLines = gridLines;
                     [gridLines release];
                 }
-                else {
-                    [self.minorGridLines setNeedsDisplay];
-                }
             }
             else {
-                [self.plotArea.minorGridLineGroup setNeedsDisplay];
+                self.minorGridLines = nil;
             }
         }
         else {
-            self.minorGridLines = nil;
+            [self.plotArea.minorGridLineGroup setNeedsDisplay];
         }
     }
 }
