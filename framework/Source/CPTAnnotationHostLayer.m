@@ -182,4 +182,134 @@
 
 /// @endcond
 
+#pragma mark -
+#pragma mark Event Handling
+
+/// @name User Interaction
+/// @{
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
+ *
+ *
+ *  The event is passed in turn to each annotation layer that contains the interaction point.
+ *  If any layer handles the event, subsequent layers are not notified and
+ *  this method immediately returns @YES.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    for ( CPTAnnotation *annotation in self.annotations ) {
+        CPTLayer *content = annotation.contentLayer;
+        if ( content ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+                BOOL handled = [content pointingDeviceDownEvent:event atPoint:interactionPoint];
+                if ( handled ) {
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly lifted their finger off the screen. @endif
+ *
+ *
+ *  The event is passed in turn to each annotation layer that contains the interaction point.
+ *  If any layer handles the event, subsequent layers are not notified and
+ *  this method immediately returns @YES.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    for ( CPTAnnotation *annotation in self.annotations ) {
+        CPTLayer *content = annotation.contentLayer;
+        if ( content ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+                BOOL handled = [content pointingDeviceUpEvent:event atPoint:interactionPoint];
+                if ( handled ) {
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has moved
+ *  @if MacOnly the mouse with the button pressed. @endif
+ *  @if iOSOnly their finger while touching the screen. @endif
+ *
+ *
+ *  The event is passed in turn to each annotation layer that contains the interaction point.
+ *  If any layer handles the event, subsequent layers are not notified and
+ *  this method immediately returns @YES.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    for ( CPTAnnotation *annotation in self.annotations ) {
+        CPTLayer *content = annotation.contentLayer;
+        if ( content ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+                BOOL handled = [content pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+                if ( handled ) {
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that tracking of
+ *  @if MacOnly mouse moves @endif
+ *  @if iOSOnly touches @endif
+ *  has been cancelled for any reason.
+ *
+ *
+ *  The event is passed in turn to each annotation layer.
+ *  If any layer handles the event, subsequent layers are not notified and
+ *  this method immediately returns @YES.
+ *
+ *  @param event The OS event.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event
+{
+    for ( CPTAnnotation *annotation in self.annotations ) {
+        CPTLayer *content = annotation.contentLayer;
+        if ( content ) {
+            BOOL handled = [content pointingDeviceCancelledEvent:event];
+            if ( handled ) {
+                return YES;
+            }
+        }
+    }
+
+    return [super pointingDeviceCancelledEvent:event];
+}
+
+/// @}
+
 @end

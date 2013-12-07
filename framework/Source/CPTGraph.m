@@ -996,7 +996,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         handledEvent |= handled;
     }
 
-    return handledEvent;
+    if ( handledEvent ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
 }
 
 /**
@@ -1052,7 +1057,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         handledEvent |= handled;
     }
 
-    return handledEvent;
+    if ( handledEvent ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
 }
 
 /**
@@ -1108,7 +1118,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         handledEvent |= handled;
     }
 
-    return handledEvent;
+    if ( handledEvent ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
 }
 
 /**
@@ -1162,7 +1177,12 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
         handledEvent |= handled;
     }
 
-    return handledEvent;
+    if ( handledEvent ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceCancelledEvent:event];
+    }
 }
 
 /// @}
