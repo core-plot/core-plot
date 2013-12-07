@@ -47,12 +47,11 @@
  *  @param newStyle The text style for the label.
  *  @return The initialized CPTAxisLabel object.
  **/
--(id)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
+-(instancetype)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)newStyle
 {
     CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:newText style:newStyle];
 
     self = [self initWithContentLayer:newLayer];
-    [newLayer release];
 
     return self;
 }
@@ -62,11 +61,11 @@
  *  @param layer The label content.
  *  @return The initialized CPTAxisLabel object.
  **/
--(id)initWithContentLayer:(CPTLayer *)layer
+-(instancetype)initWithContentLayer:(CPTLayer *)layer
 {
     if ( layer ) {
         if ( (self = [super init]) ) {
-            contentLayer = [layer retain];
+            contentLayer = layer;
             offset       = CPTFloat(20.0);
             rotation     = CPTFloat(0.0);
             alignment    = CPTAlignmentCenter;
@@ -74,21 +73,10 @@
         }
     }
     else {
-        [self release];
         self = nil;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [contentLayer release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -100,17 +88,17 @@
     [coder encodeObject:self.contentLayer forKey:@"CPTAxisLabel.contentLayer"];
     [coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
     [coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
-    [coder encodeInt:self.alignment forKey:@"CPTAxisLabel.alignment"];
+    [coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
     [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        contentLayer = [[coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"] retain];
+        contentLayer = [coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"];
         offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
         rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-        alignment    = (CPTAlignment)[coder decodeIntForKey : @"CPTAxisLabel.alignment"];
+        alignment    = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxisLabel.alignment"];
         tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
     }
     return self;
@@ -150,9 +138,13 @@
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
+    BOOL validDirection = NO;
+
     switch ( direction ) {
         case CPTSignNone:
         case CPTSignNegative:
+            validDirection = YES;
+
             *value -= self.offset;
 
             switch ( coordinate ) {
@@ -199,6 +191,8 @@
             break;
 
         case CPTSignPositive:
+            validDirection = YES;
+
             *value += self.offset;
 
             switch ( coordinate ) {
@@ -243,10 +237,10 @@
                     break;
             }
             break;
+    }
 
-        default:
-            [NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
-            break;
+    if ( !validDirection ) {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid direction in positionRelativeToViewPoint:forCoordinate:inDirection:"];
     }
 
     angle += CPTFloat(M_PI);
@@ -330,7 +324,7 @@
     double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
 
     if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax);
+        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
     }
 
     return hashValue;

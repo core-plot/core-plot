@@ -28,7 +28,7 @@
 
 -(id)transformedValue:(id)value
 {
-    return [[value copy] autorelease];
+    return [value copy];
 }
 
 -(id)reverseTransformedValue:(id)value

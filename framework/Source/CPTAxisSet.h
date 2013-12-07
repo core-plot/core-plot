@@ -3,15 +3,11 @@
 @class CPTAxis;
 @class CPTLineStyle;
 
-@interface CPTAxisSet : CPTLayer {
-    @private
-    NSArray *axes;
-    CPTLineStyle *borderLineStyle;
-}
+@interface CPTAxisSet : CPTLayer
 
 /// @name Axes
 /// @{
-@property (nonatomic, readwrite, retain) NSArray *axes;
+@property (nonatomic, readwrite, strong) NSArray *axes;
 /// @}
 
 /// @name Drawing

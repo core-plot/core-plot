@@ -267,7 +267,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
     [self killGraph];
 
-    defaultLayerHostingView = [(CPTGraphHostingView *)[CPTGraphHostingView alloc] initWithFrame : hostingView.bounds];
+    defaultLayerHostingView = [[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     defaultLayerHostingView.collapsesLayers = NO;

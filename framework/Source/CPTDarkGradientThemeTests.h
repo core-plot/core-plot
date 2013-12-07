@@ -1,6 +1,5 @@
 #import "CPTTestCase.h"
 
-@interface CPTDarkGradientThemeTests : CPTTestCase {
-}
+@interface CPTDarkGradientThemeTests : CPTTestCase
 
 @end

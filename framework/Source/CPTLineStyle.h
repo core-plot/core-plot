@@ -2,35 +2,22 @@
 @class CPTFill;
 @class CPTGradient;
 
-@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying> {
-    @private
-    CGLineCap lineCap;
-//    CGLineDash lineDash; // We should make a struct to keep this information
-    CGLineJoin lineJoin;
-    CGFloat miterLimit;
-    CGFloat lineWidth;
-    NSArray *dashPattern;
-    CGFloat patternPhase;
-//    StrokePattern; // We should make a struct to keep this information
-    CPTColor *lineColor;
-    CPTFill *lineFill;
-    CPTGradient *lineGradient;
-}
+@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
-@property (nonatomic, readonly, assign) CGLineCap lineCap;
-@property (nonatomic, readonly, assign) CGLineJoin lineJoin;
-@property (nonatomic, readonly, assign) CGFloat miterLimit;
-@property (nonatomic, readonly, assign) CGFloat lineWidth;
-@property (nonatomic, readonly, retain) NSArray *dashPattern;
-@property (nonatomic, readonly, assign) CGFloat patternPhase;
-@property (nonatomic, readonly, retain) CPTColor *lineColor;
-@property (nonatomic, readonly, retain) CPTFill *lineFill;
-@property (nonatomic, readonly, retain) CPTGradient *lineGradient;
+@property (nonatomic, readonly) CGLineCap lineCap;
+@property (nonatomic, readonly) CGLineJoin lineJoin;
+@property (nonatomic, readonly) CGFloat miterLimit;
+@property (nonatomic, readonly) CGFloat lineWidth;
+@property (nonatomic, readonly) NSArray *dashPattern;
+@property (nonatomic, readonly) CGFloat patternPhase;
+@property (nonatomic, readonly) CPTColor *lineColor;
+@property (nonatomic, readonly) CPTFill *lineFill;
+@property (nonatomic, readonly) CPTGradient *lineGradient;
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 
 /// @name Factory Methods
 /// @{
-+(id)lineStyle;
++(instancetype)lineStyle;
 /// @}
 
 /// @name Drawing

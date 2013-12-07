@@ -47,7 +47,7 @@
  *  The default formatter uses @ref NSDateFormatterMediumStyle for dates and times.
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
 
@@ -55,7 +55,6 @@
     newDateFormatter.timeStyle = NSDateFormatterMediumStyle;
 
     self = [self initWithDateFormatter:newDateFormatter];
-    [newDateFormatter release];
 
     return self;
 }
@@ -66,28 +65,16 @@
  *  @param aDateFormatter The date formatter.
  *  @return The new instance.
  **/
--(id)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
+-(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
 {
     if ( (self = [super init]) ) {
-        dateFormatter         = [aDateFormatter retain];
+        dateFormatter         = aDateFormatter;
         referenceDate         = nil;
         referenceCalendar     = nil;
         referenceCalendarUnit = NSEraCalendarUnit;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [referenceCalendar release];
-    [referenceDate release];
-    [dateFormatter release];
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -104,10 +91,10 @@
     [coder encodeInteger:(NSInteger)self.referenceCalendarUnit forKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        dateFormatter         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"] retain];
+        dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];
         referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
         referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
         referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
@@ -127,10 +114,10 @@
     CPTCalendarFormatter *newFormatter = [[CPTCalendarFormatter allocWithZone:zone] init];
 
     if ( newFormatter ) {
-        newFormatter->dateFormatter         = [self->dateFormatter copyWithZone:zone];
-        newFormatter->referenceDate         = [self->referenceDate copyWithZone:zone];
-        newFormatter->referenceCalendar     = [self->referenceCalendar copyWithZone:zone];
-        newFormatter->referenceCalendarUnit = self->referenceCalendarUnit;
+        newFormatter.dateFormatter         = self.dateFormatter;
+        newFormatter.referenceDate         = self.referenceDate;
+        newFormatter.referenceCalendar     = self.referenceCalendar;
+        newFormatter.referenceCalendarUnit = self.referenceCalendarUnit;
     }
     return newFormatter;
 }
@@ -159,7 +146,7 @@
         componentIncrement = [coordinateValue integerValue];
     }
 
-    NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 
     switch ( self.referenceCalendarUnit ) {
         case NSEraCalendarUnit:
@@ -249,8 +236,11 @@
             [NSException raise:CPTException format:@"Unsupported calendar unit: NSTimeZoneCalendarUnit"];
             break;
 #endif
+#if MAC_OS_X_VERSION_10_8 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
         default:
+            [NSException raise:CPTException format:@"Unsupported calendar unit"];
             break;
+#endif
     }
 
     NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
