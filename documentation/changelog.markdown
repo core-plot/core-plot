@@ -5,6 +5,10 @@
 To be determined.
 
 ## Details
+- **New**: Updated CPTAnimation to allow animations to start at the current value of the animated property instead of a fixed value.
+- **New**: Added annotations to the responder chain.
+- **New**: Added a plot space method to scale the plot range for a single coordinate.
+- **Changed**: Switched to a new algorithm for computing curved scatter plots.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
 
