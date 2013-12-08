@@ -177,6 +177,7 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 /// @name Adjusting Ranges
 /// @{
 -(void)scaleToFitPlots:(NSArray *)plots;
+-(void)scaleToFitPlots:(NSArray *)plots forCoordinate:(CPTCoordinate)coordinate;
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 /// @}
 
