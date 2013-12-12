@@ -13,6 +13,8 @@
     SEL boundSetter;
 
     __cpt_weak NSObject<CPTAnimationDelegate> *delegate;
+    id<NSCopying, NSObject> identifier;
+    NSDictionary *userInfo;
 }
 
 /// @name Animation Timing
@@ -31,6 +33,12 @@
 /// @name Delegate
 /// @{
 @property (nonatomic, cpt_weak_property) __cpt_weak NSObject<CPTAnimationDelegate> *delegate;
+/// @}
+
+/// @name Identification
+/// @{
+@property (nonatomic, readwrite, copy) id<NSCopying, NSObject> identifier;
+@property (nonatomic, readwrite, copy) NSDictionary *userInfo;
 /// @}
 
 @end

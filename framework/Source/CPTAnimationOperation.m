@@ -36,6 +36,16 @@
  **/
 @synthesize delegate;
 
+/** @property id<NSCopying, NSObject> identifier
+ *  @brief An object used to identify the layer in collections.
+ **/
+@synthesize identifier;
+
+/** @property NSDictionary *userInfo
+ *  @brief Application-specific user info that can be attached to the operation.
+ **/
+@synthesize userInfo;
+
 /// @name Initialization
 /// @{
 
@@ -48,6 +58,8 @@
  *  - @ref boundGetter = @NULL
  *  - @ref boundSetter = @NULL
  *  - @ref delegate = @nil
+ *  - @ref identifier = @nil
+ *  - @ref userInfo = @nil
  *
  *  @return The initialized object.
  **/
@@ -60,6 +72,8 @@
         boundGetter    = NULL;
         boundSetter    = NULL;
         delegate       = nil;
+        identifier     = nil;
+        userInfo       = nil;
     }
 
     return self;
@@ -73,6 +87,8 @@
 {
     [period release];
     [boundObject release];
+    [identifier release];
+    [userInfo release];
     [super dealloc];
 }
 
