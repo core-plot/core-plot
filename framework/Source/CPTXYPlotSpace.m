@@ -592,7 +592,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
                 if ( !isnan(brakingDelay) ) {
                     op = [CPTAnimation animate:self
                                       property:property
-                                 fromPlotRange:nil
+                                 fromPlotRange:constrainedRange
                                    toPlotRange:newRange
                                       duration:momentumTime
                                      withDelay:brakingDelay
