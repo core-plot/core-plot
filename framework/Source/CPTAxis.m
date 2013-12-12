@@ -1078,7 +1078,7 @@ NSDecimal niceNum(NSDecimal x);
                     double intervalStep = pow( 10.0, fabs(interval) );
 
                     // Determine minor interval
-                    double minorInterval = intervalStep * pow( 10.0, floor( log10(minLimit) ) ) / minorTicks;
+                    double minorInterval = intervalStep * 0.9 * pow( 10.0, floor( log10(minLimit) ) ) / minorTicks;
 
                     // Determine the initial and final major indexes for the actual visible range
                     NSInteger initialIndex = (NSInteger)floor( log10( minLimit / fabs(interval) ) ); // can be negative
