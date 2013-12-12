@@ -9,6 +9,8 @@ To be determined.
 - **New**: Added annotations to the responder chain.
 - **New**: Added a plot space method to scale the plot range for a single coordinate.
 - **New**: Added properties to control momentum scrolling for the x- and y-directions separately.
+- **New**: Added an identifier and user info dictionary to animation operations.
+- **New**: Animations can now start when the value of the animated property enters the animated range.
 - **Changed**: Switched to a new algorithm for computing curved scatter plots.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.

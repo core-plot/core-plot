@@ -1,8 +1,18 @@
 #import "_CPTAnimationCGPointPeriod.h"
 
+/// @cond
+@interface _CPTAnimationCGPointPeriod()
+
+CGPoint currentPointValue(id boundObject, SEL boundGetter);
+
+@end
+/// @endcond
+
+#pragma mark -
+
 @implementation _CPTAnimationCGPointPeriod
 
--(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+CGPoint currentPointValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -11,10 +21,32 @@
 
     [invocation invoke];
 
-    CGPoint start;
-    [invocation getReturnValue:&start];
+    [invocation invoke];
+
+    CGPoint value;
+    [invocation getReturnValue:&value];
+
+    return value;
+}
+
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    CGPoint start = currentPointValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGPoint)];
+}
+
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    CGPoint current = currentPointValue(boundObject, boundGetter);
+    CGPoint start;
+    CGPoint end;
+
+    [self.startValue getValue:&start];
+    [self.endValue getValue:&end];
+
+    return ( ( (current.x >= start.x) && (current.x <= end.x) ) || ( (current.x >= end.x) && (current.x <= start.x) ) ) &&
+           ( ( (current.y >= start.y) && (current.y <= end.y) ) || ( (current.y >= end.y) && (current.y <= start.y) ) );
 }
 
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress

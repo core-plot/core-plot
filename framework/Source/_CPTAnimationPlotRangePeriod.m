@@ -12,6 +12,22 @@
     self.startValue = getterMethod(boundObject, boundGetter);
 }
 
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    IMP getterMethod = [boundObject methodForSelector:boundGetter];
+
+    CPTPlotRange *current = getterMethod(boundObject, boundGetter);
+    CPTPlotRange *start   = (CPTPlotRange *)self.startValue;
+    CPTPlotRange *end     = (CPTPlotRange *)self.endValue;
+
+    NSDecimal currentLoc = current.location;
+    NSDecimal startLoc   = start.location;
+    NSDecimal endLoc     = end.location;
+
+    return ( CPTDecimalGreaterThanOrEqualTo(currentLoc, startLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, endLoc) ) ||
+           ( CPTDecimalGreaterThanOrEqualTo(currentLoc, endLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, startLoc) );
+}
+
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CPTPlotRange *start = (CPTPlotRange *)self.startValue;

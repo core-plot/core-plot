@@ -60,6 +60,11 @@
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress;
 /// @}
 
+/// @name Comparison
+/// @{
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter;
+/// @}
+
 @end
 
 #pragma mark -

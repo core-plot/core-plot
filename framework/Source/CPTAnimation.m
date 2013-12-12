@@ -76,6 +76,8 @@ static CPTAnimation *instance = nil;
  **/
 @synthesize timer;
 
+#pragma mark - Init/Dealloc
+
 /// @name Initialization
 /// @{
 
@@ -129,7 +131,7 @@ static CPTAnimation *instance = nil;
 
 /// @endcond
 
-#pragma mark -
+#pragma mark - Animation Controller Instance
 
 /** @brief A shared CPTAnimation instance responsible for scheduling and executing animations.
  *  @return The shared CPTAnimation instance.
@@ -142,7 +144,7 @@ static CPTAnimation *instance = nil;
     return instance;
 }
 
-#pragma mark -
+#pragma mark - Property Animation
 
 /** @brief Creates an animation operation with the given properties and adds it to the animation queue.
  *  @param object The object to animate.
@@ -186,7 +188,7 @@ static CPTAnimation *instance = nil;
 
 /// @endcond
 
-#pragma mark -
+#pragma mark - Animation Management
 
 /** @brief Adds an animation operation to the animation queue.
  *  @param animationOperation The animation operation to add.
@@ -250,7 +252,23 @@ static CPTAnimation *instance = nil;
     [theAnimationOperations removeAllObjects];
 }
 
-#pragma mark -
+#pragma mark - Retrieving Animation Operations
+
+/** @brief Gets the animation operation with the given identifier from the animation operation array.
+ *  @param identifier An animation operation identifier.
+ *  @return The animation operation with the given identifier or @nil if it was not found.
+ **/
+-(CPTAnimationOperation *)operationWithIdentifier:(id<NSCopying, NSObject>)identifier
+{
+    for ( CPTAnimationOperation *operation in self.animationOperations ) {
+        if ( [[operation identifier] isEqual:identifier] ) {
+            return operation;
+        }
+    }
+    return nil;
+}
+
+#pragma mark - Animation Update
 
 /// @cond
 
@@ -272,8 +290,21 @@ static CPTAnimation *instance = nil;
         CPTAnimationPeriod *period = animationOperation.period;
 
         CGFloat duration  = period.duration;
-        CGFloat startTime = period.startOffset + period.delay;
-        CGFloat endTime   = startTime + duration;
+        CGFloat startTime = period.startOffset;
+        CGFloat delay     = period.delay;
+        if ( isnan(delay) ) {
+            if ( [period canStartWithValueFromObject:animationOperation.boundObject propertyGetter:animationOperation.boundGetter] ) {
+                period.delay = currentTime - startTime;
+                startTime    = currentTime;
+            }
+            else {
+                startTime = CPTFloat(NAN);
+            }
+        }
+        else {
+            startTime += delay;
+        }
+        CGFloat endTime = startTime + duration;
 
         if ( currentTime >= startTime ) {
             id boundObject = animationOperation.boundObject;
@@ -394,7 +425,7 @@ static CPTAnimation *instance = nil;
 
 /// @endcond
 
-#pragma mark -
+#pragma mark - Timing Functions
 
 /// @cond
 

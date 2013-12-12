@@ -2,9 +2,19 @@
 
 #import "CPTUtilities.h"
 
+/// @cond
+@interface _CPTAnimationNSDecimalPeriod()
+
+NSDecimal currentDecimalValue(id boundObject, SEL boundGetter);
+
+@end
+/// @endcond
+
+#pragma mark -
+
 @implementation _CPTAnimationNSDecimalPeriod
 
--(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+NSDecimal currentDecimalValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -13,10 +23,27 @@
 
     [invocation invoke];
 
-    NSDecimal start;
-    [invocation getReturnValue:&start];
+    NSDecimal value;
+    [invocation getReturnValue:&value];
+
+    return value;
+}
+
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    NSDecimal start = currentDecimalValue(boundObject, boundGetter);
 
     self.startValue = [NSDecimalNumber decimalNumberWithDecimal:start];
+}
+
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    NSDecimal current = currentDecimalValue(boundObject, boundGetter);
+    NSDecimal start   = [(NSDecimalNumber *)self.startValue decimalValue];
+    NSDecimal end     = [(NSDecimalNumber *)self.endValue decimalValue];
+
+    return ( CPTDecimalGreaterThanOrEqualTo(current, start) && CPTDecimalLessThanOrEqualTo(current, end) ) ||
+           ( CPTDecimalGreaterThanOrEqualTo(current, end) && CPTDecimalLessThanOrEqualTo(current, start) );
 }
 
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress

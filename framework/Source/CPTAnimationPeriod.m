@@ -57,6 +57,7 @@
 
 /** @property CGFloat delay
  *  @brief The delay in seconds between the @ref startOffset and the time the animation will start.
+ *  If @NAN, the animation will not start until the current value of the bound property is between @ref startValue and @ref endValue.
  **/
 @synthesize delay;
 
@@ -425,6 +426,19 @@
     [NSException raise:NSGenericException
                 format:@"The -tweenedValueForProgress: method must be implemented by CPTAnimationPeriod subclasses."];
     return nil;
+}
+
+/**
+ *  @brief Determines if the current value of the bound property is between the start and end value.
+ *  @param boundObject The object to update for each animation frame.
+ *  @param boundGetter The getter method for the property to update.
+ *  @return @YES if the current value of the bound property is between the start and end value.
+ **/
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    [NSException raise:NSGenericException
+                format:@"The -canStartWithValueFromObject:propertyGetter: method must be implemented by CPTAnimationPeriod subclasses."];
+    return NO;
 }
 
 #pragma mark -

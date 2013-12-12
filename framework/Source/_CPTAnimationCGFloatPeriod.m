@@ -2,9 +2,19 @@
 
 #import "NSNumberExtensions.h"
 
+/// @cond
+@interface _CPTAnimationCGFloatPeriod()
+
+CGFloat currentFloatValue(id boundObject, SEL boundGetter);
+
+@end
+/// @endcond
+
+#pragma mark -
+
 @implementation _CPTAnimationCGFloatPeriod
 
--(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+CGFloat currentFloatValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -13,10 +23,27 @@
 
     [invocation invoke];
 
-    CGFloat start;
-    [invocation getReturnValue:&start];
+    CGFloat value;
+    [invocation getReturnValue:&value];
 
-    self.startValue = [NSNumber numberWithCGFloat:start];
+    return value;
+}
+
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    self.startValue = [NSNumber numberWithCGFloat:currentFloatValue(boundObject, boundGetter)];
+}
+
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    CGFloat current = currentFloatValue(boundObject, boundGetter);
+    CGFloat start;
+    CGFloat end;
+
+    [self.startValue getValue:&start];
+    [self.endValue getValue:&end];
+
+    return ( (current >= start) && (current <= end) ) || ( (current >= end) && (current <= start) );
 }
 
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress

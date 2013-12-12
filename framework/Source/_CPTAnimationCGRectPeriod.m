@@ -1,8 +1,18 @@
 #import "_CPTAnimationCGRectPeriod.h"
 
+/// @cond
+@interface _CPTAnimationCGRectPeriod()
+
+CGRect currentRectValue(id boundObject, SEL boundGetter);
+
+@end
+/// @endcond
+
+#pragma mark -
+
 @implementation _CPTAnimationCGRectPeriod
 
--(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+CGRect currentRectValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -11,10 +21,32 @@
 
     [invocation invoke];
 
-    CGRect start;
-    [invocation getReturnValue:&start];
+    CGRect value;
+    [invocation getReturnValue:&value];
+
+    return value;
+}
+
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    CGRect start = currentRectValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGRect)];
+}
+
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+{
+    CGRect current = currentRectValue(boundObject, boundGetter);
+    CGRect start;
+    CGRect end;
+
+    [self.startValue getValue:&start];
+    [self.endValue getValue:&end];
+
+    return ( ( (current.origin.x >= start.origin.x) && (current.origin.x <= end.origin.x) ) || ( (current.origin.x >= end.origin.x) && (current.origin.x <= start.origin.x) ) ) &&
+           ( ( (current.origin.y >= start.origin.y) && (current.origin.y <= end.origin.y) ) || ( (current.origin.y >= end.origin.y) && (current.origin.y <= start.origin.y) ) ) &&
+           ( ( (current.size.width >= start.size.width) && (current.size.width <= end.size.width) ) || ( (current.size.width >= end.size.width) && (current.size.width <= start.size.width) ) ) &&
+           ( ( (current.size.height >= start.size.height) && (current.size.height <= end.size.height) ) || ( (current.size.height >= end.size.height) && (current.size.height <= start.size.height) ) );
 }
 
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress
