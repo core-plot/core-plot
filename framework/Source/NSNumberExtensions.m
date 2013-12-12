@@ -6,14 +6,9 @@
  *  @param number The value for the new number.
  *  @return An NSNumber object containing value, treating it as a @ref CGFloat.
  **/
-+(NSNumber *)numberWithCGFloat:(CGFloat)number
++(instancetype)numberWithCGFloat:(CGFloat)number
 {
-#if CGFLOAT_IS_DOUBLE
-    return [NSNumber numberWithDouble:number];
-
-#else
-    return [NSNumber numberWithFloat:number];
-#endif
+    return @(number);
 }
 
 /** @brief Returns the value of the receiver as a @ref CGFloat.
@@ -33,7 +28,7 @@
  *  @param number The value for the new number.
  *  @return An NSNumber object containing value, treating it as a @ref CGFloat.
  **/
--(id)initWithCGFloat:(CGFloat)number
+-(instancetype)initWithCGFloat:(CGFloat)number
 {
 #if CGFLOAT_IS_DOUBLE
     return [self initWithDouble:number];

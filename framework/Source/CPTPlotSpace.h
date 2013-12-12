@@ -17,6 +17,31 @@
  **/
 extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
+/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+ *  to indicate the plot coordinate affected by the mapping change.
+ *
+ *  The value associated with this key is the CPTCoordinate affected by the change wrapped in an instance of NSNumber.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTPlotSpaceCoordinateKey;
+
+/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+ *  to indicate whether the mapping change is a scroll movement or other change.
+ *
+ *  The value associated with this key is a boolean value wrapped in an instance of NSNumber. The value
+ *  is @YES if the plot space change represents a horizontal or vertical translation, @NO otherwise.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTPlotSpaceScrollingKey;
+
+/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+ *  to indicate the displacement offset for scrolling changes in drawing coordinates.
+ *
+ *  The value associated with this key is the displacement offset wrapped in an instance of NSNumber.
+ *  @ingroup notification
+ **/
+extern NSString *const CPTPlotSpaceDisplacementKey;
+
 /// @}
 
 /**
@@ -115,16 +140,11 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 #pragma mark -
 
-@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding> {
-    @private
-    __cpt_weak CPTGraph *graph;
-    id<NSCopying, NSCoding, NSObject> identifier;
-    __cpt_weak id<CPTPlotSpaceDelegate> delegate;
-    BOOL allowsUserInteraction;
-}
+@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>
 
 @property (nonatomic, readwrite, copy) id<NSCopying, NSCoding, NSObject> identifier;
-@property (nonatomic, readwrite, assign) BOOL allowsUserInteraction;
+@property (nonatomic, readwrite) BOOL allowsUserInteraction;
+@property (nonatomic, readonly) BOOL isDragging;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraph *graph;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak id<CPTPlotSpaceDelegate> delegate;
 
@@ -141,24 +161,15 @@ extern NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint cpt_deprecated;
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count;
-
--(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint cpt_deprecated;
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count;
 
--(void)plotPoint:(NSDecimal *)plotPoint forPlotAreaViewPoint:(CGPoint)point cpt_deprecated;
 -(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
-
--(void)doublePrecisionPlotPoint:(double *)plotPoint forPlotAreaViewPoint:(CGPoint)point cpt_deprecated;
 -(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 
 -(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event;
 
--(void)plotPoint:(NSDecimal *)plotPoint forEvent:(CPTNativeEvent *)event cpt_deprecated;
 -(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
-
--(void)doublePrecisionPlotPoint:(double *)plotPoint forEvent:(CPTNativeEvent *)event cpt_deprecated;
 -(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
 /// @}
 

@@ -31,7 +31,7 @@ CGFloat currentFloatValue(id boundObject, SEL boundGetter)
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    self.startValue = [NSNumber numberWithCGFloat:currentFloatValue(boundObject, boundGetter)];
+    self.startValue = @( currentFloatValue(boundObject, boundGetter) );
 }
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
@@ -56,7 +56,7 @@ CGFloat currentFloatValue(id boundObject, SEL boundGetter)
 
     CGFloat tweenedValue = start + progress * (end - start);
 
-    return [NSNumber numberWithCGFloat:tweenedValue];
+    return @(tweenedValue);
 }
 
 @end

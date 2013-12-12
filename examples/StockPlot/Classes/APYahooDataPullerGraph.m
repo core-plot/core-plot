@@ -59,7 +59,7 @@
     y.minorTicksPerInterval       = 4;
     y.minorTickLineStyle          = nil;
     y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-    y.alternatingBandFills        = [NSArray arrayWithObjects:[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null]];
 
     [graph reloadData];
 
@@ -118,18 +118,19 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = [NSDecimalNumber zero];
+    NSNumber *num = @0;
 
     if ( fieldEnum == CPTScatterPlotFieldX ) {
-        num = (NSDecimalNumber *)[NSDecimalNumber numberWithInt:index + 1];
+        num = @(index + 1);
     }
     else if ( fieldEnum == CPTScatterPlotFieldY ) {
         NSArray *financialData = self.dataPuller.financialData;
 
-        NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:[financialData count] - index - 1];
-        num = [fData objectForKey:@"close"];
+        NSDictionary *fData = (NSDictionary *)financialData[[financialData count] - index - 1];
+        num = fData[@"close"];
         NSAssert([num isMemberOfClass:[NSDecimalNumber class]], @"grrr");
     }
+
     return num;
 }
 

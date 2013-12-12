@@ -30,24 +30,13 @@
  *  @param aGradient The gradient.
  *  @return The initialized _CPTFillGradient object.
  **/
--(id)initWithGradient:(CPTGradient *)aGradient
+-(instancetype)initWithGradient:(CPTGradient *)aGradient
 {
     if ( (self = [super init]) ) {
-        fillGradient = [aGradient retain];
+        fillGradient = aGradient;
     }
     return self;
 }
-
-/// @cond
-
--(void)dealloc
-{
-    [fillGradient release];
-
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Drawing
@@ -86,7 +75,7 @@
 {
     _CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
 
-    copy->fillGradient = [self->fillGradient copyWithZone:zone];
+    copy.fillGradient = self.fillGradient;
 
     return copy;
 }
@@ -108,10 +97,10 @@
     [coder encodeObject:self.fillGradient forKey:@"_CPTFillGradient.fillGradient"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillGradient = [[coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"] retain];
+        fillGradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
     }
     return self;
 }

@@ -43,7 +43,7 @@
  *  @param newYScaleType The scale type for the y-axis.
  *  @return The initialized CPTXYGraph object.
  **/
--(id)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
+-(instancetype)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         xScaleType = newXScaleType;
@@ -65,7 +65,7 @@
  *  @return The initialized CPTXYGraph object.
  *  @see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
 }
@@ -74,7 +74,7 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTXYGraph *theLayer = (CPTXYGraph *)layer;
@@ -96,15 +96,15 @@
 {
     [super encodeWithCoder:coder];
 
-    [coder encodeInt:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
-    [coder encodeInt:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
+    [coder encodeInteger:self.xScaleType forKey:@"CPTXYGraph.xScaleType"];
+    [coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        xScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.xScaleType"];
-        yScaleType = (CPTScaleType)[coder decodeIntForKey : @"CPTXYGraph.yScaleType"];
+        xScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYGraph.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYGraph.yScaleType"];
     }
     return self;
 }
@@ -127,7 +127,7 @@
 
 -(CPTAxisSet *)newAxisSet
 {
-    CPTXYAxisSet *newAxisSet = [(CPTXYAxisSet *)[CPTXYAxisSet alloc] initWithFrame : self.bounds];
+    CPTXYAxisSet *newAxisSet = [[CPTXYAxisSet alloc] initWithFrame:self.bounds];
 
     newAxisSet.xAxis.plotSpace = self.defaultPlotSpace;
     newAxisSet.yAxis.plotSpace = self.defaultPlotSpace;

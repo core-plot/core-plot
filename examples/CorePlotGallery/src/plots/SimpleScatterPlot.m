@@ -28,7 +28,7 @@
 -(void)killGraph
 {
     if ( [self.graphs count] ) {
-        CPTGraph *graph = [self.graphs objectAtIndex:0];
+        CPTGraph *graph = (self.graphs)[0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -45,9 +45,10 @@
     if ( plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
-            NSNumber *x = [NSDecimalNumber numberWithDouble:1.0 + i * 0.05];
-            NSNumber *y = [NSDecimalNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 0.5];
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            NSNumber *x = @(1.0 + i * 0.05);
+            NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 0.5);
+            [contentArray addObject:@{ @"x": x, @"y": y }
+            ];
         }
         plotData = [contentArray retain];
     }
@@ -116,7 +117,7 @@
 
     // Set axes
     //graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
-    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, nil];
+    graph.axisSet.axes = @[x, y];
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -132,7 +133,7 @@
 
     // Auto scale the plot space to fit the plot data
     // Extend the ranges by 30% for neatness
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:dataSourceLinePlot, nil]];
+    [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
     [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
@@ -188,7 +189,7 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [[plotData objectAtIndex:index] valueForKey:key];
+    NSNumber *num = [plotData[index] valueForKey:key];
 
     return num;
 }
@@ -215,7 +216,7 @@
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    CPTXYGraph *graph = (self.graphs)[0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -230,9 +231,9 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x          = [[plotData objectAtIndex:index] valueForKey:@"x"];
-    NSNumber *y          = [[plotData objectAtIndex:index] valueForKey:@"y"];
-    NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+    NSNumber *x          = [plotData[index] valueForKey:@"x"];
+    NSNumber *y          = [plotData[index] valueForKey:@"y"];
+    NSArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
