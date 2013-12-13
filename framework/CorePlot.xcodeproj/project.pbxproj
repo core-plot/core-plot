@@ -1646,6 +1646,7 @@
 					"-Wno-deprecated-implementations",
 				);
 				PRODUCT_NAME = CorePlot;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1674,6 +1675,7 @@
 					"-Wno-deprecated-implementations",
 				);
 				PRODUCT_NAME = CorePlot;
+				SKIP_INSTALL = YES;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 				WRAPPER_EXTENSION = framework;
 			};
