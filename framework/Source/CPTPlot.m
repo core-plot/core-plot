@@ -1593,8 +1593,23 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
 {
-    CPTFill *theFill           = legend.swatchFill;
-    CPTLineStyle *theLineStyle = legend.swatchBorderLineStyle;
+    id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+
+    CPTFill *theFill = nil;
+    if ( [theDelegate respondsToSelector:@selector(legend:fillForSwatchAtIndex:forPlot:)] ) {
+        theFill = [theDelegate legend:legend fillForSwatchAtIndex:idx forPlot:self];
+    }
+    if ( !theFill ) {
+        theFill = legend.swatchFill;
+    }
+
+    CPTLineStyle *theLineStyle = nil;
+    if ( [theDelegate respondsToSelector:@selector(legend:lineStyleForSwatchAtIndex:forPlot:)] ) {
+        theLineStyle = [theDelegate legend:legend lineStyleForSwatchAtIndex:idx forPlot:self];
+    }
+    if ( !theLineStyle ) {
+        theLineStyle = legend.swatchBorderLineStyle;
+    }
 
     if ( theFill || theLineStyle ) {
         CGFloat radius = legend.swatchCornerRadius;
