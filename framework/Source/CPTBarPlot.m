@@ -1054,23 +1054,25 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 {
     [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
-    CPTFill *theFill           = [self barFillForIndex:idx];
-    CPTLineStyle *theLineStyle = [self barLineStyleForIndex:idx];
+    if ( self.drawLegendSwatchDecoration ) {
+        CPTFill *theFill           = [self barFillForIndex:idx];
+        CPTLineStyle *theLineStyle = [self barLineStyleForIndex:idx];
 
-    if ( theFill || theLineStyle ) {
-        CGFloat radius = MAX(self.barCornerRadius, self.barBaseCornerRadius);
+        if ( theFill || theLineStyle ) {
+            CGFloat radius = MAX(self.barCornerRadius, self.barBaseCornerRadius);
 
-        if ( [theFill isKindOfClass:[CPTFill class]] ) {
-            CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), radius);
-            [theFill fillPathInContext:context];
-        }
+            if ( [theFill isKindOfClass:[CPTFill class]] ) {
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), radius);
+                [theFill fillPathInContext:context];
+            }
 
-        if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
-            [theLineStyle setLineStyleInContext:context];
-            CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, rect), radius);
-            [theLineStyle strokePathInContext:context];
+            if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
+                [theLineStyle setLineStyleInContext:context];
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, rect), radius);
+                [theLineStyle strokePathInContext:context];
+            }
         }
     }
 }

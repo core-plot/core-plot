@@ -779,31 +779,33 @@ typedef struct CGPointError CGPointError;
 {
     [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
-    CPTFill *theFill = self.areaFill;
+    if ( self.drawLegendSwatchDecoration ) {
+        CPTFill *theFill = self.areaFill;
 
-    if ( theFill ) {
-        CGContextBeginPath(context);
-        AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
-        [theFill fillPathInContext:context];
-    }
+        if ( theFill ) {
+            CGContextBeginPath(context);
+            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+            [theFill fillPathInContext:context];
+        }
 
-    CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];
+        CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];
 
-    if ( [theBarLineStyle isKindOfClass:[CPTLineStyle class]] ) {
-        CGPointError viewPoint;
-        viewPoint.x     = CGRectGetMidX(rect);
-        viewPoint.y     = CGRectGetMidY(rect);
-        viewPoint.high  = CGRectGetMaxY(rect);
-        viewPoint.low   = CGRectGetMinY(rect);
-        viewPoint.left  = CGRectGetMinX(rect);
-        viewPoint.right = CGRectGetMaxX(rect);
+        if ( [theBarLineStyle isKindOfClass:[CPTLineStyle class]] ) {
+            CGPointError viewPoint;
+            viewPoint.x     = CGRectGetMidX(rect);
+            viewPoint.y     = CGRectGetMidY(rect);
+            viewPoint.high  = CGRectGetMaxY(rect);
+            viewPoint.low   = CGRectGetMinY(rect);
+            viewPoint.left  = CGRectGetMinX(rect);
+            viewPoint.right = CGRectGetMaxX(rect);
 
-        [self drawRangeInContext:context
-                       lineStyle:theBarLineStyle
-                       viewPoint:&viewPoint
-                     halfGapSize:CPTSizeMake( MIN( self.gapWidth, rect.size.width / CPTFloat(2.0) ) * CPTFloat(0.5), MIN( self.gapHeight, rect.size.height / CPTFloat(2.0) ) * CPTFloat(0.5) )
-                    halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * CPTFloat(0.5)
-                     alignPoints:YES];
+            [self drawRangeInContext:context
+                           lineStyle:theBarLineStyle
+                           viewPoint:&viewPoint
+                         halfGapSize:CPTSizeMake( MIN( self.gapWidth, rect.size.width / CPTFloat(2.0) ) * CPTFloat(0.5), MIN( self.gapHeight, rect.size.height / CPTFloat(2.0) ) * CPTFloat(0.5) )
+                        halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * CPTFloat(0.5)
+                         alignPoints:YES];
+        }
     }
 }
 
