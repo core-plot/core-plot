@@ -208,6 +208,7 @@ CPTPlotCachePrecision;
     NSMutableArray *labelAnnotations;
     CPTShadow *labelShadow;
     BOOL alignsPointsToPixels;
+    BOOL drawLegendSwatchDecoration;
 }
 
 /// @name Data Source
