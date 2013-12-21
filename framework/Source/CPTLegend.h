@@ -38,6 +38,22 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @name Drawing
 /// @{
 
+/** @brief @optional This method gives the delegate a chance to provide a background fill for each legend entry.
+ *  @param legend The legend.
+ *  @param idx The zero-based index of the legend entry for the given plot.
+ *  @param plot The plot.
+ *  @return The fill for the legend entry background or @nil to use the default @link CPTLegend::entryFill entryFill @endlink .
+ **/
+-(CPTFill *)legend:(CPTLegend *)legend fillForEntryAtIndex:(NSUInteger)idx forPlot:(CPTPlot *)plot;
+
+/** @brief @optional This method gives the delegate a chance to provide a border line style for each legend entry.
+ *  @param legend The legend.
+ *  @param idx The zero-based index of the legend entry for the given plot.
+ *  @param plot The plot.
+ *  @return The line style for the legend entry border or @nil to use the default @link CPTLegend::entryBorderLineStyle entryBorderLineStyle @endlink .
+ **/
+-(CPTLineStyle *)legend:(CPTLegend *)legend lineStyleForEntryAtIndex:(NSUInteger)idx forPlot:(CPTPlot *)plot;
+
 /** @brief @optional This method gives the delegate a chance to provide a custom swatch fill for each legend entry.
  *  @param legend The legend.
  *  @param idx The zero-based index of the legend entry for the given plot.
@@ -112,6 +128,13 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
     CPTLineStyle *swatchBorderLineStyle;
     CGFloat swatchCornerRadius;
     CPTFill *swatchFill;
+    CPTLineStyle *entryBorderLineStyle;
+    CGFloat entryCornerRadius;
+    CPTFill *entryFill;
+    CGFloat entryPaddingLeft;
+    CGFloat entryPaddingTop;
+    CGFloat entryPaddingRight;
+    CGFloat entryPaddingBottom;
     NSUInteger numberOfRows;
     NSUInteger numberOfColumns;
     BOOL equalRows;
@@ -132,6 +155,14 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, copy) CPTLineStyle *swatchBorderLineStyle;
 @property (nonatomic, readwrite, assign) CGFloat swatchCornerRadius;
 @property (nonatomic, readwrite, copy) CPTFill *swatchFill;
+
+@property (nonatomic, readwrite, copy) CPTLineStyle *entryBorderLineStyle;
+@property (nonatomic, readwrite, assign) CGFloat entryCornerRadius;
+@property (nonatomic, readwrite, copy) CPTFill *entryFill;
+@property (nonatomic, readwrite, assign) CGFloat entryPaddingLeft;
+@property (nonatomic, readwrite, assign) CGFloat entryPaddingTop;
+@property (nonatomic, readwrite, assign) CGFloat entryPaddingRight;
+@property (nonatomic, readwrite, assign) CGFloat entryPaddingBottom;
 /// @}
 
 /// @name Layout

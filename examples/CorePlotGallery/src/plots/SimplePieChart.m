@@ -95,8 +95,17 @@
     theLegend.numberOfColumns = 1;
     theLegend.fill            = [CPTFill fillWithColor:[CPTColor whiteColor]];
     theLegend.borderLineStyle = [CPTLineStyle lineStyle];
-    theLegend.cornerRadius    = 5.0;
-    theLegend.delegate        = self;
+
+    theLegend.entryFill            = [CPTFill fillWithColor:[CPTColor lightGrayColor]];
+    theLegend.entryBorderLineStyle = [CPTLineStyle lineStyle];
+    theLegend.entryCornerRadius    = CPTFloat(3.0);
+    theLegend.entryPaddingLeft     = CPTFloat(3.0);
+    theLegend.entryPaddingTop      = CPTFloat(3.0);
+    theLegend.entryPaddingRight    = CPTFloat(3.0);
+    theLegend.entryPaddingBottom   = CPTFloat(3.0);
+
+    theLegend.cornerRadius = 5.0;
+    theLegend.delegate     = self;
 
     graph.legend = theLegend;
 

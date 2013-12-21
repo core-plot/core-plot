@@ -13,6 +13,7 @@ To be determined.
 - **New**: Animations can now start when the value of the animated property enters the animated range.
 - **New**: Added legend delegate methods to customize the swatch fill and border line style for each legend entry.
 - **New**: Added a plot property to control drawing of the legend entry swatch.
+- **New**: Added options to draw a background fill behind and a border line around each legend entry.
 - **Changed**: Switched to a new algorithm for computing curved scatter plots.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
