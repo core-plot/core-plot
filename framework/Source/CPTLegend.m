@@ -5,6 +5,7 @@
 #import "CPTGraph.h"
 #import "CPTLegendEntry.h"
 #import "CPTLineStyle.h"
+#import "CPTPathExtensions.h"
 #import "CPTPlot.h"
 #import "CPTTextStyle.h"
 #import "CPTUtilities.h"
@@ -90,6 +91,44 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  If @nil (the default), no fill is drawn.
  **/
 @synthesize swatchFill;
+
+/** @property CPTLineStyle *entryBorderLineStyle
+ *  @brief The line style for the border drawn around each legend entry.
+ *  If @nil (the default), no border is drawn.
+ **/
+@synthesize entryBorderLineStyle;
+
+/** @property CGFloat entryCornerRadius
+ *  @brief The corner radius for the border around each legend entry. Default is @num{0.0}.
+ *  @ingroup legendAnimation
+ **/
+@synthesize entryCornerRadius;
+
+/** @property CPTFill *entryFill
+ *  @brief The background fill drawn behind each legend entry.
+ *  If @nil (the default), no fill is drawn.
+ **/
+@synthesize entryFill;
+
+/** @property CGFloat entryPaddingLeft
+ *  @brief Amount to inset the swatch and title from the left side of the legend entry.
+ **/
+@synthesize entryPaddingLeft;
+
+/** @property CGFloat entryPaddingTop
+ *  @brief Amount to inset the swatch and title from the top of the legend entry.
+ **/
+@synthesize entryPaddingTop;
+
+/** @property CGFloat entryPaddingRight
+ *  @brief Amount to inset the swatch and title from the right side of the legend entry.
+ **/
+@synthesize entryPaddingRight;
+
+/** @property CGFloat entryPaddingBottom
+ *  @brief Amount to inset the swatch and title from the bottom of the legend entry.
+ **/
+@synthesize entryPaddingBottom;
 
 /** @property NSUInteger numberOfRows
  *  @brief The desired number of rows of legend entries.
@@ -216,6 +255,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  - @ref swatchBorderLineStyle = @nil
  *  - @ref swatchCornerRadius = @num{0}
  *  - @ref swatchFill = @nil
+ *  - @ref entryBorderLineStyle = @nil
+ *  - @ref entryCornerRadius = @num{0}
+ *  - @ref entryFill = @nil
+ *  - @ref entryPaddingLeft = @num{0}
+ *  - @ref entryPaddingTop = @num{0}
+ *  - @ref entryPaddingRight = @num{0}
+ *  - @ref entryPaddingBottom = @num{0}
  *  - @ref numberOfRows = @num{0}
  *  - @ref numberOfColumns = @num{0}
  *  - @ref equalRows = @YES
@@ -247,6 +293,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         swatchBorderLineStyle = nil;
         swatchCornerRadius    = CPTFloat(0.0);
         swatchFill            = nil;
+        entryBorderLineStyle  = nil;
+        entryCornerRadius     = CPTFloat(0.0);
+        entryFill             = nil;
+        entryPaddingLeft      = CPTFloat(0.0);
+        entryPaddingTop       = CPTFloat(0.0);
+        entryPaddingRight     = CPTFloat(0.0);
+        entryPaddingBottom    = CPTFloat(0.0);
         numberOfRows          = 0;
         numberOfColumns       = 0;
         equalRows             = YES;
@@ -313,6 +366,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         swatchBorderLineStyle = theLayer->swatchBorderLineStyle;
         swatchCornerRadius    = theLayer->swatchCornerRadius;
         swatchFill            = theLayer->swatchFill;
+        entryBorderLineStyle  = theLayer->entryBorderLineStyle;
+        entryCornerRadius     = theLayer->entryCornerRadius;
+        entryFill             = theLayer->entryFill;
+        entryPaddingLeft      = theLayer->entryPaddingLeft;
+        entryPaddingTop       = theLayer->entryPaddingTop;
+        entryPaddingRight     = theLayer->entryPaddingRight;
+        entryPaddingBottom    = theLayer->entryPaddingBottom;
         numberOfRows          = theLayer->numberOfRows;
         numberOfColumns       = theLayer->numberOfColumns;
         equalRows             = theLayer->equalRows;
@@ -352,6 +412,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [coder encodeObject:self.swatchBorderLineStyle forKey:@"CPTLegend.swatchBorderLineStyle"];
     [coder encodeCGFloat:self.swatchCornerRadius forKey:@"CPTLegend.swatchCornerRadius"];
     [coder encodeObject:self.swatchFill forKey:@"CPTLegend.swatchFill"];
+    [coder encodeObject:self.entryBorderLineStyle forKey:@"CPTLegend.entryBorderLineStyle"];
+    [coder encodeCGFloat:self.entryCornerRadius forKey:@"CPTLegend.entryCornerRadius"];
+    [coder encodeObject:self.entryFill forKey:@"CPTLegend.entryFill"];
+    [coder encodeCGFloat:self.entryPaddingLeft forKey:@"CPTLegend.entryPaddingLeft"];
+    [coder encodeCGFloat:self.entryPaddingTop forKey:@"CPTLegend.entryPaddingTop"];
+    [coder encodeCGFloat:self.entryPaddingRight forKey:@"CPTLegend.entryPaddingRight"];
+    [coder encodeCGFloat:self.entryPaddingBottom forKey:@"CPTLegend.entryPaddingBottom"];
     [coder encodeInteger:(NSInteger)self.numberOfRows forKey:@"CPTLegend.numberOfRows"];
     [coder encodeInteger:(NSInteger)self.numberOfColumns forKey:@"CPTLegend.numberOfColumns"];
     [coder encodeBool:self.equalRows forKey:@"CPTLegend.equalRows"];
@@ -376,6 +443,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         swatchBorderLineStyle = [[coder decodeObjectForKey:@"CPTLegend.swatchBorderLineStyle"] copy];
         swatchCornerRadius    = [coder decodeCGFloatForKey:@"CPTLegend.swatchCornerRadius"];
         swatchFill            = [[coder decodeObjectForKey:@"CPTLegend.swatchFill"] copy];
+        entryBorderLineStyle  = [[coder decodeObjectForKey:@"CPTLegend.entryBorderLineStyle"] copy];
+        entryCornerRadius     = [coder decodeCGFloatForKey:@"CPTLegend.entryCornerRadius"];
+        entryFill             = [[coder decodeObjectForKey:@"CPTLegend.entryFill"] copy];
+        entryPaddingLeft      = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingLeft"];
+        entryPaddingTop       = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingTop"];
+        entryPaddingRight     = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingRight"];
+        entryPaddingBottom    = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingBottom"];
         numberOfRows          = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfRows"];
         numberOfColumns       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfColumns"];
         equalRows             = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
@@ -420,12 +494,17 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     CGSize theSwatchSize    = self.swatchSize;
     CGFloat theColumnMargin = self.columnMargin;
 
+    CGFloat padLeft   = self.entryPaddingLeft;
+    CGFloat padTop    = self.entryPaddingTop;
+    CGFloat padRight  = self.entryPaddingRight;
+    CGFloat padBottom = self.entryPaddingBottom;
+
     for ( NSUInteger col = 0; col < columnCount; col++ ) {
         NSNumber *colWidth = computedColumnWidths[col];
         CGFloat width      = [colWidth cgFloatValue];
         actualColumnWidths[col] = width;
         if ( col < columnCount - 1 ) {
-            columnPositions[col + 1] = columnPositions[col] + width + theOffset + theSwatchSize.width + theColumnMargin;
+            columnPositions[col + 1] = columnPositions[col] + padLeft + width + padRight + theOffset + theSwatchSize.width + theColumnMargin;
         }
     }
 
@@ -443,7 +522,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         CGFloat height      = [rowHeight cgFloatValue];
         actualRowHeights[row] = height;
         if ( row < rowCount - 1 ) {
-            rowPositions[row] = rowPositions[row + 1] + height + theRowMargin;
+            rowPositions[row] = rowPositions[row + 1] + padBottom + height + padTop + theRowMargin;
         }
     }
 
@@ -451,8 +530,14 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     NSUInteger desiredRowCount    = self.numberOfRows;
     NSUInteger desiredColumnCount = self.numberOfColumns;
 
+    CPTFill *theEntryFill           = self.entryFill;
+    CPTLineStyle *theEntryLineStyle = self.entryBorderLineStyle;
+    CGFloat entryRadius             = self.entryCornerRadius;
+
     id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
     BOOL delegateCanDraw              = [theDelegate respondsToSelector:@selector(legend:shouldDrawSwatchAtIndex:forPlot:inRect:inContext:)];
+    BOOL delegateProvidesFills        = [theDelegate respondsToSelector:@selector(legend:fillForEntryAtIndex:forPlot:)];
+    BOOL delegateProvidesLines        = [theDelegate respondsToSelector:@selector(legend:lineStyleForEntryAtIndex:forPlot:)];
 
     for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
         NSUInteger row = legendEntry.row;
@@ -460,32 +545,69 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
         if ( ( (desiredRowCount == 0) || (row < desiredRowCount) ) &&
              ( (desiredColumnCount == 0) || (col < desiredColumnCount) ) ) {
-            CPTPlot *thePlot = legendEntry.plot;
+            NSUInteger entryIndex = legendEntry.index;
+            CPTPlot *entryPlot    = legendEntry.plot;
 
             CGFloat left        = columnPositions[col];
             CGFloat rowPosition = rowPositions[row];
-            CGRect swatchRect   = CPTRectMake(left,
-                                              rowPosition + (actualRowHeights[row] - theSwatchSize.height) * CPTFloat(0.5),
-                                              theSwatchSize.width,
-                                              theSwatchSize.height);
+            CGRect entryRect    = CPTRectMake(left,
+                                              rowPosition,
+                                              padLeft + theSwatchSize.width + theOffset + actualColumnWidths[col] + CPTFloat(1.0) + padRight,
+                                              padBottom + actualRowHeights[row] + padTop);
+
+            // draw background
+            CPTFill *theFill = nil;
+            if ( delegateProvidesFills ) {
+                theFill = [theDelegate legend:self fillForEntryAtIndex:entryIndex forPlot:entryPlot];
+            }
+            if ( !theFill ) {
+                theFill = theEntryFill;
+            }
+            if ( theFill ) {
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, entryRect), entryRadius);
+                [theFill fillPathInContext:context];
+            }
+
+            CPTLineStyle *theLineStyle = nil;
+            if ( delegateProvidesLines ) {
+                theLineStyle = [theDelegate legend:self lineStyleForEntryAtIndex:entryIndex forPlot:entryPlot];
+            }
+            if ( !theLineStyle ) {
+                theLineStyle = theEntryLineStyle;
+            }
+            if ( theLineStyle ) {
+                [theLineStyle setLineStyleInContext:context];
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignBorderedRectToUserSpace(context, entryRect, theLineStyle), entryRadius);
+                [theLineStyle strokePathInContext:context];
+            }
+
+            // draw swatch
+            left += padLeft;
+            CGRect swatchRect = CPTRectMake(left,
+                                            rowPosition + (entryRect.size.height - theSwatchSize.height) * CPTFloat(0.5),
+                                            theSwatchSize.width,
+                                            theSwatchSize.height);
             BOOL legendShouldDrawSwatch = YES;
             if ( delegateCanDraw ) {
                 legendShouldDrawSwatch = [theDelegate legend:self
-                                          shouldDrawSwatchAtIndex:legendEntry.index
-                                                          forPlot:thePlot
+                                          shouldDrawSwatchAtIndex:entryIndex
+                                                          forPlot:entryPlot
                                                            inRect:swatchRect
                                                         inContext:context];
             }
             if ( legendShouldDrawSwatch ) {
-                [thePlot drawSwatchForLegend:self
-                                     atIndex:legendEntry.index
-                                      inRect:swatchRect
-                                   inContext:context];
+                [entryPlot drawSwatchForLegend:self
+                                       atIndex:entryIndex
+                                        inRect:swatchRect
+                                     inContext:context];
             }
 
+            // draw title
             left += theSwatchSize.width + theOffset;
 
-            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace( context, CPTRectMake(left, rowPosition, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
+            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace( context, CPTRectMake(left, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
                                inContext:context
                                    scale:self.contentsScale];
         }
@@ -644,6 +766,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     // compute the size needed to contain all legend entries, margins, and padding
     CGSize legendSize = CPTSizeMake(self.paddingLeft + self.paddingRight, self.paddingTop + self.paddingBottom);
 
+    CGFloat lineWidth = self.borderLineStyle.lineWidth;
+    legendSize.width  += lineWidth;
+    legendSize.height += lineWidth;
+
     if ( self.equalColumns ) {
         NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.doubleValue"];
         legendSize.width += [maxWidth cgFloatValue] * columnCount;
@@ -654,7 +780,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         }
     }
     if ( columnCount > 0 ) {
-        legendSize.width += ( (theSwatchSize.width + self.titleOffset) * columnCount ) + ( self.columnMargin * (columnCount - 1) );
+        legendSize.width += ( (theSwatchSize.width + self.titleOffset + self.entryPaddingLeft + self.entryPaddingRight) * columnCount ) + ( self.columnMargin * (columnCount - 1) );
     }
 
     NSUInteger rows = row;
@@ -665,7 +791,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         legendSize.height += [height cgFloatValue];
     }
     if ( rows > 0 ) {
-        legendSize.height += ( self.rowMargin * (rows - 1) );
+        legendSize.height += ( (self.entryPaddingBottom + self.entryPaddingTop) * rowCount ) + ( self.rowMargin * (rows - 1) );
     }
 
     self.bounds = CPTRectMake( 0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height) );
@@ -1082,6 +1208,62 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
+-(void)setEntryBorderLineStyle:(CPTLineStyle *)newEntryBorderLineStyle
+{
+    if ( newEntryBorderLineStyle != entryBorderLineStyle ) {
+        entryBorderLineStyle = [newEntryBorderLineStyle copy];
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setEntryCornerRadius:(CGFloat)newEntryCornerRadius
+{
+    if ( newEntryCornerRadius != entryCornerRadius ) {
+        entryCornerRadius = newEntryCornerRadius;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setEntryFill:(CPTFill *)newEntryFill
+{
+    if ( newEntryFill != entryFill ) {
+        entryFill = [newEntryFill copy];
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setEntryPaddingLeft:(CGFloat)newPadding
+{
+    if ( newPadding != entryPaddingLeft ) {
+        entryPaddingLeft   = newPadding;
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setEntryPaddingTop:(CGFloat)newPadding
+{
+    if ( newPadding != entryPaddingTop ) {
+        entryPaddingTop    = newPadding;
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setEntryPaddingRight:(CGFloat)newPadding
+{
+    if ( newPadding != entryPaddingRight ) {
+        entryPaddingRight  = newPadding;
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setEntryPaddingBottom:(CGFloat)newPadding
+{
+    if ( newPadding != entryPaddingBottom ) {
+        entryPaddingBottom = newPadding;
+        self.layoutChanged = YES;
+    }
+}
+
 -(void)setNumberOfRows:(NSUInteger)newNumberOfRows
 {
     if ( newNumberOfRows != numberOfRows ) {
@@ -1162,6 +1344,51 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             self.rowHeightsThatFit   = nil;
             self.columnWidthsThatFit = nil;
             [self setNeedsLayout];
+        }
+    }
+}
+
+-(void)setPaddingLeft:(CGFloat)newPadding
+{
+    if ( newPadding != self.paddingLeft ) {
+        [super setPaddingLeft:newPadding];
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setPaddingTop:(CGFloat)newPadding
+{
+    if ( newPadding != self.paddingTop ) {
+        [super setPaddingTop:newPadding];
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setPaddingRight:(CGFloat)newPadding
+{
+    if ( newPadding != self.paddingRight ) {
+        [super setPaddingRight:newPadding];
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setPaddingBottom:(CGFloat)newPadding
+{
+    if ( newPadding != self.paddingBottom ) {
+        [super setPaddingBottom:newPadding];
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
+{
+    CPTLineStyle *oldLineStyle = self.borderLineStyle;
+
+    if ( newLineStyle != oldLineStyle ) {
+        [super setBorderLineStyle:newLineStyle];
+
+        if ( newLineStyle.lineWidth != oldLineStyle.lineWidth ) {
+            self.layoutChanged = YES;
         }
     }
 }

@@ -671,23 +671,25 @@ static const CGFloat colorLookupTable[10][3] =
 {
     [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
-    CPTFill *theFill           = [self sliceFillForIndex:idx];
-    CPTLineStyle *theLineStyle = self.borderLineStyle;
+    if ( self.drawLegendSwatchDecoration ) {
+        CPTFill *theFill           = [self sliceFillForIndex:idx];
+        CPTLineStyle *theLineStyle = self.borderLineStyle;
 
-    if ( theFill || theLineStyle ) {
-        CGFloat radius = legend.swatchCornerRadius;
+        if ( theFill || theLineStyle ) {
+            CGFloat radius = legend.swatchCornerRadius;
 
-        if ( [theFill isKindOfClass:[CPTFill class]] ) {
-            CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), radius);
-            [theFill fillPathInContext:context];
-        }
+            if ( [theFill isKindOfClass:[CPTFill class]] ) {
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), radius);
+                [theFill fillPathInContext:context];
+            }
 
-        if ( theLineStyle ) {
-            [theLineStyle setLineStyleInContext:context];
-            CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, rect), radius);
-            [theLineStyle strokePathInContext:context];
+            if ( theLineStyle ) {
+                [theLineStyle setLineStyleInContext:context];
+                CGContextBeginPath(context);
+                AddRoundedRectPath(context, CPTAlignBorderedRectToUserSpace(context, rect, theLineStyle), radius);
+                [theLineStyle strokePathInContext:context];
+            }
         }
     }
 }

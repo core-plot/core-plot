@@ -1030,64 +1030,66 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
-    CPTLineStyle *theLineStyle = self.dataLineStyle;
+    if ( self.drawLegendSwatchDecoration ) {
+        CPTLineStyle *theLineStyle = self.dataLineStyle;
 
-    if ( theLineStyle ) {
-        [theLineStyle setLineStyleInContext:context];
+        if ( theLineStyle ) {
+            [theLineStyle setLineStyleInContext:context];
 
-        CGPoint alignedStartPoint = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMinX(rect), CGRectGetMidY(rect) ) );
-        CGPoint alignedEndPoint   = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMaxX(rect), CGRectGetMidY(rect) ) );
-        CGContextMoveToPoint(context, alignedStartPoint.x, alignedStartPoint.y);
-        CGContextAddLineToPoint(context, alignedEndPoint.x, alignedEndPoint.y);
+            CGPoint alignedStartPoint = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMinX(rect), CGRectGetMidY(rect) ) );
+            CGPoint alignedEndPoint   = CPTAlignPointToUserSpace( context, CPTPointMake( CGRectGetMaxX(rect), CGRectGetMidY(rect) ) );
+            CGContextMoveToPoint(context, alignedStartPoint.x, alignedStartPoint.y);
+            CGContextAddLineToPoint(context, alignedEndPoint.x, alignedEndPoint.y);
 
-        [theLineStyle strokePathInContext:context];
-    }
+            [theLineStyle strokePathInContext:context];
+        }
 
-    CPTPlotSymbol *thePlotSymbol = self.plotSymbol;
+        CPTPlotSymbol *thePlotSymbol = self.plotSymbol;
 
-    if ( thePlotSymbol ) {
-        [thePlotSymbol renderInContext:context
-                               atPoint:CPTPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) )
-                                 scale:self.contentsScale
-                         alignToPixels:YES];
-    }
+        if ( thePlotSymbol ) {
+            [thePlotSymbol renderInContext:context
+                                   atPoint:CPTPointMake( CGRectGetMidX(rect), CGRectGetMidY(rect) )
+                                     scale:self.contentsScale
+                             alignToPixels:YES];
+        }
 
-    // if no line or plot symbol, use the area fills to draw the swatch
-    if ( !theLineStyle && !thePlotSymbol ) {
-        CPTFill *fill1 = self.areaFill;
-        CPTFill *fill2 = self.areaFill2;
+        // if no line or plot symbol, use the area fills to draw the swatch
+        if ( !theLineStyle && !thePlotSymbol ) {
+            CPTFill *fill1 = self.areaFill;
+            CPTFill *fill2 = self.areaFill2;
 
-        if ( fill1 || fill2 ) {
-            CGPathRef swatchPath = CreateRoundedRectPath(CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+            if ( fill1 || fill2 ) {
+                CGPathRef swatchPath = CreateRoundedRectPath(CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
 
-            if ( fill1 && !fill2 ) {
-                CGContextBeginPath(context);
-                CGContextAddPath(context, swatchPath);
-                [fill1 fillPathInContext:context];
-            }
-            else if ( !fill1 && fill2 ) {
-                CGContextBeginPath(context);
-                CGContextAddPath(context, swatchPath);
-                [fill2 fillPathInContext:context];
-            }
-            else {
-                CGContextSaveGState(context);
-                CGContextAddPath(context, swatchPath);
-                CGContextClip(context);
-
-                if ( CPTDecimalGreaterThanOrEqualTo(self.areaBaseValue2, self.areaBaseValue) ) {
-                    [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
-                    [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                if ( fill1 && !fill2 ) {
+                    CGContextBeginPath(context);
+                    CGContextAddPath(context, swatchPath);
+                    [fill1 fillPathInContext:context];
+                }
+                else if ( !fill1 && fill2 ) {
+                    CGContextBeginPath(context);
+                    CGContextAddPath(context, swatchPath);
+                    [fill2 fillPathInContext:context];
                 }
                 else {
-                    [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
-                    [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                    CGContextSaveGState(context);
+                    CGContextAddPath(context, swatchPath);
+                    CGContextClip(context);
+
+                    if ( CPTDecimalGreaterThanOrEqualTo(self.areaBaseValue2, self.areaBaseValue) ) {
+                        [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                        [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                    }
+                    else {
+                        [fill2 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMinY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                        [fill1 fillRect:CPTRectMake( CGRectGetMinX(rect), CGRectGetMidY(rect), rect.size.width, rect.size.height / CPTFloat(2.0) ) inContext:context];
+                    }
+
+                    CGContextRestoreGState(context);
                 }
 
-                CGContextRestoreGState(context);
+                CGPathRelease(swatchPath);
             }
-
-            CGPathRelease(swatchPath);
         }
     }
 }

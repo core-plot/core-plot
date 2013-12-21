@@ -240,6 +240,11 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 @property (nonatomic, readwrite, assign) BOOL alignsPointsToPixels;
 /// @}
 
+/// @name Legends
+/// @{
+@property (nonatomic, readwrite, assign) BOOL drawLegendSwatchDecoration;
+/// @}
+
 /// @name Data Labels
 /// @{
 -(void)setNeedsRelabel;
