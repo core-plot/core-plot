@@ -1636,7 +1636,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( theLineStyle ) {
             [theLineStyle setLineStyleInContext:context];
             CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, rect), radius);
+            AddRoundedRectPath(context, CPTAlignBorderedRectToUserSpace(context, rect, theLineStyle), radius);
             [theLineStyle strokePathInContext:context];
         }
     }

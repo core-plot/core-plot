@@ -593,7 +593,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( theLineStyle ) {
                 [theLineStyle setLineStyleInContext:context];
                 CGContextBeginPath(context);
-                AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, entryRect), entryRadius);
+                AddRoundedRectPath(context, CPTAlignBorderedRectToUserSpace(context, entryRect, theLineStyle), entryRadius);
                 [theLineStyle strokePathInContext:context];
             }
 
@@ -783,8 +783,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     CGSize legendSize = CPTSizeMake(self.paddingLeft + self.paddingRight, self.paddingTop + self.paddingBottom);
 
     CGFloat lineWidth = self.borderLineStyle.lineWidth;
-    legendSize.width  += lineWidth * CPTFloat(2.0);
-    legendSize.height += lineWidth * CPTFloat(2.0);
+    legendSize.width  += lineWidth;
+    legendSize.height += lineWidth;
 
     if ( self.equalColumns ) {
         NSNumber *maxWidth = [maxColumnWidths valueForKeyPath:@"@max.doubleValue"];

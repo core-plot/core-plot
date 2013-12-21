@@ -700,7 +700,7 @@ static const CGFloat colorLookupTable[10][3] =
             if ( theLineStyle ) {
                 [theLineStyle setLineStyleInContext:context];
                 CGContextBeginPath(context);
-                AddRoundedRectPath(context, CPTAlignRectToUserSpace(context, rect), radius);
+                AddRoundedRectPath(context, CPTAlignBorderedRectToUserSpace(context, rect, theLineStyle), radius);
                 [theLineStyle strokePathInContext:context];
             }
         }

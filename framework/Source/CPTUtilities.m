@@ -1,4 +1,6 @@
 #import "CPTUtilities.h"
+
+#import "CPTLineStyle.h"
 #import <tgmath.h>
 
 // cache common values to improve performance
@@ -834,6 +836,32 @@ CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect rect)
 #endif
 
     return CGContextConvertRectToUserSpace(context, rect);
+}
+
+CGRect CPTAlignBorderedRectToUserSpace(CGContextRef context, CGRect rect, CPTLineStyle *borderLineStyle)
+{
+    CGRect borderRect;
+    CGFloat contextScale = CPTFloat(1.0);
+
+    if ( rect.size.height != CPTFloat(0.0) ) {
+        CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
+        contextScale = deviceRect.size.height / rect.size.height;
+    }
+
+    if ( contextScale != CPTFloat(1.0) ) {
+        CGFloat borderWidth = borderLineStyle.lineWidth;
+        if ( ( borderWidth > CPTFloat(0.0) ) && ( borderWidth == round(borderWidth) ) ) {
+            borderRect = CPTAlignIntegralRectToUserSpace(context, rect);
+        }
+        else {
+            borderRect = CPTAlignRectToUserSpace(context, rect);
+        }
+    }
+    else {
+        borderRect = CPTAlignRectToUserSpace(context, rect);
+    }
+
+    return borderRect;
 }
 
 #pragma mark -
