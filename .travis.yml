@@ -1,0 +1,31 @@
+language: objective-c
+
+env:
+    SDK:iphonesimulator
+    SDK:iphoneos
+    
+# Framework builds
+script: xcodebuild -project framework/CorePlot.xcodeproj -target CorePlot -configuration Release
+script: xcodebuild -project framework/CorePlot-CocoaTouch.xcodeproj -target CorePlot-CocoaTouch -sdk ${SDK} -configuration Release
+
+# Unit tests
+script: xcodebuild -project framework/CorePlot.xcodeproj -target UnitTests -configuration Release
+
+# Mac examples
+script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery_Mac.xcodeproj -target "Plot Gallery-Mac" -configuration Release
+script: xcodebuild -project examples/CPTTestApp/CPTTestApp.xcodeproj -target CPTTestApp -configuration Release
+script: xcodebuild -project examples/DatePlot/DatePlot.xcodeproj -target DatePlot -configuration Release
+script: xcodebuild -project examples/DropPlot/DropPlot.xcodeproj -target DropPlot -configuration Release
+script: xcodebuild -project examples/MinorTickLabels/minorTickFormatter.xcodeproj -target minorTickFormatter -configuration Release
+script: xcodebuild -project examples/RangePlot/RangePlot.xcodeproj -target RangePlot -configuration Release
+
+# iOS examples
+script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery_iOS.xcodeproj -target "Plot Gallery-iOS" -sdk ${SDK} -configuration Release
+script: xcodebuild -project examples/AAPLot/AAPLot.xcodeproj -target AAPLot -sdk ${SDK} -configuration Release
+script: xcodebuild -project examples/CPTTestApp-iPad/CPTTestApp-iPad.xcodeproj -target CPTTestApp-iPad -sdk ${SDK} -configuration Release
+script: xcodebuild -project examples/CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj -target CPTTestApp-iPhone -sdk ${SDK} -configuration Release
+script: xcodebuild -project examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp-iPhone.xcodeproj -CPTTestApp-iPhone AAPLot -sdk ${SDK} -configuration Release
+script: xcodebuild -project examples/StockPlot/StockPlot.xcodeproj -target StockPlot -sdk ${SDK} -configuration Release
+
+# Quartz Composer plugin
+script: xcodebuild -project QCPlugin/CorePlotQCPlugin.xcodeproj -target CorePlotQCPlugin -configuration Release
