@@ -66,7 +66,7 @@
     if ( hasParagraphAttributeName ) {
         NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
         if ( paragraphStyle ) {
-            newStyle.textAlignment = paragraphStyle.alignment;
+            newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
             newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
         }
     }
@@ -112,7 +112,7 @@
 
     if ( hasParagraphAttributeName ) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment     = self.textAlignment;
+        paragraphStyle.alignment     = (NSTextAlignment)self.textAlignment;
         paragraphStyle.lineBreakMode = self.lineBreakMode;
 
         [myAttributes setValue:paragraphStyle
@@ -168,7 +168,7 @@
         NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
 
         if ( paragraphStyle ) {
-            newStyle.textAlignment = paragraphStyle.alignment;
+            newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
             newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
         }
     }
