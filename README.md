@@ -27,12 +27,15 @@ Documentation of the Core Plot API and high-level architecture can be found in t
 ## Social Networks
 
   * [Twitter](https://twitter.com/CorePlot)
-  * [App.net](https://alpha.app.net/coreplot)
-> Subscribe to the [Announcements](https://app.net/c/2rw2) broadcast.
+  * [App.net](https://alpha.app.net/coreplot); Subscribe to the [Announcements](https://app.net/c/2rw2) broadcast.
 
 # Contributing to Core Plot
 
-Core Plot is an open source project hosted on [GitHub](https://github.com/core-plot). See [http://code.google.com/p/core-plot/source/checkout] for instructions on how to download the source code.
+Core Plot is an open source project hosted on [GitHub](https://github.com/core-plot). There are two code repositories under the main project:
+
+   * [core-plot](https://github.com/core-plot/core-plot): This is main code repository with the framework and all examples. This is where you will find the release packages, wiki pages, and issue tracker.
+
+   * [core-plot.github.io](https://github.com/core-plot/core-plot.github.io): This is the HTML API documentation. You can view the pages online at [http://core-plot.github.io]().
 
 ## Coding Standards
 Everyone has a their own preferred coding style, and no one way can be considered right. Nonetheless, in a project like Core Plot, with many developers contributing, it is worthwhile defining a set of basic coding standards to prevent a mishmash of different styles which can become frustrating when navigating the code base. See the file [Coding Style.markdown](https://github.com/core-plot/core-plot/blob/master/documentation/Coding%20Style.markdown) found in the [documentation](https://github.com/core-plot/core-plot/tree/master/documentation)  directory of the project source for specific guidelines.
