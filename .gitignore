@@ -32,7 +32,7 @@ build/*
 **/.idea/*
 
 # documentation
-**.docset/*
+**/*.docset/*
 **/debug.txt
 **/html/*
 
