@@ -8,9 +8,9 @@
 
 # To Build the Documentation From Source
 
-1. Install [Doxygen]([http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc) in **/Applications**. Core Plot requires Doxygen 1.7.4 or later.
+1. Install [Doxygen]([http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc) in **/Applications**. Core Plot requires Doxygen 1.8.6 or later.
 
-2. Install [Graphviz](http://www.graphviz.org/Download_macos.php). Core Plot requires Graphviz 2.28.0 or later.
+2. Install [Graphviz](http://www.graphviz.org/Download_macos.php). Core Plot requires Graphviz 2.34.0 or later.
 
 3. Open the **CorePlot** or **CorePlot-CocoaTouch** project in Xcode.
 
