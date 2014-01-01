@@ -52,6 +52,7 @@
 -(void)updateMinorTickLabelOffsets;
 
 NSDecimal niceNum(NSDecimal x);
+NSDecimal niceLength(NSDecimal length);
 
 @end
 
@@ -1000,8 +1001,14 @@ NSDecimal niceNum(NSDecimal x);
 
                 NSDecimal zero = CPTDecimalFromInteger(0);
 
-                NSDecimal majorInterval = CPTDecimalDivide( range.length, CPTDecimalFromUnsignedInteger(numTicks - 1) );
-                majorInterval = niceNum(majorInterval);
+                NSDecimal majorInterval;
+                if ( numTicks == 2 ) {
+                    majorInterval = niceLength(range.length);
+                }
+                else {
+                    majorInterval = CPTDecimalDivide( range.length, CPTDecimalFromUnsignedInteger(numTicks - 1) );
+                    majorInterval = niceNum(majorInterval);
+                }
                 if ( CPTDecimalLessThan(majorInterval, zero) ) {
                     majorInterval = CPTDecimalMultiply( majorInterval, CPTDecimalFromInteger(-1) );
                 }
@@ -1243,6 +1250,43 @@ NSDecimal niceNum(NSDecimal x)
 
     NSDecimal roundedNumber;
     NSDecimalMultiplyByPowerOf10(&roundedNumber, &roundedFraction, exponent, NSRoundPlain);
+
+    return roundedNumber;
+}
+
+/**
+ *  @internal
+ *  @brief Determines a @quote{nice} range length (a multiple of @num{2}, @num{5}, or @num{10}) less than or equal to the given length.
+ *  @param x The length to round.
+ */
+NSDecimal niceLength(NSDecimal length)
+{
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    NSDecimal minusOne;
+
+    if ( CPTDecimalEquals(length, zero) ) {
+        return zero;
+    }
+
+    BOOL isNegative = CPTDecimalLessThan(length, zero);
+    if ( isNegative ) {
+        minusOne = CPTDecimalFromInteger(-1);
+        length   = CPTDecimalMultiply(length, minusOne);
+    }
+
+    NSDecimal roundedNumber;
+
+    if ( CPTDecimalGreaterThan( length, CPTDecimalFromInteger(10) ) ) {
+        NSDecimalRound(&roundedNumber, &length, 0, NSRoundDown);
+    }
+    else {
+        short exponent = (short)floor( log10( CPTDecimalDoubleValue(length) ) ) - 1;
+        NSDecimalRound(&roundedNumber, &length, -exponent, NSRoundDown);
+    }
+
+    if ( isNegative ) {
+        roundedNumber = CPTDecimalMultiply(roundedNumber, minusOne);
+    }
 
     return roundedNumber;
 }
