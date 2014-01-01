@@ -54,6 +54,7 @@
 -(void)updateMinorTickLabelOffsets;
 
 NSDecimal niceNum(NSDecimal x);
+NSDecimal niceLength(NSDecimal length);
 
 @end
 
@@ -173,6 +174,15 @@ NSDecimal niceNum(NSDecimal x);
  *  @ingroup axisAnimation
  **/
 @synthesize titleRotation;
+
+/** @property CPTSign titleDirection
+ *  @brief The offset direction for the axis title.
+ *  The direction is given as the sign that ticks extend along
+ *  the axis (e.g., positive or negative). If the title direction
+ *  is #CPTSignNone (the default), the title is offset in the
+ *  direction indicated by the @ref tickDirection.
+ **/
+@synthesize titleDirection;
 
 /** @property NSDecimal titleLocation
  *  @brief The position along the axis where the axis title should be centered.
@@ -491,6 +501,7 @@ NSDecimal niceNum(NSDecimal x);
  *  - @ref axisTitle = @nil
  *  - @ref titleTextStyle = default text style
  *  - @ref titleRotation = @NAN
+ *  - @ref titleDirection = #CPTSignNone
  *  - @ref titleLocation = @NAN
  *  - @ref needsRelabel = @YES
  *  - @ref labelExclusionRanges = @nil
@@ -626,6 +637,7 @@ NSDecimal niceNum(NSDecimal x);
         axisTitle                   = theLayer->axisTitle;
         titleTextStyle              = theLayer->titleTextStyle;
         titleRotation               = theLayer->titleRotation;
+        titleDirection              = theLayer->titleDirection;
         titleLocation               = theLayer->titleLocation;
         needsRelabel                = theLayer->needsRelabel;
         labelExclusionRanges        = theLayer->labelExclusionRanges;
@@ -708,6 +720,7 @@ NSDecimal niceNum(NSDecimal x);
     [coder encodeObject:self.attributedTitle forKey:@"CPTAxis.attributedTitle"];
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTAxis.titleOffset"];
     [coder encodeCGFloat:self.titleRotation forKey:@"CPTAxis.titleRotation"];
+    [coder encodeInteger:self.titleDirection forKey:@"CPTAxis.titleDirection"];
     [coder encodeDecimal:self.titleLocation forKey:@"CPTAxis.titleLocation"];
     [coder encodeInteger:self.tickDirection forKey:@"CPTAxis.tickDirection"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTAxis.needsRelabel"];
@@ -772,6 +785,7 @@ NSDecimal niceNum(NSDecimal x);
         attributedTitle             = [[coder decodeObjectForKey:@"CPTAxis.attributedTitle"] copy];
         titleOffset                 = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
         titleRotation               = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
+        titleDirection              = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.titleDirection"];
         titleLocation               = [coder decodeDecimalForKey:@"CPTAxis.titleLocation"];
         tickDirection               = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.tickDirection"];
         needsRelabel                = [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
@@ -983,8 +997,14 @@ NSDecimal niceNum(NSDecimal x);
 
                 NSDecimal zero = CPTDecimalFromInteger(0);
 
-                NSDecimal majorInterval = CPTDecimalDivide( range.length, CPTDecimalFromUnsignedInteger(numTicks - 1) );
-                majorInterval = niceNum(majorInterval);
+                NSDecimal majorInterval;
+                if ( numTicks == 2 ) {
+                    majorInterval = niceLength(range.length);
+                }
+                else {
+                    majorInterval = CPTDecimalDivide( range.length, CPTDecimalFromUnsignedInteger(numTicks - 1) );
+                    majorInterval = niceNum(majorInterval);
+                }
                 if ( CPTDecimalLessThan(majorInterval, zero) ) {
                     majorInterval = CPTDecimalMultiply( majorInterval, CPTDecimalFromInteger(-1) );
                 }
@@ -1222,6 +1242,43 @@ NSDecimal niceNum(NSDecimal x)
 
     NSDecimal roundedNumber;
     NSDecimalMultiplyByPowerOf10(&roundedNumber, &roundedFraction, exponent, NSRoundPlain);
+
+    return roundedNumber;
+}
+
+/**
+ *  @internal
+ *  @brief Determines a @quote{nice} range length (a multiple of @num{2}, @num{5}, or @num{10}) less than or equal to the given length.
+ *  @param x The length to round.
+ */
+NSDecimal niceLength(NSDecimal length)
+{
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    NSDecimal minusOne;
+
+    if ( CPTDecimalEquals(length, zero) ) {
+        return zero;
+    }
+
+    BOOL isNegative = CPTDecimalLessThan(length, zero);
+    if ( isNegative ) {
+        minusOne = CPTDecimalFromInteger(-1);
+        length   = CPTDecimalMultiply(length, minusOne);
+    }
+
+    NSDecimal roundedNumber;
+
+    if ( CPTDecimalGreaterThan( length, CPTDecimalFromInteger(10) ) ) {
+        NSDecimalRound(&roundedNumber, &length, 0, NSRoundDown);
+    }
+    else {
+        short exponent = (short)floor( log10( CPTDecimalDoubleValue(length) ) ) - 1;
+        NSDecimalRound(&roundedNumber, &length, -exponent, NSRoundDown);
+    }
+
+    if ( isNegative ) {
+        roundedNumber = CPTDecimalMultiply(roundedNumber, minusOne);
+    }
 
     return roundedNumber;
 }
@@ -1699,9 +1756,15 @@ NSDecimal niceNum(NSDecimal x)
  **/
 -(void)updateAxisTitle
 {
+    CPTSign direction = self.titleDirection;
+
+    if ( direction == CPTSignNone ) {
+        direction = self.tickDirection;
+    }
+
     [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
                                   forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
-                                    inDirection:self.tickDirection];
+                                    inDirection:direction];
 }
 
 #pragma mark -
@@ -2045,6 +2108,15 @@ NSDecimal niceNum(NSDecimal x)
         titleRotation = newRotation;
 
         self.axisTitle.rotation = titleRotation;
+        [self updateAxisTitle];
+    }
+}
+
+-(void)setTitleDirection:(CPTSign)newDirection
+{
+    if ( newDirection != titleDirection ) {
+        titleDirection = newDirection;
+
         [self updateAxisTitle];
     }
 }
