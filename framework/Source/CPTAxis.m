@@ -173,6 +173,15 @@ NSDecimal niceLength(NSDecimal length);
  **/
 @synthesize titleRotation;
 
+/** @property CPTSign titleDirection
+ *  @brief The offset direction for the axis title.
+ *  The direction is given as the sign that ticks extend along
+ *  the axis (e.g., positive or negative). If the title direction
+ *  is #CPTSignNone (the default), the title is offset in the
+ *  direction indicated by the @ref tickDirection.
+ **/
+@synthesize titleDirection;
+
 /** @property NSDecimal titleLocation
  *  @brief The position along the axis where the axis title should be centered.
  *  If @NAN (the default), the @ref defaultTitleLocation will be used.
@@ -487,6 +496,7 @@ NSDecimal niceLength(NSDecimal length);
  *  - @ref axisTitle = @nil
  *  - @ref titleTextStyle = default text style
  *  - @ref titleRotation = @NAN
+ *  - @ref titleDirection = #CPTSignNone
  *  - @ref titleLocation = @NAN
  *  - @ref needsRelabel = @YES
  *  - @ref labelExclusionRanges = @nil
@@ -550,6 +560,7 @@ NSDecimal niceLength(NSDecimal length);
         axisTitle                          = nil;
         titleTextStyle                     = [[CPTTextStyle alloc] init];
         titleRotation                      = NAN;
+        titleDirection                     = CPTSignNone;
         titleLocation                      = CPTDecimalNaN();
         needsRelabel                       = YES;
         labelExclusionRanges               = nil;
@@ -618,6 +629,7 @@ NSDecimal niceLength(NSDecimal length);
         axisTitle                   = [theLayer->axisTitle retain];
         titleTextStyle              = [theLayer->titleTextStyle retain];
         titleRotation               = theLayer->titleRotation;
+        titleDirection              = theLayer->titleDirection;
         titleLocation               = theLayer->titleLocation;
         needsRelabel                = theLayer->needsRelabel;
         labelExclusionRanges        = [theLayer->labelExclusionRanges retain];
@@ -729,6 +741,7 @@ NSDecimal niceLength(NSDecimal length);
     [coder encodeObject:self.attributedTitle forKey:@"CPTAxis.attributedTitle"];
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTAxis.titleOffset"];
     [coder encodeCGFloat:self.titleRotation forKey:@"CPTAxis.titleRotation"];
+    [coder encodeInteger:self.titleDirection forKey:@"CPTAxis.titleDirection"];
     [coder encodeDecimal:self.titleLocation forKey:@"CPTAxis.titleLocation"];
     [coder encodeInt:self.tickDirection forKey:@"CPTAxis.tickDirection"];
     [coder encodeBool:self.needsRelabel forKey:@"CPTAxis.needsRelabel"];
@@ -789,6 +802,7 @@ NSDecimal niceLength(NSDecimal length);
         attributedTitle             = [[coder decodeObjectForKey:@"CPTAxis.attributedTitle"] copy];
         titleOffset                 = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
         titleRotation               = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
+        titleDirection              = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.titleDirection"];
         titleLocation               = [coder decodeDecimalForKey:@"CPTAxis.titleLocation"];
         tickDirection               = (CPTSign)[coder decodeIntForKey : @"CPTAxis.tickDirection"];
         needsRelabel                = [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
@@ -1779,9 +1793,15 @@ NSDecimal niceLength(NSDecimal length)
  **/
 -(void)updateAxisTitle
 {
+    CPTSign direction = self.titleDirection;
+
+    if ( direction == CPTSignNone ) {
+        direction = self.tickDirection;
+    }
+
     [self.axisTitle positionRelativeToViewPoint:[self viewPointForCoordinateDecimalNumber:self.titleLocation]
                                   forCoordinate:CPTOrthogonalCoordinate(self.coordinate)
-                                    inDirection:self.tickDirection];
+                                    inDirection:direction];
 }
 
 #pragma mark -
@@ -2113,6 +2133,15 @@ NSDecimal niceLength(NSDecimal length)
     if ( newRotation != titleRotation ) {
         titleRotation           = newRotation;
         self.axisTitle.rotation = titleRotation;
+        [self updateAxisTitle];
+    }
+}
+
+-(void)setTitleDirection:(CPTSign)newDirection
+{
+    if ( newDirection != titleDirection ) {
+        titleDirection = newDirection;
+
         [self updateAxisTitle];
     }
 }
