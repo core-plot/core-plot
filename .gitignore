@@ -15,6 +15,7 @@
 
 # Backup files left behind by various editors
 *.bak
+*.orig
 
 # build directories
 **/build/*
