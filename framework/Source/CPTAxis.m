@@ -1272,7 +1272,7 @@ NSDecimal niceLength(NSDecimal length)
         NSDecimalRound(&roundedNumber, &length, 0, NSRoundDown);
     }
     else {
-        short exponent = (short)floor( log10( CPTDecimalDoubleValue(length) ) ) - 1;
+        short exponent = (short)lrint( floor( log10( CPTDecimalDoubleValue(length) ) ) ) - 1;
         NSDecimalRound(&roundedNumber, &length, -exponent, NSRoundDown);
     }
 
