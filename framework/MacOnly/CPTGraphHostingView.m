@@ -11,6 +11,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 @interface CPTGraphHostingView()
 
+@property (nonatomic, readwrite) NSPoint locationInWindow;
+@property (nonatomic, readwrite) CGPoint scrollOffset;
+
 -(void)plotSpaceAdded:(NSNotification *)notification;
 -(void)plotSpaceRemoved:(NSNotification *)notification;
 -(void)plotAreaBoundsChanged;
@@ -51,6 +54,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
  **/
 @synthesize allowPinchScaling;
 
+@synthesize locationInWindow;
+@synthesize scrollOffset;
+
 /// @cond
 
 -(instancetype)initWithFrame:(NSRect)frame
@@ -62,6 +68,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
         closedHandCursor  = [NSCursor closedHandCursor];
         openHandCursor    = [NSCursor openHandCursor];
         allowPinchScaling = YES;
+
+        locationInWindow = NSZeroPoint;
+        scrollOffset     = CGPointZero;
 
         CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
         self.layer = mainLayer;
@@ -99,6 +108,10 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
     [coder encodeObject:self.closedHandCursor forKey:@"CPTLayerHostingView.closedHandCursor"];
     [coder encodeObject:self.openHandCursor forKey:@"CPTLayerHostingView.openHandCursor"];
     [coder encodeBool:self.allowPinchScaling forKey:@"CPTLayerHostingView.allowPinchScaling"];
+
+    // No need to archive these properties:
+    // locationInWindow
+    // scrollOffset
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -119,6 +132,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
         else {
             self.allowPinchScaling = YES;
         }
+
+        self.locationInWindow = NSZeroPoint;
+        self.scrollOffset     = CGPointZero;
     }
     return self;
 }
@@ -248,6 +264,80 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
             if ( space.allowsUserInteraction ) {
                 [space scaleBy:scale aboutPoint:pointInPlotArea];
             }
+        }
+    }
+}
+
+-(void)scrollWheel:(NSEvent *)theEvent
+{
+    CPTGraph *theGraph = self.hostedGraph;
+
+    if ( theGraph ) {
+        switch ( theEvent.phase ) {
+            case NSEventPhaseBegan: // Trackpad with no momentum scrolling. Fingers moved on trackpad.
+            {
+                self.locationInWindow = theEvent.locationInWindow;
+                self.scrollOffset     = CGPointZero;
+
+                CGPoint pointOfMouseDown   = NSPointToCGPoint([self convertPoint:self.locationInWindow fromView:nil]);
+                CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDown toLayer:theGraph];
+                [theGraph pointingDeviceDownEvent:theEvent atPoint:pointInHostedGraph];
+            }
+            // Fall through
+
+            case NSEventPhaseChanged:
+            {
+                CGPoint offset = self.scrollOffset;
+                offset.x         -= theEvent.scrollingDeltaX;
+                offset.y         += theEvent.scrollingDeltaY;
+                self.scrollOffset = offset;
+
+                NSPoint scrolledPointOfMouse = self.locationInWindow;
+                scrolledPointOfMouse.x += offset.x;
+                scrolledPointOfMouse.y += offset.y;
+
+                CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:scrolledPointOfMouse fromView:nil]);
+                CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDrag toLayer:theGraph];
+                [theGraph pointingDeviceDraggedEvent:theEvent atPoint:pointInHostedGraph];
+            }
+            break;
+
+            case NSEventPhaseEnded:
+            {
+                CGPoint offset = self.scrollOffset;
+
+                NSPoint scrolledPointOfMouse = self.locationInWindow;
+                scrolledPointOfMouse.x -= offset.x;
+                scrolledPointOfMouse.y += offset.y;
+
+                CGPoint pointOfMouseUp     = NSPointToCGPoint([self convertPoint:scrolledPointOfMouse fromView:nil]);
+                CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseUp toLayer:theGraph];
+                [theGraph pointingDeviceUpEvent:theEvent atPoint:pointInHostedGraph];
+            }
+            break;
+
+            case NSEventPhaseNone:
+                if ( theEvent.momentumPhase == NSEventPhaseNone ) {
+                    // Mouse wheel
+                    CGPoint startLocation      = theEvent.locationInWindow;
+                    CGPoint pointOfMouse       = NSPointToCGPoint([self convertPoint:startLocation fromView:nil]);
+                    CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouse toLayer:theGraph];
+
+                    CGPoint scrolledLocationInWindow = startLocation;
+                    if ( theEvent.hasPreciseScrollingDeltas ) {
+                        scrolledLocationInWindow.x -= theEvent.scrollingDeltaX;
+                        scrolledLocationInWindow.y += theEvent.scrollingDeltaY;
+                    }
+                    else {
+                        scrolledLocationInWindow.x += theEvent.scrollingDeltaX * CPTFloat(10.0);
+                        scrolledLocationInWindow.y += theEvent.scrollingDeltaY * CPTFloat(10.0);
+                    }
+                    CGPoint scrolledPointOfMouse       = NSPointToCGPoint([self convertPoint:scrolledLocationInWindow fromView:nil]);
+                    CGPoint scrolledPointInHostedGraph = [self.layer convertPoint:scrolledPointOfMouse toLayer:theGraph];
+
+                    [theGraph scrollWheelEvent:theEvent fromPoint:pointInHostedGraph toPoint:scrolledPointInHostedGraph];
+                }
+                break;
         }
     }
 }

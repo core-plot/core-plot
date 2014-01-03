@@ -47,6 +47,20 @@
  *  @return Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/**
+ *  @brief @required Informs the receiver that the user has moved the scroll wheel.
+ *  @param event The OS event.
+ *  @param fromPoint The starting coordinates of the interaction.
+ *  @param toPoint The ending coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
+#endif
+
 /// @}
 
 @end

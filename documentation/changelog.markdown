@@ -9,6 +9,8 @@ To be determined.
 - **New**: Added two additional initialization methods to `CPTImage`. 
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
 - **New**: Added support for pinch zoom gestures on the Mac.
+- **New**: Added support for trackpad and mouse wheel scrolling gestures on the Mac.
+- **New**: Added a scroll wheel event to `<CPTResponder>`.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Removed support for garbage collection.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.

@@ -1485,6 +1485,78 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     return newRange;
 }
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/**
+ *  @brief Informs the receiver that the user has moved the scroll wheel.
+ *
+ *
+ *  If the receiver does not have a @ref delegate,
+ *  this method always returns @NO. Otherwise, the
+ *  @link CPTPlotSpaceDelegate::plotSpace:shouldHandleScrollWheelEvent:fromPoint:toPoint: -plotSpace:shouldHandleScrollWheelEvent:fromPoint:toPoint: @endlink
+ *  delegate method is called. If it returns @NO, this method returns @YES
+ *  to indicate that the event has been handled and no further processing should occur.
+ *
+ *  @param event The OS event.
+ *  @param fromPoint The starting coordinates of the interaction.
+ *  @param toPoint The ending coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+{
+    BOOL handledByDelegate = [super scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint];
+
+    if ( handledByDelegate ) {
+        return YES;
+    }
+
+    CPTGraph *theGraph    = self.graph;
+    CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
+    if ( !self.allowsUserInteraction || !plotArea ) {
+        return NO;
+    }
+
+    CGPoint fromPointInPlotArea = [theGraph convertPoint:fromPoint toLayer:plotArea];
+    CGPoint toPointInPlotArea   = [theGraph convertPoint:toPoint toLayer:plotArea];
+    CGPoint displacement        = CPTPointMake(toPointInPlotArea.x - fromPointInPlotArea.x, toPointInPlotArea.y - fromPointInPlotArea.y);
+    CGPoint pointToUse          = toPointInPlotArea;
+
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    // Allow delegate to override
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:willDisplaceBy:)] ) {
+        displacement = [theDelegate plotSpace:self willDisplaceBy:displacement];
+        pointToUse   = CPTPointMake(fromPointInPlotArea.x + displacement.x, fromPointInPlotArea.y + displacement.y);
+    }
+
+    NSDecimal lastPoint[2], newPoint[2];
+    [self plotPoint:lastPoint numberOfCoordinates:2 forPlotAreaViewPoint:fromPointInPlotArea];
+    [self plotPoint:newPoint numberOfCoordinates:2 forPlotAreaViewPoint:pointToUse];
+
+    // X range
+    NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
+    CPTPlotRange *newRangeX = [self shiftRange:self.xRange
+                                             by:shiftX
+                                  usingMomentum:NO
+                                  inGlobalRange:self.globalXRange
+                               withDisplacement:&displacement.x];
+
+    // Y range
+    NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
+    CPTPlotRange *newRangeY = [self shiftRange:self.yRange
+                                             by:shiftY
+                                  usingMomentum:NO
+                                  inGlobalRange:self.globalYRange
+                               withDisplacement:&displacement.y];
+
+    self.xRange = newRangeX;
+    self.yRange = newRangeY;
+
+    return YES;
+}
+#endif
+
 /// @}
 
 #pragma mark -

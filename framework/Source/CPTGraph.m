@@ -1198,6 +1198,68 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/**
+ *  @brief @required Informs the receiver that the user has moved the scroll wheel.
+ *
+ *
+ *  The event is passed in turn to the following layers:
+ *  -# All plots in reverse order (i.e., from front to back in the layer order)
+ *  -# The axis set
+ *  -# The plot area
+ *  -# The legend
+ *
+ *  If any layer handles the event, subsequent layers are not notified and
+ *  this method immediately returns @YES. If none of the layers
+ *  handle the event, it is passed to all plot spaces whether they handle it or not.
+ *
+ *  @param event The OS event.
+ *  @param fromPoint The starting coordinates of the interaction.
+ *  @param toPoint The ending coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+{
+    // Plots
+    for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
+        if ( [plot scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint] ) {
+            return YES;
+        }
+    }
+
+    // Axes Set
+    if ( [self.axisSet scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint] ) {
+        return YES;
+    }
+
+    // Plot area
+    if ( [self.plotAreaFrame scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint] ) {
+        return YES;
+    }
+
+    // Legend
+    if ( [self.legend scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint] ) {
+        return YES;
+    }
+
+    // Plot spaces
+    BOOL handledEvent = NO;
+    for ( CPTPlotSpace *space in self.plotSpaces ) {
+        BOOL handled = [space scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint];
+        handledEvent |= handled;
+    }
+
+    if ( handledEvent ) {
+        return YES;
+    }
+    else {
+        return [super scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint];
+    }
+}
+#endif
+
 /// @}
 
 @end

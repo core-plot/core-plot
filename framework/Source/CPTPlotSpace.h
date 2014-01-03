@@ -104,7 +104,7 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
  *  @param event The native event.
  *  @param point The point in the host view.
  *  @return Whether the plot space should handle the event or not.
- *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
+ *  In either case, the delegate may choose to take extra actions, or handle the event itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
 
@@ -113,7 +113,7 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
  *  @param event The native event.
  *  @param point The point in the host view.
  *  @return Whether the plot space should handle the event or not.
- *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
+ *  In either case, the delegate may choose to take extra actions, or handle the event itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
 
@@ -121,7 +121,7 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
  *  @param space The plot space.
  *  @param event The native event.
  *  @return Whether the plot space should handle the event or not.
- *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
+ *  In either case, the delegate may choose to take extra actions, or handle the event itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(CPTNativeEvent *)event;
 
@@ -130,9 +130,23 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
  *  @param event The native event.
  *  @param point The point in the host view.
  *  @return Whether the plot space should handle the event or not.
- *  In either case, the delegate may choose to take extra actions, or handle the scaling itself.
+ *  In either case, the delegate may choose to take extra actions, or handle the event itself.
  **/
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/** @brief @optional Notifies that plot space intercepted a scroll wheel event.
+ *  @param space The plot space.
+ *  @param event The native event.
+ *  @param fromPoint The The starting point in the host view.
+ *  @param toPoint The The ending point in the host view.
+ *  @return Whether the plot space should handle the event or not.
+ *  In either case, the delegate may choose to take extra actions, or handle the event itself.
+ **/
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandleScrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
+#endif
 
 /// @}
 

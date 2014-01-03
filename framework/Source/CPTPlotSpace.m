@@ -253,6 +253,37 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
     return handledByDelegate;
 }
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+
+/**
+ *  @brief Informs the receiver that the user has moved the scroll wheel.
+ *
+ *
+ *  If the receiver does not have a @ref delegate,
+ *  this method always returns @NO. Otherwise, the
+ *  @link CPTPlotSpaceDelegate::plotSpace:shouldHandleScrollWheelEvent:fromPoint:toPoint: -plotSpace:shouldHandleScrollWheelEvent:fromPoint:toPoint: @endlink
+ *  delegate method is called. If it returns @NO, this method returns @YES
+ *  to indicate that the event has been handled and no further processing should occur.
+ *
+ *  @param event The OS event.
+ *  @param fromPoint The starting coordinates of the interaction.
+ *  @param toPoint The ending coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+{
+    BOOL handledByDelegate = NO;
+
+    id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(plotSpace:shouldHandleScrollWheelEvent:fromPoint:toPoint:)] ) {
+        handledByDelegate = ![theDelegate plotSpace:self shouldHandleScrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint];
+    }
+    return handledByDelegate;
+}
+#endif
+
 /// @}
 
 @end

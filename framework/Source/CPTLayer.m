@@ -455,6 +455,14 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     return NO;
 }
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+{
+    return NO;
+}
+#endif
+
 /// @}
 
 #pragma mark -
