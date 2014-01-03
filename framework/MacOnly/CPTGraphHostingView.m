@@ -288,8 +288,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
             case NSEventPhaseChanged:
             {
                 CGPoint offset = self.scrollOffset;
-                offset.x         -= theEvent.scrollingDeltaX;
-                offset.y         += theEvent.scrollingDeltaY;
+                offset.x         += theEvent.scrollingDeltaX;
+                offset.y         -= theEvent.scrollingDeltaY;
                 self.scrollOffset = offset;
 
                 NSPoint scrolledPointOfMouse = self.locationInWindow;
@@ -307,7 +307,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
                 CGPoint offset = self.scrollOffset;
 
                 NSPoint scrolledPointOfMouse = self.locationInWindow;
-                scrolledPointOfMouse.x -= offset.x;
+                scrolledPointOfMouse.x += offset.x;
                 scrolledPointOfMouse.y += offset.y;
 
                 CGPoint pointOfMouseUp     = NSPointToCGPoint([self convertPoint:scrolledPointOfMouse fromView:nil]);
@@ -325,12 +325,12 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
                     CGPoint scrolledLocationInWindow = startLocation;
                     if ( theEvent.hasPreciseScrollingDeltas ) {
-                        scrolledLocationInWindow.x -= theEvent.scrollingDeltaX;
-                        scrolledLocationInWindow.y += theEvent.scrollingDeltaY;
+                        scrolledLocationInWindow.x += theEvent.scrollingDeltaX;
+                        scrolledLocationInWindow.y -= theEvent.scrollingDeltaY;
                     }
                     else {
                         scrolledLocationInWindow.x += theEvent.scrollingDeltaX * CPTFloat(10.0);
-                        scrolledLocationInWindow.y += theEvent.scrollingDeltaY * CPTFloat(10.0);
+                        scrolledLocationInWindow.y -= theEvent.scrollingDeltaY * CPTFloat(10.0);
                     }
                     CGPoint scrolledPointOfMouse       = NSPointToCGPoint([self convertPoint:scrolledLocationInWindow fromView:nil]);
                     CGPoint scrolledPointInHostedGraph = [self.layer convertPoint:scrolledPointOfMouse toLayer:theGraph];
