@@ -1,9 +1,9 @@
 language: objective-c
 
 env:
-    SDK:iphonesimulator
-    SDK:iphoneos
     matrix:
+        SDK:iphonesimulator
+        SDK:iphoneos
         fast_finish: true
     
 # Framework builds
