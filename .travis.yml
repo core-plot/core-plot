@@ -3,6 +3,8 @@ language: objective-c
 env:
     SDK:iphonesimulator
     SDK:iphoneos
+    matrix:
+        fast_finish: true
     
 # Framework builds
 script: xcodebuild -project framework/CorePlot.xcodeproj -target CorePlot -configuration Release
