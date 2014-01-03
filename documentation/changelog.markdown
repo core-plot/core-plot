@@ -11,10 +11,12 @@ To be determined.
 - **New**: Added support for pinch zoom gestures on the Mac.
 - **New**: Added support for trackpad and mouse wheel scrolling gestures on the Mac.
 - **New**: Added a scroll wheel event to `<CPTResponder>`.
+- **New**: Added axis and plot delegate methods for touch down and up events on labels.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Removed support for garbage collection.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
+- **Changed**: Changed the behavior of all axis and plot xxxWasSelected delegate methods to require both a down and up event on the same element instead of only the down event.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the deprecated plot space methods.
 
