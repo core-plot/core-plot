@@ -118,9 +118,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 /// @name Slice Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a pie slice was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a pie slice received both the touch down and up events.
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -128,9 +126,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a pie slice was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a pie slice received both the touch down and up events.
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -138,6 +134,48 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  *  @param event The event that triggered the selection.
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a pie slice was
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

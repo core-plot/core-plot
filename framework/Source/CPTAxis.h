@@ -75,39 +75,99 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /// @name Label Selection
 /// @{
 
-/** @brief @optional Informs the delegate that an axis label was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that an axis label received both the touch down and up events.
  *  @param axis The axis.
  *  @param label The selected axis label.
  **/
 -(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label;
 
-/** @brief @optional Informs the delegate that an axis label was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that an axis label received both the touch down and up events.
  *  @param axis The axis.
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
 -(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
 
-/** @brief @optional Informs the delegate that a minor tick axis label was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a minor tick axis label received both the touch down and up events.
  *  @param axis The axis.
  *  @param label The selected minor tick axis label.
  **/
 -(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label;
 
-/** @brief @optional Informs the delegate that a minor tick axis label was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a minor tick axis label received both the touch down and up events.
  *  @param axis The axis.
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
 -(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ **/
+-(void)axis:(CPTAxis *)axis labelTouchDown:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis labelTouchDown:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ **/
+-(void)axis:(CPTAxis *)axis labelTouchUp:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis labelTouchUp:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickTouchDown:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly pressed. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickTouchDown:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickTouchUp:(CPTAxisLabel *)label;
+
+/** @brief @optional Informs the delegate that an axis label was
+ *  @if MacOnly released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param axis The axis.
+ *  @param label The selected minor tick axis label.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(CPTAxis *)axis minorTickTouchUp:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

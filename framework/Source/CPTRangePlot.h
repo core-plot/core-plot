@@ -73,9 +73,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a bar received both the touch down and up events.
  *  @param plot The range plot.
  *  @param idx The index of the
  *  @if MacOnly clicked bar. @endif
@@ -83,9 +81,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
  **/
 -(void)rangePlot:(CPTRangePlot *)plot rangeWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a bar received both the touch down and up events.
  *  @param plot The range plot.
  *  @param idx The index of the
  *  @if MacOnly clicked bar. @endif
@@ -93,6 +89,48 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
  *  @param event The event that triggered the selection.
  **/
 -(void)rangePlot:(CPTRangePlot *)plot rangeWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was clicked. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param plot The range plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)rangePlot:(CPTRangePlot *)plot rangeTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was clicked. @endif
+ *  @if iOSOnly started touching. @endif
+ *  @param plot The range plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)rangePlot:(CPTRangePlot *)plot rangeTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param plot The range plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)rangePlot:(CPTRangePlot *)plot rangeTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touching. @endif
+ *  @param plot The range plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)rangePlot:(CPTRangePlot *)plot rangeTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
