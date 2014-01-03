@@ -147,9 +147,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a data label was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a data label received both the touch down and up events.
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
@@ -157,7 +155,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  **/
 -(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a data label was
+/** @brief @optional Informs the delegate that a data label received both the touch down and up events.
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The plot.
@@ -167,6 +165,48 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param event The event that triggered the selection.
  **/
 -(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly started touch. @endif
+ *  @param plot The plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data label. @endif
+ *  @if iOSOnly touched data label. @endif
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly started touch. @endif
+ *  @param plot The plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data label. @endif
+ *  @if iOSOnly touched data label. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touch. @endif
+ *  @param plot The plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data label. @endif
+ *  @if iOSOnly touched data label. @endif
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly ended touch. @endif
+ *  @param plot The plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data label. @endif
+ *  @if iOSOnly touched data label. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plot:(CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

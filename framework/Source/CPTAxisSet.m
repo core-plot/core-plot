@@ -145,7 +145,7 @@
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
  *  The event will be passed to each axis belonging to the receiver in turn. This method
@@ -164,6 +164,30 @@
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  The event will be passed to each axis belonging to the receiver in turn. This method
+ *  returns @YES if any of its axes handle the event.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    for ( CPTAxis *axis in self.axes ) {
+        if ( [axis pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+            return YES;
+        }
+    }
+    
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}
