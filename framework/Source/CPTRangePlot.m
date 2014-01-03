@@ -166,6 +166,7 @@ typedef struct CGPointError CGPointError;
     if ( (self = [super initWithFrame:newFrame]) ) {
         barLineStyle = [[CPTLineStyle alloc] init];
         areaFill     = nil;
+
         pointingDeviceDownIndex = NSNotFound;
 
         self.labelField = CPTRangePlotFieldX;
@@ -183,6 +184,7 @@ typedef struct CGPointError CGPointError;
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
         barLineStyle = theLayer->barLineStyle;
         areaFill     = nil;
+
         pointingDeviceDownIndex = NSNotFound;
     }
     return self;
@@ -214,6 +216,7 @@ typedef struct CGPointError CGPointError;
         gapHeight    = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
         gapWidth     = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
         areaFill     = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+
         pointingDeviceDownIndex = NSNotFound;
     }
     return self;
@@ -1026,7 +1029,7 @@ typedef struct CGPointError CGPointError;
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
-        
+
         if ( idx != NSNotFound ) {
             self.pointingDeviceDownIndex = idx;
 
@@ -1041,7 +1044,7 @@ typedef struct CGPointError CGPointError;
             return YES;
         }
     }
-    
+
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
@@ -1071,15 +1074,16 @@ typedef struct CGPointError CGPointError;
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
     self.pointingDeviceDownIndex = NSNotFound;
 
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
-    
+
     if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
-    
+
     id<CPTRangePlotDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ||
@@ -1088,7 +1092,7 @@ typedef struct CGPointError CGPointError;
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
-        
+
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ) {
                 [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx];
@@ -1097,12 +1101,12 @@ typedef struct CGPointError CGPointError;
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ) {
                 [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx withEvent:event];
             }
-            
+
             if ( idx == selectedDownIndex ) {
                 if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
                     [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx];
                 }
-                
+
                 if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
                     [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx withEvent:event];
                 }
@@ -1111,7 +1115,7 @@ typedef struct CGPointError CGPointError;
             return YES;
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 

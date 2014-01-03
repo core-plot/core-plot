@@ -418,7 +418,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
         drawLegendSwatchDecoration = [coder decodeBoolForKey:@"CPTPlot.drawLegendSwatchDecoration"];
         pointingDeviceDownIndex    = NSNotFound;
-        
+
         // support old archives
         if ( [coder containsValueForKey:@"CPTPlot.identifier"] ) {
             self.identifier = [coder decodeObjectForKey:@"CPTPlot.identifier"];
@@ -1650,7 +1650,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
-         [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)]) {
+         [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a label was hit
         NSMutableArray *labelArray = self.labelAnnotations;
         NSUInteger labelCount      = labelArray.count;
@@ -1669,18 +1669,18 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:)] ) {
                             [theDelegate plot:self dataLabelTouchDownAtRecordIndex:idx];
                         }
-                        
+
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:withEvent:)] ) {
                             [theDelegate plot:self dataLabelTouchDownAtRecordIndex:idx withEvent:event];
                         }
-                        
+
                         return YES;
                     }
                 }
             }
         }
     }
-    
+
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
@@ -1709,14 +1709,15 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
     self.pointingDeviceDownIndex = NSNotFound;
-    
+
     CPTGraph *theGraph = self.graph;
-    
+
     if ( !theGraph || self.hidden ) {
         return NO;
     }
-    
+
     id<CPTPlotDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:withEvent:)] ||
@@ -1726,40 +1727,40 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         NSMutableArray *labelArray = self.labelAnnotations;
         NSUInteger labelCount      = labelArray.count;
         Class annotationClass      = [CPTAnnotation class];
-        
+
         for ( NSUInteger idx = 0; idx < labelCount; idx++ ) {
             CPTPlotSpaceAnnotation *annotation = labelArray[idx];
             if ( [annotation isKindOfClass:annotationClass] ) {
                 CPTLayer *labelLayer = annotation.contentLayer;
                 if ( labelLayer && !labelLayer.hidden ) {
                     CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
-                    
+
                     if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:)] ) {
                             [theDelegate plot:self dataLabelTouchUpAtRecordIndex:idx];
                         }
-                        
+
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:withEvent:)] ) {
                             [theDelegate plot:self dataLabelTouchUpAtRecordIndex:idx withEvent:event];
                         }
-                        
+
                         if ( idx == selectedDownIndex ) {
                             if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ) {
                                 [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:idx];
                             }
-                            
+
                             if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
                                 [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:idx withEvent:event];
                             }
                         }
-                        
+
                         return YES;
                     }
                 }
             }
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 

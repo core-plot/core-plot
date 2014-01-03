@@ -1273,15 +1273,16 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
     self.pointingDeviceDownIndex = NSNotFound;
 
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
-    
+
     if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
-    
+
     id<CPTScatterPlotDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent:)] ||
@@ -1290,11 +1291,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self indexOfVisiblePointClosestToPlotAreaPoint:plotAreaPoint];
-        
+
         if ( idx != NSNotFound ) {
             CGPoint center        = [self plotAreaPointOfVisiblePointAtIndex:idx];
             CPTPlotSymbol *symbol = [self plotSymbolForRecordIndex:idx];
-            
+
             CGRect symbolRect = CGRectZero;
             if ( [symbol isKindOfClass:[CPTPlotSymbol class]] ) {
                 symbolRect.size = symbol.size;
@@ -1305,7 +1306,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             symbolRect.size.width  += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
             symbolRect.size.height += CPTFloat(2.0) * plotSymbolMarginForHitDetection;
             symbolRect.origin       = CPTPointMake( center.x - CPTFloat(0.5) * CGRectGetWidth(symbolRect), center.y - CPTFloat(0.5) * CGRectGetHeight(symbolRect) );
-            
+
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 self.pointingDeviceDownIndex = idx;
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ) {
@@ -1314,12 +1315,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent:)] ) {
                     [theDelegate scatterPlot:self plotSymbolTouchUpAtRecordIndex:idx withEvent:event];
                 }
-                
+
                 if ( idx == selectedDownIndex ) {
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx];
                     }
-                    
+
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx withEvent:event];
                     }
@@ -1329,7 +1330,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             }
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 

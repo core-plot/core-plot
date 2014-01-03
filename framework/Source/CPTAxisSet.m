@@ -186,7 +186,7 @@
             return YES;
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 

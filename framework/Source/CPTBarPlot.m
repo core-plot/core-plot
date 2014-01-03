@@ -1306,7 +1306,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
         if ( idx != NSNotFound ) {
             self.pointingDeviceDownIndex = idx;
-            
+
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ) {
                 [theDelegate barPlot:self barTouchDownAtRecordIndex:idx];
             }
@@ -1348,15 +1348,16 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
     self.pointingDeviceDownIndex = NSNotFound;
 
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
-    
+
     if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
-    
+
     id<CPTBarPlotDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ||
@@ -1365,12 +1366,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
-        
+
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ) {
                 [theDelegate barPlot:self barTouchUpAtRecordIndex:idx];
             }
-            
+
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ) {
                 [theDelegate barPlot:self barTouchUpAtRecordIndex:idx withEvent:event];
             }
@@ -1379,16 +1380,16 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
                 if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
                     [theDelegate barPlot:self barWasSelectedAtRecordIndex:idx];
                 }
-                
+
                 if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
                     [theDelegate barPlot:self barWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
-            
+
             return YES;
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 

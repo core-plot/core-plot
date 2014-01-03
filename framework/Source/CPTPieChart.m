@@ -1028,13 +1028,13 @@ static const CGFloat colorLookupTable[10][3] =
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
-        
+
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ) {
                 [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx];
             }
-            
+
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ) {
                 [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx withEvent:event];
             }
@@ -1042,7 +1042,7 @@ static const CGFloat colorLookupTable[10][3] =
             return YES;
         }
     }
-    
+
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
@@ -1072,22 +1072,23 @@ static const CGFloat colorLookupTable[10][3] =
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
     self.pointingDeviceDownIndex = NSNotFound;
 
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
-    
+
     if ( !theGraph || !thePlotArea || self.hidden ) {
         return NO;
     }
-    
+
     id<CPTPieChartDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
-        
+
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ) {
@@ -1101,16 +1102,16 @@ static const CGFloat colorLookupTable[10][3] =
                 if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
                     [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx];
                 }
-                
+
                 if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
                     [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
-            
+
             return YES;
         }
     }
-    
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
