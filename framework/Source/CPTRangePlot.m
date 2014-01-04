@@ -207,6 +207,9 @@ typedef struct CGPointError CGPointError;
     [coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
     [coder encodeCGFloat:self.gapWidth forKey:@"CPTRangePlot.gapWidth"];
     [coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -1030,10 +1033,9 @@ typedef struct CGPointError CGPointError;
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
-            self.pointingDeviceDownIndex = idx;
-
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ) {
                 [theDelegate rangePlot:self rangeTouchDownAtRecordIndex:idx];
             }

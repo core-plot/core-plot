@@ -321,6 +321,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     [coder encodeBool:self.barBasesVary forKey:@"CPTBarPlot.barBasesVary"];
     [coder encodeBool:self.barWidthsAreInViewCoordinates forKey:@"CPTBarPlot.barWidthsAreInViewCoordinates"];
     [coder encodeObject:self.plotRange forKey:@"CPTBarPlot.plotRange"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -1304,10 +1307,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
-            self.pointingDeviceDownIndex = idx;
-
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ) {
                 [theDelegate barPlot:self barTouchDownAtRecordIndex:idx];
             }

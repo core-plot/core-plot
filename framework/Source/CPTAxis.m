@@ -1900,6 +1900,8 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    self.pointingDeviceDownLabel = label;
+
                     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ) {
                         [theDelegate axis:self labelTouchDown:label];
                     }
@@ -1925,6 +1927,8 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    self.pointingDeviceDownTickLabel = label;
+
                     if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:)] ) {
                         [theDelegate axis:self minorTickTouchDown:label];
                     }

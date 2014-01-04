@@ -270,6 +270,9 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
     [coder encodeObject:self.overlayFill forKey:@"CPTPieChart.overlayFill"];
     [coder encodeBool:self.labelRotationRelativeToRadius forKey:@"CPTPieChart.labelRotationRelativeToRadius"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -1031,6 +1034,8 @@ static const CGFloat colorLookupTable[10][3] =
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
+
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ) {
                 [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx];

@@ -258,6 +258,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [coder encodeCGFloat:self.barWidth forKey:@"CPTTradingRangePlot.barWidth"];
     [coder encodeCGFloat:self.stickLength forKey:@"CPTTradingRangePlot.stickLength"];
     [coder encodeCGFloat:self.barCornerRadius forKey:@"CPTTradingRangePlot.barCornerRadius"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -272,6 +275,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
         stickLength       = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
         barCornerRadius   = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -1368,6 +1373,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
             if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ) {

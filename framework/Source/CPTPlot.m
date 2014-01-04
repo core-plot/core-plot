@@ -394,6 +394,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     // cachedData
     // cachedDataCount
     // inTitleUpdate
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -418,7 +419,6 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         alignsPointsToPixels = [coder decodeBoolForKey:@"CPTPlot.alignsPointsToPixels"];
 
         drawLegendSwatchDecoration = [coder decodeBoolForKey:@"CPTPlot.drawLegendSwatchDecoration"];
-        pointingDeviceDownIndex    = NSNotFound;
 
         // support old archives
         if ( [coder containsValueForKey:@"CPTPlot.identifier"] ) {
@@ -430,6 +430,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         cachedDataCount    = 0;
         dataNeedsReloading = YES;
         inTitleUpdate      = NO;
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -1641,6 +1643,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
+    self.pointingDeviceDownIndex = NSNotFound;
+
     CPTGraph *theGraph = self.graph;
 
     if ( !theGraph || self.hidden ) {
