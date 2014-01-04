@@ -3,7 +3,7 @@ language: objective-c
 env:
     SDK:iphonesimulator
     SDK:iphoneos
-    
+
 # Framework builds
 script: xcodebuild -project framework/CorePlot.xcodeproj -target CorePlot -configuration Release
 script: xcodebuild -project framework/CorePlot-CocoaTouch.xcodeproj -target CorePlot-CocoaTouch -sdk ${SDK} -configuration Release
