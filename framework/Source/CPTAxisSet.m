@@ -168,7 +168,7 @@
 
 /**
  *  @brief Informs the receiver that the user has
- *  @if MacOnly pressed the mouse button. @endif
+ *  @if MacOnly released the mouse button. @endif
  *  @if iOSOnly ended touching the screen. @endif
  *
  *

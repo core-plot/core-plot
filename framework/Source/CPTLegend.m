@@ -220,7 +220,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize layoutChanged;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1153,7 +1154,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a legend entry.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the legend entries.
  *
- *  If the bar being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTLegend::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex: -legend:legendEntryForPlot:WasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: -legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

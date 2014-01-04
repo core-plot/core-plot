@@ -122,7 +122,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1261,7 +1262,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  of the closest data point.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data points.
  *
- *  If the symbol being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the symbol being released is the same as the one that was pressed (see
+ *  @link CPTScatterPlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

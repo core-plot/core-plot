@@ -142,7 +142,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  **/
 @synthesize barCornerRadius;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1397,7 +1398,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  index where the @par{interactionPoint} is inside a bar.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *  If the bar being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTTradingRangePlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

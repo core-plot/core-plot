@@ -120,7 +120,8 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
  **/
 @synthesize labelRotationRelativeToRadius;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1060,7 +1061,8 @@ static const CGFloat colorLookupTable[10][3] =
  *  index where the @par{interactionPoint} is inside a pie slice.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the slices.
  *
- *  If the pie slice being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the pie slice being released is the same as the one that was pressed (see
+ *  @link CPTPieChart::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

@@ -120,7 +120,8 @@ typedef struct CGPointError CGPointError;
  **/
 @synthesize gapWidth;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1062,7 +1063,8 @@ typedef struct CGPointError CGPointError;
  *  index where the @par{interactionPoint} is inside a bar.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *  If the bar being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTRangePlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex:withEvent: -rangePlot:rangeWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

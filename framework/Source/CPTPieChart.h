@@ -118,7 +118,9 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 /// @name Slice Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a pie slice received both the touch down and up events.
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -126,7 +128,9 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a pie slice received both the touch down and up events.
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -137,7 +141,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was pressed. @endif
- *  @if iOSOnly started touching. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -147,7 +151,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was pressed. @endif
- *  @if iOSOnly started touching. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -158,7 +162,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was released. @endif
- *  @if iOSOnly ended touching. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -168,7 +172,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 
 /** @brief @optional Informs the delegate that a pie slice was
  *  @if MacOnly was released. @endif
- *  @if iOSOnly ended touching. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif

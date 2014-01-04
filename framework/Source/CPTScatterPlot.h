@@ -78,7 +78,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a data point received both the touch down and up events.
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -86,7 +88,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a data point received both the touch down and up events.
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -96,8 +100,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a data point
- *  @if MacOnly was clicked. @endif
- *  @if iOSOnly started touching. @endif
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -106,8 +110,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchDownAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data point
- *  @if MacOnly was clicked. @endif
- *  @if iOSOnly started touching. @endif
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -117,8 +121,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a data point
- *  @if MacOnly was clicked. @endif
- *  @if iOSOnly ended touching. @endif
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -127,8 +131,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data point
- *  @if MacOnly was clicked. @endif
- *  @if iOSOnly ended touching. @endif
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif

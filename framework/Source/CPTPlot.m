@@ -232,7 +232,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 @synthesize inTitleUpdate;
 
-/** @property NSUInteger pointingDeviceDownIndex
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
@@ -1697,7 +1698,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data labels.
  *
- *  If the data label being released is the same as the one that was pressed (see pointingDeviceDown), if the delegate responds to the
+ *  If the data label being released is the same as the one that was pressed (see
+ *  @link CPTPlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
  *  @link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex: -plot:dataLabelWasSelectedAtRecordIndex: @endlink and/or
  *  @link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex:withEvent: -plot:dataLabelWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.

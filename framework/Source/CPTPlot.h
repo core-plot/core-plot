@@ -147,7 +147,9 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a data label received both the touch down and up events.
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
@@ -155,7 +157,9 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  **/
 -(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a data label received both the touch down and up events.
+/** @brief @optional Informs the delegate that a data label
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @if MacOnly clicked. @endif
  *  @if iOSOnly touched. @endif
  *  @param plot The plot.
@@ -168,7 +172,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was pressed. @endif
- *  @if iOSOnly started touch. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
@@ -178,7 +182,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was pressed. @endif
- *  @if iOSOnly started touch. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
@@ -189,7 +193,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was released. @endif
- *  @if iOSOnly ended touch. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif
@@ -199,7 +203,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was released. @endif
- *  @if iOSOnly ended touch. @endif
+ *  @if iOSOnly touch ended. @endif
  *  @param plot The plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data label. @endif

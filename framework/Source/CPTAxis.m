@@ -452,12 +452,14 @@ NSDecimal niceLength(NSDecimal length);
  **/
 @dynamic axisSet;
 
-/** @property CPTAxisLabel pointingDeviceDownLabelIndex
+/** @internal
+ *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownLabel
  *  @brief The label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownLabel;
 
-/** @property CPTAxisLabel pointingDeviceDownTickIndex
+/** @internal
+ *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel
  *  @brief The tick label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownTickLabel;
@@ -593,6 +595,8 @@ NSDecimal niceLength(NSDecimal length);
         mutableBackgroundLimitBands = nil;
         minorGridLines              = nil;
         majorGridLines              = nil;
+        pointingDeviceDownLabel     = nil;
+        pointingDeviceDownTickLabel = nil;
         inTitleUpdate               = NO;
         labelsUpdated               = NO;
 
@@ -664,6 +668,8 @@ NSDecimal niceLength(NSDecimal length);
         mutableBackgroundLimitBands = theLayer->mutableBackgroundLimitBands;
         minorGridLines              = theLayer->minorGridLines;
         majorGridLines              = theLayer->majorGridLines;
+        pointingDeviceDownLabel     = theLayer->pointingDeviceDownLabel;
+        pointingDeviceDownTickLabel = theLayer->pointingDeviceDownTickLabel;
         inTitleUpdate               = theLayer->inTitleUpdate;
         labelsUpdated               = theLayer->labelsUpdated;
     }
@@ -750,6 +756,8 @@ NSDecimal niceLength(NSDecimal length);
     [coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
 
     // No need to archive these properties:
+    // pointingDeviceDownLabel
+    // pointingDeviceDownTickLabel
     // inTitleUpdate
     // labelsUpdated
 }
@@ -813,6 +821,9 @@ NSDecimal niceLength(NSDecimal length);
         plotArea                    = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
         minorGridLines              = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
         majorGridLines              = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
+
+        pointingDeviceDownLabel     = nil;
+        pointingDeviceDownTickLabel = nil;
 
         inTitleUpdate = NO;
         labelsUpdated = NO;
@@ -1857,8 +1868,8 @@ NSDecimal niceLength(NSDecimal length)
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *
  *  If this axis has a delegate that responds to either
- *  @link CPTAxisDelegate::axis:minorTickLabelTouchUp: -axis:minorTickLabelTouchUp: @endlink or
- *  @link CPTAxisDelegate::axis:minorTickLabelTouchUp:withEvent: -axis:minorTickLabelTouchUp:withEvent: @endlink
+ *  @link CPTAxisDelegate::axis:minorTickTouchDown: -axis:minorTickTouchDown: @endlink or
+ *  @link CPTAxisDelegate::axis:minorTickTouchDown:withEvent: -axis:minorTickTouchDown:withEvent: @endlink
  *  methods, the minor tick axis labels are searched to find the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *
@@ -1938,14 +1949,18 @@ NSDecimal niceLength(NSDecimal length)
  *
  *
  *  If this axis has a delegate that responds to
- *  @link CPTAxisDelegate::axis:labelTouchUp: -axis:labelTouchUp: @endlink or
+ *  @link CPTAxisDelegate::axis:labelTouchUp: -axis:labelTouchUp: @endlink,
  *  @link CPTAxisDelegate::axis:labelTouchUp:withEvent: -axis:labelTouchUp:withEvent: @endlink
+ *  @link CPTAxisDelegate::axis:labelWasSelected: -axis:labelWasSelected: @endlink, and/or
+ *  @link CPTAxisDelegate::axis:labelWasSelected:withEvent: -axis:labelWasSelected:withEvent: @endlink
  *  methods, the axis labels are searched to find the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *
  *  If this axis has a delegate that responds to
- *  @link CPTAxisDelegate::axis:minorTickLabelTouchUp: -axis:minorTickLabelTouchUp: @endlink and/or
- *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected: -axis:minorTickLabelWasSelected: @endlink
+ *  @link CPTAxisDelegate::axis:minorTickTouchUp: -axis:minorTickTouchUp: @endlink,
+ *  @link CPTAxisDelegate::axis:minorTickTouchUp:withEvent: -axis:minorTickTouchUp:withEvent: @endlink
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected: -axis:minorTickLabelWasSelected: @endlink, and/or
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected:withEvent: -axis:minorTickLabelWasSelected:withEvent: @endlink
  *  methods, the minor tick axis labels are searched to find the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *

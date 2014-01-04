@@ -112,7 +112,9 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a bar received both the touch down and up events.
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
  *
@@ -121,7 +123,9 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a bar received both the touch down and up events.
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
  *
@@ -131,8 +135,8 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly pressed. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
@@ -141,8 +145,8 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly pressed. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
@@ -152,8 +156,8 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly released. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
@@ -162,8 +166,8 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly released. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
